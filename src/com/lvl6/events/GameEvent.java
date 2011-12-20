@@ -3,30 +3,32 @@ package com.lvl6.events;
 import java.nio.ByteBuffer;
 
 /**
- * GameEvent.java
+ * GameEventDefault.java
  *
- * Interface for GameEvents, all event classes must implement this interface.
+ * A basic GameEvent class, this can be extended for other Events
+ * or a completely different class may be used as required by a specific game.
  */
-public interface GameEvent {
-    public byte getType();
-    public void setType(byte type);
-    
-    public String getGameName();
-    public void setGameName(String gameName);
-	
-    public String getMessage();
-    public void setMessage(String message);
-    
-    public String getPlayerId();
-    public void setPlayerId(String id);
-    
-    public String getSessionId();
-    public void setSessionId(String id);
 
-    public String[] getRecipients();
-    public void setRecipients(String[] recipients);
+public abstract class GameEvent {
+  
+  /** event type */
+  protected byte eventType;
 
-    public void read(ByteBuffer buff);
-    public int write(ByteBuffer buff);
-}
+  /** playerID that sent the message (for client msgs) */
+  protected int senderId;
+  
+  public byte getType() {
+    return eventType;
+  }
 
+  public int getPlayerId() {
+    return senderId;
+  }
+  public void setPlayerId(int id) {
+    senderId = id;
+  }
+  
+  public abstract int write (ByteBuffer bb);
+  public abstract void read (ByteBuffer bb);
+
+}// GameEvent
