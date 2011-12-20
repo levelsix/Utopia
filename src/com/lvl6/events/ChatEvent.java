@@ -2,6 +2,9 @@ package com.lvl6.events;
 
 import java.nio.ByteBuffer;
 
+import com.lvl6.utils.EventProtocol;
+import com.lvl6.utils.NIOUtils;
+
 
 /**
  * ChatEvent.java
@@ -9,70 +12,29 @@ import java.nio.ByteBuffer;
  * A basic GameEvent class, this can be extended for other Games
  * or a completely different class may be used as required by a specific game.
  */
-public class ChatEvent implements GameEvent {
+public class ChatEvent extends GameEvent {
+  
+  private String message;
+  
+  /** number of recipients to send to*/
+  private int numRecipients;
+  private int recipients[];
   
   /** 
    * default contructor
    */
   public ChatEvent(){
-  }
-
-  /** 
-   * constructor that takes eventType
-   */
-  public ChatEvent(int type) {
-    this.eventType = type;
+    this.eventType = EventProtocol.C_CHAT_EVENT;
   }
 
   /**
    * constructor that takes eventType and message
    */
-  public ChatEvent(int type, String message){
-    this.eventType = type;
+  public ChatEvent(byte type, int playerId, String message, int recipients[]){
+    this.eventType = EventProtocol.S_CHAT_EVENT;
     this.message = message;
-  }
-
-  public void setType(int type) {
-    eventType = type;
-  }
-  public int getType() {
-    return eventType;
-  }
-
-  public void setGameName(String gameName) {
-    this.gameName = gameName;
-  }
-  public String getGameName() {
-    return gameName;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public String getPlayerId() {
-    return playerId;
-  }
-  public void setPlayerId(String id) {
-    playerId = id;
-  }
-
-  public String getSessionId() {
-    return sessionId;
-  }
-  public void setSessionId(String id) {
-    sessionId = id;
-  }
-
-  public String[] getRecipients() {
-    return recipients;
-  }
-  public void setRecipients(String[] recipients) {
     this.recipients = recipients;
-    numRecipients = recipients.length;
+    this.numRecipients = recipients.length;
   }
 
   /** 
@@ -84,15 +46,11 @@ public class ChatEvent implements GameEvent {
    */
   public int write(ByteBuffer buff) {
     int pos = buff.position();
-
-    buff.putInt(eventType);
-    NIOUtils.putStr(buff, playerId);
-    NIOUtils.putStr(buff, sessionId);
-    buff.putInt(gameId);
-    NIOUtils.putStr(buff, gameName);
+    
+    buff.putInt(senderId);
     buff.putInt(numRecipients);
     for (int i=0;i<numRecipients;i++) 
-      NIOUtils.putStr(buff, recipients[i]);
+      buff.putInt(recipients[i]);
     NIOUtils.putStr(buff, message);
 
     // return the length of the event, this will get inserted at the beginning of the buffer
@@ -104,15 +62,11 @@ public class ChatEvent implements GameEvent {
    * read the event from the given ByteBuffer
    */
   public void read(ByteBuffer buff) {
-    eventType = buff.getInt();
-    playerId = NIOUtils.getStr(buff);
-    sessionId = NIOUtils.getStr(buff);
-    gameId = buff.getInt();
-    gameName = NIOUtils.getStr(buff);
+    senderId = buff.getInt();
     numRecipients = buff.getInt();
-    recipients = new String[numRecipients];
+    recipients = new int[numRecipients];
     for (int i=0;i<numRecipients;i++) 
-      recipients[i] = NIOUtils.getStr(buff);
+      recipients[i] = buff.getInt();
     message = NIOUtils.getStr(buff);
   }
 

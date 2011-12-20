@@ -20,7 +20,7 @@ public class NIOUtils {
   public static void prepBuffer(GameEvent event, ByteBuffer writeBuffer) {
     // write header
     writeBuffer.clear();
-    writeBuffer.putInt(Integer.parseInt(event.getPlayerId()));
+    writeBuffer.put(event.getType());
     int sizePos = writeBuffer.position();
     writeBuffer.putInt(0); // placeholder for payload size
     // write event
