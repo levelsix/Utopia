@@ -6,13 +6,10 @@ import java.nio.ByteBuffer;
  * GameEvent.java
  *
  * Interface for GameEvents, all event classes must implement this interface.
- * 
- * @author <a href="mailto:bret@hypefiend.com">bret barker</a>
- * @version 1.0
  */
 public interface GameEvent {
-    public int getType();
-    public void setType(int type);
+    public byte getType();
+    public void setType(byte type);
     
     public String getGameName();
     public void setGameName(String gameName);

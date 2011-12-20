@@ -2,8 +2,6 @@ package com.lvl6.utils;
 
 import java.nio.*;
 import java.nio.channels.*;
-import java.nio.charset.Charset;
-import java.util.Iterator;
 
 import com.lvl6.events.GameEvent;
 

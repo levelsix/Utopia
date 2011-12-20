@@ -1,7 +1,6 @@
 package com.lvl6.utils;
 
 import java.util.LinkedList;
-import org.apache.log4j.Logger;
 
 import com.lvl6.events.GameEvent;
 
