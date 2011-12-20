@@ -138,7 +138,7 @@ public class SelectAndRead extends Thread{
     if (ec == null) {
       return null;
     }
-    event = ec.createGameEvent();
+    event = ec.createEvent();
 
     // read the event from the payload
     event.read(bb); 
