@@ -14,9 +14,10 @@ import java.util.Set;
 
 import org.apache.log4j.*;
 
-import com.hypefiend.javagamebook.common.GameEvent;
+import com.lvl6.events.GameEvent;
 import com.lvl6.server.controller.EventController;
-import com.lvl6.utils.EventProtocol;
+import com.lvl6.utils.Globals;
+import com.lvl6.utils.Player;
 
 public class GameServer extends Thread{
 
@@ -38,7 +39,11 @@ public class GameServer extends Thread{
   private static final String CONTROLLER_CLASS_NAME = "EventController.class";
   private static final String CONTROLLER_CLASS_PATHNAME = "com/lvl6/server/controller/" + CONTROLLER_CLASS_NAME;
   private static final String CONTROLLER_CLASS_PREFIX = "com.lvl6.server.controller.";
-  private Hashtable<Byte, EventController> eventControllers;
+  private static Hashtable<Byte, EventController> eventControllers;
+
+  private static Hashtable<Integer, Player> playersByPlayerId;
+
+  private EventWriter eventWriter;
 
   //user specified input
   private String serverIP;
@@ -55,7 +60,10 @@ public class GameServer extends Thread{
   }
 
   public GameServer(String serverIP, int portNum) {
-    eventControllers = new Hashtable();
+    if (eventControllers == null)
+      eventControllers = new Hashtable();
+    if (playersByPlayerId == null)
+      playersByPlayerId = new Hashtable();
     this.serverIP = serverIP;
     this.portNum = portNum;
   }
@@ -69,11 +77,7 @@ public class GameServer extends Thread{
     selectAndRead = new SelectAndRead(this);
     selectAndRead.start();
     
-    //TODO: finish this
-    /*
     eventWriter = new EventWriter(this, Globals.EVENT_WRITER_WORKERS); 
-     */
-
   }
   
   /**
@@ -224,6 +228,26 @@ public class GameServer extends Thread{
     selector.wakeup();
   }
   
+  /**
+   * fetches the Player for a given playerId
+   */
+  public static Player getPlayerById(int id) {
+    return playersByPlayerId.get(id);
+  }
+  
+  /** 
+   * add a player to our lists
+   */
+  public static void addPlayer(Player p) {
+    playersByPlayerId.put(p.getPlayerId(), p);
+  }
+
+  /**
+   * remove a player from our lists
+   */
+  public static void removePlayer(Player p) {
+    playersByPlayerId.remove(p.getPlayerId());
+  }
   
 
 }

@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import com.lvl6.events.GameEvent;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.Attachment;
+import com.lvl6.utils.Player;
 
 public class SelectAndRead extends Thread{
   //Logger
@@ -150,8 +151,8 @@ public class SelectAndRead extends Thread{
    * based on the GameName of the event
    */
   private void delegateEvent(GameEvent event, SocketChannel channel) {
-    if (event != null && event.getGameName() == null) {
-      log.error("GameServer.handleEvent() : gameName is null");
+    if (event != null && event.getType() < 0) {
+      log.error("the event type is < 0");
       return;
     }
 
@@ -161,8 +162,7 @@ public class SelectAndRead extends Thread{
       return;
     }
 
-    /*  TODO: add player stuff
-    Player p = gameServer.getPlayerById(event.getPlayerId());
+    Player p = GameServer.getPlayerById(event.getPlayerId());
     if (p != null) {
       if (p.getChannel() != channel) {
         log.warn("player is on a new channel, must be reconnect.");
@@ -172,14 +172,18 @@ public class SelectAndRead extends Thread{
     else {
       // first time we see a playerId, create the Player object
       // and populate the channel, and also add to our lists
-      p = ec.createPlayer();
-      p.setPlayerId(event.getPlayerId());
+      p = new Player();
+      if (event.getPlayerId() > 0) {
+        p.setPlayerId(event.getPlayerId());
+      } else {
+        //TODO: get player id from db
+      }      
       p.setChannel(channel);
-      gameServer.addPlayer(p);
+      GameServer.addPlayer(p);
       log.debug("delegate event, new player created and channel set, player:" + 
           p.getPlayerId() + ", channel: " + channel);
-    } */
-
+    }
+    
     ec.handleEvent(event);
   }
 

@@ -8,13 +8,13 @@ import java.nio.channels.SocketChannel;
  * Basic Player information
  */
 public class Player {
-  private String playerId;
+  private int playerId;
   private SocketChannel channel;
 
-  public String getPlayerId() {
+  public int getPlayerId() {
     return playerId;
   }
-  public void setPlayerId(String id) {
+  public void setPlayerId(int id) {
     playerId = id;
   }
   
