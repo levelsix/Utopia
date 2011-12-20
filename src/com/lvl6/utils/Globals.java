@@ -1,7 +1,6 @@
 package com.lvl6.utils;
 
 public class Globals {
-
     /** size of ByteBuffer for reading/writing from channels */
     public static final int NET_BUFFER_SIZE=512;
 
@@ -17,7 +16,3 @@ public class Globals {
     /** default number of workers for GameControllers */
     public static final int DEFAULT_CONTROLLER_WORKERS = 5;
 }
-
-
-
-
