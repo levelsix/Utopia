@@ -39,6 +39,8 @@ public class DBConnection {
         availableConnections.put(conn);
       }
       log.info("connection complete");
+      ResultSet rs = selectRows(null, "dumb");
+      log.info(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -49,16 +51,20 @@ public class DBConnection {
     }
   }
 
+  
   /*
-   * assumes all params will be strings and that params.length = number of ? fields
+   * assumes that params.length = number of ? fields
    */
-  public static ResultSet readFromDatabase(String query, String[] params) {
+  public static ResultSet selectRows(Object[] params, String tablename) {
+    String query = "select * from " + tablename;
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
-      for (int i = 1; i <= params.length; i++) {
-        stmt.setString(i, params[i]);
+      if (params != null) {
+        for (int i = 1; i <= params.length; i++) {
+          stmt.setObject(i, params[i]);
+        }
       }
       stmt.execute();
       rs = stmt.getResultSet();

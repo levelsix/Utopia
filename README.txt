@@ -1,4 +1,4 @@
-Make sure you include this file (but don't push it to repo: use git rm --cached):
+Make sure you include this file (but don't push it to repo (it's already in .gitignore, if right path)):
 DBProperties.java
 in com.lvl6.properties package.
 
