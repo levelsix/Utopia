@@ -28,6 +28,7 @@ public abstract class GameEvent {
     senderId = id;
   }
   
+  public abstract void convertToOutgoing();
   public abstract int write (ByteBuffer bb);
   public abstract void read (ByteBuffer bb);
 

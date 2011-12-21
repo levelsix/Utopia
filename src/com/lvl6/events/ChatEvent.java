@@ -32,6 +32,13 @@ public class ChatEvent extends BroadcastEvent {
     this.recipients = recipients;
     this.numRecipients = recipients.length;
   }
+  
+  /**
+   * Convenience method to make this ChatEvent into an outgoing message
+   */
+  public void convertToOutgoing () {
+    this.eventType = EventProtocol.S_CHAT_EVENT;
+  }
 
   /** 
    * write the event to the given ByteBuffer
@@ -44,9 +51,6 @@ public class ChatEvent extends BroadcastEvent {
     int pos = buff.position();
     
     buff.putInt(senderId);
-    buff.putInt(numRecipients);
-    for (int i=0;i<numRecipients;i++) 
-      buff.putInt(recipients[i]);
     NIOUtils.putStr(buff, message);
 
     // return the length of the event, this will get inserted at the beginning of the buffer

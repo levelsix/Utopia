@@ -1,8 +1,5 @@
 package com.lvl6.server.controller;
-import java.util.Collection;
-import java.util.Iterator;
 
-import com.lvl6.events.BroadcastEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.Globals;
@@ -21,12 +18,10 @@ public abstract class EventController extends Wrap {
    */
   public final void init(GameServer s) {
     this.server = s;
-
-    // todo: get the preferred number of workers from the GameConfig
-    //  int nw = gc.getInt("NUM_WORKERS", 5);
-
+    
     // init the Wrap first
     initWrap(Globals.DEFAULT_CONTROLLER_WORKERS);
+    
     // now call the subclasses' init
     initController();
   }
@@ -36,22 +31,6 @@ public abstract class EventController extends Wrap {
    */
   protected void sendEvent(GameEvent e, Player p) {
     e.setPlayerId(p.getPlayerId());
-    server.writeEvent(e);
-  }
-
-  /** 
-   * utility method for sending events to multiple players
-   */
-  protected synchronized void sendBroadcastEvent(BroadcastEvent e, Collection<Player> players) {
-    Iterator<Player> i = players.iterator();
-    int[] recipients = new int[players.size()];
-    int j=0;
-    while(i.hasNext()) {
-      Player p = i.next();
-      if (p.getPlayerId() != e.getPlayerId()) 
-        recipients[j++] = p.getPlayerId();
-    }
-    e.setRecipients(recipients);
     server.writeEvent(e);
   }
   

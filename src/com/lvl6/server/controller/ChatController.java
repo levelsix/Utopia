@@ -26,8 +26,7 @@ public class ChatController extends EventController {
 
   @Override
   protected void processEvent(GameEvent event) {
-    
+    event.convertToOutgoing();
+    server.writeEvent(event);
   }
-
-  
 }
