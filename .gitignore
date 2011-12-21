@@ -1,3 +1,6 @@
+#project specific
+src/com/lvl6/properties/DBProperties.java
+
 #java specific
 *.class
 
