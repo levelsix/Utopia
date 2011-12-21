@@ -39,8 +39,7 @@ public class DBConnection {
         availableConnections.put(conn);
       }
       log.info("connection complete");
-      ResultSet rs = selectRows(null, "dumb");
-      log.info(rs.getInt(1));
+      selectRows(null, "dumb");
     } catch (SQLException e) {
       e.printStackTrace();
     }
