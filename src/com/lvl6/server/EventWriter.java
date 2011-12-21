@@ -53,7 +53,7 @@ public class EventWriter extends Wrap {
   protected void processEvent(GameEvent event, ByteBuffer writeBuffer) {
     NIOUtils.prepBuffer(event, writeBuffer);
 
-    if (event.getClass().isInstance(BroadcastEvent.class)) {
+    if (BroadcastEvent.class.isInstance(event)) {
       int[] recipients = ((BroadcastEvent)event).getRecipients();
 
       for (int i = 0; i < recipients.length; i++) {

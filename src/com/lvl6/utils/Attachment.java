@@ -15,13 +15,10 @@ import org.apache.log4j.Logger;
  */
 public class Attachment {
   /** number of bytes in the network event header */
-  public static final int HEADER_SIZE = 12; 
+  public static final int HEADER_SIZE = 5; 
 
   /** log4j logger */
   private static Logger log = Logger.getLogger("Attachment");
-
-  /** unique id for this client */
-  public int clientId;
   
   /** event type for this message */
   public byte eventType;
@@ -73,9 +70,9 @@ public class Attachment {
     if (readBuff.remaining() >= HEADER_SIZE) {
 
       // read the header info
-      clientId = readBuff.getInt();
       eventType = readBuff.get();
       payloadSize = readBuff.getInt();
+      System.out.println(eventType+" "+payloadSize);
 
       // check bounds on the payload
       if (payloadSize > Globals.MAX_EVENT_SIZE) 

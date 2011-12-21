@@ -68,10 +68,10 @@ public class NIOUtils {
    */
   public static void putStr(ByteBuffer buff, String str) {
     if (str == null) {
-	    buff.putShort((short)0);
+	    buff.put((byte)0);
     }
     else {
-	    buff.putShort((short)str.length());
+	    buff.put((byte)str.length());
 	    buff.put(str.getBytes());
     }
   }
@@ -81,7 +81,7 @@ public class NIOUtils {
    * that was written w/the putStr method
    */
   public static String getStr(ByteBuffer buff) {
-    short len = buff.getShort();
+    byte len = buff.get();
     if (len == 0) {
 	    return null;
     }
