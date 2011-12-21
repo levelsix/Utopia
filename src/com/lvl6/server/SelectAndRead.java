@@ -74,11 +74,11 @@ public class SelectAndRead extends Thread{
       // this is a blocking select call but will 
       // be interrupted when new clients come in
       selector.select();
-      Set readyKeys = selector.selectedKeys();
+      Set<SelectionKey> readyKeys = selector.selectedKeys();
 
-      Iterator i = readyKeys.iterator();
+      Iterator<SelectionKey> i = readyKeys.iterator();
       while (i.hasNext()) {
-        SelectionKey key = (SelectionKey) i.next();
+        SelectionKey key = i.next();
         i.remove();
         SocketChannel channel = (SocketChannel) key.channel();
         Attachment attachment = (Attachment) key.attachment();
@@ -95,7 +95,7 @@ public class SelectAndRead extends Thread{
 
           // check for a complete event
           try {
-            if (attachment.readBuff.position() >= attachment.HEADER_SIZE) {
+            if (attachment.readBuff.position() >= Attachment.HEADER_SIZE) {
               attachment.readBuff.flip();
 
               // read as many events as are available in the buffer
@@ -162,7 +162,7 @@ public class SelectAndRead extends Thread{
       return;
     }
 
-    Player p = GameServer.getPlayerById(event.getPlayerId());
+    Player p = server.getPlayerById(event.getPlayerId());
     if (p != null) {
       if (p.getChannel() != channel) {
         log.warn("player is on a new channel, must be reconnect.");
@@ -179,7 +179,7 @@ public class SelectAndRead extends Thread{
         //TODO: get player id from db
       }      
       p.setChannel(channel);
-      GameServer.addPlayer(p);
+      server.addPlayer(p);
       log.debug("delegate event, new player created and channel set, player:" + 
           p.getPlayerId() + ", channel: " + channel);
     }

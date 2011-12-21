@@ -11,9 +11,6 @@ import java.nio.ByteBuffer;
 
 public abstract class GameEvent {
   
-  /** array of event recipient playerIDs */
-  protected int[] recipients;
-  
   /** event type */
   protected byte eventType;
 
@@ -29,14 +26,6 @@ public abstract class GameEvent {
   }
   public void setPlayerId(int id) {
     senderId = id;
-  }
-  
-  public int[] getRecipients() {
-    return recipients;    
-  }
-  
-  public void setRecipients(int[] recipients) {
-    this.recipients = recipients;
   }
   
   public abstract int write (ByteBuffer bb);

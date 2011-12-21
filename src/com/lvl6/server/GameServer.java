@@ -39,9 +39,9 @@ public class GameServer extends Thread{
   private static final String CONTROLLER_CLASS_NAME = "EventController.class";
   private static final String CONTROLLER_CLASS_PATHNAME = "com/lvl6/server/controller/" + CONTROLLER_CLASS_NAME;
   private static final String CONTROLLER_CLASS_PREFIX = "com.lvl6.server.controller.";
-  private static Hashtable<Byte, EventController> eventControllers;
+  private Hashtable<Byte, EventController> eventControllers;
 
-  private static Hashtable<Integer, Player> playersByPlayerId;
+  private Hashtable<Integer, Player> playersByPlayerId;
 
   private EventWriter eventWriter;
 
@@ -61,9 +61,9 @@ public class GameServer extends Thread{
 
   public GameServer(String serverIP, int portNum) {
     if (eventControllers == null)
-      eventControllers = new Hashtable();
+      eventControllers = new Hashtable<Byte, EventController>();
     if (playersByPlayerId == null)
-      playersByPlayerId = new Hashtable();
+      playersByPlayerId = new Hashtable<Integer, Player>();
     this.serverIP = serverIP;
     this.portNum = portNum;
   }
@@ -197,7 +197,7 @@ public class GameServer extends Thread{
         String controllerClassName = CONTROLLER_CLASS_PREFIX + file.substring(0, file.indexOf(".class"));
         log.info("loading class: " + controllerClassName);
 
-        Class cl = Class.forName(controllerClassName);
+        Class<?> cl = Class.forName(controllerClassName);
 
         // make sure it extends GameController
         if (!EventController.class.isAssignableFrom(cl)) {
@@ -231,21 +231,21 @@ public class GameServer extends Thread{
   /**
    * fetches the Player for a given playerId
    */
-  public static Player getPlayerById(int id) {
+  public Player getPlayerById(int id) {
     return playersByPlayerId.get(id);
   }
   
   /** 
    * add a player to our lists
    */
-  public static void addPlayer(Player p) {
+  public void addPlayer(Player p) {
     playersByPlayerId.put(p.getPlayerId(), p);
   }
 
   /**
    * remove a player from our lists
    */
-  public static void removePlayer(Player p) {
+  public void removePlayer(Player p) {
     playersByPlayerId.remove(p.getPlayerId());
   }
   

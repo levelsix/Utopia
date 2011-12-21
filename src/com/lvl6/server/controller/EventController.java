@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.lvl6.events.BroadcastEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.Globals;
@@ -41,7 +42,7 @@ public abstract class EventController extends Wrap {
   /** 
    * utility method for sending events to multiple players
    */
-  protected synchronized void sendBroadcastEvent(GameEvent e, Collection<Player> players) {
+  protected synchronized void sendBroadcastEvent(BroadcastEvent e, Collection<Player> players) {
     Iterator<Player> i = players.iterator();
     int[] recipients = new int[players.size()];
     int j=0;

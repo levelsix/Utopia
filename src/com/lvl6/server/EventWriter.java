@@ -1,9 +1,8 @@
 package com.lvl6.server;
-import java.io.*;
 import java.nio.*;
 import java.nio.channels.*;
-import org.apache.log4j.Logger;
 
+import com.lvl6.events.BroadcastEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.utils.Globals;
 import com.lvl6.utils.NIOUtils;
@@ -12,13 +11,13 @@ import com.lvl6.utils.Wrap;
 
 public class EventWriter extends Wrap {
   //reference to game server
-  private static GameServer server;
+  private GameServer server;
 
   /** 
    * constructor.
    */
   public EventWriter(GameServer server, int numWorkers) {
-    EventWriter.server = server;
+    this.server = server;
     initWrap(numWorkers);
   }
 
@@ -54,9 +53,9 @@ public class EventWriter extends Wrap {
   protected void processEvent(GameEvent event, ByteBuffer writeBuffer) {
     NIOUtils.prepBuffer(event, writeBuffer);
 
-    int[] recipients = event.getRecipients();
-    
-    if (recipients != null) {                   //multiple people to send to- event's recipients
+    if (event.getClass().isInstance(BroadcastEvent.class)) {
+      int[] recipients = ((BroadcastEvent)event).getRecipients();
+
       for (int i = 0; i < recipients.length; i++) {
         if (recipients[i] > 0) {
           log.info("writeEvent(): type=" + event.getType() + ", id=" + 
@@ -64,7 +63,10 @@ public class EventWriter extends Wrap {
           write(recipients[i], writeBuffer);
         }
       }
-    } else {                                    //send to event's playerid
+    }
+    // Otherwise this is just a normal message, send response to sender.
+    else
+    {
       log.info("writeEvent: type=" + event.getType() + ", id=" + 
           event.getPlayerId());
       int playerId = event.getPlayerId();
@@ -76,7 +78,7 @@ public class EventWriter extends Wrap {
    * write the event to the given playerId's channel
    */
   private void write(int playerId, ByteBuffer writeBuffer) {  
-    Player player = GameServer.getPlayerById(playerId);
+    Player player = server.getPlayerById(playerId);
     SocketChannel channel = player.getChannel();
 
     if (channel == null || !channel.isConnected()) {

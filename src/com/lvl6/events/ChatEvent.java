@@ -12,13 +12,9 @@ import com.lvl6.utils.NIOUtils;
  * A basic GameEvent class, this can be extended for other Games
  * or a completely different class may be used as required by a specific game.
  */
-public class ChatEvent extends GameEvent {
+public class ChatEvent extends BroadcastEvent {
   
   private String message;
-  
-  /** number of recipients to send to*/
-  private int numRecipients;
-  private int recipients[];
   
   /** 
    * default contructor
@@ -69,5 +65,4 @@ public class ChatEvent extends GameEvent {
       recipients[i] = buff.getInt();
     message = NIOUtils.getStr(buff);
   }
-
 }// ChatEvent

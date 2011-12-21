@@ -1,8 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-
 import com.lvl6.events.ChatEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.utils.EventProtocol;
@@ -29,11 +26,7 @@ public class ChatController extends EventController {
 
   @Override
   protected void processEvent(GameEvent event) {
-    // TODO impl
-    /*
-     * check if event is broadcast or normal. separate event types? no, can't. 
-     * create an event, initialize it, and send it accordingly
-     */
+    
   }
 
   
