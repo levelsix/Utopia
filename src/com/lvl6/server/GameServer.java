@@ -15,8 +15,9 @@ import java.util.Set;
 import org.apache.log4j.*;
 
 import com.lvl6.events.GameEvent;
+import com.lvl6.properties.Globals;
 import com.lvl6.server.controller.EventController;
-import com.lvl6.utils.Globals;
+import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.Player;
 
 public class GameServer extends Thread{
@@ -53,6 +54,7 @@ public class GameServer extends Thread{
     if (args.length == 2) {
       BasicConfigurator.configure();
       GameServer server = new GameServer(args[0], Integer.parseInt(args[1]));
+      new DBConnection();
       server.start();
     } else {
       System.out.println("Error in input- two arguments required: <serverip> <portnum>");

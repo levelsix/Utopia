@@ -1,4 +1,4 @@
-package com.lvl6.utils;
+package com.lvl6.properties;
 
 public class Globals {
     /** size of ByteBuffer for reading/writing from channels */

@@ -2,7 +2,7 @@ package com.lvl6.server.controller;
 
 import com.lvl6.events.ChatEvent;
 import com.lvl6.events.GameEvent;
-import com.lvl6.utils.EventProtocol;
+import com.lvl6.properties.EventProtocol;
 
 public class ChatController extends EventController {
 

@@ -2,7 +2,7 @@ package com.lvl6.events;
 
 import java.nio.ByteBuffer;
 
-import com.lvl6.utils.EventProtocol;
+import com.lvl6.properties.EventProtocol;
 import com.lvl6.utils.NIOUtils;
 
 

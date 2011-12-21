@@ -4,7 +4,7 @@ import java.nio.channels.*;
 
 import com.lvl6.events.BroadcastEvent;
 import com.lvl6.events.GameEvent;
-import com.lvl6.utils.Globals;
+import com.lvl6.properties.Globals;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.Player;
 import com.lvl6.utils.Wrap;

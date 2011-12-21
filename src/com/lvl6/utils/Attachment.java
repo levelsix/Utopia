@@ -5,6 +5,8 @@ import java.nio.BufferUnderflowException;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.properties.Globals;
+
 /**
  * Attachment.java
  *
