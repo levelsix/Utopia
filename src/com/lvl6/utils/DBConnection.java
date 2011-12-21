@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +14,7 @@ import com.lvl6.properties.DBProperties;
 
 public class DBConnection {
   // log4j logger
-  protected Logger log;
+  protected static Logger log;
 
   private static final int NUM_CONNECTIONS = 10;
   private static BlockingQueue<Connection> availableConnections;
@@ -25,8 +26,10 @@ public class DBConnection {
 
   private static Connection conn;
 
-  public DBConnection() {
-    log = Logger.getLogger(getClass());
+  public static void init() {
+    
+    log = Logger.getLogger(DBConnection.class);
+    availableConnections = new LinkedBlockingQueue<Connection>();
     try {
       Class.forName("com.mysql.jdbc.Driver");
       log.info("creating DB connections");
@@ -35,6 +38,7 @@ public class DBConnection {
         conn.createStatement().executeQuery("USE " + database);
         availableConnections.put(conn);
       }
+      log.info("connection complete");
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -48,7 +52,7 @@ public class DBConnection {
   /*
    * assumes all params will be strings and that params.length = number of ? fields
    */
-  public ResultSet readFromDatabase(String query, String[] params) {
+  public static ResultSet readFromDatabase(String query, String[] params) {
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();

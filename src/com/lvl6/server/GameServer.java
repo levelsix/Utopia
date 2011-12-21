@@ -54,7 +54,7 @@ public class GameServer extends Thread{
     if (args.length == 2) {
       BasicConfigurator.configure();
       GameServer server = new GameServer(args[0], Integer.parseInt(args[1]));
-      new DBConnection();
+      DBConnection.init();
       server.start();
     } else {
       System.out.println("Error in input- two arguments required: <serverip> <portnum>");

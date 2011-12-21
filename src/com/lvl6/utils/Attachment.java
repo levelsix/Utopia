@@ -74,7 +74,6 @@ public class Attachment {
       // read the header info
       eventType = readBuff.get();
       payloadSize = readBuff.getInt();
-      System.out.println(eventType+" "+payloadSize);
 
       // check bounds on the payload
       if (payloadSize > Globals.MAX_EVENT_SIZE) 
