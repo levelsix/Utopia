@@ -59,7 +59,7 @@ public class ChatEvent extends BroadcastEvent {
   }
 
   /**
-   * read the event from the given ByteBuffer
+   * read the event from the given ByteBuffer to populate this event
    */
   public void read(ByteBuffer buff) {
     senderId = buff.getInt();

@@ -5,24 +5,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
 
-import com.lvl6.info.UserInfo;
 import com.lvl6.properties.DBProperties;
 
 public class DBConnection {
   // log4j logger
   protected static Logger log;
 
-  private static final int NUM_CONNECTIONS = 10;
+  private static final int NUM_CONNECTIONS = 2;
   private static BlockingQueue<Connection> availableConnections;
 
   private static String user = DBProperties.USER;
@@ -43,9 +40,8 @@ public class DBConnection {
         conn = DriverManager.getConnection("jdbc:mysql://" + server, user ,password);
         conn.createStatement().executeQuery("USE " + database);
         availableConnections.put(conn);
+        log.info("connection added");
       }
-      UserInfo.getUserById(1);
-      log.info("connection complete");
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -56,6 +52,27 @@ public class DBConnection {
     }
   }
 
+  public static ResultSet selectRowById(int Id, String tablename) {
+    String query = "select * from " + tablename + " where id=?";
+     
+    ResultSet rs = null;
+    try {
+      Connection conn = availableConnections.take();
+      PreparedStatement stmt = conn.prepareStatement(query);
+      stmt.setInt(1, Id);
+      stmt.execute();
+      rs = stmt.getResultSet();
+      log.info(rs.toString());
+    } catch (SQLException e) {
+      System.out.println("problem with database call.");
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    return rs;
+  }
   
   /*
    * assumes that params.length = number of ? fields
@@ -77,7 +94,6 @@ public class DBConnection {
       query += StringUtils.getListInString(condclauses, "and");
     }
     
-    log.info(query);
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();
