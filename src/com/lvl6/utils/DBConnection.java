@@ -5,11 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.info.UserInfo;
 import com.lvl6.properties.DBProperties;
 
 public class DBConnection {
@@ -38,9 +44,8 @@ public class DBConnection {
         conn.createStatement().executeQuery("USE " + database);
         availableConnections.put(conn);
       }
+      UserInfo.getUserById(1);
       log.info("connection complete");
-      ResultSet rs = selectRows(null, "dumb");
-      log.info(rs.getInt(1));
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -55,19 +60,38 @@ public class DBConnection {
   /*
    * assumes that params.length = number of ? fields
    */
-  public static ResultSet selectRows(Object[] params, String tablename) {
+  public static ResultSet selectRows(TreeMap<String, Object> paramsToVals, String tablename) {
     String query = "select * from " + tablename;
+    
+    List<String> condclauses = new LinkedList<String>();
+    List<Object> values = new LinkedList<Object>();
+
+    
+    if (paramsToVals != null && paramsToVals.size()>0) {
+      for (String param : paramsToVals.keySet()) {
+        condclauses.add(param + "=?");
+        values.add(paramsToVals.get(param));
+      }
+
+      query += " where ";
+      query += StringUtils.getListInString(condclauses, "and");
+    }
+    
+    log.info(query);
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
-      if (params != null) {
-        for (int i = 1; i <= params.length; i++) {
-          stmt.setObject(i, params[i]);
+      if (paramsToVals != null && paramsToVals.size()>0) {
+        int i = 1;
+        for (Object value : values) {
+          stmt.setObject(i, value);
+          i++;
         }
       }
       stmt.execute();
       rs = stmt.getResultSet();
+      log.info(rs.toString());
     } catch (SQLException e) {
       System.out.println("problem with database call.");
       e.printStackTrace();
@@ -78,6 +102,5 @@ public class DBConnection {
     }
     return rs;
   }
-
 }
 
