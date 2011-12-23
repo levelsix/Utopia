@@ -2,7 +2,8 @@ package com.lvl6.server;
 import java.nio.*;
 import java.nio.channels.*;
 
-import com.lvl6.events.BroadcastEvent;
+import com.lvl6.events.BroadcastResponseEvent;
+import com.lvl6.events.GameEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.utils.NIOUtils;
@@ -34,7 +35,7 @@ public class EventWriter extends Wrap {
     running = true;
     while (running) {
       try {
-        if ((event = eventQueue.deQueue()) != null) {
+        if ((event = (ResponseEvent)eventQueue.deQueue()) != null) {
           processEvent(event, writeBuffer);
         }
       }
@@ -44,7 +45,7 @@ public class EventWriter extends Wrap {
   }
 
   /** unused */
-  protected void processEvent(ResponseEvent event) {}
+  protected void processEvent(GameEvent event) {}
 
   /** 
    * our own version of processEvent that takes 
@@ -53,8 +54,8 @@ public class EventWriter extends Wrap {
   protected void processEvent(ResponseEvent event, ByteBuffer writeBuffer) {
     NIOUtils.prepBuffer(event, writeBuffer);
 
-    if (BroadcastEvent.class.isInstance(event)) {
-      int[] recipients = ((BroadcastEvent)event).getRecipients();
+    if (BroadcastResponseEvent.class.isInstance(event)) {
+      int[] recipients = ((BroadcastResponseEvent)event).getRecipients();
 
       for (int i = 0; i < recipients.length; i++) {
         if (recipients[i] > 0) {

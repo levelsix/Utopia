@@ -5,11 +5,14 @@ package com.lvl6.proto;
 option java_outer_classname = "EventProto";
 
 message ChatRequestProto {
-	optional int32 event = 1;
-	repeated UserProto recipients = 2;
+    required int32 playerId = 1; 
+	optional int32 event = 2;
+	repeated UserProto recipients = 3;
+	required string message = 4;
 }
 
 message ChatResponseProto {
 	optional int32 event = 1;
 	repeated UserProto recipients = 2;
+	required string message = 3;
 }

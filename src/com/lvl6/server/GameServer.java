@@ -14,7 +14,7 @@ import java.util.Set;
 
 import org.apache.log4j.*;
 
-import com.lvl6.events.ResponseEvent;
+import com.lvl6.events.GameEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.DBConnection;
@@ -85,7 +85,7 @@ public class GameServer extends Thread{
   /**
    * pass the event on to the EventWriter
    */
-  public void writeEvent(ResponseEvent e) {
+  public void writeEvent(GameEvent e) {
     eventWriter.handleEvent(e);
   }
   
