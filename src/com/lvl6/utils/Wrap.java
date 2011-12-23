@@ -2,7 +2,7 @@ package com.lvl6.utils;
 
 import org.apache.log4j.Logger;
 
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.ResponseEvent;
 
 public abstract class Wrap implements Runnable{
   // log4j logger
@@ -55,7 +55,7 @@ public abstract class Wrap implements Runnable{
   /**
    * queue the event for later processing by worker threads
    */
-  public void handleEvent(GameEvent event) {
+  public void handleEvent(ResponseEvent event) {
     eventQueue.enQueue(event);
   }
 
@@ -63,7 +63,7 @@ public abstract class Wrap implements Runnable{
    * retrieve events from the queue and process.
    */
   public void run() {
-    GameEvent event;
+    ResponseEvent event;
     running = true;
     while (running) {
       try {
@@ -79,5 +79,5 @@ public abstract class Wrap implements Runnable{
   /**
    * subclasses must implement to do their processing
    */
-  protected abstract void processEvent(GameEvent event);
+  protected abstract void processEvent(ResponseEvent event);
 }

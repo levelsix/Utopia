@@ -14,11 +14,11 @@ import java.util.Set;
 
 import org.apache.log4j.*;
 
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.DBConnection;
-import com.lvl6.utils.Player;
+import com.lvl6.utils.ConnectedPlayer;
 
 public class GameServer extends Thread{
 
@@ -42,7 +42,7 @@ public class GameServer extends Thread{
   private static final String CONTROLLER_CLASS_PREFIX = "com.lvl6.server.controller.";
   private Hashtable<Byte, EventController> eventControllers;
 
-  private Hashtable<Integer, Player> playersByPlayerId;
+  private Hashtable<Integer, ConnectedPlayer> playersByPlayerId;
 
   private EventWriter eventWriter;
 
@@ -65,7 +65,7 @@ public class GameServer extends Thread{
     if (eventControllers == null)
       eventControllers = new Hashtable<Byte, EventController>();
     if (playersByPlayerId == null)
-      playersByPlayerId = new Hashtable<Integer, Player>();
+      playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
     this.serverIP = serverIP;
     this.portNum = portNum;
   }
@@ -85,7 +85,7 @@ public class GameServer extends Thread{
   /**
    * pass the event on to the EventWriter
    */
-  public void writeEvent(GameEvent e) {
+  public void writeEvent(ResponseEvent e) {
     eventWriter.handleEvent(e);
   }
   
@@ -233,21 +233,21 @@ public class GameServer extends Thread{
   /**
    * fetches the Player for a given playerId
    */
-  public Player getPlayerById(int id) {
+  public ConnectedPlayer getPlayerById(int id) {
     return playersByPlayerId.get(id);
   }
   
   /** 
    * add a player to our lists
    */
-  public void addPlayer(Player p) {
+  public void addPlayer(ConnectedPlayer p) {
     playersByPlayerId.put(p.getPlayerId(), p);
   }
 
   /**
    * remove a player from our lists
    */
-  public void removePlayer(Player p) {
+  public void removePlayer(ConnectedPlayer p) {
     playersByPlayerId.remove(p.getPlayerId());
   }
   

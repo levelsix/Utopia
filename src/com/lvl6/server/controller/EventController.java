@@ -1,12 +1,13 @@
 package com.lvl6.server.controller;
 
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.RequestEvent;
+import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.server.GameServer;
-import com.lvl6.utils.Player;
+import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
 
-public abstract class EventController extends Wrap {
+public abstract class EventController extends Wrap{
     
   /** reference to the GameServer */
   protected GameServer server;
@@ -29,8 +30,7 @@ public abstract class EventController extends Wrap {
   /**
    * utility method for sending events
    */
-  protected void sendEvent(GameEvent e, Player p) {
-    e.setPlayerId(p.getPlayerId());
+  protected void sendEvent(ResponseEvent e, ConnectedPlayer p) {
     server.writeEvent(e);
   }
   
@@ -43,7 +43,7 @@ public abstract class EventController extends Wrap {
   /** 
    * factory method for fetching GameEvent objects
    */
-  public abstract GameEvent createEvent();
+  public abstract RequestEvent createRequestEvent();
 
   /**
    * subclasses must implement to provide their Event type

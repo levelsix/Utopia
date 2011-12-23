@@ -3,7 +3,7 @@ package com.lvl6.utils;
 import java.nio.*;
 import java.nio.channels.*;
 
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 
 /**
@@ -18,7 +18,7 @@ public class NIOUtils {
    * event into the given ByteBuffer
    * in preparation for the channel write
    */
-  public static void prepBuffer(GameEvent event, ByteBuffer writeBuffer) {
+  public static void prepBuffer(ResponseEvent event, ByteBuffer writeBuffer) {
     // write header
     writeBuffer.clear();
     writeBuffer.put(event.getType());

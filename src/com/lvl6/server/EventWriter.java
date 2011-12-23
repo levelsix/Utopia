@@ -3,10 +3,10 @@ import java.nio.*;
 import java.nio.channels.*;
 
 import com.lvl6.events.BroadcastEvent;
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.utils.NIOUtils;
-import com.lvl6.utils.Player;
+import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
 
 public class EventWriter extends Wrap {
@@ -30,7 +30,7 @@ public class EventWriter extends Wrap {
   public void run() {
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
 
-    GameEvent event;
+    ResponseEvent event;
     running = true;
     while (running) {
       try {
@@ -44,13 +44,13 @@ public class EventWriter extends Wrap {
   }
 
   /** unused */
-  protected void processEvent(GameEvent event) {}
+  protected void processEvent(ResponseEvent event) {}
 
   /** 
    * our own version of processEvent that takes 
    * the additional parameter of the writeBuffer 
    */
-  protected void processEvent(GameEvent event, ByteBuffer writeBuffer) {
+  protected void processEvent(ResponseEvent event, ByteBuffer writeBuffer) {
     NIOUtils.prepBuffer(event, writeBuffer);
 
     if (BroadcastEvent.class.isInstance(event)) {
@@ -78,8 +78,8 @@ public class EventWriter extends Wrap {
    * write the event to the given playerId's channel
    */
   private void write(int playerId, ByteBuffer writeBuffer) {  
-    Player player = server.getPlayerById(playerId);
-    SocketChannel channel = player.getChannel();
+    ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
+    SocketChannel channel = connectedPlayer.getChannel();
 
     if (channel == null || !channel.isConnected()) {
       log.error("writeEvent: client channel null or not connected");

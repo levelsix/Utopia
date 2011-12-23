@@ -12,10 +12,10 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.RequestEvent;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.Attachment;
-import com.lvl6.utils.Player;
+import com.lvl6.utils.ConnectedPlayer;
 
 public class SelectAndRead extends Thread{
   //Logger
@@ -100,8 +100,8 @@ public class SelectAndRead extends Thread{
 
               // read as many events as are available in the buffer
               while(attachment.eventReady()) {
-                GameEvent event = getEvent(attachment);
-                delegateEvent(event, channel);
+                RequestEvent event = getEvent(attachment);
+                delegateEvent(event, channel, attachment.eventType);
                 attachment.reset();
               }
               // prepare for more channel reading
@@ -129,8 +129,8 @@ public class SelectAndRead extends Thread{
   /**
    * read an event from the attachment's payload
    */
-  private GameEvent getEvent(Attachment attachment) {
-    GameEvent event = null;
+  private RequestEvent getEvent(Attachment attachment) {
+    RequestEvent event = null;
     ByteBuffer bb = ByteBuffer.wrap(attachment.payload);
 
     // get the controller and tell it to instantiate an event for us
@@ -139,7 +139,7 @@ public class SelectAndRead extends Thread{
     if (ec == null) {
       return null;
     }
-    event = ec.createEvent();
+    event = ec.createRequestEvent();
 
     // read the event from the payload
     event.read(bb); 
@@ -150,19 +150,19 @@ public class SelectAndRead extends Thread{
    * pass off an event to the appropriate GameController
    * based on the GameName of the event
    */
-  private void delegateEvent(GameEvent event, SocketChannel channel) {
-    if (event != null && event.getType() < 0) {
+  private void delegateEvent(RequestEvent event, SocketChannel channel, byte eventType) {
+    if (event != null && eventType < 0) {
       log.error("the event type is < 0");
       return;
     }
 
-    EventController ec = server.getEventControllerByEventType(event.getType());
+    EventController ec = server.getEventControllerByEventType(eventType);
     if (ec == null) {
-      log.error("No EventController for eventType: " + event.getType());
+      log.error("No EventController for eventType: " + eventType);
       return;
     }
 
-    Player p = server.getPlayerById(event.getPlayerId());
+    ConnectedPlayer p = server.getPlayerById(event.getPlayerId());
     if (p != null) {
       if (p.getChannel() != channel) {
         log.warn("player is on a new channel, must be reconnect.");
@@ -172,7 +172,7 @@ public class SelectAndRead extends Thread{
     else {
       // first time we see a playerId, create the Player object
       // and populate the channel, and also add to our lists
-      p = new Player();
+      p = new ConnectedPlayer();
       if (event.getPlayerId() > 0) {
         p.setPlayerId(event.getPlayerId());
       } else {

@@ -2,7 +2,7 @@ package com.lvl6.utils;
 
 import java.util.LinkedList;
 
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.ResponseEvent;
 
 /**
  * EventQueue.java
@@ -10,19 +10,19 @@ import com.lvl6.events.GameEvent;
  * Blocking queue of GameEvents.
  */
 public class EventQueue {
-  private LinkedList <GameEvent> events;
+  private LinkedList <ResponseEvent> events;
 
   /** 
    * Constructor.  Initializes the logger and event list
    */
   public EventQueue (){
-    events = new LinkedList<GameEvent>();
+    events = new LinkedList<ResponseEvent>();
   }
 
   /** 
    * add an event to the queue
    */
-  public synchronized void enQueue(GameEvent event) {
+  public synchronized void enQueue(ResponseEvent event) {
     events.addLast(event);
     notifyAll();
   }
@@ -32,12 +32,12 @@ public class EventQueue {
    * and then removes and returns the first 
    * available event
    */
-  public synchronized GameEvent deQueue() throws InterruptedException {
+  public synchronized ResponseEvent deQueue() throws InterruptedException {
     while (events.size() == 0) {
       wait();
     }
 
-    GameEvent e = (GameEvent) events.removeFirst();
+    ResponseEvent e = (ResponseEvent) events.removeFirst();
     return e;
   }
 

@@ -7,7 +7,7 @@ import java.nio.channels.SocketChannel;
  *
  * Basic Player information
  */
-public class Player {
+public class ConnectedPlayer {
   private int playerId;
   private SocketChannel channel;
 

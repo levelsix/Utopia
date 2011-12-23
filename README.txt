@@ -1,3 +1,6 @@
+To use protoc, go to top of project and type 
+protoc -I=src/com/lvl6/proto/ --java_out=src/ src/com/lvl6/proto/*.proto
+
 Make sure you include this file (but don't push it to repo (it's already in .gitignore, if right path)):
 DBProperties.java
 in com.lvl6.properties package.
@@ -13,5 +16,4 @@ public class DBProperties {
   public static final String DATABASE = <fill in your info>
     
 }
-
 

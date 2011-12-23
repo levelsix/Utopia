@@ -1,0 +1,15 @@
+import "User.proto";
+
+package com.lvl6.proto;
+
+option java_outer_classname = "EventProto";
+
+message ChatRequestProto {
+	optional int32 event = 1;
+	repeated UserProto recipients = 2;
+}
+
+message ChatResponseProto {
+	optional int32 event = 1;
+	repeated UserProto recipients = 2;
+}

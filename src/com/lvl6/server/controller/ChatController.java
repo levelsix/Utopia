@@ -1,7 +1,8 @@
 package com.lvl6.server.controller;
 
-import com.lvl6.events.ChatEvent;
-import com.lvl6.events.GameEvent;
+import com.lvl6.events.ChatRequestEvent;
+import com.lvl6.events.RequestEvent;
+import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.EventProtocol;
 
 public class ChatController extends EventController {
@@ -15,8 +16,8 @@ public class ChatController extends EventController {
   }
 
   @Override
-  public GameEvent createEvent() {
-    return new ChatEvent();
+  public RequestEvent createRequestEvent() {
+    return new ChatRequestEvent();
   }
 
   @Override
@@ -25,8 +26,8 @@ public class ChatController extends EventController {
   }
 
   @Override
-  protected void processEvent(GameEvent event) {
-    event.convertToOutgoing();
+  protected void processEvent(ResponseEvent event) {
     server.writeEvent(event);
   }
+
 }
