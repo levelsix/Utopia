@@ -36,7 +36,7 @@ public class EventWriter extends Wrap {
     while (running) {
       try {
         if ((event = (ResponseEvent)eventQueue.deQueue()) != null) {
-          processEvent(event, writeBuffer);
+          processResponseEvent(event, writeBuffer);
         }
       }
       catch(InterruptedException e) {
@@ -51,7 +51,7 @@ public class EventWriter extends Wrap {
    * our own version of processEvent that takes 
    * the additional parameter of the writeBuffer 
    */
-  protected void processEvent(ResponseEvent event, ByteBuffer writeBuffer) {
+  protected void processResponseEvent(ResponseEvent event, ByteBuffer writeBuffer) {
     NIOUtils.prepBuffer(event, writeBuffer);
 
     if (BroadcastResponseEvent.class.isInstance(event)) {

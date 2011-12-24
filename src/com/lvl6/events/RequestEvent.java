@@ -11,12 +11,6 @@ import java.nio.ByteBuffer;
 
 public abstract class RequestEvent extends GameEvent {
   
-  protected int playerId;
-
-  public int getPlayerId() {
-    return playerId;
-  }
-  
   public abstract void read (ByteBuffer bb);
 
 }// GameEvent

@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
@@ -44,6 +45,15 @@ public abstract class EventController extends Wrap{
    * factory method for fetching GameEvent objects
    */
   public abstract RequestEvent createRequestEvent();
+
+  /**
+   * subclasses must implement to do their processing
+   */
+  protected void processEvent(GameEvent event) {
+    processRequestEvent((RequestEvent) event);
+  }
+  
+  protected abstract void processRequestEvent(RequestEvent event);
 
   /**
    * subclasses must implement to provide their Event type

@@ -13,16 +13,9 @@ public abstract class ResponseEvent extends GameEvent {
   
   /** event type */
   protected byte eventType;
-  
-  /** player id from db */
-  protected int playerId;
-  
+    
   public byte getType() {
     return eventType;
-  }
-
-  public int getPlayerId() {
-    return playerId;
   }
     
   public abstract int write (ByteBuffer bb);

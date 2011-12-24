@@ -3,12 +3,16 @@ package com.lvl6.events;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
+import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ChatResponseProto;
 
 public class ChatResponseEvent extends BroadcastResponseEvent {
-
+  
   private ChatResponseProto chatResponseProto;
 
+  public ChatResponseEvent() {
+    eventType = EventProtocol.S_CHAT_EVENT;
+  }
   
   /** 
    * write the event to the given ByteBuffer

@@ -1,18 +1,18 @@
-import "User.proto";
+//ALL REQUEST PROTOS SHOULD INCLUDE A senderId AS REQUIRED that represents which client sent it/triggered itgit 
+
+import "Info.proto";
 
 package com.lvl6.proto;
 
 option java_outer_classname = "EventProto";
 
 message ChatRequestProto {
-    required int32 playerId = 1; 
-	optional int32 event = 2;
-	repeated UserProto recipients = 3;
-	required string message = 4;
+    required int32 senderId = 1; 
+	repeated UserProto recipients = 2;
+	required string message = 3;
 }
 
 message ChatResponseProto {
-	optional int32 event = 1;
-	repeated UserProto recipients = 2;
-	required string message = 3;
+    required int32 senderId = 1; 
+	required string message = 2;
 }
