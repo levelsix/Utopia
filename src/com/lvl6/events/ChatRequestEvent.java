@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.lvl6.proto.EventProto.ChatRequestProto;
+import com.lvl6.proto.EventProto.ChatResponseProto;
 
 /**
  * ChatEvent.java
@@ -21,7 +22,7 @@ public class ChatRequestEvent extends RequestEvent{
   public void read(ByteBuffer buff) {
     try {
       chatRequestProto = ChatRequestProto.parseFrom(ByteString.copyFrom(buff));
-      playerId = chatRequestProto.getSenderId();
+      playerId = chatRequestProto.getSender().getSenderId();
     } catch (InvalidProtocolBufferException e) {
       e.printStackTrace();
     }
@@ -30,4 +31,9 @@ public class ChatRequestEvent extends RequestEvent{
   public String getMessage() {
     return chatRequestProto.getMessage();
   }
+
+  public ChatRequestProto getChatRequestProto() {
+    return chatRequestProto;
+  }
+    
 }// ChatEvent

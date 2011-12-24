@@ -27,4 +27,8 @@ public class ChatResponseEvent extends BroadcastResponseEvent {
     return b.size();
   }
 
+  public void setChatResponseProto(ChatResponseProto chatResponseProto) {
+    this.chatResponseProto = chatResponseProto;
+  }
+  
 }

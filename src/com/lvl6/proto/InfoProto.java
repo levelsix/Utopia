@@ -8,64 +8,149 @@ public final class InfoProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface UserProtoOrBuilder
+  public interface MinimumUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // optional int32 id = 2;
-    boolean hasId();
-    int getId();
+    // required int32 senderId = 1;
+    boolean hasSenderId();
+    int getSenderId();
     
-    // optional string udid = 3;
-    boolean hasUdid();
-    String getUdid();
+    // optional string name = 2;
+    boolean hasName();
+    String getName();
+    
+    // optional .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
+    boolean hasUserType();
+    com.lvl6.proto.InfoProto.MinimumUserProto.UserType getUserType();
   }
-  public static final class UserProto extends
+  public static final class MinimumUserProto extends
       com.google.protobuf.GeneratedMessage
-      implements UserProtoOrBuilder {
-    // Use UserProto.newBuilder() to construct.
-    private UserProto(Builder builder) {
+      implements MinimumUserProtoOrBuilder {
+    // Use MinimumUserProto.newBuilder() to construct.
+    private MinimumUserProto(Builder builder) {
       super(builder);
     }
-    private UserProto(boolean noInit) {}
+    private MinimumUserProto(boolean noInit) {}
     
-    private static final UserProto defaultInstance;
-    public static UserProto getDefaultInstance() {
+    private static final MinimumUserProto defaultInstance;
+    public static MinimumUserProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public UserProto getDefaultInstanceForType() {
+    public MinimumUserProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UserProto_descriptor;
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UserProto_fieldAccessorTable;
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProto_fieldAccessorTable;
+    }
+    
+    public enum UserType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      GOOD_WARRIOR(0, 0),
+      GOOD_ARCHER(1, 1),
+      GOOD_MAGE(2, 2),
+      BAD_WARRIOR(3, 3),
+      BAD_ARCHER(4, 4),
+      BAD_MAGE(5, 5),
+      ;
+      
+      public static final int GOOD_WARRIOR_VALUE = 0;
+      public static final int GOOD_ARCHER_VALUE = 1;
+      public static final int GOOD_MAGE_VALUE = 2;
+      public static final int BAD_WARRIOR_VALUE = 3;
+      public static final int BAD_ARCHER_VALUE = 4;
+      public static final int BAD_MAGE_VALUE = 5;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static UserType valueOf(int value) {
+        switch (value) {
+          case 0: return GOOD_WARRIOR;
+          case 1: return GOOD_ARCHER;
+          case 2: return GOOD_MAGE;
+          case 3: return BAD_WARRIOR;
+          case 4: return BAD_ARCHER;
+          case 5: return BAD_MAGE;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<UserType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<UserType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<UserType>() {
+              public UserType findValueByNumber(int number) {
+                return UserType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.MinimumUserProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final UserType[] VALUES = {
+        GOOD_WARRIOR, GOOD_ARCHER, GOOD_MAGE, BAD_WARRIOR, BAD_ARCHER, BAD_MAGE, 
+      };
+      
+      public static UserType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private UserType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MinimumUserProto.UserType)
     }
     
     private int bitField0_;
-    // optional int32 id = 2;
-    public static final int ID_FIELD_NUMBER = 2;
-    private int id_;
-    public boolean hasId() {
+    // required int32 senderId = 1;
+    public static final int SENDERID_FIELD_NUMBER = 1;
+    private int senderId_;
+    public boolean hasSenderId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getId() {
-      return id_;
+    public int getSenderId() {
+      return senderId_;
     }
     
-    // optional string udid = 3;
-    public static final int UDID_FIELD_NUMBER = 3;
-    private java.lang.Object udid_;
-    public boolean hasUdid() {
+    // optional string name = 2;
+    public static final int NAME_FIELD_NUMBER = 2;
+    private java.lang.Object name_;
+    public boolean hasName() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public String getUdid() {
-      java.lang.Object ref = udid_;
+    public String getName() {
+      java.lang.Object ref = name_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
@@ -73,32 +158,47 @@ public final class InfoProto {
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          udid_ = s;
+          name_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getUdidBytes() {
-      java.lang.Object ref = udid_;
+    private com.google.protobuf.ByteString getNameBytes() {
+      java.lang.Object ref = name_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        udid_ = b;
+        name_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     
+    // optional .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
+    public static final int USERTYPE_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.MinimumUserProto.UserType userType_;
+    public boolean hasUserType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto.UserType getUserType() {
+      return userType_;
+    }
+    
     private void initFields() {
-      id_ = 0;
-      udid_ = "";
+      senderId_ = 0;
+      name_ = "";
+      userType_ = com.lvl6.proto.InfoProto.MinimumUserProto.UserType.GOOD_WARRIOR;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
+      if (!hasSenderId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -107,10 +207,13 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(2, id_);
+        output.writeInt32(1, senderId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(3, getUdidBytes());
+        output.writeBytes(2, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, userType_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -123,11 +226,15 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, id_);
+          .computeInt32Size(1, senderId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getUdidBytes());
+          .computeBytesSize(2, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, userType_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -141,41 +248,41 @@ public final class InfoProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(byte[] data)
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -184,7 +291,7 @@ public final class InfoProto {
         return null;
       }
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseDelimitedFrom(
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -195,12 +302,12 @@ public final class InfoProto {
         return null;
       }
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.InfoProto.UserProto parseFrom(
+    public static com.lvl6.proto.InfoProto.MinimumUserProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -210,7 +317,7 @@ public final class InfoProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.InfoProto.UserProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -223,18 +330,18 @@ public final class InfoProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.InfoProto.UserProtoOrBuilder {
+       implements com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UserProto_descriptor;
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UserProto_fieldAccessorTable;
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.InfoProto.UserProto.newBuilder()
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -253,10 +360,12 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        id_ = 0;
+        senderId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        udid_ = "";
+        name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        userType_ = com.lvl6.proto.InfoProto.MinimumUserProto.UserType.GOOD_WARRIOR;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
@@ -266,24 +375,24 @@ public final class InfoProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.InfoProto.UserProto.getDescriptor();
+        return com.lvl6.proto.InfoProto.MinimumUserProto.getDescriptor();
       }
       
-      public com.lvl6.proto.InfoProto.UserProto getDefaultInstanceForType() {
-        return com.lvl6.proto.InfoProto.UserProto.getDefaultInstance();
+      public com.lvl6.proto.InfoProto.MinimumUserProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.InfoProto.UserProto build() {
-        com.lvl6.proto.InfoProto.UserProto result = buildPartial();
+      public com.lvl6.proto.InfoProto.MinimumUserProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.InfoProto.UserProto buildParsed()
+      private com.lvl6.proto.InfoProto.MinimumUserProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.InfoProto.UserProto result = buildPartial();
+        com.lvl6.proto.InfoProto.MinimumUserProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -291,45 +400,56 @@ public final class InfoProto {
         return result;
       }
       
-      public com.lvl6.proto.InfoProto.UserProto buildPartial() {
-        com.lvl6.proto.InfoProto.UserProto result = new com.lvl6.proto.InfoProto.UserProto(this);
+      public com.lvl6.proto.InfoProto.MinimumUserProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserProto result = new com.lvl6.proto.InfoProto.MinimumUserProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.id_ = id_;
+        result.senderId_ = senderId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.udid_ = udid_;
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.userType_ = userType_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.InfoProto.UserProto) {
-          return mergeFrom((com.lvl6.proto.InfoProto.UserProto)other);
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.InfoProto.UserProto other) {
-        if (other == com.lvl6.proto.InfoProto.UserProto.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          setId(other.getId());
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) return this;
+        if (other.hasSenderId()) {
+          setSenderId(other.getSenderId());
         }
-        if (other.hasUdid()) {
-          setUdid(other.getUdid());
+        if (other.hasName()) {
+          setName(other.getName());
+        }
+        if (other.hasUserType()) {
+          setUserType(other.getUserType());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
       public final boolean isInitialized() {
+        if (!hasSenderId()) {
+          
+          return false;
+        }
         return true;
       }
       
@@ -356,14 +476,25 @@ public final class InfoProto {
               }
               break;
             }
-            case 16: {
+            case 8: {
               bitField0_ |= 0x00000001;
-              id_ = input.readInt32();
+              senderId_ = input.readInt32();
               break;
             }
-            case 26: {
+            case 18: {
               bitField0_ |= 0x00000002;
-              udid_ = input.readBytes();
+              name_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.MinimumUserProto.UserType value = com.lvl6.proto.InfoProto.MinimumUserProto.UserType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                userType_ = value;
+              }
               break;
             }
           }
@@ -372,79 +503,103 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // optional int32 id = 2;
-      private int id_ ;
-      public boolean hasId() {
+      // required int32 senderId = 1;
+      private int senderId_ ;
+      public boolean hasSenderId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getId() {
-        return id_;
+      public int getSenderId() {
+        return senderId_;
       }
-      public Builder setId(int value) {
+      public Builder setSenderId(int value) {
         bitField0_ |= 0x00000001;
-        id_ = value;
+        senderId_ = value;
         onChanged();
         return this;
       }
-      public Builder clearId() {
+      public Builder clearSenderId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
+        senderId_ = 0;
         onChanged();
         return this;
       }
       
-      // optional string udid = 3;
-      private java.lang.Object udid_ = "";
-      public boolean hasUdid() {
+      // optional string name = 2;
+      private java.lang.Object name_ = "";
+      public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public String getUdid() {
-        java.lang.Object ref = udid_;
+      public String getName() {
+        java.lang.Object ref = name_;
         if (!(ref instanceof String)) {
           String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-          udid_ = s;
+          name_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
-      public Builder setUdid(String value) {
+      public Builder setName(String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000002;
-        udid_ = value;
+        name_ = value;
         onChanged();
         return this;
       }
-      public Builder clearUdid() {
+      public Builder clearName() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        udid_ = getDefaultInstance().getUdid();
+        name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
-      void setUdid(com.google.protobuf.ByteString value) {
+      void setName(com.google.protobuf.ByteString value) {
         bitField0_ |= 0x00000002;
-        udid_ = value;
+        name_ = value;
         onChanged();
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.UserProto)
+      // optional .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
+      private com.lvl6.proto.InfoProto.MinimumUserProto.UserType userType_ = com.lvl6.proto.InfoProto.MinimumUserProto.UserType.GOOD_WARRIOR;
+      public boolean hasUserType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.UserType getUserType() {
+        return userType_;
+      }
+      public Builder setUserType(com.lvl6.proto.InfoProto.MinimumUserProto.UserType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        userType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        userType_ = com.lvl6.proto.InfoProto.MinimumUserProto.UserType.GOOD_WARRIOR;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserProto)
     }
     
     static {
-      defaultInstance = new UserProto(true);
+      defaultInstance = new MinimumUserProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.UserProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserProto)
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_UserProto_descriptor;
+    internal_static_com_lvl6_proto_MinimumUserProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_UserProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_MinimumUserProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -454,22 +609,27 @@ public final class InfoProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nInfo.proto\022\016com.lvl6.proto\"%\n\tUserProt" +
-      "o\022\n\n\002id\030\002 \001(\005\022\014\n\004udid\030\003 \001(\tB\013B\tInfoProto"
+      "\n\nInfo.proto\022\016com.lvl6.proto\"\334\001\n\020Minimum" +
+      "UserProto\022\020\n\010senderId\030\001 \002(\005\022\014\n\004name\030\002 \001(" +
+      "\t\022;\n\010userType\030\003 \001(\0162).com.lvl6.proto.Min" +
+      "imumUserProto.UserType\"k\n\010UserType\022\020\n\014GO" +
+      "OD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MA" +
+      "GE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n" +
+      "\010BAD_MAGE\020\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_com_lvl6_proto_UserProto_descriptor =
+          internal_static_com_lvl6_proto_MinimumUserProto_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_com_lvl6_proto_UserProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_MinimumUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_UserProto_descriptor,
-              new java.lang.String[] { "Id", "Udid", },
-              com.lvl6.proto.InfoProto.UserProto.class,
-              com.lvl6.proto.InfoProto.UserProto.Builder.class);
+              internal_static_com_lvl6_proto_MinimumUserProto_descriptor,
+              new java.lang.String[] { "SenderId", "Name", "UserType", },
+              com.lvl6.proto.InfoProto.MinimumUserProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder.class);
           return null;
         }
       };

@@ -11,18 +11,19 @@ public final class EventProto {
   public interface ChatRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 senderId = 1;
-    boolean hasSenderId();
-    int getSenderId();
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // repeated .com.lvl6.proto.UserProto recipients = 2;
-    java.util.List<com.lvl6.proto.InfoProto.UserProto> 
+    // repeated .com.lvl6.proto.MinimumUserProto recipients = 2;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserProto> 
         getRecipientsList();
-    com.lvl6.proto.InfoProto.UserProto getRecipients(int index);
+    com.lvl6.proto.InfoProto.MinimumUserProto getRecipients(int index);
     int getRecipientsCount();
-    java.util.List<? extends com.lvl6.proto.InfoProto.UserProtoOrBuilder> 
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
         getRecipientsOrBuilderList();
-    com.lvl6.proto.InfoProto.UserProtoOrBuilder getRecipientsOrBuilder(
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getRecipientsOrBuilder(
         int index);
     
     // required string message = 3;
@@ -58,33 +59,36 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required int32 senderId = 1;
-    public static final int SENDERID_FIELD_NUMBER = 1;
-    private int senderId_;
-    public boolean hasSenderId() {
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getSenderId() {
-      return senderId_;
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
     }
     
-    // repeated .com.lvl6.proto.UserProto recipients = 2;
+    // repeated .com.lvl6.proto.MinimumUserProto recipients = 2;
     public static final int RECIPIENTS_FIELD_NUMBER = 2;
-    private java.util.List<com.lvl6.proto.InfoProto.UserProto> recipients_;
-    public java.util.List<com.lvl6.proto.InfoProto.UserProto> getRecipientsList() {
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserProto> recipients_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserProto> getRecipientsList() {
       return recipients_;
     }
-    public java.util.List<? extends com.lvl6.proto.InfoProto.UserProtoOrBuilder> 
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
         getRecipientsOrBuilderList() {
       return recipients_;
     }
     public int getRecipientsCount() {
       return recipients_.size();
     }
-    public com.lvl6.proto.InfoProto.UserProto getRecipients(int index) {
+    public com.lvl6.proto.InfoProto.MinimumUserProto getRecipients(int index) {
       return recipients_.get(index);
     }
-    public com.lvl6.proto.InfoProto.UserProtoOrBuilder getRecipientsOrBuilder(
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getRecipientsOrBuilder(
         int index) {
       return recipients_.get(index);
     }
@@ -122,7 +126,7 @@ public final class EventProto {
     }
     
     private void initFields() {
-      senderId_ = 0;
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       recipients_ = java.util.Collections.emptyList();
       message_ = "";
     }
@@ -131,13 +135,23 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSenderId()) {
+      if (!hasSender()) {
         memoizedIsInitialized = 0;
         return false;
       }
       if (!hasMessage()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getRecipientsCount(); i++) {
+        if (!getRecipients(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -147,7 +161,7 @@ public final class EventProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, senderId_);
+        output.writeMessage(1, sender_);
       }
       for (int i = 0; i < recipients_.size(); i++) {
         output.writeMessage(2, recipients_.get(i));
@@ -166,7 +180,7 @@ public final class EventProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, senderId_);
+          .computeMessageSize(1, sender_);
       }
       for (int i = 0; i < recipients_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -292,6 +306,7 @@ public final class EventProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
           getRecipientsFieldBuilder();
         }
       }
@@ -301,7 +316,11 @@ public final class EventProto {
       
       public Builder clear() {
         super.clear();
-        senderId_ = 0;
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000001);
         if (recipientsBuilder_ == null) {
           recipients_ = java.util.Collections.emptyList();
@@ -352,7 +371,11 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.senderId_ = senderId_;
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
         if (recipientsBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002)) {
             recipients_ = java.util.Collections.unmodifiableList(recipients_);
@@ -382,8 +405,8 @@ public final class EventProto {
       
       public Builder mergeFrom(com.lvl6.proto.EventProto.ChatRequestProto other) {
         if (other == com.lvl6.proto.EventProto.ChatRequestProto.getDefaultInstance()) return this;
-        if (other.hasSenderId()) {
-          setSenderId(other.getSenderId());
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
         }
         if (recipientsBuilder_ == null) {
           if (!other.recipients_.isEmpty()) {
@@ -419,13 +442,23 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSenderId()) {
+        if (!hasSender()) {
           
           return false;
         }
         if (!hasMessage()) {
           
           return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        for (int i = 0; i < getRecipientsCount(); i++) {
+          if (!getRecipients(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -453,13 +486,17 @@ public final class EventProto {
               }
               break;
             }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              senderId_ = input.readInt32();
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
               break;
             }
             case 18: {
-              com.lvl6.proto.InfoProto.UserProto.Builder subBuilder = com.lvl6.proto.InfoProto.UserProto.newBuilder();
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addRecipients(subBuilder.buildPartial());
               break;
@@ -475,41 +512,110 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required int32 senderId = 1;
-      private int senderId_ ;
-      public boolean hasSenderId() {
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getSenderId() {
-        return senderId_;
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
       }
-      public Builder setSenderId(int value) {
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000001;
-        senderId_ = value;
-        onChanged();
         return this;
       }
-      public Builder clearSenderId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        senderId_ = 0;
-        onChanged();
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
         return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
       }
       
-      // repeated .com.lvl6.proto.UserProto recipients = 2;
-      private java.util.List<com.lvl6.proto.InfoProto.UserProto> recipients_ =
+      // repeated .com.lvl6.proto.MinimumUserProto recipients = 2;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserProto> recipients_ =
         java.util.Collections.emptyList();
       private void ensureRecipientsIsMutable() {
         if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          recipients_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.UserProto>(recipients_);
+          recipients_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserProto>(recipients_);
           bitField0_ |= 0x00000002;
          }
       }
       
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.UserProto, com.lvl6.proto.InfoProto.UserProto.Builder, com.lvl6.proto.InfoProto.UserProtoOrBuilder> recipientsBuilder_;
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> recipientsBuilder_;
       
-      public java.util.List<com.lvl6.proto.InfoProto.UserProto> getRecipientsList() {
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserProto> getRecipientsList() {
         if (recipientsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(recipients_);
         } else {
@@ -523,7 +629,7 @@ public final class EventProto {
           return recipientsBuilder_.getCount();
         }
       }
-      public com.lvl6.proto.InfoProto.UserProto getRecipients(int index) {
+      public com.lvl6.proto.InfoProto.MinimumUserProto getRecipients(int index) {
         if (recipientsBuilder_ == null) {
           return recipients_.get(index);
         } else {
@@ -531,7 +637,7 @@ public final class EventProto {
         }
       }
       public Builder setRecipients(
-          int index, com.lvl6.proto.InfoProto.UserProto value) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProto value) {
         if (recipientsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -545,7 +651,7 @@ public final class EventProto {
         return this;
       }
       public Builder setRecipients(
-          int index, com.lvl6.proto.InfoProto.UserProto.Builder builderForValue) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           recipients_.set(index, builderForValue.build());
@@ -555,7 +661,7 @@ public final class EventProto {
         }
         return this;
       }
-      public Builder addRecipients(com.lvl6.proto.InfoProto.UserProto value) {
+      public Builder addRecipients(com.lvl6.proto.InfoProto.MinimumUserProto value) {
         if (recipientsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -569,7 +675,7 @@ public final class EventProto {
         return this;
       }
       public Builder addRecipients(
-          int index, com.lvl6.proto.InfoProto.UserProto value) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProto value) {
         if (recipientsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -583,7 +689,7 @@ public final class EventProto {
         return this;
       }
       public Builder addRecipients(
-          com.lvl6.proto.InfoProto.UserProto.Builder builderForValue) {
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           recipients_.add(builderForValue.build());
@@ -594,7 +700,7 @@ public final class EventProto {
         return this;
       }
       public Builder addRecipients(
-          int index, com.lvl6.proto.InfoProto.UserProto.Builder builderForValue) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           recipients_.add(index, builderForValue.build());
@@ -605,7 +711,7 @@ public final class EventProto {
         return this;
       }
       public Builder addAllRecipients(
-          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.UserProto> values) {
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserProto> values) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           super.addAll(values, recipients_);
@@ -635,18 +741,18 @@ public final class EventProto {
         }
         return this;
       }
-      public com.lvl6.proto.InfoProto.UserProto.Builder getRecipientsBuilder(
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getRecipientsBuilder(
           int index) {
         return getRecipientsFieldBuilder().getBuilder(index);
       }
-      public com.lvl6.proto.InfoProto.UserProtoOrBuilder getRecipientsOrBuilder(
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getRecipientsOrBuilder(
           int index) {
         if (recipientsBuilder_ == null) {
           return recipients_.get(index);  } else {
           return recipientsBuilder_.getMessageOrBuilder(index);
         }
       }
-      public java.util.List<? extends com.lvl6.proto.InfoProto.UserProtoOrBuilder> 
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
            getRecipientsOrBuilderList() {
         if (recipientsBuilder_ != null) {
           return recipientsBuilder_.getMessageOrBuilderList();
@@ -654,25 +760,25 @@ public final class EventProto {
           return java.util.Collections.unmodifiableList(recipients_);
         }
       }
-      public com.lvl6.proto.InfoProto.UserProto.Builder addRecipientsBuilder() {
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder addRecipientsBuilder() {
         return getRecipientsFieldBuilder().addBuilder(
-            com.lvl6.proto.InfoProto.UserProto.getDefaultInstance());
+            com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance());
       }
-      public com.lvl6.proto.InfoProto.UserProto.Builder addRecipientsBuilder(
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder addRecipientsBuilder(
           int index) {
         return getRecipientsFieldBuilder().addBuilder(
-            index, com.lvl6.proto.InfoProto.UserProto.getDefaultInstance());
+            index, com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance());
       }
-      public java.util.List<com.lvl6.proto.InfoProto.UserProto.Builder> 
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserProto.Builder> 
            getRecipientsBuilderList() {
         return getRecipientsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.UserProto, com.lvl6.proto.InfoProto.UserProto.Builder, com.lvl6.proto.InfoProto.UserProtoOrBuilder> 
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
           getRecipientsFieldBuilder() {
         if (recipientsBuilder_ == null) {
           recipientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.lvl6.proto.InfoProto.UserProto, com.lvl6.proto.InfoProto.UserProto.Builder, com.lvl6.proto.InfoProto.UserProtoOrBuilder>(
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
                   recipients_,
                   ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
@@ -732,9 +838,10 @@ public final class EventProto {
   public interface ChatResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 senderId = 1;
-    boolean hasSenderId();
-    int getSenderId();
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
     // required string message = 2;
     boolean hasMessage();
@@ -769,14 +876,17 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required int32 senderId = 1;
-    public static final int SENDERID_FIELD_NUMBER = 1;
-    private int senderId_;
-    public boolean hasSenderId() {
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getSenderId() {
-      return senderId_;
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
     }
     
     // required string message = 2;
@@ -812,7 +922,7 @@ public final class EventProto {
     }
     
     private void initFields() {
-      senderId_ = 0;
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       message_ = "";
     }
     private byte memoizedIsInitialized = -1;
@@ -820,11 +930,15 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSenderId()) {
+      if (!hasSender()) {
         memoizedIsInitialized = 0;
         return false;
       }
       if (!hasMessage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -836,7 +950,7 @@ public final class EventProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, senderId_);
+        output.writeMessage(1, sender_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getMessageBytes());
@@ -852,7 +966,7 @@ public final class EventProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, senderId_);
+          .computeMessageSize(1, sender_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -974,6 +1088,7 @@ public final class EventProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
         }
       }
       private static Builder create() {
@@ -982,7 +1097,11 @@ public final class EventProto {
       
       public Builder clear() {
         super.clear();
-        senderId_ = 0;
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000001);
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -1027,7 +1146,11 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.senderId_ = senderId_;
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -1048,8 +1171,8 @@ public final class EventProto {
       
       public Builder mergeFrom(com.lvl6.proto.EventProto.ChatResponseProto other) {
         if (other == com.lvl6.proto.EventProto.ChatResponseProto.getDefaultInstance()) return this;
-        if (other.hasSenderId()) {
-          setSenderId(other.getSenderId());
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
         }
         if (other.hasMessage()) {
           setMessage(other.getMessage());
@@ -1059,11 +1182,15 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSenderId()) {
+        if (!hasSender()) {
           
           return false;
         }
         if (!hasMessage()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
           
           return false;
         }
@@ -1093,9 +1220,13 @@ public final class EventProto {
               }
               break;
             }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              senderId_ = input.readInt32();
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
               break;
             }
             case 18: {
@@ -1109,25 +1240,94 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required int32 senderId = 1;
-      private int senderId_ ;
-      public boolean hasSenderId() {
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getSenderId() {
-        return senderId_;
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
       }
-      public Builder setSenderId(int value) {
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000001;
-        senderId_ = value;
-        onChanged();
         return this;
       }
-      public Builder clearSenderId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        senderId_ = 0;
-        onChanged();
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
         return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
       }
       
       // required string message = 2;
@@ -1197,11 +1397,13 @@ public final class EventProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\013Event.proto\022\016com.lvl6.proto\032\nInfo.prot" +
-      "o\"d\n\020ChatRequestProto\022\020\n\010senderId\030\001 \002(\005\022" +
-      "-\n\nrecipients\030\002 \003(\0132\031.com.lvl6.proto.Use" +
-      "rProto\022\017\n\007message\030\003 \002(\t\"6\n\021ChatResponseP" +
-      "roto\022\020\n\010senderId\030\001 \002(\005\022\017\n\007message\030\002 \002(\tB" +
-      "\014B\nEventProto"
+      "o\"\213\001\n\020ChatRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\0224\n\nreci" +
+      "pients\030\002 \003(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022\017\n\007message\030\003 \002(\t\"V\n\021ChatResponseP" +
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022\017\n\007message\030\002 \002(\tB\014B\nEvent" +
+      "Proto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1213,7 +1415,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_ChatRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ChatRequestProto_descriptor,
-              new java.lang.String[] { "SenderId", "Recipients", "Message", },
+              new java.lang.String[] { "Sender", "Recipients", "Message", },
               com.lvl6.proto.EventProto.ChatRequestProto.class,
               com.lvl6.proto.EventProto.ChatRequestProto.Builder.class);
           internal_static_com_lvl6_proto_ChatResponseProto_descriptor =
@@ -1221,7 +1423,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_ChatResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ChatResponseProto_descriptor,
-              new java.lang.String[] { "SenderId", "Message", },
+              new java.lang.String[] { "Sender", "Message", },
               com.lvl6.proto.EventProto.ChatResponseProto.class,
               com.lvl6.proto.EventProto.ChatResponseProto.Builder.class);
           return null;

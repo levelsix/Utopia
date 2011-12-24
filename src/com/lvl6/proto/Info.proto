@@ -2,7 +2,17 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
-message UserProto {
-	optional int32 id = 2;
-	optional string udid = 3;
+message MinimumUserProto {
+	required int32 senderId = 1;
+	optional string name = 2;
+	optional UserType userType = 3;
+	
+	enum UserType {
+		GOOD_WARRIOR = 0; 
+		GOOD_ARCHER = 1;
+		GOOD_MAGE = 2;
+		BAD_WARRIOR = 3;
+		BAD_ARCHER = 4;
+		BAD_MAGE = 5;
+	}
 }
