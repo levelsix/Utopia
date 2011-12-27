@@ -1,4 +1,4 @@
-//ALL REQUEST PROTOS SHOULD INCLUDE A senderId AS REQUIRED that represents which client sent it/triggered itgit 
+//ALL REQUEST PROTOS SHOULD INCLUDE A MinimumUserProto AS REQUIRED that represents which client sent it/triggered itgit 
 
 import "Info.proto";
 

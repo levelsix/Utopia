@@ -5,7 +5,6 @@ import java.nio.ByteBuffer;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.lvl6.proto.EventProto.ChatRequestProto;
-import com.lvl6.proto.EventProto.ChatResponseProto;
 
 /**
  * ChatEvent.java

@@ -30,7 +30,7 @@ public class DBConnection {
   private static Connection conn;
 
   public static void init() {
-    
+
     log = Logger.getLogger(DBConnection.class);
     availableConnections = new LinkedBlockingQueue<Connection>();
     try {
@@ -52,14 +52,37 @@ public class DBConnection {
     }
   }
 
-  public static ResultSet selectRowById(int Id, String tablename) {
-    String query = "select * from " + tablename + " where id=?";
-     
+  public static ResultSet selectRowByUserId(int userId, String tablename) {
+    return selectRowByIntAttr("user_id", userId, tablename);
+  }
+  
+  public static ResultSet selectRowById(int id, String tablename) {
+    return selectRowByIntAttr("id", id, tablename);
+  }
+
+  public static ResultSet selectWholeTable(String tablename) {
+    return selectRows(null, tablename, null);
+  }
+  
+  /*
+   * assumes that params.length = number of ? fields
+   */
+  public static ResultSet selectRowsOr(TreeMap<String, Object> paramsToVals, String tablename) {
+    return selectRows(paramsToVals, tablename, "or");
+  }
+
+  public static ResultSet selectRowsAnd(TreeMap<String, Object> paramsToVals, String tablename) {
+    return selectRows(paramsToVals, tablename, "and");
+  }
+  
+  private static ResultSet selectRowByIntAttr(String attr, int value, String tablename) {
+    String query = "select * from " + tablename + " where " + attr + "=?";
+
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
-      stmt.setInt(1, Id);
+      stmt.setInt(1, value);
       stmt.execute();
       rs = stmt.getResultSet();
       log.info(rs.toString());
@@ -73,17 +96,14 @@ public class DBConnection {
     }
     return rs;
   }
-  
-  /*
-   * assumes that params.length = number of ? fields
-   */
-  public static ResultSet selectRows(TreeMap<String, Object> paramsToVals, String tablename) {
+
+  private static ResultSet selectRows(TreeMap<String, Object> paramsToVals, String tablename, String conddelim) {
     String query = "select * from " + tablename;
-    
+
     List<String> condclauses = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
 
-    
+
     if (paramsToVals != null && paramsToVals.size()>0) {
       for (String param : paramsToVals.keySet()) {
         condclauses.add(param + "=?");
@@ -91,9 +111,9 @@ public class DBConnection {
       }
 
       query += " where ";
-      query += StringUtils.getListInString(condclauses, "and");
+      query += StringUtils.getListInString(condclauses, conddelim);
     }
-    
+
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();

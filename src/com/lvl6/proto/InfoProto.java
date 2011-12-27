@@ -595,11 +595,476 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserProto)
   }
   
+  public interface MinimumUserStructureProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 structId = 1;
+    boolean hasStructId();
+    int getStructId();
+    
+    // optional int32 xCoord = 2;
+    boolean hasXCoord();
+    int getXCoord();
+    
+    // optional int32 yCoord = 3;
+    boolean hasYCoord();
+    int getYCoord();
+  }
+  public static final class MinimumUserStructureProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserStructureProtoOrBuilder {
+    // Use MinimumUserStructureProto.newBuilder() to construct.
+    private MinimumUserStructureProto(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserStructureProto(boolean noInit) {}
+    
+    private static final MinimumUserStructureProto defaultInstance;
+    public static MinimumUserStructureProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserStructureProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserStructureProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserStructureProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 structId = 1;
+    public static final int STRUCTID_FIELD_NUMBER = 1;
+    private int structId_;
+    public boolean hasStructId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getStructId() {
+      return structId_;
+    }
+    
+    // optional int32 xCoord = 2;
+    public static final int XCOORD_FIELD_NUMBER = 2;
+    private int xCoord_;
+    public boolean hasXCoord() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getXCoord() {
+      return xCoord_;
+    }
+    
+    // optional int32 yCoord = 3;
+    public static final int YCOORD_FIELD_NUMBER = 3;
+    private int yCoord_;
+    public boolean hasYCoord() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getYCoord() {
+      return yCoord_;
+    }
+    
+    private void initFields() {
+      structId_ = 0;
+      xCoord_ = 0;
+      yCoord_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasStructId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, structId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, xCoord_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, yCoord_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, structId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, xCoord_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, yCoord_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserStructureProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserStructureProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserStructureProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserStructureProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserStructureProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        structId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        xCoord_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        yCoord_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserStructureProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserStructureProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserStructureProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserStructureProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserStructureProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserStructureProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserStructureProto result = new com.lvl6.proto.InfoProto.MinimumUserStructureProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.structId_ = structId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.xCoord_ = xCoord_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.yCoord_ = yCoord_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserStructureProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserStructureProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserStructureProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance()) return this;
+        if (other.hasStructId()) {
+          setStructId(other.getStructId());
+        }
+        if (other.hasXCoord()) {
+          setXCoord(other.getXCoord());
+        }
+        if (other.hasYCoord()) {
+          setYCoord(other.getYCoord());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasStructId()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              structId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              xCoord_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              yCoord_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 structId = 1;
+      private int structId_ ;
+      public boolean hasStructId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getStructId() {
+        return structId_;
+      }
+      public Builder setStructId(int value) {
+        bitField0_ |= 0x00000001;
+        structId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStructId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        structId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 xCoord = 2;
+      private int xCoord_ ;
+      public boolean hasXCoord() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getXCoord() {
+        return xCoord_;
+      }
+      public Builder setXCoord(int value) {
+        bitField0_ |= 0x00000002;
+        xCoord_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearXCoord() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        xCoord_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 yCoord = 3;
+      private int yCoord_ ;
+      public boolean hasYCoord() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getYCoord() {
+        return yCoord_;
+      }
+      public Builder setYCoord(int value) {
+        bitField0_ |= 0x00000004;
+        yCoord_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearYCoord() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        yCoord_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserStructureProto)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserStructureProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserStructureProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_MinimumUserProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_MinimumUserProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserStructureProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserStructureProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -615,7 +1080,9 @@ public final class InfoProto {
       "imumUserProto.UserType\"k\n\010UserType\022\020\n\014GO" +
       "OD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MA" +
       "GE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n" +
-      "\010BAD_MAGE\020\005B\013B\tInfoProto"
+      "\010BAD_MAGE\020\005\"M\n\031MinimumUserStructureProto" +
+      "\022\020\n\010structId\030\001 \002(\005\022\016\n\006xCoord\030\002 \001(\005\022\016\n\006yC" +
+      "oord\030\003 \001(\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -630,6 +1097,14 @@ public final class InfoProto {
               new java.lang.String[] { "SenderId", "Name", "UserType", },
               com.lvl6.proto.InfoProto.MinimumUserProto.class,
               com.lvl6.proto.InfoProto.MinimumUserProto.Builder.class);
+          internal_static_com_lvl6_proto_MinimumUserStructureProto_descriptor =
+            getDescriptor().getMessageTypes().get(1);
+          internal_static_com_lvl6_proto_MinimumUserStructureProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserStructureProto_descriptor,
+              new java.lang.String[] { "StructId", "XCoord", "YCoord", },
+              com.lvl6.proto.InfoProto.MinimumUserStructureProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder.class);
           return null;
         }
       };
