@@ -11,9 +11,9 @@ public final class InfoProto {
   public interface MinimumUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 senderId = 1;
-    boolean hasSenderId();
-    int getSenderId();
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
     
     // optional string name = 2;
     boolean hasName();
@@ -133,14 +133,14 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 senderId = 1;
-    public static final int SENDERID_FIELD_NUMBER = 1;
-    private int senderId_;
-    public boolean hasSenderId() {
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getSenderId() {
-      return senderId_;
+    public int getUserId() {
+      return userId_;
     }
     
     // optional string name = 2;
@@ -186,7 +186,7 @@ public final class InfoProto {
     }
     
     private void initFields() {
-      senderId_ = 0;
+      userId_ = 0;
       name_ = "";
       userType_ = com.lvl6.proto.InfoProto.MinimumUserProto.UserType.GOOD_WARRIOR;
     }
@@ -195,7 +195,7 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSenderId()) {
+      if (!hasUserId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -207,7 +207,7 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, senderId_);
+        output.writeInt32(1, userId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getNameBytes());
@@ -226,7 +226,7 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, senderId_);
+          .computeInt32Size(1, userId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -360,7 +360,7 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        senderId_ = 0;
+        userId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -407,7 +407,7 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.senderId_ = senderId_;
+        result.userId_ = userId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -432,8 +432,8 @@ public final class InfoProto {
       
       public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserProto other) {
         if (other == com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) return this;
-        if (other.hasSenderId()) {
-          setSenderId(other.getSenderId());
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
         }
         if (other.hasName()) {
           setName(other.getName());
@@ -446,7 +446,7 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSenderId()) {
+        if (!hasUserId()) {
           
           return false;
         }
@@ -478,7 +478,7 @@ public final class InfoProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              senderId_ = input.readInt32();
+              userId_ = input.readInt32();
               break;
             }
             case 18: {
@@ -503,23 +503,23 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 senderId = 1;
-      private int senderId_ ;
-      public boolean hasSenderId() {
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getSenderId() {
-        return senderId_;
+      public int getUserId() {
+        return userId_;
       }
-      public Builder setSenderId(int value) {
+      public Builder setUserId(int value) {
         bitField0_ |= 0x00000001;
-        senderId_ = value;
+        userId_ = value;
         onChanged();
         return this;
       }
-      public Builder clearSenderId() {
+      public Builder clearUserId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        senderId_ = 0;
+        userId_ = 0;
         onChanged();
         return this;
       }
@@ -1074,15 +1074,15 @@ public final class InfoProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nInfo.proto\022\016com.lvl6.proto\"\334\001\n\020Minimum" +
-      "UserProto\022\020\n\010senderId\030\001 \002(\005\022\014\n\004name\030\002 \001(" +
-      "\t\022;\n\010userType\030\003 \001(\0162).com.lvl6.proto.Min" +
-      "imumUserProto.UserType\"k\n\010UserType\022\020\n\014GO" +
-      "OD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MA" +
-      "GE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n" +
-      "\010BAD_MAGE\020\005\"M\n\031MinimumUserStructureProto" +
-      "\022\020\n\010structId\030\001 \002(\005\022\016\n\006xCoord\030\002 \001(\005\022\016\n\006yC" +
-      "oord\030\003 \001(\005B\013B\tInfoProto"
+      "\n\nInfo.proto\022\016com.lvl6.proto\"\332\001\n\020Minimum" +
+      "UserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004name\030\002 \001(\t\022" +
+      ";\n\010userType\030\003 \001(\0162).com.lvl6.proto.Minim" +
+      "umUserProto.UserType\"k\n\010UserType\022\020\n\014GOOD" +
+      "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE" +
+      "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +
+      "AD_MAGE\020\005\"M\n\031MinimumUserStructureProto\022\020" +
+      "\n\010structId\030\001 \002(\005\022\016\n\006xCoord\030\002 \001(\005\022\016\n\006yCoo" +
+      "rd\030\003 \001(\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1094,7 +1094,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_MinimumUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserProto_descriptor,
-              new java.lang.String[] { "SenderId", "Name", "UserType", },
+              new java.lang.String[] { "UserId", "Name", "UserType", },
               com.lvl6.proto.InfoProto.MinimumUserProto.class,
               com.lvl6.proto.InfoProto.MinimumUserProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserStructureProto_descriptor =

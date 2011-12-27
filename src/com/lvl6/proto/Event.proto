@@ -1,4 +1,4 @@
-//ALL REQUEST PROTOS SHOULD INCLUDE A MinimumUserProto AS REQUIRED that represents which client sent it/triggered itgit 
+//ALL REQUEST PROTOS SHOULD INCLUDE A MinimumUserProto AS REQUIRED that represents which client sent it/triggered it 
 
 import "Info.proto";
 
@@ -15,4 +15,9 @@ message ChatRequestProto {
 message ChatResponseProto {
     required MinimumUserProto sender = 1; 
 	required string message = 2;
+}
+
+message BattleRequestProto {
+    required MinimumUserProto sender = 1; 
+    required MinimumUserProto opponent = 2; 
 }

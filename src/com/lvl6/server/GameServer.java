@@ -14,9 +14,6 @@ import java.util.Set;
 
 import org.apache.log4j.*;
 
-import com.lvl6.dbutils.EquipmentDBUtils;
-import com.lvl6.dbutils.UserDBUtils;
-import com.lvl6.events.GameEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.server.controller.EventController;

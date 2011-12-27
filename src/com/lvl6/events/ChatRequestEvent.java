@@ -21,14 +21,10 @@ public class ChatRequestEvent extends RequestEvent{
   public void read(ByteBuffer buff) {
     try {
       chatRequestProto = ChatRequestProto.parseFrom(ByteString.copyFrom(buff));
-      playerId = chatRequestProto.getSender().getSenderId();
+      playerId = chatRequestProto.getSender().getUserId();
     } catch (InvalidProtocolBufferException e) {
       e.printStackTrace();
     }
-  }
-  
-  public String getMessage() {
-    return chatRequestProto.getMessage();
   }
 
   public ChatRequestProto getChatRequestProto() {

@@ -3,7 +3,7 @@ package com.lvl6.proto;
 option java_outer_classname = "InfoProto";
 
 message MinimumUserProto {
-	required int32 senderId = 1;
+	required int32 userId = 1;
 	optional string name = 2;
 	optional UserType userType = 3;
 	

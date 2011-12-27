@@ -1,8 +1,9 @@
 package com.lvl6.server.controller;
 
+import java.util.List;
+
 import com.lvl6.events.ChatRequestEvent;
 import com.lvl6.events.ChatResponseEvent;
-import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ChatRequestProto;
@@ -38,6 +39,16 @@ public class ChatController extends EventController {
     ChatResponseProto resProto = ChatResponseProto.newBuilder().setMessage(message).setSender(senderProto).build();
     
     ChatResponseEvent resEvent = new ChatResponseEvent();
+    List<MinimumUserProto> recipients = reqProto.getRecipientsList();
+    if (recipients != null && recipients.size() > 0) {
+      int[] recipientIds = new int[recipients.size()];
+      int i = 0;
+      for (MinimumUserProto recipient : recipients) {
+        recipientIds[i] = recipient.getUserId();
+        i++;
+      }
+      resEvent.setRecipients(recipientIds);
+    }
     resEvent.setChatResponseProto(resProto);
     
     server.writeEvent(resEvent);
