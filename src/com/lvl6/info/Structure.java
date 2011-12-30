@@ -32,80 +32,40 @@ public class Structure {
     return id;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
   public String getName() {
     return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public int getIncome() {
     return income;
   }
 
-  public void setIncome(int income) {
-    this.income = income;
-  }
-
   public int getMinutesToGain() {
     return minutesToGain;
-  }
-
-  public void setMinutesToGain(int minutesToGain) {
-    this.minutesToGain = minutesToGain;
   }
 
   public int getCoinPrice() {
     return coinPrice;
   }
 
-  public void setCoinPrice(int coinPrice) {
-    this.coinPrice = coinPrice;
-  }
-
   public int getDiamondPrice() {
     return diamondPrice;
-  }
-
-  public void setDiamondPrice(int diamondPrice) {
-    this.diamondPrice = diamondPrice;
   }
 
   public int getMinLevel() {
     return minLevel;
   }
 
-  public void setMinLevel(int minLevel) {
-    this.minLevel = minLevel;
-  }
-
   public int getMinArmy() {
     return minArmy;
-  }
-
-  public void setMinArmy(int minArmy) {
-    this.minArmy = minArmy;
   }
 
   public int getxLength() {
     return xLength;
   }
 
-  public void setxLength(int xLength) {
-    this.xLength = xLength;
-  }
-
   public int getyLength() {
     return yLength;
-  }
-
-  public void setyLength(int yLength) {
-    this.yLength = yLength;
   }
 
   @Override

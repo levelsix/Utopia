@@ -14,30 +14,26 @@ public class UserEquip {
     this.isStolen = isStolen;
   }
   
+
   public int getUserId() {
     return userId;
   }
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
+
+
   public int getEquipId() {
     return equipId;
   }
-  public void setEquipId(int equipId) {
-    this.equipId = equipId;
-  }
+
+
   public int getQuantity() {
     return quantity;
   }
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
-  }
+
+
   public boolean isStolen() {
     return isStolen;
   }
-  public void setStolen(boolean isStolen) {
-    this.isStolen = isStolen;
-  }
+
 
   @Override
   public String toString() {

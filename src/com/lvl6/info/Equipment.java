@@ -28,117 +28,46 @@ public class Equipment {
     return id;
   }
 
-
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-
-
   public String getName() {
     return name;
   }
-
-
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
 
   public EquipType getType() {
     return type;
   }
 
-
-
-  public void setType(EquipType type) {
-    this.type = type;
-  }
-
-
-
   public int getAttackBoost() {
     return attackBoost;
   }
-
-
-
-  public void setAttackBoost(int attackBoost) {
-    this.attackBoost = attackBoost;
-  }
-
-
 
   public int getDefenseBoost() {
     return defenseBoost;
   }
 
-
-
-  public void setDefenseBoost(int defenseBoost) {
-    this.defenseBoost = defenseBoost;
-  }
-
-
-
   public int getMinLevel() {
     return minLevel;
   }
-
-
-
-  public void setMinLevel(int minLevel) {
-    this.minLevel = minLevel;
-  }
-
-
 
   public int getCoinPrice() {
     return coinPrice;
   }
 
-
-
-  public void setCoinPrice(int coinPrice) {
-    this.coinPrice = coinPrice;
-  }
-
-
-
   public int getDiamondPrice() {
     return diamondPrice;
   }
 
-
-
-  public void setDiamondPrice(int diamondPrice) {
-    this.diamondPrice = diamondPrice;
-  }
-
-
-
   public enum EquipType {
     WEAPON(0),
-    MELEE(1),
-    ARMOR(2),
-    AMULET(3),;
-
-    public static final int WEAPON_VALUE = 0;
-    public static final int MELEE_VALUE = 1;
-    public static final int ARMOR_VALUE = 2;
-    public static final int AMULET_VALUE = 3;
+    ARMOR(1),
+    AMULET(2),;
 
     public final int getNumber() { return value; }
 
     public static EquipType valueOf(int value) {
       switch (value) {
       case 0: return WEAPON;
-      case 1: return MELEE;
-      case 2: return ARMOR;
-      case 3: return AMULET;
+      case 1: return ARMOR;
+      case 2: return AMULET;
       default: return null;
       }
     }

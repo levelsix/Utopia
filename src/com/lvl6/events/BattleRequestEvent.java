@@ -15,10 +15,14 @@ public class BattleRequestEvent extends RequestEvent{
   public void read(ByteBuffer buff) {
     try {
       battleRequestProto = BattleRequestProto.parseFrom(ByteString.copyFrom(buff));
-      playerId = battleRequestProto.getSender().getUserId();
+      playerId = battleRequestProto.getAttacker().getUserId();
     } catch (InvalidProtocolBufferException e) {
       e.printStackTrace();
     }
   }
 
+  public BattleRequestProto getBattleRequestProto() {
+    return battleRequestProto;
+  }
+  
 }//BattleRequestProto

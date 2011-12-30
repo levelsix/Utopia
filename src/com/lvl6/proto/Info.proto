@@ -8,13 +8,18 @@ message MinimumUserProto {
 	optional UserType userType = 3;
 	
 	enum UserType {
-		GOOD_WARRIOR = 0; 
+		GOOD_WARRIOR = 0;
 		GOOD_ARCHER = 1;
 		GOOD_MAGE = 2;
 		BAD_WARRIOR = 3;
 		BAD_ARCHER = 4;
 		BAD_MAGE = 5;
 	}
+}
+
+message MinimumEquipProto {
+	required int32 equipId = 1;
+	optional int32 name = 2;
 }
 
 message MinimumUserStructureProto {
