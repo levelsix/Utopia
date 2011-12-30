@@ -29,7 +29,7 @@ public class UserEquipRetrieveUtils {
   //returns map from userId to his equipments
   public static Map<Integer, List<UserEquip>> getUserEquipsForUserIds(List<Integer> userIds) {
     log.info("retrieving user equips for userIds " + userIds);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : userIds) {
       paramsToVals.put("user_id", i);
     }

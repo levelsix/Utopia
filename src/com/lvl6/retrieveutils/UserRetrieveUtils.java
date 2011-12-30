@@ -2,7 +2,9 @@ package com.lvl6.retrieveutils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -33,7 +35,7 @@ public class UserRetrieveUtils {
   
   public static List<User> getUsersByIds(List<Integer> ids) {
     log.info("retrieving users with userIds " + ids);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : ids) {
       paramsToVals.put("id", i);
     }
@@ -44,7 +46,7 @@ public class UserRetrieveUtils {
   //if this returns null, tell user it's the player's first time/launch tutorial
   public static User getUserByUDID(String UDID) {
     log.info("retrieving user with udid " + UDID);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put("udid", UDID);
     return convertRSToUser(DBConnection.selectRowsOr(paramsToVals, "users"));
   }

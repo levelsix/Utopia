@@ -92,8 +92,7 @@ public class BattleController extends EventController {
         //TODO: impl defender losing item (diamond price != null and != 0) and winner getting it
         /*
         - defender losers lose items (better items have a lower chance of being stolen) to the attacker winner
-        - items with only a diamond price cannot be stolen
-        - only items with min_level below the player's level can be stolen
+        - only items with min_level below the player's level and aren't diamond price can be stolen
          */
 
       }
@@ -119,7 +118,7 @@ public class BattleController extends EventController {
 
     server.writeEvent(resEvent);
 
-    //write to db battle history
+    //TODO: write to db battle history
 
   }
 
