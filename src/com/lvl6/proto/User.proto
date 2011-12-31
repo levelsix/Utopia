@@ -1,8 +1,0 @@
-package com.lvl6.proto;
-
-option java_outer_classname = "InfoProto";
-
-message UserProto {
-	optional int32 id = 2;
-	optional string udid = 3;
-}
