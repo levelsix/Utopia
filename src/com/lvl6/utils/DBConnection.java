@@ -74,68 +74,62 @@ public class DBConnection {
 
 
   /*
-   * Update a row in a table with both absolute and relative values
-   * i.e. combines the functionality of updateTableRowRelative and updateTableRowAbsolute
-   * $absParams, $relParams, and $conditions should be associative arrays from column names to values
-
-  public static function updateTableRowGenericBasic($tablename, $absParams, $relParams, $conditions) {
-    $mydb = self::getFactory()->getConnection();
-    //TODO: after refactor, just eliminate getFactory, change getConnection to static, and call that?
-
-    $values = array();
-
-    $absSetClauses = array();
-    foreach($absParams as $key=>$value) {
-      $absSetClauses[] = $key . "=?";
-      $values[] = $value;
-    }
-
-    $relSetClauses = array();
-    foreach($relParams as $key=>$value) {
-      $relSetClauses[] = $key . "=" . $key . "+?";
-      $values[] = $value;
-    }
-
-    $condclauses = array();
-    foreach($conditions as $key=>$value) {
-      $condclauses[] = $key."=?";
-      $values[] = $value;
-    }
-
-    $stmtString = "UPDATE ". $tablename . " SET ";
-    $stmtString .= getArrayInString($absSetClauses, ',') . ", " . getArrayInString($relSetClauses, ',');
-    $stmtString .= " WHERE ";
-    $stmtString .= getArrayInString($condclauses, 'and');
-
-    $stmt = $mydb->prepare($stmtString);
-
-    $start = microtime(true);  
-                $result = $stmt->execute($values);                                
-                $time = microtime(true) - $start;  
-                self::$log[] = array('query' => $stmt->queryString,
-                          'time' => round($time * 1000, 3));   
-                return $result;
-  }
-   * 
-   
-  public static void updateTableRowsBasic(String tablename, Map<String, Object> relativeParams, 
-      Map<String, Object> absoluteParams, Map<String, Object> conditionParams) {
+   * returns num of rows affected
+   */
+  public static int updateTableRows(String tablename, Map<String, Object> relativeParams, 
+      Map<String, Object> absoluteParams, Map<String, Object> conditionParams, String condDelim) {
+    String query = "update " + tablename;
+    List<Object> values = new LinkedList<Object>();
     
-    
-    ResultSet rs = null;
+    if ((relativeParams != null && relativeParams.size()>0) || (absoluteParams != null && absoluteParams.size()>0)) {
+      query += " set ";
+      if (relativeParams != null && relativeParams.size()>0) {
+        List<String> relUpClauses = new LinkedList<String>();
+        for (String param : relativeParams.keySet()) {
+          relUpClauses.add(param + "=" + param + "+?");
+          values.add(relativeParams.get(param));
+        }
+        query += StringUtils.getListInString(relUpClauses, ",");
+      }
+      if (absoluteParams != null && absoluteParams.size()>0) {
+        List<String> absUpClauses = new LinkedList<String>();
+        for (String param : absoluteParams.keySet()) {
+          absUpClauses.add(param + "=?");
+          values.add(absoluteParams.get(param));
+        }
+        query += StringUtils.getListInString(absUpClauses, ",");
+      }
+    }
+    if (conditionParams != null && conditionParams.size()>0) {
+      query += " where ";
+      List<String> condClauses = new LinkedList<String>();
+      for (String param : conditionParams.keySet()) {
+        condClauses.add(param + "=?");
+        values.add(conditionParams.get(param));
+      }
+      query += StringUtils.getListInString(condClauses, condDelim);
+    }
+
     try {
       Connection conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
-      stmt.setInt(1, value);
-      stmt.execute();
-      
-      rs = stmt.getResultSet();
-      log.info(rs.toString());
+      if (values.size()>0) {
+        int i = 1;
+        for (Object value : values) {
+          stmt.setObject(i, value);
+          i++;
+        }
+      }
+      return stmt.executeUpdate();
     } catch (SQLException e) {
-      System.out.println("problem with database call.");
+      log.error("problem with " + query, e);
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      log.error("problem with " + query, e);
       e.printStackTrace();
     }
-  }*/
+    return 0;
+  }
 
   private static ResultSet selectRowByIntAttr(String attr, int value, String tablename) {
     String query = "select * from " + tablename + " where " + attr + "=?";
@@ -145,16 +139,14 @@ public class DBConnection {
       Connection conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       stmt.setInt(1, value);
-      stmt.execute();
-      rs = stmt.getResultSet();
+      rs = stmt.executeQuery();
       log.info(rs.toString());
     } catch (SQLException e) {
-      System.out.println("problem with database call.");
-      e.printStackTrace();
+      log.error("problem with " + query, e);
     } catch (NullPointerException e) {
-      e.printStackTrace();
+      log.error("problem with " + query, e);
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      log.error("problem with " + query, e);
     }
     return rs;
   }
@@ -162,41 +154,39 @@ public class DBConnection {
   private static ResultSet selectRows(Map<String, Object> conditionParams, String tablename, String conddelim) {
     String query = "select * from " + tablename;
 
-    List<String> condclauses = new LinkedList<String>();
+    List<String> condClauses = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
 
 
     if (conditionParams != null && conditionParams.size()>0) {
       for (String param : conditionParams.keySet()) {
-        condclauses.add(param + "=?");
+        condClauses.add(param + "=?");
         values.add(conditionParams.get(param));
       }
 
       query += " where ";
-      query += StringUtils.getListInString(condclauses, conddelim);
+      query += StringUtils.getListInString(condClauses, conddelim);
     }
 
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
-      if (conditionParams != null && conditionParams.size()>0) {
+      if (values.size()>0) {
         int i = 1;
         for (Object value : values) {
           stmt.setObject(i, value);
           i++;
         }
       }
-      stmt.execute();
-      rs = stmt.getResultSet();
+      rs = stmt.executeQuery();
       log.info(rs.toString());
     } catch (SQLException e) {
-      System.out.println("problem with database call.");
-      e.printStackTrace();
+      log.error("problem with " + query, e);
     } catch (NullPointerException e) {
-      e.printStackTrace();
+      log.error("problem with " + query, e);
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      log.error("problem with " + query, e);
     }
     return rs;
   }
