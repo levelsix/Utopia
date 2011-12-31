@@ -13,6 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.DBProperties;
 
 public class DBConnection {
@@ -53,11 +54,11 @@ public class DBConnection {
   }
 
   public static ResultSet selectRowByUserId(int userId, String tablename) {
-    return selectRowByIntAttr("user_id", userId, tablename);
+    return selectRowByIntAttr(DBConstants.GENERIC__USER_ID, userId, tablename);
   }
 
   public static ResultSet selectRowById(int id, String tablename) {
-    return selectRowByIntAttr("id", id, tablename);
+    return selectRowByIntAttr(DBConstants.GENERIC__ID, id, tablename);
   }
 
   public static ResultSet selectWholeTable(String tablename) {

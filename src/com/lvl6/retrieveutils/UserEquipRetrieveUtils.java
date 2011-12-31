@@ -11,13 +11,14 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.UserEquip;
+import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 public class UserEquipRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
-  private static final String TABLE_NAME = "user_equip";
+  private static final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
   
   public static List<UserEquip> getUserEquipsForUser(int userId) {
     log.info("retrieving user equips for userId " + userId);

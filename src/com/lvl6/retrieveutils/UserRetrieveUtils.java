@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.User;
+import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
 import com.lvl6.utils.DBConnection;
 
@@ -17,7 +18,7 @@ public class UserRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = "users";
+  private static final String TABLE_NAME = DBConstants.TABLE_USER;
   
   public static void createUser() {
     log.info("creating user");

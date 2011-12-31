@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Equipment.EquipType;
+import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 public class EquipmentRetrieveUtils {
@@ -18,7 +19,7 @@ public class EquipmentRetrieveUtils {
 
   private static Map<Integer, Equipment> equipIdToEquipment;
   
-  private static final String TABLE_NAME = "equipment";
+  private static final String TABLE_NAME = DBConstants.TABLE_EQUIPMENT;
     
   public static Map<Integer, Equipment> getAllEquipmentIdsToEquipment() {
     log.info("retrieving equipment data");
