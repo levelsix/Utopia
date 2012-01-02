@@ -3,13 +3,13 @@ package com.lvl6.properties;
 public class EventProtocol {
 
    public static final byte C_CHAT_EVENT = (byte) 100;
-   public static final byte C_PVP_EVENT = (byte) 102;
-   public static final byte C_VAULT_EVENT = (byte) 103;
+   public static final byte C_PVP_EVENT = (byte) 101;
+   public static final byte C_VAULT_EVENT = (byte) 102;
 
    
-   public static final byte S_CHAT_EVENT = (byte) 1100;
-   public static final byte S_PVP_EVENT = (byte) 1102;
-   public static final byte S_VAULT_EVENT = (byte) 1103;
+   public static final byte S_CHAT_EVENT = (byte) 500;
+   public static final byte S_PVP_EVENT = (byte) 501;
+   public static final byte S_VAULT_EVENT = (byte) 502;
 
    /*
    public static final byte C_TRADE_EVENT = (byte) ;
