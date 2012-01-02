@@ -2,9 +2,9 @@ package com.lvl6.server.controller;
 
 import java.util.List;
 
-import com.lvl6.events.ChatRequestEvent;
-import com.lvl6.events.ChatResponseEvent;
 import com.lvl6.events.RequestEvent;
+import com.lvl6.events.request.ChatRequestEvent;
+import com.lvl6.events.response.ChatResponseEvent;
 import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ChatRequestProto;
 import com.lvl6.proto.EventProto.ChatResponseProto;

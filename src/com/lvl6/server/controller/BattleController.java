@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.lvl6.events.BattleRequestEvent;
-import com.lvl6.events.BattleResponseEvent;
 import com.lvl6.events.RequestEvent;
+import com.lvl6.events.request.BattleRequestEvent;
+import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -38,7 +38,7 @@ public class BattleController extends EventController {
   private static final String ATTACKER_FLAG = "attacker";
   private static final String DEFENDER_FLAG = "defender";
 
-  /*
+  /* FORMULA FOR CALCULATING PLAYER'S BATTLE STAT
   Let S = Attack or Defense skill points, based on whether the user is the attacker or defender
   Let I = The total attack/defense of the items used in the battle, based on whether the user is the attacker or defender
   Let A = The user’s agency size
@@ -51,6 +51,11 @@ public class BattleController extends EventController {
   private static final double Y = 1.1;
   private static final double Z = 4;
 
+  /* FORMULA FOR CALCULATING COIN TRANSFER
+   * (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/A, loser.getLevel()*B)); 
+   */
+  private static final double A = 10;
+  private static final double B = 75000;
 
   @Override
   protected void initController() {
@@ -186,7 +191,7 @@ public class BattleController extends EventController {
   }
 
   private int calculateLostCoins(User loser, Random random) {
-    return (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/10, loser.getLevel()*75000));
+    return (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/A, loser.getLevel()*B));
   }
 
   /*

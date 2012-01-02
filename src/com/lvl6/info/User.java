@@ -66,7 +66,30 @@ public class User {
     this.udid = udid;
   }
   
-  //used for battles
+  /*
+   * used for vault
+   */
+  public boolean updateRelativeCoinsVault (int coinsChange, int vaultChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    if (coinsChange != 0) relativeParams.put(DBConstants.USER__COINS, coinsChange);
+    if (vaultChange != 0) relativeParams.put(DBConstants.USER__VAULT_BALANCE, vaultChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinsChange;
+      this.vaultBalance += vaultChange;
+      return true;
+    }
+    return false;
+  }
+  
+  /*
+   * used for battles
+   */
   public boolean updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost (int stamina, int experience, 
       int coins, int health, int battlesWon, int battlesLost) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -83,6 +106,12 @@ public class User {
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
+      this.stamina += stamina;
+      this.experience += experience;
+      this.coins += coins;
+      this.health += health;
+      this.battlesWon += battlesWon;
+      this.battlesLost += battlesLost;
       return true;
     }
     return false;
