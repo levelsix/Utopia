@@ -2,10 +2,13 @@ package com.lvl6.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.BufferUnderflowException;
+import com.lvl6.proto.*;
+import com.lvl6.proto.EventProto.ChatRequestProto;
 
 import org.apache.log4j.Logger;
 
 import com.lvl6.properties.Globals;
+import com.lvl6.proto.InfoProto.MinimumUserProto;
 
 /**
  * Attachment.java
@@ -74,6 +77,7 @@ public class Attachment {
       // read the header info
       eventType = readBuff.get();
       payloadSize = readBuff.getInt();
+      log.info("Read event type: "+eventType+" and size: "+payloadSize);
 
       // check bounds on the payload
       if (payloadSize > Globals.MAX_EVENT_SIZE) 

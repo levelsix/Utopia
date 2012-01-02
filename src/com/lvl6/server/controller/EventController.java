@@ -50,6 +50,7 @@ public abstract class EventController extends Wrap{
    * subclasses must implement to do their processing
    */
   protected void processEvent(GameEvent event) {
+    log.info("Received event: " + event.toString());
     processRequestEvent((RequestEvent) event);
   }
   

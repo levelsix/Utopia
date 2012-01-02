@@ -20,7 +20,7 @@ public class DBConnection {
   // log4j logger
   protected static Logger log;
 
-  private static final int NUM_CONNECTIONS = 15;
+  private static final int NUM_CONNECTIONS = 2;
   private static BlockingQueue<Connection> availableConnections;
 
   private static String user = DBProperties.USER;

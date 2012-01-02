@@ -3,6 +3,7 @@ import java.nio.*;
 import java.nio.channels.*;
 
 import com.lvl6.events.BroadcastResponseEvent;
+import com.lvl6.events.ChatResponseEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
@@ -56,7 +57,7 @@ public class EventWriter extends Wrap {
 
     if (BroadcastResponseEvent.class.isInstance(event)) {
       int[] recipients = ((BroadcastResponseEvent)event).getRecipients();
-
+      
       for (int i = 0; i < recipients.length; i++) {
         if (recipients[i] > 0) {
           log.info("writeEvent(): type=" + event.getType() + ", id=" + 
