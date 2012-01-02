@@ -602,9 +602,9 @@ public final class InfoProto {
     boolean hasEquipId();
     int getEquipId();
     
-    // optional int32 name = 2;
+    // optional string name = 2;
     boolean hasName();
-    int getName();
+    String getName();
   }
   public static final class MinimumEquipProto extends
       com.google.protobuf.GeneratedMessage
@@ -645,19 +645,41 @@ public final class InfoProto {
       return equipId_;
     }
     
-    // optional int32 name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
-    private int name_;
+    private java.lang.Object name_;
     public boolean hasName() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public int getName() {
-      return name_;
+    public String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
     
     private void initFields() {
       equipId_ = 0;
-      name_ = 0;
+      name_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -679,7 +701,7 @@ public final class InfoProto {
         output.writeInt32(1, equipId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, name_);
+        output.writeBytes(2, getNameBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -696,7 +718,7 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, name_);
+          .computeBytesSize(2, getNameBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -824,7 +846,7 @@ public final class InfoProto {
         super.clear();
         equipId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = 0;
+        name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -934,9 +956,9 @@ public final class InfoProto {
               equipId_ = input.readInt32();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
-              name_ = input.readInt32();
+              name_ = input.readBytes();
               break;
             }
           }
@@ -966,25 +988,40 @@ public final class InfoProto {
         return this;
       }
       
-      // optional int32 name = 2;
-      private int name_ ;
+      // optional string name = 2;
+      private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getName() {
-        return name_;
+      public String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
       }
-      public Builder setName(int value) {
-        bitField0_ |= 0x00000002;
+      public Builder setName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
       }
       public Builder clearName() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        name_ = 0;
+        name_ = getDefaultInstance().getName();
         onChanged();
         return this;
+      }
+      void setName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000002;
+        name_ = value;
+        onChanged();
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumEquipProto)
@@ -1489,7 +1526,7 @@ public final class InfoProto {
       "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE" +
       "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +
       "AD_MAGE\020\005\"2\n\021MinimumEquipProto\022\017\n\007equipI" +
-      "d\030\001 \002(\005\022\014\n\004name\030\002 \001(\005\"M\n\031MinimumUserStru" +
+      "d\030\001 \002(\005\022\014\n\004name\030\002 \001(\t\"M\n\031MinimumUserStru" +
       "ctureProto\022\020\n\010structId\030\001 \002(\005\022\016\n\006xCoord\030\002" +
       " \001(\005\022\016\n\006yCoord\030\003 \001(\005B\013B\tInfoProto"
     };

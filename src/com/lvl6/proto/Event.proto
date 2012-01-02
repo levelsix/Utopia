@@ -31,6 +31,9 @@ message BattleResponseProto {
 	optional int32 coinsGained = 5;
 	optional MinimumEquipProto equipGained = 6;
     optional int32 expGained = 7;
+    optional int32 winnerHealthLoss = 8;
+    optional int32 loserHealthLoss = 9;
+    
     
     enum BattleStatus {
 		SUCCESS = 0; 

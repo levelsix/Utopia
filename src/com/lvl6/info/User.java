@@ -1,6 +1,11 @@
 package com.lvl6.info;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
+import com.lvl6.utils.DBConnection;
 
 public class User {
 
@@ -28,7 +33,7 @@ public class User {
   private String armyCode;
   private int armySize;
   private String udid;
-  
+
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int health, int skillPoints,
       int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
@@ -60,6 +65,69 @@ public class User {
     this.armySize = armySize;
     this.udid = udid;
   }
+  
+  //used for battles
+  public boolean updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost (int stamina, int experience, 
+      int coins, int health, int battlesWon, int battlesLost) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    if (stamina != 0) relativeParams.put(DBConstants.USER__STAMINA, stamina);
+    if (experience != 0) relativeParams.put(DBConstants.USER__EXPERIENCE, experience);
+    if (coins != 0) relativeParams.put(DBConstants.USER__COINS, coins);
+    if (health != 0) relativeParams.put(DBConstants.USER__HEALTH, health);
+    if (battlesWon != 0) relativeParams.put(DBConstants.USER__BATTLES_WON, battlesWon);
+    if (battlesLost != 0) relativeParams.put(DBConstants.USER__BATTLES_LOST, battlesLost);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean incrementUserEquip(int equipId, int increment) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_EQUIP__USER_ID, id);
+    insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.USER_EQUIP__QUANTITY, increment);
+    insertParams.put(DBConstants.USER_EQUIP__IS_STOLEN, true);
+    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_EQUIP, insertParams, 
+        DBConstants.USER_EQUIP__QUANTITY, increment);
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  //note: decrement is a positive number
+  public boolean decrementUserEquip(int equipId, int currentQuantity, int decrement) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_EQUIP__USER_ID, id);
+    conditionParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+
+    if (currentQuantity - decrement < 0) {
+      return false;
+    }
+    if (currentQuantity - decrement <= 0) {
+      int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_EQUIP, conditionParams, "and");
+      if (numDeleted == 1) {
+        return true;
+      }
+    } else {
+      Map <String, Object> relativeParams = new HashMap<String, Object>();
+      relativeParams.put(DBConstants.USER_EQUIP__QUANTITY, -1*decrement);      
+      int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_EQUIP, relativeParams, null, 
+          conditionParams, "and");
+      if (numUpdated == 1) {
+        return true;
+      }
+    }    
+    return false;
+  }
+
 
   public int getId() {
     return id;
@@ -157,8 +225,6 @@ public class User {
     return udid;
   }
 
-
-  
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="

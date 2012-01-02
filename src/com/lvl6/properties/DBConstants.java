@@ -13,6 +13,27 @@ public class DBConstants {
 
   /*USER TABLE*/
   public static final String USER__ID = GENERIC__ID;
+  public static final String USER__NAME = "name";
+  public static final String USER__LEVEL = "level";
+  public static final String USER__TYPE = "type";
+  public static final String USER__ATTACK = "attack";
+  public static final String USER__DEFENSE = "defense";
+  public static final String USER__STAMINA = "stamina";
+  public static final String USER__ENERGY = "energy";
+  public static final String USER__HEALTH = "health";
+  public static final String USER__SKILL_POINTS = "skill_points";
+  public static final String USER__HEALTH_MAX = "health_max";
+  public static final String USER__ENERGY_MAX = "energy_max";
+  public static final String USER__STAMINA_MAX = "stamina_max";
+  public static final String USER__DIAMONDS = "diamonds";
+  public static final String USER__COINS = "coins";
+  public static final String USER__VAULT_BALANCE = "vault_balance";
+  public static final String USER__EXPERIENCE = "experience";
+  public static final String USER__TASKS_COMPLETED = "tasks_completed";
+  public static final String USER__BATTLES_WON = "battles_won";
+  public static final String USER__BATTLES_LOST = "battles_lost";
+
+  
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;

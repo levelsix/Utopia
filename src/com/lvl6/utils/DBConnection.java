@@ -20,7 +20,7 @@ public class DBConnection {
   // log4j logger
   protected static Logger log;
 
-  private static final int NUM_CONNECTIONS = 2;
+  private static final int NUM_CONNECTIONS = 15;
   private static BlockingQueue<Connection> availableConnections;
 
   private static String user = DBProperties.USER;
@@ -73,7 +73,6 @@ public class DBConnection {
     return selectRows(conditionParams, tablename, "and");
   }
 
-
   /*
    * returns num of rows affected
    */
@@ -81,7 +80,7 @@ public class DBConnection {
       Map<String, Object> absoluteParams, Map<String, Object> conditionParams, String condDelim) {
     String query = "update " + tablename;
     List<Object> values = new LinkedList<Object>();
-    
+
     if ((relativeParams != null && relativeParams.size()>0) || (absoluteParams != null && absoluteParams.size()>0)) {
       query += " set ";
       if (relativeParams != null && relativeParams.size()>0) {
@@ -131,6 +130,84 @@ public class DBConnection {
     }
     return 0;
   }
+
+  public static int insertOnDuplicateKeyRelativeUpdate(String tablename, Map<String, Object> insertParams,
+      String columnUpdate, Object updateQuantity) {
+    
+    List<String> questions = new LinkedList<String>();
+    List<String> columns = new LinkedList<String>();
+    List<Object> values = new LinkedList<Object>();
+    
+    if (insertParams != null && insertParams.size() > 0) {
+      for (String column : insertParams.keySet()) {
+        questions.add("?");
+        columns.add(column);
+        values.add(insertParams.get(column));
+      }
+      values.add(updateQuantity);
+      String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES (" +
+          StringUtils.getListInString(questions, ",") + ") on duplicate key update " + columnUpdate + "=" +
+          columnUpdate + "+?";
+      try {
+        Connection conn = availableConnections.take();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        if (values.size()>0) {
+          int i = 1;
+          for (Object value : values) {
+            stmt.setObject(i, value);
+            i++;
+          }
+        }
+        return stmt.executeUpdate();
+      } catch (SQLException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      }
+    }
+    return 0;
+  }
+
+  /*
+   * returns num of rows affected
+   */
+  public static int deleteRows(String tablename, Map<String, Object> conditionParams, String condDelim) {
+    String query = "delete from " + tablename;
+    List<Object> values = new LinkedList<Object>();
+
+    if (conditionParams != null && conditionParams.size()>0) {
+      query += " where ";
+      List<String> condClauses = new LinkedList<String>();
+      for (String param : conditionParams.keySet()) {
+        condClauses.add(param + "=?");
+        values.add(conditionParams.get(param));
+      }
+      query += StringUtils.getListInString(condClauses, condDelim);
+    }
+
+    try {
+      Connection conn = availableConnections.take();
+      PreparedStatement stmt = conn.prepareStatement(query);
+      if (values.size()>0) {
+        int i = 1;
+        for (Object value : values) {
+          stmt.setObject(i, value);
+          i++;
+        }
+      }
+      return stmt.executeUpdate();
+    } catch (SQLException e) {
+      log.error("problem with " + query, e);
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      log.error("problem with " + query, e);
+      e.printStackTrace();
+    }
+    return 0;
+  }
+
 
   private static ResultSet selectRowByIntAttr(String attr, int value, String tablename) {
     String query = "select * from " + tablename + " where " + attr + "=?";

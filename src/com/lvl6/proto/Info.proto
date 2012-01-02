@@ -19,7 +19,7 @@ message MinimumUserProto {
 
 message MinimumEquipProto {
 	required int32 equipId = 1;
-	optional int32 name = 2;
+	optional string name = 2;
 }
 
 message MinimumUserStructureProto {

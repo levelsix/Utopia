@@ -1,10 +1,12 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.lvl6.events.BattleRequestEvent;
 import com.lvl6.events.BattleResponseEvent;
@@ -17,6 +19,7 @@ import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
+import com.lvl6.proto.InfoProto.MinimumEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.retrieveutils.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
@@ -24,8 +27,14 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 
 public class BattleController extends EventController {
 
+  private static final int NOT_SET = -1;
+  
   private static final int MAX_DAMAGE = 24;
+  private static final int MIN_DAMAGE_DEALT_TO_LOSER = MAX_DAMAGE - 10;
+
   private static final int MIN_BATTLE_HEALTH_REQUIREMENT = MAX_DAMAGE+1;
+  private static final int MIN_EXP_GAIN = 1;
+  private static final int MAX_EXP_GAIN = 5;
   private static final String ATTACKER_FLAG = "attacker";
   private static final String DEFENDER_FLAG = "defender";
 
@@ -78,33 +87,45 @@ public class BattleController extends EventController {
     resBuilder.setAttacker(attackerProto);
     resBuilder.setDefender(defenderProto);
 
+    UserEquip lostEquip = null;
+    int loserHealthLoss = NOT_SET;
+    int winnerHealthLoss = NOT_SET;
+    int expGained = NOT_SET;
+    int lostCoins = NOT_SET;
+    User winner = null;
+    User loser = null;
+    boolean legitBattle = false;
+    
     if (isLegitBattle(attacker, defender, resBuilder)) {
+      legitBattle = true;
       double attackerStat = computeStat(ATTACKER_FLAG, attacker, attackerEquips, equipmentIdsToEquipment);
       double defenderStat = computeStat(DEFENDER_FLAG, defender, defenderEquips, equipmentIdsToEquipment);
 
-      User winner;
-      User loser;
       if (attackerStat >= defenderStat) {
         resBuilder.setWinnerUserId(attacker.getId());
         winner = attacker;
         loser = defender;
-        //TODO: impl defender losing item (diamond price != null and != 0) and winner getting it
-        /*
-        - defender losers lose items (better items have a lower chance of being stolen) to the attacker winner
-        - only items with min_level below the player's level and aren't diamond price can be stolen
-         */
-
+        lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment, defender.getLevel());
+        if (lostEquip != null) {
+          resBuilder.setEquipGained(MinimumEquipProto.newBuilder().
+              setEquipId(lostEquip.getEquipId()).setName(equipmentIdsToEquipment.get(lostEquip.getEquipId()).getName()));
+        }
       }
       else {
         resBuilder.setWinnerUserId(defender.getId());
         winner = defender;
         loser = attacker;
       }
-      //TODO: impl the winner getting money from the loser
-      //TODO: impl the winner getting experience
-
-      //TODO: impl- set message statuses
+      Random random = new Random();
+      lostCoins = calculateLostCoins(loser, random);
+      resBuilder.setCoinsGained(lostCoins);
+      expGained = MIN_EXP_GAIN + random.nextInt(MAX_EXP_GAIN - MIN_EXP_GAIN + 1);
+      resBuilder.setExpGained(expGained);
       resBuilder.setStatus(BattleStatus.SUCCESS);
+      loserHealthLoss = MIN_DAMAGE_DEALT_TO_LOSER + random.nextInt(MAX_DAMAGE - MIN_DAMAGE_DEALT_TO_LOSER + 1);
+      resBuilder.setLoserHealthLoss(loserHealthLoss);
+      winnerHealthLoss = calculateWinnerHealthLoss(attackerStat, defenderStat, loserHealthLoss);
+      resBuilder.setWinnerHealthLoss(winnerHealthLoss);
     } 
 
     BattleResponseProto resProto = resBuilder.build();
@@ -116,9 +137,76 @@ public class BattleController extends EventController {
     resEvent.setBattleResponseProto(resProto);
 
     server.writeEvent(resEvent);
+    
+    if (legitBattle) {
+      if (lostEquip != null) {
+        if (!loser.decrementUserEquip(lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
+          log.error("problem with decrementUserEquip in battle");
+        }
+        if (!winner.incrementUserEquip(lostEquip.getEquipId(), 1)) {
+          log.error("problem with incrementUserEquip in battle");          
+        }
+      }
+      
+      /*
+       * TODO: check for achievements- send new response, or package inside battles
+       * 
+       * TODO: check for levelup- send new response, or package inside battles
+       * 
+       * TODO: send notification to defender
+       */
+      
+      if (winner == attacker) {
+        attacker.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(-1, expGained, lostCoins, 
+            winnerHealthLoss*-1, 1, 0);
+        defender.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(0, 0, lostCoins*-1, 
+            loserHealthLoss*-1, 0, 1);
+      } else if (winner == defender) {
+        attacker.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(-1, 0, lostCoins*-1, 
+            loserHealthLoss*-1, 0, 1);
+        defender.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(0, expGained, lostCoins, 
+            winnerHealthLoss*-1, 1, 0);
+      }
+      
+      /*
+       * TODO: write to DB history
+       * id, attackerId, defenderId, winnerId, winnerHealthLoss, loserHealthLoss, coinTransfer, lostEquipId, expGain, timestamp
+       */
+    }
+  }
 
-    //TODO: write to db battle history
+  
+  private int calculateWinnerHealthLoss(double attackerStat, double defenderStat, int loserHealthLoss) {
+    double val1 = Math.max(attackerStat, defenderStat);
+    double val2 = Math.min(attackerStat, defenderStat);
+    if (val1 != 0 || val2 != 0) {
+      return Math.max(1, (int)Math.floor((val2/val1)*loserHealthLoss));
+    }
+    return 1;
+  }
 
+  private int calculateLostCoins(User loser, Random random) {
+    return (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/10, loser.getLevel()*75000));
+  }
+
+  /*
+   * returns null if no item lost this time
+   */
+  private UserEquip chooseLostEquip(List<UserEquip> defenderEquips, Map<Integer, Equipment> equipmentIdsToEquipment, int level) {
+    List <UserEquip> potentialLosses = new ArrayList<UserEquip>();
+    for (UserEquip defenderEquip : defenderEquips) {
+      Equipment equip = equipmentIdsToEquipment.get(defenderEquip.getEquipId());
+      if (equip.getDiamondPrice() == Equipment.NOT_SET && equip.getMinLevel() < level) {
+        double rand = Math.random();
+        if (rand <= equip.getChanceOfLoss()) {
+          potentialLosses.add(defenderEquip);
+        }
+      }
+    }
+    if (potentialLosses.size() > 0) {
+      return potentialLosses.get((int)Math.rint(Math.random()*(potentialLosses.size()-1)));
+    }
+    return null;
   }
 
   private double computeStat(String flag, User user, List<UserEquip> userEquips, Map<Integer, Equipment> equipmentIdsToEquipment) {
@@ -127,7 +215,7 @@ public class BattleController extends EventController {
     else if (flag.equals(DEFENDER_FLAG)) skillStat = user.getDefense();
 
     int armySize = user.getArmySize();
-    int itemStat = computeItemStat(flag, userEquips, equipmentIdsToEquipment, user.getArmySize());
+    int itemStat = computeItemStat(flag, userEquips, equipmentIdsToEquipment, user);
 
     double lowerBound = X*(armySize*skillStat + itemStat/Z);
     double upperBound = Y*(armySize*skillStat + itemStat/Z);
@@ -135,16 +223,20 @@ public class BattleController extends EventController {
     return lowerBound + Math.random()*(upperBound-lowerBound);
   }
 
-  private int computeItemStat(String flag, List<UserEquip> userEquips, final Map<Integer, Equipment> equipmentIdsToEquipment, int armySize) {
+  private int computeItemStat(String flag, List<UserEquip> userEquips, final Map<Integer, Equipment> equipmentIdsToEquipment, User user) {
     sortUserEquips(userEquips, equipmentIdsToEquipment, flag);
     Map<EquipType, Integer> numUsedForEquipTypes = new HashMap<EquipType, Integer>();
 
     int itemStat = 0;
     int totalItemsUsed = 0;
+    int armySize = user.getArmySize();
     final int maxTotalItems = armySize * EquipType.values().length;
     
     for (UserEquip ue : userEquips) {
       Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
+      if (equip.getMinLevel() > user.getLevel()) {
+        continue;
+      }
       
       int numSlotsUsedForThisEquip = numUsedForEquipTypes.get(equip.getType());
       int numSlotsLeftForThisEquip = armySize - numSlotsUsedForThisEquip;

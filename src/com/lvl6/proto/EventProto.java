@@ -2009,6 +2009,14 @@ public final class EventProto {
     // optional int32 expGained = 7;
     boolean hasExpGained();
     int getExpGained();
+    
+    // optional int32 winnerHealthLoss = 8;
+    boolean hasWinnerHealthLoss();
+    int getWinnerHealthLoss();
+    
+    // optional int32 loserHealthLoss = 9;
+    boolean hasLoserHealthLoss();
+    int getLoserHealthLoss();
   }
   public static final class BattleResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -2193,6 +2201,26 @@ public final class EventProto {
       return expGained_;
     }
     
+    // optional int32 winnerHealthLoss = 8;
+    public static final int WINNERHEALTHLOSS_FIELD_NUMBER = 8;
+    private int winnerHealthLoss_;
+    public boolean hasWinnerHealthLoss() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public int getWinnerHealthLoss() {
+      return winnerHealthLoss_;
+    }
+    
+    // optional int32 loserHealthLoss = 9;
+    public static final int LOSERHEALTHLOSS_FIELD_NUMBER = 9;
+    private int loserHealthLoss_;
+    public boolean hasLoserHealthLoss() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    public int getLoserHealthLoss() {
+      return loserHealthLoss_;
+    }
+    
     private void initFields() {
       attacker_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       defender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
@@ -2201,6 +2229,8 @@ public final class EventProto {
       coinsGained_ = 0;
       equipGained_ = com.lvl6.proto.InfoProto.MinimumEquipProto.getDefaultInstance();
       expGained_ = 0;
+      winnerHealthLoss_ = 0;
+      loserHealthLoss_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2265,6 +2295,12 @@ public final class EventProto {
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         output.writeInt32(7, expGained_);
       }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, winnerHealthLoss_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt32(9, loserHealthLoss_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -2301,6 +2337,14 @@ public final class EventProto {
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, expGained_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, winnerHealthLoss_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, loserHealthLoss_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2455,6 +2499,10 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000020);
         expGained_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
+        winnerHealthLoss_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        loserHealthLoss_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
       
@@ -2533,6 +2581,14 @@ public final class EventProto {
           to_bitField0_ |= 0x00000040;
         }
         result.expGained_ = expGained_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.winnerHealthLoss_ = winnerHealthLoss_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.loserHealthLoss_ = loserHealthLoss_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2569,6 +2625,12 @@ public final class EventProto {
         }
         if (other.hasExpGained()) {
           setExpGained(other.getExpGained());
+        }
+        if (other.hasWinnerHealthLoss()) {
+          setWinnerHealthLoss(other.getWinnerHealthLoss());
+        }
+        if (other.hasLoserHealthLoss()) {
+          setLoserHealthLoss(other.getLoserHealthLoss());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2682,6 +2744,16 @@ public final class EventProto {
             case 56: {
               bitField0_ |= 0x00000040;
               expGained_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              winnerHealthLoss_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              loserHealthLoss_ = input.readInt32();
               break;
             }
           }
@@ -3047,6 +3119,48 @@ public final class EventProto {
         return this;
       }
       
+      // optional int32 winnerHealthLoss = 8;
+      private int winnerHealthLoss_ ;
+      public boolean hasWinnerHealthLoss() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getWinnerHealthLoss() {
+        return winnerHealthLoss_;
+      }
+      public Builder setWinnerHealthLoss(int value) {
+        bitField0_ |= 0x00000080;
+        winnerHealthLoss_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWinnerHealthLoss() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        winnerHealthLoss_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 loserHealthLoss = 9;
+      private int loserHealthLoss_ ;
+      public boolean hasLoserHealthLoss() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public int getLoserHealthLoss() {
+        return loserHealthLoss_;
+      }
+      public Builder setLoserHealthLoss(int value) {
+        bitField0_ |= 0x00000100;
+        loserHealthLoss_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLoserHealthLoss() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        loserHealthLoss_ = 0;
+        onChanged();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.BattleResponseProto)
     }
     
@@ -3096,7 +3210,7 @@ public final class EventProto {
       "nimumUserProto\022\017\n\007message\030\002 \002(\t\"|\n\022Battl" +
       "eRequestProto\0222\n\010attacker\030\001 \002(\0132 .com.lv" +
       "l6.proto.MinimumUserProto\0222\n\010defender\030\002 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\"\263\003",
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\"\346\003",
       "\n\023BattleResponseProto\0222\n\010attacker\030\001 \002(\0132" +
       " .com.lvl6.proto.MinimumUserProto\0222\n\010def" +
       "ender\030\002 \002(\0132 .com.lvl6.proto.MinimumUser" +
@@ -3104,11 +3218,12 @@ public final class EventProto {
       "attleResponseProto.BattleStatus\022\024\n\014winne" +
       "rUserId\030\004 \002(\005\022\023\n\013coinsGained\030\005 \001(\005\0226\n\013eq" +
       "uipGained\030\006 \001(\0132!.com.lvl6.proto.Minimum" +
-      "EquipProto\022\021\n\texpGained\030\007 \001(\005\"|\n\014BattleS" +
-      "tatus\022\013\n\007SUCCESS\020\000\022\036\n\032ATTACKER_NOT_ENOUG" +
-      "H_HEALTH\020\001\022\036\n\032DEFENDER_NOT_ENOUGH_HEALTH",
-      "\020\002\022\037\n\033ATTACKER_NOT_ENOUGH_STAMINA\020\003B\014B\nE" +
-      "ventProto"
+      "EquipProto\022\021\n\texpGained\030\007 \001(\005\022\030\n\020winnerH" +
+      "ealthLoss\030\010 \001(\005\022\027\n\017loserHealthLoss\030\t \001(\005" +
+      "\"|\n\014BattleStatus\022\013\n\007SUCCESS\020\000\022\036\n\032ATTACKE",
+      "R_NOT_ENOUGH_HEALTH\020\001\022\036\n\032DEFENDER_NOT_EN" +
+      "OUGH_HEALTH\020\002\022\037\n\033ATTACKER_NOT_ENOUGH_STA" +
+      "MINA\020\003B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3144,7 +3259,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_BattleResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_BattleResponseProto_descriptor,
-              new java.lang.String[] { "Attacker", "Defender", "Status", "WinnerUserId", "CoinsGained", "EquipGained", "ExpGained", },
+              new java.lang.String[] { "Attacker", "Defender", "Status", "WinnerUserId", "CoinsGained", "EquipGained", "ExpGained", "WinnerHealthLoss", "LoserHealthLoss", },
               com.lvl6.proto.EventProto.BattleResponseProto.class,
               com.lvl6.proto.EventProto.BattleResponseProto.Builder.class);
           return null;

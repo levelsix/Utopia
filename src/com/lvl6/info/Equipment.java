@@ -11,9 +11,10 @@ public class Equipment {
   private int minLevel;
   private int coinPrice = NOT_SET;
   private int diamondPrice = NOT_SET;
+  private double chanceOfLoss = NOT_SET;
 
   public Equipment(int id, String name, EquipType type, int attackBoost,
-      int defenseBoost, int minLevel, int coinPrice, int diamondPrice) {
+      int defenseBoost, int minLevel, int coinPrice, int diamondPrice, double chanceOfLoss) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -22,6 +23,7 @@ public class Equipment {
     this.minLevel = minLevel;
     this.coinPrice = coinPrice;
     this.diamondPrice = diamondPrice;
+    this.chanceOfLoss = chanceOfLoss;
   }
 
   public int getId() {
@@ -54,6 +56,10 @@ public class Equipment {
 
   public int getDiamondPrice() {
     return diamondPrice;
+  }
+
+  public double getChanceOfLoss() {
+    return chanceOfLoss;
   }
 
   public enum EquipType {

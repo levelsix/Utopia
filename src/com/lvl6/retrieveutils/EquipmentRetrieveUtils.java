@@ -75,11 +75,12 @@ public class EquipmentRetrieveUtils {
     int minLevel = rs.getInt(6);
     int coinPrice = rs.getInt(7);
     int diamondPrice = rs.getInt(8);
+    double chanceOfLoss = rs.getDouble(9);
     Equipment equip = null;
     if (coinPrice > 0) {
-      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET);
+      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss);
     } else {  //this should mean diamondPrice > 0.
-      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice);      
+      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss);      
     }
     return equip;
   }
