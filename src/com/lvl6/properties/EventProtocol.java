@@ -7,9 +7,9 @@ public class EventProtocol {
    public static final byte C_VAULT_EVENT = (byte) 102;
 
    
-   public static final byte S_CHAT_EVENT = (byte) 500;
-   public static final byte S_PVP_EVENT = (byte) 501;
-   public static final byte S_VAULT_EVENT = (byte) 502;
+   public static final byte S_CHAT_EVENT = (byte) 200;
+   public static final byte S_PVP_EVENT = (byte) 201;
+   public static final byte S_VAULT_EVENT = (byte) 202;
 
    /*
    public static final byte C_TRADE_EVENT = (byte) ;
