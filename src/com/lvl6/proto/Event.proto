@@ -43,6 +43,22 @@ message BattleResponseProto {
 	} 
 }
 
+message VaultRequestProto {
+   enum VaultRequestType {
+		DEPOSIT = 0; 
+		WITHDRAW = 1;
+	} 
+	required MinimumUserProto sender = 1;
+	optional VaultRequestType requestType = 2;
+	optional int32 amount = 3;
+}
+
+message VaultResponseProto {
+	required MinimumUserProto sender = 1;
+	optional int32 vaultAmount = 2;
+	optional int32 coinAmount = 3;
+}
+
 
 
 

@@ -54,12 +54,14 @@ public abstract class EventController extends Wrap{
     processRequestEvent((RequestEvent) event);
   }
   
-  protected abstract void processRequestEvent(RequestEvent event);
-
   /**
    * subclasses must implement to provide their Event type
    */
   public abstract byte getEventType();
+  
+  protected abstract void processRequestEvent(RequestEvent event);
+
+
 
   
 }
