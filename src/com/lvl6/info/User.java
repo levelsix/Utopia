@@ -67,7 +67,33 @@ public class User {
   }
   
   /*
-   * used for vault
+   * used for cleric
+   */
+  public boolean updateRelativeVaultAbsoluteHealth (int vaultChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+
+    if (vaultChange != 0) {
+      relativeParams.put(DBConstants.USER__VAULT_BALANCE, vaultChange);
+      absoluteParams.put(DBConstants.USER__HEALTH, healthMax);
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.health = healthMax;
+      this.vaultBalance += vaultChange;
+      return true;
+    }
+    return false;
+  }
+  
+  
+  /*
+   * used for vault transactions
    */
   public boolean updateRelativeCoinsVault (int coinsChange, int vaultChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();

@@ -67,3 +67,20 @@ message ClericCostCalculateResponseProto {
 	required MinimumUserProto sender = 1;
 	optional int32 cost = 2;
 }
+
+message ClericHealRequestProto {
+	required MinimumUserProto sender = 1;
+	optional int32 cost = 2;
+}
+
+message ClericHealResponseProto {
+	required MinimumUserProto sender = 1;
+	optional HealStatus status = 2;
+	
+	enum HealStatus {
+		SUCCESS = 0; 
+		USER_NOT_ENOUGH_VAULT = 1;
+		OTHER_FAIL = 2;
+	} 
+}
+

@@ -6,12 +6,14 @@ public class EventProtocol {
    public static final byte C_PVP_EVENT = (byte) 101;
    public static final byte C_VAULT_EVENT = (byte) 102;
    public static final byte C_CLERIC_COST_CALC_EVENT = (byte) 103;
+   public static final byte C_CLERIC_HEAL_EVENT = (byte) 104;
 
    
    public static final byte S_CHAT_EVENT = (byte) 200;
    public static final byte S_PVP_EVENT = (byte) 201;
    public static final byte S_VAULT_EVENT = (byte) 202;
    public static final byte S_CLERIC_COST_CALC_EVENT = (byte) 203;
+   public static final byte S_CLERIC_HEAL_EVENT = (byte) 204;
 
    /*
    public static final byte C_TRADE_EVENT = (byte) ;
