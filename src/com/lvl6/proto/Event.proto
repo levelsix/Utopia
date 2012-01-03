@@ -93,7 +93,8 @@ message StartupResponseProto {
      required FullUserProto sender = 1;
      optional int32 maxCityIdAccessibleToUser = 2;     //cityids must be in order of min_level
      repeated MinimumUserStructureProto structures = 3;
-     required bool updateAvailable = 4;		
+     required bool updateAvailable = 4;
+     repeated int32 questLog = 5;     
 }
 
 message RetrieveTasksForCityRequestProto {

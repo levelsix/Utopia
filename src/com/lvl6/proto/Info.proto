@@ -33,5 +33,17 @@ message FullUserProto {
 }
 
 message FullTaskProto {
-
+	required int32 id;
+	required string name;
+	required string description;
+	required int32 cityId;
+	required int32 energyCost;
+	required int32 minCoinsGained;
+	required int32 maxCoinsGained;
+	required double chanceOfEquipLoot;
+	required int32 equipId;
+	required int32 expGained;
+	required int32 minArmySize;
+	required int32 tagNumberWithinCity;
+	required int32 numRequiredForCompletion;
 }

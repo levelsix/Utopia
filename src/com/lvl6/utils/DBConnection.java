@@ -54,23 +54,23 @@ public class DBConnection {
   }
 
   public static ResultSet selectRowByUserId(int userId, String tablename) {
-    return selectRowByIntAttr(DBConstants.GENERIC__USER_ID, userId, tablename);
+    return selectRowByIntAttr(null, DBConstants.GENERIC__USER_ID, userId, tablename);
   }
 
   public static ResultSet selectRowById(int id, String tablename) {
-    return selectRowByIntAttr(DBConstants.GENERIC__ID, id, tablename);
+    return selectRowByIntAttr(null, DBConstants.GENERIC__ID, id, tablename);
   }
 
   public static ResultSet selectWholeTable(String tablename) {
-    return selectRows(null, tablename, null);
+    return selectRows(null, null, tablename, null);
   }
 
   public static ResultSet selectRowsOr(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(conditionParams, tablename, "or");
+    return selectRows(null, conditionParams, tablename, "or");
   }
 
   public static ResultSet selectRowsAnd(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(conditionParams, tablename, "and");
+    return selectRows(null, conditionParams, tablename, "and");
   }
 
   /*
@@ -209,9 +209,15 @@ public class DBConnection {
   }
 
 
-  private static ResultSet selectRowByIntAttr(String attr, int value, String tablename) {
-    String query = "select * from " + tablename + " where " + attr + "=?";
-
+  private static ResultSet selectRowByIntAttr(List<String> columns, String attr, int value, String tablename) {
+    String query = "select ";
+    if (columns != null) {
+      query += StringUtils.getListInString(columns, ",");
+    } else {
+      query += "* ";
+    }
+    query += " from " + tablename + " where " + attr + "=?";
+    
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();
@@ -229,9 +235,15 @@ public class DBConnection {
     return rs;
   }
 
-  private static ResultSet selectRows(Map<String, Object> conditionParams, String tablename, String conddelim) {
-    String query = "select * from " + tablename;
-
+  private static ResultSet selectRows(List<String> columns, Map<String, Object> conditionParams, String tablename, String conddelim) {
+    String query = "select ";
+    if (columns != null) {
+      query += StringUtils.getListInString(columns, ",");
+    } else {
+      query += "* ";
+    }
+    query += " from " + tablename;
+    
     List<String> condClauses = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
 
