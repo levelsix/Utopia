@@ -33,17 +33,16 @@ message FullUserProto {
 }
 
 message FullTaskProto {
-	required int32 id;
-	required string name;
-	required string description;
-	required int32 cityId;
-	required int32 energyCost;
-	required int32 minCoinsGained;
-	required int32 maxCoinsGained;
-	required double chanceOfEquipLoot;
-	required int32 equipId;
-	required int32 expGained;
-	required int32 minArmySize;
-	required int32 tagNumberWithinCity;
-	required int32 numRequiredForCompletion;
+	required int32 id = 1;
+	required string name = 2;
+	required string description = 3;
+	required int32 cityId = 4;
+	required int32 energyCost = 5;
+	required int32 minCoinsGained = 6;
+	required int32 maxCoinsGained = 7;
+	repeated int32 equipIds = 8;
+	required int32 expGained = 9;
+	required int32 minArmySize = 10;
+	required int32 tagNumberWithinCity = 11;
+	required int32 numRequiredForCompletion = 12;
 }
