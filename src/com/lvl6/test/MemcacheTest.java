@@ -1,15 +1,17 @@
 package com.lvl6.test;
 
+/*
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
 import net.spy.memcached.MemcachedClient;
+*/
 
 public class MemcacheTest {
 
+  /*
   public static void main(String[] args) 
     throws IOException, URISyntaxException {
 
@@ -32,5 +34,5 @@ public class MemcacheTest {
     client.shutdown(10, TimeUnit.SECONDS);
 
     System.exit(0);
-  }
+  }*/
 }

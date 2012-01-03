@@ -26,8 +26,8 @@ message BattleResponseProto {
     required MinimumUserProto attacker = 1;
     required MinimumUserProto defender = 2;
 	required BattleStatus status = 3;
-	required int32 winnerUserId = 4;
-	
+
+	optional int32 winnerUserId = 4;
 	optional int32 coinsGained = 5;
 	optional MinimumEquipProto equipGained = 6;
     optional int32 expGained = 7;
@@ -84,3 +84,29 @@ message ClericHealResponseProto {
 	} 
 }
 
+message StartupRequestProto {
+     required string udid = 1;
+     required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
+}
+
+message StartupResponseProto {
+     required FullUserProto sender = 1;
+     optional int32 maxCityIdAccessibleToUser = 2;     //cityids must be in order of min_level
+     repeated MinimumUserStructureProto structures = 3;
+     required bool updateAvailable = 4;		
+}
+
+message RetrieveTasksForCityRequestProto {
+     required MinimumUserProto sender = 1;
+     optional int32 cityId = 2;
+}
+
+message RetrieveTasksForCityResponseProto {
+     required MinimumUserProto sender = 1;
+     repeated FullTaskProto tasks = 2;
+}
+
+message LevelUpResponseProto {
+     required FullUserProto sender = 1;
+     optional int32 maxCityIdAccessibleToUser = 2;
+}

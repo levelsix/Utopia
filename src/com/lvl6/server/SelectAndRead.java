@@ -178,7 +178,7 @@ public class SelectAndRead extends Thread{
       if (event.getPlayerId() > 0) {
         p.setPlayerId(event.getPlayerId());
       } else {
-        //TODO: get player id from db based on udid
+        return;        //TODO: do nothing. when tutorials complete, send message for creation
       }      
       p.setChannel(channel);
       server.addPlayer(p);

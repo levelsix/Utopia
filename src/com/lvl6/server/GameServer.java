@@ -204,7 +204,7 @@ public class GameServer extends Thread{
 
         // make sure it extends GameController
         if (!EventController.class.isAssignableFrom(cl)) {
-          log.warn("class file does not extend GameController: " + file);
+          log.warn("class file does not extend EventController: " + file);
           continue;
         }
 
