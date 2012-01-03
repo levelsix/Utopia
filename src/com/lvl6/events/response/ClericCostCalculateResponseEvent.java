@@ -27,4 +27,10 @@ public class ClericCostCalculateResponseEvent extends ResponseEvent {
     b.copyTo(buff);
     return b.size();
   }
+
+  public void setClericCostCalcResponseProto(
+      ClericCostCalculateResponseProto clericCostCalcResponseProto) {
+    this.clericCostCalcResponseProto = clericCostCalcResponseProto;
+  }
+  
 }
