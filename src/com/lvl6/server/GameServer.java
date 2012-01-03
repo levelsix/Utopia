@@ -43,6 +43,7 @@ public class GameServer extends Thread{
   private Hashtable<Byte, EventController> eventControllers;
 
   private Hashtable<Integer, ConnectedPlayer> playersByPlayerId;
+  private Hashtable<SocketChannel, Integer> channelToPlayerId;
 
   private EventWriter eventWriter;
 
@@ -233,23 +234,24 @@ public class GameServer extends Thread{
   /**
    * fetches the Player for a given playerId
    */
-  public ConnectedPlayer getPlayerById(int id) {
+  public synchronized ConnectedPlayer getPlayerById(int id) {
     return playersByPlayerId.get(id);
   }
   
   /** 
    * add a player to our lists
    */
-  public void addPlayer(ConnectedPlayer p) {
+  public synchronized void addPlayer(ConnectedPlayer p) {
+    channelToPlayerId.put(p.getChannel(), p.getPlayerId());
     playersByPlayerId.put(p.getPlayerId(), p);
   }
 
   /**
    * remove a player from our lists
    */
-  public void removePlayer(ConnectedPlayer p) {
-    playersByPlayerId.remove(p.getPlayerId());
+  public synchronized void removePlayer(SocketChannel channel) {
+    playersByPlayerId.remove(channelToPlayerId.get(channel));
+    channelToPlayerId.remove(channel);
   }
-  
 
 }

@@ -59,6 +59,11 @@ message VaultResponseProto {
 	optional int32 coinAmount = 3;
 }
 
+message ClericCostCalculateRequestProto {
+	required MinimumUserProto sender = 1;
+}
 
-
-
+message ClericCostCalculateResponseProto {
+	required MinimumUserProto sender = 1;
+	optional int32 cost = 2;
+}

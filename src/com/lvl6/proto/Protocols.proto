@@ -1,0 +1,15 @@
+package com.lvl6.proto;
+
+option java_outer_classname = "ProtocolsProto";
+
+enum EventProtocolRequest {
+	C_CHAT_EVENT = 0;
+	C_PVP_EVENT = 1;
+	C_VAULT_EVENT = 2;
+}
+
+enum EventProtocolResponse {
+	S_CHAT_EVENT = 0;
+	S_PVP_EVENT = 1;
+	S_VAULT_EVENT = 2;
+}

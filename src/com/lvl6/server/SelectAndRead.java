@@ -89,6 +89,7 @@ public class SelectAndRead extends Thread{
           long nbytes = channel.read(attachment.readBuff);
           // check for end-of-stream condition
           if (nbytes == -1) {
+            server.removePlayer(channel);
             log.info("disconnect: " + channel.socket().getInetAddress() + 
                 ", end-of-stream");
             channel.close();
@@ -177,7 +178,7 @@ public class SelectAndRead extends Thread{
       if (event.getPlayerId() > 0) {
         p.setPlayerId(event.getPlayerId());
       } else {
-        //TODO: get player id from db
+        //TODO: get player id from db based on udid
       }      
       p.setChannel(channel);
       server.addPlayer(p);

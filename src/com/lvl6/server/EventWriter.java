@@ -3,7 +3,6 @@ import java.nio.*;
 import java.nio.channels.*;
 
 import com.lvl6.events.BroadcastResponseEvent;
-import com.lvl6.events.ChatResponseEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;

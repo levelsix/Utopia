@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import net.spy.memcached.MemcachedClient;
 
-public class Main {
+public class MemcacheTest {
 
   public static void main(String[] args) 
     throws IOException, URISyntaxException {

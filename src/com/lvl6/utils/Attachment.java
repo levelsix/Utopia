@@ -2,13 +2,10 @@ package com.lvl6.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.BufferUnderflowException;
-import com.lvl6.proto.*;
-import com.lvl6.proto.EventProto.ChatRequestProto;
 
 import org.apache.log4j.Logger;
 
 import com.lvl6.properties.Globals;
-import com.lvl6.proto.InfoProto.MinimumUserProto;
 
 /**
  * Attachment.java
