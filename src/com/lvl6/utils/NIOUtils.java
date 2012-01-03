@@ -25,10 +25,13 @@ public class NIOUtils {
     int sizePos = writeBuffer.position();
     writeBuffer.putInt(0); // placeholder for payload size
     // write event
-    int payloadSize = event.write(writeBuffer);
+    int size = event.write(writeBuffer);
     
-    // insert the payload size in the placeholder spot 	
-    writeBuffer.putInt(sizePos, payloadSize); 
+    // insert the payload size in the placeholder spot
+    writeBuffer.put(sizePos, (byte) (size & 0xFF));
+    writeBuffer.put(sizePos+1, (byte) ((size & 0xFF00) >> 8));
+    writeBuffer.put(sizePos+2, (byte) ((size & 0xFF0000) >> 16));
+    writeBuffer.put(sizePos+3, (byte) ((size & 0xFF000000) >> 24));
     
     // prepare for a channel.write
     writeBuffer.flip();
