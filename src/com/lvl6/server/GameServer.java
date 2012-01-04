@@ -67,6 +67,8 @@ public class GameServer extends Thread{
       eventControllers = new Hashtable<Byte, EventController>();
     if (playersByPlayerId == null)
       playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
+    if (channelToPlayerId == null)
+      channelToPlayerId = new Hashtable<SocketChannel, Integer>();
     this.serverIP = serverIP;
     this.portNum = portNum;
   }
