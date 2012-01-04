@@ -4,10 +4,10 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ClericCostCalculateRequestEvent;
 import com.lvl6.events.response.ClericCostCalculateResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ClericCostCalculateRequestProto;
 import com.lvl6.proto.EventProto.ClericCostCalculateResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 
 public class ClericCostCalculateController extends EventController {
@@ -30,8 +30,8 @@ public class ClericCostCalculateController extends EventController {
   }
 
   @Override
-  public byte getEventType() {
-    return EventProtocol.C_CLERIC_COST_CALC_EVENT;
+  public EventProtocolRequest getEventType() {
+    return EventProtocolRequest.C_CLERIC_COST_CALC_EVENT;
   }
 
   @Override
@@ -48,7 +48,7 @@ public class ClericCostCalculateController extends EventController {
     resBuilder.setCost(cost);
     
     ClericCostCalculateResponseProto resProto = resBuilder.build();
-    ClericCostCalculateResponseEvent resEvent = new ClericCostCalculateResponseEvent();
+    ClericCostCalculateResponseEvent resEvent = new ClericCostCalculateResponseEvent(senderProto.getUserId());
     resEvent.setClericCostCalcResponseProto(resProto);
     server.writeEvent(resEvent);
   }

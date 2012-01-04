@@ -3,16 +3,17 @@ package com.lvl6.events.response;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
-import com.lvl6.events.ResponseEvent;
-import com.lvl6.properties.EventProtocol;
+import com.lvl6.events.NonBroadcastResponseEvent;
 import com.lvl6.proto.EventProto.ClericCostCalculateResponseProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
-public class ClericCostCalculateResponseEvent extends ResponseEvent {
+public class ClericCostCalculateResponseEvent extends NonBroadcastResponseEvent {
   
   private ClericCostCalculateResponseProto clericCostCalcResponseProto;
 
-  public ClericCostCalculateResponseEvent() {
-    eventType = EventProtocol.S_CLERIC_COST_CALC_EVENT;
+  public ClericCostCalculateResponseEvent(int playerId) {
+    super(playerId);
+    eventType = EventProtocolResponse.S_CLERIC_COST_CALC_EVENT;
   }
   
   /** 

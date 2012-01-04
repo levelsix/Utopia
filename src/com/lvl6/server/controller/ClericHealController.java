@@ -4,11 +4,11 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ClericHealRequestEvent;
 import com.lvl6.events.response.ClericHealResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ClericHealRequestProto;
 import com.lvl6.proto.EventProto.ClericHealResponseProto;
 import com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 
 public class ClericHealController extends EventController {
@@ -24,8 +24,8 @@ public class ClericHealController extends EventController {
   }
 
   @Override
-  public byte getEventType() {
-    return EventProtocol.C_CLERIC_HEAL_EVENT;
+  public EventProtocolRequest getEventType() {
+    return EventProtocolRequest.C_CLERIC_HEAL_EVENT;
   }
   
   /*
@@ -56,7 +56,7 @@ public class ClericHealController extends EventController {
     
     ClericHealResponseProto resProto = resBuilder.build();
     
-    ClericHealResponseEvent resEvent = new ClericHealResponseEvent();
+    ClericHealResponseEvent resEvent = new ClericHealResponseEvent(senderProto.getUserId());
     resEvent.setClericHealResponseProto(resProto);
     
     server.writeEvent(resEvent);

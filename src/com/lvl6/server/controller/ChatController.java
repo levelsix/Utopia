@@ -5,10 +5,10 @@ import java.util.List;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ChatRequestEvent;
 import com.lvl6.events.response.ChatResponseEvent;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ChatRequestProto;
 import com.lvl6.proto.EventProto.ChatResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 
 public class ChatController extends EventController {
 
@@ -26,8 +26,8 @@ public class ChatController extends EventController {
   }
 
   @Override
-  public byte getEventType() {
-    return EventProtocol.C_CHAT_EVENT;
+  public EventProtocolRequest getEventType() {
+    return EventProtocolRequest.C_CHAT_EVENT;
   }
 
   @Override

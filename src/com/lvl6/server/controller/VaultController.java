@@ -4,11 +4,11 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.VaultRequestEvent;
 import com.lvl6.events.response.VaultResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.VaultRequestProto;
 import com.lvl6.proto.EventProto.VaultRequestProto.VaultRequestType;
 import com.lvl6.proto.EventProto.VaultResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 
 public class VaultController extends EventController {
@@ -26,8 +26,8 @@ public class VaultController extends EventController {
   }
 
   @Override
-  public byte getEventType() {
-    return EventProtocol.C_VAULT_EVENT;
+  public EventProtocolRequest getEventType() {
+    return EventProtocolRequest.C_VAULT_EVENT;
   }
   
   /*
@@ -59,7 +59,7 @@ public class VaultController extends EventController {
     resBuilder.setVaultAmount(user.getVaultBalance());
     VaultResponseProto resProto = resBuilder.build();
     
-    VaultResponseEvent resEvent = new VaultResponseEvent();
+    VaultResponseEvent resEvent = new VaultResponseEvent(senderProto.getUserId());
     resEvent.setVaultResponseProto(resProto);
     
     server.writeEvent(resEvent);

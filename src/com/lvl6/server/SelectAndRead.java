@@ -14,6 +14,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.lvl6.events.RequestEvent;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.Attachment;
 import com.lvl6.utils.ConnectedPlayer;
@@ -152,8 +153,8 @@ public class SelectAndRead extends Thread{
    * pass off an event to the appropriate GameController
    * based on the GameName of the event
    */
-  private void delegateEvent(RequestEvent event, SocketChannel channel, byte eventType) {
-    if (event != null && eventType < 0) {
+  private void delegateEvent(RequestEvent event, SocketChannel channel, EventProtocolRequest eventType) {
+    if (event != null && eventType.getNumber() < 0) {
       log.error("the event type is < 0");
       return;
     }

@@ -9,8 +9,14 @@ import java.nio.ByteBuffer;
  * or a completely different class may be used as required by a specific game.
  */
 
-public abstract class RequestEvent extends GameEvent {
+public abstract class RequestEvent extends GameEvent{
   
   public abstract void read (ByteBuffer bb);
+  
+  protected int playerId;   //refers to whoever sent the event/triggered it
+
+  public int getPlayerId() {
+    return playerId;
+  }
   
 }// GameEvent

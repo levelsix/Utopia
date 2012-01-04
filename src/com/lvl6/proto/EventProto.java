@@ -6835,6 +6835,11 @@ public final class EventProto {
     // required bool updateAvailable = 4;
     boolean hasUpdateAvailable();
     boolean getUpdateAvailable();
+    
+    // repeated int32 questLog = 5;
+    java.util.List<java.lang.Integer> getQuestLogList();
+    int getQuestLogCount();
+    int getQuestLog(int index);
   }
   public static final class StartupResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -6919,11 +6924,26 @@ public final class EventProto {
       return updateAvailable_;
     }
     
+    // repeated int32 questLog = 5;
+    public static final int QUESTLOG_FIELD_NUMBER = 5;
+    private java.util.List<java.lang.Integer> questLog_;
+    public java.util.List<java.lang.Integer>
+        getQuestLogList() {
+      return questLog_;
+    }
+    public int getQuestLogCount() {
+      return questLog_.size();
+    }
+    public int getQuestLog(int index) {
+      return questLog_.get(index);
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance();
       maxCityIdAccessibleToUser_ = 0;
       structures_ = java.util.Collections.emptyList();
       updateAvailable_ = false;
+      questLog_ = java.util.Collections.emptyList();;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6963,6 +6983,9 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeBool(4, updateAvailable_);
       }
+      for (int i = 0; i < questLog_.size(); i++) {
+        output.writeInt32(5, questLog_.get(i));
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -6987,6 +7010,15 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(4, updateAvailable_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < questLog_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(questLog_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getQuestLogList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7130,6 +7162,8 @@ public final class EventProto {
         }
         updateAvailable_ = false;
         bitField0_ = (bitField0_ & ~0x00000008);
+        questLog_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       
@@ -7193,6 +7227,11 @@ public final class EventProto {
           to_bitField0_ |= 0x00000004;
         }
         result.updateAvailable_ = updateAvailable_;
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          questLog_ = java.util.Collections.unmodifiableList(questLog_);
+          bitField0_ = (bitField0_ & ~0x00000010);
+        }
+        result.questLog_ = questLog_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -7243,6 +7282,16 @@ public final class EventProto {
         }
         if (other.hasUpdateAvailable()) {
           setUpdateAvailable(other.getUpdateAvailable());
+        }
+        if (!other.questLog_.isEmpty()) {
+          if (questLog_.isEmpty()) {
+            questLog_ = other.questLog_;
+            bitField0_ = (bitField0_ & ~0x00000010);
+          } else {
+            ensureQuestLogIsMutable();
+            questLog_.addAll(other.questLog_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -7312,6 +7361,20 @@ public final class EventProto {
             case 32: {
               bitField0_ |= 0x00000008;
               updateAvailable_ = input.readBool();
+              break;
+            }
+            case 40: {
+              ensureQuestLogIsMutable();
+              questLog_.add(input.readInt32());
+              break;
+            }
+            case 42: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addQuestLog(input.readInt32());
+              }
+              input.popLimit(limit);
               break;
             }
           }
@@ -7634,6 +7697,51 @@ public final class EventProto {
       public Builder clearUpdateAvailable() {
         bitField0_ = (bitField0_ & ~0x00000008);
         updateAvailable_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 questLog = 5;
+      private java.util.List<java.lang.Integer> questLog_ = java.util.Collections.emptyList();;
+      private void ensureQuestLogIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          questLog_ = new java.util.ArrayList<java.lang.Integer>(questLog_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getQuestLogList() {
+        return java.util.Collections.unmodifiableList(questLog_);
+      }
+      public int getQuestLogCount() {
+        return questLog_.size();
+      }
+      public int getQuestLog(int index) {
+        return questLog_.get(index);
+      }
+      public Builder setQuestLog(
+          int index, int value) {
+        ensureQuestLogIsMutable();
+        questLog_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addQuestLog(int value) {
+        ensureQuestLogIsMutable();
+        questLog_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllQuestLog(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureQuestLogIsMutable();
+        super.addAll(values, questLog_);
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestLog() {
+        questLog_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
@@ -8244,6 +8352,12 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      for (int i = 0; i < getTasksCount(); i++) {
+        if (!getTasks(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -8524,6 +8638,12 @@ public final class EventProto {
         if (!getSender().isInitialized()) {
           
           return false;
+        }
+        for (int i = 0; i < getTasksCount(); i++) {
+          if (!getTasks(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -9475,21 +9595,22 @@ public final class EventProto {
       "HealResponseProto.HealStatus\"D\n\nHealStat" +
       "us\022\013\n\007SUCCESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT" +
       "\020\001\022\016\n\nOTHER_FAIL\020\002\"7\n\023StartupRequestProt" +
-      "o\022\014\n\004udid\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\300\001\n\024" +
+      "o\022\014\n\004udid\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\322\001\n\024" +
       "StartupResponseProto\022-\n\006sender\030\001 \002(\0132\035.c" +
       "om.lvl6.proto.FullUserProto\022!\n\031maxCityId" +
       "AccessibleToUser\030\002 \001(\005\022=\n\nstructures\030\003 \003" +
       "(\0132).com.lvl6.proto.MinimumUserStructure" +
-      "Proto\022\027\n\017updateAvailable\030\004 \002(\010\"d\n Retrie" +
-      "veTasksForCityRequestProto\0220\n\006sender\030\001 \002",
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022\016\n\006" +
-      "cityId\030\002 \001(\005\"\203\001\n!RetrieveTasksForCityRes" +
-      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022,\n\005tasks\030\002 \003(\0132\035.co" +
-      "m.lvl6.proto.FullTaskProto\"h\n\024LevelUpRes" +
-      "ponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6.pr" +
-      "oto.FullUserProto\022!\n\031maxCityIdAccessible" +
-      "ToUser\030\002 \001(\005B\014B\nEventProto"
+      "Proto\022\027\n\017updateAvailable\030\004 \002(\010\022\020\n\010questL" +
+      "og\030\005 \003(\005\"d\n RetrieveTasksForCityRequestP",
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!Retri" +
+      "eveTasksForCityResponseProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022," +
+      "\n\005tasks\030\002 \003(\0132\035.com.lvl6.proto.FullTaskP" +
+      "roto\"h\n\024LevelUpResponseProto\022-\n\006sender\030\001" +
+      " \002(\0132\035.com.lvl6.proto.FullUserProto\022!\n\031m" +
+      "axCityIdAccessibleToUser\030\002 \001(\005B\014B\nEventP" +
+      "roto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -9589,7 +9710,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "MaxCityIdAccessibleToUser", "Structures", "UpdateAvailable", },
+              new java.lang.String[] { "Sender", "MaxCityIdAccessibleToUser", "Structures", "UpdateAvailable", "QuestLog", },
               com.lvl6.proto.EventProto.StartupResponseProto.class,
               com.lvl6.proto.EventProto.StartupResponseProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveTasksForCityRequestProto_descriptor =

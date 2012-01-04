@@ -4,15 +4,15 @@ import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
 import com.lvl6.events.BroadcastResponseEvent;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.BattleResponseProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
 public class BattleResponseEvent extends BroadcastResponseEvent {
 
   private BattleResponseProto battleResponseProto;
   
   public BattleResponseEvent(){
-    eventType = EventProtocol.S_PVP_EVENT;
+    eventType = EventProtocolResponse.S_BATTLE_EVENT;
   }
   
   @Override

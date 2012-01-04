@@ -15,12 +15,12 @@ import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.Equipment.EquipType;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.InfoProto.MinimumEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
@@ -68,8 +68,8 @@ public class BattleController extends EventController {
   }
 
   @Override
-  public byte getEventType() {
-    return EventProtocol.C_PVP_EVENT;
+  public EventProtocolRequest getEventType() {
+    return EventProtocolRequest.C_BATTLE_EVENT;
   }
 
   @Override

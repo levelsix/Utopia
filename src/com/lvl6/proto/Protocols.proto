@@ -1,15 +1,28 @@
+import "Event.proto";
+
 package com.lvl6.proto;
 
 option java_outer_classname = "ProtocolsProto";
 
 enum EventProtocolRequest {
 	C_CHAT_EVENT = 0;
-	C_PVP_EVENT = 1;
+	C_BATTLE_EVENT = 1;
 	C_VAULT_EVENT = 2;
+	C_CLERIC_COST_CALC_EVENT = 3;
+	C_CLERIC_HEAL_EVENT = 4;
+	C_STARTUP_EVENT = 5;
+	C_RETRIEVE_TASKS_FOR_CITY_EVENT = 6;
+	C_RETRIEVE_QUESTS_FOR_CITY_EVENT = 7;
 }
 
 enum EventProtocolResponse {
 	S_CHAT_EVENT = 0;
-	S_PVP_EVENT = 1;
+	S_BATTLE_EVENT = 1;
 	S_VAULT_EVENT = 2;
+	S_CLERIC_COST_CALC_EVENT = 3;
+	S_CLERIC_HEAL_EVENT = 4;
+	S_STARTUP_EVENT = 5;
+	S_RETRIEVE_TASKS_FOR_CITY_EVENT = 6;
+	S_RETRIEVE_QUESTS_FOR_CITY_EVENT = 7;
+	S_LEVEL_UP_EVENT = 8;
 }

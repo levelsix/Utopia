@@ -4,6 +4,7 @@ import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
@@ -57,7 +58,7 @@ public abstract class EventController extends Wrap{
   /**
    * subclasses must implement to provide their Event type
    */
-  public abstract byte getEventType();
+  public abstract EventProtocolRequest getEventType();
   
   protected abstract void processRequestEvent(RequestEvent event);
 
