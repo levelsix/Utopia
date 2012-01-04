@@ -3,15 +3,16 @@ package com.lvl6.events.response;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
-import com.lvl6.events.ResponseEvent;
+import com.lvl6.events.NonBroadcastResponseEvent;
 import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ClericHealResponseProto;
 
-public class ClericHealResponseEvent extends ResponseEvent{
+public class ClericHealResponseEvent extends NonBroadcastResponseEvent{
 
   private ClericHealResponseProto clericHealResponseProto;
   
-  public ClericHealResponseEvent() {
+  public ClericHealResponseEvent(int playerId) {
+    super(playerId);
     eventType = EventProtocol.S_CLERIC_HEAL_EVENT;
   }
   
@@ -32,5 +33,7 @@ public class ClericHealResponseEvent extends ResponseEvent{
       ClericHealResponseProto clericHealResponseProto) {
     this.clericHealResponseProto = clericHealResponseProto;
   }
+  
+  
   
 }

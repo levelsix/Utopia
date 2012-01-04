@@ -56,7 +56,7 @@ public class ClericHealController extends EventController {
     
     ClericHealResponseProto resProto = resBuilder.build();
     
-    ClericHealResponseEvent resEvent = new ClericHealResponseEvent();
+    ClericHealResponseEvent resEvent = new ClericHealResponseEvent(senderProto.getUserId());
     resEvent.setClericHealResponseProto(resProto);
     
     server.writeEvent(resEvent);

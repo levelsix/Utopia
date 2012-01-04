@@ -3,15 +3,16 @@ package com.lvl6.events.response;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
-import com.lvl6.events.ResponseEvent;
+import com.lvl6.events.NonBroadcastResponseEvent;
 import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.VaultResponseProto;
 
-public class VaultResponseEvent extends ResponseEvent{
+public class VaultResponseEvent extends NonBroadcastResponseEvent{
 
   private VaultResponseProto vaultResponseProto;
   
-  public VaultResponseEvent() {
+  public VaultResponseEvent(int playerId) {
+    super(playerId);
     eventType = EventProtocol.S_VAULT_EVENT;
   }
   

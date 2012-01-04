@@ -48,7 +48,7 @@ public class ClericCostCalculateController extends EventController {
     resBuilder.setCost(cost);
     
     ClericCostCalculateResponseProto resProto = resBuilder.build();
-    ClericCostCalculateResponseEvent resEvent = new ClericCostCalculateResponseEvent();
+    ClericCostCalculateResponseEvent resEvent = new ClericCostCalculateResponseEvent(senderProto.getUserId());
     resEvent.setClericCostCalcResponseProto(resProto);
     server.writeEvent(resEvent);
   }

@@ -59,7 +59,7 @@ public class VaultController extends EventController {
     resBuilder.setVaultAmount(user.getVaultBalance());
     VaultResponseProto resProto = resBuilder.build();
     
-    VaultResponseEvent resEvent = new VaultResponseEvent();
+    VaultResponseEvent resEvent = new VaultResponseEvent(senderProto.getUserId());
     resEvent.setVaultResponseProto(resProto);
     
     server.writeEvent(resEvent);
