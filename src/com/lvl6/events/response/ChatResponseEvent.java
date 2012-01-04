@@ -4,15 +4,15 @@ import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
 import com.lvl6.events.BroadcastResponseEvent;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ChatResponseProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
 public class ChatResponseEvent extends BroadcastResponseEvent {
   
   private ChatResponseProto chatResponseProto;
 
   public ChatResponseEvent() {
-    eventType = EventProtocol.S_CHAT_EVENT;
+    eventType = EventProtocolResponse.S_CHAT_EVENT;
   }
   
   /** 

@@ -16,6 +16,7 @@ import org.apache.log4j.*;
 
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.ConnectedPlayer;
@@ -40,7 +41,7 @@ public class GameServer extends Thread{
   private static final String CONTROLLER_CLASS_NAME = "EventController.class";
   private static final String CONTROLLER_CLASS_PATHNAME = "com/lvl6/server/controller/" + CONTROLLER_CLASS_NAME;
   private static final String CONTROLLER_CLASS_PREFIX = "com.lvl6.server.controller.";
-  private Hashtable<Byte, EventController> eventControllers;
+  private Hashtable<EventProtocolRequest, EventController> eventControllers;
 
   private Hashtable<Integer, ConnectedPlayer> playersByPlayerId;
   private Hashtable<SocketChannel, Integer> channelToPlayerId;
@@ -64,7 +65,7 @@ public class GameServer extends Thread{
 
   public GameServer(String serverIP, int portNum) {
     if (eventControllers == null)
-      eventControllers = new Hashtable<Byte, EventController>();
+      eventControllers = new Hashtable<EventProtocolRequest, EventController>();
     if (playersByPlayerId == null)
       playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
     this.serverIP = serverIP;
@@ -166,7 +167,7 @@ public class GameServer extends Thread{
   /**
    * finds the EventController for a given event type
    */
-  public EventController getEventControllerByEventType(byte eventType) {
+  public EventController getEventControllerByEventType(EventProtocolRequest eventType) {
     EventController ec = eventControllers.get(eventType);
     if (ec == null) 
       log.error("no eventcontroller for eventType: " + eventType);

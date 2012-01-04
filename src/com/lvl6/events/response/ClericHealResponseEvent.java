@@ -4,8 +4,8 @@ import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
 import com.lvl6.events.NonBroadcastResponseEvent;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ClericHealResponseProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
 public class ClericHealResponseEvent extends NonBroadcastResponseEvent{
 
@@ -13,7 +13,7 @@ public class ClericHealResponseEvent extends NonBroadcastResponseEvent{
   
   public ClericHealResponseEvent(int playerId) {
     super(playerId);
-    eventType = EventProtocol.S_CLERIC_HEAL_EVENT;
+    eventType = EventProtocolResponse.S_CLERIC_HEAL_EVENT;
   }
   
   /** 

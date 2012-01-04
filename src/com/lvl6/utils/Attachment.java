@@ -6,6 +6,7 @@ import java.nio.BufferUnderflowException;
 import org.apache.log4j.Logger;
 
 import com.lvl6.properties.Globals;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 
 /**
  * Attachment.java
@@ -23,7 +24,7 @@ public class Attachment {
   private static Logger log = Logger.getLogger("Attachment");
   
   /** event type for this message */
-  public byte eventType;
+  public EventProtocolRequest eventType;
   
   /** size in bytes of the payload (GameEvent) */
   public int payloadSize;
@@ -72,7 +73,7 @@ public class Attachment {
     if (readBuff.remaining() >= HEADER_SIZE) {
 
       // read the header info
-      eventType = readBuff.get();
+      eventType = EventProtocolRequest.valueOf(readBuff.getInt());
       payloadSize = readBuff.getInt();
       log.info("Read event type: "+eventType+" and size: "+payloadSize);
 

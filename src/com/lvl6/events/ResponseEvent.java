@@ -2,6 +2,8 @@ package com.lvl6.events;
 
 import java.nio.ByteBuffer;
 
+import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
+
 /**
  * GameEventDefault.java
  *
@@ -12,9 +14,9 @@ import java.nio.ByteBuffer;
 public abstract class ResponseEvent extends GameEvent{
   
   /** event type */
-  protected byte eventType;
+  protected EventProtocolResponse eventType;
      
-  public byte getType() {
+  public EventProtocolResponse getEventType() {
     return eventType;
   }
     

@@ -11,13 +11,23 @@ public final class ProtocolsProto {
   public enum EventProtocolRequest
       implements com.google.protobuf.ProtocolMessageEnum {
     C_CHAT_EVENT(0, 0),
-    C_PVP_EVENT(1, 1),
+    C_BATTLE_EVENT(1, 1),
     C_VAULT_EVENT(2, 2),
+    C_CLERIC_COST_CALC_EVENT(3, 3),
+    C_CLERIC_HEAL_EVENT(4, 4),
+    C_STARTUP_EVENT(5, 5),
+    C_RETRIEVE_TASKS_FOR_CITY_EVENT(6, 6),
+    C_RETRIEVE_QUESTS_FOR_CITY_EVENT(7, 7),
     ;
     
     public static final int C_CHAT_EVENT_VALUE = 0;
-    public static final int C_PVP_EVENT_VALUE = 1;
+    public static final int C_BATTLE_EVENT_VALUE = 1;
     public static final int C_VAULT_EVENT_VALUE = 2;
+    public static final int C_CLERIC_COST_CALC_EVENT_VALUE = 3;
+    public static final int C_CLERIC_HEAL_EVENT_VALUE = 4;
+    public static final int C_STARTUP_EVENT_VALUE = 5;
+    public static final int C_RETRIEVE_TASKS_FOR_CITY_EVENT_VALUE = 6;
+    public static final int C_RETRIEVE_QUESTS_FOR_CITY_EVENT_VALUE = 7;
     
     
     public final int getNumber() { return value; }
@@ -25,8 +35,13 @@ public final class ProtocolsProto {
     public static EventProtocolRequest valueOf(int value) {
       switch (value) {
         case 0: return C_CHAT_EVENT;
-        case 1: return C_PVP_EVENT;
+        case 1: return C_BATTLE_EVENT;
         case 2: return C_VAULT_EVENT;
+        case 3: return C_CLERIC_COST_CALC_EVENT;
+        case 4: return C_CLERIC_HEAL_EVENT;
+        case 5: return C_STARTUP_EVENT;
+        case 6: return C_RETRIEVE_TASKS_FOR_CITY_EVENT;
+        case 7: return C_RETRIEVE_QUESTS_FOR_CITY_EVENT;
         default: return null;
       }
     }
@@ -57,7 +72,7 @@ public final class ProtocolsProto {
     }
     
     private static final EventProtocolRequest[] VALUES = {
-      C_CHAT_EVENT, C_PVP_EVENT, C_VAULT_EVENT, 
+      C_CHAT_EVENT, C_BATTLE_EVENT, C_VAULT_EVENT, C_CLERIC_COST_CALC_EVENT, C_CLERIC_HEAL_EVENT, C_STARTUP_EVENT, C_RETRIEVE_TASKS_FOR_CITY_EVENT, C_RETRIEVE_QUESTS_FOR_CITY_EVENT, 
     };
     
     public static EventProtocolRequest valueOf(
@@ -83,13 +98,25 @@ public final class ProtocolsProto {
   public enum EventProtocolResponse
       implements com.google.protobuf.ProtocolMessageEnum {
     S_CHAT_EVENT(0, 0),
-    S_PVP_EVENT(1, 1),
+    S_BATTLE_EVENT(1, 1),
     S_VAULT_EVENT(2, 2),
+    S_CLERIC_COST_CALC_EVENT(3, 3),
+    S_CLERIC_HEAL_EVENT(4, 4),
+    S_STARTUP_EVENT(5, 5),
+    S_RETRIEVE_TASKS_FOR_CITY_EVENT(6, 6),
+    S_RETRIEVE_QUESTS_FOR_CITY_EVENT(7, 7),
+    S_LEVEL_UP_EVENT(8, 8),
     ;
     
     public static final int S_CHAT_EVENT_VALUE = 0;
-    public static final int S_PVP_EVENT_VALUE = 1;
+    public static final int S_BATTLE_EVENT_VALUE = 1;
     public static final int S_VAULT_EVENT_VALUE = 2;
+    public static final int S_CLERIC_COST_CALC_EVENT_VALUE = 3;
+    public static final int S_CLERIC_HEAL_EVENT_VALUE = 4;
+    public static final int S_STARTUP_EVENT_VALUE = 5;
+    public static final int S_RETRIEVE_TASKS_FOR_CITY_EVENT_VALUE = 6;
+    public static final int S_RETRIEVE_QUESTS_FOR_CITY_EVENT_VALUE = 7;
+    public static final int S_LEVEL_UP_EVENT_VALUE = 8;
     
     
     public final int getNumber() { return value; }
@@ -97,8 +124,14 @@ public final class ProtocolsProto {
     public static EventProtocolResponse valueOf(int value) {
       switch (value) {
         case 0: return S_CHAT_EVENT;
-        case 1: return S_PVP_EVENT;
+        case 1: return S_BATTLE_EVENT;
         case 2: return S_VAULT_EVENT;
+        case 3: return S_CLERIC_COST_CALC_EVENT;
+        case 4: return S_CLERIC_HEAL_EVENT;
+        case 5: return S_STARTUP_EVENT;
+        case 6: return S_RETRIEVE_TASKS_FOR_CITY_EVENT;
+        case 7: return S_RETRIEVE_QUESTS_FOR_CITY_EVENT;
+        case 8: return S_LEVEL_UP_EVENT;
         default: return null;
       }
     }
@@ -129,7 +162,7 @@ public final class ProtocolsProto {
     }
     
     private static final EventProtocolResponse[] VALUES = {
-      S_CHAT_EVENT, S_PVP_EVENT, S_VAULT_EVENT, 
+      S_CHAT_EVENT, S_BATTLE_EVENT, S_VAULT_EVENT, S_CLERIC_COST_CALC_EVENT, S_CLERIC_HEAL_EVENT, S_STARTUP_EVENT, S_RETRIEVE_TASKS_FOR_CITY_EVENT, S_RETRIEVE_QUESTS_FOR_CITY_EVENT, S_LEVEL_UP_EVENT, 
     };
     
     public static EventProtocolResponse valueOf(
@@ -161,12 +194,20 @@ public final class ProtocolsProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017Protocols.proto\022\016com.lvl6.proto*L\n\024Eve" +
-      "ntProtocolRequest\022\020\n\014C_CHAT_EVENT\020\000\022\017\n\013C" +
-      "_PVP_EVENT\020\001\022\021\n\rC_VAULT_EVENT\020\002*M\n\025Event" +
-      "ProtocolResponse\022\020\n\014S_CHAT_EVENT\020\000\022\017\n\013S_" +
-      "PVP_EVENT\020\001\022\021\n\rS_VAULT_EVENT\020\002B\020B\016Protoc" +
-      "olsProto"
+      "\n\017Protocols.proto\022\016com.lvl6.proto\032\013Event" +
+      ".proto*\346\001\n\024EventProtocolRequest\022\020\n\014C_CHA" +
+      "T_EVENT\020\000\022\022\n\016C_BATTLE_EVENT\020\001\022\021\n\rC_VAULT" +
+      "_EVENT\020\002\022\034\n\030C_CLERIC_COST_CALC_EVENT\020\003\022\027" +
+      "\n\023C_CLERIC_HEAL_EVENT\020\004\022\023\n\017C_STARTUP_EVE" +
+      "NT\020\005\022#\n\037C_RETRIEVE_TASKS_FOR_CITY_EVENT\020" +
+      "\006\022$\n C_RETRIEVE_QUESTS_FOR_CITY_EVENT\020\007*" +
+      "\375\001\n\025EventProtocolResponse\022\020\n\014S_CHAT_EVEN" +
+      "T\020\000\022\022\n\016S_BATTLE_EVENT\020\001\022\021\n\rS_VAULT_EVENT" +
+      "\020\002\022\034\n\030S_CLERIC_COST_CALC_EVENT\020\003\022\027\n\023S_CL",
+      "ERIC_HEAL_EVENT\020\004\022\023\n\017S_STARTUP_EVENT\020\005\022#" +
+      "\n\037S_RETRIEVE_TASKS_FOR_CITY_EVENT\020\006\022$\n S" +
+      "_RETRIEVE_QUESTS_FOR_CITY_EVENT\020\007\022\024\n\020S_L" +
+      "EVEL_UP_EVENT\020\010B\020B\016ProtocolsProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -179,6 +220,7 @@ public final class ProtocolsProto {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.lvl6.proto.EventProto.getDescriptor(),
         }, assigner);
   }
   

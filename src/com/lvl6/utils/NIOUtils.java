@@ -21,7 +21,7 @@ public class NIOUtils {
   public static void prepBuffer(ResponseEvent event, ByteBuffer writeBuffer) {
     // write header
     writeBuffer.clear();
-    writeBuffer.put(event.getType());
+    writeBuffer.putInt(event.getEventType().getNumber());
     int sizePos = writeBuffer.position();
     writeBuffer.putInt(0); // placeholder for payload size
     // write event

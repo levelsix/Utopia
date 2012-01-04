@@ -4,8 +4,8 @@ import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
 import com.lvl6.events.NonBroadcastResponseEvent;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.ClericCostCalculateResponseProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
 public class ClericCostCalculateResponseEvent extends NonBroadcastResponseEvent {
   
@@ -13,7 +13,7 @@ public class ClericCostCalculateResponseEvent extends NonBroadcastResponseEvent 
 
   public ClericCostCalculateResponseEvent(int playerId) {
     super(playerId);
-    eventType = EventProtocol.S_CLERIC_COST_CALC_EVENT;
+    eventType = EventProtocolResponse.S_CLERIC_COST_CALC_EVENT;
   }
   
   /** 

@@ -4,8 +4,8 @@ import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
 import com.lvl6.events.NonBroadcastResponseEvent;
-import com.lvl6.properties.EventProtocol;
 import com.lvl6.proto.EventProto.VaultResponseProto;
+import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
 public class VaultResponseEvent extends NonBroadcastResponseEvent{
 
@@ -13,7 +13,7 @@ public class VaultResponseEvent extends NonBroadcastResponseEvent{
   
   public VaultResponseEvent(int playerId) {
     super(playerId);
-    eventType = EventProtocol.S_VAULT_EVENT;
+    eventType = EventProtocolResponse.S_VAULT_EVENT;
   }
   
   /** 

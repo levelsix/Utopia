@@ -60,7 +60,7 @@ public class EventWriter extends Wrap {
       
       for (int i = 0; i < recipients.length; i++) {
         if (recipients[i] > 0) {
-          log.info("writeEvent(): type=" + event.getType() + ", id=" + 
+          log.info("writeEvent(): type=" + event.getEventType() + ", id=" + 
               recipients[i]);
           write(recipients[i], writeBuffer);
         }
@@ -70,7 +70,7 @@ public class EventWriter extends Wrap {
     else
     {
       int playerId = ((NonBroadcastResponseEvent)event).getPlayerId();
-      log.info("writeEvent: type=" + event.getType() + ", id=" + playerId);
+      log.info("writeEvent: type=" + event.getEventType() + ", id=" + playerId);
       write(playerId, writeBuffer);
     }
   }
