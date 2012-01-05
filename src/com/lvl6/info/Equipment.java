@@ -11,10 +11,10 @@ public class Equipment {
   private int minLevel;
   private int coinPrice = NOT_SET;
   private int diamondPrice = NOT_SET;
-  private double chanceOfLoss = NOT_SET;
+  private float chanceOfLoss = NOT_SET;
 
   public Equipment(int id, String name, EquipType type, int attackBoost,
-      int defenseBoost, int minLevel, int coinPrice, int diamondPrice, double chanceOfLoss) {
+      int defenseBoost, int minLevel, int coinPrice, int diamondPrice, float chanceOfLoss) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -58,7 +58,7 @@ public class Equipment {
     return diamondPrice;
   }
 
-  public double getChanceOfLoss() {
+  public float getChanceOfLoss() {
     return chanceOfLoss;
   }
 

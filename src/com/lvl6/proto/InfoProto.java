@@ -1842,24 +1842,28 @@ public final class InfoProto {
     boolean hasMaxCoinsGained();
     int getMaxCoinsGained();
     
-    // repeated int32 equipIds = 8;
+    // required float chanceOfEquipLoot = 8;
+    boolean hasChanceOfEquipLoot();
+    float getChanceOfEquipLoot();
+    
+    // repeated int32 equipIds = 9;
     java.util.List<java.lang.Integer> getEquipIdsList();
     int getEquipIdsCount();
     int getEquipIds(int index);
     
-    // required int32 expGained = 9;
+    // required int32 expGained = 10;
     boolean hasExpGained();
     int getExpGained();
     
-    // required int32 minArmySize = 10;
+    // required int32 minArmySize = 11;
     boolean hasMinArmySize();
     int getMinArmySize();
     
-    // required int32 tagNumberWithinCity = 11;
-    boolean hasTagNumberWithinCity();
-    int getTagNumberWithinCity();
+    // required int32 assetNumWithinCity = 12;
+    boolean hasAssetNumWithinCity();
+    int getAssetNumWithinCity();
     
-    // required int32 numRequiredForCompletion = 12;
+    // required int32 numRequiredForCompletion = 13;
     boolean hasNumRequiredForCompletion();
     int getNumRequiredForCompletion();
   }
@@ -2006,8 +2010,18 @@ public final class InfoProto {
       return maxCoinsGained_;
     }
     
-    // repeated int32 equipIds = 8;
-    public static final int EQUIPIDS_FIELD_NUMBER = 8;
+    // required float chanceOfEquipLoot = 8;
+    public static final int CHANCEOFEQUIPLOOT_FIELD_NUMBER = 8;
+    private float chanceOfEquipLoot_;
+    public boolean hasChanceOfEquipLoot() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public float getChanceOfEquipLoot() {
+      return chanceOfEquipLoot_;
+    }
+    
+    // repeated int32 equipIds = 9;
+    public static final int EQUIPIDS_FIELD_NUMBER = 9;
     private java.util.List<java.lang.Integer> equipIds_;
     public java.util.List<java.lang.Integer>
         getEquipIdsList() {
@@ -2020,41 +2034,41 @@ public final class InfoProto {
       return equipIds_.get(index);
     }
     
-    // required int32 expGained = 9;
-    public static final int EXPGAINED_FIELD_NUMBER = 9;
+    // required int32 expGained = 10;
+    public static final int EXPGAINED_FIELD_NUMBER = 10;
     private int expGained_;
     public boolean hasExpGained() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     public int getExpGained() {
       return expGained_;
     }
     
-    // required int32 minArmySize = 10;
-    public static final int MINARMYSIZE_FIELD_NUMBER = 10;
+    // required int32 minArmySize = 11;
+    public static final int MINARMYSIZE_FIELD_NUMBER = 11;
     private int minArmySize_;
     public boolean hasMinArmySize() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     public int getMinArmySize() {
       return minArmySize_;
     }
     
-    // required int32 tagNumberWithinCity = 11;
-    public static final int TAGNUMBERWITHINCITY_FIELD_NUMBER = 11;
-    private int tagNumberWithinCity_;
-    public boolean hasTagNumberWithinCity() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+    // required int32 assetNumWithinCity = 12;
+    public static final int ASSETNUMWITHINCITY_FIELD_NUMBER = 12;
+    private int assetNumWithinCity_;
+    public boolean hasAssetNumWithinCity() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
-    public int getTagNumberWithinCity() {
-      return tagNumberWithinCity_;
+    public int getAssetNumWithinCity() {
+      return assetNumWithinCity_;
     }
     
-    // required int32 numRequiredForCompletion = 12;
-    public static final int NUMREQUIREDFORCOMPLETION_FIELD_NUMBER = 12;
+    // required int32 numRequiredForCompletion = 13;
+    public static final int NUMREQUIREDFORCOMPLETION_FIELD_NUMBER = 13;
     private int numRequiredForCompletion_;
     public boolean hasNumRequiredForCompletion() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     public int getNumRequiredForCompletion() {
       return numRequiredForCompletion_;
@@ -2068,10 +2082,11 @@ public final class InfoProto {
       energyCost_ = 0;
       minCoinsGained_ = 0;
       maxCoinsGained_ = 0;
+      chanceOfEquipLoot_ = 0F;
       equipIds_ = java.util.Collections.emptyList();;
       expGained_ = 0;
       minArmySize_ = 0;
-      tagNumberWithinCity_ = 0;
+      assetNumWithinCity_ = 0;
       numRequiredForCompletion_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -2107,6 +2122,10 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasChanceOfEquipLoot()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasExpGained()) {
         memoizedIsInitialized = 0;
         return false;
@@ -2115,7 +2134,7 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasTagNumberWithinCity()) {
+      if (!hasAssetNumWithinCity()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2151,20 +2170,23 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         output.writeInt32(7, maxCoinsGained_);
       }
-      for (int i = 0; i < equipIds_.size(); i++) {
-        output.writeInt32(8, equipIds_.get(i));
-      }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt32(9, expGained_);
+        output.writeFloat(8, chanceOfEquipLoot_);
+      }
+      for (int i = 0; i < equipIds_.size(); i++) {
+        output.writeInt32(9, equipIds_.get(i));
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt32(10, minArmySize_);
+        output.writeInt32(10, expGained_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeInt32(11, tagNumberWithinCity_);
+        output.writeInt32(11, minArmySize_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeInt32(12, numRequiredForCompletion_);
+        output.writeInt32(12, assetNumWithinCity_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeInt32(13, numRequiredForCompletion_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2203,6 +2225,10 @@ public final class InfoProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, maxCoinsGained_);
       }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(8, chanceOfEquipLoot_);
+      }
       {
         int dataSize = 0;
         for (int i = 0; i < equipIds_.size(); i++) {
@@ -2212,21 +2238,21 @@ public final class InfoProto {
         size += dataSize;
         size += 1 * getEquipIdsList().size();
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, expGained_);
-      }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, minArmySize_);
+          .computeInt32Size(10, expGained_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(11, tagNumberWithinCity_);
+          .computeInt32Size(11, minArmySize_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(12, numRequiredForCompletion_);
+          .computeInt32Size(12, assetNumWithinCity_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(13, numRequiredForCompletion_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2366,16 +2392,18 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000020);
         maxCoinsGained_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        equipIds_ = java.util.Collections.emptyList();;
+        chanceOfEquipLoot_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000080);
-        expGained_ = 0;
+        equipIds_ = java.util.Collections.emptyList();;
         bitField0_ = (bitField0_ & ~0x00000100);
-        minArmySize_ = 0;
+        expGained_ = 0;
         bitField0_ = (bitField0_ & ~0x00000200);
-        tagNumberWithinCity_ = 0;
+        minArmySize_ = 0;
         bitField0_ = (bitField0_ & ~0x00000400);
-        numRequiredForCompletion_ = 0;
+        assetNumWithinCity_ = 0;
         bitField0_ = (bitField0_ & ~0x00000800);
+        numRequiredForCompletion_ = 0;
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
       
@@ -2442,25 +2470,29 @@ public final class InfoProto {
           to_bitField0_ |= 0x00000040;
         }
         result.maxCoinsGained_ = maxCoinsGained_;
-        if (((bitField0_ & 0x00000080) == 0x00000080)) {
-          equipIds_ = java.util.Collections.unmodifiableList(equipIds_);
-          bitField0_ = (bitField0_ & ~0x00000080);
-        }
-        result.equipIds_ = equipIds_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.expGained_ = expGained_;
+        result.chanceOfEquipLoot_ = chanceOfEquipLoot_;
+        if (((bitField0_ & 0x00000100) == 0x00000100)) {
+          equipIds_ = java.util.Collections.unmodifiableList(equipIds_);
+          bitField0_ = (bitField0_ & ~0x00000100);
+        }
+        result.equipIds_ = equipIds_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.minArmySize_ = minArmySize_;
+        result.expGained_ = expGained_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.tagNumberWithinCity_ = tagNumberWithinCity_;
+        result.minArmySize_ = minArmySize_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000400;
+        }
+        result.assetNumWithinCity_ = assetNumWithinCity_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00000800;
         }
         result.numRequiredForCompletion_ = numRequiredForCompletion_;
         result.bitField0_ = to_bitField0_;
@@ -2500,10 +2532,13 @@ public final class InfoProto {
         if (other.hasMaxCoinsGained()) {
           setMaxCoinsGained(other.getMaxCoinsGained());
         }
+        if (other.hasChanceOfEquipLoot()) {
+          setChanceOfEquipLoot(other.getChanceOfEquipLoot());
+        }
         if (!other.equipIds_.isEmpty()) {
           if (equipIds_.isEmpty()) {
             equipIds_ = other.equipIds_;
-            bitField0_ = (bitField0_ & ~0x00000080);
+            bitField0_ = (bitField0_ & ~0x00000100);
           } else {
             ensureEquipIdsIsMutable();
             equipIds_.addAll(other.equipIds_);
@@ -2516,8 +2551,8 @@ public final class InfoProto {
         if (other.hasMinArmySize()) {
           setMinArmySize(other.getMinArmySize());
         }
-        if (other.hasTagNumberWithinCity()) {
-          setTagNumberWithinCity(other.getTagNumberWithinCity());
+        if (other.hasAssetNumWithinCity()) {
+          setAssetNumWithinCity(other.getAssetNumWithinCity());
         }
         if (other.hasNumRequiredForCompletion()) {
           setNumRequiredForCompletion(other.getNumRequiredForCompletion());
@@ -2555,6 +2590,10 @@ public final class InfoProto {
           
           return false;
         }
+        if (!hasChanceOfEquipLoot()) {
+          
+          return false;
+        }
         if (!hasExpGained()) {
           
           return false;
@@ -2563,7 +2602,7 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasTagNumberWithinCity()) {
+        if (!hasAssetNumWithinCity()) {
           
           return false;
         }
@@ -2632,12 +2671,17 @@ public final class InfoProto {
               maxCoinsGained_ = input.readInt32();
               break;
             }
-            case 64: {
+            case 69: {
+              bitField0_ |= 0x00000080;
+              chanceOfEquipLoot_ = input.readFloat();
+              break;
+            }
+            case 72: {
               ensureEquipIdsIsMutable();
               equipIds_.add(input.readInt32());
               break;
             }
-            case 66: {
+            case 74: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
               while (input.getBytesUntilLimit() > 0) {
@@ -2646,23 +2690,23 @@ public final class InfoProto {
               input.popLimit(limit);
               break;
             }
-            case 72: {
-              bitField0_ |= 0x00000100;
-              expGained_ = input.readInt32();
-              break;
-            }
             case 80: {
               bitField0_ |= 0x00000200;
-              minArmySize_ = input.readInt32();
+              expGained_ = input.readInt32();
               break;
             }
             case 88: {
               bitField0_ |= 0x00000400;
-              tagNumberWithinCity_ = input.readInt32();
+              minArmySize_ = input.readInt32();
               break;
             }
             case 96: {
               bitField0_ |= 0x00000800;
+              assetNumWithinCity_ = input.readInt32();
+              break;
+            }
+            case 104: {
+              bitField0_ |= 0x00001000;
               numRequiredForCompletion_ = input.readInt32();
               break;
             }
@@ -2849,12 +2893,33 @@ public final class InfoProto {
         return this;
       }
       
-      // repeated int32 equipIds = 8;
+      // required float chanceOfEquipLoot = 8;
+      private float chanceOfEquipLoot_ ;
+      public boolean hasChanceOfEquipLoot() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public float getChanceOfEquipLoot() {
+        return chanceOfEquipLoot_;
+      }
+      public Builder setChanceOfEquipLoot(float value) {
+        bitField0_ |= 0x00000080;
+        chanceOfEquipLoot_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearChanceOfEquipLoot() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        chanceOfEquipLoot_ = 0F;
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 equipIds = 9;
       private java.util.List<java.lang.Integer> equipIds_ = java.util.Collections.emptyList();;
       private void ensureEquipIdsIsMutable() {
-        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
+        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
           equipIds_ = new java.util.ArrayList<java.lang.Integer>(equipIds_);
-          bitField0_ |= 0x00000080;
+          bitField0_ |= 0x00000100;
          }
       }
       public java.util.List<java.lang.Integer>
@@ -2889,90 +2954,90 @@ public final class InfoProto {
       }
       public Builder clearEquipIds() {
         equipIds_ = java.util.Collections.emptyList();;
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         onChanged();
         return this;
       }
       
-      // required int32 expGained = 9;
+      // required int32 expGained = 10;
       private int expGained_ ;
       public boolean hasExpGained() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       public int getExpGained() {
         return expGained_;
       }
       public Builder setExpGained(int value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         expGained_ = value;
         onChanged();
         return this;
       }
       public Builder clearExpGained() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         expGained_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 minArmySize = 10;
+      // required int32 minArmySize = 11;
       private int minArmySize_ ;
       public boolean hasMinArmySize() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       public int getMinArmySize() {
         return minArmySize_;
       }
       public Builder setMinArmySize(int value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000400;
         minArmySize_ = value;
         onChanged();
         return this;
       }
       public Builder clearMinArmySize() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000400);
         minArmySize_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 tagNumberWithinCity = 11;
-      private int tagNumberWithinCity_ ;
-      public boolean hasTagNumberWithinCity() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+      // required int32 assetNumWithinCity = 12;
+      private int assetNumWithinCity_ ;
+      public boolean hasAssetNumWithinCity() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
-      public int getTagNumberWithinCity() {
-        return tagNumberWithinCity_;
+      public int getAssetNumWithinCity() {
+        return assetNumWithinCity_;
       }
-      public Builder setTagNumberWithinCity(int value) {
-        bitField0_ |= 0x00000400;
-        tagNumberWithinCity_ = value;
+      public Builder setAssetNumWithinCity(int value) {
+        bitField0_ |= 0x00000800;
+        assetNumWithinCity_ = value;
         onChanged();
         return this;
       }
-      public Builder clearTagNumberWithinCity() {
-        bitField0_ = (bitField0_ & ~0x00000400);
-        tagNumberWithinCity_ = 0;
+      public Builder clearAssetNumWithinCity() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        assetNumWithinCity_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 numRequiredForCompletion = 12;
+      // required int32 numRequiredForCompletion = 13;
       private int numRequiredForCompletion_ ;
       public boolean hasNumRequiredForCompletion() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       public int getNumRequiredForCompletion() {
         return numRequiredForCompletion_;
       }
       public Builder setNumRequiredForCompletion(int value) {
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         numRequiredForCompletion_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumRequiredForCompletion() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00001000);
         numRequiredForCompletion_ = 0;
         onChanged();
         return this;
@@ -3032,14 +3097,15 @@ public final class InfoProto {
       "AD_MAGE\020\005\"2\n\021MinimumEquipProto\022\017\n\007equipI" +
       "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"M\n\031MinimumUserStru" +
       "ctureProto\022\020\n\010structId\030\001 \002(\005\022\016\n\006xCoord\030\002" +
-      " \002(\005\022\016\n\006yCoord\030\003 \002(\005\"\017\n\rFullUserProto\"\213\002",
+      " \002(\005\022\016\n\006yCoord\030\003 \002(\005\"\017\n\rFullUserProto\"\245\002",
       "\n\rFullTaskProto\022\n\n\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(" +
       "\t\022\023\n\013description\030\003 \002(\t\022\016\n\006cityId\030\004 \002(\005\022\022" +
       "\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002" +
-      "(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\020\n\010equipIds\030\010" +
-      " \003(\005\022\021\n\texpGained\030\t \002(\005\022\023\n\013minArmySize\030\n" +
-      " \002(\005\022\033\n\023tagNumberWithinCity\030\013 \002(\005\022 \n\030num" +
-      "RequiredForCompletion\030\014 \002(\005B\013B\tInfoProto"
+      "(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOfEq" +
+      "uipLoot\030\010 \002(\002\022\020\n\010equipIds\030\t \003(\005\022\021\n\texpGa" +
+      "ined\030\n \002(\005\022\023\n\013minArmySize\030\013 \002(\005\022\032\n\022asset" +
+      "NumWithinCity\030\014 \002(\005\022 \n\030numRequiredForCom" +
+      "pletion\030\r \002(\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3083,7 +3149,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullTaskProto_descriptor,
-              new java.lang.String[] { "Id", "Name", "Description", "CityId", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "EquipIds", "ExpGained", "MinArmySize", "TagNumberWithinCity", "NumRequiredForCompletion", },
+              new java.lang.String[] { "Id", "Name", "Description", "CityId", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "ChanceOfEquipLoot", "EquipIds", "ExpGained", "MinArmySize", "AssetNumWithinCity", "NumRequiredForCompletion", },
               com.lvl6.proto.InfoProto.FullTaskProto.class,
               com.lvl6.proto.InfoProto.FullTaskProto.Builder.class);
           return null;

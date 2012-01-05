@@ -63,7 +63,6 @@ public class VaultController extends EventController {
     resEvent.setVaultResponseProto(resProto);
     
     server.writeEvent(resEvent);
-
   }
 
 

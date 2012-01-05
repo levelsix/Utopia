@@ -6,7 +6,8 @@ public class DBConstants {
   public static final String TABLE_USER = "users";
   public static final String TABLE_USER_EQUIP = "user_equip";
   public static final String TABLE_EQUIPMENT = "equipment";
-  
+  public static final String TABLE_TASKS = "tasks";
+
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
