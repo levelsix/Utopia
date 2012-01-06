@@ -80,10 +80,12 @@ public class DBConnection {
     String query = "update " + tablename;
     List<Object> values = new LinkedList<Object>();
 
+    List<String> relUpClauses = null;
     if ((relativeParams != null && relativeParams.size()>0) || (absoluteParams != null && absoluteParams.size()>0)) {
       query += " set ";
       if (relativeParams != null && relativeParams.size()>0) {
-        List<String> relUpClauses = new LinkedList<String>();
+
+        relUpClauses = new LinkedList<String>();
         for (String param : relativeParams.keySet()) {
           relUpClauses.add(param + "=" + param + "+?");
           values.add(relativeParams.get(param));
@@ -95,6 +97,9 @@ public class DBConnection {
         for (String param : absoluteParams.keySet()) {
           absUpClauses.add(param + "=?");
           values.add(absoluteParams.get(param));
+        }
+        if (relUpClauses != null && relUpClauses.size() > 0) {
+          query += ",";
         }
         query += StringUtils.getListInString(absUpClauses, ",");
       }
