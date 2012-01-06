@@ -80,14 +80,17 @@ public class EventWriter extends Wrap {
    */
   private void write(int playerId, ByteBuffer writeBuffer) {  
     ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
-    SocketChannel channel = connectedPlayer.getChannel();
-
-    if (channel == null || !channel.isConnected()) {
-      log.error("writeEvent: client channel null or not connected");
-      return;
+    
+    if (connectedPlayer != null) {
+      SocketChannel channel = connectedPlayer.getChannel();
+  
+      if (channel == null || !channel.isConnected()) {
+        log.error("writeEvent: client channel null or not connected");
+        return;
+      }
+  
+      NIOUtils.channelWrite(channel, writeBuffer);
     }
-
-    NIOUtils.channelWrite(channel, writeBuffer);
   }
 
 }// EventWriter

@@ -15,11 +15,11 @@ public final class InfoProto {
     boolean hasUserId();
     int getUserId();
     
-    // required string name = 2;
+    // optional string name = 2;
     boolean hasName();
     String getName();
     
-    // required .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
+    // optional .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
     boolean hasUserType();
     com.lvl6.proto.InfoProto.MinimumUserProto.UserType getUserType();
   }
@@ -143,7 +143,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required string name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -175,7 +175,7 @@ public final class InfoProto {
       }
     }
     
-    // required .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
+    // optional .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
     public static final int USERTYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.MinimumUserProto.UserType userType_;
     public boolean hasUserType() {
@@ -196,14 +196,6 @@ public final class InfoProto {
       if (isInitialized != -1) return isInitialized == 1;
       
       if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserType()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -458,14 +450,6 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasUserType()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -540,7 +524,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 2;
+      // optional string name = 2;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -576,7 +560,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
+      // optional .com.lvl6.proto.MinimumUserProto.UserType userType = 3;
       private com.lvl6.proto.InfoProto.MinimumUserProto.UserType userType_ = com.lvl6.proto.InfoProto.MinimumUserProto.UserType.GOOD_WARRIOR;
       public boolean hasUserType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -3089,8 +3073,8 @@ public final class InfoProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nInfo.proto\022\016com.lvl6.proto\"\332\001\n\020Minimum" +
-      "UserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022" +
-      ";\n\010userType\030\003 \002(\0162).com.lvl6.proto.Minim" +
+      "UserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004name\030\002 \001(\t\022" +
+      ";\n\010userType\030\003 \001(\0162).com.lvl6.proto.Minim" +
       "umUserProto.UserType\"k\n\010UserType\022\020\n\014GOOD" +
       "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE" +
       "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +

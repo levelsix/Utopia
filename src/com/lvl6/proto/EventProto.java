@@ -5297,10 +5297,6 @@ public final class EventProto {
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
-    
-    // optional int32 cost = 2;
-    boolean hasCost();
-    int getCost();
   }
   public static final class ClericHealRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -5344,19 +5340,8 @@ public final class EventProto {
       return sender_;
     }
     
-    // optional int32 cost = 2;
-    public static final int COST_FIELD_NUMBER = 2;
-    private int cost_;
-    public boolean hasCost() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public int getCost() {
-      return cost_;
-    }
-    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      cost_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5381,9 +5366,6 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, sender_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, cost_);
-      }
       getUnknownFields().writeTo(output);
     }
     
@@ -5396,10 +5378,6 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, sender_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, cost_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5532,8 +5510,6 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        cost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -5580,10 +5556,6 @@ public final class EventProto {
         } else {
           result.sender_ = senderBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.cost_ = cost_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5602,9 +5574,6 @@ public final class EventProto {
         if (other == com.lvl6.proto.EventProto.ClericHealRequestProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
-        }
-        if (other.hasCost()) {
-          setCost(other.getCost());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5652,11 +5621,6 @@ public final class EventProto {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setSender(subBuilder.buildPartial());
-              break;
-            }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              cost_ = input.readInt32();
               break;
             }
           }
@@ -5755,27 +5719,6 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // optional int32 cost = 2;
-      private int cost_ ;
-      public boolean hasCost() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public int getCost() {
-        return cost_;
-      }
-      public Builder setCost(int value) {
-        bitField0_ |= 0x00000002;
-        cost_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearCost() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        cost_ = 0;
-        onChanged();
-        return this;
-      }
-      
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ClericHealRequestProto)
     }
     
@@ -5795,7 +5738,11 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // optional .com.lvl6.proto.ClericHealResponseProto.HealStatus status = 2;
+    // optional int32 cost = 2;
+    boolean hasCost();
+    int getCost();
+    
+    // optional .com.lvl6.proto.ClericHealResponseProto.HealStatus status = 3;
     boolean hasStatus();
     com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus getStatus();
   }
@@ -5913,11 +5860,21 @@ public final class EventProto {
       return sender_;
     }
     
-    // optional .com.lvl6.proto.ClericHealResponseProto.HealStatus status = 2;
-    public static final int STATUS_FIELD_NUMBER = 2;
+    // optional int32 cost = 2;
+    public static final int COST_FIELD_NUMBER = 2;
+    private int cost_;
+    public boolean hasCost() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getCost() {
+      return cost_;
+    }
+    
+    // optional .com.lvl6.proto.ClericHealResponseProto.HealStatus status = 3;
+    public static final int STATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus status_;
     public boolean hasStatus() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     public com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus getStatus() {
       return status_;
@@ -5925,6 +5882,7 @@ public final class EventProto {
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      cost_ = 0;
       status_ = com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
@@ -5951,7 +5909,10 @@ public final class EventProto {
         output.writeMessage(1, sender_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, status_.getNumber());
+        output.writeInt32(2, cost_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, status_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -5968,7 +5929,11 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, status_.getNumber());
+          .computeInt32Size(2, cost_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, status_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6101,8 +6066,10 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus.SUCCESS;
+        cost_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
@@ -6152,6 +6119,10 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
+        result.cost_ = cost_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
         result.status_ = status_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -6171,6 +6142,9 @@ public final class EventProto {
         if (other == com.lvl6.proto.EventProto.ClericHealResponseProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
+        }
+        if (other.hasCost()) {
+          setCost(other.getCost());
         }
         if (other.hasStatus()) {
           setStatus(other.getStatus());
@@ -6224,12 +6198,17 @@ public final class EventProto {
               break;
             }
             case 16: {
+              bitField0_ |= 0x00000002;
+              cost_ = input.readInt32();
+              break;
+            }
+            case 24: {
               int rawValue = input.readEnum();
               com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus value = com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(2, rawValue);
+                unknownFields.mergeVarintField(3, rawValue);
               } else {
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000004;
                 status_ = value;
               }
               break;
@@ -6330,10 +6309,31 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // optional .com.lvl6.proto.ClericHealResponseProto.HealStatus status = 2;
+      // optional int32 cost = 2;
+      private int cost_ ;
+      public boolean hasCost() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getCost() {
+        return cost_;
+      }
+      public Builder setCost(int value) {
+        bitField0_ |= 0x00000002;
+        cost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCost() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        cost_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional .com.lvl6.proto.ClericHealResponseProto.HealStatus status = 3;
       private com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus status_ = com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus.SUCCESS;
       public boolean hasStatus() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus getStatus() {
         return status_;
@@ -6342,13 +6342,13 @@ public final class EventProto {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         status_ = value;
         onChanged();
         return this;
       }
       public Builder clearStatus() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         status_ = com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus.SUCCESS;
         onChanged();
         return this;
@@ -10925,12 +10925,12 @@ public final class EventProto {
       "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
       "roto\"b\n ClericCostCalculateResponseProto" +
       "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\014\n\004cost\030\002 \001(\005\"X\n\026ClericHealRe" +
+      "mUserProto\022\014\n\004cost\030\002 \001(\005\"J\n\026ClericHealRe" +
       "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022\014\n\004cost\030\002 \001(\005\"\325\001\n\027C" +
-      "lericHealResponseProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022B\n\006stat",
-      "us\030\002 \001(\01622.com.lvl6.proto.ClericHealResp" +
+      "oto.MinimumUserProto\"\343\001\n\027ClericHealRespo" +
+      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\014\n\004cost\030\002 \001(\005\022B\n\006stat",
+      "us\030\003 \001(\01622.com.lvl6.proto.ClericHealResp" +
       "onseProto.HealStatus\"D\n\nHealStatus\022\013\n\007SU" +
       "CCESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT\020\001\022\016\n\nOT" +
       "HER_FAIL\020\002\"7\n\023StartupRequestProto\022\014\n\004udi" +
@@ -11036,7 +11036,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_ClericHealRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ClericHealRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "Cost", },
+              new java.lang.String[] { "Sender", },
               com.lvl6.proto.EventProto.ClericHealRequestProto.class,
               com.lvl6.proto.EventProto.ClericHealRequestProto.Builder.class);
           internal_static_com_lvl6_proto_ClericHealResponseProto_descriptor =
@@ -11044,7 +11044,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_ClericHealResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ClericHealResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", },
+              new java.lang.String[] { "Sender", "Cost", "Status", },
               com.lvl6.proto.EventProto.ClericHealResponseProto.class,
               com.lvl6.proto.EventProto.ClericHealResponseProto.Builder.class);
           internal_static_com_lvl6_proto_StartupRequestProto_descriptor =

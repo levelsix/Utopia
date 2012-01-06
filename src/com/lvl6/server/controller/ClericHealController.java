@@ -13,6 +13,11 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 
 public class ClericHealController extends EventController {
   
+  //Formula: (int) Math.ceil(Math.pow(user.getLevel(), A)*healthToHeal*B);
+  private static final double A = 3;
+  private static final double B = .05;
+
+  
   @Override
   protected void initController() {
     log.info("initController for " + this.getClass().toString());    
@@ -37,9 +42,10 @@ public class ClericHealController extends EventController {
     ClericHealRequestProto reqProto = ((ClericHealRequestEvent)event).getClericHealRequestProto();
     
     MinimumUserProto senderProto = reqProto.getSender();
-    int cost = reqProto.getCost();
     
     User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+    int cost = calculateClericCost(user);
+
     ClericHealResponseProto.Builder resBuilder = ClericHealResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     
@@ -48,6 +54,7 @@ public class ClericHealController extends EventController {
         resBuilder.setStatus(HealStatus.OTHER_FAIL);
         log.error("problem with ClericHeal transaction");
       } else {
+        resBuilder.setCost(cost);
         resBuilder.setStatus(HealStatus.SUCCESS);
       }
     } else {
@@ -63,5 +70,9 @@ public class ClericHealController extends EventController {
 
   }
 
+  private int calculateClericCost(User user) {
+    int healthToHeal = user.getHealthMax() - user.getHealth();
+    return (int) Math.ceil(Math.pow(user.getLevel(), A)*healthToHeal*B);
+  }
 
 }

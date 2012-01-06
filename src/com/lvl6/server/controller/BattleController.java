@@ -103,7 +103,12 @@ public class BattleController extends EventController {
     User loser = null;
     boolean legitBattle = false;
     
+
+    BattleResponseEvent resEvent = new BattleResponseEvent();
+
     if (isLegitBattle(attacker, defender, resBuilder)) {
+      int[] recipients = { attacker.getId(), defender.getId()};;
+      resEvent.setRecipients(recipients);
       legitBattle = true;
       double attackerStat = computeStat(ATTACKER_FLAG, attacker, attackerEquips, equipmentIdsToEquipment);
       double defenderStat = computeStat(DEFENDER_FLAG, defender, defenderEquips, equipmentIdsToEquipment);
@@ -123,6 +128,7 @@ public class BattleController extends EventController {
         winner = defender;
         loser = attacker;
       }
+
       Random random = new Random();
       lostCoins = calculateLostCoins(loser, random);
       resBuilder.setCoinsGained(lostCoins);
@@ -133,16 +139,16 @@ public class BattleController extends EventController {
       resBuilder.setLoserHealthLoss(loserHealthLoss);
       winnerHealthLoss = calculateWinnerHealthLoss(attackerStat, defenderStat, loserHealthLoss);
       resBuilder.setWinnerHealthLoss(winnerHealthLoss);
-    } 
+    } else {
+      int[] recipients = { attacker.getId()};;
+      resEvent.setRecipients(recipients);
+    }
 
     BattleResponseProto resProto = resBuilder.build();
-    BattleResponseEvent resEvent = new BattleResponseEvent();
 
-    int[] recipients = { attacker.getId(), defender.getId()};
-
-    resEvent.setRecipients(recipients);
     resEvent.setBattleResponseProto(resProto);
 
+    log.info(resEvent + " is resevent");
     server.writeEvent(resEvent);
     
     if (legitBattle) {
@@ -171,7 +177,7 @@ public class BattleController extends EventController {
       } else if (winner == defender) {
         attacker.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(-1, 0, lostCoins*-1, 
             loserHealthLoss*-1, 0, 1);
-        defender.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(0, expGained, lostCoins, 
+        defender.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(0, 0, lostCoins, 
             winnerHealthLoss*-1, 1, 0);
       }
       
@@ -300,15 +306,19 @@ public class BattleController extends EventController {
   private boolean isLegitBattle(User attacker, User defender, BattleResponseProto.Builder builder) {
     if (attacker.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
       builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_HEALTH);
+      return false;
     }
     if (defender.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
       builder.setStatus(BattleStatus.DEFENDER_NOT_ENOUGH_HEALTH);
+      return false;
     }
     if (attacker.getStamina() <= 0) {
       builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_STAMINA);
+      return false;
     }
     if (Math.abs(attacker.getLevel() - defender.getLevel()) > MAX_LEVEL_DIFFERENCE) {
       builder.setStatus(BattleStatus.LEVEL_DIFFERENCE_TOO_HIGH);
+      return false;
     }
     return true;
   }

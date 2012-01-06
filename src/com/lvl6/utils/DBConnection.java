@@ -31,7 +31,6 @@ public class DBConnection {
   private static Connection conn;
 
   public static void init() {
-
     log = Logger.getLogger(DBConnection.class);
     availableConnections = new LinkedBlockingQueue<Connection>();
     try {
@@ -120,7 +119,9 @@ public class DBConnection {
           i++;
         }
       }
-      return stmt.executeUpdate();
+      int numUpdated = stmt.executeUpdate();
+      availableConnections.put(conn);
+      return numUpdated;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
       e.printStackTrace();
@@ -158,7 +159,9 @@ public class DBConnection {
             i++;
           }
         }
-        return stmt.executeUpdate();
+        int numUpdated = stmt.executeUpdate();
+        availableConnections.put(conn);
+        return numUpdated;
       } catch (SQLException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
@@ -197,7 +200,9 @@ public class DBConnection {
           i++;
         }
       }
-      return stmt.executeUpdate();
+      int numDeleted = stmt.executeUpdate();
+      availableConnections.put(conn);
+      return numDeleted;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
       e.printStackTrace();
@@ -224,6 +229,7 @@ public class DBConnection {
       PreparedStatement stmt = conn.prepareStatement(query);
       stmt.setInt(1, value);
       rs = stmt.executeQuery();
+      availableConnections.put(conn);
       log.info(rs.toString());
     } catch (SQLException e) {
       log.error("problem with " + query, e);
@@ -270,6 +276,7 @@ public class DBConnection {
         }
       }
       rs = stmt.executeQuery();
+      availableConnections.put(conn);
       log.info(rs.toString());
     } catch (SQLException e) {
       log.error("problem with " + query, e);

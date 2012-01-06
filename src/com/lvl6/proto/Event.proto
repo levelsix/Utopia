@@ -71,12 +71,12 @@ message ClericCostCalculateResponseProto {
 
 message ClericHealRequestProto {
 	required MinimumUserProto sender = 1;
-	optional int32 cost = 2;
 }
 
 message ClericHealResponseProto {
 	required MinimumUserProto sender = 1;
-	optional HealStatus status = 2;
+	optional int32 cost = 2;
+	optional HealStatus status = 3;
 	
 	enum HealStatus {
 		SUCCESS = 0; 
