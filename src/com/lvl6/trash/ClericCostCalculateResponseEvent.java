@@ -1,4 +1,4 @@
-package com.lvl6.events.response;
+package com.lvl6.trash;
 
 import java.nio.ByteBuffer;
 

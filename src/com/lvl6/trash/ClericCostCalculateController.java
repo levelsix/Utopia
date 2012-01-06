@@ -1,14 +1,13 @@
-package com.lvl6.server.controller;
+package com.lvl6.trash;
 
 import com.lvl6.events.RequestEvent;
-import com.lvl6.events.request.ClericCostCalculateRequestEvent;
-import com.lvl6.events.response.ClericCostCalculateResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.ClericCostCalculateRequestProto;
 import com.lvl6.proto.EventProto.ClericCostCalculateResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.server.controller.EventController;
 
 public class ClericCostCalculateController extends EventController {
 

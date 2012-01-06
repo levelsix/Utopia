@@ -1,7 +1,10 @@
-To use protoc, go to top of project and type 
+1) To use protoc, go to top of project and type 
 protoc -I=src/com/lvl6/proto/ --java_out=src/ src/com/lvl6/proto/*.proto
 
-Make sure you include this file (but don't push it to repo (it's already in .gitignore, if right path)):
+2) Useful commands if you know what they do
+git ls-files --deleted -z | xargs -0 git rm
+
+3) Make sure you include this file (but don't push it to repo (it's already in .gitignore, if right path)):
 DBProperties.java
 in com.lvl6.properties package.
 
