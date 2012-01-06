@@ -4,8 +4,8 @@ option java_outer_classname = "InfoProto";
 
 message MinimumUserProto {
 	required int32 userId = 1;
-	required string name = 2;
-	required UserType userType = 3;
+	optional string name = 2;
+	optional UserType userType = 3;
 	
 	enum UserType {
 		GOOD_WARRIOR = 0;

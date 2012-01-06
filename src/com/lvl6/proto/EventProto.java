@@ -2052,12 +2052,14 @@ public final class EventProto {
       ATTACKER_NOT_ENOUGH_HEALTH(1, 1),
       DEFENDER_NOT_ENOUGH_HEALTH(2, 2),
       ATTACKER_NOT_ENOUGH_STAMINA(3, 3),
+      LEVEL_DIFFERENCE_TOO_HIGH(4, 4),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int ATTACKER_NOT_ENOUGH_HEALTH_VALUE = 1;
       public static final int DEFENDER_NOT_ENOUGH_HEALTH_VALUE = 2;
       public static final int ATTACKER_NOT_ENOUGH_STAMINA_VALUE = 3;
+      public static final int LEVEL_DIFFERENCE_TOO_HIGH_VALUE = 4;
       
       
       public final int getNumber() { return value; }
@@ -2068,6 +2070,7 @@ public final class EventProto {
           case 1: return ATTACKER_NOT_ENOUGH_HEALTH;
           case 2: return DEFENDER_NOT_ENOUGH_HEALTH;
           case 3: return ATTACKER_NOT_ENOUGH_STAMINA;
+          case 4: return LEVEL_DIFFERENCE_TOO_HIGH;
           default: return null;
         }
       }
@@ -2098,7 +2101,7 @@ public final class EventProto {
       }
       
       private static final BattleStatus[] VALUES = {
-        SUCCESS, ATTACKER_NOT_ENOUGH_HEALTH, DEFENDER_NOT_ENOUGH_HEALTH, ATTACKER_NOT_ENOUGH_STAMINA, 
+        SUCCESS, ATTACKER_NOT_ENOUGH_HEALTH, DEFENDER_NOT_ENOUGH_HEALTH, ATTACKER_NOT_ENOUGH_STAMINA, LEVEL_DIFFERENCE_TOO_HIGH, 
       };
       
       public static BattleStatus valueOf(
@@ -10896,7 +10899,7 @@ public final class EventProto {
       "nimumUserProto\022\017\n\007message\030\002 \002(\t\"|\n\022Battl" +
       "eRequestProto\0222\n\010attacker\030\001 \002(\0132 .com.lv" +
       "l6.proto.MinimumUserProto\0222\n\010defender\030\002 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\"\346\003",
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\"\206\004",
       "\n\023BattleResponseProto\0222\n\010attacker\030\001 \002(\0132" +
       " .com.lvl6.proto.MinimumUserProto\0222\n\010def" +
       "ender\030\002 \002(\0132 .com.lvl6.proto.MinimumUser" +
@@ -10906,57 +10909,58 @@ public final class EventProto {
       "uipGained\030\006 \001(\0132!.com.lvl6.proto.Minimum" +
       "EquipProto\022\021\n\texpGained\030\007 \001(\005\022\030\n\020winnerH" +
       "ealthLoss\030\010 \001(\005\022\027\n\017loserHealthLoss\030\t \001(\005" +
-      "\"|\n\014BattleStatus\022\013\n\007SUCCESS\020\000\022\036\n\032ATTACKE",
-      "R_NOT_ENOUGH_HEALTH\020\001\022\036\n\032DEFENDER_NOT_EN" +
-      "OUGH_HEALTH\020\002\022\037\n\033ATTACKER_NOT_ENOUGH_STA" +
-      "MINA\020\003\"\315\001\n\021VaultRequestProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022G" +
-      "\n\013requestType\030\002 \001(\01622.com.lvl6.proto.Vau" +
-      "ltRequestProto.VaultRequestType\022\016\n\006amoun" +
-      "t\030\003 \001(\005\"-\n\020VaultRequestType\022\013\n\007DEPOSIT\020\000" +
-      "\022\014\n\010WITHDRAW\020\001\"o\n\022VaultResponseProto\0220\n\006" +
+      "\"\233\001\n\014BattleStatus\022\013\n\007SUCCESS\020\000\022\036\n\032ATTACK",
+      "ER_NOT_ENOUGH_HEALTH\020\001\022\036\n\032DEFENDER_NOT_E" +
+      "NOUGH_HEALTH\020\002\022\037\n\033ATTACKER_NOT_ENOUGH_ST" +
+      "AMINA\020\003\022\035\n\031LEVEL_DIFFERENCE_TOO_HIGH\020\004\"\315" +
+      "\001\n\021VaultRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022G\n\013reques" +
+      "tType\030\002 \001(\01622.com.lvl6.proto.VaultReques" +
+      "tProto.VaultRequestType\022\016\n\006amount\030\003 \001(\005\"" +
+      "-\n\020VaultRequestType\022\013\n\007DEPOSIT\020\000\022\014\n\010WITH" +
+      "DRAW\020\001\"o\n\022VaultResponseProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022\023",
+      "\n\013vaultAmount\030\002 \001(\005\022\022\n\ncoinAmount\030\003 \001(\005\"" +
+      "S\n\037ClericCostCalculateRequestProto\0220\n\006se" +
+      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\"b\n ClericCostCalculateResponseProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\014\n\004cost\030\002 \001(\005\"X\n\026ClericHealRe" +
+      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022\014\n\004cost\030\002 \001(\005\"\325\001\n\027C" +
+      "lericHealResponseProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022B\n\006stat",
+      "us\030\002 \001(\01622.com.lvl6.proto.ClericHealResp" +
+      "onseProto.HealStatus\"D\n\nHealStatus\022\013\n\007SU" +
+      "CCESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT\020\001\022\016\n\nOT" +
+      "HER_FAIL\020\002\"7\n\023StartupRequestProto\022\014\n\004udi" +
+      "d\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\322\001\n\024StartupR" +
+      "esponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6." +
+      "proto.FullUserProto\022!\n\031maxCityIdAccessib" +
+      "leToUser\030\002 \001(\005\022=\n\nstructures\030\003 \003(\0132).com" +
+      ".lvl6.proto.MinimumUserStructureProto\022\027\n" +
+      "\017updateAvailable\030\004 \002(\010\022\020\n\010questLog\030\005 \003(\005",
+      "\"d\n RetrieveTasksForCityRequestProto\0220\n\006" +
       "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\022\023\n\013vaultAmount\030\002 \001(\005\022\022\n\ncoinAmoun",
-      "t\030\003 \001(\005\"S\n\037ClericCostCalculateRequestPro" +
-      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\"b\n ClericCostCalculateRespo" +
-      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\014\n\004cost\030\002 \001(\005\"X\n\026Cler" +
-      "icHealRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022\014\n\004cost\030\002 \001" +
-      "(\005\"\325\001\n\027ClericHealResponseProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022B\n\006status\030\002 \001(\01622.com.lvl6.proto.Cleric",
-      "HealResponseProto.HealStatus\"D\n\nHealStat" +
-      "us\022\013\n\007SUCCESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT" +
-      "\020\001\022\016\n\nOTHER_FAIL\020\002\"7\n\023StartupRequestProt" +
-      "o\022\014\n\004udid\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\322\001\n\024" +
-      "StartupResponseProto\022-\n\006sender\030\001 \002(\0132\035.c" +
-      "om.lvl6.proto.FullUserProto\022!\n\031maxCityId" +
-      "AccessibleToUser\030\002 \001(\005\022=\n\nstructures\030\003 \003" +
-      "(\0132).com.lvl6.proto.MinimumUserStructure" +
-      "Proto\022\027\n\017updateAvailable\030\004 \002(\010\022\020\n\010questL" +
-      "og\030\005 \003(\005\"d\n RetrieveTasksForCityRequestP",
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!Retri" +
-      "eveTasksForCityResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022," +
-      "\n\005tasks\030\002 \003(\0132\035.com.lvl6.proto.FullTaskP" +
-      "roto\"Z\n\026TaskActionRequestProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022\016\n\006taskId\030\002 \002(\005\"\372\002\n\027TaskActionResponseP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022H\n\006status\030\002 \002(\01628.com.lvl",
-      "6.proto.TaskActionResponseProto.TaskActi" +
-      "onStatus\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityR" +
-      "ankedUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013co" +
-      "insGained\030\006 \001(\005\"\213\001\n\020TaskActionStatus\022\013\n\007" +
-      "SUCCESS\020\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\030\n" +
-      "\024USER_NOT_ENOUGH_ARMY\020\002\022\037\n\033USER_NOT_ALL_" +
-      "REQUIRED_ITEMS\020\003\022\023\n\017INVALID_TASK_ID\020\004\"h\n" +
-      "\024LevelUpResponseProto\022-\n\006sender\030\001 \002(\0132\035." +
-      "com.lvl6.proto.FullUserProto\022!\n\031maxCityI" +
-      "dAccessibleToUser\030\002 \001(\005B\014B\nEventProto"
+      "rProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!RetrieveTasks" +
+      "ForCityResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022,\n\005tasks\030" +
+      "\002 \003(\0132\035.com.lvl6.proto.FullTaskProto\"Z\n\026" +
+      "TaskActionRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022\016\n\006task" +
+      "Id\030\002 \002(\005\"\372\002\n\027TaskActionResponseProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse",
+      "rProto\022H\n\006status\030\002 \002(\01628.com.lvl6.proto." +
+      "TaskActionResponseProto.TaskActionStatus" +
+      "\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRankedUp\030" +
+      "\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coinsGaine" +
+      "d\030\006 \001(\005\"\213\001\n\020TaskActionStatus\022\013\n\007SUCCESS\020" +
+      "\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\030\n\024USER_NO" +
+      "T_ENOUGH_ARMY\020\002\022\037\n\033USER_NOT_ALL_REQUIRED" +
+      "_ITEMS\020\003\022\023\n\017INVALID_TASK_ID\020\004\"h\n\024LevelUp" +
+      "ResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6" +
+      ".proto.FullUserProto\022!\n\031maxCityIdAccessi",
+      "bleToUser\030\002 \001(\005B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
