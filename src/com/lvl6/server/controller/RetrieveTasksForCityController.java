@@ -12,7 +12,7 @@ import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.TaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 
 public class RetrieveTasksForCityController extends EventController{
 
@@ -71,7 +71,6 @@ public class RetrieveTasksForCityController extends EventController{
     resEvent.setRetrieveTasksForCityResponseProto(resProto);
     
     server.writeEvent(resEvent);
-    
   }
 
 }

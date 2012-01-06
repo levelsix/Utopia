@@ -1,4 +1,4 @@
-package com.lvl6.retrieveutils;
+package com.lvl6.retrieveutils.rarechange;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,11 +24,19 @@ public class TaskRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_TASKS;
     
   public static Map<Integer, Task> getAllTaskIdsToTask() {
-    log.info("retrieving equipment data");
+    log.info("retrieving all-tasks data");
     if (taskIdsToTask == null) {
       setStaticTaskIdsToTask();
     }
     return taskIdsToTask;
+  }
+  
+  public static Task getTaskForTaskId(int taskId) {
+    log.info("retrieve task data");
+    if (taskIdsToTask == null) {
+      setStaticTaskIdsToTask();      
+    }
+    return taskIdsToTask.get(taskId);
   }
   
   public static List<Task> getAllTasksForCityId(int cityId) {
@@ -39,23 +47,24 @@ public class TaskRetrieveUtils {
   }
   
   private static void setStaticCityIdsToTasks() {
-    log.info("setting static map of equipIds to equipment");
+    log.info("setting static map of taskIds to task");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
     
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        cityIdToTasks = new HashMap<Integer, List<Task>>();
+        Map<Integer, List<Task>> cityIdToTasksTemp = new HashMap<Integer, List<Task>>();
         while(rs.next()) {  //should only be one
           Task task = convertRSRowToEquipment(rs);
           if (task != null) {
-            if (cityIdToTasks.get(task.getCityId()) == null) {
-              cityIdToTasks.put(task.getCityId(), new ArrayList<Task>());
+            if (cityIdToTasksTemp.get(task.getCityId()) == null) {
+              cityIdToTasksTemp.put(task.getCityId(), new ArrayList<Task>());
             }
-            cityIdToTasks.get(task.getCityId()).add(task);
+            cityIdToTasksTemp.get(task.getCityId()).add(task);
           }
         }
+        cityIdToTasks = cityIdToTasksTemp;
       } catch (SQLException e) {
         System.out.println("problem with database call.");
         e.printStackTrace();

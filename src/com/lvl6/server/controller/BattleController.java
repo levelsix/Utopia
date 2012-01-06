@@ -21,9 +21,9 @@ import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.InfoProto.MinimumEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 
 public class BattleController extends EventController {
 

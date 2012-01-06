@@ -1,4 +1,4 @@
-package com.lvl6.retrieveutils;
+package com.lvl6.retrieveutils.rarechange;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,12 +49,13 @@ public class EquipmentRetrieveUtils {
       try {
         rs.last();
         rs.beforeFirst();
-        equipIdToEquipment = new HashMap<Integer, Equipment>();
+        Map <Integer, Equipment> equipIdToEquipmentTemp = new HashMap<Integer, Equipment>();
         while(rs.next()) {  //should only be one
           Equipment equip = convertRSRowToEquipment(rs);
           if (equip != null)
-            equipIdToEquipment.put(equip.getId(), equip);
+            equipIdToEquipmentTemp.put(equip.getId(), equip);
         }
+        equipIdToEquipment = equipIdToEquipmentTemp;
       } catch (SQLException e) {
         System.out.println("problem with database call.");
         e.printStackTrace();

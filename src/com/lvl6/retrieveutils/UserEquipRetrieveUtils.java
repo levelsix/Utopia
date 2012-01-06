@@ -23,7 +23,7 @@ public class UserEquipRetrieveUtils {
   public static List<UserEquip> getUserEquipsForUser(int userId) {
     log.info("retrieving user equips for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put("user_id", userId);
+    paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     return convertRSToUserEquips(DBConnection.selectRowByUserId(userId, TABLE_NAME));
   }
   
@@ -32,7 +32,7 @@ public class UserEquipRetrieveUtils {
     log.info("retrieving user equips for userIds " + userIds);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : userIds) {
-      paramsToVals.put("user_id", i);
+      paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, i);
     }
     return convertRSToUserToUserEquips(DBConnection.selectRowsOr(paramsToVals, TABLE_NAME));
   }

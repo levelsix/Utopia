@@ -107,6 +107,28 @@ message RetrieveTasksForCityResponseProto {
      repeated FullTaskProto tasks = 2;
 }
 
+message TaskActionRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 taskId = 2;
+}
+
+message TaskActionResponseProto {
+	required MinimumUserProto sender = 1;
+	required TaskActionStatus status = 2;
+	optional bool taskCompleted = 3;
+	optional bool cityRankedUp = 4;
+	optional int32 lootEquipId = 5;
+	optional int32 coinsGained = 6;
+
+	enum TaskActionStatus {
+		SUCCESS = 0; 
+		USER_NOT_ENOUGH_ENERGY = 1;
+		USER_NOT_ENOUGH_ARMY = 2;
+		USER_NOT_ALL_REQUIRED_ITEMS = 3;
+		INVALID_TASK_ID = 4;
+	} 
+}
+
 message LevelUpResponseProto {
      required FullUserProto sender = 1;
      optional int32 maxCityIdAccessibleToUser = 2;

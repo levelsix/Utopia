@@ -30,7 +30,7 @@ public class UserRetrieveUtils {
   public static User getUserById(int userId) {
     log.info("retrieving user with userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put("id", userId);
+    paramsToVals.put(DBConstants.USER__ID, userId);
     return convertRSToUser(DBConnection.selectRowById(userId, TABLE_NAME));
   }
   
@@ -38,7 +38,7 @@ public class UserRetrieveUtils {
     log.info("retrieving users with userIds " + ids);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : ids) {
-      paramsToVals.put("id", i);
+      paramsToVals.put(DBConstants.USER__ID, i);
     }
     return convertRSToUsers(DBConnection.selectRowsOr(paramsToVals, TABLE_NAME));
   }
@@ -48,7 +48,7 @@ public class UserRetrieveUtils {
   public static User getUserByUDID(String UDID) {
     log.info("retrieving user with udid " + UDID);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
-    paramsToVals.put("udid", UDID);
+    paramsToVals.put(DBConstants.USER__UDID, UDID);
     return convertRSToUser(DBConnection.selectRowsOr(paramsToVals, "users"));
   }
 
