@@ -13,23 +13,21 @@ public final class ProtocolsProto {
     C_CHAT_EVENT(0, 0),
     C_BATTLE_EVENT(1, 1),
     C_VAULT_EVENT(2, 2),
-    C_CLERIC_COST_CALC_EVENT(3, 3),
+    C_TASK_ACTION_EVENT(3, 3),
     C_CLERIC_HEAL_EVENT(4, 4),
     C_STARTUP_EVENT(5, 5),
     C_RETRIEVE_TASKS_FOR_CITY_EVENT(6, 6),
     C_RETRIEVE_QUESTS_FOR_CITY_EVENT(7, 7),
-    C_TASK_ACTION_EVENT(8, 8),
     ;
     
     public static final int C_CHAT_EVENT_VALUE = 0;
     public static final int C_BATTLE_EVENT_VALUE = 1;
     public static final int C_VAULT_EVENT_VALUE = 2;
-    public static final int C_CLERIC_COST_CALC_EVENT_VALUE = 3;
+    public static final int C_TASK_ACTION_EVENT_VALUE = 3;
     public static final int C_CLERIC_HEAL_EVENT_VALUE = 4;
     public static final int C_STARTUP_EVENT_VALUE = 5;
     public static final int C_RETRIEVE_TASKS_FOR_CITY_EVENT_VALUE = 6;
     public static final int C_RETRIEVE_QUESTS_FOR_CITY_EVENT_VALUE = 7;
-    public static final int C_TASK_ACTION_EVENT_VALUE = 8;
     
     
     public final int getNumber() { return value; }
@@ -39,12 +37,11 @@ public final class ProtocolsProto {
         case 0: return C_CHAT_EVENT;
         case 1: return C_BATTLE_EVENT;
         case 2: return C_VAULT_EVENT;
-        case 3: return C_CLERIC_COST_CALC_EVENT;
+        case 3: return C_TASK_ACTION_EVENT;
         case 4: return C_CLERIC_HEAL_EVENT;
         case 5: return C_STARTUP_EVENT;
         case 6: return C_RETRIEVE_TASKS_FOR_CITY_EVENT;
         case 7: return C_RETRIEVE_QUESTS_FOR_CITY_EVENT;
-        case 8: return C_TASK_ACTION_EVENT;
         default: return null;
       }
     }
@@ -75,7 +72,7 @@ public final class ProtocolsProto {
     }
     
     private static final EventProtocolRequest[] VALUES = {
-      C_CHAT_EVENT, C_BATTLE_EVENT, C_VAULT_EVENT, C_CLERIC_COST_CALC_EVENT, C_CLERIC_HEAL_EVENT, C_STARTUP_EVENT, C_RETRIEVE_TASKS_FOR_CITY_EVENT, C_RETRIEVE_QUESTS_FOR_CITY_EVENT, C_TASK_ACTION_EVENT, 
+      C_CHAT_EVENT, C_BATTLE_EVENT, C_VAULT_EVENT, C_TASK_ACTION_EVENT, C_CLERIC_HEAL_EVENT, C_STARTUP_EVENT, C_RETRIEVE_TASKS_FOR_CITY_EVENT, C_RETRIEVE_QUESTS_FOR_CITY_EVENT, 
     };
     
     public static EventProtocolRequest valueOf(
@@ -103,24 +100,22 @@ public final class ProtocolsProto {
     S_CHAT_EVENT(0, 0),
     S_BATTLE_EVENT(1, 1),
     S_VAULT_EVENT(2, 2),
-    S_CLERIC_COST_CALC_EVENT(3, 3),
+    S_TASK_ACTION_EVENT(3, 3),
     S_CLERIC_HEAL_EVENT(4, 4),
     S_STARTUP_EVENT(5, 5),
     S_RETRIEVE_TASKS_FOR_CITY_EVENT(6, 6),
     S_RETRIEVE_QUESTS_FOR_CITY_EVENT(7, 7),
-    S_TASK_ACTION_EVENT(8, 8),
-    S_LEVEL_UP_EVENT(9, 9),
+    S_LEVEL_UP_EVENT(8, 9),
     ;
     
     public static final int S_CHAT_EVENT_VALUE = 0;
     public static final int S_BATTLE_EVENT_VALUE = 1;
     public static final int S_VAULT_EVENT_VALUE = 2;
-    public static final int S_CLERIC_COST_CALC_EVENT_VALUE = 3;
+    public static final int S_TASK_ACTION_EVENT_VALUE = 3;
     public static final int S_CLERIC_HEAL_EVENT_VALUE = 4;
     public static final int S_STARTUP_EVENT_VALUE = 5;
     public static final int S_RETRIEVE_TASKS_FOR_CITY_EVENT_VALUE = 6;
     public static final int S_RETRIEVE_QUESTS_FOR_CITY_EVENT_VALUE = 7;
-    public static final int S_TASK_ACTION_EVENT_VALUE = 8;
     public static final int S_LEVEL_UP_EVENT_VALUE = 9;
     
     
@@ -131,12 +126,11 @@ public final class ProtocolsProto {
         case 0: return S_CHAT_EVENT;
         case 1: return S_BATTLE_EVENT;
         case 2: return S_VAULT_EVENT;
-        case 3: return S_CLERIC_COST_CALC_EVENT;
+        case 3: return S_TASK_ACTION_EVENT;
         case 4: return S_CLERIC_HEAL_EVENT;
         case 5: return S_STARTUP_EVENT;
         case 6: return S_RETRIEVE_TASKS_FOR_CITY_EVENT;
         case 7: return S_RETRIEVE_QUESTS_FOR_CITY_EVENT;
-        case 8: return S_TASK_ACTION_EVENT;
         case 9: return S_LEVEL_UP_EVENT;
         default: return null;
       }
@@ -168,7 +162,7 @@ public final class ProtocolsProto {
     }
     
     private static final EventProtocolResponse[] VALUES = {
-      S_CHAT_EVENT, S_BATTLE_EVENT, S_VAULT_EVENT, S_CLERIC_COST_CALC_EVENT, S_CLERIC_HEAL_EVENT, S_STARTUP_EVENT, S_RETRIEVE_TASKS_FOR_CITY_EVENT, S_RETRIEVE_QUESTS_FOR_CITY_EVENT, S_TASK_ACTION_EVENT, S_LEVEL_UP_EVENT, 
+      S_CHAT_EVENT, S_BATTLE_EVENT, S_VAULT_EVENT, S_TASK_ACTION_EVENT, S_CLERIC_HEAL_EVENT, S_STARTUP_EVENT, S_RETRIEVE_TASKS_FOR_CITY_EVENT, S_RETRIEVE_QUESTS_FOR_CITY_EVENT, S_LEVEL_UP_EVENT, 
     };
     
     public static EventProtocolResponse valueOf(
@@ -201,21 +195,19 @@ public final class ProtocolsProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\017Protocols.proto\022\016com.lvl6.proto\032\013Event" +
-      ".proto*\377\001\n\024EventProtocolRequest\022\020\n\014C_CHA" +
+      ".proto*\341\001\n\024EventProtocolRequest\022\020\n\014C_CHA" +
       "T_EVENT\020\000\022\022\n\016C_BATTLE_EVENT\020\001\022\021\n\rC_VAULT" +
-      "_EVENT\020\002\022\034\n\030C_CLERIC_COST_CALC_EVENT\020\003\022\027" +
-      "\n\023C_CLERIC_HEAL_EVENT\020\004\022\023\n\017C_STARTUP_EVE" +
-      "NT\020\005\022#\n\037C_RETRIEVE_TASKS_FOR_CITY_EVENT\020" +
-      "\006\022$\n C_RETRIEVE_QUESTS_FOR_CITY_EVENT\020\007\022" +
-      "\027\n\023C_TASK_ACTION_EVENT\020\010*\226\002\n\025EventProtoc" +
-      "olResponse\022\020\n\014S_CHAT_EVENT\020\000\022\022\n\016S_BATTLE" +
-      "_EVENT\020\001\022\021\n\rS_VAULT_EVENT\020\002\022\034\n\030S_CLERIC_",
-      "COST_CALC_EVENT\020\003\022\027\n\023S_CLERIC_HEAL_EVENT" +
-      "\020\004\022\023\n\017S_STARTUP_EVENT\020\005\022#\n\037S_RETRIEVE_TA" +
-      "SKS_FOR_CITY_EVENT\020\006\022$\n S_RETRIEVE_QUEST" +
-      "S_FOR_CITY_EVENT\020\007\022\027\n\023S_TASK_ACTION_EVEN" +
-      "T\020\010\022\024\n\020S_LEVEL_UP_EVENT\020\tB\020B\016ProtocolsPr" +
-      "oto"
+      "_EVENT\020\002\022\027\n\023C_TASK_ACTION_EVENT\020\003\022\027\n\023C_C" +
+      "LERIC_HEAL_EVENT\020\004\022\023\n\017C_STARTUP_EVENT\020\005\022" +
+      "#\n\037C_RETRIEVE_TASKS_FOR_CITY_EVENT\020\006\022$\n " +
+      "C_RETRIEVE_QUESTS_FOR_CITY_EVENT\020\007*\370\001\n\025E" +
+      "ventProtocolResponse\022\020\n\014S_CHAT_EVENT\020\000\022\022" +
+      "\n\016S_BATTLE_EVENT\020\001\022\021\n\rS_VAULT_EVENT\020\002\022\027\n" +
+      "\023S_TASK_ACTION_EVENT\020\003\022\027\n\023S_CLERIC_HEAL_",
+      "EVENT\020\004\022\023\n\017S_STARTUP_EVENT\020\005\022#\n\037S_RETRIE" +
+      "VE_TASKS_FOR_CITY_EVENT\020\006\022$\n S_RETRIEVE_" +
+      "QUESTS_FOR_CITY_EVENT\020\007\022\024\n\020S_LEVEL_UP_EV" +
+      "ENT\020\tB\020B\016ProtocolsProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

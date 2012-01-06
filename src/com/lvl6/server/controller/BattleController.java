@@ -20,6 +20,7 @@ import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.InfoProto.MinimumEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
@@ -311,6 +312,22 @@ public class BattleController extends EventController {
     if (defender.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
       builder.setStatus(BattleStatus.DEFENDER_NOT_ENOUGH_HEALTH);
       return false;
+    }
+    if (attacker.getType() == UserType.GOOD_ARCHER || attacker.getType() == UserType.GOOD_MAGE ||
+        attacker.getType() == UserType.GOOD_WARRIOR) {
+      if (defender.getType() == UserType.GOOD_ARCHER || defender.getType() == UserType.GOOD_MAGE ||
+          defender.getType() == UserType.GOOD_WARRIOR) {
+        builder.setStatus(BattleStatus.OPPONENT_ON_SAME_SIDE);
+        return false;
+      }
+    }
+    if (defender.getType() == UserType.GOOD_ARCHER || defender.getType() == UserType.GOOD_MAGE ||
+        defender.getType() == UserType.GOOD_WARRIOR) {
+      if (attacker.getType() == UserType.GOOD_ARCHER || attacker.getType() == UserType.GOOD_MAGE ||
+          attacker.getType() == UserType.GOOD_WARRIOR) {
+        builder.setStatus(BattleStatus.OPPONENT_ON_SAME_SIDE);
+        return false;
+      }
     }
     if (attacker.getStamina() <= 0) {
       builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_STAMINA);

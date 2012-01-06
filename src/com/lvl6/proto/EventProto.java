@@ -2053,6 +2053,7 @@ public final class EventProto {
       DEFENDER_NOT_ENOUGH_HEALTH(2, 2),
       ATTACKER_NOT_ENOUGH_STAMINA(3, 3),
       LEVEL_DIFFERENCE_TOO_HIGH(4, 4),
+      OPPONENT_ON_SAME_SIDE(5, 5),
       ;
       
       public static final int SUCCESS_VALUE = 0;
@@ -2060,6 +2061,7 @@ public final class EventProto {
       public static final int DEFENDER_NOT_ENOUGH_HEALTH_VALUE = 2;
       public static final int ATTACKER_NOT_ENOUGH_STAMINA_VALUE = 3;
       public static final int LEVEL_DIFFERENCE_TOO_HIGH_VALUE = 4;
+      public static final int OPPONENT_ON_SAME_SIDE_VALUE = 5;
       
       
       public final int getNumber() { return value; }
@@ -2071,6 +2073,7 @@ public final class EventProto {
           case 2: return DEFENDER_NOT_ENOUGH_HEALTH;
           case 3: return ATTACKER_NOT_ENOUGH_STAMINA;
           case 4: return LEVEL_DIFFERENCE_TOO_HIGH;
+          case 5: return OPPONENT_ON_SAME_SIDE;
           default: return null;
         }
       }
@@ -2101,7 +2104,7 @@ public final class EventProto {
       }
       
       private static final BattleStatus[] VALUES = {
-        SUCCESS, ATTACKER_NOT_ENOUGH_HEALTH, DEFENDER_NOT_ENOUGH_HEALTH, ATTACKER_NOT_ENOUGH_STAMINA, LEVEL_DIFFERENCE_TOO_HIGH, 
+        SUCCESS, ATTACKER_NOT_ENOUGH_HEALTH, DEFENDER_NOT_ENOUGH_HEALTH, ATTACKER_NOT_ENOUGH_STAMINA, LEVEL_DIFFERENCE_TOO_HIGH, OPPONENT_ON_SAME_SIDE, 
       };
       
       public static BattleStatus valueOf(
@@ -4351,943 +4354,6 @@ public final class EventProto {
     }
     
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.VaultResponseProto)
-  }
-  
-  public interface ClericCostCalculateRequestProtoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-    
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
-    boolean hasSender();
-    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
-    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
-  }
-  public static final class ClericCostCalculateRequestProto extends
-      com.google.protobuf.GeneratedMessage
-      implements ClericCostCalculateRequestProtoOrBuilder {
-    // Use ClericCostCalculateRequestProto.newBuilder() to construct.
-    private ClericCostCalculateRequestProto(Builder builder) {
-      super(builder);
-    }
-    private ClericCostCalculateRequestProto(boolean noInit) {}
-    
-    private static final ClericCostCalculateRequestProto defaultInstance;
-    public static ClericCostCalculateRequestProto getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    public ClericCostCalculateRequestProto getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_fieldAccessorTable;
-    }
-    
-    private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
-    public static final int SENDER_FIELD_NUMBER = 1;
-    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
-    public boolean hasSender() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
-      return sender_;
-    }
-    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
-      return sender_;
-    }
-    
-    private void initFields() {
-      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, sender_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, sender_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-    
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.ClericCostCalculateRequestProto prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.ClericCostCalculateRequestProtoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_fieldAccessorTable;
-      }
-      
-      // Construct using com.lvl6.proto.EventProto.ClericCostCalculateRequestProto.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getSenderFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        if (senderBuilder_ == null) {
-          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-        } else {
-          senderBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lvl6.proto.EventProto.ClericCostCalculateRequestProto.getDescriptor();
-      }
-      
-      public com.lvl6.proto.EventProto.ClericCostCalculateRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.ClericCostCalculateRequestProto.getDefaultInstance();
-      }
-      
-      public com.lvl6.proto.EventProto.ClericCostCalculateRequestProto build() {
-        com.lvl6.proto.EventProto.ClericCostCalculateRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.lvl6.proto.EventProto.ClericCostCalculateRequestProto buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.ClericCostCalculateRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.lvl6.proto.EventProto.ClericCostCalculateRequestProto buildPartial() {
-        com.lvl6.proto.EventProto.ClericCostCalculateRequestProto result = new com.lvl6.proto.EventProto.ClericCostCalculateRequestProto(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        if (senderBuilder_ == null) {
-          result.sender_ = sender_;
-        } else {
-          result.sender_ = senderBuilder_.build();
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.ClericCostCalculateRequestProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.ClericCostCalculateRequestProto)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.lvl6.proto.EventProto.ClericCostCalculateRequestProto other) {
-        if (other == com.lvl6.proto.EventProto.ClericCostCalculateRequestProto.getDefaultInstance()) return this;
-        if (other.hasSender()) {
-          mergeSender(other.getSender());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
-              if (hasSender()) {
-                subBuilder.mergeFrom(getSender());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setSender(subBuilder.buildPartial());
-              break;
-            }
-          }
-        }
-      }
-      
-      private int bitField0_;
-      
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
-      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
-      public boolean hasSender() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
-        if (senderBuilder_ == null) {
-          return sender_;
-        } else {
-          return senderBuilder_.getMessage();
-        }
-      }
-      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
-        if (senderBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          sender_ = value;
-          onChanged();
-        } else {
-          senderBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder setSender(
-          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
-        if (senderBuilder_ == null) {
-          sender_ = builderForValue.build();
-          onChanged();
-        } else {
-          senderBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
-        if (senderBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
-            sender_ =
-              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
-          } else {
-            sender_ = value;
-          }
-          onChanged();
-        } else {
-          senderBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder clearSender() {
-        if (senderBuilder_ == null) {
-          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-          onChanged();
-        } else {
-          senderBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getSenderFieldBuilder().getBuilder();
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
-        if (senderBuilder_ != null) {
-          return senderBuilder_.getMessageOrBuilder();
-        } else {
-          return sender_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
-          getSenderFieldBuilder() {
-        if (senderBuilder_ == null) {
-          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
-                  sender_,
-                  getParentForChildren(),
-                  isClean());
-          sender_ = null;
-        }
-        return senderBuilder_;
-      }
-      
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ClericCostCalculateRequestProto)
-    }
-    
-    static {
-      defaultInstance = new ClericCostCalculateRequestProto(true);
-      defaultInstance.initFields();
-    }
-    
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.ClericCostCalculateRequestProto)
-  }
-  
-  public interface ClericCostCalculateResponseProtoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-    
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
-    boolean hasSender();
-    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
-    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
-    
-    // optional int32 cost = 2;
-    boolean hasCost();
-    int getCost();
-  }
-  public static final class ClericCostCalculateResponseProto extends
-      com.google.protobuf.GeneratedMessage
-      implements ClericCostCalculateResponseProtoOrBuilder {
-    // Use ClericCostCalculateResponseProto.newBuilder() to construct.
-    private ClericCostCalculateResponseProto(Builder builder) {
-      super(builder);
-    }
-    private ClericCostCalculateResponseProto(boolean noInit) {}
-    
-    private static final ClericCostCalculateResponseProto defaultInstance;
-    public static ClericCostCalculateResponseProto getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    public ClericCostCalculateResponseProto getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_fieldAccessorTable;
-    }
-    
-    private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
-    public static final int SENDER_FIELD_NUMBER = 1;
-    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
-    public boolean hasSender() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
-      return sender_;
-    }
-    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
-      return sender_;
-    }
-    
-    // optional int32 cost = 2;
-    public static final int COST_FIELD_NUMBER = 2;
-    private int cost_;
-    public boolean hasCost() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public int getCost() {
-      return cost_;
-    }
-    
-    private void initFields() {
-      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      cost_ = 0;
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, sender_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, cost_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, sender_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, cost_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-    
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.EventProto.ClericCostCalculateResponseProto parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.ClericCostCalculateResponseProto prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.ClericCostCalculateResponseProtoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_fieldAccessorTable;
-      }
-      
-      // Construct using com.lvl6.proto.EventProto.ClericCostCalculateResponseProto.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getSenderFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        if (senderBuilder_ == null) {
-          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-        } else {
-          senderBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        cost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lvl6.proto.EventProto.ClericCostCalculateResponseProto.getDescriptor();
-      }
-      
-      public com.lvl6.proto.EventProto.ClericCostCalculateResponseProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.ClericCostCalculateResponseProto.getDefaultInstance();
-      }
-      
-      public com.lvl6.proto.EventProto.ClericCostCalculateResponseProto build() {
-        com.lvl6.proto.EventProto.ClericCostCalculateResponseProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.lvl6.proto.EventProto.ClericCostCalculateResponseProto buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.ClericCostCalculateResponseProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.lvl6.proto.EventProto.ClericCostCalculateResponseProto buildPartial() {
-        com.lvl6.proto.EventProto.ClericCostCalculateResponseProto result = new com.lvl6.proto.EventProto.ClericCostCalculateResponseProto(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        if (senderBuilder_ == null) {
-          result.sender_ = sender_;
-        } else {
-          result.sender_ = senderBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.cost_ = cost_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.ClericCostCalculateResponseProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.ClericCostCalculateResponseProto)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.lvl6.proto.EventProto.ClericCostCalculateResponseProto other) {
-        if (other == com.lvl6.proto.EventProto.ClericCostCalculateResponseProto.getDefaultInstance()) return this;
-        if (other.hasSender()) {
-          mergeSender(other.getSender());
-        }
-        if (other.hasCost()) {
-          setCost(other.getCost());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
-              if (hasSender()) {
-                subBuilder.mergeFrom(getSender());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setSender(subBuilder.buildPartial());
-              break;
-            }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              cost_ = input.readInt32();
-              break;
-            }
-          }
-        }
-      }
-      
-      private int bitField0_;
-      
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
-      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
-      public boolean hasSender() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
-        if (senderBuilder_ == null) {
-          return sender_;
-        } else {
-          return senderBuilder_.getMessage();
-        }
-      }
-      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
-        if (senderBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          sender_ = value;
-          onChanged();
-        } else {
-          senderBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder setSender(
-          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
-        if (senderBuilder_ == null) {
-          sender_ = builderForValue.build();
-          onChanged();
-        } else {
-          senderBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
-        if (senderBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
-            sender_ =
-              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
-          } else {
-            sender_ = value;
-          }
-          onChanged();
-        } else {
-          senderBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder clearSender() {
-        if (senderBuilder_ == null) {
-          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-          onChanged();
-        } else {
-          senderBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getSenderFieldBuilder().getBuilder();
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
-        if (senderBuilder_ != null) {
-          return senderBuilder_.getMessageOrBuilder();
-        } else {
-          return sender_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
-          getSenderFieldBuilder() {
-        if (senderBuilder_ == null) {
-          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
-                  sender_,
-                  getParentForChildren(),
-                  isClean());
-          sender_ = null;
-        }
-        return senderBuilder_;
-      }
-      
-      // optional int32 cost = 2;
-      private int cost_ ;
-      public boolean hasCost() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public int getCost() {
-        return cost_;
-      }
-      public Builder setCost(int value) {
-        bitField0_ |= 0x00000002;
-        cost_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearCost() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        cost_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ClericCostCalculateResponseProto)
-    }
-    
-    static {
-      defaultInstance = new ClericCostCalculateResponseProto(true);
-      defaultInstance.initFields();
-    }
-    
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.ClericCostCalculateResponseProto)
   }
   
   public interface ClericHealRequestProtoOrBuilder
@@ -9549,14 +8615,14 @@ public final class EventProto {
       USER_NOT_ENOUGH_ENERGY(1, 1),
       USER_NOT_ENOUGH_ARMY(2, 2),
       USER_NOT_ALL_REQUIRED_ITEMS(3, 3),
-      INVALID_TASK_ID(4, 4),
+      INVALID_TASK_ID(4, 5),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int USER_NOT_ENOUGH_ENERGY_VALUE = 1;
       public static final int USER_NOT_ENOUGH_ARMY_VALUE = 2;
       public static final int USER_NOT_ALL_REQUIRED_ITEMS_VALUE = 3;
-      public static final int INVALID_TASK_ID_VALUE = 4;
+      public static final int INVALID_TASK_ID_VALUE = 5;
       
       
       public final int getNumber() { return value; }
@@ -9567,7 +8633,7 @@ public final class EventProto {
           case 1: return USER_NOT_ENOUGH_ENERGY;
           case 2: return USER_NOT_ENOUGH_ARMY;
           case 3: return USER_NOT_ALL_REQUIRED_ITEMS;
-          case 4: return INVALID_TASK_ID;
+          case 5: return INVALID_TASK_ID;
           default: return null;
         }
       }
@@ -10827,16 +9893,6 @@ public final class EventProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_VaultResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_ClericHealRequestProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -10899,7 +9955,7 @@ public final class EventProto {
       "nimumUserProto\022\017\n\007message\030\002 \002(\t\"|\n\022Battl" +
       "eRequestProto\0222\n\010attacker\030\001 \002(\0132 .com.lv" +
       "l6.proto.MinimumUserProto\0222\n\010defender\030\002 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\"\206\004",
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\"\241\004",
       "\n\023BattleResponseProto\0222\n\010attacker\030\001 \002(\0132" +
       " .com.lvl6.proto.MinimumUserProto\0222\n\010def" +
       "ender\030\002 \002(\0132 .com.lvl6.proto.MinimumUser" +
@@ -10909,58 +9965,54 @@ public final class EventProto {
       "uipGained\030\006 \001(\0132!.com.lvl6.proto.Minimum" +
       "EquipProto\022\021\n\texpGained\030\007 \001(\005\022\030\n\020winnerH" +
       "ealthLoss\030\010 \001(\005\022\027\n\017loserHealthLoss\030\t \001(\005" +
-      "\"\233\001\n\014BattleStatus\022\013\n\007SUCCESS\020\000\022\036\n\032ATTACK",
+      "\"\266\001\n\014BattleStatus\022\013\n\007SUCCESS\020\000\022\036\n\032ATTACK",
       "ER_NOT_ENOUGH_HEALTH\020\001\022\036\n\032DEFENDER_NOT_E" +
       "NOUGH_HEALTH\020\002\022\037\n\033ATTACKER_NOT_ENOUGH_ST" +
-      "AMINA\020\003\022\035\n\031LEVEL_DIFFERENCE_TOO_HIGH\020\004\"\315" +
-      "\001\n\021VaultRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022G\n\013reques" +
-      "tType\030\002 \001(\01622.com.lvl6.proto.VaultReques" +
-      "tProto.VaultRequestType\022\016\n\006amount\030\003 \001(\005\"" +
-      "-\n\020VaultRequestType\022\013\n\007DEPOSIT\020\000\022\014\n\010WITH" +
-      "DRAW\020\001\"o\n\022VaultResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022\023",
-      "\n\013vaultAmount\030\002 \001(\005\022\022\n\ncoinAmount\030\003 \001(\005\"" +
-      "S\n\037ClericCostCalculateRequestProto\0220\n\006se" +
-      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\"b\n ClericCostCalculateResponseProto" +
-      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\014\n\004cost\030\002 \001(\005\"J\n\026ClericHealRe" +
-      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\"\343\001\n\027ClericHealRespo" +
-      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\014\n\004cost\030\002 \001(\005\022B\n\006stat",
-      "us\030\003 \001(\01622.com.lvl6.proto.ClericHealResp" +
-      "onseProto.HealStatus\"D\n\nHealStatus\022\013\n\007SU" +
-      "CCESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT\020\001\022\016\n\nOT" +
-      "HER_FAIL\020\002\"7\n\023StartupRequestProto\022\014\n\004udi" +
-      "d\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\322\001\n\024StartupR" +
-      "esponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6." +
-      "proto.FullUserProto\022!\n\031maxCityIdAccessib" +
-      "leToUser\030\002 \001(\005\022=\n\nstructures\030\003 \003(\0132).com" +
-      ".lvl6.proto.MinimumUserStructureProto\022\027\n" +
-      "\017updateAvailable\030\004 \002(\010\022\020\n\010questLog\030\005 \003(\005",
-      "\"d\n RetrieveTasksForCityRequestProto\0220\n\006" +
-      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!RetrieveTasks" +
-      "ForCityResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022,\n\005tasks\030" +
-      "\002 \003(\0132\035.com.lvl6.proto.FullTaskProto\"Z\n\026" +
-      "TaskActionRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\016\n\006task" +
-      "Id\030\002 \002(\005\"\372\002\n\027TaskActionResponseProto\0220\n\006" +
-      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse",
-      "rProto\022H\n\006status\030\002 \002(\01628.com.lvl6.proto." +
-      "TaskActionResponseProto.TaskActionStatus" +
-      "\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRankedUp\030" +
-      "\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coinsGaine" +
-      "d\030\006 \001(\005\"\213\001\n\020TaskActionStatus\022\013\n\007SUCCESS\020" +
-      "\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\030\n\024USER_NO" +
-      "T_ENOUGH_ARMY\020\002\022\037\n\033USER_NOT_ALL_REQUIRED" +
-      "_ITEMS\020\003\022\023\n\017INVALID_TASK_ID\020\004\"h\n\024LevelUp" +
-      "ResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6" +
-      ".proto.FullUserProto\022!\n\031maxCityIdAccessi",
-      "bleToUser\030\002 \001(\005B\014B\nEventProto"
+      "AMINA\020\003\022\035\n\031LEVEL_DIFFERENCE_TOO_HIGH\020\004\022\031" +
+      "\n\025OPPONENT_ON_SAME_SIDE\020\005\"\315\001\n\021VaultReque" +
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022G\n\013requestType\030\002 \001(\01622" +
+      ".com.lvl6.proto.VaultRequestProto.VaultR" +
+      "equestType\022\016\n\006amount\030\003 \001(\005\"-\n\020VaultReque" +
+      "stType\022\013\n\007DEPOSIT\020\000\022\014\n\010WITHDRAW\020\001\"o\n\022Vau" +
+      "ltResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lv",
+      "l6.proto.MinimumUserProto\022\023\n\013vaultAmount" +
+      "\030\002 \001(\005\022\022\n\ncoinAmount\030\003 \001(\005\"J\n\026ClericHeal" +
+      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\"\343\001\n\027ClericHealRes" +
+      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022\014\n\004cost\030\002 \001(\005\022B\n\006st" +
+      "atus\030\003 \001(\01622.com.lvl6.proto.ClericHealRe" +
+      "sponseProto.HealStatus\"D\n\nHealStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT\020\001\022\016\n\n" +
+      "OTHER_FAIL\020\002\"7\n\023StartupRequestProto\022\014\n\004u",
+      "did\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\322\001\n\024Startu" +
+      "pResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl" +
+      "6.proto.FullUserProto\022!\n\031maxCityIdAccess" +
+      "ibleToUser\030\002 \001(\005\022=\n\nstructures\030\003 \003(\0132).c" +
+      "om.lvl6.proto.MinimumUserStructureProto\022" +
+      "\027\n\017updateAvailable\030\004 \002(\010\022\020\n\010questLog\030\005 \003" +
+      "(\005\"d\n RetrieveTasksForCityRequestProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!RetrieveTas" +
+      "ksForCityResponseProto\0220\n\006sender\030\001 \002(\0132 ",
+      ".com.lvl6.proto.MinimumUserProto\022,\n\005task" +
+      "s\030\002 \003(\0132\035.com.lvl6.proto.FullTaskProto\"Z" +
+      "\n\026TaskActionRequestProto\0220\n\006sender\030\001 \002(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022\016\n\006ta" +
+      "skId\030\002 \002(\005\"\372\002\n\027TaskActionResponseProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022H\n\006status\030\002 \002(\01628.com.lvl6.prot" +
+      "o.TaskActionResponseProto.TaskActionStat" +
+      "us\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRankedU" +
+      "p\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coinsGai",
+      "ned\030\006 \001(\005\"\213\001\n\020TaskActionStatus\022\013\n\007SUCCES" +
+      "S\020\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\030\n\024USER_" +
+      "NOT_ENOUGH_ARMY\020\002\022\037\n\033USER_NOT_ALL_REQUIR" +
+      "ED_ITEMS\020\003\022\023\n\017INVALID_TASK_ID\020\005\"h\n\024Level" +
+      "UpResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lv" +
+      "l6.proto.FullUserProto\022!\n\031maxCityIdAcces" +
+      "sibleToUser\030\002 \001(\005B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -11015,24 +10067,8 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "VaultAmount", "CoinAmount", },
               com.lvl6.proto.EventProto.VaultResponseProto.class,
               com.lvl6.proto.EventProto.VaultResponseProto.Builder.class);
-          internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(6);
-          internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_ClericCostCalculateRequestProto_descriptor,
-              new java.lang.String[] { "Sender", },
-              com.lvl6.proto.EventProto.ClericCostCalculateRequestProto.class,
-              com.lvl6.proto.EventProto.ClericCostCalculateRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(7);
-          internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_ClericCostCalculateResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Cost", },
-              com.lvl6.proto.EventProto.ClericCostCalculateResponseProto.class,
-              com.lvl6.proto.EventProto.ClericCostCalculateResponseProto.Builder.class);
           internal_static_com_lvl6_proto_ClericHealRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(8);
+            getDescriptor().getMessageTypes().get(6);
           internal_static_com_lvl6_proto_ClericHealRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ClericHealRequestProto_descriptor,
@@ -11040,7 +10076,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.ClericHealRequestProto.class,
               com.lvl6.proto.EventProto.ClericHealRequestProto.Builder.class);
           internal_static_com_lvl6_proto_ClericHealResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+            getDescriptor().getMessageTypes().get(7);
           internal_static_com_lvl6_proto_ClericHealResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_ClericHealResponseProto_descriptor,
@@ -11048,7 +10084,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.ClericHealResponseProto.class,
               com.lvl6.proto.EventProto.ClericHealResponseProto.Builder.class);
           internal_static_com_lvl6_proto_StartupRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+            getDescriptor().getMessageTypes().get(8);
           internal_static_com_lvl6_proto_StartupRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupRequestProto_descriptor,
@@ -11056,7 +10092,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.StartupRequestProto.class,
               com.lvl6.proto.EventProto.StartupRequestProto.Builder.class);
           internal_static_com_lvl6_proto_StartupResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(11);
+            getDescriptor().getMessageTypes().get(9);
           internal_static_com_lvl6_proto_StartupResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_descriptor,
@@ -11064,7 +10100,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.StartupResponseProto.class,
               com.lvl6.proto.EventProto.StartupResponseProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveTasksForCityRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+            getDescriptor().getMessageTypes().get(10);
           internal_static_com_lvl6_proto_RetrieveTasksForCityRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveTasksForCityRequestProto_descriptor,
@@ -11072,7 +10108,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RetrieveTasksForCityRequestProto.class,
               com.lvl6.proto.EventProto.RetrieveTasksForCityRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveTasksForCityResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(13);
+            getDescriptor().getMessageTypes().get(11);
           internal_static_com_lvl6_proto_RetrieveTasksForCityResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveTasksForCityResponseProto_descriptor,
@@ -11080,7 +10116,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RetrieveTasksForCityResponseProto.class,
               com.lvl6.proto.EventProto.RetrieveTasksForCityResponseProto.Builder.class);
           internal_static_com_lvl6_proto_TaskActionRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(14);
+            getDescriptor().getMessageTypes().get(12);
           internal_static_com_lvl6_proto_TaskActionRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_TaskActionRequestProto_descriptor,
@@ -11088,7 +10124,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.TaskActionRequestProto.class,
               com.lvl6.proto.EventProto.TaskActionRequestProto.Builder.class);
           internal_static_com_lvl6_proto_TaskActionResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(15);
+            getDescriptor().getMessageTypes().get(13);
           internal_static_com_lvl6_proto_TaskActionResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_TaskActionResponseProto_descriptor,
@@ -11096,7 +10132,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.TaskActionResponseProto.class,
               com.lvl6.proto.EventProto.TaskActionResponseProto.Builder.class);
           internal_static_com_lvl6_proto_LevelUpResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(16);
+            getDescriptor().getMessageTypes().get(14);
           internal_static_com_lvl6_proto_LevelUpResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LevelUpResponseProto_descriptor,
