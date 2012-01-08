@@ -279,5 +279,17 @@ public class GameServer extends Thread{
     playersInAction.removePlayer(playerId);
   }
   
+  public void unlockPlayers(int playerId1, int playerId2) {
+    if (playerId1 > playerId2) {
+      unlockPlayer(playerId2);
+      unlockPlayer(playerId1);
+    } 
+    else {
+      unlockPlayer(playerId1);
+      unlockPlayer(playerId2);
+    }
+  }
+
+  
   
 }

@@ -84,6 +84,8 @@ public class BattleController extends EventController {
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getAllEquipmentIdsToEquipment();
 
+    server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+
     User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
     List<UserEquip> attackerEquips = UserEquipRetrieveUtils.getUserEquipsForUser(attacker.getId());
 
@@ -157,6 +159,8 @@ public class BattleController extends EventController {
     //TODO: should these send new response? or package inside battles?
     //TODO: AchievementCheck.checkBattle(); 
     //TODO: LevelCheck.checkUser();
+    
+    server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
   }
 
   

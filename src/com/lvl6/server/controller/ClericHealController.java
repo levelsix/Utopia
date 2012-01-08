@@ -43,6 +43,8 @@ public class ClericHealController extends EventController {
     
     MinimumUserProto senderProto = reqProto.getSender();
     
+    server.lockPlayer(senderProto.getUserId());
+
     User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
     int cost = calculateClericCost(user);
 
@@ -67,6 +69,8 @@ public class ClericHealController extends EventController {
     resEvent.setClericHealResponseProto(resProto);
     
     server.writeEvent(resEvent);
+    server.unlockPlayer(senderProto.getUserId());
+
 
   }
 

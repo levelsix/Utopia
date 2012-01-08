@@ -52,6 +52,8 @@ public class TaskActionController extends EventController {
     MinimumUserProto senderProto = reqProto.getSender();
     int taskId = reqProto.getTaskId();
 
+    server.lockPlayer(senderProto.getUserId());
+
     User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
     TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto.newBuilder();
     resBuilder.setSender(senderProto);    
@@ -106,6 +108,8 @@ public class TaskActionController extends EventController {
     //TODO: should these send new response? or package inside battles?
     //TODO: AchievementCheck.checkBattle(); 
     //TODO: LevelCheck.checkUser();
+    
+    server.unlockPlayer(senderProto.getUserId());
   }
 
 
