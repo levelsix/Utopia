@@ -8580,6 +8580,14 @@ public final class EventProto {
     // optional int32 coinsGained = 6;
     boolean hasCoinsGained();
     int getCoinsGained();
+    
+    // optional int32 coinBonusIfCityRankup = 7;
+    boolean hasCoinBonusIfCityRankup();
+    int getCoinBonusIfCityRankup();
+    
+    // optional int32 expBonusIfCityRankup = 8;
+    boolean hasExpBonusIfCityRankup();
+    int getExpBonusIfCityRankup();
   }
   public static final class TaskActionResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -8751,6 +8759,26 @@ public final class EventProto {
       return coinsGained_;
     }
     
+    // optional int32 coinBonusIfCityRankup = 7;
+    public static final int COINBONUSIFCITYRANKUP_FIELD_NUMBER = 7;
+    private int coinBonusIfCityRankup_;
+    public boolean hasCoinBonusIfCityRankup() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public int getCoinBonusIfCityRankup() {
+      return coinBonusIfCityRankup_;
+    }
+    
+    // optional int32 expBonusIfCityRankup = 8;
+    public static final int EXPBONUSIFCITYRANKUP_FIELD_NUMBER = 8;
+    private int expBonusIfCityRankup_;
+    public boolean hasExpBonusIfCityRankup() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public int getExpBonusIfCityRankup() {
+      return expBonusIfCityRankup_;
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       status_ = com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus.SUCCESS;
@@ -8758,6 +8786,8 @@ public final class EventProto {
       cityRankedUp_ = false;
       lootEquipId_ = 0;
       coinsGained_ = 0;
+      coinBonusIfCityRankup_ = 0;
+      expBonusIfCityRankup_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8801,6 +8831,12 @@ public final class EventProto {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeInt32(6, coinsGained_);
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, coinBonusIfCityRankup_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, expBonusIfCityRankup_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -8833,6 +8869,14 @@ public final class EventProto {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, coinsGained_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, coinBonusIfCityRankup_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, expBonusIfCityRankup_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8975,6 +9019,10 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000010);
         coinsGained_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
+        coinBonusIfCityRankup_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        expBonusIfCityRankup_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       
@@ -9041,6 +9089,14 @@ public final class EventProto {
           to_bitField0_ |= 0x00000020;
         }
         result.coinsGained_ = coinsGained_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.coinBonusIfCityRankup_ = coinBonusIfCityRankup_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.expBonusIfCityRankup_ = expBonusIfCityRankup_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -9074,6 +9130,12 @@ public final class EventProto {
         }
         if (other.hasCoinsGained()) {
           setCoinsGained(other.getCoinsGained());
+        }
+        if (other.hasCoinBonusIfCityRankup()) {
+          setCoinBonusIfCityRankup(other.getCoinBonusIfCityRankup());
+        }
+        if (other.hasExpBonusIfCityRankup()) {
+          setExpBonusIfCityRankup(other.getExpBonusIfCityRankup());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -9156,6 +9218,16 @@ public final class EventProto {
             case 48: {
               bitField0_ |= 0x00000020;
               coinsGained_ = input.readInt32();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              coinBonusIfCityRankup_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              expBonusIfCityRankup_ = input.readInt32();
               break;
             }
           }
@@ -9358,6 +9430,48 @@ public final class EventProto {
       public Builder clearCoinsGained() {
         bitField0_ = (bitField0_ & ~0x00000020);
         coinsGained_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 coinBonusIfCityRankup = 7;
+      private int coinBonusIfCityRankup_ ;
+      public boolean hasCoinBonusIfCityRankup() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getCoinBonusIfCityRankup() {
+        return coinBonusIfCityRankup_;
+      }
+      public Builder setCoinBonusIfCityRankup(int value) {
+        bitField0_ |= 0x00000040;
+        coinBonusIfCityRankup_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCoinBonusIfCityRankup() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        coinBonusIfCityRankup_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 expBonusIfCityRankup = 8;
+      private int expBonusIfCityRankup_ ;
+      public boolean hasExpBonusIfCityRankup() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getExpBonusIfCityRankup() {
+        return expBonusIfCityRankup_;
+      }
+      public Builder setExpBonusIfCityRankup(int value) {
+        bitField0_ |= 0x00000080;
+        expBonusIfCityRankup_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearExpBonusIfCityRankup() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        expBonusIfCityRankup_ = 0;
         onChanged();
         return this;
       }
@@ -10000,19 +10114,21 @@ public final class EventProto {
       "s\030\002 \003(\0132\035.com.lvl6.proto.FullTaskProto\"Z" +
       "\n\026TaskActionRequestProto\0220\n\006sender\030\001 \002(\013" +
       "2 .com.lvl6.proto.MinimumUserProto\022\016\n\006ta" +
-      "skId\030\002 \002(\005\"\372\002\n\027TaskActionResponseProto\0220" +
+      "skId\030\002 \002(\005\"\267\003\n\027TaskActionResponseProto\0220" +
       "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
       "serProto\022H\n\006status\030\002 \002(\01628.com.lvl6.prot" +
       "o.TaskActionResponseProto.TaskActionStat" +
       "us\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRankedU" +
       "p\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coinsGai",
-      "ned\030\006 \001(\005\"\213\001\n\020TaskActionStatus\022\013\n\007SUCCES" +
-      "S\020\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\030\n\024USER_" +
-      "NOT_ENOUGH_ARMY\020\002\022\037\n\033USER_NOT_ALL_REQUIR" +
-      "ED_ITEMS\020\003\022\023\n\017INVALID_TASK_ID\020\005\"h\n\024Level" +
-      "UpResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lv" +
-      "l6.proto.FullUserProto\022!\n\031maxCityIdAcces" +
-      "sibleToUser\030\002 \001(\005B\014B\nEventProto"
+      "ned\030\006 \001(\005\022\035\n\025coinBonusIfCityRankup\030\007 \001(\005" +
+      "\022\034\n\024expBonusIfCityRankup\030\010 \001(\005\"\213\001\n\020TaskA" +
+      "ctionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USER_NOT_ENO" +
+      "UGH_ENERGY\020\001\022\030\n\024USER_NOT_ENOUGH_ARMY\020\002\022\037" +
+      "\n\033USER_NOT_ALL_REQUIRED_ITEMS\020\003\022\023\n\017INVAL" +
+      "ID_TASK_ID\020\005\"h\n\024LevelUpResponseProto\022-\n\006" +
+      "sender\030\001 \002(\0132\035.com.lvl6.proto.FullUserPr" +
+      "oto\022!\n\031maxCityIdAccessibleToUser\030\002 \001(\005B\014" +
+      "B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -10128,7 +10244,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_TaskActionResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_TaskActionResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "TaskCompleted", "CityRankedUp", "LootEquipId", "CoinsGained", },
+              new java.lang.String[] { "Sender", "Status", "TaskCompleted", "CityRankedUp", "LootEquipId", "CoinsGained", "CoinBonusIfCityRankup", "ExpBonusIfCityRankup", },
               com.lvl6.proto.EventProto.TaskActionResponseProto.class,
               com.lvl6.proto.EventProto.TaskActionResponseProto.Builder.class);
           internal_static_com_lvl6_proto_LevelUpResponseProto_descriptor =

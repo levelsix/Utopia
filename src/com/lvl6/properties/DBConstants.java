@@ -5,10 +5,14 @@ public class DBConstants {
   /* TABLENAMES*/
   public static final String TABLE_USER = "users";
   public static final String TABLE_USER_EQUIP = "user_equip";
+  public static final String TABLE_USER_TASKS = "user_tasks";
+  public static final String TABLE_USER_CITIES = "user_cities";
   public static final String TABLE_EQUIPMENT = "equipment";
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
+  public static final String TABLE_CITIES = "cities";
 
+  
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
   public static final String GENERIC__ID = "id";
@@ -50,6 +54,9 @@ public class DBConstants {
 
   /*STRUCTURE TABLE*/
   public static final String STRUCTURE__ID = GENERIC__ID;
+
+  /*USER TASK TABLE*/
+  public static final String USER_TASK__USER_ID = GENERIC__USER_ID;
 
 
 }

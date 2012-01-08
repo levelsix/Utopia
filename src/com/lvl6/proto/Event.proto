@@ -112,6 +112,10 @@ message TaskActionResponseProto {
 	optional bool cityRankedUp = 4;
 	optional int32 lootEquipId = 5;
 	optional int32 coinsGained = 6;
+	
+	optional int32 coinBonusIfCityRankup = 7;
+	optional int32 expBonusIfCityRankup = 8;
+	
 
 	enum TaskActionStatus {
 		SUCCESS = 0; 

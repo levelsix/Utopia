@@ -1830,10 +1830,10 @@ public final class InfoProto {
     boolean hasChanceOfEquipLoot();
     float getChanceOfEquipLoot();
     
-    // repeated int32 equipIds = 9;
-    java.util.List<java.lang.Integer> getEquipIdsList();
-    int getEquipIdsCount();
-    int getEquipIds(int index);
+    // repeated int32 potentialLootEquipIds = 9;
+    java.util.List<java.lang.Integer> getPotentialLootEquipIdsList();
+    int getPotentialLootEquipIdsCount();
+    int getPotentialLootEquipIds(int index);
     
     // required int32 expGained = 10;
     boolean hasExpGained();
@@ -2004,18 +2004,18 @@ public final class InfoProto {
       return chanceOfEquipLoot_;
     }
     
-    // repeated int32 equipIds = 9;
-    public static final int EQUIPIDS_FIELD_NUMBER = 9;
-    private java.util.List<java.lang.Integer> equipIds_;
+    // repeated int32 potentialLootEquipIds = 9;
+    public static final int POTENTIALLOOTEQUIPIDS_FIELD_NUMBER = 9;
+    private java.util.List<java.lang.Integer> potentialLootEquipIds_;
     public java.util.List<java.lang.Integer>
-        getEquipIdsList() {
-      return equipIds_;
+        getPotentialLootEquipIdsList() {
+      return potentialLootEquipIds_;
     }
-    public int getEquipIdsCount() {
-      return equipIds_.size();
+    public int getPotentialLootEquipIdsCount() {
+      return potentialLootEquipIds_.size();
     }
-    public int getEquipIds(int index) {
-      return equipIds_.get(index);
+    public int getPotentialLootEquipIds(int index) {
+      return potentialLootEquipIds_.get(index);
     }
     
     // required int32 expGained = 10;
@@ -2067,7 +2067,7 @@ public final class InfoProto {
       minCoinsGained_ = 0;
       maxCoinsGained_ = 0;
       chanceOfEquipLoot_ = 0F;
-      equipIds_ = java.util.Collections.emptyList();;
+      potentialLootEquipIds_ = java.util.Collections.emptyList();;
       expGained_ = 0;
       minArmySize_ = 0;
       assetNumWithinCity_ = 0;
@@ -2157,8 +2157,8 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeFloat(8, chanceOfEquipLoot_);
       }
-      for (int i = 0; i < equipIds_.size(); i++) {
-        output.writeInt32(9, equipIds_.get(i));
+      for (int i = 0; i < potentialLootEquipIds_.size(); i++) {
+        output.writeInt32(9, potentialLootEquipIds_.get(i));
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         output.writeInt32(10, expGained_);
@@ -2215,12 +2215,12 @@ public final class InfoProto {
       }
       {
         int dataSize = 0;
-        for (int i = 0; i < equipIds_.size(); i++) {
+        for (int i = 0; i < potentialLootEquipIds_.size(); i++) {
           dataSize += com.google.protobuf.CodedOutputStream
-            .computeInt32SizeNoTag(equipIds_.get(i));
+            .computeInt32SizeNoTag(potentialLootEquipIds_.get(i));
         }
         size += dataSize;
-        size += 1 * getEquipIdsList().size();
+        size += 1 * getPotentialLootEquipIdsList().size();
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
@@ -2378,7 +2378,7 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000040);
         chanceOfEquipLoot_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000080);
-        equipIds_ = java.util.Collections.emptyList();;
+        potentialLootEquipIds_ = java.util.Collections.emptyList();;
         bitField0_ = (bitField0_ & ~0x00000100);
         expGained_ = 0;
         bitField0_ = (bitField0_ & ~0x00000200);
@@ -2459,10 +2459,10 @@ public final class InfoProto {
         }
         result.chanceOfEquipLoot_ = chanceOfEquipLoot_;
         if (((bitField0_ & 0x00000100) == 0x00000100)) {
-          equipIds_ = java.util.Collections.unmodifiableList(equipIds_);
+          potentialLootEquipIds_ = java.util.Collections.unmodifiableList(potentialLootEquipIds_);
           bitField0_ = (bitField0_ & ~0x00000100);
         }
-        result.equipIds_ = equipIds_;
+        result.potentialLootEquipIds_ = potentialLootEquipIds_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000100;
         }
@@ -2519,13 +2519,13 @@ public final class InfoProto {
         if (other.hasChanceOfEquipLoot()) {
           setChanceOfEquipLoot(other.getChanceOfEquipLoot());
         }
-        if (!other.equipIds_.isEmpty()) {
-          if (equipIds_.isEmpty()) {
-            equipIds_ = other.equipIds_;
+        if (!other.potentialLootEquipIds_.isEmpty()) {
+          if (potentialLootEquipIds_.isEmpty()) {
+            potentialLootEquipIds_ = other.potentialLootEquipIds_;
             bitField0_ = (bitField0_ & ~0x00000100);
           } else {
-            ensureEquipIdsIsMutable();
-            equipIds_.addAll(other.equipIds_);
+            ensurePotentialLootEquipIdsIsMutable();
+            potentialLootEquipIds_.addAll(other.potentialLootEquipIds_);
           }
           onChanged();
         }
@@ -2661,15 +2661,15 @@ public final class InfoProto {
               break;
             }
             case 72: {
-              ensureEquipIdsIsMutable();
-              equipIds_.add(input.readInt32());
+              ensurePotentialLootEquipIdsIsMutable();
+              potentialLootEquipIds_.add(input.readInt32());
               break;
             }
             case 74: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
               while (input.getBytesUntilLimit() > 0) {
-                addEquipIds(input.readInt32());
+                addPotentialLootEquipIds(input.readInt32());
               }
               input.popLimit(limit);
               break;
@@ -2898,46 +2898,46 @@ public final class InfoProto {
         return this;
       }
       
-      // repeated int32 equipIds = 9;
-      private java.util.List<java.lang.Integer> equipIds_ = java.util.Collections.emptyList();;
-      private void ensureEquipIdsIsMutable() {
+      // repeated int32 potentialLootEquipIds = 9;
+      private java.util.List<java.lang.Integer> potentialLootEquipIds_ = java.util.Collections.emptyList();;
+      private void ensurePotentialLootEquipIdsIsMutable() {
         if (!((bitField0_ & 0x00000100) == 0x00000100)) {
-          equipIds_ = new java.util.ArrayList<java.lang.Integer>(equipIds_);
+          potentialLootEquipIds_ = new java.util.ArrayList<java.lang.Integer>(potentialLootEquipIds_);
           bitField0_ |= 0x00000100;
          }
       }
       public java.util.List<java.lang.Integer>
-          getEquipIdsList() {
-        return java.util.Collections.unmodifiableList(equipIds_);
+          getPotentialLootEquipIdsList() {
+        return java.util.Collections.unmodifiableList(potentialLootEquipIds_);
       }
-      public int getEquipIdsCount() {
-        return equipIds_.size();
+      public int getPotentialLootEquipIdsCount() {
+        return potentialLootEquipIds_.size();
       }
-      public int getEquipIds(int index) {
-        return equipIds_.get(index);
+      public int getPotentialLootEquipIds(int index) {
+        return potentialLootEquipIds_.get(index);
       }
-      public Builder setEquipIds(
+      public Builder setPotentialLootEquipIds(
           int index, int value) {
-        ensureEquipIdsIsMutable();
-        equipIds_.set(index, value);
+        ensurePotentialLootEquipIdsIsMutable();
+        potentialLootEquipIds_.set(index, value);
         onChanged();
         return this;
       }
-      public Builder addEquipIds(int value) {
-        ensureEquipIdsIsMutable();
-        equipIds_.add(value);
+      public Builder addPotentialLootEquipIds(int value) {
+        ensurePotentialLootEquipIdsIsMutable();
+        potentialLootEquipIds_.add(value);
         onChanged();
         return this;
       }
-      public Builder addAllEquipIds(
+      public Builder addAllPotentialLootEquipIds(
           java.lang.Iterable<? extends java.lang.Integer> values) {
-        ensureEquipIdsIsMutable();
-        super.addAll(values, equipIds_);
+        ensurePotentialLootEquipIdsIsMutable();
+        super.addAll(values, potentialLootEquipIds_);
         onChanged();
         return this;
       }
-      public Builder clearEquipIds() {
-        equipIds_ = java.util.Collections.emptyList();;
+      public Builder clearPotentialLootEquipIds() {
+        potentialLootEquipIds_ = java.util.Collections.emptyList();;
         bitField0_ = (bitField0_ & ~0x00000100);
         onChanged();
         return this;
@@ -3081,15 +3081,15 @@ public final class InfoProto {
       "AD_MAGE\020\005\"2\n\021MinimumEquipProto\022\017\n\007equipI" +
       "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"M\n\031MinimumUserStru" +
       "ctureProto\022\020\n\010structId\030\001 \002(\005\022\016\n\006xCoord\030\002" +
-      " \002(\005\022\016\n\006yCoord\030\003 \002(\005\"\017\n\rFullUserProto\"\245\002",
+      " \002(\005\022\016\n\006yCoord\030\003 \002(\005\"\017\n\rFullUserProto\"\262\002",
       "\n\rFullTaskProto\022\n\n\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(" +
       "\t\022\023\n\013description\030\003 \002(\t\022\016\n\006cityId\030\004 \002(\005\022\022" +
       "\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002" +
       "(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOfEq" +
-      "uipLoot\030\010 \002(\002\022\020\n\010equipIds\030\t \003(\005\022\021\n\texpGa" +
-      "ined\030\n \002(\005\022\023\n\013minArmySize\030\013 \002(\005\022\032\n\022asset" +
-      "NumWithinCity\030\014 \002(\005\022 \n\030numRequiredForCom" +
-      "pletion\030\r \002(\005B\013B\tInfoProto"
+      "uipLoot\030\010 \002(\002\022\035\n\025potentialLootEquipIds\030\t" +
+      " \003(\005\022\021\n\texpGained\030\n \002(\005\022\023\n\013minArmySize\030\013" +
+      " \002(\005\022\032\n\022assetNumWithinCity\030\014 \002(\005\022 \n\030numR" +
+      "equiredForCompletion\030\r \002(\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3133,7 +3133,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullTaskProto_descriptor,
-              new java.lang.String[] { "Id", "Name", "Description", "CityId", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "ChanceOfEquipLoot", "EquipIds", "ExpGained", "MinArmySize", "AssetNumWithinCity", "NumRequiredForCompletion", },
+              new java.lang.String[] { "Id", "Name", "Description", "CityId", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "ChanceOfEquipLoot", "PotentialLootEquipIds", "ExpGained", "MinArmySize", "AssetNumWithinCity", "NumRequiredForCompletion", },
               com.lvl6.proto.InfoProto.FullTaskProto.class,
               com.lvl6.proto.InfoProto.FullTaskProto.Builder.class);
           return null;

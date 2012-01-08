@@ -65,5 +65,4 @@ public class VaultController extends EventController {
     server.writeEvent(resEvent);
   }
 
-
 }

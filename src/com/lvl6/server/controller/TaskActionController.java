@@ -6,6 +6,7 @@ import java.util.Map;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.TaskActionRequestEvent;
 import com.lvl6.events.response.TaskActionResponseEvent;
+import com.lvl6.info.City;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -17,6 +18,8 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 
@@ -54,11 +57,13 @@ public class TaskActionController extends EventController {
     resBuilder.setSender(senderProto);    
     
     Task task = TaskRetrieveUtils.getTaskForTaskId(taskId);
-
+    //TODO: check the level of this task's city, use that as multiplier for expGained, energyCost, etc.
+    
     int coinsGained = NOT_SET;
     int lootEquipId = NOT_SET;
     boolean taskCompleted = false;
     boolean cityRankedUp = false;
+    boolean changeNumTimesUserActedInDB = true;
 
     boolean legitAction = checkLegitAction(user, task, resBuilder);
     if (legitAction) {
@@ -68,8 +73,25 @@ public class TaskActionController extends EventController {
       if (lootEquipId != NOT_SET) {
         resBuilder.setLootEquipId(lootEquipId);
       }
-
-      //TODO: check if task is completed. if so, check if city ranked up.
+      Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
+      int numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
+      numTimesActedInRank++;
+      taskIdToNumTimesActedInRank.put(task.getId(), numTimesActedInRank);
+      
+      if (numTimesActedInRank > task.getNumForCompletion()) {
+        changeNumTimesUserActedInDB = false;
+      }
+      if (numTimesActedInRank == task.getNumForCompletion()) {
+        taskCompleted = true;
+        cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId());
+        if (cityRankedUp) {
+          //TODO: get current city level
+          //++ it
+          City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
+          //use as multiplier for exp and coins gained
+        }
+          
+      }
     }
 
     resBuilder.setTaskCompleted(taskCompleted);
@@ -80,9 +102,46 @@ public class TaskActionController extends EventController {
     resEvent.setTaskActionResponseProto(resProto);
     server.writeEvent(resEvent);
     
-    //TODO: write to db
+    writeChangesToDB(user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId);
+    //TODO: should these send new response? or package inside battles?
+    //TODO: AchievementCheck.checkBattle(); 
+    //TODO: LevelCheck.checkUser();
   }
 
+
+  private boolean checkCityRankup(
+      Map<Integer, Integer> taskIdToNumTimesActedInRank, int cityId) {
+    List<Task> tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(cityId);
+    
+    for (Task task : tasksInCity) {
+      if (!taskIdToNumTimesActedInRank.containsKey(task.getId()) ||
+          taskIdToNumTimesActedInRank.get(task.getId()) < task.getNumForCompletion()) {
+        return false;
+      }
+    }    
+    return true;
+  }
+
+  private void writeChangesToDB(User user, Task task, boolean cityRankedUp, boolean changeNumTimesUserActedInDB, 
+      int lootEquipId) {
+    //TODO: write to db
+    
+    if (cityRankedUp) {
+      //increment users_cities current_rank for this user
+      //change user_tasks num_times_completed_in_rank to 0 for all tasks with this tasks cityId
+    } else {
+      if (changeNumTimesUserActedInDB) {
+        //increment user_tasks num_times_completed_in_rank by 1 for this user and task
+      }
+    }
+    
+    if (lootEquipId != NOT_SET) {
+      //increment this equipment for this user
+    }
+    /*
+     * user- coins/exp/tasks_completed increase, energy decrease
+     */
+  }
 
   private int chooseLootEquipId(Task task) {
     if (Math.random() < task.getChanceOfEquipFloat()) {

@@ -52,12 +52,12 @@ public class DBConnection {
     }
   }
 
-  public static ResultSet selectRowByUserId(int userId, String tablename) {
-    return selectRowByIntAttr(null, DBConstants.GENERIC__USER_ID, userId, tablename);
+  public static ResultSet selectRowsByUserId(int userId, String tablename) {
+    return selectRowsByIntAttr(null, DBConstants.GENERIC__USER_ID, userId, tablename);
   }
 
-  public static ResultSet selectRowById(int id, String tablename) {
-    return selectRowByIntAttr(null, DBConstants.GENERIC__ID, id, tablename);
+  public static ResultSet selectRowsById(int id, String tablename) {
+    return selectRowsByIntAttr(null, DBConstants.GENERIC__ID, id, tablename);
   }
 
   public static ResultSet selectWholeTable(String tablename) {
@@ -219,7 +219,7 @@ public class DBConnection {
   }
 
 
-  private static ResultSet selectRowByIntAttr(List<String> columns, String attr, int value, String tablename) {
+  private static ResultSet selectRowsByIntAttr(List<String> columns, String attr, int value, String tablename) {
     String query = "select ";
     if (columns != null) {
       query += StringUtils.getListInString(columns, ",");

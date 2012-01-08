@@ -152,6 +152,15 @@ public class BattleController extends EventController {
     log.info(resEvent + " is resevent");
     server.writeEvent(resEvent);
     
+    writeChangesToDB(legitBattle, lostEquip, winner, loser, attacker, defender, expGained, lostCoins, 
+        winnerHealthLoss, loserHealthLoss);
+    //TODO: should these send new response? or package inside battles?
+    //TODO: AchievementCheck.checkBattle(); 
+    //TODO: LevelCheck.checkUser();
+  }
+
+  
+  private void writeChangesToDB(boolean legitBattle, UserEquip lostEquip, User winner, User loser, User attacker, User defender, int expGained, int lostCoins, int winnerHealthLoss, int loserHealthLoss) {
     if (legitBattle) {
       if (lostEquip != null) {
         if (!loser.decrementUserEquip(lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
@@ -161,14 +170,6 @@ public class BattleController extends EventController {
           log.error("problem with incrementUserEquip in battle");          
         }
       }
-      
-      /*
-       * TODO: check for achievements- send new response, or package inside battles
-       * 
-       * TODO: check for levelup- send new response, or package inside battles
-       * 
-       * TODO: send notification to defender
-       */
       
       if (winner == attacker) {
         attacker.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(-1, expGained, lostCoins, 
@@ -183,13 +184,13 @@ public class BattleController extends EventController {
       }
       
       /*
-       * TODO: write to DB history
+       * TODO: write to battle_history
        * id, attackerId, defenderId, winnerId, winnerHealthLoss, loserHealthLoss, coinTransfer, lostEquipId, expGain, timestamp
        */
     }
+    
   }
 
-  
   private int calculateWinnerHealthLoss(double attackerStat, double defenderStat, int loserHealthLoss) {
     double val1 = Math.max(attackerStat, defenderStat);
     double val2 = Math.min(attackerStat, defenderStat);

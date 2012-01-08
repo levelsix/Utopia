@@ -31,7 +31,7 @@ public class UserRetrieveUtils {
     log.info("retrieving user with userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER__ID, userId);
-    return convertRSToUser(DBConnection.selectRowById(userId, TABLE_NAME));
+    return convertRSToUser(DBConnection.selectRowsById(userId, TABLE_NAME));
   }
   
   public static List<User> getUsersByIds(List<Integer> ids) {

@@ -143,6 +143,9 @@ public class User {
     return false;
   }
   
+  /*
+   * used for battles, tasks
+   */
   public boolean incrementUserEquip(int equipId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, id);
@@ -158,6 +161,9 @@ public class User {
   }
   
   //note: decrement is a positive number
+  /*
+   * used for battles
+   */
   public boolean decrementUserEquip(int equipId, int currentQuantity, int decrement) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__USER_ID, id);
@@ -293,4 +299,5 @@ public class User {
         + battlesLost + ", hourlyCoins=" + hourlyCoins + ", armyCode="
         + armyCode + ", armySize=" + armySize + ", udid=" + udid + "]";
   }
+
 }

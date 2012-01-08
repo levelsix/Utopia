@@ -41,7 +41,7 @@ message FullTaskProto {
 	required int32 minCoinsGained = 6;
 	required int32 maxCoinsGained = 7;
 	required float chanceOfEquipLoot = 8;
-	repeated int32 equipIds = 9;
+	repeated int32 potentialLootEquipIds = 9;
 	required int32 expGained = 10;
 	required int32 minArmySize = 11;
 	required int32 assetNumWithinCity = 12;
