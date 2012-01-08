@@ -16,6 +16,7 @@ import com.lvl6.proto.EventProto.TaskActionResponseProto.Builder;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
@@ -63,6 +64,8 @@ public class TaskActionController extends EventController {
     
     int coinsGained = NOT_SET;
     int lootEquipId = NOT_SET;
+    int coinBonus  = NOT_SET;
+    int expBonus = NOT_SET;
     boolean taskCompleted = false;
     boolean cityRankedUp = false;
     boolean changeNumTimesUserActedInDB = true;
@@ -87,10 +90,16 @@ public class TaskActionController extends EventController {
         taskCompleted = true;
         cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId());
         if (cityRankedUp) {
-          //TODO: get current city level
-          //++ it
-          City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
-          //use as multiplier for exp and coins gained
+          int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
+          if (cityRank != NOT_SET) {
+            cityRank++;
+            City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
+            int multiplier = cityRank;
+            coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
+            resBuilder.setCoinBonusIfCityRankup(coinBonus);
+            expBonus = multiplier * city.getExpGainedBaseOnRankup();
+            resBuilder.setExpBonusIfCityRankup(expBonus);
+          }
         }
           
       }
@@ -104,7 +113,15 @@ public class TaskActionController extends EventController {
     resEvent.setTaskActionResponseProto(resProto);
     server.writeEvent(resEvent);
     
-    writeChangesToDB(user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId);
+    int totalCoinGain = 0;
+    if (coinsGained != NOT_SET) totalCoinGain += coinsGained;
+    if (coinBonus != NOT_SET) totalCoinGain += coinsGained;
+    
+    int totalExpGain = task.getExpGained();
+    if (expBonus != NOT_SET) totalExpGain += expBonus;
+    
+    writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
+        totalCoinGain, totalExpGain);
     //TODO: should these send new response? or package inside battles?
     //TODO: AchievementCheck.checkBattle(); 
     //TODO: LevelCheck.checkUser();
@@ -113,6 +130,30 @@ public class TaskActionController extends EventController {
   }
 
 
+  private void writeChangesToDB(boolean legitAction, User user, Task task, boolean cityRankedUp, boolean changeNumTimesUserActedInDB, 
+      int lootEquipId, int totalCoinGain, int totalExpGain) {
+    //TODO: write to db
+    
+    if (legitAction) {
+      if (cityRankedUp) {
+        //TODO: increment users_cities current_rank for this user
+        //TODO: change user_tasks num_times_completed_in_rank to 0 for all tasks with this tasks cityId
+      } else {
+        if (changeNumTimesUserActedInDB) {
+          //TODO: increment user_tasks num_times_completed_in_rank by 1 for this user and task
+        }
+      }
+      
+      if (lootEquipId != NOT_SET) {
+        //TODO: increment this equipment for this user- USER_EQUIP
+      }
+
+      if (!user.updateRelativeCoinsExpTaskscompletedEnergy(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1)) {
+        log.error("problem with updating user stats post-task");
+      }
+    }
+  }
+  
   private boolean checkCityRankup(
       Map<Integer, Integer> taskIdToNumTimesActedInRank, int cityId) {
     List<Task> tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(cityId);
@@ -124,27 +165,6 @@ public class TaskActionController extends EventController {
       }
     }    
     return true;
-  }
-
-  private void writeChangesToDB(User user, Task task, boolean cityRankedUp, boolean changeNumTimesUserActedInDB, 
-      int lootEquipId) {
-    //TODO: write to db
-    
-    if (cityRankedUp) {
-      //increment users_cities current_rank for this user
-      //change user_tasks num_times_completed_in_rank to 0 for all tasks with this tasks cityId
-    } else {
-      if (changeNumTimesUserActedInDB) {
-        //increment user_tasks num_times_completed_in_rank by 1 for this user and task
-      }
-    }
-    
-    if (lootEquipId != NOT_SET) {
-      //increment this equipment for this user
-    }
-    /*
-     * user- coins/exp/tasks_completed increase, energy decrease
-     */
   }
 
   private int chooseLootEquipId(Task task) {

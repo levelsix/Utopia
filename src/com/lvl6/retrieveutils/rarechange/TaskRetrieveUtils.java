@@ -99,25 +99,23 @@ public class TaskRetrieveUtils {
     int id = rs.getInt(1);
     String goodName = rs.getString(2);
     String badName = rs.getString(3);
-    String goodDesc = rs.getString(4);
-    String badDesc = rs.getString(5);
-    int cityId = rs.getInt(6);
-    int energyCost = rs.getInt(7);
-    int minCoinsGained = rs.getInt(8);
-    int maxCoinsGained = rs.getInt(9);
-    float chanceOfEquipLoot = rs.getFloat(10);
-    String equipIdsString = rs.getString(11);
+    int cityId = rs.getInt(4);
+    int energyCost = rs.getInt(5);
+    int minCoinsGained = rs.getInt(6);
+    int maxCoinsGained = rs.getInt(7);
+    float chanceOfEquipLoot = rs.getFloat(8);
+    String equipIdsString = rs.getString(9);
     List<Integer> equipIds = new ArrayList<Integer>();
     StringTokenizer st = new StringTokenizer(equipIdsString, ", ");
     while (st.hasMoreTokens()) {
       equipIds.add(Integer.parseInt(st.nextToken()));
     }
-    int expGained = rs.getInt(12);
-    int minArmySize = rs.getInt(13);
-    int assetNumWithinCity = rs.getInt(14);
-    int numForCompletion = rs.getInt(15);
+    int expGained = rs.getInt(10);
+    int minArmySize = rs.getInt(11);
+    int assetNumWithinCity = rs.getInt(12);
+    int numForCompletion = rs.getInt(13);
     
-    Task task = new Task(id, goodName, badName, goodDesc, badDesc, cityId, energyCost, minCoinsGained, maxCoinsGained, 
+    Task task = new Task(id, goodName, badName, cityId, energyCost, minCoinsGained, maxCoinsGained, 
         chanceOfEquipLoot, equipIds, expGained, minArmySize, assetNumWithinCity, numForCompletion);
     return task;
   }

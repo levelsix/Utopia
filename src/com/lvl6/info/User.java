@@ -67,6 +67,34 @@ public class User {
   }
   
   /*
+   * used for tasks
+   *        * user- coins/exp/tasks_completed increase, energy decrease
+   */
+  public boolean updateRelativeCoinsExpTaskscompletedEnergy (int coinChange, int expChange, int tasksCompletedChange, 
+      int energyChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    relativeParams.put(DBConstants.USER__COINS, coinChange);
+    relativeParams.put(DBConstants.USER__EXPERIENCE, expChange);
+    relativeParams.put(DBConstants.USER__TASKS_COMPLETED, tasksCompletedChange);
+    relativeParams.put(DBConstants.USER__ENERGY, energyChange);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinChange;
+      this.experience += expChange;
+      this.tasksCompleted += tasksCompletedChange;
+      this.energy += energyChange;
+      return true;
+    }
+    return false;
+  }
+  
+  /*
    * used for cleric
    */
   public boolean updateRelativeVaultAbsoluteHealth (int vaultChange) {

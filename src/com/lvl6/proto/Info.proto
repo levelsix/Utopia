@@ -47,3 +47,13 @@ message FullTaskProto {
 	required int32 assetNumWithinCity = 12;
 	required int32 numRequiredForCompletion = 13;
 }
+
+message CoordinateProto {
+	required int32 x = 1;
+	required int32 y = 2;
+}
+
+message LocationProto {
+	required int32 latitude = 1;
+	required int32 longitude = 2;
+}

@@ -7,8 +7,6 @@ public class Task {
   private int id;
   private String goodName;
   private String badName;
-  private String goodDesc;
-  private String badDesc;
   private int cityId;
   private int energyCost;
   private int minCoinsGained;
@@ -20,16 +18,13 @@ public class Task {
   private int assetNumberWithinCity;
   private int numForCompletion;
   
-  public Task(int id, String goodName, String badName, String goodDesc,
-      String badDesc, int cityId, int energyCost, int minCoinsGained,
+  public Task(int id, String goodName, String badName, int cityId, int energyCost, int minCoinsGained,
       int maxCoinsGained, float chanceOfEquipFloat,
       List<Integer> potentialLootEquipIds, int expGained, int minArmySize,
       int assetNumberWithinCity, int numForCompletion) {
     this.id = id;
     this.goodName = goodName;
     this.badName = badName;
-    this.goodDesc = goodDesc;
-    this.badDesc = badDesc;
     this.cityId = cityId;
     this.energyCost = energyCost;
     this.minCoinsGained = minCoinsGained;
@@ -52,14 +47,6 @@ public class Task {
 
   public String getBadName() {
     return badName;
-  }
-
-  public String getGoodDesc() {
-    return goodDesc;
-  }
-
-  public String getBadDesc() {
-    return badDesc;
   }
 
   public int getCityId() {
@@ -105,7 +92,7 @@ public class Task {
   @Override
   public String toString() {
     return "Task [id=" + id + ", goodName=" + goodName + ", badName=" + badName
-        + ", goodDesc=" + goodDesc + ", badDesc=" + badDesc + ", cityId="
+        + ", cityId="
         + cityId + ", energyCost=" + energyCost + ", minCoinsGained="
         + minCoinsGained + ", maxCoinsGained=" + maxCoinsGained
         + ", chanceOfEquipFloat=" + chanceOfEquipFloat

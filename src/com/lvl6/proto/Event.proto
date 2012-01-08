@@ -80,6 +80,7 @@ message ClericHealResponseProto {
 message StartupRequestProto {
      required string udid = 1;
      required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
+     optional LocationProto userLocation = 3;
 }
 
 message StartupResponseProto {
@@ -116,7 +117,6 @@ message TaskActionResponseProto {
 	optional int32 coinBonusIfCityRankup = 7;
 	optional int32 expBonusIfCityRankup = 8;
 	
-
 	enum TaskActionStatus {
 		SUCCESS = 0; 
 		USER_NOT_ENOUGH_ENERGY = 1;
@@ -124,6 +124,12 @@ message TaskActionResponseProto {
 		USER_NOT_ALL_REQUIRED_ITEMS = 3;
 		INVALID_TASK_ID = 5;
 	} 
+}
+
+message PurchaseStructureRequest {
+	required MinimumUserProto sender = 1;
+	required CoordinateProto structLocation = 2;
+	required int32 structId = 3;
 }
 
 message LevelUpResponseProto {

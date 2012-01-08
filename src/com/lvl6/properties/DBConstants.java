@@ -57,6 +57,10 @@ public class DBConstants {
 
   /*USER TASK TABLE*/
   public static final String USER_TASK__USER_ID = GENERIC__USER_ID;
+  
+  /*CITY TASK TABLE*/
+  public static final String USER_CITIES__USER_ID = GENERIC__USER_ID;
+  public static final String USER_CITIES__CITY_ID = "city_id";
 
 
 }
