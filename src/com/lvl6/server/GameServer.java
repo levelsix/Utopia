@@ -20,6 +20,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.PlayerSet;
 
 public class GameServer extends Thread{
 
@@ -30,6 +31,7 @@ public class GameServer extends Thread{
   private ServerSocketChannel sSockChan;
 
   private SelectAndRead selectAndRead;
+  private PlayerSet playersInAction; 
   
   // selector for multiplexing ServerSocketChannels
   private Selector selector;
@@ -84,6 +86,7 @@ public class GameServer extends Thread{
     selectAndRead.start();
     
     eventWriter = new EventWriter(this, Globals.EVENT_WRITER_WORKERS); 
+    playersInAction = new PlayerSet();
   }
   
   /**
@@ -257,4 +260,24 @@ public class GameServer extends Thread{
     channelToPlayerId.remove(channel);
   }
 
+  public void lockPlayer(int playerId) {
+    playersInAction.addPlayer(playerId);
+  }
+  
+  public void lockPlayers(int playerId1, int playerId2) {
+    if (playerId1 > playerId2) {
+      lockPlayer(playerId2);
+      lockPlayer(playerId1);
+    } 
+    else {
+      lockPlayer(playerId1);
+      lockPlayer(playerId2);
+    }
+  }
+
+  public void unlockPlayer(int playerId) {
+    playersInAction.removePlayer(playerId);
+  }
+  
+  
 }

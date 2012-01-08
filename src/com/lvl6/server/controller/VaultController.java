@@ -42,6 +42,9 @@ public class VaultController extends EventController {
     VaultRequestType requestType = reqProto.getRequestType();
     int amount = reqProto.getAmount();
     
+    // Lock this player's ID
+    server.lockPlayer(senderProto.getUserId());
+    
     User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
     VaultResponseProto.Builder resBuilder = VaultResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -63,6 +66,9 @@ public class VaultController extends EventController {
     resEvent.setVaultResponseProto(resProto);
     
     server.writeEvent(resEvent);
+    
+    // Unlock this player
+    server.unlockPlayer(senderProto.getUserId());
   }
 
 }
