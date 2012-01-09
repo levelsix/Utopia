@@ -40,7 +40,6 @@ public class DBConstants {
   public static final String USER__BATTLES_LOST = "battles_lost";
   
   public static final String USER__UDID = "udid";
-
   
   
   /*USER EQUIP TABLE*/
