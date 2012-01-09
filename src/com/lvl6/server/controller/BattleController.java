@@ -25,6 +25,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.updateutils.UpdateUtils;
 
 public class BattleController extends EventController {
 
@@ -167,10 +168,10 @@ public class BattleController extends EventController {
   private void writeChangesToDB(boolean legitBattle, UserEquip lostEquip, User winner, User loser, User attacker, User defender, int expGained, int lostCoins, int winnerHealthLoss, int loserHealthLoss) {
     if (legitBattle) {
       if (lostEquip != null) {
-        if (!loser.decrementUserEquip(lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
+        if (!UpdateUtils.decrementUserEquip(loser.getId(), lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
           log.error("problem with decrementUserEquip in battle");
         }
-        if (!winner.incrementUserEquip(lostEquip.getEquipId(), 1)) {
+        if (!UpdateUtils.incrementUserEquip(winner.getId(), lostEquip.getEquipId(), 1)) {
           log.error("problem with incrementUserEquip in battle");          
         }
       }

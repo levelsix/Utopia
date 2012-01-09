@@ -87,19 +87,19 @@ message ClericHealResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message StartupRequestProto {
+message StartupRequestProto {				//client will also send ChangeUserLocationRequestProto
      required string udid = 1;
      required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
-     optional LocationProto userLocation = 3;						
 }
 
 message StartupResponseProto {
-     required FullUserProto sender = 1;
+     optional FullUserProto sender = 1;
      required StartupStatus status= 2;
      optional int32 maxCityIdAccessibleToUser = 3;     //cityids must be in order of min_level
-     repeated MinimumUserStructureProto structures = 4;
+     optional MinimumUserStructureProto structures = 4;
      required bool updateAvailable = 5;
-     repeated int32 questLog = 6;  
+     optional int32 questLog = 6;  
+     optional LocationProto userLocation = 7;
      
 	enum StartupStatus {
 		USER_IN_DB = 0; 
@@ -179,10 +179,35 @@ message TaskActionResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message PurchaseStructureRequest {
+message PurchaseStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto structCoordinates = 2;
 	required int32 structId = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+message PlaceCriticalStructureRequestProto {
+	required MinimumUserProto sender = 1;
+	required CoordinateProto critStructCoordinates = 2;
+	required int32 critStructId = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+message MoveCriticalStructureRequestProto {
+	required MinimumUserProto sender = 1;
+	required CoordinateProto critStructCoordinates = 2;
+	required int32 critStructId = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+message MoveUserStructureRequestProto {
+	required MinimumUserProto sender = 1;
+	required CoordinateProto oldStructCoordinates = 2;
+	required CoordinateProto newStructCoordinates = 3;
+	required int32 structId = 4;
 }
 
 //------------------------------------------------------------------------------------------

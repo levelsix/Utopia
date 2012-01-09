@@ -23,10 +23,12 @@ import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.updateutils.UpdateUtils;
 
 public class TaskActionController extends EventController {
   
   private static final int NOT_SET = -1;
+  private static final int MAX_CITY_RANK = 10;
   
   @Override
   protected void initController() {
@@ -69,6 +71,7 @@ public class TaskActionController extends EventController {
     boolean taskCompleted = false;
     boolean cityRankedUp = false;
     boolean changeNumTimesUserActedInDB = true;
+    List<Task> tasksInCity = null;
 
     boolean legitAction = checkLegitAction(user, task, resBuilder);
     if (legitAction) {
@@ -88,17 +91,22 @@ public class TaskActionController extends EventController {
       }
       if (numTimesActedInRank == task.getNumForCompletion()) {
         taskCompleted = true;
-        cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId());
+        tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(task.getCityId());
+        cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
         if (cityRankedUp) {
           int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
           if (cityRank != NOT_SET) {
-            cityRank++;
-            City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
-            int multiplier = cityRank;
-            coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
-            resBuilder.setCoinBonusIfCityRankup(coinBonus);
-            expBonus = multiplier * city.getExpGainedBaseOnRankup();
-            resBuilder.setExpBonusIfCityRankup(expBonus);
+            if (cityRank != MAX_CITY_RANK) {
+              cityRank++;
+              City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
+              int multiplier = cityRank;
+              coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
+              resBuilder.setCoinBonusIfCityRankup(coinBonus);
+              expBonus = multiplier * city.getExpGainedBaseOnRankup();
+              resBuilder.setExpBonusIfCityRankup(expBonus);
+            } else {
+              cityRankedUp = false;
+            }
           }
         }
           
@@ -121,7 +129,7 @@ public class TaskActionController extends EventController {
     if (expBonus != NOT_SET) totalExpGain += expBonus;
     
     writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
-        totalCoinGain, totalExpGain);
+        totalCoinGain, totalExpGain, tasksInCity);
     //TODO: should these send new response? or package inside battles?
     //TODO: AchievementCheck.checkBattle(); 
     //TODO: LevelCheck.checkUser();
@@ -131,23 +139,31 @@ public class TaskActionController extends EventController {
 
 
   private void writeChangesToDB(boolean legitAction, User user, Task task, boolean cityRankedUp, boolean changeNumTimesUserActedInDB, 
-      int lootEquipId, int totalCoinGain, int totalExpGain) {
-    //TODO: write to db
+      int lootEquipId, int totalCoinGain, int totalExpGain, List<Task> tasksInCity) {
     
     if (legitAction) {
       if (cityRankedUp) {
-        //TODO: increment users_cities current_rank for this user
-        //TODO: change user_tasks num_times_completed_in_rank to 0 for all tasks with this tasks cityId
+        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), task.getCityId(), 1)) {
+          log.error("problem with updating user city rank post-task");
+        }
+        if (tasksInCity != null) {
+          if (!UpdateUtils.resetTimesCompletedInRankForUserTasksInCity(user.getId(), tasksInCity)) {
+            log.error("problem with resetting user times completed in rank post-task");
+          }
+        }
       } else {
         if (changeNumTimesUserActedInDB) {
-          //TODO: increment user_tasks num_times_completed_in_rank by 1 for this user and task
+          if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(user.getId(), task.getCityId(), 1)) {
+            log.error("problem with incrementing user times completed in rank post-task");
+          }
         }
       }
       
       if (lootEquipId != NOT_SET) {
-        //TODO: increment this equipment for this user- USER_EQUIP
+        if (!UpdateUtils.incrementUserEquip(user.getId(), lootEquipId, 1)) {
+          log.error("problem with incrementing user equip post-task");
+        }
       }
-
       if (!user.updateRelativeCoinsExpTaskscompletedEnergy(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1)) {
         log.error("problem with updating user stats post-task");
       }
@@ -155,8 +171,12 @@ public class TaskActionController extends EventController {
   }
   
   private boolean checkCityRankup(
-      Map<Integer, Integer> taskIdToNumTimesActedInRank, int cityId) {
-    List<Task> tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(cityId);
+      Map<Integer, Integer> taskIdToNumTimesActedInRank, int cityId, List<Task> tasksInCity) {
+    tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(cityId);
+    
+    if (tasksInCity == null) {
+      return false;
+    }
     
     for (Task task : tasksInCity) {
       if (!taskIdToNumTimesActedInRank.containsKey(task.getId()) ||

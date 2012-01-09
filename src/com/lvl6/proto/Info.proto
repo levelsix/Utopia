@@ -2,6 +2,8 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+//------------------------------------------------------------------------------------------
+
 message MinimumUserProto {
 	required int32 userId = 1;
 	optional string name = 2;
@@ -17,19 +19,27 @@ message MinimumUserProto {
 	}
 }
 
+//------------------------------------------------------------------------------------------
+
 message MinimumEquipProto {
 	required int32 equipId = 1;
 	required string name = 2;
 }
+
+//------------------------------------------------------------------------------------------
 
 message MinimumUserStructureProto {
 	required int32 structId = 1;
 	required CoordinateProto coordinates = 2;
 }
 
+//------------------------------------------------------------------------------------------
+
 message FullUserProto {
 
 }
+
+//------------------------------------------------------------------------------------------
 
 message FullTaskProto {
 	required int32 id = 1;
@@ -47,10 +57,14 @@ message FullTaskProto {
 	required int32 numRequiredForCompletion = 13;
 }
 
+//------------------------------------------------------------------------------------------
+
 message CoordinateProto {
 	required int32 x = 1;
 	required int32 y = 2;
 }
+
+//------------------------------------------------------------------------------------------
 
 message LocationProto {
 	required int32 latitude = 1;

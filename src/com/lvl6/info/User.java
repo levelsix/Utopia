@@ -66,6 +66,7 @@ public class User {
     this.udid = udid;
   }
   
+  
   /*
    * used for tasks
    *        * user- coins/exp/tasks_completed increase, energy decrease
@@ -170,53 +171,6 @@ public class User {
     }
     return false;
   }
-  
-  /*
-   * used for battles, tasks
-   */
-  public boolean incrementUserEquip(int equipId, int increment) {
-    Map <String, Object> insertParams = new HashMap<String, Object>();
-    insertParams.put(DBConstants.USER_EQUIP__USER_ID, id);
-    insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-    insertParams.put(DBConstants.USER_EQUIP__QUANTITY, increment);
-    insertParams.put(DBConstants.USER_EQUIP__IS_STOLEN, true);
-    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_EQUIP, insertParams, 
-        DBConstants.USER_EQUIP__QUANTITY, increment);
-    if (numUpdated == 1) {
-      return true;
-    }
-    return false;
-  }
-  
-  //note: decrement is a positive number
-  /*
-   * used for battles
-   */
-  public boolean decrementUserEquip(int equipId, int currentQuantity, int decrement) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_EQUIP__USER_ID, id);
-    conditionParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-
-    if (currentQuantity - decrement < 0) {
-      return false;
-    }
-    if (currentQuantity - decrement <= 0) {
-      int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_EQUIP, conditionParams, "and");
-      if (numDeleted == 1) {
-        return true;
-      }
-    } else {
-      Map <String, Object> relativeParams = new HashMap<String, Object>();
-      relativeParams.put(DBConstants.USER_EQUIP__QUANTITY, -1*decrement);      
-      int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_EQUIP, relativeParams, null, 
-          conditionParams, "and");
-      if (numUpdated == 1) {
-        return true;
-      }
-    }    
-    return false;
-  }
-
 
   public int getId() {
     return id;
