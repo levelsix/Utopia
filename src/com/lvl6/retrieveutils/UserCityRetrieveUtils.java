@@ -33,7 +33,7 @@ public class UserCityRetrieveUtils {
         rs.last();
         rs.beforeFirst();
         while(rs.next()) {  //should only be one
-          int currentRank = rs.getInt(3);
+          int currentRank = rs.getInt(DBConstants.USER_CITIES__CURRENT_RANK);
           return currentRank;
         }
       } catch (SQLException e) {

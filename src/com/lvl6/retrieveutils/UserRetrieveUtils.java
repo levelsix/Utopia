@@ -90,30 +90,31 @@ public class UserRetrieveUtils {
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
   private static User convertRSRowToUser(ResultSet rs) throws SQLException {
-    int userId = rs.getInt(1);
-    String name = rs.getString(2);
-    int level = rs.getInt(3);
-    UserType type = UserType.valueOf(rs.getInt(4));
-    int attack = rs.getInt(5);
-    int defense = rs.getInt(6);
-    int stamina = rs.getInt(7);
-    int energy = rs.getInt(8);
-    int health = rs.getInt(9);
-    int skillPoints = rs.getInt(10);
-    int healthMax = rs.getInt(11);
-    int energyMax = rs.getInt(12);
-    int staminaMax = rs.getInt(13);
-    int diamonds = rs.getInt(14);
-    int coins = rs.getInt(15);
-    int vaultBalance = rs.getInt(16);
-    int experience = rs.getInt(17);
-    int tasksCompleted = rs.getInt(18);
-    int battlesWon = rs.getInt(19);
-    int battlesLost = rs.getInt(20);
-    int hourlyCoins = rs.getInt(21);
-    String armyCode = rs.getString(22);
-    int armySize = rs.getInt(23);
-    String udid = rs.getString(24);
+    int i = 1;
+    int userId = rs.getInt(i++);
+    String name = rs.getString(i++);
+    int level = rs.getInt(i++);
+    UserType type = UserType.valueOf(rs.getInt(i++));
+    int attack = rs.getInt(i++);
+    int defense = rs.getInt(i++);
+    int stamina = rs.getInt(i++);
+    int energy = rs.getInt(i++);
+    int health = rs.getInt(i++);
+    int skillPoints = rs.getInt(i++);
+    int healthMax = rs.getInt(i++);
+    int energyMax = rs.getInt(i++);
+    int staminaMax = rs.getInt(i++);
+    int diamonds = rs.getInt(i++);
+    int coins = rs.getInt(i++);
+    int vaultBalance = rs.getInt(i++);
+    int experience = rs.getInt(i++);
+    int tasksCompleted = rs.getInt(i++);
+    int battlesWon = rs.getInt(i++);
+    int battlesLost = rs.getInt(i++);
+    int hourlyCoins = rs.getInt(i++);
+    String armyCode = rs.getString(i++);
+    int armySize = rs.getInt(i++);
+    String udid = rs.getString(i++);
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
         healthMax, energyMax, staminaMax, diamonds, coins, vaultBalance, experience, tasksCompleted, 
         battlesWon, battlesLost, hourlyCoins, armyCode, armySize, udid);

@@ -96,24 +96,25 @@ public class TaskRetrieveUtils {
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
   private static Task convertRSRowToEquipment(ResultSet rs) throws SQLException {
-    int id = rs.getInt(1);
-    String goodName = rs.getString(2);
-    String badName = rs.getString(3);
-    int cityId = rs.getInt(4);
-    int energyCost = rs.getInt(5);
-    int minCoinsGained = rs.getInt(6);
-    int maxCoinsGained = rs.getInt(7);
-    float chanceOfEquipLoot = rs.getFloat(8);
-    String equipIdsString = rs.getString(9);
+    int i = 1;
+    int id = rs.getInt(i++);
+    String goodName = rs.getString(i++);
+    String badName = rs.getString(i++);
+    int cityId = rs.getInt(i++);
+    int energyCost = rs.getInt(i++);
+    int minCoinsGained = rs.getInt(i++);
+    int maxCoinsGained = rs.getInt(i++);
+    float chanceOfEquipLoot = rs.getFloat(i++);
+    String equipIdsString = rs.getString(i++);
     List<Integer> equipIds = new ArrayList<Integer>();
     StringTokenizer st = new StringTokenizer(equipIdsString, ", ");
     while (st.hasMoreTokens()) {
       equipIds.add(Integer.parseInt(st.nextToken()));
     }
-    int expGained = rs.getInt(10);
-    int minArmySize = rs.getInt(11);
-    int assetNumWithinCity = rs.getInt(12);
-    int numForCompletion = rs.getInt(13);
+    int expGained = rs.getInt(i++);
+    int minArmySize = rs.getInt(i++);
+    int assetNumWithinCity = rs.getInt(i++);
+    int numForCompletion = rs.getInt(i++);
     
     Task task = new Task(id, goodName, badName, cityId, energyCost, minCoinsGained, maxCoinsGained, 
         chanceOfEquipLoot, equipIds, expGained, minArmySize, assetNumWithinCity, numForCompletion);

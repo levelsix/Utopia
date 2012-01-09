@@ -60,9 +60,10 @@ public class TaskEquipReqRetrieveUtils {
   }
 
   private static TaskEquipRequirement convertRSRowToTaskEquipReq(ResultSet rs) throws SQLException {
-    int taskId = rs.getInt(1);
-    int equipId = rs.getInt(2);
-    int quantity = rs.getInt(3);
+    int i = 1;
+    int taskId = rs.getInt(i++);
+    int equipId = rs.getInt(i++);
+    int quantity = rs.getInt(i++);
     return new TaskEquipRequirement(taskId, equipId, quantity);
   }
   

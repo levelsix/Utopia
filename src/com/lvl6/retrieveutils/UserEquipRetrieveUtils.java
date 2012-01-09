@@ -85,10 +85,11 @@ public class UserEquipRetrieveUtils {
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
   private static UserEquip convertRSRowToUserEquip(ResultSet rs) throws SQLException {
-    int userId = rs.getInt(1);
-    int equipId = rs.getInt(2);
-    int quantity = rs.getInt(3);
-    boolean isStolen = rs.getBoolean(4);
+    int i = 1;
+    int userId = rs.getInt(i++);
+    int equipId = rs.getInt(i++);
+    int quantity = rs.getInt(i++);
+    boolean isStolen = rs.getBoolean(i++);
     UserEquip userEquip = new UserEquip(userId, equipId, quantity, isStolen);
     return userEquip;
   }

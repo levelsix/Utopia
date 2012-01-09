@@ -33,8 +33,8 @@ public class UserTaskRetrieveUtils {
         rs.beforeFirst();
         Map<Integer, Integer> taskIdToNumTimesCompletedInRank = new HashMap<Integer, Integer>();
         while(rs.next()) {  //should only be one
-          int taskId = rs.getInt(2);
-          int numTimesCompletedInRank = rs.getInt(3);
+          int taskId = rs.getInt(DBConstants.USER_TASK__TASK_ID);
+          int numTimesCompletedInRank = rs.getInt(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK);
           taskIdToNumTimesCompletedInRank.put(taskId, numTimesCompletedInRank);
         }
         return taskIdToNumTimesCompletedInRank;

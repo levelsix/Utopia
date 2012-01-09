@@ -55,11 +55,12 @@ public class CityRetrieveUtils {
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
   private static City convertRSRowToCity(ResultSet rs) throws SQLException {
-    int id = rs.getInt(1);
-    String name = rs.getString(2);
-    int minLevel = rs.getInt(3);
-    int expGainedBaseOnRankup = rs.getInt(4);
-    int coinsGainedBaseOnRankup = rs.getInt(5);
+    int i = 1;
+    int id = rs.getInt(i++);
+    String name = rs.getString(i++);
+    int minLevel = rs.getInt(i++);
+    int expGainedBaseOnRankup = rs.getInt(i++);
+    int coinsGainedBaseOnRankup = rs.getInt(i++);
     return new City(id, name, minLevel, expGainedBaseOnRankup, coinsGainedBaseOnRankup);
   }
 }

@@ -68,15 +68,16 @@ public class EquipmentRetrieveUtils {
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
   private static Equipment convertRSRowToEquipment(ResultSet rs) throws SQLException {
-    int id = rs.getInt(1);
-    String name = rs.getString(2);
-    EquipType type = EquipType.valueOf(rs.getInt(3));
-    int attackBoost = rs.getInt(4);
-    int defenseBoost = rs.getInt(5);
-    int minLevel = rs.getInt(6);
-    int coinPrice = rs.getInt(7);
-    int diamondPrice = rs.getInt(8);
-    float chanceOfLoss = rs.getFloat(9);
+    int i = 1;
+    int id = rs.getInt(i++);
+    String name = rs.getString(i++);
+    EquipType type = EquipType.valueOf(rs.getInt(i++));
+    int attackBoost = rs.getInt(i++);
+    int defenseBoost = rs.getInt(i++);
+    int minLevel = rs.getInt(i++);
+    int coinPrice = rs.getInt(i++);
+    int diamondPrice = rs.getInt(i++);
+    float chanceOfLoss = rs.getFloat(i++);
     Equipment equip = null;
     if (coinPrice > 0) {
       equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss);
