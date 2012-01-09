@@ -6,6 +6,8 @@ package com.lvl6.proto;
 
 option java_outer_classname = "EventProto";
 
+//------------------------------------------------------------------------------------------
+
 message ChatRequestProto {
     required MinimumUserProto sender = 1; 
 	repeated MinimumUserProto recipients = 2;
@@ -16,6 +18,8 @@ message ChatResponseProto {
     required MinimumUserProto sender = 1; 
 	required string message = 2;
 }
+
+//------------------------------------------------------------------------------------------
 
 message BattleRequestProto {
     required MinimumUserProto attacker = 1; 
@@ -45,6 +49,8 @@ message BattleResponseProto {
 	} 
 }
 
+//------------------------------------------------------------------------------------------
+
 message VaultRequestProto {
    enum VaultRequestType {
 		DEPOSIT = 0; 
@@ -60,6 +66,8 @@ message VaultResponseProto {
 	optional int32 vaultAmount = 2;
 	optional int32 coinAmount = 3;
 }
+
+//------------------------------------------------------------------------------------------
 
 message ClericHealRequestProto {
 	required MinimumUserProto sender = 1;
@@ -77,19 +85,60 @@ message ClericHealResponseProto {
 	} 
 }
 
+//------------------------------------------------------------------------------------------
+
 message StartupRequestProto {
      required string udid = 1;
      required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
-     optional LocationProto userLocation = 3;
+     optional LocationProto userLocation = 3;						
 }
 
 message StartupResponseProto {
      required FullUserProto sender = 1;
-     optional int32 maxCityIdAccessibleToUser = 2;     //cityids must be in order of min_level
-     repeated MinimumUserStructureProto structures = 3;
-     required bool updateAvailable = 4;
-     repeated int32 questLog = 5;     
+     required StartupStatus status= 2;
+     optional int32 maxCityIdAccessibleToUser = 3;     //cityids must be in order of min_level
+     repeated MinimumUserStructureProto structures = 4;
+     required bool updateAvailable = 5;
+     repeated int32 questLog = 6;  
+     
+	enum StartupStatus {
+		USER_IN_DB = 0; 
+		USER_NOT_IN_DB = 1;
+	}    
 }
+
+//------------------------------------------------------------------------------------------
+//CALLED: AFTER THE TUTORIAL
+
+message UserCreateRequestProto {
+     required string udid = 1;
+     repeated MinimumUserStructureProto structures = 2;
+     required LocationProto userLocation = 3;						
+     required CoordinateProto aviaryCoordinates = 4;
+     required CoordinateProto refineryCoordinates = 5;
+     required CoordinateProto carpenterCoordinates = 6;     
+     optional int32 referrerCode = 7;
+}
+
+message UserCreateResponseProto {
+	required FullUserProto sender = 1;
+	required StartupStatus status = 2;
+	
+    enum StartupStatus {
+		SUCCESS = 0; 
+		FAIL = 1;
+	}  
+}
+
+//------------------------------------------------------------------------------------------
+
+message ChangeUserLocationRequestProto {
+     required MinimumUserProto sender = 1;
+     optional int32 cityId = 2;
+     required LocationProto userLocation = 3;    
+}
+
+//------------------------------------------------------------------------------------------
 
 message RetrieveTasksForCityRequestProto {
      required MinimumUserProto sender = 1;
@@ -100,6 +149,8 @@ message RetrieveTasksForCityResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullTaskProto tasks = 2;
 }
+
+//------------------------------------------------------------------------------------------
 
 message TaskActionRequestProto {
 	required MinimumUserProto sender = 1;
@@ -126,13 +177,18 @@ message TaskActionResponseProto {
 	} 
 }
 
+//------------------------------------------------------------------------------------------
+
 message PurchaseStructureRequest {
 	required MinimumUserProto sender = 1;
-	required CoordinateProto structLocation = 2;
+	required CoordinateProto structCoordinates = 2;
 	required int32 structId = 3;
 }
+
+//------------------------------------------------------------------------------------------
 
 message LevelUpResponseProto {
      required FullUserProto sender = 1;
      optional int32 maxCityIdAccessibleToUser = 2;
 }
+

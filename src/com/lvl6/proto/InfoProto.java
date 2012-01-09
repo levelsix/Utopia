@@ -1050,13 +1050,10 @@ public final class InfoProto {
     boolean hasStructId();
     int getStructId();
     
-    // required int32 xCoord = 2;
-    boolean hasXCoord();
-    int getXCoord();
-    
-    // required int32 yCoord = 3;
-    boolean hasYCoord();
-    int getYCoord();
+    // required .com.lvl6.proto.CoordinateProto coordinates = 2;
+    boolean hasCoordinates();
+    com.lvl6.proto.InfoProto.CoordinateProto getCoordinates();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordinatesOrBuilder();
   }
   public static final class MinimumUserStructureProto extends
       com.google.protobuf.GeneratedMessage
@@ -1097,30 +1094,22 @@ public final class InfoProto {
       return structId_;
     }
     
-    // required int32 xCoord = 2;
-    public static final int XCOORD_FIELD_NUMBER = 2;
-    private int xCoord_;
-    public boolean hasXCoord() {
+    // required .com.lvl6.proto.CoordinateProto coordinates = 2;
+    public static final int COORDINATES_FIELD_NUMBER = 2;
+    private com.lvl6.proto.InfoProto.CoordinateProto coordinates_;
+    public boolean hasCoordinates() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public int getXCoord() {
-      return xCoord_;
+    public com.lvl6.proto.InfoProto.CoordinateProto getCoordinates() {
+      return coordinates_;
     }
-    
-    // required int32 yCoord = 3;
-    public static final int YCOORD_FIELD_NUMBER = 3;
-    private int yCoord_;
-    public boolean hasYCoord() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public int getYCoord() {
-      return yCoord_;
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordinatesOrBuilder() {
+      return coordinates_;
     }
     
     private void initFields() {
       structId_ = 0;
-      xCoord_ = 0;
-      yCoord_ = 0;
+      coordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1131,11 +1120,11 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasXCoord()) {
+      if (!hasCoordinates()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasYCoord()) {
+      if (!getCoordinates().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1150,10 +1139,7 @@ public final class InfoProto {
         output.writeInt32(1, structId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, xCoord_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, yCoord_);
+        output.writeMessage(2, coordinates_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1170,11 +1156,7 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, xCoord_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, yCoord_);
+          .computeMessageSize(2, coordinates_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1292,6 +1274,7 @@ public final class InfoProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getCoordinatesFieldBuilder();
         }
       }
       private static Builder create() {
@@ -1302,10 +1285,12 @@ public final class InfoProto {
         super.clear();
         structId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        xCoord_ = 0;
+        if (coordinatesBuilder_ == null) {
+          coordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          coordinatesBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000002);
-        yCoord_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
@@ -1351,11 +1336,11 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.xCoord_ = xCoord_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
+        if (coordinatesBuilder_ == null) {
+          result.coordinates_ = coordinates_;
+        } else {
+          result.coordinates_ = coordinatesBuilder_.build();
         }
-        result.yCoord_ = yCoord_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1375,11 +1360,8 @@ public final class InfoProto {
         if (other.hasStructId()) {
           setStructId(other.getStructId());
         }
-        if (other.hasXCoord()) {
-          setXCoord(other.getXCoord());
-        }
-        if (other.hasYCoord()) {
-          setYCoord(other.getYCoord());
+        if (other.hasCoordinates()) {
+          mergeCoordinates(other.getCoordinates());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1390,11 +1372,11 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasXCoord()) {
+        if (!hasCoordinates()) {
           
           return false;
         }
-        if (!hasYCoord()) {
+        if (!getCoordinates().isInitialized()) {
           
           return false;
         }
@@ -1429,14 +1411,13 @@ public final class InfoProto {
               structId_ = input.readInt32();
               break;
             }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              xCoord_ = input.readInt32();
-              break;
-            }
-            case 24: {
-              bitField0_ |= 0x00000004;
-              yCoord_ = input.readInt32();
+            case 18: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasCoordinates()) {
+                subBuilder.mergeFrom(getCoordinates());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setCoordinates(subBuilder.buildPartial());
               break;
             }
           }
@@ -1466,46 +1447,94 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 xCoord = 2;
-      private int xCoord_ ;
-      public boolean hasXCoord() {
+      // required .com.lvl6.proto.CoordinateProto coordinates = 2;
+      private com.lvl6.proto.InfoProto.CoordinateProto coordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> coordinatesBuilder_;
+      public boolean hasCoordinates() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getXCoord() {
-        return xCoord_;
+      public com.lvl6.proto.InfoProto.CoordinateProto getCoordinates() {
+        if (coordinatesBuilder_ == null) {
+          return coordinates_;
+        } else {
+          return coordinatesBuilder_.getMessage();
+        }
       }
-      public Builder setXCoord(int value) {
+      public Builder setCoordinates(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (coordinatesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          coordinates_ = value;
+          onChanged();
+        } else {
+          coordinatesBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000002;
-        xCoord_ = value;
-        onChanged();
         return this;
       }
-      public Builder clearXCoord() {
+      public Builder setCoordinates(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (coordinatesBuilder_ == null) {
+          coordinates_ = builderForValue.build();
+          onChanged();
+        } else {
+          coordinatesBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder mergeCoordinates(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (coordinatesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              coordinates_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            coordinates_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(coordinates_).mergeFrom(value).buildPartial();
+          } else {
+            coordinates_ = value;
+          }
+          onChanged();
+        } else {
+          coordinatesBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder clearCoordinates() {
+        if (coordinatesBuilder_ == null) {
+          coordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          coordinatesBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000002);
-        xCoord_ = 0;
-        onChanged();
         return this;
       }
-      
-      // required int32 yCoord = 3;
-      private int yCoord_ ;
-      public boolean hasYCoord() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public int getYCoord() {
-        return yCoord_;
-      }
-      public Builder setYCoord(int value) {
-        bitField0_ |= 0x00000004;
-        yCoord_ = value;
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getCoordinatesBuilder() {
+        bitField0_ |= 0x00000002;
         onChanged();
-        return this;
+        return getCoordinatesFieldBuilder().getBuilder();
       }
-      public Builder clearYCoord() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        yCoord_ = 0;
-        onChanged();
-        return this;
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordinatesOrBuilder() {
+        if (coordinatesBuilder_ != null) {
+          return coordinatesBuilder_.getMessageOrBuilder();
+        } else {
+          return coordinates_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getCoordinatesFieldBuilder() {
+        if (coordinatesBuilder_ == null) {
+          coordinatesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  coordinates_,
+                  getParentForChildren(),
+                  isClean());
+          coordinates_ = null;
+        }
+        return coordinatesBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserStructureProto)
@@ -3911,20 +3940,20 @@ public final class InfoProto {
       "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE" +
       "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +
       "AD_MAGE\020\005\"2\n\021MinimumEquipProto\022\017\n\007equipI" +
-      "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"M\n\031MinimumUserStru" +
-      "ctureProto\022\020\n\010structId\030\001 \002(\005\022\016\n\006xCoord\030\002" +
-      " \002(\005\022\016\n\006yCoord\030\003 \002(\005\"\017\n\rFullUserProto\"\262\002",
-      "\n\rFullTaskProto\022\n\n\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(" +
-      "\t\022\023\n\013description\030\003 \002(\t\022\016\n\006cityId\030\004 \002(\005\022\022" +
-      "\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002" +
-      "(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOfEq" +
-      "uipLoot\030\010 \002(\002\022\035\n\025potentialLootEquipIds\030\t" +
-      " \003(\005\022\021\n\texpGained\030\n \002(\005\022\023\n\013minArmySize\030\013" +
-      " \002(\005\022\032\n\022assetNumWithinCity\030\014 \002(\005\022 \n\030numR" +
-      "equiredForCompletion\030\r \002(\005\"\'\n\017Coordinate" +
-      "Proto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationP" +
-      "roto\022\020\n\010latitude\030\001 \002(\005\022\021\n\tlongitude\030\002 \002(",
-      "\005B\013B\tInfoProto"
+      "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"c\n\031MinimumUserStru" +
+      "ctureProto\022\020\n\010structId\030\001 \002(\005\0224\n\013coordina" +
+      "tes\030\002 \002(\0132\037.com.lvl6.proto.CoordinatePro",
+      "to\"\017\n\rFullUserProto\"\262\002\n\rFullTaskProto\022\n\n" +
+      "\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\023\n\013description\030\003" +
+      " \002(\t\022\016\n\006cityId\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005" +
+      "\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGain" +
+      "ed\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025p" +
+      "otentialLootEquipIds\030\t \003(\005\022\021\n\texpGained\030" +
+      "\n \002(\005\022\023\n\013minArmySize\030\013 \002(\005\022\032\n\022assetNumWi" +
+      "thinCity\030\014 \002(\005\022 \n\030numRequiredForCompleti" +
+      "on\030\r \002(\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t" +
+      "\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001",
+      " \002(\005\022\021\n\tlongitude\030\002 \002(\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3952,7 +3981,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_MinimumUserStructureProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserStructureProto_descriptor,
-              new java.lang.String[] { "StructId", "XCoord", "YCoord", },
+              new java.lang.String[] { "StructId", "Coordinates", },
               com.lvl6.proto.InfoProto.MinimumUserStructureProto.class,
               com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserProto_descriptor =

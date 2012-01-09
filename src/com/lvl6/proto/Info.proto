@@ -24,8 +24,7 @@ message MinimumEquipProto {
 
 message MinimumUserStructureProto {
 	required int32 structId = 1;
-	required int32 xCoord = 2;
-	required int32 yCoord = 3;
+	required CoordinateProto coordinates = 2;
 }
 
 message FullUserProto {
