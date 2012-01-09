@@ -8,12 +8,14 @@ option java_outer_classname = "EventProto";
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message ChatRequestProto {
     required MinimumUserProto sender = 1; 
 	repeated MinimumUserProto recipients = 2;
 	required string message = 3;
 }
 
+																						//DONE
 message ChatResponseProto {
     required MinimumUserProto sender = 1; 
 	required string message = 2;
@@ -21,11 +23,13 @@ message ChatResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message BattleRequestProto {
     required MinimumUserProto attacker = 1; 
     required MinimumUserProto defender = 2; 
 }
 
+																						//DONE
 message BattleResponseProto {
     required MinimumUserProto attacker = 1;
     required MinimumUserProto defender = 2;
@@ -51,6 +55,7 @@ message BattleResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message VaultRequestProto {
    enum VaultRequestType {
 		DEPOSIT = 0; 
@@ -61,6 +66,7 @@ message VaultRequestProto {
 	optional int32 amount = 3;
 }
 
+																						//DONE
 message VaultResponseProto {
 	required MinimumUserProto sender = 1;
 	optional int32 vaultAmount = 2;
@@ -69,10 +75,12 @@ message VaultResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message ClericHealRequestProto {
 	required MinimumUserProto sender = 1;
 }
 
+																						//DONE
 message ClericHealResponseProto {
 	required MinimumUserProto sender = 1;
 	optional int32 cost = 2;
@@ -140,11 +148,13 @@ message ChangeUserLocationRequestProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RetrieveTasksForCityRequestProto {
      required MinimumUserProto sender = 1;
      optional int32 cityId = 2;
 }
 
+																						//DONE
 message RetrieveTasksForCityResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullTaskProto tasks = 2;
@@ -152,11 +162,13 @@ message RetrieveTasksForCityResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message TaskActionRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 taskId = 2;
 }
 
+																						//DONE
 message TaskActionResponseProto {
 	required MinimumUserProto sender = 1;
 	required TaskActionStatus status = 2;
