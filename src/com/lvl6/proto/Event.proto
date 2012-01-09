@@ -210,7 +210,16 @@ message PlaceCriticalStructureRequestProto {
 message MoveCriticalStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto critStructCoordinates = 2;
-	required int32 critStructId = 3;
+	required CritStructType critStruct = 3;
+	
+	enum CritStructType {
+		AVIARY = 1;
+		LUMBERMILL = 2;
+		CARPENTER = 3;
+		VAULT = 4;
+		ARMORY = 5;
+		CLERIC = 6;
+	}
 }
 
 //------------------------------------------------------------------------------------------
@@ -218,7 +227,7 @@ message MoveCriticalStructureRequestProto {
 message MoveUserStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto oldStructCoordinates = 2;
-	required CoordinateProto newStructCoordinates = 3;
+	required CoordinateProto curStructCoordinates = 3;
 	required int32 structId = 4;
 }
 

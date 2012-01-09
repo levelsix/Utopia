@@ -88,11 +88,14 @@ public class UpdateUtils {
     
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITIES, relativeParams, null, 
         conditionParams, "and");
+    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_CITIES, insertParams, 
+        DBConstants.USER_EQUIP__QUANTITY, increment);
+    
     if (numUpdated == 1) {
       return true;
     }
     return false;
-  }
+  }  
   
   public static boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();

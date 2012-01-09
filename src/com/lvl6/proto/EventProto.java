@@ -13529,9 +13529,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.CoordinateProto getCritStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCritStructCoordinatesOrBuilder();
     
-    // required int32 critStructId = 3;
-    boolean hasCritStructId();
-    int getCritStructId();
+    // required .com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType critStruct = 3;
+    boolean hasCritStruct();
+    com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType getCritStruct();
   }
   public static final class MoveCriticalStructureRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -13561,6 +13561,87 @@ public final class EventProto {
       return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_fieldAccessorTable;
     }
     
+    public enum CritStructType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      AVIARY(0, 1),
+      LUMBERMILL(1, 2),
+      CARPENTER(2, 3),
+      VAULT(3, 4),
+      ARMORY(4, 5),
+      CLERIC(5, 6),
+      ;
+      
+      public static final int AVIARY_VALUE = 1;
+      public static final int LUMBERMILL_VALUE = 2;
+      public static final int CARPENTER_VALUE = 3;
+      public static final int VAULT_VALUE = 4;
+      public static final int ARMORY_VALUE = 5;
+      public static final int CLERIC_VALUE = 6;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static CritStructType valueOf(int value) {
+        switch (value) {
+          case 1: return AVIARY;
+          case 2: return LUMBERMILL;
+          case 3: return CARPENTER;
+          case 4: return VAULT;
+          case 5: return ARMORY;
+          case 6: return CLERIC;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<CritStructType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<CritStructType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<CritStructType>() {
+              public CritStructType findValueByNumber(int number) {
+                return CritStructType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final CritStructType[] VALUES = {
+        AVIARY, LUMBERMILL, CARPENTER, VAULT, ARMORY, CLERIC, 
+      };
+      
+      public static CritStructType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private CritStructType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType)
+    }
+    
     private int bitField0_;
     // required .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
@@ -13588,20 +13669,20 @@ public final class EventProto {
       return critStructCoordinates_;
     }
     
-    // required int32 critStructId = 3;
-    public static final int CRITSTRUCTID_FIELD_NUMBER = 3;
-    private int critStructId_;
-    public boolean hasCritStructId() {
+    // required .com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType critStruct = 3;
+    public static final int CRITSTRUCT_FIELD_NUMBER = 3;
+    private com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType critStruct_;
+    public boolean hasCritStruct() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public int getCritStructId() {
-      return critStructId_;
+    public com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType getCritStruct() {
+      return critStruct_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       critStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      critStructId_ = 0;
+      critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -13616,7 +13697,7 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasCritStructId()) {
+      if (!hasCritStruct()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -13642,7 +13723,7 @@ public final class EventProto {
         output.writeMessage(2, critStructCoordinates_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, critStructId_);
+        output.writeEnum(3, critStruct_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -13663,7 +13744,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, critStructId_);
+          .computeEnumSize(3, critStruct_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -13803,7 +13884,7 @@ public final class EventProto {
           critStructCoordinatesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
-        critStructId_ = 0;
+        critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -13862,7 +13943,7 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.critStructId_ = critStructId_;
+        result.critStruct_ = critStruct_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -13885,8 +13966,8 @@ public final class EventProto {
         if (other.hasCritStructCoordinates()) {
           mergeCritStructCoordinates(other.getCritStructCoordinates());
         }
-        if (other.hasCritStructId()) {
-          setCritStructId(other.getCritStructId());
+        if (other.hasCritStruct()) {
+          setCritStruct(other.getCritStruct());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -13901,7 +13982,7 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasCritStructId()) {
+        if (!hasCritStruct()) {
           
           return false;
         }
@@ -13958,8 +14039,14 @@ public final class EventProto {
               break;
             }
             case 24: {
-              bitField0_ |= 0x00000004;
-              critStructId_ = input.readInt32();
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType value = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                critStruct_ = value;
+              }
               break;
             }
           }
@@ -14148,23 +14235,26 @@ public final class EventProto {
         return critStructCoordinatesBuilder_;
       }
       
-      // required int32 critStructId = 3;
-      private int critStructId_ ;
-      public boolean hasCritStructId() {
+      // required .com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType critStruct = 3;
+      private com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
+      public boolean hasCritStruct() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getCritStructId() {
-        return critStructId_;
+      public com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType getCritStruct() {
+        return critStruct_;
       }
-      public Builder setCritStructId(int value) {
+      public Builder setCritStruct(com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
         bitField0_ |= 0x00000004;
-        critStructId_ = value;
+        critStruct_ = value;
         onChanged();
         return this;
       }
-      public Builder clearCritStructId() {
+      public Builder clearCritStruct() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        critStructId_ = 0;
+        critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
         onChanged();
         return this;
       }
@@ -14193,10 +14283,10 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.CoordinateProto getOldStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getOldStructCoordinatesOrBuilder();
     
-    // required .com.lvl6.proto.CoordinateProto newStructCoordinates = 3;
-    boolean hasNewStructCoordinates();
-    com.lvl6.proto.InfoProto.CoordinateProto getNewStructCoordinates();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getNewStructCoordinatesOrBuilder();
+    // required .com.lvl6.proto.CoordinateProto curStructCoordinates = 3;
+    boolean hasCurStructCoordinates();
+    com.lvl6.proto.InfoProto.CoordinateProto getCurStructCoordinates();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCurStructCoordinatesOrBuilder();
     
     // required int32 structId = 4;
     boolean hasStructId();
@@ -14257,17 +14347,17 @@ public final class EventProto {
       return oldStructCoordinates_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto newStructCoordinates = 3;
-    public static final int NEWSTRUCTCOORDINATES_FIELD_NUMBER = 3;
-    private com.lvl6.proto.InfoProto.CoordinateProto newStructCoordinates_;
-    public boolean hasNewStructCoordinates() {
+    // required .com.lvl6.proto.CoordinateProto curStructCoordinates = 3;
+    public static final int CURSTRUCTCOORDINATES_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.CoordinateProto curStructCoordinates_;
+    public boolean hasCurStructCoordinates() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getNewStructCoordinates() {
-      return newStructCoordinates_;
+    public com.lvl6.proto.InfoProto.CoordinateProto getCurStructCoordinates() {
+      return curStructCoordinates_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getNewStructCoordinatesOrBuilder() {
-      return newStructCoordinates_;
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCurStructCoordinatesOrBuilder() {
+      return curStructCoordinates_;
     }
     
     // required int32 structId = 4;
@@ -14283,7 +14373,7 @@ public final class EventProto {
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       oldStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      newStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      curStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       structId_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -14299,7 +14389,7 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasNewStructCoordinates()) {
+      if (!hasCurStructCoordinates()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -14315,7 +14405,7 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getNewStructCoordinates().isInitialized()) {
+      if (!getCurStructCoordinates().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -14333,7 +14423,7 @@ public final class EventProto {
         output.writeMessage(2, oldStructCoordinates_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, newStructCoordinates_);
+        output.writeMessage(3, curStructCoordinates_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt32(4, structId_);
@@ -14357,7 +14447,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, newStructCoordinates_);
+          .computeMessageSize(3, curStructCoordinates_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
@@ -14481,7 +14571,7 @@ public final class EventProto {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getSenderFieldBuilder();
           getOldStructCoordinatesFieldBuilder();
-          getNewStructCoordinatesFieldBuilder();
+          getCurStructCoordinatesFieldBuilder();
         }
       }
       private static Builder create() {
@@ -14502,10 +14592,10 @@ public final class EventProto {
           oldStructCoordinatesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
-        if (newStructCoordinatesBuilder_ == null) {
-          newStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (curStructCoordinatesBuilder_ == null) {
+          curStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
         } else {
-          newStructCoordinatesBuilder_.clear();
+          curStructCoordinatesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
         structId_ = 0;
@@ -14567,10 +14657,10 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        if (newStructCoordinatesBuilder_ == null) {
-          result.newStructCoordinates_ = newStructCoordinates_;
+        if (curStructCoordinatesBuilder_ == null) {
+          result.curStructCoordinates_ = curStructCoordinates_;
         } else {
-          result.newStructCoordinates_ = newStructCoordinatesBuilder_.build();
+          result.curStructCoordinates_ = curStructCoordinatesBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
@@ -14598,8 +14688,8 @@ public final class EventProto {
         if (other.hasOldStructCoordinates()) {
           mergeOldStructCoordinates(other.getOldStructCoordinates());
         }
-        if (other.hasNewStructCoordinates()) {
-          mergeNewStructCoordinates(other.getNewStructCoordinates());
+        if (other.hasCurStructCoordinates()) {
+          mergeCurStructCoordinates(other.getCurStructCoordinates());
         }
         if (other.hasStructId()) {
           setStructId(other.getStructId());
@@ -14617,7 +14707,7 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasNewStructCoordinates()) {
+        if (!hasCurStructCoordinates()) {
           
           return false;
         }
@@ -14633,7 +14723,7 @@ public final class EventProto {
           
           return false;
         }
-        if (!getNewStructCoordinates().isInitialized()) {
+        if (!getCurStructCoordinates().isInitialized()) {
           
           return false;
         }
@@ -14683,11 +14773,11 @@ public final class EventProto {
             }
             case 26: {
               com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasNewStructCoordinates()) {
-                subBuilder.mergeFrom(getNewStructCoordinates());
+              if (hasCurStructCoordinates()) {
+                subBuilder.mergeFrom(getCurStructCoordinates());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setNewStructCoordinates(subBuilder.buildPartial());
+              setCurStructCoordinates(subBuilder.buildPartial());
               break;
             }
             case 32: {
@@ -14881,94 +14971,94 @@ public final class EventProto {
         return oldStructCoordinatesBuilder_;
       }
       
-      // required .com.lvl6.proto.CoordinateProto newStructCoordinates = 3;
-      private com.lvl6.proto.InfoProto.CoordinateProto newStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // required .com.lvl6.proto.CoordinateProto curStructCoordinates = 3;
+      private com.lvl6.proto.InfoProto.CoordinateProto curStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> newStructCoordinatesBuilder_;
-      public boolean hasNewStructCoordinates() {
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> curStructCoordinatesBuilder_;
+      public boolean hasCurStructCoordinates() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getNewStructCoordinates() {
-        if (newStructCoordinatesBuilder_ == null) {
-          return newStructCoordinates_;
+      public com.lvl6.proto.InfoProto.CoordinateProto getCurStructCoordinates() {
+        if (curStructCoordinatesBuilder_ == null) {
+          return curStructCoordinates_;
         } else {
-          return newStructCoordinatesBuilder_.getMessage();
+          return curStructCoordinatesBuilder_.getMessage();
         }
       }
-      public Builder setNewStructCoordinates(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (newStructCoordinatesBuilder_ == null) {
+      public Builder setCurStructCoordinates(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (curStructCoordinatesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          newStructCoordinates_ = value;
+          curStructCoordinates_ = value;
           onChanged();
         } else {
-          newStructCoordinatesBuilder_.setMessage(value);
+          curStructCoordinatesBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000004;
         return this;
       }
-      public Builder setNewStructCoordinates(
+      public Builder setCurStructCoordinates(
           com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (newStructCoordinatesBuilder_ == null) {
-          newStructCoordinates_ = builderForValue.build();
+        if (curStructCoordinatesBuilder_ == null) {
+          curStructCoordinates_ = builderForValue.build();
           onChanged();
         } else {
-          newStructCoordinatesBuilder_.setMessage(builderForValue.build());
+          curStructCoordinatesBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000004;
         return this;
       }
-      public Builder mergeNewStructCoordinates(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (newStructCoordinatesBuilder_ == null) {
+      public Builder mergeCurStructCoordinates(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (curStructCoordinatesBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
-              newStructCoordinates_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            newStructCoordinates_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(newStructCoordinates_).mergeFrom(value).buildPartial();
+              curStructCoordinates_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            curStructCoordinates_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(curStructCoordinates_).mergeFrom(value).buildPartial();
           } else {
-            newStructCoordinates_ = value;
+            curStructCoordinates_ = value;
           }
           onChanged();
         } else {
-          newStructCoordinatesBuilder_.mergeFrom(value);
+          curStructCoordinatesBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000004;
         return this;
       }
-      public Builder clearNewStructCoordinates() {
-        if (newStructCoordinatesBuilder_ == null) {
-          newStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearCurStructCoordinates() {
+        if (curStructCoordinatesBuilder_ == null) {
+          curStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
           onChanged();
         } else {
-          newStructCoordinatesBuilder_.clear();
+          curStructCoordinatesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getNewStructCoordinatesBuilder() {
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getCurStructCoordinatesBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
-        return getNewStructCoordinatesFieldBuilder().getBuilder();
+        return getCurStructCoordinatesFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getNewStructCoordinatesOrBuilder() {
-        if (newStructCoordinatesBuilder_ != null) {
-          return newStructCoordinatesBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCurStructCoordinatesOrBuilder() {
+        if (curStructCoordinatesBuilder_ != null) {
+          return curStructCoordinatesBuilder_.getMessageOrBuilder();
         } else {
-          return newStructCoordinates_;
+          return curStructCoordinates_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getNewStructCoordinatesFieldBuilder() {
-        if (newStructCoordinatesBuilder_ == null) {
-          newStructCoordinatesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          getCurStructCoordinatesFieldBuilder() {
+        if (curStructCoordinatesBuilder_ == null) {
+          curStructCoordinatesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  newStructCoordinates_,
+                  curStructCoordinates_,
                   getParentForChildren(),
                   isClean());
-          newStructCoordinates_ = null;
+          curStructCoordinates_ = null;
         }
-        return newStructCoordinatesBuilder_;
+        return curStructCoordinatesBuilder_;
       }
       
       // required int32 structId = 4;
@@ -15706,17 +15796,21 @@ public final class EventProto {
       "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
       "roto.MinimumUserProto\022>\n\025critStructCoord" +
       "inates\030\002 \002(\0132\037.com.lvl6.proto.Coordinate" +
-      "Proto\022\024\n\014critStructId\030\003 \002(\005\"\253\001\n!MoveCrit" +
+      "Proto\022\024\n\014critStructId\030\003 \002(\005\"\313\002\n!MoveCrit" +
       "icalStructureRequestProto\0220\n\006sender\030\001 \002(" +
       "\0132 .com.lvl6.proto.MinimumUserProto\022>\n\025c" +
       "ritStructCoordinates\030\002 \002(\0132\037.com.lvl6.pr" +
-      "oto.CoordinateProto\022\024\n\014critStructId\030\003 \002(",
-      "\005\"\341\001\n\035MoveUserStructureRequestProto\0220\n\006s" +
+      "oto.CoordinateProto\022T\n\ncritStruct\030\003 \002(\0162",
+      "@.com.lvl6.proto.MoveCriticalStructureRe" +
+      "questProto.CritStructType\"^\n\016CritStructT" +
+      "ype\022\n\n\006AVIARY\020\001\022\016\n\nLUMBERMILL\020\002\022\r\n\tCARPE" +
+      "NTER\020\003\022\t\n\005VAULT\020\004\022\n\n\006ARMORY\020\005\022\n\n\006CLERIC\020" +
+      "\006\"\341\001\n\035MoveUserStructureRequestProto\0220\n\006s" +
       "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
       "Proto\022=\n\024oldStructCoordinates\030\002 \002(\0132\037.co" +
-      "m.lvl6.proto.CoordinateProto\022=\n\024newStruc" +
+      "m.lvl6.proto.CoordinateProto\022=\n\024curStruc" +
       "tCoordinates\030\003 \002(\0132\037.com.lvl6.proto.Coor" +
-      "dinateProto\022\020\n\010structId\030\004 \002(\005\"h\n\024LevelUp" +
+      "dinateProto\022\020\n\010structId\030\004 \002(\005\"h\n\024LevelUp",
       "ResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6" +
       ".proto.FullUserProto\022!\n\031maxCityIdAccessi" +
       "bleToUser\030\002 \001(\005B\014B\nEventProto"
@@ -15883,7 +15977,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "CritStructCoordinates", "CritStructId", },
+              new java.lang.String[] { "Sender", "CritStructCoordinates", "CritStruct", },
               com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.class,
               com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.Builder.class);
           internal_static_com_lvl6_proto_MoveUserStructureRequestProto_descriptor =
@@ -15891,7 +15985,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_MoveUserStructureRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MoveUserStructureRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "OldStructCoordinates", "NewStructCoordinates", "StructId", },
+              new java.lang.String[] { "Sender", "OldStructCoordinates", "CurStructCoordinates", "StructId", },
               com.lvl6.proto.EventProto.MoveUserStructureRequestProto.class,
               com.lvl6.proto.EventProto.MoveUserStructureRequestProto.Builder.class);
           internal_static_com_lvl6_proto_LevelUpResponseProto_descriptor =
