@@ -48,15 +48,13 @@ public class RetrieveTasksForCityController extends EventController{
     else goodSide = false;
 
     String name = null;
-    String description = null;
     for (Task task : tasks) {
       if (goodSide) {
         name = task.getGoodName();
       } else {
         name = task.getBadName();
       }
-      FullTaskProto ftp = FullTaskProto.newBuilder().setId(task.getId()).setName(name).setDescription(description)
-          .setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
+      FullTaskProto ftp = FullTaskProto.newBuilder().setId(task.getId()).setName(name).setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
           .setMaxCoinsGained(task.getMaxCoinsGained()).setChanceOfEquipLoot(task.getChanceOfEquipFloat())
           .setExpGained(task.getExpGained()).setMinArmySize(task.getMinArmySize())
           .setAssetNumWithinCity(task.getAssetNumberWithinCity()).setNumRequiredForCompletion(task.getNumForCompletion())

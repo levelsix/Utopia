@@ -127,7 +127,7 @@ message UserCreateRequestProto {
      required CoordinateProto carpenterCoordinates = 6;     
      optional int32 referrerCode = 7;
 }
-
+//CREATE UTILITY METHOD- unlockCityRankOneForCityId(int cityId)
 message UserCreateResponseProto {
 	required FullUserProto sender = 1;
 	required StartupStatus status = 2;

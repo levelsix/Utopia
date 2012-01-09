@@ -60,15 +60,15 @@ public class UpdateUtils {
    * used for tasks
    */
   public static boolean incrementCityRankForUserCity(int userId, int cityId, int increment) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CITIES__USER_ID, userId);
-    conditionParams.put(DBConstants.USER_CITIES__CITY_ID, cityId);
+    Map <String, Object> insertParams = new HashMap<String, Object>();
     
-    Map <String, Object> relativeParams = new HashMap<String, Object>();
-    relativeParams.put(DBConstants.USER_CITIES__CURRENT_RANK, increment);
+    insertParams.put(DBConstants.USER_CITIES__USER_ID, userId);
+    insertParams.put(DBConstants.USER_CITIES__CITY_ID, cityId);
+    insertParams.put(DBConstants.USER_CITIES__CURRENT_RANK, increment);
     
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITIES, relativeParams, null, 
-        conditionParams, "and");
+    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_CITIES, insertParams, 
+        DBConstants.USER_CITIES__CURRENT_RANK, increment);
+    
     if (numUpdated == 1) {
       return true;
     }
@@ -79,17 +79,14 @@ public class UpdateUtils {
    * used for tasks
    */
   public static boolean incrementTimesCompletedInRankForUserTask(int userId, int taskId, int increment) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_TASK__USER_ID, userId);
-    conditionParams.put(DBConstants.USER_TASK__TASK_ID, taskId);
+    Map <String, Object> insertParams = new HashMap<String, Object>();
     
-    Map <String, Object> relativeParams = new HashMap<String, Object>();
-    relativeParams.put(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
+    insertParams.put(DBConstants.USER_TASK__USER_ID, userId);
+    insertParams.put(DBConstants.USER_TASK__TASK_ID, taskId);
+    insertParams.put(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
     
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITIES, relativeParams, null, 
-        conditionParams, "and");
-    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_CITIES, insertParams, 
-        DBConstants.USER_EQUIP__QUANTITY, increment);
+    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_TASKS, insertParams, 
+        DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
     
     if (numUpdated == 1) {
       return true;

@@ -1835,13 +1835,13 @@ public final class InfoProto {
     boolean hasName();
     String getName();
     
-    // required string description = 3;
-    boolean hasDescription();
-    String getDescription();
-    
-    // required int32 cityId = 4;
+    // required int32 cityId = 3;
     boolean hasCityId();
     int getCityId();
+    
+    // required int32 numRequiredForCompletion = 4;
+    boolean hasNumRequiredForCompletion();
+    int getNumRequiredForCompletion();
     
     // required int32 energyCost = 5;
     boolean hasEnergyCost();
@@ -1875,10 +1875,6 @@ public final class InfoProto {
     // required int32 assetNumWithinCity = 12;
     boolean hasAssetNumWithinCity();
     int getAssetNumWithinCity();
-    
-    // required int32 numRequiredForCompletion = 13;
-    boolean hasNumRequiredForCompletion();
-    int getNumRequiredForCompletion();
   }
   public static final class FullTaskProto extends
       com.google.protobuf.GeneratedMessage
@@ -1951,46 +1947,24 @@ public final class InfoProto {
       }
     }
     
-    // required string description = 3;
-    public static final int DESCRIPTION_FIELD_NUMBER = 3;
-    private java.lang.Object description_;
-    public boolean hasDescription() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public String getDescription() {
-      java.lang.Object ref = description_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          description_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getDescriptionBytes() {
-      java.lang.Object ref = description_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        description_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // required int32 cityId = 4;
-    public static final int CITYID_FIELD_NUMBER = 4;
+    // required int32 cityId = 3;
+    public static final int CITYID_FIELD_NUMBER = 3;
     private int cityId_;
     public boolean hasCityId() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     public int getCityId() {
       return cityId_;
+    }
+    
+    // required int32 numRequiredForCompletion = 4;
+    public static final int NUMREQUIREDFORCOMPLETION_FIELD_NUMBER = 4;
+    private int numRequiredForCompletion_;
+    public boolean hasNumRequiredForCompletion() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getNumRequiredForCompletion() {
+      return numRequiredForCompletion_;
     }
     
     // required int32 energyCost = 5;
@@ -2077,21 +2051,11 @@ public final class InfoProto {
       return assetNumWithinCity_;
     }
     
-    // required int32 numRequiredForCompletion = 13;
-    public static final int NUMREQUIREDFORCOMPLETION_FIELD_NUMBER = 13;
-    private int numRequiredForCompletion_;
-    public boolean hasNumRequiredForCompletion() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
-    }
-    public int getNumRequiredForCompletion() {
-      return numRequiredForCompletion_;
-    }
-    
     private void initFields() {
       id_ = 0;
       name_ = "";
-      description_ = "";
       cityId_ = 0;
+      numRequiredForCompletion_ = 0;
       energyCost_ = 0;
       minCoinsGained_ = 0;
       maxCoinsGained_ = 0;
@@ -2100,7 +2064,6 @@ public final class InfoProto {
       expGained_ = 0;
       minArmySize_ = 0;
       assetNumWithinCity_ = 0;
-      numRequiredForCompletion_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2115,11 +2078,11 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasDescription()) {
+      if (!hasCityId()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasCityId()) {
+      if (!hasNumRequiredForCompletion()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2151,10 +2114,6 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasNumRequiredForCompletion()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2169,10 +2128,10 @@ public final class InfoProto {
         output.writeBytes(2, getNameBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getDescriptionBytes());
+        output.writeInt32(3, cityId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, cityId_);
+        output.writeInt32(4, numRequiredForCompletion_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeInt32(5, energyCost_);
@@ -2198,9 +2157,6 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         output.writeInt32(12, assetNumWithinCity_);
       }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeInt32(13, numRequiredForCompletion_);
-      }
       getUnknownFields().writeTo(output);
     }
     
@@ -2220,11 +2176,11 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getDescriptionBytes());
+          .computeInt32Size(3, cityId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, cityId_);
+          .computeInt32Size(4, numRequiredForCompletion_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
@@ -2262,10 +2218,6 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(12, assetNumWithinCity_);
-      }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(13, numRequiredForCompletion_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2395,9 +2347,9 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        description_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
         cityId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        numRequiredForCompletion_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
         energyCost_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -2415,8 +2367,6 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000400);
         assetNumWithinCity_ = 0;
         bitField0_ = (bitField0_ & ~0x00000800);
-        numRequiredForCompletion_ = 0;
-        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
       
@@ -2466,11 +2416,11 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.description_ = description_;
+        result.cityId_ = cityId_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.cityId_ = cityId_;
+        result.numRequiredForCompletion_ = numRequiredForCompletion_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
@@ -2504,10 +2454,6 @@ public final class InfoProto {
           to_bitField0_ |= 0x00000400;
         }
         result.assetNumWithinCity_ = assetNumWithinCity_;
-        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
-          to_bitField0_ |= 0x00000800;
-        }
-        result.numRequiredForCompletion_ = numRequiredForCompletion_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2530,11 +2476,11 @@ public final class InfoProto {
         if (other.hasName()) {
           setName(other.getName());
         }
-        if (other.hasDescription()) {
-          setDescription(other.getDescription());
-        }
         if (other.hasCityId()) {
           setCityId(other.getCityId());
+        }
+        if (other.hasNumRequiredForCompletion()) {
+          setNumRequiredForCompletion(other.getNumRequiredForCompletion());
         }
         if (other.hasEnergyCost()) {
           setEnergyCost(other.getEnergyCost());
@@ -2567,9 +2513,6 @@ public final class InfoProto {
         if (other.hasAssetNumWithinCity()) {
           setAssetNumWithinCity(other.getAssetNumWithinCity());
         }
-        if (other.hasNumRequiredForCompletion()) {
-          setNumRequiredForCompletion(other.getNumRequiredForCompletion());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -2583,11 +2526,11 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasDescription()) {
+        if (!hasCityId()) {
           
           return false;
         }
-        if (!hasCityId()) {
+        if (!hasNumRequiredForCompletion()) {
           
           return false;
         }
@@ -2616,10 +2559,6 @@ public final class InfoProto {
           return false;
         }
         if (!hasAssetNumWithinCity()) {
-          
-          return false;
-        }
-        if (!hasNumRequiredForCompletion()) {
           
           return false;
         }
@@ -2659,14 +2598,14 @@ public final class InfoProto {
               name_ = input.readBytes();
               break;
             }
-            case 26: {
+            case 24: {
               bitField0_ |= 0x00000004;
-              description_ = input.readBytes();
+              cityId_ = input.readInt32();
               break;
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              cityId_ = input.readInt32();
+              numRequiredForCompletion_ = input.readInt32();
               break;
             }
             case 40: {
@@ -2716,11 +2655,6 @@ public final class InfoProto {
             case 96: {
               bitField0_ |= 0x00000800;
               assetNumWithinCity_ = input.readInt32();
-              break;
-            }
-            case 104: {
-              bitField0_ |= 0x00001000;
-              numRequiredForCompletion_ = input.readInt32();
               break;
             }
           }
@@ -2786,59 +2720,44 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required string description = 3;
-      private java.lang.Object description_ = "";
-      public boolean hasDescription() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public String getDescription() {
-        java.lang.Object ref = description_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-          description_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
-      }
-      public Builder setDescription(String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        description_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearDescription() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        description_ = getDefaultInstance().getDescription();
-        onChanged();
-        return this;
-      }
-      void setDescription(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000004;
-        description_ = value;
-        onChanged();
-      }
-      
-      // required int32 cityId = 4;
+      // required int32 cityId = 3;
       private int cityId_ ;
       public boolean hasCityId() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public int getCityId() {
         return cityId_;
       }
       public Builder setCityId(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         cityId_ = value;
         onChanged();
         return this;
       }
       public Builder clearCityId() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         cityId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 numRequiredForCompletion = 4;
+      private int numRequiredForCompletion_ ;
+      public boolean hasNumRequiredForCompletion() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getNumRequiredForCompletion() {
+        return numRequiredForCompletion_;
+      }
+      public Builder setNumRequiredForCompletion(int value) {
+        bitField0_ |= 0x00000008;
+        numRequiredForCompletion_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumRequiredForCompletion() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        numRequiredForCompletion_ = 0;
         onChanged();
         return this;
       }
@@ -3031,27 +2950,6 @@ public final class InfoProto {
       public Builder clearAssetNumWithinCity() {
         bitField0_ = (bitField0_ & ~0x00000800);
         assetNumWithinCity_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // required int32 numRequiredForCompletion = 13;
-      private int numRequiredForCompletion_ ;
-      public boolean hasNumRequiredForCompletion() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
-      }
-      public int getNumRequiredForCompletion() {
-        return numRequiredForCompletion_;
-      }
-      public Builder setNumRequiredForCompletion(int value) {
-        bitField0_ |= 0x00001000;
-        numRequiredForCompletion_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearNumRequiredForCompletion() {
-        bitField0_ = (bitField0_ & ~0x00001000);
-        numRequiredForCompletion_ = 0;
         onChanged();
         return this;
       }
@@ -3943,17 +3841,17 @@ public final class InfoProto {
       "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\"c\n\031MinimumUserStru" +
       "ctureProto\022\020\n\010structId\030\001 \002(\005\0224\n\013coordina" +
       "tes\030\002 \002(\0132\037.com.lvl6.proto.CoordinatePro",
-      "to\"\017\n\rFullUserProto\"\262\002\n\rFullTaskProto\022\n\n" +
-      "\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\023\n\013description\030\003" +
-      " \002(\t\022\016\n\006cityId\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005" +
-      "\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGain" +
-      "ed\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025p" +
-      "otentialLootEquipIds\030\t \003(\005\022\021\n\texpGained\030" +
-      "\n \002(\005\022\023\n\013minArmySize\030\013 \002(\005\022\032\n\022assetNumWi" +
-      "thinCity\030\014 \002(\005\022 \n\030numRequiredForCompleti" +
-      "on\030\r \002(\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t" +
-      "\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001",
-      " \002(\005\022\021\n\tlongitude\030\002 \002(\005B\013B\tInfoProto"
+      "to\"\017\n\rFullUserProto\"\235\002\n\rFullTaskProto\022\n\n" +
+      "\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022" +
+      " \n\030numRequiredForCompletion\030\004 \002(\005\022\022\n\nene" +
+      "rgyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n" +
+      "\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOfEquipLo" +
+      "ot\030\010 \002(\002\022\035\n\025potentialLootEquipIds\030\t \003(\005\022" +
+      "\021\n\texpGained\030\n \002(\005\022\023\n\013minArmySize\030\013 \002(\005\022" +
+      "\032\n\022assetNumWithinCity\030\014 \002(\005\"\'\n\017Coordinat" +
+      "eProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocation" +
+      "Proto\022\020\n\010latitude\030\001 \002(\005\022\021\n\tlongitude\030\002 \002",
+      "(\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3997,7 +3895,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullTaskProto_descriptor,
-              new java.lang.String[] { "Id", "Name", "Description", "CityId", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "ChanceOfEquipLoot", "PotentialLootEquipIds", "ExpGained", "MinArmySize", "AssetNumWithinCity", "NumRequiredForCompletion", },
+              new java.lang.String[] { "Id", "Name", "CityId", "NumRequiredForCompletion", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "ChanceOfEquipLoot", "PotentialLootEquipIds", "ExpGained", "MinArmySize", "AssetNumWithinCity", },
               com.lvl6.proto.InfoProto.FullTaskProto.class,
               com.lvl6.proto.InfoProto.FullTaskProto.Builder.class);
           internal_static_com_lvl6_proto_CoordinateProto_descriptor =
