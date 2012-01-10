@@ -28,7 +28,7 @@ import com.lvl6.updateutils.UpdateUtils;
 public class TaskActionController extends EventController {
   
   private static final int NOT_SET = -1;
-  private static final int MAX_CITY_RANK = 10;
+  private static final int MAX_CITY_RANK = 3;
   
   @Override
   protected void initController() {
