@@ -100,17 +100,16 @@ public class TaskActionController extends EventController {
         if (cityRankedUp) {
           int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
           if (cityRank != NOT_SET) {
-            if (cityRank != MAX_CITY_RANK) {
-              cityRank++;
-              City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
-              int multiplier = cityRank;
-              coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
-              resBuilder.setCoinBonusIfCityRankup(coinBonus);
-              expBonus = multiplier * city.getExpGainedBaseOnRankup();
-              resBuilder.setExpBonusIfCityRankup(expBonus);
-            } else {
+            if (cityRank == MAX_CITY_RANK) {
               cityRankedUp = false;
             }
+            cityRank++;
+            City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
+            int multiplier = cityRank;
+            coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
+            resBuilder.setCoinBonusIfCityRankup(coinBonus);
+            expBonus = multiplier * city.getExpGainedBaseOnRankup();
+            resBuilder.setExpBonusIfCityRankup(expBonus);
           }
         }
           
@@ -129,7 +128,7 @@ public class TaskActionController extends EventController {
     int totalExpGain = 0;
     if (legitAction) {
       if (coinsGained != NOT_SET) totalCoinGain += coinsGained;
-      if (coinBonus != NOT_SET) totalCoinGain += coinsGained;
+      if (coinBonus != NOT_SET) totalCoinGain += coinBonus;
       if (task != null) totalExpGain += task.getExpGained();
       if (expBonus != NOT_SET) totalExpGain += expBonus;
     }
@@ -202,7 +201,7 @@ public class TaskActionController extends EventController {
   }
 
   private int calculateCoinsGained(Task task) {
-    return task.getMinCoinsGained() + (int)Math.random()*(task.getMaxCoinsGained() + 1 - task.getMinCoinsGained());
+    return task.getMinCoinsGained() + (int)(Math.random()*(task.getMaxCoinsGained() + 1 - task.getMinCoinsGained()));
   }
 
   private boolean checkLegitAction(User user, Task task, Builder resBuilder) {
