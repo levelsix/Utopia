@@ -82,8 +82,12 @@ public class TaskActionController extends EventController {
         resBuilder.setLootEquipId(lootEquipId);
       }
       Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
-      int numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
+      int numTimesActedInRank = 0;
+      if (taskIdToNumTimesActedInRank != null && taskIdToNumTimesActedInRank.get(task.getId()) != null) {
+        numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
+      }
       numTimesActedInRank++;
+      
       taskIdToNumTimesActedInRank.put(task.getId(), numTimesActedInRank);
       
       if (numTimesActedInRank > task.getNumForCompletion()) {
@@ -122,11 +126,13 @@ public class TaskActionController extends EventController {
     server.writeEvent(resEvent);
     
     int totalCoinGain = 0;
-    if (coinsGained != NOT_SET) totalCoinGain += coinsGained;
-    if (coinBonus != NOT_SET) totalCoinGain += coinsGained;
-    
-    int totalExpGain = task.getExpGained();
-    if (expBonus != NOT_SET) totalExpGain += expBonus;
+    int totalExpGain = 0;
+    if (legitAction) {
+      if (coinsGained != NOT_SET) totalCoinGain += coinsGained;
+      if (coinBonus != NOT_SET) totalCoinGain += coinsGained;
+      if (task != null) totalExpGain += task.getExpGained();
+      if (expBonus != NOT_SET) totalExpGain += expBonus;
+    }
     
     writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
         totalCoinGain, totalExpGain, tasksInCity);
@@ -153,7 +159,7 @@ public class TaskActionController extends EventController {
         }
       } else {
         if (changeNumTimesUserActedInDB) {
-          if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(user.getId(), task.getCityId(), 1)) {
+          if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(user.getId(), task.getId(), 1)) {
             log.error("problem with incrementing user times completed in rank post-task");
           }
         }
@@ -231,13 +237,18 @@ public class TaskActionController extends EventController {
     Map<Integer, Integer> equipIdsToQuantityReq = TaskEquipReqRetrieveUtils.getEquipmentIdsToQuantityForTaskId(task.getId());
     List<UserEquip> userEquipIds = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
 
+    if (equipIdsToQuantityReq == null)
+      return 0;
+    
     int numReqEquipsWithoutQuantityReqFulfilled = equipIdsToQuantityReq.keySet().size();
     
-    for (UserEquip ue : userEquipIds) {
-      Integer quantityReq = equipIdsToQuantityReq.get(ue.getEquipId());
-      if (quantityReq != null && quantityReq < ue.getQuantity()) {
-        numReqEquipsWithoutQuantityReqFulfilled--;
-        if (numReqEquipsWithoutQuantityReqFulfilled == 0) break;
+    if (userEquipIds != null) {
+      for (UserEquip ue : userEquipIds) {
+        Integer quantityReq = equipIdsToQuantityReq.get(ue.getEquipId());
+        if (quantityReq != null && quantityReq <= ue.getQuantity()) {
+          numReqEquipsWithoutQuantityReqFulfilled--;
+          if (numReqEquipsWithoutQuantityReqFulfilled == 0) break;
+        }
       }
     }
     

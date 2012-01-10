@@ -102,12 +102,19 @@ message StartupRequestProto {				//client will also send ChangeUserLocationReque
 
 message StartupResponseProto {
      optional FullUserProto sender = 1;
-     required StartupStatus status= 2;
-     optional int32 maxCityIdAccessibleToUser = 3;     //cityids must be in order of min_level
-     optional MinimumUserStructureProto structures = 4;
-     required bool updateAvailable = 5;
-     optional int32 questLog = 6;  
-     optional LocationProto userLocation = 7;
+     required StartupStatus startupStatus= 2;
+     required UpdateStatus updateStatus= 3;
+     optional int32 maxCityIdAccessibleToUser = 4;     //cityids must be in order of min_level
+     optional MinimumUserStructureProto structures = 5;
+     required bool updateAvailable = 6;
+     optional int32 questLog = 7;  
+     optional LocationProto userLocation = 8;
+     
+     enum UpdateStatus {
+     	NO_UPDATE = 0;
+     	MINOR_UPDATE = 1;
+     	MAJOR_UPDATE = 2;
+     }
      
 	enum StartupStatus {
 		USER_IN_DB = 0; 

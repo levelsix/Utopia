@@ -1,0 +1,16 @@
+package com.lvl6.proto;
+
+option java_outer_classname = "AdminProto";
+																						//DONE
+message ReloadCitiesRequestProto {
+}
+
+																						//DONE
+message ReloadEquipmentRequestProto {
+}
+
+message ReloadTaskEquipmentRequirementsRequestProto {
+}
+
+message ReloadTaskRequestProto {
+}

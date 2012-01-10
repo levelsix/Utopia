@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -37,7 +38,11 @@ public class DBConnection {
       Class.forName("com.mysql.jdbc.Driver");
       log.info("creating DB connections");
       for (int i = 0; i < NUM_CONNECTIONS; i++) {
-        conn = DriverManager.getConnection("jdbc:mysql://" + server, user ,password);
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", user);
+        connectionProps.put("password",password);
+        connectionProps.put("useAffectedRows", "true");
+        conn = DriverManager.getConnection("jdbc:mysql://" + server, connectionProps);
         conn.createStatement().executeQuery("USE " + database);
         availableConnections.put(conn);
         log.info("connection added");

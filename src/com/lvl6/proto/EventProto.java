@@ -5887,28 +5887,32 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserProto getSender();
     com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.StartupResponseProto.StartupStatus status = 2;
-    boolean hasStatus();
-    com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus getStatus();
+    // required .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
+    boolean hasStartupStatus();
+    com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus getStartupStatus();
     
-    // optional int32 maxCityIdAccessibleToUser = 3;
+    // required .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
+    boolean hasUpdateStatus();
+    com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus getUpdateStatus();
+    
+    // optional int32 maxCityIdAccessibleToUser = 4;
     boolean hasMaxCityIdAccessibleToUser();
     int getMaxCityIdAccessibleToUser();
     
-    // optional .com.lvl6.proto.MinimumUserStructureProto structures = 4;
+    // optional .com.lvl6.proto.MinimumUserStructureProto structures = 5;
     boolean hasStructures();
     com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures();
     com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder getStructuresOrBuilder();
     
-    // required bool updateAvailable = 5;
+    // required bool updateAvailable = 6;
     boolean hasUpdateAvailable();
     boolean getUpdateAvailable();
     
-    // optional int32 questLog = 6;
+    // optional int32 questLog = 7;
     boolean hasQuestLog();
     int getQuestLog();
     
-    // optional .com.lvl6.proto.LocationProto userLocation = 7;
+    // optional .com.lvl6.proto.LocationProto userLocation = 8;
     boolean hasUserLocation();
     com.lvl6.proto.InfoProto.LocationProto getUserLocation();
     com.lvl6.proto.InfoProto.LocationProtoOrBuilder getUserLocationOrBuilder();
@@ -5939,6 +5943,78 @@ public final class EventProto {
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_StartupResponseProto_fieldAccessorTable;
+    }
+    
+    public enum UpdateStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      NO_UPDATE(0, 0),
+      MINOR_UPDATE(1, 1),
+      MAJOR_UPDATE(2, 2),
+      ;
+      
+      public static final int NO_UPDATE_VALUE = 0;
+      public static final int MINOR_UPDATE_VALUE = 1;
+      public static final int MAJOR_UPDATE_VALUE = 2;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static UpdateStatus valueOf(int value) {
+        switch (value) {
+          case 0: return NO_UPDATE;
+          case 1: return MINOR_UPDATE;
+          case 2: return MAJOR_UPDATE;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<UpdateStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<UpdateStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<UpdateStatus>() {
+              public UpdateStatus findValueByNumber(int number) {
+                return UpdateStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.StartupResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final UpdateStatus[] VALUES = {
+        NO_UPDATE, MINOR_UPDATE, MAJOR_UPDATE, 
+      };
+      
+      public static UpdateStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private UpdateStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.StartupResponseProto.UpdateStatus)
     }
     
     public enum StartupStatus
@@ -5983,7 +6059,7 @@ public final class EventProto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.StartupResponseProto.getDescriptor().getEnumTypes().get(0);
+        return com.lvl6.proto.EventProto.StartupResponseProto.getDescriptor().getEnumTypes().get(1);
       }
       
       private static final StartupStatus[] VALUES = {
@@ -6024,31 +6100,41 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.StartupResponseProto.StartupStatus status = 2;
-    public static final int STATUS_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus status_;
-    public boolean hasStatus() {
+    // required .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
+    public static final int STARTUPSTATUS_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus startupStatus_;
+    public boolean hasStartupStatus() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus getStatus() {
-      return status_;
+    public com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus getStartupStatus() {
+      return startupStatus_;
     }
     
-    // optional int32 maxCityIdAccessibleToUser = 3;
-    public static final int MAXCITYIDACCESSIBLETOUSER_FIELD_NUMBER = 3;
+    // required .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
+    public static final int UPDATESTATUS_FIELD_NUMBER = 3;
+    private com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus updateStatus_;
+    public boolean hasUpdateStatus() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus getUpdateStatus() {
+      return updateStatus_;
+    }
+    
+    // optional int32 maxCityIdAccessibleToUser = 4;
+    public static final int MAXCITYIDACCESSIBLETOUSER_FIELD_NUMBER = 4;
     private int maxCityIdAccessibleToUser_;
     public boolean hasMaxCityIdAccessibleToUser() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public int getMaxCityIdAccessibleToUser() {
       return maxCityIdAccessibleToUser_;
     }
     
-    // optional .com.lvl6.proto.MinimumUserStructureProto structures = 4;
-    public static final int STRUCTURES_FIELD_NUMBER = 4;
+    // optional .com.lvl6.proto.MinimumUserStructureProto structures = 5;
+    public static final int STRUCTURES_FIELD_NUMBER = 5;
     private com.lvl6.proto.InfoProto.MinimumUserStructureProto structures_;
     public boolean hasStructures() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     public com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures() {
       return structures_;
@@ -6057,31 +6143,31 @@ public final class EventProto {
       return structures_;
     }
     
-    // required bool updateAvailable = 5;
-    public static final int UPDATEAVAILABLE_FIELD_NUMBER = 5;
+    // required bool updateAvailable = 6;
+    public static final int UPDATEAVAILABLE_FIELD_NUMBER = 6;
     private boolean updateAvailable_;
     public boolean hasUpdateAvailable() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     public boolean getUpdateAvailable() {
       return updateAvailable_;
     }
     
-    // optional int32 questLog = 6;
-    public static final int QUESTLOG_FIELD_NUMBER = 6;
+    // optional int32 questLog = 7;
+    public static final int QUESTLOG_FIELD_NUMBER = 7;
     private int questLog_;
     public boolean hasQuestLog() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public int getQuestLog() {
       return questLog_;
     }
     
-    // optional .com.lvl6.proto.LocationProto userLocation = 7;
-    public static final int USERLOCATION_FIELD_NUMBER = 7;
+    // optional .com.lvl6.proto.LocationProto userLocation = 8;
+    public static final int USERLOCATION_FIELD_NUMBER = 8;
     private com.lvl6.proto.InfoProto.LocationProto userLocation_;
     public boolean hasUserLocation() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
       return userLocation_;
@@ -6092,7 +6178,8 @@ public final class EventProto {
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance();
-      status_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
+      startupStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
+      updateStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.NO_UPDATE;
       maxCityIdAccessibleToUser_ = 0;
       structures_ = com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
       updateAvailable_ = false;
@@ -6104,7 +6191,11 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasStatus()) {
+      if (!hasStartupStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUpdateStatus()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -6135,22 +6226,25 @@ public final class EventProto {
         output.writeMessage(1, sender_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, status_.getNumber());
+        output.writeEnum(2, startupStatus_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, maxCityIdAccessibleToUser_);
+        output.writeEnum(3, updateStatus_.getNumber());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, structures_);
+        output.writeInt32(4, maxCityIdAccessibleToUser_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBool(5, updateAvailable_);
+        output.writeMessage(5, structures_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, questLog_);
+        output.writeBool(6, updateAvailable_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeMessage(7, userLocation_);
+        output.writeInt32(7, questLog_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeMessage(8, userLocation_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6167,27 +6261,31 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, status_.getNumber());
+          .computeEnumSize(2, startupStatus_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, maxCityIdAccessibleToUser_);
+          .computeEnumSize(3, updateStatus_.getNumber());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, structures_);
+          .computeInt32Size(4, maxCityIdAccessibleToUser_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, updateAvailable_);
+          .computeMessageSize(5, structures_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, questLog_);
+          .computeBoolSize(6, updateAvailable_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, userLocation_);
+          .computeInt32Size(7, questLog_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, userLocation_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6322,26 +6420,28 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
+        startupStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
         bitField0_ = (bitField0_ & ~0x00000002);
-        maxCityIdAccessibleToUser_ = 0;
+        updateStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.NO_UPDATE;
         bitField0_ = (bitField0_ & ~0x00000004);
+        maxCityIdAccessibleToUser_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         if (structuresBuilder_ == null) {
           structures_ = com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
         } else {
           structuresBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
-        updateAvailable_ = false;
         bitField0_ = (bitField0_ & ~0x00000010);
-        questLog_ = 0;
+        updateAvailable_ = false;
         bitField0_ = (bitField0_ & ~0x00000020);
+        questLog_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
         if (userLocationBuilder_ == null) {
           userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       
@@ -6391,29 +6491,33 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.status_ = status_;
+        result.startupStatus_ = startupStatus_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.maxCityIdAccessibleToUser_ = maxCityIdAccessibleToUser_;
+        result.updateStatus_ = updateStatus_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
+        }
+        result.maxCityIdAccessibleToUser_ = maxCityIdAccessibleToUser_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
         }
         if (structuresBuilder_ == null) {
           result.structures_ = structures_;
         } else {
           result.structures_ = structuresBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.updateAvailable_ = updateAvailable_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.questLog_ = questLog_;
+        result.updateAvailable_ = updateAvailable_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
+        }
+        result.questLog_ = questLog_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
         }
         if (userLocationBuilder_ == null) {
           result.userLocation_ = userLocation_;
@@ -6439,8 +6543,11 @@ public final class EventProto {
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
-        if (other.hasStatus()) {
-          setStatus(other.getStatus());
+        if (other.hasStartupStatus()) {
+          setStartupStatus(other.getStartupStatus());
+        }
+        if (other.hasUpdateStatus()) {
+          setUpdateStatus(other.getUpdateStatus());
         }
         if (other.hasMaxCityIdAccessibleToUser()) {
           setMaxCityIdAccessibleToUser(other.getMaxCityIdAccessibleToUser());
@@ -6462,7 +6569,11 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasStatus()) {
+        if (!hasStartupStatus()) {
+          
+          return false;
+        }
+        if (!hasUpdateStatus()) {
           
           return false;
         }
@@ -6524,16 +6635,27 @@ public final class EventProto {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
                 bitField0_ |= 0x00000002;
-                status_ = value;
+                startupStatus_ = value;
               }
               break;
             }
             case 24: {
-              bitField0_ |= 0x00000004;
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus value = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                updateStatus_ = value;
+              }
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
               maxCityIdAccessibleToUser_ = input.readInt32();
               break;
             }
-            case 34: {
+            case 42: {
               com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserStructureProto.newBuilder();
               if (hasStructures()) {
                 subBuilder.mergeFrom(getStructures());
@@ -6542,17 +6664,17 @@ public final class EventProto {
               setStructures(subBuilder.buildPartial());
               break;
             }
-            case 40: {
-              bitField0_ |= 0x00000010;
+            case 48: {
+              bitField0_ |= 0x00000020;
               updateAvailable_ = input.readBool();
               break;
             }
-            case 48: {
-              bitField0_ |= 0x00000020;
+            case 56: {
+              bitField0_ |= 0x00000040;
               questLog_ = input.readInt32();
               break;
             }
-            case 58: {
+            case 66: {
               com.lvl6.proto.InfoProto.LocationProto.Builder subBuilder = com.lvl6.proto.InfoProto.LocationProto.newBuilder();
               if (hasUserLocation()) {
                 subBuilder.mergeFrom(getUserLocation());
@@ -6657,57 +6779,81 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.StartupResponseProto.StartupStatus status = 2;
-      private com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus status_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
-      public boolean hasStatus() {
+      // required .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
+      private com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus startupStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
+      public boolean hasStartupStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus getStatus() {
-        return status_;
+      public com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus getStartupStatus() {
+        return startupStatus_;
       }
-      public Builder setStatus(com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus value) {
+      public Builder setStartupStatus(com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000002;
-        status_ = value;
+        startupStatus_ = value;
         onChanged();
         return this;
       }
-      public Builder clearStatus() {
+      public Builder clearStartupStatus() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        status_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
+        startupStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
         onChanged();
         return this;
       }
       
-      // optional int32 maxCityIdAccessibleToUser = 3;
+      // required .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
+      private com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus updateStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.NO_UPDATE;
+      public boolean hasUpdateStatus() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus getUpdateStatus() {
+        return updateStatus_;
+      }
+      public Builder setUpdateStatus(com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        updateStatus_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUpdateStatus() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        updateStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.NO_UPDATE;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 maxCityIdAccessibleToUser = 4;
       private int maxCityIdAccessibleToUser_ ;
       public boolean hasMaxCityIdAccessibleToUser() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public int getMaxCityIdAccessibleToUser() {
         return maxCityIdAccessibleToUser_;
       }
       public Builder setMaxCityIdAccessibleToUser(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         maxCityIdAccessibleToUser_ = value;
         onChanged();
         return this;
       }
       public Builder clearMaxCityIdAccessibleToUser() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         maxCityIdAccessibleToUser_ = 0;
         onChanged();
         return this;
       }
       
-      // optional .com.lvl6.proto.MinimumUserStructureProto structures = 4;
+      // optional .com.lvl6.proto.MinimumUserStructureProto structures = 5;
       private com.lvl6.proto.InfoProto.MinimumUserStructureProto structures_ = com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserStructureProto, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder, com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> structuresBuilder_;
       public boolean hasStructures() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures() {
         if (structuresBuilder_ == null) {
@@ -6726,7 +6872,7 @@ public final class EventProto {
         } else {
           structuresBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         return this;
       }
       public Builder setStructures(
@@ -6737,12 +6883,12 @@ public final class EventProto {
         } else {
           structuresBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         return this;
       }
       public Builder mergeStructures(com.lvl6.proto.InfoProto.MinimumUserStructureProto value) {
         if (structuresBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+          if (((bitField0_ & 0x00000010) == 0x00000010) &&
               structures_ != com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance()) {
             structures_ =
               com.lvl6.proto.InfoProto.MinimumUserStructureProto.newBuilder(structures_).mergeFrom(value).buildPartial();
@@ -6753,7 +6899,7 @@ public final class EventProto {
         } else {
           structuresBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         return this;
       }
       public Builder clearStructures() {
@@ -6763,11 +6909,11 @@ public final class EventProto {
         } else {
           structuresBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       public com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder getStructuresBuilder() {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return getStructuresFieldBuilder().getBuilder();
       }
@@ -6792,54 +6938,54 @@ public final class EventProto {
         return structuresBuilder_;
       }
       
-      // required bool updateAvailable = 5;
+      // required bool updateAvailable = 6;
       private boolean updateAvailable_ ;
       public boolean hasUpdateAvailable() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       public boolean getUpdateAvailable() {
         return updateAvailable_;
       }
       public Builder setUpdateAvailable(boolean value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         updateAvailable_ = value;
         onChanged();
         return this;
       }
       public Builder clearUpdateAvailable() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         updateAvailable_ = false;
         onChanged();
         return this;
       }
       
-      // optional int32 questLog = 6;
+      // optional int32 questLog = 7;
       private int questLog_ ;
       public boolean hasQuestLog() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public int getQuestLog() {
         return questLog_;
       }
       public Builder setQuestLog(int value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         questLog_ = value;
         onChanged();
         return this;
       }
       public Builder clearQuestLog() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         questLog_ = 0;
         onChanged();
         return this;
       }
       
-      // optional .com.lvl6.proto.LocationProto userLocation = 7;
+      // optional .com.lvl6.proto.LocationProto userLocation = 8;
       private com.lvl6.proto.InfoProto.LocationProto userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.LocationProto, com.lvl6.proto.InfoProto.LocationProto.Builder, com.lvl6.proto.InfoProto.LocationProtoOrBuilder> userLocationBuilder_;
       public boolean hasUserLocation() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
         if (userLocationBuilder_ == null) {
@@ -6858,7 +7004,7 @@ public final class EventProto {
         } else {
           userLocationBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         return this;
       }
       public Builder setUserLocation(
@@ -6869,12 +7015,12 @@ public final class EventProto {
         } else {
           userLocationBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         return this;
       }
       public Builder mergeUserLocation(com.lvl6.proto.InfoProto.LocationProto value) {
         if (userLocationBuilder_ == null) {
-          if (((bitField0_ & 0x00000040) == 0x00000040) &&
+          if (((bitField0_ & 0x00000080) == 0x00000080) &&
               userLocation_ != com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance()) {
             userLocation_ =
               com.lvl6.proto.InfoProto.LocationProto.newBuilder(userLocation_).mergeFrom(value).buildPartial();
@@ -6885,7 +7031,7 @@ public final class EventProto {
         } else {
           userLocationBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         return this;
       }
       public Builder clearUserLocation() {
@@ -6895,11 +7041,11 @@ public final class EventProto {
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       public com.lvl6.proto.InfoProto.LocationProto.Builder getUserLocationBuilder() {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return getUserLocationFieldBuilder().getBuilder();
       }
@@ -15741,79 +15887,83 @@ public final class EventProto {
       "sponseProto.HealStatus\"D\n\nHealStatus\022\013\n\007" +
       "SUCCESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT\020\001\022\016\n\n" +
       "OTHER_FAIL\020\002\"7\n\023StartupRequestProto\022\014\n\004u",
-      "did\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\200\003\n\024Startu" +
+      "did\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\223\004\n\024Startu" +
       "pResponseProto\022-\n\006sender\030\001 \001(\0132\035.com.lvl" +
-      "6.proto.FullUserProto\022B\n\006status\030\002 \002(\01622." +
-      "com.lvl6.proto.StartupResponseProto.Star" +
-      "tupStatus\022!\n\031maxCityIdAccessibleToUser\030\003" +
-      " \001(\005\022=\n\nstructures\030\004 \001(\0132).com.lvl6.prot" +
+      "6.proto.FullUserProto\022I\n\rstartupStatus\030\002" +
+      " \002(\01622.com.lvl6.proto.StartupResponsePro" +
+      "to.StartupStatus\022G\n\014updateStatus\030\003 \002(\01621" +
+      ".com.lvl6.proto.StartupResponseProto.Upd" +
+      "ateStatus\022!\n\031maxCityIdAccessibleToUser\030\004" +
+      " \001(\005\022=\n\nstructures\030\005 \001(\0132).com.lvl6.prot" +
       "o.MinimumUserStructureProto\022\027\n\017updateAva" +
-      "ilable\030\005 \002(\010\022\020\n\010questLog\030\006 \001(\005\0223\n\014userLo" +
-      "cation\030\007 \001(\0132\035.com.lvl6.proto.LocationPr" +
-      "oto\"3\n\rStartupStatus\022\016\n\nUSER_IN_DB\020\000\022\022\n\016",
-      "USER_NOT_IN_DB\020\001\"\351\002\n\026UserCreateRequestPr" +
-      "oto\022\014\n\004udid\030\001 \002(\t\022=\n\nstructures\030\002 \003(\0132)." +
-      "com.lvl6.proto.MinimumUserStructureProto" +
-      "\0223\n\014userLocation\030\003 \002(\0132\035.com.lvl6.proto." +
-      "LocationProto\022:\n\021aviaryCoordinates\030\004 \002(\013" +
-      "2\037.com.lvl6.proto.CoordinateProto\022<\n\023ref" +
-      "ineryCoordinates\030\005 \002(\0132\037.com.lvl6.proto." +
-      "CoordinateProto\022=\n\024carpenterCoordinates\030" +
-      "\006 \002(\0132\037.com.lvl6.proto.CoordinateProto\022\024" +
-      "\n\014referrerCode\030\007 \001(\005\"\267\001\n\027UserCreateRespo",
-      "nseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6.prot" +
-      "o.FullUserProto\022E\n\006status\030\002 \002(\01625.com.lv" +
-      "l6.proto.UserCreateResponseProto.Startup" +
-      "Status\"&\n\rStartupStatus\022\013\n\007SUCCESS\020\000\022\010\n\004" +
-      "FAIL\020\001\"\227\001\n\036ChangeUserLocationRequestProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\016\n\006cityId\030\002 \001(\005\0223\n\014userLocat" +
+      "ilable\030\006 \002(\010\022\020\n\010questLog\030\007 \001(\005\0223\n\014userLo",
+      "cation\030\010 \001(\0132\035.com.lvl6.proto.LocationPr" +
+      "oto\"A\n\014UpdateStatus\022\r\n\tNO_UPDATE\020\000\022\020\n\014MI" +
+      "NOR_UPDATE\020\001\022\020\n\014MAJOR_UPDATE\020\002\"3\n\rStartu" +
+      "pStatus\022\016\n\nUSER_IN_DB\020\000\022\022\n\016USER_NOT_IN_D" +
+      "B\020\001\"\351\002\n\026UserCreateRequestProto\022\014\n\004udid\030\001" +
+      " \002(\t\022=\n\nstructures\030\002 \003(\0132).com.lvl6.prot" +
+      "o.MinimumUserStructureProto\0223\n\014userLocat" +
       "ion\030\003 \002(\0132\035.com.lvl6.proto.LocationProto" +
-      "\"d\n RetrieveTasksForCityRequestProto\0220\n\006" +
-      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse",
-      "rProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!RetrieveTasks" +
-      "ForCityResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022,\n\005tasks\030" +
-      "\002 \003(\0132\035.com.lvl6.proto.FullTaskProto\"Z\n\026" +
-      "TaskActionRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\016\n\006task" +
-      "Id\030\002 \002(\005\"\267\003\n\027TaskActionResponseProto\0220\n\006" +
-      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\022H\n\006status\030\002 \002(\01628.com.lvl6.proto." +
-      "TaskActionResponseProto.TaskActionStatus",
-      "\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRankedUp\030" +
-      "\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coinsGaine" +
-      "d\030\006 \001(\005\022\035\n\025coinBonusIfCityRankup\030\007 \001(\005\022\034" +
-      "\n\024expBonusIfCityRankup\030\010 \001(\005\"\213\001\n\020TaskAct" +
-      "ionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USER_NOT_ENOUG" +
-      "H_ENERGY\020\001\022\030\n\024USER_NOT_ENOUGH_ARMY\020\002\022\037\n\033" +
-      "USER_NOT_ALL_REQUIRED_ITEMS\020\003\022\023\n\017INVALID" +
-      "_TASK_ID\020\005\"\237\001\n\035PurchaseStructureRequestP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022:\n\021structCoordinates\030\002 \002(",
-      "\0132\037.com.lvl6.proto.CoordinateProto\022\020\n\010st" +
-      "ructId\030\003 \002(\005\"\254\001\n\"PlaceCriticalStructureR" +
-      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022>\n\025critStructCoord" +
-      "inates\030\002 \002(\0132\037.com.lvl6.proto.Coordinate" +
-      "Proto\022\024\n\014critStructId\030\003 \002(\005\"\313\002\n!MoveCrit" +
-      "icalStructureRequestProto\0220\n\006sender\030\001 \002(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022>\n\025c" +
-      "ritStructCoordinates\030\002 \002(\0132\037.com.lvl6.pr" +
-      "oto.CoordinateProto\022T\n\ncritStruct\030\003 \002(\0162",
-      "@.com.lvl6.proto.MoveCriticalStructureRe" +
-      "questProto.CritStructType\"^\n\016CritStructT" +
-      "ype\022\n\n\006AVIARY\020\001\022\016\n\nLUMBERMILL\020\002\022\r\n\tCARPE" +
-      "NTER\020\003\022\t\n\005VAULT\020\004\022\n\n\006ARMORY\020\005\022\n\n\006CLERIC\020" +
-      "\006\"\341\001\n\035MoveUserStructureRequestProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022=\n\024oldStructCoordinates\030\002 \002(\0132\037.co" +
-      "m.lvl6.proto.CoordinateProto\022=\n\024curStruc" +
-      "tCoordinates\030\003 \002(\0132\037.com.lvl6.proto.Coor" +
-      "dinateProto\022\020\n\010structId\030\004 \002(\005\"h\n\024LevelUp",
-      "ResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6" +
-      ".proto.FullUserProto\022!\n\031maxCityIdAccessi" +
-      "bleToUser\030\002 \001(\005B\014B\nEventProto"
+      "\022:\n\021aviaryCoordinates\030\004 \002(\0132\037.com.lvl6.p" +
+      "roto.CoordinateProto\022<\n\023refineryCoordina",
+      "tes\030\005 \002(\0132\037.com.lvl6.proto.CoordinatePro" +
+      "to\022=\n\024carpenterCoordinates\030\006 \002(\0132\037.com.l" +
+      "vl6.proto.CoordinateProto\022\024\n\014referrerCod" +
+      "e\030\007 \001(\005\"\267\001\n\027UserCreateResponseProto\022-\n\006s" +
+      "ender\030\001 \002(\0132\035.com.lvl6.proto.FullUserPro" +
+      "to\022E\n\006status\030\002 \002(\01625.com.lvl6.proto.User" +
+      "CreateResponseProto.StartupStatus\"&\n\rSta" +
+      "rtupStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"\227\001\n\036Ch" +
+      "angeUserLocationRequestProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022\016",
+      "\n\006cityId\030\002 \001(\005\0223\n\014userLocation\030\003 \002(\0132\035.c" +
+      "om.lvl6.proto.LocationProto\"d\n RetrieveT" +
+      "asksForCityRequestProto\0220\n\006sender\030\001 \002(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022\016\n\006cit" +
+      "yId\030\002 \001(\005\"\203\001\n!RetrieveTasksForCityRespon" +
+      "seProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022,\n\005tasks\030\002 \003(\0132\035.com.l" +
+      "vl6.proto.FullTaskProto\"Z\n\026TaskActionReq" +
+      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022\016\n\006taskId\030\002 \002(\005\"\267\003\n\027",
+      "TaskActionResponseProto\0220\n\006sender\030\001 \002(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022H\n\006sta" +
+      "tus\030\002 \002(\01628.com.lvl6.proto.TaskActionRes" +
+      "ponseProto.TaskActionStatus\022\025\n\rtaskCompl" +
+      "eted\030\003 \001(\010\022\024\n\014cityRankedUp\030\004 \001(\010\022\023\n\013loot" +
+      "EquipId\030\005 \001(\005\022\023\n\013coinsGained\030\006 \001(\005\022\035\n\025co" +
+      "inBonusIfCityRankup\030\007 \001(\005\022\034\n\024expBonusIfC" +
+      "ityRankup\030\010 \001(\005\"\213\001\n\020TaskActionStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\030\n" +
+      "\024USER_NOT_ENOUGH_ARMY\020\002\022\037\n\033USER_NOT_ALL_",
+      "REQUIRED_ITEMS\020\003\022\023\n\017INVALID_TASK_ID\020\005\"\237\001" +
+      "\n\035PurchaseStructureRequestProto\0220\n\006sende" +
+      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022:\n\021structCoordinates\030\002 \002(\0132\037.com.lvl6." +
+      "proto.CoordinateProto\022\020\n\010structId\030\003 \002(\005\"" +
+      "\254\001\n\"PlaceCriticalStructureRequestProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022>\n\025critStructCoordinates\030\002 \002(\0132" +
+      "\037.com.lvl6.proto.CoordinateProto\022\024\n\014crit" +
+      "StructId\030\003 \002(\005\"\313\002\n!MoveCriticalStructure",
+      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022>\n\025critStructCoor" +
+      "dinates\030\002 \002(\0132\037.com.lvl6.proto.Coordinat" +
+      "eProto\022T\n\ncritStruct\030\003 \002(\0162@.com.lvl6.pr" +
+      "oto.MoveCriticalStructureRequestProto.Cr" +
+      "itStructType\"^\n\016CritStructType\022\n\n\006AVIARY" +
+      "\020\001\022\016\n\nLUMBERMILL\020\002\022\r\n\tCARPENTER\020\003\022\t\n\005VAU" +
+      "LT\020\004\022\n\n\006ARMORY\020\005\022\n\n\006CLERIC\020\006\"\341\001\n\035MoveUse" +
+      "rStructureRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022=\n\024oldS",
+      "tructCoordinates\030\002 \002(\0132\037.com.lvl6.proto." +
+      "CoordinateProto\022=\n\024curStructCoordinates\030" +
+      "\003 \002(\0132\037.com.lvl6.proto.CoordinateProto\022\020" +
+      "\n\010structId\030\004 \002(\005\"h\n\024LevelUpResponseProto" +
+      "\022-\n\006sender\030\001 \002(\0132\035.com.lvl6.proto.FullUs" +
+      "erProto\022!\n\031maxCityIdAccessibleToUser\030\002 \001" +
+      "(\005B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -15897,7 +16047,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "MaxCityIdAccessibleToUser", "Structures", "UpdateAvailable", "QuestLog", "UserLocation", },
+              new java.lang.String[] { "Sender", "StartupStatus", "UpdateStatus", "MaxCityIdAccessibleToUser", "Structures", "UpdateAvailable", "QuestLog", "UserLocation", },
               com.lvl6.proto.EventProto.StartupResponseProto.class,
               com.lvl6.proto.EventProto.StartupResponseProto.Builder.class);
           internal_static_com_lvl6_proto_UserCreateRequestProto_descriptor =
