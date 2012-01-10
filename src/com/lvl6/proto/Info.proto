@@ -37,6 +37,7 @@ message MinimumUserStructureProto {
 
 message FullUserProto {
 
+     optional LocationProto userLocation = 1;
 }
 
 //------------------------------------------------------------------------------------------

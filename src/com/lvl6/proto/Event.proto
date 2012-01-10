@@ -108,7 +108,6 @@ message StartupResponseProto {
      optional MinimumUserStructureProto structures = 5;
      required bool updateAvailable = 6;
      optional int32 questLog = 7;  
-     optional LocationProto userLocation = 8;
      
      enum UpdateStatus {
      	NO_UPDATE = 0;
