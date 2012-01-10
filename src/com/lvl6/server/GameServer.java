@@ -53,6 +53,9 @@ public class GameServer extends Thread{
   //user specified input
   private String serverIP;
   private int portNum;
+  
+  //current client version to see if it is still playable
+  public static float clientVersionNumber = (float) 1.0;
 
   public static void main(String args[]) {
     if (args.length == 2) {
