@@ -9,6 +9,7 @@ import java.util.Random;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -24,6 +25,7 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.updateutils.UpdateUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.MiscMethods;
 
 public class BattleController extends EventController {
 
@@ -158,6 +160,14 @@ public class BattleController extends EventController {
     //TODO: should these send new response? or package inside battles?
     //TODO: AchievementCheck.checkBattle(); 
     //TODO: LevelCheck.checkUser();
+    
+    
+    
+    UpdateClientUserResponseEvent resEventAttacker = MiscMethods.createUpdateClientUserResponseEvent(attacker);
+    UpdateClientUserResponseEvent resEventDefender = MiscMethods.createUpdateClientUserResponseEvent(defender);
+    
+    server.writeEvent(resEventAttacker);
+    server.writeEvent(resEventDefender);
     
     server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
   }

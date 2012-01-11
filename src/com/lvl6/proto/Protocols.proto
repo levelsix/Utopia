@@ -26,4 +26,5 @@ enum EventProtocolResponse {
 	S_RETRIEVE_QUESTS_FOR_CITY_EVENT = 7;
 	
 	S_LEVEL_UP_EVENT = 9;
+	S_UPDATE_CLIENT_USER_EVENT = 10;	
 }
