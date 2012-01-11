@@ -21,7 +21,7 @@ message MinimumUserProto {
 
 //------------------------------------------------------------------------------------------
 
-message MinimumEquipProto {
+message FullEquipProto {
 	required int32 equipId = 1;
 	required string name = 2;
 }
@@ -53,8 +53,7 @@ message FullTaskProto {
 	required float chanceOfEquipLoot = 8;
 	repeated int32 potentialLootEquipIds = 9;
 	required int32 expGained = 10;
-	required int32 minArmySize = 11;
-	required int32 assetNumWithinCity = 12;
+	required int32 assetNumWithinCity = 11;
 }
 
 //------------------------------------------------------------------------------------------

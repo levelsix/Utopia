@@ -14,13 +14,12 @@ public class Task {
   private float chanceOfEquipFloat;
   private List<Integer> potentialLootEquipIds;
   private int expGained;
-  private int minArmySize;
   private int assetNumberWithinCity;
   private int numForCompletion;
   
   public Task(int id, String goodName, String badName, int cityId, int energyCost, int minCoinsGained,
       int maxCoinsGained, float chanceOfEquipFloat,
-      List<Integer> potentialLootEquipIds, int expGained, int minArmySize,
+      List<Integer> potentialLootEquipIds, int expGained,
       int assetNumberWithinCity, int numForCompletion) {
     this.id = id;
     this.goodName = goodName;
@@ -32,7 +31,6 @@ public class Task {
     this.chanceOfEquipFloat = chanceOfEquipFloat;
     this.potentialLootEquipIds = potentialLootEquipIds;
     this.expGained = expGained;
-    this.minArmySize = minArmySize;
     this.assetNumberWithinCity = assetNumberWithinCity;
     this.numForCompletion = numForCompletion;
   }
@@ -77,10 +75,6 @@ public class Task {
     return expGained;
   }
 
-  public int getMinArmySize() {
-    return minArmySize;
-  }
-
   public int getAssetNumberWithinCity() {
     return assetNumberWithinCity;
   }
@@ -92,13 +86,11 @@ public class Task {
   @Override
   public String toString() {
     return "Task [id=" + id + ", goodName=" + goodName + ", badName=" + badName
-        + ", cityId="
-        + cityId + ", energyCost=" + energyCost + ", minCoinsGained="
+        + ", cityId=" + cityId + ", energyCost=" + energyCost + ", minCoinsGained="
         + minCoinsGained + ", maxCoinsGained=" + maxCoinsGained
         + ", chanceOfEquipFloat=" + chanceOfEquipFloat
         + ", potentialLootEquipIds=" + potentialLootEquipIds + ", expGained="
-        + expGained + ", minArmySize=" + minArmySize
-        + ", assetNumberWithinCity=" + assetNumberWithinCity
+        + expGained + ", assetNumberWithinCity=" + assetNumberWithinCity
         + ", numForCompletion=" + numForCompletion + "]";
   }
 

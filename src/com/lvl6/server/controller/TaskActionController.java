@@ -214,10 +214,6 @@ public class TaskActionController extends EventController {
         resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ENERGY);
         actionIsLegit = false;
       }
-      if (user.getArmySize() < task.getMinArmySize()) {
-        resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ARMY);
-        actionIsLegit = false;
-      }
       
       int numReqEquipsWithoutQuantityReqFulfilled = getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(user, task);
       if (numReqEquipsWithoutQuantityReqFulfilled != 0) {

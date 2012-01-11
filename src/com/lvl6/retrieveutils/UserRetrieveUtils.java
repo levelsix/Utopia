@@ -113,11 +113,11 @@ public class UserRetrieveUtils {
     int battlesLost = rs.getInt(i++);
     int hourlyCoins = rs.getInt(i++);
     String armyCode = rs.getString(i++);
-    int armySize = rs.getInt(i++);
+    int numReferrals = rs.getInt(i++);
     String udid = rs.getString(i++);
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
         healthMax, energyMax, staminaMax, diamonds, coins, vaultBalance, experience, tasksCompleted, 
-        battlesWon, battlesLost, hourlyCoins, armyCode, armySize, udid);
+        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid);
     return user;
   }
 }

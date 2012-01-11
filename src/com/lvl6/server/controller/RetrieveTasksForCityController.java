@@ -56,9 +56,8 @@ public class RetrieveTasksForCityController extends EventController{
       }
       FullTaskProto ftp = FullTaskProto.newBuilder().setId(task.getId()).setName(name).setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
           .setMaxCoinsGained(task.getMaxCoinsGained()).setChanceOfEquipLoot(task.getChanceOfEquipFloat())
-          .setExpGained(task.getExpGained()).setMinArmySize(task.getMinArmySize())
-          .setAssetNumWithinCity(task.getAssetNumberWithinCity()).setNumRequiredForCompletion(task.getNumForCompletion())
-          .addAllPotentialLootEquipIds(task.getPotentialLootEquipIds()).build();
+          .setExpGained(task.getExpGained()).setAssetNumWithinCity(task.getAssetNumberWithinCity()).
+          setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds()).build();
       resBuilder.addTasks(ftp);
     }
     RetrieveTasksForCityResponseProto resProto = resBuilder.build();
