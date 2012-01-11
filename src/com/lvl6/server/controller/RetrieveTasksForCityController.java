@@ -10,9 +10,9 @@ import com.lvl6.proto.EventProto.RetrieveTasksForCityRequestProto;
 import com.lvl6.proto.EventProto.RetrieveTasksForCityResponseProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveTasksForCityController extends EventController{
 
@@ -42,22 +42,8 @@ public class RetrieveTasksForCityController extends EventController{
     RetrieveTasksForCityResponseProto.Builder resBuilder = RetrieveTasksForCityResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    boolean goodSide;
-    if (senderProto.getUserType() == UserType.GOOD_ARCHER || senderProto.getUserType() == UserType.GOOD_MAGE || 
-        senderProto.getUserType() == UserType.GOOD_WARRIOR) goodSide = true;
-    else goodSide = false;
-
-    String name = null;
     for (Task task : tasks) {
-      if (goodSide) {
-        name = task.getGoodName();
-      } else {
-        name = task.getBadName();
-      }
-      FullTaskProto ftp = FullTaskProto.newBuilder().setId(task.getId()).setName(name).setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
-          .setMaxCoinsGained(task.getMaxCoinsGained()).setChanceOfEquipLoot(task.getChanceOfEquipFloat())
-          .setExpGained(task.getExpGained()).setAssetNumWithinCity(task.getAssetNumberWithinCity()).
-          setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds()).build();
+      FullTaskProto ftp = CreateInfoProtoUtils.createFullTaskProtoFromTask(senderProto.getUserType(), task);
       resBuilder.addTasks(ftp);
     }
     RetrieveTasksForCityResponseProto resProto = resBuilder.build();

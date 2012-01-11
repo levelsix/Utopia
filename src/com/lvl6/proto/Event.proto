@@ -105,7 +105,7 @@ message StartupResponseProto {
      required StartupStatus startupStatus= 2;
      required UpdateStatus updateStatus= 3;
      optional int32 maxCityIdAccessibleToUser = 4;     //cityids must be in order of min_level
-     optional MinimumUserStructureProto structures = 5;
+     optional FullUserStructureProto structures = 5;
      required bool updateAvailable = 6;
      optional int32 questLog = 7;  
      
@@ -126,7 +126,7 @@ message StartupResponseProto {
 
 message UserCreateRequestProto {
      required string udid = 1;
-     repeated MinimumUserStructureProto structures = 2;
+     repeated FullUserStructureProto structures = 2;
      required LocationProto userLocation = 3;						
      required CoordinateProto aviaryCoordinates = 4;
      required CoordinateProto refineryCoordinates = 5;

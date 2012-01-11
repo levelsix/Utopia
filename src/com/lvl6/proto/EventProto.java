@@ -5899,10 +5899,10 @@ public final class EventProto {
     boolean hasMaxCityIdAccessibleToUser();
     int getMaxCityIdAccessibleToUser();
     
-    // optional .com.lvl6.proto.MinimumUserStructureProto structures = 5;
+    // optional .com.lvl6.proto.FullUserStructureProto structures = 5;
     boolean hasStructures();
-    com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures();
-    com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder getStructuresOrBuilder();
+    com.lvl6.proto.InfoProto.FullUserStructureProto getStructures();
+    com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getStructuresOrBuilder();
     
     // required bool updateAvailable = 6;
     boolean hasUpdateAvailable();
@@ -6125,16 +6125,16 @@ public final class EventProto {
       return maxCityIdAccessibleToUser_;
     }
     
-    // optional .com.lvl6.proto.MinimumUserStructureProto structures = 5;
+    // optional .com.lvl6.proto.FullUserStructureProto structures = 5;
     public static final int STRUCTURES_FIELD_NUMBER = 5;
-    private com.lvl6.proto.InfoProto.MinimumUserStructureProto structures_;
+    private com.lvl6.proto.InfoProto.FullUserStructureProto structures_;
     public boolean hasStructures() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
-    public com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures() {
+    public com.lvl6.proto.InfoProto.FullUserStructureProto getStructures() {
       return structures_;
     }
-    public com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder getStructuresOrBuilder() {
+    public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getStructuresOrBuilder() {
       return structures_;
     }
     
@@ -6163,7 +6163,7 @@ public final class EventProto {
       startupStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
       updateStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.NO_UPDATE;
       maxCityIdAccessibleToUser_ = 0;
-      structures_ = com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
+      structures_ = com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance();
       updateAvailable_ = false;
       questLog_ = 0;
     }
@@ -6400,7 +6400,7 @@ public final class EventProto {
         maxCityIdAccessibleToUser_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
         if (structuresBuilder_ == null) {
-          structures_ = com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
+          structures_ = com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance();
         } else {
           structuresBuilder_.clear();
         }
@@ -6612,7 +6612,7 @@ public final class EventProto {
               break;
             }
             case 42: {
-              com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserStructureProto.newBuilder();
+              com.lvl6.proto.InfoProto.FullUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserStructureProto.newBuilder();
               if (hasStructures()) {
                 subBuilder.mergeFrom(getStructures());
               }
@@ -6795,21 +6795,21 @@ public final class EventProto {
         return this;
       }
       
-      // optional .com.lvl6.proto.MinimumUserStructureProto structures = 5;
-      private com.lvl6.proto.InfoProto.MinimumUserStructureProto structures_ = com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
+      // optional .com.lvl6.proto.FullUserStructureProto structures = 5;
+      private com.lvl6.proto.InfoProto.FullUserStructureProto structures_ = com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserStructureProto, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder, com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> structuresBuilder_;
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> structuresBuilder_;
       public boolean hasStructures() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures() {
+      public com.lvl6.proto.InfoProto.FullUserStructureProto getStructures() {
         if (structuresBuilder_ == null) {
           return structures_;
         } else {
           return structuresBuilder_.getMessage();
         }
       }
-      public Builder setStructures(com.lvl6.proto.InfoProto.MinimumUserStructureProto value) {
+      public Builder setStructures(com.lvl6.proto.InfoProto.FullUserStructureProto value) {
         if (structuresBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6823,7 +6823,7 @@ public final class EventProto {
         return this;
       }
       public Builder setStructures(
-          com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder builderForValue) {
+          com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
         if (structuresBuilder_ == null) {
           structures_ = builderForValue.build();
           onChanged();
@@ -6833,12 +6833,12 @@ public final class EventProto {
         bitField0_ |= 0x00000010;
         return this;
       }
-      public Builder mergeStructures(com.lvl6.proto.InfoProto.MinimumUserStructureProto value) {
+      public Builder mergeStructures(com.lvl6.proto.InfoProto.FullUserStructureProto value) {
         if (structuresBuilder_ == null) {
           if (((bitField0_ & 0x00000010) == 0x00000010) &&
-              structures_ != com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance()) {
+              structures_ != com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance()) {
             structures_ =
-              com.lvl6.proto.InfoProto.MinimumUserStructureProto.newBuilder(structures_).mergeFrom(value).buildPartial();
+              com.lvl6.proto.InfoProto.FullUserStructureProto.newBuilder(structures_).mergeFrom(value).buildPartial();
           } else {
             structures_ = value;
           }
@@ -6851,7 +6851,7 @@ public final class EventProto {
       }
       public Builder clearStructures() {
         if (structuresBuilder_ == null) {
-          structures_ = com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance();
+          structures_ = com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance();
           onChanged();
         } else {
           structuresBuilder_.clear();
@@ -6859,12 +6859,12 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder getStructuresBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder getStructuresBuilder() {
         bitField0_ |= 0x00000010;
         onChanged();
         return getStructuresFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder getStructuresOrBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getStructuresOrBuilder() {
         if (structuresBuilder_ != null) {
           return structuresBuilder_.getMessageOrBuilder();
         } else {
@@ -6872,11 +6872,11 @@ public final class EventProto {
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserStructureProto, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder, com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> 
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
           getStructuresFieldBuilder() {
         if (structuresBuilder_ == null) {
           structuresBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.MinimumUserStructureProto, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder, com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder>(
+              com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder>(
                   structures_,
                   getParentForChildren(),
                   isClean());
@@ -6945,14 +6945,14 @@ public final class EventProto {
     boolean hasUdid();
     String getUdid();
     
-    // repeated .com.lvl6.proto.MinimumUserStructureProto structures = 2;
-    java.util.List<com.lvl6.proto.InfoProto.MinimumUserStructureProto> 
+    // repeated .com.lvl6.proto.FullUserStructureProto structures = 2;
+    java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> 
         getStructuresList();
-    com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures(int index);
+    com.lvl6.proto.InfoProto.FullUserStructureProto getStructures(int index);
     int getStructuresCount();
-    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> 
+    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
         getStructuresOrBuilderList();
-    com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder getStructuresOrBuilder(
+    com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getStructuresOrBuilder(
         int index);
     
     // required .com.lvl6.proto.LocationProto userLocation = 3;
@@ -7040,23 +7040,23 @@ public final class EventProto {
       }
     }
     
-    // repeated .com.lvl6.proto.MinimumUserStructureProto structures = 2;
+    // repeated .com.lvl6.proto.FullUserStructureProto structures = 2;
     public static final int STRUCTURES_FIELD_NUMBER = 2;
-    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserStructureProto> structures_;
-    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserStructureProto> getStructuresList() {
+    private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> structures_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getStructuresList() {
       return structures_;
     }
-    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> 
+    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
         getStructuresOrBuilderList() {
       return structures_;
     }
     public int getStructuresCount() {
       return structures_.size();
     }
-    public com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures(int index) {
+    public com.lvl6.proto.InfoProto.FullUserStructureProto getStructures(int index) {
       return structures_.get(index);
     }
-    public com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder getStructuresOrBuilder(
+    public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getStructuresOrBuilder(
         int index) {
       return structures_.get(index);
     }
@@ -7633,7 +7633,7 @@ public final class EventProto {
               break;
             }
             case 18: {
-              com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserStructureProto.newBuilder();
+              com.lvl6.proto.InfoProto.FullUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserStructureProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addStructures(subBuilder.buildPartial());
               break;
@@ -7721,20 +7721,20 @@ public final class EventProto {
         onChanged();
       }
       
-      // repeated .com.lvl6.proto.MinimumUserStructureProto structures = 2;
-      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserStructureProto> structures_ =
+      // repeated .com.lvl6.proto.FullUserStructureProto structures = 2;
+      private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> structures_ =
         java.util.Collections.emptyList();
       private void ensureStructuresIsMutable() {
         if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          structures_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserStructureProto>(structures_);
+          structures_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserStructureProto>(structures_);
           bitField0_ |= 0x00000002;
          }
       }
       
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserStructureProto, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder, com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> structuresBuilder_;
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> structuresBuilder_;
       
-      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserStructureProto> getStructuresList() {
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getStructuresList() {
         if (structuresBuilder_ == null) {
           return java.util.Collections.unmodifiableList(structures_);
         } else {
@@ -7748,7 +7748,7 @@ public final class EventProto {
           return structuresBuilder_.getCount();
         }
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProto getStructures(int index) {
+      public com.lvl6.proto.InfoProto.FullUserStructureProto getStructures(int index) {
         if (structuresBuilder_ == null) {
           return structures_.get(index);
         } else {
@@ -7756,7 +7756,7 @@ public final class EventProto {
         }
       }
       public Builder setStructures(
-          int index, com.lvl6.proto.InfoProto.MinimumUserStructureProto value) {
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
         if (structuresBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7770,7 +7770,7 @@ public final class EventProto {
         return this;
       }
       public Builder setStructures(
-          int index, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder builderForValue) {
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
         if (structuresBuilder_ == null) {
           ensureStructuresIsMutable();
           structures_.set(index, builderForValue.build());
@@ -7780,7 +7780,7 @@ public final class EventProto {
         }
         return this;
       }
-      public Builder addStructures(com.lvl6.proto.InfoProto.MinimumUserStructureProto value) {
+      public Builder addStructures(com.lvl6.proto.InfoProto.FullUserStructureProto value) {
         if (structuresBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7794,7 +7794,7 @@ public final class EventProto {
         return this;
       }
       public Builder addStructures(
-          int index, com.lvl6.proto.InfoProto.MinimumUserStructureProto value) {
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
         if (structuresBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7808,7 +7808,7 @@ public final class EventProto {
         return this;
       }
       public Builder addStructures(
-          com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder builderForValue) {
+          com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
         if (structuresBuilder_ == null) {
           ensureStructuresIsMutable();
           structures_.add(builderForValue.build());
@@ -7819,7 +7819,7 @@ public final class EventProto {
         return this;
       }
       public Builder addStructures(
-          int index, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder builderForValue) {
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
         if (structuresBuilder_ == null) {
           ensureStructuresIsMutable();
           structures_.add(index, builderForValue.build());
@@ -7830,7 +7830,7 @@ public final class EventProto {
         return this;
       }
       public Builder addAllStructures(
-          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserStructureProto> values) {
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserStructureProto> values) {
         if (structuresBuilder_ == null) {
           ensureStructuresIsMutable();
           super.addAll(values, structures_);
@@ -7860,18 +7860,18 @@ public final class EventProto {
         }
         return this;
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder getStructuresBuilder(
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder getStructuresBuilder(
           int index) {
         return getStructuresFieldBuilder().getBuilder(index);
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder getStructuresOrBuilder(
+      public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getStructuresOrBuilder(
           int index) {
         if (structuresBuilder_ == null) {
           return structures_.get(index);  } else {
           return structuresBuilder_.getMessageOrBuilder(index);
         }
       }
-      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> 
+      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
            getStructuresOrBuilderList() {
         if (structuresBuilder_ != null) {
           return structuresBuilder_.getMessageOrBuilderList();
@@ -7879,25 +7879,25 @@ public final class EventProto {
           return java.util.Collections.unmodifiableList(structures_);
         }
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder addStructuresBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addStructuresBuilder() {
         return getStructuresFieldBuilder().addBuilder(
-            com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance());
+            com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
       }
-      public com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder addStructuresBuilder(
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addStructuresBuilder(
           int index) {
         return getStructuresFieldBuilder().addBuilder(
-            index, com.lvl6.proto.InfoProto.MinimumUserStructureProto.getDefaultInstance());
+            index, com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
       }
-      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder> 
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto.Builder> 
            getStructuresBuilderList() {
         return getStructuresFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserStructureProto, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder, com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder> 
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
           getStructuresFieldBuilder() {
         if (structuresBuilder_ == null) {
           structuresBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.lvl6.proto.InfoProto.MinimumUserStructureProto, com.lvl6.proto.InfoProto.MinimumUserStructureProto.Builder, com.lvl6.proto.InfoProto.MinimumUserStructureProtoOrBuilder>(
+              com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder>(
                   structures_,
                   ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
@@ -15757,81 +15757,81 @@ public final class EventProto {
       "nseProto.HealStatus\"D\n\nHealStatus\022\013\n\007SUC" +
       "CESS\020\000\022\031\n\025USER_NOT_ENOUGH_VAULT\020\001\022\016\n\nOTH" +
       "ER_FAIL\020\002\"7\n\023StartupRequestProto\022\014\n\004udid",
-      "\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\336\003\n\024StartupRe" +
+      "\030\001 \002(\t\022\022\n\nversionNum\030\002 \002(\002\"\333\003\n\024StartupRe" +
       "sponseProto\022-\n\006sender\030\001 \001(\0132\035.com.lvl6.p" +
       "roto.FullUserProto\022I\n\rstartupStatus\030\002 \002(" +
       "\01622.com.lvl6.proto.StartupResponseProto." +
       "StartupStatus\022G\n\014updateStatus\030\003 \002(\01621.co" +
       "m.lvl6.proto.StartupResponseProto.Update" +
       "Status\022!\n\031maxCityIdAccessibleToUser\030\004 \001(" +
-      "\005\022=\n\nstructures\030\005 \001(\0132).com.lvl6.proto.M" +
-      "inimumUserStructureProto\022\027\n\017updateAvaila" +
-      "ble\030\006 \002(\010\022\020\n\010questLog\030\007 \001(\005\"A\n\014UpdateSta",
-      "tus\022\r\n\tNO_UPDATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020\n\014" +
-      "MAJOR_UPDATE\020\002\"3\n\rStartupStatus\022\016\n\nUSER_" +
-      "IN_DB\020\000\022\022\n\016USER_NOT_IN_DB\020\001\"\351\002\n\026UserCrea" +
-      "teRequestProto\022\014\n\004udid\030\001 \002(\t\022=\n\nstructur" +
-      "es\030\002 \003(\0132).com.lvl6.proto.MinimumUserStr" +
-      "uctureProto\0223\n\014userLocation\030\003 \002(\0132\035.com." +
-      "lvl6.proto.LocationProto\022:\n\021aviaryCoordi" +
-      "nates\030\004 \002(\0132\037.com.lvl6.proto.CoordinateP" +
-      "roto\022<\n\023refineryCoordinates\030\005 \002(\0132\037.com." +
-      "lvl6.proto.CoordinateProto\022=\n\024carpenterC",
-      "oordinates\030\006 \002(\0132\037.com.lvl6.proto.Coordi" +
-      "nateProto\022\024\n\014referrerCode\030\007 \001(\005\"\267\001\n\027User" +
-      "CreateResponseProto\022-\n\006sender\030\001 \002(\0132\035.co" +
-      "m.lvl6.proto.FullUserProto\022E\n\006status\030\002 \002" +
-      "(\01625.com.lvl6.proto.UserCreateResponsePr" +
-      "oto.StartupStatus\"&\n\rStartupStatus\022\013\n\007SU" +
-      "CCESS\020\000\022\010\n\004FAIL\020\001\"\227\001\n\036ChangeUserLocation" +
-      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022\016\n\006cityId\030\002 \001(\005\0223" +
-      "\n\014userLocation\030\003 \002(\0132\035.com.lvl6.proto.Lo",
-      "cationProto\"d\n RetrieveTasksForCityReque" +
-      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!Re" +
-      "trieveTasksForCityResponseProto\0220\n\006sende" +
-      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022,\n\005tasks\030\002 \003(\0132\035.com.lvl6.proto.FullTa" +
-      "skProto\"Z\n\026TaskActionRequestProto\0220\n\006sen" +
-      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022\016\n\006taskId\030\002 \002(\005\"\234\003\n\027TaskActionRespon" +
-      "seProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto",
-      ".MinimumUserProto\022H\n\006status\030\002 \002(\01628.com." +
-      "lvl6.proto.TaskActionResponseProto.TaskA" +
-      "ctionStatus\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014ci" +
-      "tyRankedUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n" +
-      "\013coinsGained\030\006 \001(\005\022\035\n\025coinBonusIfCityRan" +
-      "kup\030\007 \001(\005\022\034\n\024expBonusIfCityRankup\030\010 \001(\005\"" +
-      "q\n\020TaskActionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USER" +
-      "_NOT_ENOUGH_ENERGY\020\001\022\037\n\033USER_NOT_ALL_REQ" +
-      "UIRED_ITEMS\020\002\022\023\n\017INVALID_TASK_ID\020\003\"\237\001\n\035P" +
-      "urchaseStructureRequestProto\0220\n\006sender\030\001",
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022:" +
-      "\n\021structCoordinates\030\002 \002(\0132\037.com.lvl6.pro" +
-      "to.CoordinateProto\022\020\n\010structId\030\003 \002(\005\"\254\001\n" +
-      "\"PlaceCriticalStructureRequestProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022>\n\025critStructCoordinates\030\002 \002(\0132\037.c" +
-      "om.lvl6.proto.CoordinateProto\022\024\n\014critStr" +
-      "uctId\030\003 \002(\005\"\313\002\n!MoveCriticalStructureReq" +
-      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022>\n\025critStructCoordin",
-      "ates\030\002 \002(\0132\037.com.lvl6.proto.CoordinatePr" +
-      "oto\022T\n\ncritStruct\030\003 \002(\0162@.com.lvl6.proto" +
-      ".MoveCriticalStructureRequestProto.CritS" +
-      "tructType\"^\n\016CritStructType\022\n\n\006AVIARY\020\001\022" +
-      "\016\n\nLUMBERMILL\020\002\022\r\n\tCARPENTER\020\003\022\t\n\005VAULT\020" +
-      "\004\022\n\n\006ARMORY\020\005\022\n\n\006CLERIC\020\006\"\341\001\n\035MoveUserSt" +
-      "ructureRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022=\n\024oldStru" +
+      "\005\022:\n\nstructures\030\005 \001(\0132&.com.lvl6.proto.F" +
+      "ullUserStructureProto\022\027\n\017updateAvailable" +
+      "\030\006 \002(\010\022\020\n\010questLog\030\007 \001(\005\"A\n\014UpdateStatus",
+      "\022\r\n\tNO_UPDATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020\n\014MAJ" +
+      "OR_UPDATE\020\002\"3\n\rStartupStatus\022\016\n\nUSER_IN_" +
+      "DB\020\000\022\022\n\016USER_NOT_IN_DB\020\001\"\346\002\n\026UserCreateR" +
+      "equestProto\022\014\n\004udid\030\001 \002(\t\022:\n\nstructures\030" +
+      "\002 \003(\0132&.com.lvl6.proto.FullUserStructure" +
+      "Proto\0223\n\014userLocation\030\003 \002(\0132\035.com.lvl6.p" +
+      "roto.LocationProto\022:\n\021aviaryCoordinates\030" +
+      "\004 \002(\0132\037.com.lvl6.proto.CoordinateProto\022<" +
+      "\n\023refineryCoordinates\030\005 \002(\0132\037.com.lvl6.p" +
+      "roto.CoordinateProto\022=\n\024carpenterCoordin",
+      "ates\030\006 \002(\0132\037.com.lvl6.proto.CoordinatePr" +
+      "oto\022\024\n\014referrerCode\030\007 \001(\005\"\267\001\n\027UserCreate" +
+      "ResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6" +
+      ".proto.FullUserProto\022E\n\006status\030\002 \002(\01625.c" +
+      "om.lvl6.proto.UserCreateResponseProto.St" +
+      "artupStatus\"&\n\rStartupStatus\022\013\n\007SUCCESS\020" +
+      "\000\022\010\n\004FAIL\020\001\"\227\001\n\036ChangeUserLocationReques" +
+      "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022\016\n\006cityId\030\002 \001(\005\0223\n\014user" +
+      "Location\030\003 \002(\0132\035.com.lvl6.proto.Location",
+      "Proto\"d\n RetrieveTasksForCityRequestProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!Retrieve" +
+      "TasksForCityResponseProto\0220\n\006sender\030\001 \002(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022,\n\005t" +
+      "asks\030\002 \003(\0132\035.com.lvl6.proto.FullTaskProt" +
+      "o\"Z\n\026TaskActionRequestProto\0220\n\006sender\030\001 " +
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022\016\n" +
+      "\006taskId\030\002 \002(\005\"\234\003\n\027TaskActionResponseProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim",
+      "umUserProto\022H\n\006status\030\002 \002(\01628.com.lvl6.p" +
+      "roto.TaskActionResponseProto.TaskActionS" +
+      "tatus\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRank" +
+      "edUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coins" +
+      "Gained\030\006 \001(\005\022\035\n\025coinBonusIfCityRankup\030\007 " +
+      "\001(\005\022\034\n\024expBonusIfCityRankup\030\010 \001(\005\"q\n\020Tas" +
+      "kActionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USER_NOT_E" +
+      "NOUGH_ENERGY\020\001\022\037\n\033USER_NOT_ALL_REQUIRED_" +
+      "ITEMS\020\002\022\023\n\017INVALID_TASK_ID\020\003\"\237\001\n\035Purchas" +
+      "eStructureRequestProto\0220\n\006sender\030\001 \002(\0132 ",
+      ".com.lvl6.proto.MinimumUserProto\022:\n\021stru" +
       "ctCoordinates\030\002 \002(\0132\037.com.lvl6.proto.Coo" +
-      "rdinateProto\022=\n\024curStructCoordinates\030\003 \002",
-      "(\0132\037.com.lvl6.proto.CoordinateProto\022\020\n\010s" +
-      "tructId\030\004 \002(\005\"h\n\024LevelUpResponseProto\022-\n" +
-      "\006sender\030\001 \002(\0132\035.com.lvl6.proto.FullUserP" +
-      "roto\022!\n\031maxCityIdAccessibleToUser\030\002 \001(\005B" +
-      "\014B\nEventProto"
+      "rdinateProto\022\020\n\010structId\030\003 \002(\005\"\254\001\n\"Place" +
+      "CriticalStructureRequestProto\0220\n\006sender\030" +
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      ">\n\025critStructCoordinates\030\002 \002(\0132\037.com.lvl" +
+      "6.proto.CoordinateProto\022\024\n\014critStructId\030" +
+      "\003 \002(\005\"\313\002\n!MoveCriticalStructureRequestPr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022>\n\025critStructCoordinates\030\002",
+      " \002(\0132\037.com.lvl6.proto.CoordinateProto\022T\n" +
+      "\ncritStruct\030\003 \002(\0162@.com.lvl6.proto.MoveC" +
+      "riticalStructureRequestProto.CritStructT" +
+      "ype\"^\n\016CritStructType\022\n\n\006AVIARY\020\001\022\016\n\nLUM" +
+      "BERMILL\020\002\022\r\n\tCARPENTER\020\003\022\t\n\005VAULT\020\004\022\n\n\006A" +
+      "RMORY\020\005\022\n\n\006CLERIC\020\006\"\341\001\n\035MoveUserStructur" +
+      "eRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\022=\n\024oldStructCoor" +
+      "dinates\030\002 \002(\0132\037.com.lvl6.proto.Coordinat" +
+      "eProto\022=\n\024curStructCoordinates\030\003 \002(\0132\037.c",
+      "om.lvl6.proto.CoordinateProto\022\020\n\010structI" +
+      "d\030\004 \002(\005\"h\n\024LevelUpResponseProto\022-\n\006sende" +
+      "r\030\001 \002(\0132\035.com.lvl6.proto.FullUserProto\022!" +
+      "\n\031maxCityIdAccessibleToUser\030\002 \001(\005B\014B\nEve" +
+      "ntProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

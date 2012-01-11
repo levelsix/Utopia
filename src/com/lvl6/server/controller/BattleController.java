@@ -12,11 +12,10 @@ import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
-import com.lvl6.info.Equipment.EquipType;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -24,6 +23,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.updateutils.UpdateUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class BattleController extends EventController {
 
@@ -121,8 +121,8 @@ public class BattleController extends EventController {
         loser = defender;
         lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment, defender.getLevel());
         if (lostEquip != null) {
-          resBuilder.setEquipGained(FullEquipProto.newBuilder().
-              setEquipId(lostEquip.getEquipId()).setName(equipmentIdsToEquipment.get(lostEquip.getEquipId()).getName()));
+          Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
+          resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
         }
       }
       else {
