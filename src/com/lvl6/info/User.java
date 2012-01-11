@@ -31,14 +31,14 @@ public class User {
   private int battlesLost;
   private int hourlyCoins;
   private String armyCode;
-  private int armySize;
+  private int numReferrals;
   private String udid;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int health, int skillPoints,
       int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
       int vaultBalance, int experience, int tasksCompleted, int battlesWon,
-      int battlesLost, int hourlyCoins, String armyCode, int armySize,
+      int battlesLost, int hourlyCoins, String armyCode, int numReferrals,
       String udid) {
     this.id = id;
     this.name = name;
@@ -62,7 +62,7 @@ public class User {
     this.battlesLost = battlesLost;
     this.hourlyCoins = hourlyCoins;
     this.armyCode = armyCode;
-    this.armySize = armySize;
+    this.numReferrals = numReferrals;
     this.udid = udid;
   }
   
@@ -259,9 +259,9 @@ public class User {
   public String getArmyCode() {
     return armyCode;
   }
-
-  public int getArmySize() {
-    return armySize;
+  
+  public int getNumReferrals() {
+    return numReferrals;
   }
 
   public String getUdid() {
@@ -279,7 +279,7 @@ public class User {
         + vaultBalance + ", experience=" + experience + ", tasksCompleted="
         + tasksCompleted + ", battlesWon=" + battlesWon + ", battlesLost="
         + battlesLost + ", hourlyCoins=" + hourlyCoins + ", armyCode="
-        + armyCode + ", armySize=" + armySize + ", udid=" + udid + "]";
+        + armyCode + ", numReferrals=" + numReferrals + ", udid=" + udid + "]";
   }
 
 }

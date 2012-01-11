@@ -9,8 +9,8 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.Equipment;
-import com.lvl6.info.Equipment.EquipType;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.utils.DBConnection;
 
 public class EquipmentRetrieveUtils {

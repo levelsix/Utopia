@@ -37,7 +37,7 @@ message BattleResponseProto {
 
 	optional int32 winnerUserId = 4;
 	optional int32 coinsGained = 5;
-	optional MinimumEquipProto equipGained = 6;
+	optional FullEquipProto equipGained = 6;
     optional int32 expGained = 7;
     optional int32 winnerHealthLoss = 8;
     optional int32 loserHealthLoss = 9;
@@ -105,10 +105,9 @@ message StartupResponseProto {
      required StartupStatus startupStatus= 2;
      required UpdateStatus updateStatus= 3;
      optional int32 maxCityIdAccessibleToUser = 4;     //cityids must be in order of min_level
-     optional MinimumUserStructureProto structures = 5;
+     optional FullUserStructureProto structures = 5;
      required bool updateAvailable = 6;
      optional int32 questLog = 7;  
-     optional LocationProto userLocation = 8;
      
      enum UpdateStatus {
      	NO_UPDATE = 0;
@@ -127,7 +126,7 @@ message StartupResponseProto {
 
 message UserCreateRequestProto {
      required string udid = 1;
-     repeated MinimumUserStructureProto structures = 2;
+     repeated FullUserStructureProto structures = 2;
      required LocationProto userLocation = 3;						
      required CoordinateProto aviaryCoordinates = 4;
      required CoordinateProto refineryCoordinates = 5;
@@ -190,9 +189,8 @@ message TaskActionResponseProto {
 	enum TaskActionStatus {
 		SUCCESS = 0; 
 		USER_NOT_ENOUGH_ENERGY = 1;
-		USER_NOT_ENOUGH_ARMY = 2;
-		USER_NOT_ALL_REQUIRED_ITEMS = 3;
-		INVALID_TASK_ID = 5;
+		USER_NOT_ALL_REQUIRED_ITEMS = 2;
+		INVALID_TASK_ID = 3;
 	} 
 }
 

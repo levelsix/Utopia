@@ -21,22 +21,39 @@ message MinimumUserProto {
 
 //------------------------------------------------------------------------------------------
 
-message MinimumEquipProto {
+message FullEquipProto {
 	required int32 equipId = 1;
 	required string name = 2;
+	required EquipType equipType = 3;
+	required int32 attackBoost = 4;	
+	required int32 defenseBoost = 5;
+	required int32 minLevel = 6;
+	optional int32 coinPrice = 7;
+	optional int32 diamondPrice = 8;
+	required float chanceOfLoss = 9;
+	
+	enum EquipType {
+		WEAPON = 0;
+		ARMOR = 1;
+		AMULET = 2;
+	}
 }
 
 //------------------------------------------------------------------------------------------
 
-message MinimumUserStructureProto {
-	required int32 structId = 1;
-	required CoordinateProto coordinates = 2;
+message FullUserStructureProto {
+	required int32 userId = 1;
+	required int32 structId = 2;
+	required CoordinateProto coordinates = 3;
+	required string lastRetrieved = 4;
+	required int32 level = 5;
 }
 
 //------------------------------------------------------------------------------------------
 
 message FullUserProto {
 
+     optional LocationProto userLocation = 1;
 }
 
 //------------------------------------------------------------------------------------------
@@ -52,8 +69,7 @@ message FullTaskProto {
 	required float chanceOfEquipLoot = 8;
 	repeated int32 potentialLootEquipIds = 9;
 	required int32 expGained = 10;
-	required int32 minArmySize = 11;
-	required int32 assetNumWithinCity = 12;
+	required int32 assetNumWithinCity = 11;
 }
 
 //------------------------------------------------------------------------------------------

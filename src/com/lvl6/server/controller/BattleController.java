@@ -1,8 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +12,10 @@ import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
-import com.lvl6.info.Equipment.EquipType;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
-import com.lvl6.proto.InfoProto.MinimumEquipProto;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -26,6 +23,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.updateutils.UpdateUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class BattleController extends EventController {
 
@@ -47,12 +45,12 @@ public class BattleController extends EventController {
   Let I = The total attack/defense of the items used in the battle, based on whether the user is the attacker or defender
   Let A = The user’s agency size
   Let F = The final combined stat (attack or defense)
-  Then F = RAND(X * (A * S + I / Z), Y * (A * S + I / Z))
+  Then F = RAND(X * (S + I / Z), Y * (S + I / Z))
   To put it into words, we take (skill points times agency size) and add (total item stats divided by Z), and then multiply by X and Y and return a random number between those two totals.
   Note that the S and I values are already passed into the computeStat() function and the function should return F. Note also that A (agency size) should be passed into computeStat() so the function header needs to be adjusted, as do the two calls to computeStat() in backend/attackplayer.php.
    */
-  private static final double X = .9;
-  private static final double Y = 1.1;
+  private static final double X = .8;
+  private static final double Y = 1.2;
   private static final double Z = 4;
 
   /* FORMULA FOR CALCULATING COIN TRANSFER
@@ -123,8 +121,8 @@ public class BattleController extends EventController {
         loser = defender;
         lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment, defender.getLevel());
         if (lostEquip != null) {
-          resBuilder.setEquipGained(MinimumEquipProto.newBuilder().
-              setEquipId(lostEquip.getEquipId()).setName(equipmentIdsToEquipment.get(lostEquip.getEquipId()).getName()));
+          Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
+          resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
         }
       }
       else {
@@ -234,91 +232,58 @@ public class BattleController extends EventController {
     if (flag.equals(ATTACKER_FLAG)) skillStat = user.getAttack();
     else if (flag.equals(DEFENDER_FLAG)) skillStat = user.getDefense();
 
-    int armySize = user.getArmySize();
     int itemStat = computeItemStat(flag, userEquips, equipmentIdsToEquipment, user);
 
-    double lowerBound = X*(armySize*skillStat + itemStat/Z);
-    double upperBound = Y*(armySize*skillStat + itemStat/Z);
+    double lowerBound = X*(skillStat + itemStat/Z);
+    double upperBound = Y*(skillStat + itemStat/Z);
 
     return lowerBound + Math.random()*(upperBound-lowerBound);
   }
 
-  private int computeItemStat(String flag, List<UserEquip> userEquips, final Map<Integer, Equipment> equipmentIdsToEquipment, User user) {
-    sortUserEquips(userEquips, equipmentIdsToEquipment, flag);
-    Map<EquipType, Integer> numUsedForEquipTypes = new HashMap<EquipType, Integer>();
-
-    int itemStat = 0;
-    int totalItemsUsed = 0;
-    int armySize = user.getArmySize();
-    final int maxTotalItems = armySize * EquipType.values().length;
-    
+  private int computeItemStat(String flag, List<UserEquip> userEquips, final Map<Integer, 
+      Equipment> equipmentIdsToEquipment, User user) {
+    if (userEquips == null) {
+      return 0;
+    }
+    Map<EquipType, Equipment> equipTypeToEquipmentUsed = new HashMap<EquipType, Equipment>();
     for (UserEquip ue : userEquips) {
-      Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
-      if (equip.getMinLevel() > user.getLevel()) {
+      if (ue.getQuantity() < 1) {
         continue;
       }
-      
-      int numSlotsUsedForThisEquip = numUsedForEquipTypes.get(equip.getType());
-      int numSlotsLeftForThisEquip = armySize - numSlotsUsedForThisEquip;
-      if (numSlotsLeftForThisEquip <= 0) {
-        if (numSlotsLeftForThisEquip < 0) log.error("problem with calculating item stats");
+      Equipment newEquip = equipmentIdsToEquipment.get(ue.getEquipId());
+      if (newEquip.getMinLevel() > user.getLevel()) {
         continue;
       }
-      int quantity = ue.getQuantity();
-      
-      if (quantity <= numSlotsLeftForThisEquip) {
-        if (flag.equals(ATTACKER_FLAG)) itemStat += quantity * equip.getAttackBoost();
-        else itemStat += quantity * equip.getDefenseBoost();
-        numUsedForEquipTypes.put(equip.getType(), numSlotsUsedForThisEquip + quantity);
-        totalItemsUsed += quantity;
-      } else {              //last item for that equipType
-        if (flag.equals(ATTACKER_FLAG)) itemStat += numSlotsLeftForThisEquip * equip.getAttackBoost();
-        else itemStat += numSlotsLeftForThisEquip * equip.getDefenseBoost();
-        numUsedForEquipTypes.put(equip.getType(), armySize);        
-        totalItemsUsed += numSlotsLeftForThisEquip;
-      }
-      
-      if (totalItemsUsed >= maxTotalItems) {
-        if (totalItemsUsed > maxTotalItems) {
-          log.error("extra item erroneously used in a battle");
+      Equipment curBestEquip = equipTypeToEquipmentUsed.get(newEquip.getType());
+      if (curBestEquip == null) {
+        equipTypeToEquipmentUsed.put(newEquip.getType(), newEquip);
+      } else {
+        if (flag.equals(ATTACKER_FLAG)) {
+          if (newEquip.getAttackBoost() > curBestEquip.getAttackBoost()) {
+            equipTypeToEquipmentUsed.put(newEquip.getType(), newEquip);
+          }
+        } else if (flag.equals(DEFENDER_FLAG)) {
+          if (newEquip.getDefenseBoost() > curBestEquip.getDefenseBoost()) {
+            equipTypeToEquipmentUsed.put(newEquip.getType(), newEquip);
+          }
         }
-        break;
+      }
+    }
+    int itemStat = 0;
+    for (EquipType type : equipTypeToEquipmentUsed.keySet()) {
+      Equipment equip = equipTypeToEquipmentUsed.get(type);
+      if (equip != null) {
+        if (flag.equals(ATTACKER_FLAG)) {
+          itemStat += equip.getAttackBoost();
+        } else if (flag.equals(DEFENDER_FLAG)) {
+          itemStat += equip.getDefenseBoost();          
+        }
       }
     }
     return itemStat;
   }
-  
-  private void sortUserEquips(List<UserEquip> userEquips, final Map<Integer, Equipment> equipmentIdsToEquipment, String flag) {
-    Comparator<UserEquip> equipComparator;
-    if (flag.equals(ATTACKER_FLAG)) {
-      equipComparator = new Comparator<UserEquip>(){
-        public int compare(UserEquip ue1, UserEquip ue2) {
-          int p1 = equipmentIdsToEquipment.get(ue1.getEquipId()).getAttackBoost();
-          int p2 = equipmentIdsToEquipment.get(ue2.getEquipId()).getAttackBoost();
-          return p2-p1;
-        }
-      };
-    } else {
-      equipComparator = new Comparator<UserEquip>(){
-        public int compare(UserEquip ue1, UserEquip ue2) {
-          int p1 = equipmentIdsToEquipment.get(ue1.getEquipId()).getDefenseBoost();
-          int p2 = equipmentIdsToEquipment.get(ue2.getEquipId()).getDefenseBoost();
-          return p2-p1;
-        }
-      };
-    }
-    Collections.sort(userEquips, equipComparator);
-  }
 
   private boolean isLegitBattle(User attacker, User defender, BattleResponseProto.Builder builder) {
-    if (attacker.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
-      builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_HEALTH);
-      return false;
-    }
-    if (defender.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
-      builder.setStatus(BattleStatus.DEFENDER_NOT_ENOUGH_HEALTH);
-      return false;
-    }
     if (attacker.getType() == UserType.GOOD_ARCHER || attacker.getType() == UserType.GOOD_MAGE ||
         attacker.getType() == UserType.GOOD_WARRIOR) {
       if (defender.getType() == UserType.GOOD_ARCHER || defender.getType() == UserType.GOOD_MAGE ||
@@ -334,6 +299,14 @@ public class BattleController extends EventController {
         builder.setStatus(BattleStatus.OPPONENT_ON_SAME_SIDE);
         return false;
       }
+    }
+    if (attacker.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
+      builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_HEALTH);
+      return false;
+    }
+    if (defender.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
+      builder.setStatus(BattleStatus.DEFENDER_NOT_ENOUGH_HEALTH);
+      return false;
     }
     if (attacker.getStamina() <= 0) {
       builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_STAMINA);

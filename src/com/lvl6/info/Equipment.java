@@ -1,5 +1,7 @@
 package com.lvl6.info;
 
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
+
 public class Equipment {
   public static final int NOT_SET = -1;
 
@@ -60,29 +62,6 @@ public class Equipment {
 
   public float getChanceOfLoss() {
     return chanceOfLoss;
-  }
-
-  public enum EquipType {
-    WEAPON(0),
-    ARMOR(1),
-    AMULET(2),;
-
-    public final int getNumber() { return value; }
-
-    public static EquipType valueOf(int value) {
-      switch (value) {
-      case 0: return WEAPON;
-      case 1: return ARMOR;
-      case 2: return AMULET;
-      default: return null;
-      }
-    }
-
-    private final int value;
-
-    private EquipType(int value) {
-      this.value = value;
-    }
   }
 
   @Override

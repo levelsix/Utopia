@@ -112,12 +112,11 @@ public class TaskRetrieveUtils {
       equipIds.add(Integer.parseInt(st.nextToken()));
     }
     int expGained = rs.getInt(i++);
-    int minArmySize = rs.getInt(i++);
     int assetNumWithinCity = rs.getInt(i++);
     int numForCompletion = rs.getInt(i++);
     
     Task task = new Task(id, goodName, badName, cityId, energyCost, minCoinsGained, maxCoinsGained, 
-        chanceOfEquipLoot, equipIds, expGained, minArmySize, assetNumWithinCity, numForCompletion);
+        chanceOfEquipLoot, equipIds, expGained, assetNumWithinCity, numForCompletion);
     return task;
   }
 }
