@@ -27,6 +27,14 @@ public class UserEquipRetrieveUtils {
     return convertRSToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
   
+  public static UserEquip getSpecificUserEquip(int userId, int equipId) {
+    log.info("retrieving user equip for userId " + userId + " and equipId " + equipId);
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
+    paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+    return convertRSSingleToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+  }
+
   //returns map from userId to his equipments
   public static Map<Integer, List<UserEquip>> getUserEquipsForUserIds(List<Integer> userIds) {
     log.info("retrieving user equips for userIds " + userIds);
@@ -73,6 +81,22 @@ public class UserEquipRetrieveUtils {
           userEquips.add(convertRSRowToUserEquip(rs));
         }
         return userEquips;
+      } catch (SQLException e) {
+        System.out.println("problem with database call.");
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+  
+  private static UserEquip convertRSSingleToUserEquips(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        while(rs.next()) {  //should only be one
+          return convertRSRowToUserEquip(rs);
+        }
       } catch (SQLException e) {
         System.out.println("problem with database call.");
         e.printStackTrace();

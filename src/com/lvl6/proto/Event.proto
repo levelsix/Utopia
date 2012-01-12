@@ -76,6 +76,31 @@ message VaultResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+message ArmoryRequestProto {
+   enum ArmoryRequestType {
+		BUY = 0; 
+		SELL = 1;
+	} 
+	required MinimumUserProto sender = 1;
+	required ArmoryRequestType requestType = 2;
+	required int32 quantity = 3;
+	required int32 equipId = 4;	
+}
+
+message ArmoryResponseProto {
+	required MinimumUserProto sender = 1;
+	required ArmoryStatus status = 2;
+	
+	enum ArmoryStatus {
+		SUCCESS = 0; 
+		NOT_ENOUGH_EQUIP_TO_SELL = 1;
+		NOT_ENOUGH_CURRENCY_TO_BUY = 2;
+		OTHER_FAIL = 3;
+	} 
+}
+
+//------------------------------------------------------------------------------------------
+
 																						//DONE
 message ClericHealRequestProto {
 	required MinimumUserProto sender = 1;
@@ -231,12 +256,12 @@ message MoveCriticalStructureRequestProto {
 	required CritStructType critStruct = 3;
 	
 	enum CritStructType {
-		AVIARY = 1;
-		LUMBERMILL = 2;
-		CARPENTER = 3;
-		VAULT = 4;
-		ARMORY = 5;
-		CLERIC = 6;
+		AVIARY = 0;
+		LUMBERMILL = 1;
+		CARPENTER = 2;
+		VAULT = 3;
+		ARMORY = 4;
+		CLERIC = 5;
 	}
 }
 
@@ -258,6 +283,25 @@ message LevelUpResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+message InAppPurchaseRequestProto {
+	required MinimumUserProto sender = 1;
+	required string receipt = 2;
+}
+
+message InAppPurchaseResponseProto {
+	required MinimumUserProto sender = 1;
+	required InAppPurchaseStatus status = 2;
+	optional int32 diamondsGained = 3;
+	
+	enum InAppPurchaseStatus {
+		SUCCESS = 0;
+		FAIL = 1;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
 message UpdateClientUserResponseProto {
      required FullUserProto sender = 1;
      required int64 timeOfUserUpdate = 2;				//new Date().getTime(); milliseconds since 1/1/70
