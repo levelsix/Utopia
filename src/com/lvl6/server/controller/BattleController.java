@@ -23,9 +23,9 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.updateutils.UpdateUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.MiscMethods;
+import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class BattleController extends EventController {
 
@@ -262,6 +262,9 @@ public class BattleController extends EventController {
       }
       Equipment newEquip = equipmentIdsToEquipment.get(ue.getEquipId());
       if (newEquip.getMinLevel() > user.getLevel()) {
+        continue;
+      }
+      if (newEquip.getClassType() != MiscMethods.getClassTypeFromUserType(user.getType())) {
         continue;
       }
       Equipment curBestEquip = equipTypeToEquipmentUsed.get(newEquip.getType());

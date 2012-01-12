@@ -170,6 +170,18 @@ message RetrieveTasksForCityResponseProto {
 //------------------------------------------------------------------------------------------
 
 																						//DONE
+message RetrieveEquipmentForArmoryRequestProto {
+     required MinimumUserProto sender = 1;
+}
+																						//DONE
+message RetrieveEquipmentForArmoryResponseProto {
+     required MinimumUserProto sender = 1;
+     repeated FullEquipProto equips = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
 message TaskActionRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 taskId = 2;

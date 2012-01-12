@@ -11,7 +11,7 @@ import com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
-import com.lvl6.utils.MiscMethods;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class ClericHealController extends EventController {
   

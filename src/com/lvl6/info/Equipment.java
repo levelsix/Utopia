@@ -1,5 +1,6 @@
 package com.lvl6.info;
 
+import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 
 public class Equipment {
@@ -14,9 +15,10 @@ public class Equipment {
   private int coinPrice = NOT_SET;
   private int diamondPrice = NOT_SET;
   private float chanceOfLoss = NOT_SET;
+  private ClassType classType;
 
   public Equipment(int id, String name, EquipType type, int attackBoost,
-      int defenseBoost, int minLevel, int coinPrice, int diamondPrice, float chanceOfLoss) {
+      int defenseBoost, int minLevel, int coinPrice, int diamondPrice, float chanceOfLoss, ClassType classType) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -26,6 +28,7 @@ public class Equipment {
     this.coinPrice = coinPrice;
     this.diamondPrice = diamondPrice;
     this.chanceOfLoss = chanceOfLoss;
+    this.classType = classType;
   }
 
   public int getId() {
@@ -63,13 +66,18 @@ public class Equipment {
   public float getChanceOfLoss() {
     return chanceOfLoss;
   }
+  
+  public ClassType getClassType() {
+    return classType;
+  }
 
   @Override
   public String toString() {
     return "Equipment [id=" + id + ", name=" + name + ", type=" + type
         + ", attackBoost=" + attackBoost + ", defenseBoost=" + defenseBoost
         + ", minLevel=" + minLevel + ", coinPrice=" + coinPrice
-        + ", diamondPrice=" + diamondPrice + "]";
+        + ", diamondPrice=" + diamondPrice + ", chanceOfLoss=" + chanceOfLoss
+        + ", classType=" + classType + "]";
   }
 
 }

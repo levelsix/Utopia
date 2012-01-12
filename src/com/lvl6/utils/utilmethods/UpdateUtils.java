@@ -1,4 +1,4 @@
-package com.lvl6.updateutils;
+package com.lvl6.utils.utilmethods;
 
 import java.util.HashMap;
 import java.util.List;

@@ -24,8 +24,8 @@ import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
-import com.lvl6.updateutils.UpdateUtils;
-import com.lvl6.utils.MiscMethods;
+import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class TaskActionController extends EventController {
   

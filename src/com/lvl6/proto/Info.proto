@@ -53,17 +53,24 @@ message FullEquipProto {
 	required int32 equipId = 1;
 	required string name = 2;
 	required EquipType equipType = 3;
-	required int32 attackBoost = 4;	
-	required int32 defenseBoost = 5;
-	required int32 minLevel = 6;
-	optional int32 coinPrice = 7;
-	optional int32 diamondPrice = 8;
-	required float chanceOfLoss = 9;
+	required ClassType classType = 4;
+	required int32 attackBoost = 5;	
+	required int32 defenseBoost = 6;
+	required int32 minLevel = 7;
+	optional int32 coinPrice = 8;
+	optional int32 diamondPrice = 9;
+	required float chanceOfLoss = 10;
 	
 	enum EquipType {
 		WEAPON = 0;
 		ARMOR = 1;
-		AMULET = 2;
+		ACCESSORY = 2;
+	}
+	
+	enum ClassType {
+		WARRIOR = 0;
+		ARCHER = 1;
+		MAGE = 2;	
 	}
 }
 

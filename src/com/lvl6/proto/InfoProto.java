@@ -2730,27 +2730,31 @@ public final class InfoProto {
     boolean hasEquipType();
     com.lvl6.proto.InfoProto.FullEquipProto.EquipType getEquipType();
     
-    // required int32 attackBoost = 4;
+    // required .com.lvl6.proto.FullEquipProto.ClassType classType = 4;
+    boolean hasClassType();
+    com.lvl6.proto.InfoProto.FullEquipProto.ClassType getClassType();
+    
+    // required int32 attackBoost = 5;
     boolean hasAttackBoost();
     int getAttackBoost();
     
-    // required int32 defenseBoost = 5;
+    // required int32 defenseBoost = 6;
     boolean hasDefenseBoost();
     int getDefenseBoost();
     
-    // required int32 minLevel = 6;
+    // required int32 minLevel = 7;
     boolean hasMinLevel();
     int getMinLevel();
     
-    // optional int32 coinPrice = 7;
+    // optional int32 coinPrice = 8;
     boolean hasCoinPrice();
     int getCoinPrice();
     
-    // optional int32 diamondPrice = 8;
+    // optional int32 diamondPrice = 9;
     boolean hasDiamondPrice();
     int getDiamondPrice();
     
-    // required float chanceOfLoss = 9;
+    // required float chanceOfLoss = 10;
     boolean hasChanceOfLoss();
     float getChanceOfLoss();
   }
@@ -2786,12 +2790,12 @@ public final class InfoProto {
         implements com.google.protobuf.ProtocolMessageEnum {
       WEAPON(0, 0),
       ARMOR(1, 1),
-      AMULET(2, 2),
+      ACCESSORY(2, 2),
       ;
       
       public static final int WEAPON_VALUE = 0;
       public static final int ARMOR_VALUE = 1;
-      public static final int AMULET_VALUE = 2;
+      public static final int ACCESSORY_VALUE = 2;
       
       
       public final int getNumber() { return value; }
@@ -2800,7 +2804,7 @@ public final class InfoProto {
         switch (value) {
           case 0: return WEAPON;
           case 1: return ARMOR;
-          case 2: return AMULET;
+          case 2: return ACCESSORY;
           default: return null;
         }
       }
@@ -2831,7 +2835,7 @@ public final class InfoProto {
       }
       
       private static final EquipType[] VALUES = {
-        WEAPON, ARMOR, AMULET, 
+        WEAPON, ARMOR, ACCESSORY, 
       };
       
       public static EquipType valueOf(
@@ -2852,6 +2856,78 @@ public final class InfoProto {
       }
       
       // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FullEquipProto.EquipType)
+    }
+    
+    public enum ClassType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      WARRIOR(0, 0),
+      ARCHER(1, 1),
+      MAGE(2, 2),
+      ;
+      
+      public static final int WARRIOR_VALUE = 0;
+      public static final int ARCHER_VALUE = 1;
+      public static final int MAGE_VALUE = 2;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static ClassType valueOf(int value) {
+        switch (value) {
+          case 0: return WARRIOR;
+          case 1: return ARCHER;
+          case 2: return MAGE;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<ClassType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ClassType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ClassType>() {
+              public ClassType findValueByNumber(int number) {
+                return ClassType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.FullEquipProto.getDescriptor().getEnumTypes().get(1);
+      }
+      
+      private static final ClassType[] VALUES = {
+        WARRIOR, ARCHER, MAGE, 
+      };
+      
+      public static ClassType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private ClassType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FullEquipProto.ClassType)
     }
     
     private int bitField0_;
@@ -2907,61 +2983,71 @@ public final class InfoProto {
       return equipType_;
     }
     
-    // required int32 attackBoost = 4;
-    public static final int ATTACKBOOST_FIELD_NUMBER = 4;
+    // required .com.lvl6.proto.FullEquipProto.ClassType classType = 4;
+    public static final int CLASSTYPE_FIELD_NUMBER = 4;
+    private com.lvl6.proto.InfoProto.FullEquipProto.ClassType classType_;
+    public boolean hasClassType() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public com.lvl6.proto.InfoProto.FullEquipProto.ClassType getClassType() {
+      return classType_;
+    }
+    
+    // required int32 attackBoost = 5;
+    public static final int ATTACKBOOST_FIELD_NUMBER = 5;
     private int attackBoost_;
     public boolean hasAttackBoost() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     public int getAttackBoost() {
       return attackBoost_;
     }
     
-    // required int32 defenseBoost = 5;
-    public static final int DEFENSEBOOST_FIELD_NUMBER = 5;
+    // required int32 defenseBoost = 6;
+    public static final int DEFENSEBOOST_FIELD_NUMBER = 6;
     private int defenseBoost_;
     public boolean hasDefenseBoost() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     public int getDefenseBoost() {
       return defenseBoost_;
     }
     
-    // required int32 minLevel = 6;
-    public static final int MINLEVEL_FIELD_NUMBER = 6;
+    // required int32 minLevel = 7;
+    public static final int MINLEVEL_FIELD_NUMBER = 7;
     private int minLevel_;
     public boolean hasMinLevel() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public int getMinLevel() {
       return minLevel_;
     }
     
-    // optional int32 coinPrice = 7;
-    public static final int COINPRICE_FIELD_NUMBER = 7;
+    // optional int32 coinPrice = 8;
+    public static final int COINPRICE_FIELD_NUMBER = 8;
     private int coinPrice_;
     public boolean hasCoinPrice() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     public int getCoinPrice() {
       return coinPrice_;
     }
     
-    // optional int32 diamondPrice = 8;
-    public static final int DIAMONDPRICE_FIELD_NUMBER = 8;
+    // optional int32 diamondPrice = 9;
+    public static final int DIAMONDPRICE_FIELD_NUMBER = 9;
     private int diamondPrice_;
     public boolean hasDiamondPrice() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     public int getDiamondPrice() {
       return diamondPrice_;
     }
     
-    // required float chanceOfLoss = 9;
-    public static final int CHANCEOFLOSS_FIELD_NUMBER = 9;
+    // required float chanceOfLoss = 10;
+    public static final int CHANCEOFLOSS_FIELD_NUMBER = 10;
     private float chanceOfLoss_;
     public boolean hasChanceOfLoss() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     public float getChanceOfLoss() {
       return chanceOfLoss_;
@@ -2971,6 +3057,7 @@ public final class InfoProto {
       equipId_ = 0;
       name_ = "";
       equipType_ = com.lvl6.proto.InfoProto.FullEquipProto.EquipType.WEAPON;
+      classType_ = com.lvl6.proto.InfoProto.FullEquipProto.ClassType.WARRIOR;
       attackBoost_ = 0;
       defenseBoost_ = 0;
       minLevel_ = 0;
@@ -2992,6 +3079,10 @@ public final class InfoProto {
         return false;
       }
       if (!hasEquipType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasClassType()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3028,22 +3119,25 @@ public final class InfoProto {
         output.writeEnum(3, equipType_.getNumber());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, attackBoost_);
+        output.writeEnum(4, classType_.getNumber());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, defenseBoost_);
+        output.writeInt32(5, attackBoost_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, minLevel_);
+        output.writeInt32(6, defenseBoost_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, coinPrice_);
+        output.writeInt32(7, minLevel_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt32(8, diamondPrice_);
+        output.writeInt32(8, coinPrice_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeFloat(9, chanceOfLoss_);
+        output.writeInt32(9, diamondPrice_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeFloat(10, chanceOfLoss_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3068,27 +3162,31 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, attackBoost_);
+          .computeEnumSize(4, classType_.getNumber());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, defenseBoost_);
+          .computeInt32Size(5, attackBoost_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, minLevel_);
+          .computeInt32Size(6, defenseBoost_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, coinPrice_);
+          .computeInt32Size(7, minLevel_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, diamondPrice_);
+          .computeInt32Size(8, coinPrice_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(9, chanceOfLoss_);
+          .computeInt32Size(9, diamondPrice_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(10, chanceOfLoss_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3220,18 +3318,20 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         equipType_ = com.lvl6.proto.InfoProto.FullEquipProto.EquipType.WEAPON;
         bitField0_ = (bitField0_ & ~0x00000004);
-        attackBoost_ = 0;
+        classType_ = com.lvl6.proto.InfoProto.FullEquipProto.ClassType.WARRIOR;
         bitField0_ = (bitField0_ & ~0x00000008);
-        defenseBoost_ = 0;
+        attackBoost_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
-        minLevel_ = 0;
+        defenseBoost_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
-        coinPrice_ = 0;
+        minLevel_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        diamondPrice_ = 0;
+        coinPrice_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
-        chanceOfLoss_ = 0F;
+        diamondPrice_ = 0;
         bitField0_ = (bitField0_ & ~0x00000100);
+        chanceOfLoss_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
       
@@ -3285,25 +3385,29 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.attackBoost_ = attackBoost_;
+        result.classType_ = classType_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.defenseBoost_ = defenseBoost_;
+        result.attackBoost_ = attackBoost_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.minLevel_ = minLevel_;
+        result.defenseBoost_ = defenseBoost_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.coinPrice_ = coinPrice_;
+        result.minLevel_ = minLevel_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.diamondPrice_ = diamondPrice_;
+        result.coinPrice_ = coinPrice_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
+        }
+        result.diamondPrice_ = diamondPrice_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
         }
         result.chanceOfLoss_ = chanceOfLoss_;
         result.bitField0_ = to_bitField0_;
@@ -3330,6 +3434,9 @@ public final class InfoProto {
         }
         if (other.hasEquipType()) {
           setEquipType(other.getEquipType());
+        }
+        if (other.hasClassType()) {
+          setClassType(other.getClassType());
         }
         if (other.hasAttackBoost()) {
           setAttackBoost(other.getAttackBoost());
@@ -3363,6 +3470,10 @@ public final class InfoProto {
           return false;
         }
         if (!hasEquipType()) {
+          
+          return false;
+        }
+        if (!hasClassType()) {
           
           return false;
         }
@@ -3430,32 +3541,43 @@ public final class InfoProto {
               break;
             }
             case 32: {
-              bitField0_ |= 0x00000008;
-              attackBoost_ = input.readInt32();
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.FullEquipProto.ClassType value = com.lvl6.proto.InfoProto.FullEquipProto.ClassType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                bitField0_ |= 0x00000008;
+                classType_ = value;
+              }
               break;
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              defenseBoost_ = input.readInt32();
+              attackBoost_ = input.readInt32();
               break;
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              minLevel_ = input.readInt32();
+              defenseBoost_ = input.readInt32();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
-              coinPrice_ = input.readInt32();
+              minLevel_ = input.readInt32();
               break;
             }
             case 64: {
               bitField0_ |= 0x00000080;
+              coinPrice_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
               diamondPrice_ = input.readInt32();
               break;
             }
-            case 77: {
-              bitField0_ |= 0x00000100;
+            case 85: {
+              bitField0_ |= 0x00000200;
               chanceOfLoss_ = input.readFloat();
               break;
             }
@@ -3546,127 +3668,151 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 attackBoost = 4;
+      // required .com.lvl6.proto.FullEquipProto.ClassType classType = 4;
+      private com.lvl6.proto.InfoProto.FullEquipProto.ClassType classType_ = com.lvl6.proto.InfoProto.FullEquipProto.ClassType.WARRIOR;
+      public boolean hasClassType() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public com.lvl6.proto.InfoProto.FullEquipProto.ClassType getClassType() {
+        return classType_;
+      }
+      public Builder setClassType(com.lvl6.proto.InfoProto.FullEquipProto.ClassType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        classType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearClassType() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        classType_ = com.lvl6.proto.InfoProto.FullEquipProto.ClassType.WARRIOR;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 attackBoost = 5;
       private int attackBoost_ ;
       public boolean hasAttackBoost() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public int getAttackBoost() {
         return attackBoost_;
       }
       public Builder setAttackBoost(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         attackBoost_ = value;
         onChanged();
         return this;
       }
       public Builder clearAttackBoost() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         attackBoost_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 defenseBoost = 5;
+      // required int32 defenseBoost = 6;
       private int defenseBoost_ ;
       public boolean hasDefenseBoost() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       public int getDefenseBoost() {
         return defenseBoost_;
       }
       public Builder setDefenseBoost(int value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         defenseBoost_ = value;
         onChanged();
         return this;
       }
       public Builder clearDefenseBoost() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         defenseBoost_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 minLevel = 6;
+      // required int32 minLevel = 7;
       private int minLevel_ ;
       public boolean hasMinLevel() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public int getMinLevel() {
         return minLevel_;
       }
       public Builder setMinLevel(int value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         minLevel_ = value;
         onChanged();
         return this;
       }
       public Builder clearMinLevel() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         minLevel_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 coinPrice = 7;
+      // optional int32 coinPrice = 8;
       private int coinPrice_ ;
       public boolean hasCoinPrice() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public int getCoinPrice() {
         return coinPrice_;
       }
       public Builder setCoinPrice(int value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         coinPrice_ = value;
         onChanged();
         return this;
       }
       public Builder clearCoinPrice() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         coinPrice_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 diamondPrice = 8;
+      // optional int32 diamondPrice = 9;
       private int diamondPrice_ ;
       public boolean hasDiamondPrice() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       public int getDiamondPrice() {
         return diamondPrice_;
       }
       public Builder setDiamondPrice(int value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         diamondPrice_ = value;
         onChanged();
         return this;
       }
       public Builder clearDiamondPrice() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         diamondPrice_ = 0;
         onChanged();
         return this;
       }
       
-      // required float chanceOfLoss = 9;
+      // required float chanceOfLoss = 10;
       private float chanceOfLoss_ ;
       public boolean hasChanceOfLoss() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       public float getChanceOfLoss() {
         return chanceOfLoss_;
       }
       public Builder setChanceOfLoss(float value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         chanceOfLoss_ = value;
         onChanged();
         return this;
       }
       public Builder clearChanceOfLoss() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         chanceOfLoss_ = 0F;
         onChanged();
         return this;
@@ -5910,13 +6056,13 @@ public final class InfoProto {
   public interface LocationProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required double latitude = 1;
+    // required float latitude = 1;
     boolean hasLatitude();
-    double getLatitude();
+    float getLatitude();
     
-    // required double longitude = 2;
+    // required float longitude = 2;
     boolean hasLongitude();
-    double getLongitude();
+    float getLongitude();
   }
   public static final class LocationProto extends
       com.google.protobuf.GeneratedMessage
@@ -5947,29 +6093,29 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required double latitude = 1;
+    // required float latitude = 1;
     public static final int LATITUDE_FIELD_NUMBER = 1;
-    private double latitude_;
+    private float latitude_;
     public boolean hasLatitude() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public double getLatitude() {
+    public float getLatitude() {
       return latitude_;
     }
     
-    // required double longitude = 2;
+    // required float longitude = 2;
     public static final int LONGITUDE_FIELD_NUMBER = 2;
-    private double longitude_;
+    private float longitude_;
     public boolean hasLongitude() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public double getLongitude() {
+    public float getLongitude() {
       return longitude_;
     }
     
     private void initFields() {
-      latitude_ = 0D;
-      longitude_ = 0D;
+      latitude_ = 0F;
+      longitude_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5992,10 +6138,10 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeDouble(1, latitude_);
+        output.writeFloat(1, latitude_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeDouble(2, longitude_);
+        output.writeFloat(2, longitude_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6008,11 +6154,11 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(1, latitude_);
+          .computeFloatSize(1, latitude_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(2, longitude_);
+          .computeFloatSize(2, longitude_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6138,9 +6284,9 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        latitude_ = 0D;
+        latitude_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000001);
-        longitude_ = 0D;
+        longitude_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -6249,14 +6395,14 @@ public final class InfoProto {
               }
               break;
             }
-            case 9: {
+            case 13: {
               bitField0_ |= 0x00000001;
-              latitude_ = input.readDouble();
+              latitude_ = input.readFloat();
               break;
             }
-            case 17: {
+            case 21: {
               bitField0_ |= 0x00000002;
-              longitude_ = input.readDouble();
+              longitude_ = input.readFloat();
               break;
             }
           }
@@ -6265,15 +6411,15 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required double latitude = 1;
-      private double latitude_ ;
+      // required float latitude = 1;
+      private float latitude_ ;
       public boolean hasLatitude() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public double getLatitude() {
+      public float getLatitude() {
         return latitude_;
       }
-      public Builder setLatitude(double value) {
+      public Builder setLatitude(float value) {
         bitField0_ |= 0x00000001;
         latitude_ = value;
         onChanged();
@@ -6281,20 +6427,20 @@ public final class InfoProto {
       }
       public Builder clearLatitude() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        latitude_ = 0D;
+        latitude_ = 0F;
         onChanged();
         return this;
       }
       
-      // required double longitude = 2;
-      private double longitude_ ;
+      // required float longitude = 2;
+      private float longitude_ ;
       public boolean hasLongitude() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public double getLongitude() {
+      public float getLongitude() {
         return longitude_;
       }
-      public Builder setLongitude(double value) {
+      public Builder setLongitude(float value) {
         bitField0_ |= 0x00000002;
         longitude_ = value;
         onChanged();
@@ -6302,7 +6448,7 @@ public final class InfoProto {
       }
       public Builder clearLongitude() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        longitude_ = 0D;
+        longitude_ = 0F;
         onChanged();
         return this;
       }
@@ -6378,30 +6524,33 @@ public final class InfoProto {
       "Lost\030\024 \002(\005\022\023\n\013hourlyCoins\030\025 \002(\005\022\020\n\010armyC" +
       "ode\030\026 \002(\t\022\024\n\014numReferrals\030\027 \002(\005\022\014\n\004udid\030" +
       "\030 \002(\t\0223\n\014userLocation\030\031 \002(\0132\035.com.lvl6.p" +
-      "roto.LocationProto\"\230\002\n\016FullEquipProto\022\017\n" +
+      "roto.LocationProto\"\210\003\n\016FullEquipProto\022\017\n" +
       "\007equipId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022;\n\tequipTyp" +
       "e\030\003 \002(\0162(.com.lvl6.proto.FullEquipProto." +
-      "EquipType\022\023\n\013attackBoost\030\004 \002(\005\022\024\n\014defens",
-      "eBoost\030\005 \002(\005\022\020\n\010minLevel\030\006 \002(\005\022\021\n\tcoinPr" +
-      "ice\030\007 \001(\005\022\024\n\014diamondPrice\030\010 \001(\005\022\024\n\014chanc" +
-      "eOfLoss\030\t \002(\002\".\n\tEquipType\022\n\n\006WEAPON\020\000\022\t" +
-      "\n\005ARMOR\020\001\022\n\n\006AMULET\020\002\"\226\001\n\026FullUserStruct" +
-      "ureProto\022\016\n\006userId\030\001 \002(\005\022\020\n\010structId\030\002 \002" +
-      "(\005\0224\n\013coordinates\030\003 \002(\0132\037.com.lvl6.proto" +
-      ".CoordinateProto\022\025\n\rlastRetrieved\030\004 \002(\t\022" +
-      "\r\n\005level\030\005 \002(\005\"\210\002\n\rFullTaskProto\022\n\n\002id\030\001" +
-      " \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030nu" +
-      "mRequiredForCompletion\030\004 \002(\005\022\022\n\nenergyCo",
-      "st\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxC" +
-      "oinsGained\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 " +
-      "\002(\002\022\035\n\025potentialLootEquipIds\030\t \003(\005\022\021\n\tex" +
-      "pGained\030\n \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(" +
-      "\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002" +
-      "(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001 \002(\001\022\021\n" +
-      "\tlongitude\030\002 \002(\001*k\n\010UserType\022\020\n\014GOOD_WAR" +
-      "RIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017" +
-      "\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_M" +
-      "AGE\020\005B\013B\tInfoProto"
+      "EquipType\022;\n\tclassType\030\004 \002(\0162(.com.lvl6.",
+      "proto.FullEquipProto.ClassType\022\023\n\013attack" +
+      "Boost\030\005 \002(\005\022\024\n\014defenseBoost\030\006 \002(\005\022\020\n\010min" +
+      "Level\030\007 \002(\005\022\021\n\tcoinPrice\030\010 \001(\005\022\024\n\014diamon" +
+      "dPrice\030\t \001(\005\022\024\n\014chanceOfLoss\030\n \002(\002\"1\n\tEq" +
+      "uipType\022\n\n\006WEAPON\020\000\022\t\n\005ARMOR\020\001\022\r\n\tACCESS" +
+      "ORY\020\002\".\n\tClassType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHE" +
+      "R\020\001\022\010\n\004MAGE\020\002\"\226\001\n\026FullUserStructureProto" +
+      "\022\016\n\006userId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\0224\n\013co" +
+      "ordinates\030\003 \002(\0132\037.com.lvl6.proto.Coordin" +
+      "ateProto\022\025\n\rlastRetrieved\030\004 \002(\t\022\r\n\005level",
+      "\030\005 \002(\005\"\210\002\n\rFullTaskProto\022\n\n\002id\030\001 \002(\005\022\014\n\004" +
+      "name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequire" +
+      "dForCompletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005" +
+      "\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGain" +
+      "ed\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025p" +
+      "otentialLootEquipIds\030\t \003(\005\022\021\n\texpGained\030" +
+      "\n \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(\005\"\'\n\017Coo" +
+      "rdinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLo" +
+      "cationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitu" +
+      "de\030\002 \002(\002*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017",
+      "\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WA" +
+      "RRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005B\013B" +
+      "\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6429,7 +6578,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullEquipProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullEquipProto_descriptor,
-              new java.lang.String[] { "EquipId", "Name", "EquipType", "AttackBoost", "DefenseBoost", "MinLevel", "CoinPrice", "DiamondPrice", "ChanceOfLoss", },
+              new java.lang.String[] { "EquipId", "Name", "EquipType", "ClassType", "AttackBoost", "DefenseBoost", "MinLevel", "CoinPrice", "DiamondPrice", "ChanceOfLoss", },
               com.lvl6.proto.InfoProto.FullEquipProto.class,
               com.lvl6.proto.InfoProto.FullEquipProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserStructureProto_descriptor =
