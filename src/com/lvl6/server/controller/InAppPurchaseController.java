@@ -55,13 +55,9 @@ public class InAppPurchaseController extends EventController {
     
     /*
      * do stuff in here
-     * the user object should be modified
-     * i'll make a method in user called incrementDiamonds
-     * 
-     * 
+     * if apple verifies it call     user.updateRelativeDiamonds(diamondsPurchased);
      * 
      */
-    
     
     
     InAppPurchaseResponseProto resProto = resBuilder.build();
