@@ -11,7 +11,7 @@ public class DBConstants {
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
   public static final String TABLE_CITIES = "cities";
-
+  public static final String TABLE_IAP_HISTORY = "iap_history";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -63,5 +63,8 @@ public class DBConstants {
   public static final String USER_CITIES__USER_ID = GENERIC__USER_ID;
   public static final String USER_CITIES__CITY_ID = "city_id";
   public static final String USER_CITIES__CURRENT_RANK = "current_rank";
+  
+  /*IAP TABLE*/
+  public static final String IAP_HISTORY__TRANSACTION_ID = "transaction_id";
 
 }

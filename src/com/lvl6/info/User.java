@@ -69,6 +69,7 @@ public class User {
   }
 
 
+  
   /*
    * used for tasks
    *        * user- coins/exp/tasks_completed increase, energy decrease
@@ -98,9 +99,9 @@ public class User {
   }
   
   /*
-   * used for in app purchases
+   * used for in app purchases, armory
    */
-  public boolean updateRelativeDiamonds (int diamondChange) {
+  public boolean updateRelativeDiamondsNaive (int diamondChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -114,6 +115,25 @@ public class User {
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean updateRelativeCoinsNaive (int coinChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (coinChange != 0) {
+      relativeParams.put(DBConstants.USER__COINS, coinChange);
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinChange;
       return true;
     }
     return false;
