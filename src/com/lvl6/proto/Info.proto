@@ -4,19 +4,47 @@ option java_outer_classname = "InfoProto";
 
 //------------------------------------------------------------------------------------------
 
+enum UserType {
+	GOOD_WARRIOR = 0;
+	GOOD_ARCHER = 1;
+	GOOD_MAGE = 2;
+	BAD_WARRIOR = 3;
+	BAD_ARCHER = 4;
+	BAD_MAGE = 5;
+}
+
 message MinimumUserProto {
 	required int32 userId = 1;
 	optional string name = 2;
 	optional UserType userType = 3;
-	
-	enum UserType {
-		GOOD_WARRIOR = 0;
-		GOOD_ARCHER = 1;
-		GOOD_MAGE = 2;
-		BAD_WARRIOR = 3;
-		BAD_ARCHER = 4;
-		BAD_MAGE = 5;
-	}
+}
+
+message FullUserProto {
+	required int32 userId = 1;
+	required string name = 2;
+	required int32 level = 3;
+	required UserType userType = 4;
+	required int32 attack = 5;
+	required int32 defense = 6;
+	required int32 stamina = 7;
+	required int32 energy = 8;
+	required int32 health = 9;
+	required int32 skillPoints = 10;
+	required int32 healthMax = 11;
+	required int32 energyMax = 12;
+	required int32 staminaMax = 13;
+	required int32 diamonds = 14;
+	required int32 coins = 15;
+	required int32 vaultBalance = 16;
+	required int32 experience = 17;
+	required int32 tasksCompleted = 18;
+	required int32 battlesWon = 19;
+	required int32 battlesLost = 20;
+	required int32 hourlyCoins = 21;
+	required string armyCode = 22;
+	required int32 numReferrals = 23;
+	required string udid = 24;
+	required LocationProto userLocation = 25;
 }
 
 //------------------------------------------------------------------------------------------
@@ -25,17 +53,24 @@ message FullEquipProto {
 	required int32 equipId = 1;
 	required string name = 2;
 	required EquipType equipType = 3;
-	required int32 attackBoost = 4;	
-	required int32 defenseBoost = 5;
-	required int32 minLevel = 6;
-	optional int32 coinPrice = 7;
-	optional int32 diamondPrice = 8;
-	required float chanceOfLoss = 9;
+	required ClassType classType = 4;
+	required int32 attackBoost = 5;	
+	required int32 defenseBoost = 6;
+	required int32 minLevel = 7;
+	optional int32 coinPrice = 8;
+	optional int32 diamondPrice = 9;
+	required float chanceOfLoss = 10;
 	
 	enum EquipType {
 		WEAPON = 0;
 		ARMOR = 1;
-		AMULET = 2;
+		ACCESSORY = 2;
+	}
+	
+	enum ClassType {
+		WARRIOR = 0;
+		ARCHER = 1;
+		MAGE = 2;	
 	}
 }
 
@@ -49,12 +84,6 @@ message FullUserStructureProto {
 	required int32 level = 5;
 }
 
-//------------------------------------------------------------------------------------------
-
-message FullUserProto {
-
-     optional LocationProto userLocation = 1;
-}
 
 //------------------------------------------------------------------------------------------
 
@@ -82,6 +111,6 @@ message CoordinateProto {
 //------------------------------------------------------------------------------------------
 
 message LocationProto {
-	required int32 latitude = 1;
-	required int32 longitude = 2;
+	required float latitude = 1;
+	required float longitude = 2;
 }

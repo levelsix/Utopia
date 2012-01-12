@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ClericHealRequestEvent;
 import com.lvl6.events.response.ClericHealResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.ClericHealRequestProto;
 import com.lvl6.proto.EventProto.ClericHealResponseProto;
@@ -10,6 +11,7 @@ import com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class ClericHealController extends EventController {
   
@@ -67,8 +69,12 @@ public class ClericHealController extends EventController {
     
     ClericHealResponseEvent resEvent = new ClericHealResponseEvent(senderProto.getUserId());
     resEvent.setClericHealResponseProto(resProto);
-    
+        
     server.writeEvent(resEvent);
+    
+    UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+    server.writeEvent(resEventUpdate);
+
     server.unlockPlayer(senderProto.getUserId());
 
 

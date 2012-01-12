@@ -27,6 +27,7 @@ message ChatResponseProto {
 message BattleRequestProto {
     required MinimumUserProto attacker = 1; 
     required MinimumUserProto defender = 2; 
+    required int32 attackerBonus = 3;						//1-100, 100 is best, 1 is bad
 }
 
 																						//DONE
@@ -169,6 +170,18 @@ message RetrieveTasksForCityResponseProto {
 //------------------------------------------------------------------------------------------
 
 																						//DONE
+message RetrieveEquipmentForArmoryRequestProto {
+     required MinimumUserProto sender = 1;
+}
+																						//DONE
+message RetrieveEquipmentForArmoryResponseProto {
+     required MinimumUserProto sender = 1;
+     repeated FullEquipProto equips = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
 message TaskActionRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 taskId = 2;
@@ -241,5 +254,12 @@ message MoveUserStructureRequestProto {
 message LevelUpResponseProto {
      required FullUserProto sender = 1;
      optional int32 maxCityIdAccessibleToUser = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message UpdateClientUserResponseProto {
+     required FullUserProto sender = 1;
+     required int64 timeOfUserUpdate = 2;				//new Date().getTime(); milliseconds since 1/1/70
 }
 

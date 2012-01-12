@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.DBProperties;
+import com.lvl6.utils.utilmethods.StringUtils;
 
 public class DBConnection {
   // log4j logger

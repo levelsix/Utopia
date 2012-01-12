@@ -6,6 +6,7 @@ import java.util.Map;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.TaskActionRequestEvent;
 import com.lvl6.events.response.TaskActionResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
@@ -23,7 +24,8 @@ import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
-import com.lvl6.updateutils.UpdateUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class TaskActionController extends EventController {
   
@@ -139,6 +141,10 @@ public class TaskActionController extends EventController {
     //TODO: AchievementCheck.checkBattle(); 
     //TODO: LevelCheck.checkUser();
     
+    
+    UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+    server.writeEvent(resEventUpdate);
+
     server.unlockPlayer(senderProto.getUserId());
   }
 

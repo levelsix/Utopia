@@ -1,4 +1,4 @@
-package com.lvl6.utils;
+package com.lvl6.utils.utilmethods;
 
 import java.util.List;
 

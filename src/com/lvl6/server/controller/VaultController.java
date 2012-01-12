@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.VaultRequestEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.VaultResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.VaultRequestProto;
@@ -10,6 +11,7 @@ import com.lvl6.proto.EventProto.VaultResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class VaultController extends EventController {
 
@@ -67,6 +69,10 @@ public class VaultController extends EventController {
     
     server.writeEvent(resEvent);
     
+    
+    UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+    server.writeEvent(resEventUpdate);
+
     // Unlock this player
     server.unlockPlayer(senderProto.getUserId());
   }

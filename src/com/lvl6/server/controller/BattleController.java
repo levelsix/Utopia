@@ -9,6 +9,7 @@ import java.util.Random;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -17,13 +18,14 @@ import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.updateutils.UpdateUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class BattleController extends EventController {
 
@@ -159,6 +161,14 @@ public class BattleController extends EventController {
     //TODO: AchievementCheck.checkBattle(); 
     //TODO: LevelCheck.checkUser();
     
+    
+    
+    UpdateClientUserResponseEvent resEventAttacker = MiscMethods.createUpdateClientUserResponseEvent(attacker);
+    UpdateClientUserResponseEvent resEventDefender = MiscMethods.createUpdateClientUserResponseEvent(defender);
+    
+    server.writeEvent(resEventAttacker);
+    server.writeEvent(resEventDefender);
+    
     server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
   }
 
@@ -252,6 +262,9 @@ public class BattleController extends EventController {
       }
       Equipment newEquip = equipmentIdsToEquipment.get(ue.getEquipId());
       if (newEquip.getMinLevel() > user.getLevel()) {
+        continue;
+      }
+      if (newEquip.getClassType() != MiscMethods.getClassTypeFromUserType(user.getType())) {
         continue;
       }
       Equipment curBestEquip = equipTypeToEquipmentUsed.get(newEquip.getType());
