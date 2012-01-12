@@ -15670,6 +15670,10 @@ public final class EventProto {
     boolean hasSender();
     com.lvl6.proto.InfoProto.FullUserProto getSender();
     com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required int64 timeOfUserUpdate = 2;
+    boolean hasTimeOfUserUpdate();
+    long getTimeOfUserUpdate();
   }
   public static final class UpdateClientUserResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -15713,8 +15717,19 @@ public final class EventProto {
       return sender_;
     }
     
+    // required int64 timeOfUserUpdate = 2;
+    public static final int TIMEOFUSERUPDATE_FIELD_NUMBER = 2;
+    private long timeOfUserUpdate_;
+    public boolean hasTimeOfUserUpdate() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public long getTimeOfUserUpdate() {
+      return timeOfUserUpdate_;
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance();
+      timeOfUserUpdate_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -15722,6 +15737,10 @@ public final class EventProto {
       if (isInitialized != -1) return isInitialized == 1;
       
       if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTimeOfUserUpdate()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -15739,6 +15758,9 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, sender_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt64(2, timeOfUserUpdate_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -15751,6 +15773,10 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, timeOfUserUpdate_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -15883,6 +15909,8 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        timeOfUserUpdate_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -15929,6 +15957,10 @@ public final class EventProto {
         } else {
           result.sender_ = senderBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.timeOfUserUpdate_ = timeOfUserUpdate_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -15948,12 +15980,19 @@ public final class EventProto {
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
+        if (other.hasTimeOfUserUpdate()) {
+          setTimeOfUserUpdate(other.getTimeOfUserUpdate());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
       public final boolean isInitialized() {
         if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasTimeOfUserUpdate()) {
           
           return false;
         }
@@ -15994,6 +16033,11 @@ public final class EventProto {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              timeOfUserUpdate_ = input.readInt64();
               break;
             }
           }
@@ -16090,6 +16134,27 @@ public final class EventProto {
           sender_ = null;
         }
         return senderBuilder_;
+      }
+      
+      // required int64 timeOfUserUpdate = 2;
+      private long timeOfUserUpdate_ ;
+      public boolean hasTimeOfUserUpdate() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public long getTimeOfUserUpdate() {
+        return timeOfUserUpdate_;
+      }
+      public Builder setTimeOfUserUpdate(long value) {
+        bitField0_ |= 0x00000002;
+        timeOfUserUpdate_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTimeOfUserUpdate() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        timeOfUserUpdate_ = 0L;
+        onChanged();
+        return this;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.UpdateClientUserResponseProto)
@@ -16341,9 +16406,10 @@ public final class EventProto {
       "ordinateProto\022\020\n\010structId\030\004 \002(\005\"h\n\024Level" +
       "UpResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lv" +
       "l6.proto.FullUserProto\022!\n\031maxCityIdAcces" +
-      "sibleToUser\030\002 \001(\005\"N\n\035UpdateClientUserRes" +
+      "sibleToUser\030\002 \001(\005\"h\n\035UpdateClientUserRes" +
       "ponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6.pr" +
-      "oto.FullUserProtoB\014B\nEventProto"
+      "oto.FullUserProto\022\030\n\020timeOfUserUpdate\030\002 " +
+      "\002(\003B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -16531,7 +16597,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_UpdateClientUserResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UpdateClientUserResponseProto_descriptor,
-              new java.lang.String[] { "Sender", },
+              new java.lang.String[] { "Sender", "TimeOfUserUpdate", },
               com.lvl6.proto.EventProto.UpdateClientUserResponseProto.class,
               com.lvl6.proto.EventProto.UpdateClientUserResponseProto.Builder.class);
           return null;

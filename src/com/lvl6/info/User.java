@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
 public class User {
@@ -33,13 +33,14 @@ public class User {
   private String armyCode;
   private int numReferrals;
   private String udid;
+  private Location userLocation;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int health, int skillPoints,
       int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
       int vaultBalance, int experience, int tasksCompleted, int battlesWon,
       int battlesLost, int hourlyCoins, String armyCode, int numReferrals,
-      String udid) {
+      String udid, Location userLocation) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -64,9 +65,10 @@ public class User {
     this.armyCode = armyCode;
     this.numReferrals = numReferrals;
     this.udid = udid;
+    this.userLocation = userLocation;
   }
-  
-  
+
+
   /*
    * used for tasks
    *        * user- coins/exp/tasks_completed increase, energy decrease
@@ -75,14 +77,14 @@ public class User {
       int energyChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
-    
+
     Map <String, Object> relativeParams = new HashMap<String, Object>();
 
     relativeParams.put(DBConstants.USER__COINS, coinChange);
     relativeParams.put(DBConstants.USER__EXPERIENCE, expChange);
     relativeParams.put(DBConstants.USER__TASKS_COMPLETED, tasksCompletedChange);
     relativeParams.put(DBConstants.USER__ENERGY, energyChange);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -94,14 +96,14 @@ public class User {
     }
     return false;
   }
-  
+
   /*
    * used for cleric
    */
   public boolean updateRelativeVaultAbsoluteHealth (int vaultChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
-    
+
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
 
@@ -119,15 +121,15 @@ public class User {
     }
     return false;
   }
-  
-  
+
+
   /*
    * used for vault transactions
    */
   public boolean updateRelativeCoinsVault (int coinsChange, int vaultChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
-    
+
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     if (coinsChange != 0) relativeParams.put(DBConstants.USER__COINS, coinsChange);
     if (vaultChange != 0) relativeParams.put(DBConstants.USER__VAULT_BALANCE, vaultChange);
@@ -141,7 +143,7 @@ public class User {
     }
     return false;
   }
-  
+
   /*
    * used for battles
    */
@@ -149,7 +151,7 @@ public class User {
       int coins, int health, int battlesWon, int battlesLost) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
-    
+
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     if (stamina != 0) relativeParams.put(DBConstants.USER__STAMINA, stamina);
     if (experience != 0) relativeParams.put(DBConstants.USER__EXPERIENCE, experience);
@@ -259,13 +261,17 @@ public class User {
   public String getArmyCode() {
     return armyCode;
   }
-  
+
   public int getNumReferrals() {
     return numReferrals;
   }
 
   public String getUdid() {
     return udid;
+  }
+
+  public Location getUserLocation() {
+    return userLocation;
   }
 
   @Override
@@ -279,7 +285,7 @@ public class User {
         + vaultBalance + ", experience=" + experience + ", tasksCompleted="
         + tasksCompleted + ", battlesWon=" + battlesWon + ", battlesLost="
         + battlesLost + ", hourlyCoins=" + hourlyCoins + ", armyCode="
-        + armyCode + ", numReferrals=" + numReferrals + ", udid=" + udid + "]";
+        + armyCode + ", numReferrals=" + numReferrals + ", udid=" + udid
+        + ", userLocation=" + userLocation + "]";
   }
-
 }

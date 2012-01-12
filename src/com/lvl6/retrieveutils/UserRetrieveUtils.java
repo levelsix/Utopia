@@ -9,9 +9,10 @@ import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.info.Location;
 import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.MinimumUserProto.UserType;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
 public class UserRetrieveUtils {
@@ -115,9 +116,10 @@ public class UserRetrieveUtils {
     String armyCode = rs.getString(i++);
     int numReferrals = rs.getInt(i++);
     String udid = rs.getString(i++);
+    Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
         healthMax, energyMax, staminaMax, diamonds, coins, vaultBalance, experience, tasksCompleted, 
-        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid);
+        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid, userLocation);
     return user;
   }
 }
