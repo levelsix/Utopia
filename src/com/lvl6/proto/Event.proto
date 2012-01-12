@@ -256,12 +256,12 @@ message MoveCriticalStructureRequestProto {
 	required CritStructType critStruct = 3;
 	
 	enum CritStructType {
-		AVIARY = 1;
-		LUMBERMILL = 2;
-		CARPENTER = 3;
-		VAULT = 4;
-		ARMORY = 5;
-		CLERIC = 6;
+		AVIARY = 0;
+		LUMBERMILL = 1;
+		CARPENTER = 2;
+		VAULT = 3;
+		ARMORY = 4;
+		CLERIC = 5;
 	}
 }
 
@@ -279,6 +279,24 @@ message MoveUserStructureRequestProto {
 message LevelUpResponseProto {
      required FullUserProto sender = 1;
      optional int32 maxCityIdAccessibleToUser = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message InAppPurchaseRequestProto {
+	required MinimumUserProto sender = 1;
+	required string receipt = 2;
+}
+
+message InAppPurchaseResponseProto {
+	required MinimumUserProto sender = 1;
+	required InAppPurchaseStatus status = 2;
+	optional int32 diamondsGained = 3;
+	
+	enum InAppPurchaseStatus {
+		SUCCESS = 0;
+		FAIL = 1;
+	}
 }
 
 //------------------------------------------------------------------------------------------
