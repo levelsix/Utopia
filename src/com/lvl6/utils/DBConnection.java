@@ -143,6 +143,43 @@ public class DBConnection {
     return 0;
   }
 
+  public static int insertIntoTableBasic(String tablename, Map<String, Object> insertParams) {
+    List<String> questions = new LinkedList<String>();
+    List<String> columns = new LinkedList<String>();
+    List<Object> values = new LinkedList<Object>();
+    
+    if (insertParams != null && insertParams.size() > 0) {
+      for (String column : insertParams.keySet()) {
+        questions.add("?");
+        columns.add(column);
+        values.add(insertParams.get(column));
+      }
+      String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES (" +
+          StringUtils.getListInString(questions, ",") + ")";
+      try {
+        Connection conn = availableConnections.take();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        if (values.size()>0) {
+          int i = 1;
+          for (Object value : values) {
+            stmt.setObject(i, value);
+            i++;
+          }
+        }
+        int numUpdated = stmt.executeUpdate();
+        availableConnections.put(conn);
+        return numUpdated;
+      } catch (SQLException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      }
+    }
+    return 0;
+  }
+  
   public static int insertOnDuplicateKeyRelativeUpdate(String tablename, Map<String, Object> insertParams,
       String columnUpdate, Object updateQuantity) {
     

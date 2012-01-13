@@ -14,12 +14,7 @@ public class IAPHistoryRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_IAP_HISTORY;
   
-  public static boolean insertIAPHistoryElem() {
-    //TODO: impl
-    return false;
-  }
-  
-  public static boolean checkIfDuplicateTransaction(int transactionId) {
+  public static boolean checkIfDuplicateTransaction(long transactionId) {
     log.info("checking if transaction already exists");
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.IAP_HISTORY__TRANSACTION_ID, transactionId);

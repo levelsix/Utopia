@@ -65,6 +65,18 @@ public class DBConstants {
   public static final String USER_CITIES__CURRENT_RANK = "current_rank";
   
   /*IAP TABLE*/
+  public static final String IAP_HISTORY__ID = GENERIC__ID;
+  public static final String IAP_HISTORY__USER_ID = GENERIC__USER_ID;
   public static final String IAP_HISTORY__TRANSACTION_ID = "transaction_id";
+  public static final String IAP_HISTORY__PURCHASE_DATE = "purchase_date";
+  public static final String IAP_HISTORY__PREMIUMCUR_PURCHASED = "premiumcur_purchased";
+  public static final String IAP_HISTORY__CASH_SPENT = "cash_spent";
+  public static final String IAP_HISTORY__UDID = "udid";
+  public static final String IAP_HISTORY__PRODUCT_ID = "product_id";
+  public static final String IAP_HISTORY__QUANTITY = "quantity";
+  public static final String IAP_HISTORY__BID = "bid";
+  public static final String IAP_HISTORY__BVRS = "bvrs";
+  public static final String IAP_HISTORY__APP_ITEM_ID = "app_item_id";
+
 
 }

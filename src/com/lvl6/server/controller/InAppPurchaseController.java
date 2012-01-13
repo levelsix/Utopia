@@ -1,31 +1,33 @@
 package com.lvl6.server.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.InAppPurchaseRequestEvent;
 import com.lvl6.events.response.InAppPurchaseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.InAppPurchaseRequestProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class InAppPurchaseController extends EventController {
 
+  boolean isSandbox = true;
+  private static final String SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
+  private static final String PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt";  
+  
   @Override
   protected void initController() {
     log.info("initController for " + this.getClass().toString());    
@@ -63,10 +65,15 @@ public class InAppPurchaseController extends EventController {
     JSONObject response;
     try {
       JSONObject jsonReceipt = new JSONObject();
-      jsonReceipt.put("receipt-data", receipt);
+      jsonReceipt.put(IAPValues.RECEIPT_DATA, receipt);
 
       // Send data
-      URL url = new URL("https://sandbox.itunes.apple.com/verifyReceipt");
+      URL url;
+      if (isSandbox) {
+        url = new URL(SANDBOX_URL);
+      } else {
+        url = new URL(PRODUCTION_URL);
+      }
       URLConnection conn = url.openConnection();
       conn.setDoOutput(true);
       OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -82,11 +89,18 @@ public class InAppPurchaseController extends EventController {
           responseString += line;
       }
 
-      System.out.println(responseString);
       response = new JSONObject(responseString);
-//      System.out.println(response.getInt("status"));
-      if (response.getInt("status") == 0) {
-        resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
+      if (response.getInt(IAPValues.STATUS) == 0) {
+        JSONObject receiptFromApple = response.getJSONObject(IAPValues.RECEIPT);
+        if (!IAPHistoryRetrieveUtils.checkIfDuplicateTransaction(Long.parseLong(receiptFromApple.getString(IAPValues.TRANSACTION_ID)))) {
+          int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
+          double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
+          user.updateRelativeDiamondsNaive(diamondChange);
+          if (!InsertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
+            log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
+          }
+          resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
+        }
       }
       wr.close();
       rd.close();
