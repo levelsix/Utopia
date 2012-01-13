@@ -2,7 +2,7 @@ package com.lvl6.properties;
 
 public class Globals {
     /** size of ByteBuffer for reading/writing from channels */
-    public static final int NET_BUFFER_SIZE=512;
+    public static final int NET_BUFFER_SIZE=8192;
 
     /** maximum event size in bytes */
     public static final int MAX_EVENT_SIZE=4096;
