@@ -21,11 +21,12 @@ public class UserRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER;
   
-  public static void createUser() {
+  public static boolean createUser() {
     log.info("creating user");
     //TODO: impl
     //when you select your class/name on the last page of the tutorial, THEN i add you to the db
     //then i add the udid, class, name, etc.
+    return false;
   }
 
   public static User getUserById(int userId) {

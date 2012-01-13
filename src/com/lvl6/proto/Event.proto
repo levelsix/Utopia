@@ -95,7 +95,8 @@ message ArmoryResponseProto {
 		SUCCESS = 0; 
 		NOT_ENOUGH_EQUIP_TO_SELL = 1;
 		NOT_ENOUGH_CURRENCY_TO_BUY = 2;
-		OTHER_FAIL = 3;
+		CANNOT_SELL_DIAMOND_EQUIP = 3;
+		OTHER_FAIL = 4;
 	} 
 }
 
