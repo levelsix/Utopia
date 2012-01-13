@@ -86,90 +86,93 @@ public class BattleController extends EventController {
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getAllEquipmentIdsToEquipment();
 
     server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
-
-    User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
-    List<UserEquip> attackerEquips = UserEquipRetrieveUtils.getUserEquipsForUser(attacker.getId());
-
-    User defender = UserRetrieveUtils.getUserById(defenderProto.getUserId());
-    List<UserEquip> defenderEquips = UserEquipRetrieveUtils.getUserEquipsForUser(defender.getId());
-
-    BattleResponseProto.Builder resBuilder = BattleResponseProto.newBuilder();
-
-    resBuilder.setAttacker(attackerProto);
-    resBuilder.setDefender(defenderProto);
-
-    UserEquip lostEquip = null;
-    int loserHealthLoss = NOT_SET;
-    int winnerHealthLoss = NOT_SET;
-    int expGained = NOT_SET;
-    int lostCoins = NOT_SET;
-    User winner = null;
-    User loser = null;
-    boolean legitBattle = false;
-    
-
-    BattleResponseEvent resEvent = new BattleResponseEvent();
-
-    if (isLegitBattle(attacker, defender, resBuilder)) {
-      int[] recipients = { attacker.getId(), defender.getId()};;
-      resEvent.setRecipients(recipients);
-      legitBattle = true;
-      double attackerStat = computeStat(ATTACKER_FLAG, attacker, attackerEquips, equipmentIdsToEquipment);
-      double defenderStat = computeStat(DEFENDER_FLAG, defender, defenderEquips, equipmentIdsToEquipment);
-
-      if (attackerStat >= defenderStat) {
-        resBuilder.setWinnerUserId(attacker.getId());
-        winner = attacker;
-        loser = defender;
-        lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment, defender.getLevel());
-        if (lostEquip != null) {
-          Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
-          resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
+    try {
+      User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
+      List<UserEquip> attackerEquips = UserEquipRetrieveUtils.getUserEquipsForUser(attacker.getId());
+  
+      User defender = UserRetrieveUtils.getUserById(defenderProto.getUserId());
+      List<UserEquip> defenderEquips = UserEquipRetrieveUtils.getUserEquipsForUser(defender.getId());
+  
+      BattleResponseProto.Builder resBuilder = BattleResponseProto.newBuilder();
+  
+      resBuilder.setAttacker(attackerProto);
+      resBuilder.setDefender(defenderProto);
+  
+      UserEquip lostEquip = null;
+      int loserHealthLoss = NOT_SET;
+      int winnerHealthLoss = NOT_SET;
+      int expGained = NOT_SET;
+      int lostCoins = NOT_SET;
+      User winner = null;
+      User loser = null;
+      boolean legitBattle = false;
+      
+  
+      BattleResponseEvent resEvent = new BattleResponseEvent();
+  
+      if (isLegitBattle(attacker, defender, resBuilder)) {
+        int[] recipients = { attacker.getId(), defender.getId()};;
+        resEvent.setRecipients(recipients);
+        legitBattle = true;
+        double attackerStat = computeStat(ATTACKER_FLAG, attacker, attackerEquips, equipmentIdsToEquipment);
+        double defenderStat = computeStat(DEFENDER_FLAG, defender, defenderEquips, equipmentIdsToEquipment);
+  
+        if (attackerStat >= defenderStat) {
+          resBuilder.setWinnerUserId(attacker.getId());
+          winner = attacker;
+          loser = defender;
+          lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment, defender.getLevel());
+          if (lostEquip != null) {
+            Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
+            resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
+          }
         }
+        else {
+          resBuilder.setWinnerUserId(defender.getId());
+          winner = defender;
+          loser = attacker;
+        }
+  
+        Random random = new Random();
+        lostCoins = calculateLostCoins(loser, random);
+        resBuilder.setCoinsGained(lostCoins);
+        expGained = MIN_EXP_GAIN + random.nextInt(MAX_EXP_GAIN - MIN_EXP_GAIN + 1);
+        resBuilder.setExpGained(expGained);
+        resBuilder.setStatus(BattleStatus.SUCCESS);
+        loserHealthLoss = MIN_DAMAGE_DEALT_TO_LOSER + random.nextInt(MAX_DAMAGE - MIN_DAMAGE_DEALT_TO_LOSER + 1);
+        resBuilder.setLoserHealthLoss(loserHealthLoss);
+        winnerHealthLoss = calculateWinnerHealthLoss(attackerStat, defenderStat, loserHealthLoss);
+        resBuilder.setWinnerHealthLoss(winnerHealthLoss);
+      } else {
+        int[] recipients = { attacker.getId()};;
+        resEvent.setRecipients(recipients);
       }
-      else {
-        resBuilder.setWinnerUserId(defender.getId());
-        winner = defender;
-        loser = attacker;
-      }
-
-      Random random = new Random();
-      lostCoins = calculateLostCoins(loser, random);
-      resBuilder.setCoinsGained(lostCoins);
-      expGained = MIN_EXP_GAIN + random.nextInt(MAX_EXP_GAIN - MIN_EXP_GAIN + 1);
-      resBuilder.setExpGained(expGained);
-      resBuilder.setStatus(BattleStatus.SUCCESS);
-      loserHealthLoss = MIN_DAMAGE_DEALT_TO_LOSER + random.nextInt(MAX_DAMAGE - MIN_DAMAGE_DEALT_TO_LOSER + 1);
-      resBuilder.setLoserHealthLoss(loserHealthLoss);
-      winnerHealthLoss = calculateWinnerHealthLoss(attackerStat, defenderStat, loserHealthLoss);
-      resBuilder.setWinnerHealthLoss(winnerHealthLoss);
-    } else {
-      int[] recipients = { attacker.getId()};;
-      resEvent.setRecipients(recipients);
+  
+      BattleResponseProto resProto = resBuilder.build();
+  
+      resEvent.setBattleResponseProto(resProto);
+  
+      log.info(resEvent + " is resevent");
+      server.writeEvent(resEvent);
+      
+      writeChangesToDB(legitBattle, lostEquip, winner, loser, attacker, defender, expGained, lostCoins, 
+          winnerHealthLoss, loserHealthLoss);
+      //TODO: should these send new response? or package inside battles?
+      //TODO: AchievementCheck.checkBattle(); 
+      //TODO: LevelCheck.checkUser();
+      
+      
+      
+      UpdateClientUserResponseEvent resEventAttacker = MiscMethods.createUpdateClientUserResponseEvent(attacker);
+      UpdateClientUserResponseEvent resEventDefender = MiscMethods.createUpdateClientUserResponseEvent(defender);
+      
+      server.writeEvent(resEventAttacker);
+      server.writeEvent(resEventDefender);
+    } catch (Exception e) {
+      log.error("exception in BattleController processEvent", e);
+    } finally {
+      server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
-
-    BattleResponseProto resProto = resBuilder.build();
-
-    resEvent.setBattleResponseProto(resProto);
-
-    log.info(resEvent + " is resevent");
-    server.writeEvent(resEvent);
-    
-    writeChangesToDB(legitBattle, lostEquip, winner, loser, attacker, defender, expGained, lostCoins, 
-        winnerHealthLoss, loserHealthLoss);
-    //TODO: should these send new response? or package inside battles?
-    //TODO: AchievementCheck.checkBattle(); 
-    //TODO: LevelCheck.checkUser();
-    
-    
-    
-    UpdateClientUserResponseEvent resEventAttacker = MiscMethods.createUpdateClientUserResponseEvent(attacker);
-    UpdateClientUserResponseEvent resEventDefender = MiscMethods.createUpdateClientUserResponseEvent(defender);
-    
-    server.writeEvent(resEventAttacker);
-    server.writeEvent(resEventDefender);
-    
-    server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
   }
 
   

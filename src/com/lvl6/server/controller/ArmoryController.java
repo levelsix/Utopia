@@ -54,63 +54,68 @@ public class ArmoryController extends EventController {
     boolean legitSell = false;
     
     server.lockPlayer(senderProto.getUserId());
-    User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-    UserEquip userEquip = null;
-    Equipment equipment = EquipmentRetrieveUtils.getAllEquipmentIdsToEquipment().get(equipId);
-
-    if (quantity < 1 || equipment == null) {
-      resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
-    } else {
-      if (requestType == ArmoryRequestType.BUY) {
+    try {
+      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      UserEquip userEquip = null;
+      Equipment equipment = EquipmentRetrieveUtils.getAllEquipmentIdsToEquipment().get(equipId);
+  
+      if (quantity < 1 || equipment == null) {
+        resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
+      } else {
+        if (requestType == ArmoryRequestType.BUY) {
+          if (equipment.getCoinPrice() != Equipment.NOT_SET) {
+            if (user.getCoins() >= equipment.getCoinPrice() * quantity) {
+              legitBuy = true;
+            } else {
+              resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_CURRENCY_TO_BUY);
+            }
+          }
+          if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
+            if (user.getDiamonds() >= equipment.getDiamondPrice() * quantity) {
+              legitBuy = true;
+            } else {
+              resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_CURRENCY_TO_BUY);
+            }
+          }
+        } else if (requestType == ArmoryRequestType.SELL) {
+          userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equipId);
+          if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
+            resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
+          } else {
+            if (userEquip.getQuantity() >= quantity) {
+              legitSell = true;
+            } else {
+              resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_EQUIP_TO_SELL);
+            }
+          }
+        }
+      }
+      if (legitBuy) {
+        UpdateUtils.incrementUserEquip(user.getId(), equipId, quantity);
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {
-          if (user.getCoins() >= equipment.getCoinPrice() * quantity) {
-            legitBuy = true;
-          } else {
-            resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_CURRENCY_TO_BUY);
-          }
+          user.updateRelativeCoinsNaive(equipment.getCoinPrice() * -1);
+        } else if (equipment.getDiamondPrice() != Equipment.NOT_SET)  {
+          user.updateRelativeDiamondsNaive(equipment.getDiamondPrice() * -1);
         }
-        if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
-          if (user.getDiamonds() >= equipment.getDiamondPrice() * quantity) {
-            legitBuy = true;
-          } else {
-            resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_CURRENCY_TO_BUY);
-          }
-        }
-      } else if (requestType == ArmoryRequestType.SELL) {
-        userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equipId);
-        if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
-          resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
-        } else {
-          if (userEquip.getQuantity() >= quantity) {
-            legitSell = true;
-          } else {
-            resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_EQUIP_TO_SELL);
-          }
-        }
+        resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
-    }
-    if (legitBuy) {
-      UpdateUtils.incrementUserEquip(user.getId(), equipId, quantity);
-      if (equipment.getCoinPrice() != Equipment.NOT_SET) {
-        user.updateRelativeCoinsNaive(equipment.getCoinPrice() * -1);
-      } else if (equipment.getDiamondPrice() != Equipment.NOT_SET)  {
-        user.updateRelativeDiamondsNaive(equipment.getDiamondPrice() * -1);
+      if (legitSell) {
+        UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity);
+        user.updateRelativeCoinsNaive((int)(-1 * SELL_RATIO * equipment.getCoinPrice()));
+        resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
-      resBuilder.setStatus(ArmoryStatus.SUCCESS);
+      
+      ArmoryResponseProto resProto = resBuilder.build();
+      ArmoryResponseEvent resEvent = new ArmoryResponseEvent(senderProto.getUserId());
+      resEvent.setArmoryResponseProto(resProto);
+      server.writeEvent(resEvent);
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      server.writeEvent(resEventUpdate);
+    } catch (Exception e) {
+      log.error("exception in ArmoryController processEvent", e);
+    } finally {
+      server.unlockPlayer(senderProto.getUserId()); 
     }
-    if (legitSell) {
-      UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity);
-      user.updateRelativeCoinsNaive((int)(-1 * SELL_RATIO * equipment.getCoinPrice()));
-      resBuilder.setStatus(ArmoryStatus.SUCCESS);
-    }
-    
-    ArmoryResponseProto resProto = resBuilder.build();
-    ArmoryResponseEvent resEvent = new ArmoryResponseEvent(senderProto.getUserId());
-    resEvent.setArmoryResponseProto(resProto);
-    server.writeEvent(resEvent);
-    UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-    server.writeEvent(resEventUpdate);
-    server.unlockPlayer(senderProto.getUserId());
   }
 
 }

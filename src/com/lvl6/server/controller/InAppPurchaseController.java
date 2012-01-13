@@ -60,67 +60,71 @@ public class InAppPurchaseController extends EventController {
 
     // Lock this player's ID
     server.lockPlayer(senderProto.getUserId());
-    User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-
-    JSONObject response;
     try {
-      JSONObject jsonReceipt = new JSONObject();
-      jsonReceipt.put(IAPValues.RECEIPT_DATA, receipt);
-
-      // Send data
-      URL url;
-      if (isSandbox) {
-        url = new URL(SANDBOX_URL);
-      } else {
-        url = new URL(PRODUCTION_URL);
-      }
-      URLConnection conn = url.openConnection();
-      conn.setDoOutput(true);
-      OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-      wr.write(jsonReceipt.toString());
-      wr.flush();
-
-      // Get the response
-      BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-      String responseString = "";
-      String line;
-      while ((line = rd.readLine()) != null) {
-          responseString += line;
-      }
-
-      response = new JSONObject(responseString);
-      if (response.getInt(IAPValues.STATUS) == 0) {
-        JSONObject receiptFromApple = response.getJSONObject(IAPValues.RECEIPT);
-        if (!IAPHistoryRetrieveUtils.checkIfDuplicateTransaction(Long.parseLong(receiptFromApple.getString(IAPValues.TRANSACTION_ID)))) {
-          int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
-          double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
-          user.updateRelativeDiamondsNaive(diamondChange);
-          if (!InsertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
-            log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
-          }
-          resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
+      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+  
+      JSONObject response;
+      try {
+        JSONObject jsonReceipt = new JSONObject();
+        jsonReceipt.put(IAPValues.RECEIPT_DATA, receipt);
+  
+        // Send data
+        URL url;
+        if (isSandbox) {
+          url = new URL(SANDBOX_URL);
+        } else {
+          url = new URL(PRODUCTION_URL);
         }
+        URLConnection conn = url.openConnection();
+        conn.setDoOutput(true);
+        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+        wr.write(jsonReceipt.toString());
+        wr.flush();
+  
+        // Get the response
+        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+  
+        String responseString = "";
+        String line;
+        while ((line = rd.readLine()) != null) {
+            responseString += line;
+        }
+  
+        response = new JSONObject(responseString);
+        if (response.getInt(IAPValues.STATUS) == 0) {
+          JSONObject receiptFromApple = response.getJSONObject(IAPValues.RECEIPT);
+          if (!IAPHistoryRetrieveUtils.checkIfDuplicateTransaction(Long.parseLong(receiptFromApple.getString(IAPValues.TRANSACTION_ID)))) {
+            int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
+            double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
+            user.updateRelativeDiamondsNaive(diamondChange);
+            if (!InsertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
+              log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
+            }
+            resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
+          }
+        }
+        wr.close();
+        rd.close();
+      } catch (Exception e) { e.printStackTrace();}
+      
+      if (!resBuilder.hasStatus()) {
+        resBuilder.setStatus(InAppPurchaseStatus.FAIL);
       }
-      wr.close();
-      rd.close();
-    } catch (Exception e) { e.printStackTrace();}
-    
-    if (!resBuilder.hasStatus()) {
-      resBuilder.setStatus(InAppPurchaseStatus.FAIL);
+  
+      InAppPurchaseResponseProto resProto = resBuilder.build();
+  
+      InAppPurchaseResponseEvent resEvent = new InAppPurchaseResponseEvent(senderProto.getUserId());
+      resEvent.setInAppPurchaseResponseProto(resProto);
+      server.writeEvent(resEvent);
+  
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      server.writeEvent(resEventUpdate);
+    } catch (Exception e) {
+      log.error("exception in InAppPurchaseController processEvent", e);
+    } finally {
+      // Unlock this player
+      server.unlockPlayer(senderProto.getUserId());
     }
-
-    InAppPurchaseResponseProto resProto = resBuilder.build();
-
-    InAppPurchaseResponseEvent resEvent = new InAppPurchaseResponseEvent(senderProto.getUserId());
-    resEvent.setInAppPurchaseResponseProto(resProto);
-    server.writeEvent(resEvent);
-
-    UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-    server.writeEvent(resEventUpdate);
-
-    // Unlock this player
-    server.unlockPlayer(senderProto.getUserId());
   }
 
 }

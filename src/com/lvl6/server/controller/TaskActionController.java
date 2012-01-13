@@ -28,10 +28,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class TaskActionController extends EventController {
-  
+
   private static final int NOT_SET = -1;
   private static final int MAX_CITY_RANK = 3;
-  
+
   @Override
   protected void initController() {
     log.info("initController for " + this.getClass().toString());    
@@ -46,7 +46,7 @@ public class TaskActionController extends EventController {
   public EventProtocolRequest getEventType() {
     return EventProtocolRequest.C_TASK_ACTION_EVENT;
   }
-  
+
   /*
    * db stuff done before sending event to eventwriter/client because the client's not waiting 
    * on it immediately anyways
@@ -58,100 +58,103 @@ public class TaskActionController extends EventController {
     int taskId = reqProto.getTaskId();
 
     server.lockPlayer(senderProto.getUserId());
+    try {
+      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto.newBuilder();
+      resBuilder.setSender(senderProto);    
 
-    User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-    TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto.newBuilder();
-    resBuilder.setSender(senderProto);    
-    
-    Task task = TaskRetrieveUtils.getTaskForTaskId(taskId);
-    //TODO: check the level of this task's city, use that as multiplier for expGained, energyCost, etc.
-    
-    int coinsGained = NOT_SET;
-    int lootEquipId = NOT_SET;
-    int coinBonus  = NOT_SET;
-    int expBonus = NOT_SET;
-    boolean taskCompleted = false;
-    boolean cityRankedUp = false;
-    boolean changeNumTimesUserActedInDB = true;
-    List<Task> tasksInCity = null;
+      Task task = TaskRetrieveUtils.getTaskForTaskId(taskId);
+      //TODO: check the level of this task's city, use that as multiplier for expGained, energyCost, etc.
 
-    boolean legitAction = checkLegitAction(user, task, resBuilder);
-    if (legitAction) {
-      coinsGained = calculateCoinsGained(task);
-      resBuilder.setCoinsGained(coinsGained);
-      lootEquipId = chooseLootEquipId(task);
-      if (lootEquipId != NOT_SET) {
-        resBuilder.setLootEquipId(lootEquipId);
-      }
-      Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
-      int numTimesActedInRank = 0;
-      if (taskIdToNumTimesActedInRank != null && taskIdToNumTimesActedInRank.get(task.getId()) != null) {
-        numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
-      }
-      numTimesActedInRank++;
-      
-      taskIdToNumTimesActedInRank.put(task.getId(), numTimesActedInRank);
-      
-      if (numTimesActedInRank > task.getNumForCompletion()) {
-        changeNumTimesUserActedInDB = false;
-      }
-      if (numTimesActedInRank == task.getNumForCompletion()) {
-        taskCompleted = true;
-        tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(task.getCityId());
-        cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
-        if (cityRankedUp) {
-          int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
-          if (cityRank != NOT_SET) {
-            if (cityRank == MAX_CITY_RANK) {
-              cityRankedUp = false;
-            }
-            cityRank++;
-            City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
-            int multiplier = cityRank;
-            coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
-            resBuilder.setCoinBonusIfCityRankup(coinBonus);
-            expBonus = multiplier * city.getExpGainedBaseOnRankup();
-            resBuilder.setExpBonusIfCityRankup(expBonus);
-          }
+      int coinsGained = NOT_SET;
+      int lootEquipId = NOT_SET;
+      int coinBonus  = NOT_SET;
+      int expBonus = NOT_SET;
+      boolean taskCompleted = false;
+      boolean cityRankedUp = false;
+      boolean changeNumTimesUserActedInDB = true;
+      List<Task> tasksInCity = null;
+
+      boolean legitAction = checkLegitAction(user, task, resBuilder);
+      if (legitAction) {
+        coinsGained = calculateCoinsGained(task);
+        resBuilder.setCoinsGained(coinsGained);
+        lootEquipId = chooseLootEquipId(task);
+        if (lootEquipId != NOT_SET) {
+          resBuilder.setLootEquipId(lootEquipId);
         }
-          
+        Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
+        int numTimesActedInRank = 0;
+        if (taskIdToNumTimesActedInRank != null && taskIdToNumTimesActedInRank.get(task.getId()) != null) {
+          numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
+        }
+        numTimesActedInRank++;
+
+        taskIdToNumTimesActedInRank.put(task.getId(), numTimesActedInRank);
+
+        if (numTimesActedInRank > task.getNumForCompletion()) {
+          changeNumTimesUserActedInDB = false;
+        }
+        if (numTimesActedInRank == task.getNumForCompletion()) {
+          taskCompleted = true;
+          tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(task.getCityId());
+          cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
+          if (cityRankedUp) {
+            int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
+            if (cityRank != NOT_SET) {
+              if (cityRank == MAX_CITY_RANK) {
+                cityRankedUp = false;
+              }
+              cityRank++;
+              City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
+              int multiplier = cityRank;
+              coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
+              resBuilder.setCoinBonusIfCityRankup(coinBonus);
+              expBonus = multiplier * city.getExpGainedBaseOnRankup();
+              resBuilder.setExpBonusIfCityRankup(expBonus);
+            }
+          }
+
+        }
       }
+
+      resBuilder.setTaskCompleted(taskCompleted);
+      resBuilder.setCityRankedUp(cityRankedUp);
+
+      TaskActionResponseProto resProto = resBuilder.build();
+      TaskActionResponseEvent resEvent = new TaskActionResponseEvent(senderProto.getUserId());
+      resEvent.setTaskActionResponseProto(resProto);
+      server.writeEvent(resEvent);
+
+      int totalCoinGain = 0;
+      int totalExpGain = 0;
+      if (legitAction) {
+        if (coinsGained != NOT_SET) totalCoinGain += coinsGained;
+        if (coinBonus != NOT_SET) totalCoinGain += coinBonus;
+        if (task != null) totalExpGain += task.getExpGained();
+        if (expBonus != NOT_SET) totalExpGain += expBonus;
+      }
+
+      writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
+          totalCoinGain, totalExpGain, tasksInCity);
+      //TODO: should these send new response? or package inside battles?
+      //TODO: AchievementCheck.checkBattle(); 
+      //TODO: LevelCheck.checkUser();
+
+
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      server.writeEvent(resEventUpdate);
+    } catch (Exception e) {
+      log.error("exception in TaskActionController processEvent", e);
+    } finally {
+      server.unlockPlayer(senderProto.getUserId());
     }
-
-    resBuilder.setTaskCompleted(taskCompleted);
-    resBuilder.setCityRankedUp(cityRankedUp);
-
-    TaskActionResponseProto resProto = resBuilder.build();
-    TaskActionResponseEvent resEvent = new TaskActionResponseEvent(senderProto.getUserId());
-    resEvent.setTaskActionResponseProto(resProto);
-    server.writeEvent(resEvent);
-    
-    int totalCoinGain = 0;
-    int totalExpGain = 0;
-    if (legitAction) {
-      if (coinsGained != NOT_SET) totalCoinGain += coinsGained;
-      if (coinBonus != NOT_SET) totalCoinGain += coinBonus;
-      if (task != null) totalExpGain += task.getExpGained();
-      if (expBonus != NOT_SET) totalExpGain += expBonus;
-    }
-    
-    writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
-        totalCoinGain, totalExpGain, tasksInCity);
-    //TODO: should these send new response? or package inside battles?
-    //TODO: AchievementCheck.checkBattle(); 
-    //TODO: LevelCheck.checkUser();
-    
-    
-    UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-    server.writeEvent(resEventUpdate);
-
-    server.unlockPlayer(senderProto.getUserId());
   }
 
 
   private void writeChangesToDB(boolean legitAction, User user, Task task, boolean cityRankedUp, boolean changeNumTimesUserActedInDB, 
       int lootEquipId, int totalCoinGain, int totalExpGain, List<Task> tasksInCity) {
-    
+
     if (legitAction) {
       if (cityRankedUp) {
         if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), task.getCityId(), 1)) {
@@ -169,7 +172,7 @@ public class TaskActionController extends EventController {
           }
         }
       }
-      
+
       if (lootEquipId != NOT_SET) {
         if (!UpdateUtils.incrementUserEquip(user.getId(), lootEquipId, 1)) {
           log.error("problem with incrementing user equip post-task");
@@ -180,15 +183,15 @@ public class TaskActionController extends EventController {
       }
     }
   }
-  
+
   private boolean checkCityRankup(
       Map<Integer, Integer> taskIdToNumTimesActedInRank, int cityId, List<Task> tasksInCity) {
     tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(cityId);
-    
+
     if (tasksInCity == null) {
       return false;
     }
-    
+
     for (Task task : tasksInCity) {
       if (!taskIdToNumTimesActedInRank.containsKey(task.getId()) ||
           taskIdToNumTimesActedInRank.get(task.getId()) < task.getNumForCompletion()) {
@@ -220,13 +223,13 @@ public class TaskActionController extends EventController {
         resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ENERGY);
         actionIsLegit = false;
       }
-      
+
       int numReqEquipsWithoutQuantityReqFulfilled = getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(user, task);
       if (numReqEquipsWithoutQuantityReqFulfilled != 0) {
         resBuilder.setStatus(TaskActionStatus.USER_NOT_ALL_REQUIRED_ITEMS);
         actionIsLegit = false;
       }
-      
+
     }
     if (actionIsLegit) {
       resBuilder.setStatus(TaskActionStatus.SUCCESS);
@@ -240,9 +243,9 @@ public class TaskActionController extends EventController {
 
     if (equipIdsToQuantityReq == null)
       return 0;
-    
+
     int numReqEquipsWithoutQuantityReqFulfilled = equipIdsToQuantityReq.keySet().size();
-    
+
     if (userEquipIds != null) {
       for (UserEquip ue : userEquipIds) {
         Integer quantityReq = equipIdsToQuantityReq.get(ue.getEquipId());
@@ -252,7 +255,7 @@ public class TaskActionController extends EventController {
         }
       }
     }
-    
+
     return numReqEquipsWithoutQuantityReqFulfilled;
   }
 

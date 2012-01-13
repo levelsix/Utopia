@@ -47,37 +47,39 @@ public class ClericHealController extends EventController {
     
     server.lockPlayer(senderProto.getUserId());
 
-    User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-    int cost = calculateClericCost(user);
-
-    ClericHealResponseProto.Builder resBuilder = ClericHealResponseProto.newBuilder();
-    resBuilder.setSender(senderProto);
-    
-    if (user.getVaultBalance() >= cost) {
-      if (!user.updateRelativeVaultAbsoluteHealth(cost*-1)) {
-        resBuilder.setStatus(HealStatus.OTHER_FAIL);
-        log.error("problem with ClericHeal transaction");
+    try {
+      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      int cost = calculateClericCost(user);
+  
+      ClericHealResponseProto.Builder resBuilder = ClericHealResponseProto.newBuilder();
+      resBuilder.setSender(senderProto);
+      
+      if (user.getVaultBalance() >= cost) {
+        if (!user.updateRelativeVaultAbsoluteHealth(cost*-1)) {
+          resBuilder.setStatus(HealStatus.OTHER_FAIL);
+          log.error("problem with ClericHeal transaction");
+        } else {
+          resBuilder.setCost(cost);
+          resBuilder.setStatus(HealStatus.SUCCESS);
+        }
       } else {
-        resBuilder.setCost(cost);
-        resBuilder.setStatus(HealStatus.SUCCESS);
+        resBuilder.setStatus(HealStatus.USER_NOT_ENOUGH_VAULT);
       }
-    } else {
-      resBuilder.setStatus(HealStatus.USER_NOT_ENOUGH_VAULT);
+      
+      ClericHealResponseProto resProto = resBuilder.build();
+      
+      ClericHealResponseEvent resEvent = new ClericHealResponseEvent(senderProto.getUserId());
+      resEvent.setClericHealResponseProto(resProto);
+          
+      server.writeEvent(resEvent);
+      
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      server.writeEvent(resEventUpdate);
+    } catch (Exception e) {
+      log.error("exception in ClericHealController processEvent", e);
+    } finally {
+      server.unlockPlayer(senderProto.getUserId());      
     }
-    
-    ClericHealResponseProto resProto = resBuilder.build();
-    
-    ClericHealResponseEvent resEvent = new ClericHealResponseEvent(senderProto.getUserId());
-    resEvent.setClericHealResponseProto(resProto);
-        
-    server.writeEvent(resEvent);
-    
-    UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-    server.writeEvent(resEventUpdate);
-
-    server.unlockPlayer(senderProto.getUserId());
-
-
   }
 
   private int calculateClericCost(User user) {
