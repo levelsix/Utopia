@@ -126,6 +126,8 @@ public class SelectAndRead extends Thread{
     }
     catch (Exception e) {
       log.error("exception during select()", e);
+      e.printStackTrace();
+      while (true);
     }
   }
 
