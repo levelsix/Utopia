@@ -47,6 +47,7 @@ public class GameServer extends Thread{
 
   private Hashtable<Integer, ConnectedPlayer> playersByPlayerId;
   private Hashtable<SocketChannel, Integer> channelToPlayerId;
+  private Hashtable<String, SocketChannel> udidToChannel;
 
   private EventWriter eventWriter;
 
@@ -75,6 +76,8 @@ public class GameServer extends Thread{
       playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
     if (channelToPlayerId == null)
       channelToPlayerId = new Hashtable<SocketChannel, Integer>();
+    if (udidToChannel == null)
+      udidToChannel = new Hashtable<String, SocketChannel>();
     this.serverIP = serverIP;
     this.portNum = portNum;
   }
@@ -293,6 +296,11 @@ public class GameServer extends Thread{
     }
   }
 
+  public void addPreDbPlayer(String udid, SocketChannel channel) {
+    udidToChannel.put(udid, channel);
+  }
   
-  
+  public SocketChannel removePreDbPlayer(String udid) {
+    return udidToChannel.remove(udid);
+  }
 }
