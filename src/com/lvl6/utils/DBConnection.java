@@ -30,8 +30,6 @@ public class DBConnection {
   private static String server = DBProperties.SERVER;
   private static String database = DBProperties.DATABASE;
 
-  private static Connection conn;
-
   public static void init() {
     log = Logger.getLogger(DBConnection.class);
     availableConnections = new LinkedBlockingQueue<Connection>();
@@ -43,7 +41,7 @@ public class DBConnection {
         connectionProps.put("user", user);
         connectionProps.put("password",password);
         connectionProps.put("useAffectedRows", "true");
-        conn = DriverManager.getConnection("jdbc:mysql://" + server, connectionProps);
+        Connection conn = DriverManager.getConnection("jdbc:mysql://" + server, connectionProps);
         conn.createStatement().executeQuery("USE " + database);
         availableConnections.put(conn);
         log.info("connection added");
@@ -119,6 +117,7 @@ public class DBConnection {
       }
       query += StringUtils.getListInString(condClauses, condDelim);
     }
+
 
     try {
       Connection conn = availableConnections.take();
