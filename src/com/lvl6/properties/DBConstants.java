@@ -12,6 +12,7 @@ public class DBConstants {
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
   public static final String TABLE_CITIES = "cities";
   public static final String TABLE_IAP_HISTORY = "iap_history";
+  public static final String TABLE_MARKETPLACE = "marketplace";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -77,6 +78,10 @@ public class DBConstants {
   public static final String IAP_HISTORY__BID = "bid";
   public static final String IAP_HISTORY__BVRS = "bvrs";
   public static final String IAP_HISTORY__APP_ITEM_ID = "app_item_id";
+  
+  /*MARKETPLACE TABLE*/
+  public static final String MARKETPLACE__ID = GENERIC__ID;
+  public static final String MARKETPLACE__IS_ACTIVE = "is_active";
 
 
 }

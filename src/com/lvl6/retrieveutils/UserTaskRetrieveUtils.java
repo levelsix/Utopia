@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -20,8 +19,6 @@ public class UserTaskRetrieveUtils {
   
   public static Map<Integer, Integer> getTaskIdToNumTimesActedInRankForUser(int userId) {
     log.info("retrieving user task info for userId " + userId);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_TASK__USER_ID, userId);
     return convertRSToTaskIdToNumTimesCompletedMap(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
   

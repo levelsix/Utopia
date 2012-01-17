@@ -70,7 +70,6 @@ public class VaultController extends EventController {
 
       server.writeEvent(resEvent);
 
-
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       server.writeEvent(resEventUpdate);
     } catch (Exception e) {

@@ -114,3 +114,28 @@ message LocationProto {
 	required float latitude = 1;
 	required float longitude = 2;
 }
+
+//------------------------------------------------------------------------------------------
+
+message FullMarketplacePostProto {
+	required int32 id = 1;
+	required int32 posterId = 2;
+	required MarketplacePostType postType = 3;
+	required bool isActive = 4;
+	required int64 timeOfPost = 5;
+	optional int32 postedEquipId = 6;
+	optional int32 postedEquipQuantity = 7;
+	optional int32 postedWood = 8;
+	optional int32 postedDiamonds = 9;
+	optional int32 postedCoins = 10;
+	optional int32 diamondCost = 11;
+	optional int32 coinCost = 12;
+	optional int32 woodCost = 13;
+	
+	enum MarketplacePostType {
+		EQUIP_POST = 0;
+		WOOD_POST = 1;
+		DIAMOND_POST = 2;
+		COIN_POST = 3;
+	}
+}

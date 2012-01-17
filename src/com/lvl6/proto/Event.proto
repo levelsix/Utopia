@@ -308,3 +308,13 @@ message UpdateClientUserResponseProto {
      required int64 timeOfUserUpdate = 2;				//new Date().getTime(); milliseconds since 1/1/70
 }
 
+//------------------------------------------------------------------------------------------
+
+message RetrieveCurrentMarketplacePostsRequestProto {
+	required MinimumUserProto sender = 1;
+}
+
+message RetrieveCurrentMarketplacePostsResponseProto {
+     required MinimumUserProto sender = 1;
+     repeated FullMarketplacePostProto marketplacePosts = 2;
+}

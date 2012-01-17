@@ -21,6 +21,7 @@ public final class ProtocolsProto {
     C_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT(8, 8),
     C_ARMORY_EVENT(9, 9),
     C_IN_APP_PURCHASE_EVENT(10, 10),
+    C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT(11, 11),
     ;
     
     public static final int C_CHAT_EVENT_VALUE = 0;
@@ -34,6 +35,7 @@ public final class ProtocolsProto {
     public static final int C_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT_VALUE = 8;
     public static final int C_ARMORY_EVENT_VALUE = 9;
     public static final int C_IN_APP_PURCHASE_EVENT_VALUE = 10;
+    public static final int C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT_VALUE = 11;
     
     
     public final int getNumber() { return value; }
@@ -51,6 +53,7 @@ public final class ProtocolsProto {
         case 8: return C_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT;
         case 9: return C_ARMORY_EVENT;
         case 10: return C_IN_APP_PURCHASE_EVENT;
+        case 11: return C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT;
         default: return null;
       }
     }
@@ -81,7 +84,7 @@ public final class ProtocolsProto {
     }
     
     private static final EventProtocolRequest[] VALUES = {
-      C_CHAT_EVENT, C_BATTLE_EVENT, C_VAULT_EVENT, C_TASK_ACTION_EVENT, C_CLERIC_HEAL_EVENT, C_STARTUP_EVENT, C_RETRIEVE_TASKS_FOR_CITY_EVENT, C_RETRIEVE_QUESTS_FOR_CITY_EVENT, C_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT, C_ARMORY_EVENT, C_IN_APP_PURCHASE_EVENT, 
+      C_CHAT_EVENT, C_BATTLE_EVENT, C_VAULT_EVENT, C_TASK_ACTION_EVENT, C_CLERIC_HEAL_EVENT, C_STARTUP_EVENT, C_RETRIEVE_TASKS_FOR_CITY_EVENT, C_RETRIEVE_QUESTS_FOR_CITY_EVENT, C_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT, C_ARMORY_EVENT, C_IN_APP_PURCHASE_EVENT, C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT, 
     };
     
     public static EventProtocolRequest valueOf(
@@ -117,8 +120,9 @@ public final class ProtocolsProto {
     S_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT(8, 8),
     S_ARMORY_EVENT(9, 9),
     S_IN_APP_PURCHASE_EVENT(10, 10),
-    S_LEVEL_UP_EVENT(11, 11),
-    S_UPDATE_CLIENT_USER_EVENT(12, 12),
+    S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT(11, 11),
+    S_LEVEL_UP_EVENT(12, 19),
+    S_UPDATE_CLIENT_USER_EVENT(13, 20),
     ;
     
     public static final int S_CHAT_EVENT_VALUE = 0;
@@ -132,8 +136,9 @@ public final class ProtocolsProto {
     public static final int S_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT_VALUE = 8;
     public static final int S_ARMORY_EVENT_VALUE = 9;
     public static final int S_IN_APP_PURCHASE_EVENT_VALUE = 10;
-    public static final int S_LEVEL_UP_EVENT_VALUE = 11;
-    public static final int S_UPDATE_CLIENT_USER_EVENT_VALUE = 12;
+    public static final int S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT_VALUE = 11;
+    public static final int S_LEVEL_UP_EVENT_VALUE = 19;
+    public static final int S_UPDATE_CLIENT_USER_EVENT_VALUE = 20;
     
     
     public final int getNumber() { return value; }
@@ -151,8 +156,9 @@ public final class ProtocolsProto {
         case 8: return S_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT;
         case 9: return S_ARMORY_EVENT;
         case 10: return S_IN_APP_PURCHASE_EVENT;
-        case 11: return S_LEVEL_UP_EVENT;
-        case 12: return S_UPDATE_CLIENT_USER_EVENT;
+        case 11: return S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT;
+        case 19: return S_LEVEL_UP_EVENT;
+        case 20: return S_UPDATE_CLIENT_USER_EVENT;
         default: return null;
       }
     }
@@ -183,7 +189,7 @@ public final class ProtocolsProto {
     }
     
     private static final EventProtocolResponse[] VALUES = {
-      S_CHAT_EVENT, S_BATTLE_EVENT, S_VAULT_EVENT, S_TASK_ACTION_EVENT, S_CLERIC_HEAL_EVENT, S_STARTUP_EVENT, S_RETRIEVE_TASKS_FOR_CITY_EVENT, S_RETRIEVE_QUESTS_FOR_CITY_EVENT, S_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT, S_ARMORY_EVENT, S_IN_APP_PURCHASE_EVENT, S_LEVEL_UP_EVENT, S_UPDATE_CLIENT_USER_EVENT, 
+      S_CHAT_EVENT, S_BATTLE_EVENT, S_VAULT_EVENT, S_TASK_ACTION_EVENT, S_CLERIC_HEAL_EVENT, S_STARTUP_EVENT, S_RETRIEVE_TASKS_FOR_CITY_EVENT, S_RETRIEVE_QUESTS_FOR_CITY_EVENT, S_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT, S_ARMORY_EVENT, S_IN_APP_PURCHASE_EVENT, S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT, S_LEVEL_UP_EVENT, S_UPDATE_CLIENT_USER_EVENT, 
     };
     
     public static EventProtocolResponse valueOf(
@@ -216,7 +222,7 @@ public final class ProtocolsProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\017Protocols.proto\022\016com.lvl6.proto\032\013Event" +
-      ".proto*\272\002\n\024EventProtocolRequest\022\020\n\014C_CHA" +
+      ".proto*\352\002\n\024EventProtocolRequest\022\020\n\014C_CHA" +
       "T_EVENT\020\000\022\022\n\016C_BATTLE_EVENT\020\001\022\021\n\rC_VAULT" +
       "_EVENT\020\002\022\027\n\023C_TASK_ACTION_EVENT\020\003\022\027\n\023C_C" +
       "LERIC_HEAL_EVENT\020\004\022\023\n\017C_STARTUP_EVENT\020\005\022" +
@@ -224,16 +230,19 @@ public final class ProtocolsProto {
       "C_RETRIEVE_QUESTS_FOR_CITY_EVENT\020\007\022&\n\"C_" +
       "RETRIEVE_EQUIPS_FOR_ARMORY_EVENT\020\010\022\022\n\016C_" +
       "ARMORY_EVENT\020\t\022\033\n\027C_IN_APP_PURCHASE_EVEN" +
-      "T\020\n*\361\002\n\025EventProtocolResponse\022\020\n\014S_CHAT_",
-      "EVENT\020\000\022\022\n\016S_BATTLE_EVENT\020\001\022\021\n\rS_VAULT_E" +
-      "VENT\020\002\022\027\n\023S_TASK_ACTION_EVENT\020\003\022\027\n\023S_CLE" +
-      "RIC_HEAL_EVENT\020\004\022\023\n\017S_STARTUP_EVENT\020\005\022#\n" +
-      "\037S_RETRIEVE_TASKS_FOR_CITY_EVENT\020\006\022$\n S_" +
-      "RETRIEVE_QUESTS_FOR_CITY_EVENT\020\007\022&\n\"S_RE" +
-      "TRIEVE_EQUIPS_FOR_ARMORY_EVENT\020\010\022\022\n\016S_AR" +
-      "MORY_EVENT\020\t\022\033\n\027S_IN_APP_PURCHASE_EVENT\020" +
-      "\n\022\024\n\020S_LEVEL_UP_EVENT\020\013\022\036\n\032S_UPDATE_CLIE" +
-      "NT_USER_EVENT\020\014B\020B\016ProtocolsProto"
+      "T\020\n\022.\n*C_RETRIEVE_CURRENT_MARKETPLACE_PO",
+      "STS_EVENT\020\013*\241\003\n\025EventProtocolResponse\022\020\n" +
+      "\014S_CHAT_EVENT\020\000\022\022\n\016S_BATTLE_EVENT\020\001\022\021\n\rS" +
+      "_VAULT_EVENT\020\002\022\027\n\023S_TASK_ACTION_EVENT\020\003\022" +
+      "\027\n\023S_CLERIC_HEAL_EVENT\020\004\022\023\n\017S_STARTUP_EV" +
+      "ENT\020\005\022#\n\037S_RETRIEVE_TASKS_FOR_CITY_EVENT" +
+      "\020\006\022$\n S_RETRIEVE_QUESTS_FOR_CITY_EVENT\020\007" +
+      "\022&\n\"S_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT\020\010" +
+      "\022\022\n\016S_ARMORY_EVENT\020\t\022\033\n\027S_IN_APP_PURCHAS" +
+      "E_EVENT\020\n\022.\n*S_RETRIEVE_CURRENT_MARKETPL" +
+      "ACE_POSTS_EVENT\020\013\022\024\n\020S_LEVEL_UP_EVENT\020\023\022",
+      "\036\n\032S_UPDATE_CLIENT_USER_EVENT\020\024B\020B\016Proto" +
+      "colsProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
