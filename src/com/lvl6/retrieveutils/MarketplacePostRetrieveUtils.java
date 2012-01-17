@@ -24,7 +24,7 @@ public class MarketplacePostRetrieveUtils {
     log.info("retrieving current marketplace posts");
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.MARKETPLACE__IS_ACTIVE, true);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAnd(paramsToVals, TABLE_NAME));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAndOrderByDesc(paramsToVals, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST));
   }
 
   private static List<MarketplacePost> convertRSToMarketplacePosts(ResultSet rs) {

@@ -82,6 +82,7 @@ public class DBConstants {
   /*MARKETPLACE TABLE*/
   public static final String MARKETPLACE__ID = GENERIC__ID;
   public static final String MARKETPLACE__IS_ACTIVE = "is_active";
+  public static final String MARKETPLACE__TIME_OF_POST = "time_of_post";
 
 
 }
