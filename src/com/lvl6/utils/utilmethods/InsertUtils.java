@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
+import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
 
 public class InsertUtils {
@@ -26,10 +27,10 @@ public class InsertUtils {
       insertParams.put(DBConstants.IAP_HISTORY__QUANTITY, appleReceipt.getString(IAPValues.QUANTITY));
       insertParams.put(DBConstants.IAP_HISTORY__BID, appleReceipt.getString(IAPValues.BID));
       insertParams.put(DBConstants.IAP_HISTORY__BVRS, appleReceipt.getString(IAPValues.BVRS));
-      
-      // TODO: enable this for non-sandbox
-//      insertParams.put(DBConstants.IAP_HISTORY__APP_ITEM_ID, appleReceipt.getString(IAPValues.APP_ITEM_ID));
 
+      if (appleReceipt.getString(IAPValues.APP_ITEM_ID) != null) {
+        insertParams.put(DBConstants.IAP_HISTORY__APP_ITEM_ID, appleReceipt.getString(IAPValues.APP_ITEM_ID));
+      }
     } catch (JSONException e) {
       e.printStackTrace();
       return false;
@@ -38,6 +39,45 @@ public class InsertUtils {
     if (numInserted == 1) {
       return true;
     }
+    return false;
+  }
+
+  public static boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
+      int postedEquipId, int postedEquipQuantity, int postedWood, 
+      int postedDiamonds, int postedCoins, int diamondCost, int coinCost, int woodCost) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
+    insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType);
+    insertParams.put(DBConstants.MARKETPLACE__IS_ACTIVE, true);
+    if (postType == MarketplacePostType.EQUIP_POST) {
+      insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
+      insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_QUANTITY, postedEquipQuantity);
+    }
+    if (postType == MarketplacePostType.WOOD_POST) {
+      insertParams.put(DBConstants.MARKETPLACE__POSTED_WOOD, postedWood);
+    }
+    if (postType == MarketplacePostType.DIAMOND_POST) {
+      insertParams.put(DBConstants.MARKETPLACE__POSTED_DIAMONDS, postedDiamonds);
+    }
+    if (postType == MarketplacePostType.COIN_POST) {
+      insertParams.put(DBConstants.MARKETPLACE__POSTED_COINS, postedCoins);
+    }
+    if (diamondCost > 0){
+      insertParams.put(DBConstants.MARKETPLACE__DIAMOND_COST, diamondCost);
+    }
+    if (coinCost > 0) {
+      insertParams.put(DBConstants.MARKETPLACE__COIN_COST, coinCost);
+    }
+    if (woodCost > 0) {
+      insertParams.put(DBConstants.MARKETPLACE__WOOD_COST, woodCost);
+    }
+    
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+
     return false;
   }
 }

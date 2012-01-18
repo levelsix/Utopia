@@ -2,7 +2,7 @@ package com.lvl6.info;
 
 import java.util.Date;
 
-import com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType;
+import com.lvl6.proto.InfoProto.MarketplacePostType;
 
 public class MarketplacePost {
   

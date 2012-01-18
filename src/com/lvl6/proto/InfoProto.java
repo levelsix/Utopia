@@ -89,6 +89,81 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.UserType)
   }
   
+  public enum MarketplacePostType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    EQUIP_POST(0, 0),
+    WOOD_POST(1, 1),
+    DIAMOND_POST(2, 2),
+    COIN_POST(3, 3),
+    ;
+    
+    public static final int EQUIP_POST_VALUE = 0;
+    public static final int WOOD_POST_VALUE = 1;
+    public static final int DIAMOND_POST_VALUE = 2;
+    public static final int COIN_POST_VALUE = 3;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static MarketplacePostType valueOf(int value) {
+      switch (value) {
+        case 0: return EQUIP_POST;
+        case 1: return WOOD_POST;
+        case 2: return DIAMOND_POST;
+        case 3: return COIN_POST;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<MarketplacePostType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<MarketplacePostType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<MarketplacePostType>() {
+            public MarketplacePostType findValueByNumber(int number) {
+              return MarketplacePostType.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(1);
+    }
+    
+    private static final MarketplacePostType[] VALUES = {
+      EQUIP_POST, WOOD_POST, DIAMOND_POST, COIN_POST, 
+    };
+    
+    public static MarketplacePostType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private MarketplacePostType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MarketplacePostType)
+  }
+  
   public interface MinimumUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -658,43 +733,47 @@ public final class InfoProto {
     boolean hasCoins();
     int getCoins();
     
-    // required int32 vaultBalance = 16;
+    // required int32 wood = 16;
+    boolean hasWood();
+    int getWood();
+    
+    // required int32 vaultBalance = 17;
     boolean hasVaultBalance();
     int getVaultBalance();
     
-    // required int32 experience = 17;
+    // required int32 experience = 18;
     boolean hasExperience();
     int getExperience();
     
-    // required int32 tasksCompleted = 18;
+    // required int32 tasksCompleted = 19;
     boolean hasTasksCompleted();
     int getTasksCompleted();
     
-    // required int32 battlesWon = 19;
+    // required int32 battlesWon = 20;
     boolean hasBattlesWon();
     int getBattlesWon();
     
-    // required int32 battlesLost = 20;
+    // required int32 battlesLost = 21;
     boolean hasBattlesLost();
     int getBattlesLost();
     
-    // required int32 hourlyCoins = 21;
+    // required int32 hourlyCoins = 22;
     boolean hasHourlyCoins();
     int getHourlyCoins();
     
-    // required string armyCode = 22;
+    // required string armyCode = 23;
     boolean hasArmyCode();
     String getArmyCode();
     
-    // required int32 numReferrals = 23;
+    // required int32 numReferrals = 24;
     boolean hasNumReferrals();
     int getNumReferrals();
     
-    // required string udid = 24;
+    // required string udid = 25;
     boolean hasUdid();
     String getUdid();
     
-    // required .com.lvl6.proto.LocationProto userLocation = 25;
+    // required .com.lvl6.proto.LocationProto userLocation = 26;
     boolean hasUserLocation();
     com.lvl6.proto.InfoProto.LocationProto getUserLocation();
     com.lvl6.proto.InfoProto.LocationProtoOrBuilder getUserLocationOrBuilder();
@@ -900,71 +979,81 @@ public final class InfoProto {
       return coins_;
     }
     
-    // required int32 vaultBalance = 16;
-    public static final int VAULTBALANCE_FIELD_NUMBER = 16;
+    // required int32 wood = 16;
+    public static final int WOOD_FIELD_NUMBER = 16;
+    private int wood_;
+    public boolean hasWood() {
+      return ((bitField0_ & 0x00008000) == 0x00008000);
+    }
+    public int getWood() {
+      return wood_;
+    }
+    
+    // required int32 vaultBalance = 17;
+    public static final int VAULTBALANCE_FIELD_NUMBER = 17;
     private int vaultBalance_;
     public boolean hasVaultBalance() {
-      return ((bitField0_ & 0x00008000) == 0x00008000);
+      return ((bitField0_ & 0x00010000) == 0x00010000);
     }
     public int getVaultBalance() {
       return vaultBalance_;
     }
     
-    // required int32 experience = 17;
-    public static final int EXPERIENCE_FIELD_NUMBER = 17;
+    // required int32 experience = 18;
+    public static final int EXPERIENCE_FIELD_NUMBER = 18;
     private int experience_;
     public boolean hasExperience() {
-      return ((bitField0_ & 0x00010000) == 0x00010000);
+      return ((bitField0_ & 0x00020000) == 0x00020000);
     }
     public int getExperience() {
       return experience_;
     }
     
-    // required int32 tasksCompleted = 18;
-    public static final int TASKSCOMPLETED_FIELD_NUMBER = 18;
+    // required int32 tasksCompleted = 19;
+    public static final int TASKSCOMPLETED_FIELD_NUMBER = 19;
     private int tasksCompleted_;
     public boolean hasTasksCompleted() {
-      return ((bitField0_ & 0x00020000) == 0x00020000);
+      return ((bitField0_ & 0x00040000) == 0x00040000);
     }
     public int getTasksCompleted() {
       return tasksCompleted_;
     }
     
-    // required int32 battlesWon = 19;
-    public static final int BATTLESWON_FIELD_NUMBER = 19;
+    // required int32 battlesWon = 20;
+    public static final int BATTLESWON_FIELD_NUMBER = 20;
     private int battlesWon_;
     public boolean hasBattlesWon() {
-      return ((bitField0_ & 0x00040000) == 0x00040000);
+      return ((bitField0_ & 0x00080000) == 0x00080000);
     }
     public int getBattlesWon() {
       return battlesWon_;
     }
     
-    // required int32 battlesLost = 20;
-    public static final int BATTLESLOST_FIELD_NUMBER = 20;
+    // required int32 battlesLost = 21;
+    public static final int BATTLESLOST_FIELD_NUMBER = 21;
     private int battlesLost_;
     public boolean hasBattlesLost() {
-      return ((bitField0_ & 0x00080000) == 0x00080000);
+      return ((bitField0_ & 0x00100000) == 0x00100000);
     }
     public int getBattlesLost() {
       return battlesLost_;
     }
     
-    // required int32 hourlyCoins = 21;
-    public static final int HOURLYCOINS_FIELD_NUMBER = 21;
+    // required int32 hourlyCoins = 22;
+    public static final int HOURLYCOINS_FIELD_NUMBER = 22;
     private int hourlyCoins_;
     public boolean hasHourlyCoins() {
-      return ((bitField0_ & 0x00100000) == 0x00100000);
+      return ((bitField0_ & 0x00200000) == 0x00200000);
     }
     public int getHourlyCoins() {
       return hourlyCoins_;
     }
     
-    // required string armyCode = 22;
-    public static final int ARMYCODE_FIELD_NUMBER = 22;
+    // required string armyCode = 23;
+    public static final int ARMYCODE_FIELD_NUMBER = 23;
     private java.lang.Object armyCode_;
     public boolean hasArmyCode() {
-      return ((bitField0_ & 0x00200000) == 0x00200000);
+      return ((bitField0_ & 0x00400000) == 0x00400000);
     }
     public String getArmyCode() {
       java.lang.Object ref = armyCode_;
@@ -992,21 +1081,21 @@ public final class InfoProto {
       }
     }
     
-    // required int32 numReferrals = 23;
-    public static final int NUMREFERRALS_FIELD_NUMBER = 23;
+    // required int32 numReferrals = 24;
+    public static final int NUMREFERRALS_FIELD_NUMBER = 24;
     private int numReferrals_;
     public boolean hasNumReferrals() {
-      return ((bitField0_ & 0x00400000) == 0x00400000);
+      return ((bitField0_ & 0x00800000) == 0x00800000);
     }
     public int getNumReferrals() {
       return numReferrals_;
     }
     
-    // required string udid = 24;
-    public static final int UDID_FIELD_NUMBER = 24;
+    // required string udid = 25;
+    public static final int UDID_FIELD_NUMBER = 25;
     private java.lang.Object udid_;
     public boolean hasUdid() {
-      return ((bitField0_ & 0x00800000) == 0x00800000);
+      return ((bitField0_ & 0x01000000) == 0x01000000);
     }
     public String getUdid() {
       java.lang.Object ref = udid_;
@@ -1034,11 +1123,11 @@ public final class InfoProto {
       }
     }
     
-    // required .com.lvl6.proto.LocationProto userLocation = 25;
-    public static final int USERLOCATION_FIELD_NUMBER = 25;
+    // required .com.lvl6.proto.LocationProto userLocation = 26;
+    public static final int USERLOCATION_FIELD_NUMBER = 26;
     private com.lvl6.proto.InfoProto.LocationProto userLocation_;
     public boolean hasUserLocation() {
-      return ((bitField0_ & 0x01000000) == 0x01000000);
+      return ((bitField0_ & 0x02000000) == 0x02000000);
     }
     public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
       return userLocation_;
@@ -1063,6 +1152,7 @@ public final class InfoProto {
       staminaMax_ = 0;
       diamonds_ = 0;
       coins_ = 0;
+      wood_ = 0;
       vaultBalance_ = 0;
       experience_ = 0;
       tasksCompleted_ = 0;
@@ -1136,6 +1226,10 @@ public final class InfoProto {
         return false;
       }
       if (!hasCoins()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasWood()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1236,34 +1330,37 @@ public final class InfoProto {
         output.writeInt32(15, coins_);
       }
       if (((bitField0_ & 0x00008000) == 0x00008000)) {
-        output.writeInt32(16, vaultBalance_);
+        output.writeInt32(16, wood_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
-        output.writeInt32(17, experience_);
+        output.writeInt32(17, vaultBalance_);
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
-        output.writeInt32(18, tasksCompleted_);
+        output.writeInt32(18, experience_);
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
-        output.writeInt32(19, battlesWon_);
+        output.writeInt32(19, tasksCompleted_);
       }
       if (((bitField0_ & 0x00080000) == 0x00080000)) {
-        output.writeInt32(20, battlesLost_);
+        output.writeInt32(20, battlesWon_);
       }
       if (((bitField0_ & 0x00100000) == 0x00100000)) {
-        output.writeInt32(21, hourlyCoins_);
+        output.writeInt32(21, battlesLost_);
       }
       if (((bitField0_ & 0x00200000) == 0x00200000)) {
-        output.writeBytes(22, getArmyCodeBytes());
+        output.writeInt32(22, hourlyCoins_);
       }
       if (((bitField0_ & 0x00400000) == 0x00400000)) {
-        output.writeInt32(23, numReferrals_);
+        output.writeBytes(23, getArmyCodeBytes());
       }
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
-        output.writeBytes(24, getUdidBytes());
+        output.writeInt32(24, numReferrals_);
       }
       if (((bitField0_ & 0x01000000) == 0x01000000)) {
-        output.writeMessage(25, userLocation_);
+        output.writeBytes(25, getUdidBytes());
+      }
+      if (((bitField0_ & 0x02000000) == 0x02000000)) {
+        output.writeMessage(26, userLocation_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1336,43 +1433,47 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00008000) == 0x00008000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(16, vaultBalance_);
+          .computeInt32Size(16, wood_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(17, experience_);
+          .computeInt32Size(17, vaultBalance_);
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(18, tasksCompleted_);
+          .computeInt32Size(18, experience_);
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(19, battlesWon_);
+          .computeInt32Size(19, tasksCompleted_);
       }
       if (((bitField0_ & 0x00080000) == 0x00080000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(20, battlesLost_);
+          .computeInt32Size(20, battlesWon_);
       }
       if (((bitField0_ & 0x00100000) == 0x00100000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(21, hourlyCoins_);
+          .computeInt32Size(21, battlesLost_);
       }
       if (((bitField0_ & 0x00200000) == 0x00200000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(22, getArmyCodeBytes());
+          .computeInt32Size(22, hourlyCoins_);
       }
       if (((bitField0_ & 0x00400000) == 0x00400000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(23, numReferrals_);
+          .computeBytesSize(23, getArmyCodeBytes());
       }
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(24, getUdidBytes());
+          .computeInt32Size(24, numReferrals_);
       }
       if (((bitField0_ & 0x01000000) == 0x01000000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(25, userLocation_);
+          .computeBytesSize(25, getUdidBytes());
+      }
+      if (((bitField0_ & 0x02000000) == 0x02000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(26, userLocation_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1529,30 +1630,32 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00002000);
         coins_ = 0;
         bitField0_ = (bitField0_ & ~0x00004000);
-        vaultBalance_ = 0;
+        wood_ = 0;
         bitField0_ = (bitField0_ & ~0x00008000);
-        experience_ = 0;
+        vaultBalance_ = 0;
         bitField0_ = (bitField0_ & ~0x00010000);
-        tasksCompleted_ = 0;
+        experience_ = 0;
         bitField0_ = (bitField0_ & ~0x00020000);
-        battlesWon_ = 0;
+        tasksCompleted_ = 0;
         bitField0_ = (bitField0_ & ~0x00040000);
-        battlesLost_ = 0;
+        battlesWon_ = 0;
         bitField0_ = (bitField0_ & ~0x00080000);
-        hourlyCoins_ = 0;
+        battlesLost_ = 0;
         bitField0_ = (bitField0_ & ~0x00100000);
-        armyCode_ = "";
+        hourlyCoins_ = 0;
         bitField0_ = (bitField0_ & ~0x00200000);
-        numReferrals_ = 0;
+        armyCode_ = "";
         bitField0_ = (bitField0_ & ~0x00400000);
-        udid_ = "";
+        numReferrals_ = 0;
         bitField0_ = (bitField0_ & ~0x00800000);
+        udid_ = "";
+        bitField0_ = (bitField0_ & ~0x01000000);
         if (userLocationBuilder_ == null) {
           userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x01000000);
+        bitField0_ = (bitField0_ & ~0x02000000);
         return this;
       }
       
@@ -1654,41 +1757,45 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
           to_bitField0_ |= 0x00008000;
         }
-        result.vaultBalance_ = vaultBalance_;
+        result.wood_ = wood_;
         if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
           to_bitField0_ |= 0x00010000;
         }
-        result.experience_ = experience_;
+        result.vaultBalance_ = vaultBalance_;
         if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
           to_bitField0_ |= 0x00020000;
         }
-        result.tasksCompleted_ = tasksCompleted_;
+        result.experience_ = experience_;
         if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
           to_bitField0_ |= 0x00040000;
         }
-        result.battlesWon_ = battlesWon_;
+        result.tasksCompleted_ = tasksCompleted_;
         if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
           to_bitField0_ |= 0x00080000;
         }
-        result.battlesLost_ = battlesLost_;
+        result.battlesWon_ = battlesWon_;
         if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
           to_bitField0_ |= 0x00100000;
         }
-        result.hourlyCoins_ = hourlyCoins_;
+        result.battlesLost_ = battlesLost_;
         if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
           to_bitField0_ |= 0x00200000;
         }
-        result.armyCode_ = armyCode_;
+        result.hourlyCoins_ = hourlyCoins_;
         if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
           to_bitField0_ |= 0x00400000;
         }
-        result.numReferrals_ = numReferrals_;
+        result.armyCode_ = armyCode_;
         if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
           to_bitField0_ |= 0x00800000;
         }
-        result.udid_ = udid_;
+        result.numReferrals_ = numReferrals_;
         if (((from_bitField0_ & 0x01000000) == 0x01000000)) {
           to_bitField0_ |= 0x01000000;
+        }
+        result.udid_ = udid_;
+        if (((from_bitField0_ & 0x02000000) == 0x02000000)) {
+          to_bitField0_ |= 0x02000000;
         }
         if (userLocationBuilder_ == null) {
           result.userLocation_ = userLocation_;
@@ -1755,6 +1862,9 @@ public final class InfoProto {
         }
         if (other.hasCoins()) {
           setCoins(other.getCoins());
+        }
+        if (other.hasWood()) {
+          setWood(other.getWood());
         }
         if (other.hasVaultBalance()) {
           setVaultBalance(other.getVaultBalance());
@@ -1848,6 +1958,10 @@ public final class InfoProto {
           return false;
         }
         if (!hasCoins()) {
+          
+          return false;
+        }
+        if (!hasWood()) {
           
           return false;
         }
@@ -2004,50 +2118,55 @@ public final class InfoProto {
             }
             case 128: {
               bitField0_ |= 0x00008000;
-              vaultBalance_ = input.readInt32();
+              wood_ = input.readInt32();
               break;
             }
             case 136: {
               bitField0_ |= 0x00010000;
-              experience_ = input.readInt32();
+              vaultBalance_ = input.readInt32();
               break;
             }
             case 144: {
               bitField0_ |= 0x00020000;
-              tasksCompleted_ = input.readInt32();
+              experience_ = input.readInt32();
               break;
             }
             case 152: {
               bitField0_ |= 0x00040000;
-              battlesWon_ = input.readInt32();
+              tasksCompleted_ = input.readInt32();
               break;
             }
             case 160: {
               bitField0_ |= 0x00080000;
-              battlesLost_ = input.readInt32();
+              battlesWon_ = input.readInt32();
               break;
             }
             case 168: {
               bitField0_ |= 0x00100000;
+              battlesLost_ = input.readInt32();
+              break;
+            }
+            case 176: {
+              bitField0_ |= 0x00200000;
               hourlyCoins_ = input.readInt32();
               break;
             }
-            case 178: {
-              bitField0_ |= 0x00200000;
+            case 186: {
+              bitField0_ |= 0x00400000;
               armyCode_ = input.readBytes();
               break;
             }
-            case 184: {
-              bitField0_ |= 0x00400000;
+            case 192: {
+              bitField0_ |= 0x00800000;
               numReferrals_ = input.readInt32();
               break;
             }
-            case 194: {
-              bitField0_ |= 0x00800000;
+            case 202: {
+              bitField0_ |= 0x01000000;
               udid_ = input.readBytes();
               break;
             }
-            case 202: {
+            case 210: {
               com.lvl6.proto.InfoProto.LocationProto.Builder subBuilder = com.lvl6.proto.InfoProto.LocationProto.newBuilder();
               if (hasUserLocation()) {
                 subBuilder.mergeFrom(getUserLocation());
@@ -2395,136 +2514,157 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 vaultBalance = 16;
+      // required int32 wood = 16;
+      private int wood_ ;
+      public boolean hasWood() {
+        return ((bitField0_ & 0x00008000) == 0x00008000);
+      }
+      public int getWood() {
+        return wood_;
+      }
+      public Builder setWood(int value) {
+        bitField0_ |= 0x00008000;
+        wood_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWood() {
+        bitField0_ = (bitField0_ & ~0x00008000);
+        wood_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 vaultBalance = 17;
       private int vaultBalance_ ;
       public boolean hasVaultBalance() {
-        return ((bitField0_ & 0x00008000) == 0x00008000);
+        return ((bitField0_ & 0x00010000) == 0x00010000);
       }
       public int getVaultBalance() {
         return vaultBalance_;
       }
       public Builder setVaultBalance(int value) {
-        bitField0_ |= 0x00008000;
+        bitField0_ |= 0x00010000;
         vaultBalance_ = value;
         onChanged();
         return this;
       }
       public Builder clearVaultBalance() {
-        bitField0_ = (bitField0_ & ~0x00008000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         vaultBalance_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 experience = 17;
+      // required int32 experience = 18;
       private int experience_ ;
       public boolean hasExperience() {
-        return ((bitField0_ & 0x00010000) == 0x00010000);
+        return ((bitField0_ & 0x00020000) == 0x00020000);
       }
       public int getExperience() {
         return experience_;
       }
       public Builder setExperience(int value) {
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00020000;
         experience_ = value;
         onChanged();
         return this;
       }
       public Builder clearExperience() {
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00020000);
         experience_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 tasksCompleted = 18;
+      // required int32 tasksCompleted = 19;
       private int tasksCompleted_ ;
       public boolean hasTasksCompleted() {
-        return ((bitField0_ & 0x00020000) == 0x00020000);
+        return ((bitField0_ & 0x00040000) == 0x00040000);
       }
       public int getTasksCompleted() {
         return tasksCompleted_;
       }
       public Builder setTasksCompleted(int value) {
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00040000;
         tasksCompleted_ = value;
         onChanged();
         return this;
       }
       public Builder clearTasksCompleted() {
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00040000);
         tasksCompleted_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 battlesWon = 19;
+      // required int32 battlesWon = 20;
       private int battlesWon_ ;
       public boolean hasBattlesWon() {
-        return ((bitField0_ & 0x00040000) == 0x00040000);
+        return ((bitField0_ & 0x00080000) == 0x00080000);
       }
       public int getBattlesWon() {
         return battlesWon_;
       }
       public Builder setBattlesWon(int value) {
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00080000;
         battlesWon_ = value;
         onChanged();
         return this;
       }
       public Builder clearBattlesWon() {
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00080000);
         battlesWon_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 battlesLost = 20;
+      // required int32 battlesLost = 21;
       private int battlesLost_ ;
       public boolean hasBattlesLost() {
-        return ((bitField0_ & 0x00080000) == 0x00080000);
+        return ((bitField0_ & 0x00100000) == 0x00100000);
       }
       public int getBattlesLost() {
         return battlesLost_;
       }
       public Builder setBattlesLost(int value) {
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00100000;
         battlesLost_ = value;
         onChanged();
         return this;
       }
       public Builder clearBattlesLost() {
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         battlesLost_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 hourlyCoins = 21;
+      // required int32 hourlyCoins = 22;
       private int hourlyCoins_ ;
       public boolean hasHourlyCoins() {
-        return ((bitField0_ & 0x00100000) == 0x00100000);
+        return ((bitField0_ & 0x00200000) == 0x00200000);
       }
       public int getHourlyCoins() {
         return hourlyCoins_;
       }
       public Builder setHourlyCoins(int value) {
-        bitField0_ |= 0x00100000;
+        bitField0_ |= 0x00200000;
         hourlyCoins_ = value;
         onChanged();
         return this;
       }
       public Builder clearHourlyCoins() {
-        bitField0_ = (bitField0_ & ~0x00100000);
+        bitField0_ = (bitField0_ & ~0x00200000);
         hourlyCoins_ = 0;
         onChanged();
         return this;
       }
       
-      // required string armyCode = 22;
+      // required string armyCode = 23;
       private java.lang.Object armyCode_ = "";
       public boolean hasArmyCode() {
-        return ((bitField0_ & 0x00200000) == 0x00200000);
+        return ((bitField0_ & 0x00400000) == 0x00400000);
       }
       public String getArmyCode() {
         java.lang.Object ref = armyCode_;
@@ -2540,48 +2680,48 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00200000;
+  bitField0_ |= 0x00400000;
         armyCode_ = value;
         onChanged();
         return this;
       }
       public Builder clearArmyCode() {
-        bitField0_ = (bitField0_ & ~0x00200000);
+        bitField0_ = (bitField0_ & ~0x00400000);
         armyCode_ = getDefaultInstance().getArmyCode();
         onChanged();
         return this;
       }
       void setArmyCode(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00200000;
+        bitField0_ |= 0x00400000;
         armyCode_ = value;
         onChanged();
       }
       
-      // required int32 numReferrals = 23;
+      // required int32 numReferrals = 24;
       private int numReferrals_ ;
       public boolean hasNumReferrals() {
-        return ((bitField0_ & 0x00400000) == 0x00400000);
+        return ((bitField0_ & 0x00800000) == 0x00800000);
       }
       public int getNumReferrals() {
         return numReferrals_;
       }
       public Builder setNumReferrals(int value) {
-        bitField0_ |= 0x00400000;
+        bitField0_ |= 0x00800000;
         numReferrals_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumReferrals() {
-        bitField0_ = (bitField0_ & ~0x00400000);
+        bitField0_ = (bitField0_ & ~0x00800000);
         numReferrals_ = 0;
         onChanged();
         return this;
       }
       
-      // required string udid = 24;
+      // required string udid = 25;
       private java.lang.Object udid_ = "";
       public boolean hasUdid() {
-        return ((bitField0_ & 0x00800000) == 0x00800000);
+        return ((bitField0_ & 0x01000000) == 0x01000000);
       }
       public String getUdid() {
         java.lang.Object ref = udid_;
@@ -2597,29 +2737,29 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00800000;
+  bitField0_ |= 0x01000000;
         udid_ = value;
         onChanged();
         return this;
       }
       public Builder clearUdid() {
-        bitField0_ = (bitField0_ & ~0x00800000);
+        bitField0_ = (bitField0_ & ~0x01000000);
         udid_ = getDefaultInstance().getUdid();
         onChanged();
         return this;
       }
       void setUdid(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00800000;
+        bitField0_ |= 0x01000000;
         udid_ = value;
         onChanged();
       }
       
-      // required .com.lvl6.proto.LocationProto userLocation = 25;
+      // required .com.lvl6.proto.LocationProto userLocation = 26;
       private com.lvl6.proto.InfoProto.LocationProto userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.LocationProto, com.lvl6.proto.InfoProto.LocationProto.Builder, com.lvl6.proto.InfoProto.LocationProtoOrBuilder> userLocationBuilder_;
       public boolean hasUserLocation() {
-        return ((bitField0_ & 0x01000000) == 0x01000000);
+        return ((bitField0_ & 0x02000000) == 0x02000000);
       }
       public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
         if (userLocationBuilder_ == null) {
@@ -2638,7 +2778,7 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x01000000;
+        bitField0_ |= 0x02000000;
         return this;
       }
       public Builder setUserLocation(
@@ -2649,12 +2789,12 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x01000000;
+        bitField0_ |= 0x02000000;
         return this;
       }
       public Builder mergeUserLocation(com.lvl6.proto.InfoProto.LocationProto value) {
         if (userLocationBuilder_ == null) {
-          if (((bitField0_ & 0x01000000) == 0x01000000) &&
+          if (((bitField0_ & 0x02000000) == 0x02000000) &&
               userLocation_ != com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance()) {
             userLocation_ =
               com.lvl6.proto.InfoProto.LocationProto.newBuilder(userLocation_).mergeFrom(value).buildPartial();
@@ -2665,7 +2805,7 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x01000000;
+        bitField0_ |= 0x02000000;
         return this;
       }
       public Builder clearUserLocation() {
@@ -2675,11 +2815,11 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x01000000);
+        bitField0_ = (bitField0_ & ~0x02000000);
         return this;
       }
       public com.lvl6.proto.InfoProto.LocationProto.Builder getUserLocationBuilder() {
-        bitField0_ |= 0x01000000;
+        bitField0_ |= 0x02000000;
         onChanged();
         return getUserLocationFieldBuilder().getBuilder();
       }
@@ -6475,9 +6615,9 @@ public final class InfoProto {
     boolean hasPosterId();
     int getPosterId();
     
-    // required .com.lvl6.proto.FullMarketplacePostProto.MarketplacePostType postType = 3;
+    // required .com.lvl6.proto.MarketplacePostType postType = 3;
     boolean hasPostType();
-    com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType getPostType();
+    com.lvl6.proto.InfoProto.MarketplacePostType getPostType();
     
     // required bool isActive = 4;
     boolean hasIsActive();
@@ -6547,81 +6687,6 @@ public final class InfoProto {
       return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable;
     }
     
-    public enum MarketplacePostType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      EQUIP_POST(0, 0),
-      WOOD_POST(1, 1),
-      DIAMOND_POST(2, 2),
-      COIN_POST(3, 3),
-      ;
-      
-      public static final int EQUIP_POST_VALUE = 0;
-      public static final int WOOD_POST_VALUE = 1;
-      public static final int DIAMOND_POST_VALUE = 2;
-      public static final int COIN_POST_VALUE = 3;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static MarketplacePostType valueOf(int value) {
-        switch (value) {
-          case 0: return EQUIP_POST;
-          case 1: return WOOD_POST;
-          case 2: return DIAMOND_POST;
-          case 3: return COIN_POST;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<MarketplacePostType>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<MarketplacePostType>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<MarketplacePostType>() {
-              public MarketplacePostType findValueByNumber(int number) {
-                return MarketplacePostType.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.lvl6.proto.InfoProto.FullMarketplacePostProto.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final MarketplacePostType[] VALUES = {
-        EQUIP_POST, WOOD_POST, DIAMOND_POST, COIN_POST, 
-      };
-      
-      public static MarketplacePostType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private MarketplacePostType(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FullMarketplacePostProto.MarketplacePostType)
-    }
-    
     private int bitField0_;
     // required int32 id = 1;
     public static final int ID_FIELD_NUMBER = 1;
@@ -6643,13 +6708,13 @@ public final class InfoProto {
       return posterId_;
     }
     
-    // required .com.lvl6.proto.FullMarketplacePostProto.MarketplacePostType postType = 3;
+    // required .com.lvl6.proto.MarketplacePostType postType = 3;
     public static final int POSTTYPE_FIELD_NUMBER = 3;
-    private com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType postType_;
+    private com.lvl6.proto.InfoProto.MarketplacePostType postType_;
     public boolean hasPostType() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType getPostType() {
+    public com.lvl6.proto.InfoProto.MarketplacePostType getPostType() {
       return postType_;
     }
     
@@ -6756,7 +6821,7 @@ public final class InfoProto {
     private void initFields() {
       id_ = 0;
       posterId_ = 0;
-      postType_ = com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType.EQUIP_POST;
+      postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
       isActive_ = false;
       timeOfPost_ = 0L;
       postedEquipId_ = 0;
@@ -7028,7 +7093,7 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         posterId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        postType_ = com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType.EQUIP_POST;
+        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
         bitField0_ = (bitField0_ & ~0x00000004);
         isActive_ = false;
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -7258,7 +7323,7 @@ public final class InfoProto {
             }
             case 24: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType value = com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType.valueOf(rawValue);
+              com.lvl6.proto.InfoProto.MarketplacePostType value = com.lvl6.proto.InfoProto.MarketplacePostType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(3, rawValue);
               } else {
@@ -7365,15 +7430,15 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.FullMarketplacePostProto.MarketplacePostType postType = 3;
-      private com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType postType_ = com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType.EQUIP_POST;
+      // required .com.lvl6.proto.MarketplacePostType postType = 3;
+      private com.lvl6.proto.InfoProto.MarketplacePostType postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
       public boolean hasPostType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType getPostType() {
+      public com.lvl6.proto.InfoProto.MarketplacePostType getPostType() {
         return postType_;
       }
-      public Builder setPostType(com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType value) {
+      public Builder setPostType(com.lvl6.proto.InfoProto.MarketplacePostType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -7384,7 +7449,7 @@ public final class InfoProto {
       }
       public Builder clearPostType() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        postType_ = com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType.EQUIP_POST;
+        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
         onChanged();
         return this;
       }
@@ -7662,57 +7727,56 @@ public final class InfoProto {
       "\n\nInfo.proto\022\016com.lvl6.proto\"\\\n\020MinimumU" +
       "serProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004name\030\002 \001(\t\022*" +
       "\n\010userType\030\003 \001(\0162\030.com.lvl6.proto.UserTy" +
-      "pe\"\225\004\n\rFullUserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004" +
+      "pe\"\243\004\n\rFullUserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004" +
       "name\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\022*\n\010userType\030\004 " +
       "\002(\0162\030.com.lvl6.proto.UserType\022\016\n\006attack\030" +
       "\005 \002(\005\022\017\n\007defense\030\006 \002(\005\022\017\n\007stamina\030\007 \002(\005\022" +
       "\016\n\006energy\030\010 \002(\005\022\016\n\006health\030\t \002(\005\022\023\n\013skill" +
       "Points\030\n \002(\005\022\021\n\thealthMax\030\013 \002(\005\022\021\n\tenerg" +
       "yMax\030\014 \002(\005\022\022\n\nstaminaMax\030\r \002(\005\022\020\n\010diamon",
-      "ds\030\016 \002(\005\022\r\n\005coins\030\017 \002(\005\022\024\n\014vaultBalance\030" +
-      "\020 \002(\005\022\022\n\nexperience\030\021 \002(\005\022\026\n\016tasksComple" +
-      "ted\030\022 \002(\005\022\022\n\nbattlesWon\030\023 \002(\005\022\023\n\013battles" +
-      "Lost\030\024 \002(\005\022\023\n\013hourlyCoins\030\025 \002(\005\022\020\n\010armyC" +
-      "ode\030\026 \002(\t\022\024\n\014numReferrals\030\027 \002(\005\022\014\n\004udid\030" +
-      "\030 \002(\t\0223\n\014userLocation\030\031 \002(\0132\035.com.lvl6.p" +
-      "roto.LocationProto\"\210\003\n\016FullEquipProto\022\017\n" +
-      "\007equipId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022;\n\tequipTyp" +
-      "e\030\003 \002(\0162(.com.lvl6.proto.FullEquipProto." +
-      "EquipType\022;\n\tclassType\030\004 \002(\0162(.com.lvl6.",
-      "proto.FullEquipProto.ClassType\022\023\n\013attack" +
-      "Boost\030\005 \002(\005\022\024\n\014defenseBoost\030\006 \002(\005\022\020\n\010min" +
-      "Level\030\007 \002(\005\022\021\n\tcoinPrice\030\010 \001(\005\022\024\n\014diamon" +
-      "dPrice\030\t \001(\005\022\024\n\014chanceOfLoss\030\n \002(\002\"1\n\tEq" +
-      "uipType\022\n\n\006WEAPON\020\000\022\t\n\005ARMOR\020\001\022\r\n\tACCESS" +
-      "ORY\020\002\".\n\tClassType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHE" +
-      "R\020\001\022\010\n\004MAGE\020\002\"\226\001\n\026FullUserStructureProto" +
-      "\022\016\n\006userId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\0224\n\013co" +
-      "ordinates\030\003 \002(\0132\037.com.lvl6.proto.Coordin" +
-      "ateProto\022\025\n\rlastRetrieved\030\004 \002(\t\022\r\n\005level",
-      "\030\005 \002(\005\"\210\002\n\rFullTaskProto\022\n\n\002id\030\001 \002(\005\022\014\n\004" +
-      "name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequire" +
-      "dForCompletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005" +
-      "\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGain" +
-      "ed\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025p" +
-      "otentialLootEquipIds\030\t \003(\005\022\021\n\texpGained\030" +
-      "\n \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(\005\"\'\n\017Coo" +
-      "rdinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLo" +
-      "cationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitu" +
-      "de\030\002 \002(\002\"\263\003\n\030FullMarketplacePostProto\022\n\n",
-      "\002id\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\022N\n\010postType\030" +
-      "\003 \002(\0162<.com.lvl6.proto.FullMarketplacePo" +
-      "stProto.MarketplacePostType\022\020\n\010isActive\030" +
-      "\004 \002(\010\022\022\n\ntimeOfPost\030\005 \002(\003\022\025\n\rpostedEquip" +
-      "Id\030\006 \001(\005\022\033\n\023postedEquipQuantity\030\007 \001(\005\022\022\n" +
-      "\npostedWood\030\010 \001(\005\022\026\n\016postedDiamonds\030\t \001(" +
-      "\005\022\023\n\013postedCoins\030\n \001(\005\022\023\n\013diamondCost\030\013 " +
-      "\001(\005\022\020\n\010coinCost\030\014 \001(\005\022\020\n\010woodCost\030\r \001(\005\"" +
-      "U\n\023MarketplacePostType\022\016\n\nEQUIP_POST\020\000\022\r" +
-      "\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_",
-      "POST\020\003*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013" +
-      "GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARR" +
-      "IOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005B\013B\tI" +
-      "nfoProto"
+      "ds\030\016 \002(\005\022\r\n\005coins\030\017 \002(\005\022\014\n\004wood\030\020 \002(\005\022\024\n" +
+      "\014vaultBalance\030\021 \002(\005\022\022\n\nexperience\030\022 \002(\005\022" +
+      "\026\n\016tasksCompleted\030\023 \002(\005\022\022\n\nbattlesWon\030\024 " +
+      "\002(\005\022\023\n\013battlesLost\030\025 \002(\005\022\023\n\013hourlyCoins\030" +
+      "\026 \002(\005\022\020\n\010armyCode\030\027 \002(\t\022\024\n\014numReferrals\030" +
+      "\030 \002(\005\022\014\n\004udid\030\031 \002(\t\0223\n\014userLocation\030\032 \002(" +
+      "\0132\035.com.lvl6.proto.LocationProto\"\210\003\n\016Ful" +
+      "lEquipProto\022\017\n\007equipId\030\001 \002(\005\022\014\n\004name\030\002 \002" +
+      "(\t\022;\n\tequipType\030\003 \002(\0162(.com.lvl6.proto.F" +
+      "ullEquipProto.EquipType\022;\n\tclassType\030\004 \002",
+      "(\0162(.com.lvl6.proto.FullEquipProto.Class" +
+      "Type\022\023\n\013attackBoost\030\005 \002(\005\022\024\n\014defenseBoos" +
+      "t\030\006 \002(\005\022\020\n\010minLevel\030\007 \002(\005\022\021\n\tcoinPrice\030\010" +
+      " \001(\005\022\024\n\014diamondPrice\030\t \001(\005\022\024\n\014chanceOfLo" +
+      "ss\030\n \002(\002\"1\n\tEquipType\022\n\n\006WEAPON\020\000\022\t\n\005ARM" +
+      "OR\020\001\022\r\n\tACCESSORY\020\002\".\n\tClassType\022\013\n\007WARR" +
+      "IOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\"\226\001\n\026FullUser" +
+      "StructureProto\022\016\n\006userId\030\001 \002(\005\022\020\n\010struct" +
+      "Id\030\002 \002(\005\0224\n\013coordinates\030\003 \002(\0132\037.com.lvl6" +
+      ".proto.CoordinateProto\022\025\n\rlastRetrieved\030",
+      "\004 \002(\t\022\r\n\005level\030\005 \002(\005\"\210\002\n\rFullTaskProto\022\n" +
+      "\n\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005" +
+      "\022 \n\030numRequiredForCompletion\030\004 \002(\005\022\022\n\nen" +
+      "ergyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002(\005\022\026" +
+      "\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOfEquipL" +
+      "oot\030\010 \002(\002\022\035\n\025potentialLootEquipIds\030\t \003(\005" +
+      "\022\021\n\texpGained\030\n \002(\005\022\032\n\022assetNumWithinCit" +
+      "y\030\013 \002(\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t\n" +
+      "\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001 " +
+      "\002(\002\022\021\n\tlongitude\030\002 \002(\002\"\303\002\n\030FullMarketpla",
+      "cePostProto\022\n\n\002id\030\001 \002(\005\022\020\n\010posterId\030\002 \002(" +
+      "\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.proto.Mar" +
+      "ketplacePostType\022\020\n\010isActive\030\004 \002(\010\022\022\n\nti" +
+      "meOfPost\030\005 \002(\003\022\025\n\rpostedEquipId\030\006 \001(\005\022\033\n" +
+      "\023postedEquipQuantity\030\007 \001(\005\022\022\n\npostedWood" +
+      "\030\010 \001(\005\022\026\n\016postedDiamonds\030\t \001(\005\022\023\n\013posted" +
+      "Coins\030\n \001(\005\022\023\n\013diamondCost\030\013 \001(\005\022\020\n\010coin" +
+      "Cost\030\014 \001(\005\022\020\n\010woodCost\030\r \001(\005*k\n\010UserType" +
+      "\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tG" +
+      "OOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHE",
+      "R\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023MarketplacePostType" +
+      "\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMO" +
+      "ND_POST\020\002\022\r\n\tCOIN_POST\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7732,7 +7796,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserProto_descriptor,
-              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "Energy", "Health", "SkillPoints", "HealthMax", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "HourlyCoins", "ArmyCode", "NumReferrals", "Udid", "UserLocation", },
+              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "Energy", "Health", "SkillPoints", "HealthMax", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "Wood", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "HourlyCoins", "ArmyCode", "NumReferrals", "Udid", "UserLocation", },
               com.lvl6.proto.InfoProto.FullUserProto.class,
               com.lvl6.proto.InfoProto.FullUserProto.Builder.class);
           internal_static_com_lvl6_proto_FullEquipProto_descriptor =

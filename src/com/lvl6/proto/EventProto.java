@@ -20985,6 +20985,1580 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.RetrieveCurrentMarketplacePostsResponseProto)
   }
   
+  public interface PostToMarketplaceRequestProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.MarketplacePostType postType = 2;
+    boolean hasPostType();
+    com.lvl6.proto.InfoProto.MarketplacePostType getPostType();
+    
+    // optional int32 postedEquipId = 3;
+    boolean hasPostedEquipId();
+    int getPostedEquipId();
+    
+    // optional int32 postedEquipQuantity = 4;
+    boolean hasPostedEquipQuantity();
+    int getPostedEquipQuantity();
+    
+    // optional int32 postedWood = 5;
+    boolean hasPostedWood();
+    int getPostedWood();
+    
+    // optional int32 postedDiamonds = 6;
+    boolean hasPostedDiamonds();
+    int getPostedDiamonds();
+    
+    // optional int32 postedCoins = 7;
+    boolean hasPostedCoins();
+    int getPostedCoins();
+    
+    // optional int32 diamondCost = 8;
+    boolean hasDiamondCost();
+    int getDiamondCost();
+    
+    // optional int32 coinCost = 9;
+    boolean hasCoinCost();
+    int getCoinCost();
+    
+    // optional int32 woodCost = 10;
+    boolean hasWoodCost();
+    int getWoodCost();
+  }
+  public static final class PostToMarketplaceRequestProto extends
+      com.google.protobuf.GeneratedMessage
+      implements PostToMarketplaceRequestProtoOrBuilder {
+    // Use PostToMarketplaceRequestProto.newBuilder() to construct.
+    private PostToMarketplaceRequestProto(Builder builder) {
+      super(builder);
+    }
+    private PostToMarketplaceRequestProto(boolean noInit) {}
+    
+    private static final PostToMarketplaceRequestProto defaultInstance;
+    public static PostToMarketplaceRequestProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public PostToMarketplaceRequestProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.MarketplacePostType postType = 2;
+    public static final int POSTTYPE_FIELD_NUMBER = 2;
+    private com.lvl6.proto.InfoProto.MarketplacePostType postType_;
+    public boolean hasPostType() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.InfoProto.MarketplacePostType getPostType() {
+      return postType_;
+    }
+    
+    // optional int32 postedEquipId = 3;
+    public static final int POSTEDEQUIPID_FIELD_NUMBER = 3;
+    private int postedEquipId_;
+    public boolean hasPostedEquipId() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getPostedEquipId() {
+      return postedEquipId_;
+    }
+    
+    // optional int32 postedEquipQuantity = 4;
+    public static final int POSTEDEQUIPQUANTITY_FIELD_NUMBER = 4;
+    private int postedEquipQuantity_;
+    public boolean hasPostedEquipQuantity() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getPostedEquipQuantity() {
+      return postedEquipQuantity_;
+    }
+    
+    // optional int32 postedWood = 5;
+    public static final int POSTEDWOOD_FIELD_NUMBER = 5;
+    private int postedWood_;
+    public boolean hasPostedWood() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public int getPostedWood() {
+      return postedWood_;
+    }
+    
+    // optional int32 postedDiamonds = 6;
+    public static final int POSTEDDIAMONDS_FIELD_NUMBER = 6;
+    private int postedDiamonds_;
+    public boolean hasPostedDiamonds() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public int getPostedDiamonds() {
+      return postedDiamonds_;
+    }
+    
+    // optional int32 postedCoins = 7;
+    public static final int POSTEDCOINS_FIELD_NUMBER = 7;
+    private int postedCoins_;
+    public boolean hasPostedCoins() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public int getPostedCoins() {
+      return postedCoins_;
+    }
+    
+    // optional int32 diamondCost = 8;
+    public static final int DIAMONDCOST_FIELD_NUMBER = 8;
+    private int diamondCost_;
+    public boolean hasDiamondCost() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public int getDiamondCost() {
+      return diamondCost_;
+    }
+    
+    // optional int32 coinCost = 9;
+    public static final int COINCOST_FIELD_NUMBER = 9;
+    private int coinCost_;
+    public boolean hasCoinCost() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    public int getCoinCost() {
+      return coinCost_;
+    }
+    
+    // optional int32 woodCost = 10;
+    public static final int WOODCOST_FIELD_NUMBER = 10;
+    private int woodCost_;
+    public boolean hasWoodCost() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    public int getWoodCost() {
+      return woodCost_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+      postedEquipId_ = 0;
+      postedEquipQuantity_ = 0;
+      postedWood_ = 0;
+      postedDiamonds_ = 0;
+      postedCoins_ = 0;
+      diamondCost_ = 0;
+      coinCost_ = 0;
+      woodCost_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPostType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, postType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, postedEquipId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, postedEquipQuantity_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, postedWood_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(6, postedDiamonds_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, postedCoins_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, diamondCost_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt32(9, coinCost_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeInt32(10, woodCost_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, postType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, postedEquipId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, postedEquipQuantity_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, postedWood_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, postedDiamonds_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, postedCoins_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, diamondCost_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, coinCost_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(10, woodCost_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.PostToMarketplaceRequestProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.PostToMarketplaceRequestProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        postedEquipId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        postedEquipQuantity_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        postedWood_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        postedDiamonds_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        postedCoins_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        diamondCost_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        coinCost_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        woodCost_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.PostToMarketplaceRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.PostToMarketplaceRequestProto build() {
+        com.lvl6.proto.EventProto.PostToMarketplaceRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.PostToMarketplaceRequestProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.PostToMarketplaceRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.PostToMarketplaceRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.PostToMarketplaceRequestProto result = new com.lvl6.proto.EventProto.PostToMarketplaceRequestProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.postType_ = postType_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.postedEquipId_ = postedEquipId_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.postedEquipQuantity_ = postedEquipQuantity_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.postedWood_ = postedWood_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.postedDiamonds_ = postedDiamonds_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.postedCoins_ = postedCoins_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.diamondCost_ = diamondCost_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.coinCost_ = coinCost_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.woodCost_ = woodCost_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.PostToMarketplaceRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.PostToMarketplaceRequestProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.PostToMarketplaceRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasPostType()) {
+          setPostType(other.getPostType());
+        }
+        if (other.hasPostedEquipId()) {
+          setPostedEquipId(other.getPostedEquipId());
+        }
+        if (other.hasPostedEquipQuantity()) {
+          setPostedEquipQuantity(other.getPostedEquipQuantity());
+        }
+        if (other.hasPostedWood()) {
+          setPostedWood(other.getPostedWood());
+        }
+        if (other.hasPostedDiamonds()) {
+          setPostedDiamonds(other.getPostedDiamonds());
+        }
+        if (other.hasPostedCoins()) {
+          setPostedCoins(other.getPostedCoins());
+        }
+        if (other.hasDiamondCost()) {
+          setDiamondCost(other.getDiamondCost());
+        }
+        if (other.hasCoinCost()) {
+          setCoinCost(other.getCoinCost());
+        }
+        if (other.hasWoodCost()) {
+          setWoodCost(other.getWoodCost());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasPostType()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.MarketplacePostType value = com.lvl6.proto.InfoProto.MarketplacePostType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                postType_ = value;
+              }
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              postedEquipId_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              postedEquipQuantity_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              postedWood_ = input.readInt32();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              postedDiamonds_ = input.readInt32();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              postedCoins_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              diamondCost_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              coinCost_ = input.readInt32();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              woodCost_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.MarketplacePostType postType = 2;
+      private com.lvl6.proto.InfoProto.MarketplacePostType postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+      public boolean hasPostType() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.InfoProto.MarketplacePostType getPostType() {
+        return postType_;
+      }
+      public Builder setPostType(com.lvl6.proto.InfoProto.MarketplacePostType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        postType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPostType() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 postedEquipId = 3;
+      private int postedEquipId_ ;
+      public boolean hasPostedEquipId() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getPostedEquipId() {
+        return postedEquipId_;
+      }
+      public Builder setPostedEquipId(int value) {
+        bitField0_ |= 0x00000004;
+        postedEquipId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPostedEquipId() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        postedEquipId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 postedEquipQuantity = 4;
+      private int postedEquipQuantity_ ;
+      public boolean hasPostedEquipQuantity() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getPostedEquipQuantity() {
+        return postedEquipQuantity_;
+      }
+      public Builder setPostedEquipQuantity(int value) {
+        bitField0_ |= 0x00000008;
+        postedEquipQuantity_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPostedEquipQuantity() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        postedEquipQuantity_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 postedWood = 5;
+      private int postedWood_ ;
+      public boolean hasPostedWood() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public int getPostedWood() {
+        return postedWood_;
+      }
+      public Builder setPostedWood(int value) {
+        bitField0_ |= 0x00000010;
+        postedWood_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPostedWood() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        postedWood_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 postedDiamonds = 6;
+      private int postedDiamonds_ ;
+      public boolean hasPostedDiamonds() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getPostedDiamonds() {
+        return postedDiamonds_;
+      }
+      public Builder setPostedDiamonds(int value) {
+        bitField0_ |= 0x00000020;
+        postedDiamonds_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPostedDiamonds() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        postedDiamonds_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 postedCoins = 7;
+      private int postedCoins_ ;
+      public boolean hasPostedCoins() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getPostedCoins() {
+        return postedCoins_;
+      }
+      public Builder setPostedCoins(int value) {
+        bitField0_ |= 0x00000040;
+        postedCoins_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPostedCoins() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        postedCoins_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 diamondCost = 8;
+      private int diamondCost_ ;
+      public boolean hasDiamondCost() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getDiamondCost() {
+        return diamondCost_;
+      }
+      public Builder setDiamondCost(int value) {
+        bitField0_ |= 0x00000080;
+        diamondCost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDiamondCost() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        diamondCost_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 coinCost = 9;
+      private int coinCost_ ;
+      public boolean hasCoinCost() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public int getCoinCost() {
+        return coinCost_;
+      }
+      public Builder setCoinCost(int value) {
+        bitField0_ |= 0x00000100;
+        coinCost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCoinCost() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        coinCost_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 woodCost = 10;
+      private int woodCost_ ;
+      public boolean hasWoodCost() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public int getWoodCost() {
+        return woodCost_;
+      }
+      public Builder setWoodCost(int value) {
+        bitField0_ |= 0x00000200;
+        woodCost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWoodCost() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        woodCost_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.PostToMarketplaceRequestProto)
+    }
+    
+    static {
+      defaultInstance = new PostToMarketplaceRequestProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.PostToMarketplaceRequestProto)
+  }
+  
+  public interface PostToMarketplaceResponseProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus getStatus();
+  }
+  public static final class PostToMarketplaceResponseProto extends
+      com.google.protobuf.GeneratedMessage
+      implements PostToMarketplaceResponseProtoOrBuilder {
+    // Use PostToMarketplaceResponseProto.newBuilder() to construct.
+    private PostToMarketplaceResponseProto(Builder builder) {
+      super(builder);
+    }
+    private PostToMarketplaceResponseProto(boolean noInit) {}
+    
+    private static final PostToMarketplaceResponseProto defaultInstance;
+    public static PostToMarketplaceResponseProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public PostToMarketplaceResponseProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_fieldAccessorTable;
+    }
+    
+    public enum PostToMarketplaceStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SUCCESS(0, 0),
+      NEGATIVE_POST(1, 1),
+      NOT_ENOUGH_EQUIP(2, 2),
+      NOT_ENOUGH_WOOD(3, 3),
+      NOT_ENOUGH_DIAMONDS(4, 4),
+      NOT_ENOUGH_COINS(5, 5),
+      NEGATIVE_COST(6, 6),
+      NO_COST(7, 7),
+      OTHER_FAIL(8, 8),
+      ;
+      
+      public static final int SUCCESS_VALUE = 0;
+      public static final int NEGATIVE_POST_VALUE = 1;
+      public static final int NOT_ENOUGH_EQUIP_VALUE = 2;
+      public static final int NOT_ENOUGH_WOOD_VALUE = 3;
+      public static final int NOT_ENOUGH_DIAMONDS_VALUE = 4;
+      public static final int NOT_ENOUGH_COINS_VALUE = 5;
+      public static final int NEGATIVE_COST_VALUE = 6;
+      public static final int NO_COST_VALUE = 7;
+      public static final int OTHER_FAIL_VALUE = 8;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static PostToMarketplaceStatus valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return NEGATIVE_POST;
+          case 2: return NOT_ENOUGH_EQUIP;
+          case 3: return NOT_ENOUGH_WOOD;
+          case 4: return NOT_ENOUGH_DIAMONDS;
+          case 5: return NOT_ENOUGH_COINS;
+          case 6: return NEGATIVE_COST;
+          case 7: return NO_COST;
+          case 8: return OTHER_FAIL;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<PostToMarketplaceStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<PostToMarketplaceStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<PostToMarketplaceStatus>() {
+              public PostToMarketplaceStatus findValueByNumber(int number) {
+                return PostToMarketplaceStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final PostToMarketplaceStatus[] VALUES = {
+        SUCCESS, NEGATIVE_POST, NOT_ENOUGH_EQUIP, NOT_ENOUGH_WOOD, NOT_ENOUGH_DIAMONDS, NOT_ENOUGH_COINS, NEGATIVE_COST, NO_COST, OTHER_FAIL, 
+      };
+      
+      public static PostToMarketplaceStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private PostToMarketplaceStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus getStatus() {
+      return status_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      status_ = com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus.SUCCESS;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PostToMarketplaceResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.PostToMarketplaceResponseProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.PostToMarketplaceResponseProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.PostToMarketplaceResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.PostToMarketplaceResponseProto build() {
+        com.lvl6.proto.EventProto.PostToMarketplaceResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.PostToMarketplaceResponseProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.PostToMarketplaceResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.PostToMarketplaceResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.PostToMarketplaceResponseProto result = new com.lvl6.proto.EventProto.PostToMarketplaceResponseProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.PostToMarketplaceResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.PostToMarketplaceResponseProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.PostToMarketplaceResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus value = com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                status_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
+      private com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status_ = com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus getStatus() {
+        return status_;
+      }
+      public Builder setStatus(com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus.SUCCESS;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.PostToMarketplaceResponseProto)
+    }
+    
+    static {
+      defaultInstance = new PostToMarketplaceResponseProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.PostToMarketplaceResponseProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_ChatRequestProto_descriptor;
   private static
@@ -21140,6 +22714,16 @@ public final class EventProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_RetrieveCurrentMarketplacePostsResponseProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -21299,7 +22883,24 @@ public final class EventProto {
       "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
       "proto.MinimumUserProto\022B\n\020marketplacePos" +
       "ts\030\002 \003(\0132(.com.lvl6.proto.FullMarketplac",
-      "ePostProtoB\014B\nEventProto"
+      "ePostProto\"\266\002\n\035PostToMarketplaceRequestP" +
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\0225\n\010postType\030\002 \002(\0162#.com.l" +
+      "vl6.proto.MarketplacePostType\022\025\n\rpostedE" +
+      "quipId\030\003 \001(\005\022\033\n\023postedEquipQuantity\030\004 \001(" +
+      "\005\022\022\n\npostedWood\030\005 \001(\005\022\026\n\016postedDiamonds\030" +
+      "\006 \001(\005\022\023\n\013postedCoins\030\007 \001(\005\022\023\n\013diamondCos" +
+      "t\030\010 \001(\005\022\020\n\010coinCost\030\t \001(\005\022\020\n\010woodCost\030\n " +
+      "\001(\005\"\360\002\n\036PostToMarketplaceResponseProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU",
+      "serProto\022V\n\006status\030\002 \002(\0162F.com.lvl6.prot" +
+      "o.PostToMarketplaceResponseProto.PostToM" +
+      "arketplaceStatus\"\303\001\n\027PostToMarketplaceSt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020" +
+      "NOT_ENOUGH_EQUIP\020\002\022\023\n\017NOT_ENOUGH_WOOD\020\003\022" +
+      "\027\n\023NOT_ENOUGH_DIAMONDS\020\004\022\024\n\020NOT_ENOUGH_C" +
+      "OINS\020\005\022\021\n\rNEGATIVE_COST\020\006\022\013\n\007NO_COST\020\007\022\016" +
+      "\n\nOTHER_FAIL\020\010B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -21554,6 +23155,22 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "MarketplacePosts", },
               com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.class,
               com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.Builder.class);
+          internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor =
+            getDescriptor().getMessageTypes().get(31);
+          internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "PostType", "PostedEquipId", "PostedEquipQuantity", "PostedWood", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", "WoodCost", },
+              com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.class,
+              com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor =
+            getDescriptor().getMessageTypes().get(32);
+          internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor,
+              new java.lang.String[] { "Sender", "Status", },
+              com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.class,
+              com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.Builder.class);
           return null;
         }
       };

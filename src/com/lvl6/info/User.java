@@ -24,6 +24,7 @@ public class User {
   private int staminaMax;
   private int diamonds;
   private int coins;
+  private int wood;
   private int vaultBalance;
   private int experience;
   private int tasksCompleted;
@@ -38,9 +39,9 @@ public class User {
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int health, int skillPoints,
       int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
-      int vaultBalance, int experience, int tasksCompleted, int battlesWon,
-      int battlesLost, int hourlyCoins, String armyCode, int numReferrals,
-      String udid, Location userLocation) {
+      int wood, int vaultBalance, int experience, int tasksCompleted,
+      int battlesWon, int battlesLost, int hourlyCoins, String armyCode,
+      int numReferrals, String udid, Location userLocation) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -56,6 +57,7 @@ public class User {
     this.staminaMax = staminaMax;
     this.diamonds = diamonds;
     this.coins = coins;
+    this.wood = wood;
     this.vaultBalance = vaultBalance;
     this.experience = experience;
     this.tasksCompleted = tasksCompleted;
@@ -68,6 +70,30 @@ public class User {
     this.userLocation = userLocation;
   }
 
+  /*
+   * used for marketplace
+   */
+  public boolean updateRelativeDiamondsCoinsWoodNaive (int diamondChange, int coinChange, 
+      int woodChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    relativeParams.put(DBConstants.USER__COINS, coinChange);
+    relativeParams.put(DBConstants.USER__WOOD, woodChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinChange;
+      this.diamonds += diamondChange;
+      this.wood += woodChange;
+      return true;
+    }
+    return false;
+  }
 
   
   /*
@@ -97,8 +123,8 @@ public class User {
     }
     return false;
   }
-  
-  /*
+
+ /*
    * used for in app purchases, armory
    */
   public boolean updateRelativeDiamondsNaive (int diamondChange) {
@@ -277,6 +303,10 @@ public class User {
     return coins;
   }
 
+  public int getWood() {
+    return wood;
+  }
+  
   public int getVaultBalance() {
     return vaultBalance;
   }
@@ -324,7 +354,7 @@ public class User {
         + stamina + ", energy=" + energy + ", health=" + health
         + ", skillPoints=" + skillPoints + ", healthMax=" + healthMax
         + ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
-        + ", diamonds=" + diamonds + ", coins=" + coins + ", vaultBalance="
+        + ", diamonds=" + diamonds + ", coins=" + coins + ", wood=" + wood + ", vaultBalance="
         + vaultBalance + ", experience=" + experience + ", tasksCompleted="
         + tasksCompleted + ", battlesWon=" + battlesWon + ", battlesLost="
         + battlesLost + ", hourlyCoins=" + hourlyCoins + ", armyCode="

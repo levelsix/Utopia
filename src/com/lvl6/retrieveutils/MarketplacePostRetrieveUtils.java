@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType;
+import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
 
 public class MarketplacePostRetrieveUtils {

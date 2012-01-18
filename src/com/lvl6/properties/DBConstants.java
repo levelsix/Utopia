@@ -34,6 +34,7 @@ public class DBConstants {
   public static final String USER__STAMINA_MAX = "stamina_max";
   public static final String USER__DIAMONDS = "diamonds";
   public static final String USER__COINS = "coins";
+  public static final String USER__WOOD = "wood";
   public static final String USER__VAULT_BALANCE = "vault_balance";
   public static final String USER__EXPERIENCE = "experience";
   public static final String USER__TASKS_COMPLETED = "tasks_completed";
@@ -81,8 +82,16 @@ public class DBConstants {
   
   /*MARKETPLACE TABLE*/
   public static final String MARKETPLACE__ID = GENERIC__ID;
+  public static final String MARKETPLACE__POSTER_ID = "poster_id";
+  public static final String MARKETPLACE__POST_TYPE = "post_type";
   public static final String MARKETPLACE__IS_ACTIVE = "is_active";
   public static final String MARKETPLACE__TIME_OF_POST = "time_of_post";
-
-
+  public static final String MARKETPLACE__POSTED_EQUIP_ID = "posted_equip_id";
+  public static final String MARKETPLACE__POSTED_EQUIP_QUANTITY = "posted_equip_quantity";
+  public static final String MARKETPLACE__POSTED_WOOD = "posted_wood";
+  public static final String MARKETPLACE__POSTED_DIAMONDS = "posted_diamonds"; 
+  public static final String MARKETPLACE__POSTED_COINS = "posted_coins";
+  public static final String MARKETPLACE__DIAMOND_COST = "diamond_cost";
+  public static final String MARKETPLACE__COIN_COST = "coin_cost";
+  public static final String MARKETPLACE__WOOD_COST = "wood_cost";
 }

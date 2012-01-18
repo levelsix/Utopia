@@ -112,7 +112,11 @@ public class DBConnection {
         }
         query += StringUtils.getListInString(absUpClauses, ",");
       }
+    } else {
+      return 0;
     }
+    
+    
     if (conditionParams != null && conditionParams.size()>0) {
       query += " where ";
       List<String> condClauses = new LinkedList<String>();

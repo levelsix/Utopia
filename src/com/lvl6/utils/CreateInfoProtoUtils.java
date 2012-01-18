@@ -7,7 +7,7 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.FullMarketplacePostProto;
-import com.lvl6.proto.InfoProto.FullMarketplacePostProto.MarketplacePostType;
+import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.LocationProto;
@@ -51,7 +51,7 @@ public class CreateInfoProtoUtils {
         .setDefense(user.getDefense()).setStamina(user.getStamina()).setEnergy(user.getEnergy())
         .setHealth(user.getHealth()).setSkillPoints(user.getSkillPoints()).setHealthMax(user.getHealthMax())
         .setEnergyMax(user.getEnergyMax()).setStaminaMax(user.getStaminaMax()).setDiamonds(user.getDiamonds())
-        .setCoins(user.getCoins()).setVaultBalance(user.getVaultBalance()).setExperience(user.getEnergyMax())
+        .setCoins(user.getCoins()).setWood(user.getWood()).setVaultBalance(user.getVaultBalance()).setExperience(user.getEnergyMax())
         .setTasksCompleted(user.getTasksCompleted()).setBattlesWon(user.getBattlesWon())
         .setBattlesLost(user.getBattlesLost()).setHourlyCoins(user.getHourlyCoins())
         .setArmyCode(user.getArmyCode()).setNumReferrals(user.getNumReferrals())
