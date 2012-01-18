@@ -2897,6 +2897,10 @@ public final class InfoProto {
     // required float chanceOfLoss = 10;
     boolean hasChanceOfLoss();
     float getChanceOfLoss();
+    
+    // required .com.lvl6.proto.FullEquipProto.Rarity rarity = 11;
+    boolean hasRarity();
+    com.lvl6.proto.InfoProto.FullEquipProto.Rarity getRarity();
   }
   public static final class FullEquipProto extends
       com.google.protobuf.GeneratedMessage
@@ -2924,6 +2928,81 @@ public final class InfoProto {
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullEquipProto_fieldAccessorTable;
+    }
+    
+    public enum Rarity
+        implements com.google.protobuf.ProtocolMessageEnum {
+      COMMON(0, 0),
+      UNCOMMON(1, 1),
+      RARE(2, 2),
+      EPIC(3, 3),
+      ;
+      
+      public static final int COMMON_VALUE = 0;
+      public static final int UNCOMMON_VALUE = 1;
+      public static final int RARE_VALUE = 2;
+      public static final int EPIC_VALUE = 3;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static Rarity valueOf(int value) {
+        switch (value) {
+          case 0: return COMMON;
+          case 1: return UNCOMMON;
+          case 2: return RARE;
+          case 3: return EPIC;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<Rarity>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<Rarity>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Rarity>() {
+              public Rarity findValueByNumber(int number) {
+                return Rarity.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.FullEquipProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final Rarity[] VALUES = {
+        COMMON, UNCOMMON, RARE, EPIC, 
+      };
+      
+      public static Rarity valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private Rarity(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FullEquipProto.Rarity)
     }
     
     public enum EquipType
@@ -2971,7 +3050,7 @@ public final class InfoProto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.lvl6.proto.InfoProto.FullEquipProto.getDescriptor().getEnumTypes().get(0);
+        return com.lvl6.proto.InfoProto.FullEquipProto.getDescriptor().getEnumTypes().get(1);
       }
       
       private static final EquipType[] VALUES = {
@@ -3043,7 +3122,7 @@ public final class InfoProto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.lvl6.proto.InfoProto.FullEquipProto.getDescriptor().getEnumTypes().get(1);
+        return com.lvl6.proto.InfoProto.FullEquipProto.getDescriptor().getEnumTypes().get(2);
       }
       
       private static final ClassType[] VALUES = {
@@ -3193,6 +3272,16 @@ public final class InfoProto {
       return chanceOfLoss_;
     }
     
+    // required .com.lvl6.proto.FullEquipProto.Rarity rarity = 11;
+    public static final int RARITY_FIELD_NUMBER = 11;
+    private com.lvl6.proto.InfoProto.FullEquipProto.Rarity rarity_;
+    public boolean hasRarity() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    public com.lvl6.proto.InfoProto.FullEquipProto.Rarity getRarity() {
+      return rarity_;
+    }
+    
     private void initFields() {
       equipId_ = 0;
       name_ = "";
@@ -3204,6 +3293,7 @@ public final class InfoProto {
       coinPrice_ = 0;
       diamondPrice_ = 0;
       chanceOfLoss_ = 0F;
+      rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3239,6 +3329,10 @@ public final class InfoProto {
         return false;
       }
       if (!hasChanceOfLoss()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRarity()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3278,6 +3372,9 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         output.writeFloat(10, chanceOfLoss_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeEnum(11, rarity_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -3327,6 +3424,10 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(10, chanceOfLoss_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(11, rarity_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3472,6 +3573,8 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000100);
         chanceOfLoss_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000200);
+        rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
+        bitField0_ = (bitField0_ & ~0x00000400);
         return this;
       }
       
@@ -3550,6 +3653,10 @@ public final class InfoProto {
           to_bitField0_ |= 0x00000200;
         }
         result.chanceOfLoss_ = chanceOfLoss_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.rarity_ = rarity_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3596,6 +3703,9 @@ public final class InfoProto {
         if (other.hasChanceOfLoss()) {
           setChanceOfLoss(other.getChanceOfLoss());
         }
+        if (other.hasRarity()) {
+          setRarity(other.getRarity());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -3630,6 +3740,10 @@ public final class InfoProto {
           return false;
         }
         if (!hasChanceOfLoss()) {
+          
+          return false;
+        }
+        if (!hasRarity()) {
           
           return false;
         }
@@ -3719,6 +3833,17 @@ public final class InfoProto {
             case 85: {
               bitField0_ |= 0x00000200;
               chanceOfLoss_ = input.readFloat();
+              break;
+            }
+            case 88: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.FullEquipProto.Rarity value = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(11, rawValue);
+              } else {
+                bitField0_ |= 0x00000400;
+                rarity_ = value;
+              }
               break;
             }
           }
@@ -3954,6 +4079,30 @@ public final class InfoProto {
       public Builder clearChanceOfLoss() {
         bitField0_ = (bitField0_ & ~0x00000200);
         chanceOfLoss_ = 0F;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.FullEquipProto.Rarity rarity = 11;
+      private com.lvl6.proto.InfoProto.FullEquipProto.Rarity rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
+      public boolean hasRarity() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      public com.lvl6.proto.InfoProto.FullEquipProto.Rarity getRarity() {
+        return rarity_;
+      }
+      public Builder setRarity(com.lvl6.proto.InfoProto.FullEquipProto.Rarity value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000400;
+        rarity_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearRarity() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
         onChanged();
         return this;
       }
@@ -7740,7 +7889,7 @@ public final class InfoProto {
       "\002(\005\022\023\n\013battlesLost\030\025 \002(\005\022\023\n\013hourlyCoins\030" +
       "\026 \002(\005\022\020\n\010armyCode\030\027 \002(\t\022\024\n\014numReferrals\030" +
       "\030 \002(\005\022\014\n\004udid\030\031 \002(\t\0223\n\014userLocation\030\032 \002(" +
-      "\0132\035.com.lvl6.proto.LocationProto\"\210\003\n\016Ful" +
+      "\0132\035.com.lvl6.proto.LocationProto\"\367\003\n\016Ful" +
       "lEquipProto\022\017\n\007equipId\030\001 \002(\005\022\014\n\004name\030\002 \002" +
       "(\t\022;\n\tequipType\030\003 \002(\0162(.com.lvl6.proto.F" +
       "ullEquipProto.EquipType\022;\n\tclassType\030\004 \002",
@@ -7748,35 +7897,38 @@ public final class InfoProto {
       "Type\022\023\n\013attackBoost\030\005 \002(\005\022\024\n\014defenseBoos" +
       "t\030\006 \002(\005\022\020\n\010minLevel\030\007 \002(\005\022\021\n\tcoinPrice\030\010" +
       " \001(\005\022\024\n\014diamondPrice\030\t \001(\005\022\024\n\014chanceOfLo" +
-      "ss\030\n \002(\002\"1\n\tEquipType\022\n\n\006WEAPON\020\000\022\t\n\005ARM" +
-      "OR\020\001\022\r\n\tACCESSORY\020\002\".\n\tClassType\022\013\n\007WARR" +
-      "IOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\"\226\001\n\026FullUser" +
-      "StructureProto\022\016\n\006userId\030\001 \002(\005\022\020\n\010struct" +
-      "Id\030\002 \002(\005\0224\n\013coordinates\030\003 \002(\0132\037.com.lvl6" +
-      ".proto.CoordinateProto\022\025\n\rlastRetrieved\030",
-      "\004 \002(\t\022\r\n\005level\030\005 \002(\005\"\210\002\n\rFullTaskProto\022\n" +
-      "\n\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005" +
-      "\022 \n\030numRequiredForCompletion\030\004 \002(\005\022\022\n\nen" +
-      "ergyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002(\005\022\026" +
-      "\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOfEquipL" +
-      "oot\030\010 \002(\002\022\035\n\025potentialLootEquipIds\030\t \003(\005" +
-      "\022\021\n\texpGained\030\n \002(\005\022\032\n\022assetNumWithinCit" +
-      "y\030\013 \002(\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t\n" +
-      "\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001 " +
-      "\002(\002\022\021\n\tlongitude\030\002 \002(\002\"\303\002\n\030FullMarketpla",
-      "cePostProto\022\n\n\002id\030\001 \002(\005\022\020\n\010posterId\030\002 \002(" +
-      "\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.proto.Mar" +
-      "ketplacePostType\022\020\n\010isActive\030\004 \002(\010\022\022\n\nti" +
-      "meOfPost\030\005 \002(\003\022\025\n\rpostedEquipId\030\006 \001(\005\022\033\n" +
-      "\023postedEquipQuantity\030\007 \001(\005\022\022\n\npostedWood" +
-      "\030\010 \001(\005\022\026\n\016postedDiamonds\030\t \001(\005\022\023\n\013posted" +
-      "Coins\030\n \001(\005\022\023\n\013diamondCost\030\013 \001(\005\022\020\n\010coin" +
-      "Cost\030\014 \001(\005\022\020\n\010woodCost\030\r \001(\005*k\n\010UserType" +
-      "\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tG" +
-      "OOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHE",
-      "R\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023MarketplacePostType" +
-      "\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMO" +
-      "ND_POST\020\002\022\r\n\tCOIN_POST\020\003B\013B\tInfoProto"
+      "ss\030\n \002(\002\0225\n\006rarity\030\013 \002(\0162%.com.lvl6.prot" +
+      "o.FullEquipProto.Rarity\"6\n\006Rarity\022\n\n\006COM" +
+      "MON\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004EPIC\020\003\"" +
+      "1\n\tEquipType\022\n\n\006WEAPON\020\000\022\t\n\005ARMOR\020\001\022\r\n\tA" +
+      "CCESSORY\020\002\".\n\tClassType\022\013\n\007WARRIOR\020\000\022\n\n\006" +
+      "ARCHER\020\001\022\010\n\004MAGE\020\002\"\226\001\n\026FullUserStructure",
+      "Proto\022\016\n\006userId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022" +
+      "4\n\013coordinates\030\003 \002(\0132\037.com.lvl6.proto.Co" +
+      "ordinateProto\022\025\n\rlastRetrieved\030\004 \002(\t\022\r\n\005" +
+      "level\030\005 \002(\005\"\210\002\n\rFullTaskProto\022\n\n\002id\030\001 \002(" +
+      "\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRe" +
+      "quiredForCompletion\030\004 \002(\005\022\022\n\nenergyCost\030" +
+      "\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoin" +
+      "sGained\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002" +
+      "\022\035\n\025potentialLootEquipIds\030\t \003(\005\022\021\n\texpGa" +
+      "ined\030\n \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(\005\"\'",
+      "\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"" +
+      "4\n\rLocationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlo" +
+      "ngitude\030\002 \002(\002\"\303\002\n\030FullMarketplacePostPro" +
+      "to\022\n\n\002id\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010post" +
+      "Type\030\003 \002(\0162#.com.lvl6.proto.MarketplaceP" +
+      "ostType\022\020\n\010isActive\030\004 \002(\010\022\022\n\ntimeOfPost\030" +
+      "\005 \002(\003\022\025\n\rpostedEquipId\030\006 \001(\005\022\033\n\023postedEq" +
+      "uipQuantity\030\007 \001(\005\022\022\n\npostedWood\030\010 \001(\005\022\026\n" +
+      "\016postedDiamonds\030\t \001(\005\022\023\n\013postedCoins\030\n \001" +
+      "(\005\022\023\n\013diamondCost\030\013 \001(\005\022\020\n\010coinCost\030\014 \001(",
+      "\005\022\020\n\010woodCost\030\r \001(\005*k\n\010UserType\022\020\n\014GOOD_" +
+      "WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020" +
+      "\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BA" +
+      "D_MAGE\020\005*U\n\023MarketplacePostType\022\016\n\nEQUIP" +
+      "_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_POST\020\002" +
+      "\022\r\n\tCOIN_POST\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7804,7 +7956,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullEquipProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullEquipProto_descriptor,
-              new java.lang.String[] { "EquipId", "Name", "EquipType", "ClassType", "AttackBoost", "DefenseBoost", "MinLevel", "CoinPrice", "DiamondPrice", "ChanceOfLoss", },
+              new java.lang.String[] { "EquipId", "Name", "EquipType", "ClassType", "AttackBoost", "DefenseBoost", "MinLevel", "CoinPrice", "DiamondPrice", "ChanceOfLoss", "Rarity", },
               com.lvl6.proto.InfoProto.FullEquipProto.class,
               com.lvl6.proto.InfoProto.FullEquipProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserStructureProto_descriptor =

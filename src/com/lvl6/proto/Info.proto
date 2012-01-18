@@ -61,6 +61,14 @@ message FullEquipProto {
 	optional int32 coinPrice = 8;
 	optional int32 diamondPrice = 9;
 	required float chanceOfLoss = 10;
+	required Rarity rarity = 11;
+	
+	enum Rarity {
+		COMMON = 0;
+		UNCOMMON = 1;
+		RARE = 2;
+		EPIC = 3;
+	}
 	
 	enum EquipType {
 		WEAPON = 0;

@@ -13,14 +13,14 @@ public class MarketplacePost {
   private MarketplacePostType postType;
   private boolean isActive;
   private Date timeOfPost;
-  private int postedEquipId;
-  private int postedEquipQuantity;
-  private int postedWood;
-  private int postedDiamonds;
-  private int postedCoins;
-  private int diamondCost;
-  private int coinCost;
-  private int woodCost;
+  private int postedEquipId = NOT_SET;
+  private int postedEquipQuantity = NOT_SET;
+  private int postedWood = NOT_SET;
+  private int postedDiamonds = NOT_SET;
+  private int postedCoins = NOT_SET;
+  private int diamondCost = NOT_SET;
+  private int coinCost = NOT_SET;
+  private int woodCost = NOT_SET;
   
   public MarketplacePost(int id, int posterId, MarketplacePostType postType,
       boolean isActive, Date timeOfPost, int postedEquipId,
