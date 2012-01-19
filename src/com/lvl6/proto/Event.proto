@@ -323,6 +323,7 @@ message RetrieveCurrentMarketplacePostsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message PostToMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required MarketplacePostType postType = 2;
@@ -336,6 +337,7 @@ message PostToMarketplaceRequestProto {
 	optional int32 woodCost = 10;
 }
 
+																						//DONE
 message PostToMarketplaceResponseProto {
      required MinimumUserProto sender = 1;
      required PostToMarketplaceStatus status = 2;
@@ -350,5 +352,23 @@ message PostToMarketplaceResponseProto {
 		NEGATIVE_COST = 6;
 		NO_COST = 7;
 		OTHER_FAIL = 8;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetractMarketplacePostRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 marketplacePostId = 2;
+}
+
+message RetractMarketplacePostResponseProto {
+     required MinimumUserProto sender = 1;
+     required RetractMarketplacePostStatus status = 2;
+
+	enum RetractMarketplacePostStatus {
+		SUCCESS = 0;
+		NOT_REQUESTERS_POST = 1;
+		POST_NO_LONGER_EXISTS = 2;
 	}
 }

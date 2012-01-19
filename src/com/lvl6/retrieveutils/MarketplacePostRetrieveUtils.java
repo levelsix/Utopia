@@ -20,6 +20,14 @@ public class MarketplacePostRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_MARKETPLACE;
 
+  public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
+    log.info("retrieving specific marketplace posts");
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.MARKETPLACE__IS_ACTIVE, true);
+    paramsToVals.put(DBConstants.MARKETPLACE__ID, marketplacePostId);
+    return convertRSToSingleMarketplacePost(DBConnection.selectRowsAnd(paramsToVals, TABLE_NAME));
+  }
+
   public static List<MarketplacePost> getCurrentMarketplacePosts() {
     log.info("retrieving current marketplace posts");
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
@@ -38,6 +46,24 @@ public class MarketplacePostRetrieveUtils {
           activeMarketplacePosts.add(marketplacePost);
         }
         return activeMarketplacePosts;
+      } catch (SQLException e) {
+        System.out.println("problem with database call.");
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+  
+  private static MarketplacePost convertRSToSingleMarketplacePost(
+      ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        while(rs.next()) {
+          MarketplacePost marketplacePost = convertRSRowToMarketplacePost(rs);
+          return marketplacePost;
+        }
       } catch (SQLException e) {
         System.out.println("problem with database call.");
         e.printStackTrace();
