@@ -308,3 +308,90 @@ message UpdateClientUserResponseProto {
      required int64 timeOfUserUpdate = 2;				//new Date().getTime(); milliseconds since 1/1/70
 }
 
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message RetrieveCurrentMarketplacePostsRequestProto {
+	required MinimumUserProto sender = 1;
+}
+
+																						//DONE
+message RetrieveCurrentMarketplacePostsResponseProto {
+     required MinimumUserProto sender = 1;
+     repeated FullMarketplacePostProto marketplacePosts = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message PostToMarketplaceRequestProto {
+	required MinimumUserProto sender = 1;
+	required MarketplacePostType postType = 2;
+	optional int32 postedEquipId = 3;
+	optional int32 postedEquipQuantity = 4;
+	optional int32 postedWood = 5;
+	optional int32 postedDiamonds = 6;
+	optional int32 postedCoins = 7;
+	optional int32 diamondCost = 8;
+	optional int32 coinCost = 9;
+	optional int32 woodCost = 10;
+}
+
+																						//DONE
+message PostToMarketplaceResponseProto {
+     required MinimumUserProto sender = 1;
+     required PostToMarketplaceStatus status = 2;
+    
+    enum PostToMarketplaceStatus {
+		SUCCESS = 0;
+		NEGATIVE_POST = 1;
+		NOT_ENOUGH_EQUIP = 2;
+		NOT_ENOUGH_WOOD = 3;
+		NOT_ENOUGH_DIAMONDS = 4;
+		NOT_ENOUGH_COINS = 5;
+		NEGATIVE_COST = 6;
+		NO_COST = 7;
+		OTHER_FAIL = 8;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message RetractMarketplacePostRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 marketplacePostId = 2;
+}
+
+																						//DONE
+message RetractMarketplacePostResponseProto {
+     required MinimumUserProto sender = 1;
+     required RetractMarketplacePostStatus status = 2;
+
+	enum RetractMarketplacePostStatus {
+		SUCCESS = 0;
+		NOT_REQUESTERS_POST = 1;
+		POST_NO_LONGER_EXISTS = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message PurchaseFromMarketplaceRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 marketplacePostId = 2;
+	required int32 posterId = 3;
+}
+
+message PurchaseFromMarketplaceResponseProto {
+     required MinimumUserProto sender = 1;
+     required PurchaseFromMarketplaceStatus status = 2;
+
+	enum PurchaseFromMarketplaceStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_MATERIALS = 1;
+		POST_NO_LONGER_EXISTS = 2;
+		PURCHASER_IS_SELLER = 3;
+		OTHER_FAIL = 4;
+	}
+}

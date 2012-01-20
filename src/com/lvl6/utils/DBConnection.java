@@ -30,8 +30,6 @@ public class DBConnection {
   private static String server = DBProperties.SERVER;
   private static String database = DBProperties.DATABASE;
 
-  private static Connection conn;
-
   public static void init() {
     log = Logger.getLogger(DBConnection.class);
     availableConnections = new LinkedBlockingQueue<Connection>();
@@ -43,7 +41,7 @@ public class DBConnection {
         connectionProps.put("user", user);
         connectionProps.put("password",password);
         connectionProps.put("useAffectedRows", "true");
-        conn = DriverManager.getConnection("jdbc:mysql://" + server, connectionProps);
+        Connection conn = DriverManager.getConnection("jdbc:mysql://" + server, connectionProps);
         conn.createStatement().executeQuery("USE " + database);
         availableConnections.put(conn);
         log.info("connection added");
@@ -67,15 +65,20 @@ public class DBConnection {
   }
 
   public static ResultSet selectWholeTable(String tablename) {
-    return selectRows(null, null, tablename, null);
+    return selectRows(null, null, tablename, null, null, false);
   }
 
   public static ResultSet selectRowsOr(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(null, conditionParams, tablename, "or");
+    return selectRows(null, conditionParams, tablename, "or", null, false);
   }
 
   public static ResultSet selectRowsAnd(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(null, conditionParams, tablename, "and");
+    return selectRows(null, conditionParams, tablename, "and", null, false);
+  }
+  
+  public static ResultSet selectRowsAndOrderByDesc(Map<String, Object> conditionParams, 
+      String tablename, String orderByColumn) {
+    return selectRows(null, conditionParams, tablename, "and", orderByColumn, false);
   }
 
   /*
@@ -109,7 +112,11 @@ public class DBConnection {
         }
         query += StringUtils.getListInString(absUpClauses, ",");
       }
+    } else {
+      return 0;
     }
+    
+    
     if (conditionParams != null && conditionParams.size()>0) {
       query += " where ";
       List<String> condClauses = new LinkedList<String>();
@@ -119,6 +126,7 @@ public class DBConnection {
       }
       query += StringUtils.getListInString(condClauses, condDelim);
     }
+
 
     try {
       Connection conn = availableConnections.take();
@@ -262,7 +270,8 @@ public class DBConnection {
   }
 
 
-  private static ResultSet selectRowsByIntAttr(List<String> columns, String attr, int value, String tablename) {
+  private static ResultSet selectRowsByIntAttr(List<String> columns, String attr, int value, 
+      String tablename) {
     String query = "select ";
     if (columns != null) {
       query += StringUtils.getListInString(columns, ",");
@@ -289,7 +298,8 @@ public class DBConnection {
     return rs;
   }
 
-  private static ResultSet selectRows(List<String> columns, Map<String, Object> conditionParams, String tablename, String conddelim) {
+  private static ResultSet selectRows(List<String> columns, Map<String, Object> conditionParams, 
+      String tablename, String conddelim, String orderByColumn, boolean orderByAsc) {
     String query = "select ";
     if (columns != null) {
       query += StringUtils.getListInString(columns, ",");
@@ -311,7 +321,14 @@ public class DBConnection {
       query += " where ";
       query += StringUtils.getListInString(condClauses, conddelim);
     }
-
+    
+    if (orderByColumn != null) {
+      query += " order by " + orderByColumn;
+      if (!orderByAsc) {
+        query += " desc";
+      }
+    }
+      
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();

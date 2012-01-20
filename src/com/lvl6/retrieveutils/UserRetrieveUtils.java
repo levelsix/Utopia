@@ -108,6 +108,7 @@ public class UserRetrieveUtils {
     int staminaMax = rs.getInt(i++);
     int diamonds = rs.getInt(i++);
     int coins = rs.getInt(i++);
+    int wood = rs.getInt(i++);
     int vaultBalance = rs.getInt(i++);
     int experience = rs.getInt(i++);
     int tasksCompleted = rs.getInt(i++);
@@ -119,7 +120,7 @@ public class UserRetrieveUtils {
     String udid = rs.getString(i++);
     Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
-        healthMax, energyMax, staminaMax, diamonds, coins, vaultBalance, experience, tasksCompleted, 
+        healthMax, energyMax, staminaMax, diamonds, coins, wood, vaultBalance, experience, tasksCompleted, 
         battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid, userLocation);
     return user;
   }

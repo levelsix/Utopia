@@ -13,6 +13,7 @@ import com.lvl6.info.Equipment;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.utils.DBConnection;
 
 public class EquipmentRetrieveUtils {
@@ -96,11 +97,12 @@ public class EquipmentRetrieveUtils {
     int diamondPrice = rs.getInt(i++);
     float chanceOfLoss = rs.getFloat(i++);
     ClassType classType = ClassType.valueOf(rs.getInt(i++));
+    Rarity rarity = Rarity.valueOf(rs.getInt(i++));
     Equipment equip = null;
     if (coinPrice > 0) {
-      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss, classType);
+      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss, classType, rarity);
     } else {  //this should mean diamondPrice > 0.
-      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType);      
+      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity);      
     }
     return equip;
   }

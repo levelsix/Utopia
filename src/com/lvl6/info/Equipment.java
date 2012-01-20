@@ -2,6 +2,7 @@ package com.lvl6.info;
 
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 
 public class Equipment {
   public static final int NOT_SET = -1;
@@ -16,9 +17,11 @@ public class Equipment {
   private int diamondPrice = NOT_SET;
   private float chanceOfLoss = NOT_SET;
   private ClassType classType;
+  private Rarity rarity;
 
   public Equipment(int id, String name, EquipType type, int attackBoost,
-      int defenseBoost, int minLevel, int coinPrice, int diamondPrice, float chanceOfLoss, ClassType classType) {
+      int defenseBoost, int minLevel, int coinPrice, int diamondPrice, float chanceOfLoss, 
+      ClassType classType, Rarity rarity) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -29,6 +32,7 @@ public class Equipment {
     this.diamondPrice = diamondPrice;
     this.chanceOfLoss = chanceOfLoss;
     this.classType = classType;
+    this.rarity = rarity;
   }
 
   public int getId() {
@@ -71,13 +75,17 @@ public class Equipment {
     return classType;
   }
 
+  public Rarity getRarity() {
+    return rarity;
+  }
+  
   @Override
   public String toString() {
     return "Equipment [id=" + id + ", name=" + name + ", type=" + type
         + ", attackBoost=" + attackBoost + ", defenseBoost=" + defenseBoost
         + ", minLevel=" + minLevel + ", coinPrice=" + coinPrice
         + ", diamondPrice=" + diamondPrice + ", chanceOfLoss=" + chanceOfLoss
-        + ", classType=" + classType + "]";
+        + ", classType=" + classType + ", rarity=" + rarity + "]";
   }
 
 }

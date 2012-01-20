@@ -35,16 +35,17 @@ message FullUserProto {
 	required int32 staminaMax = 13;
 	required int32 diamonds = 14;
 	required int32 coins = 15;
-	required int32 vaultBalance = 16;
-	required int32 experience = 17;
-	required int32 tasksCompleted = 18;
-	required int32 battlesWon = 19;
-	required int32 battlesLost = 20;
-	required int32 hourlyCoins = 21;
-	required string armyCode = 22;
-	required int32 numReferrals = 23;
-	required string udid = 24;
-	required LocationProto userLocation = 25;
+	required int32 wood = 16;
+	required int32 vaultBalance = 17;
+	required int32 experience = 18;
+	required int32 tasksCompleted = 19;
+	required int32 battlesWon = 20;
+	required int32 battlesLost = 21;
+	required int32 hourlyCoins = 22;
+	required string armyCode = 23;
+	required int32 numReferrals = 24;
+	required string udid = 25;
+	required LocationProto userLocation = 26;
 }
 
 //------------------------------------------------------------------------------------------
@@ -60,6 +61,15 @@ message FullEquipProto {
 	optional int32 coinPrice = 8;
 	optional int32 diamondPrice = 9;
 	required float chanceOfLoss = 10;
+	required Rarity rarity = 11;
+	
+	enum Rarity {
+		COMMON = 0;
+		UNCOMMON = 1;
+		RARE = 2;
+		EPIC = 3;
+		LEGENDARY = 4;
+	}
 	
 	enum EquipType {
 		WEAPON = 0;
@@ -113,4 +123,28 @@ message CoordinateProto {
 message LocationProto {
 	required float latitude = 1;
 	required float longitude = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+enum MarketplacePostType {
+	EQUIP_POST = 0;
+	WOOD_POST = 1;
+	DIAMOND_POST = 2;
+	COIN_POST = 3;
+}
+
+message FullMarketplacePostProto {
+	required int32 id = 1;
+	required int32 posterId = 2;
+	required MarketplacePostType postType = 3;
+	required int64 timeOfPost = 4;
+	optional int32 postedEquipId = 5;
+	optional int32 postedEquipQuantity = 6;
+	optional int32 postedWood = 7;
+	optional int32 postedDiamonds = 8;
+	optional int32 postedCoins = 9;
+	optional int32 diamondCost = 10;
+	optional int32 coinCost = 11;
+	optional int32 woodCost = 12;
 }

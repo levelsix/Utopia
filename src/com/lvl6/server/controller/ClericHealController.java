@@ -44,15 +44,15 @@ public class ClericHealController extends EventController {
     ClericHealRequestProto reqProto = ((ClericHealRequestEvent)event).getClericHealRequestProto();
     
     MinimumUserProto senderProto = reqProto.getSender();
-    
+
+    ClericHealResponseProto.Builder resBuilder = ClericHealResponseProto.newBuilder();
+    resBuilder.setSender(senderProto);
+
     server.lockPlayer(senderProto.getUserId());
 
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       int cost = calculateClericCost(user);
-  
-      ClericHealResponseProto.Builder resBuilder = ClericHealResponseProto.newBuilder();
-      resBuilder.setSender(senderProto);
       
       if (user.getVaultBalance() >= cost) {
         if (!user.updateRelativeVaultAbsoluteHealth(cost*-1)) {
