@@ -56,20 +56,20 @@ public class PurchaseFromMarketplaceController extends EventController {
       server.writeEvent(resEvent);
       return;
     }
-
+    
     server.lockPlayers(sellerId, buyerId);
 
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = UserRetrieveUtils.getUserById(buyerId);
 
-      boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer);
+      boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, sellerId);
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(senderProto.getUserId());
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
-      User seller = UserRetrieveUtils.getUserById(sellerId);
       if (legitPurchase) {
+        User seller = UserRetrieveUtils.getUserById(sellerId);
         writeChangesToDB(buyer, seller, mp);
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) {
@@ -151,7 +151,7 @@ public class PurchaseFromMarketplaceController extends EventController {
     }
   }
 
-  private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer) {
+  private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, int sellerId) {
     if (mp == null) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.POST_NO_LONGER_EXISTS);
       return false;
@@ -159,6 +159,10 @@ public class PurchaseFromMarketplaceController extends EventController {
     if (buyer == null) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
       return false;      
+    }
+    if (sellerId != mp.getPosterId()) {
+      resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
+      return false;
     }
     if (mp.getDiamondCost() > 0) {
       if (buyer.getDiamonds() < mp.getDiamondCost()) {
