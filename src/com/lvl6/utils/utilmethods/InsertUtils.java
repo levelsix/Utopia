@@ -46,7 +46,7 @@ public class InsertUtils {
   }
 
   public static boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
-      int postedEquipId, int postedEquipQuantity, int postedWood, 
+      int postedEquipId, int postedWood, 
       int postedDiamonds, int postedCoins, int diamondCost, int coinCost, int woodCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
@@ -54,7 +54,6 @@ public class InsertUtils {
     insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType);
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
-      insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_QUANTITY, postedEquipQuantity);
     }
     if (postType == MarketplacePostType.WOOD_POST) {
       insertParams.put(DBConstants.MARKETPLACE__POSTED_WOOD, postedWood);
@@ -98,7 +97,6 @@ public class InsertUtils {
 
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
-      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_QUANTITY, mp.getPostedEquipQuantity());
     }
     if (postType == MarketplacePostType.WOOD_POST) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_WOOD, mp.getPostedWood());

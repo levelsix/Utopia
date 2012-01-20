@@ -28,7 +28,6 @@ public class CreateInfoProtoUtils {
     }
     if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
       builder.setPostedEquipId(mp.getPostedEquipId());
-      builder.setPostedEquipQuantity(mp.getPostedEquipQuantity());
     }
     if (mp.getPostType() == MarketplacePostType.WOOD_POST) {
       builder.setPostedWood(mp.getPostedWood());

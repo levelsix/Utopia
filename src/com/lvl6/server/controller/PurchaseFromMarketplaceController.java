@@ -137,7 +137,7 @@ public class PurchaseFromMarketplaceController extends EventController {
     }
 
     if (postType == MarketplacePostType.EQUIP_POST) {
-      if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), mp.getPostedEquipQuantity())) {
+      if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
         log.error("problem with giving buyer marketplace equip");
       }
     }
