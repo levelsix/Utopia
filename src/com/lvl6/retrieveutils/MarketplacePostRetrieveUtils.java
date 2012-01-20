@@ -24,6 +24,11 @@ public class MarketplacePostRetrieveUtils {
     return convertRSToSingleMarketplacePost(DBConnection.selectRowsById(marketplacePostId, TABLE_NAME));
   }
 
+  public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
+    log.info("retrieving limited marketplace posts");
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAndOrderByDescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST, limit));
+  }
+  
   public static List<MarketplacePost> getCurrentMarketplacePosts() {
     log.info("retrieving current marketplace posts");
     return convertRSToMarketplacePosts(DBConnection.selectRowsAndOrderByDesc(null, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST));
@@ -71,7 +76,7 @@ public class MarketplacePostRetrieveUtils {
     int id = rs.getInt(i++);
     int posterId = rs.getInt(i++);
     MarketplacePostType postType = MarketplacePostType.valueOf(rs.getInt(i++));
-    Date timeOfPost = rs.getTimestamp(i++);
+    Date timeOfPost = new Date(rs.getTimestamp(i++).getTime());
 
     int postedEquipId = rs.getInt(i++);
     if (postedEquipId == 0) postedEquipId = MarketplacePost.NOT_SET;

@@ -1,7 +1,5 @@
 package com.lvl6.utils.utilmethods;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +92,6 @@ public class InsertUtils {
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID, buyerId);
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType.getNumber());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST, mp.getTimeOfPost());
-    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, new Timestamp(new Date().getTime()));
 
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());

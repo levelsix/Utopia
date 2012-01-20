@@ -101,7 +101,6 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID = "buyer_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE = "post_type";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST = "time_of_post";
-  public static final String MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE = "time_of_purchase";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID = "posted_equip_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_WOOD = "posted_wood";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_DIAMONDS = "posted_diamonds"; 

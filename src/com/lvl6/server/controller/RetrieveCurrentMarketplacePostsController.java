@@ -15,6 +15,8 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveCurrentMarketplacePostsController extends EventController{
 
+  private static final int NUM_POSTS_CAP = 5;
+  
   @Override
   protected void initController() {
     log.info("initController for " + this.getClass().toString());        
@@ -39,7 +41,7 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
     RetrieveCurrentMarketplacePostsResponseProto.Builder resBuilder = RetrieveCurrentMarketplacePostsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    List <MarketplacePost> activeMarketplacePosts = MarketplacePostRetrieveUtils.getCurrentMarketplacePosts();
+    List <MarketplacePost> activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(NUM_POSTS_CAP);
     if (activeMarketplacePosts != null) {
       for (MarketplacePost mp : activeMarketplacePosts) {
         resBuilder.addMarketplacePosts(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp));
