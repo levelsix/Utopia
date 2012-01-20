@@ -11,7 +11,6 @@ public class MarketplacePost {
   private int id;
   private int posterId;
   private MarketplacePostType postType;
-  private boolean isActive;
   private Date timeOfPost;
   private int postedEquipId = NOT_SET;
   private int postedEquipQuantity = NOT_SET;
@@ -23,13 +22,12 @@ public class MarketplacePost {
   private int woodCost = NOT_SET;
   
   public MarketplacePost(int id, int posterId, MarketplacePostType postType,
-      boolean isActive, Date timeOfPost, int postedEquipId,
+      Date timeOfPost, int postedEquipId,
       int postedEquipQuantity, int postedWood, int postedDiamonds,
       int postedCoins, int diamondCost, int coinCost, int woodCost) {
     this.id = id;
     this.posterId = posterId;
     this.postType = postType;
-    this.isActive = isActive;
     this.timeOfPost = timeOfPost;
     this.postedEquipId = postedEquipId;
     this.postedEquipQuantity = postedEquipQuantity;
@@ -49,9 +47,6 @@ public class MarketplacePost {
   }
   public MarketplacePostType getPostType() {
     return postType;
-  }
-  public boolean isActive() {
-    return isActive;
   }
   public Date getTimeOfPost() {
     return timeOfPost;
@@ -84,7 +79,7 @@ public class MarketplacePost {
   @Override
   public String toString() {
     return "MarketplacePost [id=" + id + ", posterId=" + posterId
-        + ", postType=" + postType + ", isActive=" + isActive + ", timeOfPost="
+        + ", postType=" + postType + ", timeOfPost="
         + timeOfPost + ", postedEquipId=" + postedEquipId
         + ", postedEquipQuantity=" + postedEquipQuantity + ", postedWood="
         + postedWood + ", postedDiamonds=" + postedDiamonds

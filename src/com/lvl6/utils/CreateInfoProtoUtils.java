@@ -17,7 +17,7 @@ public class CreateInfoProtoUtils {
 
   public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp) {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setId(mp.getId())
-        .setPosterId(mp.getPosterId()).setPostType(mp.getPostType()).setIsActive(mp.isActive())
+        .setPosterId(mp.getPosterId()).setPostType(mp.getPostType())
         .setTimeOfPost(mp.getTimeOfPost().getTime());
 
     if (mp.getPostType() == MarketplacePostType.COIN_POST) {

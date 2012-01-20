@@ -357,11 +357,13 @@ message PostToMarketplaceResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RetractMarketplacePostRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 marketplacePostId = 2;
 }
 
+																						//DONE
 message RetractMarketplacePostResponseProto {
      required MinimumUserProto sender = 1;
      required RetractMarketplacePostStatus status = 2;
@@ -370,5 +372,26 @@ message RetractMarketplacePostResponseProto {
 		SUCCESS = 0;
 		NOT_REQUESTERS_POST = 1;
 		POST_NO_LONGER_EXISTS = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message PurchaseFromMarketplaceRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 marketplacePostId = 2;
+	required int32 posterId = 3;
+}
+
+message PurchaseFromMarketplaceResponseProto {
+     required MinimumUserProto sender = 1;
+     required PurchaseFromMarketplaceStatus status = 2;
+
+	enum PurchaseFromMarketplaceStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_MATERIALS = 1;
+		POST_NO_LONGER_EXISTS = 2;
+		PURCHASER_IS_SELLER = 3;
+		OTHER_FAIL = 4;
 	}
 }

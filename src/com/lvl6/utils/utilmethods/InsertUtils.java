@@ -1,11 +1,14 @@
 package com.lvl6.utils.utilmethods;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
@@ -49,7 +52,6 @@ public class InsertUtils {
 
     insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType);
-    insertParams.put(DBConstants.MARKETPLACE__IS_ACTIVE, true);
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
       insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_QUANTITY, postedEquipQuantity);
@@ -74,6 +76,50 @@ public class InsertUtils {
     }
     
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+  public static boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
+      int buyerId) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    MarketplacePostType postType = mp.getPostType();
+    
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, mp.getPosterId());
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID, buyerId);
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType);
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST, mp.getTimeOfPost());
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, new Timestamp(new Date().getTime()));
+
+    if (postType == MarketplacePostType.EQUIP_POST) {
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_QUANTITY, mp.getPostedEquipQuantity());
+    }
+    if (postType == MarketplacePostType.WOOD_POST) {
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_WOOD, mp.getPostedWood());
+    }
+    if (postType == MarketplacePostType.DIAMOND_POST) {
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_DIAMONDS, mp.getPostedDiamonds());
+    }
+    if (postType == MarketplacePostType.COIN_POST) {
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_COINS, mp.getPostedCoins());
+    }
+    if (mp.getDiamondCost() > 0){
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST, mp.getDiamondCost());
+    }
+    if (mp.getCoinCost() > 0) {
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__COIN_COST, mp.getCoinCost());
+    }
+    if (mp.getWoodCost() > 0) {
+      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__WOOD_COST, mp.getWoodCost());
+    }
+    
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY, insertParams);
     if (numInserted == 1) {
       return true;
     }

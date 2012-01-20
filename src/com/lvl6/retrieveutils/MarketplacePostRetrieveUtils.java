@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -22,17 +21,12 @@ public class MarketplacePostRetrieveUtils {
 
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
     log.info("retrieving specific marketplace posts");
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.MARKETPLACE__IS_ACTIVE, true);
-    paramsToVals.put(DBConstants.MARKETPLACE__ID, marketplacePostId);
-    return convertRSToSingleMarketplacePost(DBConnection.selectRowsAnd(paramsToVals, TABLE_NAME));
+    return convertRSToSingleMarketplacePost(DBConnection.selectRowsById(marketplacePostId, TABLE_NAME));
   }
 
   public static List<MarketplacePost> getCurrentMarketplacePosts() {
     log.info("retrieving current marketplace posts");
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.MARKETPLACE__IS_ACTIVE, true);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAndOrderByDesc(paramsToVals, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAndOrderByDesc(null, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST));
   }
 
   private static List<MarketplacePost> convertRSToMarketplacePosts(ResultSet rs) {
@@ -77,7 +71,6 @@ public class MarketplacePostRetrieveUtils {
     int id = rs.getInt(i++);
     int posterId = rs.getInt(i++);
     MarketplacePostType postType = MarketplacePostType.valueOf(rs.getInt(i++));
-    boolean isActive = rs.getBoolean(i++);
     Date timeOfPost = rs.getTimestamp(i++);
 
     int postedEquipId = rs.getInt(i++);
@@ -104,7 +97,7 @@ public class MarketplacePostRetrieveUtils {
     int woodCost = rs.getInt(i++);
     if (woodCost == 0) woodCost = MarketplacePost.NOT_SET;
 
-    MarketplacePost mp = new MarketplacePost(id, posterId, postType, isActive, timeOfPost, 
+    MarketplacePost mp = new MarketplacePost(id, posterId, postType, timeOfPost, 
         postedEquipId, postedEquipQuantity, postedNumWood, postedDiamonds, postedCoins, 
         diamondCost, coinCost, woodCost);
   

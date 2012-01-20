@@ -68,6 +68,7 @@ message FullEquipProto {
 		UNCOMMON = 1;
 		RARE = 2;
 		EPIC = 3;
+		LEGENDARY = 4;
 	}
 	
 	enum EquipType {
@@ -137,14 +138,13 @@ message FullMarketplacePostProto {
 	required int32 id = 1;
 	required int32 posterId = 2;
 	required MarketplacePostType postType = 3;
-	required bool isActive = 4;
-	required int64 timeOfPost = 5;
-	optional int32 postedEquipId = 6;
-	optional int32 postedEquipQuantity = 7;
-	optional int32 postedWood = 8;
-	optional int32 postedDiamonds = 9;
-	optional int32 postedCoins = 10;
-	optional int32 diamondCost = 11;
-	optional int32 coinCost = 12;
-	optional int32 woodCost = 13;
+	required int64 timeOfPost = 4;
+	optional int32 postedEquipId = 5;
+	optional int32 postedEquipQuantity = 6;
+	optional int32 postedWood = 7;
+	optional int32 postedDiamonds = 8;
+	optional int32 postedCoins = 9;
+	optional int32 diamondCost = 10;
+	optional int32 coinCost = 11;
+	optional int32 woodCost = 12;
 }
