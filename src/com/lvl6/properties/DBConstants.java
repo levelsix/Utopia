@@ -88,7 +88,6 @@ public class DBConstants {
   public static final String MARKETPLACE__POST_TYPE = "post_type";
   public static final String MARKETPLACE__TIME_OF_POST = "time_of_post";
   public static final String MARKETPLACE__POSTED_EQUIP_ID = "posted_equip_id";
-  public static final String MARKETPLACE__POSTED_EQUIP_QUANTITY = "posted_equip_quantity";
   public static final String MARKETPLACE__POSTED_WOOD = "posted_wood";
   public static final String MARKETPLACE__POSTED_DIAMONDS = "posted_diamonds"; 
   public static final String MARKETPLACE__POSTED_COINS = "posted_coins";
@@ -97,14 +96,13 @@ public class DBConstants {
   public static final String MARKETPLACE__WOOD_COST = "wood_cost";
   
   /*MARKETPLACE HISTORY TABLE*/
-  public static final String MARKETPLACE_TRANSACTION_HISTORY__ID = GENERIC__ID;
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__MARKETPLACE_ID = "marketplace_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID = "poster_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID = "buyer_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE = "post_type";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST = "time_of_post";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE = "time_of_purchase";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID = "posted_equip_id";
-  public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_QUANTITY = "posted_equip_quantity";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_WOOD = "posted_wood";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_DIAMONDS = "posted_diamonds"; 
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_COINS = "posted_coins";
