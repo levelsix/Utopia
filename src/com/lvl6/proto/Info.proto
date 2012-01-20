@@ -140,11 +140,10 @@ message FullMarketplacePostProto {
 	required MarketplacePostType postType = 3;
 	required int64 timeOfPost = 4;
 	optional int32 postedEquipId = 5;
-	optional int32 postedEquipQuantity = 6;
-	optional int32 postedWood = 7;
-	optional int32 postedDiamonds = 8;
-	optional int32 postedCoins = 9;
-	optional int32 diamondCost = 10;
-	optional int32 coinCost = 11;
-	optional int32 woodCost = 12;
+	optional int32 postedWood = 6;
+	optional int32 postedDiamonds = 7;
+	optional int32 postedCoins = 8;
+	optional int32 diamondCost = 9;
+	optional int32 coinCost = 10;
+	optional int32 woodCost = 11;
 }

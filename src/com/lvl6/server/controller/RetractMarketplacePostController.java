@@ -97,7 +97,7 @@ public class RetractMarketplacePostController extends EventController{
       }
     }
     if (postType == MarketplacePostType.EQUIP_POST) {
-      if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), mp.getPostedEquipQuantity())) {
+      if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
         log.error("problem with giving user back equip");
       }
     }

@@ -76,9 +76,6 @@ public class MarketplacePostRetrieveUtils {
     int postedEquipId = rs.getInt(i++);
     if (postedEquipId == 0) postedEquipId = MarketplacePost.NOT_SET;
 
-    int postedEquipQuantity = rs.getInt(i++);
-    if (postedEquipQuantity == 0) postedEquipQuantity = MarketplacePost.NOT_SET;
-    
     int postedNumWood = rs.getInt(i++);
     if (postedNumWood == 0) postedNumWood = MarketplacePost.NOT_SET;
 
@@ -98,7 +95,7 @@ public class MarketplacePostRetrieveUtils {
     if (woodCost == 0) woodCost = MarketplacePost.NOT_SET;
 
     MarketplacePost mp = new MarketplacePost(id, posterId, postType, timeOfPost, 
-        postedEquipId, postedEquipQuantity, postedNumWood, postedDiamonds, postedCoins, 
+        postedEquipId, postedNumWood, postedDiamonds, postedCoins, 
         diamondCost, coinCost, woodCost);
   
     return mp;

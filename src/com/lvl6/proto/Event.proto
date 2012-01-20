@@ -328,13 +328,12 @@ message PostToMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required MarketplacePostType postType = 2;
 	optional int32 postedEquipId = 3;
-	optional int32 postedEquipQuantity = 4;
-	optional int32 postedWood = 5;
-	optional int32 postedDiamonds = 6;
-	optional int32 postedCoins = 7;
-	optional int32 diamondCost = 8;
-	optional int32 coinCost = 9;
-	optional int32 woodCost = 10;
+	optional int32 postedWood = 4;
+	optional int32 postedDiamonds = 5;
+	optional int32 postedCoins = 6;
+	optional int32 diamondCost = 7;
+	optional int32 coinCost = 8;
+	optional int32 woodCost = 9;
 }
 
 																						//DONE
@@ -377,12 +376,14 @@ message RetractMarketplacePostResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message PurchaseFromMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 marketplacePostId = 2;
 	required int32 posterId = 3;
 }
 
+																						//DONE
 message PurchaseFromMarketplaceResponseProto {
      required MinimumUserProto sender = 1;
      required PurchaseFromMarketplaceStatus status = 2;
@@ -394,4 +395,14 @@ message PurchaseFromMarketplaceResponseProto {
 		PURCHASER_IS_SELLER = 3;
 		OTHER_FAIL = 4;
 	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message UseSkillPointRequestProto {
+	required MinimumUserProto sender = 1;
+}
+
+message UseSkillPointResponseProto {
+     required MinimumUserProto sender = 1;
 }

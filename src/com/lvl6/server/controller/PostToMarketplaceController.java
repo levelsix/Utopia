@@ -130,7 +130,7 @@ public class PostToMarketplaceController extends EventController {
         return false;
       }      
     } else if (postType == MarketplacePostType.EQUIP_POST) {
-      if (userEquip == null || userEquip.getQuantity() < reqProto.getPostedEquipQuantity()) {
+      if (userEquip == null || userEquip.getQuantity() < 1) {
         resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_EQUIP);
         return false;
       }
@@ -153,7 +153,7 @@ public class PostToMarketplaceController extends EventController {
     }
     if (ue != null) {
       if (!UpdateUtils.decrementUserEquip(user.getId(), reqProto.getPostedEquipId(), 
-          ue.getQuantity(), reqProto.getPostedEquipQuantity())) {
+          ue.getQuantity(), 1)) {
         log.error("problem with updating user equips post-marketplace-post");
       }
     }
@@ -161,7 +161,6 @@ public class PostToMarketplaceController extends EventController {
     int posterId = reqProto.getSender().getUserId();
     MarketplacePostType postType = reqProto.getPostType();
     int postedEquipId = reqProto.getPostedEquipId();
-    int postedEquipQuantity = reqProto.getPostedEquipQuantity();
     int postedWood = reqProto.getPostedWood();
     int postedDiamonds = reqProto.getPostedDiamonds();
     int postedCoins = reqProto.getPostedCoins();
@@ -169,7 +168,7 @@ public class PostToMarketplaceController extends EventController {
     int coinCost = reqProto.getCoinCost();
     int woodCost = reqProto.getWoodCost();
     if (!InsertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
-        postedEquipQuantity, postedWood, postedDiamonds, postedCoins, diamondCost, 
+        postedWood, postedDiamonds, postedCoins, diamondCost, 
         coinCost, woodCost)) {
       log.error("problem with inserting into marketplace");      
     }
