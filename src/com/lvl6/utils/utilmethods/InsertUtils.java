@@ -1,7 +1,5 @@
 package com.lvl6.utils.utilmethods;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +49,7 @@ public class InsertUtils {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
-    insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType);
+    insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType.getNumber());
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
     }
@@ -88,12 +86,12 @@ public class InsertUtils {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     MarketplacePostType postType = mp.getPostType();
-    
+
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__MARKETPLACE_ID, mp.getId());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, mp.getPosterId());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID, buyerId);
-    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType);
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType.getNumber());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST, mp.getTimeOfPost());
-    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, new Timestamp(new Date().getTime()));
 
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());

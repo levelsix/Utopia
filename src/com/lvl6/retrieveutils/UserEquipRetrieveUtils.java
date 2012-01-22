@@ -32,7 +32,7 @@ public class UserEquipRetrieveUtils {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-    return convertRSSingleToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    return convertRSSingleToUserEquips(DBConnection.selectRowsAnd(paramsToVals, TABLE_NAME));
   }
 
   //returns map from userId to his equipments

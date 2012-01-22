@@ -73,7 +73,10 @@ public class PostToMarketplaceController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitPost) {
-        writeChangesToDB(user, reqProto, diamondCost+diamondCut, coinCost+coinCut, woodCost+woodCut, ue);
+        int postedDiamonds = Math.max(reqProto.getPostedDiamonds(), 0);
+        int postedCoins = Math.max(reqProto.getPostedCoins(), 0);
+        int postedWood = Math.max(reqProto.getPostedWood(), 0);
+        writeChangesToDB(user, reqProto, postedDiamonds+diamondCut, postedCoins+coinCut, postedWood+woodCut, ue);
       }
 
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);

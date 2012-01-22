@@ -29,6 +29,8 @@ public class DBConnection {
   private static String password = DBProperties.PASSWORD;
   private static String server = DBProperties.SERVER;
   private static String database = DBProperties.DATABASE;
+  
+  private static final int SELECT_LIMIT_NOT_SET = -1;
 
   public static void init() {
     log = Logger.getLogger(DBConnection.class);
@@ -65,20 +67,25 @@ public class DBConnection {
   }
 
   public static ResultSet selectWholeTable(String tablename) {
-    return selectRows(null, null, tablename, null, null, false);
+    return selectRows(null, null, tablename, null, null, false, SELECT_LIMIT_NOT_SET);
   }
 
   public static ResultSet selectRowsOr(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(null, conditionParams, tablename, "or", null, false);
+    return selectRows(null, conditionParams, tablename, "or", null, false, SELECT_LIMIT_NOT_SET);
   }
 
   public static ResultSet selectRowsAnd(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(null, conditionParams, tablename, "and", null, false);
+    return selectRows(null, conditionParams, tablename, "and", null, false, SELECT_LIMIT_NOT_SET);
   }
   
   public static ResultSet selectRowsAndOrderByDesc(Map<String, Object> conditionParams, 
       String tablename, String orderByColumn) {
-    return selectRows(null, conditionParams, tablename, "and", orderByColumn, false);
+    return selectRows(null, conditionParams, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET);
+  }
+  
+  public static ResultSet selectRowsAndOrderByDescLimit(Map<String, Object> conditionParams, 
+      String tablename, String orderByColumn, int limit) {
+    return selectRows(null, conditionParams, tablename, "and", orderByColumn, false, limit);
   }
 
   /*
@@ -299,7 +306,7 @@ public class DBConnection {
   }
 
   private static ResultSet selectRows(List<String> columns, Map<String, Object> conditionParams, 
-      String tablename, String conddelim, String orderByColumn, boolean orderByAsc) {
+      String tablename, String conddelim, String orderByColumn, boolean orderByAsc, int limit) {
     String query = "select ";
     if (columns != null) {
       query += StringUtils.getListInString(columns, ",");
@@ -327,6 +334,10 @@ public class DBConnection {
       if (!orderByAsc) {
         query += " desc";
       }
+    }
+    
+    if (limit != SELECT_LIMIT_NOT_SET) {
+      query += " limit " + limit;
     }
       
     ResultSet rs = null;
