@@ -23,7 +23,7 @@ public class UserCityRetrieveUtils {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);
-    return convertRSToCityRank(DBConnection.selectRowsAnd(paramsToVals, TABLE_NAME));
+    return convertRSToCityRank(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
   }
   
   private static int convertRSToCityRank(

@@ -76,6 +76,7 @@ message VaultResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message ArmoryRequestProto {
    enum ArmoryRequestType {
 		BUY = 0; 
@@ -87,6 +88,7 @@ message ArmoryRequestProto {
 	required int32 equipId = 4;	
 }
 
+																						//DONE
 message ArmoryResponseProto {
 	required MinimumUserProto sender = 1;
 	required ArmoryStatus status = 2;
@@ -284,11 +286,13 @@ message LevelUpResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message InAppPurchaseRequestProto {
 	required MinimumUserProto sender = 1;
 	required string receipt = 2;
 }
 
+																						//DONE
 message InAppPurchaseResponseProto {
 	required MinimumUserProto sender = 1;
 	required InAppPurchaseStatus status = 2;
@@ -313,6 +317,8 @@ message UpdateClientUserResponseProto {
 																						//DONE
 message RetrieveCurrentMarketplacePostsRequestProto {
 	required MinimumUserProto sender = 1;
+	optional int32 beforeThisPostId = 2;
+	optional bool fromSender = 3;
 }
 
 																						//DONE
@@ -399,10 +405,39 @@ message PurchaseFromMarketplaceResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message UseSkillPointRequestProto {
+	required MinimumUserProto sender = 1;
+	required BoostType boostType = 2;
+	
+	enum BoostType {
+		ATTACK = 0;
+		DEFENSE = 1;
+		ENERGY = 2;
+		HEALTH = 3;
+		STAMINA = 4;
+	}
+}
+
+																						//DONE
+message UseSkillPointResponseProto {
+     required MinimumUserProto sender = 1;
+     required UseSkillPointStatus status = 2;
+     
+     enum UseSkillPointStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_SKILL_POINTS = 1;
+		OTHER_FAIL = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message GenerateAttackListRequestProto {
 	required MinimumUserProto sender = 1;
 }
 
-message UseSkillPointResponseProto {
+message GenerateAttackListResponseProto {
      required MinimumUserProto sender = 1;
+     repeated FullUserProto enemies = 2;
 }

@@ -15,8 +15,8 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveCurrentMarketplacePostsController extends EventController{
 
-  private static final int NUM_POSTS_CAP = 5;
-  
+  private static final int NUM_POSTS_CAP = 100;
+
   @Override
   protected void initController() {
     log.info("initController for " + this.getClass().toString());        
@@ -37,21 +37,36 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
     RetrieveCurrentMarketplacePostsRequestProto reqProto = ((RetrieveCurrentMarketplacePostsRequestEvent)event).getRetrieveCurrentMarketplacePostsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    
+    int beforeThisPostId = reqProto.getBeforeThisPostId();
+    boolean forSender = reqProto.getFromSender();
+
     RetrieveCurrentMarketplacePostsResponseProto.Builder resBuilder = RetrieveCurrentMarketplacePostsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    List <MarketplacePost> activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(NUM_POSTS_CAP);
+    List <MarketplacePost> activeMarketplacePosts;
+    if (beforeThisPostId > 0) {
+      if (forSender) {
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(NUM_POSTS_CAP, beforeThisPostId, senderProto.getUserId());
+      } else {
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostId(NUM_POSTS_CAP, beforeThisPostId);        
+      }
+    } else {
+      if (forSender) {
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(NUM_POSTS_CAP, senderProto.getUserId());
+      } else {
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(NUM_POSTS_CAP);
+      }
+    }
     if (activeMarketplacePosts != null) {
       for (MarketplacePost mp : activeMarketplacePosts) {
         resBuilder.addMarketplacePosts(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp));
       }
     }
     RetrieveCurrentMarketplacePostsResponseProto resProto = resBuilder.build();
-    
+
     RetrieveCurrentMarketplacePostsResponseEvent resEvent = new RetrieveCurrentMarketplacePostsResponseEvent(senderProto.getUserId());
     resEvent.setRetrieveCurrentMarketplacePostsResponseProto(resProto);
-    
+
     server.writeEvent(resEvent);
   }
 

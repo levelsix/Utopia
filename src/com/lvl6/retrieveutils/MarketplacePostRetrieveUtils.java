@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -23,17 +24,35 @@ public class MarketplacePostRetrieveUtils {
     log.info("retrieving specific marketplace posts");
     return convertRSToSingleMarketplacePost(DBConnection.selectRowsById(marketplacePostId, TABLE_NAME));
   }
+  
+  public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostId(int limit, int postId) {
+    log.info("retrieving limited marketplace posts before certain id");
+    TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
+    lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimitLessthan(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
+  }
+  
+  public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostIdForPoster(int limit, int postId, int posterId) {
+    log.info("retrieving limited marketplace posts before certain id");
+    TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
+    lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
+    TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
+    absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimitLessthan(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
+  }
 
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
     log.info("retrieving limited marketplace posts");
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAndOrderByDescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST, limit));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST, limit));
   }
   
-  public static List<MarketplacePost> getCurrentMarketplacePosts() {
-    log.info("retrieving current marketplace posts");
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAndOrderByDesc(null, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST));
+  public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
+    log.info("retrieving limited marketplace posts");
+    TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
+    absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST, limit));
   }
-
+  
   private static List<MarketplacePost> convertRSToMarketplacePosts(ResultSet rs) {
     if (rs != null) {
       try {

@@ -71,6 +71,66 @@ public class User {
   }
 
   /*
+   * used for using skill points
+   */
+  public boolean updateRelativeEnergyEnergymaxHealthHealthmaxStaminaStaminamaxSkillPoints 
+  (int energyChange, int energyMaxChange, int healthChange, int healthMaxChange, 
+      int staminaChange, int staminaMaxChange, int skillPointsChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (energyChange > 0) relativeParams.put(DBConstants.USER__ENERGY, energyChange);
+    if (energyMaxChange > 0) relativeParams.put(DBConstants.USER__ENERGY_MAX, energyMaxChange);
+    if (healthChange > 0) relativeParams.put(DBConstants.USER__HEALTH, healthChange);
+    if (healthMaxChange > 0) relativeParams.put(DBConstants.USER__HEALTH_MAX, healthMaxChange);
+    if (staminaChange > 0) relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+    if (staminaMaxChange > 0) relativeParams.put(DBConstants.USER__STAMINA_MAX, staminaMaxChange);
+
+    relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.energy += energyChange;
+      this.energyMax += energyMaxChange;
+      this.health += healthChange;
+      this.healthMax += healthMaxChange;
+      this.stamina += staminaChange;
+      this.staminaMax += staminaMaxChange;
+      this.skillPoints += skillPointsChange;
+      return true;
+    }
+    return false;
+  }
+
+  /*
+   * used for using skill points
+   */
+  public boolean updateRelativeAttackDefenseSkillPoints (int attackChange, int defenseChange, 
+      int skillPointsChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (attackChange > 0) relativeParams.put(DBConstants.USER__ATTACK, attackChange);
+    if (defenseChange > 0) relativeParams.put(DBConstants.USER__DEFENSE, defenseChange);
+    relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.attack += attackChange;
+      this.defense += defenseChange;
+      this.skillPoints += skillPointsChange;
+      return true;
+    }
+    return false;
+  }
+
+  /*
    * used for marketplace
    */
   public boolean updateRelativeDiamondsCoinsWoodNaive (int diamondChange, int coinChange, 
@@ -95,7 +155,7 @@ public class User {
     return false;
   }
 
-  
+
   /*
    * used for tasks
    *        * user- coins/exp/tasks_completed increase, energy decrease
@@ -124,7 +184,7 @@ public class User {
     return false;
   }
 
- /*
+  /*
    * used for in app purchases, armory
    */
   public boolean updateRelativeDiamondsNaive (int diamondChange) {
@@ -145,7 +205,7 @@ public class User {
     }
     return false;
   }
-  
+
   public boolean updateRelativeCoinsNaive (int coinChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -306,7 +366,7 @@ public class User {
   public int getWood() {
     return wood;
   }
-  
+
   public int getVaultBalance() {
     return vaultBalance;
   }
