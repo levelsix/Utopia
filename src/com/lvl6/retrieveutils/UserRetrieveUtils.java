@@ -50,7 +50,12 @@ public class UserRetrieveUtils {
     log.info("retrieving list of enemies for user " + userId);
     
     List <Object> values = new ArrayList<Object>();
-    String query = "select * from " + TABLE_NAME;
+    String query = "select * from " + TABLE_NAME + " where ";
+    if (generateListOfGoodSide) {
+//      type = 
+    } else {
+      
+    }
     
     Map <String, Object> lessThanConditionParams = new HashMap<String, Object>();
     lessThanConditionParams.put(DBConstants.USER__LEVEL, levelMax);
@@ -60,6 +65,7 @@ public class UserRetrieveUtils {
 
     
     List<User> users = convertRSToUsers(DBConnection.selectDirectQueryNaive(query, values));
+    return null;
   }
 
   //when you first log in, call this
