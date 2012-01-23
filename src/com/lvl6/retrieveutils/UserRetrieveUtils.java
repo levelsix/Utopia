@@ -13,6 +13,7 @@ import com.lvl6.info.Location;
 import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.server.controller.BattleController;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -24,7 +25,8 @@ public class UserRetrieveUtils {
   
   private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
   private static final int BATTLE_INITIAL_RANGE_INCREASE = 3;    //even number better again
-  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;    
+  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
+  private static final int MIN_BATTLE_HEALTH_REQUIREMENT = BattleController.MIN_BATTLE_HEALTH_REQUIREMENT;
   private static final int MAX_BATTLE_DB_HITS = 5;
   private static final int MIN_BATTLE_LEVEL = 3;
 
@@ -59,7 +61,8 @@ public class UserRetrieveUtils {
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, MIN_BATTLE_LEVEL);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
     
-    String query = "select * from " + TABLE_NAME + " where (" + DBConstants.USER__TYPE + 
+    String query = "select * from " + TABLE_NAME + " where "+ DBConstants.USER__HEALTH + ">= "+ 
+        MIN_BATTLE_HEALTH_REQUIREMENT +" and (" + DBConstants.USER__TYPE + 
         "=? or " + DBConstants.USER__TYPE + "=? or " + DBConstants.USER__TYPE + "=?) and " +
         DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
     
