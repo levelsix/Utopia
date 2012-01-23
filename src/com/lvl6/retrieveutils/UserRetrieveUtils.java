@@ -48,7 +48,9 @@ public class UserRetrieveUtils {
   public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int levelMin, 
       int levelMax, int userId) {
     log.info("retrieving list of enemies for user " + userId);
-    Map <String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    
+    List <Object> values = new ArrayList<Object>();
+    String query = "select * from " + TABLE_NAME;
     
     Map <String, Object> lessThanConditionParams = new HashMap<String, Object>();
     lessThanConditionParams.put(DBConstants.USER__LEVEL, levelMax);
@@ -57,7 +59,7 @@ public class UserRetrieveUtils {
     greaterThanConditionParams.put(DBConstants.USER__LEVEL, levelMin);
 
     
-    List<User> users = convertRSToUsers(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
+    List<User> users = convertRSToUsers(DBConnection.selectDirectQueryNaive(query, values));
   }
 
   //when you first log in, call this

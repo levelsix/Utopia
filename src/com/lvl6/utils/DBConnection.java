@@ -99,7 +99,30 @@ public class DBConnection {
     return selectRows(null, absoluteConditionParams, greaterThanConditionParams, lessThanConditionParams, tablename, "and", null, false, limit, true);
   }
   
-  public static ResultSet selectDirectQueryNaive(String query) {
+  /*assumes number of ? in the query = values.size()*/
+  public static ResultSet selectDirectQueryNaive(String query, List<Object> values) {
+    ResultSet rs = null;
+    try {
+      Connection conn = availableConnections.take();
+      PreparedStatement stmt = conn.prepareStatement(query);
+      if (values != null && values.size()>0) {
+        int i = 1;
+        for (Object value : values) {
+          stmt.setObject(i, value);
+          i++;
+        }
+      }
+      rs = stmt.executeQuery();
+      availableConnections.put(conn);
+      log.info(rs.toString());
+    } catch (SQLException e) {
+      log.error("problem with " + query, e);
+    } catch (NullPointerException e) {
+      log.error("problem with " + query, e);
+    } catch (InterruptedException e) {
+      log.error("problem with " + query, e);
+    }
+    return rs;
     
   }
 
