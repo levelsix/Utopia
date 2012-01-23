@@ -27,10 +27,17 @@ public class MiscMethods {
     if (userType == UserType.BAD_WARRIOR || userType == UserType.GOOD_WARRIOR) {
       return ClassType.WARRIOR;
     }
-    if (userType == UserType.BAD_MAGE || userType == UserType.GOOD_MAGE) {
-      return ClassType.MAGE;
+    if (userType == UserType.BAD_ARCHER || userType == UserType.GOOD_ARCHER) {
+      return ClassType.ARCHER;
     }
     return null;
+  }
+  
+  public static boolean checkIfGoodSide (UserType userType) {
+    if (userType == UserType.GOOD_MAGE || userType == UserType.GOOD_WARRIOR || userType == UserType.GOOD_ARCHER) {
+      return true;
+    }
+    return false;
   }
   
 }

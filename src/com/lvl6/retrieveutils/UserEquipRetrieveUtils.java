@@ -32,7 +32,7 @@ public class UserEquipRetrieveUtils {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-    return convertRSSingleToUserEquips(DBConnection.selectRowsAnd(paramsToVals, TABLE_NAME));
+    return convertRSSingleToUserEquips(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
   }
 
   //returns map from userId to his equipments
@@ -42,7 +42,7 @@ public class UserEquipRetrieveUtils {
     for (Integer i : userIds) {
       paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, i);
     }
-    return convertRSToUserToUserEquips(DBConnection.selectRowsOr(paramsToVals, TABLE_NAME));
+    return convertRSToUserToUserEquips(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
   
   private static Map<Integer, List<UserEquip>> convertRSToUserToUserEquips(ResultSet rs) {

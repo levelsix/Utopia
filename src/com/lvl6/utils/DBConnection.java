@@ -29,7 +29,7 @@ public class DBConnection {
   private static String password = DBProperties.PASSWORD;
   private static String server = DBProperties.SERVER;
   private static String database = DBProperties.DATABASE;
-  
+
   private static final int SELECT_LIMIT_NOT_SET = -1;
 
   public static void init() {
@@ -67,26 +67,43 @@ public class DBConnection {
   }
 
   public static ResultSet selectWholeTable(String tablename) {
-    return selectRows(null, null, tablename, null, null, false, SELECT_LIMIT_NOT_SET);
+    return selectRows(null, null, null, null, tablename, null, null, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsOr(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(null, conditionParams, tablename, "or", null, false, SELECT_LIMIT_NOT_SET);
+  public static ResultSet selectRowsAbsoluteOr(Map<String, Object> absoluteConditionParams, String tablename) {
+    return selectRows(null, absoluteConditionParams, null, null, tablename, "or", null, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsAnd(Map<String, Object> conditionParams, String tablename) {
-    return selectRows(null, conditionParams, tablename, "and", null, false, SELECT_LIMIT_NOT_SET);
+  public static ResultSet selectRowsAbsoluteAnd(Map<String, Object> absoluteConditionParams, String tablename) {
+    return selectRows(null, absoluteConditionParams, null, null, tablename, "and", null, false, SELECT_LIMIT_NOT_SET, false);
   }
-  
-  public static ResultSet selectRowsAndOrderByDesc(Map<String, Object> conditionParams, 
+
+  public static ResultSet selectRowsAbsoluteAndOrderByDesc(Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn) {
-    return selectRows(null, conditionParams, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET);
+    return selectRows(null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
+  }
+
+  public static ResultSet selectRowsAbsoluteAndOrderByDescLimit(Map<String, Object> absoluteConditionParams, 
+      String tablename, String orderByColumn, int limit) {
+    return selectRows(null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, limit, false);
+  }
+
+  public static ResultSet selectRowsAbsoluteAndOrderByDescLimitLessthan(Map<String, Object> absoluteConditionParams, 
+      String tablename, String orderByColumn, int limit, Map<String, Object> lessThanConditionParams) {
+    return selectRows(null, absoluteConditionParams, null, lessThanConditionParams, tablename, "and", orderByColumn, false, limit, false);
+  }
+
+  public static ResultSet selectRowsAbsoluteAndLimitLessthanGreaterthanRand(Map<String, Object> absoluteConditionParams, 
+      String tablename, String orderByColumn, int limit, Map<String, Object> lessThanConditionParams, 
+      Map<String, Object> greaterThanConditionParams) {
+    return selectRows(null, absoluteConditionParams, greaterThanConditionParams, lessThanConditionParams, tablename, "and", null, false, limit, true);
   }
   
-  public static ResultSet selectRowsAndOrderByDescLimit(Map<String, Object> conditionParams, 
-      String tablename, String orderByColumn, int limit) {
-    return selectRows(null, conditionParams, tablename, "and", orderByColumn, false, limit);
+  public static ResultSet selectDirectQueryNaive(String query) {
+    
   }
+
+
 
   /*
    * returns num of rows affected
@@ -122,8 +139,8 @@ public class DBConnection {
     } else {
       return 0;
     }
-    
-    
+
+
     if (conditionParams != null && conditionParams.size()>0) {
       query += " where ";
       List<String> condClauses = new LinkedList<String>();
@@ -162,7 +179,7 @@ public class DBConnection {
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
-    
+
     if (insertParams != null && insertParams.size() > 0) {
       for (String column : insertParams.keySet()) {
         questions.add("?");
@@ -194,14 +211,14 @@ public class DBConnection {
     }
     return 0;
   }
-  
+
   public static int insertOnDuplicateKeyRelativeUpdate(String tablename, Map<String, Object> insertParams,
       String columnUpdate, Object updateQuantity) {
-    
+
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
-    
+
     if (insertParams != null && insertParams.size() > 0) {
       for (String column : insertParams.keySet()) {
         questions.add("?");
@@ -239,16 +256,16 @@ public class DBConnection {
   /*
    * returns num of rows affected
    */
-  public static int deleteRows(String tablename, Map<String, Object> conditionParams, String condDelim) {
+  public static int deleteRows(String tablename, Map<String, Object> absoluteConditionParams, String condDelim) {
     String query = "delete from " + tablename;
     List<Object> values = new LinkedList<Object>();
 
-    if (conditionParams != null && conditionParams.size()>0) {
+    if (absoluteConditionParams != null && absoluteConditionParams.size()>0) {
       query += " where ";
       List<String> condClauses = new LinkedList<String>();
-      for (String param : conditionParams.keySet()) {
+      for (String param : absoluteConditionParams.keySet()) {
         condClauses.add(param + "=?");
-        values.add(conditionParams.get(param));
+        values.add(absoluteConditionParams.get(param));
       }
       query += StringUtils.getListInString(condClauses, condDelim);
     }
@@ -286,7 +303,7 @@ public class DBConnection {
       query += "* ";
     }
     query += " from " + tablename + " where " + attr + "=?";
-    
+
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();
@@ -305,8 +322,9 @@ public class DBConnection {
     return rs;
   }
 
-  private static ResultSet selectRows(List<String> columns, Map<String, Object> conditionParams, 
-      String tablename, String conddelim, String orderByColumn, boolean orderByAsc, int limit) {
+  private static ResultSet selectRows(List<String> columns, Map<String, Object> absoluteConditionParams, 
+      Map<String, Object> relativeGreaterThanConditionParams, Map<String, Object> relativeLessThanConditionParams, 
+      String tablename, String conddelim, String orderByColumn, boolean orderByAsc, int limit, boolean random) {
     String query = "select ";
     if (columns != null) {
       query += StringUtils.getListInString(columns, ",");
@@ -314,32 +332,72 @@ public class DBConnection {
       query += "* ";
     }
     query += " from " + tablename;
-    
+
     List<String> condClauses = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
 
-
-    if (conditionParams != null && conditionParams.size()>0) {
-      for (String param : conditionParams.keySet()) {
+    boolean useWhere = true;
+    if (absoluteConditionParams != null && absoluteConditionParams.size()>0) {
+      for (String param : absoluteConditionParams.keySet()) {
         condClauses.add(param + "=?");
-        values.add(conditionParams.get(param));
+        values.add(absoluteConditionParams.get(param));
       }
 
-      query += " where ";
+      if (useWhere) {
+        query += " where (";
+      } else {
+        query += " and (";
+      }
+      useWhere = false;
       query += StringUtils.getListInString(condClauses, conddelim);
+      query += " ) ";
     }
-    
+
+    if (relativeGreaterThanConditionParams != null && relativeGreaterThanConditionParams.size()>0) {
+      for (String param : relativeGreaterThanConditionParams.keySet()) {
+        condClauses.add(param + ">?");
+        values.add(relativeGreaterThanConditionParams.get(param));
+      }
+
+      if (useWhere) {
+        query += " where (";
+      } else {
+        query += " and (";
+      }
+      useWhere = false;
+      query += StringUtils.getListInString(condClauses, conddelim);
+      query += " ) ";
+    }
+
+    if (relativeLessThanConditionParams != null && relativeLessThanConditionParams.size()>0) {
+      for (String param : relativeLessThanConditionParams.keySet()) {
+        condClauses.add(param + "<?");
+        values.add(relativeLessThanConditionParams.get(param));
+      }
+
+      if (useWhere) {
+        query += " where (";
+      } else {
+        query += " and (";
+      }
+      useWhere = false;
+      query += StringUtils.getListInString(condClauses, conddelim);
+      query += " ) ";
+    }
+
     if (orderByColumn != null) {
       query += " order by " + orderByColumn;
       if (!orderByAsc) {
         query += " desc";
       }
+    } else if (random) {
+      query += " order by rand() ";
     }
-    
+
     if (limit != SELECT_LIMIT_NOT_SET) {
       query += " limit " + limit;
     }
-      
+
     ResultSet rs = null;
     try {
       Connection conn = availableConnections.take();

@@ -18,7 +18,7 @@ public class IAPHistoryRetrieveUtils {
     log.info("checking if transaction already exists");
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.IAP_HISTORY__TRANSACTION_ID, transactionId);
-    ResultSet rs = DBConnection.selectRowsAnd(paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     if (rs != null) {
       try {
         rs.last();

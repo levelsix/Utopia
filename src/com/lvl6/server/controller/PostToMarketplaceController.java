@@ -77,10 +77,10 @@ public class PostToMarketplaceController extends EventController {
         int postedCoins = Math.max(reqProto.getPostedCoins(), 0);
         int postedWood = Math.max(reqProto.getPostedWood(), 0);
         writeChangesToDB(user, reqProto, postedDiamonds+diamondCut, postedCoins+coinCut, postedWood+woodCut, ue);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        server.writeEvent(resEventUpdate);
       }
 
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-      server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in PostToMarketplaceController processEvent", e);
     } finally {

@@ -42,7 +42,22 @@ public class UserRetrieveUtils {
     for (Integer i : ids) {
       paramsToVals.put(DBConstants.USER__ID, i);
     }
-    return convertRSToUsers(DBConnection.selectRowsOr(paramsToVals, TABLE_NAME));
+    return convertRSToUsers(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
+  }
+  
+  public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int levelMin, 
+      int levelMax, int userId) {
+    log.info("retrieving list of enemies for user " + userId);
+    Map <String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    
+    Map <String, Object> lessThanConditionParams = new HashMap<String, Object>();
+    lessThanConditionParams.put(DBConstants.USER__LEVEL, levelMax);
+    
+    Map <String, Object> greaterThanConditionParams = new HashMap<String, Object>();
+    greaterThanConditionParams.put(DBConstants.USER__LEVEL, levelMin);
+
+    
+    List<User> users = convertRSToUsers(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
 
   //when you first log in, call this
@@ -51,7 +66,7 @@ public class UserRetrieveUtils {
     log.info("retrieving user with udid " + UDID);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
-    return convertRSToUser(DBConnection.selectRowsOr(paramsToVals, "users"));
+    return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, "users"));
   }
 
   private static User convertRSToUser(ResultSet rs) {
