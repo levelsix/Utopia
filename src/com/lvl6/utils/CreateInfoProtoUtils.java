@@ -16,7 +16,7 @@ import com.lvl6.proto.InfoProto.UserType;
 public class CreateInfoProtoUtils {
 
   public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp) {
-    FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setId(mp.getId())
+    FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
         .setPosterId(mp.getPosterId()).setPostType(mp.getPostType())
         .setTimeOfPost(mp.getTimeOfPost().getTime());
 
@@ -87,7 +87,7 @@ public class CreateInfoProtoUtils {
       name = task.getBadName();
     }
 
-    FullTaskProto ftp = FullTaskProto.newBuilder().setId(task.getId()).setName(name).setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
+    FullTaskProto ftp = FullTaskProto.newBuilder().setTaskId(task.getId()).setName(name).setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
         .setMaxCoinsGained(task.getMaxCoinsGained()).setChanceOfEquipLoot(task.getChanceOfEquipFloat())
         .setExpGained(task.getExpGained()).setAssetNumWithinCity(task.getAssetNumberWithinCity()).
         setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds()).build();

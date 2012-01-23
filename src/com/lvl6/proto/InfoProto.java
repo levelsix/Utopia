@@ -4861,9 +4861,9 @@ public final class InfoProto {
   public interface FullTaskProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 id = 1;
-    boolean hasId();
-    int getId();
+    // required int32 taskId = 1;
+    boolean hasTaskId();
+    int getTaskId();
     
     // required string name = 2;
     boolean hasName();
@@ -4935,14 +4935,14 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 id = 1;
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
-    public boolean hasId() {
+    // required int32 taskId = 1;
+    public static final int TASKID_FIELD_NUMBER = 1;
+    private int taskId_;
+    public boolean hasTaskId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getId() {
-      return id_;
+    public int getTaskId() {
+      return taskId_;
     }
     
     // required string name = 2;
@@ -5072,7 +5072,7 @@ public final class InfoProto {
     }
     
     private void initFields() {
-      id_ = 0;
+      taskId_ = 0;
       name_ = "";
       cityId_ = 0;
       numRequiredForCompletion_ = 0;
@@ -5089,7 +5089,7 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasId()) {
+      if (!hasTaskId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -5137,7 +5137,7 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, id_);
+        output.writeInt32(1, taskId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getNameBytes());
@@ -5180,7 +5180,7 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
+          .computeInt32Size(1, taskId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -5351,7 +5351,7 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        id_ = 0;
+        taskId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -5414,7 +5414,7 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.id_ = id_;
+        result.taskId_ = taskId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -5472,8 +5472,8 @@ public final class InfoProto {
       
       public Builder mergeFrom(com.lvl6.proto.InfoProto.FullTaskProto other) {
         if (other == com.lvl6.proto.InfoProto.FullTaskProto.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          setId(other.getId());
+        if (other.hasTaskId()) {
+          setTaskId(other.getTaskId());
         }
         if (other.hasName()) {
           setName(other.getName());
@@ -5517,7 +5517,7 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasId()) {
+        if (!hasTaskId()) {
           
           return false;
         }
@@ -5585,7 +5585,7 @@ public final class InfoProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              id_ = input.readInt32();
+              taskId_ = input.readInt32();
               break;
             }
             case 18: {
@@ -5653,23 +5653,23 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 id = 1;
-      private int id_ ;
-      public boolean hasId() {
+      // required int32 taskId = 1;
+      private int taskId_ ;
+      public boolean hasTaskId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getId() {
-        return id_;
+      public int getTaskId() {
+        return taskId_;
       }
-      public Builder setId(int value) {
+      public Builder setTaskId(int value) {
         bitField0_ |= 0x00000001;
-        id_ = value;
+        taskId_ = value;
         onChanged();
         return this;
       }
-      public Builder clearId() {
+      public Builder clearTaskId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
+        taskId_ = 0;
         onChanged();
         return this;
       }
@@ -6759,9 +6759,9 @@ public final class InfoProto {
   public interface FullMarketplacePostProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 id = 1;
-    boolean hasId();
-    int getId();
+    // required int32 marketplacePostId = 1;
+    boolean hasMarketplacePostId();
+    int getMarketplacePostId();
     
     // required int32 posterId = 2;
     boolean hasPosterId();
@@ -6832,14 +6832,14 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 id = 1;
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
-    public boolean hasId() {
+    // required int32 marketplacePostId = 1;
+    public static final int MARKETPLACEPOSTID_FIELD_NUMBER = 1;
+    private int marketplacePostId_;
+    public boolean hasMarketplacePostId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getId() {
-      return id_;
+    public int getMarketplacePostId() {
+      return marketplacePostId_;
     }
     
     // required int32 posterId = 2;
@@ -6943,7 +6943,7 @@ public final class InfoProto {
     }
     
     private void initFields() {
-      id_ = 0;
+      marketplacePostId_ = 0;
       posterId_ = 0;
       postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
       timeOfPost_ = 0L;
@@ -6960,7 +6960,7 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasId()) {
+      if (!hasMarketplacePostId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -6984,7 +6984,7 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, id_);
+        output.writeInt32(1, marketplacePostId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeInt32(2, posterId_);
@@ -7027,7 +7027,7 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
+          .computeInt32Size(1, marketplacePostId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -7193,7 +7193,7 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        id_ = 0;
+        marketplacePostId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         posterId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -7256,7 +7256,7 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.id_ = id_;
+        result.marketplacePostId_ = marketplacePostId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -7313,8 +7313,8 @@ public final class InfoProto {
       
       public Builder mergeFrom(com.lvl6.proto.InfoProto.FullMarketplacePostProto other) {
         if (other == com.lvl6.proto.InfoProto.FullMarketplacePostProto.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          setId(other.getId());
+        if (other.hasMarketplacePostId()) {
+          setMarketplacePostId(other.getMarketplacePostId());
         }
         if (other.hasPosterId()) {
           setPosterId(other.getPosterId());
@@ -7351,7 +7351,7 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasId()) {
+        if (!hasMarketplacePostId()) {
           
           return false;
         }
@@ -7395,7 +7395,7 @@ public final class InfoProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              id_ = input.readInt32();
+              marketplacePostId_ = input.readInt32();
               break;
             }
             case 16: {
@@ -7460,23 +7460,23 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 id = 1;
-      private int id_ ;
-      public boolean hasId() {
+      // required int32 marketplacePostId = 1;
+      private int marketplacePostId_ ;
+      public boolean hasMarketplacePostId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getId() {
-        return id_;
+      public int getMarketplacePostId() {
+        return marketplacePostId_;
       }
-      public Builder setId(int value) {
+      public Builder setMarketplacePostId(int value) {
         bitField0_ |= 0x00000001;
-        id_ = value;
+        marketplacePostId_ = value;
         onChanged();
         return this;
       }
-      public Builder clearId() {
+      public Builder clearMarketplacePostId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
+        marketplacePostId_ = 0;
         onChanged();
         return this;
       }
@@ -7787,28 +7787,29 @@ public final class InfoProto {
       "llUserStructureProto\022\016\n\006userId\030\001 \002(\005\022\020\n\010" +
       "structId\030\002 \002(\005\0224\n\013coordinates\030\003 \002(\0132\037.co" +
       "m.lvl6.proto.CoordinateProto\022\025\n\rlastRetr" +
-      "ieved\030\004 \002(\t\022\r\n\005level\030\005 \002(\005\"\210\002\n\rFullTaskP" +
-      "roto\022\n\n\002id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId" +
-      "\030\003 \002(\005\022 \n\030numRequiredForCompletion\030\004 \002(\005" +
-      "\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006" +
-      " \002(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOf" +
-      "EquipLoot\030\010 \002(\002\022\035\n\025potentialLootEquipIds" +
-      "\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022\032\n\022assetNumWit",
-      "hinCity\030\013 \002(\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 " +
-      "\002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010latit" +
-      "ude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\224\002\n\030FullMar" +
-      "ketplacePostProto\022\n\n\002id\030\001 \002(\005\022\020\n\010posterI" +
-      "d\030\002 \002(\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.pro" +
-      "to.MarketplacePostType\022\022\n\ntimeOfPost\030\004 \002" +
-      "(\003\022\025\n\rpostedEquipId\030\005 \001(\005\022\022\n\npostedWood\030" +
-      "\006 \001(\005\022\026\n\016postedDiamonds\030\007 \001(\005\022\023\n\013postedC" +
-      "oins\030\010 \001(\005\022\023\n\013diamondCost\030\t \001(\005\022\020\n\010coinC" +
-      "ost\030\n \001(\005\022\020\n\010woodCost\030\013 \001(\005*k\n\010UserType\022",
-      "\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGO" +
-      "OD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER" +
-      "\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023MarketplacePostType\022" +
-      "\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMON" +
-      "D_POST\020\002\022\r\n\tCOIN_POST\020\003B\013B\tInfoProto"
+      "ieved\030\004 \002(\t\022\r\n\005level\030\005 \002(\005\"\214\002\n\rFullTaskP" +
+      "roto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006ci" +
+      "tyId\030\003 \002(\005\022 \n\030numRequiredForCompletion\030\004" +
+      " \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGain" +
+      "ed\030\006 \002(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chan" +
+      "ceOfEquipLoot\030\010 \002(\002\022\035\n\025potentialLootEqui" +
+      "pIds\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022\032\n\022assetNu",
+      "mWithinCity\030\013 \002(\005\"\'\n\017CoordinateProto\022\t\n\001" +
+      "x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010l" +
+      "atitude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\243\002\n\030Ful" +
+      "lMarketplacePostProto\022\031\n\021marketplacePost" +
+      "Id\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType\030\003" +
+      " \002(\0162#.com.lvl6.proto.MarketplacePostTyp" +
+      "e\022\022\n\ntimeOfPost\030\004 \002(\003\022\025\n\rpostedEquipId\030\005" +
+      " \001(\005\022\022\n\npostedWood\030\006 \001(\005\022\026\n\016postedDiamon" +
+      "ds\030\007 \001(\005\022\023\n\013postedCoins\030\010 \001(\005\022\023\n\013diamond" +
+      "Cost\030\t \001(\005\022\020\n\010coinCost\030\n \001(\005\022\020\n\010woodCost",
+      "\030\013 \001(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013" +
+      "GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARR" +
+      "IOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023M" +
+      "arketplacePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWO" +
+      "OD_POST\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST" +
+      "\020\003B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7852,7 +7853,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullTaskProto_descriptor,
-              new java.lang.String[] { "Id", "Name", "CityId", "NumRequiredForCompletion", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "ChanceOfEquipLoot", "PotentialLootEquipIds", "ExpGained", "AssetNumWithinCity", },
+              new java.lang.String[] { "TaskId", "Name", "CityId", "NumRequiredForCompletion", "EnergyCost", "MinCoinsGained", "MaxCoinsGained", "ChanceOfEquipLoot", "PotentialLootEquipIds", "ExpGained", "AssetNumWithinCity", },
               com.lvl6.proto.InfoProto.FullTaskProto.class,
               com.lvl6.proto.InfoProto.FullTaskProto.Builder.class);
           internal_static_com_lvl6_proto_CoordinateProto_descriptor =
@@ -7876,7 +7877,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor,
-              new java.lang.String[] { "Id", "PosterId", "PostType", "TimeOfPost", "PostedEquipId", "PostedWood", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", "WoodCost", },
+              new java.lang.String[] { "MarketplacePostId", "PosterId", "PostType", "TimeOfPost", "PostedEquipId", "PostedWood", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", "WoodCost", },
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.class,
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder.class);
           return null;
