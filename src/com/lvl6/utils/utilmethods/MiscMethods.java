@@ -1,5 +1,7 @@
 package com.lvl6.utils.utilmethods;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -19,7 +21,7 @@ public class MiscMethods {
     resEvent.setUpdateClientUserResponseProto(resProtoAttacker);
     return resEvent;
   }
-  
+
   public static ClassType getClassTypeFromUserType(UserType userType) {
     if (userType == UserType.BAD_MAGE || userType == UserType.GOOD_MAGE) {
       return ClassType.MAGE;
@@ -32,12 +34,29 @@ public class MiscMethods {
     }
     return null;
   }
-  
+
   public static boolean checkIfGoodSide (UserType userType) {
     if (userType == UserType.GOOD_MAGE || userType == UserType.GOOD_WARRIOR || userType == UserType.GOOD_ARCHER) {
       return true;
     }
     return false;
   }
-  
+
+  public static int getRowCount(ResultSet set) {
+    int rowCount;
+    int currentRow;
+    try {
+      currentRow = set.getRow();
+      rowCount = set.last() ? set.getRow() : 0; 
+      if (currentRow == 0)          
+        set.beforeFirst(); 
+      else      
+        set.absolute(currentRow);
+      return rowCount;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }     
+
+  }
 }

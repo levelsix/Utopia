@@ -18,9 +18,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public class GenerateAttackListController extends EventController {
 
   private static final int NUM_ENEMIES_TO_GENERATE = 25;
-  private static final int LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
-  private static final int MIN_BATTLE_LEVEL = 3;
-  
+
   @Override
   protected void initController() {
     log.info("initController for " + this.getClass().toString());        
@@ -51,11 +49,8 @@ public class GenerateAttackListController extends EventController {
       if (MiscMethods.checkIfGoodSide(user.getType())) {
         generateListOfGoodSide = false; 
       }
-      
-      int levelMin = Math.max(user.getLevel() - LEVEL_RANGE/2, MIN_BATTLE_LEVEL);
-      int levelMax = user.getLevel() + LEVEL_RANGE/2;
-      
-      List<User> enemies = UserRetrieveUtils.getUsersForSide(generateListOfGoodSide, NUM_ENEMIES_TO_GENERATE, levelMin, levelMax, user.getId());
+            
+      List<User> enemies = UserRetrieveUtils.getUsersForSide(generateListOfGoodSide, NUM_ENEMIES_TO_GENERATE, user.getLevel(), user.getId());
       if (enemies != null) {
         for (User enemy : enemies) {
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);

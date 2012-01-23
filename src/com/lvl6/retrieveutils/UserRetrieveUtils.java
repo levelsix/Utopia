@@ -14,12 +14,20 @@ import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class UserRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER;
+  
+  private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
+  private static final int BATTLE_INITIAL_RANGE_INCREASE = 3;    //even number better again
+  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;    
+  private static final int MAX_BATTLE_DB_HITS = 5;
+  private static final int MIN_BATTLE_LEVEL = 3;
+
   
   public static boolean createUser() {
     log.info("creating user");
@@ -45,27 +53,43 @@ public class UserRetrieveUtils {
     return convertRSToUsers(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
   
-  public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int levelMin, 
-      int levelMax, int userId) {
+  public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
     log.info("retrieving list of enemies for user " + userId);
     
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, MIN_BATTLE_LEVEL);
+    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
+    
+    String query = "select * from " + TABLE_NAME + " where (" + DBConstants.USER__TYPE + 
+        "=? or " + DBConstants.USER__TYPE + "=? or " + DBConstants.USER__TYPE + "=?) and " +
+        DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
+    
     List <Object> values = new ArrayList<Object>();
-    String query = "select * from " + TABLE_NAME + " where ";
     if (generateListOfGoodSide) {
-//      type = 
+      values.add(UserType.GOOD_ARCHER_VALUE);
+      values.add(UserType.GOOD_MAGE_VALUE);
+      values.add(UserType.GOOD_WARRIOR_VALUE);
     } else {
-      
+      values.add(UserType.BAD_ARCHER_VALUE);
+      values.add(UserType.BAD_MAGE_VALUE);
+      values.add(UserType.BAD_WARRIOR_VALUE);      
     }
-    
-    Map <String, Object> lessThanConditionParams = new HashMap<String, Object>();
-    lessThanConditionParams.put(DBConstants.USER__LEVEL, levelMax);
-    
-    Map <String, Object> greaterThanConditionParams = new HashMap<String, Object>();
-    greaterThanConditionParams.put(DBConstants.USER__LEVEL, levelMin);
+    values.add(levelMin);
+    values.add(levelMax);
 
-    
-    List<User> users = convertRSToUsers(DBConnection.selectDirectQueryNaive(query, values));
-    return null;
+    int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
+    int numDBHits = 1;
+    ResultSet rs = DBConnection.selectDirectQueryNaive(query, values);
+    while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
+      values.remove(values.size()-1);
+      values.remove(values.size()-1);
+      values.add(Math.max(MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
+      values.add(levelMax + rangeIncrease/2);
+      rs = DBConnection.selectDirectQueryNaive(query, values);
+      numDBHits++;
+      if (numDBHits == MAX_BATTLE_DB_HITS) break;
+      rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
+    }
+    return convertRSToUsers(rs);
   }
 
   //when you first log in, call this
