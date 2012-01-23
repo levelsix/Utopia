@@ -43,14 +43,14 @@ public class MarketplacePostRetrieveUtils {
 
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
     log.info("retrieving limited marketplace posts");
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST, limit));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
     log.info("retrieving limited marketplace posts");
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__TIME_OF_POST, limit));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
   }
   
   private static List<MarketplacePost> convertRSToMarketplacePosts(ResultSet rs) {

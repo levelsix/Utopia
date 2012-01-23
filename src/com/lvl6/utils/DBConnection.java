@@ -57,7 +57,7 @@ public class DBConnection {
       e.printStackTrace();
     }
   }
-
+  
   public static ResultSet selectRowsByUserId(int userId, String tablename) {
     return selectRowsByIntAttr(null, DBConstants.GENERIC__USER_ID, userId, tablename);
   }
@@ -356,13 +356,16 @@ public class DBConnection {
     }
     query += " from " + tablename;
 
-    List<String> condClauses = new LinkedList<String>();
+    List<String> absoluteCondClauses = new LinkedList<String>();
+    List<String> lessthanCondClauses = new LinkedList<String>();
+    List<String> greaterthanCondClauses = new LinkedList<String>();
+
     List<Object> values = new LinkedList<Object>();
 
     boolean useWhere = true;
     if (absoluteConditionParams != null && absoluteConditionParams.size()>0) {
       for (String param : absoluteConditionParams.keySet()) {
-        condClauses.add(param + "=?");
+        absoluteCondClauses.add(param + "=?");
         values.add(absoluteConditionParams.get(param));
       }
 
@@ -372,13 +375,13 @@ public class DBConnection {
         query += " and (";
       }
       useWhere = false;
-      query += StringUtils.getListInString(condClauses, conddelim);
+      query += StringUtils.getListInString(absoluteCondClauses, conddelim);
       query += " ) ";
     }
 
     if (relativeGreaterThanConditionParams != null && relativeGreaterThanConditionParams.size()>0) {
       for (String param : relativeGreaterThanConditionParams.keySet()) {
-        condClauses.add(param + ">?");
+        greaterthanCondClauses.add(param + ">?");
         values.add(relativeGreaterThanConditionParams.get(param));
       }
 
@@ -388,13 +391,13 @@ public class DBConnection {
         query += " and (";
       }
       useWhere = false;
-      query += StringUtils.getListInString(condClauses, conddelim);
+      query += StringUtils.getListInString(greaterthanCondClauses, conddelim);
       query += " ) ";
     }
 
     if (relativeLessThanConditionParams != null && relativeLessThanConditionParams.size()>0) {
       for (String param : relativeLessThanConditionParams.keySet()) {
-        condClauses.add(param + "<?");
+        lessthanCondClauses.add(param + "<?");
         values.add(relativeLessThanConditionParams.get(param));
       }
 
@@ -404,7 +407,7 @@ public class DBConnection {
         query += " and (";
       }
       useWhere = false;
-      query += StringUtils.getListInString(condClauses, conddelim);
+      query += StringUtils.getListInString(lessthanCondClauses, conddelim);
       query += " ) ";
     }
 

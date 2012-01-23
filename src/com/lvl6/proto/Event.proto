@@ -433,10 +433,12 @@ message UseSkillPointResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message GenerateAttackListRequestProto {
 	required MinimumUserProto sender = 1;
 }
 
+																						//DONE
 message GenerateAttackListResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullUserProto enemies = 2;
