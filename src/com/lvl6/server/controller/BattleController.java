@@ -36,7 +36,7 @@ public class BattleController extends EventController {
 
   private static final int MAX_LEVEL_DIFFERENCE = 50;
   
-  private static final int MIN_BATTLE_HEALTH_REQUIREMENT = MAX_DAMAGE+1;
+  public static final int MIN_BATTLE_HEALTH_REQUIREMENT = MAX_DAMAGE+1;
   private static final int MIN_EXP_GAIN = 1;
   private static final int MAX_EXP_GAIN = 5;
   private static final String ATTACKER_FLAG = "attacker";
