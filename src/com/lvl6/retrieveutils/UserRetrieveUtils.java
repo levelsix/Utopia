@@ -30,15 +30,6 @@ public class UserRetrieveUtils {
   private static final int MAX_BATTLE_DB_HITS = 5;
   private static final int MIN_BATTLE_LEVEL = 3;
 
-  
-  public static boolean createUser() {
-    log.info("creating user");
-    //TODO: impl
-    //when you select your class/name on the last page of the tutorial, THEN i add you to the db
-    //then i add the udid, class, name, etc.
-    return false;
-  }
-
   public static User getUserById(int userId) {
     log.info("retrieving user with userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();

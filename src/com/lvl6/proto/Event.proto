@@ -155,12 +155,13 @@ message StartupResponseProto {
 
 message UserCreateRequestProto {
      required string udid = 1;
-     repeated FullUserStructureProto structures = 2;
-     required LocationProto userLocation = 3;						
-     required CoordinateProto aviaryCoordinates = 4;
-     required CoordinateProto refineryCoordinates = 5;
-     required CoordinateProto carpenterCoordinates = 6;     
-     optional int32 referrerCode = 7;
+     required string name = 2;
+     repeated FullUserStructureProto structures = 3;
+     required LocationProto userLocation = 4;						
+     required CoordinateProto aviaryCoordinates = 5;
+     required CoordinateProto refineryCoordinates = 6;
+     required CoordinateProto carpenterCoordinates = 7;     
+     optional int32 referrerCode = 8;
 }
 //CREATE UTILITY METHOD- unlockCityRankOneForCityId(int cityId)
 message UserCreateResponseProto {
@@ -436,10 +437,27 @@ message UseSkillPointResponseProto {
 																						//DONE
 message GenerateAttackListRequestProto {
 	required MinimumUserProto sender = 1;
+	optional UserType enemyType = 2;
+	optional int32 numEnemies = 3; 
 }
 
 																						//DONE
 message GenerateAttackListResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullUserProto enemies = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message QuestCompleteResponseProto {
+	required MinimumUserProto sender = 1;
+	required int32 questId = 2;
+	repeated int32 newQuestsAvailable = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+message QuestAcceptRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 questId = 2;
 }

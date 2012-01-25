@@ -41,7 +41,7 @@ public class RetrieveEquipmentForArmoryController extends EventController{
     RetrieveEquipmentForArmoryResponseProto.Builder resBuilder = RetrieveEquipmentForArmoryResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    List<Equipment> equips = EquipmentRetrieveUtils.getAllEquipmentForClassType(MiscMethods.getClassTypeFromUserType(senderProto.getUserType()));
+    List<Equipment> equips = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(MiscMethods.getClassTypeFromUserType(senderProto.getUserType()));
     if (equips != null) {
       for (Equipment equip : equips) { 
         FullEquipProto fep = CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip);

@@ -87,6 +87,7 @@ public class BattleController extends EventController {
 
     server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     try {
+      
       User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
       List<UserEquip> attackerEquips = UserEquipRetrieveUtils.getUserEquipsForUser(attacker.getId());
   
