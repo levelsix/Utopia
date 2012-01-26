@@ -57,7 +57,7 @@ public class ArmoryController extends EventController {
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       UserEquip userEquip = null;
-      Equipment equipment = EquipmentRetrieveUtils.getAllEquipmentIdsToEquipment().get(equipId);
+      Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
   
       if (quantity < 1 || equipment == null) {
         resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);

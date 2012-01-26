@@ -24,7 +24,7 @@ public class EquipmentRetrieveUtils {
   
   private static final String TABLE_NAME = DBConstants.TABLE_EQUIPMENT;
     
-  public static Map<Integer, Equipment> getAllEquipmentIdsToEquipment() {
+  public static Map<Integer, Equipment> getEquipmentIdsToEquipment() {
     log.info("retrieving equipment data");
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();

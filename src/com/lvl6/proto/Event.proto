@@ -135,8 +135,7 @@ message StartupResponseProto {
      required UpdateStatus updateStatus= 3;
      optional int32 maxCityIdAccessibleToUser = 4;     //cityids must be in order of min_level
      optional FullUserStructureProto structures = 5;
-     required bool updateAvailable = 6;
-     optional int32 questLog = 7;  
+     optional int32 questLog = 6;  
      
      enum UpdateStatus {
      	NO_UPDATE = 0;

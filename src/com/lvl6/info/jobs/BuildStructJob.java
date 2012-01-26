@@ -26,6 +26,4 @@ public class BuildStructJob {
     return "BuildStructJob [id=" + id + ", structId=" + structId
         + ", quantity=" + quantity + "]";
   }
-  
-  
 }

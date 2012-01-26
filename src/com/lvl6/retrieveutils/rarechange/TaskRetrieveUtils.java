@@ -18,32 +18,32 @@ public class TaskRetrieveUtils {
   
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static Map<Integer, List<Task>> cityIdToTasks;
-  private static Map<Integer, Task> taskIdsToTask;
+  private static Map<Integer, List<Task>> cityIdsToTasks;
+  private static Map<Integer, Task> taskIdsToTasks;
   
   private static final String TABLE_NAME = DBConstants.TABLE_TASKS;
     
-  public static Map<Integer, Task> getAllTaskIdsToTask() {
+  public static Map<Integer, Task> getTaskIdsToTasks() {
     log.info("retrieving all-tasks data");
-    if (taskIdsToTask == null) {
-      setStaticTaskIdsToTask();
+    if (taskIdsToTasks == null) {
+      setStaticTaskIdsToTasks();
     }
-    return taskIdsToTask;
+    return taskIdsToTasks;
   }
   
   public static Task getTaskForTaskId(int taskId) {
     log.info("retrieve task data");
-    if (taskIdsToTask == null) {
-      setStaticTaskIdsToTask();      
+    if (taskIdsToTasks == null) {
+      setStaticTaskIdsToTasks();      
     }
-    return taskIdsToTask.get(taskId);
+    return taskIdsToTasks.get(taskId);
   }
   
   public static List<Task> getAllTasksForCityId(int cityId) {
-    if (cityIdToTasks == null) {
+    if (cityIdsToTasks == null) {
       setStaticCityIdsToTasks();
     }
-    return cityIdToTasks.get(cityId);
+    return cityIdsToTasks.get(cityId);
   }
   
   private static void setStaticCityIdsToTasks() {
@@ -64,7 +64,7 @@ public class TaskRetrieveUtils {
             cityIdToTasksTemp.get(task.getCityId()).add(task);
           }
         }
-        cityIdToTasks = cityIdToTasksTemp;
+        cityIdsToTasks = cityIdToTasksTemp;
       } catch (SQLException e) {
         System.out.println("problem with database call.");
         e.printStackTrace();
@@ -72,18 +72,18 @@ public class TaskRetrieveUtils {
     }    
   }
   
-  private static void setStaticTaskIdsToTask() {
+  private static void setStaticTaskIdsToTasks() {
     log.info("setting static map of taskIds to tasks");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        taskIdsToTask = new HashMap<Integer, Task>();
+        taskIdsToTasks = new HashMap<Integer, Task>();
         while(rs.next()) {  //should only be one
           Task task = convertRSRowToTask(rs);
           if (task != null)
-            taskIdsToTask.put(task.getId(), task);
+            taskIdsToTasks.put(task.getId(), task);
         }
       } catch (SQLException e) {
         System.out.println("problem with database call.");

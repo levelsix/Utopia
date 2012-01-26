@@ -83,7 +83,7 @@ public class BattleController extends EventController {
     MinimumUserProto attackerProto = reqProto.getAttacker();
     MinimumUserProto defenderProto = reqProto.getDefender();
 
-    Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getAllEquipmentIdsToEquipment();
+    Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
 
     server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     try {

@@ -22,6 +22,7 @@ public class DBConstants {
   public static final String TABLE_MARKETPLACE = "marketplace";
   public static final String TABLE_MARKETPLACE_TRANSACTION_HISTORY = "marketplace_transaction_history";
   public static final String TABLE_JOBS_BUILD_STRUCT = "jobs_build_struct";
+  public static final String TABLE_JOBS_UPGRADE_STRUCT = "jobs_upgrade_struct";
   public static final String TABLE_JOBS_DEFEAT_TYPE = "jobs_defeat_type";
   public static final String TABLE_JOBS_MARKETPLACE = "jobs_marketplace";
   public static final String TABLE_UPGRADE_STRUCT = "jobs_upgrade_struct";
