@@ -12,9 +12,11 @@ import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
+import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.server.GameServer;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 
 public class StartupController extends EventController {
@@ -56,21 +58,25 @@ public class StartupController extends EventController {
     
     resBuilder.setUpdateStatus(updateStatus);
     
-    // Don't fill in other fields if it is not a major update
+    // Don't fill in other fields if it is a major update
+    StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       User user = UserRetrieveUtils.getUserByUDID(udid);
       if (user != null) {
-        resBuilder.setStartupStatus(StartupStatus.USER_IN_DB);
+        startupStatus = StartupStatus.USER_IN_DB;
         
-      } else {
-        resBuilder.setStartupStatus(StartupStatus.USER_NOT_IN_DB);
+        FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
+        resBuilder.setSender(fup);
       }
     }
+    resBuilder.setStartupStatus(startupStatus);
     
     StartupResponseProto resProto = resBuilder.build();
     StartupResponseEvent resEvent = new StartupResponseEvent(udid);
     resEvent.setStartupResponseProto(resProto);
     
+    log.info("Writing event: " + resEvent);
+    // Write event directly since EventWriter cannot handle without userId.
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
     NIOUtils.prepBuffer(resEvent, writeBuffer);
     NIOUtils.channelWrite(server.removePreDbPlayer(udid), writeBuffer);
