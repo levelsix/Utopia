@@ -28,7 +28,6 @@ public class UserRetrieveUtils {
   private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
   private static final int MIN_BATTLE_HEALTH_REQUIREMENT = BattleController.MIN_BATTLE_HEALTH_REQUIREMENT;
   private static final int MAX_BATTLE_DB_HITS = 5;
-  private static final int MIN_BATTLE_LEVEL = 3;
 
   public static User getUserById(int userId) {
     log.info("retrieving user with userId " + userId);
@@ -49,7 +48,7 @@ public class UserRetrieveUtils {
   public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
     log.info("retrieving list of enemies for user " + userId);
     
-    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, MIN_BATTLE_LEVEL);
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, BattleController.MIN_BATTLE_LEVEL);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
     
     String query = "select * from " + TABLE_NAME + " where "+ DBConstants.USER__HEALTH + ">= "+ 
@@ -76,7 +75,7 @@ public class UserRetrieveUtils {
     while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
       values.remove(values.size()-1);
       values.remove(values.size()-1);
-      values.add(Math.max(MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
+      values.add(Math.max(BattleController.MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
       values.add(levelMax + rangeIncrease/2);
       rs = DBConnection.selectDirectQueryNaive(query, values);
       numDBHits++;
