@@ -94,7 +94,6 @@ public class Attachment {
    * check for a complete payload
    */
   private boolean checkPayload() {
-    System.out.println(readBuff.remaining());
     if (readBuff.remaining() >= payloadSize) {
       try {
         readBuff.get(payload, 0, payloadSize);

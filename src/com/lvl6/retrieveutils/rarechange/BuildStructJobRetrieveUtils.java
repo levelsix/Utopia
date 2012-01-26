@@ -63,8 +63,8 @@ public class BuildStructJobRetrieveUtils {
         }
         buildStructJobIdsToBuildStructJobs = buildStructJobIdsToBuildStructJobsTemp;
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }    
     

@@ -37,8 +37,8 @@ public class UserCityRetrieveUtils {
           return currentRank;
         }
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }
     return NOT_SET;

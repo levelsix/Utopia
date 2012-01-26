@@ -104,8 +104,8 @@ public class UserRetrieveUtils {
          return convertRSRowToUser(rs);
         }
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }
     return null;
@@ -122,8 +122,8 @@ public class UserRetrieveUtils {
         }
         return users;
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }
     return null;

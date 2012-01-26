@@ -49,7 +49,6 @@ public class InAppPurchaseController extends EventController {
    */
   @Override
   protected void processRequestEvent(RequestEvent event) {
-    System.out.println("in here");
     InAppPurchaseRequestProto reqProto = ((InAppPurchaseRequestEvent)event).getInAppPurchaseRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

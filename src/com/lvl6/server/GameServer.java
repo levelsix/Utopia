@@ -261,9 +261,16 @@ public class GameServer extends Thread{
   /**
    * remove a player from our lists
    */
-  public synchronized void removePlayer(SocketChannel channel) {
-    playersByPlayerId.remove(channelToPlayerId.get(channel));
-    channelToPlayerId.remove(channel);
+  public synchronized void removePlayer(SocketChannel channel) throws Exception{
+    try {
+      playersByPlayerId.remove(channelToPlayerId.get(channel));
+      channelToPlayerId.remove(channel);
+    }
+    catch (Exception e) {
+      System.out.println("PlayersByPlayerId: "+playersByPlayerId);
+      System.out.println("ChannelToPlayerId: "+channelToPlayerId);
+      throw e;
+    }
   }
 
   public void lockPlayer(int playerId) {

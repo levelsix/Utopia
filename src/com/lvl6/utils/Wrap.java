@@ -25,7 +25,7 @@ public abstract class Wrap implements Runnable{
    */
   public final void initWrap(int numWorkers) {
     //setup the log4j Logger
-    log = Logger.getLogger(getClass());
+    log = Logger.getLogger(getClass().getSimpleName());
     log.info("initWrap: log started");
 
     eventQueue = new EventQueue();
@@ -33,7 +33,7 @@ public abstract class Wrap implements Runnable{
     // spawn worker threads
     workers = new Thread[numWorkers];
     for (int i=0; i<numWorkers; i++) {
-      workers[i] = new Thread(this);
+      workers[i] = new Thread(this, getClass().getSimpleName());
       workers[i].setDaemon(true);
       workers[i].start();
     }
@@ -65,13 +65,28 @@ public abstract class Wrap implements Runnable{
   public void run() {
     GameEvent event;
     running = true;
-    while (running) {
-      try {
-        if ((event = eventQueue.deQueue()) != null) {
-          processEvent(event);
+    try {
+      while (running) {
+        try {
+          if ((event = eventQueue.deQueue()) != null) {
+            processEvent(event);
+          }
+        }
+        catch (InterruptedException e) {
         }
       }
-      catch (InterruptedException e) {
+    }
+    catch (Exception e){
+      log.error(e);
+      // If there is ever any exception, replace this thread with a new thread
+      for (int i = 0; i < workers.length; i++) {
+        if (workers[i] == Thread.currentThread()) {
+          workers[i] = new Thread(this, getClass().getSimpleName());
+          workers[i].setDaemon(true);
+          workers[i].start();
+          log.error("Replacing this thread..");
+          break;
+        }
       }
     }
   }

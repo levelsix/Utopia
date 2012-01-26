@@ -66,8 +66,8 @@ public class QuestRetrieveUtils {
         }
         cityIdToQuests = cityIdToQuestsTemp;
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }    
   }
@@ -86,8 +86,8 @@ public class QuestRetrieveUtils {
             questIdsToQuests.put(quest.getId(), quest);
         }
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }    
   }
