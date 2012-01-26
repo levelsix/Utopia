@@ -164,6 +164,75 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MarketplacePostType)
   }
   
+  public enum MarketplaceJobRequirementType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    BUY(0, 0),
+    SELL(1, 1),
+    ;
+    
+    public static final int BUY_VALUE = 0;
+    public static final int SELL_VALUE = 1;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static MarketplaceJobRequirementType valueOf(int value) {
+      switch (value) {
+        case 0: return BUY;
+        case 1: return SELL;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<MarketplaceJobRequirementType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<MarketplaceJobRequirementType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<MarketplaceJobRequirementType>() {
+            public MarketplaceJobRequirementType findValueByNumber(int number) {
+              return MarketplaceJobRequirementType.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(2);
+    }
+    
+    private static final MarketplaceJobRequirementType[] VALUES = {
+      BUY, SELL, 
+    };
+    
+    public static MarketplaceJobRequirementType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private MarketplaceJobRequirementType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MarketplaceJobRequirementType)
+  }
+  
   public interface MinimumUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -8090,7 +8159,9 @@ public final class InfoProto {
       "MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022" +
       "\014\n\010BAD_MAGE\020\005*U\n\023MarketplacePostType\022\016\n\n" +
       "EQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_P" +
-      "OST\020\002\022\r\n\tCOIN_POST\020\003B\013B\tInfoProto"
+      "OST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035MarketplaceJobRe" +
+      "quirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001B\013B\tInfo" +
+      "Proto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

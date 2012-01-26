@@ -153,3 +153,10 @@ message FullMarketplacePostProto {
 message FullQuestProto { 
 
 }
+
+//------------------------------------------------------------------------------------------
+
+enum MarketplaceJobRequirementType { 
+	BUY = 0;
+	SELL = 1;
+}
