@@ -24,7 +24,7 @@ public class EquipmentRetrieveUtils {
   
   private static final String TABLE_NAME = DBConstants.TABLE_EQUIPMENT;
     
-  public static Map<Integer, Equipment> getAllEquipmentIdsToEquipment() {
+  public static Map<Integer, Equipment> getEquipmentIdsToEquipment() {
     log.info("retrieving equipment data");
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
@@ -32,7 +32,7 @@ public class EquipmentRetrieveUtils {
     return equipIdToEquipment;
   }
   
-  public static List<Equipment> getAllEquipmentForClassType(ClassType classtype) {
+  public static List<Equipment> getAllArmoryEquipmentForClassType(ClassType classtype) {
     log.info("retrieving equipment data");
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
@@ -40,7 +40,7 @@ public class EquipmentRetrieveUtils {
     List <Equipment> equips = new ArrayList<Equipment>();
     for (Integer equipId : equipIdToEquipment.keySet()) {
       Equipment equip = equipIdToEquipment.get(equipId);
-      if (equip.getClassType() == classtype) {
+      if (equip.getClassType() == classtype && (equip.getDiamondPrice() > 0 || equip.getCoinPrice() > 0)) {
         equips.add(equip);
       }
     }

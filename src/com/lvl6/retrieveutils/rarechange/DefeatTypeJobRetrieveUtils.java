@@ -1,0 +1,84 @@
+package com.lvl6.retrieveutils.rarechange;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+import com.lvl6.info.jobs.DefeatTypeJob;
+import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.utils.DBConnection;
+
+public class DefeatTypeJobRetrieveUtils {
+  
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
+  private static Map<Integer, DefeatTypeJob> defeatTypeJobIdsToDefeatTypeJobs;
+  
+  private static final String TABLE_NAME = DBConstants.TABLE_JOBS_DEFEAT_TYPE;
+
+  public static Map<Integer, DefeatTypeJob> getDefeatTypeJobIdsToDefeatTypeJobs() {
+    log.info("retrieving all build defeat type job data");
+    if (defeatTypeJobIdsToDefeatTypeJobs == null) {
+      setStaticDefeatTypeJobIdsToDefeatTypeJobs();
+    }
+    return defeatTypeJobIdsToDefeatTypeJobs;
+  }
+  
+  public static Map<Integer, DefeatTypeJob> getDefeatTypeJobsForDefeatTypeJobIds(List<Integer> ids) {
+    log.info("retrieving build defeat type jobs with ids " + ids);
+    if (defeatTypeJobIdsToDefeatTypeJobs == null) {
+      setStaticDefeatTypeJobIdsToDefeatTypeJobs();
+    }
+    Map<Integer, DefeatTypeJob> toreturn = new HashMap<Integer, DefeatTypeJob>();
+    for (Integer id : ids) {
+        toreturn.put(id,  defeatTypeJobIdsToDefeatTypeJobs.get(id));
+    }
+    return toreturn;
+  }
+  
+  public static DefeatTypeJob getDefeatTypeJobForDefeatTypeJobId(int defeatTypeJobId) {
+    log.info("retrieving build defeat type job data for defeat type job id " + defeatTypeJobId);
+    if (defeatTypeJobIdsToDefeatTypeJobs == null) {
+      setStaticDefeatTypeJobIdsToDefeatTypeJobs();
+    }
+    return defeatTypeJobIdsToDefeatTypeJobs.get(defeatTypeJobId);
+  }
+  
+  private static void setStaticDefeatTypeJobIdsToDefeatTypeJobs() {
+    log.info("setting static map of defeat type job id to defeat type job");
+    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        Map <Integer, DefeatTypeJob> defeatTypeJobIdsToDefeatTypeJobsTemp = new HashMap<Integer, DefeatTypeJob>();
+        while(rs.next()) {  //should only be one
+          DefeatTypeJob dtj = convertRSRowToDefeatTypeJob(rs);
+          if (dtj != null)
+            defeatTypeJobIdsToDefeatTypeJobsTemp.put(dtj.getId(), dtj);
+        }
+        defeatTypeJobIdsToDefeatTypeJobs = defeatTypeJobIdsToDefeatTypeJobsTemp;
+      } catch (SQLException e) {
+        System.out.println("problem with database call.");
+        e.printStackTrace();
+      }
+    }    
+    
+  }
+  
+  /*
+   * assumes the resultset is apprpriately set up. traverses the row it's on.
+   */
+  private static DefeatTypeJob convertRSRowToDefeatTypeJob(ResultSet rs) throws SQLException {
+    int i = 1;
+    int id = rs.getInt(i++);
+    UserType enemyType = UserType.valueOf(rs.getInt(i++));
+    int numEnemiesToDefeat = rs.getInt(i++);
+    return new DefeatTypeJob(id, enemyType, numEnemiesToDefeat);
+  }
+}

@@ -18,36 +18,36 @@ public class TaskRetrieveUtils {
   
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static Map<Integer, List<Task>> cityIdToTasks;
-  private static Map<Integer, Task> taskIdsToTask;
+  private static Map<Integer, List<Task>> cityIdsToTasks;
+  private static Map<Integer, Task> taskIdsToTasks;
   
   private static final String TABLE_NAME = DBConstants.TABLE_TASKS;
     
-  public static Map<Integer, Task> getAllTaskIdsToTask() {
+  public static Map<Integer, Task> getTaskIdsToTasks() {
     log.info("retrieving all-tasks data");
-    if (taskIdsToTask == null) {
-      setStaticTaskIdsToTask();
+    if (taskIdsToTasks == null) {
+      setStaticTaskIdsToTasks();
     }
-    return taskIdsToTask;
+    return taskIdsToTasks;
   }
   
   public static Task getTaskForTaskId(int taskId) {
     log.info("retrieve task data");
-    if (taskIdsToTask == null) {
-      setStaticTaskIdsToTask();      
+    if (taskIdsToTasks == null) {
+      setStaticTaskIdsToTasks();      
     }
-    return taskIdsToTask.get(taskId);
+    return taskIdsToTasks.get(taskId);
   }
   
   public static List<Task> getAllTasksForCityId(int cityId) {
-    if (cityIdToTasks == null) {
+    if (cityIdsToTasks == null) {
       setStaticCityIdsToTasks();
     }
-    return cityIdToTasks.get(cityId);
+    return cityIdsToTasks.get(cityId);
   }
   
   private static void setStaticCityIdsToTasks() {
-    log.info("setting static map of taskIds to task");
+    log.info("setting static map of cityId to tasks");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
     
     if (rs != null) {
@@ -56,7 +56,7 @@ public class TaskRetrieveUtils {
         rs.beforeFirst();
         Map<Integer, List<Task>> cityIdToTasksTemp = new HashMap<Integer, List<Task>>();
         while(rs.next()) {  //should only be one
-          Task task = convertRSRowToEquipment(rs);
+          Task task = convertRSRowToTask(rs);
           if (task != null) {
             if (cityIdToTasksTemp.get(task.getCityId()) == null) {
               cityIdToTasksTemp.put(task.getCityId(), new ArrayList<Task>());
@@ -64,7 +64,7 @@ public class TaskRetrieveUtils {
             cityIdToTasksTemp.get(task.getCityId()).add(task);
           }
         }
-        cityIdToTasks = cityIdToTasksTemp;
+        cityIdsToTasks = cityIdToTasksTemp;
       } catch (SQLException e) {
         System.out.println("problem with database call.");
         e.printStackTrace();
@@ -72,18 +72,18 @@ public class TaskRetrieveUtils {
     }    
   }
   
-  private static void setStaticTaskIdsToTask() {
-    log.info("setting static map of equipIds to equipment");
+  private static void setStaticTaskIdsToTasks() {
+    log.info("setting static map of taskIds to tasks");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        taskIdsToTask = new HashMap<Integer, Task>();
+        taskIdsToTasks = new HashMap<Integer, Task>();
         while(rs.next()) {  //should only be one
-          Task task = convertRSRowToEquipment(rs);
+          Task task = convertRSRowToTask(rs);
           if (task != null)
-            taskIdsToTask.put(task.getId(), task);
+            taskIdsToTasks.put(task.getId(), task);
         }
       } catch (SQLException e) {
         System.out.println("problem with database call.");
@@ -95,7 +95,7 @@ public class TaskRetrieveUtils {
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
-  private static Task convertRSRowToEquipment(ResultSet rs) throws SQLException {
+  private static Task convertRSRowToTask(ResultSet rs) throws SQLException {
     int i = 1;
     int id = rs.getInt(i++);
     String goodName = rs.getString(i++);

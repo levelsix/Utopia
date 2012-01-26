@@ -147,3 +147,16 @@ message FullMarketplacePostProto {
 	optional int32 coinCost = 10;
 	optional int32 woodCost = 11;
 }
+
+//------------------------------------------------------------------------------------------
+
+message FullQuestProto { 
+
+}
+
+//------------------------------------------------------------------------------------------
+
+enum MarketplaceJobRequirementType { 
+	BUY = 0;
+	SELL = 1;
+}

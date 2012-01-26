@@ -7,6 +7,13 @@ public class DBConstants {
   public static final String TABLE_USER_EQUIP = "user_equip";
   public static final String TABLE_USER_TASKS = "user_tasks";
   public static final String TABLE_USER_CITIES = "user_cities";
+  public static final String TABLE_USER_QUESTS = "user_quests";
+  public static final String TABLE_USER_QUESTS_COMPLETED_BUILD_STRUCT_JOBS = "user_quests_completed_build_struct_jobs";
+  public static final String TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS = "user_quests_completed_defeat_type_jobs";
+  public static final String TABLE_USER_QUESTS_COMPLETED_MARKETPLACE_JOBS = "user_quests_completed_marketplace_jobs";
+  public static final String TABLE_USER_QUESTS_COMPLETED_TASKS = "user_quests_completed_tasks";
+  public static final String TABLE_USER_QUESTS_COMPLETED_UPGRADE_STRUCT_JOBS = "user_quests_completed_upgrade_struct_jobs";
+  public static final String TABLE_USER_DEFEAT_TYPE_JOB_PROGRESS = "user_defeat_type_job_progress";
   public static final String TABLE_EQUIPMENT = "equipment";
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
@@ -14,7 +21,13 @@ public class DBConstants {
   public static final String TABLE_IAP_HISTORY = "iap_history";
   public static final String TABLE_MARKETPLACE = "marketplace";
   public static final String TABLE_MARKETPLACE_TRANSACTION_HISTORY = "marketplace_transaction_history";
-
+  public static final String TABLE_JOBS_BUILD_STRUCT = "jobs_build_struct";
+  public static final String TABLE_JOBS_UPGRADE_STRUCT = "jobs_upgrade_struct";
+  public static final String TABLE_JOBS_DEFEAT_TYPE = "jobs_defeat_type";
+  public static final String TABLE_JOBS_MARKETPLACE = "jobs_marketplace";
+  public static final String TABLE_UPGRADE_STRUCT = "jobs_upgrade_struct";
+  public static final String TABLE_QUESTS = "quests";
+  
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -44,7 +57,14 @@ public class DBConstants {
   public static final String USER__BATTLES_LOST = "battles_lost";
   
   public static final String USER__UDID = "udid";
-  
+  public static final String USER__LATITUDE = "latitude";
+  public static final String USER__LONGITUDE = "longitude";
+  public static final String USER__ARMORY_X = "armory_xcoord";
+  public static final String USER__ARMORY_Y = "armory_ycoord";
+  public static final String USER__VAULT_X = "vault_xcoord";
+  public static final String USER__VAULT_Y = "vault_ycoord";
+  public static final String USER__CLERIC_X = "cleric_xcoord";
+  public static final String USER__CLERIC_Y = "cleric_ycoord";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;

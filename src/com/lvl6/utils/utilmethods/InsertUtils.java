@@ -14,6 +14,18 @@ import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
 
 public class InsertUtils {
+  
+  public static boolean createUser(String name) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.TABLE_USER, name);
+    //TODO: IMPL- work out default stats. actually leave defaults in db so we dont need server reboot for change
+    
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
 
   public static boolean insertIAPHistoryElem(JSONObject appleReceipt, int diamondChange, User user, double cashCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
