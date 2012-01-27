@@ -20,7 +20,6 @@ public class Quest {
   private int expGained;
   private int equipIdGained;
   private List<Integer> questsRequiredForThis;
-  private List<Integer> questsDependentOnThis;
   private List<Integer> tasksRequired;
   private List<Integer> upgradeStructJobsRequired;
   private List<Integer> buildStructJobsRequired;
@@ -34,7 +33,7 @@ public class Quest {
       String badDescription, String goodDoneResponse, String badDoneResponse,
       String goodInProgress, String badInProgress, int assetNumWithinCity,
       int coinsGained, int diamondsGained, int expGained, int equipIdGained,
-      List<Integer> questsRequiredForThis, List<Integer> questsDependentOnThis,
+      List<Integer> questsRequiredForThis, 
       List<Integer> tasksRequired, List<Integer> upgradeStructJobsRequired,
       List<Integer> buildStructJobsRequired,
       List<Integer> marketplaceJobsRequired,
@@ -56,7 +55,6 @@ public class Quest {
     this.expGained = expGained;
     this.equipIdGained = equipIdGained;
     this.questsRequiredForThis = questsRequiredForThis;
-    this.questsDependentOnThis = questsDependentOnThis;
     this.tasksRequired = tasksRequired;
     this.upgradeStructJobsRequired = upgradeStructJobsRequired;
     this.buildStructJobsRequired = buildStructJobsRequired;
@@ -131,10 +129,6 @@ public class Quest {
     return questsRequiredForThis;
   }
 
-  public List<Integer> getQuestsDependentOnThis() {
-    return questsDependentOnThis;
-  }
-
   public List<Integer> getTasksRequired() {
     return tasksRequired;
   }
@@ -178,7 +172,6 @@ public class Quest {
         + coinsGained + ", diamondsGained=" + diamondsGained + ", expGained="
         + expGained + ", equipIdGained=" + equipIdGained
         + ", questsRequiredForThis=" + questsRequiredForThis
-        + ", questsDependentOnThis=" + questsDependentOnThis
         + ", tasksRequired=" + tasksRequired + ", upgradeStructJobsRequired="
         + upgradeStructJobsRequired + ", buildStructJobsRequired="
         + buildStructJobsRequired + ", marketplaceJobsRequired="

@@ -81,7 +81,7 @@ public class QuestRetrieveUtils {
       }
     }    
   }
-
+  
   private static void setStaticQuestIdsToQuests() {
     log.info("setting static map of questIds to quests");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
@@ -102,7 +102,7 @@ public class QuestRetrieveUtils {
       }
     }    
   }
-
+  
   private static void setStaticQuestGraph() {
     log.info("setting static quest graph");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
@@ -155,15 +155,6 @@ public class QuestRetrieveUtils {
       st = new StringTokenizer(questsRequiredForThisString, ", ");
       while (st.hasMoreTokens()) {
         questsRequiredForThis.add(Integer.parseInt(st.nextToken()));
-      }
-    }
-
-    String questsDependentOnThisString = rs.getString(i++);
-    List<Integer> questsDependentOnThis = new ArrayList<Integer>();
-    if (questsDependentOnThisString != null) {
-      st = new StringTokenizer(questsDependentOnThisString, ", ");
-      while (st.hasMoreTokens()) {
-        questsDependentOnThis.add(Integer.parseInt(st.nextToken()));
       }
     }
 
@@ -227,7 +218,7 @@ public class QuestRetrieveUtils {
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, assetNumWithinCity, 
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 
-        questsDependentOnThis, tasksRequired, upgradeStructJobsRequired, 
+        tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, marketplaceJobsRequired, defeatGoodGuysRequired, 
         defeatBadGuysRequired, equipIdReq, equipQuantityReq);
     return quest;

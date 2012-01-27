@@ -10,7 +10,7 @@ public class QuestGraph {
     private int nodeId;
     private List<Integer> requiredVertices;
 
-    public Vertex(int id, List<Integer> required, List<Integer> dependent) {
+    public Vertex(int id, List<Integer> required) {
       nodeId = id;
       requiredVertices = required;
     }
@@ -37,7 +37,7 @@ public class QuestGraph {
   public QuestGraph(List<Quest> quests) {
     questVertices = new ArrayList<Vertex>(quests.size());
     for (Quest quest : quests) {
-      questVertices.add(new Vertex(quest.getId(), quest.getQuestsRequiredForThis(), quest.getQuestsDependentOnThis()));
+      questVertices.add(new Vertex(quest.getId(), quest.getQuestsRequiredForThis()));
     }
   }
 
