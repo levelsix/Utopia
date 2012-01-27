@@ -8,44 +8,237 @@ public final class AdminProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface ReloadCitiesRequestProtoOrBuilder
+  public interface AdminChangeRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
+    
+    // required bool isStaticDataReload = 1;
+    boolean hasIsStaticDataReload();
+    boolean getIsStaticDataReload();
+    
+    // optional .com.lvl6.proto.AdminChangeRequestProto.StaticDataReloadType staticDataReloadType = 2;
+    boolean hasStaticDataReloadType();
+    com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType getStaticDataReloadType();
+    
+    // required bool isSale = 3;
+    boolean hasIsSale();
+    boolean getIsSale();
+    
+    // optional int32 percentOff = 4;
+    boolean hasPercentOff();
+    int getPercentOff();
+    
+    // required bool isStartRecruitReward = 5;
+    boolean hasIsStartRecruitReward();
+    boolean getIsStartRecruitReward();
+    
+    // optional float multipleOfBaseReward = 6;
+    boolean hasMultipleOfBaseReward();
+    float getMultipleOfBaseReward();
   }
-  public static final class ReloadCitiesRequestProto extends
+  public static final class AdminChangeRequestProto extends
       com.google.protobuf.GeneratedMessage
-      implements ReloadCitiesRequestProtoOrBuilder {
-    // Use ReloadCitiesRequestProto.newBuilder() to construct.
-    private ReloadCitiesRequestProto(Builder builder) {
+      implements AdminChangeRequestProtoOrBuilder {
+    // Use AdminChangeRequestProto.newBuilder() to construct.
+    private AdminChangeRequestProto(Builder builder) {
       super(builder);
     }
-    private ReloadCitiesRequestProto(boolean noInit) {}
+    private AdminChangeRequestProto(boolean noInit) {}
     
-    private static final ReloadCitiesRequestProto defaultInstance;
-    public static ReloadCitiesRequestProto getDefaultInstance() {
+    private static final AdminChangeRequestProto defaultInstance;
+    public static AdminChangeRequestProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public ReloadCitiesRequestProto getDefaultInstanceForType() {
+    public AdminChangeRequestProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadCitiesRequestProto_descriptor;
+      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_AdminChangeRequestProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadCitiesRequestProto_fieldAccessorTable;
+      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_AdminChangeRequestProto_fieldAccessorTable;
+    }
+    
+    public enum StaticDataReloadType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      BUILD_STRUCT_JOBS(0, 0),
+      CITIES(1, 1),
+      DEFEAT_TYPE_JOBS(2, 2),
+      EQUIPMENT(3, 3),
+      MARKETPLACE_JOBS(4, 4),
+      QUESTS(5, 5),
+      TASK_EQUIP_REQUIREMENTS(6, 6),
+      TASKS(7, 7),
+      UPGRADE_STRUCT_JOBS(8, 8),
+      ;
+      
+      public static final int BUILD_STRUCT_JOBS_VALUE = 0;
+      public static final int CITIES_VALUE = 1;
+      public static final int DEFEAT_TYPE_JOBS_VALUE = 2;
+      public static final int EQUIPMENT_VALUE = 3;
+      public static final int MARKETPLACE_JOBS_VALUE = 4;
+      public static final int QUESTS_VALUE = 5;
+      public static final int TASK_EQUIP_REQUIREMENTS_VALUE = 6;
+      public static final int TASKS_VALUE = 7;
+      public static final int UPGRADE_STRUCT_JOBS_VALUE = 8;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static StaticDataReloadType valueOf(int value) {
+        switch (value) {
+          case 0: return BUILD_STRUCT_JOBS;
+          case 1: return CITIES;
+          case 2: return DEFEAT_TYPE_JOBS;
+          case 3: return EQUIPMENT;
+          case 4: return MARKETPLACE_JOBS;
+          case 5: return QUESTS;
+          case 6: return TASK_EQUIP_REQUIREMENTS;
+          case 7: return TASKS;
+          case 8: return UPGRADE_STRUCT_JOBS;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<StaticDataReloadType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<StaticDataReloadType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<StaticDataReloadType>() {
+              public StaticDataReloadType findValueByNumber(int number) {
+                return StaticDataReloadType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.AdminProto.AdminChangeRequestProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final StaticDataReloadType[] VALUES = {
+        BUILD_STRUCT_JOBS, CITIES, DEFEAT_TYPE_JOBS, EQUIPMENT, MARKETPLACE_JOBS, QUESTS, TASK_EQUIP_REQUIREMENTS, TASKS, UPGRADE_STRUCT_JOBS, 
+      };
+      
+      public static StaticDataReloadType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private StaticDataReloadType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.AdminChangeRequestProto.StaticDataReloadType)
+    }
+    
+    private int bitField0_;
+    // required bool isStaticDataReload = 1;
+    public static final int ISSTATICDATARELOAD_FIELD_NUMBER = 1;
+    private boolean isStaticDataReload_;
+    public boolean hasIsStaticDataReload() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public boolean getIsStaticDataReload() {
+      return isStaticDataReload_;
+    }
+    
+    // optional .com.lvl6.proto.AdminChangeRequestProto.StaticDataReloadType staticDataReloadType = 2;
+    public static final int STATICDATARELOADTYPE_FIELD_NUMBER = 2;
+    private com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType staticDataReloadType_;
+    public boolean hasStaticDataReloadType() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType getStaticDataReloadType() {
+      return staticDataReloadType_;
+    }
+    
+    // required bool isSale = 3;
+    public static final int ISSALE_FIELD_NUMBER = 3;
+    private boolean isSale_;
+    public boolean hasIsSale() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public boolean getIsSale() {
+      return isSale_;
+    }
+    
+    // optional int32 percentOff = 4;
+    public static final int PERCENTOFF_FIELD_NUMBER = 4;
+    private int percentOff_;
+    public boolean hasPercentOff() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getPercentOff() {
+      return percentOff_;
+    }
+    
+    // required bool isStartRecruitReward = 5;
+    public static final int ISSTARTRECRUITREWARD_FIELD_NUMBER = 5;
+    private boolean isStartRecruitReward_;
+    public boolean hasIsStartRecruitReward() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public boolean getIsStartRecruitReward() {
+      return isStartRecruitReward_;
+    }
+    
+    // optional float multipleOfBaseReward = 6;
+    public static final int MULTIPLEOFBASEREWARD_FIELD_NUMBER = 6;
+    private float multipleOfBaseReward_;
+    public boolean hasMultipleOfBaseReward() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public float getMultipleOfBaseReward() {
+      return multipleOfBaseReward_;
     }
     
     private void initFields() {
+      isStaticDataReload_ = false;
+      staticDataReloadType_ = com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType.BUILD_STRUCT_JOBS;
+      isSale_ = false;
+      percentOff_ = 0;
+      isStartRecruitReward_ = false;
+      multipleOfBaseReward_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
+      if (!hasIsStaticDataReload()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIsSale()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIsStartRecruitReward()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -53,6 +246,24 @@ public final class AdminProto {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBool(1, isStaticDataReload_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, staticDataReloadType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBool(3, isSale_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, percentOff_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBool(5, isStartRecruitReward_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeFloat(6, multipleOfBaseReward_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -62,6 +273,30 @@ public final class AdminProto {
       if (size != -1) return size;
     
       size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, isStaticDataReload_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, staticDataReloadType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, isSale_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, percentOff_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isStartRecruitReward_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(6, multipleOfBaseReward_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
@@ -74,41 +309,41 @@ public final class AdminProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(byte[] data)
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -117,7 +352,7 @@ public final class AdminProto {
         return null;
       }
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseDelimitedFrom(
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -128,12 +363,12 @@ public final class AdminProto {
         return null;
       }
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.AdminProto.ReloadCitiesRequestProto parseFrom(
+    public static com.lvl6.proto.AdminProto.AdminChangeRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -143,7 +378,7 @@ public final class AdminProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.AdminProto.ReloadCitiesRequestProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.AdminProto.AdminChangeRequestProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -156,18 +391,18 @@ public final class AdminProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.AdminProto.ReloadCitiesRequestProtoOrBuilder {
+       implements com.lvl6.proto.AdminProto.AdminChangeRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadCitiesRequestProto_descriptor;
+        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_AdminChangeRequestProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadCitiesRequestProto_fieldAccessorTable;
+        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_AdminChangeRequestProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.AdminProto.ReloadCitiesRequestProto.newBuilder()
+      // Construct using com.lvl6.proto.AdminProto.AdminChangeRequestProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -186,6 +421,18 @@ public final class AdminProto {
       
       public Builder clear() {
         super.clear();
+        isStaticDataReload_ = false;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        staticDataReloadType_ = com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType.BUILD_STRUCT_JOBS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        isSale_ = false;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        percentOff_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        isStartRecruitReward_ = false;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        multipleOfBaseReward_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
       
@@ -195,24 +442,24 @@ public final class AdminProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.AdminProto.ReloadCitiesRequestProto.getDescriptor();
+        return com.lvl6.proto.AdminProto.AdminChangeRequestProto.getDescriptor();
       }
       
-      public com.lvl6.proto.AdminProto.ReloadCitiesRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.AdminProto.ReloadCitiesRequestProto.getDefaultInstance();
+      public com.lvl6.proto.AdminProto.AdminChangeRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.AdminProto.AdminChangeRequestProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.AdminProto.ReloadCitiesRequestProto build() {
-        com.lvl6.proto.AdminProto.ReloadCitiesRequestProto result = buildPartial();
+      public com.lvl6.proto.AdminProto.AdminChangeRequestProto build() {
+        com.lvl6.proto.AdminProto.AdminChangeRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.AdminProto.ReloadCitiesRequestProto buildParsed()
+      private com.lvl6.proto.AdminProto.AdminChangeRequestProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.AdminProto.ReloadCitiesRequestProto result = buildPartial();
+        com.lvl6.proto.AdminProto.AdminChangeRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -220,28 +467,85 @@ public final class AdminProto {
         return result;
       }
       
-      public com.lvl6.proto.AdminProto.ReloadCitiesRequestProto buildPartial() {
-        com.lvl6.proto.AdminProto.ReloadCitiesRequestProto result = new com.lvl6.proto.AdminProto.ReloadCitiesRequestProto(this);
+      public com.lvl6.proto.AdminProto.AdminChangeRequestProto buildPartial() {
+        com.lvl6.proto.AdminProto.AdminChangeRequestProto result = new com.lvl6.proto.AdminProto.AdminChangeRequestProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.isStaticDataReload_ = isStaticDataReload_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.staticDataReloadType_ = staticDataReloadType_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.isSale_ = isSale_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.percentOff_ = percentOff_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.isStartRecruitReward_ = isStartRecruitReward_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.multipleOfBaseReward_ = multipleOfBaseReward_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.AdminProto.ReloadCitiesRequestProto) {
-          return mergeFrom((com.lvl6.proto.AdminProto.ReloadCitiesRequestProto)other);
+        if (other instanceof com.lvl6.proto.AdminProto.AdminChangeRequestProto) {
+          return mergeFrom((com.lvl6.proto.AdminProto.AdminChangeRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.AdminProto.ReloadCitiesRequestProto other) {
-        if (other == com.lvl6.proto.AdminProto.ReloadCitiesRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.AdminProto.AdminChangeRequestProto other) {
+        if (other == com.lvl6.proto.AdminProto.AdminChangeRequestProto.getDefaultInstance()) return this;
+        if (other.hasIsStaticDataReload()) {
+          setIsStaticDataReload(other.getIsStaticDataReload());
+        }
+        if (other.hasStaticDataReloadType()) {
+          setStaticDataReloadType(other.getStaticDataReloadType());
+        }
+        if (other.hasIsSale()) {
+          setIsSale(other.getIsSale());
+        }
+        if (other.hasPercentOff()) {
+          setPercentOff(other.getPercentOff());
+        }
+        if (other.hasIsStartRecruitReward()) {
+          setIsStartRecruitReward(other.getIsStartRecruitReward());
+        }
+        if (other.hasMultipleOfBaseReward()) {
+          setMultipleOfBaseReward(other.getMultipleOfBaseReward());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
       public final boolean isInitialized() {
+        if (!hasIsStaticDataReload()) {
+          
+          return false;
+        }
+        if (!hasIsSale()) {
+          
+          return false;
+        }
+        if (!hasIsStartRecruitReward()) {
+          
+          return false;
+        }
         return true;
       }
       
@@ -268,870 +572,193 @@ public final class AdminProto {
               }
               break;
             }
-          }
-        }
-      }
-      
-      
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ReloadCitiesRequestProto)
-    }
-    
-    static {
-      defaultInstance = new ReloadCitiesRequestProto(true);
-      defaultInstance.initFields();
-    }
-    
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.ReloadCitiesRequestProto)
-  }
-  
-  public interface ReloadEquipmentRequestProtoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-  }
-  public static final class ReloadEquipmentRequestProto extends
-      com.google.protobuf.GeneratedMessage
-      implements ReloadEquipmentRequestProtoOrBuilder {
-    // Use ReloadEquipmentRequestProto.newBuilder() to construct.
-    private ReloadEquipmentRequestProto(Builder builder) {
-      super(builder);
-    }
-    private ReloadEquipmentRequestProto(boolean noInit) {}
-    
-    private static final ReloadEquipmentRequestProto defaultInstance;
-    public static ReloadEquipmentRequestProto getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    public ReloadEquipmentRequestProto getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_fieldAccessorTable;
-    }
-    
-    private void initFields() {
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-    
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.AdminProto.ReloadEquipmentRequestProtoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_fieldAccessorTable;
-      }
-      
-      // Construct using com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto.getDescriptor();
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto.getDefaultInstance();
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto build() {
-        com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto buildPartial() {
-        com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto result = new com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto(this);
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto) {
-          return mergeFrom((com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto other) {
-        if (other == com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              isStaticDataReload_ = input.readBool();
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType value = com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                staticDataReloadType_ = value;
               }
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              isSale_ = input.readBool();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              percentOff_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              isStartRecruitReward_ = input.readBool();
+              break;
+            }
+            case 53: {
+              bitField0_ |= 0x00000020;
+              multipleOfBaseReward_ = input.readFloat();
               break;
             }
           }
         }
       }
       
+      private int bitField0_;
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ReloadEquipmentRequestProto)
+      // required bool isStaticDataReload = 1;
+      private boolean isStaticDataReload_ ;
+      public boolean hasIsStaticDataReload() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public boolean getIsStaticDataReload() {
+        return isStaticDataReload_;
+      }
+      public Builder setIsStaticDataReload(boolean value) {
+        bitField0_ |= 0x00000001;
+        isStaticDataReload_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearIsStaticDataReload() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        isStaticDataReload_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // optional .com.lvl6.proto.AdminChangeRequestProto.StaticDataReloadType staticDataReloadType = 2;
+      private com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType staticDataReloadType_ = com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType.BUILD_STRUCT_JOBS;
+      public boolean hasStaticDataReloadType() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType getStaticDataReloadType() {
+        return staticDataReloadType_;
+      }
+      public Builder setStaticDataReloadType(com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        staticDataReloadType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStaticDataReloadType() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        staticDataReloadType_ = com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType.BUILD_STRUCT_JOBS;
+        onChanged();
+        return this;
+      }
+      
+      // required bool isSale = 3;
+      private boolean isSale_ ;
+      public boolean hasIsSale() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public boolean getIsSale() {
+        return isSale_;
+      }
+      public Builder setIsSale(boolean value) {
+        bitField0_ |= 0x00000004;
+        isSale_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearIsSale() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        isSale_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 percentOff = 4;
+      private int percentOff_ ;
+      public boolean hasPercentOff() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getPercentOff() {
+        return percentOff_;
+      }
+      public Builder setPercentOff(int value) {
+        bitField0_ |= 0x00000008;
+        percentOff_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPercentOff() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        percentOff_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required bool isStartRecruitReward = 5;
+      private boolean isStartRecruitReward_ ;
+      public boolean hasIsStartRecruitReward() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public boolean getIsStartRecruitReward() {
+        return isStartRecruitReward_;
+      }
+      public Builder setIsStartRecruitReward(boolean value) {
+        bitField0_ |= 0x00000010;
+        isStartRecruitReward_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearIsStartRecruitReward() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        isStartRecruitReward_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // optional float multipleOfBaseReward = 6;
+      private float multipleOfBaseReward_ ;
+      public boolean hasMultipleOfBaseReward() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public float getMultipleOfBaseReward() {
+        return multipleOfBaseReward_;
+      }
+      public Builder setMultipleOfBaseReward(float value) {
+        bitField0_ |= 0x00000020;
+        multipleOfBaseReward_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMultipleOfBaseReward() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        multipleOfBaseReward_ = 0F;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.AdminChangeRequestProto)
     }
     
     static {
-      defaultInstance = new ReloadEquipmentRequestProto(true);
+      defaultInstance = new AdminChangeRequestProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.ReloadEquipmentRequestProto)
-  }
-  
-  public interface ReloadTaskEquipmentRequirementsRequestProtoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-  }
-  public static final class ReloadTaskEquipmentRequirementsRequestProto extends
-      com.google.protobuf.GeneratedMessage
-      implements ReloadTaskEquipmentRequirementsRequestProtoOrBuilder {
-    // Use ReloadTaskEquipmentRequirementsRequestProto.newBuilder() to construct.
-    private ReloadTaskEquipmentRequirementsRequestProto(Builder builder) {
-      super(builder);
-    }
-    private ReloadTaskEquipmentRequirementsRequestProto(boolean noInit) {}
-    
-    private static final ReloadTaskEquipmentRequirementsRequestProto defaultInstance;
-    public static ReloadTaskEquipmentRequirementsRequestProto getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    public ReloadTaskEquipmentRequirementsRequestProto getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_fieldAccessorTable;
-    }
-    
-    private void initFields() {
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-    
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProtoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_fieldAccessorTable;
-      }
-      
-      // Construct using com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto.getDescriptor();
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto.getDefaultInstance();
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto build() {
-        com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto buildPartial() {
-        com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto result = new com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto(this);
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto) {
-          return mergeFrom((com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto other) {
-        if (other == com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-          }
-        }
-      }
-      
-      
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ReloadTaskEquipmentRequirementsRequestProto)
-    }
-    
-    static {
-      defaultInstance = new ReloadTaskEquipmentRequirementsRequestProto(true);
-      defaultInstance.initFields();
-    }
-    
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.ReloadTaskEquipmentRequirementsRequestProto)
-  }
-  
-  public interface ReloadTaskRequestProtoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-  }
-  public static final class ReloadTaskRequestProto extends
-      com.google.protobuf.GeneratedMessage
-      implements ReloadTaskRequestProtoOrBuilder {
-    // Use ReloadTaskRequestProto.newBuilder() to construct.
-    private ReloadTaskRequestProto(Builder builder) {
-      super(builder);
-    }
-    private ReloadTaskRequestProto(boolean noInit) {}
-    
-    private static final ReloadTaskRequestProto defaultInstance;
-    public static ReloadTaskRequestProto getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    public ReloadTaskRequestProto getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskRequestProto_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskRequestProto_fieldAccessorTable;
-    }
-    
-    private void initFields() {
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-    
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.AdminProto.ReloadTaskRequestProto parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.AdminProto.ReloadTaskRequestProto prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.AdminProto.ReloadTaskRequestProtoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskRequestProto_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.lvl6.proto.AdminProto.internal_static_com_lvl6_proto_ReloadTaskRequestProto_fieldAccessorTable;
-      }
-      
-      // Construct using com.lvl6.proto.AdminProto.ReloadTaskRequestProto.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lvl6.proto.AdminProto.ReloadTaskRequestProto.getDescriptor();
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadTaskRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.AdminProto.ReloadTaskRequestProto.getDefaultInstance();
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadTaskRequestProto build() {
-        com.lvl6.proto.AdminProto.ReloadTaskRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.lvl6.proto.AdminProto.ReloadTaskRequestProto buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.AdminProto.ReloadTaskRequestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.lvl6.proto.AdminProto.ReloadTaskRequestProto buildPartial() {
-        com.lvl6.proto.AdminProto.ReloadTaskRequestProto result = new com.lvl6.proto.AdminProto.ReloadTaskRequestProto(this);
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.AdminProto.ReloadTaskRequestProto) {
-          return mergeFrom((com.lvl6.proto.AdminProto.ReloadTaskRequestProto)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.lvl6.proto.AdminProto.ReloadTaskRequestProto other) {
-        if (other == com.lvl6.proto.AdminProto.ReloadTaskRequestProto.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-          }
-        }
-      }
-      
-      
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.ReloadTaskRequestProto)
-    }
-    
-    static {
-      defaultInstance = new ReloadTaskRequestProto(true);
-      defaultInstance.initFields();
-    }
-    
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.ReloadTaskRequestProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.AdminChangeRequestProto)
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_ReloadCitiesRequestProto_descriptor;
+    internal_static_com_lvl6_proto_AdminChangeRequestProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_ReloadCitiesRequestProto_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_ReloadTaskRequestProto_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_ReloadTaskRequestProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_AdminChangeRequestProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1141,49 +768,33 @@ public final class AdminProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013Admin.proto\022\016com.lvl6.proto\"\032\n\030ReloadC" +
-      "itiesRequestProto\"\035\n\033ReloadEquipmentRequ" +
-      "estProto\"-\n+ReloadTaskEquipmentRequireme" +
-      "ntsRequestProto\"\030\n\026ReloadTaskRequestProt" +
-      "oB\014B\nAdminProto"
+      "\n\013Admin.proto\022\016com.lvl6.proto\"\265\003\n\027AdminC" +
+      "hangeRequestProto\022\032\n\022isStaticDataReload\030" +
+      "\001 \002(\010\022Z\n\024staticDataReloadType\030\002 \001(\0162<.co" +
+      "m.lvl6.proto.AdminChangeRequestProto.Sta" +
+      "ticDataReloadType\022\016\n\006isSale\030\003 \002(\010\022\022\n\nper" +
+      "centOff\030\004 \001(\005\022\034\n\024isStartRecruitReward\030\005 " +
+      "\002(\010\022\034\n\024multipleOfBaseReward\030\006 \001(\002\"\301\001\n\024St" +
+      "aticDataReloadType\022\025\n\021BUILD_STRUCT_JOBS\020" +
+      "\000\022\n\n\006CITIES\020\001\022\024\n\020DEFEAT_TYPE_JOBS\020\002\022\r\n\tE" +
+      "QUIPMENT\020\003\022\024\n\020MARKETPLACE_JOBS\020\004\022\n\n\006QUES",
+      "TS\020\005\022\033\n\027TASK_EQUIP_REQUIREMENTS\020\006\022\t\n\005TAS" +
+      "KS\020\007\022\027\n\023UPGRADE_STRUCT_JOBS\020\010B\014B\nAdminPr" +
+      "oto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_com_lvl6_proto_ReloadCitiesRequestProto_descriptor =
+          internal_static_com_lvl6_proto_AdminChangeRequestProto_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_com_lvl6_proto_ReloadCitiesRequestProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_AdminChangeRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_ReloadCitiesRequestProto_descriptor,
-              new java.lang.String[] { },
-              com.lvl6.proto.AdminProto.ReloadCitiesRequestProto.class,
-              com.lvl6.proto.AdminProto.ReloadCitiesRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_ReloadEquipmentRequestProto_descriptor,
-              new java.lang.String[] { },
-              com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto.class,
-              com.lvl6.proto.AdminProto.ReloadEquipmentRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(2);
-          internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_ReloadTaskEquipmentRequirementsRequestProto_descriptor,
-              new java.lang.String[] { },
-              com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto.class,
-              com.lvl6.proto.AdminProto.ReloadTaskEquipmentRequirementsRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_ReloadTaskRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(3);
-          internal_static_com_lvl6_proto_ReloadTaskRequestProto_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_ReloadTaskRequestProto_descriptor,
-              new java.lang.String[] { },
-              com.lvl6.proto.AdminProto.ReloadTaskRequestProto.class,
-              com.lvl6.proto.AdminProto.ReloadTaskRequestProto.Builder.class);
+              internal_static_com_lvl6_proto_AdminChangeRequestProto_descriptor,
+              new java.lang.String[] { "IsStaticDataReload", "StaticDataReloadType", "IsSale", "PercentOff", "IsStartRecruitReward", "MultipleOfBaseReward", },
+              com.lvl6.proto.AdminProto.AdminChangeRequestProto.class,
+              com.lvl6.proto.AdminProto.AdminChangeRequestProto.Builder.class);
           return null;
         }
       };

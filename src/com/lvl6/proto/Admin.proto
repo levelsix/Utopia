@@ -2,15 +2,26 @@ package com.lvl6.proto;
 
 option java_outer_classname = "AdminProto";
 																						//DONE
-message ReloadCitiesRequestProto {
+message AdminChangeRequestProto {
+	required bool isStaticDataReload = 1;
+	optional StaticDataReloadType staticDataReloadType = 2;
+	enum StaticDataReloadType {
+		BUILD_STRUCT_JOBS = 0;
+		CITIES = 1;
+		DEFEAT_TYPE_JOBS = 2;
+		EQUIPMENT = 3;
+		MARKETPLACE_JOBS = 4;
+		QUESTS = 5;
+		TASK_EQUIP_REQUIREMENTS = 6;
+		TASKS = 7;
+		UPGRADE_STRUCT_JOBS = 8;			
+	}
+	
+	required bool isSale = 3;
+	optional int32 percentOff = 4;
+	
+	required bool isStartRecruitReward = 5;
+	optional float multipleOfBaseReward = 6;
 }
 
-																						//DONE
-message ReloadEquipmentRequestProto {
-}
 
-message ReloadTaskEquipmentRequirementsRequestProto {
-}
-
-message ReloadTaskRequestProto {
-}
