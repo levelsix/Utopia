@@ -20,11 +20,6 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 
 public class StartupController extends EventController {
-  
-  @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());    
-  }
 
   @Override
   public RequestEvent createRequestEvent() {

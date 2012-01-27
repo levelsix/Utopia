@@ -27,11 +27,6 @@ public class InAppPurchaseController extends EventController {
   boolean isSandbox = true;
   private static final String SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
   private static final String PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt";  
-  
-  @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());    
-  }
 
   @Override
   public RequestEvent createRequestEvent() {

@@ -18,11 +18,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public class RetrieveEquipmentForArmoryController extends EventController{
 
   @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());        
-  }
-
-  @Override
   public RequestEvent createRequestEvent() {
     return new RetrieveEquipmentForArmoryRequestEvent();
   }

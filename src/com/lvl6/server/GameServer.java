@@ -209,8 +209,9 @@ public class GameServer extends Thread{
 
       try {
         // grab the class
-        String controllerClassName = CONTROLLER_CLASS_PREFIX + file.substring(0, file.indexOf(".class"));
-        log.info("loading class: " + controllerClassName);
+        String endOfClass = file.substring(0, file.indexOf(".class"));
+        String controllerClassName = CONTROLLER_CLASS_PREFIX + endOfClass;
+        log.info("loading class: " + endOfClass);
 
         Class<?> cl = Class.forName(controllerClassName);
 

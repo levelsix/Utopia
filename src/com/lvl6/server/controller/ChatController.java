@@ -15,10 +15,6 @@ public class ChatController extends EventController {
   /** 
    * do ChatController specific initialization here 
    */
-  @Override  
-  public void initController() {
-    log.info("initController for " + this.getClass().toString());
-  }
 
   @Override
   public RequestEvent createRequestEvent() {

@@ -89,12 +89,13 @@ public class QuestRetrieveUtils {
       try {
         rs.last();
         rs.beforeFirst();
-        questIdsToQuests = new HashMap<Integer, Quest>();
+        HashMap<Integer, Quest> tmp = new HashMap<Integer, Quest>();
         while(rs.next()) {  //should only be one
           Quest quest = convertRSRowToQuest(rs);
           if (quest != null)
-            questIdsToQuests.put(quest.getId(), quest);
+            tmp.put(quest.getId(), quest);
         }
+        questIdsToQuests = tmp;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);
@@ -115,7 +116,8 @@ public class QuestRetrieveUtils {
           if (quest != null)
             quests.add(quest);
         }
-        questGraph = new QuestGraph(quests);
+        QuestGraph tmp = new QuestGraph(quests);
+        questGraph = tmp;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);

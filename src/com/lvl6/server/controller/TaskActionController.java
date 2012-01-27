@@ -33,11 +33,6 @@ public class TaskActionController extends EventController {
   private static final int MAX_CITY_RANK = 3;
 
   @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());    
-  }
-
-  @Override
   public RequestEvent createRequestEvent() {
     return new TaskActionRequestEvent();
   }

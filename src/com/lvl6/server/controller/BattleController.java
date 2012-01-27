@@ -62,11 +62,6 @@ public class BattleController extends EventController {
   private static final double B = 75000;
 
   @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());
-  }
-
-  @Override
   public RequestEvent createRequestEvent() {
     return new BattleRequestEvent();
   }

@@ -22,11 +22,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 public class ArmoryController extends EventController {
 
   private static final double SELL_RATIO = 0.5;
-  
-  @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());
-  }
 
   @Override
   public RequestEvent createRequestEvent() {

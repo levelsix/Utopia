@@ -16,12 +16,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 public class RetrieveCurrentMarketplacePostsController extends EventController{
 
   private static final int NUM_POSTS_CAP = 100;
-
-  @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());        
-  }
-
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RetrieveCurrentMarketplacePostsRequestEvent();

@@ -17,11 +17,6 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 public class RetrieveTasksForCityController extends EventController{
 
   @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());    
-  }
-
-  @Override
   public RequestEvent createRequestEvent() {
     return new RetrieveTasksForCityRequestEvent();
   }

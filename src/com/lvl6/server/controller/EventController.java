@@ -40,7 +40,7 @@ public abstract class EventController extends Wrap{
    * GameController subclasses should implement initController 
    * in order to do any initialization they require.
    */
-  protected abstract void initController();
+  protected void initController() { }
 
   /** 
    * factory method for fetching GameEvent objects

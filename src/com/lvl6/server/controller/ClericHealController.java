@@ -19,12 +19,6 @@ public class ClericHealController extends EventController {
   private static final double A = 3;
   private static final double B = .05;
 
-  
-  @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());    
-  }
-
   @Override
   public RequestEvent createRequestEvent() {
     return new ClericHealRequestEvent();

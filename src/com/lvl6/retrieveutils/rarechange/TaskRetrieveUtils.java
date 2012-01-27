@@ -79,12 +79,13 @@ public class TaskRetrieveUtils {
       try {
         rs.last();
         rs.beforeFirst();
-        taskIdsToTasks = new HashMap<Integer, Task>();
+        HashMap<Integer, Task> taskIdsToTasksTemp = new HashMap<Integer, Task>();
         while(rs.next()) {  //should only be one
           Task task = convertRSRowToTask(rs);
           if (task != null)
-            taskIdsToTasks.put(task.getId(), task);
+            taskIdsToTasksTemp.put(task.getId(), task);
         }
+        taskIdsToTasks = taskIdsToTasksTemp;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);

@@ -20,11 +20,6 @@ public class GenerateAttackListController extends EventController {
   private static final int NUM_ENEMIES_TO_GENERATE = 25;
 
   @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());        
-  }
-
-  @Override
   public RequestEvent createRequestEvent() {
     return new GenerateAttackListRequestEvent();
   }

@@ -18,11 +18,6 @@ public class VaultController extends EventController {
   private static final int DEPOSIT_PERCENT_CUT = 10;
 
   @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());    
-  }
-
-  @Override
   public RequestEvent createRequestEvent() {
     return new VaultRequestEvent();
   }

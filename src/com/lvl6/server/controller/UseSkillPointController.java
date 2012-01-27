@@ -29,12 +29,6 @@ public class UseSkillPointController extends EventController {
   private static final int HEALTH_BASE_COST = 1;
   private static final int STAMINA_BASE_COST = 2;
 
-
-  @Override
-  protected void initController() {
-    log.info("initController for " + this.getClass().toString());    
-  }
-
   @Override
   public RequestEvent createRequestEvent() {
     return new UseSkillPointRequestEvent();

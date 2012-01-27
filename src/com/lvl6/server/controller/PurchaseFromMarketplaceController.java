@@ -22,11 +22,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseFromMarketplaceController extends EventController {
 
-  @Override  
-  public void initController() {
-    log.info("initController for " + this.getClass().toString());
-  }
-
   @Override
   public RequestEvent createRequestEvent() {
     return new PurchaseFromMarketplaceRequestEvent();

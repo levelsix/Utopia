@@ -23,11 +23,6 @@ public class PostToMarketplaceController extends EventController {
 
   private static final double PERCENT_CUT_OF_FINAL_PRICE_TAKEN = .15;
 
-  @Override  
-  public void initController() {
-    log.info("initController for " + this.getClass().toString());
-  }
-
   @Override
   public RequestEvent createRequestEvent() {
     return new PostToMarketplaceRequestEvent();
