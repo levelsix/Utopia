@@ -114,7 +114,6 @@ public class DBConnection {
       }
       rs = stmt.executeQuery();
       availableConnections.put(conn);
-      log.info(rs.toString());
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
@@ -334,7 +333,6 @@ public class DBConnection {
       stmt.setInt(1, value);
       rs = stmt.executeQuery();
       availableConnections.put(conn);
-      log.info(rs.toString());
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
@@ -437,7 +435,6 @@ public class DBConnection {
       }
       rs = stmt.executeQuery();
       availableConnections.put(conn);
-      log.info(rs.toString());
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
