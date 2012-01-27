@@ -21,6 +21,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class RetractMarketplacePostController extends EventController{
 
+  private static final double PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .1;
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RetractMarketplacePostRequestEvent();
@@ -45,16 +47,26 @@ public class RetractMarketplacePostController extends EventController{
 
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
+      
+      int diamondCost = mp.getDiamondCost();
+      int coinCost = mp.getCoinCost();
+      int woodCost = mp.getWoodCost();
 
-      boolean legitRetract = checkLegitRetract(senderProto.getUserId(), mp, resBuilder);
+      int diamondCut = (int)(Math.ceil(diamondCost * PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
+      int coinCut = (int)(Math.ceil(coinCost * PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
+      int woodCut = (int)(Math.ceil(woodCost * PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
+      
+      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+
+      boolean legitRetract = checkLegitRetract(user, mp, resBuilder, 
+          diamondCut, coinCut, woodCut);
 
       RetractMarketplacePostResponseEvent resEvent = new RetractMarketplacePostResponseEvent(senderProto.getUserId());
       resEvent.setRetractMarketplacePostResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitRetract) {
-        User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-        writeChangesToDB(user, mp);
+        writeChangesToDB(user, mp, diamondCut, coinCut, woodCut);
 
         if (mp != null && mp.getPostType() != MarketplacePostType.EQUIP_POST) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
@@ -69,35 +81,35 @@ public class RetractMarketplacePostController extends EventController{
 
   }
 
-  private void writeChangesToDB(User user, MarketplacePost mp) {
+  private void writeChangesToDB(User user, MarketplacePost mp, int diamondCut, int coinCut, 
+      int woodCut) {
     if (user == null || mp == null) {
       log.error("problem with retracting marketplace post");
     }
 
     MarketplacePostType postType = mp.getPostType();
-
-    if (postType == MarketplacePostType.COIN_POST) {
-      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(0, mp.getPostedCoins(), 0, -1)) {
-        log.error("problem with giving user back coins");
-      }
-    }
+    
+    int diamondChange = diamondCut * -1;
+    int coinChange = coinCut * -1;
+    int woodChange = woodCut * -1;
+    
     if (postType == MarketplacePostType.DIAMOND_POST) {
-      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(mp.getPostedDiamonds(), 0, 0, -1)) {
-        log.error("problem with giving user back diamonds");
-      }
+      diamondChange += mp.getPostedDiamonds();
+    }
+    if (postType == MarketplacePostType.COIN_POST) {
+      coinChange += mp.getPostedCoins();
     }
     if (postType == MarketplacePostType.WOOD_POST) {
-      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(0, 0, mp.getPostedWood(), -1)) {
-        log.error("problem with giving user back wood");
-      }
+      woodChange += mp.getPostedWood();
     }
+
     if (postType == MarketplacePostType.EQUIP_POST) {
       if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
         log.error("problem with giving user back equip");
       }
-      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(0, 0, 0, -1)) {
-        log.error("problem with bringing back marketplace num");
-      }
+    }
+    if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(diamondChange, coinChange, woodChange, -1)) {
+      log.error("problem with giving user back stuff after retract");
     }
 
     if (!DeleteUtils.deleteMarketplacePost(mp.getId())) {
@@ -105,15 +117,29 @@ public class RetractMarketplacePostController extends EventController{
     }
   }
 
-  private boolean checkLegitRetract(int userId, MarketplacePost mp, Builder resBuilder) {
+  private boolean checkLegitRetract(User user, MarketplacePost mp, Builder resBuilder, 
+      int diamondCut, int coinCut, int woodCut) {
     if (mp == null) {
       resBuilder.setStatus(RetractMarketplacePostStatus.POST_NO_LONGER_EXISTS);
       return false;
     }
-    if (userId != mp.getPosterId()) {
+    if (user.getId() != mp.getPosterId()) {
       resBuilder.setStatus(RetractMarketplacePostStatus.NOT_REQUESTERS_POST);
       return false;      
     }
+    if (user.getDiamonds() < diamondCut) {
+      resBuilder.setStatus(RetractMarketplacePostStatus.NOT_ENOUGH_DIAMONDS);
+      return false;
+    }
+    if (user.getCoins() < coinCut) {
+      resBuilder.setStatus(RetractMarketplacePostStatus.NOT_ENOUGH_COINS);
+      return false;
+    }
+    if (user.getWood() < woodCut) {
+      resBuilder.setStatus(RetractMarketplacePostStatus.NOT_ENOUGH_WOOD);
+      return false;
+    }
+    
     resBuilder.setStatus(RetractMarketplacePostStatus.SUCCESS);
     return true;
   }
