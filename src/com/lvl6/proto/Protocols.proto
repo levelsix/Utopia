@@ -22,6 +22,8 @@ enum EventProtocolRequest {
 	C_PURCHASE_FROM_MARKETPLACE_EVENT = 14;	
 	C_USE_SKILL_POINT_EVENT = 15;
 	C_GENERATE_ATTACK_LIST_EVENT = 16;
+	
+	A_ADMIN_UPDATE = 300;
 }
 
 enum EventProtocolResponse {
