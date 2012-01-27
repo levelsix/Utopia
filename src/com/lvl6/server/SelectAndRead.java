@@ -185,7 +185,7 @@ public class SelectAndRead extends Thread{
         server.addPlayer(p);
         log.debug("delegate event, new player created and channel set, player:" + 
             p.getPlayerId() + ", channel: " + channel);
-      } else {
+      } else if (event.getPlayerId() == 0){
         // This is for the case before the tutorial has started
         String udid = ((PreDatabaseRequestEvent)event).getUdid();
         server.addPreDbPlayer(udid, channel);

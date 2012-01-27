@@ -49,6 +49,10 @@ public class CityRetrieveUtils {
     // TODO Auto-generated method stub
     
   }
+  
+  public static void reload() {
+    setStaticCityIdsToCity();
+  }
 
   
   /*

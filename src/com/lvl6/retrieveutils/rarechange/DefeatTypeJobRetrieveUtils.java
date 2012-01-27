@@ -71,6 +71,10 @@ public class DefeatTypeJobRetrieveUtils {
     
   }
   
+  public static void reload() {
+    setStaticDefeatTypeJobIdsToDefeatTypeJobs();
+  }
+  
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */

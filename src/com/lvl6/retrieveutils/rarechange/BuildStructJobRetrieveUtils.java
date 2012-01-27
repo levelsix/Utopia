@@ -69,6 +69,10 @@ public class BuildStructJobRetrieveUtils {
     }    
     
   }
+  
+  public static void reload() {
+    setStaticBuildStructJobIdsToBuildStructJobs();
+  }
 
   
   /*
