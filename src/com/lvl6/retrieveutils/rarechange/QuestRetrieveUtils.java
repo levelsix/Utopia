@@ -13,16 +13,18 @@ import org.apache.log4j.Logger;
 import com.lvl6.info.Quest;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
+import com.lvl6.utils.QuestGraph;
 
 public class QuestRetrieveUtils {
-  
+
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static Map<Integer, List<Quest>> cityIdToQuests;
   private static Map<Integer, Quest> questIdsToQuests;
-  
+  private static QuestGraph questGraph;
+
   private static final String TABLE_NAME = DBConstants.TABLE_QUESTS;
-    
+
   public static Map<Integer, Quest> getQuestIdsToQuests() {
     log.info("retrieving all-quest data");
     if (questIdsToQuests == null) {
@@ -30,7 +32,7 @@ public class QuestRetrieveUtils {
     }
     return questIdsToQuests;
   }
-  
+
   public static Quest getQuestForQuestId(int questId) {
     log.info("retrieve task data");
     if (questIdsToQuests == null) {
@@ -38,18 +40,26 @@ public class QuestRetrieveUtils {
     }
     return questIdsToQuests.get(questId);
   }
-  
+
+  public static List<Integer> getAvailableQuests(List<Integer> completed, List<Integer> inProgress) {
+    log.info("retrieving available quests");
+    if (questIdsToQuests == null) {
+      setStaticQuestGraph();
+    }
+    return questGraph.getQuestsAvailable(completed, inProgress);
+  }
+
   public static List<Quest> getQuestsForCityId(int cityId) {
     if (cityIdToQuests == null) {
       setStaticCityIdsToQuests();
     }
     return cityIdToQuests.get(cityId);
   }
-  
+
   private static void setStaticCityIdsToQuests() {
     log.info("setting static map of cityId to quests");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    
+
     if (rs != null) {
       try {
         rs.last();
@@ -71,7 +81,7 @@ public class QuestRetrieveUtils {
       }
     }    
   }
-  
+
   private static void setStaticQuestIdsToQuests() {
     log.info("setting static map of questIds to quests");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
@@ -91,14 +101,35 @@ public class QuestRetrieveUtils {
       }
     }    
   }
-  
-  
+
+  private static void setStaticQuestGraph() {
+    log.info("setting static quest graph");
+    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        List<Quest> quests = new ArrayList<Quest>();
+        while(rs.next()) {  //should only be one
+          Quest quest = convertRSRowToQuest(rs);
+          if (quest != null)
+            quests.add(quest);
+        }
+        questGraph = new QuestGraph(quests);
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }    
+  }
+
+
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
   private static Quest convertRSRowToQuest(ResultSet rs) throws SQLException {
     StringTokenizer st;
-    
+
     int i = 1;
     int id = rs.getInt(i++);
     int cityId = rs.getInt(i++);
@@ -118,63 +149,79 @@ public class QuestRetrieveUtils {
 
     String questsRequiredForThisString = rs.getString(i++);
     List<Integer> questsRequiredForThis = new ArrayList<Integer>();
-    st = new StringTokenizer(questsRequiredForThisString, ", ");
-    while (st.hasMoreTokens()) {
-      questsRequiredForThis.add(Integer.parseInt(st.nextToken()));
+    if (questsRequiredForThisString != null) {
+      st = new StringTokenizer(questsRequiredForThisString, ", ");
+      while (st.hasMoreTokens()) {
+        questsRequiredForThis.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     String questsDependentOnThisString = rs.getString(i++);
     List<Integer> questsDependentOnThis = new ArrayList<Integer>();
-    st = new StringTokenizer(questsDependentOnThisString, ", ");
-    while (st.hasMoreTokens()) {
-      questsDependentOnThis.add(Integer.parseInt(st.nextToken()));
+    if (questsDependentOnThisString != null) {
+      st = new StringTokenizer(questsDependentOnThisString, ", ");
+      while (st.hasMoreTokens()) {
+        questsDependentOnThis.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     String tasksRequiredString = rs.getString(i++);
     List<Integer> tasksRequired = new ArrayList<Integer>();
-    st = new StringTokenizer(tasksRequiredString, ", ");
-    while (st.hasMoreTokens()) {
-      tasksRequired.add(Integer.parseInt(st.nextToken()));
+    if (tasksRequiredString != null) {
+      st = new StringTokenizer(tasksRequiredString, ", ");
+      while (st.hasMoreTokens()) {
+        tasksRequired.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     String upgradeStructJobsRequiredString = rs.getString(i++);
     List<Integer> upgradeStructJobsRequired = new ArrayList<Integer>();
-    st = new StringTokenizer(upgradeStructJobsRequiredString, ", ");
-    while (st.hasMoreTokens()) {
-      upgradeStructJobsRequired.add(Integer.parseInt(st.nextToken()));
+    if (upgradeStructJobsRequiredString != null) {
+      st = new StringTokenizer(upgradeStructJobsRequiredString, ", ");
+      while (st.hasMoreTokens()) {
+        upgradeStructJobsRequired.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     String buildStructJobsRequiredString = rs.getString(i++);
     List<Integer> buildStructJobsRequired = new ArrayList<Integer>();
-    st = new StringTokenizer(buildStructJobsRequiredString, ", ");
-    while (st.hasMoreTokens()) {
-      buildStructJobsRequired.add(Integer.parseInt(st.nextToken()));
+    if (buildStructJobsRequiredString != null) {
+      st = new StringTokenizer(buildStructJobsRequiredString, ", ");
+      while (st.hasMoreTokens()) {
+        buildStructJobsRequired.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     String marketplaceJobsRequiredString = rs.getString(i++);
     List<Integer> marketplaceJobsRequired = new ArrayList<Integer>();
-    st = new StringTokenizer(marketplaceJobsRequiredString, ", ");
-    while (st.hasMoreTokens()) {
-      marketplaceJobsRequired.add(Integer.parseInt(st.nextToken()));
+    if (marketplaceJobsRequiredString != null) {
+      st = new StringTokenizer(marketplaceJobsRequiredString, ", ");
+      while (st.hasMoreTokens()) {
+        marketplaceJobsRequired.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     String defeatGoodGuysRequiredString = rs.getString(i++);
     List<Integer> defeatGoodGuysRequired = new ArrayList<Integer>();
-    st = new StringTokenizer(defeatGoodGuysRequiredString, ", ");
-    while (st.hasMoreTokens()) {
-      defeatGoodGuysRequired.add(Integer.parseInt(st.nextToken()));
+    if (defeatGoodGuysRequiredString != null) {
+      st = new StringTokenizer(defeatGoodGuysRequiredString, ", ");
+      while (st.hasMoreTokens()) {
+        defeatGoodGuysRequired.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     String defeatBadGuysRequiredString = rs.getString(i++);
     List<Integer> defeatBadGuysRequired = new ArrayList<Integer>();
-    st = new StringTokenizer(defeatBadGuysRequiredString, ", ");
-    while (st.hasMoreTokens()) {
-      defeatBadGuysRequired.add(Integer.parseInt(st.nextToken()));
+    if (defeatBadGuysRequiredString != null) {
+      st = new StringTokenizer(defeatBadGuysRequiredString, ", ");
+      while (st.hasMoreTokens()) {
+        defeatBadGuysRequired.add(Integer.parseInt(st.nextToken()));
+      }
     }
-    
+
     int equipIdReq = rs.getInt(i++);
     int equipQuantityReq = rs.getInt(i++);
-    
+
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, assetNumWithinCity, 
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 

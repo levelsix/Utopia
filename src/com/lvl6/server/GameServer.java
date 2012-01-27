@@ -25,7 +25,7 @@ import com.lvl6.utils.PlayerSet;
 public class GameServer extends Thread{
 
   // Logger
-  private Logger log = Logger.getLogger(this.getClass().getName());
+  private Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
   // ServerSocketChannel for accepting client connections
   private ServerSocketChannel sSockChan;
