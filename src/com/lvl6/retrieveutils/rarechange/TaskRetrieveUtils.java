@@ -66,8 +66,8 @@ public class TaskRetrieveUtils {
         }
         cityIdsToTasks = cityIdToTasksTemp;
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }    
   }
@@ -86,8 +86,8 @@ public class TaskRetrieveUtils {
             taskIdsToTasks.put(task.getId(), task);
         }
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }    
   }

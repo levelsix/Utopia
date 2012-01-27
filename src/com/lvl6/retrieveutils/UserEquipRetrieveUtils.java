@@ -64,8 +64,8 @@ public class UserEquipRetrieveUtils {
         }
         return userToUserEquips;
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }
     return null;
@@ -82,8 +82,8 @@ public class UserEquipRetrieveUtils {
         }
         return userEquips;
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }
     return null;
@@ -98,8 +98,8 @@ public class UserEquipRetrieveUtils {
           return convertRSRowToUserEquip(rs);
         }
       } catch (SQLException e) {
-        System.out.println("problem with database call.");
-        e.printStackTrace();
+        log.error("problem with database call.");
+        log.error(e);
       }
     }
     return null;

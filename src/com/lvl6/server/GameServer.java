@@ -25,7 +25,7 @@ import com.lvl6.utils.PlayerSet;
 public class GameServer extends Thread{
 
   // Logger
-  private Logger log = Logger.getLogger(this.getClass().getName());
+  private Logger log = Logger.getLogger(this.getClass().getSimpleName());
 
   // ServerSocketChannel for accepting client connections
   private ServerSocketChannel sSockChan;
@@ -47,6 +47,7 @@ public class GameServer extends Thread{
 
   private Hashtable<Integer, ConnectedPlayer> playersByPlayerId;
   private Hashtable<SocketChannel, Integer> channelToPlayerId;
+  private Hashtable<String, SocketChannel> udidToChannel;
 
   private EventWriter eventWriter;
 
@@ -75,6 +76,8 @@ public class GameServer extends Thread{
       playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
     if (channelToPlayerId == null)
       channelToPlayerId = new Hashtable<SocketChannel, Integer>();
+    if (udidToChannel == null)
+      udidToChannel = new Hashtable<String, SocketChannel>();
     this.serverIP = serverIP;
     this.portNum = portNum;
   }
@@ -258,9 +261,16 @@ public class GameServer extends Thread{
   /**
    * remove a player from our lists
    */
-  public synchronized void removePlayer(SocketChannel channel) {
-    playersByPlayerId.remove(channelToPlayerId.get(channel));
-    channelToPlayerId.remove(channel);
+  public synchronized void removePlayer(SocketChannel channel) throws Exception{
+    try {
+      playersByPlayerId.remove(channelToPlayerId.get(channel));
+      channelToPlayerId.remove(channel);
+    }
+    catch (Exception e) {
+      System.out.println("PlayersByPlayerId: "+playersByPlayerId);
+      System.out.println("ChannelToPlayerId: "+channelToPlayerId);
+      throw e;
+    }
   }
 
   public void lockPlayer(int playerId) {
@@ -293,6 +303,11 @@ public class GameServer extends Thread{
     }
   }
 
+  public void addPreDbPlayer(String udid, SocketChannel channel) {
+    udidToChannel.put(udid, channel);
+  }
   
-  
+  public SocketChannel removePreDbPlayer(String udid) {
+    return udidToChannel.remove(udid);
+  }
 }

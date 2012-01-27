@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.events.PreDatabaseRequestEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
@@ -91,9 +92,9 @@ public class SelectAndRead extends Thread{
           // check for end-of-stream condition
           if (nbytes == -1) {
             server.removePlayer(channel);
+            channel.close();
             log.info("disconnect: " + channel.socket().getInetAddress() + 
                 ", end-of-stream");
-            channel.close();
           }
 
           // check for a complete event
@@ -180,13 +181,16 @@ public class SelectAndRead extends Thread{
       p = new ConnectedPlayer();
       if (event.getPlayerId() > 0) {
         p.setPlayerId(event.getPlayerId());
+        p.setChannel(channel);
+        server.addPlayer(p);
+        log.debug("delegate event, new player created and channel set, player:" + 
+            p.getPlayerId() + ", channel: " + channel);
       } else {
-        return;        //TODO: do nothing. when tutorials complete, send message for creation
-      }      
-      p.setChannel(channel);
-      server.addPlayer(p);
-      log.debug("delegate event, new player created and channel set, player:" + 
-          p.getPlayerId() + ", channel: " + channel);
+        // This is for the case before the tutorial has started
+        String udid = ((PreDatabaseRequestEvent)event).getUdid();
+        server.addPreDbPlayer(udid, channel);
+        log.debug("new pre-db player, udid: "+ udid);
+      }
     }
     
     ec.handleEvent(event);
