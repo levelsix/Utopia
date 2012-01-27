@@ -70,6 +70,10 @@ public class UpgradeStructJobRetrieveUtils {
     
   }
   
+  public static void reload() {
+    setStaticUpgradeStructJobIdsToUpgradeStructJobs();
+  }
+  
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */

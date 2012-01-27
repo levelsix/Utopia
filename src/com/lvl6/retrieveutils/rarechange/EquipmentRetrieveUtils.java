@@ -81,6 +81,10 @@ public class EquipmentRetrieveUtils {
     }    
   }
   
+  public static void reload() {
+    setStaticEquipIdsToEquipment();
+  }
+  
   
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.

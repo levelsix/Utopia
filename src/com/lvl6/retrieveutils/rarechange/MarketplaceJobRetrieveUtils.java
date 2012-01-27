@@ -71,6 +71,10 @@ public class MarketplaceJobRetrieveUtils {
     
   }
   
+  public static void reload() {
+    setStaticMarketplaceJobIdsToMarketplaceJobs();
+  }
+  
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */

@@ -92,6 +92,11 @@ public class TaskRetrieveUtils {
       }
     }    
   }
+  
+  public static void reload() {
+    setStaticCityIdsToTasks();
+    setStaticTaskIdsToTasks();
+  }
 
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.

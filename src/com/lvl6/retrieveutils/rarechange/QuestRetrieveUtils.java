@@ -81,7 +81,7 @@ public class QuestRetrieveUtils {
       }
     }    
   }
-  
+
   private static void setStaticQuestIdsToQuests() {
     log.info("setting static map of questIds to quests");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
@@ -102,7 +102,7 @@ public class QuestRetrieveUtils {
       }
     }    
   }
-  
+
   private static void setStaticQuestGraph() {
     log.info("setting static quest graph");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
@@ -123,6 +123,12 @@ public class QuestRetrieveUtils {
         log.error(e);
       }
     }    
+  }
+
+  public static void reload() {
+    setStaticCityIdsToQuests();
+    setStaticQuestGraph();
+    setStaticQuestIdsToQuests();
   }
 
 

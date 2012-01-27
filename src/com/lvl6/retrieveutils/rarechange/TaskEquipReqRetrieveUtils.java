@@ -58,6 +58,10 @@ public class TaskEquipReqRetrieveUtils {
       }
     }
   }
+  
+  public static void reload() {
+    setStaticTaskIdToEquipmentIdQuantityMap();
+  }
 
   private static TaskEquipRequirement convertRSRowToTaskEquipReq(ResultSet rs) throws SQLException {
     int i = 1;
