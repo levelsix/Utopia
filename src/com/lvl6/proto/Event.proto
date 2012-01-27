@@ -356,7 +356,10 @@ message PostToMarketplaceResponseProto {
 		NEGATIVE_COST = 3;
 		NO_COST = 4;
 		USER_ALREADY_MAX_MARKETPLACE_POSTS = 5;
-		OTHER_FAIL = 6;
+		NOT_ENOUGH_WOOD = 6;
+		NOT_ENOUGH_DIAMONDS = 7;
+		NOT_ENOUGH_COINS = 8;
+		OTHER_FAIL = 9;
 	}
 }
 
