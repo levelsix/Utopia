@@ -120,13 +120,13 @@ public class PurchaseFromMarketplaceController extends EventController {
 
     if (totalSellerDiamondChange != 0 || totalSellerCoinChange != 0 || 
         totalSellerWoodChange != 0) {
-      if (!seller.updateRelativeDiamondsCoinsWoodNaive(totalSellerDiamondChange, totalSellerCoinChange, totalSellerWoodChange)) {
+      if (!seller.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(totalSellerDiamondChange, totalSellerCoinChange, totalSellerWoodChange, -1)) {
         log.error("problem with giving seller postmarketplace results");
       }
     }
     if (totalBuyerDiamondChange != 0 || totalBuyerCoinChange != 0 || 
         totalBuyerWoodChange != 0) {
-      if (!buyer.updateRelativeDiamondsCoinsWoodNaive(totalBuyerDiamondChange, totalBuyerCoinChange, totalBuyerWoodChange)) {
+      if (!buyer.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(totalBuyerDiamondChange, totalBuyerCoinChange, totalBuyerWoodChange, 0)) {
         log.error("problem with giving buyer postmarketplace results");
       }
     }

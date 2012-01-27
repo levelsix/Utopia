@@ -22,6 +22,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 public class PostToMarketplaceController extends EventController {
 
   private static final double PERCENT_CUT_OF_FINAL_PRICE_TAKEN = .15;
+  private static final int MAX_MARKETPLACE_POSTS_FROM_USER = 10;
+  
 
   @Override
   public RequestEvent createRequestEvent() {
@@ -86,7 +88,10 @@ public class PostToMarketplaceController extends EventController {
   private boolean checkLegitPost(MarketplacePostType postType, User user, Builder resBuilder, 
       PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, int woodCost, 
       int diamondCut, int coinCut, int woodCut, UserEquip userEquip) {
-
+    if (user.getNumPostsInMarketplace() == MAX_MARKETPLACE_POSTS_FROM_USER) {
+      resBuilder.setStatus(PostToMarketplaceStatus.USER_ALREADY_MAX_MARKETPLACE_POSTS);
+      return false;      
+    }
     if (diamondCost < 0 || coinCost < 0 || woodCost < 0) {
       resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_COST);
       return false;
@@ -145,7 +150,7 @@ public class PostToMarketplaceController extends EventController {
       int diamondChange, int coinChange, int woodChange, UserEquip ue) {
 
     if (diamondChange > 0 || coinChange > 0 || woodChange > 0) {
-      if (!user.updateRelativeDiamondsCoinsWoodNaive(diamondChange*-1, coinChange*-1, woodChange*-1)) {
+      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(diamondChange*-1, coinChange*-1, woodChange*-1, 1)) {
         log.error("problem with updating user stats post-marketplace-post");
       }
     }

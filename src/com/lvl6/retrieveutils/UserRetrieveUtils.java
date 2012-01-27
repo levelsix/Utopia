@@ -24,11 +24,10 @@ public class UserRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER;
   
   private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
-  private static final int BATTLE_INITIAL_RANGE_INCREASE = 3;    //even number better again
-  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
+  private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
+  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
   private static final int MIN_BATTLE_HEALTH_REQUIREMENT = BattleController.MIN_BATTLE_HEALTH_REQUIREMENT;
   private static final int MAX_BATTLE_DB_HITS = 5;
-  private static final int MIN_BATTLE_LEVEL = 3;
 
   public static User getUserById(int userId) {
     log.info("retrieving user with userId " + userId);
@@ -49,7 +48,7 @@ public class UserRetrieveUtils {
   public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
     log.info("retrieving list of enemies for user " + userId);
     
-    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, MIN_BATTLE_LEVEL);
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, BattleController.MIN_BATTLE_LEVEL);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
     
     String query = "select * from " + TABLE_NAME + " where "+ DBConstants.USER__HEALTH + ">= "+ 
@@ -76,7 +75,7 @@ public class UserRetrieveUtils {
     while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
       values.remove(values.size()-1);
       values.remove(values.size()-1);
-      values.add(Math.max(MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
+      values.add(Math.max(BattleController.MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
       values.add(levelMax + rangeIncrease/2);
       rs = DBConnection.selectDirectQueryNaive(query, values);
       numDBHits++;
@@ -160,9 +159,10 @@ public class UserRetrieveUtils {
     int numReferrals = rs.getInt(i++);
     String udid = rs.getString(i++);
     Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
+    int numPostsInMarketplace = rs.getInt(i++);
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
         healthMax, energyMax, staminaMax, diamonds, coins, wood, vaultBalance, experience, tasksCompleted, 
-        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid, userLocation);
+        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace);
     return user;
   }
 }

@@ -35,7 +35,9 @@ public class BattleController extends EventController {
   private static final int MIN_DAMAGE_DEALT_TO_LOSER = MAX_DAMAGE - 10;
 
   private static final int MAX_LEVEL_DIFFERENCE = 50;
-  
+
+  public static final int MIN_BATTLE_LEVEL = 3;
+
   public static final int MIN_BATTLE_HEALTH_REQUIREMENT = MAX_DAMAGE+1;
   private static final int MIN_EXP_GAIN = 1;
   private static final int MAX_EXP_GAIN = 5;
@@ -311,6 +313,14 @@ public class BattleController extends EventController {
         builder.setStatus(BattleStatus.OPPONENT_ON_SAME_SIDE);
         return false;
       }
+    }
+    if (attacker.getLevel() < MIN_BATTLE_LEVEL) {
+      builder.setStatus(BattleStatus.ATTACKER_NOT_HIGH_ENOUGH_LEVEL);
+      return false;
+    }
+    if (defender.getLevel() < MIN_BATTLE_LEVEL) {
+      builder.setStatus(BattleStatus.DEFENDER_NOT_HIGH_ENOUGH_LEVEL);
+      return false;
     }
     if (attacker.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
       builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_HEALTH);
