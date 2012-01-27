@@ -55,7 +55,7 @@ public class QuestRetrieveUtils {
         rs.last();
         rs.beforeFirst();
         Map<Integer, List<Quest>> cityIdToQuestsTemp = new HashMap<Integer, List<Quest>>();
-        while(rs.next()) {  //should only be one
+        while(rs.next()) {
           Quest quest = convertRSRowToQuest(rs);
           if (quest != null) {
             if (cityIdToQuestsTemp.get(quest.getCityId()) == null) {
@@ -80,7 +80,7 @@ public class QuestRetrieveUtils {
         rs.last();
         rs.beforeFirst();
         questIdsToQuests = new HashMap<Integer, Quest>();
-        while(rs.next()) {  //should only be one
+        while(rs.next()) {
           Quest quest = convertRSRowToQuest(rs);
           if (quest != null)
             questIdsToQuests.put(quest.getId(), quest);

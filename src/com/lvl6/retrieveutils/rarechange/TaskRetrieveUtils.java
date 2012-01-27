@@ -15,14 +15,14 @@ import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 public class TaskRetrieveUtils {
-  
+
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static Map<Integer, List<Task>> cityIdsToTasks;
   private static Map<Integer, Task> taskIdsToTasks;
-  
+
   private static final String TABLE_NAME = DBConstants.TABLE_TASKS;
-    
+
   public static Map<Integer, Task> getTaskIdsToTasks() {
     log.info("retrieving all-tasks data");
     if (taskIdsToTasks == null) {
@@ -30,7 +30,7 @@ public class TaskRetrieveUtils {
     }
     return taskIdsToTasks;
   }
-  
+
   public static Task getTaskForTaskId(int taskId) {
     log.info("retrieve task data");
     if (taskIdsToTasks == null) {
@@ -38,18 +38,18 @@ public class TaskRetrieveUtils {
     }
     return taskIdsToTasks.get(taskId);
   }
-  
+
   public static List<Task> getAllTasksForCityId(int cityId) {
     if (cityIdsToTasks == null) {
       setStaticCityIdsToTasks();
     }
     return cityIdsToTasks.get(cityId);
   }
-  
+
   private static void setStaticCityIdsToTasks() {
     log.info("setting static map of cityId to tasks");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    
+
     if (rs != null) {
       try {
         rs.last();
@@ -71,7 +71,7 @@ public class TaskRetrieveUtils {
       }
     }    
   }
-  
+
   private static void setStaticTaskIdsToTasks() {
     log.info("setting static map of taskIds to tasks");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
@@ -91,7 +91,7 @@ public class TaskRetrieveUtils {
       }
     }    
   }
-  
+
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
@@ -107,14 +107,16 @@ public class TaskRetrieveUtils {
     float chanceOfEquipLoot = rs.getFloat(i++);
     String equipIdsString = rs.getString(i++);
     List<Integer> equipIds = new ArrayList<Integer>();
-    StringTokenizer st = new StringTokenizer(equipIdsString, ", ");
-    while (st.hasMoreTokens()) {
-      equipIds.add(Integer.parseInt(st.nextToken()));
+    if (equipIdsString != null) {
+      StringTokenizer st = new StringTokenizer(equipIdsString, ", ");
+      while (st.hasMoreTokens()) {
+        equipIds.add(Integer.parseInt(st.nextToken()));
+      }
     }
     int expGained = rs.getInt(i++);
     int assetNumWithinCity = rs.getInt(i++);
     int numForCompletion = rs.getInt(i++);
-    
+
     Task task = new Task(id, goodName, badName, cityId, energyCost, minCoinsGained, maxCoinsGained, 
         chanceOfEquipLoot, equipIds, expGained, assetNumWithinCity, numForCompletion);
     return task;

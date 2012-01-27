@@ -60,7 +60,7 @@ public class RetractMarketplacePostController extends EventController{
       if (legitRetract) {
         User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
         writeChangesToDB(user, mp);
-        
+
         if (mp != null && mp.getPostType() != MarketplacePostType.EQUIP_POST) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
           server.writeEvent(resEventUpdate);
@@ -82,17 +82,17 @@ public class RetractMarketplacePostController extends EventController{
     MarketplacePostType postType = mp.getPostType();
 
     if (postType == MarketplacePostType.COIN_POST) {
-      if (!user.updateRelativeDiamondsCoinsWoodNaive(0, mp.getPostedCoins(), 0)) {
+      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(0, mp.getPostedCoins(), 0, -1)) {
         log.error("problem with giving user back coins");
       }
     }
     if (postType == MarketplacePostType.DIAMOND_POST) {
-      if (!user.updateRelativeDiamondsCoinsWoodNaive(mp.getPostedDiamonds(), 0, 0)) {
+      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(mp.getPostedDiamonds(), 0, 0, -1)) {
         log.error("problem with giving user back diamonds");
       }
     }
     if (postType == MarketplacePostType.WOOD_POST) {
-      if (!user.updateRelativeDiamondsCoinsWoodNaive(0, 0, mp.getPostedWood())) {
+      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(0, 0, mp.getPostedWood(), -1)) {
         log.error("problem with giving user back wood");
       }
     }
@@ -100,8 +100,11 @@ public class RetractMarketplacePostController extends EventController{
       if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
         log.error("problem with giving user back equip");
       }
+      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(0, 0, 0, -1)) {
+        log.error("problem with bringing back marketplace num");
+      }
     }
-    
+
     if (!DeleteUtils.deleteMarketplacePost(mp.getId())) {
       log.error("problem with deleting marketplace post");      
     }

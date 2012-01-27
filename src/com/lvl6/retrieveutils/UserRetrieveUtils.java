@@ -24,8 +24,8 @@ public class UserRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER;
   
   private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
-  private static final int BATTLE_INITIAL_RANGE_INCREASE = 3;    //even number better again
-  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
+  private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
+  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
   private static final int MIN_BATTLE_HEALTH_REQUIREMENT = BattleController.MIN_BATTLE_HEALTH_REQUIREMENT;
   private static final int MAX_BATTLE_DB_HITS = 5;
 
@@ -159,9 +159,10 @@ public class UserRetrieveUtils {
     int numReferrals = rs.getInt(i++);
     String udid = rs.getString(i++);
     Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
+    int numPostsInMarketplace = rs.getInt(i++);
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
         healthMax, energyMax, staminaMax, diamonds, coins, wood, vaultBalance, experience, tasksCompleted, 
-        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid, userLocation);
+        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace);
     return user;
   }
 }

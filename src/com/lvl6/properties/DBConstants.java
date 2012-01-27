@@ -57,6 +57,7 @@ public class DBConstants {
   public static final String USER__BATTLES_LOST = "battles_lost";
   
   public static final String USER__UDID = "udid";
+  public static final String USER__NUM_POSTS_IN_MARKETPLACE = "num_posts_in_marketplace";
   public static final String USER__LATITUDE = "latitude";
   public static final String USER__LONGITUDE = "longitude";
   public static final String USER__ARMORY_X = "armory_xcoord";
@@ -65,6 +66,7 @@ public class DBConstants {
   public static final String USER__VAULT_Y = "vault_ycoord";
   public static final String USER__CLERIC_X = "cleric_xcoord";
   public static final String USER__CLERIC_Y = "cleric_ycoord";
+
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;

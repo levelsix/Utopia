@@ -22106,6 +22106,7 @@ public final class EventProto {
       NEGATIVE_COST(6, 6),
       NO_COST(7, 7),
       OTHER_FAIL(8, 8),
+      USER_ALREADY_MAX_MARKETPLACE_POSTS(9, 9),
       ;
       
       public static final int SUCCESS_VALUE = 0;
@@ -22117,6 +22118,7 @@ public final class EventProto {
       public static final int NEGATIVE_COST_VALUE = 6;
       public static final int NO_COST_VALUE = 7;
       public static final int OTHER_FAIL_VALUE = 8;
+      public static final int USER_ALREADY_MAX_MARKETPLACE_POSTS_VALUE = 9;
       
       
       public final int getNumber() { return value; }
@@ -22132,6 +22134,7 @@ public final class EventProto {
           case 6: return NEGATIVE_COST;
           case 7: return NO_COST;
           case 8: return OTHER_FAIL;
+          case 9: return USER_ALREADY_MAX_MARKETPLACE_POSTS;
           default: return null;
         }
       }
@@ -22162,7 +22165,7 @@ public final class EventProto {
       }
       
       private static final PostToMarketplaceStatus[] VALUES = {
-        SUCCESS, NEGATIVE_POST, NOT_ENOUGH_EQUIP, NOT_ENOUGH_WOOD, NOT_ENOUGH_DIAMONDS, NOT_ENOUGH_COINS, NEGATIVE_COST, NO_COST, OTHER_FAIL, 
+        SUCCESS, NEGATIVE_POST, NOT_ENOUGH_EQUIP, NOT_ENOUGH_WOOD, NOT_ENOUGH_DIAMONDS, NOT_ENOUGH_COINS, NEGATIVE_COST, NO_COST, OTHER_FAIL, USER_ALREADY_MAX_MARKETPLACE_POSTS, 
       };
       
       public static PostToMarketplaceStatus valueOf(
@@ -28880,16 +28883,17 @@ public final class EventProto {
       "\022\022\n\npostedWood\030\004 \001(\005\022\026\n\016postedDiamonds\030\005" +
       " \001(\005\022\023\n\013postedCoins\030\006 \001(\005\022\023\n\013diamondCost" +
       "\030\007 \001(\005\022\020\n\010coinCost\030\010 \001(\005\022\020\n\010woodCost\030\t \001",
-      "(\005\"\360\002\n\036PostToMarketplaceResponseProto\0220\n" +
+      "(\005\"\230\003\n\036PostToMarketplaceResponseProto\0220\n" +
       "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
       "erProto\022V\n\006status\030\002 \002(\0162F.com.lvl6.proto" +
       ".PostToMarketplaceResponseProto.PostToMa" +
-      "rketplaceStatus\"\303\001\n\027PostToMarketplaceSta" +
+      "rketplaceStatus\"\353\001\n\027PostToMarketplaceSta" +
       "tus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020N" +
       "OT_ENOUGH_EQUIP\020\002\022\023\n\017NOT_ENOUGH_WOOD\020\003\022\027" +
       "\n\023NOT_ENOUGH_DIAMONDS\020\004\022\024\n\020NOT_ENOUGH_CO" +
       "INS\020\005\022\021\n\rNEGATIVE_COST\020\006\022\013\n\007NO_COST\020\007\022\016\n" +
-      "\nOTHER_FAIL\020\010\"q\n\"RetractMarketplacePostR",
+      "\nOTHER_FAIL\020\010\022&\n\"USER_ALREADY_MAX_MARKET",
+      "PLACE_POSTS\020\t\"q\n\"RetractMarketplacePostR" +
       "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
       "roto.MinimumUserProto\022\031\n\021marketplacePost" +
       "Id\030\002 \002(\005\"\232\002\n#RetractMarketplacePostRespo" +
@@ -28898,8 +28902,8 @@ public final class EventProto {
       ".lvl6.proto.RetractMarketplacePostRespon" +
       "seProto.RetractMarketplacePostStatus\"_\n\034" +
       "RetractMarketplacePostStatus\022\013\n\007SUCCESS\020" +
-      "\000\022\027\n\023NOT_REQUESTERS_POST\020\001\022\031\n\025POST_NO_LO" +
-      "NGER_EXISTS\020\002\"\204\001\n#PurchaseFromMarketplac",
+      "\000\022\027\n\023NOT_REQUESTERS_POST\020\001\022\031\n\025POST_NO_LO",
+      "NGER_EXISTS\020\002\"\204\001\n#PurchaseFromMarketplac" +
       "eRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
       ".proto.MinimumUserProto\022\031\n\021marketplacePo" +
       "stId\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\311\002\n$Purchas" +
@@ -28908,8 +28912,8 @@ public final class EventProto {
       "b\n\006status\030\002 \002(\0162R.com.lvl6.proto.Purchas" +
       "eFromMarketplaceResponseProto.PurchaseFr" +
       "omMarketplaceStatus\"\212\001\n\035PurchaseFromMark" +
-      "etplaceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH" +
-      "_MATERIALS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022",
+      "etplaceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH",
+      "_MATERIALS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022" +
       "\027\n\023PURCHASER_IS_SELLER\020\003\022\016\n\nOTHER_FAIL\020\004" +
       "\"\340\001\n\031UseSkillPointRequestProto\0220\n\006sender" +
       "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
@@ -28918,8 +28922,8 @@ public final class EventProto {
       "tType\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY" +
       "\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkill" +
       "PointResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022N\n\006status\030\002" +
-      " \002(\0162>.com.lvl6.proto.UseSkillPointRespo",
+      ".lvl6.proto.MinimumUserProto\022N\n\006status\030\002",
+      " \002(\0162>.com.lvl6.proto.UseSkillPointRespo" +
       "nseProto.UseSkillPointStatus\"O\n\023UseSkill" +
       "PointStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_S" +
       "KILL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\223\001\n\036Genera" +
@@ -28928,8 +28932,8 @@ public final class EventProto {
       "emyType\030\002 \001(\0162\030.com.lvl6.proto.UserType\022" +
       "\022\n\nnumEnemies\030\003 \001(\005\"\203\001\n\037GenerateAttackLi" +
       "stResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
-      "l6.proto.MinimumUserProto\022.\n\007enemies\030\002 \003" +
-      "(\0132\035.com.lvl6.proto.FullUserProto\"{\n\032Que",
+      "l6.proto.MinimumUserProto\022.\n\007enemies\030\002 \003",
+      "(\0132\035.com.lvl6.proto.FullUserProto\"{\n\032Que" +
       "stCompleteResponseProto\0220\n\006sender\030\001 \002(\0132" +
       " .com.lvl6.proto.MinimumUserProto\022\017\n\007que" +
       "stId\030\002 \002(\005\022\032\n\022newQuestsAvailable\030\003 \003(\005\"\\" +

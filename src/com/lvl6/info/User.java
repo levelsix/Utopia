@@ -35,13 +35,14 @@ public class User {
   private int numReferrals;
   private String udid;
   private Location userLocation;
+  private int numPostsInMarketplace;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int health, int skillPoints,
       int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
       int wood, int vaultBalance, int experience, int tasksCompleted,
       int battlesWon, int battlesLost, int hourlyCoins, String armyCode,
-      int numReferrals, String udid, Location userLocation) {
+      int numReferrals, String udid, Location userLocation, int numPostsInMarketplace) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -68,6 +69,7 @@ public class User {
     this.numReferrals = numReferrals;
     this.udid = udid;
     this.userLocation = userLocation;
+    this.numPostsInMarketplace = numPostsInMarketplace;
   }
 
   /*
@@ -133,8 +135,8 @@ public class User {
   /*
    * used for marketplace
    */
-  public boolean updateRelativeDiamondsCoinsWoodNaive (int diamondChange, int coinChange, 
-      int woodChange) {
+  public boolean updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive (int diamondChange, int coinChange, 
+      int woodChange, int numPostsInMarketplaceChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -143,6 +145,7 @@ public class User {
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     relativeParams.put(DBConstants.USER__COINS, coinChange);
     relativeParams.put(DBConstants.USER__WOOD, woodChange);
+    relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
@@ -406,6 +409,10 @@ public class User {
   public Location getUserLocation() {
     return userLocation;
   }
+  
+  public int getNumPostsInMarketplace() {
+    return numPostsInMarketplace;
+  }
 
   @Override
   public String toString() {
@@ -414,11 +421,12 @@ public class User {
         + stamina + ", energy=" + energy + ", health=" + health
         + ", skillPoints=" + skillPoints + ", healthMax=" + healthMax
         + ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
-        + ", diamonds=" + diamonds + ", coins=" + coins + ", wood=" + wood + ", vaultBalance="
-        + vaultBalance + ", experience=" + experience + ", tasksCompleted="
-        + tasksCompleted + ", battlesWon=" + battlesWon + ", battlesLost="
-        + battlesLost + ", hourlyCoins=" + hourlyCoins + ", armyCode="
-        + armyCode + ", numReferrals=" + numReferrals + ", udid=" + udid
-        + ", userLocation=" + userLocation + "]";
+        + ", diamonds=" + diamonds + ", coins=" + coins + ", wood=" + wood
+        + ", vaultBalance=" + vaultBalance + ", experience=" + experience
+        + ", tasksCompleted=" + tasksCompleted + ", battlesWon=" + battlesWon
+        + ", battlesLost=" + battlesLost + ", hourlyCoins=" + hourlyCoins
+        + ", armyCode=" + armyCode + ", numReferrals=" + numReferrals
+        + ", udid=" + udid + ", userLocation=" + userLocation
+        + ", numPostsInMarketplace=" + numPostsInMarketplace + "]";
   }
 }
