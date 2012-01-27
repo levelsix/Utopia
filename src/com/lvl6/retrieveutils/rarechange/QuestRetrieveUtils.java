@@ -90,8 +90,6 @@ public class QuestRetrieveUtils {
         rs.last();
         rs.beforeFirst();
         HashMap<Integer, Quest> tmp = new HashMap<Integer, Quest>();
-        while(rs.next()) {  //should only be one
-        questIdsToQuests = new HashMap<Integer, Quest>();
         while(rs.next()) {
           Quest quest = convertRSRowToQuest(rs);
           if (quest != null)
