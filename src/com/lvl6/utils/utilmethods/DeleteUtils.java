@@ -19,5 +19,17 @@ public class DeleteUtils {
 
     return false;
   }
+  
+  public static boolean deleteUserStruct(int userStructId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+
+    int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_STRUCTS, conditionParams, "and");
+    if (numDeleted == 1) {
+      return true;
+    }
+
+    return false;
+  }
 
 }

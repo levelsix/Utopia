@@ -133,7 +133,7 @@ public class User {
   }
 
   /*
-   * used for purchasing structures
+   * used for purchasing and selling structures
    */
   public boolean updateRelativeDiamondsCoinsWoodNaive (int diamondChange, int coinChange, 
       int woodChange) {

@@ -282,6 +282,24 @@ message MoveUserStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+message SellUserStructureRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 userStructId = 2;
+	required int32 soldStructId = 3;		//optimization to prevent db call
+}
+
+message SellUserStructureResponseProto {
+	required MinimumUserProto sender = 1;
+	required SellUserStructureStatus status = 2;
+	
+	enum SellUserStructureStatus {
+		SUCCESS = 0;
+		FAIL = 1;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
 message PlaceCriticalStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto critStructCoordinates = 2;
