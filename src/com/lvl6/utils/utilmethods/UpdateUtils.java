@@ -4,12 +4,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Task;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
 
+  /*
+   * used for battles, tasks
+   */
+  public static boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_STRUCTS__X_COORD, coordinates.getX());
+    absoluteParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   /*
    * used for battles, tasks
    */
