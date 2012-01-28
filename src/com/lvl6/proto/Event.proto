@@ -240,19 +240,19 @@ message TaskActionResponseProto {
 //------------------------------------------------------------------------------------------
 
 																						//DONE
-message PurchaseStructureRequestProto {
+message PurchaseNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto structCoordinates = 2;
 	required int32 structId = 3;
 }
 
 																						//DONE
-message PurchaseStructureResponseProto {
+message PurchaseNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
-	required PurchaseStructureStatus status = 2;
+	required PurchaseNormStructureStatus status = 2;
 	optional int32 userStructId = 3;
 	
-	enum PurchaseStructureStatus {
+	enum PurchaseNormStructureStatus {
 		SUCCESS = 0;
 		NOT_ENOUGH_COINS = 1;
 		NOT_ENOUGH_DIAMONDS = 2;
@@ -264,17 +264,17 @@ message PurchaseStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message MoveUserStructureRequestProto {
+message MoveNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
 	required CoordinateProto curStructCoordinates = 3;
 }
 
-message MoveUserStructureResponseProto {
+message MoveNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
-	required MoveUserStructureStatus status = 2;
+	required MoveNormStructureStatus status = 2;
 	
-	enum MoveUserStructureStatus {
+	enum MoveNormStructureStatus {
 		SUCCESS = 0;
 		FAIL = 1;
 	}
@@ -282,17 +282,52 @@ message MoveUserStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message SellUserStructureRequestProto {
+message SellNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
 	required int32 soldStructId = 3;		//optimization to prevent db call
 }
 
-message SellUserStructureResponseProto {
+message SellNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
-	required SellUserStructureStatus status = 2;
+	required SellNormStructureStatus status = 2;
 	
-	enum SellUserStructureStatus {
+	enum SellNormStructureStatus {
+		SUCCESS = 0;
+		FAIL = 1;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message UpgradeNormStructureRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 userStructId = 2;
+}
+
+message UpgradeNormStructureResponseProto {
+	required MinimumUserProto sender = 1;
+	required UpgradeNormStructureStatus status = 2;
+	
+	enum UpgradeNormStructureStatus {
+		SUCCESS = 0;
+		FAIL = 1;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveCurrencyFromNormStructureRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 userStructId = 2;
+	required int64 timeOfRetrieval = 3;	
+}
+
+message RetrieveCurrencyFromNormStructureResponseProto {
+	required MinimumUserProto sender = 1;
+	required RetrieveCurrencyFromNormStructureStatus status = 2;
+	
+	enum RetrieveCurrencyFromNormStructureStatus {
 		SUCCESS = 0;
 		FAIL = 1;
 	}
