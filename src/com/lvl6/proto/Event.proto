@@ -251,7 +251,11 @@ message PurchaseStructureResponseProto {
 	
 	enum PurchaseStructureStatus {
 		SUCCESS = 0;
-		FAIL = 1;
+		NOT_ENOUGH_COINS = 1;
+		NOT_ENOUGH_DIAMONDS = 2;
+		NOT_ENOUGH_WOOD = 3;
+		LEVEL_TOO_LOW = 4;
+		OTHER_FAIL = 5;
 	}
 }
 

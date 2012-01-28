@@ -8,6 +8,7 @@ public class Structure {
   private int minutesToGain;
   private int coinPrice;
   private int diamondPrice;
+  private int woodPrice;
   private int minLevel;
   private int xLength;
   private int yLength;
@@ -15,7 +16,7 @@ public class Structure {
   private int upgradeDiamondCost;
   
   public Structure(int id, String name, int income, int minutesToGain,
-      int coinPrice, int diamondPrice, int minLevel, int xLength,
+      int coinPrice, int diamondPrice, int woodPrice, int minLevel, int xLength,
       int yLength, int upgradeCoinCost, int upgradeDiamondCost) {
     this.id = id;
     this.name = name;
@@ -23,6 +24,7 @@ public class Structure {
     this.minutesToGain = minutesToGain;
     this.coinPrice = coinPrice;
     this.diamondPrice = diamondPrice;
+    this.woodPrice = woodPrice;
     this.minLevel = minLevel;
     this.xLength = xLength;
     this.yLength = yLength;
@@ -54,6 +56,10 @@ public class Structure {
     return diamondPrice;
   }
 
+  public int getWoodPrice() {
+    return woodPrice;
+  }
+  
   public int getMinLevel() {
     return minLevel;
   }
@@ -78,9 +84,10 @@ public class Structure {
   public String toString() {
     return "Structure [id=" + id + ", name=" + name + ", income=" + income
         + ", minutesToGain=" + minutesToGain + ", coinPrice=" + coinPrice
-        + ", diamondPrice=" + diamondPrice + ", minLevel=" + minLevel
-        + ", xLength=" + xLength + ", yLength="
+        + ", diamondPrice=" + diamondPrice + ", woodPrice=" + woodPrice
+        + ", minLevel=" + minLevel + ", xLength=" + xLength + ", yLength="
         + yLength + ", upgradeCoinCost=" + upgradeCoinCost
         + ", upgradeDiamondCost=" + upgradeDiamondCost + "]";
   }
+
 }

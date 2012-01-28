@@ -8,6 +8,7 @@ public class DBConstants {
   public static final String TABLE_USER_TASKS = "user_tasks";
   public static final String TABLE_USER_CITIES = "user_cities";
   public static final String TABLE_USER_QUESTS = "user_quests";
+  public static final String TABLE_USER_STRUCTS = "user_structs";
   public static final String TABLE_USER_QUESTS_COMPLETED_BUILD_STRUCT_JOBS = "user_quests_completed_build_struct_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS = "user_quests_completed_defeat_type_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_MARKETPLACE_JOBS = "user_quests_completed_marketplace_jobs";
@@ -27,7 +28,7 @@ public class DBConstants {
   public static final String TABLE_JOBS_MARKETPLACE = "jobs_marketplace";
   public static final String TABLE_UPGRADE_STRUCT = "jobs_upgrade_struct";
   public static final String TABLE_QUESTS = "quests";
-  
+  public static final String TABLE_STRUCTURES = "structures";  
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -130,4 +131,9 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__WOOD_COST = "wood_cost";
+  
+  /*USER STRUCTS TABLE*/
+  public static final String USER_STRUCTS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_STRUCTS__STRUCT_ID = "struct_id";
+ 
 }
