@@ -28,12 +28,9 @@ public class UserStructRetrieveUtils {
     return convertRSToUserStructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
   
-  public static UserStruct getSpecificUserStruct(int userId, int structId) {
-    log.info("retrieving user structs for userId " + userId + " and structId " + structId);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_STRUCTS__USER_ID, userId);
-    paramsToVals.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
-    return convertRSSingleToUserStructs(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
+  public static UserStruct getSpecificUserStruct(int userStructId) {
+    log.info("retrieving user structs for user struct id " + userStructId);
+    return convertRSSingleToUserStructs(DBConnection.selectRowsById(userStructId, TABLE_NAME));
   }
   
   private static List<UserStruct> convertRSToUserStructs(ResultSet rs) {
@@ -75,6 +72,7 @@ public class UserStructRetrieveUtils {
    */
   private static UserStruct convertRSRowToUserStruct(ResultSet rs) throws SQLException {
     int i = 1;
+    int id = rs.getInt(i++);
     int userId = rs.getInt(i++);
     int structId = rs.getInt(i++);
     Date lastRetrieved = null;
@@ -87,7 +85,7 @@ public class UserStructRetrieveUtils {
     Date purchaseTime = new Date(rs.getTimestamp(i++).getTime());
     boolean isComplete = rs.getBoolean(i++);
     
-    return new UserStruct(userId, structId, lastRetrieved, coordinates, level, purchaseTime, isComplete);
+    return new UserStruct(id, userId, structId, lastRetrieved, coordinates, level, purchaseTime, isComplete);
   }
   
 }

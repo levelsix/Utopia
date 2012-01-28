@@ -133,6 +133,32 @@ public class User {
   }
 
   /*
+   * used for purchasing structures
+   */
+  public boolean updateRelativeDiamondsCoinsWoodNaive (int diamondChange, int coinChange, 
+      int woodChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    relativeParams.put(DBConstants.USER__COINS, coinChange);
+    relativeParams.put(DBConstants.USER__WOOD, woodChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      this.coins += coinChange;
+      this.wood += woodChange;
+      return true;
+    }
+    return false;
+  }
+
+  
+  /*
    * used for marketplace
    */
   public boolean updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive (int diamondChange, int coinChange, 
@@ -153,6 +179,7 @@ public class User {
       this.coins += coinChange;
       this.diamonds += diamondChange;
       this.wood += woodChange;
+      this.numPostsInMarketplace += numPostsInMarketplaceChange;
       return true;
     }
     return false;

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
@@ -26,7 +27,22 @@ public class InsertUtils {
     }
     return false;
   }
+  
 
+  /*
+   * returns the id of the userstruct, -1 if none
+   */
+  public static int insertUserStruct(int userId, int structId, CoordinatePair coordinates) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
+    insertParams.put(DBConstants.USER_STRUCTS__X_COORD, coordinates.getX());
+    insertParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
+    
+    int userStructId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER_STRUCTS, insertParams);
+    return userStructId;
+  }
+  
   public static boolean insertIAPHistoryElem(JSONObject appleReceipt, int diamondChange, User user, double cashCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     try {

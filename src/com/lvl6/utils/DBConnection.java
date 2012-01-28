@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.DBProperties;
 import com.lvl6.utils.utilmethods.StringUtils;
+import com.mysql.jdbc.Statement;
 
 public class DBConnection {
   // log4j logger
@@ -57,7 +58,7 @@ public class DBConnection {
       e.printStackTrace();
     }
   }
-  
+
   public static ResultSet selectRowsByUserId(int userId, String tablename) {
     return selectRowsByIntAttr(null, DBConstants.GENERIC__USER_ID, userId, tablename);
   }
@@ -98,7 +99,7 @@ public class DBConnection {
       Map<String, Object> greaterThanConditionParams) {
     return selectRows(null, absoluteConditionParams, greaterThanConditionParams, lessThanConditionParams, tablename, "and", null, false, limit, true);
   }
-  
+
   /*assumes number of ? in the query = values.size()*/
   public static ResultSet selectDirectQueryNaive(String query, List<Object> values) {
     ResultSet rs = null;
@@ -122,7 +123,7 @@ public class DBConnection {
       log.error("problem with " + query, e);
     }
     return rs;
-    
+
   }
 
 
@@ -223,6 +224,52 @@ public class DBConnection {
         int numUpdated = stmt.executeUpdate();
         availableConnections.put(conn);
         return numUpdated;
+      } catch (SQLException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      }
+    }
+    return 0;
+  }
+
+  /*returns 0 if error*/
+  public static int insertIntoTableBasicReturnId(String tablename, Map<String, Object> insertParams) {
+    List<String> questions = new LinkedList<String>();
+    List<String> columns = new LinkedList<String>();
+    List<Object> values = new LinkedList<Object>();
+
+    if (insertParams != null && insertParams.size() > 0) {
+      for (String column : insertParams.keySet()) {
+        questions.add("?");
+        columns.add(column);
+        values.add(insertParams.get(column));
+      }
+      String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES (" +
+          StringUtils.getListInString(questions, ",") + ")";
+      try {
+        Connection conn = availableConnections.take();
+        PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        if (values.size()>0) {
+          int i = 1;
+          for (Object value : values) {
+            stmt.setObject(i, value);
+            i++;
+          }
+        }
+        int numUpdated = stmt.executeUpdate();
+        availableConnections.put(conn);
+
+        int generatedKey = 0;
+        if (numUpdated == 1) {
+          ResultSet rs = stmt.getGeneratedKeys();
+          if (rs.next()){
+            generatedKey = rs.getInt(1);
+          }
+        }
+        return generatedKey;
       } catch (SQLException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();

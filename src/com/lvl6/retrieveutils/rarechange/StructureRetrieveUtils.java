@@ -77,9 +77,10 @@ public class StructureRetrieveUtils {
     int yLength = rs.getInt(i++);
     int upgradeCoinCost = rs.getInt(i++);
     int upgradeDiamondCost = rs.getInt(i++);
+    int upgradeWoodCost = rs.getInt(i++);
     
     return new Structure(id, name, income, minutesToGain, coinPrice, 
         diamondPrice, woodPrice, minLevel, xLength, yLength, upgradeCoinCost, 
-        upgradeDiamondCost);
+        upgradeDiamondCost, upgradeWoodCost);
   }
 }

@@ -239,15 +239,18 @@ message TaskActionResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message PurchaseStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto structCoordinates = 2;
 	required int32 structId = 3;
 }
 
+																						//DONE
 message PurchaseStructureResponseProto {
 	required MinimumUserProto sender = 1;
 	required PurchaseStructureStatus status = 2;
+	optional int32 userStructId = 3;
 	
 	enum PurchaseStructureStatus {
 		SUCCESS = 0;
@@ -256,6 +259,24 @@ message PurchaseStructureResponseProto {
 		NOT_ENOUGH_WOOD = 3;
 		LEVEL_TOO_LOW = 4;
 		OTHER_FAIL = 5;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message MoveUserStructureRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 userStructId = 2;
+	required CoordinateProto curStructCoordinates = 3;
+}
+
+message MoveUserStructureResponseProto {
+	required MinimumUserProto sender = 1;
+	required MoveUserStructureStatus status = 2;
+	
+	enum MoveUserStructureStatus {
+		SUCCESS = 0;
+		FAIL = 1;
 	}
 }
 
@@ -284,14 +305,6 @@ message MoveCriticalStructureRequestProto {
 	}
 }
 
-//------------------------------------------------------------------------------------------
-
-message MoveUserStructureRequestProto {
-	required MinimumUserProto sender = 1;
-	required CoordinateProto oldStructCoordinates = 2;
-	required CoordinateProto curStructCoordinates = 3;
-	required int32 structId = 4;
-}
 
 //------------------------------------------------------------------------------------------
 

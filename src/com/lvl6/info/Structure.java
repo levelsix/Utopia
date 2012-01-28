@@ -1,7 +1,7 @@
 package com.lvl6.info;
 
 public class Structure {
-  
+    
   private int id;
   private String name;
   private int income;
@@ -14,10 +14,11 @@ public class Structure {
   private int yLength;
   private int upgradeCoinCost;
   private int upgradeDiamondCost;
+  private int upgradeWoodCost;
   
   public Structure(int id, String name, int income, int minutesToGain,
       int coinPrice, int diamondPrice, int woodPrice, int minLevel, int xLength,
-      int yLength, int upgradeCoinCost, int upgradeDiamondCost) {
+      int yLength, int upgradeCoinCost, int upgradeDiamondCost, int upgradeWoodCost) {
     this.id = id;
     this.name = name;
     this.income = income;
@@ -30,6 +31,7 @@ public class Structure {
     this.yLength = yLength;
     this.upgradeCoinCost = upgradeCoinCost;
     this.upgradeDiamondCost = upgradeDiamondCost;
+    this.upgradeWoodCost = upgradeWoodCost;
   }
   
   public int getId() {
@@ -79,6 +81,10 @@ public class Structure {
   public int getUpgradeDiamondCost() {
     return upgradeDiamondCost;
   }
+  
+  public int getUpgradeWoodCost() {
+    return upgradeWoodCost;
+  }
 
   @Override
   public String toString() {
@@ -87,7 +93,8 @@ public class Structure {
         + ", diamondPrice=" + diamondPrice + ", woodPrice=" + woodPrice
         + ", minLevel=" + minLevel + ", xLength=" + xLength + ", yLength="
         + yLength + ", upgradeCoinCost=" + upgradeCoinCost
-        + ", upgradeDiamondCost=" + upgradeDiamondCost + "]";
+        + ", upgradeDiamondCost=" + upgradeDiamondCost + ", upgradeWoodCost="
+        + upgradeWoodCost + "]";
   }
 
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class UserStruct {
   
+  private int id;
   private int userId;
   private int structId;
   private Date lastRetrieved;
@@ -12,9 +13,10 @@ public class UserStruct {
   private Date purchaseTime;
   private boolean isComplete;
   
-  public UserStruct(int userId, int structId, Date lastRetrieved,
+  public UserStruct(int id, int userId, int structId, Date lastRetrieved,
       CoordinatePair coordinates, int level, Date purchaseTime,
       boolean isComplete) {
+    this.id = id;
     this.userId = userId;
     this.structId = structId;
     this.lastRetrieved = lastRetrieved;
@@ -24,6 +26,10 @@ public class UserStruct {
     this.isComplete = isComplete;
   }
 
+  public int getId() {
+    return id;
+  }
+  
   public int getUserId() {
     return userId;
   }
@@ -54,9 +60,10 @@ public class UserStruct {
 
   @Override
   public String toString() {
-    return "UserStruct [userId=" + userId + ", structId=" + structId
-        + ", lastRetrieved=" + lastRetrieved + ", coordinates=" + coordinates
-        + ", level=" + level + ", purchaseTime=" + purchaseTime
+    return "UserStruct [id=" + id + ", userId=" + userId + ", structId="
+        + structId + ", lastRetrieved=" + lastRetrieved + ", coordinates="
+        + coordinates + ", level=" + level + ", purchaseTime=" + purchaseTime
         + ", isComplete=" + isComplete + "]";
-  }  
+  }
+  
 }

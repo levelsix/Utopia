@@ -133,7 +133,12 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__WOOD_COST = "wood_cost";
   
   /*USER STRUCTS TABLE*/
+  public static final String USER_STRUCTS__ID = GENERIC__ID;
   public static final String USER_STRUCTS__USER_ID = GENERIC__USER_ID;
   public static final String USER_STRUCTS__STRUCT_ID = "struct_id";
+  public static final String USER_STRUCTS__X_COORD = "xcoord";
+  public static final String USER_STRUCTS__Y_COORD = "ycoord";
+  public static final String USER_STRUCTS__IS_COMPLETE = "is_complete";
+
  
 }
