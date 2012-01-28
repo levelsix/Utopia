@@ -83,6 +83,7 @@ public class DefeatTypeJobRetrieveUtils {
     int id = rs.getInt(i++);
     UserType enemyType = UserType.valueOf(rs.getInt(i++));
     int numEnemiesToDefeat = rs.getInt(i++);
-    return new DefeatTypeJob(id, enemyType, numEnemiesToDefeat);
+    int cityId = rs.getInt(i++);
+    return new DefeatTypeJob(id, enemyType, numEnemiesToDefeat, cityId);
   }
 }

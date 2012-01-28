@@ -245,6 +245,16 @@ message PurchaseStructureRequestProto {
 	required int32 structId = 3;
 }
 
+message PurchaseStructureResponseProto {
+	required MinimumUserProto sender = 1;
+	required PurchaseStructureStatus status = 2;
+	
+	enum PurchaseStructureStatus {
+		SUCCESS = 0;
+		FAIL = 1;
+	}
+}
+
 //------------------------------------------------------------------------------------------
 
 message PlaceCriticalStructureRequestProto {
