@@ -1,5 +1,6 @@
 package com.lvl6.utils.utilmethods;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,43 @@ import com.lvl6.utils.DBConnection;
 public class UpdateUtils {
 
   /*
-   * used for battles, tasks
+   * used for updating last retrieved user struct time
+   */
+  public static boolean updateUserStructLastretrieved(int userStructId, Timestamp lastRetrievedTime) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  /*
+   * used for upgrading user structs
+   */
+  public static boolean updateUserStructLevel(int userStructId, int levelChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+    
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER_STRUCTS__LEVEL, levelChange);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, null, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  /*
+   * used for moving user structs
    */
   public static boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();

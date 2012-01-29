@@ -69,6 +69,7 @@ public class StructureRetrieveUtils {
     String name = rs.getString(i++);
     int income = rs.getInt(i++);
     int minutesToGain = rs.getInt(i++);
+    int minutesToBuild = rs.getInt(i++);
     int coinPrice = rs.getInt(i++);
     int diamondPrice = rs.getInt(i++);
     int woodPrice = rs.getInt(i++);
@@ -79,7 +80,7 @@ public class StructureRetrieveUtils {
     int upgradeDiamondCost = rs.getInt(i++);
     int upgradeWoodCost = rs.getInt(i++);
     
-    return new Structure(id, name, income, minutesToGain, coinPrice, 
+    return new Structure(id, name, income, minutesToGain, minutesToBuild, coinPrice, 
         diamondPrice, woodPrice, minLevel, xLength, yLength, upgradeCoinCost, 
         upgradeDiamondCost, upgradeWoodCost);
   }

@@ -137,7 +137,8 @@ message StartupResponseProto {
      required UpdateStatus updateStatus= 3;
      optional int32 maxCityIdAccessibleToUser = 4;     //cityids must be in order of min_level
      optional FullUserStructureProto structures = 5;
-     optional int32 questLog = 6;  
+     optional int32 questLog = 6;
+     repeated string productIds = 7;  
      
      enum UpdateStatus {
      	NO_UPDATE = 0;
@@ -264,12 +265,14 @@ message PurchaseNormStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message MoveNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
 	required CoordinateProto curStructCoordinates = 3;
 }
 
+																						//DONE
 message MoveNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
 	required MoveNormStructureStatus status = 2;
@@ -282,12 +285,14 @@ message MoveNormStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message SellNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
 	required int32 soldStructId = 3;		//optimization to prevent db call
 }
 
+																						//DONE
 message SellNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
 	required SellNormStructureStatus status = 2;
@@ -300,18 +305,23 @@ message SellNormStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message UpgradeNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
 }
 
+																						//DONE
 message UpgradeNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
 	required UpgradeNormStructureStatus status = 2;
 	
 	enum UpgradeNormStructureStatus {
 		SUCCESS = 0;
-		FAIL = 1;
+		NOT_ENOUGH_DIAMONDS = 1;
+		NOT_ENOUGH_COINS = 2;
+		NOT_ENOUGH_WOOD = 3;
+		OTHER_FAIL = 4;
 	}
 }
 
@@ -329,7 +339,8 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 	
 	enum RetrieveCurrencyFromNormStructureStatus {
 		SUCCESS = 0;
-		FAIL = 1;
+		NOT_LONG_ENOUGH = 1;
+		OTHER_FAIL = 2;
 	}
 }
 
@@ -396,7 +407,6 @@ message UpdateClientUserResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-																						//DONE
 message RetrieveCurrentMarketplacePostsRequestProto {
 	required MinimumUserProto sender = 1;
 	optional int32 beforeThisPostId = 2;
