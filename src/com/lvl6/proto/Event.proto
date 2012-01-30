@@ -138,7 +138,10 @@ message StartupResponseProto {
      optional int32 maxCityIdAccessibleToUser = 4;     //cityids must be in order of min_level
      optional FullUserStructureProto structures = 5;
      optional int32 questLog = 6;
-     repeated string productIds = 7;  
+     repeated string productIds = 7;
+     optional int32 diamondCostForEnergyRefill = 8; 
+     optional int32 diamondCostForStaminaRefill = 9; 
+     
      
      enum UpdateStatus {
      	NO_UPDATE = 0;
@@ -555,4 +558,26 @@ message QuestCompleteResponseProto {
 message QuestAcceptRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 questId = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message RefillStatWithDiamondsRequestProto {
+	required MinimumUserProto sender = 1;
+	required StatType statType = 2;
+
+	enum StatType {
+		ENERGY = 0;
+		STAMINA = 1;
+	}
+}
+
+message RefillStatWithDiamondsResponseProto {
+     required MinimumUserProto sender = 1;
+     required RefillStatStatus status = 2;
+     
+     enum RefillStatStatus {
+     	SUCCESS = 0;
+     	NOT_ENOUGH_DIAMONDS = 1;
+     }
 }
