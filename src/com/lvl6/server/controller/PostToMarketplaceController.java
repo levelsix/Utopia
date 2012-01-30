@@ -6,6 +6,7 @@ import com.lvl6.events.response.PostToMarketplaceResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PostToMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.Builder;
@@ -21,7 +22,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PostToMarketplaceController extends EventController {
 
-  private static final int MAX_MARKETPLACE_POSTS_FROM_USER = 10;  
+  private static final int MAX_MARKETPLACE_POSTS_FROM_USER = ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER;  
 
   @Override
   public RequestEvent createRequestEvent() {

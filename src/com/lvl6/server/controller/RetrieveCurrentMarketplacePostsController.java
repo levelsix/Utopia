@@ -6,6 +6,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent;
 import com.lvl6.events.response.RetrieveCurrentMarketplacePostsResponseEvent;
 import com.lvl6.info.MarketplacePost;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsRequestProto;
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
@@ -15,7 +16,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveCurrentMarketplacePostsController extends EventController{
 
-  private static final int NUM_POSTS_CAP = 100;
+  private static final int NUM_POSTS_CAP = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP;
   
   @Override
   public RequestEvent createRequestEvent() {

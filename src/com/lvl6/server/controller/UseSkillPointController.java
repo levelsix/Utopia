@@ -5,6 +5,7 @@ import com.lvl6.events.request.UseSkillPointRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.UseSkillPointResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.UseSkillPointRequestProto;
 import com.lvl6.proto.EventProto.UseSkillPointRequestProto.BoostType;
 import com.lvl6.proto.EventProto.UseSkillPointResponseProto;
@@ -17,17 +18,17 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class UseSkillPointController extends EventController {
 
-  private static final int ATTACK_BASE_GAIN = 1;
-  private static final int DEFENSE_BASE_GAIN = 1;
-  private static final int ENERGY_BASE_GAIN = 1;
-  private static final int HEALTH_BASE_GAIN = 10;
-  private static final int STAMINA_BASE_GAIN = 1;
+  private static final int ATTACK_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN;
+  private static final int DEFENSE_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN;
+  private static final int ENERGY_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN;
+  private static final int HEALTH_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_GAIN;
+  private static final int STAMINA_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN;
 
-  private static final int ATTACK_BASE_COST = 1;
-  private static final int DEFENSE_BASE_COST = 1;
-  private static final int ENERGY_BASE_COST = 1;
-  private static final int HEALTH_BASE_COST = 1;
-  private static final int STAMINA_BASE_COST = 2;
+  private static final int ATTACK_BASE_COST = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_COST;
+  private static final int DEFENSE_BASE_COST = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST;
+  private static final int ENERGY_BASE_COST = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST;
+  private static final int HEALTH_BASE_COST = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_COST;
+  private static final int STAMINA_BASE_COST = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST;
 
   @Override
   public RequestEvent createRequestEvent() {

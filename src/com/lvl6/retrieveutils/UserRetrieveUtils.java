@@ -11,9 +11,9 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.info.Location;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.UserType;
-import com.lvl6.server.controller.BattleController;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -26,7 +26,7 @@ public class UserRetrieveUtils {
   private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
   private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
   private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
-  private static final int MIN_BATTLE_HEALTH_REQUIREMENT = BattleController.MIN_BATTLE_HEALTH_REQUIREMENT;
+  private static final int MIN_BATTLE_HEALTH_REQUIREMENT = ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT;
   private static final int MAX_BATTLE_DB_HITS = 5;
 
   public static User getUserById(int userId) {
@@ -48,7 +48,7 @@ public class UserRetrieveUtils {
   public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
     log.info("retrieving list of enemies for user " + userId);
     
-    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, BattleController.MIN_BATTLE_LEVEL);
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
     
     String query = "select * from " + TABLE_NAME + " where "+ DBConstants.USER__HEALTH + ">= "+ 
@@ -75,7 +75,7 @@ public class UserRetrieveUtils {
     while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
       values.remove(values.size()-1);
       values.remove(values.size()-1);
-      values.add(Math.max(BattleController.MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
+      values.add(Math.max(ControllerConstants.BATTLE__MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
       values.add(levelMax + rangeIncrease/2);
       rs = DBConnection.selectDirectQueryNaive(query, values);
       numDBHits++;

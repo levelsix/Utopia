@@ -13,6 +13,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
@@ -29,20 +30,20 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class BattleController extends EventController {
 
-  private static final int NOT_SET = -1;
+  private static final int NOT_SET = ControllerConstants.NOT_SET;
   
-  private static final int MAX_DAMAGE = 24;
-  private static final int MIN_DAMAGE_DEALT_TO_LOSER = MAX_DAMAGE - 10;
+  private static final int MAX_DAMAGE = ControllerConstants.BATTLE__MAX_DAMAGE;
+  private static final int MIN_DAMAGE_DEALT_TO_LOSER = ControllerConstants.BATTLE__MIN_DAMAGE_DEALT_TO_LOSER;
 
-  private static final int MAX_LEVEL_DIFFERENCE = 50;
+  private static final int MAX_LEVEL_DIFFERENCE = ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE;
 
-  public static final int MIN_BATTLE_LEVEL = 3;
+  private static final int MIN_BATTLE_LEVEL = ControllerConstants.BATTLE__MIN_BATTLE_LEVEL;
 
-  public static final int MIN_BATTLE_HEALTH_REQUIREMENT = MAX_DAMAGE+1;
-  private static final int MIN_EXP_GAIN = 1;
-  private static final int MAX_EXP_GAIN = 5;
-  private static final String ATTACKER_FLAG = "attacker";
-  private static final String DEFENDER_FLAG = "defender";
+  private static final int MIN_BATTLE_HEALTH_REQUIREMENT = ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT;
+  private static final int MIN_EXP_GAIN = ControllerConstants.BATTLE__MIN_EXP_GAIN;
+  private static final int MAX_EXP_GAIN = ControllerConstants.BATTLE__MAX_EXP_GAIN;
+  private static final String ATTACKER_FLAG = ControllerConstants.BATTLE__ATTACKER_FLAG;
+  private static final String DEFENDER_FLAG = ControllerConstants.BATTLE__DEFENDER_FLAG;
 
   /* FORMULA FOR CALCULATING PLAYER'S BATTLE STAT
   Let S = Attack or Defense skill points, based on whether the user is the attacker or defender
@@ -53,15 +54,15 @@ public class BattleController extends EventController {
   To put it into words, we take (skill points times agency size) and add (total item stats divided by Z), and then multiply by X and Y and return a random number between those two totals.
   Note that the S and I values are already passed into the computeStat() function and the function should return F. Note also that A (agency size) should be passed into computeStat() so the function header needs to be adjusted, as do the two calls to computeStat() in backend/attackplayer.php.
    */
-  private static final double X = .8;
-  private static final double Y = 1.2;
-  private static final double Z = 4;
+  private static final double X = ControllerConstants.BATTLE__X;
+  private static final double Y = ControllerConstants.BATTLE__Y;
+  private static final double Z = ControllerConstants.BATTLE__Z;
 
   /* FORMULA FOR CALCULATING COIN TRANSFER
    * (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/A, loser.getLevel()*B)); 
    */
-  private static final double A = 10;
-  private static final double B = 75000;
+  private static final double A = ControllerConstants.BATTLE__A;
+  private static final double B = ControllerConstants.BATTLE__B;
 
   @Override
   public RequestEvent createRequestEvent() {

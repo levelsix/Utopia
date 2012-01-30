@@ -6,6 +6,7 @@ import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus;
@@ -22,7 +23,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseFromMarketplaceController extends EventController {
 
-  private static final double PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .15;
+  private static final double PERCENT_CUT_OF_SELLING_PRICE_TAKEN = ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN;
   
   @Override
   public RequestEvent createRequestEvent() {

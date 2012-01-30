@@ -5,6 +5,7 @@ import com.lvl6.events.request.ClericHealRequestEvent;
 import com.lvl6.events.response.ClericHealResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ClericHealRequestProto;
 import com.lvl6.proto.EventProto.ClericHealResponseProto;
 import com.lvl6.proto.EventProto.ClericHealResponseProto.HealStatus;
@@ -16,8 +17,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public class ClericHealController extends EventController {
   
   //Formula: (int) Math.ceil(Math.pow(user.getLevel(), A)*healthToHeal*B);
-  private static final double A = 3;
-  private static final double B = .05;
+  private static final double A = ControllerConstants.CLERIC_HEAL__A;
+  private static final double B = ControllerConstants.CLERIC_HEAL__B;
 
   @Override
   public RequestEvent createRequestEvent() {

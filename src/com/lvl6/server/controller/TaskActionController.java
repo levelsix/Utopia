@@ -11,6 +11,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.TaskActionRequestProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.Builder;
@@ -29,8 +30,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class TaskActionController extends EventController {
 
-  private static final int NOT_SET = -1;
-  private static final int MAX_CITY_RANK = 3;
+  private static final int NOT_SET = ControllerConstants.TASK_ACTION__NOT_SET;
+  private static final int MAX_CITY_RANK = ControllerConstants.TASK_ACTION__MAX_CITY_RANK;
 
   @Override
   public RequestEvent createRequestEvent() {

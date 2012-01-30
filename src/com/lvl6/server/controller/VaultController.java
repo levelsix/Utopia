@@ -5,6 +5,7 @@ import com.lvl6.events.request.VaultRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.VaultResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.VaultRequestProto;
 import com.lvl6.proto.EventProto.VaultRequestProto.VaultRequestType;
 import com.lvl6.proto.EventProto.VaultResponseProto;
@@ -15,7 +16,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class VaultController extends EventController {
 
-  private static final int DEPOSIT_PERCENT_CUT = 10;
+  private static final int DEPOSIT_PERCENT_CUT = ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT;
 
   @Override
   public RequestEvent createRequestEvent() {

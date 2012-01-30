@@ -7,6 +7,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ArmoryRequestProto;
 import com.lvl6.proto.EventProto.ArmoryResponseProto;
 import com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus;
@@ -21,7 +22,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ArmoryController extends EventController {
 
-  private static final double SELL_RATIO = 0.5;
+  private static final double SELL_RATIO = ControllerConstants.ARMORY__SELL_RATIO;
 
   @Override
   public RequestEvent createRequestEvent() {

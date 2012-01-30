@@ -6,6 +6,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.GenerateAttackListRequestEvent;
 import com.lvl6.events.response.GenerateAttackListResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.GenerateAttackListRequestProto;
 import com.lvl6.proto.EventProto.GenerateAttackListResponseProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
@@ -17,7 +18,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GenerateAttackListController extends EventController {
 
-  private static final int NUM_ENEMIES_TO_GENERATE = 25;
+  private static final int NUM_ENEMIES_TO_GENERATE = ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE;
 
   @Override
   public RequestEvent createRequestEvent() {

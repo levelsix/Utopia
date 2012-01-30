@@ -6,6 +6,7 @@ import com.lvl6.events.response.SellNormStructureResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.SellNormStructureRequestProto;
 import com.lvl6.proto.EventProto.SellNormStructureResponseProto;
 import com.lvl6.proto.EventProto.SellNormStructureResponseProto.SellNormStructureStatus;
@@ -18,7 +19,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class SellNormStructureController extends EventController {
 
-  public static final double PERCENT_RETURNED_TO_USER = .5;
+  public static final double PERCENT_RETURNED_TO_USER = ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER;
   
   @Override
   public RequestEvent createRequestEvent() {
