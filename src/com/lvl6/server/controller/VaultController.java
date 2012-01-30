@@ -47,11 +47,11 @@ public class VaultController extends EventController {
       VaultResponseProto.Builder resBuilder = VaultResponseProto.newBuilder();
       resBuilder.setSender(senderProto);
 
-      if (amount > 0 && requestType == VaultRequestType.WITHDRAW && amount < user.getVaultBalance()) {
+      if (amount > 0 && requestType == VaultRequestType.WITHDRAW && amount <= user.getVaultBalance()) {
         if (!user.updateRelativeCoinsVault(amount, -1*amount)) {
           log.error("problem with vault transaction");
         }
-      } else if (amount > 0 && requestType == VaultRequestType.DEPOSIT && amount < user.getCoins()){
+      } else if (amount > 0 && requestType == VaultRequestType.DEPOSIT && amount <= user.getCoins()){
         if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-DEPOSIT_PERCENT_CUT/100.0)*amount))) {
           log.error("problem with vault transaction");          
         }
