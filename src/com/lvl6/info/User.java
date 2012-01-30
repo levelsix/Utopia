@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
@@ -70,6 +71,37 @@ public class User {
     this.udid = udid;
     this.userLocation = userLocation;
     this.numPostsInMarketplace = numPostsInMarketplace;
+  }
+
+  /*
+   * used for using diamonds to refill stat
+   */
+  public boolean updateRelativeDiamondsRestoreStat (int diamondChange, StatType statType) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (statType == StatType.ENERGY) {
+      absoluteParams.put(DBConstants.USER__ENERGY, energyMax);      
+    } else if (statType == StatType.STAMINA) {
+      absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
+    }
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, 
+        absoluteParams, conditionParams, "and");
+    if (numUpdated == 1) {
+      if (statType == StatType.ENERGY) {
+        this.energy = energyMax;
+      } else if (statType == StatType.STAMINA) {
+        this.stamina = staminaMax;
+      }
+      this.diamonds += diamondChange;
+      return true;
+    }
+    return false;
   }
 
   /*
@@ -157,7 +189,7 @@ public class User {
     return false;
   }
 
-  
+
   /*
    * used for marketplace
    */
@@ -436,7 +468,7 @@ public class User {
   public Location getUserLocation() {
     return userLocation;
   }
-  
+
   public int getNumPostsInMarketplace() {
     return numPostsInMarketplace;
   }

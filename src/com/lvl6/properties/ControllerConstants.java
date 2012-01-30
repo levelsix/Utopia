@@ -66,5 +66,10 @@ public class ControllerConstants {
 
   //VAULT
   public static final int VAULT__DEPOSIT_PERCENT_CUT = 10;
+  
+  //REFILL STAT WITH DIAMONDS
+  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 10;
+  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
+
 
 }

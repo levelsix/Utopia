@@ -579,5 +579,6 @@ message RefillStatWithDiamondsResponseProto {
      enum RefillStatStatus {
      	SUCCESS = 0;
      	NOT_ENOUGH_DIAMONDS = 1;
+     	OTHER_FAIL = 2;
      }
 }
