@@ -18,21 +18,33 @@ import com.lvl6.utils.DBConnection;
 public class UserStructRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  
+
   private static final String TABLE_NAME = DBConstants.TABLE_USER_STRUCTS;
-  
+
   public static List<UserStruct> getUserStructsForUser(int userId) {
     log.info("retrieving user structs for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_STRUCTS__USER_ID, userId);
     return convertRSToUserStructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
-  
+
   public static UserStruct getSpecificUserStruct(int userStructId) {
     log.info("retrieving user structs for user struct id " + userStructId);
     return convertRSSingleToUserStructs(DBConnection.selectRowsById(userStructId, TABLE_NAME));
   }
-  
+
+  public static List<UserStruct> getUserStructs(List<Integer> userStructIds) {
+    if (userStructIds == null || userStructIds.size() <= 0) {
+      return null;
+    }
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    for (Integer userStructId : userStructIds) {
+      paramsToVals.put(DBConstants.USER_STRUCTS__ID, userStructId);
+    }
+    return convertRSToUserStructs(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
+
+  }
+
   private static List<UserStruct> convertRSToUserStructs(ResultSet rs) {
     if (rs != null) {
       try {
@@ -50,7 +62,7 @@ public class UserStructRetrieveUtils {
     }
     return null;
   }
-  
+
   private static UserStruct convertRSSingleToUserStructs(ResultSet rs) {
     if (rs != null) {
       try {
@@ -66,7 +78,7 @@ public class UserStructRetrieveUtils {
     }
     return null;
   }
-  
+
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
@@ -84,8 +96,8 @@ public class UserStructRetrieveUtils {
     int level = rs.getInt(i++);
     Date purchaseTime = new Date(rs.getTimestamp(i++).getTime());
     boolean isComplete = rs.getBoolean(i++);
-    
+
     return new UserStruct(id, userId, structId, lastRetrieved, coordinates, level, purchaseTime, isComplete);
   }
-  
+
 }

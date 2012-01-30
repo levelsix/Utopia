@@ -247,7 +247,7 @@ public class User {
   }
 
   /*
-   * used for in app purchases, armory
+   * used for in app purchases, armory, finishingnormstructbuild
    */
   public boolean updateRelativeDiamondsNaive (int diamondChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();

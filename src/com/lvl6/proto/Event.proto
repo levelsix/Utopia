@@ -562,6 +562,7 @@ message QuestAcceptRequestProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RefillStatWithDiamondsRequestProto {
 	required MinimumUserProto sender = 1;
 	required StatType statType = 2;
@@ -572,6 +573,7 @@ message RefillStatWithDiamondsRequestProto {
 	}
 }
 
+																						//DONE
 message RefillStatWithDiamondsResponseProto {
      required MinimumUserProto sender = 1;
      required RefillStatStatus status = 2;
@@ -580,5 +582,49 @@ message RefillStatWithDiamondsResponseProto {
      	SUCCESS = 0;
      	NOT_ENOUGH_DIAMONDS = 1;
      	OTHER_FAIL = 2;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message FinishNormStructBuildWithDiamondsRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 userStructId = 2;
+	required int64 timeOfPurchase = 3;			//lastRetrieved will start with this date
+}
+
+																						//DONE
+message FinishNormStructBuildWithDiamondsResponseProto {
+     required MinimumUserProto sender = 1;
+     required FinishNormStructBuildStatus status = 2;
+     
+     enum FinishNormStructBuildStatus {
+     	SUCCESS = 0;
+     	NOT_ENOUGH_DIAMONDS = 1;
+     	OTHER_FAIL = 2;
+     }
+}
+
+
+//------------------------------------------------------------------------------------------
+
+//this message sent to server after a player's homepage is loaded and client checks which structs 
+//have been built but not reflected in db yet (so when is_complete=0 but the purchase_time 
+//implies that it should be
+//this message is also sent whenever the player is on the screen and the build completes
+//i would set last_retrieved manually to when it should have completed, and is_complete=1
+message NormStructBuildsCompleteRequestProto {
+	required MinimumUserProto sender = 1;
+	repeated int32 userStructId = 2;
+}
+
+message NormStructBuildsCompleteResponseProto {
+     required MinimumUserProto sender = 1;
+     required NormStructBuildsCompleteStatus status = 2;
+     
+     enum NormStructBuildsCompleteStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
      }
 }
