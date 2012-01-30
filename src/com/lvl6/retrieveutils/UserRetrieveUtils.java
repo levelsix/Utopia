@@ -149,6 +149,9 @@ public class UserRetrieveUtils {
     int diamonds = rs.getInt(i++);
     int coins = rs.getInt(i++);
     int wood = rs.getInt(i++);
+    int marketplaceDiamondsEarnings = rs.getInt(i++);
+    int marketplaceCoinsEarnings = rs.getInt(i++);
+    int marketplaceWoodEarnings = rs.getInt(i++);
     int vaultBalance = rs.getInt(i++);
     int experience = rs.getInt(i++);
     int tasksCompleted = rs.getInt(i++);
@@ -161,8 +164,9 @@ public class UserRetrieveUtils {
     Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
     int numPostsInMarketplace = rs.getInt(i++);
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
-        healthMax, energyMax, staminaMax, diamonds, coins, wood, vaultBalance, experience, tasksCompleted, 
-        battlesWon, battlesLost, hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace);
+        healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
+        marketplaceWoodEarnings, vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
+        hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace);
     return user;
   }
 }

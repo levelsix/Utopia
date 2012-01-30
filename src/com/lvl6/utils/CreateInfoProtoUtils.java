@@ -50,12 +50,15 @@ public class CreateInfoProtoUtils {
         .setDefense(user.getDefense()).setStamina(user.getStamina()).setEnergy(user.getEnergy())
         .setHealth(user.getHealth()).setSkillPoints(user.getSkillPoints()).setHealthMax(user.getHealthMax())
         .setEnergyMax(user.getEnergyMax()).setStaminaMax(user.getStaminaMax()).setDiamonds(user.getDiamonds())
-        .setCoins(user.getCoins()).setWood(user.getWood()).setVaultBalance(user.getVaultBalance()).setExperience(user.getEnergyMax())
+        .setCoins(user.getCoins()).setWood(user.getWood()).setMarketplaceDiamondsEarnings(user.getMarketplaceDiamondsEarnings())
+        .setMarketplaceCoinsEarnings(user.getMarketplaceCoinsEarnings()).setMarketplaceWoodEarnings(user.getMarketplaceWoodEarnings())
+        .setVaultBalance(user.getVaultBalance()).setExperience(user.getEnergyMax())
         .setTasksCompleted(user.getTasksCompleted()).setBattlesWon(user.getBattlesWon())
         .setBattlesLost(user.getBattlesLost()).setHourlyCoins(user.getHourlyCoins())
         .setArmyCode(user.getArmyCode()).setNumReferrals(user.getNumReferrals())
         .setUdid(user.getUdid())
-        .setUserLocation(CreateInfoProtoUtils.createLocationProtoFromLocation(user.getUserLocation())).build();
+        .setUserLocation(CreateInfoProtoUtils.createLocationProtoFromLocation(user.getUserLocation()))
+        .setNumPostsInMarketplace(user.getNumPostsInMarketplace()).build();
     return ftp;
   }
 

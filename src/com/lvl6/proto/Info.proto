@@ -36,16 +36,20 @@ message FullUserProto {
 	required int32 diamonds = 14;
 	required int32 coins = 15;
 	required int32 wood = 16;
-	required int32 vaultBalance = 17;
-	required int32 experience = 18;
-	required int32 tasksCompleted = 19;
-	required int32 battlesWon = 20;
-	required int32 battlesLost = 21;
-	required int32 hourlyCoins = 22;
-	required string armyCode = 23;
-	required int32 numReferrals = 24;
-	required string udid = 25;
-	required LocationProto userLocation = 26;
+	required int32 marketplaceDiamondsEarnings = 17;
+	required int32 marketplaceCoinsEarnings = 18;
+	required int32 marketplaceWoodEarnings = 19;
+	required int32 vaultBalance = 20;
+	required int32 experience = 21;
+	required int32 tasksCompleted = 22;
+	required int32 battlesWon = 23;
+	required int32 battlesLost = 24;
+	required int32 hourlyCoins = 25;
+	required string armyCode = 26;
+	required int32 numReferrals = 27;
+	required string udid = 28;
+	required LocationProto userLocation = 29;
+	required int32 numPostsInMarketplace = 30;
 }
 
 //------------------------------------------------------------------------------------------

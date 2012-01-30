@@ -806,46 +806,62 @@ public final class InfoProto {
     boolean hasWood();
     int getWood();
     
-    // required int32 vaultBalance = 17;
+    // required int32 marketplaceDiamondsEarnings = 17;
+    boolean hasMarketplaceDiamondsEarnings();
+    int getMarketplaceDiamondsEarnings();
+    
+    // required int32 marketplaceCoinsEarnings = 18;
+    boolean hasMarketplaceCoinsEarnings();
+    int getMarketplaceCoinsEarnings();
+    
+    // required int32 marketplaceWoodEarnings = 19;
+    boolean hasMarketplaceWoodEarnings();
+    int getMarketplaceWoodEarnings();
+    
+    // required int32 vaultBalance = 20;
     boolean hasVaultBalance();
     int getVaultBalance();
     
-    // required int32 experience = 18;
+    // required int32 experience = 21;
     boolean hasExperience();
     int getExperience();
     
-    // required int32 tasksCompleted = 19;
+    // required int32 tasksCompleted = 22;
     boolean hasTasksCompleted();
     int getTasksCompleted();
     
-    // required int32 battlesWon = 20;
+    // required int32 battlesWon = 23;
     boolean hasBattlesWon();
     int getBattlesWon();
     
-    // required int32 battlesLost = 21;
+    // required int32 battlesLost = 24;
     boolean hasBattlesLost();
     int getBattlesLost();
     
-    // required int32 hourlyCoins = 22;
+    // required int32 hourlyCoins = 25;
     boolean hasHourlyCoins();
     int getHourlyCoins();
     
-    // required string armyCode = 23;
+    // required string armyCode = 26;
     boolean hasArmyCode();
     String getArmyCode();
     
-    // required int32 numReferrals = 24;
+    // required int32 numReferrals = 27;
     boolean hasNumReferrals();
     int getNumReferrals();
     
-    // required string udid = 25;
+    // required string udid = 28;
     boolean hasUdid();
     String getUdid();
     
-    // required .com.lvl6.proto.LocationProto userLocation = 26;
+    // required .com.lvl6.proto.LocationProto userLocation = 29;
     boolean hasUserLocation();
     com.lvl6.proto.InfoProto.LocationProto getUserLocation();
     com.lvl6.proto.InfoProto.LocationProtoOrBuilder getUserLocationOrBuilder();
+    
+    // required int32 numPostsInMarketplace = 30;
+    boolean hasNumPostsInMarketplace();
+    int getNumPostsInMarketplace();
   }
   public static final class FullUserProto extends
       com.google.protobuf.GeneratedMessage
@@ -1058,71 +1074,101 @@ public final class InfoProto {
       return wood_;
     }
     
-    // required int32 vaultBalance = 17;
-    public static final int VAULTBALANCE_FIELD_NUMBER = 17;
+    // required int32 marketplaceDiamondsEarnings = 17;
+    public static final int MARKETPLACEDIAMONDSEARNINGS_FIELD_NUMBER = 17;
+    private int marketplaceDiamondsEarnings_;
+    public boolean hasMarketplaceDiamondsEarnings() {
+      return ((bitField0_ & 0x00010000) == 0x00010000);
+    }
+    public int getMarketplaceDiamondsEarnings() {
+      return marketplaceDiamondsEarnings_;
+    }
+    
+    // required int32 marketplaceCoinsEarnings = 18;
+    public static final int MARKETPLACECOINSEARNINGS_FIELD_NUMBER = 18;
+    private int marketplaceCoinsEarnings_;
+    public boolean hasMarketplaceCoinsEarnings() {
+      return ((bitField0_ & 0x00020000) == 0x00020000);
+    }
+    public int getMarketplaceCoinsEarnings() {
+      return marketplaceCoinsEarnings_;
+    }
+    
+    // required int32 marketplaceWoodEarnings = 19;
+    public static final int MARKETPLACEWOODEARNINGS_FIELD_NUMBER = 19;
+    private int marketplaceWoodEarnings_;
+    public boolean hasMarketplaceWoodEarnings() {
+      return ((bitField0_ & 0x00040000) == 0x00040000);
+    }
+    public int getMarketplaceWoodEarnings() {
+      return marketplaceWoodEarnings_;
+    }
+    
+    // required int32 vaultBalance = 20;
+    public static final int VAULTBALANCE_FIELD_NUMBER = 20;
     private int vaultBalance_;
     public boolean hasVaultBalance() {
-      return ((bitField0_ & 0x00010000) == 0x00010000);
+      return ((bitField0_ & 0x00080000) == 0x00080000);
     }
     public int getVaultBalance() {
       return vaultBalance_;
     }
     
-    // required int32 experience = 18;
-    public static final int EXPERIENCE_FIELD_NUMBER = 18;
+    // required int32 experience = 21;
+    public static final int EXPERIENCE_FIELD_NUMBER = 21;
     private int experience_;
     public boolean hasExperience() {
-      return ((bitField0_ & 0x00020000) == 0x00020000);
+      return ((bitField0_ & 0x00100000) == 0x00100000);
     }
     public int getExperience() {
       return experience_;
     }
     
-    // required int32 tasksCompleted = 19;
-    public static final int TASKSCOMPLETED_FIELD_NUMBER = 19;
+    // required int32 tasksCompleted = 22;
+    public static final int TASKSCOMPLETED_FIELD_NUMBER = 22;
     private int tasksCompleted_;
     public boolean hasTasksCompleted() {
-      return ((bitField0_ & 0x00040000) == 0x00040000);
+      return ((bitField0_ & 0x00200000) == 0x00200000);
     }
     public int getTasksCompleted() {
       return tasksCompleted_;
     }
     
-    // required int32 battlesWon = 20;
-    public static final int BATTLESWON_FIELD_NUMBER = 20;
+    // required int32 battlesWon = 23;
+    public static final int BATTLESWON_FIELD_NUMBER = 23;
     private int battlesWon_;
     public boolean hasBattlesWon() {
-      return ((bitField0_ & 0x00080000) == 0x00080000);
+      return ((bitField0_ & 0x00400000) == 0x00400000);
     }
     public int getBattlesWon() {
       return battlesWon_;
     }
     
-    // required int32 battlesLost = 21;
-    public static final int BATTLESLOST_FIELD_NUMBER = 21;
+    // required int32 battlesLost = 24;
+    public static final int BATTLESLOST_FIELD_NUMBER = 24;
     private int battlesLost_;
     public boolean hasBattlesLost() {
-      return ((bitField0_ & 0x00100000) == 0x00100000);
+      return ((bitField0_ & 0x00800000) == 0x00800000);
     }
     public int getBattlesLost() {
       return battlesLost_;
     }
     
-    // required int32 hourlyCoins = 22;
-    public static final int HOURLYCOINS_FIELD_NUMBER = 22;
+    // required int32 hourlyCoins = 25;
+    public static final int HOURLYCOINS_FIELD_NUMBER = 25;
     private int hourlyCoins_;
     public boolean hasHourlyCoins() {
-      return ((bitField0_ & 0x00200000) == 0x00200000);
+      return ((bitField0_ & 0x01000000) == 0x01000000);
     }
     public int getHourlyCoins() {
       return hourlyCoins_;
     }
     
-    // required string armyCode = 23;
-    public static final int ARMYCODE_FIELD_NUMBER = 23;
+    // required string armyCode = 26;
+    public static final int ARMYCODE_FIELD_NUMBER = 26;
     private java.lang.Object armyCode_;
     public boolean hasArmyCode() {
-      return ((bitField0_ & 0x00400000) == 0x00400000);
+      return ((bitField0_ & 0x02000000) == 0x02000000);
     }
     public String getArmyCode() {
       java.lang.Object ref = armyCode_;
@@ -1150,21 +1196,21 @@ public final class InfoProto {
       }
     }
     
-    // required int32 numReferrals = 24;
-    public static final int NUMREFERRALS_FIELD_NUMBER = 24;
+    // required int32 numReferrals = 27;
+    public static final int NUMREFERRALS_FIELD_NUMBER = 27;
     private int numReferrals_;
     public boolean hasNumReferrals() {
-      return ((bitField0_ & 0x00800000) == 0x00800000);
+      return ((bitField0_ & 0x04000000) == 0x04000000);
     }
     public int getNumReferrals() {
       return numReferrals_;
     }
     
-    // required string udid = 25;
-    public static final int UDID_FIELD_NUMBER = 25;
+    // required string udid = 28;
+    public static final int UDID_FIELD_NUMBER = 28;
     private java.lang.Object udid_;
     public boolean hasUdid() {
-      return ((bitField0_ & 0x01000000) == 0x01000000);
+      return ((bitField0_ & 0x08000000) == 0x08000000);
     }
     public String getUdid() {
       java.lang.Object ref = udid_;
@@ -1192,17 +1238,27 @@ public final class InfoProto {
       }
     }
     
-    // required .com.lvl6.proto.LocationProto userLocation = 26;
-    public static final int USERLOCATION_FIELD_NUMBER = 26;
+    // required .com.lvl6.proto.LocationProto userLocation = 29;
+    public static final int USERLOCATION_FIELD_NUMBER = 29;
     private com.lvl6.proto.InfoProto.LocationProto userLocation_;
     public boolean hasUserLocation() {
-      return ((bitField0_ & 0x02000000) == 0x02000000);
+      return ((bitField0_ & 0x10000000) == 0x10000000);
     }
     public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
       return userLocation_;
     }
     public com.lvl6.proto.InfoProto.LocationProtoOrBuilder getUserLocationOrBuilder() {
       return userLocation_;
+    }
+    
+    // required int32 numPostsInMarketplace = 30;
+    public static final int NUMPOSTSINMARKETPLACE_FIELD_NUMBER = 30;
+    private int numPostsInMarketplace_;
+    public boolean hasNumPostsInMarketplace() {
+      return ((bitField0_ & 0x20000000) == 0x20000000);
+    }
+    public int getNumPostsInMarketplace() {
+      return numPostsInMarketplace_;
     }
     
     private void initFields() {
@@ -1222,6 +1278,9 @@ public final class InfoProto {
       diamonds_ = 0;
       coins_ = 0;
       wood_ = 0;
+      marketplaceDiamondsEarnings_ = 0;
+      marketplaceCoinsEarnings_ = 0;
+      marketplaceWoodEarnings_ = 0;
       vaultBalance_ = 0;
       experience_ = 0;
       tasksCompleted_ = 0;
@@ -1232,6 +1291,7 @@ public final class InfoProto {
       numReferrals_ = 0;
       udid_ = "";
       userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
+      numPostsInMarketplace_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1302,6 +1362,18 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasMarketplaceDiamondsEarnings()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMarketplaceCoinsEarnings()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMarketplaceWoodEarnings()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasVaultBalance()) {
         memoizedIsInitialized = 0;
         return false;
@@ -1339,6 +1411,10 @@ public final class InfoProto {
         return false;
       }
       if (!hasUserLocation()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNumPostsInMarketplace()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1402,34 +1478,46 @@ public final class InfoProto {
         output.writeInt32(16, wood_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
-        output.writeInt32(17, vaultBalance_);
+        output.writeInt32(17, marketplaceDiamondsEarnings_);
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
-        output.writeInt32(18, experience_);
+        output.writeInt32(18, marketplaceCoinsEarnings_);
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
-        output.writeInt32(19, tasksCompleted_);
+        output.writeInt32(19, marketplaceWoodEarnings_);
       }
       if (((bitField0_ & 0x00080000) == 0x00080000)) {
-        output.writeInt32(20, battlesWon_);
+        output.writeInt32(20, vaultBalance_);
       }
       if (((bitField0_ & 0x00100000) == 0x00100000)) {
-        output.writeInt32(21, battlesLost_);
+        output.writeInt32(21, experience_);
       }
       if (((bitField0_ & 0x00200000) == 0x00200000)) {
-        output.writeInt32(22, hourlyCoins_);
+        output.writeInt32(22, tasksCompleted_);
       }
       if (((bitField0_ & 0x00400000) == 0x00400000)) {
-        output.writeBytes(23, getArmyCodeBytes());
+        output.writeInt32(23, battlesWon_);
       }
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
-        output.writeInt32(24, numReferrals_);
+        output.writeInt32(24, battlesLost_);
       }
       if (((bitField0_ & 0x01000000) == 0x01000000)) {
-        output.writeBytes(25, getUdidBytes());
+        output.writeInt32(25, hourlyCoins_);
       }
       if (((bitField0_ & 0x02000000) == 0x02000000)) {
-        output.writeMessage(26, userLocation_);
+        output.writeBytes(26, getArmyCodeBytes());
+      }
+      if (((bitField0_ & 0x04000000) == 0x04000000)) {
+        output.writeInt32(27, numReferrals_);
+      }
+      if (((bitField0_ & 0x08000000) == 0x08000000)) {
+        output.writeBytes(28, getUdidBytes());
+      }
+      if (((bitField0_ & 0x10000000) == 0x10000000)) {
+        output.writeMessage(29, userLocation_);
+      }
+      if (((bitField0_ & 0x20000000) == 0x20000000)) {
+        output.writeInt32(30, numPostsInMarketplace_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1506,43 +1594,59 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(17, vaultBalance_);
+          .computeInt32Size(17, marketplaceDiamondsEarnings_);
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(18, experience_);
+          .computeInt32Size(18, marketplaceCoinsEarnings_);
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(19, tasksCompleted_);
+          .computeInt32Size(19, marketplaceWoodEarnings_);
       }
       if (((bitField0_ & 0x00080000) == 0x00080000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(20, battlesWon_);
+          .computeInt32Size(20, vaultBalance_);
       }
       if (((bitField0_ & 0x00100000) == 0x00100000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(21, battlesLost_);
+          .computeInt32Size(21, experience_);
       }
       if (((bitField0_ & 0x00200000) == 0x00200000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(22, hourlyCoins_);
+          .computeInt32Size(22, tasksCompleted_);
       }
       if (((bitField0_ & 0x00400000) == 0x00400000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(23, getArmyCodeBytes());
+          .computeInt32Size(23, battlesWon_);
       }
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(24, numReferrals_);
+          .computeInt32Size(24, battlesLost_);
       }
       if (((bitField0_ & 0x01000000) == 0x01000000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(25, getUdidBytes());
+          .computeInt32Size(25, hourlyCoins_);
       }
       if (((bitField0_ & 0x02000000) == 0x02000000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(26, userLocation_);
+          .computeBytesSize(26, getArmyCodeBytes());
+      }
+      if (((bitField0_ & 0x04000000) == 0x04000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(27, numReferrals_);
+      }
+      if (((bitField0_ & 0x08000000) == 0x08000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(28, getUdidBytes());
+      }
+      if (((bitField0_ & 0x10000000) == 0x10000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(29, userLocation_);
+      }
+      if (((bitField0_ & 0x20000000) == 0x20000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(30, numPostsInMarketplace_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1701,30 +1805,38 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00004000);
         wood_ = 0;
         bitField0_ = (bitField0_ & ~0x00008000);
-        vaultBalance_ = 0;
+        marketplaceDiamondsEarnings_ = 0;
         bitField0_ = (bitField0_ & ~0x00010000);
-        experience_ = 0;
+        marketplaceCoinsEarnings_ = 0;
         bitField0_ = (bitField0_ & ~0x00020000);
-        tasksCompleted_ = 0;
+        marketplaceWoodEarnings_ = 0;
         bitField0_ = (bitField0_ & ~0x00040000);
-        battlesWon_ = 0;
+        vaultBalance_ = 0;
         bitField0_ = (bitField0_ & ~0x00080000);
-        battlesLost_ = 0;
+        experience_ = 0;
         bitField0_ = (bitField0_ & ~0x00100000);
-        hourlyCoins_ = 0;
+        tasksCompleted_ = 0;
         bitField0_ = (bitField0_ & ~0x00200000);
-        armyCode_ = "";
+        battlesWon_ = 0;
         bitField0_ = (bitField0_ & ~0x00400000);
-        numReferrals_ = 0;
+        battlesLost_ = 0;
         bitField0_ = (bitField0_ & ~0x00800000);
-        udid_ = "";
+        hourlyCoins_ = 0;
         bitField0_ = (bitField0_ & ~0x01000000);
+        armyCode_ = "";
+        bitField0_ = (bitField0_ & ~0x02000000);
+        numReferrals_ = 0;
+        bitField0_ = (bitField0_ & ~0x04000000);
+        udid_ = "";
+        bitField0_ = (bitField0_ & ~0x08000000);
         if (userLocationBuilder_ == null) {
           userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x02000000);
+        bitField0_ = (bitField0_ & ~0x10000000);
+        numPostsInMarketplace_ = 0;
+        bitField0_ = (bitField0_ & ~0x20000000);
         return this;
       }
       
@@ -1830,47 +1942,63 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
           to_bitField0_ |= 0x00010000;
         }
-        result.vaultBalance_ = vaultBalance_;
+        result.marketplaceDiamondsEarnings_ = marketplaceDiamondsEarnings_;
         if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
           to_bitField0_ |= 0x00020000;
         }
-        result.experience_ = experience_;
+        result.marketplaceCoinsEarnings_ = marketplaceCoinsEarnings_;
         if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
           to_bitField0_ |= 0x00040000;
         }
-        result.tasksCompleted_ = tasksCompleted_;
+        result.marketplaceWoodEarnings_ = marketplaceWoodEarnings_;
         if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
           to_bitField0_ |= 0x00080000;
         }
-        result.battlesWon_ = battlesWon_;
+        result.vaultBalance_ = vaultBalance_;
         if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
           to_bitField0_ |= 0x00100000;
         }
-        result.battlesLost_ = battlesLost_;
+        result.experience_ = experience_;
         if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
           to_bitField0_ |= 0x00200000;
         }
-        result.hourlyCoins_ = hourlyCoins_;
+        result.tasksCompleted_ = tasksCompleted_;
         if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
           to_bitField0_ |= 0x00400000;
         }
-        result.armyCode_ = armyCode_;
+        result.battlesWon_ = battlesWon_;
         if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
           to_bitField0_ |= 0x00800000;
         }
-        result.numReferrals_ = numReferrals_;
+        result.battlesLost_ = battlesLost_;
         if (((from_bitField0_ & 0x01000000) == 0x01000000)) {
           to_bitField0_ |= 0x01000000;
         }
-        result.udid_ = udid_;
+        result.hourlyCoins_ = hourlyCoins_;
         if (((from_bitField0_ & 0x02000000) == 0x02000000)) {
           to_bitField0_ |= 0x02000000;
+        }
+        result.armyCode_ = armyCode_;
+        if (((from_bitField0_ & 0x04000000) == 0x04000000)) {
+          to_bitField0_ |= 0x04000000;
+        }
+        result.numReferrals_ = numReferrals_;
+        if (((from_bitField0_ & 0x08000000) == 0x08000000)) {
+          to_bitField0_ |= 0x08000000;
+        }
+        result.udid_ = udid_;
+        if (((from_bitField0_ & 0x10000000) == 0x10000000)) {
+          to_bitField0_ |= 0x10000000;
         }
         if (userLocationBuilder_ == null) {
           result.userLocation_ = userLocation_;
         } else {
           result.userLocation_ = userLocationBuilder_.build();
         }
+        if (((from_bitField0_ & 0x20000000) == 0x20000000)) {
+          to_bitField0_ |= 0x20000000;
+        }
+        result.numPostsInMarketplace_ = numPostsInMarketplace_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1935,6 +2063,15 @@ public final class InfoProto {
         if (other.hasWood()) {
           setWood(other.getWood());
         }
+        if (other.hasMarketplaceDiamondsEarnings()) {
+          setMarketplaceDiamondsEarnings(other.getMarketplaceDiamondsEarnings());
+        }
+        if (other.hasMarketplaceCoinsEarnings()) {
+          setMarketplaceCoinsEarnings(other.getMarketplaceCoinsEarnings());
+        }
+        if (other.hasMarketplaceWoodEarnings()) {
+          setMarketplaceWoodEarnings(other.getMarketplaceWoodEarnings());
+        }
         if (other.hasVaultBalance()) {
           setVaultBalance(other.getVaultBalance());
         }
@@ -1964,6 +2101,9 @@ public final class InfoProto {
         }
         if (other.hasUserLocation()) {
           mergeUserLocation(other.getUserLocation());
+        }
+        if (other.hasNumPostsInMarketplace()) {
+          setNumPostsInMarketplace(other.getNumPostsInMarketplace());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2034,6 +2174,18 @@ public final class InfoProto {
           
           return false;
         }
+        if (!hasMarketplaceDiamondsEarnings()) {
+          
+          return false;
+        }
+        if (!hasMarketplaceCoinsEarnings()) {
+          
+          return false;
+        }
+        if (!hasMarketplaceWoodEarnings()) {
+          
+          return false;
+        }
         if (!hasVaultBalance()) {
           
           return false;
@@ -2071,6 +2223,10 @@ public final class InfoProto {
           return false;
         }
         if (!hasUserLocation()) {
+          
+          return false;
+        }
+        if (!hasNumPostsInMarketplace()) {
           
           return false;
         }
@@ -2192,56 +2348,76 @@ public final class InfoProto {
             }
             case 136: {
               bitField0_ |= 0x00010000;
-              vaultBalance_ = input.readInt32();
+              marketplaceDiamondsEarnings_ = input.readInt32();
               break;
             }
             case 144: {
               bitField0_ |= 0x00020000;
-              experience_ = input.readInt32();
+              marketplaceCoinsEarnings_ = input.readInt32();
               break;
             }
             case 152: {
               bitField0_ |= 0x00040000;
-              tasksCompleted_ = input.readInt32();
+              marketplaceWoodEarnings_ = input.readInt32();
               break;
             }
             case 160: {
               bitField0_ |= 0x00080000;
-              battlesWon_ = input.readInt32();
+              vaultBalance_ = input.readInt32();
               break;
             }
             case 168: {
               bitField0_ |= 0x00100000;
-              battlesLost_ = input.readInt32();
+              experience_ = input.readInt32();
               break;
             }
             case 176: {
               bitField0_ |= 0x00200000;
-              hourlyCoins_ = input.readInt32();
+              tasksCompleted_ = input.readInt32();
               break;
             }
-            case 186: {
+            case 184: {
               bitField0_ |= 0x00400000;
-              armyCode_ = input.readBytes();
+              battlesWon_ = input.readInt32();
               break;
             }
             case 192: {
               bitField0_ |= 0x00800000;
-              numReferrals_ = input.readInt32();
+              battlesLost_ = input.readInt32();
               break;
             }
-            case 202: {
+            case 200: {
               bitField0_ |= 0x01000000;
-              udid_ = input.readBytes();
+              hourlyCoins_ = input.readInt32();
               break;
             }
             case 210: {
+              bitField0_ |= 0x02000000;
+              armyCode_ = input.readBytes();
+              break;
+            }
+            case 216: {
+              bitField0_ |= 0x04000000;
+              numReferrals_ = input.readInt32();
+              break;
+            }
+            case 226: {
+              bitField0_ |= 0x08000000;
+              udid_ = input.readBytes();
+              break;
+            }
+            case 234: {
               com.lvl6.proto.InfoProto.LocationProto.Builder subBuilder = com.lvl6.proto.InfoProto.LocationProto.newBuilder();
               if (hasUserLocation()) {
                 subBuilder.mergeFrom(getUserLocation());
               }
               input.readMessage(subBuilder, extensionRegistry);
               setUserLocation(subBuilder.buildPartial());
+              break;
+            }
+            case 240: {
+              bitField0_ |= 0x20000000;
+              numPostsInMarketplace_ = input.readInt32();
               break;
             }
           }
@@ -2604,136 +2780,199 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 vaultBalance = 17;
+      // required int32 marketplaceDiamondsEarnings = 17;
+      private int marketplaceDiamondsEarnings_ ;
+      public boolean hasMarketplaceDiamondsEarnings() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      public int getMarketplaceDiamondsEarnings() {
+        return marketplaceDiamondsEarnings_;
+      }
+      public Builder setMarketplaceDiamondsEarnings(int value) {
+        bitField0_ |= 0x00010000;
+        marketplaceDiamondsEarnings_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMarketplaceDiamondsEarnings() {
+        bitField0_ = (bitField0_ & ~0x00010000);
+        marketplaceDiamondsEarnings_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 marketplaceCoinsEarnings = 18;
+      private int marketplaceCoinsEarnings_ ;
+      public boolean hasMarketplaceCoinsEarnings() {
+        return ((bitField0_ & 0x00020000) == 0x00020000);
+      }
+      public int getMarketplaceCoinsEarnings() {
+        return marketplaceCoinsEarnings_;
+      }
+      public Builder setMarketplaceCoinsEarnings(int value) {
+        bitField0_ |= 0x00020000;
+        marketplaceCoinsEarnings_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMarketplaceCoinsEarnings() {
+        bitField0_ = (bitField0_ & ~0x00020000);
+        marketplaceCoinsEarnings_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 marketplaceWoodEarnings = 19;
+      private int marketplaceWoodEarnings_ ;
+      public boolean hasMarketplaceWoodEarnings() {
+        return ((bitField0_ & 0x00040000) == 0x00040000);
+      }
+      public int getMarketplaceWoodEarnings() {
+        return marketplaceWoodEarnings_;
+      }
+      public Builder setMarketplaceWoodEarnings(int value) {
+        bitField0_ |= 0x00040000;
+        marketplaceWoodEarnings_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMarketplaceWoodEarnings() {
+        bitField0_ = (bitField0_ & ~0x00040000);
+        marketplaceWoodEarnings_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 vaultBalance = 20;
       private int vaultBalance_ ;
       public boolean hasVaultBalance() {
-        return ((bitField0_ & 0x00010000) == 0x00010000);
+        return ((bitField0_ & 0x00080000) == 0x00080000);
       }
       public int getVaultBalance() {
         return vaultBalance_;
       }
       public Builder setVaultBalance(int value) {
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00080000;
         vaultBalance_ = value;
         onChanged();
         return this;
       }
       public Builder clearVaultBalance() {
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00080000);
         vaultBalance_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 experience = 18;
+      // required int32 experience = 21;
       private int experience_ ;
       public boolean hasExperience() {
-        return ((bitField0_ & 0x00020000) == 0x00020000);
+        return ((bitField0_ & 0x00100000) == 0x00100000);
       }
       public int getExperience() {
         return experience_;
       }
       public Builder setExperience(int value) {
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00100000;
         experience_ = value;
         onChanged();
         return this;
       }
       public Builder clearExperience() {
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         experience_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 tasksCompleted = 19;
+      // required int32 tasksCompleted = 22;
       private int tasksCompleted_ ;
       public boolean hasTasksCompleted() {
-        return ((bitField0_ & 0x00040000) == 0x00040000);
+        return ((bitField0_ & 0x00200000) == 0x00200000);
       }
       public int getTasksCompleted() {
         return tasksCompleted_;
       }
       public Builder setTasksCompleted(int value) {
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00200000;
         tasksCompleted_ = value;
         onChanged();
         return this;
       }
       public Builder clearTasksCompleted() {
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00200000);
         tasksCompleted_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 battlesWon = 20;
+      // required int32 battlesWon = 23;
       private int battlesWon_ ;
       public boolean hasBattlesWon() {
-        return ((bitField0_ & 0x00080000) == 0x00080000);
+        return ((bitField0_ & 0x00400000) == 0x00400000);
       }
       public int getBattlesWon() {
         return battlesWon_;
       }
       public Builder setBattlesWon(int value) {
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00400000;
         battlesWon_ = value;
         onChanged();
         return this;
       }
       public Builder clearBattlesWon() {
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00400000);
         battlesWon_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 battlesLost = 21;
+      // required int32 battlesLost = 24;
       private int battlesLost_ ;
       public boolean hasBattlesLost() {
-        return ((bitField0_ & 0x00100000) == 0x00100000);
+        return ((bitField0_ & 0x00800000) == 0x00800000);
       }
       public int getBattlesLost() {
         return battlesLost_;
       }
       public Builder setBattlesLost(int value) {
-        bitField0_ |= 0x00100000;
+        bitField0_ |= 0x00800000;
         battlesLost_ = value;
         onChanged();
         return this;
       }
       public Builder clearBattlesLost() {
-        bitField0_ = (bitField0_ & ~0x00100000);
+        bitField0_ = (bitField0_ & ~0x00800000);
         battlesLost_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 hourlyCoins = 22;
+      // required int32 hourlyCoins = 25;
       private int hourlyCoins_ ;
       public boolean hasHourlyCoins() {
-        return ((bitField0_ & 0x00200000) == 0x00200000);
+        return ((bitField0_ & 0x01000000) == 0x01000000);
       }
       public int getHourlyCoins() {
         return hourlyCoins_;
       }
       public Builder setHourlyCoins(int value) {
-        bitField0_ |= 0x00200000;
+        bitField0_ |= 0x01000000;
         hourlyCoins_ = value;
         onChanged();
         return this;
       }
       public Builder clearHourlyCoins() {
-        bitField0_ = (bitField0_ & ~0x00200000);
+        bitField0_ = (bitField0_ & ~0x01000000);
         hourlyCoins_ = 0;
         onChanged();
         return this;
       }
       
-      // required string armyCode = 23;
+      // required string armyCode = 26;
       private java.lang.Object armyCode_ = "";
       public boolean hasArmyCode() {
-        return ((bitField0_ & 0x00400000) == 0x00400000);
+        return ((bitField0_ & 0x02000000) == 0x02000000);
       }
       public String getArmyCode() {
         java.lang.Object ref = armyCode_;
@@ -2749,48 +2988,48 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00400000;
+  bitField0_ |= 0x02000000;
         armyCode_ = value;
         onChanged();
         return this;
       }
       public Builder clearArmyCode() {
-        bitField0_ = (bitField0_ & ~0x00400000);
+        bitField0_ = (bitField0_ & ~0x02000000);
         armyCode_ = getDefaultInstance().getArmyCode();
         onChanged();
         return this;
       }
       void setArmyCode(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00400000;
+        bitField0_ |= 0x02000000;
         armyCode_ = value;
         onChanged();
       }
       
-      // required int32 numReferrals = 24;
+      // required int32 numReferrals = 27;
       private int numReferrals_ ;
       public boolean hasNumReferrals() {
-        return ((bitField0_ & 0x00800000) == 0x00800000);
+        return ((bitField0_ & 0x04000000) == 0x04000000);
       }
       public int getNumReferrals() {
         return numReferrals_;
       }
       public Builder setNumReferrals(int value) {
-        bitField0_ |= 0x00800000;
+        bitField0_ |= 0x04000000;
         numReferrals_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumReferrals() {
-        bitField0_ = (bitField0_ & ~0x00800000);
+        bitField0_ = (bitField0_ & ~0x04000000);
         numReferrals_ = 0;
         onChanged();
         return this;
       }
       
-      // required string udid = 25;
+      // required string udid = 28;
       private java.lang.Object udid_ = "";
       public boolean hasUdid() {
-        return ((bitField0_ & 0x01000000) == 0x01000000);
+        return ((bitField0_ & 0x08000000) == 0x08000000);
       }
       public String getUdid() {
         java.lang.Object ref = udid_;
@@ -2806,29 +3045,29 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x01000000;
+  bitField0_ |= 0x08000000;
         udid_ = value;
         onChanged();
         return this;
       }
       public Builder clearUdid() {
-        bitField0_ = (bitField0_ & ~0x01000000);
+        bitField0_ = (bitField0_ & ~0x08000000);
         udid_ = getDefaultInstance().getUdid();
         onChanged();
         return this;
       }
       void setUdid(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x01000000;
+        bitField0_ |= 0x08000000;
         udid_ = value;
         onChanged();
       }
       
-      // required .com.lvl6.proto.LocationProto userLocation = 26;
+      // required .com.lvl6.proto.LocationProto userLocation = 29;
       private com.lvl6.proto.InfoProto.LocationProto userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.LocationProto, com.lvl6.proto.InfoProto.LocationProto.Builder, com.lvl6.proto.InfoProto.LocationProtoOrBuilder> userLocationBuilder_;
       public boolean hasUserLocation() {
-        return ((bitField0_ & 0x02000000) == 0x02000000);
+        return ((bitField0_ & 0x10000000) == 0x10000000);
       }
       public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
         if (userLocationBuilder_ == null) {
@@ -2847,7 +3086,7 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x02000000;
+        bitField0_ |= 0x10000000;
         return this;
       }
       public Builder setUserLocation(
@@ -2858,12 +3097,12 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x02000000;
+        bitField0_ |= 0x10000000;
         return this;
       }
       public Builder mergeUserLocation(com.lvl6.proto.InfoProto.LocationProto value) {
         if (userLocationBuilder_ == null) {
-          if (((bitField0_ & 0x02000000) == 0x02000000) &&
+          if (((bitField0_ & 0x10000000) == 0x10000000) &&
               userLocation_ != com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance()) {
             userLocation_ =
               com.lvl6.proto.InfoProto.LocationProto.newBuilder(userLocation_).mergeFrom(value).buildPartial();
@@ -2874,7 +3113,7 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x02000000;
+        bitField0_ |= 0x10000000;
         return this;
       }
       public Builder clearUserLocation() {
@@ -2884,11 +3123,11 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x02000000);
+        bitField0_ = (bitField0_ & ~0x10000000);
         return this;
       }
       public com.lvl6.proto.InfoProto.LocationProto.Builder getUserLocationBuilder() {
-        bitField0_ |= 0x02000000;
+        bitField0_ |= 0x10000000;
         onChanged();
         return getUserLocationFieldBuilder().getBuilder();
       }
@@ -2911,6 +3150,27 @@ public final class InfoProto {
           userLocation_ = null;
         }
         return userLocationBuilder_;
+      }
+      
+      // required int32 numPostsInMarketplace = 30;
+      private int numPostsInMarketplace_ ;
+      public boolean hasNumPostsInMarketplace() {
+        return ((bitField0_ & 0x20000000) == 0x20000000);
+      }
+      public int getNumPostsInMarketplace() {
+        return numPostsInMarketplace_;
+      }
+      public Builder setNumPostsInMarketplace(int value) {
+        bitField0_ |= 0x20000000;
+        numPostsInMarketplace_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumPostsInMarketplace() {
+        bitField0_ = (bitField0_ & ~0x20000000);
+        numPostsInMarketplace_ = 0;
+        onChanged();
+        return this;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullUserProto)
@@ -8107,61 +8367,64 @@ public final class InfoProto {
       "\n\nInfo.proto\022\016com.lvl6.proto\"\\\n\020MinimumU" +
       "serProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004name\030\002 \001(\t\022*" +
       "\n\010userType\030\003 \001(\0162\030.com.lvl6.proto.UserTy" +
-      "pe\"\243\004\n\rFullUserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004" +
+      "pe\"\252\005\n\rFullUserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004" +
       "name\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\022*\n\010userType\030\004 " +
       "\002(\0162\030.com.lvl6.proto.UserType\022\016\n\006attack\030" +
       "\005 \002(\005\022\017\n\007defense\030\006 \002(\005\022\017\n\007stamina\030\007 \002(\005\022" +
       "\016\n\006energy\030\010 \002(\005\022\016\n\006health\030\t \002(\005\022\023\n\013skill" +
       "Points\030\n \002(\005\022\021\n\thealthMax\030\013 \002(\005\022\021\n\tenerg" +
       "yMax\030\014 \002(\005\022\022\n\nstaminaMax\030\r \002(\005\022\020\n\010diamon",
-      "ds\030\016 \002(\005\022\r\n\005coins\030\017 \002(\005\022\014\n\004wood\030\020 \002(\005\022\024\n" +
-      "\014vaultBalance\030\021 \002(\005\022\022\n\nexperience\030\022 \002(\005\022" +
-      "\026\n\016tasksCompleted\030\023 \002(\005\022\022\n\nbattlesWon\030\024 " +
-      "\002(\005\022\023\n\013battlesLost\030\025 \002(\005\022\023\n\013hourlyCoins\030" +
-      "\026 \002(\005\022\020\n\010armyCode\030\027 \002(\t\022\024\n\014numReferrals\030" +
-      "\030 \002(\005\022\014\n\004udid\030\031 \002(\t\0223\n\014userLocation\030\032 \002(" +
-      "\0132\035.com.lvl6.proto.LocationProto\"\206\004\n\016Ful" +
-      "lEquipProto\022\017\n\007equipId\030\001 \002(\005\022\014\n\004name\030\002 \002" +
-      "(\t\022;\n\tequipType\030\003 \002(\0162(.com.lvl6.proto.F" +
-      "ullEquipProto.EquipType\022;\n\tclassType\030\004 \002",
-      "(\0162(.com.lvl6.proto.FullEquipProto.Class" +
-      "Type\022\023\n\013attackBoost\030\005 \002(\005\022\024\n\014defenseBoos" +
-      "t\030\006 \002(\005\022\020\n\010minLevel\030\007 \002(\005\022\021\n\tcoinPrice\030\010" +
-      " \001(\005\022\024\n\014diamondPrice\030\t \001(\005\022\024\n\014chanceOfLo" +
-      "ss\030\n \002(\002\0225\n\006rarity\030\013 \002(\0162%.com.lvl6.prot" +
-      "o.FullEquipProto.Rarity\"E\n\006Rarity\022\n\n\006COM" +
-      "MON\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004EPIC\020\003\022" +
-      "\r\n\tLEGENDARY\020\004\"1\n\tEquipType\022\n\n\006WEAPON\020\000\022" +
-      "\t\n\005ARMOR\020\001\022\r\n\tACCESSORY\020\002\".\n\tClassType\022\013" +
-      "\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\"\226\001\n\026Fu",
-      "llUserStructureProto\022\016\n\006userId\030\001 \002(\005\022\020\n\010" +
-      "structId\030\002 \002(\005\0224\n\013coordinates\030\003 \002(\0132\037.co" +
-      "m.lvl6.proto.CoordinateProto\022\025\n\rlastRetr" +
-      "ieved\030\004 \002(\t\022\r\n\005level\030\005 \002(\005\"\214\002\n\rFullTaskP" +
-      "roto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006ci" +
-      "tyId\030\003 \002(\005\022 \n\030numRequiredForCompletion\030\004" +
-      " \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGain" +
-      "ed\030\006 \002(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chan" +
-      "ceOfEquipLoot\030\010 \002(\002\022\035\n\025potentialLootEqui" +
-      "pIds\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022\032\n\022assetNu",
-      "mWithinCity\030\013 \002(\005\"\'\n\017CoordinateProto\022\t\n\001" +
-      "x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010l" +
-      "atitude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\243\002\n\030Ful" +
-      "lMarketplacePostProto\022\031\n\021marketplacePost" +
-      "Id\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType\030\003" +
-      " \002(\0162#.com.lvl6.proto.MarketplacePostTyp" +
-      "e\022\022\n\ntimeOfPost\030\004 \002(\003\022\025\n\rpostedEquipId\030\005" +
-      " \001(\005\022\022\n\npostedWood\030\006 \001(\005\022\026\n\016postedDiamon" +
-      "ds\030\007 \001(\005\022\023\n\013postedCoins\030\010 \001(\005\022\023\n\013diamond" +
-      "Cost\030\t \001(\005\022\020\n\010coinCost\030\n \001(\005\022\020\n\010woodCost",
-      "\030\013 \001(\005\"\020\n\016FullQuestProto*k\n\010UserType\022\020\n\014" +
-      "GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_" +
-      "MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022" +
-      "\014\n\010BAD_MAGE\020\005*U\n\023MarketplacePostType\022\016\n\n" +
-      "EQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_P" +
-      "OST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035MarketplaceJobRe" +
-      "quirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001B\013B\tInfo" +
-      "Proto"
+      "ds\030\016 \002(\005\022\r\n\005coins\030\017 \002(\005\022\014\n\004wood\030\020 \002(\005\022#\n" +
+      "\033marketplaceDiamondsEarnings\030\021 \002(\005\022 \n\030ma" +
+      "rketplaceCoinsEarnings\030\022 \002(\005\022\037\n\027marketpl" +
+      "aceWoodEarnings\030\023 \002(\005\022\024\n\014vaultBalance\030\024 " +
+      "\002(\005\022\022\n\nexperience\030\025 \002(\005\022\026\n\016tasksComplete" +
+      "d\030\026 \002(\005\022\022\n\nbattlesWon\030\027 \002(\005\022\023\n\013battlesLo" +
+      "st\030\030 \002(\005\022\023\n\013hourlyCoins\030\031 \002(\005\022\020\n\010armyCod" +
+      "e\030\032 \002(\t\022\024\n\014numReferrals\030\033 \002(\005\022\014\n\004udid\030\034 " +
+      "\002(\t\0223\n\014userLocation\030\035 \002(\0132\035.com.lvl6.pro" +
+      "to.LocationProto\022\035\n\025numPostsInMarketplac",
+      "e\030\036 \002(\005\"\206\004\n\016FullEquipProto\022\017\n\007equipId\030\001 " +
+      "\002(\005\022\014\n\004name\030\002 \002(\t\022;\n\tequipType\030\003 \002(\0162(.c" +
+      "om.lvl6.proto.FullEquipProto.EquipType\022;" +
+      "\n\tclassType\030\004 \002(\0162(.com.lvl6.proto.FullE" +
+      "quipProto.ClassType\022\023\n\013attackBoost\030\005 \002(\005" +
+      "\022\024\n\014defenseBoost\030\006 \002(\005\022\020\n\010minLevel\030\007 \002(\005" +
+      "\022\021\n\tcoinPrice\030\010 \001(\005\022\024\n\014diamondPrice\030\t \001(" +
+      "\005\022\024\n\014chanceOfLoss\030\n \002(\002\0225\n\006rarity\030\013 \002(\0162" +
+      "%.com.lvl6.proto.FullEquipProto.Rarity\"E" +
+      "\n\006Rarity\022\n\n\006COMMON\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RA",
+      "RE\020\002\022\010\n\004EPIC\020\003\022\r\n\tLEGENDARY\020\004\"1\n\tEquipTy" +
+      "pe\022\n\n\006WEAPON\020\000\022\t\n\005ARMOR\020\001\022\r\n\tACCESSORY\020\002" +
+      "\".\n\tClassType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010" +
+      "\n\004MAGE\020\002\"\226\001\n\026FullUserStructureProto\022\016\n\006u" +
+      "serId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\0224\n\013coordin" +
+      "ates\030\003 \002(\0132\037.com.lvl6.proto.CoordinatePr" +
+      "oto\022\025\n\rlastRetrieved\030\004 \002(\t\022\r\n\005level\030\005 \002(" +
+      "\005\"\214\002\n\rFullTaskProto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004n" +
+      "ame\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequired" +
+      "ForCompletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022",
+      "\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGaine" +
+      "d\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025po" +
+      "tentialLootEquipIds\030\t \003(\005\022\021\n\texpGained\030\n" +
+      " \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(\005\"\'\n\017Coor" +
+      "dinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLoc" +
+      "ationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitud" +
+      "e\030\002 \002(\002\"\243\002\n\030FullMarketplacePostProto\022\031\n\021" +
+      "marketplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(" +
+      "\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.proto.Mar" +
+      "ketplacePostType\022\022\n\ntimeOfPost\030\004 \002(\003\022\025\n\r",
+      "postedEquipId\030\005 \001(\005\022\022\n\npostedWood\030\006 \001(\005\022" +
+      "\026\n\016postedDiamonds\030\007 \001(\005\022\023\n\013postedCoins\030\010" +
+      " \001(\005\022\023\n\013diamondCost\030\t \001(\005\022\020\n\010coinCost\030\n " +
+      "\001(\005\022\020\n\010woodCost\030\013 \001(\005\"\020\n\016FullQuestProto*" +
+      "k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_AR" +
+      "CHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016" +
+      "\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023Marketpl" +
+      "acePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST" +
+      "\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035M" +
+      "arketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n",
+      "\004SELL\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -8181,7 +8444,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserProto_descriptor,
-              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "Energy", "Health", "SkillPoints", "HealthMax", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "Wood", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "HourlyCoins", "ArmyCode", "NumReferrals", "Udid", "UserLocation", },
+              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "Energy", "Health", "SkillPoints", "HealthMax", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "Wood", "MarketplaceDiamondsEarnings", "MarketplaceCoinsEarnings", "MarketplaceWoodEarnings", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "HourlyCoins", "ArmyCode", "NumReferrals", "Udid", "UserLocation", "NumPostsInMarketplace", },
               com.lvl6.proto.InfoProto.FullUserProto.class,
               com.lvl6.proto.InfoProto.FullUserProto.Builder.class);
           internal_static_com_lvl6_proto_FullEquipProto_descriptor =

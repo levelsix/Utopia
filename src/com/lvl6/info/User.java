@@ -26,6 +26,9 @@ public class User {
   private int diamonds;
   private int coins;
   private int wood;
+  private int marketplaceDiamondsEarnings;
+  private int marketplaceCoinsEarnings;
+  private int marketplaceWoodEarnings;
   private int vaultBalance;
   private int experience;
   private int tasksCompleted;
@@ -41,9 +44,11 @@ public class User {
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int health, int skillPoints,
       int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
-      int wood, int vaultBalance, int experience, int tasksCompleted,
-      int battlesWon, int battlesLost, int hourlyCoins, String armyCode,
-      int numReferrals, String udid, Location userLocation, int numPostsInMarketplace) {
+      int wood, int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
+      int marketplaceWoodEarnings, int vaultBalance, int experience,
+      int tasksCompleted, int battlesWon, int battlesLost, int hourlyCoins,
+      String armyCode, int numReferrals, String udid, Location userLocation,
+      int numPostsInMarketplace) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -60,6 +65,9 @@ public class User {
     this.diamonds = diamonds;
     this.coins = coins;
     this.wood = wood;
+    this.marketplaceDiamondsEarnings = marketplaceDiamondsEarnings;
+    this.marketplaceCoinsEarnings = marketplaceCoinsEarnings;
+    this.marketplaceWoodEarnings = marketplaceWoodEarnings;
     this.vaultBalance = vaultBalance;
     this.experience = experience;
     this.tasksCompleted = tasksCompleted;
@@ -429,6 +437,18 @@ public class User {
     return wood;
   }
 
+  public int getMarketplaceDiamondsEarnings() {
+    return marketplaceDiamondsEarnings;
+  }
+
+  public int getMarketplaceCoinsEarnings() {
+    return marketplaceCoinsEarnings;
+  }
+
+  public int getMarketplaceWoodEarnings() {
+    return marketplaceWoodEarnings;
+  }
+
   public int getVaultBalance() {
     return vaultBalance;
   }
@@ -481,11 +501,14 @@ public class User {
         + ", skillPoints=" + skillPoints + ", healthMax=" + healthMax
         + ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
         + ", diamonds=" + diamonds + ", coins=" + coins + ", wood=" + wood
+        + ", marketplaceDiamondsEarnings=" + marketplaceDiamondsEarnings
+        + ", marketplaceCoinsEarnings=" + marketplaceCoinsEarnings
+        + ", marketplaceWoodEarnings=" + marketplaceWoodEarnings
         + ", vaultBalance=" + vaultBalance + ", experience=" + experience
         + ", tasksCompleted=" + tasksCompleted + ", battlesWon=" + battlesWon
         + ", battlesLost=" + battlesLost + ", hourlyCoins=" + hourlyCoins
         + ", armyCode=" + armyCode + ", numReferrals=" + numReferrals
         + ", udid=" + udid + ", userLocation=" + userLocation
         + ", numPostsInMarketplace=" + numPostsInMarketplace + "]";
-  }
+  }  
 }
