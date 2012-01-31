@@ -68,8 +68,8 @@ public class DBConstants {
   public static final String USER__ARMORY_Y = "armory_ycoord";
   public static final String USER__VAULT_X = "vault_xcoord";
   public static final String USER__VAULT_Y = "vault_ycoord";
-  public static final String USER__CLERIC_X = "cleric_xcoord";
-  public static final String USER__CLERIC_Y = "cleric_ycoord";
+  public static final String USER__MARKETPLACE_X = "marketplace_xcoord";
+  public static final String USER__MARKETPLACE_Y = "marketplace_ycoord";
 
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;

@@ -20,7 +20,7 @@ public class UpdateUtils {
    */
   public static boolean updateUserStructsLastretrievedIscomplete(List<UserStruct> userStructs, boolean isComplete) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
-    
+        
     for (UserStruct userStruct : userStructs) {
       Structure structure = structures.get(userStruct.getId());
       if (structure == null) {

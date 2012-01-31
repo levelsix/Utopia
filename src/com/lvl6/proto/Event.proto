@@ -619,12 +619,12 @@ message FinishNormStructWaittimeWithDiamondsResponseProto {
 
 //this message sent to server after a player's homepage is loaded and client checks which structs 
 //have been built but not reflected in db yet (so when is_complete=0 but the purchase_time 
-//implies that it should be
+//implies that it should be)
 //this message is also sent whenever the player is on the screen and the build completes
 //i would set last_retrieved manually to when it should have completed, and is_complete=1
 											
 																						//DONE
-//NOT VERY EFFICIENT..extra db call. and for every built building, new db call. but w/e for now.																						
+//NOT VERY EFFICIENT..extra db call. and for every newly built building, new db call. but w/e for now.																						
 message NormStructBuildsCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	repeated int32 userStructId = 2;
