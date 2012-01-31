@@ -4,8 +4,6 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent;
 import com.lvl6.events.response.RedeemMarketplaceEarningsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
-import com.lvl6.info.CoordinatePair;
-import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsRequestProto;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto;
@@ -14,8 +12,6 @@ import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.RedeemMa
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RedeemMarketplaceEarningsController extends EventController {

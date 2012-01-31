@@ -635,10 +635,12 @@ message NormStructBuildsCompleteResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RedeemMarketplaceEarningsRequestProto {
 	required MinimumUserProto sender = 1;
 }
 
+																						//DONE
 message RedeemMarketplaceEarningsResponseProto {
      required MinimumUserProto sender = 1;
      required RedeemMarketplaceEarningsStatus status = 2;
