@@ -180,10 +180,10 @@ public final class ProtocolsProto {
     S_FINISH_NORM_STRUCT_BUILD_WITH_DIAMONDS_EVENT(23, 23),
     S_NORM_STRUCT_BUILDS_COMPLETE_EVENT(24, 24),
     S_REDEEM_MARKETPLACE_EARNINGS(25, 25),
+    S_LEVEL_UP_EVENT(26, 50),
+    S_UPDATE_CLIENT_USER_EVENT(27, 51),
     ;
     
-    public static final EventProtocolResponse S_LEVEL_UP_EVENT = S_SELL_NORM_STRUCTURE_EVENT;
-    public static final EventProtocolResponse S_UPDATE_CLIENT_USER_EVENT = S_UPGRADE_NORM_STRUCTURE_EVENT;
     public static final int S_CHAT_EVENT_VALUE = 0;
     public static final int S_BATTLE_EVENT_VALUE = 1;
     public static final int S_VAULT_EVENT_VALUE = 2;
@@ -210,8 +210,8 @@ public final class ProtocolsProto {
     public static final int S_FINISH_NORM_STRUCT_BUILD_WITH_DIAMONDS_EVENT_VALUE = 23;
     public static final int S_NORM_STRUCT_BUILDS_COMPLETE_EVENT_VALUE = 24;
     public static final int S_REDEEM_MARKETPLACE_EARNINGS_VALUE = 25;
-    public static final int S_LEVEL_UP_EVENT_VALUE = 19;
-    public static final int S_UPDATE_CLIENT_USER_EVENT_VALUE = 20;
+    public static final int S_LEVEL_UP_EVENT_VALUE = 50;
+    public static final int S_UPDATE_CLIENT_USER_EVENT_VALUE = 51;
     
     
     public final int getNumber() { return value; }
@@ -244,6 +244,8 @@ public final class ProtocolsProto {
         case 23: return S_FINISH_NORM_STRUCT_BUILD_WITH_DIAMONDS_EVENT;
         case 24: return S_NORM_STRUCT_BUILDS_COMPLETE_EVENT;
         case 25: return S_REDEEM_MARKETPLACE_EARNINGS;
+        case 50: return S_LEVEL_UP_EVENT;
+        case 51: return S_UPDATE_CLIENT_USER_EVENT;
         default: return null;
       }
     }
@@ -353,8 +355,8 @@ public final class ProtocolsProto {
       "RUCT_BUILD_WITH_DIAMONDS_EVENT\020\027\022\'\n#S_NO" +
       "RM_STRUCT_BUILDS_COMPLETE_EVENT\020\030\022!\n\035S_R" +
       "EDEEM_MARKETPLACE_EARNINGS\020\031\022\024\n\020S_LEVEL_" +
-      "UP_EVENT\020\023\022\036\n\032S_UPDATE_CLIENT_USER_EVENT" +
-      "\020\024B\020B\016ProtocolsProto"
+      "UP_EVENT\0202\022\036\n\032S_UPDATE_CLIENT_USER_EVENT" +
+      "\0203B\020B\016ProtocolsProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

@@ -93,9 +93,20 @@ message FullEquipProto {
 message FullUserStructureProto {
 	required int32 userId = 1;
 	required int32 structId = 2;
-	required CoordinateProto coordinates = 3;
-	required string lastRetrieved = 4;
+	required int64 lastRetrieved = 3;
+	required CoordinateProto coordinates = 4;
 	required int32 level = 5;
+	required int64 purchaseTime = 6;
+	required bool isComplete = 7;
+}
+
+//------------------------------------------------------------------------------------------
+
+message FullUserEquipProto {
+	required int32 userId = 1;
+	required int32 equipId = 2;
+	required int32 quantity = 3;
+	required bool isStolen = 4;
 }
 
 
@@ -155,6 +166,12 @@ message FullMarketplacePostProto {
 //------------------------------------------------------------------------------------------
 
 message FullQuestProto { 
+
+}
+
+//------------------------------------------------------------------------------------------
+
+message FullStructureProto { 
 
 }
 

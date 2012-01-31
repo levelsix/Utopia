@@ -107,7 +107,7 @@ public class PurchaseNormStructureController extends EventController {
     if (user.getWood() < struct.getWoodPrice()) {
       resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_WOOD);
       return false;
-    }
+    }    
     resBuilder.setStatus(PurchaseNormStructureStatus.SUCCESS);
     return true;
   }

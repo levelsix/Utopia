@@ -24,7 +24,7 @@ public class NormStructBuildsCompleteController extends EventController{
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_NORM_STRUCT_BUILDS_COMPLETE;
+    return EventProtocolRequest.C_NORM_STRUCT_BUILDS_COMPLETE_EVENT;
   }
 
   @Override

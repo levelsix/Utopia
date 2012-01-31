@@ -140,8 +140,8 @@ message StartupResponseProto {
      optional int32 questLog = 6;
      repeated string productIds = 7;
      optional int32 diamondCostForEnergyRefill = 8; 
-     optional int32 diamondCostForStaminaRefill = 9; 
-     
+     optional int32 diamondCostForStaminaRefill = 9;
+     repeated FullUserEquipProto userEquips = 10; 
      
      enum UpdateStatus {
      	NO_UPDATE = 0;

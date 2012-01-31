@@ -13,7 +13,7 @@ public class NormStructBuildsCompleteResponseEvent extends NonBroadcastResponseE
   
   public NormStructBuildsCompleteResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_NORM_STRUCT_BUILDS_COMPLETE;
+    eventType = EventProtocolResponse.S_NORM_STRUCT_BUILDS_COMPLETE_EVENT;
   }
   
   @Override
