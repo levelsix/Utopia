@@ -197,6 +197,35 @@ public class User {
     return false;
   }
 
+  
+  /*
+   * used for marketplace purchase
+   */
+  public boolean updateRelativeDiamondsearningsCoinsearningsWoodearningsNumpostsinmarketplaceNaive 
+  (int diamondEarningsChange, int coinEarningsChange, 
+      int woodEarningsChange, int numPostsInMarketplaceChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    relativeParams.put(DBConstants.USER__MARKETPLACE_DIAMONDS_EARNINGS, diamondEarningsChange);
+    relativeParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, coinEarningsChange);
+    relativeParams.put(DBConstants.USER__MARKETPLACE_WOOD_EARNINGS, woodEarningsChange);
+    relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.marketplaceDiamondsEarnings += diamondEarningsChange;
+      this.marketplaceCoinsEarnings += coinEarningsChange;
+      this.marketplaceWoodEarnings += woodEarningsChange;
+      this.numPostsInMarketplace += numPostsInMarketplaceChange;
+      return true;
+    }
+    return false;
+  }
+
 
   /*
    * used for marketplace

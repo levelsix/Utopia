@@ -609,21 +609,41 @@ message FinishNormStructBuildWithDiamondsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+
 //this message sent to server after a player's homepage is loaded and client checks which structs 
 //have been built but not reflected in db yet (so when is_complete=0 but the purchase_time 
 //implies that it should be
 //this message is also sent whenever the player is on the screen and the build completes
 //i would set last_retrieved manually to when it should have completed, and is_complete=1
+																						//DONE
 message NormStructBuildsCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	repeated int32 userStructId = 2;
 }
 
+																						//DONE
 message NormStructBuildsCompleteResponseProto {
      required MinimumUserProto sender = 1;
      required NormStructBuildsCompleteStatus status = 2;
      
      enum NormStructBuildsCompleteStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     }
+}
+
+
+//------------------------------------------------------------------------------------------
+
+message RedeemMarketplaceEarningsRequestProto {
+	required MinimumUserProto sender = 1;
+}
+
+message RedeemMarketplaceEarningsResponseProto {
+     required MinimumUserProto sender = 1;
+     required RedeemMarketplaceEarningsStatus status = 2;
+     
+     enum RedeemMarketplaceEarningsStatus {
      	SUCCESS = 0;
      	OTHER_FAIL = 1;
      }
