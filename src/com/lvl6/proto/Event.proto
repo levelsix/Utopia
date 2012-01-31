@@ -587,19 +587,26 @@ message RefillStatWithDiamondsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+//done for both finishing a struct's building and instantly gettin income
 																						//DONE
-message FinishNormStructBuildWithDiamondsRequestProto {
+message FinishNormStructWaittimeWithDiamondsRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
 	required int64 timeOfPurchase = 3;			//lastRetrieved will start with this date
+	required NormStructWaitTimeType waitTimeType = 4;
+
+	enum NormStructWaitTimeType {
+		FINISH_CONSTRUCTION = 0;
+		FINISH_INCOME_WAITTIME = 1;
+	}
 }
 
 																						//DONE
-message FinishNormStructBuildWithDiamondsResponseProto {
+message FinishNormStructWaittimeWithDiamondsResponseProto {
      required MinimumUserProto sender = 1;
-     required FinishNormStructBuildStatus status = 2;
+     required FinishNormStructWaittimeStatus status = 2;
      
-     enum FinishNormStructBuildStatus {
+     enum FinishNormStructWaittimeStatus {
      	SUCCESS = 0;
      	NOT_ENOUGH_DIAMONDS = 1;
      	OTHER_FAIL = 2;

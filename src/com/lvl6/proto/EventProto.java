@@ -34669,7 +34669,7 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.RefillStatWithDiamondsResponseProto)
   }
   
-  public interface FinishNormStructBuildWithDiamondsRequestProtoOrBuilder
+  public interface FinishNormStructWaittimeWithDiamondsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // required .com.lvl6.proto.MinimumUserProto sender = 1;
@@ -34684,33 +34684,106 @@ public final class EventProto {
     // required int64 timeOfPurchase = 3;
     boolean hasTimeOfPurchase();
     long getTimeOfPurchase();
+    
+    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
+    boolean hasWaitTimeType();
+    com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType getWaitTimeType();
   }
-  public static final class FinishNormStructBuildWithDiamondsRequestProto extends
+  public static final class FinishNormStructWaittimeWithDiamondsRequestProto extends
       com.google.protobuf.GeneratedMessage
-      implements FinishNormStructBuildWithDiamondsRequestProtoOrBuilder {
-    // Use FinishNormStructBuildWithDiamondsRequestProto.newBuilder() to construct.
-    private FinishNormStructBuildWithDiamondsRequestProto(Builder builder) {
+      implements FinishNormStructWaittimeWithDiamondsRequestProtoOrBuilder {
+    // Use FinishNormStructWaittimeWithDiamondsRequestProto.newBuilder() to construct.
+    private FinishNormStructWaittimeWithDiamondsRequestProto(Builder builder) {
       super(builder);
     }
-    private FinishNormStructBuildWithDiamondsRequestProto(boolean noInit) {}
+    private FinishNormStructWaittimeWithDiamondsRequestProto(boolean noInit) {}
     
-    private static final FinishNormStructBuildWithDiamondsRequestProto defaultInstance;
-    public static FinishNormStructBuildWithDiamondsRequestProto getDefaultInstance() {
+    private static final FinishNormStructWaittimeWithDiamondsRequestProto defaultInstance;
+    public static FinishNormStructWaittimeWithDiamondsRequestProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public FinishNormStructBuildWithDiamondsRequestProto getDefaultInstanceForType() {
+    public FinishNormStructWaittimeWithDiamondsRequestProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_descriptor;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_fieldAccessorTable;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_fieldAccessorTable;
+    }
+    
+    public enum NormStructWaitTimeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      FINISH_CONSTRUCTION(0, 0),
+      FINISH_INCOME_WAITTIME(1, 1),
+      ;
+      
+      public static final int FINISH_CONSTRUCTION_VALUE = 0;
+      public static final int FINISH_INCOME_WAITTIME_VALUE = 1;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static NormStructWaitTimeType valueOf(int value) {
+        switch (value) {
+          case 0: return FINISH_CONSTRUCTION;
+          case 1: return FINISH_INCOME_WAITTIME;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<NormStructWaitTimeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<NormStructWaitTimeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<NormStructWaitTimeType>() {
+              public NormStructWaitTimeType findValueByNumber(int number) {
+                return NormStructWaitTimeType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final NormStructWaitTimeType[] VALUES = {
+        FINISH_CONSTRUCTION, FINISH_INCOME_WAITTIME, 
+      };
+      
+      public static NormStructWaitTimeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private NormStructWaitTimeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType)
     }
     
     private int bitField0_;
@@ -34747,10 +34820,21 @@ public final class EventProto {
       return timeOfPurchase_;
     }
     
+    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
+    public static final int WAITTIMETYPE_FIELD_NUMBER = 4;
+    private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType_;
+    public boolean hasWaitTimeType() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType getWaitTimeType() {
+      return waitTimeType_;
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       userStructId_ = 0;
       timeOfPurchase_ = 0L;
+      waitTimeType_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.FINISH_CONSTRUCTION;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -34766,6 +34850,10 @@ public final class EventProto {
         return false;
       }
       if (!hasTimeOfPurchase()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasWaitTimeType()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -34789,6 +34877,9 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt64(3, timeOfPurchase_);
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeEnum(4, waitTimeType_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -34810,6 +34901,10 @@ public final class EventProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(3, timeOfPurchase_);
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, waitTimeType_.getNumber());
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
@@ -34822,41 +34917,41 @@ public final class EventProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(byte[] data)
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -34865,7 +34960,7 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseDelimitedFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -34876,12 +34971,12 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -34891,7 +34986,7 @@ public final class EventProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -34904,18 +34999,18 @@ public final class EventProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProtoOrBuilder {
+       implements com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_descriptor;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_fieldAccessorTable;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto.newBuilder()
+      // Construct using com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -34945,6 +35040,8 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         timeOfPurchase_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
+        waitTimeType_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.FINISH_CONSTRUCTION;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
@@ -34954,24 +35051,24 @@ public final class EventProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto.getDescriptor();
+        return com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.getDescriptor();
       }
       
-      public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto.getDefaultInstance();
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto build() {
-        com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto result = buildPartial();
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto build() {
+        com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto buildParsed()
+      private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto result = buildPartial();
+        com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -34979,8 +35076,8 @@ public final class EventProto {
         return result;
       }
       
-      public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto buildPartial() {
-        com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto result = new com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto(this);
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto result = new com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -34999,22 +35096,26 @@ public final class EventProto {
           to_bitField0_ |= 0x00000004;
         }
         result.timeOfPurchase_ = timeOfPurchase_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.waitTimeType_ = waitTimeType_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto)other);
+        if (other instanceof com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto other) {
-        if (other == com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
@@ -35023,6 +35124,9 @@ public final class EventProto {
         }
         if (other.hasTimeOfPurchase()) {
           setTimeOfPurchase(other.getTimeOfPurchase());
+        }
+        if (other.hasWaitTimeType()) {
+          setWaitTimeType(other.getWaitTimeType());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -35038,6 +35142,10 @@ public final class EventProto {
           return false;
         }
         if (!hasTimeOfPurchase()) {
+          
+          return false;
+        }
+        if (!hasWaitTimeType()) {
           
           return false;
         }
@@ -35088,6 +35196,17 @@ public final class EventProto {
             case 24: {
               bitField0_ |= 0x00000004;
               timeOfPurchase_ = input.readInt64();
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType value = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                bitField0_ |= 0x00000008;
+                waitTimeType_ = value;
+              }
               break;
             }
           }
@@ -35228,18 +35347,42 @@ public final class EventProto {
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FinishNormStructBuildWithDiamondsRequestProto)
+      // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
+      private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.FINISH_CONSTRUCTION;
+      public boolean hasWaitTimeType() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType getWaitTimeType() {
+        return waitTimeType_;
+      }
+      public Builder setWaitTimeType(com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        waitTimeType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWaitTimeType() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        waitTimeType_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.FINISH_CONSTRUCTION;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto)
     }
     
     static {
-      defaultInstance = new FinishNormStructBuildWithDiamondsRequestProto(true);
+      defaultInstance = new FinishNormStructWaittimeWithDiamondsRequestProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FinishNormStructBuildWithDiamondsRequestProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto)
   }
   
-  public interface FinishNormStructBuildWithDiamondsResponseProtoOrBuilder
+  public interface FinishNormStructWaittimeWithDiamondsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // required .com.lvl6.proto.MinimumUserProto sender = 1;
@@ -35247,39 +35390,39 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus status = 2;
+    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
     boolean hasStatus();
-    com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus getStatus();
+    com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus getStatus();
   }
-  public static final class FinishNormStructBuildWithDiamondsResponseProto extends
+  public static final class FinishNormStructWaittimeWithDiamondsResponseProto extends
       com.google.protobuf.GeneratedMessage
-      implements FinishNormStructBuildWithDiamondsResponseProtoOrBuilder {
-    // Use FinishNormStructBuildWithDiamondsResponseProto.newBuilder() to construct.
-    private FinishNormStructBuildWithDiamondsResponseProto(Builder builder) {
+      implements FinishNormStructWaittimeWithDiamondsResponseProtoOrBuilder {
+    // Use FinishNormStructWaittimeWithDiamondsResponseProto.newBuilder() to construct.
+    private FinishNormStructWaittimeWithDiamondsResponseProto(Builder builder) {
       super(builder);
     }
-    private FinishNormStructBuildWithDiamondsResponseProto(boolean noInit) {}
+    private FinishNormStructWaittimeWithDiamondsResponseProto(boolean noInit) {}
     
-    private static final FinishNormStructBuildWithDiamondsResponseProto defaultInstance;
-    public static FinishNormStructBuildWithDiamondsResponseProto getDefaultInstance() {
+    private static final FinishNormStructWaittimeWithDiamondsResponseProto defaultInstance;
+    public static FinishNormStructWaittimeWithDiamondsResponseProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public FinishNormStructBuildWithDiamondsResponseProto getDefaultInstanceForType() {
+    public FinishNormStructWaittimeWithDiamondsResponseProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_descriptor;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_fieldAccessorTable;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_fieldAccessorTable;
     }
     
-    public enum FinishNormStructBuildStatus
+    public enum FinishNormStructWaittimeStatus
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
       NOT_ENOUGH_DIAMONDS(1, 1),
@@ -35293,7 +35436,7 @@ public final class EventProto {
       
       public final int getNumber() { return value; }
       
-      public static FinishNormStructBuildStatus valueOf(int value) {
+      public static FinishNormStructWaittimeStatus valueOf(int value) {
         switch (value) {
           case 0: return SUCCESS;
           case 1: return NOT_ENOUGH_DIAMONDS;
@@ -35302,15 +35445,15 @@ public final class EventProto {
         }
       }
       
-      public static com.google.protobuf.Internal.EnumLiteMap<FinishNormStructBuildStatus>
+      public static com.google.protobuf.Internal.EnumLiteMap<FinishNormStructWaittimeStatus>
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<FinishNormStructBuildStatus>
+      private static com.google.protobuf.Internal.EnumLiteMap<FinishNormStructWaittimeStatus>
           internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<FinishNormStructBuildStatus>() {
-              public FinishNormStructBuildStatus findValueByNumber(int number) {
-                return FinishNormStructBuildStatus.valueOf(number);
+            new com.google.protobuf.Internal.EnumLiteMap<FinishNormStructWaittimeStatus>() {
+              public FinishNormStructWaittimeStatus findValueByNumber(int number) {
+                return FinishNormStructWaittimeStatus.valueOf(number);
               }
             };
       
@@ -35324,14 +35467,14 @@ public final class EventProto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.getDescriptor().getEnumTypes().get(0);
+        return com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.getDescriptor().getEnumTypes().get(0);
       }
       
-      private static final FinishNormStructBuildStatus[] VALUES = {
+      private static final FinishNormStructWaittimeStatus[] VALUES = {
         SUCCESS, NOT_ENOUGH_DIAMONDS, OTHER_FAIL, 
       };
       
-      public static FinishNormStructBuildStatus valueOf(
+      public static FinishNormStructWaittimeStatus valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -35343,12 +35486,12 @@ public final class EventProto {
       private final int index;
       private final int value;
       
-      private FinishNormStructBuildStatus(int index, int value) {
+      private FinishNormStructWaittimeStatus(int index, int value) {
         this.index = index;
         this.value = value;
       }
       
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus)
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus)
     }
     
     private int bitField0_;
@@ -35365,19 +35508,19 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus status = 2;
+    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus status_;
+    private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status_;
     public boolean hasStatus() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus getStatus() {
+    public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus getStatus() {
       return status_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      status_ = com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus.SUCCESS;
+      status_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -35438,41 +35581,41 @@ public final class EventProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(byte[] data)
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -35481,7 +35624,7 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseDelimitedFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -35492,12 +35635,12 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -35507,7 +35650,7 @@ public final class EventProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -35520,18 +35663,18 @@ public final class EventProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProtoOrBuilder {
+       implements com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_descriptor;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_fieldAccessorTable;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.newBuilder()
+      // Construct using com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -35557,7 +35700,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -35568,24 +35711,24 @@ public final class EventProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.getDescriptor();
+        return com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.getDescriptor();
       }
       
-      public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.getDefaultInstance();
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto build() {
-        com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto result = buildPartial();
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto build() {
+        com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto buildParsed()
+      private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto result = buildPartial();
+        com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -35593,8 +35736,8 @@ public final class EventProto {
         return result;
       }
       
-      public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto buildPartial() {
-        com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto result = new com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto(this);
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto result = new com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -35615,16 +35758,16 @@ public final class EventProto {
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto)other);
+        if (other instanceof com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto other) {
-        if (other == com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
@@ -35685,7 +35828,7 @@ public final class EventProto {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus value = com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus.valueOf(rawValue);
+              com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus value = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
@@ -35790,15 +35933,15 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus status = 2;
-      private com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus status_ = com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus.SUCCESS;
+      // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
+      private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus getStatus() {
+      public com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus getStatus() {
         return status_;
       }
-      public Builder setStatus(com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus value) {
+      public Builder setStatus(com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -35809,20 +35952,20 @@ public final class EventProto {
       }
       public Builder clearStatus() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        status_ = com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.FinishNormStructBuildStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus.SUCCESS;
         onChanged();
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FinishNormStructBuildWithDiamondsResponseProto)
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto)
     }
     
     static {
-      defaultInstance = new FinishNormStructBuildWithDiamondsResponseProto(true);
+      defaultInstance = new FinishNormStructWaittimeWithDiamondsResponseProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FinishNormStructBuildWithDiamondsResponseProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto)
   }
   
   public interface NormStructBuildsCompleteRequestProtoOrBuilder
@@ -38245,15 +38388,15 @@ public final class EventProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_RefillStatWithDiamondsResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_descriptor;
+    internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_descriptor;
+    internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_NormStructBuildsCompleteRequestProto_descriptor;
   private static
@@ -38559,37 +38702,42 @@ public final class EventProto {
       "status\030\002 \002(\0162D.com.lvl6.proto.RefillStat" +
       "WithDiamondsResponseProto.RefillStatStat" +
       "us\"H\n\020RefillStatStatus\022\013\n\007SUCCESS\020\000\022\027\n\023N" +
-      "OT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\"\217\001\n" +
-      "-FinishNormStructBuildWithDiamondsReques" +
-      "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022\024\n\014userStructId\030\002 \002(\005\022\026",
-      "\n\016timeOfPurchase\030\003 \002(\003\"\243\002\n.FinishNormStr" +
-      "uctBuildWithDiamondsResponseProto\0220\n\006sen" +
-      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022j\n\006status\030\002 \002(\0162Z.com.lvl6.proto.Fin" +
-      "ishNormStructBuildWithDiamondsResponsePr" +
-      "oto.FinishNormStructBuildStatus\"S\n\033Finis" +
-      "hNormStructBuildStatus\022\013\n\007SUCCESS\020\000\022\027\n\023N" +
-      "OT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\"n\n$" +
-      "NormStructBuildsCompleteRequestProto\0220\n\006" +
-      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse",
-      "rProto\022\024\n\014userStructId\030\002 \003(\005\"\376\001\n%NormStr" +
-      "uctBuildsCompleteResponseProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022d\n\006status\030\002 \002(\0162T.com.lvl6.proto.NormSt" +
-      "ructBuildsCompleteResponseProto.NormStru" +
-      "ctBuildsCompleteStatus\"=\n\036NormStructBuil" +
-      "dsCompleteStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_F" +
-      "AIL\020\001\"Y\n%RedeemMarketplaceEarningsReques" +
-      "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\"\202\002\n&RedeemMarketplaceEa",
-      "rningsResponseProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022f\n\006status\030" +
-      "\002 \002(\0162V.com.lvl6.proto.RedeemMarketplace" +
-      "EarningsResponseProto.RedeemMarketplaceE" +
-      "arningsStatus\">\n\037RedeemMarketplaceEarnin" +
-      "gsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B" +
-      "\nEventProto"
+      "OT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\"\320\002\n" +
+      "0FinishNormStructWaittimeWithDiamondsReq" +
+      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022\024\n\014userStructId\030\002 \002(",
+      "\005\022\026\n\016timeOfPurchase\030\003 \002(\003\022m\n\014waitTimeTyp" +
+      "e\030\004 \002(\0162W.com.lvl6.proto.FinishNormStruc" +
+      "tWaittimeWithDiamondsRequestProto.NormSt" +
+      "ructWaitTimeType\"M\n\026NormStructWaitTimeTy" +
+      "pe\022\027\n\023FINISH_CONSTRUCTION\020\000\022\032\n\026FINISH_IN" +
+      "COME_WAITTIME\020\001\"\257\002\n1FinishNormStructWait" +
+      "timeWithDiamondsResponseProto\0220\n\006sender\030" +
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "p\n\006status\030\002 \002(\0162`.com.lvl6.proto.FinishN" +
+      "ormStructWaittimeWithDiamondsResponsePro",
+      "to.FinishNormStructWaittimeStatus\"V\n\036Fin" +
+      "ishNormStructWaittimeStatus\022\013\n\007SUCCESS\020\000" +
+      "\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020" +
+      "\002\"n\n$NormStructBuildsCompleteRequestProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\024\n\014userStructId\030\002 \003(\005\"\376\001\n%No" +
+      "rmStructBuildsCompleteResponseProto\0220\n\006s" +
+      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022d\n\006status\030\002 \002(\0162T.com.lvl6.proto.N" +
+      "ormStructBuildsCompleteResponseProto.Nor",
+      "mStructBuildsCompleteStatus\"=\n\036NormStruc" +
+      "tBuildsCompleteStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOT" +
+      "HER_FAIL\020\001\"Y\n%RedeemMarketplaceEarningsR" +
+      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\"\202\002\n&RedeemMarketpl" +
+      "aceEarningsResponseProto\0220\n\006sender\030\001 \002(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022f\n\006st" +
+      "atus\030\002 \002(\0162V.com.lvl6.proto.RedeemMarket" +
+      "placeEarningsResponseProto.RedeemMarketp" +
+      "laceEarningsStatus\">\n\037RedeemMarketplaceE",
+      "arningsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL" +
+      "\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -39020,22 +39168,22 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "Status", },
               com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.class,
               com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.Builder.class);
-          internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_descriptor =
+          internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_descriptor =
             getDescriptor().getMessageTypes().get(53);
-          internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "UserStructId", "TimeOfPurchase", },
-              com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto.class,
-              com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_descriptor =
+              internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "UserStructId", "TimeOfPurchase", "WaitTimeType", },
+              com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.class,
+              com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_descriptor =
             getDescriptor().getMessageTypes().get(54);
-          internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_FinishNormStructBuildWithDiamondsResponseProto_descriptor,
+              internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_descriptor,
               new java.lang.String[] { "Sender", "Status", },
-              com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.class,
-              com.lvl6.proto.EventProto.FinishNormStructBuildWithDiamondsResponseProto.Builder.class);
+              com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.class,
+              com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.Builder.class);
           internal_static_com_lvl6_proto_NormStructBuildsCompleteRequestProto_descriptor =
             getDescriptor().getMessageTypes().get(55);
           internal_static_com_lvl6_proto_NormStructBuildsCompleteRequestProto_fieldAccessorTable = new
