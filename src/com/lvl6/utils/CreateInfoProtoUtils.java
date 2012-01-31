@@ -5,12 +5,15 @@ import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserStruct;
+import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.FullMarketplacePostProto;
-import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
+import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LocationProto;
+import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
 
 public class CreateInfoProtoUtils {
@@ -40,6 +43,20 @@ public class CreateInfoProtoUtils {
     }
     if (mp.getWoodCost() != MarketplacePost.NOT_SET) {
       builder.setWoodCost(mp.getWoodCost());
+    }
+    return builder.build();
+  }
+
+  public static FullUserStructureProto createFullUserStructureProto(UserStruct userStruct) {
+    FullUserStructureProto.Builder builder = FullUserStructureProto.newBuilder().setId(userStruct.getId())
+        .setUserId(userStruct.getId()).setStructId(userStruct.getStructId()).setLevel(userStruct.getLevel())
+        .setIsComplete(userStruct.isComplete()).setCoordinates(CoordinateProto.newBuilder().setX(userStruct.getCoordinates().getX())
+            .setY(userStruct.getCoordinates().getY()));
+    if (userStruct.getPurchaseTime() != null) {
+      builder.setPurchaseTime(userStruct.getPurchaseTime().getTime());
+    }
+    if (userStruct.getLastRetrieved() != null) {
+      builder.setLastRetrieved(userStruct.getLastRetrieved().getTime());
     }
     return builder.build();
   }

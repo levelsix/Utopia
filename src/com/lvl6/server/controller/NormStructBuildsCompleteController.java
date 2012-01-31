@@ -13,6 +13,7 @@ import com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.NormStruc
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class NormStructBuildsCompleteController extends EventController{
@@ -47,11 +48,16 @@ public class NormStructBuildsCompleteController extends EventController{
 
       NormStructBuildsCompleteResponseEvent resEvent = new NormStructBuildsCompleteResponseEvent(senderProto.getUserId());
       resEvent.setNormStructBuildsCompleteResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
 
       if (legitBuild) {
         writeChangesToDB(userStructs);
       }
+      
+      List<UserStruct> newUserStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
+      for (UserStruct userStruct : newUserStructs) {
+        resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProto(userStruct));
+      }
+      server.writeEvent(resEvent);
     } catch (Exception e) {
       log.error("exception in NormStructBuildsCompleteController processEvent", e);
     } finally {

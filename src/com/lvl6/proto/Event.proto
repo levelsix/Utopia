@@ -622,16 +622,18 @@ message FinishNormStructWaittimeWithDiamondsResponseProto {
 //implies that it should be
 //this message is also sent whenever the player is on the screen and the build completes
 //i would set last_retrieved manually to when it should have completed, and is_complete=1
+											
 																						//DONE
+//NOT VERY EFFICIENT..extra db call. and for every built building, new db call. but w/e for now.																						
 message NormStructBuildsCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	repeated int32 userStructId = 2;
 }
 
-																						//DONE
 message NormStructBuildsCompleteResponseProto {
      required MinimumUserProto sender = 1;
      required NormStructBuildsCompleteStatus status = 2;
+     repeated FullUserStructureProto userStruct = 3;
      
      enum NormStructBuildsCompleteStatus {
      	SUCCESS = 0;

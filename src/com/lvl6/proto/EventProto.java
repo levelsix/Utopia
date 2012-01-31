@@ -36527,6 +36527,16 @@ public final class EventProto {
     // required .com.lvl6.proto.NormStructBuildsCompleteResponseProto.NormStructBuildsCompleteStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.NormStructBuildsCompleteStatus getStatus();
+    
+    // repeated .com.lvl6.proto.FullUserStructureProto userStruct = 3;
+    java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> 
+        getUserStructList();
+    com.lvl6.proto.InfoProto.FullUserStructureProto getUserStruct(int index);
+    int getUserStructCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+        getUserStructOrBuilderList();
+    com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getUserStructOrBuilder(
+        int index);
   }
   public static final class NormStructBuildsCompleteResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -36649,9 +36659,31 @@ public final class EventProto {
       return status_;
     }
     
+    // repeated .com.lvl6.proto.FullUserStructureProto userStruct = 3;
+    public static final int USERSTRUCT_FIELD_NUMBER = 3;
+    private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> userStruct_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getUserStructList() {
+      return userStruct_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+        getUserStructOrBuilderList() {
+      return userStruct_;
+    }
+    public int getUserStructCount() {
+      return userStruct_.size();
+    }
+    public com.lvl6.proto.InfoProto.FullUserStructureProto getUserStruct(int index) {
+      return userStruct_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getUserStructOrBuilder(
+        int index) {
+      return userStruct_.get(index);
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       status_ = com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.NormStructBuildsCompleteStatus.SUCCESS;
+      userStruct_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -36670,6 +36702,12 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      for (int i = 0; i < getUserStructCount(); i++) {
+        if (!getUserStruct(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -36682,6 +36720,9 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeEnum(2, status_.getNumber());
+      }
+      for (int i = 0; i < userStruct_.size(); i++) {
+        output.writeMessage(3, userStruct_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -36699,6 +36740,10 @@ public final class EventProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, status_.getNumber());
+      }
+      for (int i = 0; i < userStruct_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, userStruct_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -36817,6 +36862,7 @@ public final class EventProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getSenderFieldBuilder();
+          getUserStructFieldBuilder();
         }
       }
       private static Builder create() {
@@ -36833,6 +36879,12 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         status_ = com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.NormStructBuildsCompleteStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (userStructBuilder_ == null) {
+          userStruct_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          userStructBuilder_.clear();
+        }
         return this;
       }
       
@@ -36883,6 +36935,15 @@ public final class EventProto {
           to_bitField0_ |= 0x00000002;
         }
         result.status_ = status_;
+        if (userStructBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            userStruct_ = java.util.Collections.unmodifiableList(userStruct_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.userStruct_ = userStruct_;
+        } else {
+          result.userStruct_ = userStructBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -36905,6 +36966,32 @@ public final class EventProto {
         if (other.hasStatus()) {
           setStatus(other.getStatus());
         }
+        if (userStructBuilder_ == null) {
+          if (!other.userStruct_.isEmpty()) {
+            if (userStruct_.isEmpty()) {
+              userStruct_ = other.userStruct_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureUserStructIsMutable();
+              userStruct_.addAll(other.userStruct_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.userStruct_.isEmpty()) {
+            if (userStructBuilder_.isEmpty()) {
+              userStructBuilder_.dispose();
+              userStructBuilder_ = null;
+              userStruct_ = other.userStruct_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              userStructBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getUserStructFieldBuilder() : null;
+            } else {
+              userStructBuilder_.addAllMessages(other.userStruct_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -36921,6 +37008,12 @@ public final class EventProto {
         if (!getSender().isInitialized()) {
           
           return false;
+        }
+        for (int i = 0; i < getUserStructCount(); i++) {
+          if (!getUserStruct(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -36966,6 +37059,12 @@ public final class EventProto {
                 bitField0_ |= 0x00000002;
                 status_ = value;
               }
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.FullUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserStructureProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addUserStruct(subBuilder.buildPartial());
               break;
             }
           }
@@ -37086,6 +37185,192 @@ public final class EventProto {
         status_ = com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.NormStructBuildsCompleteStatus.SUCCESS;
         onChanged();
         return this;
+      }
+      
+      // repeated .com.lvl6.proto.FullUserStructureProto userStruct = 3;
+      private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> userStruct_ =
+        java.util.Collections.emptyList();
+      private void ensureUserStructIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          userStruct_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserStructureProto>(userStruct_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> userStructBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getUserStructList() {
+        if (userStructBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(userStruct_);
+        } else {
+          return userStructBuilder_.getMessageList();
+        }
+      }
+      public int getUserStructCount() {
+        if (userStructBuilder_ == null) {
+          return userStruct_.size();
+        } else {
+          return userStructBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto getUserStruct(int index) {
+        if (userStructBuilder_ == null) {
+          return userStruct_.get(index);
+        } else {
+          return userStructBuilder_.getMessage(index);
+        }
+      }
+      public Builder setUserStruct(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
+        if (userStructBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserStructIsMutable();
+          userStruct_.set(index, value);
+          onChanged();
+        } else {
+          userStructBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setUserStruct(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
+        if (userStructBuilder_ == null) {
+          ensureUserStructIsMutable();
+          userStruct_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          userStructBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addUserStruct(com.lvl6.proto.InfoProto.FullUserStructureProto value) {
+        if (userStructBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserStructIsMutable();
+          userStruct_.add(value);
+          onChanged();
+        } else {
+          userStructBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addUserStruct(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
+        if (userStructBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserStructIsMutable();
+          userStruct_.add(index, value);
+          onChanged();
+        } else {
+          userStructBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addUserStruct(
+          com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
+        if (userStructBuilder_ == null) {
+          ensureUserStructIsMutable();
+          userStruct_.add(builderForValue.build());
+          onChanged();
+        } else {
+          userStructBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addUserStruct(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
+        if (userStructBuilder_ == null) {
+          ensureUserStructIsMutable();
+          userStruct_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          userStructBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllUserStruct(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserStructureProto> values) {
+        if (userStructBuilder_ == null) {
+          ensureUserStructIsMutable();
+          super.addAll(values, userStruct_);
+          onChanged();
+        } else {
+          userStructBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearUserStruct() {
+        if (userStructBuilder_ == null) {
+          userStruct_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          userStructBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeUserStruct(int index) {
+        if (userStructBuilder_ == null) {
+          ensureUserStructIsMutable();
+          userStruct_.remove(index);
+          onChanged();
+        } else {
+          userStructBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder getUserStructBuilder(
+          int index) {
+        return getUserStructFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getUserStructOrBuilder(
+          int index) {
+        if (userStructBuilder_ == null) {
+          return userStruct_.get(index);  } else {
+          return userStructBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+           getUserStructOrBuilderList() {
+        if (userStructBuilder_ != null) {
+          return userStructBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(userStruct_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addUserStructBuilder() {
+        return getUserStructFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addUserStructBuilder(
+          int index) {
+        return getUserStructFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto.Builder> 
+           getUserStructBuilderList() {
+        return getUserStructFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+          getUserStructFieldBuilder() {
+        if (userStructBuilder_ == null) {
+          userStructBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder>(
+                  userStruct_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          userStruct_ = null;
+        }
+        return userStructBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.NormStructBuildsCompleteResponseProto)
@@ -38721,23 +39006,24 @@ public final class EventProto {
       "\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020" +
       "\002\"n\n$NormStructBuildsCompleteRequestProt" +
       "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\024\n\014userStructId\030\002 \003(\005\"\376\001\n%No" +
+      "umUserProto\022\024\n\014userStructId\030\002 \003(\005\"\272\002\n%No" +
       "rmStructBuildsCompleteResponseProto\0220\n\006s" +
       "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
       "Proto\022d\n\006status\030\002 \002(\0162T.com.lvl6.proto.N" +
       "ormStructBuildsCompleteResponseProto.Nor",
-      "mStructBuildsCompleteStatus\"=\n\036NormStruc" +
-      "tBuildsCompleteStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOT" +
-      "HER_FAIL\020\001\"Y\n%RedeemMarketplaceEarningsR" +
-      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\"\202\002\n&RedeemMarketpl" +
-      "aceEarningsResponseProto\0220\n\006sender\030\001 \002(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022f\n\006st" +
-      "atus\030\002 \002(\0162V.com.lvl6.proto.RedeemMarket" +
-      "placeEarningsResponseProto.RedeemMarketp" +
-      "laceEarningsStatus\">\n\037RedeemMarketplaceE",
-      "arningsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL" +
-      "\020\001B\014B\nEventProto"
+      "mStructBuildsCompleteStatus\022:\n\nuserStruc" +
+      "t\030\003 \003(\0132&.com.lvl6.proto.FullUserStructu" +
+      "reProto\"=\n\036NormStructBuildsCompleteStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"Y\n%Redeem" +
+      "MarketplaceEarningsRequestProto\0220\n\006sende" +
+      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\"\202\002\n&RedeemMarketplaceEarningsResponseP" +
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022f\n\006status\030\002 \002(\0162V.com.lvl" +
+      "6.proto.RedeemMarketplaceEarningsRespons",
+      "eProto.RedeemMarketplaceEarningsStatus\">" +
+      "\n\037RedeemMarketplaceEarningsStatus\022\013\n\007SUC" +
+      "CESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -39197,7 +39483,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_NormStructBuildsCompleteResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_NormStructBuildsCompleteResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", },
+              new java.lang.String[] { "Sender", "Status", "UserStruct", },
               com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.class,
               com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.Builder.class);
           internal_static_com_lvl6_proto_RedeemMarketplaceEarningsRequestProto_descriptor =
