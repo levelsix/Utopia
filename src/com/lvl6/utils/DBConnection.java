@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TimeZone;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -23,7 +24,9 @@ public class DBConnection {
   // log4j logger
   protected static Logger log;
 
-  private static final int NUM_CONNECTIONS = 2;
+  private static final TimeZone timeZone = TimeZone.getDefault();
+  
+  private static final int NUM_CONNECTIONS = 5;
   private static BlockingQueue<Connection> availableConnections;
 
   private static String user = DBProperties.USER;
@@ -46,6 +49,7 @@ public class DBConnection {
         connectionProps.put("useAffectedRows", "true");
         Connection conn = DriverManager.getConnection("jdbc:mysql://" + server, connectionProps);
         conn.createStatement().executeQuery("USE " + database);
+        conn.createStatement().executeQuery("SET time_zone='"+timeZone.getID()+"'");
         availableConnections.put(conn);
         log.info("connection added");
       }
@@ -103,8 +107,10 @@ public class DBConnection {
   /*assumes number of ? in the query = values.size()*/
   public static ResultSet selectDirectQueryNaive(String query, List<Object> values) {
     ResultSet rs = null;
+    Connection conn = null;
+
     try {
-      Connection conn = availableConnections.take();
+      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       if (values != null && values.size()>0) {
         int i = 1;
@@ -115,15 +121,23 @@ public class DBConnection {
       }
       rs = stmt.executeQuery();
       availableConnections.put(conn);
+      conn = null;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
     } catch (InterruptedException e) {
       log.error("problem with " + query, e);
+    } finally {
+      if (conn != null) {
+        try {
+          availableConnections.put(conn);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
     }
     return rs;
-
   }
 
 
@@ -163,7 +177,6 @@ public class DBConnection {
       return 0;
     }
 
-
     if (conditionParams != null && conditionParams.size()>0) {
       query += " where ";
       List<String> condClauses = new LinkedList<String>();
@@ -174,9 +187,9 @@ public class DBConnection {
       query += StringUtils.getListInString(condClauses, condDelim);
     }
 
-
+    Connection conn = null;
     try {
-      Connection conn = availableConnections.take();
+      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       if (values.size()>0) {
         int i = 1;
@@ -187,6 +200,7 @@ public class DBConnection {
       }
       int numUpdated = stmt.executeUpdate();
       availableConnections.put(conn);
+      conn = null;
       return numUpdated;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
@@ -194,6 +208,14 @@ public class DBConnection {
     } catch (InterruptedException e) {
       log.error("problem with " + query, e);
       e.printStackTrace();
+    } finally {
+      if (conn != null) {
+        try {
+          availableConnections.put(conn);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
     }
     return 0;
   }
@@ -211,8 +233,10 @@ public class DBConnection {
       }
       String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES (" +
           StringUtils.getListInString(questions, ",") + ")";
+
+      Connection conn = null;
       try {
-        Connection conn = availableConnections.take();
+        conn = availableConnections.take();
         PreparedStatement stmt = conn.prepareStatement(query);
         if (values.size()>0) {
           int i = 1;
@@ -223,6 +247,7 @@ public class DBConnection {
         }
         int numUpdated = stmt.executeUpdate();
         availableConnections.put(conn);
+        conn = null;
         return numUpdated;
       } catch (SQLException e) {
         log.error("problem with " + query, e);
@@ -230,6 +255,14 @@ public class DBConnection {
       } catch (InterruptedException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
+      } finally {
+        if (conn != null) {
+          try {
+            availableConnections.put(conn);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
       }
     }
     return 0;
@@ -249,8 +282,9 @@ public class DBConnection {
       }
       String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES (" +
           StringUtils.getListInString(questions, ",") + ")";
+      Connection conn = null;
       try {
-        Connection conn = availableConnections.take();
+        conn = availableConnections.take();
         PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         if (values.size()>0) {
           int i = 1;
@@ -261,7 +295,7 @@ public class DBConnection {
         }
         int numUpdated = stmt.executeUpdate();
         availableConnections.put(conn);
-
+        conn = null;
         int generatedKey = 0;
         if (numUpdated == 1) {
           ResultSet rs = stmt.getGeneratedKeys();
@@ -276,6 +310,14 @@ public class DBConnection {
       } catch (InterruptedException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
+      } finally {
+        if (conn != null) {
+          try {
+            availableConnections.put(conn);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
       }
     }
     return 0;
@@ -298,8 +340,9 @@ public class DBConnection {
       String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES (" +
           StringUtils.getListInString(questions, ",") + ") on duplicate key update " + columnUpdate + "=" +
           columnUpdate + "+?";
+      Connection conn = null;
       try {
-        Connection conn = availableConnections.take();
+        conn = availableConnections.take();
         PreparedStatement stmt = conn.prepareStatement(query);
         if (values.size()>0) {
           int i = 1;
@@ -310,6 +353,7 @@ public class DBConnection {
         }
         int numUpdated = stmt.executeUpdate();
         availableConnections.put(conn);
+        conn = null;
         return numUpdated;
       } catch (SQLException e) {
         log.error("problem with " + query, e);
@@ -317,6 +361,14 @@ public class DBConnection {
       } catch (InterruptedException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
+      } finally {
+        if (conn != null) {
+          try {
+            availableConnections.put(conn);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
       }
     }
     return 0;
@@ -339,8 +391,9 @@ public class DBConnection {
       query += StringUtils.getListInString(condClauses, condDelim);
     }
 
+    Connection conn = null;
     try {
-      Connection conn = availableConnections.take();
+      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       if (values.size()>0) {
         int i = 1;
@@ -351,6 +404,7 @@ public class DBConnection {
       }
       int numDeleted = stmt.executeUpdate();
       availableConnections.put(conn);
+      conn = null;
       return numDeleted;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
@@ -358,6 +412,14 @@ public class DBConnection {
     } catch (InterruptedException e) {
       log.error("problem with " + query, e);
       e.printStackTrace();
+    } finally {
+      if (conn != null) {
+        try {
+          availableConnections.put(conn);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
     }
     return 0;
   }
@@ -374,18 +436,28 @@ public class DBConnection {
     query += " from " + tablename + " where " + attr + "=?";
 
     ResultSet rs = null;
+    Connection conn = null;
     try {
-      Connection conn = availableConnections.take();
+      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       stmt.setInt(1, value);
       rs = stmt.executeQuery();
       availableConnections.put(conn);
+      conn = null;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
     } catch (InterruptedException e) {
       log.error("problem with " + query, e);
+    } finally {
+      if (conn != null) {
+        try {
+          availableConnections.put(conn);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
     }
     return rs;
   }
@@ -470,8 +542,9 @@ public class DBConnection {
     }
 
     ResultSet rs = null;
+    Connection conn = null;
     try {
-      Connection conn = availableConnections.take();
+      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       if (values.size()>0) {
         int i = 1;
@@ -482,12 +555,21 @@ public class DBConnection {
       }
       rs = stmt.executeQuery();
       availableConnections.put(conn);
+      conn = null;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
     } catch (InterruptedException e) {
       log.error("problem with " + query, e);
+    } finally {
+      if (conn != null) {
+        try {
+          availableConnections.put(conn);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
     }
     return rs;
   }
