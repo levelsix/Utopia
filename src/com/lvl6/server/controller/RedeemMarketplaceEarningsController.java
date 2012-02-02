@@ -23,7 +23,7 @@ public class RedeemMarketplaceEarningsController extends EventController {
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_REDEEM_MARKETPLACE_EARNINGS;
+    return EventProtocolRequest.C_REDEEM_MARKETPLACE_EARNINGS_EVENT;
   }
 
   @Override

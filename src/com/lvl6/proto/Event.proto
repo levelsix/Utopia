@@ -330,12 +330,14 @@ message UpgradeNormStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RetrieveCurrencyFromNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
 	required int64 timeOfRetrieval = 3;	
 }
 
+																						//DONE
 message RetrieveCurrencyFromNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
 	required RetrieveCurrencyFromNormStructureStatus status = 2;
@@ -349,10 +351,22 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+
 message PlaceCriticalStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto critStructCoordinates = 2;
-	required int32 critStructId = 3;
+	required CritStructType critStructType = 3;
+}
+
+message PlaceCriticalStructureResponseProto {
+	required MinimumUserProto sender = 1;
+	required PlaceCriticalStructStatus status = 3;
+	
+	enum PlaceCriticalStructStatus {
+		SUCCESS = 0;
+		NOT_VALID_CRITSTRUCT = 1;	//we only place armory/vault/marketplace 
+		OTHER_FAIL = 2;	
+	}
 }
 
 //------------------------------------------------------------------------------------------
@@ -360,15 +374,16 @@ message PlaceCriticalStructureRequestProto {
 message MoveCriticalStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto critStructCoordinates = 2;
-	required CritStructType critStruct = 3;
+	required CritStructType critStructType = 3;
+}
+
+message MoveCriticalStructureResponseProto {
+	required MinimumUserProto sender = 1;
+	required MoveCriticalStructStatus status = 2;
 	
-	enum CritStructType {
-		AVIARY = 0;
-		LUMBERMILL = 1;
-		CARPENTER = 2;
-		VAULT = 3;
-		ARMORY = 4;
-		CLERIC = 5;
+	enum MoveCriticalStructStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;	
 	}
 }
 

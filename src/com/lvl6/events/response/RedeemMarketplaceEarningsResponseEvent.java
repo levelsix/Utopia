@@ -13,7 +13,7 @@ public class RedeemMarketplaceEarningsResponseEvent extends NonBroadcastResponse
   
   public RedeemMarketplaceEarningsResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_REDEEM_MARKETPLACE_EARNINGS;
+    eventType = EventProtocolResponse.S_REDEEM_MARKETPLACE_EARNINGS_EVENT;
   }
   
   @Override

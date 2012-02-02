@@ -21266,9 +21266,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.CoordinateProto getCritStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCritStructCoordinatesOrBuilder();
     
-    // required int32 critStructId = 3;
-    boolean hasCritStructId();
-    int getCritStructId();
+    // required .com.lvl6.proto.CritStructType critStructType = 3;
+    boolean hasCritStructType();
+    com.lvl6.proto.InfoProto.CritStructType getCritStructType();
   }
   public static final class PlaceCriticalStructureRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -21325,20 +21325,20 @@ public final class EventProto {
       return critStructCoordinates_;
     }
     
-    // required int32 critStructId = 3;
-    public static final int CRITSTRUCTID_FIELD_NUMBER = 3;
-    private int critStructId_;
-    public boolean hasCritStructId() {
+    // required .com.lvl6.proto.CritStructType critStructType = 3;
+    public static final int CRITSTRUCTTYPE_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.CritStructType critStructType_;
+    public boolean hasCritStructType() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public int getCritStructId() {
-      return critStructId_;
+    public com.lvl6.proto.InfoProto.CritStructType getCritStructType() {
+      return critStructType_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       critStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      critStructId_ = 0;
+      critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -21353,7 +21353,7 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasCritStructId()) {
+      if (!hasCritStructType()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -21379,7 +21379,7 @@ public final class EventProto {
         output.writeMessage(2, critStructCoordinates_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, critStructId_);
+        output.writeEnum(3, critStructType_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -21400,7 +21400,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, critStructId_);
+          .computeEnumSize(3, critStructType_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -21540,7 +21540,7 @@ public final class EventProto {
           critStructCoordinatesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
-        critStructId_ = 0;
+        critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -21599,7 +21599,7 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.critStructId_ = critStructId_;
+        result.critStructType_ = critStructType_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -21622,8 +21622,8 @@ public final class EventProto {
         if (other.hasCritStructCoordinates()) {
           mergeCritStructCoordinates(other.getCritStructCoordinates());
         }
-        if (other.hasCritStructId()) {
-          setCritStructId(other.getCritStructId());
+        if (other.hasCritStructType()) {
+          setCritStructType(other.getCritStructType());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -21638,7 +21638,7 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasCritStructId()) {
+        if (!hasCritStructType()) {
           
           return false;
         }
@@ -21695,8 +21695,14 @@ public final class EventProto {
               break;
             }
             case 24: {
-              bitField0_ |= 0x00000004;
-              critStructId_ = input.readInt32();
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.CritStructType value = com.lvl6.proto.InfoProto.CritStructType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                critStructType_ = value;
+              }
               break;
             }
           }
@@ -21885,23 +21891,26 @@ public final class EventProto {
         return critStructCoordinatesBuilder_;
       }
       
-      // required int32 critStructId = 3;
-      private int critStructId_ ;
-      public boolean hasCritStructId() {
+      // required .com.lvl6.proto.CritStructType critStructType = 3;
+      private com.lvl6.proto.InfoProto.CritStructType critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
+      public boolean hasCritStructType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getCritStructId() {
-        return critStructId_;
+      public com.lvl6.proto.InfoProto.CritStructType getCritStructType() {
+        return critStructType_;
       }
-      public Builder setCritStructId(int value) {
+      public Builder setCritStructType(com.lvl6.proto.InfoProto.CritStructType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
         bitField0_ |= 0x00000004;
-        critStructId_ = value;
+        critStructType_ = value;
         onChanged();
         return this;
       }
-      public Builder clearCritStructId() {
+      public Builder clearCritStructType() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        critStructId_ = 0;
+        critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
         onChanged();
         return this;
       }
@@ -21917,6 +21926,592 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.PlaceCriticalStructureRequestProto)
   }
   
+  public interface PlaceCriticalStructureResponseProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus status = 3;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus getStatus();
+  }
+  public static final class PlaceCriticalStructureResponseProto extends
+      com.google.protobuf.GeneratedMessage
+      implements PlaceCriticalStructureResponseProtoOrBuilder {
+    // Use PlaceCriticalStructureResponseProto.newBuilder() to construct.
+    private PlaceCriticalStructureResponseProto(Builder builder) {
+      super(builder);
+    }
+    private PlaceCriticalStructureResponseProto(boolean noInit) {}
+    
+    private static final PlaceCriticalStructureResponseProto defaultInstance;
+    public static PlaceCriticalStructureResponseProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public PlaceCriticalStructureResponseProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_fieldAccessorTable;
+    }
+    
+    public enum PlaceCriticalStructStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SUCCESS(0, 0),
+      NOT_VALID_CRITSTRUCT(1, 1),
+      OTHER_FAIL(2, 2),
+      ;
+      
+      public static final int SUCCESS_VALUE = 0;
+      public static final int NOT_VALID_CRITSTRUCT_VALUE = 1;
+      public static final int OTHER_FAIL_VALUE = 2;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static PlaceCriticalStructStatus valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return NOT_VALID_CRITSTRUCT;
+          case 2: return OTHER_FAIL;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<PlaceCriticalStructStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<PlaceCriticalStructStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<PlaceCriticalStructStatus>() {
+              public PlaceCriticalStructStatus findValueByNumber(int number) {
+                return PlaceCriticalStructStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final PlaceCriticalStructStatus[] VALUES = {
+        SUCCESS, NOT_VALID_CRITSTRUCT, OTHER_FAIL, 
+      };
+      
+      public static PlaceCriticalStructStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private PlaceCriticalStructStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus status = 3;
+    public static final int STATUS_FIELD_NUMBER = 3;
+    private com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus getStatus() {
+      return status_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      status_ = com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus.SUCCESS;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(3, status_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, status_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto build() {
+        com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto result = new com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus value = com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                status_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus status = 3;
+      private com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus status_ = com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus getStatus() {
+        return status_;
+      }
+      public Builder setStatus(com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.PlaceCriticalStructStatus.SUCCESS;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.PlaceCriticalStructureResponseProto)
+    }
+    
+    static {
+      defaultInstance = new PlaceCriticalStructureResponseProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.PlaceCriticalStructureResponseProto)
+  }
+  
   public interface MoveCriticalStructureRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -21930,9 +22525,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.CoordinateProto getCritStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCritStructCoordinatesOrBuilder();
     
-    // required .com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType critStruct = 3;
-    boolean hasCritStruct();
-    com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType getCritStruct();
+    // required .com.lvl6.proto.CritStructType critStructType = 3;
+    boolean hasCritStructType();
+    com.lvl6.proto.InfoProto.CritStructType getCritStructType();
   }
   public static final class MoveCriticalStructureRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -21962,87 +22557,6 @@ public final class EventProto {
       return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_fieldAccessorTable;
     }
     
-    public enum CritStructType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      AVIARY(0, 0),
-      LUMBERMILL(1, 1),
-      CARPENTER(2, 2),
-      VAULT(3, 3),
-      ARMORY(4, 4),
-      CLERIC(5, 5),
-      ;
-      
-      public static final int AVIARY_VALUE = 0;
-      public static final int LUMBERMILL_VALUE = 1;
-      public static final int CARPENTER_VALUE = 2;
-      public static final int VAULT_VALUE = 3;
-      public static final int ARMORY_VALUE = 4;
-      public static final int CLERIC_VALUE = 5;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static CritStructType valueOf(int value) {
-        switch (value) {
-          case 0: return AVIARY;
-          case 1: return LUMBERMILL;
-          case 2: return CARPENTER;
-          case 3: return VAULT;
-          case 4: return ARMORY;
-          case 5: return CLERIC;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<CritStructType>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<CritStructType>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<CritStructType>() {
-              public CritStructType findValueByNumber(int number) {
-                return CritStructType.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final CritStructType[] VALUES = {
-        AVIARY, LUMBERMILL, CARPENTER, VAULT, ARMORY, CLERIC, 
-      };
-      
-      public static CritStructType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private CritStructType(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType)
-    }
-    
     private int bitField0_;
     // required .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
@@ -22070,20 +22584,20 @@ public final class EventProto {
       return critStructCoordinates_;
     }
     
-    // required .com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType critStruct = 3;
-    public static final int CRITSTRUCT_FIELD_NUMBER = 3;
-    private com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType critStruct_;
-    public boolean hasCritStruct() {
+    // required .com.lvl6.proto.CritStructType critStructType = 3;
+    public static final int CRITSTRUCTTYPE_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.CritStructType critStructType_;
+    public boolean hasCritStructType() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType getCritStruct() {
-      return critStruct_;
+    public com.lvl6.proto.InfoProto.CritStructType getCritStructType() {
+      return critStructType_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       critStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
+      critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -22098,7 +22612,7 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasCritStruct()) {
+      if (!hasCritStructType()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -22124,7 +22638,7 @@ public final class EventProto {
         output.writeMessage(2, critStructCoordinates_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeEnum(3, critStruct_.getNumber());
+        output.writeEnum(3, critStructType_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -22145,7 +22659,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, critStruct_.getNumber());
+          .computeEnumSize(3, critStructType_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -22285,7 +22799,7 @@ public final class EventProto {
           critStructCoordinatesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
-        critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
+        critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -22344,7 +22858,7 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.critStruct_ = critStruct_;
+        result.critStructType_ = critStructType_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -22367,8 +22881,8 @@ public final class EventProto {
         if (other.hasCritStructCoordinates()) {
           mergeCritStructCoordinates(other.getCritStructCoordinates());
         }
-        if (other.hasCritStruct()) {
-          setCritStruct(other.getCritStruct());
+        if (other.hasCritStructType()) {
+          setCritStructType(other.getCritStructType());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -22383,7 +22897,7 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasCritStruct()) {
+        if (!hasCritStructType()) {
           
           return false;
         }
@@ -22441,12 +22955,12 @@ public final class EventProto {
             }
             case 24: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType value = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.valueOf(rawValue);
+              com.lvl6.proto.InfoProto.CritStructType value = com.lvl6.proto.InfoProto.CritStructType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(3, rawValue);
               } else {
                 bitField0_ |= 0x00000004;
-                critStruct_ = value;
+                critStructType_ = value;
               }
               break;
             }
@@ -22636,26 +23150,26 @@ public final class EventProto {
         return critStructCoordinatesBuilder_;
       }
       
-      // required .com.lvl6.proto.MoveCriticalStructureRequestProto.CritStructType critStruct = 3;
-      private com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
-      public boolean hasCritStruct() {
+      // required .com.lvl6.proto.CritStructType critStructType = 3;
+      private com.lvl6.proto.InfoProto.CritStructType critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
+      public boolean hasCritStructType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType getCritStruct() {
-        return critStruct_;
+      public com.lvl6.proto.InfoProto.CritStructType getCritStructType() {
+        return critStructType_;
       }
-      public Builder setCritStruct(com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType value) {
+      public Builder setCritStructType(com.lvl6.proto.InfoProto.CritStructType value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000004;
-        critStruct_ = value;
+        critStructType_ = value;
         onChanged();
         return this;
       }
-      public Builder clearCritStruct() {
+      public Builder clearCritStructType() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        critStruct_ = com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.CritStructType.AVIARY;
+        critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
         onChanged();
         return this;
       }
@@ -22669,6 +23183,589 @@ public final class EventProto {
     }
     
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.MoveCriticalStructureRequestProto)
+  }
+  
+  public interface MoveCriticalStructureResponseProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus status = 2;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus getStatus();
+  }
+  public static final class MoveCriticalStructureResponseProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MoveCriticalStructureResponseProtoOrBuilder {
+    // Use MoveCriticalStructureResponseProto.newBuilder() to construct.
+    private MoveCriticalStructureResponseProto(Builder builder) {
+      super(builder);
+    }
+    private MoveCriticalStructureResponseProto(boolean noInit) {}
+    
+    private static final MoveCriticalStructureResponseProto defaultInstance;
+    public static MoveCriticalStructureResponseProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MoveCriticalStructureResponseProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_fieldAccessorTable;
+    }
+    
+    public enum MoveCriticalStructStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SUCCESS(0, 0),
+      OTHER_FAIL(1, 1),
+      ;
+      
+      public static final int SUCCESS_VALUE = 0;
+      public static final int OTHER_FAIL_VALUE = 1;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static MoveCriticalStructStatus valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return OTHER_FAIL;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<MoveCriticalStructStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<MoveCriticalStructStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<MoveCriticalStructStatus>() {
+              public MoveCriticalStructStatus findValueByNumber(int number) {
+                return MoveCriticalStructStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final MoveCriticalStructStatus[] VALUES = {
+        SUCCESS, OTHER_FAIL, 
+      };
+      
+      public static MoveCriticalStructStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private MoveCriticalStructStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus status = 2;
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus getStatus() {
+      return status_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      status_ = com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus.SUCCESS;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.MoveCriticalStructureResponseProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto build() {
+        com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto result = new com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus value = com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                status_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus status = 2;
+      private com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus status_ = com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus getStatus() {
+        return status_;
+      }
+      public Builder setStatus(com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.MoveCriticalStructStatus.SUCCESS;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MoveCriticalStructureResponseProto)
+    }
+    
+    static {
+      defaultInstance = new MoveCriticalStructureResponseProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MoveCriticalStructureResponseProto)
   }
   
   public interface LevelUpResponseProtoOrBuilder
@@ -38568,10 +39665,20 @@ public final class EventProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_PlaceCriticalStructureRequestProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_LevelUpResponseProto_descriptor;
   private static
@@ -38877,153 +39984,164 @@ public final class EventProto {
       "eProto.RetrieveCurrencyFromNormStructure" +
       "Status\"[\n\'RetrieveCurrencyFromNormStruct" +
       "ureStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NOT_LONG_ENOUG" +
-      "H\020\001\022\016\n\nOTHER_FAIL\020\002\"\254\001\n\"PlaceCriticalStr" +
+      "H\020\001\022\016\n\nOTHER_FAIL\020\002\"\316\001\n\"PlaceCriticalStr" +
       "uctureRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
       ".lvl6.proto.MinimumUserProto\022>\n\025critStru" +
       "ctCoordinates\030\002 \002(\0132\037.com.lvl6.proto.Coo",
-      "rdinateProto\022\024\n\014critStructId\030\003 \002(\005\"\313\002\n!M" +
-      "oveCriticalStructureRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022>\n\025critStructCoordinates\030\002 \002(\0132\037.com." +
-      "lvl6.proto.CoordinateProto\022T\n\ncritStruct" +
-      "\030\003 \002(\0162@.com.lvl6.proto.MoveCriticalStru" +
-      "ctureRequestProto.CritStructType\"^\n\016Crit" +
-      "StructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r" +
-      "\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\n\n\006" +
-      "CLERIC\020\005\"h\n\024LevelUpResponseProto\022-\n\006send",
-      "er\030\001 \002(\0132\035.com.lvl6.proto.FullUserProto\022" +
-      "!\n\031maxCityIdAccessibleToUser\030\002 \001(\005\"^\n\031In" +
-      "AppPurchaseRequestProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\017\n\007rec" +
-      "eipt\030\002 \002(\t\"\344\001\n\032InAppPurchaseResponseProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022N\n\006status\030\002 \002(\0162>.com.lvl6.p" +
-      "roto.InAppPurchaseResponseProto.InAppPur" +
-      "chaseStatus\022\026\n\016diamondsGained\030\003 \001(\005\",\n\023I" +
-      "nAppPurchaseStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020",
-      "\001\"h\n\035UpdateClientUserResponseProto\022-\n\006se" +
-      "nder\030\001 \002(\0132\035.com.lvl6.proto.FullUserProt" +
-      "o\022\030\n\020timeOfUserUpdate\030\002 \002(\003\"\215\001\n+Retrieve" +
-      "CurrentMarketplacePostsRequestProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\030\n\020beforeThisPostId\030\002 \001(\005\022\022\n\nfromS" +
-      "ender\030\003 \001(\010\"\244\001\n,RetrieveCurrentMarketpla" +
-      "cePostsResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022B\n\020market" +
-      "placePosts\030\002 \003(\0132(.com.lvl6.proto.FullMa",
-      "rketplacePostProto\"\231\002\n\035PostToMarketplace" +
-      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\0225\n\010postType\030\002 \002(\016" +
-      "2#.com.lvl6.proto.MarketplacePostType\022\025\n" +
-      "\rpostedEquipId\030\003 \001(\005\022\022\n\npostedWood\030\004 \001(\005" +
-      "\022\026\n\016postedDiamonds\030\005 \001(\005\022\023\n\013postedCoins\030" +
-      "\006 \001(\005\022\023\n\013diamondCost\030\007 \001(\005\022\020\n\010coinCost\030\010" +
-      " \001(\005\022\020\n\010woodCost\030\t \001(\005\"\230\003\n\036PostToMarketp" +
-      "laceResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022V\n\006status\030\002 ",
-      "\002(\0162F.com.lvl6.proto.PostToMarketplaceRe" +
-      "sponseProto.PostToMarketplaceStatus\"\353\001\n\027" +
-      "PostToMarketplaceStatus\022\013\n\007SUCCESS\020\000\022\021\n\r" +
-      "NEGATIVE_POST\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n" +
-      "\rNEGATIVE_COST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_AL" +
-      "READY_MAX_MARKETPLACE_POSTS\020\005\022\023\n\017NOT_ENO" +
-      "UGH_WOOD\020\006\022\027\n\023NOT_ENOUGH_DIAMONDS\020\007\022\024\n\020N" +
-      "OT_ENOUGH_COINS\020\010\022\016\n\nOTHER_FAIL\020\t\"q\n\"Ret" +
-      "ractMarketplacePostRequestProto\0220\n\006sende" +
-      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt",
-      "o\022\031\n\021marketplacePostId\030\002 \002(\005\"\337\002\n#Retract" +
-      "MarketplacePostResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022`" +
-      "\n\006status\030\002 \002(\0162P.com.lvl6.proto.RetractM" +
-      "arketplacePostResponseProto.RetractMarke" +
-      "tplacePostStatus\"\243\001\n\034RetractMarketplaceP" +
-      "ostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_REQUESTERS" +
-      "_POST\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\023\n\017NO" +
-      "T_ENOUGH_WOOD\020\003\022\027\n\023NOT_ENOUGH_DIAMONDS\020\004" +
-      "\022\024\n\020NOT_ENOUGH_COINS\020\005\"\204\001\n#PurchaseFromM",
-      "arketplaceRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\031\n\021mark" +
-      "etplacePostId\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\311\002" +
-      "\n$PurchaseFromMarketplaceResponseProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022b\n\006status\030\002 \002(\0162R.com.lvl6.prot" +
-      "o.PurchaseFromMarketplaceResponseProto.P" +
-      "urchaseFromMarketplaceStatus\"\212\001\n\035Purchas" +
-      "eFromMarketplaceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024N" +
-      "OT_ENOUGH_MATERIALS\020\001\022\031\n\025POST_NO_LONGER_",
-      "EXISTS\020\002\022\027\n\023PURCHASER_IS_SELLER\020\003\022\016\n\nOTH" +
-      "ER_FAIL\020\004\"\340\001\n\031UseSkillPointRequestProto\022" +
+      "rdinateProto\0226\n\016critStructType\030\003 \002(\0162\036.c" +
+      "om.lvl6.proto.CritStructType\"\212\002\n#PlaceCr" +
+      "iticalStructureResponseProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022]" +
+      "\n\006status\030\003 \002(\0162M.com.lvl6.proto.PlaceCri" +
+      "ticalStructureResponseProto.PlaceCritica" +
+      "lStructStatus\"R\n\031PlaceCriticalStructStat" +
+      "us\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_VALID_CRITSTRUCT\020" +
+      "\001\022\016\n\nOTHER_FAIL\020\002\"\315\001\n!MoveCriticalStruct" +
+      "ureRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lv",
+      "l6.proto.MinimumUserProto\022>\n\025critStructC" +
+      "oordinates\030\002 \002(\0132\037.com.lvl6.proto.Coordi" +
+      "nateProto\0226\n\016critStructType\030\003 \002(\0162\036.com." +
+      "lvl6.proto.CritStructType\"\354\001\n\"MoveCritic" +
+      "alStructureResponseProto\0220\n\006sender\030\001 \002(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022[\n\006st" +
+      "atus\030\002 \002(\0162K.com.lvl6.proto.MoveCritical" +
+      "StructureResponseProto.MoveCriticalStruc" +
+      "tStatus\"7\n\030MoveCriticalStructStatus\022\013\n\007S" +
+      "UCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"h\n\024LevelUpRespo",
+      "nseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6.prot" +
+      "o.FullUserProto\022!\n\031maxCityIdAccessibleTo" +
+      "User\030\002 \001(\005\"^\n\031InAppPurchaseRequestProto\022" +
       "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022F\n\tboostType\030\002 \002(\01623.com.lvl6." +
-      "proto.UseSkillPointRequestProto.BoostTyp" +
-      "e\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022" +
-      "\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n" +
-      "\032UseSkillPointResponseProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022N\n" +
-      "\006status\030\002 \002(\0162>.com.lvl6.proto.UseSkillP",
-      "ointResponseProto.UseSkillPointStatus\"O\n" +
-      "\023UseSkillPointStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT" +
-      "_ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\223" +
-      "\001\n\036GenerateAttackListRequestProto\0220\n\006sen" +
-      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022+\n\tenemyType\030\002 \001(\0162\030.com.lvl6.proto." +
-      "UserType\022\022\n\nnumEnemies\030\003 \001(\005\"\203\001\n\037Generat" +
-      "eAttackListResponseProto\0220\n\006sender\030\001 \002(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022.\n\007en" +
-      "emies\030\002 \003(\0132\035.com.lvl6.proto.FullUserPro",
-      "to\"{\n\032QuestCompleteResponseProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022\017\n\007questId\030\002 \002(\005\022\032\n\022newQuestsAvailabl" +
-      "e\030\003 \003(\005\"\\\n\027QuestAcceptRequestProto\0220\n\006se" +
-      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022\017\n\007questId\030\002 \002(\005\"\312\001\n\"RefillStatWith" +
-      "DiamondsRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022M\n\010statTy" +
-      "pe\030\002 \002(\0162;.com.lvl6.proto.RefillStatWith" +
-      "DiamondsRequestProto.StatType\"#\n\010StatTyp",
-      "e\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\367\001\n#RefillSta" +
-      "tWithDiamondsResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022T\n\006" +
-      "status\030\002 \002(\0162D.com.lvl6.proto.RefillStat" +
-      "WithDiamondsResponseProto.RefillStatStat" +
-      "us\"H\n\020RefillStatStatus\022\013\n\007SUCCESS\020\000\022\027\n\023N" +
-      "OT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\"\320\002\n" +
-      "0FinishNormStructWaittimeWithDiamondsReq" +
-      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\024\n\014userStructId\030\002 \002(",
-      "\005\022\026\n\016timeOfPurchase\030\003 \002(\003\022m\n\014waitTimeTyp" +
-      "e\030\004 \002(\0162W.com.lvl6.proto.FinishNormStruc" +
-      "tWaittimeWithDiamondsRequestProto.NormSt" +
-      "ructWaitTimeType\"M\n\026NormStructWaitTimeTy" +
-      "pe\022\027\n\023FINISH_CONSTRUCTION\020\000\022\032\n\026FINISH_IN" +
-      "COME_WAITTIME\020\001\"\257\002\n1FinishNormStructWait" +
-      "timeWithDiamondsResponseProto\0220\n\006sender\030" +
-      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "p\n\006status\030\002 \002(\0162`.com.lvl6.proto.FinishN" +
-      "ormStructWaittimeWithDiamondsResponsePro",
-      "to.FinishNormStructWaittimeStatus\"V\n\036Fin" +
-      "ishNormStructWaittimeStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020" +
-      "\002\"n\n$NormStructBuildsCompleteRequestProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\024\n\014userStructId\030\002 \003(\005\"\272\002\n%No" +
-      "rmStructBuildsCompleteResponseProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022d\n\006status\030\002 \002(\0162T.com.lvl6.proto.N" +
-      "ormStructBuildsCompleteResponseProto.Nor",
-      "mStructBuildsCompleteStatus\022:\n\nuserStruc" +
-      "t\030\003 \003(\0132&.com.lvl6.proto.FullUserStructu" +
-      "reProto\"=\n\036NormStructBuildsCompleteStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"Y\n%Redeem" +
-      "MarketplaceEarningsRequestProto\0220\n\006sende" +
-      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\"\202\002\n&RedeemMarketplaceEarningsResponseP" +
+      "UserProto\022\017\n\007receipt\030\002 \002(\t\"\344\001\n\032InAppPurc" +
+      "haseResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022N\n\006status\030\002 " +
+      "\002(\0162>.com.lvl6.proto.InAppPurchaseRespon" +
+      "seProto.InAppPurchaseStatus\022\026\n\016diamondsG" +
+      "ained\030\003 \001(\005\",\n\023InAppPurchaseStatus\022\013\n\007SU",
+      "CCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035UpdateClientUserRes" +
+      "ponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6.pr" +
+      "oto.FullUserProto\022\030\n\020timeOfUserUpdate\030\002 " +
+      "\002(\003\"\215\001\n+RetrieveCurrentMarketplacePostsR" +
+      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\030\n\020beforeThisPostI" +
+      "d\030\002 \001(\005\022\022\n\nfromSender\030\003 \001(\010\"\244\001\n,Retrieve" +
+      "CurrentMarketplacePostsResponseProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022B\n\020marketplacePosts\030\002 \003(\0132(.com.l",
+      "vl6.proto.FullMarketplacePostProto\"\231\002\n\035P" +
+      "ostToMarketplaceRequestProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\0225" +
+      "\n\010postType\030\002 \002(\0162#.com.lvl6.proto.Market" +
+      "placePostType\022\025\n\rpostedEquipId\030\003 \001(\005\022\022\n\n" +
+      "postedWood\030\004 \001(\005\022\026\n\016postedDiamonds\030\005 \001(\005" +
+      "\022\023\n\013postedCoins\030\006 \001(\005\022\023\n\013diamondCost\030\007 \001" +
+      "(\005\022\020\n\010coinCost\030\010 \001(\005\022\020\n\010woodCost\030\t \001(\005\"\230" +
+      "\003\n\036PostToMarketplaceResponseProto\0220\n\006sen" +
+      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr",
+      "oto\022V\n\006status\030\002 \002(\0162F.com.lvl6.proto.Pos" +
+      "tToMarketplaceResponseProto.PostToMarket" +
+      "placeStatus\"\353\001\n\027PostToMarketplaceStatus\022" +
+      "\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020NOT_E" +
+      "NOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COST\020\003\022\013\n\007NO_C" +
+      "OST\020\004\022&\n\"USER_ALREADY_MAX_MARKETPLACE_PO" +
+      "STS\020\005\022\023\n\017NOT_ENOUGH_WOOD\020\006\022\027\n\023NOT_ENOUGH" +
+      "_DIAMONDS\020\007\022\024\n\020NOT_ENOUGH_COINS\020\010\022\016\n\nOTH" +
+      "ER_FAIL\020\t\"q\n\"RetractMarketplacePostReque" +
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto",
+      ".MinimumUserProto\022\031\n\021marketplacePostId\030\002" +
+      " \002(\005\"\337\002\n#RetractMarketplacePostResponseP" +
       "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022f\n\006status\030\002 \002(\0162V.com.lvl" +
-      "6.proto.RedeemMarketplaceEarningsRespons",
-      "eProto.RedeemMarketplaceEarningsStatus\">" +
-      "\n\037RedeemMarketplaceEarningsStatus\022\013\n\007SUC" +
-      "CESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
+      "nimumUserProto\022`\n\006status\030\002 \002(\0162P.com.lvl" +
+      "6.proto.RetractMarketplacePostResponsePr" +
+      "oto.RetractMarketplacePostStatus\"\243\001\n\034Ret" +
+      "ractMarketplacePostStatus\022\013\n\007SUCCESS\020\000\022\027" +
+      "\n\023NOT_REQUESTERS_POST\020\001\022\031\n\025POST_NO_LONGE" +
+      "R_EXISTS\020\002\022\023\n\017NOT_ENOUGH_WOOD\020\003\022\027\n\023NOT_E" +
+      "NOUGH_DIAMONDS\020\004\022\024\n\020NOT_ENOUGH_COINS\020\005\"\204",
+      "\001\n#PurchaseFromMarketplaceRequestProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\031\n\021marketplacePostId\030\002 \002(\005\022\020\n\010p" +
+      "osterId\030\003 \002(\005\"\311\002\n$PurchaseFromMarketplac" +
+      "eResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022b\n\006status\030\002 \002(\016" +
+      "2R.com.lvl6.proto.PurchaseFromMarketplac" +
+      "eResponseProto.PurchaseFromMarketplaceSt" +
+      "atus\"\212\001\n\035PurchaseFromMarketplaceStatus\022\013" +
+      "\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\031\n",
+      "\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023PURCHASER_IS" +
+      "_SELLER\020\003\022\016\n\nOTHER_FAIL\020\004\"\340\001\n\031UseSkillPo" +
+      "intRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022F\n\tboostType\030\002" +
+      " \002(\01623.com.lvl6.proto.UseSkillPointReque" +
+      "stProto.BoostType\"I\n\tBoostType\022\n\n\006ATTACK" +
+      "\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022" +
+      "\013\n\007STAMINA\020\004\"\357\001\n\032UseSkillPointResponsePr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022N\n\006status\030\002 \002(\0162>.com.lvl6",
+      ".proto.UseSkillPointResponseProto.UseSki" +
+      "llPointStatus\"O\n\023UseSkillPointStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\033\n\027NOT_ENOUGH_SKILL_POINTS\020\001\022\016" +
+      "\n\nOTHER_FAIL\020\002\"\223\001\n\036GenerateAttackListReq" +
+      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022+\n\tenemyType\030\002 \001(\0162\030" +
+      ".com.lvl6.proto.UserType\022\022\n\nnumEnemies\030\003" +
+      " \001(\005\"\203\001\n\037GenerateAttackListResponseProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022.\n\007enemies\030\002 \003(\0132\035.com.lvl6.p",
+      "roto.FullUserProto\"{\n\032QuestCompleteRespo" +
+      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\017\n\007questId\030\002 \002(\005\022\032\n\022n" +
+      "ewQuestsAvailable\030\003 \003(\005\"\\\n\027QuestAcceptRe" +
+      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022\017\n\007questId\030\002 \002(\005\"\312\001" +
+      "\n\"RefillStatWithDiamondsRequestProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022M\n\010statType\030\002 \002(\0162;.com.lvl6.prot" +
+      "o.RefillStatWithDiamondsRequestProto.Sta",
+      "tType\"#\n\010StatType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA" +
+      "\020\001\"\367\001\n#RefillStatWithDiamondsResponsePro" +
+      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
+      "mumUserProto\022T\n\006status\030\002 \002(\0162D.com.lvl6." +
+      "proto.RefillStatWithDiamondsResponseProt" +
+      "o.RefillStatStatus\"H\n\020RefillStatStatus\022\013" +
+      "\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\n" +
+      "OTHER_FAIL\020\002\"\320\002\n0FinishNormStructWaittim" +
+      "eWithDiamondsRequestProto\0220\n\006sender\030\001 \002(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022\024\n\014u",
+      "serStructId\030\002 \002(\005\022\026\n\016timeOfPurchase\030\003 \002(" +
+      "\003\022m\n\014waitTimeType\030\004 \002(\0162W.com.lvl6.proto" +
+      ".FinishNormStructWaittimeWithDiamondsReq" +
+      "uestProto.NormStructWaitTimeType\"M\n\026Norm" +
+      "StructWaitTimeType\022\027\n\023FINISH_CONSTRUCTIO" +
+      "N\020\000\022\032\n\026FINISH_INCOME_WAITTIME\020\001\"\257\002\n1Fini" +
+      "shNormStructWaittimeWithDiamondsResponse" +
+      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022p\n\006status\030\002 \002(\0162`.com.lv" +
+      "l6.proto.FinishNormStructWaittimeWithDia",
+      "mondsResponseProto.FinishNormStructWaitt" +
+      "imeStatus\"V\n\036FinishNormStructWaittimeSta" +
+      "tus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020" +
+      "\001\022\016\n\nOTHER_FAIL\020\002\"n\n$NormStructBuildsCom" +
+      "pleteRequestProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022\024\n\014userStruc" +
+      "tId\030\002 \003(\005\"\272\002\n%NormStructBuildsCompleteRe" +
+      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022d\n\006status\030\002 \002(\0162T." +
+      "com.lvl6.proto.NormStructBuildsCompleteR",
+      "esponseProto.NormStructBuildsCompleteSta" +
+      "tus\022:\n\nuserStruct\030\003 \003(\0132&.com.lvl6.proto" +
+      ".FullUserStructureProto\"=\n\036NormStructBui" +
+      "ldsCompleteStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_" +
+      "FAIL\020\001\"Y\n%RedeemMarketplaceEarningsReque" +
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\"\202\002\n&RedeemMarketplaceE" +
+      "arningsResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022f\n\006status" +
+      "\030\002 \002(\0162V.com.lvl6.proto.RedeemMarketplac",
+      "eEarningsResponseProto.RedeemMarketplace" +
+      "EarningsStatus\">\n\037RedeemMarketplaceEarni" +
+      "ngsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014" +
+      "B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -39283,19 +40401,35 @@ public final class EventProto {
           internal_static_com_lvl6_proto_PlaceCriticalStructureRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PlaceCriticalStructureRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "CritStructCoordinates", "CritStructId", },
+              new java.lang.String[] { "Sender", "CritStructCoordinates", "CritStructType", },
               com.lvl6.proto.EventProto.PlaceCriticalStructureRequestProto.class,
               com.lvl6.proto.EventProto.PlaceCriticalStructureRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_descriptor =
+          internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_descriptor =
             getDescriptor().getMessageTypes().get(32);
+          internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_PlaceCriticalStructureResponseProto_descriptor,
+              new java.lang.String[] { "Sender", "Status", },
+              com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.class,
+              com.lvl6.proto.EventProto.PlaceCriticalStructureResponseProto.Builder.class);
+          internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_descriptor =
+            getDescriptor().getMessageTypes().get(33);
           internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MoveCriticalStructureRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "CritStructCoordinates", "CritStruct", },
+              new java.lang.String[] { "Sender", "CritStructCoordinates", "CritStructType", },
               com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.class,
               com.lvl6.proto.EventProto.MoveCriticalStructureRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_descriptor =
+            getDescriptor().getMessageTypes().get(34);
+          internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MoveCriticalStructureResponseProto_descriptor,
+              new java.lang.String[] { "Sender", "Status", },
+              com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.class,
+              com.lvl6.proto.EventProto.MoveCriticalStructureResponseProto.Builder.class);
           internal_static_com_lvl6_proto_LevelUpResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(33);
+            getDescriptor().getMessageTypes().get(35);
           internal_static_com_lvl6_proto_LevelUpResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LevelUpResponseProto_descriptor,
@@ -39303,7 +40437,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.LevelUpResponseProto.class,
               com.lvl6.proto.EventProto.LevelUpResponseProto.Builder.class);
           internal_static_com_lvl6_proto_InAppPurchaseRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(34);
+            getDescriptor().getMessageTypes().get(36);
           internal_static_com_lvl6_proto_InAppPurchaseRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_InAppPurchaseRequestProto_descriptor,
@@ -39311,7 +40445,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.InAppPurchaseRequestProto.class,
               com.lvl6.proto.EventProto.InAppPurchaseRequestProto.Builder.class);
           internal_static_com_lvl6_proto_InAppPurchaseResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(35);
+            getDescriptor().getMessageTypes().get(37);
           internal_static_com_lvl6_proto_InAppPurchaseResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_InAppPurchaseResponseProto_descriptor,
@@ -39319,7 +40453,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.InAppPurchaseResponseProto.class,
               com.lvl6.proto.EventProto.InAppPurchaseResponseProto.Builder.class);
           internal_static_com_lvl6_proto_UpdateClientUserResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(36);
+            getDescriptor().getMessageTypes().get(38);
           internal_static_com_lvl6_proto_UpdateClientUserResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UpdateClientUserResponseProto_descriptor,
@@ -39327,7 +40461,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.UpdateClientUserResponseProto.class,
               com.lvl6.proto.EventProto.UpdateClientUserResponseProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveCurrentMarketplacePostsRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(37);
+            getDescriptor().getMessageTypes().get(39);
           internal_static_com_lvl6_proto_RetrieveCurrentMarketplacePostsRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveCurrentMarketplacePostsRequestProto_descriptor,
@@ -39335,7 +40469,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsRequestProto.class,
               com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveCurrentMarketplacePostsResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(38);
+            getDescriptor().getMessageTypes().get(40);
           internal_static_com_lvl6_proto_RetrieveCurrentMarketplacePostsResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveCurrentMarketplacePostsResponseProto_descriptor,
@@ -39343,7 +40477,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.class,
               com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.Builder.class);
           internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(39);
+            getDescriptor().getMessageTypes().get(41);
           internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor,
@@ -39351,7 +40485,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.class,
               com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.Builder.class);
           internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(40);
+            getDescriptor().getMessageTypes().get(42);
           internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor,
@@ -39359,7 +40493,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.class,
               com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.Builder.class);
           internal_static_com_lvl6_proto_RetractMarketplacePostRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(41);
+            getDescriptor().getMessageTypes().get(43);
           internal_static_com_lvl6_proto_RetractMarketplacePostRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetractMarketplacePostRequestProto_descriptor,
@@ -39367,7 +40501,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RetractMarketplacePostRequestProto.class,
               com.lvl6.proto.EventProto.RetractMarketplacePostRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RetractMarketplacePostResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(42);
+            getDescriptor().getMessageTypes().get(44);
           internal_static_com_lvl6_proto_RetractMarketplacePostResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetractMarketplacePostResponseProto_descriptor,
@@ -39375,7 +40509,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.class,
               com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.Builder.class);
           internal_static_com_lvl6_proto_PurchaseFromMarketplaceRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(43);
+            getDescriptor().getMessageTypes().get(45);
           internal_static_com_lvl6_proto_PurchaseFromMarketplaceRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PurchaseFromMarketplaceRequestProto_descriptor,
@@ -39383,7 +40517,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.PurchaseFromMarketplaceRequestProto.class,
               com.lvl6.proto.EventProto.PurchaseFromMarketplaceRequestProto.Builder.class);
           internal_static_com_lvl6_proto_PurchaseFromMarketplaceResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(44);
+            getDescriptor().getMessageTypes().get(46);
           internal_static_com_lvl6_proto_PurchaseFromMarketplaceResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PurchaseFromMarketplaceResponseProto_descriptor,
@@ -39391,7 +40525,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.class,
               com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.Builder.class);
           internal_static_com_lvl6_proto_UseSkillPointRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(45);
+            getDescriptor().getMessageTypes().get(47);
           internal_static_com_lvl6_proto_UseSkillPointRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UseSkillPointRequestProto_descriptor,
@@ -39399,7 +40533,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.UseSkillPointRequestProto.class,
               com.lvl6.proto.EventProto.UseSkillPointRequestProto.Builder.class);
           internal_static_com_lvl6_proto_UseSkillPointResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(46);
+            getDescriptor().getMessageTypes().get(48);
           internal_static_com_lvl6_proto_UseSkillPointResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UseSkillPointResponseProto_descriptor,
@@ -39407,7 +40541,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.UseSkillPointResponseProto.class,
               com.lvl6.proto.EventProto.UseSkillPointResponseProto.Builder.class);
           internal_static_com_lvl6_proto_GenerateAttackListRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(47);
+            getDescriptor().getMessageTypes().get(49);
           internal_static_com_lvl6_proto_GenerateAttackListRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_GenerateAttackListRequestProto_descriptor,
@@ -39415,7 +40549,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.GenerateAttackListRequestProto.class,
               com.lvl6.proto.EventProto.GenerateAttackListRequestProto.Builder.class);
           internal_static_com_lvl6_proto_GenerateAttackListResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(48);
+            getDescriptor().getMessageTypes().get(50);
           internal_static_com_lvl6_proto_GenerateAttackListResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_GenerateAttackListResponseProto_descriptor,
@@ -39423,7 +40557,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.GenerateAttackListResponseProto.class,
               com.lvl6.proto.EventProto.GenerateAttackListResponseProto.Builder.class);
           internal_static_com_lvl6_proto_QuestCompleteResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(49);
+            getDescriptor().getMessageTypes().get(51);
           internal_static_com_lvl6_proto_QuestCompleteResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_QuestCompleteResponseProto_descriptor,
@@ -39431,7 +40565,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.QuestCompleteResponseProto.class,
               com.lvl6.proto.EventProto.QuestCompleteResponseProto.Builder.class);
           internal_static_com_lvl6_proto_QuestAcceptRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(50);
+            getDescriptor().getMessageTypes().get(52);
           internal_static_com_lvl6_proto_QuestAcceptRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_QuestAcceptRequestProto_descriptor,
@@ -39439,7 +40573,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.QuestAcceptRequestProto.class,
               com.lvl6.proto.EventProto.QuestAcceptRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RefillStatWithDiamondsRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(51);
+            getDescriptor().getMessageTypes().get(53);
           internal_static_com_lvl6_proto_RefillStatWithDiamondsRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RefillStatWithDiamondsRequestProto_descriptor,
@@ -39447,7 +40581,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.class,
               com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RefillStatWithDiamondsResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(52);
+            getDescriptor().getMessageTypes().get(54);
           internal_static_com_lvl6_proto_RefillStatWithDiamondsResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RefillStatWithDiamondsResponseProto_descriptor,
@@ -39455,7 +40589,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.class,
               com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.Builder.class);
           internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(53);
+            getDescriptor().getMessageTypes().get(55);
           internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsRequestProto_descriptor,
@@ -39463,7 +40597,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.class,
               com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.Builder.class);
           internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(54);
+            getDescriptor().getMessageTypes().get(56);
           internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FinishNormStructWaittimeWithDiamondsResponseProto_descriptor,
@@ -39471,7 +40605,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.class,
               com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.Builder.class);
           internal_static_com_lvl6_proto_NormStructBuildsCompleteRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(55);
+            getDescriptor().getMessageTypes().get(57);
           internal_static_com_lvl6_proto_NormStructBuildsCompleteRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_NormStructBuildsCompleteRequestProto_descriptor,
@@ -39479,7 +40613,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.NormStructBuildsCompleteRequestProto.class,
               com.lvl6.proto.EventProto.NormStructBuildsCompleteRequestProto.Builder.class);
           internal_static_com_lvl6_proto_NormStructBuildsCompleteResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(56);
+            getDescriptor().getMessageTypes().get(58);
           internal_static_com_lvl6_proto_NormStructBuildsCompleteResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_NormStructBuildsCompleteResponseProto_descriptor,
@@ -39487,7 +40621,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.class,
               com.lvl6.proto.EventProto.NormStructBuildsCompleteResponseProto.Builder.class);
           internal_static_com_lvl6_proto_RedeemMarketplaceEarningsRequestProto_descriptor =
-            getDescriptor().getMessageTypes().get(57);
+            getDescriptor().getMessageTypes().get(59);
           internal_static_com_lvl6_proto_RedeemMarketplaceEarningsRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RedeemMarketplaceEarningsRequestProto_descriptor,
@@ -39495,7 +40629,7 @@ public final class EventProto {
               com.lvl6.proto.EventProto.RedeemMarketplaceEarningsRequestProto.class,
               com.lvl6.proto.EventProto.RedeemMarketplaceEarningsRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RedeemMarketplaceEarningsResponseProto_descriptor =
-            getDescriptor().getMessageTypes().get(58);
+            getDescriptor().getMessageTypes().get(60);
           internal_static_com_lvl6_proto_RedeemMarketplaceEarningsResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RedeemMarketplaceEarningsResponseProto_descriptor,

@@ -4,6 +4,10 @@ public class ControllerConstants {
 
   public static final int NOT_SET = -1;
   
+  public static final double MIN_LEVEL_ARMORY = 3;
+  public static final double MIN_LEVEL_VAULT = 4;
+  public static final double MIN_LEVEL_MARKETPLACE = 5;
+  
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.5;
   

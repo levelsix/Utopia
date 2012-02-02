@@ -233,6 +233,87 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MarketplaceJobRequirementType)
   }
   
+  public enum CritStructType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    AVIARY(0, 0),
+    LUMBERMILL(1, 1),
+    CARPENTER(2, 2),
+    VAULT(3, 3),
+    ARMORY(4, 4),
+    MARKETPLACE(5, 5),
+    ;
+    
+    public static final int AVIARY_VALUE = 0;
+    public static final int LUMBERMILL_VALUE = 1;
+    public static final int CARPENTER_VALUE = 2;
+    public static final int VAULT_VALUE = 3;
+    public static final int ARMORY_VALUE = 4;
+    public static final int MARKETPLACE_VALUE = 5;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static CritStructType valueOf(int value) {
+      switch (value) {
+        case 0: return AVIARY;
+        case 1: return LUMBERMILL;
+        case 2: return CARPENTER;
+        case 3: return VAULT;
+        case 4: return ARMORY;
+        case 5: return MARKETPLACE;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<CritStructType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<CritStructType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<CritStructType>() {
+            public CritStructType findValueByNumber(int number) {
+              return CritStructType.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(3);
+    }
+    
+    private static final CritStructType[] VALUES = {
+      AVIARY, LUMBERMILL, CARPENTER, VAULT, ARMORY, MARKETPLACE, 
+    };
+    
+    public static CritStructType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private CritStructType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:com.lvl6.proto.CritStructType)
+  }
+  
   public interface MinimumUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -9413,7 +9494,10 @@ public final class InfoProto {
       "arketplacePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWO" +
       "OD_POST\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST" +
       "\020\003*2\n\035MarketplaceJobRequirementType\022\007\n\003B" +
-      "UY\020\000\022\010\n\004SELL\020\001B\013B\tInfoProto"
+      "UY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIA" +
+      "RY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005V" +
+      "AULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005B\013B\tI" +
+      "nfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
