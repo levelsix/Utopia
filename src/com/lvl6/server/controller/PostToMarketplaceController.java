@@ -22,8 +22,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PostToMarketplaceController extends EventController {
 
-  private static final int MAX_MARKETPLACE_POSTS_FROM_USER = ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER;  
-
   @Override
   public RequestEvent createRequestEvent() {
     return new PostToMarketplaceRequestEvent();
@@ -85,7 +83,7 @@ public class PostToMarketplaceController extends EventController {
   private boolean checkLegitPost(MarketplacePostType postType, User user, Builder resBuilder, 
       PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, int woodCost, 
       UserEquip userEquip) {
-    if (user.getNumPostsInMarketplace() == MAX_MARKETPLACE_POSTS_FROM_USER) {
+    if (user.getNumPostsInMarketplace() == ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER) {
       resBuilder.setStatus(PostToMarketplaceStatus.USER_ALREADY_MAX_MARKETPLACE_POSTS);
       return false;      
     }

@@ -10,17 +10,59 @@ import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
 
   /*
+   * used for moving user structs
+   */
+  public static boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates, CritStructType critStructType) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CRITSTRUCTS__USER_ID, userId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (critStructType == CritStructType.ARMORY) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_Y_COORD, coordinates.getY());
+    }
+    if (critStructType == CritStructType.VAULT) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_Y_COORD, coordinates.getY());
+    }
+    if (critStructType == CritStructType.MARKETPLACE) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_Y_COORD, coordinates.getY());
+    }
+    if (critStructType == CritStructType.LUMBERMILL) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__LUMBERMILL_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__LUMBERMILL_Y_COORD, coordinates.getY());
+    }
+    if (critStructType == CritStructType.CARPENTER) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__CARPENTER_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__CARPENTER_Y_COORD, coordinates.getY());
+    }
+    if (critStructType == CritStructType.AVIARY) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__AVIARY_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__AVIARY_Y_COORD, coordinates.getY());
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  /*
    * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
    */
   public static boolean updateUserStructsLastretrievedIscomplete(List<UserStruct> userStructs, boolean isComplete) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
-        
+
     for (UserStruct userStruct : userStructs) {
       Structure structure = structures.get(userStruct.getId());
       if (structure == null) {
@@ -73,7 +115,7 @@ public class UpdateUtils {
   }
 
   /*
-   * used for upgrading user structs
+   * used for upgrading user structs level
    */
   public static boolean updateUserStructLevel(int userStructId, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();

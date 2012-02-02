@@ -22,8 +22,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class RetractMarketplacePostController extends EventController{
 
-  private static final double PERCENT_CUT_OF_SELLING_PRICE_TAKEN = ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN;
-  
   @Override
   public RequestEvent createRequestEvent() {
     return new RetractMarketplacePostRequestEvent();
@@ -53,9 +51,9 @@ public class RetractMarketplacePostController extends EventController{
       int coinCost = mp.getCoinCost();
       int woodCost = mp.getWoodCost();
 
-      int diamondCut = (int)(Math.ceil(diamondCost * PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
-      int coinCut = (int)(Math.ceil(coinCost * PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
-      int woodCut = (int)(Math.ceil(woodCost * PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
+      int diamondCut = (int)(Math.ceil(diamondCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
+      int coinCut = (int)(Math.ceil(coinCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
+      int woodCut = (int)(Math.ceil(woodCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
       
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 

@@ -22,8 +22,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseFromMarketplaceController extends EventController {
-
-  private static final double PERCENT_CUT_OF_SELLING_PRICE_TAKEN = ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN;
   
   @Override
   public RequestEvent createRequestEvent() {
@@ -97,15 +95,15 @@ public class PurchaseFromMarketplaceController extends EventController {
     int totalBuyerWoodChange = 0;
 
     if (mp.getDiamondCost() > 0) {
-      totalSellerDiamondChange += (int)Math.floor((1-PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getDiamondCost());
+      totalSellerDiamondChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getDiamondCost());
       totalBuyerDiamondChange -= mp.getDiamondCost();
     }
     if (mp.getCoinCost() > 0) {
-      totalSellerCoinChange += (int)Math.floor((1-PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getCoinCost());
+      totalSellerCoinChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getCoinCost());
       totalBuyerCoinChange -= mp.getCoinCost();      
     }
     if (mp.getWoodCost() > 0) {
-      totalSellerWoodChange += (int)Math.floor((1-PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getWoodCost());;
+      totalSellerWoodChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getWoodCost());;
       totalBuyerWoodChange -= mp.getWoodCost();   
     }
 

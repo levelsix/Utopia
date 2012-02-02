@@ -27,7 +27,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class InAppPurchaseController extends EventController {
 
-  boolean isSandbox = ControllerConstants.IN_APP_PURCHASE__IS_SANDBOX;
   private static final String SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
   private static final String PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt";  
 
@@ -67,7 +66,7 @@ public class InAppPurchaseController extends EventController {
   
         // Send data
         URL url;
-        if (isSandbox) {
+        if (ControllerConstants.IN_APP_PURCHASE__IS_SANDBOX) {
           url = new URL(SANDBOX_URL);
         } else {
           url = new URL(PRODUCTION_URL);

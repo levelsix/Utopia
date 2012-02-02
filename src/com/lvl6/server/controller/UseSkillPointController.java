@@ -18,18 +18,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class UseSkillPointController extends EventController {
 
-  private static final int ATTACK_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN;
-  private static final int DEFENSE_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN;
-  private static final int ENERGY_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN;
-  private static final int HEALTH_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_GAIN;
-  private static final int STAMINA_BASE_GAIN = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN;
-
-  private static final int ATTACK_BASE_COST = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_COST;
-  private static final int DEFENSE_BASE_COST = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST;
-  private static final int ENERGY_BASE_COST = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST;
-  private static final int HEALTH_BASE_COST = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_COST;
-  private static final int STAMINA_BASE_COST = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST;
-
   @Override
   public RequestEvent createRequestEvent() {
     return new UseSkillPointRequestEvent();
@@ -62,20 +50,20 @@ public class UseSkillPointController extends EventController {
       int gain = 0;
       int cost = 0;
       if (boostType == BoostType.ATTACK) {
-        gain = ATTACK_BASE_GAIN;
-        cost = ATTACK_BASE_COST;
+        gain = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_GAIN;
+        cost = ControllerConstants.USE_SKILL_POINT__ATTACK_BASE_COST;
       } else if (boostType == BoostType.DEFENSE) {
-        gain = DEFENSE_BASE_GAIN;
-        cost = DEFENSE_BASE_COST;
+        gain = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_GAIN;
+        cost = ControllerConstants.USE_SKILL_POINT__DEFENSE_BASE_COST;
       } else if (boostType == BoostType.ENERGY) {
-        gain = ENERGY_BASE_GAIN;
-        cost = ENERGY_BASE_COST;
+        gain = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN;
+        cost = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST;
       } else if (boostType == BoostType.HEALTH) {
-        gain = HEALTH_BASE_GAIN;
-        cost = HEALTH_BASE_COST;
+        gain = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_GAIN;
+        cost = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_COST;
       } else if (boostType == BoostType.STAMINA) {
-        gain = STAMINA_BASE_GAIN;
-        cost = STAMINA_BASE_COST;
+        gain = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN;
+        cost = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST;
       } 
 
       boolean legitBoost = checkLegitBoost(resBuilder, gain, cost, user);

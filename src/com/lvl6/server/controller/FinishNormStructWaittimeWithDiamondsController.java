@@ -25,10 +25,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class FinishNormStructWaittimeWithDiamondsController extends EventController{
 
-  private static final int DIAMOND_COST_FOR_FINISH_NORM_STRUCT_BUILD = ControllerConstants.FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_BUILD;
-  private static final int DIAMOND_COST_FOR_FINISH_NORM_STRUCT_INCOME_WAIT = ControllerConstants.FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_INCOME_WAIT;
-
-
   @Override
   public RequestEvent createRequestEvent() {
     return new FinishNormStructWaittimeWithDiamondsRequestEvent();
@@ -82,12 +78,12 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
 
   private void writeChangesToDB(User user, UserStruct userStruct, Timestamp timeOfPurchase, NormStructWaitTimeType waitTimeType, Structure struct) {
     if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
-      if (!user.updateRelativeDiamondsNaive(DIAMOND_COST_FOR_FINISH_NORM_STRUCT_BUILD * -1)) {
+      if (!user.updateRelativeDiamondsNaive(ControllerConstants.FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_BUILD * -1)) {
         log.error("problem with using diamonds to finish norm struct build");
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
-      if (!user.updateRelativeDiamondsCoinsWoodNaive(DIAMOND_COST_FOR_FINISH_NORM_STRUCT_INCOME_WAIT*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0)) {
+      if (!user.updateRelativeDiamondsCoinsWoodNaive(ControllerConstants.FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_INCOME_WAIT*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0)) {
         log.error("problem with using diamonds to finish norm struct build");
       }
     }
@@ -106,13 +102,13 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       return false;
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
-      if (user.getDiamonds() < DIAMOND_COST_FOR_FINISH_NORM_STRUCT_BUILD) {
+      if (user.getDiamonds() < ControllerConstants.FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_BUILD) {
         resBuilder.setStatus(FinishNormStructWaittimeStatus.NOT_ENOUGH_DIAMONDS);
         return false;
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
-      if (user.getDiamonds() < DIAMOND_COST_FOR_FINISH_NORM_STRUCT_INCOME_WAIT) {
+      if (user.getDiamonds() < ControllerConstants.FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_INCOME_WAIT) {
         resBuilder.setStatus(FinishNormStructWaittimeStatus.NOT_ENOUGH_DIAMONDS);
         return false;
       }

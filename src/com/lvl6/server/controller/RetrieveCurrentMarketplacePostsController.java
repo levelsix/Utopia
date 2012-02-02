@@ -15,8 +15,6 @@ import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveCurrentMarketplacePostsController extends EventController{
-
-  private static final int NUM_POSTS_CAP = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP;
   
   @Override
   public RequestEvent createRequestEvent() {
@@ -42,15 +40,15 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
     List <MarketplacePost> activeMarketplacePosts;
     if (beforeThisPostId > 0) {
       if (forSender) {
-        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(NUM_POSTS_CAP, beforeThisPostId, senderProto.getUserId());
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, beforeThisPostId, senderProto.getUserId());
       } else {
-        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostId(NUM_POSTS_CAP, beforeThisPostId);        
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostId(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, beforeThisPostId);        
       }
     } else {
       if (forSender) {
-        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(NUM_POSTS_CAP, senderProto.getUserId());
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
       } else {
-        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(NUM_POSTS_CAP);
+        activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
       }
     }
     if (activeMarketplacePosts != null) {

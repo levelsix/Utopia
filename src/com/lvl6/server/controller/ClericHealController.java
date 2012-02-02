@@ -16,10 +16,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class ClericHealController extends EventController {
   
-  //Formula: (int) Math.ceil(Math.pow(user.getLevel(), A)*healthToHeal*B);
-  private static final double A = ControllerConstants.CLERIC_HEAL__A;
-  private static final double B = ControllerConstants.CLERIC_HEAL__B;
-
   @Override
   public RequestEvent createRequestEvent() {
     return new ClericHealRequestEvent();
@@ -79,7 +75,7 @@ public class ClericHealController extends EventController {
 
   private int calculateClericCost(User user) {
     int healthToHeal = user.getHealthMax() - user.getHealth();
-    return (int) Math.ceil(Math.pow(user.getLevel(), A)*healthToHeal*B);
+    return (int) Math.ceil(Math.pow(user.getLevel(), ControllerConstants.CLERIC_HEAL__A)*healthToHeal*ControllerConstants.CLERIC_HEAL__B);
   }
 
 }

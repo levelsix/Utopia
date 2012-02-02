@@ -30,39 +30,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class BattleController extends EventController {
 
-  private static final int NOT_SET = ControllerConstants.NOT_SET;
-  
-  private static final int MAX_DAMAGE = ControllerConstants.BATTLE__MAX_DAMAGE;
-  private static final int MIN_DAMAGE_DEALT_TO_LOSER = ControllerConstants.BATTLE__MIN_DAMAGE_DEALT_TO_LOSER;
-
-  private static final int MAX_LEVEL_DIFFERENCE = ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE;
-
-  private static final int MIN_BATTLE_LEVEL = ControllerConstants.BATTLE__MIN_BATTLE_LEVEL;
-
-  private static final int MIN_BATTLE_HEALTH_REQUIREMENT = ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT;
-  private static final int MIN_EXP_GAIN = ControllerConstants.BATTLE__MIN_EXP_GAIN;
-  private static final int MAX_EXP_GAIN = ControllerConstants.BATTLE__MAX_EXP_GAIN;
-  private static final String ATTACKER_FLAG = ControllerConstants.BATTLE__ATTACKER_FLAG;
-  private static final String DEFENDER_FLAG = ControllerConstants.BATTLE__DEFENDER_FLAG;
-
-  /* FORMULA FOR CALCULATING PLAYER'S BATTLE STAT
-  Let S = Attack or Defense skill points, based on whether the user is the attacker or defender
-  Let I = The total attack/defense of the items used in the battle, based on whether the user is the attacker or defender
-  Let A = The user’s agency size
-  Let F = The final combined stat (attack or defense)
-  Then F = RAND(X * (S + I / Z), Y * (S + I / Z))
-  To put it into words, we take (skill points times agency size) and add (total item stats divided by Z), and then multiply by X and Y and return a random number between those two totals.
-  Note that the S and I values are already passed into the computeStat() function and the function should return F. Note also that A (agency size) should be passed into computeStat() so the function header needs to be adjusted, as do the two calls to computeStat() in backend/attackplayer.php.
-   */
-  private static final double X = ControllerConstants.BATTLE__X;
-  private static final double Y = ControllerConstants.BATTLE__Y;
-  private static final double Z = ControllerConstants.BATTLE__Z;
-
-  /* FORMULA FOR CALCULATING COIN TRANSFER
-   * (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/A, loser.getLevel()*B)); 
-   */
-  private static final double A = ControllerConstants.BATTLE__A;
-  private static final double B = ControllerConstants.BATTLE__B;
+  private static final String ATTACKER_FLAG = "attacker";
+  private static final String DEFENDER_FLAG = "defender";
 
   @Override
   public RequestEvent createRequestEvent() {
@@ -98,10 +67,10 @@ public class BattleController extends EventController {
       resBuilder.setDefender(defenderProto);
   
       UserEquip lostEquip = null;
-      int loserHealthLoss = NOT_SET;
-      int winnerHealthLoss = NOT_SET;
-      int expGained = NOT_SET;
-      int lostCoins = NOT_SET;
+      int loserHealthLoss = ControllerConstants.NOT_SET;
+      int winnerHealthLoss = ControllerConstants.NOT_SET;
+      int expGained = ControllerConstants.NOT_SET;
+      int lostCoins = ControllerConstants.NOT_SET;
       User winner = null;
       User loser = null;
       boolean legitBattle = false;
@@ -135,10 +104,12 @@ public class BattleController extends EventController {
         Random random = new Random();
         lostCoins = calculateLostCoins(loser, random);
         resBuilder.setCoinsGained(lostCoins);
-        expGained = MIN_EXP_GAIN + random.nextInt(MAX_EXP_GAIN - MIN_EXP_GAIN + 1);
+        expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
         resBuilder.setExpGained(expGained);
         resBuilder.setStatus(BattleStatus.SUCCESS);
-        loserHealthLoss = MIN_DAMAGE_DEALT_TO_LOSER + random.nextInt(MAX_DAMAGE - MIN_DAMAGE_DEALT_TO_LOSER + 1);
+        loserHealthLoss = ControllerConstants.BATTLE__MIN_DAMAGE_DEALT_TO_LOSER + 
+            random.nextInt(ControllerConstants.BATTLE__MAX_DAMAGE - 
+                ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE + 1);
         resBuilder.setLoserHealthLoss(loserHealthLoss);
         winnerHealthLoss = calculateWinnerHealthLoss(attackerStat, defenderStat, loserHealthLoss);
         resBuilder.setWinnerHealthLoss(winnerHealthLoss);
@@ -216,7 +187,7 @@ public class BattleController extends EventController {
   }
 
   private int calculateLostCoins(User loser, Random random) {
-    return (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/A, loser.getLevel()*B));
+    return (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/ControllerConstants.BATTLE__A, loser.getLevel()*ControllerConstants.BATTLE__B));
   }
 
   /*
@@ -246,8 +217,8 @@ public class BattleController extends EventController {
 
     int itemStat = computeItemStat(flag, userEquips, equipmentIdsToEquipment, user);
 
-    double lowerBound = X*(skillStat + itemStat/Z);
-    double upperBound = Y*(skillStat + itemStat/Z);
+    double lowerBound = ControllerConstants.BATTLE__X*(skillStat + itemStat/ControllerConstants.BATTLE__Z);
+    double upperBound = ControllerConstants.BATTLE__Y*(skillStat + itemStat/ControllerConstants.BATTLE__Z);
 
     return lowerBound + Math.random()*(upperBound-lowerBound);
   }
@@ -315,19 +286,19 @@ public class BattleController extends EventController {
         return false;
       }
     }
-    if (attacker.getLevel() < MIN_BATTLE_LEVEL) {
+    if (attacker.getLevel() < ControllerConstants.BATTLE__MIN_BATTLE_LEVEL) {
       builder.setStatus(BattleStatus.ATTACKER_NOT_HIGH_ENOUGH_LEVEL);
       return false;
     }
-    if (defender.getLevel() < MIN_BATTLE_LEVEL) {
+    if (defender.getLevel() < ControllerConstants.BATTLE__MIN_BATTLE_LEVEL) {
       builder.setStatus(BattleStatus.DEFENDER_NOT_HIGH_ENOUGH_LEVEL);
       return false;
     }
-    if (attacker.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
+    if (attacker.getHealth() < ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT) {
       builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_HEALTH);
       return false;
     }
-    if (defender.getHealth() < MIN_BATTLE_HEALTH_REQUIREMENT) {
+    if (defender.getHealth() < ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT) {
       builder.setStatus(BattleStatus.DEFENDER_NOT_ENOUGH_HEALTH);
       return false;
     }
@@ -335,7 +306,7 @@ public class BattleController extends EventController {
       builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_STAMINA);
       return false;
     }
-    if (Math.abs(attacker.getLevel() - defender.getLevel()) > MAX_LEVEL_DIFFERENCE) {
+    if (Math.abs(attacker.getLevel() - defender.getLevel()) > ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE) {
       builder.setStatus(BattleStatus.LEVEL_DIFFERENCE_TOO_HIGH);
       return false;
     }

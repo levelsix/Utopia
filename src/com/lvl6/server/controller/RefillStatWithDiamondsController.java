@@ -18,9 +18,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RefillStatWithDiamondsController extends EventController{
 
-  private static final int DIAMOND_COST_FOR_ENERGY_REFILL = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL;
-  private static final int DIAMOND_COST_FOR_STAMINA_REFILL = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL;
-
   @Override
   public RequestEvent createRequestEvent() {
     return new RefillStatWithDiamondsRequestEvent();
@@ -68,9 +65,9 @@ public class RefillStatWithDiamondsController extends EventController{
   private void writeChangesToDB(User user, StatType statType) {
     int diamondChange = 0;
     if (statType == StatType.ENERGY) {
-      diamondChange = DIAMOND_COST_FOR_ENERGY_REFILL;
+      diamondChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL;
     } else if (statType == StatType.STAMINA) {
-      diamondChange = DIAMOND_COST_FOR_STAMINA_REFILL;
+      diamondChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL;
     }
     if (!user.updateRelativeDiamondsRestoreStat(diamondChange*-1, statType)) {
       log.error("problem with using diamonds to restore stats");
@@ -84,12 +81,12 @@ public class RefillStatWithDiamondsController extends EventController{
       return false;
     }
     if (statType == StatType.ENERGY) {
-      if (user.getDiamonds() < DIAMOND_COST_FOR_ENERGY_REFILL) {
+      if (user.getDiamonds() < ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL) {
         resBuilder.setStatus(RefillStatStatus.NOT_ENOUGH_DIAMONDS);
         return false;
       }
     } else if (statType == StatType.STAMINA) {
-      if (user.getDiamonds() < DIAMOND_COST_FOR_STAMINA_REFILL) {
+      if (user.getDiamonds() < ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL) {
         resBuilder.setStatus(RefillStatStatus.NOT_ENOUGH_DIAMONDS);
         return false;
       }      

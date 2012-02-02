@@ -18,8 +18,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GenerateAttackListController extends EventController {
 
-  private static final int NUM_ENEMIES_TO_GENERATE = ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE;
-
   @Override
   public RequestEvent createRequestEvent() {
     return new GenerateAttackListRequestEvent();
@@ -46,7 +44,7 @@ public class GenerateAttackListController extends EventController {
         generateListOfGoodSide = false; 
       }
             
-      List<User> enemies = UserRetrieveUtils.getUsersForSide(generateListOfGoodSide, NUM_ENEMIES_TO_GENERATE, user.getLevel(), user.getId());
+      List<User> enemies = UserRetrieveUtils.getUsersForSide(generateListOfGoodSide, ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE, user.getLevel(), user.getId());
       if (enemies != null) {
         for (User enemy : enemies) {
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);

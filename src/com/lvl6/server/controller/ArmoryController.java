@@ -22,8 +22,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ArmoryController extends EventController {
 
-  private static final double SELL_RATIO = ControllerConstants.ARMORY__SELL_RATIO;
-
   @Override
   public RequestEvent createRequestEvent() {
     return new ArmoryRequestEvent();
@@ -97,7 +95,7 @@ public class ArmoryController extends EventController {
       }
       if (legitSell) {
         UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity);
-        user.updateRelativeCoinsNaive((int)(-1 * SELL_RATIO * equipment.getCoinPrice()));
+        user.updateRelativeCoinsNaive((int)(-1 * ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
       
