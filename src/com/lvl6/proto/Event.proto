@@ -27,7 +27,12 @@ message ChatResponseProto {
 message BattleRequestProto {
     required MinimumUserProto attacker = 1; 
     required MinimumUserProto defender = 2; 
-    required int32 attackerBonus = 3;						//1-100, 100 is best, 1 is bad
+    required BattleResult result = 3;
+    
+    enum BattleResult {
+    	ATTACKER_WIN = 0;
+    	DEFENDER_WIN = 1;
+    }
 }
 
 																						//DONE
@@ -36,23 +41,13 @@ message BattleResponseProto {
     required MinimumUserProto defender = 2;
 	required BattleStatus status = 3;
 
-	optional int32 winnerUserId = 4;
-	optional int32 coinsGained = 5;
-	optional FullEquipProto equipGained = 6;
-    optional int32 expGained = 7;
-    optional int32 winnerHealthLoss = 8;
-    optional int32 loserHealthLoss = 9;
-    
+	optional int32 coinsGained = 4;
+	optional FullEquipProto equipGained = 5;
+    optional int32 expGained = 6;
     
     enum BattleStatus {
-		SUCCESS = 0; 
-		ATTACKER_NOT_ENOUGH_HEALTH = 1;
-		DEFENDER_NOT_ENOUGH_HEALTH = 2;
-		ATTACKER_NOT_ENOUGH_STAMINA = 3;
-		LEVEL_DIFFERENCE_TOO_HIGH = 4;
-		OPPONENT_ON_SAME_SIDE = 5;
-		ATTACKER_NOT_HIGH_ENOUGH_LEVEL = 6;
-		DEFENDER_NOT_HIGH_ENOUGH_LEVEL = 7;
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
 	} 
 }
 
@@ -101,26 +96,6 @@ message ArmoryResponseProto {
 		NOT_ENOUGH_CURRENCY_TO_BUY = 2;
 		CANNOT_SELL_DIAMOND_EQUIP = 3;
 		OTHER_FAIL = 4;
-	} 
-}
-
-//------------------------------------------------------------------------------------------
-
-																						//DONE
-message ClericHealRequestProto {
-	required MinimumUserProto sender = 1;
-}
-
-																						//DONE
-message ClericHealResponseProto {
-	required MinimumUserProto sender = 1;
-	optional int32 cost = 2;
-	optional HealStatus status = 3;
-	
-	enum HealStatus {
-		SUCCESS = 0; 
-		USER_NOT_ENOUGH_VAULT = 1;
-		OTHER_FAIL = 2;
 	} 
 }
 

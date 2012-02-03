@@ -44,7 +44,6 @@ public class DBConstants {
   public static final String USER__DEFENSE = "defense";
   public static final String USER__STAMINA = "stamina";
   public static final String USER__ENERGY = "energy";
-  public static final String USER__HEALTH = "health";
   public static final String USER__SKILL_POINTS = "skill_points";
   public static final String USER__HEALTH_MAX = "health_max";
   public static final String USER__ENERGY_MAX = "energy_max";

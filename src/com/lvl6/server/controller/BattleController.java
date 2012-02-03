@@ -1,7 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -15,23 +14,19 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
+import com.lvl6.proto.EventProto.BattleRequestProto.BattleResult;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
+import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class BattleController extends EventController {
-
-  private static final String ATTACKER_FLAG = "attacker";
-  private static final String DEFENDER_FLAG = "defender";
 
   @Override
   public RequestEvent createRequestEvent() {
@@ -49,93 +44,68 @@ public class BattleController extends EventController {
 
     MinimumUserProto attackerProto = reqProto.getAttacker();
     MinimumUserProto defenderProto = reqProto.getDefender();
+    BattleResult result = reqProto.getResult();
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
 
     server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     try {
-      
+
       User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
-      List<UserEquip> attackerEquips = UserEquipRetrieveUtils.getUserEquipsForUser(attacker.getId());
-  
       User defender = UserRetrieveUtils.getUserById(defenderProto.getUserId());
-      List<UserEquip> defenderEquips = UserEquipRetrieveUtils.getUserEquipsForUser(defender.getId());
-  
+
       BattleResponseProto.Builder resBuilder = BattleResponseProto.newBuilder();
-  
+
       resBuilder.setAttacker(attackerProto);
       resBuilder.setDefender(defenderProto);
-  
+
       UserEquip lostEquip = null;
-      int loserHealthLoss = ControllerConstants.NOT_SET;
-      int winnerHealthLoss = ControllerConstants.NOT_SET;
       int expGained = ControllerConstants.NOT_SET;
       int lostCoins = ControllerConstants.NOT_SET;
       User winner = null;
       User loser = null;
       boolean legitBattle = false;
-      
-  
+
       BattleResponseEvent resEvent = new BattleResponseEvent();
-  
-      if (isLegitBattle(attacker, defender, resBuilder)) {
-        int[] recipients = { attacker.getId(), defender.getId()};;
-        resEvent.setRecipients(recipients);
-        legitBattle = true;
-        double attackerStat = computeStat(ATTACKER_FLAG, attacker, attackerEquips, equipmentIdsToEquipment);
-        double defenderStat = computeStat(DEFENDER_FLAG, defender, defenderEquips, equipmentIdsToEquipment);
-  
-        if (attackerStat >= defenderStat) {
-          resBuilder.setWinnerUserId(attacker.getId());
-          winner = attacker;
-          loser = defender;
-          lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment, defender.getLevel());
-          if (lostEquip != null) {
-            Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
-            resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
-          }
+      int[] recipients = { attacker.getId(), defender.getId()};;
+      resEvent.setRecipients(recipients);
+
+      if (result == BattleResult.ATTACKER_WIN) {
+        winner = attacker;
+        loser = defender;
+        List<UserEquip> defenderEquips = UserEquipRetrieveUtils.getUserEquipsForUser(defender.getId());
+        lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment, defender.getLevel());
+        if (lostEquip != null) {
+          Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
+          resBuilder.setEquipGained(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
         }
-        else {
-          resBuilder.setWinnerUserId(defender.getId());
-          winner = defender;
-          loser = attacker;
-        }
-  
-        Random random = new Random();
-        lostCoins = calculateLostCoins(loser, random);
-        resBuilder.setCoinsGained(lostCoins);
-        expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
-        resBuilder.setExpGained(expGained);
-        resBuilder.setStatus(BattleStatus.SUCCESS);
-        loserHealthLoss = ControllerConstants.BATTLE__MIN_DAMAGE_DEALT_TO_LOSER + 
-            random.nextInt(ControllerConstants.BATTLE__MAX_DAMAGE - 
-                ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE + 1);
-        resBuilder.setLoserHealthLoss(loserHealthLoss);
-        winnerHealthLoss = calculateWinnerHealthLoss(attackerStat, defenderStat, loserHealthLoss);
-        resBuilder.setWinnerHealthLoss(winnerHealthLoss);
       } else {
-        int[] recipients = { attacker.getId()};;
-        resEvent.setRecipients(recipients);
+        winner = defender;
+        loser = attacker;
       }
-  
+
+      Random random = new Random();
+      lostCoins = calculateLostCoins(loser, random);
+      resBuilder.setCoinsGained(lostCoins);
+      expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
+      resBuilder.setExpGained(expGained);
+      resBuilder.setStatus(BattleStatus.SUCCESS);
+
       BattleResponseProto resProto = resBuilder.build();
-  
+
       resEvent.setBattleResponseProto(resProto);
-  
+
       log.info(resEvent + " is resevent");
       server.writeEvent(resEvent);
-      
-      writeChangesToDB(legitBattle, lostEquip, winner, loser, attacker, defender, expGained, lostCoins, 
-          winnerHealthLoss, loserHealthLoss);
+
+      writeChangesToDB(legitBattle, lostEquip, winner, loser, attacker, defender, expGained, lostCoins);
       //TODO: should these send new response? or package inside battles?
       //TODO: AchievementCheck.checkBattle(); 
       //TODO: LevelCheck.checkUser();
-      
-      
-      
+
       UpdateClientUserResponseEvent resEventAttacker = MiscMethods.createUpdateClientUserResponseEvent(attacker);
       UpdateClientUserResponseEvent resEventDefender = MiscMethods.createUpdateClientUserResponseEvent(defender);
-      
+
       server.writeEvent(resEventAttacker);
       server.writeEvent(resEventDefender);
     } catch (Exception e) {
@@ -145,8 +115,8 @@ public class BattleController extends EventController {
     }
   }
 
-  
-  private void writeChangesToDB(boolean legitBattle, UserEquip lostEquip, User winner, User loser, User attacker, User defender, int expGained, int lostCoins, int winnerHealthLoss, int loserHealthLoss) {
+
+  private void writeChangesToDB(boolean legitBattle, UserEquip lostEquip, User winner, User loser, User attacker, User defender, int expGained, int lostCoins) {
     if (legitBattle) {
       if (lostEquip != null) {
         if (!UpdateUtils.decrementUserEquip(loser.getId(), lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
@@ -156,35 +126,27 @@ public class BattleController extends EventController {
           log.error("problem with incrementUserEquip in battle");          
         }
       }
-      
+
       if (winner == attacker) {
-        attacker.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(-1, expGained, lostCoins, 
-            winnerHealthLoss*-1, 1, 0);
-        defender.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(0, 0, lostCoins*-1, 
-            loserHealthLoss*-1, 0, 1);
+        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(-1, expGained, lostCoins, 
+            1, 0);
+        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(0, 0, lostCoins*-1, 
+            0, 1);
       } else if (winner == defender) {
-        attacker.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(-1, 0, lostCoins*-1, 
-            loserHealthLoss*-1, 0, 1);
-        defender.updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost(0, 0, lostCoins, 
-            winnerHealthLoss*-1, 1, 0);
+        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(-1, 0, lostCoins*-1, 
+            0, 1);
+        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(0, 0, lostCoins, 
+            1, 0);
       }
-      
+
       /*
        * TODO: write to battle_history
        * id, attackerId, defenderId, winnerId, winnerHealthLoss, loserHealthLoss, coinTransfer, lostEquipId, expGain, timestamp
        */
     }
-    
+
   }
 
-  private int calculateWinnerHealthLoss(double attackerStat, double defenderStat, int loserHealthLoss) {
-    double val1 = Math.max(attackerStat, defenderStat);
-    double val2 = Math.min(attackerStat, defenderStat);
-    if (val1 != 0 || val2 != 0) {
-      return Math.max(1, (int)Math.floor((val2/val1)*loserHealthLoss));
-    }
-    return 1;
-  }
 
   private int calculateLostCoins(User loser, Random random) {
     return (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/ControllerConstants.BATTLE__A, loser.getLevel()*ControllerConstants.BATTLE__B));
@@ -195,121 +157,21 @@ public class BattleController extends EventController {
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips, Map<Integer, Equipment> equipmentIdsToEquipment, int level) {
     List <UserEquip> potentialLosses = new ArrayList<UserEquip>();
-    for (UserEquip defenderEquip : defenderEquips) {
-      Equipment equip = equipmentIdsToEquipment.get(defenderEquip.getEquipId());
-      if (equip.getDiamondPrice() == Equipment.NOT_SET && equip.getMinLevel() < level) {
-        double rand = Math.random();
-        if (rand <= equip.getChanceOfLoss()) {
-          potentialLosses.add(defenderEquip);
+    if (defenderEquips != null) {
+      for (UserEquip defenderEquip : defenderEquips) {
+        Equipment equip = equipmentIdsToEquipment.get(defenderEquip.getEquipId());
+        if (equip.getDiamondPrice() == Equipment.NOT_SET && equip.getMinLevel() < level) {
+          double rand = Math.random();
+          if (rand <= equip.getChanceOfLoss()) {
+            potentialLosses.add(defenderEquip);
+          }
         }
       }
-    }
-    if (potentialLosses.size() > 0) {
-      return potentialLosses.get((int)Math.rint(Math.random()*(potentialLosses.size()-1)));
+      if (potentialLosses.size() > 0) {
+        return potentialLosses.get((int)Math.rint(Math.random()*(potentialLosses.size()-1)));
+      }
     }
     return null;
   }
 
-  private double computeStat(String flag, User user, List<UserEquip> userEquips, Map<Integer, Equipment> equipmentIdsToEquipment) {
-    int skillStat = 0;
-    if (flag.equals(ATTACKER_FLAG)) skillStat = user.getAttack();
-    else if (flag.equals(DEFENDER_FLAG)) skillStat = user.getDefense();
-
-    int itemStat = computeItemStat(flag, userEquips, equipmentIdsToEquipment, user);
-
-    double lowerBound = ControllerConstants.BATTLE__X*(skillStat + itemStat/ControllerConstants.BATTLE__Z);
-    double upperBound = ControllerConstants.BATTLE__Y*(skillStat + itemStat/ControllerConstants.BATTLE__Z);
-
-    return lowerBound + Math.random()*(upperBound-lowerBound);
-  }
-
-  private int computeItemStat(String flag, List<UserEquip> userEquips, final Map<Integer, 
-      Equipment> equipmentIdsToEquipment, User user) {
-    if (userEquips == null) {
-      return 0;
-    }
-    Map<EquipType, Equipment> equipTypeToEquipmentUsed = new HashMap<EquipType, Equipment>();
-    for (UserEquip ue : userEquips) {
-      if (ue.getQuantity() < 1) {
-        continue;
-      }
-      Equipment newEquip = equipmentIdsToEquipment.get(ue.getEquipId());
-      if (newEquip.getMinLevel() > user.getLevel()) {
-        continue;
-      }
-      if (newEquip.getClassType() != MiscMethods.getClassTypeFromUserType(user.getType())) {
-        continue;
-      }
-      Equipment curBestEquip = equipTypeToEquipmentUsed.get(newEquip.getType());
-      if (curBestEquip == null) {
-        equipTypeToEquipmentUsed.put(newEquip.getType(), newEquip);
-      } else {
-        if (flag.equals(ATTACKER_FLAG)) {
-          if (newEquip.getAttackBoost() > curBestEquip.getAttackBoost()) {
-            equipTypeToEquipmentUsed.put(newEquip.getType(), newEquip);
-          }
-        } else if (flag.equals(DEFENDER_FLAG)) {
-          if (newEquip.getDefenseBoost() > curBestEquip.getDefenseBoost()) {
-            equipTypeToEquipmentUsed.put(newEquip.getType(), newEquip);
-          }
-        }
-      }
-    }
-    int itemStat = 0;
-    for (EquipType type : equipTypeToEquipmentUsed.keySet()) {
-      Equipment equip = equipTypeToEquipmentUsed.get(type);
-      if (equip != null) {
-        if (flag.equals(ATTACKER_FLAG)) {
-          itemStat += equip.getAttackBoost();
-        } else if (flag.equals(DEFENDER_FLAG)) {
-          itemStat += equip.getDefenseBoost();          
-        }
-      }
-    }
-    return itemStat;
-  }
-
-  private boolean isLegitBattle(User attacker, User defender, BattleResponseProto.Builder builder) {
-    if (attacker.getType() == UserType.GOOD_ARCHER || attacker.getType() == UserType.GOOD_MAGE ||
-        attacker.getType() == UserType.GOOD_WARRIOR) {
-      if (defender.getType() == UserType.GOOD_ARCHER || defender.getType() == UserType.GOOD_MAGE ||
-          defender.getType() == UserType.GOOD_WARRIOR) {
-        builder.setStatus(BattleStatus.OPPONENT_ON_SAME_SIDE);
-        return false;
-      }
-    }
-    if (defender.getType() == UserType.GOOD_ARCHER || defender.getType() == UserType.GOOD_MAGE ||
-        defender.getType() == UserType.GOOD_WARRIOR) {
-      if (attacker.getType() == UserType.GOOD_ARCHER || attacker.getType() == UserType.GOOD_MAGE ||
-          attacker.getType() == UserType.GOOD_WARRIOR) {
-        builder.setStatus(BattleStatus.OPPONENT_ON_SAME_SIDE);
-        return false;
-      }
-    }
-    if (attacker.getLevel() < ControllerConstants.BATTLE__MIN_BATTLE_LEVEL) {
-      builder.setStatus(BattleStatus.ATTACKER_NOT_HIGH_ENOUGH_LEVEL);
-      return false;
-    }
-    if (defender.getLevel() < ControllerConstants.BATTLE__MIN_BATTLE_LEVEL) {
-      builder.setStatus(BattleStatus.DEFENDER_NOT_HIGH_ENOUGH_LEVEL);
-      return false;
-    }
-    if (attacker.getHealth() < ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT) {
-      builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_HEALTH);
-      return false;
-    }
-    if (defender.getHealth() < ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT) {
-      builder.setStatus(BattleStatus.DEFENDER_NOT_ENOUGH_HEALTH);
-      return false;
-    }
-    if (attacker.getStamina() <= 0) {
-      builder.setStatus(BattleStatus.ATTACKER_NOT_ENOUGH_STAMINA);
-      return false;
-    }
-    if (Math.abs(attacker.getLevel() - defender.getLevel()) > ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE) {
-      builder.setStatus(BattleStatus.LEVEL_DIFFERENCE_TOO_HIGH);
-      return false;
-    }
-    return true;
-  }
 }

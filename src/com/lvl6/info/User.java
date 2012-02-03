@@ -18,7 +18,6 @@ public class User {
   private int defense;
   private int stamina;
   private int energy;
-  private int health;
   private int skillPoints;
   private int healthMax;
   private int energyMax;
@@ -42,7 +41,7 @@ public class User {
   private int numPostsInMarketplace;
 
   public User(int id, String name, int level, UserType type, int attack,
-      int defense, int stamina, int energy, int health, int skillPoints,
+      int defense, int stamina, int energy, int skillPoints,
       int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
       int wood, int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
       int marketplaceWoodEarnings, int vaultBalance, int experience,
@@ -57,7 +56,6 @@ public class User {
     this.defense = defense;
     this.stamina = stamina;
     this.energy = energy;
-    this.health = health;
     this.skillPoints = skillPoints;
     this.healthMax = healthMax;
     this.energyMax = energyMax;
@@ -115,8 +113,8 @@ public class User {
   /*
    * used for using skill points
    */
-  public boolean updateRelativeEnergyEnergymaxHealthHealthmaxStaminaStaminamaxSkillPoints 
-  (int energyChange, int energyMaxChange, int healthChange, int healthMaxChange, 
+  public boolean updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints 
+  (int energyChange, int energyMaxChange, int healthMaxChange, 
       int staminaChange, int staminaMaxChange, int skillPointsChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -125,7 +123,6 @@ public class User {
 
     if (energyChange > 0) relativeParams.put(DBConstants.USER__ENERGY, energyChange);
     if (energyMaxChange > 0) relativeParams.put(DBConstants.USER__ENERGY_MAX, energyMaxChange);
-    if (healthChange > 0) relativeParams.put(DBConstants.USER__HEALTH, healthChange);
     if (healthMaxChange > 0) relativeParams.put(DBConstants.USER__HEALTH_MAX, healthMaxChange);
     if (staminaChange > 0) relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
     if (staminaMaxChange > 0) relativeParams.put(DBConstants.USER__STAMINA_MAX, staminaMaxChange);
@@ -137,7 +134,6 @@ public class User {
     if (numUpdated == 1) {
       this.energy += energyChange;
       this.energyMax += energyMaxChange;
-      this.health += healthChange;
       this.healthMax += healthMaxChange;
       this.stamina += staminaChange;
       this.staminaMax += staminaMaxChange;
@@ -360,32 +356,6 @@ public class User {
 
 
   /*
-   * used for cleric
-   */
-  public boolean updateRelativeVaultAbsoluteHealth (int vaultChange) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER__ID, id);
-
-    Map <String, Object> relativeParams = new HashMap<String, Object>();
-    Map <String, Object> absoluteParams = new HashMap<String, Object>();
-
-    if (vaultChange != 0) {
-      relativeParams.put(DBConstants.USER__VAULT_BALANCE, vaultChange);
-      absoluteParams.put(DBConstants.USER__HEALTH, healthMax);
-    }
-
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
-        conditionParams, "and");
-    if (numUpdated == 1) {
-      this.health = healthMax;
-      this.vaultBalance += vaultChange;
-      return true;
-    }
-    return false;
-  }
-
-
-  /*
    * used for vault transactions
    */
   public boolean updateRelativeCoinsVault (int coinsChange, int vaultChange) {
@@ -409,8 +379,8 @@ public class User {
   /*
    * used for battles
    */
-  public boolean updateRelativeStaminaExperienceCoinsHealthBattleswonBattleslost (int stamina, int experience, 
-      int coins, int health, int battlesWon, int battlesLost) {
+  public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslost (int stamina, int experience, 
+      int coins, int battlesWon, int battlesLost) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -418,7 +388,6 @@ public class User {
     if (stamina != 0) relativeParams.put(DBConstants.USER__STAMINA, stamina);
     if (experience != 0) relativeParams.put(DBConstants.USER__EXPERIENCE, experience);
     if (coins != 0) relativeParams.put(DBConstants.USER__COINS, coins);
-    if (health != 0) relativeParams.put(DBConstants.USER__HEALTH, health);
     if (battlesWon != 0) relativeParams.put(DBConstants.USER__BATTLES_WON, battlesWon);
     if (battlesLost != 0) relativeParams.put(DBConstants.USER__BATTLES_LOST, battlesLost);
 
@@ -428,7 +397,6 @@ public class User {
       this.stamina += stamina;
       this.experience += experience;
       this.coins += coins;
-      this.health += health;
       this.battlesWon += battlesWon;
       this.battlesLost += battlesLost;
       return true;
@@ -466,10 +434,6 @@ public class User {
 
   public int getEnergy() {
     return energy;
-  }
-
-  public int getHealth() {
-    return health;
   }
 
   public int getSkillPoints() {
@@ -560,8 +524,7 @@ public class User {
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
         + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
-        + stamina + ", energy=" + energy + ", health=" + health
-        + ", skillPoints=" + skillPoints + ", healthMax=" + healthMax
+        + stamina + ", energy=" + energy + ", skillPoints=" + skillPoints + ", healthMax=" + healthMax
         + ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
         + ", diamonds=" + diamonds + ", coins=" + coins + ", wood=" + wood
         + ", marketplaceDiamondsEarnings=" + marketplaceDiamondsEarnings

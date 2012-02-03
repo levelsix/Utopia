@@ -65,7 +65,7 @@ public class CreateInfoProtoUtils {
     FullUserProto ftp = FullUserProto.newBuilder().setUserId(user.getId()).setName(user.getName())
         .setLevel(user.getLevel()).setUserType(user.getType()).setAttack(user.getAttack())
         .setDefense(user.getDefense()).setStamina(user.getStamina()).setEnergy(user.getEnergy())
-        .setHealth(user.getHealth()).setSkillPoints(user.getSkillPoints()).setHealthMax(user.getHealthMax())
+        .setSkillPoints(user.getSkillPoints()).setHealthMax(user.getHealthMax())
         .setEnergyMax(user.getEnergyMax()).setStaminaMax(user.getStaminaMax()).setDiamonds(user.getDiamonds())
         .setCoins(user.getCoins()).setWood(user.getWood()).setMarketplaceDiamondsEarnings(user.getMarketplaceDiamondsEarnings())
         .setMarketplaceCoinsEarnings(user.getMarketplaceCoinsEarnings()).setMarketplaceWoodEarnings(user.getMarketplaceWoodEarnings())

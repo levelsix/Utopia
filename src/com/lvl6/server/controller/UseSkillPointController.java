@@ -96,15 +96,15 @@ public class UseSkillPointController extends EventController {
         log.error("error in changing defense stats");
       }
     } else if (boostType == BoostType.ENERGY) {
-      if (!user.updateRelativeEnergyEnergymaxHealthHealthmaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, 0, 0, cost*-1)){
+      if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, 0, cost*-1)){
         log.error("error in changing energy stats");
       }
     } else if (boostType == BoostType.HEALTH) {
-      if (!user.updateRelativeEnergyEnergymaxHealthHealthmaxStaminaStaminamaxSkillPoints(0, 0, gain, gain, 0, 0, cost*-1)){
+      if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(0, 0, gain, 0, 0, cost*-1)){
         log.error("error in changing health stats");
       }
     } else if (boostType == BoostType.STAMINA) {
-      if (!user.updateRelativeEnergyEnergymaxHealthHealthmaxStaminaStaminamaxSkillPoints(0, 0, 0, 0, gain, gain, cost*-1)){
+      if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(0, 0, 0, gain, gain, cost*-1)){
         log.error("error in changing stamina stats");
       }
     } 

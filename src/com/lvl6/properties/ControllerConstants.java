@@ -35,7 +35,6 @@ public class ControllerConstants {
   public static final int BATTLE__MIN_DAMAGE_DEALT_TO_LOSER = BATTLE__MAX_DAMAGE - 10;
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 50;
   public static final int BATTLE__MIN_BATTLE_LEVEL = 3;
-  public static final int BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT = BATTLE__MAX_DAMAGE+1;
   public static final int BATTLE__MIN_EXP_GAIN = 1;
   public static final int BATTLE__MAX_EXP_GAIN = 5;
   

@@ -26,7 +26,6 @@ public class UserRetrieveUtils {
   private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
   private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
   private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
-  private static final int MIN_BATTLE_HEALTH_REQUIREMENT = ControllerConstants.BATTLE__MIN_BATTLE_HEALTH_REQUIREMENT;
   private static final int MAX_BATTLE_DB_HITS = 5;
 
   public static User getUserById(int userId) {
@@ -51,8 +50,7 @@ public class UserRetrieveUtils {
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
     
-    String query = "select * from " + TABLE_NAME + " where "+ DBConstants.USER__HEALTH + ">= "+ 
-        MIN_BATTLE_HEALTH_REQUIREMENT +" and (" + DBConstants.USER__TYPE + 
+    String query = "select * from " + TABLE_NAME + " where (" + DBConstants.USER__TYPE + 
         "=? or " + DBConstants.USER__TYPE + "=? or " + DBConstants.USER__TYPE + "=?) and " +
         DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
     
@@ -141,7 +139,6 @@ public class UserRetrieveUtils {
     int defense = rs.getInt(i++);
     int stamina = rs.getInt(i++);
     int energy = rs.getInt(i++);
-    int health = rs.getInt(i++);
     int skillPoints = rs.getInt(i++);
     int healthMax = rs.getInt(i++);
     int energyMax = rs.getInt(i++);
@@ -163,7 +160,7 @@ public class UserRetrieveUtils {
     String udid = rs.getString(i++);
     Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
     int numPostsInMarketplace = rs.getInt(i++);
-    User user = new User(userId, name, level, type, attack, defense, stamina, energy, health, skillPoints, 
+    User user = new User(userId, name, level, type, attack, defense, stamina, energy, skillPoints, 
         healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         marketplaceWoodEarnings, vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace);

@@ -28,7 +28,6 @@ message FullUserProto {
 	required int32 defense = 6;
 	required int32 stamina = 7;
 	required int32 energy = 8;
-	required int32 health = 9;
 	required int32 skillPoints = 10;
 	required int32 healthMax = 11;
 	required int32 energyMax = 12;
