@@ -351,7 +351,7 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-
+																						//DONE
 message CriticalStructureActionRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto critStructCoordinates = 2;
@@ -364,6 +364,7 @@ message CriticalStructureActionRequestProto {
 	}
 }
 
+																						//DONE
 message CriticalStructureActionResponseProto {
 	required MinimumUserProto sender = 1;
 	required CriticalStructureAction status = 3;
@@ -634,6 +635,7 @@ message NormStructBuildsCompleteRequestProto {
 	repeated int32 userStructId = 2;
 }
 
+																						//DONE
 message NormStructBuildsCompleteResponseProto {
      required MinimumUserProto sender = 1;
      required NormStructBuildsCompleteStatus status = 2;
@@ -661,5 +663,31 @@ message RedeemMarketplaceEarningsResponseProto {
      enum RedeemMarketplaceEarningsStatus {
      	SUCCESS = 0;
      	OTHER_FAIL = 1;
+     }
+}
+//------------------------------------------------------------------------------------------
+
+message LoadPlayerCityRequestProto {
+	required MinimumUserProto sender = 1;
+	required MinimumUserProto cityOwner = 2;
+}
+
+message LoadPlayerCityResponseProto {
+    required MinimumUserProto sender = 1;
+	required LoadPlayerCityStatus status = 2;
+	repeated FullUserStructureProto ownerNormStructs = 3;
+	repeated FullUserProto ownerAllies = 4;
+
+    optional CoordinateProto armoryCoords = 5;
+    optional CoordinateProto vaultCoords = 6;
+    optional CoordinateProto marketplaceCoords = 7;
+    required CoordinateProto lumbermillCoords = 8;
+    required CoordinateProto carpenterCoords = 9;
+    required CoordinateProto aviaryCoords = 10;
+     
+    enum LoadPlayerCityStatus {
+     	SUCCESS = 0;
+     	NO_SUCH_PLAYER = 1;
+     	OTHER_FAIL = 2;
      }
 }

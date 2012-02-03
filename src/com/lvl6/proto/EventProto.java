@@ -38397,6 +38397,2703 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.RedeemMarketplaceEarningsResponseProto)
   }
   
+  public interface LoadPlayerCityRequestProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+    boolean hasCityOwner();
+    com.lvl6.proto.InfoProto.MinimumUserProto getCityOwner();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getCityOwnerOrBuilder();
+  }
+  public static final class LoadPlayerCityRequestProto extends
+      com.google.protobuf.GeneratedMessage
+      implements LoadPlayerCityRequestProtoOrBuilder {
+    // Use LoadPlayerCityRequestProto.newBuilder() to construct.
+    private LoadPlayerCityRequestProto(Builder builder) {
+      super(builder);
+    }
+    private LoadPlayerCityRequestProto(boolean noInit) {}
+    
+    private static final LoadPlayerCityRequestProto defaultInstance;
+    public static LoadPlayerCityRequestProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public LoadPlayerCityRequestProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+    public static final int CITYOWNER_FIELD_NUMBER = 2;
+    private com.lvl6.proto.InfoProto.MinimumUserProto cityOwner_;
+    public boolean hasCityOwner() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getCityOwner() {
+      return cityOwner_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getCityOwnerOrBuilder() {
+      return cityOwner_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      cityOwner_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCityOwner()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getCityOwner().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, cityOwner_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, cityOwner_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.LoadPlayerCityRequestProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.LoadPlayerCityRequestProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.LoadPlayerCityRequestProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+          getCityOwnerFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (cityOwnerBuilder_ == null) {
+          cityOwner_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          cityOwnerBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.LoadPlayerCityRequestProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadPlayerCityRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.LoadPlayerCityRequestProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadPlayerCityRequestProto build() {
+        com.lvl6.proto.EventProto.LoadPlayerCityRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.LoadPlayerCityRequestProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.LoadPlayerCityRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.LoadPlayerCityRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.LoadPlayerCityRequestProto result = new com.lvl6.proto.EventProto.LoadPlayerCityRequestProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (cityOwnerBuilder_ == null) {
+          result.cityOwner_ = cityOwner_;
+        } else {
+          result.cityOwner_ = cityOwnerBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.LoadPlayerCityRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.LoadPlayerCityRequestProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.LoadPlayerCityRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.LoadPlayerCityRequestProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasCityOwner()) {
+          mergeCityOwner(other.getCityOwner());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasCityOwner()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        if (!getCityOwner().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 18: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasCityOwner()) {
+                subBuilder.mergeFrom(getCityOwner());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setCityOwner(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+      private com.lvl6.proto.InfoProto.MinimumUserProto cityOwner_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> cityOwnerBuilder_;
+      public boolean hasCityOwner() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getCityOwner() {
+        if (cityOwnerBuilder_ == null) {
+          return cityOwner_;
+        } else {
+          return cityOwnerBuilder_.getMessage();
+        }
+      }
+      public Builder setCityOwner(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (cityOwnerBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          cityOwner_ = value;
+          onChanged();
+        } else {
+          cityOwnerBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder setCityOwner(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (cityOwnerBuilder_ == null) {
+          cityOwner_ = builderForValue.build();
+          onChanged();
+        } else {
+          cityOwnerBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder mergeCityOwner(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (cityOwnerBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              cityOwner_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            cityOwner_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(cityOwner_).mergeFrom(value).buildPartial();
+          } else {
+            cityOwner_ = value;
+          }
+          onChanged();
+        } else {
+          cityOwnerBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder clearCityOwner() {
+        if (cityOwnerBuilder_ == null) {
+          cityOwner_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          cityOwnerBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getCityOwnerBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getCityOwnerFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getCityOwnerOrBuilder() {
+        if (cityOwnerBuilder_ != null) {
+          return cityOwnerBuilder_.getMessageOrBuilder();
+        } else {
+          return cityOwner_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getCityOwnerFieldBuilder() {
+        if (cityOwnerBuilder_ == null) {
+          cityOwnerBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  cityOwner_,
+                  getParentForChildren(),
+                  isClean());
+          cityOwner_ = null;
+        }
+        return cityOwnerBuilder_;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LoadPlayerCityRequestProto)
+    }
+    
+    static {
+      defaultInstance = new LoadPlayerCityRequestProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LoadPlayerCityRequestProto)
+  }
+  
+  public interface LoadPlayerCityResponseProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 2;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus getStatus();
+    
+    // repeated .com.lvl6.proto.FullUserStructureProto ownerNormStructs = 3;
+    java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> 
+        getOwnerNormStructsList();
+    com.lvl6.proto.InfoProto.FullUserStructureProto getOwnerNormStructs(int index);
+    int getOwnerNormStructsCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+        getOwnerNormStructsOrBuilderList();
+    com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getOwnerNormStructsOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.FullUserProto ownerAllies = 4;
+    java.util.List<com.lvl6.proto.InfoProto.FullUserProto> 
+        getOwnerAlliesList();
+    com.lvl6.proto.InfoProto.FullUserProto getOwnerAllies(int index);
+    int getOwnerAlliesCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+        getOwnerAlliesOrBuilderList();
+    com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getOwnerAlliesOrBuilder(
+        int index);
+    
+    // optional .com.lvl6.proto.CoordinateProto armoryCoords = 5;
+    boolean hasArmoryCoords();
+    com.lvl6.proto.InfoProto.CoordinateProto getArmoryCoords();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getArmoryCoordsOrBuilder();
+    
+    // optional .com.lvl6.proto.CoordinateProto vaultCoords = 6;
+    boolean hasVaultCoords();
+    com.lvl6.proto.InfoProto.CoordinateProto getVaultCoords();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getVaultCoordsOrBuilder();
+    
+    // optional .com.lvl6.proto.CoordinateProto marketplaceCoords = 7;
+    boolean hasMarketplaceCoords();
+    com.lvl6.proto.InfoProto.CoordinateProto getMarketplaceCoords();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getMarketplaceCoordsOrBuilder();
+    
+    // required .com.lvl6.proto.CoordinateProto lumbermillCoords = 8;
+    boolean hasLumbermillCoords();
+    com.lvl6.proto.InfoProto.CoordinateProto getLumbermillCoords();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getLumbermillCoordsOrBuilder();
+    
+    // required .com.lvl6.proto.CoordinateProto carpenterCoords = 9;
+    boolean hasCarpenterCoords();
+    com.lvl6.proto.InfoProto.CoordinateProto getCarpenterCoords();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCarpenterCoordsOrBuilder();
+    
+    // required .com.lvl6.proto.CoordinateProto aviaryCoords = 10;
+    boolean hasAviaryCoords();
+    com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder();
+  }
+  public static final class LoadPlayerCityResponseProto extends
+      com.google.protobuf.GeneratedMessage
+      implements LoadPlayerCityResponseProtoOrBuilder {
+    // Use LoadPlayerCityResponseProto.newBuilder() to construct.
+    private LoadPlayerCityResponseProto(Builder builder) {
+      super(builder);
+    }
+    private LoadPlayerCityResponseProto(boolean noInit) {}
+    
+    private static final LoadPlayerCityResponseProto defaultInstance;
+    public static LoadPlayerCityResponseProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public LoadPlayerCityResponseProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_fieldAccessorTable;
+    }
+    
+    public enum LoadPlayerCityStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SUCCESS(0, 0),
+      NO_SUCH_PLAYER(1, 1),
+      OTHER_FAIL(2, 2),
+      ;
+      
+      public static final int SUCCESS_VALUE = 0;
+      public static final int NO_SUCH_PLAYER_VALUE = 1;
+      public static final int OTHER_FAIL_VALUE = 2;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static LoadPlayerCityStatus valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return NO_SUCH_PLAYER;
+          case 2: return OTHER_FAIL;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<LoadPlayerCityStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<LoadPlayerCityStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<LoadPlayerCityStatus>() {
+              public LoadPlayerCityStatus findValueByNumber(int number) {
+                return LoadPlayerCityStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final LoadPlayerCityStatus[] VALUES = {
+        SUCCESS, NO_SUCH_PLAYER, OTHER_FAIL, 
+      };
+      
+      public static LoadPlayerCityStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private LoadPlayerCityStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 2;
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus getStatus() {
+      return status_;
+    }
+    
+    // repeated .com.lvl6.proto.FullUserStructureProto ownerNormStructs = 3;
+    public static final int OWNERNORMSTRUCTS_FIELD_NUMBER = 3;
+    private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> ownerNormStructs_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getOwnerNormStructsList() {
+      return ownerNormStructs_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+        getOwnerNormStructsOrBuilderList() {
+      return ownerNormStructs_;
+    }
+    public int getOwnerNormStructsCount() {
+      return ownerNormStructs_.size();
+    }
+    public com.lvl6.proto.InfoProto.FullUserStructureProto getOwnerNormStructs(int index) {
+      return ownerNormStructs_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getOwnerNormStructsOrBuilder(
+        int index) {
+      return ownerNormStructs_.get(index);
+    }
+    
+    // repeated .com.lvl6.proto.FullUserProto ownerAllies = 4;
+    public static final int OWNERALLIES_FIELD_NUMBER = 4;
+    private java.util.List<com.lvl6.proto.InfoProto.FullUserProto> ownerAllies_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullUserProto> getOwnerAlliesList() {
+      return ownerAllies_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+        getOwnerAlliesOrBuilderList() {
+      return ownerAllies_;
+    }
+    public int getOwnerAlliesCount() {
+      return ownerAllies_.size();
+    }
+    public com.lvl6.proto.InfoProto.FullUserProto getOwnerAllies(int index) {
+      return ownerAllies_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getOwnerAlliesOrBuilder(
+        int index) {
+      return ownerAllies_.get(index);
+    }
+    
+    // optional .com.lvl6.proto.CoordinateProto armoryCoords = 5;
+    public static final int ARMORYCOORDS_FIELD_NUMBER = 5;
+    private com.lvl6.proto.InfoProto.CoordinateProto armoryCoords_;
+    public boolean hasArmoryCoords() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProto getArmoryCoords() {
+      return armoryCoords_;
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getArmoryCoordsOrBuilder() {
+      return armoryCoords_;
+    }
+    
+    // optional .com.lvl6.proto.CoordinateProto vaultCoords = 6;
+    public static final int VAULTCOORDS_FIELD_NUMBER = 6;
+    private com.lvl6.proto.InfoProto.CoordinateProto vaultCoords_;
+    public boolean hasVaultCoords() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProto getVaultCoords() {
+      return vaultCoords_;
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getVaultCoordsOrBuilder() {
+      return vaultCoords_;
+    }
+    
+    // optional .com.lvl6.proto.CoordinateProto marketplaceCoords = 7;
+    public static final int MARKETPLACECOORDS_FIELD_NUMBER = 7;
+    private com.lvl6.proto.InfoProto.CoordinateProto marketplaceCoords_;
+    public boolean hasMarketplaceCoords() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProto getMarketplaceCoords() {
+      return marketplaceCoords_;
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getMarketplaceCoordsOrBuilder() {
+      return marketplaceCoords_;
+    }
+    
+    // required .com.lvl6.proto.CoordinateProto lumbermillCoords = 8;
+    public static final int LUMBERMILLCOORDS_FIELD_NUMBER = 8;
+    private com.lvl6.proto.InfoProto.CoordinateProto lumbermillCoords_;
+    public boolean hasLumbermillCoords() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProto getLumbermillCoords() {
+      return lumbermillCoords_;
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getLumbermillCoordsOrBuilder() {
+      return lumbermillCoords_;
+    }
+    
+    // required .com.lvl6.proto.CoordinateProto carpenterCoords = 9;
+    public static final int CARPENTERCOORDS_FIELD_NUMBER = 9;
+    private com.lvl6.proto.InfoProto.CoordinateProto carpenterCoords_;
+    public boolean hasCarpenterCoords() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProto getCarpenterCoords() {
+      return carpenterCoords_;
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCarpenterCoordsOrBuilder() {
+      return carpenterCoords_;
+    }
+    
+    // required .com.lvl6.proto.CoordinateProto aviaryCoords = 10;
+    public static final int AVIARYCOORDS_FIELD_NUMBER = 10;
+    private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_;
+    public boolean hasAviaryCoords() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords() {
+      return aviaryCoords_;
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder() {
+      return aviaryCoords_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      status_ = com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS;
+      ownerNormStructs_ = java.util.Collections.emptyList();
+      ownerAllies_ = java.util.Collections.emptyList();
+      armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasLumbermillCoords()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCarpenterCoords()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasAviaryCoords()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getOwnerNormStructsCount(); i++) {
+        if (!getOwnerNormStructs(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getOwnerAlliesCount(); i++) {
+        if (!getOwnerAllies(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasArmoryCoords()) {
+        if (!getArmoryCoords().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasVaultCoords()) {
+        if (!getVaultCoords().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasMarketplaceCoords()) {
+        if (!getMarketplaceCoords().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (!getLumbermillCoords().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getCarpenterCoords().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getAviaryCoords().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
+      }
+      for (int i = 0; i < ownerNormStructs_.size(); i++) {
+        output.writeMessage(3, ownerNormStructs_.get(i));
+      }
+      for (int i = 0; i < ownerAllies_.size(); i++) {
+        output.writeMessage(4, ownerAllies_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(5, armoryCoords_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(6, vaultCoords_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeMessage(7, marketplaceCoords_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeMessage(8, lumbermillCoords_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeMessage(9, carpenterCoords_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeMessage(10, aviaryCoords_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
+      }
+      for (int i = 0; i < ownerNormStructs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, ownerNormStructs_.get(i));
+      }
+      for (int i = 0; i < ownerAllies_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, ownerAllies_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, armoryCoords_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, vaultCoords_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, marketplaceCoords_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, lumbermillCoords_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, carpenterCoords_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, aviaryCoords_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadPlayerCityResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.LoadPlayerCityResponseProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.LoadPlayerCityResponseProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+          getOwnerNormStructsFieldBuilder();
+          getOwnerAlliesFieldBuilder();
+          getArmoryCoordsFieldBuilder();
+          getVaultCoordsFieldBuilder();
+          getMarketplaceCoordsFieldBuilder();
+          getLumbermillCoordsFieldBuilder();
+          getCarpenterCoordsFieldBuilder();
+          getAviaryCoordsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (ownerNormStructsBuilder_ == null) {
+          ownerNormStructs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          ownerNormStructsBuilder_.clear();
+        }
+        if (ownerAlliesBuilder_ == null) {
+          ownerAllies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          ownerAlliesBuilder_.clear();
+        }
+        if (armoryCoordsBuilder_ == null) {
+          armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          armoryCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        if (vaultCoordsBuilder_ == null) {
+          vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          vaultCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000020);
+        if (marketplaceCoordsBuilder_ == null) {
+          marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          marketplaceCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
+        if (lumbermillCoordsBuilder_ == null) {
+          lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          lumbermillCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000080);
+        if (carpenterCoordsBuilder_ == null) {
+          carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          carpenterCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000100);
+        if (aviaryCoordsBuilder_ == null) {
+          aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          aviaryCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000200);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadPlayerCityResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadPlayerCityResponseProto build() {
+        com.lvl6.proto.EventProto.LoadPlayerCityResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.LoadPlayerCityResponseProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.LoadPlayerCityResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.LoadPlayerCityResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.LoadPlayerCityResponseProto result = new com.lvl6.proto.EventProto.LoadPlayerCityResponseProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        if (ownerNormStructsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            ownerNormStructs_ = java.util.Collections.unmodifiableList(ownerNormStructs_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.ownerNormStructs_ = ownerNormStructs_;
+        } else {
+          result.ownerNormStructs_ = ownerNormStructsBuilder_.build();
+        }
+        if (ownerAlliesBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            ownerAllies_ = java.util.Collections.unmodifiableList(ownerAllies_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.ownerAllies_ = ownerAllies_;
+        } else {
+          result.ownerAllies_ = ownerAlliesBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (armoryCoordsBuilder_ == null) {
+          result.armoryCoords_ = armoryCoords_;
+        } else {
+          result.armoryCoords_ = armoryCoordsBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        if (vaultCoordsBuilder_ == null) {
+          result.vaultCoords_ = vaultCoords_;
+        } else {
+          result.vaultCoords_ = vaultCoordsBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        if (marketplaceCoordsBuilder_ == null) {
+          result.marketplaceCoords_ = marketplaceCoords_;
+        } else {
+          result.marketplaceCoords_ = marketplaceCoordsBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        if (lumbermillCoordsBuilder_ == null) {
+          result.lumbermillCoords_ = lumbermillCoords_;
+        } else {
+          result.lumbermillCoords_ = lumbermillCoordsBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        if (carpenterCoordsBuilder_ == null) {
+          result.carpenterCoords_ = carpenterCoords_;
+        } else {
+          result.carpenterCoords_ = carpenterCoordsBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        if (aviaryCoordsBuilder_ == null) {
+          result.aviaryCoords_ = aviaryCoords_;
+        } else {
+          result.aviaryCoords_ = aviaryCoordsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.LoadPlayerCityResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.LoadPlayerCityResponseProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.LoadPlayerCityResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        if (ownerNormStructsBuilder_ == null) {
+          if (!other.ownerNormStructs_.isEmpty()) {
+            if (ownerNormStructs_.isEmpty()) {
+              ownerNormStructs_ = other.ownerNormStructs_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureOwnerNormStructsIsMutable();
+              ownerNormStructs_.addAll(other.ownerNormStructs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.ownerNormStructs_.isEmpty()) {
+            if (ownerNormStructsBuilder_.isEmpty()) {
+              ownerNormStructsBuilder_.dispose();
+              ownerNormStructsBuilder_ = null;
+              ownerNormStructs_ = other.ownerNormStructs_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              ownerNormStructsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getOwnerNormStructsFieldBuilder() : null;
+            } else {
+              ownerNormStructsBuilder_.addAllMessages(other.ownerNormStructs_);
+            }
+          }
+        }
+        if (ownerAlliesBuilder_ == null) {
+          if (!other.ownerAllies_.isEmpty()) {
+            if (ownerAllies_.isEmpty()) {
+              ownerAllies_ = other.ownerAllies_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureOwnerAlliesIsMutable();
+              ownerAllies_.addAll(other.ownerAllies_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.ownerAllies_.isEmpty()) {
+            if (ownerAlliesBuilder_.isEmpty()) {
+              ownerAlliesBuilder_.dispose();
+              ownerAlliesBuilder_ = null;
+              ownerAllies_ = other.ownerAllies_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              ownerAlliesBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getOwnerAlliesFieldBuilder() : null;
+            } else {
+              ownerAlliesBuilder_.addAllMessages(other.ownerAllies_);
+            }
+          }
+        }
+        if (other.hasArmoryCoords()) {
+          mergeArmoryCoords(other.getArmoryCoords());
+        }
+        if (other.hasVaultCoords()) {
+          mergeVaultCoords(other.getVaultCoords());
+        }
+        if (other.hasMarketplaceCoords()) {
+          mergeMarketplaceCoords(other.getMarketplaceCoords());
+        }
+        if (other.hasLumbermillCoords()) {
+          mergeLumbermillCoords(other.getLumbermillCoords());
+        }
+        if (other.hasCarpenterCoords()) {
+          mergeCarpenterCoords(other.getCarpenterCoords());
+        }
+        if (other.hasAviaryCoords()) {
+          mergeAviaryCoords(other.getAviaryCoords());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!hasLumbermillCoords()) {
+          
+          return false;
+        }
+        if (!hasCarpenterCoords()) {
+          
+          return false;
+        }
+        if (!hasAviaryCoords()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        for (int i = 0; i < getOwnerNormStructsCount(); i++) {
+          if (!getOwnerNormStructs(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getOwnerAlliesCount(); i++) {
+          if (!getOwnerAllies(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasArmoryCoords()) {
+          if (!getArmoryCoords().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasVaultCoords()) {
+          if (!getVaultCoords().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasMarketplaceCoords()) {
+          if (!getMarketplaceCoords().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (!getLumbermillCoords().isInitialized()) {
+          
+          return false;
+        }
+        if (!getCarpenterCoords().isInitialized()) {
+          
+          return false;
+        }
+        if (!getAviaryCoords().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus value = com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                status_ = value;
+              }
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.FullUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserStructureProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addOwnerNormStructs(subBuilder.buildPartial());
+              break;
+            }
+            case 34: {
+              com.lvl6.proto.InfoProto.FullUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addOwnerAllies(subBuilder.buildPartial());
+              break;
+            }
+            case 42: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasArmoryCoords()) {
+                subBuilder.mergeFrom(getArmoryCoords());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setArmoryCoords(subBuilder.buildPartial());
+              break;
+            }
+            case 50: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasVaultCoords()) {
+                subBuilder.mergeFrom(getVaultCoords());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setVaultCoords(subBuilder.buildPartial());
+              break;
+            }
+            case 58: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasMarketplaceCoords()) {
+                subBuilder.mergeFrom(getMarketplaceCoords());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setMarketplaceCoords(subBuilder.buildPartial());
+              break;
+            }
+            case 66: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasLumbermillCoords()) {
+                subBuilder.mergeFrom(getLumbermillCoords());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setLumbermillCoords(subBuilder.buildPartial());
+              break;
+            }
+            case 74: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasCarpenterCoords()) {
+                subBuilder.mergeFrom(getCarpenterCoords());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setCarpenterCoords(subBuilder.buildPartial());
+              break;
+            }
+            case 82: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasAviaryCoords()) {
+                subBuilder.mergeFrom(getAviaryCoords());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setAviaryCoords(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 2;
+      private com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status_ = com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus getStatus() {
+        return status_;
+      }
+      public Builder setStatus(com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS;
+        onChanged();
+        return this;
+      }
+      
+      // repeated .com.lvl6.proto.FullUserStructureProto ownerNormStructs = 3;
+      private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> ownerNormStructs_ =
+        java.util.Collections.emptyList();
+      private void ensureOwnerNormStructsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          ownerNormStructs_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserStructureProto>(ownerNormStructs_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> ownerNormStructsBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getOwnerNormStructsList() {
+        if (ownerNormStructsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(ownerNormStructs_);
+        } else {
+          return ownerNormStructsBuilder_.getMessageList();
+        }
+      }
+      public int getOwnerNormStructsCount() {
+        if (ownerNormStructsBuilder_ == null) {
+          return ownerNormStructs_.size();
+        } else {
+          return ownerNormStructsBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto getOwnerNormStructs(int index) {
+        if (ownerNormStructsBuilder_ == null) {
+          return ownerNormStructs_.get(index);
+        } else {
+          return ownerNormStructsBuilder_.getMessage(index);
+        }
+      }
+      public Builder setOwnerNormStructs(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
+        if (ownerNormStructsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOwnerNormStructsIsMutable();
+          ownerNormStructs_.set(index, value);
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setOwnerNormStructs(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
+        if (ownerNormStructsBuilder_ == null) {
+          ensureOwnerNormStructsIsMutable();
+          ownerNormStructs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addOwnerNormStructs(com.lvl6.proto.InfoProto.FullUserStructureProto value) {
+        if (ownerNormStructsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOwnerNormStructsIsMutable();
+          ownerNormStructs_.add(value);
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addOwnerNormStructs(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
+        if (ownerNormStructsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOwnerNormStructsIsMutable();
+          ownerNormStructs_.add(index, value);
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addOwnerNormStructs(
+          com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
+        if (ownerNormStructsBuilder_ == null) {
+          ensureOwnerNormStructsIsMutable();
+          ownerNormStructs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addOwnerNormStructs(
+          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
+        if (ownerNormStructsBuilder_ == null) {
+          ensureOwnerNormStructsIsMutable();
+          ownerNormStructs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllOwnerNormStructs(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserStructureProto> values) {
+        if (ownerNormStructsBuilder_ == null) {
+          ensureOwnerNormStructsIsMutable();
+          super.addAll(values, ownerNormStructs_);
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearOwnerNormStructs() {
+        if (ownerNormStructsBuilder_ == null) {
+          ownerNormStructs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeOwnerNormStructs(int index) {
+        if (ownerNormStructsBuilder_ == null) {
+          ensureOwnerNormStructsIsMutable();
+          ownerNormStructs_.remove(index);
+          onChanged();
+        } else {
+          ownerNormStructsBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder getOwnerNormStructsBuilder(
+          int index) {
+        return getOwnerNormStructsFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getOwnerNormStructsOrBuilder(
+          int index) {
+        if (ownerNormStructsBuilder_ == null) {
+          return ownerNormStructs_.get(index);  } else {
+          return ownerNormStructsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+           getOwnerNormStructsOrBuilderList() {
+        if (ownerNormStructsBuilder_ != null) {
+          return ownerNormStructsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(ownerNormStructs_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addOwnerNormStructsBuilder() {
+        return getOwnerNormStructsFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addOwnerNormStructsBuilder(
+          int index) {
+        return getOwnerNormStructsFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto.Builder> 
+           getOwnerNormStructsBuilderList() {
+        return getOwnerNormStructsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
+          getOwnerNormStructsFieldBuilder() {
+        if (ownerNormStructsBuilder_ == null) {
+          ownerNormStructsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder>(
+                  ownerNormStructs_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          ownerNormStructs_ = null;
+        }
+        return ownerNormStructsBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.FullUserProto ownerAllies = 4;
+      private java.util.List<com.lvl6.proto.InfoProto.FullUserProto> ownerAllies_ =
+        java.util.Collections.emptyList();
+      private void ensureOwnerAlliesIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          ownerAllies_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserProto>(ownerAllies_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> ownerAlliesBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserProto> getOwnerAlliesList() {
+        if (ownerAlliesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(ownerAllies_);
+        } else {
+          return ownerAlliesBuilder_.getMessageList();
+        }
+      }
+      public int getOwnerAlliesCount() {
+        if (ownerAlliesBuilder_ == null) {
+          return ownerAllies_.size();
+        } else {
+          return ownerAlliesBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto getOwnerAllies(int index) {
+        if (ownerAlliesBuilder_ == null) {
+          return ownerAllies_.get(index);
+        } else {
+          return ownerAlliesBuilder_.getMessage(index);
+        }
+      }
+      public Builder setOwnerAllies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto value) {
+        if (ownerAlliesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOwnerAlliesIsMutable();
+          ownerAllies_.set(index, value);
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setOwnerAllies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+        if (ownerAlliesBuilder_ == null) {
+          ensureOwnerAlliesIsMutable();
+          ownerAllies_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addOwnerAllies(com.lvl6.proto.InfoProto.FullUserProto value) {
+        if (ownerAlliesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOwnerAlliesIsMutable();
+          ownerAllies_.add(value);
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addOwnerAllies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto value) {
+        if (ownerAlliesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOwnerAlliesIsMutable();
+          ownerAllies_.add(index, value);
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addOwnerAllies(
+          com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+        if (ownerAlliesBuilder_ == null) {
+          ensureOwnerAlliesIsMutable();
+          ownerAllies_.add(builderForValue.build());
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addOwnerAllies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+        if (ownerAlliesBuilder_ == null) {
+          ensureOwnerAlliesIsMutable();
+          ownerAllies_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllOwnerAllies(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserProto> values) {
+        if (ownerAlliesBuilder_ == null) {
+          ensureOwnerAlliesIsMutable();
+          super.addAll(values, ownerAllies_);
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearOwnerAllies() {
+        if (ownerAlliesBuilder_ == null) {
+          ownerAllies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeOwnerAllies(int index) {
+        if (ownerAlliesBuilder_ == null) {
+          ensureOwnerAlliesIsMutable();
+          ownerAllies_.remove(index);
+          onChanged();
+        } else {
+          ownerAlliesBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto.Builder getOwnerAlliesBuilder(
+          int index) {
+        return getOwnerAlliesFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getOwnerAlliesOrBuilder(
+          int index) {
+        if (ownerAlliesBuilder_ == null) {
+          return ownerAllies_.get(index);  } else {
+          return ownerAlliesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+           getOwnerAlliesOrBuilderList() {
+        if (ownerAlliesBuilder_ != null) {
+          return ownerAlliesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(ownerAllies_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto.Builder addOwnerAlliesBuilder() {
+        return getOwnerAlliesFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto.Builder addOwnerAlliesBuilder(
+          int index) {
+        return getOwnerAlliesFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserProto.Builder> 
+           getOwnerAlliesBuilderList() {
+        return getOwnerAlliesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+          getOwnerAlliesFieldBuilder() {
+        if (ownerAlliesBuilder_ == null) {
+          ownerAlliesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder>(
+                  ownerAllies_,
+                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  getParentForChildren(),
+                  isClean());
+          ownerAllies_ = null;
+        }
+        return ownerAlliesBuilder_;
+      }
+      
+      // optional .com.lvl6.proto.CoordinateProto armoryCoords = 5;
+      private com.lvl6.proto.InfoProto.CoordinateProto armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> armoryCoordsBuilder_;
+      public boolean hasArmoryCoords() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto getArmoryCoords() {
+        if (armoryCoordsBuilder_ == null) {
+          return armoryCoords_;
+        } else {
+          return armoryCoordsBuilder_.getMessage();
+        }
+      }
+      public Builder setArmoryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (armoryCoordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          armoryCoords_ = value;
+          onChanged();
+        } else {
+          armoryCoordsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      public Builder setArmoryCoords(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (armoryCoordsBuilder_ == null) {
+          armoryCoords_ = builderForValue.build();
+          onChanged();
+        } else {
+          armoryCoordsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      public Builder mergeArmoryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (armoryCoordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010) &&
+              armoryCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            armoryCoords_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(armoryCoords_).mergeFrom(value).buildPartial();
+          } else {
+            armoryCoords_ = value;
+          }
+          onChanged();
+        } else {
+          armoryCoordsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      public Builder clearArmoryCoords() {
+        if (armoryCoordsBuilder_ == null) {
+          armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          armoryCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getArmoryCoordsBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getArmoryCoordsFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getArmoryCoordsOrBuilder() {
+        if (armoryCoordsBuilder_ != null) {
+          return armoryCoordsBuilder_.getMessageOrBuilder();
+        } else {
+          return armoryCoords_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getArmoryCoordsFieldBuilder() {
+        if (armoryCoordsBuilder_ == null) {
+          armoryCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  armoryCoords_,
+                  getParentForChildren(),
+                  isClean());
+          armoryCoords_ = null;
+        }
+        return armoryCoordsBuilder_;
+      }
+      
+      // optional .com.lvl6.proto.CoordinateProto vaultCoords = 6;
+      private com.lvl6.proto.InfoProto.CoordinateProto vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> vaultCoordsBuilder_;
+      public boolean hasVaultCoords() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto getVaultCoords() {
+        if (vaultCoordsBuilder_ == null) {
+          return vaultCoords_;
+        } else {
+          return vaultCoordsBuilder_.getMessage();
+        }
+      }
+      public Builder setVaultCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (vaultCoordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          vaultCoords_ = value;
+          onChanged();
+        } else {
+          vaultCoordsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000020;
+        return this;
+      }
+      public Builder setVaultCoords(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (vaultCoordsBuilder_ == null) {
+          vaultCoords_ = builderForValue.build();
+          onChanged();
+        } else {
+          vaultCoordsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000020;
+        return this;
+      }
+      public Builder mergeVaultCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (vaultCoordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) == 0x00000020) &&
+              vaultCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            vaultCoords_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(vaultCoords_).mergeFrom(value).buildPartial();
+          } else {
+            vaultCoords_ = value;
+          }
+          onChanged();
+        } else {
+          vaultCoordsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000020;
+        return this;
+      }
+      public Builder clearVaultCoords() {
+        if (vaultCoordsBuilder_ == null) {
+          vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          vaultCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getVaultCoordsBuilder() {
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return getVaultCoordsFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getVaultCoordsOrBuilder() {
+        if (vaultCoordsBuilder_ != null) {
+          return vaultCoordsBuilder_.getMessageOrBuilder();
+        } else {
+          return vaultCoords_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getVaultCoordsFieldBuilder() {
+        if (vaultCoordsBuilder_ == null) {
+          vaultCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  vaultCoords_,
+                  getParentForChildren(),
+                  isClean());
+          vaultCoords_ = null;
+        }
+        return vaultCoordsBuilder_;
+      }
+      
+      // optional .com.lvl6.proto.CoordinateProto marketplaceCoords = 7;
+      private com.lvl6.proto.InfoProto.CoordinateProto marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> marketplaceCoordsBuilder_;
+      public boolean hasMarketplaceCoords() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto getMarketplaceCoords() {
+        if (marketplaceCoordsBuilder_ == null) {
+          return marketplaceCoords_;
+        } else {
+          return marketplaceCoordsBuilder_.getMessage();
+        }
+      }
+      public Builder setMarketplaceCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (marketplaceCoordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          marketplaceCoords_ = value;
+          onChanged();
+        } else {
+          marketplaceCoordsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      public Builder setMarketplaceCoords(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (marketplaceCoordsBuilder_ == null) {
+          marketplaceCoords_ = builderForValue.build();
+          onChanged();
+        } else {
+          marketplaceCoordsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      public Builder mergeMarketplaceCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (marketplaceCoordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) == 0x00000040) &&
+              marketplaceCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            marketplaceCoords_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(marketplaceCoords_).mergeFrom(value).buildPartial();
+          } else {
+            marketplaceCoords_ = value;
+          }
+          onChanged();
+        } else {
+          marketplaceCoordsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      public Builder clearMarketplaceCoords() {
+        if (marketplaceCoordsBuilder_ == null) {
+          marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          marketplaceCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getMarketplaceCoordsBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getMarketplaceCoordsFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getMarketplaceCoordsOrBuilder() {
+        if (marketplaceCoordsBuilder_ != null) {
+          return marketplaceCoordsBuilder_.getMessageOrBuilder();
+        } else {
+          return marketplaceCoords_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getMarketplaceCoordsFieldBuilder() {
+        if (marketplaceCoordsBuilder_ == null) {
+          marketplaceCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  marketplaceCoords_,
+                  getParentForChildren(),
+                  isClean());
+          marketplaceCoords_ = null;
+        }
+        return marketplaceCoordsBuilder_;
+      }
+      
+      // required .com.lvl6.proto.CoordinateProto lumbermillCoords = 8;
+      private com.lvl6.proto.InfoProto.CoordinateProto lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> lumbermillCoordsBuilder_;
+      public boolean hasLumbermillCoords() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto getLumbermillCoords() {
+        if (lumbermillCoordsBuilder_ == null) {
+          return lumbermillCoords_;
+        } else {
+          return lumbermillCoordsBuilder_.getMessage();
+        }
+      }
+      public Builder setLumbermillCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (lumbermillCoordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          lumbermillCoords_ = value;
+          onChanged();
+        } else {
+          lumbermillCoordsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000080;
+        return this;
+      }
+      public Builder setLumbermillCoords(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (lumbermillCoordsBuilder_ == null) {
+          lumbermillCoords_ = builderForValue.build();
+          onChanged();
+        } else {
+          lumbermillCoordsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000080;
+        return this;
+      }
+      public Builder mergeLumbermillCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (lumbermillCoordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000080) == 0x00000080) &&
+              lumbermillCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            lumbermillCoords_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(lumbermillCoords_).mergeFrom(value).buildPartial();
+          } else {
+            lumbermillCoords_ = value;
+          }
+          onChanged();
+        } else {
+          lumbermillCoordsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000080;
+        return this;
+      }
+      public Builder clearLumbermillCoords() {
+        if (lumbermillCoordsBuilder_ == null) {
+          lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          lumbermillCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000080);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getLumbermillCoordsBuilder() {
+        bitField0_ |= 0x00000080;
+        onChanged();
+        return getLumbermillCoordsFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getLumbermillCoordsOrBuilder() {
+        if (lumbermillCoordsBuilder_ != null) {
+          return lumbermillCoordsBuilder_.getMessageOrBuilder();
+        } else {
+          return lumbermillCoords_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getLumbermillCoordsFieldBuilder() {
+        if (lumbermillCoordsBuilder_ == null) {
+          lumbermillCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  lumbermillCoords_,
+                  getParentForChildren(),
+                  isClean());
+          lumbermillCoords_ = null;
+        }
+        return lumbermillCoordsBuilder_;
+      }
+      
+      // required .com.lvl6.proto.CoordinateProto carpenterCoords = 9;
+      private com.lvl6.proto.InfoProto.CoordinateProto carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> carpenterCoordsBuilder_;
+      public boolean hasCarpenterCoords() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto getCarpenterCoords() {
+        if (carpenterCoordsBuilder_ == null) {
+          return carpenterCoords_;
+        } else {
+          return carpenterCoordsBuilder_.getMessage();
+        }
+      }
+      public Builder setCarpenterCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (carpenterCoordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          carpenterCoords_ = value;
+          onChanged();
+        } else {
+          carpenterCoordsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000100;
+        return this;
+      }
+      public Builder setCarpenterCoords(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (carpenterCoordsBuilder_ == null) {
+          carpenterCoords_ = builderForValue.build();
+          onChanged();
+        } else {
+          carpenterCoordsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000100;
+        return this;
+      }
+      public Builder mergeCarpenterCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (carpenterCoordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000100) == 0x00000100) &&
+              carpenterCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            carpenterCoords_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(carpenterCoords_).mergeFrom(value).buildPartial();
+          } else {
+            carpenterCoords_ = value;
+          }
+          onChanged();
+        } else {
+          carpenterCoordsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000100;
+        return this;
+      }
+      public Builder clearCarpenterCoords() {
+        if (carpenterCoordsBuilder_ == null) {
+          carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          carpenterCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000100);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getCarpenterCoordsBuilder() {
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return getCarpenterCoordsFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCarpenterCoordsOrBuilder() {
+        if (carpenterCoordsBuilder_ != null) {
+          return carpenterCoordsBuilder_.getMessageOrBuilder();
+        } else {
+          return carpenterCoords_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getCarpenterCoordsFieldBuilder() {
+        if (carpenterCoordsBuilder_ == null) {
+          carpenterCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  carpenterCoords_,
+                  getParentForChildren(),
+                  isClean());
+          carpenterCoords_ = null;
+        }
+        return carpenterCoordsBuilder_;
+      }
+      
+      // required .com.lvl6.proto.CoordinateProto aviaryCoords = 10;
+      private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> aviaryCoordsBuilder_;
+      public boolean hasAviaryCoords() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords() {
+        if (aviaryCoordsBuilder_ == null) {
+          return aviaryCoords_;
+        } else {
+          return aviaryCoordsBuilder_.getMessage();
+        }
+      }
+      public Builder setAviaryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (aviaryCoordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          aviaryCoords_ = value;
+          onChanged();
+        } else {
+          aviaryCoordsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+      public Builder setAviaryCoords(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (aviaryCoordsBuilder_ == null) {
+          aviaryCoords_ = builderForValue.build();
+          onChanged();
+        } else {
+          aviaryCoordsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+      public Builder mergeAviaryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (aviaryCoordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000200) == 0x00000200) &&
+              aviaryCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            aviaryCoords_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(aviaryCoords_).mergeFrom(value).buildPartial();
+          } else {
+            aviaryCoords_ = value;
+          }
+          onChanged();
+        } else {
+          aviaryCoordsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+      public Builder clearAviaryCoords() {
+        if (aviaryCoordsBuilder_ == null) {
+          aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          aviaryCoordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000200);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getAviaryCoordsBuilder() {
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return getAviaryCoordsFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder() {
+        if (aviaryCoordsBuilder_ != null) {
+          return aviaryCoordsBuilder_.getMessageOrBuilder();
+        } else {
+          return aviaryCoords_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getAviaryCoordsFieldBuilder() {
+        if (aviaryCoordsBuilder_ == null) {
+          aviaryCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  aviaryCoords_,
+                  getParentForChildren(),
+                  isClean());
+          aviaryCoords_ = null;
+        }
+        return aviaryCoordsBuilder_;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LoadPlayerCityResponseProto)
+    }
+    
+    static {
+      defaultInstance = new LoadPlayerCityResponseProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LoadPlayerCityResponseProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_ChatRequestProto_descriptor;
   private static
@@ -38692,6 +41389,16 @@ public final class EventProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_RedeemMarketplaceEarningsResponseProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -39018,7 +41725,28 @@ public final class EventProto {
       "ketplaceEarningsResponseProto.RedeemMark" +
       "etplaceEarningsStatus\">\n\037RedeemMarketpla" +
       "ceEarningsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_F" +
-      "AIL\020\001B\014B\nEventProto"
+      "AIL\020\001\"\203\001\n\032LoadPlayerCityRequestProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\0223\n\tcityOwner\030\002 \002(\0132 .com.lvl6.pro",
+      "to.MinimumUserProto\"\265\005\n\033LoadPlayerCityRe" +
+      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022P\n\006status\030\002 \002(\0162@." +
+      "com.lvl6.proto.LoadPlayerCityResponsePro" +
+      "to.LoadPlayerCityStatus\022@\n\020ownerNormStru" +
+      "cts\030\003 \003(\0132&.com.lvl6.proto.FullUserStruc" +
+      "tureProto\0222\n\013ownerAllies\030\004 \003(\0132\035.com.lvl" +
+      "6.proto.FullUserProto\0225\n\014armoryCoords\030\005 " +
+      "\001(\0132\037.com.lvl6.proto.CoordinateProto\0224\n\013" +
+      "vaultCoords\030\006 \001(\0132\037.com.lvl6.proto.Coord",
+      "inateProto\022:\n\021marketplaceCoords\030\007 \001(\0132\037." +
+      "com.lvl6.proto.CoordinateProto\0229\n\020lumber" +
+      "millCoords\030\010 \002(\0132\037.com.lvl6.proto.Coordi" +
+      "nateProto\0228\n\017carpenterCoords\030\t \002(\0132\037.com" +
+      ".lvl6.proto.CoordinateProto\0225\n\014aviaryCoo" +
+      "rds\030\n \002(\0132\037.com.lvl6.proto.CoordinatePro" +
+      "to\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCESS\020\000\022" +
+      "\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002B\014B\nE" +
+      "ventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -39497,6 +42225,22 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "Status", },
               com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.class,
               com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.Builder.class);
+          internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_descriptor =
+            getDescriptor().getMessageTypes().get(59);
+          internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_LoadPlayerCityRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "CityOwner", },
+              com.lvl6.proto.EventProto.LoadPlayerCityRequestProto.class,
+              com.lvl6.proto.EventProto.LoadPlayerCityRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_descriptor =
+            getDescriptor().getMessageTypes().get(60);
+          internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_descriptor,
+              new java.lang.String[] { "Sender", "Status", "OwnerNormStructs", "OwnerAllies", "ArmoryCoords", "VaultCoords", "MarketplaceCoords", "LumbermillCoords", "CarpenterCoords", "AviaryCoords", },
+              com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.class,
+              com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.Builder.class);
           return null;
         }
       };

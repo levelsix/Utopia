@@ -94,7 +94,7 @@ message FullUserStructureProto {
 	required int32 id = 1;
 	required int32 userId = 2;
 	required int32 structId = 3;
-	required int64 lastRetrieved = 4;
+	optional int64 lastRetrieved = 4;
 	required CoordinateProto coordinates = 5;
 	required int32 level = 6;
 	required int64 purchaseTime = 7;

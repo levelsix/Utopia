@@ -46,7 +46,7 @@ public class UserRetrieveUtils {
   }
   
   public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
-    log.info("retrieving list of enemies for user " + userId);
+    log.info("retrieving list of users for user " + userId);
     
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;

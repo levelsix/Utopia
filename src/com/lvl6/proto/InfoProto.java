@@ -4546,7 +4546,7 @@ public final class InfoProto {
     boolean hasStructId();
     int getStructId();
     
-    // required int64 lastRetrieved = 4;
+    // optional int64 lastRetrieved = 4;
     boolean hasLastRetrieved();
     long getLastRetrieved();
     
@@ -4626,7 +4626,7 @@ public final class InfoProto {
       return structId_;
     }
     
-    // required int64 lastRetrieved = 4;
+    // optional int64 lastRetrieved = 4;
     public static final int LASTRETRIEVED_FIELD_NUMBER = 4;
     private long lastRetrieved_;
     public boolean hasLastRetrieved() {
@@ -4703,10 +4703,6 @@ public final class InfoProto {
         return false;
       }
       if (!hasStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLastRetrieved()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -5078,10 +5074,6 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasLastRetrieved()) {
-          
-          return false;
-        }
         if (!hasCoordinates()) {
           
           return false;
@@ -5241,7 +5233,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int64 lastRetrieved = 4;
+      // optional int64 lastRetrieved = 4;
       private long lastRetrieved_ ;
       public boolean hasLastRetrieved() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -9465,7 +9457,7 @@ public final class InfoProto {
       "\".\n\tClassType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010" +
       "\n\004MAGE\020\002\"\314\001\n\026FullUserStructureProto\022\n\n\002i" +
       "d\030\001 \002(\005\022\016\n\006userId\030\002 \002(\005\022\020\n\010structId\030\003 \002(" +
-      "\005\022\025\n\rlastRetrieved\030\004 \002(\003\0224\n\013coordinates\030" +
+      "\005\022\025\n\rlastRetrieved\030\004 \001(\003\0224\n\013coordinates\030" +
       "\005 \002(\0132\037.com.lvl6.proto.CoordinateProto\022\r" +
       "\n\005level\030\006 \002(\005\022\024\n\014purchaseTime\030\007 \002(\003\022\022\n\ni" +
       "sComplete\030\010 \002(\010\"Y\n\022FullUserEquipProto\022\016\n" +

@@ -131,6 +131,7 @@ public class ControllerConstants {
   public static final double PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE = 5;
 
   
-  //MOVE CRIT STRUCT
+  //LOAD PLAYER CITY
+  public static final int LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY = 4;
 
 }
