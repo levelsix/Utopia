@@ -73,7 +73,7 @@ public class ControllerConstants {
   
   
   //POST TO MARKETPLACE
-  public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 10;  
+  public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 200;  
 
   
   //PURCHASE FROM MARKETPLACE

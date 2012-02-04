@@ -152,6 +152,7 @@ public class QuestRetrieveUtils {
     int assetNumWithinCity = rs.getInt(i++);
     int coinsGained = rs.getInt(i++);
     int diamondsGained = rs.getInt(i++);
+    int woodGained = rs.getInt(i++);
     int expGained = rs.getInt(i++);
     int equipIdGained = rs.getInt(i++);
 
@@ -223,7 +224,7 @@ public class QuestRetrieveUtils {
 
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, assetNumWithinCity, 
-        coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 
+        coinsGained, diamondsGained, woodGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, marketplaceJobsRequired, defeatGoodGuysRequired, 
         defeatBadGuysRequired, equipIdReq, equipQuantityReq);

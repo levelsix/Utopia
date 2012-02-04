@@ -17,6 +17,7 @@ public class Quest {
   private int assetNumWithinCity;
   private int coinsGained;
   private int diamondsGained;
+  private int woodGained;
   private int expGained;
   private int equipIdGained;
   private List<Integer> questsRequiredForThis;
@@ -32,7 +33,7 @@ public class Quest {
   public Quest(int id, int cityId, String goodName, String badName, String goodDescription, 
       String badDescription, String goodDoneResponse, String badDoneResponse,
       String goodInProgress, String badInProgress, int assetNumWithinCity,
-      int coinsGained, int diamondsGained, int expGained, int equipIdGained,
+      int coinsGained, int diamondsGained, int woodGained, int expGained, int equipIdGained,
       List<Integer> questsRequiredForThis, 
       List<Integer> tasksRequired, List<Integer> upgradeStructJobsRequired,
       List<Integer> buildStructJobsRequired,
@@ -52,6 +53,7 @@ public class Quest {
     this.assetNumWithinCity = assetNumWithinCity;
     this.coinsGained = coinsGained;
     this.diamondsGained = diamondsGained;
+    this.woodGained = woodGained;
     this.expGained = expGained;
     this.equipIdGained = equipIdGained;
     this.questsRequiredForThis = questsRequiredForThis;
@@ -116,6 +118,10 @@ public class Quest {
   public int getDiamondsGained() {
     return diamondsGained;
   }
+  
+  public int getWoodGained() {
+    return woodGained;
+  }
 
   public int getExpGained() {
     return expGained;
@@ -163,22 +169,22 @@ public class Quest {
 
   @Override
   public String toString() {
-    return "Quest [id=" + id + ", cityId=" + cityId + ", goodName=" + goodName + ", goodDescription="
-        + goodDescription + ", badName=" + badName + ", badDescription="
-        + badDescription + ", goodDoneResponse=" + goodDoneResponse
-        + ", badDoneResponse=" + badDoneResponse + ", goodInProgress="
-        + goodInProgress + ", badInProgress=" + badInProgress
-        + ", assetNumWithinCity=" + assetNumWithinCity + ", coinsGained="
-        + coinsGained + ", diamondsGained=" + diamondsGained + ", expGained="
-        + expGained + ", equipIdGained=" + equipIdGained
-        + ", questsRequiredForThis=" + questsRequiredForThis
-        + ", tasksRequired=" + tasksRequired + ", upgradeStructJobsRequired="
-        + upgradeStructJobsRequired + ", buildStructJobsRequired="
-        + buildStructJobsRequired + ", marketplaceJobsRequired="
-        + marketplaceJobsRequired + ", defeatGoodGuysRequired="
-        + defeatGoodGuysRequired + ", defeatBadGuysRequired="
-        + defeatBadGuysRequired + ", equipIdReq=" + equipIdReq
-        + ", equipQuantityReq=" + equipQuantityReq + "]";
+    return "Quest [id=" + id + ", cityId=" + cityId + ", goodName=" + goodName
+        + ", badName=" + badName + ", goodDescription=" + goodDescription
+        + ", badDescription=" + badDescription + ", goodDoneResponse="
+        + goodDoneResponse + ", badDoneResponse=" + badDoneResponse
+        + ", goodInProgress=" + goodInProgress + ", badInProgress="
+        + badInProgress + ", assetNumWithinCity=" + assetNumWithinCity
+        + ", coinsGained=" + coinsGained + ", diamondsGained=" + diamondsGained
+        + ", woodGained=" + woodGained + ", expGained=" + expGained
+        + ", equipIdGained=" + equipIdGained + ", questsRequiredForThis="
+        + questsRequiredForThis + ", tasksRequired=" + tasksRequired
+        + ", upgradeStructJobsRequired=" + upgradeStructJobsRequired
+        + ", buildStructJobsRequired=" + buildStructJobsRequired
+        + ", marketplaceJobsRequired=" + marketplaceJobsRequired
+        + ", defeatGoodGuysRequired=" + defeatGoodGuysRequired
+        + ", defeatBadGuysRequired=" + defeatBadGuysRequired + ", equipIdReq="
+        + equipIdReq + ", equipQuantityReq=" + equipQuantityReq + "]";
   }
   
 }

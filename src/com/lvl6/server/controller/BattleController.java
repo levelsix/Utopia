@@ -44,7 +44,7 @@ public class BattleController extends EventController {
 
     MinimumUserProto attackerProto = reqProto.getAttacker();
     MinimumUserProto defenderProto = reqProto.getDefender();
-    BattleResult result = reqProto.getResult();
+    BattleResult result = reqProto.getBattleResult();
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
 

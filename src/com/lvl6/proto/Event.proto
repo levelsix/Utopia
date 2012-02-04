@@ -27,7 +27,8 @@ message ChatResponseProto {
 message BattleRequestProto {
     required MinimumUserProto attacker = 1; 
     required MinimumUserProto defender = 2; 
-    required BattleResult result = 3;
+    required BattleResult battleResult = 3;
+    optional int32 neutralCityId = 4;
     
     enum BattleResult {
     	ATTACKER_WIN = 0;
@@ -527,21 +528,6 @@ message GenerateAttackListResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message QuestCompleteResponseProto {
-	required MinimumUserProto sender = 1;
-	required int32 questId = 2;
-	repeated int32 newQuestsAvailable = 3;
-}
-
-//------------------------------------------------------------------------------------------
-
-message QuestAcceptRequestProto {
-	required MinimumUserProto sender = 1;
-	required int32 questId = 2;
-}
-
-//------------------------------------------------------------------------------------------
-
 																						//DONE
 message RefillStatWithDiamondsRequestProto {
 	required MinimumUserProto sender = 1;
@@ -640,13 +626,16 @@ message RedeemMarketplaceEarningsResponseProto {
      	OTHER_FAIL = 1;
      }
 }
+
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message LoadPlayerCityRequestProto {
 	required MinimumUserProto sender = 1;
 	required MinimumUserProto cityOwner = 2;
 }
 
+																						//DONE
 message LoadPlayerCityResponseProto {
     required MinimumUserProto sender = 1;
 	required LoadPlayerCityStatus status = 2;
@@ -666,3 +655,4 @@ message LoadPlayerCityResponseProto {
      	OTHER_FAIL = 2;
      }
 }
+
