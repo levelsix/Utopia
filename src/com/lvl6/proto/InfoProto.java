@@ -8839,282 +8839,6 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullMarketplacePostProto)
   }
   
-  public interface FullQuestProtoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-  }
-  public static final class FullQuestProto extends
-      com.google.protobuf.GeneratedMessage
-      implements FullQuestProtoOrBuilder {
-    // Use FullQuestProto.newBuilder() to construct.
-    private FullQuestProto(Builder builder) {
-      super(builder);
-    }
-    private FullQuestProto(boolean noInit) {}
-    
-    private static final FullQuestProto defaultInstance;
-    public static FullQuestProto getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    public FullQuestProto getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable;
-    }
-    
-    private void initFields() {
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-    
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.InfoProto.FullQuestProto prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable;
-      }
-      
-      // Construct using com.lvl6.proto.InfoProto.FullQuestProto.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.lvl6.proto.InfoProto.FullQuestProto.getDescriptor();
-      }
-      
-      public com.lvl6.proto.InfoProto.FullQuestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance();
-      }
-      
-      public com.lvl6.proto.InfoProto.FullQuestProto build() {
-        com.lvl6.proto.InfoProto.FullQuestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.lvl6.proto.InfoProto.FullQuestProto buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.InfoProto.FullQuestProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.lvl6.proto.InfoProto.FullQuestProto buildPartial() {
-        com.lvl6.proto.InfoProto.FullQuestProto result = new com.lvl6.proto.InfoProto.FullQuestProto(this);
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.InfoProto.FullQuestProto) {
-          return mergeFrom((com.lvl6.proto.InfoProto.FullQuestProto)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.lvl6.proto.InfoProto.FullQuestProto other) {
-        if (other == com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-          }
-        }
-      }
-      
-      
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullQuestProto)
-    }
-    
-    static {
-      defaultInstance = new FullQuestProto(true);
-      defaultInstance.initFields();
-    }
-    
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullQuestProto)
-  }
-  
   public interface FullStructureProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
   }
@@ -9391,6 +9115,10296 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullStructureProto)
   }
   
+  public interface FullUserQuestDataLargeOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 questId = 2;
+    boolean hasQuestId();
+    int getQuestId();
+    
+    // required bool complete = 3;
+    boolean hasComplete();
+    boolean getComplete();
+    
+    // repeated .com.lvl6.proto.MinimumUserTaskProto requiredTasksProgress = 4;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> 
+        getRequiredTasksProgressList();
+    com.lvl6.proto.InfoProto.MinimumUserTaskProto getRequiredTasksProgress(int index);
+    int getRequiredTasksProgressCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+        getRequiredTasksProgressOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto> 
+        getRequiredDefeatTypeJobProgressList();
+    com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto getRequiredDefeatTypeJobProgress(int index);
+    int getRequiredDefeatTypeJobProgressCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder> 
+        getRequiredDefeatTypeJobProgressOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder getRequiredDefeatTypeJobProgressOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.MinimumUserBuildStructJobProto requiredBuildStructJobProgress = 6;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto> 
+        getRequiredBuildStructJobProgressList();
+    com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto getRequiredBuildStructJobProgress(int index);
+    int getRequiredBuildStructJobProgressCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder> 
+        getRequiredBuildStructJobProgressOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder getRequiredBuildStructJobProgressOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.MinimumUserMarketplaceJobProto requiredMarketplaceJobProgress = 7;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto> 
+        getRequiredMarketplaceJobProgressList();
+    com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto getRequiredMarketplaceJobProgress(int index);
+    int getRequiredMarketplaceJobProgressCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder> 
+        getRequiredMarketplaceJobProgressOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder getRequiredMarketplaceJobProgressOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 8;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto> 
+        getRequiredUpgradeStructJobProgressList();
+    com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto getRequiredUpgradeStructJobProgress(int index);
+    int getRequiredUpgradeStructJobProgressCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder> 
+        getRequiredUpgradeStructJobProgressOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder getRequiredUpgradeStructJobProgressOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 9;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto> 
+        getRequiredPossessEquipJobProgressList();
+    com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto getRequiredPossessEquipJobProgress(int index);
+    int getRequiredPossessEquipJobProgressCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder> 
+        getRequiredPossessEquipJobProgressOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder getRequiredPossessEquipJobProgressOrBuilder(
+        int index);
+  }
+  public static final class FullUserQuestDataLarge extends
+      com.google.protobuf.GeneratedMessage
+      implements FullUserQuestDataLargeOrBuilder {
+    // Use FullUserQuestDataLarge.newBuilder() to construct.
+    private FullUserQuestDataLarge(Builder builder) {
+      super(builder);
+    }
+    private FullUserQuestDataLarge(boolean noInit) {}
+    
+    private static final FullUserQuestDataLarge defaultInstance;
+    public static FullUserQuestDataLarge getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public FullUserQuestDataLarge getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserQuestDataLarge_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserQuestDataLarge_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 questId = 2;
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questId_;
+    public boolean hasQuestId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getQuestId() {
+      return questId_;
+    }
+    
+    // required bool complete = 3;
+    public static final int COMPLETE_FIELD_NUMBER = 3;
+    private boolean complete_;
+    public boolean hasComplete() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public boolean getComplete() {
+      return complete_;
+    }
+    
+    // repeated .com.lvl6.proto.MinimumUserTaskProto requiredTasksProgress = 4;
+    public static final int REQUIREDTASKSPROGRESS_FIELD_NUMBER = 4;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> requiredTasksProgress_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> getRequiredTasksProgressList() {
+      return requiredTasksProgress_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+        getRequiredTasksProgressOrBuilderList() {
+      return requiredTasksProgress_;
+    }
+    public int getRequiredTasksProgressCount() {
+      return requiredTasksProgress_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserTaskProto getRequiredTasksProgress(int index) {
+      return requiredTasksProgress_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
+        int index) {
+      return requiredTasksProgress_.get(index);
+    }
+    
+    // repeated .com.lvl6.proto.MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
+    public static final int REQUIREDDEFEATTYPEJOBPROGRESS_FIELD_NUMBER = 5;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto> requiredDefeatTypeJobProgress_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto> getRequiredDefeatTypeJobProgressList() {
+      return requiredDefeatTypeJobProgress_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder> 
+        getRequiredDefeatTypeJobProgressOrBuilderList() {
+      return requiredDefeatTypeJobProgress_;
+    }
+    public int getRequiredDefeatTypeJobProgressCount() {
+      return requiredDefeatTypeJobProgress_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto getRequiredDefeatTypeJobProgress(int index) {
+      return requiredDefeatTypeJobProgress_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder getRequiredDefeatTypeJobProgressOrBuilder(
+        int index) {
+      return requiredDefeatTypeJobProgress_.get(index);
+    }
+    
+    // repeated .com.lvl6.proto.MinimumUserBuildStructJobProto requiredBuildStructJobProgress = 6;
+    public static final int REQUIREDBUILDSTRUCTJOBPROGRESS_FIELD_NUMBER = 6;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto> requiredBuildStructJobProgress_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto> getRequiredBuildStructJobProgressList() {
+      return requiredBuildStructJobProgress_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder> 
+        getRequiredBuildStructJobProgressOrBuilderList() {
+      return requiredBuildStructJobProgress_;
+    }
+    public int getRequiredBuildStructJobProgressCount() {
+      return requiredBuildStructJobProgress_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto getRequiredBuildStructJobProgress(int index) {
+      return requiredBuildStructJobProgress_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder getRequiredBuildStructJobProgressOrBuilder(
+        int index) {
+      return requiredBuildStructJobProgress_.get(index);
+    }
+    
+    // repeated .com.lvl6.proto.MinimumUserMarketplaceJobProto requiredMarketplaceJobProgress = 7;
+    public static final int REQUIREDMARKETPLACEJOBPROGRESS_FIELD_NUMBER = 7;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto> requiredMarketplaceJobProgress_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto> getRequiredMarketplaceJobProgressList() {
+      return requiredMarketplaceJobProgress_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder> 
+        getRequiredMarketplaceJobProgressOrBuilderList() {
+      return requiredMarketplaceJobProgress_;
+    }
+    public int getRequiredMarketplaceJobProgressCount() {
+      return requiredMarketplaceJobProgress_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto getRequiredMarketplaceJobProgress(int index) {
+      return requiredMarketplaceJobProgress_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder getRequiredMarketplaceJobProgressOrBuilder(
+        int index) {
+      return requiredMarketplaceJobProgress_.get(index);
+    }
+    
+    // repeated .com.lvl6.proto.MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 8;
+    public static final int REQUIREDUPGRADESTRUCTJOBPROGRESS_FIELD_NUMBER = 8;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto> requiredUpgradeStructJobProgress_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto> getRequiredUpgradeStructJobProgressList() {
+      return requiredUpgradeStructJobProgress_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder> 
+        getRequiredUpgradeStructJobProgressOrBuilderList() {
+      return requiredUpgradeStructJobProgress_;
+    }
+    public int getRequiredUpgradeStructJobProgressCount() {
+      return requiredUpgradeStructJobProgress_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto getRequiredUpgradeStructJobProgress(int index) {
+      return requiredUpgradeStructJobProgress_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder getRequiredUpgradeStructJobProgressOrBuilder(
+        int index) {
+      return requiredUpgradeStructJobProgress_.get(index);
+    }
+    
+    // repeated .com.lvl6.proto.MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 9;
+    public static final int REQUIREDPOSSESSEQUIPJOBPROGRESS_FIELD_NUMBER = 9;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto> requiredPossessEquipJobProgress_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto> getRequiredPossessEquipJobProgressList() {
+      return requiredPossessEquipJobProgress_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder> 
+        getRequiredPossessEquipJobProgressOrBuilderList() {
+      return requiredPossessEquipJobProgress_;
+    }
+    public int getRequiredPossessEquipJobProgressCount() {
+      return requiredPossessEquipJobProgress_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto getRequiredPossessEquipJobProgress(int index) {
+      return requiredPossessEquipJobProgress_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder getRequiredPossessEquipJobProgressOrBuilder(
+        int index) {
+      return requiredPossessEquipJobProgress_.get(index);
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      questId_ = 0;
+      complete_ = false;
+      requiredTasksProgress_ = java.util.Collections.emptyList();
+      requiredDefeatTypeJobProgress_ = java.util.Collections.emptyList();
+      requiredBuildStructJobProgress_ = java.util.Collections.emptyList();
+      requiredMarketplaceJobProgress_ = java.util.Collections.emptyList();
+      requiredUpgradeStructJobProgress_ = java.util.Collections.emptyList();
+      requiredPossessEquipJobProgress_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasComplete()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
+        if (!getRequiredTasksProgress(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getRequiredDefeatTypeJobProgressCount(); i++) {
+        if (!getRequiredDefeatTypeJobProgress(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getRequiredBuildStructJobProgressCount(); i++) {
+        if (!getRequiredBuildStructJobProgress(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getRequiredMarketplaceJobProgressCount(); i++) {
+        if (!getRequiredMarketplaceJobProgress(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getRequiredUpgradeStructJobProgressCount(); i++) {
+        if (!getRequiredUpgradeStructJobProgress(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getRequiredPossessEquipJobProgressCount(); i++) {
+        if (!getRequiredPossessEquipJobProgress(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBool(3, complete_);
+      }
+      for (int i = 0; i < requiredTasksProgress_.size(); i++) {
+        output.writeMessage(4, requiredTasksProgress_.get(i));
+      }
+      for (int i = 0; i < requiredDefeatTypeJobProgress_.size(); i++) {
+        output.writeMessage(5, requiredDefeatTypeJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredBuildStructJobProgress_.size(); i++) {
+        output.writeMessage(6, requiredBuildStructJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredMarketplaceJobProgress_.size(); i++) {
+        output.writeMessage(7, requiredMarketplaceJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredUpgradeStructJobProgress_.size(); i++) {
+        output.writeMessage(8, requiredUpgradeStructJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredPossessEquipJobProgress_.size(); i++) {
+        output.writeMessage(9, requiredPossessEquipJobProgress_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, complete_);
+      }
+      for (int i = 0; i < requiredTasksProgress_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, requiredTasksProgress_.get(i));
+      }
+      for (int i = 0; i < requiredDefeatTypeJobProgress_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, requiredDefeatTypeJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredBuildStructJobProgress_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, requiredBuildStructJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredMarketplaceJobProgress_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, requiredMarketplaceJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredUpgradeStructJobProgress_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, requiredUpgradeStructJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredPossessEquipJobProgress_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, requiredPossessEquipJobProgress_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserQuestDataLarge parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.FullUserQuestDataLarge prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.FullUserQuestDataLargeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserQuestDataLarge_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserQuestDataLarge_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.FullUserQuestDataLarge.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getRequiredTasksProgressFieldBuilder();
+          getRequiredDefeatTypeJobProgressFieldBuilder();
+          getRequiredBuildStructJobProgressFieldBuilder();
+          getRequiredMarketplaceJobProgressFieldBuilder();
+          getRequiredUpgradeStructJobProgressFieldBuilder();
+          getRequiredPossessEquipJobProgressFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        complete_ = false;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (requiredTasksProgressBuilder_ == null) {
+          requiredTasksProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          requiredTasksProgressBuilder_.clear();
+        }
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          requiredDefeatTypeJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.clear();
+        }
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          requiredBuildStructJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+        } else {
+          requiredBuildStructJobProgressBuilder_.clear();
+        }
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          requiredMarketplaceJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+        } else {
+          requiredMarketplaceJobProgressBuilder_.clear();
+        }
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          requiredUpgradeStructJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000080);
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.clear();
+        }
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          requiredPossessEquipJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000100);
+        } else {
+          requiredPossessEquipJobProgressBuilder_.clear();
+        }
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.FullUserQuestDataLarge.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLarge getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.FullUserQuestDataLarge.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLarge build() {
+        com.lvl6.proto.InfoProto.FullUserQuestDataLarge result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.FullUserQuestDataLarge buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.FullUserQuestDataLarge result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLarge buildPartial() {
+        com.lvl6.proto.InfoProto.FullUserQuestDataLarge result = new com.lvl6.proto.InfoProto.FullUserQuestDataLarge(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questId_ = questId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.complete_ = complete_;
+        if (requiredTasksProgressBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            requiredTasksProgress_ = java.util.Collections.unmodifiableList(requiredTasksProgress_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.requiredTasksProgress_ = requiredTasksProgress_;
+        } else {
+          result.requiredTasksProgress_ = requiredTasksProgressBuilder_.build();
+        }
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            requiredDefeatTypeJobProgress_ = java.util.Collections.unmodifiableList(requiredDefeatTypeJobProgress_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.requiredDefeatTypeJobProgress_ = requiredDefeatTypeJobProgress_;
+        } else {
+          result.requiredDefeatTypeJobProgress_ = requiredDefeatTypeJobProgressBuilder_.build();
+        }
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
+            requiredBuildStructJobProgress_ = java.util.Collections.unmodifiableList(requiredBuildStructJobProgress_);
+            bitField0_ = (bitField0_ & ~0x00000020);
+          }
+          result.requiredBuildStructJobProgress_ = requiredBuildStructJobProgress_;
+        } else {
+          result.requiredBuildStructJobProgress_ = requiredBuildStructJobProgressBuilder_.build();
+        }
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+            requiredMarketplaceJobProgress_ = java.util.Collections.unmodifiableList(requiredMarketplaceJobProgress_);
+            bitField0_ = (bitField0_ & ~0x00000040);
+          }
+          result.requiredMarketplaceJobProgress_ = requiredMarketplaceJobProgress_;
+        } else {
+          result.requiredMarketplaceJobProgress_ = requiredMarketplaceJobProgressBuilder_.build();
+        }
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          if (((bitField0_ & 0x00000080) == 0x00000080)) {
+            requiredUpgradeStructJobProgress_ = java.util.Collections.unmodifiableList(requiredUpgradeStructJobProgress_);
+            bitField0_ = (bitField0_ & ~0x00000080);
+          }
+          result.requiredUpgradeStructJobProgress_ = requiredUpgradeStructJobProgress_;
+        } else {
+          result.requiredUpgradeStructJobProgress_ = requiredUpgradeStructJobProgressBuilder_.build();
+        }
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          if (((bitField0_ & 0x00000100) == 0x00000100)) {
+            requiredPossessEquipJobProgress_ = java.util.Collections.unmodifiableList(requiredPossessEquipJobProgress_);
+            bitField0_ = (bitField0_ & ~0x00000100);
+          }
+          result.requiredPossessEquipJobProgress_ = requiredPossessEquipJobProgress_;
+        } else {
+          result.requiredPossessEquipJobProgress_ = requiredPossessEquipJobProgressBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.FullUserQuestDataLarge) {
+          return mergeFrom((com.lvl6.proto.InfoProto.FullUserQuestDataLarge)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.FullUserQuestDataLarge other) {
+        if (other == com.lvl6.proto.InfoProto.FullUserQuestDataLarge.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasQuestId()) {
+          setQuestId(other.getQuestId());
+        }
+        if (other.hasComplete()) {
+          setComplete(other.getComplete());
+        }
+        if (requiredTasksProgressBuilder_ == null) {
+          if (!other.requiredTasksProgress_.isEmpty()) {
+            if (requiredTasksProgress_.isEmpty()) {
+              requiredTasksProgress_ = other.requiredTasksProgress_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureRequiredTasksProgressIsMutable();
+              requiredTasksProgress_.addAll(other.requiredTasksProgress_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requiredTasksProgress_.isEmpty()) {
+            if (requiredTasksProgressBuilder_.isEmpty()) {
+              requiredTasksProgressBuilder_.dispose();
+              requiredTasksProgressBuilder_ = null;
+              requiredTasksProgress_ = other.requiredTasksProgress_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              requiredTasksProgressBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRequiredTasksProgressFieldBuilder() : null;
+            } else {
+              requiredTasksProgressBuilder_.addAllMessages(other.requiredTasksProgress_);
+            }
+          }
+        }
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          if (!other.requiredDefeatTypeJobProgress_.isEmpty()) {
+            if (requiredDefeatTypeJobProgress_.isEmpty()) {
+              requiredDefeatTypeJobProgress_ = other.requiredDefeatTypeJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureRequiredDefeatTypeJobProgressIsMutable();
+              requiredDefeatTypeJobProgress_.addAll(other.requiredDefeatTypeJobProgress_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requiredDefeatTypeJobProgress_.isEmpty()) {
+            if (requiredDefeatTypeJobProgressBuilder_.isEmpty()) {
+              requiredDefeatTypeJobProgressBuilder_.dispose();
+              requiredDefeatTypeJobProgressBuilder_ = null;
+              requiredDefeatTypeJobProgress_ = other.requiredDefeatTypeJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              requiredDefeatTypeJobProgressBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRequiredDefeatTypeJobProgressFieldBuilder() : null;
+            } else {
+              requiredDefeatTypeJobProgressBuilder_.addAllMessages(other.requiredDefeatTypeJobProgress_);
+            }
+          }
+        }
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          if (!other.requiredBuildStructJobProgress_.isEmpty()) {
+            if (requiredBuildStructJobProgress_.isEmpty()) {
+              requiredBuildStructJobProgress_ = other.requiredBuildStructJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+            } else {
+              ensureRequiredBuildStructJobProgressIsMutable();
+              requiredBuildStructJobProgress_.addAll(other.requiredBuildStructJobProgress_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requiredBuildStructJobProgress_.isEmpty()) {
+            if (requiredBuildStructJobProgressBuilder_.isEmpty()) {
+              requiredBuildStructJobProgressBuilder_.dispose();
+              requiredBuildStructJobProgressBuilder_ = null;
+              requiredBuildStructJobProgress_ = other.requiredBuildStructJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+              requiredBuildStructJobProgressBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRequiredBuildStructJobProgressFieldBuilder() : null;
+            } else {
+              requiredBuildStructJobProgressBuilder_.addAllMessages(other.requiredBuildStructJobProgress_);
+            }
+          }
+        }
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          if (!other.requiredMarketplaceJobProgress_.isEmpty()) {
+            if (requiredMarketplaceJobProgress_.isEmpty()) {
+              requiredMarketplaceJobProgress_ = other.requiredMarketplaceJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+            } else {
+              ensureRequiredMarketplaceJobProgressIsMutable();
+              requiredMarketplaceJobProgress_.addAll(other.requiredMarketplaceJobProgress_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requiredMarketplaceJobProgress_.isEmpty()) {
+            if (requiredMarketplaceJobProgressBuilder_.isEmpty()) {
+              requiredMarketplaceJobProgressBuilder_.dispose();
+              requiredMarketplaceJobProgressBuilder_ = null;
+              requiredMarketplaceJobProgress_ = other.requiredMarketplaceJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+              requiredMarketplaceJobProgressBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRequiredMarketplaceJobProgressFieldBuilder() : null;
+            } else {
+              requiredMarketplaceJobProgressBuilder_.addAllMessages(other.requiredMarketplaceJobProgress_);
+            }
+          }
+        }
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          if (!other.requiredUpgradeStructJobProgress_.isEmpty()) {
+            if (requiredUpgradeStructJobProgress_.isEmpty()) {
+              requiredUpgradeStructJobProgress_ = other.requiredUpgradeStructJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000080);
+            } else {
+              ensureRequiredUpgradeStructJobProgressIsMutable();
+              requiredUpgradeStructJobProgress_.addAll(other.requiredUpgradeStructJobProgress_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requiredUpgradeStructJobProgress_.isEmpty()) {
+            if (requiredUpgradeStructJobProgressBuilder_.isEmpty()) {
+              requiredUpgradeStructJobProgressBuilder_.dispose();
+              requiredUpgradeStructJobProgressBuilder_ = null;
+              requiredUpgradeStructJobProgress_ = other.requiredUpgradeStructJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000080);
+              requiredUpgradeStructJobProgressBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRequiredUpgradeStructJobProgressFieldBuilder() : null;
+            } else {
+              requiredUpgradeStructJobProgressBuilder_.addAllMessages(other.requiredUpgradeStructJobProgress_);
+            }
+          }
+        }
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          if (!other.requiredPossessEquipJobProgress_.isEmpty()) {
+            if (requiredPossessEquipJobProgress_.isEmpty()) {
+              requiredPossessEquipJobProgress_ = other.requiredPossessEquipJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000100);
+            } else {
+              ensureRequiredPossessEquipJobProgressIsMutable();
+              requiredPossessEquipJobProgress_.addAll(other.requiredPossessEquipJobProgress_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requiredPossessEquipJobProgress_.isEmpty()) {
+            if (requiredPossessEquipJobProgressBuilder_.isEmpty()) {
+              requiredPossessEquipJobProgressBuilder_.dispose();
+              requiredPossessEquipJobProgressBuilder_ = null;
+              requiredPossessEquipJobProgress_ = other.requiredPossessEquipJobProgress_;
+              bitField0_ = (bitField0_ & ~0x00000100);
+              requiredPossessEquipJobProgressBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRequiredPossessEquipJobProgressFieldBuilder() : null;
+            } else {
+              requiredPossessEquipJobProgressBuilder_.addAllMessages(other.requiredPossessEquipJobProgress_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasQuestId()) {
+          
+          return false;
+        }
+        if (!hasComplete()) {
+          
+          return false;
+        }
+        for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
+          if (!getRequiredTasksProgress(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getRequiredDefeatTypeJobProgressCount(); i++) {
+          if (!getRequiredDefeatTypeJobProgress(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getRequiredBuildStructJobProgressCount(); i++) {
+          if (!getRequiredBuildStructJobProgress(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getRequiredMarketplaceJobProgressCount(); i++) {
+          if (!getRequiredMarketplaceJobProgress(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getRequiredUpgradeStructJobProgressCount(); i++) {
+          if (!getRequiredUpgradeStructJobProgress(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getRequiredPossessEquipJobProgressCount(); i++) {
+          if (!getRequiredPossessEquipJobProgress(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              complete_ = input.readBool();
+              break;
+            }
+            case 34: {
+              com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserTaskProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addRequiredTasksProgress(subBuilder.buildPartial());
+              break;
+            }
+            case 42: {
+              com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addRequiredDefeatTypeJobProgress(subBuilder.buildPartial());
+              break;
+            }
+            case 50: {
+              com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addRequiredBuildStructJobProgress(subBuilder.buildPartial());
+              break;
+            }
+            case 58: {
+              com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addRequiredMarketplaceJobProgress(subBuilder.buildPartial());
+              break;
+            }
+            case 66: {
+              com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addRequiredUpgradeStructJobProgress(subBuilder.buildPartial());
+              break;
+            }
+            case 74: {
+              com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addRequiredPossessEquipJobProgress(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 questId = 2;
+      private int questId_ ;
+      public boolean hasQuestId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getQuestId() {
+        return questId_;
+      }
+      public Builder setQuestId(int value) {
+        bitField0_ |= 0x00000002;
+        questId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required bool complete = 3;
+      private boolean complete_ ;
+      public boolean hasComplete() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public boolean getComplete() {
+        return complete_;
+      }
+      public Builder setComplete(boolean value) {
+        bitField0_ |= 0x00000004;
+        complete_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearComplete() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        complete_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserTaskProto requiredTasksProgress = 4;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> requiredTasksProgress_ =
+        java.util.Collections.emptyList();
+      private void ensureRequiredTasksProgressIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          requiredTasksProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserTaskProto>(requiredTasksProgress_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserTaskProto, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> requiredTasksProgressBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> getRequiredTasksProgressList() {
+        if (requiredTasksProgressBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requiredTasksProgress_);
+        } else {
+          return requiredTasksProgressBuilder_.getMessageList();
+        }
+      }
+      public int getRequiredTasksProgressCount() {
+        if (requiredTasksProgressBuilder_ == null) {
+          return requiredTasksProgress_.size();
+        } else {
+          return requiredTasksProgressBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto getRequiredTasksProgress(int index) {
+        if (requiredTasksProgressBuilder_ == null) {
+          return requiredTasksProgress_.get(index);
+        } else {
+          return requiredTasksProgressBuilder_.getMessage(index);
+        }
+      }
+      public Builder setRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto value) {
+        if (requiredTasksProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.set(index, value);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder builderForValue) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(com.lvl6.proto.InfoProto.MinimumUserTaskProto value) {
+        if (requiredTasksProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(value);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto value) {
+        if (requiredTasksProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(index, value);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(
+          com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder builderForValue) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder builderForValue) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllRequiredTasksProgress(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProto> values) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          super.addAll(values, requiredTasksProgress_);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearRequiredTasksProgress() {
+        if (requiredTasksProgressBuilder_ == null) {
+          requiredTasksProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeRequiredTasksProgress(int index) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.remove(index);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder getRequiredTasksProgressBuilder(
+          int index) {
+        return getRequiredTasksProgressFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
+          int index) {
+        if (requiredTasksProgressBuilder_ == null) {
+          return requiredTasksProgress_.get(index);  } else {
+          return requiredTasksProgressBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+           getRequiredTasksProgressOrBuilderList() {
+        if (requiredTasksProgressBuilder_ != null) {
+          return requiredTasksProgressBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requiredTasksProgress_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder addRequiredTasksProgressBuilder() {
+        return getRequiredTasksProgressFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserTaskProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder addRequiredTasksProgressBuilder(
+          int index) {
+        return getRequiredTasksProgressFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserTaskProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder> 
+           getRequiredTasksProgressBuilderList() {
+        return getRequiredTasksProgressFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserTaskProto, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+          getRequiredTasksProgressFieldBuilder() {
+        if (requiredTasksProgressBuilder_ == null) {
+          requiredTasksProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserTaskProto, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder>(
+                  requiredTasksProgress_,
+                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  getParentForChildren(),
+                  isClean());
+          requiredTasksProgress_ = null;
+        }
+        return requiredTasksProgressBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto> requiredDefeatTypeJobProgress_ =
+        java.util.Collections.emptyList();
+      private void ensureRequiredDefeatTypeJobProgressIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          requiredDefeatTypeJobProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto>(requiredDefeatTypeJobProgress_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder> requiredDefeatTypeJobProgressBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto> getRequiredDefeatTypeJobProgressList() {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requiredDefeatTypeJobProgress_);
+        } else {
+          return requiredDefeatTypeJobProgressBuilder_.getMessageList();
+        }
+      }
+      public int getRequiredDefeatTypeJobProgressCount() {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          return requiredDefeatTypeJobProgress_.size();
+        } else {
+          return requiredDefeatTypeJobProgressBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto getRequiredDefeatTypeJobProgress(int index) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          return requiredDefeatTypeJobProgress_.get(index);
+        } else {
+          return requiredDefeatTypeJobProgressBuilder_.getMessage(index);
+        }
+      }
+      public Builder setRequiredDefeatTypeJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto value) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          requiredDefeatTypeJobProgress_.set(index, value);
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setRequiredDefeatTypeJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder builderForValue) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          requiredDefeatTypeJobProgress_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredDefeatTypeJobProgress(com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto value) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          requiredDefeatTypeJobProgress_.add(value);
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addRequiredDefeatTypeJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto value) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          requiredDefeatTypeJobProgress_.add(index, value);
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addRequiredDefeatTypeJobProgress(
+          com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder builderForValue) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          requiredDefeatTypeJobProgress_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredDefeatTypeJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder builderForValue) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          requiredDefeatTypeJobProgress_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllRequiredDefeatTypeJobProgress(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto> values) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          super.addAll(values, requiredDefeatTypeJobProgress_);
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearRequiredDefeatTypeJobProgress() {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          requiredDefeatTypeJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeRequiredDefeatTypeJobProgress(int index) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          ensureRequiredDefeatTypeJobProgressIsMutable();
+          requiredDefeatTypeJobProgress_.remove(index);
+          onChanged();
+        } else {
+          requiredDefeatTypeJobProgressBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder getRequiredDefeatTypeJobProgressBuilder(
+          int index) {
+        return getRequiredDefeatTypeJobProgressFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder getRequiredDefeatTypeJobProgressOrBuilder(
+          int index) {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          return requiredDefeatTypeJobProgress_.get(index);  } else {
+          return requiredDefeatTypeJobProgressBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder> 
+           getRequiredDefeatTypeJobProgressOrBuilderList() {
+        if (requiredDefeatTypeJobProgressBuilder_ != null) {
+          return requiredDefeatTypeJobProgressBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requiredDefeatTypeJobProgress_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder addRequiredDefeatTypeJobProgressBuilder() {
+        return getRequiredDefeatTypeJobProgressFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder addRequiredDefeatTypeJobProgressBuilder(
+          int index) {
+        return getRequiredDefeatTypeJobProgressFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder> 
+           getRequiredDefeatTypeJobProgressBuilderList() {
+        return getRequiredDefeatTypeJobProgressFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder> 
+          getRequiredDefeatTypeJobProgressFieldBuilder() {
+        if (requiredDefeatTypeJobProgressBuilder_ == null) {
+          requiredDefeatTypeJobProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder>(
+                  requiredDefeatTypeJobProgress_,
+                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  getParentForChildren(),
+                  isClean());
+          requiredDefeatTypeJobProgress_ = null;
+        }
+        return requiredDefeatTypeJobProgressBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserBuildStructJobProto requiredBuildStructJobProgress = 6;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto> requiredBuildStructJobProgress_ =
+        java.util.Collections.emptyList();
+      private void ensureRequiredBuildStructJobProgressIsMutable() {
+        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+          requiredBuildStructJobProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto>(requiredBuildStructJobProgress_);
+          bitField0_ |= 0x00000020;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder> requiredBuildStructJobProgressBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto> getRequiredBuildStructJobProgressList() {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requiredBuildStructJobProgress_);
+        } else {
+          return requiredBuildStructJobProgressBuilder_.getMessageList();
+        }
+      }
+      public int getRequiredBuildStructJobProgressCount() {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          return requiredBuildStructJobProgress_.size();
+        } else {
+          return requiredBuildStructJobProgressBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto getRequiredBuildStructJobProgress(int index) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          return requiredBuildStructJobProgress_.get(index);
+        } else {
+          return requiredBuildStructJobProgressBuilder_.getMessage(index);
+        }
+      }
+      public Builder setRequiredBuildStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto value) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredBuildStructJobProgressIsMutable();
+          requiredBuildStructJobProgress_.set(index, value);
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setRequiredBuildStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder builderForValue) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          ensureRequiredBuildStructJobProgressIsMutable();
+          requiredBuildStructJobProgress_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredBuildStructJobProgress(com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto value) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredBuildStructJobProgressIsMutable();
+          requiredBuildStructJobProgress_.add(value);
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addRequiredBuildStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto value) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredBuildStructJobProgressIsMutable();
+          requiredBuildStructJobProgress_.add(index, value);
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addRequiredBuildStructJobProgress(
+          com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder builderForValue) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          ensureRequiredBuildStructJobProgressIsMutable();
+          requiredBuildStructJobProgress_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredBuildStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder builderForValue) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          ensureRequiredBuildStructJobProgressIsMutable();
+          requiredBuildStructJobProgress_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllRequiredBuildStructJobProgress(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto> values) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          ensureRequiredBuildStructJobProgressIsMutable();
+          super.addAll(values, requiredBuildStructJobProgress_);
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearRequiredBuildStructJobProgress() {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          requiredBuildStructJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000020);
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeRequiredBuildStructJobProgress(int index) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          ensureRequiredBuildStructJobProgressIsMutable();
+          requiredBuildStructJobProgress_.remove(index);
+          onChanged();
+        } else {
+          requiredBuildStructJobProgressBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder getRequiredBuildStructJobProgressBuilder(
+          int index) {
+        return getRequiredBuildStructJobProgressFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder getRequiredBuildStructJobProgressOrBuilder(
+          int index) {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          return requiredBuildStructJobProgress_.get(index);  } else {
+          return requiredBuildStructJobProgressBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder> 
+           getRequiredBuildStructJobProgressOrBuilderList() {
+        if (requiredBuildStructJobProgressBuilder_ != null) {
+          return requiredBuildStructJobProgressBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requiredBuildStructJobProgress_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder addRequiredBuildStructJobProgressBuilder() {
+        return getRequiredBuildStructJobProgressFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder addRequiredBuildStructJobProgressBuilder(
+          int index) {
+        return getRequiredBuildStructJobProgressFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder> 
+           getRequiredBuildStructJobProgressBuilderList() {
+        return getRequiredBuildStructJobProgressFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder> 
+          getRequiredBuildStructJobProgressFieldBuilder() {
+        if (requiredBuildStructJobProgressBuilder_ == null) {
+          requiredBuildStructJobProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder>(
+                  requiredBuildStructJobProgress_,
+                  ((bitField0_ & 0x00000020) == 0x00000020),
+                  getParentForChildren(),
+                  isClean());
+          requiredBuildStructJobProgress_ = null;
+        }
+        return requiredBuildStructJobProgressBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserMarketplaceJobProto requiredMarketplaceJobProgress = 7;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto> requiredMarketplaceJobProgress_ =
+        java.util.Collections.emptyList();
+      private void ensureRequiredMarketplaceJobProgressIsMutable() {
+        if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+          requiredMarketplaceJobProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto>(requiredMarketplaceJobProgress_);
+          bitField0_ |= 0x00000040;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder> requiredMarketplaceJobProgressBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto> getRequiredMarketplaceJobProgressList() {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requiredMarketplaceJobProgress_);
+        } else {
+          return requiredMarketplaceJobProgressBuilder_.getMessageList();
+        }
+      }
+      public int getRequiredMarketplaceJobProgressCount() {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          return requiredMarketplaceJobProgress_.size();
+        } else {
+          return requiredMarketplaceJobProgressBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto getRequiredMarketplaceJobProgress(int index) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          return requiredMarketplaceJobProgress_.get(index);
+        } else {
+          return requiredMarketplaceJobProgressBuilder_.getMessage(index);
+        }
+      }
+      public Builder setRequiredMarketplaceJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto value) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          requiredMarketplaceJobProgress_.set(index, value);
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setRequiredMarketplaceJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder builderForValue) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          requiredMarketplaceJobProgress_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredMarketplaceJobProgress(com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto value) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          requiredMarketplaceJobProgress_.add(value);
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addRequiredMarketplaceJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto value) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          requiredMarketplaceJobProgress_.add(index, value);
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addRequiredMarketplaceJobProgress(
+          com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder builderForValue) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          requiredMarketplaceJobProgress_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredMarketplaceJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder builderForValue) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          requiredMarketplaceJobProgress_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllRequiredMarketplaceJobProgress(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto> values) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          super.addAll(values, requiredMarketplaceJobProgress_);
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearRequiredMarketplaceJobProgress() {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          requiredMarketplaceJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeRequiredMarketplaceJobProgress(int index) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          ensureRequiredMarketplaceJobProgressIsMutable();
+          requiredMarketplaceJobProgress_.remove(index);
+          onChanged();
+        } else {
+          requiredMarketplaceJobProgressBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder getRequiredMarketplaceJobProgressBuilder(
+          int index) {
+        return getRequiredMarketplaceJobProgressFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder getRequiredMarketplaceJobProgressOrBuilder(
+          int index) {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          return requiredMarketplaceJobProgress_.get(index);  } else {
+          return requiredMarketplaceJobProgressBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder> 
+           getRequiredMarketplaceJobProgressOrBuilderList() {
+        if (requiredMarketplaceJobProgressBuilder_ != null) {
+          return requiredMarketplaceJobProgressBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requiredMarketplaceJobProgress_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder addRequiredMarketplaceJobProgressBuilder() {
+        return getRequiredMarketplaceJobProgressFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder addRequiredMarketplaceJobProgressBuilder(
+          int index) {
+        return getRequiredMarketplaceJobProgressFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder> 
+           getRequiredMarketplaceJobProgressBuilderList() {
+        return getRequiredMarketplaceJobProgressFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder> 
+          getRequiredMarketplaceJobProgressFieldBuilder() {
+        if (requiredMarketplaceJobProgressBuilder_ == null) {
+          requiredMarketplaceJobProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder>(
+                  requiredMarketplaceJobProgress_,
+                  ((bitField0_ & 0x00000040) == 0x00000040),
+                  getParentForChildren(),
+                  isClean());
+          requiredMarketplaceJobProgress_ = null;
+        }
+        return requiredMarketplaceJobProgressBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 8;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto> requiredUpgradeStructJobProgress_ =
+        java.util.Collections.emptyList();
+      private void ensureRequiredUpgradeStructJobProgressIsMutable() {
+        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
+          requiredUpgradeStructJobProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto>(requiredUpgradeStructJobProgress_);
+          bitField0_ |= 0x00000080;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder> requiredUpgradeStructJobProgressBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto> getRequiredUpgradeStructJobProgressList() {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requiredUpgradeStructJobProgress_);
+        } else {
+          return requiredUpgradeStructJobProgressBuilder_.getMessageList();
+        }
+      }
+      public int getRequiredUpgradeStructJobProgressCount() {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          return requiredUpgradeStructJobProgress_.size();
+        } else {
+          return requiredUpgradeStructJobProgressBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto getRequiredUpgradeStructJobProgress(int index) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          return requiredUpgradeStructJobProgress_.get(index);
+        } else {
+          return requiredUpgradeStructJobProgressBuilder_.getMessage(index);
+        }
+      }
+      public Builder setRequiredUpgradeStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto value) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          requiredUpgradeStructJobProgress_.set(index, value);
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setRequiredUpgradeStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder builderForValue) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          requiredUpgradeStructJobProgress_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredUpgradeStructJobProgress(com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto value) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          requiredUpgradeStructJobProgress_.add(value);
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addRequiredUpgradeStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto value) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          requiredUpgradeStructJobProgress_.add(index, value);
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addRequiredUpgradeStructJobProgress(
+          com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder builderForValue) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          requiredUpgradeStructJobProgress_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredUpgradeStructJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder builderForValue) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          requiredUpgradeStructJobProgress_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllRequiredUpgradeStructJobProgress(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto> values) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          super.addAll(values, requiredUpgradeStructJobProgress_);
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearRequiredUpgradeStructJobProgress() {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          requiredUpgradeStructJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000080);
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeRequiredUpgradeStructJobProgress(int index) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          ensureRequiredUpgradeStructJobProgressIsMutable();
+          requiredUpgradeStructJobProgress_.remove(index);
+          onChanged();
+        } else {
+          requiredUpgradeStructJobProgressBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder getRequiredUpgradeStructJobProgressBuilder(
+          int index) {
+        return getRequiredUpgradeStructJobProgressFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder getRequiredUpgradeStructJobProgressOrBuilder(
+          int index) {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          return requiredUpgradeStructJobProgress_.get(index);  } else {
+          return requiredUpgradeStructJobProgressBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder> 
+           getRequiredUpgradeStructJobProgressOrBuilderList() {
+        if (requiredUpgradeStructJobProgressBuilder_ != null) {
+          return requiredUpgradeStructJobProgressBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requiredUpgradeStructJobProgress_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder addRequiredUpgradeStructJobProgressBuilder() {
+        return getRequiredUpgradeStructJobProgressFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder addRequiredUpgradeStructJobProgressBuilder(
+          int index) {
+        return getRequiredUpgradeStructJobProgressFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder> 
+           getRequiredUpgradeStructJobProgressBuilderList() {
+        return getRequiredUpgradeStructJobProgressFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder> 
+          getRequiredUpgradeStructJobProgressFieldBuilder() {
+        if (requiredUpgradeStructJobProgressBuilder_ == null) {
+          requiredUpgradeStructJobProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder>(
+                  requiredUpgradeStructJobProgress_,
+                  ((bitField0_ & 0x00000080) == 0x00000080),
+                  getParentForChildren(),
+                  isClean());
+          requiredUpgradeStructJobProgress_ = null;
+        }
+        return requiredUpgradeStructJobProgressBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 9;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto> requiredPossessEquipJobProgress_ =
+        java.util.Collections.emptyList();
+      private void ensureRequiredPossessEquipJobProgressIsMutable() {
+        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
+          requiredPossessEquipJobProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto>(requiredPossessEquipJobProgress_);
+          bitField0_ |= 0x00000100;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder> requiredPossessEquipJobProgressBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto> getRequiredPossessEquipJobProgressList() {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requiredPossessEquipJobProgress_);
+        } else {
+          return requiredPossessEquipJobProgressBuilder_.getMessageList();
+        }
+      }
+      public int getRequiredPossessEquipJobProgressCount() {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          return requiredPossessEquipJobProgress_.size();
+        } else {
+          return requiredPossessEquipJobProgressBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto getRequiredPossessEquipJobProgress(int index) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          return requiredPossessEquipJobProgress_.get(index);
+        } else {
+          return requiredPossessEquipJobProgressBuilder_.getMessage(index);
+        }
+      }
+      public Builder setRequiredPossessEquipJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto value) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          requiredPossessEquipJobProgress_.set(index, value);
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setRequiredPossessEquipJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder builderForValue) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          requiredPossessEquipJobProgress_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredPossessEquipJobProgress(com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto value) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          requiredPossessEquipJobProgress_.add(value);
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addRequiredPossessEquipJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto value) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          requiredPossessEquipJobProgress_.add(index, value);
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addRequiredPossessEquipJobProgress(
+          com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder builderForValue) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          requiredPossessEquipJobProgress_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredPossessEquipJobProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder builderForValue) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          requiredPossessEquipJobProgress_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllRequiredPossessEquipJobProgress(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto> values) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          super.addAll(values, requiredPossessEquipJobProgress_);
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearRequiredPossessEquipJobProgress() {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          requiredPossessEquipJobProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000100);
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeRequiredPossessEquipJobProgress(int index) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          ensureRequiredPossessEquipJobProgressIsMutable();
+          requiredPossessEquipJobProgress_.remove(index);
+          onChanged();
+        } else {
+          requiredPossessEquipJobProgressBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder getRequiredPossessEquipJobProgressBuilder(
+          int index) {
+        return getRequiredPossessEquipJobProgressFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder getRequiredPossessEquipJobProgressOrBuilder(
+          int index) {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          return requiredPossessEquipJobProgress_.get(index);  } else {
+          return requiredPossessEquipJobProgressBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder> 
+           getRequiredPossessEquipJobProgressOrBuilderList() {
+        if (requiredPossessEquipJobProgressBuilder_ != null) {
+          return requiredPossessEquipJobProgressBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requiredPossessEquipJobProgress_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder addRequiredPossessEquipJobProgressBuilder() {
+        return getRequiredPossessEquipJobProgressFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder addRequiredPossessEquipJobProgressBuilder(
+          int index) {
+        return getRequiredPossessEquipJobProgressFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder> 
+           getRequiredPossessEquipJobProgressBuilderList() {
+        return getRequiredPossessEquipJobProgressFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder> 
+          getRequiredPossessEquipJobProgressFieldBuilder() {
+        if (requiredPossessEquipJobProgressBuilder_ == null) {
+          requiredPossessEquipJobProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder, com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder>(
+                  requiredPossessEquipJobProgress_,
+                  ((bitField0_ & 0x00000100) == 0x00000100),
+                  getParentForChildren(),
+                  isClean());
+          requiredPossessEquipJobProgress_ = null;
+        }
+        return requiredPossessEquipJobProgressBuilder_;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullUserQuestDataLarge)
+    }
+    
+    static {
+      defaultInstance = new FullUserQuestDataLarge(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullUserQuestDataLarge)
+  }
+  
+  public interface MinimumUserTaskProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 taskId = 2;
+    boolean hasTaskId();
+    int getTaskId();
+    
+    // required int32 numTimesActed = 3;
+    boolean hasNumTimesActed();
+    int getNumTimesActed();
+    
+    // required int32 numTimesRequired = 4;
+    boolean hasNumTimesRequired();
+    int getNumTimesRequired();
+  }
+  public static final class MinimumUserTaskProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserTaskProtoOrBuilder {
+    // Use MinimumUserTaskProto.newBuilder() to construct.
+    private MinimumUserTaskProto(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserTaskProto(boolean noInit) {}
+    
+    private static final MinimumUserTaskProto defaultInstance;
+    public static MinimumUserTaskProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserTaskProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserTaskProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 taskId = 2;
+    public static final int TASKID_FIELD_NUMBER = 2;
+    private int taskId_;
+    public boolean hasTaskId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getTaskId() {
+      return taskId_;
+    }
+    
+    // required int32 numTimesActed = 3;
+    public static final int NUMTIMESACTED_FIELD_NUMBER = 3;
+    private int numTimesActed_;
+    public boolean hasNumTimesActed() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getNumTimesActed() {
+      return numTimesActed_;
+    }
+    
+    // required int32 numTimesRequired = 4;
+    public static final int NUMTIMESREQUIRED_FIELD_NUMBER = 4;
+    private int numTimesRequired_;
+    public boolean hasNumTimesRequired() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getNumTimesRequired() {
+      return numTimesRequired_;
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      taskId_ = 0;
+      numTimesActed_ = 0;
+      numTimesRequired_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTaskId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNumTimesActed()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNumTimesRequired()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, taskId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, numTimesActed_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, numTimesRequired_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, taskId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, numTimesActed_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, numTimesRequired_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserTaskProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserTaskProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserTaskProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserTaskProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        taskId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        numTimesActed_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        numTimesRequired_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserTaskProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserTaskProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserTaskProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserTaskProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserTaskProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserTaskProto result = new com.lvl6.proto.InfoProto.MinimumUserTaskProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.taskId_ = taskId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.numTimesActed_ = numTimesActed_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.numTimesRequired_ = numTimesRequired_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserTaskProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserTaskProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserTaskProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserTaskProto.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasTaskId()) {
+          setTaskId(other.getTaskId());
+        }
+        if (other.hasNumTimesActed()) {
+          setNumTimesActed(other.getNumTimesActed());
+        }
+        if (other.hasNumTimesRequired()) {
+          setNumTimesRequired(other.getNumTimesRequired());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasTaskId()) {
+          
+          return false;
+        }
+        if (!hasNumTimesActed()) {
+          
+          return false;
+        }
+        if (!hasNumTimesRequired()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              taskId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              numTimesActed_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              numTimesRequired_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 taskId = 2;
+      private int taskId_ ;
+      public boolean hasTaskId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getTaskId() {
+        return taskId_;
+      }
+      public Builder setTaskId(int value) {
+        bitField0_ |= 0x00000002;
+        taskId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTaskId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        taskId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 numTimesActed = 3;
+      private int numTimesActed_ ;
+      public boolean hasNumTimesActed() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getNumTimesActed() {
+        return numTimesActed_;
+      }
+      public Builder setNumTimesActed(int value) {
+        bitField0_ |= 0x00000004;
+        numTimesActed_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumTimesActed() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        numTimesActed_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 numTimesRequired = 4;
+      private int numTimesRequired_ ;
+      public boolean hasNumTimesRequired() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getNumTimesRequired() {
+        return numTimesRequired_;
+      }
+      public Builder setNumTimesRequired(int value) {
+        bitField0_ |= 0x00000008;
+        numTimesRequired_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumTimesRequired() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        numTimesRequired_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserTaskProto)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserTaskProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserTaskProto)
+  }
+  
+  public interface MinimumUserDefeatTypeJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 questId = 2;
+    boolean hasQuestId();
+    int getQuestId();
+    
+    // required .com.lvl6.proto.DefeatTypeJobProto defeatTypeJobId = 3;
+    boolean hasDefeatTypeJobId();
+    com.lvl6.proto.InfoProto.DefeatTypeJobProto getDefeatTypeJobId();
+    com.lvl6.proto.InfoProto.DefeatTypeJobProtoOrBuilder getDefeatTypeJobIdOrBuilder();
+    
+    // required int32 numDefeated = 4;
+    boolean hasNumDefeated();
+    int getNumDefeated();
+  }
+  public static final class MinimumUserDefeatTypeJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserDefeatTypeJobProtoOrBuilder {
+    // Use MinimumUserDefeatTypeJobProto.newBuilder() to construct.
+    private MinimumUserDefeatTypeJobProto(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserDefeatTypeJobProto(boolean noInit) {}
+    
+    private static final MinimumUserDefeatTypeJobProto defaultInstance;
+    public static MinimumUserDefeatTypeJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserDefeatTypeJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 questId = 2;
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questId_;
+    public boolean hasQuestId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getQuestId() {
+      return questId_;
+    }
+    
+    // required .com.lvl6.proto.DefeatTypeJobProto defeatTypeJobId = 3;
+    public static final int DEFEATTYPEJOBID_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.DefeatTypeJobProto defeatTypeJobId_;
+    public boolean hasDefeatTypeJobId() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.DefeatTypeJobProto getDefeatTypeJobId() {
+      return defeatTypeJobId_;
+    }
+    public com.lvl6.proto.InfoProto.DefeatTypeJobProtoOrBuilder getDefeatTypeJobIdOrBuilder() {
+      return defeatTypeJobId_;
+    }
+    
+    // required int32 numDefeated = 4;
+    public static final int NUMDEFEATED_FIELD_NUMBER = 4;
+    private int numDefeated_;
+    public boolean hasNumDefeated() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getNumDefeated() {
+      return numDefeated_;
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      questId_ = 0;
+      defeatTypeJobId_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDefaultInstance();
+      numDefeated_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDefeatTypeJobId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNumDefeated()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getDefeatTypeJobId().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, defeatTypeJobId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, numDefeated_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, defeatTypeJobId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, numDefeated_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getDefeatTypeJobIdFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (defeatTypeJobIdBuilder_ == null) {
+          defeatTypeJobId_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDefaultInstance();
+        } else {
+          defeatTypeJobIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        numDefeated_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto result = new com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questId_ = questId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (defeatTypeJobIdBuilder_ == null) {
+          result.defeatTypeJobId_ = defeatTypeJobId_;
+        } else {
+          result.defeatTypeJobId_ = defeatTypeJobIdBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.numDefeated_ = numDefeated_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasQuestId()) {
+          setQuestId(other.getQuestId());
+        }
+        if (other.hasDefeatTypeJobId()) {
+          mergeDefeatTypeJobId(other.getDefeatTypeJobId());
+        }
+        if (other.hasNumDefeated()) {
+          setNumDefeated(other.getNumDefeated());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasQuestId()) {
+          
+          return false;
+        }
+        if (!hasDefeatTypeJobId()) {
+          
+          return false;
+        }
+        if (!hasNumDefeated()) {
+          
+          return false;
+        }
+        if (!getDefeatTypeJobId().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questId_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.DefeatTypeJobProto.newBuilder();
+              if (hasDefeatTypeJobId()) {
+                subBuilder.mergeFrom(getDefeatTypeJobId());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setDefeatTypeJobId(subBuilder.buildPartial());
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              numDefeated_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 questId = 2;
+      private int questId_ ;
+      public boolean hasQuestId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getQuestId() {
+        return questId_;
+      }
+      public Builder setQuestId(int value) {
+        bitField0_ |= 0x00000002;
+        questId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.DefeatTypeJobProto defeatTypeJobId = 3;
+      private com.lvl6.proto.InfoProto.DefeatTypeJobProto defeatTypeJobId_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.DefeatTypeJobProto, com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder, com.lvl6.proto.InfoProto.DefeatTypeJobProtoOrBuilder> defeatTypeJobIdBuilder_;
+      public boolean hasDefeatTypeJobId() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.DefeatTypeJobProto getDefeatTypeJobId() {
+        if (defeatTypeJobIdBuilder_ == null) {
+          return defeatTypeJobId_;
+        } else {
+          return defeatTypeJobIdBuilder_.getMessage();
+        }
+      }
+      public Builder setDefeatTypeJobId(com.lvl6.proto.InfoProto.DefeatTypeJobProto value) {
+        if (defeatTypeJobIdBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          defeatTypeJobId_ = value;
+          onChanged();
+        } else {
+          defeatTypeJobIdBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder setDefeatTypeJobId(
+          com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder builderForValue) {
+        if (defeatTypeJobIdBuilder_ == null) {
+          defeatTypeJobId_ = builderForValue.build();
+          onChanged();
+        } else {
+          defeatTypeJobIdBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder mergeDefeatTypeJobId(com.lvl6.proto.InfoProto.DefeatTypeJobProto value) {
+        if (defeatTypeJobIdBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              defeatTypeJobId_ != com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDefaultInstance()) {
+            defeatTypeJobId_ =
+              com.lvl6.proto.InfoProto.DefeatTypeJobProto.newBuilder(defeatTypeJobId_).mergeFrom(value).buildPartial();
+          } else {
+            defeatTypeJobId_ = value;
+          }
+          onChanged();
+        } else {
+          defeatTypeJobIdBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder clearDefeatTypeJobId() {
+        if (defeatTypeJobIdBuilder_ == null) {
+          defeatTypeJobId_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDefaultInstance();
+          onChanged();
+        } else {
+          defeatTypeJobIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder getDefeatTypeJobIdBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getDefeatTypeJobIdFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.DefeatTypeJobProtoOrBuilder getDefeatTypeJobIdOrBuilder() {
+        if (defeatTypeJobIdBuilder_ != null) {
+          return defeatTypeJobIdBuilder_.getMessageOrBuilder();
+        } else {
+          return defeatTypeJobId_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.DefeatTypeJobProto, com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder, com.lvl6.proto.InfoProto.DefeatTypeJobProtoOrBuilder> 
+          getDefeatTypeJobIdFieldBuilder() {
+        if (defeatTypeJobIdBuilder_ == null) {
+          defeatTypeJobIdBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.DefeatTypeJobProto, com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder, com.lvl6.proto.InfoProto.DefeatTypeJobProtoOrBuilder>(
+                  defeatTypeJobId_,
+                  getParentForChildren(),
+                  isClean());
+          defeatTypeJobId_ = null;
+        }
+        return defeatTypeJobIdBuilder_;
+      }
+      
+      // required int32 numDefeated = 4;
+      private int numDefeated_ ;
+      public boolean hasNumDefeated() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getNumDefeated() {
+        return numDefeated_;
+      }
+      public Builder setNumDefeated(int value) {
+        bitField0_ |= 0x00000008;
+        numDefeated_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumDefeated() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        numDefeated_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserDefeatTypeJobProto)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserDefeatTypeJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserDefeatTypeJobProto)
+  }
+  
+  public interface DefeatTypeJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // required .com.lvl6.proto.UserType typeOfEnemy = 2;
+    boolean hasTypeOfEnemy();
+    com.lvl6.proto.InfoProto.UserType getTypeOfEnemy();
+    
+    // required int32 numEnemiesToDefeat = 3;
+    boolean hasNumEnemiesToDefeat();
+    int getNumEnemiesToDefeat();
+    
+    // required int32 cityId = 4;
+    boolean hasCityId();
+    int getCityId();
+  }
+  public static final class DefeatTypeJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements DefeatTypeJobProtoOrBuilder {
+    // Use DefeatTypeJobProto.newBuilder() to construct.
+    private DefeatTypeJobProto(Builder builder) {
+      super(builder);
+    }
+    private DefeatTypeJobProto(boolean noInit) {}
+    
+    private static final DefeatTypeJobProto defaultInstance;
+    public static DefeatTypeJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public DefeatTypeJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // required .com.lvl6.proto.UserType typeOfEnemy = 2;
+    public static final int TYPEOFENEMY_FIELD_NUMBER = 2;
+    private com.lvl6.proto.InfoProto.UserType typeOfEnemy_;
+    public boolean hasTypeOfEnemy() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.InfoProto.UserType getTypeOfEnemy() {
+      return typeOfEnemy_;
+    }
+    
+    // required int32 numEnemiesToDefeat = 3;
+    public static final int NUMENEMIESTODEFEAT_FIELD_NUMBER = 3;
+    private int numEnemiesToDefeat_;
+    public boolean hasNumEnemiesToDefeat() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getNumEnemiesToDefeat() {
+      return numEnemiesToDefeat_;
+    }
+    
+    // required int32 cityId = 4;
+    public static final int CITYID_FIELD_NUMBER = 4;
+    private int cityId_;
+    public boolean hasCityId() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getCityId() {
+      return cityId_;
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+      numEnemiesToDefeat_ = 0;
+      cityId_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTypeOfEnemy()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNumEnemiesToDefeat()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCityId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, typeOfEnemy_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, numEnemiesToDefeat_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, cityId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, typeOfEnemy_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, numEnemiesToDefeat_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, cityId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DefeatTypeJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.DefeatTypeJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.DefeatTypeJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.DefeatTypeJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        numEnemiesToDefeat_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        cityId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.DefeatTypeJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.DefeatTypeJobProto build() {
+        com.lvl6.proto.InfoProto.DefeatTypeJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.DefeatTypeJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.DefeatTypeJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.DefeatTypeJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.DefeatTypeJobProto result = new com.lvl6.proto.InfoProto.DefeatTypeJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.typeOfEnemy_ = typeOfEnemy_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.numEnemiesToDefeat_ = numEnemiesToDefeat_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.cityId_ = cityId_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.DefeatTypeJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.DefeatTypeJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.DefeatTypeJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasTypeOfEnemy()) {
+          setTypeOfEnemy(other.getTypeOfEnemy());
+        }
+        if (other.hasNumEnemiesToDefeat()) {
+          setNumEnemiesToDefeat(other.getNumEnemiesToDefeat());
+        }
+        if (other.hasCityId()) {
+          setCityId(other.getCityId());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasTypeOfEnemy()) {
+          
+          return false;
+        }
+        if (!hasNumEnemiesToDefeat()) {
+          
+          return false;
+        }
+        if (!hasCityId()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.UserType value = com.lvl6.proto.InfoProto.UserType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                typeOfEnemy_ = value;
+              }
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              numEnemiesToDefeat_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              cityId_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.UserType typeOfEnemy = 2;
+      private com.lvl6.proto.InfoProto.UserType typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+      public boolean hasTypeOfEnemy() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.InfoProto.UserType getTypeOfEnemy() {
+        return typeOfEnemy_;
+      }
+      public Builder setTypeOfEnemy(com.lvl6.proto.InfoProto.UserType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        typeOfEnemy_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTypeOfEnemy() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 numEnemiesToDefeat = 3;
+      private int numEnemiesToDefeat_ ;
+      public boolean hasNumEnemiesToDefeat() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getNumEnemiesToDefeat() {
+        return numEnemiesToDefeat_;
+      }
+      public Builder setNumEnemiesToDefeat(int value) {
+        bitField0_ |= 0x00000004;
+        numEnemiesToDefeat_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumEnemiesToDefeat() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        numEnemiesToDefeat_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 cityId = 4;
+      private int cityId_ ;
+      public boolean hasCityId() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getCityId() {
+        return cityId_;
+      }
+      public Builder setCityId(int value) {
+        bitField0_ |= 0x00000008;
+        cityId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCityId() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        cityId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.DefeatTypeJobProto)
+    }
+    
+    static {
+      defaultInstance = new DefeatTypeJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.DefeatTypeJobProto)
+  }
+  
+  public interface MinimumUserBuildStructJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 questId = 2;
+    boolean hasQuestId();
+    int getQuestId();
+    
+    // required .com.lvl6.proto.BuildStructJobProto buildStructJob = 3;
+    boolean hasBuildStructJob();
+    com.lvl6.proto.InfoProto.BuildStructJobProto getBuildStructJob();
+    com.lvl6.proto.InfoProto.BuildStructJobProtoOrBuilder getBuildStructJobOrBuilder();
+    
+    // required int32 numOfStructUserHas = 4;
+    boolean hasNumOfStructUserHas();
+    int getNumOfStructUserHas();
+  }
+  public static final class MinimumUserBuildStructJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserBuildStructJobProtoOrBuilder {
+    // Use MinimumUserBuildStructJobProto.newBuilder() to construct.
+    private MinimumUserBuildStructJobProto(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserBuildStructJobProto(boolean noInit) {}
+    
+    private static final MinimumUserBuildStructJobProto defaultInstance;
+    public static MinimumUserBuildStructJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserBuildStructJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 questId = 2;
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questId_;
+    public boolean hasQuestId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getQuestId() {
+      return questId_;
+    }
+    
+    // required .com.lvl6.proto.BuildStructJobProto buildStructJob = 3;
+    public static final int BUILDSTRUCTJOB_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.BuildStructJobProto buildStructJob_;
+    public boolean hasBuildStructJob() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.BuildStructJobProto getBuildStructJob() {
+      return buildStructJob_;
+    }
+    public com.lvl6.proto.InfoProto.BuildStructJobProtoOrBuilder getBuildStructJobOrBuilder() {
+      return buildStructJob_;
+    }
+    
+    // required int32 numOfStructUserHas = 4;
+    public static final int NUMOFSTRUCTUSERHAS_FIELD_NUMBER = 4;
+    private int numOfStructUserHas_;
+    public boolean hasNumOfStructUserHas() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getNumOfStructUserHas() {
+      return numOfStructUserHas_;
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      questId_ = 0;
+      buildStructJob_ = com.lvl6.proto.InfoProto.BuildStructJobProto.getDefaultInstance();
+      numOfStructUserHas_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBuildStructJob()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNumOfStructUserHas()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getBuildStructJob().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, buildStructJob_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, numOfStructUserHas_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, buildStructJob_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, numOfStructUserHas_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getBuildStructJobFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (buildStructJobBuilder_ == null) {
+          buildStructJob_ = com.lvl6.proto.InfoProto.BuildStructJobProto.getDefaultInstance();
+        } else {
+          buildStructJobBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        numOfStructUserHas_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto result = new com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questId_ = questId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (buildStructJobBuilder_ == null) {
+          result.buildStructJob_ = buildStructJob_;
+        } else {
+          result.buildStructJob_ = buildStructJobBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.numOfStructUserHas_ = numOfStructUserHas_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasQuestId()) {
+          setQuestId(other.getQuestId());
+        }
+        if (other.hasBuildStructJob()) {
+          mergeBuildStructJob(other.getBuildStructJob());
+        }
+        if (other.hasNumOfStructUserHas()) {
+          setNumOfStructUserHas(other.getNumOfStructUserHas());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasQuestId()) {
+          
+          return false;
+        }
+        if (!hasBuildStructJob()) {
+          
+          return false;
+        }
+        if (!hasNumOfStructUserHas()) {
+          
+          return false;
+        }
+        if (!getBuildStructJob().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questId_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.BuildStructJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.BuildStructJobProto.newBuilder();
+              if (hasBuildStructJob()) {
+                subBuilder.mergeFrom(getBuildStructJob());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setBuildStructJob(subBuilder.buildPartial());
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              numOfStructUserHas_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 questId = 2;
+      private int questId_ ;
+      public boolean hasQuestId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getQuestId() {
+        return questId_;
+      }
+      public Builder setQuestId(int value) {
+        bitField0_ |= 0x00000002;
+        questId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.BuildStructJobProto buildStructJob = 3;
+      private com.lvl6.proto.InfoProto.BuildStructJobProto buildStructJob_ = com.lvl6.proto.InfoProto.BuildStructJobProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.BuildStructJobProto, com.lvl6.proto.InfoProto.BuildStructJobProto.Builder, com.lvl6.proto.InfoProto.BuildStructJobProtoOrBuilder> buildStructJobBuilder_;
+      public boolean hasBuildStructJob() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.BuildStructJobProto getBuildStructJob() {
+        if (buildStructJobBuilder_ == null) {
+          return buildStructJob_;
+        } else {
+          return buildStructJobBuilder_.getMessage();
+        }
+      }
+      public Builder setBuildStructJob(com.lvl6.proto.InfoProto.BuildStructJobProto value) {
+        if (buildStructJobBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          buildStructJob_ = value;
+          onChanged();
+        } else {
+          buildStructJobBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder setBuildStructJob(
+          com.lvl6.proto.InfoProto.BuildStructJobProto.Builder builderForValue) {
+        if (buildStructJobBuilder_ == null) {
+          buildStructJob_ = builderForValue.build();
+          onChanged();
+        } else {
+          buildStructJobBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder mergeBuildStructJob(com.lvl6.proto.InfoProto.BuildStructJobProto value) {
+        if (buildStructJobBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              buildStructJob_ != com.lvl6.proto.InfoProto.BuildStructJobProto.getDefaultInstance()) {
+            buildStructJob_ =
+              com.lvl6.proto.InfoProto.BuildStructJobProto.newBuilder(buildStructJob_).mergeFrom(value).buildPartial();
+          } else {
+            buildStructJob_ = value;
+          }
+          onChanged();
+        } else {
+          buildStructJobBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder clearBuildStructJob() {
+        if (buildStructJobBuilder_ == null) {
+          buildStructJob_ = com.lvl6.proto.InfoProto.BuildStructJobProto.getDefaultInstance();
+          onChanged();
+        } else {
+          buildStructJobBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.BuildStructJobProto.Builder getBuildStructJobBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getBuildStructJobFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.BuildStructJobProtoOrBuilder getBuildStructJobOrBuilder() {
+        if (buildStructJobBuilder_ != null) {
+          return buildStructJobBuilder_.getMessageOrBuilder();
+        } else {
+          return buildStructJob_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.BuildStructJobProto, com.lvl6.proto.InfoProto.BuildStructJobProto.Builder, com.lvl6.proto.InfoProto.BuildStructJobProtoOrBuilder> 
+          getBuildStructJobFieldBuilder() {
+        if (buildStructJobBuilder_ == null) {
+          buildStructJobBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.BuildStructJobProto, com.lvl6.proto.InfoProto.BuildStructJobProto.Builder, com.lvl6.proto.InfoProto.BuildStructJobProtoOrBuilder>(
+                  buildStructJob_,
+                  getParentForChildren(),
+                  isClean());
+          buildStructJob_ = null;
+        }
+        return buildStructJobBuilder_;
+      }
+      
+      // required int32 numOfStructUserHas = 4;
+      private int numOfStructUserHas_ ;
+      public boolean hasNumOfStructUserHas() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getNumOfStructUserHas() {
+        return numOfStructUserHas_;
+      }
+      public Builder setNumOfStructUserHas(int value) {
+        bitField0_ |= 0x00000008;
+        numOfStructUserHas_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumOfStructUserHas() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        numOfStructUserHas_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserBuildStructJobProto)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserBuildStructJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserBuildStructJobProto)
+  }
+  
+  public interface BuildStructJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // required int32 structId = 2;
+    boolean hasStructId();
+    int getStructId();
+    
+    // required int32 quantityRequired = 3;
+    boolean hasQuantityRequired();
+    int getQuantityRequired();
+  }
+  public static final class BuildStructJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements BuildStructJobProtoOrBuilder {
+    // Use BuildStructJobProto.newBuilder() to construct.
+    private BuildStructJobProto(Builder builder) {
+      super(builder);
+    }
+    private BuildStructJobProto(boolean noInit) {}
+    
+    private static final BuildStructJobProto defaultInstance;
+    public static BuildStructJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public BuildStructJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BuildStructJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BuildStructJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // required int32 structId = 2;
+    public static final int STRUCTID_FIELD_NUMBER = 2;
+    private int structId_;
+    public boolean hasStructId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getStructId() {
+      return structId_;
+    }
+    
+    // required int32 quantityRequired = 3;
+    public static final int QUANTITYREQUIRED_FIELD_NUMBER = 3;
+    private int quantityRequired_;
+    public boolean hasQuantityRequired() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getQuantityRequired() {
+      return quantityRequired_;
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      structId_ = 0;
+      quantityRequired_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStructId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuantityRequired()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, structId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, quantityRequired_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, structId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, quantityRequired_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.BuildStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.BuildStructJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.BuildStructJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BuildStructJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_BuildStructJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.BuildStructJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        structId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        quantityRequired_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.BuildStructJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.BuildStructJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.BuildStructJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.BuildStructJobProto build() {
+        com.lvl6.proto.InfoProto.BuildStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.BuildStructJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.BuildStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.BuildStructJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.BuildStructJobProto result = new com.lvl6.proto.InfoProto.BuildStructJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.structId_ = structId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.quantityRequired_ = quantityRequired_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.BuildStructJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.BuildStructJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.BuildStructJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.BuildStructJobProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasStructId()) {
+          setStructId(other.getStructId());
+        }
+        if (other.hasQuantityRequired()) {
+          setQuantityRequired(other.getQuantityRequired());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasStructId()) {
+          
+          return false;
+        }
+        if (!hasQuantityRequired()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              structId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              quantityRequired_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 structId = 2;
+      private int structId_ ;
+      public boolean hasStructId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getStructId() {
+        return structId_;
+      }
+      public Builder setStructId(int value) {
+        bitField0_ |= 0x00000002;
+        structId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStructId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        structId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 quantityRequired = 3;
+      private int quantityRequired_ ;
+      public boolean hasQuantityRequired() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getQuantityRequired() {
+        return quantityRequired_;
+      }
+      public Builder setQuantityRequired(int value) {
+        bitField0_ |= 0x00000004;
+        quantityRequired_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuantityRequired() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        quantityRequired_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.BuildStructJobProto)
+    }
+    
+    static {
+      defaultInstance = new BuildStructJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.BuildStructJobProto)
+  }
+  
+  public interface MinimumUserMarketplaceJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 questId = 2;
+    boolean hasQuestId();
+    int getQuestId();
+    
+    // required .com.lvl6.proto.MarketplaceJobProto marketplaceJob = 3;
+    boolean hasMarketplaceJob();
+    com.lvl6.proto.InfoProto.MarketplaceJobProto getMarketplaceJob();
+    com.lvl6.proto.InfoProto.MarketplaceJobProtoOrBuilder getMarketplaceJobOrBuilder();
+    
+    // required int32 numTransactionsDone = 4;
+    boolean hasNumTransactionsDone();
+    int getNumTransactionsDone();
+  }
+  public static final class MinimumUserMarketplaceJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserMarketplaceJobProtoOrBuilder {
+    // Use MinimumUserMarketplaceJobProto.newBuilder() to construct.
+    private MinimumUserMarketplaceJobProto(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserMarketplaceJobProto(boolean noInit) {}
+    
+    private static final MinimumUserMarketplaceJobProto defaultInstance;
+    public static MinimumUserMarketplaceJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserMarketplaceJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 questId = 2;
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questId_;
+    public boolean hasQuestId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getQuestId() {
+      return questId_;
+    }
+    
+    // required .com.lvl6.proto.MarketplaceJobProto marketplaceJob = 3;
+    public static final int MARKETPLACEJOB_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.MarketplaceJobProto marketplaceJob_;
+    public boolean hasMarketplaceJob() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.MarketplaceJobProto getMarketplaceJob() {
+      return marketplaceJob_;
+    }
+    public com.lvl6.proto.InfoProto.MarketplaceJobProtoOrBuilder getMarketplaceJobOrBuilder() {
+      return marketplaceJob_;
+    }
+    
+    // required int32 numTransactionsDone = 4;
+    public static final int NUMTRANSACTIONSDONE_FIELD_NUMBER = 4;
+    private int numTransactionsDone_;
+    public boolean hasNumTransactionsDone() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getNumTransactionsDone() {
+      return numTransactionsDone_;
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      questId_ = 0;
+      marketplaceJob_ = com.lvl6.proto.InfoProto.MarketplaceJobProto.getDefaultInstance();
+      numTransactionsDone_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMarketplaceJob()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNumTransactionsDone()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getMarketplaceJob().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, marketplaceJob_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, numTransactionsDone_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, marketplaceJob_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, numTransactionsDone_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getMarketplaceJobFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (marketplaceJobBuilder_ == null) {
+          marketplaceJob_ = com.lvl6.proto.InfoProto.MarketplaceJobProto.getDefaultInstance();
+        } else {
+          marketplaceJobBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        numTransactionsDone_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto result = new com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questId_ = questId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (marketplaceJobBuilder_ == null) {
+          result.marketplaceJob_ = marketplaceJob_;
+        } else {
+          result.marketplaceJob_ = marketplaceJobBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.numTransactionsDone_ = numTransactionsDone_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasQuestId()) {
+          setQuestId(other.getQuestId());
+        }
+        if (other.hasMarketplaceJob()) {
+          mergeMarketplaceJob(other.getMarketplaceJob());
+        }
+        if (other.hasNumTransactionsDone()) {
+          setNumTransactionsDone(other.getNumTransactionsDone());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasQuestId()) {
+          
+          return false;
+        }
+        if (!hasMarketplaceJob()) {
+          
+          return false;
+        }
+        if (!hasNumTransactionsDone()) {
+          
+          return false;
+        }
+        if (!getMarketplaceJob().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questId_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.MarketplaceJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.MarketplaceJobProto.newBuilder();
+              if (hasMarketplaceJob()) {
+                subBuilder.mergeFrom(getMarketplaceJob());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setMarketplaceJob(subBuilder.buildPartial());
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              numTransactionsDone_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 questId = 2;
+      private int questId_ ;
+      public boolean hasQuestId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getQuestId() {
+        return questId_;
+      }
+      public Builder setQuestId(int value) {
+        bitField0_ |= 0x00000002;
+        questId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.MarketplaceJobProto marketplaceJob = 3;
+      private com.lvl6.proto.InfoProto.MarketplaceJobProto marketplaceJob_ = com.lvl6.proto.InfoProto.MarketplaceJobProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MarketplaceJobProto, com.lvl6.proto.InfoProto.MarketplaceJobProto.Builder, com.lvl6.proto.InfoProto.MarketplaceJobProtoOrBuilder> marketplaceJobBuilder_;
+      public boolean hasMarketplaceJob() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.MarketplaceJobProto getMarketplaceJob() {
+        if (marketplaceJobBuilder_ == null) {
+          return marketplaceJob_;
+        } else {
+          return marketplaceJobBuilder_.getMessage();
+        }
+      }
+      public Builder setMarketplaceJob(com.lvl6.proto.InfoProto.MarketplaceJobProto value) {
+        if (marketplaceJobBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          marketplaceJob_ = value;
+          onChanged();
+        } else {
+          marketplaceJobBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder setMarketplaceJob(
+          com.lvl6.proto.InfoProto.MarketplaceJobProto.Builder builderForValue) {
+        if (marketplaceJobBuilder_ == null) {
+          marketplaceJob_ = builderForValue.build();
+          onChanged();
+        } else {
+          marketplaceJobBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder mergeMarketplaceJob(com.lvl6.proto.InfoProto.MarketplaceJobProto value) {
+        if (marketplaceJobBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              marketplaceJob_ != com.lvl6.proto.InfoProto.MarketplaceJobProto.getDefaultInstance()) {
+            marketplaceJob_ =
+              com.lvl6.proto.InfoProto.MarketplaceJobProto.newBuilder(marketplaceJob_).mergeFrom(value).buildPartial();
+          } else {
+            marketplaceJob_ = value;
+          }
+          onChanged();
+        } else {
+          marketplaceJobBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder clearMarketplaceJob() {
+        if (marketplaceJobBuilder_ == null) {
+          marketplaceJob_ = com.lvl6.proto.InfoProto.MarketplaceJobProto.getDefaultInstance();
+          onChanged();
+        } else {
+          marketplaceJobBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MarketplaceJobProto.Builder getMarketplaceJobBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getMarketplaceJobFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MarketplaceJobProtoOrBuilder getMarketplaceJobOrBuilder() {
+        if (marketplaceJobBuilder_ != null) {
+          return marketplaceJobBuilder_.getMessageOrBuilder();
+        } else {
+          return marketplaceJob_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MarketplaceJobProto, com.lvl6.proto.InfoProto.MarketplaceJobProto.Builder, com.lvl6.proto.InfoProto.MarketplaceJobProtoOrBuilder> 
+          getMarketplaceJobFieldBuilder() {
+        if (marketplaceJobBuilder_ == null) {
+          marketplaceJobBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MarketplaceJobProto, com.lvl6.proto.InfoProto.MarketplaceJobProto.Builder, com.lvl6.proto.InfoProto.MarketplaceJobProtoOrBuilder>(
+                  marketplaceJob_,
+                  getParentForChildren(),
+                  isClean());
+          marketplaceJob_ = null;
+        }
+        return marketplaceJobBuilder_;
+      }
+      
+      // required int32 numTransactionsDone = 4;
+      private int numTransactionsDone_ ;
+      public boolean hasNumTransactionsDone() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getNumTransactionsDone() {
+        return numTransactionsDone_;
+      }
+      public Builder setNumTransactionsDone(int value) {
+        bitField0_ |= 0x00000008;
+        numTransactionsDone_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumTransactionsDone() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        numTransactionsDone_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserMarketplaceJobProto)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserMarketplaceJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserMarketplaceJobProto)
+  }
+  
+  public interface MarketplaceJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // required .com.lvl6.proto.MarketplaceJobRequirementType type = 2;
+    boolean hasType();
+    com.lvl6.proto.InfoProto.MarketplaceJobRequirementType getType();
+    
+    // required int32 quantityRequired = 3;
+    boolean hasQuantityRequired();
+    int getQuantityRequired();
+  }
+  public static final class MarketplaceJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MarketplaceJobProtoOrBuilder {
+    // Use MarketplaceJobProto.newBuilder() to construct.
+    private MarketplaceJobProto(Builder builder) {
+      super(builder);
+    }
+    private MarketplaceJobProto(boolean noInit) {}
+    
+    private static final MarketplaceJobProto defaultInstance;
+    public static MarketplaceJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MarketplaceJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MarketplaceJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MarketplaceJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // required .com.lvl6.proto.MarketplaceJobRequirementType type = 2;
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private com.lvl6.proto.InfoProto.MarketplaceJobRequirementType type_;
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.InfoProto.MarketplaceJobRequirementType getType() {
+      return type_;
+    }
+    
+    // required int32 quantityRequired = 3;
+    public static final int QUANTITYREQUIRED_FIELD_NUMBER = 3;
+    private int quantityRequired_;
+    public boolean hasQuantityRequired() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getQuantityRequired() {
+      return quantityRequired_;
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      type_ = com.lvl6.proto.InfoProto.MarketplaceJobRequirementType.BUY;
+      quantityRequired_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuantityRequired()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, quantityRequired_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, quantityRequired_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MarketplaceJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MarketplaceJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MarketplaceJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MarketplaceJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MarketplaceJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MarketplaceJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        type_ = com.lvl6.proto.InfoProto.MarketplaceJobRequirementType.BUY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        quantityRequired_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MarketplaceJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MarketplaceJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MarketplaceJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MarketplaceJobProto build() {
+        com.lvl6.proto.InfoProto.MarketplaceJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MarketplaceJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MarketplaceJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MarketplaceJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.MarketplaceJobProto result = new com.lvl6.proto.InfoProto.MarketplaceJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.quantityRequired_ = quantityRequired_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MarketplaceJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MarketplaceJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MarketplaceJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.MarketplaceJobProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (other.hasQuantityRequired()) {
+          setQuantityRequired(other.getQuantityRequired());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasQuantityRequired()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.MarketplaceJobRequirementType value = com.lvl6.proto.InfoProto.MarketplaceJobRequirementType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                type_ = value;
+              }
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              quantityRequired_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.MarketplaceJobRequirementType type = 2;
+      private com.lvl6.proto.InfoProto.MarketplaceJobRequirementType type_ = com.lvl6.proto.InfoProto.MarketplaceJobRequirementType.BUY;
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.InfoProto.MarketplaceJobRequirementType getType() {
+        return type_;
+      }
+      public Builder setType(com.lvl6.proto.InfoProto.MarketplaceJobRequirementType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        type_ = com.lvl6.proto.InfoProto.MarketplaceJobRequirementType.BUY;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 quantityRequired = 3;
+      private int quantityRequired_ ;
+      public boolean hasQuantityRequired() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getQuantityRequired() {
+        return quantityRequired_;
+      }
+      public Builder setQuantityRequired(int value) {
+        bitField0_ |= 0x00000004;
+        quantityRequired_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuantityRequired() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        quantityRequired_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MarketplaceJobProto)
+    }
+    
+    static {
+      defaultInstance = new MarketplaceJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MarketplaceJobProto)
+  }
+  
+  public interface MinimumUserUpgradeStructJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 questId = 2;
+    boolean hasQuestId();
+    int getQuestId();
+    
+    // required .com.lvl6.proto.UpgradeStructJobProto upgradeStructJob = 3;
+    boolean hasUpgradeStructJob();
+    com.lvl6.proto.InfoProto.UpgradeStructJobProto getUpgradeStructJob();
+    com.lvl6.proto.InfoProto.UpgradeStructJobProtoOrBuilder getUpgradeStructJobOrBuilder();
+    
+    // required bool isComplete = 4;
+    boolean hasIsComplete();
+    boolean getIsComplete();
+  }
+  public static final class MinimumUserUpgradeStructJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserUpgradeStructJobProtoOrBuilder {
+    // Use MinimumUserUpgradeStructJobProto.newBuilder() to construct.
+    private MinimumUserUpgradeStructJobProto(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserUpgradeStructJobProto(boolean noInit) {}
+    
+    private static final MinimumUserUpgradeStructJobProto defaultInstance;
+    public static MinimumUserUpgradeStructJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserUpgradeStructJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 questId = 2;
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questId_;
+    public boolean hasQuestId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getQuestId() {
+      return questId_;
+    }
+    
+    // required .com.lvl6.proto.UpgradeStructJobProto upgradeStructJob = 3;
+    public static final int UPGRADESTRUCTJOB_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.UpgradeStructJobProto upgradeStructJob_;
+    public boolean hasUpgradeStructJob() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.UpgradeStructJobProto getUpgradeStructJob() {
+      return upgradeStructJob_;
+    }
+    public com.lvl6.proto.InfoProto.UpgradeStructJobProtoOrBuilder getUpgradeStructJobOrBuilder() {
+      return upgradeStructJob_;
+    }
+    
+    // required bool isComplete = 4;
+    public static final int ISCOMPLETE_FIELD_NUMBER = 4;
+    private boolean isComplete_;
+    public boolean hasIsComplete() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public boolean getIsComplete() {
+      return isComplete_;
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      questId_ = 0;
+      upgradeStructJob_ = com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDefaultInstance();
+      isComplete_ = false;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUpgradeStructJob()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIsComplete()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getUpgradeStructJob().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, upgradeStructJob_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBool(4, isComplete_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, upgradeStructJob_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, isComplete_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getUpgradeStructJobFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (upgradeStructJobBuilder_ == null) {
+          upgradeStructJob_ = com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDefaultInstance();
+        } else {
+          upgradeStructJobBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        isComplete_ = false;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto result = new com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questId_ = questId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (upgradeStructJobBuilder_ == null) {
+          result.upgradeStructJob_ = upgradeStructJob_;
+        } else {
+          result.upgradeStructJob_ = upgradeStructJobBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.isComplete_ = isComplete_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasQuestId()) {
+          setQuestId(other.getQuestId());
+        }
+        if (other.hasUpgradeStructJob()) {
+          mergeUpgradeStructJob(other.getUpgradeStructJob());
+        }
+        if (other.hasIsComplete()) {
+          setIsComplete(other.getIsComplete());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasQuestId()) {
+          
+          return false;
+        }
+        if (!hasUpgradeStructJob()) {
+          
+          return false;
+        }
+        if (!hasIsComplete()) {
+          
+          return false;
+        }
+        if (!getUpgradeStructJob().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questId_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.UpgradeStructJobProto.newBuilder();
+              if (hasUpgradeStructJob()) {
+                subBuilder.mergeFrom(getUpgradeStructJob());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setUpgradeStructJob(subBuilder.buildPartial());
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              isComplete_ = input.readBool();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 questId = 2;
+      private int questId_ ;
+      public boolean hasQuestId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getQuestId() {
+        return questId_;
+      }
+      public Builder setQuestId(int value) {
+        bitField0_ |= 0x00000002;
+        questId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.UpgradeStructJobProto upgradeStructJob = 3;
+      private com.lvl6.proto.InfoProto.UpgradeStructJobProto upgradeStructJob_ = com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.UpgradeStructJobProto, com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder, com.lvl6.proto.InfoProto.UpgradeStructJobProtoOrBuilder> upgradeStructJobBuilder_;
+      public boolean hasUpgradeStructJob() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.UpgradeStructJobProto getUpgradeStructJob() {
+        if (upgradeStructJobBuilder_ == null) {
+          return upgradeStructJob_;
+        } else {
+          return upgradeStructJobBuilder_.getMessage();
+        }
+      }
+      public Builder setUpgradeStructJob(com.lvl6.proto.InfoProto.UpgradeStructJobProto value) {
+        if (upgradeStructJobBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          upgradeStructJob_ = value;
+          onChanged();
+        } else {
+          upgradeStructJobBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder setUpgradeStructJob(
+          com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder builderForValue) {
+        if (upgradeStructJobBuilder_ == null) {
+          upgradeStructJob_ = builderForValue.build();
+          onChanged();
+        } else {
+          upgradeStructJobBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder mergeUpgradeStructJob(com.lvl6.proto.InfoProto.UpgradeStructJobProto value) {
+        if (upgradeStructJobBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              upgradeStructJob_ != com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDefaultInstance()) {
+            upgradeStructJob_ =
+              com.lvl6.proto.InfoProto.UpgradeStructJobProto.newBuilder(upgradeStructJob_).mergeFrom(value).buildPartial();
+          } else {
+            upgradeStructJob_ = value;
+          }
+          onChanged();
+        } else {
+          upgradeStructJobBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder clearUpgradeStructJob() {
+        if (upgradeStructJobBuilder_ == null) {
+          upgradeStructJob_ = com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDefaultInstance();
+          onChanged();
+        } else {
+          upgradeStructJobBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder getUpgradeStructJobBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getUpgradeStructJobFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.UpgradeStructJobProtoOrBuilder getUpgradeStructJobOrBuilder() {
+        if (upgradeStructJobBuilder_ != null) {
+          return upgradeStructJobBuilder_.getMessageOrBuilder();
+        } else {
+          return upgradeStructJob_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.UpgradeStructJobProto, com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder, com.lvl6.proto.InfoProto.UpgradeStructJobProtoOrBuilder> 
+          getUpgradeStructJobFieldBuilder() {
+        if (upgradeStructJobBuilder_ == null) {
+          upgradeStructJobBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.UpgradeStructJobProto, com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder, com.lvl6.proto.InfoProto.UpgradeStructJobProtoOrBuilder>(
+                  upgradeStructJob_,
+                  getParentForChildren(),
+                  isClean());
+          upgradeStructJob_ = null;
+        }
+        return upgradeStructJobBuilder_;
+      }
+      
+      // required bool isComplete = 4;
+      private boolean isComplete_ ;
+      public boolean hasIsComplete() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public boolean getIsComplete() {
+        return isComplete_;
+      }
+      public Builder setIsComplete(boolean value) {
+        bitField0_ |= 0x00000008;
+        isComplete_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearIsComplete() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        isComplete_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserUpgradeStructJobProto)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserUpgradeStructJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserUpgradeStructJobProto)
+  }
+  
+  public interface UpgradeStructJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // required int32 structId = 2;
+    boolean hasStructId();
+    int getStructId();
+    
+    // required int32 levelReq = 3;
+    boolean hasLevelReq();
+    int getLevelReq();
+  }
+  public static final class UpgradeStructJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements UpgradeStructJobProtoOrBuilder {
+    // Use UpgradeStructJobProto.newBuilder() to construct.
+    private UpgradeStructJobProto(Builder builder) {
+      super(builder);
+    }
+    private UpgradeStructJobProto(boolean noInit) {}
+    
+    private static final UpgradeStructJobProto defaultInstance;
+    public static UpgradeStructJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public UpgradeStructJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UpgradeStructJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // required int32 structId = 2;
+    public static final int STRUCTID_FIELD_NUMBER = 2;
+    private int structId_;
+    public boolean hasStructId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getStructId() {
+      return structId_;
+    }
+    
+    // required int32 levelReq = 3;
+    public static final int LEVELREQ_FIELD_NUMBER = 3;
+    private int levelReq_;
+    public boolean hasLevelReq() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getLevelReq() {
+      return levelReq_;
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      structId_ = 0;
+      levelReq_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStructId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasLevelReq()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, structId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, levelReq_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, structId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, levelReq_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UpgradeStructJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.UpgradeStructJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.UpgradeStructJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UpgradeStructJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.UpgradeStructJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        structId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        levelReq_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.UpgradeStructJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.UpgradeStructJobProto build() {
+        com.lvl6.proto.InfoProto.UpgradeStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.UpgradeStructJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.UpgradeStructJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.UpgradeStructJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.UpgradeStructJobProto result = new com.lvl6.proto.InfoProto.UpgradeStructJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.structId_ = structId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.levelReq_ = levelReq_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.UpgradeStructJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.UpgradeStructJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.UpgradeStructJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.UpgradeStructJobProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasStructId()) {
+          setStructId(other.getStructId());
+        }
+        if (other.hasLevelReq()) {
+          setLevelReq(other.getLevelReq());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasStructId()) {
+          
+          return false;
+        }
+        if (!hasLevelReq()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              structId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              levelReq_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 structId = 2;
+      private int structId_ ;
+      public boolean hasStructId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getStructId() {
+        return structId_;
+      }
+      public Builder setStructId(int value) {
+        bitField0_ |= 0x00000002;
+        structId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStructId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        structId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 levelReq = 3;
+      private int levelReq_ ;
+      public boolean hasLevelReq() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getLevelReq() {
+        return levelReq_;
+      }
+      public Builder setLevelReq(int value) {
+        bitField0_ |= 0x00000004;
+        levelReq_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLevelReq() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        levelReq_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.UpgradeStructJobProto)
+    }
+    
+    static {
+      defaultInstance = new UpgradeStructJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.UpgradeStructJobProto)
+  }
+  
+  public interface MinimumUserPossessEquipJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 questId = 2;
+    boolean hasQuestId();
+    int getQuestId();
+    
+    // required .com.lvl6.proto.PossessEquipJobProto possessEquipJobProto = 3;
+    boolean hasPossessEquipJobProto();
+    com.lvl6.proto.InfoProto.PossessEquipJobProto getPossessEquipJobProto();
+    com.lvl6.proto.InfoProto.PossessEquipJobProtoOrBuilder getPossessEquipJobProtoOrBuilder();
+    
+    // required bool isComplete = 4;
+    boolean hasIsComplete();
+    boolean getIsComplete();
+  }
+  public static final class MinimumUserPossessEquipJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements MinimumUserPossessEquipJobProtoOrBuilder {
+    // Use MinimumUserPossessEquipJobProto.newBuilder() to construct.
+    private MinimumUserPossessEquipJobProto(Builder builder) {
+      super(builder);
+    }
+    private MinimumUserPossessEquipJobProto(boolean noInit) {}
+    
+    private static final MinimumUserPossessEquipJobProto defaultInstance;
+    public static MinimumUserPossessEquipJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public MinimumUserPossessEquipJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 questId = 2;
+    public static final int QUESTID_FIELD_NUMBER = 2;
+    private int questId_;
+    public boolean hasQuestId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getQuestId() {
+      return questId_;
+    }
+    
+    // required .com.lvl6.proto.PossessEquipJobProto possessEquipJobProto = 3;
+    public static final int POSSESSEQUIPJOBPROTO_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.PossessEquipJobProto possessEquipJobProto_;
+    public boolean hasPossessEquipJobProto() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.PossessEquipJobProto getPossessEquipJobProto() {
+      return possessEquipJobProto_;
+    }
+    public com.lvl6.proto.InfoProto.PossessEquipJobProtoOrBuilder getPossessEquipJobProtoOrBuilder() {
+      return possessEquipJobProto_;
+    }
+    
+    // required bool isComplete = 4;
+    public static final int ISCOMPLETE_FIELD_NUMBER = 4;
+    private boolean isComplete_;
+    public boolean hasIsComplete() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public boolean getIsComplete() {
+      return isComplete_;
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      questId_ = 0;
+      possessEquipJobProto_ = com.lvl6.proto.InfoProto.PossessEquipJobProto.getDefaultInstance();
+      isComplete_ = false;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuestId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPossessEquipJobProto()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIsComplete()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getPossessEquipJobProto().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, possessEquipJobProto_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBool(4, isComplete_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, questId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, possessEquipJobProto_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, isComplete_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPossessEquipJobProtoFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        questId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (possessEquipJobProtoBuilder_ == null) {
+          possessEquipJobProto_ = com.lvl6.proto.InfoProto.PossessEquipJobProto.getDefaultInstance();
+        } else {
+          possessEquipJobProtoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        isComplete_ = false;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto build() {
+        com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto result = new com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.questId_ = questId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (possessEquipJobProtoBuilder_ == null) {
+          result.possessEquipJobProto_ = possessEquipJobProto_;
+        } else {
+          result.possessEquipJobProto_ = possessEquipJobProtoBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.isComplete_ = isComplete_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasQuestId()) {
+          setQuestId(other.getQuestId());
+        }
+        if (other.hasPossessEquipJobProto()) {
+          mergePossessEquipJobProto(other.getPossessEquipJobProto());
+        }
+        if (other.hasIsComplete()) {
+          setIsComplete(other.getIsComplete());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasQuestId()) {
+          
+          return false;
+        }
+        if (!hasPossessEquipJobProto()) {
+          
+          return false;
+        }
+        if (!hasIsComplete()) {
+          
+          return false;
+        }
+        if (!getPossessEquipJobProto().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              questId_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.PossessEquipJobProto.newBuilder();
+              if (hasPossessEquipJobProto()) {
+                subBuilder.mergeFrom(getPossessEquipJobProto());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setPossessEquipJobProto(subBuilder.buildPartial());
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              isComplete_ = input.readBool();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 questId = 2;
+      private int questId_ ;
+      public boolean hasQuestId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getQuestId() {
+        return questId_;
+      }
+      public Builder setQuestId(int value) {
+        bitField0_ |= 0x00000002;
+        questId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        questId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.PossessEquipJobProto possessEquipJobProto = 3;
+      private com.lvl6.proto.InfoProto.PossessEquipJobProto possessEquipJobProto_ = com.lvl6.proto.InfoProto.PossessEquipJobProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.PossessEquipJobProto, com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder, com.lvl6.proto.InfoProto.PossessEquipJobProtoOrBuilder> possessEquipJobProtoBuilder_;
+      public boolean hasPossessEquipJobProto() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.PossessEquipJobProto getPossessEquipJobProto() {
+        if (possessEquipJobProtoBuilder_ == null) {
+          return possessEquipJobProto_;
+        } else {
+          return possessEquipJobProtoBuilder_.getMessage();
+        }
+      }
+      public Builder setPossessEquipJobProto(com.lvl6.proto.InfoProto.PossessEquipJobProto value) {
+        if (possessEquipJobProtoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          possessEquipJobProto_ = value;
+          onChanged();
+        } else {
+          possessEquipJobProtoBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder setPossessEquipJobProto(
+          com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder builderForValue) {
+        if (possessEquipJobProtoBuilder_ == null) {
+          possessEquipJobProto_ = builderForValue.build();
+          onChanged();
+        } else {
+          possessEquipJobProtoBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder mergePossessEquipJobProto(com.lvl6.proto.InfoProto.PossessEquipJobProto value) {
+        if (possessEquipJobProtoBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              possessEquipJobProto_ != com.lvl6.proto.InfoProto.PossessEquipJobProto.getDefaultInstance()) {
+            possessEquipJobProto_ =
+              com.lvl6.proto.InfoProto.PossessEquipJobProto.newBuilder(possessEquipJobProto_).mergeFrom(value).buildPartial();
+          } else {
+            possessEquipJobProto_ = value;
+          }
+          onChanged();
+        } else {
+          possessEquipJobProtoBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder clearPossessEquipJobProto() {
+        if (possessEquipJobProtoBuilder_ == null) {
+          possessEquipJobProto_ = com.lvl6.proto.InfoProto.PossessEquipJobProto.getDefaultInstance();
+          onChanged();
+        } else {
+          possessEquipJobProtoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder getPossessEquipJobProtoBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getPossessEquipJobProtoFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.PossessEquipJobProtoOrBuilder getPossessEquipJobProtoOrBuilder() {
+        if (possessEquipJobProtoBuilder_ != null) {
+          return possessEquipJobProtoBuilder_.getMessageOrBuilder();
+        } else {
+          return possessEquipJobProto_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.PossessEquipJobProto, com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder, com.lvl6.proto.InfoProto.PossessEquipJobProtoOrBuilder> 
+          getPossessEquipJobProtoFieldBuilder() {
+        if (possessEquipJobProtoBuilder_ == null) {
+          possessEquipJobProtoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.PossessEquipJobProto, com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder, com.lvl6.proto.InfoProto.PossessEquipJobProtoOrBuilder>(
+                  possessEquipJobProto_,
+                  getParentForChildren(),
+                  isClean());
+          possessEquipJobProto_ = null;
+        }
+        return possessEquipJobProtoBuilder_;
+      }
+      
+      // required bool isComplete = 4;
+      private boolean isComplete_ ;
+      public boolean hasIsComplete() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public boolean getIsComplete() {
+        return isComplete_;
+      }
+      public Builder setIsComplete(boolean value) {
+        bitField0_ |= 0x00000008;
+        isComplete_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearIsComplete() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        isComplete_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MinimumUserPossessEquipJobProto)
+    }
+    
+    static {
+      defaultInstance = new MinimumUserPossessEquipJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MinimumUserPossessEquipJobProto)
+  }
+  
+  public interface PossessEquipJobProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // required int32 equipId = 2;
+    boolean hasEquipId();
+    int getEquipId();
+    
+    // required int32 quantityReq = 3;
+    boolean hasQuantityReq();
+    int getQuantityReq();
+  }
+  public static final class PossessEquipJobProto extends
+      com.google.protobuf.GeneratedMessage
+      implements PossessEquipJobProtoOrBuilder {
+    // Use PossessEquipJobProto.newBuilder() to construct.
+    private PossessEquipJobProto(Builder builder) {
+      super(builder);
+    }
+    private PossessEquipJobProto(boolean noInit) {}
+    
+    private static final PossessEquipJobProto defaultInstance;
+    public static PossessEquipJobProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public PossessEquipJobProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PossessEquipJobProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // required int32 equipId = 2;
+    public static final int EQUIPID_FIELD_NUMBER = 2;
+    private int equipId_;
+    public boolean hasEquipId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getEquipId() {
+      return equipId_;
+    }
+    
+    // required int32 quantityReq = 3;
+    public static final int QUANTITYREQ_FIELD_NUMBER = 3;
+    private int quantityReq_;
+    public boolean hasQuantityReq() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getQuantityReq() {
+      return quantityReq_;
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      equipId_ = 0;
+      quantityReq_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasEquipId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasQuantityReq()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, equipId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, quantityReq_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, equipId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, quantityReq_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PossessEquipJobProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.PossessEquipJobProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.PossessEquipJobProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PossessEquipJobProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.PossessEquipJobProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        equipId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        quantityReq_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.PossessEquipJobProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.PossessEquipJobProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.PossessEquipJobProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.PossessEquipJobProto build() {
+        com.lvl6.proto.InfoProto.PossessEquipJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.PossessEquipJobProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.PossessEquipJobProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.PossessEquipJobProto buildPartial() {
+        com.lvl6.proto.InfoProto.PossessEquipJobProto result = new com.lvl6.proto.InfoProto.PossessEquipJobProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.equipId_ = equipId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.quantityReq_ = quantityReq_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.PossessEquipJobProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.PossessEquipJobProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.PossessEquipJobProto other) {
+        if (other == com.lvl6.proto.InfoProto.PossessEquipJobProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasEquipId()) {
+          setEquipId(other.getEquipId());
+        }
+        if (other.hasQuantityReq()) {
+          setQuantityReq(other.getQuantityReq());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasEquipId()) {
+          
+          return false;
+        }
+        if (!hasQuantityReq()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              equipId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              quantityReq_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 equipId = 2;
+      private int equipId_ ;
+      public boolean hasEquipId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getEquipId() {
+        return equipId_;
+      }
+      public Builder setEquipId(int value) {
+        bitField0_ |= 0x00000002;
+        equipId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEquipId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        equipId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 quantityReq = 3;
+      private int quantityReq_ ;
+      public boolean hasQuantityReq() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getQuantityReq() {
+        return quantityReq_;
+      }
+      public Builder setQuantityReq(int value) {
+        bitField0_ |= 0x00000004;
+        quantityReq_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuantityReq() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        quantityReq_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.PossessEquipJobProto)
+    }
+    
+    static {
+      defaultInstance = new PossessEquipJobProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.PossessEquipJobProto)
+  }
+  
+  public interface FullQuestProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // required int32 cityId = 2;
+    boolean hasCityId();
+    int getCityId();
+    
+    // required string name = 3;
+    boolean hasName();
+    String getName();
+    
+    // required string description = 4;
+    boolean hasDescription();
+    String getDescription();
+    
+    // required string doneResponse = 5;
+    boolean hasDoneResponse();
+    String getDoneResponse();
+    
+    // required string inProgress = 6;
+    boolean hasInProgress();
+    String getInProgress();
+    
+    // required int32 assetNumWithinCity = 7;
+    boolean hasAssetNumWithinCity();
+    int getAssetNumWithinCity();
+    
+    // optional int32 coinsGained = 8;
+    boolean hasCoinsGained();
+    int getCoinsGained();
+    
+    // optional int32 diamondsGained = 9;
+    boolean hasDiamondsGained();
+    int getDiamondsGained();
+    
+    // optional int32 woodGained = 10;
+    boolean hasWoodGained();
+    int getWoodGained();
+    
+    // optional int32 expGained = 11;
+    boolean hasExpGained();
+    int getExpGained();
+    
+    // optional int32 equipIdGained = 12;
+    boolean hasEquipIdGained();
+    int getEquipIdGained();
+    
+    // repeated int32 questsRequiredForThis = 13;
+    java.util.List<java.lang.Integer> getQuestsRequiredForThisList();
+    int getQuestsRequiredForThisCount();
+    int getQuestsRequiredForThis(int index);
+    
+    // repeated int32 taskReqs = 14;
+    java.util.List<java.lang.Integer> getTaskReqsList();
+    int getTaskReqsCount();
+    int getTaskReqs(int index);
+    
+    // repeated int32 upgradeStructJobsReqs = 15;
+    java.util.List<java.lang.Integer> getUpgradeStructJobsReqsList();
+    int getUpgradeStructJobsReqsCount();
+    int getUpgradeStructJobsReqs(int index);
+    
+    // repeated int32 buildStructJobsReqs = 16;
+    java.util.List<java.lang.Integer> getBuildStructJobsReqsList();
+    int getBuildStructJobsReqsCount();
+    int getBuildStructJobsReqs(int index);
+    
+    // repeated int32 marketplaceJobsReqs = 17;
+    java.util.List<java.lang.Integer> getMarketplaceJobsReqsList();
+    int getMarketplaceJobsReqsCount();
+    int getMarketplaceJobsReqs(int index);
+    
+    // repeated int32 defeatTypeReqs = 18;
+    java.util.List<java.lang.Integer> getDefeatTypeReqsList();
+    int getDefeatTypeReqsCount();
+    int getDefeatTypeReqs(int index);
+    
+    // repeated int32 possessEquipJobReqs = 19;
+    java.util.List<java.lang.Integer> getPossessEquipJobReqsList();
+    int getPossessEquipJobReqsCount();
+    int getPossessEquipJobReqs(int index);
+  }
+  public static final class FullQuestProto extends
+      com.google.protobuf.GeneratedMessage
+      implements FullQuestProtoOrBuilder {
+    // Use FullQuestProto.newBuilder() to construct.
+    private FullQuestProto(Builder builder) {
+      super(builder);
+    }
+    private FullQuestProto(boolean noInit) {}
+    
+    private static final FullQuestProto defaultInstance;
+    public static FullQuestProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public FullQuestProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // required int32 cityId = 2;
+    public static final int CITYID_FIELD_NUMBER = 2;
+    private int cityId_;
+    public boolean hasCityId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getCityId() {
+      return cityId_;
+    }
+    
+    // required string name = 3;
+    public static final int NAME_FIELD_NUMBER = 3;
+    private java.lang.Object name_;
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // required string description = 4;
+    public static final int DESCRIPTION_FIELD_NUMBER = 4;
+    private java.lang.Object description_;
+    public boolean hasDescription() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public String getDescription() {
+      java.lang.Object ref = description_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          description_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getDescriptionBytes() {
+      java.lang.Object ref = description_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        description_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // required string doneResponse = 5;
+    public static final int DONERESPONSE_FIELD_NUMBER = 5;
+    private java.lang.Object doneResponse_;
+    public boolean hasDoneResponse() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public String getDoneResponse() {
+      java.lang.Object ref = doneResponse_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          doneResponse_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getDoneResponseBytes() {
+      java.lang.Object ref = doneResponse_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        doneResponse_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // required string inProgress = 6;
+    public static final int INPROGRESS_FIELD_NUMBER = 6;
+    private java.lang.Object inProgress_;
+    public boolean hasInProgress() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public String getInProgress() {
+      java.lang.Object ref = inProgress_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          inProgress_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getInProgressBytes() {
+      java.lang.Object ref = inProgress_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        inProgress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // required int32 assetNumWithinCity = 7;
+    public static final int ASSETNUMWITHINCITY_FIELD_NUMBER = 7;
+    private int assetNumWithinCity_;
+    public boolean hasAssetNumWithinCity() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public int getAssetNumWithinCity() {
+      return assetNumWithinCity_;
+    }
+    
+    // optional int32 coinsGained = 8;
+    public static final int COINSGAINED_FIELD_NUMBER = 8;
+    private int coinsGained_;
+    public boolean hasCoinsGained() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public int getCoinsGained() {
+      return coinsGained_;
+    }
+    
+    // optional int32 diamondsGained = 9;
+    public static final int DIAMONDSGAINED_FIELD_NUMBER = 9;
+    private int diamondsGained_;
+    public boolean hasDiamondsGained() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    public int getDiamondsGained() {
+      return diamondsGained_;
+    }
+    
+    // optional int32 woodGained = 10;
+    public static final int WOODGAINED_FIELD_NUMBER = 10;
+    private int woodGained_;
+    public boolean hasWoodGained() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    public int getWoodGained() {
+      return woodGained_;
+    }
+    
+    // optional int32 expGained = 11;
+    public static final int EXPGAINED_FIELD_NUMBER = 11;
+    private int expGained_;
+    public boolean hasExpGained() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    public int getExpGained() {
+      return expGained_;
+    }
+    
+    // optional int32 equipIdGained = 12;
+    public static final int EQUIPIDGAINED_FIELD_NUMBER = 12;
+    private int equipIdGained_;
+    public boolean hasEquipIdGained() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    public int getEquipIdGained() {
+      return equipIdGained_;
+    }
+    
+    // repeated int32 questsRequiredForThis = 13;
+    public static final int QUESTSREQUIREDFORTHIS_FIELD_NUMBER = 13;
+    private java.util.List<java.lang.Integer> questsRequiredForThis_;
+    public java.util.List<java.lang.Integer>
+        getQuestsRequiredForThisList() {
+      return questsRequiredForThis_;
+    }
+    public int getQuestsRequiredForThisCount() {
+      return questsRequiredForThis_.size();
+    }
+    public int getQuestsRequiredForThis(int index) {
+      return questsRequiredForThis_.get(index);
+    }
+    
+    // repeated int32 taskReqs = 14;
+    public static final int TASKREQS_FIELD_NUMBER = 14;
+    private java.util.List<java.lang.Integer> taskReqs_;
+    public java.util.List<java.lang.Integer>
+        getTaskReqsList() {
+      return taskReqs_;
+    }
+    public int getTaskReqsCount() {
+      return taskReqs_.size();
+    }
+    public int getTaskReqs(int index) {
+      return taskReqs_.get(index);
+    }
+    
+    // repeated int32 upgradeStructJobsReqs = 15;
+    public static final int UPGRADESTRUCTJOBSREQS_FIELD_NUMBER = 15;
+    private java.util.List<java.lang.Integer> upgradeStructJobsReqs_;
+    public java.util.List<java.lang.Integer>
+        getUpgradeStructJobsReqsList() {
+      return upgradeStructJobsReqs_;
+    }
+    public int getUpgradeStructJobsReqsCount() {
+      return upgradeStructJobsReqs_.size();
+    }
+    public int getUpgradeStructJobsReqs(int index) {
+      return upgradeStructJobsReqs_.get(index);
+    }
+    
+    // repeated int32 buildStructJobsReqs = 16;
+    public static final int BUILDSTRUCTJOBSREQS_FIELD_NUMBER = 16;
+    private java.util.List<java.lang.Integer> buildStructJobsReqs_;
+    public java.util.List<java.lang.Integer>
+        getBuildStructJobsReqsList() {
+      return buildStructJobsReqs_;
+    }
+    public int getBuildStructJobsReqsCount() {
+      return buildStructJobsReqs_.size();
+    }
+    public int getBuildStructJobsReqs(int index) {
+      return buildStructJobsReqs_.get(index);
+    }
+    
+    // repeated int32 marketplaceJobsReqs = 17;
+    public static final int MARKETPLACEJOBSREQS_FIELD_NUMBER = 17;
+    private java.util.List<java.lang.Integer> marketplaceJobsReqs_;
+    public java.util.List<java.lang.Integer>
+        getMarketplaceJobsReqsList() {
+      return marketplaceJobsReqs_;
+    }
+    public int getMarketplaceJobsReqsCount() {
+      return marketplaceJobsReqs_.size();
+    }
+    public int getMarketplaceJobsReqs(int index) {
+      return marketplaceJobsReqs_.get(index);
+    }
+    
+    // repeated int32 defeatTypeReqs = 18;
+    public static final int DEFEATTYPEREQS_FIELD_NUMBER = 18;
+    private java.util.List<java.lang.Integer> defeatTypeReqs_;
+    public java.util.List<java.lang.Integer>
+        getDefeatTypeReqsList() {
+      return defeatTypeReqs_;
+    }
+    public int getDefeatTypeReqsCount() {
+      return defeatTypeReqs_.size();
+    }
+    public int getDefeatTypeReqs(int index) {
+      return defeatTypeReqs_.get(index);
+    }
+    
+    // repeated int32 possessEquipJobReqs = 19;
+    public static final int POSSESSEQUIPJOBREQS_FIELD_NUMBER = 19;
+    private java.util.List<java.lang.Integer> possessEquipJobReqs_;
+    public java.util.List<java.lang.Integer>
+        getPossessEquipJobReqsList() {
+      return possessEquipJobReqs_;
+    }
+    public int getPossessEquipJobReqsCount() {
+      return possessEquipJobReqs_.size();
+    }
+    public int getPossessEquipJobReqs(int index) {
+      return possessEquipJobReqs_.get(index);
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      cityId_ = 0;
+      name_ = "";
+      description_ = "";
+      doneResponse_ = "";
+      inProgress_ = "";
+      assetNumWithinCity_ = 0;
+      coinsGained_ = 0;
+      diamondsGained_ = 0;
+      woodGained_ = 0;
+      expGained_ = 0;
+      equipIdGained_ = 0;
+      questsRequiredForThis_ = java.util.Collections.emptyList();;
+      taskReqs_ = java.util.Collections.emptyList();;
+      upgradeStructJobsReqs_ = java.util.Collections.emptyList();;
+      buildStructJobsReqs_ = java.util.Collections.emptyList();;
+      marketplaceJobsReqs_ = java.util.Collections.emptyList();;
+      defeatTypeReqs_ = java.util.Collections.emptyList();;
+      possessEquipJobReqs_ = java.util.Collections.emptyList();;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCityId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDescription()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDoneResponse()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasInProgress()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasAssetNumWithinCity()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, cityId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getDescriptionBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getDoneResponseBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getInProgressBytes());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, assetNumWithinCity_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, coinsGained_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt32(9, diamondsGained_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeInt32(10, woodGained_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeInt32(11, expGained_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeInt32(12, equipIdGained_);
+      }
+      for (int i = 0; i < questsRequiredForThis_.size(); i++) {
+        output.writeInt32(13, questsRequiredForThis_.get(i));
+      }
+      for (int i = 0; i < taskReqs_.size(); i++) {
+        output.writeInt32(14, taskReqs_.get(i));
+      }
+      for (int i = 0; i < upgradeStructJobsReqs_.size(); i++) {
+        output.writeInt32(15, upgradeStructJobsReqs_.get(i));
+      }
+      for (int i = 0; i < buildStructJobsReqs_.size(); i++) {
+        output.writeInt32(16, buildStructJobsReqs_.get(i));
+      }
+      for (int i = 0; i < marketplaceJobsReqs_.size(); i++) {
+        output.writeInt32(17, marketplaceJobsReqs_.get(i));
+      }
+      for (int i = 0; i < defeatTypeReqs_.size(); i++) {
+        output.writeInt32(18, defeatTypeReqs_.get(i));
+      }
+      for (int i = 0; i < possessEquipJobReqs_.size(); i++) {
+        output.writeInt32(19, possessEquipJobReqs_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, cityId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getDescriptionBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getDoneResponseBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getInProgressBytes());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, assetNumWithinCity_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, coinsGained_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, diamondsGained_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(10, woodGained_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(11, expGained_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(12, equipIdGained_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < questsRequiredForThis_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(questsRequiredForThis_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getQuestsRequiredForThisList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < taskReqs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(taskReqs_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getTaskReqsList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < upgradeStructJobsReqs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(upgradeStructJobsReqs_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getUpgradeStructJobsReqsList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < buildStructJobsReqs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(buildStructJobsReqs_.get(i));
+        }
+        size += dataSize;
+        size += 2 * getBuildStructJobsReqsList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < marketplaceJobsReqs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(marketplaceJobsReqs_.get(i));
+        }
+        size += dataSize;
+        size += 2 * getMarketplaceJobsReqsList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < defeatTypeReqs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(defeatTypeReqs_.get(i));
+        }
+        size += dataSize;
+        size += 2 * getDefeatTypeReqsList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < possessEquipJobReqs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(possessEquipJobReqs_.get(i));
+        }
+        size += dataSize;
+        size += 2 * getPossessEquipJobReqsList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullQuestProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.FullQuestProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.FullQuestProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        cityId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        description_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        doneResponse_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        inProgress_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
+        assetNumWithinCity_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        coinsGained_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        diamondsGained_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        woodGained_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        expGained_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        equipIdGained_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000800);
+        questsRequiredForThis_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00001000);
+        taskReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00002000);
+        upgradeStructJobsReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00004000);
+        buildStructJobsReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00008000);
+        marketplaceJobsReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        defeatTypeReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00020000);
+        possessEquipJobReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00040000);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.FullQuestProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.FullQuestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.FullQuestProto build() {
+        com.lvl6.proto.InfoProto.FullQuestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.FullQuestProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.FullQuestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.FullQuestProto buildPartial() {
+        com.lvl6.proto.InfoProto.FullQuestProto result = new com.lvl6.proto.InfoProto.FullQuestProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.cityId_ = cityId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.description_ = description_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.doneResponse_ = doneResponse_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.inProgress_ = inProgress_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.assetNumWithinCity_ = assetNumWithinCity_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.coinsGained_ = coinsGained_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.diamondsGained_ = diamondsGained_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.woodGained_ = woodGained_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.expGained_ = expGained_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.equipIdGained_ = equipIdGained_;
+        if (((bitField0_ & 0x00001000) == 0x00001000)) {
+          questsRequiredForThis_ = java.util.Collections.unmodifiableList(questsRequiredForThis_);
+          bitField0_ = (bitField0_ & ~0x00001000);
+        }
+        result.questsRequiredForThis_ = questsRequiredForThis_;
+        if (((bitField0_ & 0x00002000) == 0x00002000)) {
+          taskReqs_ = java.util.Collections.unmodifiableList(taskReqs_);
+          bitField0_ = (bitField0_ & ~0x00002000);
+        }
+        result.taskReqs_ = taskReqs_;
+        if (((bitField0_ & 0x00004000) == 0x00004000)) {
+          upgradeStructJobsReqs_ = java.util.Collections.unmodifiableList(upgradeStructJobsReqs_);
+          bitField0_ = (bitField0_ & ~0x00004000);
+        }
+        result.upgradeStructJobsReqs_ = upgradeStructJobsReqs_;
+        if (((bitField0_ & 0x00008000) == 0x00008000)) {
+          buildStructJobsReqs_ = java.util.Collections.unmodifiableList(buildStructJobsReqs_);
+          bitField0_ = (bitField0_ & ~0x00008000);
+        }
+        result.buildStructJobsReqs_ = buildStructJobsReqs_;
+        if (((bitField0_ & 0x00010000) == 0x00010000)) {
+          marketplaceJobsReqs_ = java.util.Collections.unmodifiableList(marketplaceJobsReqs_);
+          bitField0_ = (bitField0_ & ~0x00010000);
+        }
+        result.marketplaceJobsReqs_ = marketplaceJobsReqs_;
+        if (((bitField0_ & 0x00020000) == 0x00020000)) {
+          defeatTypeReqs_ = java.util.Collections.unmodifiableList(defeatTypeReqs_);
+          bitField0_ = (bitField0_ & ~0x00020000);
+        }
+        result.defeatTypeReqs_ = defeatTypeReqs_;
+        if (((bitField0_ & 0x00040000) == 0x00040000)) {
+          possessEquipJobReqs_ = java.util.Collections.unmodifiableList(possessEquipJobReqs_);
+          bitField0_ = (bitField0_ & ~0x00040000);
+        }
+        result.possessEquipJobReqs_ = possessEquipJobReqs_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.FullQuestProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.FullQuestProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.FullQuestProto other) {
+        if (other == com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasCityId()) {
+          setCityId(other.getCityId());
+        }
+        if (other.hasName()) {
+          setName(other.getName());
+        }
+        if (other.hasDescription()) {
+          setDescription(other.getDescription());
+        }
+        if (other.hasDoneResponse()) {
+          setDoneResponse(other.getDoneResponse());
+        }
+        if (other.hasInProgress()) {
+          setInProgress(other.getInProgress());
+        }
+        if (other.hasAssetNumWithinCity()) {
+          setAssetNumWithinCity(other.getAssetNumWithinCity());
+        }
+        if (other.hasCoinsGained()) {
+          setCoinsGained(other.getCoinsGained());
+        }
+        if (other.hasDiamondsGained()) {
+          setDiamondsGained(other.getDiamondsGained());
+        }
+        if (other.hasWoodGained()) {
+          setWoodGained(other.getWoodGained());
+        }
+        if (other.hasExpGained()) {
+          setExpGained(other.getExpGained());
+        }
+        if (other.hasEquipIdGained()) {
+          setEquipIdGained(other.getEquipIdGained());
+        }
+        if (!other.questsRequiredForThis_.isEmpty()) {
+          if (questsRequiredForThis_.isEmpty()) {
+            questsRequiredForThis_ = other.questsRequiredForThis_;
+            bitField0_ = (bitField0_ & ~0x00001000);
+          } else {
+            ensureQuestsRequiredForThisIsMutable();
+            questsRequiredForThis_.addAll(other.questsRequiredForThis_);
+          }
+          onChanged();
+        }
+        if (!other.taskReqs_.isEmpty()) {
+          if (taskReqs_.isEmpty()) {
+            taskReqs_ = other.taskReqs_;
+            bitField0_ = (bitField0_ & ~0x00002000);
+          } else {
+            ensureTaskReqsIsMutable();
+            taskReqs_.addAll(other.taskReqs_);
+          }
+          onChanged();
+        }
+        if (!other.upgradeStructJobsReqs_.isEmpty()) {
+          if (upgradeStructJobsReqs_.isEmpty()) {
+            upgradeStructJobsReqs_ = other.upgradeStructJobsReqs_;
+            bitField0_ = (bitField0_ & ~0x00004000);
+          } else {
+            ensureUpgradeStructJobsReqsIsMutable();
+            upgradeStructJobsReqs_.addAll(other.upgradeStructJobsReqs_);
+          }
+          onChanged();
+        }
+        if (!other.buildStructJobsReqs_.isEmpty()) {
+          if (buildStructJobsReqs_.isEmpty()) {
+            buildStructJobsReqs_ = other.buildStructJobsReqs_;
+            bitField0_ = (bitField0_ & ~0x00008000);
+          } else {
+            ensureBuildStructJobsReqsIsMutable();
+            buildStructJobsReqs_.addAll(other.buildStructJobsReqs_);
+          }
+          onChanged();
+        }
+        if (!other.marketplaceJobsReqs_.isEmpty()) {
+          if (marketplaceJobsReqs_.isEmpty()) {
+            marketplaceJobsReqs_ = other.marketplaceJobsReqs_;
+            bitField0_ = (bitField0_ & ~0x00010000);
+          } else {
+            ensureMarketplaceJobsReqsIsMutable();
+            marketplaceJobsReqs_.addAll(other.marketplaceJobsReqs_);
+          }
+          onChanged();
+        }
+        if (!other.defeatTypeReqs_.isEmpty()) {
+          if (defeatTypeReqs_.isEmpty()) {
+            defeatTypeReqs_ = other.defeatTypeReqs_;
+            bitField0_ = (bitField0_ & ~0x00020000);
+          } else {
+            ensureDefeatTypeReqsIsMutable();
+            defeatTypeReqs_.addAll(other.defeatTypeReqs_);
+          }
+          onChanged();
+        }
+        if (!other.possessEquipJobReqs_.isEmpty()) {
+          if (possessEquipJobReqs_.isEmpty()) {
+            possessEquipJobReqs_ = other.possessEquipJobReqs_;
+            bitField0_ = (bitField0_ & ~0x00040000);
+          } else {
+            ensurePossessEquipJobReqsIsMutable();
+            possessEquipJobReqs_.addAll(other.possessEquipJobReqs_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          
+          return false;
+        }
+        if (!hasCityId()) {
+          
+          return false;
+        }
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasDescription()) {
+          
+          return false;
+        }
+        if (!hasDoneResponse()) {
+          
+          return false;
+        }
+        if (!hasInProgress()) {
+          
+          return false;
+        }
+        if (!hasAssetNumWithinCity()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              cityId_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              name_ = input.readBytes();
+              break;
+            }
+            case 34: {
+              bitField0_ |= 0x00000008;
+              description_ = input.readBytes();
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              doneResponse_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000020;
+              inProgress_ = input.readBytes();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              assetNumWithinCity_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              coinsGained_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              diamondsGained_ = input.readInt32();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              woodGained_ = input.readInt32();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000400;
+              expGained_ = input.readInt32();
+              break;
+            }
+            case 96: {
+              bitField0_ |= 0x00000800;
+              equipIdGained_ = input.readInt32();
+              break;
+            }
+            case 104: {
+              ensureQuestsRequiredForThisIsMutable();
+              questsRequiredForThis_.add(input.readInt32());
+              break;
+            }
+            case 106: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addQuestsRequiredForThis(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 112: {
+              ensureTaskReqsIsMutable();
+              taskReqs_.add(input.readInt32());
+              break;
+            }
+            case 114: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addTaskReqs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 120: {
+              ensureUpgradeStructJobsReqsIsMutable();
+              upgradeStructJobsReqs_.add(input.readInt32());
+              break;
+            }
+            case 122: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addUpgradeStructJobsReqs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 128: {
+              ensureBuildStructJobsReqsIsMutable();
+              buildStructJobsReqs_.add(input.readInt32());
+              break;
+            }
+            case 130: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addBuildStructJobsReqs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 136: {
+              ensureMarketplaceJobsReqsIsMutable();
+              marketplaceJobsReqs_.add(input.readInt32());
+              break;
+            }
+            case 138: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addMarketplaceJobsReqs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 144: {
+              ensureDefeatTypeReqsIsMutable();
+              defeatTypeReqs_.add(input.readInt32());
+              break;
+            }
+            case 146: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addDefeatTypeReqs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 152: {
+              ensurePossessEquipJobReqsIsMutable();
+              possessEquipJobReqs_.add(input.readInt32());
+              break;
+            }
+            case 154: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addPossessEquipJobReqs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 cityId = 2;
+      private int cityId_ ;
+      public boolean hasCityId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getCityId() {
+        return cityId_;
+      }
+      public Builder setCityId(int value) {
+        bitField0_ |= 0x00000002;
+        cityId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCityId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        cityId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required string name = 3;
+      private java.lang.Object name_ = "";
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      void setName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000004;
+        name_ = value;
+        onChanged();
+      }
+      
+      // required string description = 4;
+      private java.lang.Object description_ = "";
+      public boolean hasDescription() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public String getDescription() {
+        java.lang.Object ref = description_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          description_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setDescription(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        description_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDescription() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        description_ = getDefaultInstance().getDescription();
+        onChanged();
+        return this;
+      }
+      void setDescription(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000008;
+        description_ = value;
+        onChanged();
+      }
+      
+      // required string doneResponse = 5;
+      private java.lang.Object doneResponse_ = "";
+      public boolean hasDoneResponse() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public String getDoneResponse() {
+        java.lang.Object ref = doneResponse_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          doneResponse_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setDoneResponse(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        doneResponse_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDoneResponse() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        doneResponse_ = getDefaultInstance().getDoneResponse();
+        onChanged();
+        return this;
+      }
+      void setDoneResponse(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000010;
+        doneResponse_ = value;
+        onChanged();
+      }
+      
+      // required string inProgress = 6;
+      private java.lang.Object inProgress_ = "";
+      public boolean hasInProgress() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public String getInProgress() {
+        java.lang.Object ref = inProgress_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          inProgress_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setInProgress(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        inProgress_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearInProgress() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        inProgress_ = getDefaultInstance().getInProgress();
+        onChanged();
+        return this;
+      }
+      void setInProgress(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000020;
+        inProgress_ = value;
+        onChanged();
+      }
+      
+      // required int32 assetNumWithinCity = 7;
+      private int assetNumWithinCity_ ;
+      public boolean hasAssetNumWithinCity() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getAssetNumWithinCity() {
+        return assetNumWithinCity_;
+      }
+      public Builder setAssetNumWithinCity(int value) {
+        bitField0_ |= 0x00000040;
+        assetNumWithinCity_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAssetNumWithinCity() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        assetNumWithinCity_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 coinsGained = 8;
+      private int coinsGained_ ;
+      public boolean hasCoinsGained() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getCoinsGained() {
+        return coinsGained_;
+      }
+      public Builder setCoinsGained(int value) {
+        bitField0_ |= 0x00000080;
+        coinsGained_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCoinsGained() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        coinsGained_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 diamondsGained = 9;
+      private int diamondsGained_ ;
+      public boolean hasDiamondsGained() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public int getDiamondsGained() {
+        return diamondsGained_;
+      }
+      public Builder setDiamondsGained(int value) {
+        bitField0_ |= 0x00000100;
+        diamondsGained_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDiamondsGained() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        diamondsGained_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 woodGained = 10;
+      private int woodGained_ ;
+      public boolean hasWoodGained() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public int getWoodGained() {
+        return woodGained_;
+      }
+      public Builder setWoodGained(int value) {
+        bitField0_ |= 0x00000200;
+        woodGained_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWoodGained() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        woodGained_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 expGained = 11;
+      private int expGained_ ;
+      public boolean hasExpGained() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      public int getExpGained() {
+        return expGained_;
+      }
+      public Builder setExpGained(int value) {
+        bitField0_ |= 0x00000400;
+        expGained_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearExpGained() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        expGained_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 equipIdGained = 12;
+      private int equipIdGained_ ;
+      public boolean hasEquipIdGained() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      public int getEquipIdGained() {
+        return equipIdGained_;
+      }
+      public Builder setEquipIdGained(int value) {
+        bitField0_ |= 0x00000800;
+        equipIdGained_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEquipIdGained() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        equipIdGained_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 questsRequiredForThis = 13;
+      private java.util.List<java.lang.Integer> questsRequiredForThis_ = java.util.Collections.emptyList();;
+      private void ensureQuestsRequiredForThisIsMutable() {
+        if (!((bitField0_ & 0x00001000) == 0x00001000)) {
+          questsRequiredForThis_ = new java.util.ArrayList<java.lang.Integer>(questsRequiredForThis_);
+          bitField0_ |= 0x00001000;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getQuestsRequiredForThisList() {
+        return java.util.Collections.unmodifiableList(questsRequiredForThis_);
+      }
+      public int getQuestsRequiredForThisCount() {
+        return questsRequiredForThis_.size();
+      }
+      public int getQuestsRequiredForThis(int index) {
+        return questsRequiredForThis_.get(index);
+      }
+      public Builder setQuestsRequiredForThis(
+          int index, int value) {
+        ensureQuestsRequiredForThisIsMutable();
+        questsRequiredForThis_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addQuestsRequiredForThis(int value) {
+        ensureQuestsRequiredForThisIsMutable();
+        questsRequiredForThis_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllQuestsRequiredForThis(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureQuestsRequiredForThisIsMutable();
+        super.addAll(values, questsRequiredForThis_);
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestsRequiredForThis() {
+        questsRequiredForThis_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00001000);
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 taskReqs = 14;
+      private java.util.List<java.lang.Integer> taskReqs_ = java.util.Collections.emptyList();;
+      private void ensureTaskReqsIsMutable() {
+        if (!((bitField0_ & 0x00002000) == 0x00002000)) {
+          taskReqs_ = new java.util.ArrayList<java.lang.Integer>(taskReqs_);
+          bitField0_ |= 0x00002000;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getTaskReqsList() {
+        return java.util.Collections.unmodifiableList(taskReqs_);
+      }
+      public int getTaskReqsCount() {
+        return taskReqs_.size();
+      }
+      public int getTaskReqs(int index) {
+        return taskReqs_.get(index);
+      }
+      public Builder setTaskReqs(
+          int index, int value) {
+        ensureTaskReqsIsMutable();
+        taskReqs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addTaskReqs(int value) {
+        ensureTaskReqsIsMutable();
+        taskReqs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllTaskReqs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureTaskReqsIsMutable();
+        super.addAll(values, taskReqs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearTaskReqs() {
+        taskReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00002000);
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 upgradeStructJobsReqs = 15;
+      private java.util.List<java.lang.Integer> upgradeStructJobsReqs_ = java.util.Collections.emptyList();;
+      private void ensureUpgradeStructJobsReqsIsMutable() {
+        if (!((bitField0_ & 0x00004000) == 0x00004000)) {
+          upgradeStructJobsReqs_ = new java.util.ArrayList<java.lang.Integer>(upgradeStructJobsReqs_);
+          bitField0_ |= 0x00004000;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getUpgradeStructJobsReqsList() {
+        return java.util.Collections.unmodifiableList(upgradeStructJobsReqs_);
+      }
+      public int getUpgradeStructJobsReqsCount() {
+        return upgradeStructJobsReqs_.size();
+      }
+      public int getUpgradeStructJobsReqs(int index) {
+        return upgradeStructJobsReqs_.get(index);
+      }
+      public Builder setUpgradeStructJobsReqs(
+          int index, int value) {
+        ensureUpgradeStructJobsReqsIsMutable();
+        upgradeStructJobsReqs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addUpgradeStructJobsReqs(int value) {
+        ensureUpgradeStructJobsReqsIsMutable();
+        upgradeStructJobsReqs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllUpgradeStructJobsReqs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureUpgradeStructJobsReqsIsMutable();
+        super.addAll(values, upgradeStructJobsReqs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearUpgradeStructJobsReqs() {
+        upgradeStructJobsReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00004000);
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 buildStructJobsReqs = 16;
+      private java.util.List<java.lang.Integer> buildStructJobsReqs_ = java.util.Collections.emptyList();;
+      private void ensureBuildStructJobsReqsIsMutable() {
+        if (!((bitField0_ & 0x00008000) == 0x00008000)) {
+          buildStructJobsReqs_ = new java.util.ArrayList<java.lang.Integer>(buildStructJobsReqs_);
+          bitField0_ |= 0x00008000;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getBuildStructJobsReqsList() {
+        return java.util.Collections.unmodifiableList(buildStructJobsReqs_);
+      }
+      public int getBuildStructJobsReqsCount() {
+        return buildStructJobsReqs_.size();
+      }
+      public int getBuildStructJobsReqs(int index) {
+        return buildStructJobsReqs_.get(index);
+      }
+      public Builder setBuildStructJobsReqs(
+          int index, int value) {
+        ensureBuildStructJobsReqsIsMutable();
+        buildStructJobsReqs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addBuildStructJobsReqs(int value) {
+        ensureBuildStructJobsReqsIsMutable();
+        buildStructJobsReqs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllBuildStructJobsReqs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureBuildStructJobsReqsIsMutable();
+        super.addAll(values, buildStructJobsReqs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearBuildStructJobsReqs() {
+        buildStructJobsReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00008000);
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 marketplaceJobsReqs = 17;
+      private java.util.List<java.lang.Integer> marketplaceJobsReqs_ = java.util.Collections.emptyList();;
+      private void ensureMarketplaceJobsReqsIsMutable() {
+        if (!((bitField0_ & 0x00010000) == 0x00010000)) {
+          marketplaceJobsReqs_ = new java.util.ArrayList<java.lang.Integer>(marketplaceJobsReqs_);
+          bitField0_ |= 0x00010000;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getMarketplaceJobsReqsList() {
+        return java.util.Collections.unmodifiableList(marketplaceJobsReqs_);
+      }
+      public int getMarketplaceJobsReqsCount() {
+        return marketplaceJobsReqs_.size();
+      }
+      public int getMarketplaceJobsReqs(int index) {
+        return marketplaceJobsReqs_.get(index);
+      }
+      public Builder setMarketplaceJobsReqs(
+          int index, int value) {
+        ensureMarketplaceJobsReqsIsMutable();
+        marketplaceJobsReqs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addMarketplaceJobsReqs(int value) {
+        ensureMarketplaceJobsReqsIsMutable();
+        marketplaceJobsReqs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllMarketplaceJobsReqs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureMarketplaceJobsReqsIsMutable();
+        super.addAll(values, marketplaceJobsReqs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearMarketplaceJobsReqs() {
+        marketplaceJobsReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 defeatTypeReqs = 18;
+      private java.util.List<java.lang.Integer> defeatTypeReqs_ = java.util.Collections.emptyList();;
+      private void ensureDefeatTypeReqsIsMutable() {
+        if (!((bitField0_ & 0x00020000) == 0x00020000)) {
+          defeatTypeReqs_ = new java.util.ArrayList<java.lang.Integer>(defeatTypeReqs_);
+          bitField0_ |= 0x00020000;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getDefeatTypeReqsList() {
+        return java.util.Collections.unmodifiableList(defeatTypeReqs_);
+      }
+      public int getDefeatTypeReqsCount() {
+        return defeatTypeReqs_.size();
+      }
+      public int getDefeatTypeReqs(int index) {
+        return defeatTypeReqs_.get(index);
+      }
+      public Builder setDefeatTypeReqs(
+          int index, int value) {
+        ensureDefeatTypeReqsIsMutable();
+        defeatTypeReqs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addDefeatTypeReqs(int value) {
+        ensureDefeatTypeReqsIsMutable();
+        defeatTypeReqs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllDefeatTypeReqs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureDefeatTypeReqsIsMutable();
+        super.addAll(values, defeatTypeReqs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearDefeatTypeReqs() {
+        defeatTypeReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00020000);
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 possessEquipJobReqs = 19;
+      private java.util.List<java.lang.Integer> possessEquipJobReqs_ = java.util.Collections.emptyList();;
+      private void ensurePossessEquipJobReqsIsMutable() {
+        if (!((bitField0_ & 0x00040000) == 0x00040000)) {
+          possessEquipJobReqs_ = new java.util.ArrayList<java.lang.Integer>(possessEquipJobReqs_);
+          bitField0_ |= 0x00040000;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getPossessEquipJobReqsList() {
+        return java.util.Collections.unmodifiableList(possessEquipJobReqs_);
+      }
+      public int getPossessEquipJobReqsCount() {
+        return possessEquipJobReqs_.size();
+      }
+      public int getPossessEquipJobReqs(int index) {
+        return possessEquipJobReqs_.get(index);
+      }
+      public Builder setPossessEquipJobReqs(
+          int index, int value) {
+        ensurePossessEquipJobReqsIsMutable();
+        possessEquipJobReqs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addPossessEquipJobReqs(int value) {
+        ensurePossessEquipJobReqsIsMutable();
+        possessEquipJobReqs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllPossessEquipJobReqs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensurePossessEquipJobReqsIsMutable();
+        super.addAll(values, possessEquipJobReqs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearPossessEquipJobReqs() {
+        possessEquipJobReqs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00040000);
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullQuestProto)
+    }
+    
+    static {
+      defaultInstance = new FullQuestProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullQuestProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_MinimumUserProto_descriptor;
   private static
@@ -9437,15 +19451,75 @@ public final class InfoProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_FullQuestProto_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_FullStructureProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_FullStructureProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_FullUserQuestDataLarge_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_FullUserQuestDataLarge_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserTaskProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_BuildStructJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_BuildStructJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MarketplaceJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MarketplaceJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_UpgradeStructJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_PossessEquipJobProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_FullQuestProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -9512,17 +19586,76 @@ public final class InfoProto {
       "oto.FullEquipProto\022\022\n\npostedWood\030\006 \001(\005\022\026" +
       "\n\016postedDiamonds\030\007 \001(\005\022\023\n\013postedCoins\030\010 " +
       "\001(\005\022\023\n\013diamondCost\030\t \001(\005\022\020\n\010coinCost\030\n \001" +
-      "(\005\022\020\n\010woodCost\030\013 \001(\005\"\020\n\016FullQuestProto\"\024" +
-      "\n\022FullStructureProto*k\n\010UserType\022\020\n\014GOOD" +
-      "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE",
-      "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +
-      "AD_MAGE\020\005*U\n\023MarketplacePostType\022\016\n\nEQUI" +
-      "P_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_POST\020" +
-      "\002\022\r\n\tCOIN_POST\020\003*2\n\035MarketplaceJobRequir" +
-      "ementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStru" +
-      "ctType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCA" +
-      "RPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARK" +
-      "ETPLACE\020\005B\013B\tInfoProto"
+      "(\005\022\020\n\010woodCost\030\013 \001(\005\"\024\n\022FullStructurePro" +
+      "to\"\314\004\n\026FullUserQuestDataLarge\022\016\n\006userId\030" +
+      "\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010complete\030\003 \002(\010",
+      "\022C\n\025requiredTasksProgress\030\004 \003(\0132$.com.lv" +
+      "l6.proto.MinimumUserTaskProto\022T\n\035require" +
+      "dDefeatTypeJobProgress\030\005 \003(\0132-.com.lvl6." +
+      "proto.MinimumUserDefeatTypeJobProto\022V\n\036r" +
+      "equiredBuildStructJobProgress\030\006 \003(\0132..co" +
+      "m.lvl6.proto.MinimumUserBuildStructJobPr" +
+      "oto\022V\n\036requiredMarketplaceJobProgress\030\007 " +
+      "\003(\0132..com.lvl6.proto.MinimumUserMarketpl" +
+      "aceJobProto\022Z\n requiredUpgradeStructJobP" +
+      "rogress\030\010 \003(\01320.com.lvl6.proto.MinimumUs",
+      "erUpgradeStructJobProto\022X\n\037requiredPosse" +
+      "ssEquipJobProgress\030\t \003(\0132/.com.lvl6.prot" +
+      "o.MinimumUserPossessEquipJobProto\"g\n\024Min" +
+      "imumUserTaskProto\022\016\n\006userId\030\001 \002(\005\022\016\n\006tas" +
+      "kId\030\002 \002(\005\022\025\n\rnumTimesActed\030\003 \002(\005\022\030\n\020numT" +
+      "imesRequired\030\004 \002(\005\"\222\001\n\035MinimumUserDefeat" +
+      "TypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030" +
+      "\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\".com.lvl" +
+      "6.proto.DefeatTypeJobProto\022\023\n\013numDefeate" +
+      "d\030\004 \002(\005\"{\n\022DefeatTypeJobProto\022\n\n\002id\030\001 \002(",
+      "\005\022-\n\013typeOfEnemy\030\002 \002(\0162\030.com.lvl6.proto." +
+      "UserType\022\032\n\022numEnemiesToDefeat\030\003 \002(\005\022\016\n\006" +
+      "cityId\030\004 \002(\005\"\232\001\n\036MinimumUserBuildStructJ" +
+      "obProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005" +
+      "\022;\n\016buildStructJob\030\003 \002(\0132#.com.lvl6.prot" +
+      "o.BuildStructJobProto\022\032\n\022numOfStructUser" +
+      "Has\030\004 \002(\005\"M\n\023BuildStructJobProto\022\n\n\002id\030\001" +
+      " \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequir" +
+      "ed\030\003 \002(\005\"\233\001\n\036MinimumUserMarketplaceJobPr" +
+      "oto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016",
+      "marketplaceJob\030\003 \002(\0132#.com.lvl6.proto.Ma" +
+      "rketplaceJobProto\022\033\n\023numTransactionsDone" +
+      "\030\004 \002(\005\"x\n\023MarketplaceJobProto\022\n\n\002id\030\001 \002(" +
+      "\005\022;\n\004type\030\002 \002(\0162-.com.lvl6.proto.Marketp" +
+      "laceJobRequirementType\022\030\n\020quantityRequir" +
+      "ed\030\003 \002(\005\"\230\001\n MinimumUserUpgradeStructJob" +
+      "Proto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?" +
+      "\n\020upgradeStructJob\030\003 \002(\0132%.com.lvl6.prot" +
+      "o.UpgradeStructJobProto\022\022\n\nisComplete\030\004 " +
+      "\002(\010\"G\n\025UpgradeStructJobProto\022\n\n\002id\030\001 \002(\005",
+      "\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq\030\003 \002(\005\"\232\001\n" +
+      "\037MinimumUserPossessEquipJobProto\022\016\n\006user" +
+      "Id\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024possessEqui" +
+      "pJobProto\030\003 \002(\0132$.com.lvl6.proto.Possess" +
+      "EquipJobProto\022\022\n\nisComplete\030\004 \002(\010\"H\n\024Pos" +
+      "sessEquipJobProto\022\n\n\002id\030\001 \002(\005\022\017\n\007equipId" +
+      "\030\002 \002(\005\022\023\n\013quantityReq\030\003 \002(\005\"\277\003\n\016FullQues" +
+      "tProto\022\n\n\002id\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004na" +
+      "me\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneRes" +
+      "ponse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022asset",
+      "NumWithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005" +
+      "\022\026\n\016diamondsGained\030\t \001(\005\022\022\n\nwoodGained\030\n" +
+      " \001(\005\022\021\n\texpGained\030\013 \001(\005\022\025\n\requipIdGained" +
+      "\030\014 \001(\005\022\035\n\025questsRequiredForThis\030\r \003(\005\022\020\n" +
+      "\010taskReqs\030\016 \003(\005\022\035\n\025upgradeStructJobsReqs" +
+      "\030\017 \003(\005\022\033\n\023buildStructJobsReqs\030\020 \003(\005\022\033\n\023m" +
+      "arketplaceJobsReqs\030\021 \003(\005\022\026\n\016defeatTypeRe" +
+      "qs\030\022 \003(\005\022\033\n\023possessEquipJobReqs\030\023 \003(\005*k\n" +
+      "\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCH" +
+      "ER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\n",
+      "BAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023Marketplac" +
+      "ePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001" +
+      "\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035Mar" +
+      "ketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004S" +
+      "ELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nL" +
+      "UMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n" +
+      "\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -9601,22 +19734,118 @@ public final class InfoProto {
               new java.lang.String[] { "MarketplacePostId", "PosterId", "PostType", "TimeOfPost", "PostedEquip", "PostedWood", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", "WoodCost", },
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.class,
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder.class);
-          internal_static_com_lvl6_proto_FullQuestProto_descriptor =
-            getDescriptor().getMessageTypes().get(9);
-          internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_FullQuestProto_descriptor,
-              new java.lang.String[] { },
-              com.lvl6.proto.InfoProto.FullQuestProto.class,
-              com.lvl6.proto.InfoProto.FullQuestProto.Builder.class);
           internal_static_com_lvl6_proto_FullStructureProto_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+            getDescriptor().getMessageTypes().get(9);
           internal_static_com_lvl6_proto_FullStructureProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullStructureProto_descriptor,
               new java.lang.String[] { },
               com.lvl6.proto.InfoProto.FullStructureProto.class,
               com.lvl6.proto.InfoProto.FullStructureProto.Builder.class);
+          internal_static_com_lvl6_proto_FullUserQuestDataLarge_descriptor =
+            getDescriptor().getMessageTypes().get(10);
+          internal_static_com_lvl6_proto_FullUserQuestDataLarge_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_FullUserQuestDataLarge_descriptor,
+              new java.lang.String[] { "UserId", "QuestId", "Complete", "RequiredTasksProgress", "RequiredDefeatTypeJobProgress", "RequiredBuildStructJobProgress", "RequiredMarketplaceJobProgress", "RequiredUpgradeStructJobProgress", "RequiredPossessEquipJobProgress", },
+              com.lvl6.proto.InfoProto.FullUserQuestDataLarge.class,
+              com.lvl6.proto.InfoProto.FullUserQuestDataLarge.Builder.class);
+          internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor =
+            getDescriptor().getMessageTypes().get(11);
+          internal_static_com_lvl6_proto_MinimumUserTaskProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor,
+              new java.lang.String[] { "UserId", "TaskId", "NumTimesActed", "NumTimesRequired", },
+              com.lvl6.proto.InfoProto.MinimumUserTaskProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder.class);
+          internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(12);
+          internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor,
+              new java.lang.String[] { "UserId", "QuestId", "DefeatTypeJobId", "NumDefeated", },
+              com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder.class);
+          internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(13);
+          internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor,
+              new java.lang.String[] { "Id", "TypeOfEnemy", "NumEnemiesToDefeat", "CityId", },
+              com.lvl6.proto.InfoProto.DefeatTypeJobProto.class,
+              com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder.class);
+          internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(14);
+          internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor,
+              new java.lang.String[] { "UserId", "QuestId", "BuildStructJob", "NumOfStructUserHas", },
+              com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder.class);
+          internal_static_com_lvl6_proto_BuildStructJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(15);
+          internal_static_com_lvl6_proto_BuildStructJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_BuildStructJobProto_descriptor,
+              new java.lang.String[] { "Id", "StructId", "QuantityRequired", },
+              com.lvl6.proto.InfoProto.BuildStructJobProto.class,
+              com.lvl6.proto.InfoProto.BuildStructJobProto.Builder.class);
+          internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(16);
+          internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserMarketplaceJobProto_descriptor,
+              new java.lang.String[] { "UserId", "QuestId", "MarketplaceJob", "NumTransactionsDone", },
+              com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserMarketplaceJobProto.Builder.class);
+          internal_static_com_lvl6_proto_MarketplaceJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(17);
+          internal_static_com_lvl6_proto_MarketplaceJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MarketplaceJobProto_descriptor,
+              new java.lang.String[] { "Id", "Type", "QuantityRequired", },
+              com.lvl6.proto.InfoProto.MarketplaceJobProto.class,
+              com.lvl6.proto.InfoProto.MarketplaceJobProto.Builder.class);
+          internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(18);
+          internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor,
+              new java.lang.String[] { "UserId", "QuestId", "UpgradeStructJob", "IsComplete", },
+              com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder.class);
+          internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(19);
+          internal_static_com_lvl6_proto_UpgradeStructJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor,
+              new java.lang.String[] { "Id", "StructId", "LevelReq", },
+              com.lvl6.proto.InfoProto.UpgradeStructJobProto.class,
+              com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder.class);
+          internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(20);
+          internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor,
+              new java.lang.String[] { "UserId", "QuestId", "PossessEquipJobProto", "IsComplete", },
+              com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.class,
+              com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder.class);
+          internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor =
+            getDescriptor().getMessageTypes().get(21);
+          internal_static_com_lvl6_proto_PossessEquipJobProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor,
+              new java.lang.String[] { "Id", "EquipId", "QuantityReq", },
+              com.lvl6.proto.InfoProto.PossessEquipJobProto.class,
+              com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder.class);
+          internal_static_com_lvl6_proto_FullQuestProto_descriptor =
+            getDescriptor().getMessageTypes().get(22);
+          internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_FullQuestProto_descriptor,
+              new java.lang.String[] { "Id", "CityId", "Name", "Description", "DoneResponse", "InProgress", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "WoodGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "MarketplaceJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", },
+              com.lvl6.proto.InfoProto.FullQuestProto.class,
+              com.lvl6.proto.InfoProto.FullQuestProto.Builder.class);
           return null;
         }
       };

@@ -219,15 +219,21 @@ public class QuestRetrieveUtils {
       }
     }
 
-    int equipIdReq = rs.getInt(i++);
-    int equipQuantityReq = rs.getInt(i++);
-
+    String possessEquipJobsRequiredString = rs.getString(i++);
+    List<Integer> possessEquipJobsRequired = new ArrayList<Integer>();
+    if (possessEquipJobsRequiredString != null) {
+      st = new StringTokenizer(possessEquipJobsRequiredString, ", ");
+      while (st.hasMoreTokens()) {
+        possessEquipJobsRequired.add(Integer.parseInt(st.nextToken()));
+      }
+    }
+    
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, assetNumWithinCity, 
         coinsGained, diamondsGained, woodGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, marketplaceJobsRequired, defeatGoodGuysRequired, 
-        defeatBadGuysRequired, equipIdReq, equipQuantityReq);
+        defeatBadGuysRequired, possessEquipJobsRequired);
     return quest;
   }
 }

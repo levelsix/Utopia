@@ -10,12 +10,11 @@ public class DBConstants {
   public static final String TABLE_USER_QUESTS = "user_quests";
   public static final String TABLE_USER_STRUCTS = "user_structs";
   public static final String TABLE_USER_CRITSTRUCTS = "user_critstructs";
-  public static final String TABLE_USER_QUESTS_COMPLETED_BUILD_STRUCT_JOBS = "user_quests_completed_build_struct_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS = "user_quests_completed_defeat_type_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_MARKETPLACE_JOBS = "user_quests_completed_marketplace_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_TASKS = "user_quests_completed_tasks";
-  public static final String TABLE_USER_QUESTS_COMPLETED_UPGRADE_STRUCT_JOBS = "user_quests_completed_upgrade_struct_jobs";
   public static final String TABLE_USER_DEFEAT_TYPE_JOB_PROGRESS = "user_defeat_type_job_progress";
+  public static final String TABLE_USER_MARKETPLACE_JOB_PROGRESS = "user_marketplace_job_progress";
   public static final String TABLE_EQUIPMENT = "equipment";
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
@@ -27,7 +26,7 @@ public class DBConstants {
   public static final String TABLE_JOBS_UPGRADE_STRUCT = "jobs_upgrade_struct";
   public static final String TABLE_JOBS_DEFEAT_TYPE = "jobs_defeat_type";
   public static final String TABLE_JOBS_MARKETPLACE = "jobs_marketplace";
-  public static final String TABLE_UPGRADE_STRUCT = "jobs_upgrade_struct";
+  public static final String TABLE_JOBS_POSSESS_EQUIP = "jobs_possess_equip";
   public static final String TABLE_QUESTS = "quests";
   public static final String TABLE_STRUCTURES = "structures";  
   

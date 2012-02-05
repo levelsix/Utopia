@@ -25,21 +25,21 @@ public class Quest {
   private List<Integer> upgradeStructJobsRequired;
   private List<Integer> buildStructJobsRequired;
   private List<Integer> marketplaceJobsRequired;
-  private List<Integer> defeatGoodGuysRequired;
-  private List<Integer> defeatBadGuysRequired;
-  private int equipIdReq;
-  private int equipQuantityReq;
-  
-  public Quest(int id, int cityId, String goodName, String badName, String goodDescription, 
-      String badDescription, String goodDoneResponse, String badDoneResponse,
-      String goodInProgress, String badInProgress, int assetNumWithinCity,
-      int coinsGained, int diamondsGained, int woodGained, int expGained, int equipIdGained,
-      List<Integer> questsRequiredForThis, 
-      List<Integer> tasksRequired, List<Integer> upgradeStructJobsRequired,
+  private List<Integer> defeatGoodGuysJobsRequired;
+  private List<Integer> defeatBadGuysJobsRequired;
+  private List<Integer> possessEquipJobsRequired;
+  public Quest(int id, int cityId, String goodName, String badName,
+      String goodDescription, String badDescription, String goodDoneResponse,
+      String badDoneResponse, String goodInProgress, String badInProgress,
+      int assetNumWithinCity, int coinsGained, int diamondsGained,
+      int woodGained, int expGained, int equipIdGained,
+      List<Integer> questsRequiredForThis, List<Integer> tasksRequired,
+      List<Integer> upgradeStructJobsRequired,
       List<Integer> buildStructJobsRequired,
       List<Integer> marketplaceJobsRequired,
-      List<Integer> defeatGoodGuysRequired,
-      List<Integer> defeatBadGuysRequired, int equipIdReq, int equipQuantityReq) {
+      List<Integer> defeatGoodGuysJobsRequired,
+      List<Integer> defeatBadGuysJobsRequired,
+      List<Integer> possessEquipJobsRequired) {
     this.id = id;
     this.cityId = cityId;
     this.goodName = goodName;
@@ -61,112 +61,82 @@ public class Quest {
     this.upgradeStructJobsRequired = upgradeStructJobsRequired;
     this.buildStructJobsRequired = buildStructJobsRequired;
     this.marketplaceJobsRequired = marketplaceJobsRequired;
-    this.defeatGoodGuysRequired = defeatGoodGuysRequired;
-    this.defeatBadGuysRequired = defeatBadGuysRequired;
-    this.equipIdReq = equipIdReq;
-    this.equipQuantityReq = equipQuantityReq;
+    this.defeatGoodGuysJobsRequired = defeatGoodGuysJobsRequired;
+    this.defeatBadGuysJobsRequired = defeatBadGuysJobsRequired;
+    this.possessEquipJobsRequired = possessEquipJobsRequired;
   }
-
   public int getId() {
     return id;
   }
-  
   public int getCityId() {
     return cityId;
   }
-
   public String getGoodName() {
     return goodName;
   }
-
   public String getBadName() {
     return badName;
   }
-
   public String getGoodDescription() {
     return goodDescription;
   }
-
   public String getBadDescription() {
     return badDescription;
   }
-
   public String getGoodDoneResponse() {
     return goodDoneResponse;
   }
-
   public String getBadDoneResponse() {
     return badDoneResponse;
   }
-
   public String getGoodInProgress() {
     return goodInProgress;
   }
-
   public String getBadInProgress() {
     return badInProgress;
   }
-
   public int getAssetNumWithinCity() {
     return assetNumWithinCity;
   }
-
   public int getCoinsGained() {
     return coinsGained;
   }
-
   public int getDiamondsGained() {
     return diamondsGained;
   }
-  
   public int getWoodGained() {
     return woodGained;
   }
-
   public int getExpGained() {
     return expGained;
   }
-
   public int getEquipIdGained() {
     return equipIdGained;
   }
-
   public List<Integer> getQuestsRequiredForThis() {
     return questsRequiredForThis;
   }
-
   public List<Integer> getTasksRequired() {
     return tasksRequired;
   }
-
   public List<Integer> getUpgradeStructJobsRequired() {
     return upgradeStructJobsRequired;
   }
-
   public List<Integer> getBuildStructJobsRequired() {
     return buildStructJobsRequired;
   }
-
   public List<Integer> getMarketplaceJobsRequired() {
     return marketplaceJobsRequired;
   }
-
-  public List<Integer> getDefeatGoodGuysRequired() {
-    return defeatGoodGuysRequired;
+  public List<Integer> getDefeatGoodGuysJobsRequired() {
+    return defeatGoodGuysJobsRequired;
   }
-
-  public List<Integer> getDefeatBadGuysRequired() {
-    return defeatBadGuysRequired;
+  public List<Integer> getDefeatBadGuysJobsRequired() {
+    return defeatBadGuysJobsRequired;
   }
-
-  public int getEquipIdReq() {
-    return equipIdReq;
+  public List<Integer> getPossessEquipJobsRequired() {
+    return possessEquipJobsRequired;
   }
-
-  public int getEquipQuantityReq() {
-    return equipQuantityReq;
-  }
-
   @Override
   public String toString() {
     return "Quest [id=" + id + ", cityId=" + cityId + ", goodName=" + goodName
@@ -182,9 +152,10 @@ public class Quest {
         + ", upgradeStructJobsRequired=" + upgradeStructJobsRequired
         + ", buildStructJobsRequired=" + buildStructJobsRequired
         + ", marketplaceJobsRequired=" + marketplaceJobsRequired
-        + ", defeatGoodGuysRequired=" + defeatGoodGuysRequired
-        + ", defeatBadGuysRequired=" + defeatBadGuysRequired + ", equipIdReq="
-        + equipIdReq + ", equipQuantityReq=" + equipQuantityReq + "]";
+        + ", defeatGoodGuysJobsRequired=" + defeatGoodGuysJobsRequired
+        + ", defeatBadGuysJobsRequired=" + defeatBadGuysJobsRequired
+        + ", possessEquipJobsRequired=" + possessEquipJobsRequired + "]";
   }
+
   
 }

@@ -658,3 +658,83 @@ message LoadPlayerCityResponseProto {
      }
 }
 
+//------------------------------------------------------------------------------------------
+
+message QuestAcceptRequestProto {
+     required MinimumUserProto sender = 1;
+     required int32 questId = 2;
+}
+
+message QuestAcceptResponseProto {
+     required MinimumUserProto sender = 1;
+     required QuestAcceptStatus status = 2;
+
+     enum QuestAcceptStatus {
+          SUCCESS = 0;
+          NOT_AVAIL_TO_USER = 1;
+          OTHER_FAIL = 2;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+message QuestCompleteResponseProto {
+     required MinimumUserProto sender = 1;
+     required int32 questId = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message QuestRedeemRequestProto {                         //take away all the required items in here
+     required MinimumUserProto sender = 1;
+     required int32 questId = 2;
+}
+
+message QuestRedeemResponseProto {
+     required MinimumUserProto sender = 1;
+     repeated FullQuestProto updatedAvailableQuests = 2;
+     required QuestRedeemStatus status = 3;    
+
+     enum QuestRedeemStatus {
+          SUCCESS = 0;
+          NOT_COMPLETE = 1;
+          OTHER_FAIL = 2;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+message QuestCheckCompleteRequestProto {
+     required MinimumUserProto sender = 1;
+     required int32 questId = 2;
+}
+
+message QuestCheckCompleteResponseProto {
+     required MinimumUserProto sender = 1;
+     required QuestCompleteStatus status = 3;    
+
+     enum QuestCompleteStatus {
+          COMPLETE = 0;
+          NOT_COMPLETE = 1;
+          OTHER_FAIL = 2;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+message QuestLogDetailsRequestProto {
+     required MinimumUserProto sender = 1;
+}
+
+message QuestLogDetailsResponseProto {
+     required MinimumUserProto sender = 1;
+     repeated FullUserQuestDataLarge inProgressUserQuestData = 2;
+
+    required QuestLogDetailsStatus status = 3;    
+
+     enum QuestLogDetailsStatus {
+          SUCCESS = 0;
+          OTHER_FAIL = 1;
+     }
+}
+
