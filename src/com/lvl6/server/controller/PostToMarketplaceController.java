@@ -100,6 +100,11 @@ public class PostToMarketplaceController extends EventController {
       resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_POST);
       return false;
     }
+    if (reqProto.getPostedCoins() == 0 && reqProto.getPostedDiamonds() == 0 && 
+        reqProto.getPostedWood() == 0) {
+      resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_POST);
+      return false;
+    }
     if (postType == MarketplacePostType.COIN_POST) {
       if (user.getCoins() < reqProto.getPostedCoins()) {
         resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_COINS);

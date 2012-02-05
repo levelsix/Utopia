@@ -27,7 +27,7 @@ public class CreateInfoProtoUtils {
       builder.setPostedCoins(mp.getPostedCoins());
     }
     if (mp.getPostType() == MarketplacePostType.DIAMOND_POST) {
-      builder.setDiamondCost(mp.getPostedDiamonds());
+      builder.setPostedDiamonds(mp.getPostedDiamonds());
     }
     if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
       builder.setPostedEquipId(mp.getPostedEquipId());
