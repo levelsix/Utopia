@@ -76,6 +76,7 @@ public abstract class Wrap implements Runnable{
       }
     }
     catch (Exception e){
+      e.printStackTrace();
       log.error(e);
       // If there is ever any exception, replace this thread with a new thread
       for (int i = 0; i < workers.length; i++) {
