@@ -154,7 +154,7 @@ message FullMarketplacePostProto {
 	required int32 posterId = 2;
 	required MarketplacePostType postType = 3;
 	required int64 timeOfPost = 4;
-	optional int32 postedEquipId = 5;
+	optional FullEquipProto postedEquip = 5;
 	optional int32 postedWood = 6;
 	optional int32 postedDiamonds = 7;
 	optional int32 postedCoins = 8;

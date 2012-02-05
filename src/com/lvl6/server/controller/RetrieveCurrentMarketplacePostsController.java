@@ -39,15 +39,20 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
 
     List <MarketplacePost> activeMarketplacePosts;
     if (beforeThisPostId > 0) {
+      resBuilder.setBeforeThisPostId(beforeThisPostId);
       if (forSender) {
+        resBuilder.setFromSender(true);
         activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, beforeThisPostId, senderProto.getUserId());
       } else {
+        resBuilder.setFromSender(false);
         activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostId(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, beforeThisPostId);        
       }
     } else {
       if (forSender) {
+        resBuilder.setFromSender(true);
         activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
       } else {
+        resBuilder.setFromSender(false);
         activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
       }
     }

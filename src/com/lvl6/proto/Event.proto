@@ -394,13 +394,15 @@ message UpdateClientUserResponseProto {
 message RetrieveCurrentMarketplacePostsRequestProto {
 	required MinimumUserProto sender = 1;
 	optional int32 beforeThisPostId = 2;
-	optional bool fromSender = 3;
+	required bool fromSender = 3;
 }
 
 																						//DONE
 message RetrieveCurrentMarketplacePostsResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullMarketplacePostProto marketplacePosts = 2;
+     optional int32 beforeThisPostId = 3;
+     required bool fromSender = 4;
 }
 
 //------------------------------------------------------------------------------------------

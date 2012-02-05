@@ -7811,9 +7811,10 @@ public final class InfoProto {
     boolean hasTimeOfPost();
     long getTimeOfPost();
     
-    // optional int32 postedEquipId = 5;
-    boolean hasPostedEquipId();
-    int getPostedEquipId();
+    // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
+    boolean hasPostedEquip();
+    com.lvl6.proto.InfoProto.FullEquipProto getPostedEquip();
+    com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getPostedEquipOrBuilder();
     
     // optional int32 postedWood = 6;
     boolean hasPostedWood();
@@ -7908,14 +7909,17 @@ public final class InfoProto {
       return timeOfPost_;
     }
     
-    // optional int32 postedEquipId = 5;
-    public static final int POSTEDEQUIPID_FIELD_NUMBER = 5;
-    private int postedEquipId_;
-    public boolean hasPostedEquipId() {
+    // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
+    public static final int POSTEDEQUIP_FIELD_NUMBER = 5;
+    private com.lvl6.proto.InfoProto.FullEquipProto postedEquip_;
+    public boolean hasPostedEquip() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
-    public int getPostedEquipId() {
-      return postedEquipId_;
+    public com.lvl6.proto.InfoProto.FullEquipProto getPostedEquip() {
+      return postedEquip_;
+    }
+    public com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getPostedEquipOrBuilder() {
+      return postedEquip_;
     }
     
     // optional int32 postedWood = 6;
@@ -7983,7 +7987,7 @@ public final class InfoProto {
       posterId_ = 0;
       postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
       timeOfPost_ = 0L;
-      postedEquipId_ = 0;
+      postedEquip_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
       postedWood_ = 0;
       postedDiamonds_ = 0;
       postedCoins_ = 0;
@@ -8012,6 +8016,12 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (hasPostedEquip()) {
+        if (!getPostedEquip().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -8032,7 +8042,7 @@ public final class InfoProto {
         output.writeInt64(4, timeOfPost_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, postedEquipId_);
+        output.writeMessage(5, postedEquip_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeInt32(6, postedWood_);
@@ -8079,7 +8089,7 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, postedEquipId_);
+          .computeMessageSize(5, postedEquip_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
@@ -8221,6 +8231,7 @@ public final class InfoProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPostedEquipFieldBuilder();
         }
       }
       private static Builder create() {
@@ -8237,7 +8248,11 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         timeOfPost_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
-        postedEquipId_ = 0;
+        if (postedEquipBuilder_ == null) {
+          postedEquip_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
+        } else {
+          postedEquipBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000010);
         postedWood_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -8308,7 +8323,11 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.postedEquipId_ = postedEquipId_;
+        if (postedEquipBuilder_ == null) {
+          result.postedEquip_ = postedEquip_;
+        } else {
+          result.postedEquip_ = postedEquipBuilder_.build();
+        }
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
@@ -8361,8 +8380,8 @@ public final class InfoProto {
         if (other.hasTimeOfPost()) {
           setTimeOfPost(other.getTimeOfPost());
         }
-        if (other.hasPostedEquipId()) {
-          setPostedEquipId(other.getPostedEquipId());
+        if (other.hasPostedEquip()) {
+          mergePostedEquip(other.getPostedEquip());
         }
         if (other.hasPostedWood()) {
           setPostedWood(other.getPostedWood());
@@ -8402,6 +8421,12 @@ public final class InfoProto {
         if (!hasTimeOfPost()) {
           
           return false;
+        }
+        if (hasPostedEquip()) {
+          if (!getPostedEquip().isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -8455,9 +8480,13 @@ public final class InfoProto {
               timeOfPost_ = input.readInt64();
               break;
             }
-            case 40: {
-              bitField0_ |= 0x00000010;
-              postedEquipId_ = input.readInt32();
+            case 42: {
+              com.lvl6.proto.InfoProto.FullEquipProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullEquipProto.newBuilder();
+              if (hasPostedEquip()) {
+                subBuilder.mergeFrom(getPostedEquip());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setPostedEquip(subBuilder.buildPartial());
               break;
             }
             case 48: {
@@ -8583,25 +8612,94 @@ public final class InfoProto {
         return this;
       }
       
-      // optional int32 postedEquipId = 5;
-      private int postedEquipId_ ;
-      public boolean hasPostedEquipId() {
+      // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
+      private com.lvl6.proto.InfoProto.FullEquipProto postedEquip_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> postedEquipBuilder_;
+      public boolean hasPostedEquip() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public int getPostedEquipId() {
-        return postedEquipId_;
+      public com.lvl6.proto.InfoProto.FullEquipProto getPostedEquip() {
+        if (postedEquipBuilder_ == null) {
+          return postedEquip_;
+        } else {
+          return postedEquipBuilder_.getMessage();
+        }
       }
-      public Builder setPostedEquipId(int value) {
+      public Builder setPostedEquip(com.lvl6.proto.InfoProto.FullEquipProto value) {
+        if (postedEquipBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          postedEquip_ = value;
+          onChanged();
+        } else {
+          postedEquipBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000010;
-        postedEquipId_ = value;
-        onChanged();
         return this;
       }
-      public Builder clearPostedEquipId() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        postedEquipId_ = 0;
-        onChanged();
+      public Builder setPostedEquip(
+          com.lvl6.proto.InfoProto.FullEquipProto.Builder builderForValue) {
+        if (postedEquipBuilder_ == null) {
+          postedEquip_ = builderForValue.build();
+          onChanged();
+        } else {
+          postedEquipBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
         return this;
+      }
+      public Builder mergePostedEquip(com.lvl6.proto.InfoProto.FullEquipProto value) {
+        if (postedEquipBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010) &&
+              postedEquip_ != com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance()) {
+            postedEquip_ =
+              com.lvl6.proto.InfoProto.FullEquipProto.newBuilder(postedEquip_).mergeFrom(value).buildPartial();
+          } else {
+            postedEquip_ = value;
+          }
+          onChanged();
+        } else {
+          postedEquipBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      public Builder clearPostedEquip() {
+        if (postedEquipBuilder_ == null) {
+          postedEquip_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
+          onChanged();
+        } else {
+          postedEquipBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.FullEquipProto.Builder getPostedEquipBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getPostedEquipFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getPostedEquipOrBuilder() {
+        if (postedEquipBuilder_ != null) {
+          return postedEquipBuilder_.getMessageOrBuilder();
+        } else {
+          return postedEquip_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> 
+          getPostedEquipFieldBuilder() {
+        if (postedEquipBuilder_ == null) {
+          postedEquipBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder>(
+                  postedEquip_,
+                  getParentForChildren(),
+                  isClean());
+          postedEquip_ = null;
+        }
+        return postedEquipBuilder_;
       }
       
       // optional int32 postedWood = 6;
@@ -9406,24 +9504,25 @@ public final class InfoProto {
       "pGained\030\n \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(" +
       "\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002" +
       "(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n" +
-      "\tlongitude\030\002 \002(\002\"\243\002\n\030FullMarketplacePost",
+      "\tlongitude\030\002 \002(\002\"\301\002\n\030FullMarketplacePost",
       "Proto\022\031\n\021marketplacePostId\030\001 \002(\005\022\020\n\010post" +
       "erId\030\002 \002(\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6." +
       "proto.MarketplacePostType\022\022\n\ntimeOfPost\030" +
-      "\004 \002(\003\022\025\n\rpostedEquipId\030\005 \001(\005\022\022\n\npostedWo" +
-      "od\030\006 \001(\005\022\026\n\016postedDiamonds\030\007 \001(\005\022\023\n\013post" +
-      "edCoins\030\010 \001(\005\022\023\n\013diamondCost\030\t \001(\005\022\020\n\010co" +
-      "inCost\030\n \001(\005\022\020\n\010woodCost\030\013 \001(\005\"\020\n\016FullQu" +
-      "estProto\"\024\n\022FullStructureProto*k\n\010UserTy" +
-      "pe\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n" +
-      "\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARC",
-      "HER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023MarketplacePostTy" +
-      "pe\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIA" +
-      "MOND_POST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035Marketplac" +
-      "eJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c" +
-      "\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMI" +
-      "LL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY" +
-      "\020\004\022\017\n\013MARKETPLACE\020\005B\013B\tInfoProto"
+      "\004 \002(\003\0223\n\013postedEquip\030\005 \001(\0132\036.com.lvl6.pr" +
+      "oto.FullEquipProto\022\022\n\npostedWood\030\006 \001(\005\022\026" +
+      "\n\016postedDiamonds\030\007 \001(\005\022\023\n\013postedCoins\030\010 " +
+      "\001(\005\022\023\n\013diamondCost\030\t \001(\005\022\020\n\010coinCost\030\n \001" +
+      "(\005\022\020\n\010woodCost\030\013 \001(\005\"\020\n\016FullQuestProto\"\024" +
+      "\n\022FullStructureProto*k\n\010UserType\022\020\n\014GOOD" +
+      "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE",
+      "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +
+      "AD_MAGE\020\005*U\n\023MarketplacePostType\022\016\n\nEQUI" +
+      "P_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_POST\020" +
+      "\002\022\r\n\tCOIN_POST\020\003*2\n\035MarketplaceJobRequir" +
+      "ementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStru" +
+      "ctType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCA" +
+      "RPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARK" +
+      "ETPLACE\020\005B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -9499,7 +9598,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor,
-              new java.lang.String[] { "MarketplacePostId", "PosterId", "PostType", "TimeOfPost", "PostedEquipId", "PostedWood", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", "WoodCost", },
+              new java.lang.String[] { "MarketplacePostId", "PosterId", "PostType", "TimeOfPost", "PostedEquip", "PostedWood", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", "WoodCost", },
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.class,
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder.class);
           internal_static_com_lvl6_proto_FullQuestProto_descriptor =

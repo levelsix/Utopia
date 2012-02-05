@@ -15,6 +15,7 @@ import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 
 public class CreateInfoProtoUtils {
 
@@ -30,7 +31,8 @@ public class CreateInfoProtoUtils {
       builder.setPostedDiamonds(mp.getPostedDiamonds());
     }
     if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
-      builder.setPostedEquipId(mp.getPostedEquipId());
+      builder.setPostedEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(
+          EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
     }
     if (mp.getPostType() == MarketplacePostType.WOOD_POST) {
       builder.setPostedWood(mp.getPostedWood());
