@@ -62,6 +62,12 @@ public class AdminController extends EventController {
       case UPGRADE_STRUCT_JOBS:
         UpgradeStructJobRetrieveUtils.reload();
         break;
+      case STRUCTURES:
+        StructureRetrieveUtils.reload();
+        break;
+      case POSSESS_EQUIP_JOBS:
+        PossessEquipJobRetrieveUtils.reload();
+        break;
       }
     }
   }
