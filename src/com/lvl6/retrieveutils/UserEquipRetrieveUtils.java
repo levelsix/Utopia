@@ -11,22 +11,26 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.UserEquip;
+import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 public class UserEquipRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  
+
   private static final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
-  
+
   public static List<UserEquip> getUserEquipsForUser(int userId) {
     log.info("retrieving user equips for userId " + userId);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     return convertRSToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
-  
+
+  public static Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
+    log.info("retrieving user equips for userId " + userId);
+    return convertRSToEquipIdsToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+  }
+
   public static UserEquip getSpecificUserEquip(int userId, int equipId) {
     log.info("retrieving user equip for userId " + userId + " and equipId " + equipId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
@@ -44,7 +48,35 @@ public class UserEquipRetrieveUtils {
     }
     return convertRSToUserToUserEquips(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
-  
+
+  private static Map<Integer, List<UserEquip>> convertRSToEquipIdsToUserEquips(
+      ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        Map<Integer, List<UserEquip>> equipIdsToUserEquips = new HashMap<Integer, List<UserEquip>>();
+        while(rs.next()) {
+          UserEquip userEquip = convertRSRowToUserEquip(rs);
+          List<UserEquip> userEquipsForEquipId = equipIdsToUserEquips.get(userEquip.getEquipId());
+          if (userEquipsForEquipId != null) {
+            userEquipsForEquipId.add(userEquip);
+          } else {
+            List<UserEquip> userEquips = new ArrayList<UserEquip>();
+            userEquips.add(userEquip);
+            equipIdsToUserEquips.put(userEquip.getEquipId(), userEquips);
+          }
+        }
+        return equipIdsToUserEquips;
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return null;
+  }
+
+
   private static Map<Integer, List<UserEquip>> convertRSToUserToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
@@ -70,7 +102,7 @@ public class UserEquipRetrieveUtils {
     }
     return null;
   }
-  
+
   private static List<UserEquip> convertRSToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
@@ -88,7 +120,7 @@ public class UserEquipRetrieveUtils {
     }
     return null;
   }
-  
+
   private static UserEquip convertRSSingleToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
@@ -104,7 +136,7 @@ public class UserEquipRetrieveUtils {
     }
     return null;
   }
-  
+
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
@@ -117,5 +149,5 @@ public class UserEquipRetrieveUtils {
     UserEquip userEquip = new UserEquip(userId, equipId, quantity, isStolen);
     return userEquip;
   }
-  
+
 }

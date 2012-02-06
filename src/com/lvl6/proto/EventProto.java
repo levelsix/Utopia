@@ -40076,9 +40076,10 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 questId = 2;
-    boolean hasQuestId();
-    int getQuestId();
+    // required .com.lvl6.proto.FullQuestProto quest = 2;
+    boolean hasQuest();
+    com.lvl6.proto.InfoProto.FullQuestProto getQuest();
+    com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getQuestOrBuilder();
   }
   public static final class QuestCompleteResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -40122,19 +40123,22 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 questId = 2;
-    public static final int QUESTID_FIELD_NUMBER = 2;
-    private int questId_;
-    public boolean hasQuestId() {
+    // required .com.lvl6.proto.FullQuestProto quest = 2;
+    public static final int QUEST_FIELD_NUMBER = 2;
+    private com.lvl6.proto.InfoProto.FullQuestProto quest_;
+    public boolean hasQuest() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public int getQuestId() {
-      return questId_;
+    public com.lvl6.proto.InfoProto.FullQuestProto getQuest() {
+      return quest_;
+    }
+    public com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getQuestOrBuilder() {
+      return quest_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      questId_ = 0;
+      quest_ = com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -40145,11 +40149,15 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasQuestId()) {
+      if (!hasQuest()) {
         memoizedIsInitialized = 0;
         return false;
       }
       if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getQuest().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -40164,7 +40172,7 @@ public final class EventProto {
         output.writeMessage(1, sender_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, questId_);
+        output.writeMessage(2, quest_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -40181,7 +40189,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, questId_);
+          .computeMessageSize(2, quest_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -40300,6 +40308,7 @@ public final class EventProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getSenderFieldBuilder();
+          getQuestFieldBuilder();
         }
       }
       private static Builder create() {
@@ -40314,7 +40323,11 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        questId_ = 0;
+        if (questBuilder_ == null) {
+          quest_ = com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance();
+        } else {
+          questBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -40365,7 +40378,11 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.questId_ = questId_;
+        if (questBuilder_ == null) {
+          result.quest_ = quest_;
+        } else {
+          result.quest_ = questBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -40385,8 +40402,8 @@ public final class EventProto {
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
-        if (other.hasQuestId()) {
-          setQuestId(other.getQuestId());
+        if (other.hasQuest()) {
+          mergeQuest(other.getQuest());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -40397,11 +40414,15 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasQuestId()) {
+        if (!hasQuest()) {
           
           return false;
         }
         if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        if (!getQuest().isInitialized()) {
           
           return false;
         }
@@ -40440,9 +40461,13 @@ public final class EventProto {
               setSender(subBuilder.buildPartial());
               break;
             }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              questId_ = input.readInt32();
+            case 18: {
+              com.lvl6.proto.InfoProto.FullQuestProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullQuestProto.newBuilder();
+              if (hasQuest()) {
+                subBuilder.mergeFrom(getQuest());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setQuest(subBuilder.buildPartial());
               break;
             }
           }
@@ -40541,25 +40566,94 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 questId = 2;
-      private int questId_ ;
-      public boolean hasQuestId() {
+      // required .com.lvl6.proto.FullQuestProto quest = 2;
+      private com.lvl6.proto.InfoProto.FullQuestProto quest_ = com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.FullQuestProto, com.lvl6.proto.InfoProto.FullQuestProto.Builder, com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> questBuilder_;
+      public boolean hasQuest() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getQuestId() {
-        return questId_;
+      public com.lvl6.proto.InfoProto.FullQuestProto getQuest() {
+        if (questBuilder_ == null) {
+          return quest_;
+        } else {
+          return questBuilder_.getMessage();
+        }
       }
-      public Builder setQuestId(int value) {
+      public Builder setQuest(com.lvl6.proto.InfoProto.FullQuestProto value) {
+        if (questBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          quest_ = value;
+          onChanged();
+        } else {
+          questBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000002;
-        questId_ = value;
-        onChanged();
         return this;
       }
-      public Builder clearQuestId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        questId_ = 0;
-        onChanged();
+      public Builder setQuest(
+          com.lvl6.proto.InfoProto.FullQuestProto.Builder builderForValue) {
+        if (questBuilder_ == null) {
+          quest_ = builderForValue.build();
+          onChanged();
+        } else {
+          questBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
         return this;
+      }
+      public Builder mergeQuest(com.lvl6.proto.InfoProto.FullQuestProto value) {
+        if (questBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              quest_ != com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance()) {
+            quest_ =
+              com.lvl6.proto.InfoProto.FullQuestProto.newBuilder(quest_).mergeFrom(value).buildPartial();
+          } else {
+            quest_ = value;
+          }
+          onChanged();
+        } else {
+          questBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder clearQuest() {
+        if (questBuilder_ == null) {
+          quest_ = com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance();
+          onChanged();
+        } else {
+          questBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.FullQuestProto.Builder getQuestBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getQuestFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getQuestOrBuilder() {
+        if (questBuilder_ != null) {
+          return questBuilder_.getMessageOrBuilder();
+        } else {
+          return quest_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.FullQuestProto, com.lvl6.proto.InfoProto.FullQuestProto.Builder, com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> 
+          getQuestFieldBuilder() {
+        if (questBuilder_ == null) {
+          questBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullQuestProto, com.lvl6.proto.InfoProto.FullQuestProto.Builder, com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder>(
+                  quest_,
+                  getParentForChildren(),
+                  isClean());
+          quest_ = null;
+        }
+        return questBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.QuestCompleteResponseProto)
@@ -45016,38 +45110,38 @@ public final class EventProto {
       "erProto\022J\n\006status\030\002 \002(\0162:.com.lvl6.proto" +
       ".QuestAcceptResponseProto.QuestAcceptSta" +
       "tus\"G\n\021QuestAcceptStatus\022\013\n\007SUCCESS\020\000\022\025\n" +
-      "\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\032",
+      "\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"}\n\032",
       "QuestCompleteResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022\017\n\007" +
-      "questId\030\002 \002(\005\"\\\n\027QuestRedeemRequestProto" +
-      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030QuestRed" +
-      "eemResponseProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022>\n\026updatedAva" +
-      "ilableQuests\030\002 \003(\0132\036.com.lvl6.proto.Full" +
-      "QuestProto\022J\n\006status\030\003 \002(\0162:.com.lvl6.pr" +
-      "oto.QuestRedeemResponseProto.QuestRedeem",
-      "Status\"B\n\021QuestRedeemStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"c\n\036Qu" +
-      "estCheckCompleteRequestProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022\017" +
-      "\n\007questId\030\002 \002(\005\"\357\001\n\037QuestCheckCompleteRe" +
-      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022S\n\006status\030\003 \002(\0162C." +
-      "com.lvl6.proto.QuestCheckCompleteRespons" +
-      "eProto.QuestCompleteStatus\"E\n\023QuestCompl" +
-      "eteStatus\022\014\n\010COMPLETE\020\000\022\020\n\014NOT_COMPLETE\020",
-      "\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033QuestLogDetailsRequ" +
-      "estProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\"\243\002\n\034QuestLogDetailsRe" +
-      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022G\n\027inProgressUserQ" +
-      "uestData\030\002 \003(\0132&.com.lvl6.proto.FullUser" +
-      "QuestDataLarge\022R\n\006status\030\003 \002(\0162B.com.lvl" +
-      "6.proto.QuestLogDetailsResponseProto.Que" +
-      "stLogDetailsStatus\"4\n\025QuestLogDetailsSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEven",
-      "tProto"
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022-\n\005" +
+      "quest\030\002 \002(\0132\036.com.lvl6.proto.FullQuestPr" +
+      "oto\"\\\n\027QuestRedeemRequestProto\0220\n\006sender" +
+      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030QuestRedeemRespons" +
+      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022>\n\026updatedAvailableQues" +
+      "ts\030\002 \003(\0132\036.com.lvl6.proto.FullQuestProto" +
+      "\022J\n\006status\030\003 \002(\0162:.com.lvl6.proto.QuestR",
+      "edeemResponseProto.QuestRedeemStatus\"B\n\021" +
+      "QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_CO" +
+      "MPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"c\n\036QuestCheckCo" +
+      "mpleteRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022\017\n\007questId\030" +
+      "\002 \002(\005\"\357\001\n\037QuestCheckCompleteResponseProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022S\n\006status\030\003 \002(\0162C.com.lvl6.p" +
+      "roto.QuestCheckCompleteResponseProto.Que" +
+      "stCompleteStatus\"E\n\023QuestCompleteStatus\022",
+      "\014\n\010COMPLETE\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER" +
+      "_FAIL\020\002\"O\n\033QuestLogDetailsRequestProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\"\243\002\n\034QuestLogDetailsResponseProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022G\n\027inProgressUserQuestData\030\002" +
+      " \003(\0132&.com.lvl6.proto.FullUserQuestDataL" +
+      "arge\022R\n\006status\030\003 \002(\0162B.com.lvl6.proto.Qu" +
+      "estLogDetailsResponseProto.QuestLogDetai" +
+      "lsStatus\"4\n\025QuestLogDetailsStatus\022\013\n\007SUC",
+      "CESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -45531,7 +45625,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_QuestCompleteResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_QuestCompleteResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "QuestId", },
+              new java.lang.String[] { "Sender", "Quest", },
               com.lvl6.proto.EventProto.QuestCompleteResponseProto.class,
               com.lvl6.proto.EventProto.QuestCompleteResponseProto.Builder.class);
           internal_static_com_lvl6_proto_QuestRedeemRequestProto_descriptor =

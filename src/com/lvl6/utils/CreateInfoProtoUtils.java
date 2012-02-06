@@ -1,14 +1,18 @@
 package com.lvl6.utils;
 
+import java.util.List;
+
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
+import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserStruct;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.FullMarketplacePostProto;
+import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
@@ -16,9 +20,43 @@ import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class CreateInfoProtoUtils {
 
+  public static FullQuestProto createFullQuestProtoFromQuest(UserType userType, Quest quest) {
+    boolean goodSide = MiscMethods.checkIfGoodSide(userType);
+    
+    String name = null;
+    String description = null;
+    String doneResponse = null;
+    String inProgress = null;
+    List<Integer> defeatTypeReqs = null;
+
+    if (goodSide) {
+      name = quest.getGoodName();
+      description = quest.getGoodDescription();
+      doneResponse = quest.getGoodDoneResponse();
+      inProgress = quest.getGoodInProgress();
+      defeatTypeReqs = quest.getDefeatBadGuysJobsRequired();
+    } else {
+      name = quest.getBadName();
+      description = quest.getBadDescription();
+      doneResponse = quest.getBadDoneResponse();
+      inProgress = quest.getBadInProgress();
+      defeatTypeReqs = quest.getDefeatGoodGuysJobsRequired();
+    }
+
+    return FullQuestProto.newBuilder().setId(quest.getId()).setCityId(quest.getCityId()).setName(name)
+        .setDescription(description).setDoneResponse(doneResponse).setInProgress(inProgress).setAssetNumWithinCity(quest.getAssetNumWithinCity())
+        .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained()).setWoodGained(quest.getWoodGained())
+        .setExpGained(quest.getExpGained()).setEquipIdGained(quest.getEquipIdGained()).addAllQuestsRequiredForThis(quest.getQuestsRequiredForThis())
+        .addAllTaskReqs(quest.getTasksRequired()).addAllUpgradeStructJobsReqs(quest.getUpgradeStructJobsRequired())
+        .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired()).addAllMarketplaceJobsReqs(quest.getMarketplaceJobsRequired())
+        .addAllDefeatTypeReqs(defeatTypeReqs).addAllPossessEquipJobReqs(quest.getPossessEquipJobsRequired()).build();
+
+  }
+  
   public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp) {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
         .setPosterId(mp.getPosterId()).setPostType(mp.getPostType())
@@ -96,11 +134,9 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullTaskProto createFullTaskProtoFromTask(UserType userType, Task task) {
-    boolean goodSide;
-    if (userType == UserType.GOOD_ARCHER || userType == UserType.GOOD_MAGE || 
-        userType == UserType.GOOD_WARRIOR) goodSide = true;
-    else goodSide = false;
 
+    boolean goodSide = MiscMethods.checkIfGoodSide(userType);
+    
     String name = null;
 
     if (goodSide) {

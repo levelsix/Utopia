@@ -15,7 +15,34 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
+  
+  /*
+   * used for setting a questitemtype as completed for a user quest
+   */
+  public static boolean updateUserQuestsSetCompleted(int userId, int questId, boolean setTasksCompleteTrue, boolean setDefeatTypeJobsCompleteTrue, boolean setMarketplateJobsCompleteTrue) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
 
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (setTasksCompleteTrue) {
+      absoluteParams.put(DBConstants.USER_QUESTS__TASKS_COMPLETE, true); 
+    }
+    if (setDefeatTypeJobsCompleteTrue) {
+      absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true); 
+    }
+    if (setMarketplateJobsCompleteTrue) {
+      absoluteParams.put(DBConstants.USER_QUESTS__MARKETPLACE_JOBS_COMPLETE, true); 
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   /*
    * used for moving user structs
    */

@@ -111,17 +111,17 @@ public class UpgradeNormStructureController extends EventController {
   }
 
   private int calculateUpgradeCoinCost(int upgradeCoinCostBase, int oldLevel) {
-    int result = upgradeCoinCostBase;   //TODO: change later
+    int result = upgradeCoinCostBase*(oldLevel/2);   //TODO: change later
     return Math.max(0, result);
   }
 
   private int calculateUpgradeDiamondCost(int upgradeDiamondCostBase, int oldLevel) {
-    int result = upgradeDiamondCostBase;   //TODO: change later
+    int result = upgradeDiamondCostBase*(oldLevel/2);   //TODO: change later
     return Math.max(0, result);
   }
 
   private int calculateUpgradeWoodCost(int upgradeWoodCostBase, int oldLevel) {
-    int result = upgradeWoodCostBase;   //change later
+    int result = upgradeWoodCostBase*(oldLevel/2);   //TODO:change later
     return Math.max(0, result);
   }
 

@@ -15,19 +15,32 @@ import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
 
 public class InsertUtils {
-  
+
   public static boolean createUser(String name) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.TABLE_USER, name);
     //TODO: IMPL- work out default stats. actually leave defaults in db so we dont need server reboot for change
-    
+
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER, insertParams);
     if (numInserted == 1) {
       return true;
     }
     return false;
   }
-  
+
+
+  public static boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int questId) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__QUEST_ID, questId);
+    insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__COMPLETED_TASK_ID, taskId);
+
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
 
   /*
    * returns the id of the userstruct, -1 if none
@@ -38,11 +51,11 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
     insertParams.put(DBConstants.USER_STRUCTS__X_COORD, coordinates.getX());
     insertParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
-    
+
     int userStructId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER_STRUCTS, insertParams);
     return userStructId;
   }
-  
+
   public static boolean insertIAPHistoryElem(JSONObject appleReceipt, int diamondChange, User user, double cashCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     try {
@@ -99,7 +112,7 @@ public class InsertUtils {
     if (woodCost > 0) {
       insertParams.put(DBConstants.MARKETPLACE__WOOD_COST, woodCost);
     }
-    
+
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE, insertParams);
     if (numInserted == 1) {
       return true;
@@ -142,7 +155,7 @@ public class InsertUtils {
     if (mp.getWoodCost() > 0) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__WOOD_COST, mp.getWoodCost());
     }
-    
+
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY, insertParams);
     if (numInserted == 1) {
       return true;

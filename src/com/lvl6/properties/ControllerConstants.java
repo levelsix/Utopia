@@ -37,7 +37,7 @@ public class ControllerConstants {
   public static final int BATTLE__MIN_BATTLE_LEVEL = 3;
   public static final int BATTLE__MIN_EXP_GAIN = 1;
   public static final int BATTLE__MAX_EXP_GAIN = 5;
-  
+    
   /* FORMULA FOR CALCULATING PLAYER'S BATTLE STAT
   Let S = Attack or Defense skill points, based on whether the user is the attacker or defender
   Let I = The total attack/defense of the items used in the battle, based on whether the user is the attacker or defender

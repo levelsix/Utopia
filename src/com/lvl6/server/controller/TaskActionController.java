@@ -8,9 +8,11 @@ import com.lvl6.events.request.TaskActionRequestEvent;
 import com.lvl6.events.response.TaskActionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.info.UserQuest;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.TaskActionRequestProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto;
@@ -20,12 +22,17 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestsCompletedTasksRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class TaskActionController extends EventController {
@@ -134,13 +141,49 @@ public class TaskActionController extends EventController {
       //TODO: AchievementCheck.checkBattle(); 
       //TODO: LevelCheck.checkUser();
 
-
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-      server.writeEvent(resEventUpdate);
+      if (legitAction) {
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        server.writeEvent(resEventUpdate);
+        if (taskCompleted) {
+          checkQuests(user, task, senderProto);
+        }
+      }
     } catch (Exception e) {
       log.error("exception in TaskActionController processEvent", e);
     } finally {
       server.unlockPlayer(senderProto.getUserId());
+    }
+  }
+
+  private void checkQuests(User user, Task task, MinimumUserProto senderProto) {
+    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(user.getId());
+    if (inProgressUserQuests != null) {
+      for (UserQuest userQuest : inProgressUserQuests) {
+        if (!userQuest.isTasksComplete()) {
+          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
+          if (quest != null) {
+            if (quest.getTasksRequired() != null && quest.getTasksRequired().contains(task.getId())) {
+              List<Integer> userCompletedTasksForQuest = UserQuestsCompletedTasksRetrieveUtils.
+                  getUserTasksCompletedForQuest(user.getId(), quest.getId());
+              if (!userCompletedTasksForQuest.contains(task.getId())) {
+                if (InsertUtils.insertCompletedTaskIdForUserQuest(user.getId(), task.getId(), quest.getId())) {
+                  userCompletedTasksForQuest.add(task.getId());
+                  if (userCompletedTasksForQuest.containsAll(quest.getTasksRequired())) {
+                    if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false, false)) {
+                      userQuest.setTasksComplete(true);
+                      QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto);
+                    } else {
+                      log.error("problem with marking tasks completed for a user quest");
+                    }
+                  }
+                } else {
+                  log.error("problem with adding task to user's completed tasks for quest");
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 

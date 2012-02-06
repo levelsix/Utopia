@@ -152,6 +152,23 @@ public class DBConstants {
   public static final String USER_CRITSTRUCTS__CARPENTER_Y_COORD = "carpenter_ycoord";
   public static final String USER_CRITSTRUCTS__AVIARY_X_COORD = "aviary_xcoord";
   public static final String USER_CRITSTRUCTS__AVIARY_Y_COORD = "aviary_ycoord";
+  
+  /*USER QUESTS TABLE*/
+  public static final String USER_QUESTS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_QUESTS__QUEST_ID = "quest_id";
+  public static final String USER_QUESTS__IS_REDEEMED = "is_redeemed"; 
+  public static final String USER_QUESTS__TASKS_COMPLETE = "tasks_complete"; 
+  public static final String USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE = "defeat_type_jobs_complete"; 
+  public static final String USER_QUESTS__MARKETPLACE_JOBS_COMPLETE = "marketplace_type_jobs_complete"; 
 
+  
+  
+  
+  /*USER QUESTS COMPLETED TASKS TABLE*/
+  public static final String USER_QUESTS_COMPLETED_TASKS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_QUESTS_COMPLETED_TASKS__QUEST_ID = "quest_id";
+  public static final String USER_QUESTS_COMPLETED_TASKS__COMPLETED_TASK_ID = "completed_task_id";
+
+  
   
 }

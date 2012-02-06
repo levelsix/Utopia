@@ -67,7 +67,7 @@ public class RetractMarketplacePostController extends EventController{
       if (legitRetract) {
         writeChangesToDB(user, mp, diamondCut, coinCut, woodCut);
 
-        if (mp != null && mp.getPostType() != MarketplacePostType.EQUIP_POST) {
+        if (mp != null) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
           server.writeEvent(resEventUpdate);
         }

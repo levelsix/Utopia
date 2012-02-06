@@ -154,6 +154,12 @@ public class BattleController extends EventController {
 
   /*
    * returns null if no item lost this time
+   /*
+  - defender losers lose items (better items have a lower chance of being stolen) to the attacker winner
+  - items with only a diamond price cannot be stolen
+  - only items with min_level below the player's level can be stolen
+- attackers can't lose items
+- min level applies for usage, not for holding
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips, Map<Integer, Equipment> equipmentIdsToEquipment, int level) {
     List <UserEquip> potentialLosses = new ArrayList<UserEquip>();

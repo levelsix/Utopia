@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -23,9 +25,12 @@ public class UserStructRetrieveUtils {
 
   public static List<UserStruct> getUserStructsForUser(int userId) {
     log.info("retrieving user structs for userId " + userId);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_STRUCTS__USER_ID, userId);
     return convertRSToUserStructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+  }
+
+  public static Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
+    log.info("retrieving user structs for userId " + userId);
+    return convertRSToStructIdsToUserStructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
 
   public static UserStruct getSpecificUserStruct(int userStructId) {
@@ -55,6 +60,34 @@ public class UserStructRetrieveUtils {
           userStructs.add(convertRSRowToUserStruct(rs));
         }
         return userStructs;
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return null;
+  }
+  
+
+  private static Map<Integer, List<UserStruct>> convertRSToStructIdsToUserStructs(
+      ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        Map<Integer, List<UserStruct>> structIdsToUserStructs = new HashMap<Integer, List<UserStruct>>();
+        while(rs.next()) {
+          UserStruct userStruct = convertRSRowToUserStruct(rs);
+          List<UserStruct> userStructsForStructId = structIdsToUserStructs.get(userStruct.getStructId());
+          if (userStructsForStructId != null) {
+            userStructsForStructId.add(userStruct);
+          } else {
+            List<UserStruct> userStructs = new ArrayList<UserStruct>();
+            userStructs.add(userStruct);
+            structIdsToUserStructs.put(userStruct.getStructId(), userStructs);
+          }
+        }
+        return structIdsToUserStructs;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);
