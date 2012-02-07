@@ -204,9 +204,8 @@ message FullUserQuestDataLarge {
 
 message MinimumUserTaskProto {
      required int32 userId = 1;
-     required int32 taskId = 2;
+     required FullTaskProto task = 2;
      required int32 numTimesActed = 3;
-     required int32 numTimesRequired = 4;          //we could replace taskId with a FullTaskProto, which also has numReq
 }
 
 //------------------------------------------------------------------------------------------
