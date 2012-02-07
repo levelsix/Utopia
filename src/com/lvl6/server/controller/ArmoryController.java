@@ -9,15 +9,16 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ArmoryRequestProto;
+import com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType;
 import com.lvl6.proto.EventProto.ArmoryResponseProto;
 import com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus;
-import com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ArmoryController extends EventController {
@@ -35,24 +36,24 @@ public class ArmoryController extends EventController {
   @Override
   protected void processRequestEvent(RequestEvent event) {
     ArmoryRequestProto reqProto = ((ArmoryRequestEvent)event).getArmoryRequestProto();
-    
+
     MinimumUserProto senderProto = reqProto.getSender();
     ArmoryRequestType requestType = reqProto.getRequestType();
     int equipId = reqProto.getEquipId();
     int quantity = reqProto.getQuantity();
-    
+
     ArmoryResponseProto.Builder resBuilder = ArmoryResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
-    
+
     boolean legitBuy = false;
     boolean legitSell = false;
-    
+
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       UserEquip userEquip = null;
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
-  
+
       if (quantity < 1 || equipment == null) {
         resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
       } else {
@@ -98,13 +99,17 @@ public class ArmoryController extends EventController {
         user.updateRelativeCoinsNaive((int)(-1 * ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
-      
+
       ArmoryResponseProto resProto = resBuilder.build();
       ArmoryResponseEvent resEvent = new ArmoryResponseEvent(senderProto.getUserId());
       resEvent.setArmoryResponseProto(resProto);
       server.writeEvent(resEvent);
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       server.writeEvent(resEventUpdate);
+
+      if (legitBuy) {
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+      }
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);
     } finally {

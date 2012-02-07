@@ -19,6 +19,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseFromMarketplaceController extends EventController {
@@ -72,6 +73,9 @@ public class PurchaseFromMarketplaceController extends EventController {
           server.writeEvent(resEventUpdate);
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(seller);
           server.writeEvent(resEventUpdate);
+          if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
+            QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto);
+          }
         }
       }
     } catch (Exception e) {

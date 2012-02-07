@@ -12,11 +12,11 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
-  
+
   public static int calculateIncomeGainedFromUserStruct(int structIncomeBase, int userStructLevel) {
     return userStructLevel * structIncomeBase;
   }
-  
+
   public static UpdateClientUserResponseEvent createUpdateClientUserResponseEvent(User user) {
     UpdateClientUserResponseEvent resEvent = new UpdateClientUserResponseEvent(user.getId());
     UpdateClientUserResponseProto resProtoAttacker = UpdateClientUserResponseProto.newBuilder()

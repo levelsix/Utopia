@@ -37,7 +37,7 @@ public class PurchaseNormStructureController extends EventController {
     MinimumUserProto senderProto = reqProto.getSender();
     int structId = reqProto.getStructId();
     CoordinatePair cp = new CoordinatePair(reqProto.getStructCoordinates().getX(), reqProto.getStructCoordinates().getY());
-    
+
     PurchaseNormStructureResponseProto.Builder resBuilder = PurchaseNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 

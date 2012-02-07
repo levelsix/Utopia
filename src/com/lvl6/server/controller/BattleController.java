@@ -131,12 +131,15 @@ public class BattleController extends EventController {
       server.writeEvent(resEventAttacker);
       server.writeEvent(resEventDefender);
 
-      if (winner != null && attacker != null && winner == attacker
-          && reqProto.hasNeutralCityId() && reqProto.getNeutralCityId() > 0) {
-        server.unlockPlayer(defenderProto.getUserId());
-        checkQuestsPostBattle(winner, defenderProto.getUserType(),
-            attackerProto, reqProto.getNeutralCityId());
-
+      if (winner != null && attacker != null && winner == attacker) {
+        if (reqProto.hasNeutralCityId() && reqProto.getNeutralCityId() > 0) {
+          server.unlockPlayer(defenderProto.getUserId());
+          boolean equipCheck = (lostEquip!=null);
+          checkQuestsPostBattle(winner, defenderProto.getUserType(),
+              attackerProto, reqProto.getNeutralCityId(), equipCheck);
+        } else if (lostEquip != null) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto);
+        }
       }
 
     } catch (Exception e) {
@@ -148,10 +151,9 @@ public class BattleController extends EventController {
   }
 
   private void checkQuestsPostBattle(User attacker, UserType enemyType,
-      MinimumUserProto attackerProto, int cityId) {
-
+      MinimumUserProto attackerProto, int cityId, boolean equipCheck) {
     boolean goodSide = MiscMethods.checkIfGoodSide(attacker.getType());
-    
+
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils
         .getInProgressUserQuestsForUser(attacker.getId());
     if (inProgressUserQuests != null) {
@@ -182,7 +184,7 @@ public class BattleController extends EventController {
                     }
                     if (userJobIdToNumDefeated.get(remainingDTJ.getId()) != null && 
                         userJobIdToNumDefeated.get(remainingDTJ.getId()) + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
-                    //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
+                      //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                       if (InsertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                         userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
                         if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
@@ -200,6 +202,9 @@ public class BattleController extends EventController {
                   }
                 }
               }
+            }
+            if (equipCheck) {
+              QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, attackerProto);
             }
           }
         }

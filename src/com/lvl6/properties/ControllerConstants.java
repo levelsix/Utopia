@@ -81,7 +81,6 @@ public class ControllerConstants {
 
   
   //TASK ACTION
-  public static final int TASK_ACTION__NOT_SET = -1;
   public static final int TASK_ACTION__MAX_CITY_RANK = 3;
   
   

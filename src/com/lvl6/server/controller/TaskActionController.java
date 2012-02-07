@@ -66,10 +66,10 @@ public class TaskActionController extends EventController {
       Task task = TaskRetrieveUtils.getTaskForTaskId(taskId);
       //TODO: check the level of this task's city, use that as multiplier for expGained, energyCost, etc.
 
-      int coinsGained = ControllerConstants.TASK_ACTION__NOT_SET;
-      int lootEquipId = ControllerConstants.TASK_ACTION__NOT_SET;
-      int coinBonus  = ControllerConstants.TASK_ACTION__NOT_SET;
-      int expBonus = ControllerConstants.TASK_ACTION__NOT_SET;
+      int coinsGained = ControllerConstants.NOT_SET;
+      int lootEquipId = ControllerConstants.NOT_SET;
+      int coinBonus  = ControllerConstants.NOT_SET;
+      int expBonus = ControllerConstants.NOT_SET;
       boolean taskCompleted = false;
       boolean cityRankedUp = false;
       boolean changeNumTimesUserActedInDB = true;
@@ -80,7 +80,7 @@ public class TaskActionController extends EventController {
         coinsGained = calculateCoinsGained(task);
         resBuilder.setCoinsGained(coinsGained);
         lootEquipId = chooseLootEquipId(task);
-        if (lootEquipId != ControllerConstants.TASK_ACTION__NOT_SET) {
+        if (lootEquipId != ControllerConstants.NOT_SET) {
           resBuilder.setLootEquipId(lootEquipId);
         }
         Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
@@ -101,7 +101,7 @@ public class TaskActionController extends EventController {
           cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
           if (cityRankedUp) {
             int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
-            if (cityRank != ControllerConstants.TASK_ACTION__NOT_SET) {
+            if (cityRank != ControllerConstants.NOT_SET) {
               if (cityRank == ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
                 cityRankedUp = false;
               }
@@ -129,10 +129,10 @@ public class TaskActionController extends EventController {
       int totalCoinGain = 0;
       int totalExpGain = 0;
       if (legitAction) {
-        if (coinsGained != ControllerConstants.TASK_ACTION__NOT_SET) totalCoinGain += coinsGained;
-        if (coinBonus != ControllerConstants.TASK_ACTION__NOT_SET) totalCoinGain += coinBonus;
+        if (coinsGained != ControllerConstants.NOT_SET) totalCoinGain += coinsGained;
+        if (coinBonus != ControllerConstants.NOT_SET) totalCoinGain += coinBonus;
         if (task != null) totalExpGain += task.getExpGained();
-        if (expBonus != ControllerConstants.TASK_ACTION__NOT_SET) totalExpGain += expBonus;
+        if (expBonus != ControllerConstants.NOT_SET) totalExpGain += expBonus;
       }
 
       writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
@@ -145,7 +145,8 @@ public class TaskActionController extends EventController {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         server.writeEvent(resEventUpdate);
         if (taskCompleted) {
-          checkQuestsPostTaskAction(user, task, senderProto);
+          boolean equipCheck = (lootEquipId > ControllerConstants.NOT_SET);
+          checkQuestsPostTaskAction(user, task, senderProto, equipCheck);
         }
       }
     } catch (Exception e) {
@@ -155,7 +156,7 @@ public class TaskActionController extends EventController {
     }
   }
 
-  private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto) {
+  private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto, boolean equipCheck) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(user.getId());
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
@@ -180,6 +181,9 @@ public class TaskActionController extends EventController {
                   log.error("problem with adding task to user's completed tasks for quest");
                 }
               }
+            }
+            if (equipCheck) {
+              QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto);
             }
           }
         }
@@ -209,7 +213,7 @@ public class TaskActionController extends EventController {
         }
       }
 
-      if (lootEquipId != ControllerConstants.TASK_ACTION__NOT_SET) {
+      if (lootEquipId != ControllerConstants.NOT_SET) {
         if (!UpdateUtils.incrementUserEquip(user.getId(), lootEquipId, 1)) {
           log.error("problem with incrementing user equip post-task");
         }
@@ -242,7 +246,7 @@ public class TaskActionController extends EventController {
       int randIndex = (int)(Math.random() * task.getPotentialLootEquipIds().size());
       return task.getPotentialLootEquipIds().get(randIndex);
     }
-    return ControllerConstants.TASK_ACTION__NOT_SET;
+    return ControllerConstants.NOT_SET;
   }
 
   private int calculateCoinsGained(Task task) {

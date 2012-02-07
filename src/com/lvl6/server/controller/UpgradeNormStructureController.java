@@ -17,6 +17,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class UpgradeNormStructureController extends EventController {
@@ -58,11 +59,12 @@ public class UpgradeNormStructureController extends EventController {
       UpgradeNormStructureResponseEvent resEvent = new UpgradeNormStructureResponseEvent(senderProto.getUserId());
       resEvent.setUpgradeNormStructureResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
-      
+
       if (legitUpgrade) {
         writeChangesToDB(user, userStruct, struct);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         server.writeEvent(resEventUpdate);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
       }
     } catch (Exception e) {
       log.error("exception in UpgradeNormStructure processEvent", e);

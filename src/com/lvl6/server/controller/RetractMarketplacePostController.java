@@ -18,6 +18,7 @@ import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class RetractMarketplacePostController extends EventController{
@@ -66,10 +67,12 @@ public class RetractMarketplacePostController extends EventController{
 
       if (legitRetract) {
         writeChangesToDB(user, mp, diamondCut, coinCut, woodCut);
-
         if (mp != null) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
           server.writeEvent(resEventUpdate);
+          if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
+            QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+          }
         }
       }
     } catch (Exception e) {

@@ -14,14 +14,28 @@ import com.lvl6.info.jobs.UpgradeStructJob;
 import com.lvl6.proto.EventProto.QuestCompleteResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class QuestUtils {
+  
+  public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto) {
+    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(userId);
+    if (inProgressUserQuests != null) {
+      for (UserQuest userQuest : inProgressUserQuests) {
+        Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
+        if (quest != null) {
+          QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto);
+        }
+      }
+    }
+  }
 
   public static void checkAndSendQuestComplete(GameServer server, Quest quest, UserQuest userQuest,
       MinimumUserProto senderProto) {

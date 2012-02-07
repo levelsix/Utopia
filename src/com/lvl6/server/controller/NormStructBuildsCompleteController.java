@@ -14,6 +14,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class NormStructBuildsCompleteController extends EventController{
@@ -58,6 +59,10 @@ public class NormStructBuildsCompleteController extends EventController{
         resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProto(userStruct));
       }
       server.writeEvent(resEvent);
+      
+      if (legitBuild) {
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);
+      }
     } catch (Exception e) {
       log.error("exception in NormStructBuildsCompleteController processEvent", e);
     } finally {

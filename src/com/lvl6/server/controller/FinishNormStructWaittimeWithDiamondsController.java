@@ -21,6 +21,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class FinishNormStructWaittimeWithDiamondsController extends EventController{
@@ -68,6 +69,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
         writeChangesToDB(user, userStruct, timeOfPurchase, waitTimeType, struct);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         server.writeEvent(resEventUpdate);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
       }
     } catch (Exception e) {
       log.error("exception in FinishNormStructWaittimeWithDiamondsController processEvent", e);
