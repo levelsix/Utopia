@@ -13,8 +13,8 @@ public class DBConstants {
   public static final String TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS = "user_quests_completed_defeat_type_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_MARKETPLACE_JOBS = "user_quests_completed_marketplace_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_TASKS = "user_quests_completed_tasks";
-  public static final String TABLE_USER_DEFEAT_TYPE_JOB_PROGRESS = "user_defeat_type_job_progress";
-  public static final String TABLE_USER_MARKETPLACE_JOB_PROGRESS = "user_marketplace_job_progress";
+  public static final String TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS = "user_quests_defeat_type_job_progress";
+  public static final String TABLE_USER_QUESTS_MARKETPLACE_JOB_PROGRESS = "user_quests_marketplace_job_progress";
   public static final String TABLE_EQUIPMENT = "equipment";
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
@@ -161,14 +161,21 @@ public class DBConstants {
   public static final String USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE = "defeat_type_jobs_complete"; 
   public static final String USER_QUESTS__MARKETPLACE_JOBS_COMPLETE = "marketplace_type_jobs_complete"; 
 
-  
-  
-  
   /*USER QUESTS COMPLETED TASKS TABLE*/
   public static final String USER_QUESTS_COMPLETED_TASKS__USER_ID = GENERIC__USER_ID;
   public static final String USER_QUESTS_COMPLETED_TASKS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS_COMPLETED_TASKS__COMPLETED_TASK_ID = "completed_task_id";
 
-  
+  /*USER QUESTS COMPLETED DEFEAT TYPE JOBS TABLE*/
+  public static final String USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID = "quest_id";
+  public static final String USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID = "completed_defeat_type_job_id";
+
+  /*USER DEFEAT TYPE JOB PROGRESS*/
+  public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID = "quest_id";
+  public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID = "defeat_type_job_id";
+  public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED = "num_defeated";
+
   
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -30,8 +29,6 @@ public class UserRetrieveUtils {
 
   public static User getUserById(int userId) {
     log.info("retrieving user with userId " + userId);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER__ID, userId);
     return convertRSToUser(DBConnection.selectRowsById(userId, TABLE_NAME));
   }
   

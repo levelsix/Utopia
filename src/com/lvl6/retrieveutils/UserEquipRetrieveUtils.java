@@ -11,7 +11,6 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.UserEquip;
-import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 

@@ -145,7 +145,7 @@ public class TaskActionController extends EventController {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         server.writeEvent(resEventUpdate);
         if (taskCompleted) {
-          checkQuests(user, task, senderProto);
+          checkQuestsPostTaskAction(user, task, senderProto);
         }
       }
     } catch (Exception e) {
@@ -155,7 +155,7 @@ public class TaskActionController extends EventController {
     }
   }
 
-  private void checkQuests(User user, Task task, MinimumUserProto senderProto) {
+  private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(user.getId());
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {

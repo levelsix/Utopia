@@ -121,9 +121,10 @@ message StartupResponseProto {
 	 
      repeated FullUserEquipProto userEquips = 9;
      
-    repeated FullQuestProto inProgressQuests;
-	repeated FullQuestProto availableQuests;   
+    repeated FullQuestProto inProgressQuests = 10;
+	repeated FullQuestProto availableQuests = 11;   
       
+      required int32 maxItemUsePerBattle = 12;
      
      enum UpdateStatus {
      	NO_UPDATE = 0;
@@ -692,6 +693,8 @@ message QuestCompleteResponseProto {
 }
 
 //------------------------------------------------------------------------------------------
+
+//delete all userquest data besides the one in user_quests
 
 message QuestRedeemRequestProto {                         //take away all the required items in here
      required MinimumUserProto sender = 1;

@@ -289,7 +289,8 @@ public class GameServer extends Thread{
   }
 
   public void unlockPlayer(int playerId) {
-    playersInAction.removePlayer(playerId);
+    if (playersInAction.containsPlayer(playerId))
+      playersInAction.removePlayer(playerId);
   }
   
   public void unlockPlayers(int playerId1, int playerId2) {

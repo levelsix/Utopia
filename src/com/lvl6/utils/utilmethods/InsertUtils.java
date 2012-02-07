@@ -28,7 +28,21 @@ public class InsertUtils {
     return false;
   }
 
+  /* used for quest defeat type jobs*/
+  public static boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId, int questId) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID, questId);
+    insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID, dtjId);
 
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  /* used for quest tasks*/
   public static boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
