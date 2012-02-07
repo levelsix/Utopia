@@ -25,8 +25,7 @@ public class QuestUtils {
 
   public static void checkAndSendQuestComplete(GameServer server, Quest quest, UserQuest userQuest,
       MinimumUserProto senderProto) {
-    if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete() 
-        && userQuest.isMarketplaceTypeJobsComplete()) {
+    if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();
       List<Integer> upgradeStructJobsRequired = quest.getUpgradeStructJobsRequired();
       List<Integer> possessEquipJobsRequired = quest.getPossessEquipJobsRequired();

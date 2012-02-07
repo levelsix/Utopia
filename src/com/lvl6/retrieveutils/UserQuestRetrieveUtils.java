@@ -59,10 +59,9 @@ public class UserQuestRetrieveUtils {
     boolean isRedeemed = rs.getBoolean(i++);
     boolean tasksComplete = rs.getBoolean(i++);
     boolean defeatTypeJobsComplete = rs.getBoolean(i++);
-    boolean marketplaceJobsComplete = rs.getBoolean(i++);
 
     UserQuest userQuest = new UserQuest(userId, questId, isRedeemed, tasksComplete, 
-        defeatTypeJobsComplete, marketplaceJobsComplete);
+        defeatTypeJobsComplete);
     return userQuest;
   }
   

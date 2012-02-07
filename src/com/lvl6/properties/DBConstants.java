@@ -11,10 +11,8 @@ public class DBConstants {
   public static final String TABLE_USER_STRUCTS = "user_structs";
   public static final String TABLE_USER_CRITSTRUCTS = "user_critstructs";
   public static final String TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS = "user_quests_completed_defeat_type_jobs";
-  public static final String TABLE_USER_QUESTS_COMPLETED_MARKETPLACE_JOBS = "user_quests_completed_marketplace_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_TASKS = "user_quests_completed_tasks";
   public static final String TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS = "user_quests_defeat_type_job_progress";
-  public static final String TABLE_USER_QUESTS_MARKETPLACE_JOB_PROGRESS = "user_quests_marketplace_job_progress";
   public static final String TABLE_EQUIPMENT = "equipment";
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
@@ -159,7 +157,6 @@ public class DBConstants {
   public static final String USER_QUESTS__IS_REDEEMED = "is_redeemed"; 
   public static final String USER_QUESTS__TASKS_COMPLETE = "tasks_complete"; 
   public static final String USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE = "defeat_type_jobs_complete"; 
-  public static final String USER_QUESTS__MARKETPLACE_JOBS_COMPLETE = "marketplace_type_jobs_complete"; 
 
   /*USER QUESTS COMPLETED TASKS TABLE*/
   public static final String USER_QUESTS_COMPLETED_TASKS__USER_ID = GENERIC__USER_ID;

@@ -29,7 +29,6 @@ public class AdminController extends EventController {
         CityRetrieveUtils.reload();
         DefeatTypeJobRetrieveUtils.reload();
         EquipmentRetrieveUtils.reload();
-        MarketplaceJobRetrieveUtils.reload();
         QuestRetrieveUtils.reload();
         TaskEquipReqRetrieveUtils.reload();
         TaskRetrieveUtils.reload();
@@ -46,9 +45,6 @@ public class AdminController extends EventController {
         break;
       case EQUIPMENT:
         EquipmentRetrieveUtils.reload();
-        break;
-      case MARKETPLACE_JOBS:
-        MarketplaceJobRetrieveUtils.reload();
         break;
       case QUESTS:
         QuestRetrieveUtils.reload();

@@ -186,7 +186,7 @@ public class BattleController extends EventController {
                       if (InsertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                         userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
                         if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
-                          if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true, false)) {
+                          if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
                             userQuest.setDefeatTypeJobsComplete(true);
                             QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, attackerProto);
                           } else {

@@ -196,9 +196,8 @@ message FullUserQuestDataLarge {
      repeated MinimumUserTaskProto requiredTasksProgress = 4;
      repeated MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
      repeated MinimumUserBuildStructJobProto requiredBuildStructJobProgress = 6;
-     repeated MinimumUserMarketplaceJobProto requiredMarketplaceJobProgress = 7;
-     repeated MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 8;
-     repeated MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 9;
+     repeated MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 7;
+     repeated MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 8;
 }
 
 //------------------------------------------------------------------------------------------
@@ -242,23 +241,6 @@ message MinimumUserBuildStructJobProto {
 message BuildStructJobProto {
      required int32 id = 1;
      required int32 structId = 2;
-     required int32 quantityRequired = 3;
-}
-
-//------------------------------------------------------------------------------------------
-
-message MinimumUserMarketplaceJobProto {
-     required int32 userId = 1;
-     required int32 questId = 2;
-     required MarketplaceJobProto marketplaceJob = 3;
-     required int32 numTransactionsDone = 4;
-}
-
-//------------------------------------------------------------------------------------------
-
-message MarketplaceJobProto {
-     required int32 id = 1;
-     required MarketplaceJobRequirementType type = 2;
      required int32 quantityRequired = 3;
 }
 
@@ -315,7 +297,6 @@ message FullQuestProto {
      repeated int32 taskReqs = 14;
      repeated int32 upgradeStructJobsReqs = 15;
      repeated int32 buildStructJobsReqs = 16;
-     repeated int32 marketplaceJobsReqs = 17;
-     repeated int32 defeatTypeReqs = 18;
-     repeated int32 possessEquipJobReqs = 19;
+     repeated int32 defeatTypeReqs = 17;
+     repeated int32 possessEquipJobReqs = 18;
 }

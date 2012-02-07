@@ -169,7 +169,7 @@ public class TaskActionController extends EventController {
                 if (InsertUtils.insertCompletedTaskIdForUserQuest(user.getId(), task.getId(), quest.getId())) {
                   userCompletedTasksForQuest.add(task.getId());
                   if (userCompletedTasksForQuest.containsAll(quest.getTasksRequired())) {
-                    if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false, false)) {
+                    if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                       userQuest.setTasksComplete(true);
                       QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto);
                     } else {

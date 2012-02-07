@@ -192,15 +192,6 @@ public class QuestRetrieveUtils {
       }
     }
 
-    String marketplaceJobsRequiredString = rs.getString(i++);
-    List<Integer> marketplaceJobsRequired = new ArrayList<Integer>();
-    if (marketplaceJobsRequiredString != null) {
-      st = new StringTokenizer(marketplaceJobsRequiredString, ", ");
-      while (st.hasMoreTokens()) {
-        marketplaceJobsRequired.add(Integer.parseInt(st.nextToken()));
-      }
-    }
-
     String defeatGoodGuysRequiredString = rs.getString(i++);
     List<Integer> defeatGoodGuysRequired = new ArrayList<Integer>();
     if (defeatGoodGuysRequiredString != null) {
@@ -232,7 +223,7 @@ public class QuestRetrieveUtils {
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, assetNumWithinCity, 
         coinsGained, diamondsGained, woodGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 
-        buildStructJobsRequired, marketplaceJobsRequired, defeatGoodGuysRequired, 
+        buildStructJobsRequired, defeatGoodGuysRequired, 
         defeatBadGuysRequired, possessEquipJobsRequired);
     return quest;
   }

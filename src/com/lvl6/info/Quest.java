@@ -24,7 +24,6 @@ public class Quest {
   private List<Integer> tasksRequired;
   private List<Integer> upgradeStructJobsRequired;
   private List<Integer> buildStructJobsRequired;
-  private List<Integer> marketplaceJobsRequired;
   private List<Integer> defeatGoodGuysJobsRequired;
   private List<Integer> defeatBadGuysJobsRequired;
   private List<Integer> possessEquipJobsRequired;
@@ -36,7 +35,6 @@ public class Quest {
       List<Integer> questsRequiredForThis, List<Integer> tasksRequired,
       List<Integer> upgradeStructJobsRequired,
       List<Integer> buildStructJobsRequired,
-      List<Integer> marketplaceJobsRequired,
       List<Integer> defeatGoodGuysJobsRequired,
       List<Integer> defeatBadGuysJobsRequired,
       List<Integer> possessEquipJobsRequired) {
@@ -60,7 +58,6 @@ public class Quest {
     this.tasksRequired = tasksRequired;
     this.upgradeStructJobsRequired = upgradeStructJobsRequired;
     this.buildStructJobsRequired = buildStructJobsRequired;
-    this.marketplaceJobsRequired = marketplaceJobsRequired;
     this.defeatGoodGuysJobsRequired = defeatGoodGuysJobsRequired;
     this.defeatBadGuysJobsRequired = defeatBadGuysJobsRequired;
     this.possessEquipJobsRequired = possessEquipJobsRequired;
@@ -125,9 +122,6 @@ public class Quest {
   public List<Integer> getBuildStructJobsRequired() {
     return buildStructJobsRequired;
   }
-  public List<Integer> getMarketplaceJobsRequired() {
-    return marketplaceJobsRequired;
-  }
   public List<Integer> getDefeatGoodGuysJobsRequired() {
     return defeatGoodGuysJobsRequired;
   }
@@ -151,7 +145,6 @@ public class Quest {
         + questsRequiredForThis + ", tasksRequired=" + tasksRequired
         + ", upgradeStructJobsRequired=" + upgradeStructJobsRequired
         + ", buildStructJobsRequired=" + buildStructJobsRequired
-        + ", marketplaceJobsRequired=" + marketplaceJobsRequired
         + ", defeatGoodGuysJobsRequired=" + defeatGoodGuysJobsRequired
         + ", defeatBadGuysJobsRequired=" + defeatBadGuysJobsRequired
         + ", possessEquipJobsRequired=" + possessEquipJobsRequired + "]";

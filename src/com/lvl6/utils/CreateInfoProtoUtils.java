@@ -52,7 +52,7 @@ public class CreateInfoProtoUtils {
         .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained()).setWoodGained(quest.getWoodGained())
         .setExpGained(quest.getExpGained()).setEquipIdGained(quest.getEquipIdGained()).addAllQuestsRequiredForThis(quest.getQuestsRequiredForThis())
         .addAllTaskReqs(quest.getTasksRequired()).addAllUpgradeStructJobsReqs(quest.getUpgradeStructJobsRequired())
-        .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired()).addAllMarketplaceJobsReqs(quest.getMarketplaceJobsRequired())
+        .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired())
         .addAllDefeatTypeReqs(defeatTypeReqs).addAllPossessEquipJobReqs(quest.getPossessEquipJobsRequired()).build();
 
   }

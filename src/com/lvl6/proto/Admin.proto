@@ -10,13 +10,12 @@ message AdminChangeRequestProto {
 		CITIES = 2;
 		DEFEAT_TYPE_JOBS = 3;
 		EQUIPMENT = 4;
-		MARKETPLACE_JOBS = 5;
-		QUESTS = 6;
-		TASK_EQUIP_REQUIREMENTS = 7;
-		TASKS = 8;
-		UPGRADE_STRUCT_JOBS = 9;	
-		STRUCTURES = 10;		
-		POSSESS_EQUIP_JOBS = 11;
+		QUESTS = 5;
+		TASK_EQUIP_REQUIREMENTS = 6;
+		TASKS = 7;
+		UPGRADE_STRUCT_JOBS = 8;	
+		STRUCTURES = 9;		
+		POSSESS_EQUIP_JOBS = 10;
 	}
 	
 	optional int32 salePercentOff = 2;
