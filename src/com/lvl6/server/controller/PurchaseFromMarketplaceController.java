@@ -54,7 +54,6 @@ public class PurchaseFromMarketplaceController extends EventController {
     }
     
     server.lockPlayers(sellerId, buyerId);
-
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = UserRetrieveUtils.getUserById(buyerId);
