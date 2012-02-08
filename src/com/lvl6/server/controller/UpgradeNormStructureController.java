@@ -96,16 +96,24 @@ public class UpgradeNormStructureController extends EventController {
     int upgradeWoodCost = calculateUpgradeWoodCost(struct.getUpgradeWoodCostBase(), userStruct.getLevel());
     int upgradeDiamondCost = calculateUpgradeDiamondCost(struct.getUpgradeDiamondCostBase(), userStruct.getLevel());
 
+    if (user.getId() != userStruct.getUserId()) {
+      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_USERS_STRUCT);
+      return false;
+    }
+    if (!userStruct.isComplete()) {
+      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
+      return false;
+    }
     if (user.getCoins() < upgradeCoinCost) {
-      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_COINS);
+      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
     if (user.getWood() < upgradeWoodCost) {
-      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_WOOD);
+      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
     if (user.getDiamonds() < upgradeDiamondCost) {
-      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_DIAMONDS);
+      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
     resBuilder.setStatus(UpgradeNormStructureStatus.SUCCESS);

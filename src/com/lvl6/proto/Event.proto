@@ -304,9 +304,9 @@ message UpgradeNormStructureResponseProto {
 	
 	enum UpgradeNormStructureStatus {
 		SUCCESS = 0;
-		NOT_ENOUGH_DIAMONDS = 1;
-		NOT_ENOUGH_COINS = 2;
-		NOT_ENOUGH_WOOD = 3;
+		NOT_ENOUGH_MATERIALS = 1;
+		NOT_BUILT_YET = 2;
+		NOT_USERS_STRUCT = 3;
 		OTHER_FAIL = 4;
 	}
 }
