@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.StringUtils;
 
@@ -133,8 +134,9 @@ public class UserStructRetrieveUtils {
     int level = rs.getInt(i++);
     Date purchaseTime = new Date(rs.getTimestamp(i++).getTime());
     boolean isComplete = rs.getBoolean(i++);
+    StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
 
-    return new UserStruct(id, userId, structId, lastRetrieved, coordinates, level, purchaseTime, isComplete);
+    return new UserStruct(id, userId, structId, lastRetrieved, coordinates, level, purchaseTime, isComplete, orientation);
   }
 
 }

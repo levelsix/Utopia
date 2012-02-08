@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lvl6.info.City;
+import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
@@ -11,6 +12,7 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserStruct;
 import com.lvl6.info.jobs.BuildStructJob;
@@ -27,6 +29,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.FullUserCritstructProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
@@ -106,8 +109,9 @@ public class CreateInfoProtoUtils {
   public static FullUserStructureProto createFullUserStructureProtoFromUserstruct(UserStruct userStruct) {
     FullUserStructureProto.Builder builder = FullUserStructureProto.newBuilder().setUserStructId(userStruct.getId())
         .setUserId(userStruct.getUserId()).setStructId(userStruct.getStructId()).setLevel(userStruct.getLevel())
-        .setIsComplete(userStruct.isComplete()).setCoordinates(CoordinateProto.newBuilder().setX(userStruct.getCoordinates().getX())
-            .setY(userStruct.getCoordinates().getY()));
+        .setIsComplete(userStruct.isComplete())
+        .setCoordinates(CreateInfoProtoUtils.createCoordinateProtoFromCoordinatePair(userStruct.getCoordinates()))
+        .setOrientation(userStruct.getOrientation());
     if (userStruct.getPurchaseTime() != null) {
       builder.setPurchaseTime(userStruct.getPurchaseTime().getTime());
     }
@@ -154,7 +158,12 @@ public class CreateInfoProtoUtils {
         .setQuantity(ue.getQuantity()).setIsStolen(ue.isStolen()).build();
   }
   
-  
+  public static FullUserCritstructProto createFullUserCritstructProtoFromUserCritstruct(UserCritstruct uc) {
+    return FullUserCritstructProto.newBuilder().setType(uc.getType())
+        .setCoords(CreateInfoProtoUtils.createCoordinateProtoFromCoordinatePair(uc.getCoords()))
+        .setOrientation(uc.getOrientation()).build();
+  }
+    
   public static FullTaskProto createFullTaskProtoFromTask(UserType userType, Task task) {
 
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
@@ -185,6 +194,10 @@ public class CreateInfoProtoUtils {
   public static LocationProto createLocationProtoFromLocation(Location location) {
     LocationProto lp = LocationProto.newBuilder().setLatitude(location.getLatitude()).setLongitude(location.getLongitude()).build();
     return lp;
+  }
+  
+  public static CoordinateProto createCoordinateProtoFromCoordinatePair(CoordinatePair cp) {
+    return CoordinateProto.newBuilder().setX(cp.getX()).setY(cp.getY()).build();
   }
 
   public static FullStructureProto createFullStructureProtoFromStructure(Structure s) {

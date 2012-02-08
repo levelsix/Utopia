@@ -136,21 +136,28 @@ public class DBConstants {
   public static final String USER_STRUCTS__Y_COORD = "ycoord";
   public static final String USER_STRUCTS__IS_COMPLETE = "is_complete";
   public static final String USER_STRUCTS__LEVEL = "level";
+  public static final String USER_STRUCTS__ORIENTATION = "orientation";
   
   /*USER CRITSTRUCTS TABLE*/
   public static final String USER_CRITSTRUCTS__USER_ID = GENERIC__USER_ID;
   public static final String USER_CRITSTRUCTS__ARMORY_X_COORD = "armory_xcoord";
   public static final String USER_CRITSTRUCTS__ARMORY_Y_COORD = "armory_ycoord";
+  public static final String USER_CRITSTRUCTS__ARMORY_ORIENTATION = "armory_orientation";
   public static final String USER_CRITSTRUCTS__VAULT_X_COORD = "vault_xcoord";
   public static final String USER_CRITSTRUCTS__VAULT_Y_COORD = "vault_ycoord";
+  public static final String USER_CRITSTRUCTS__VAULT_ORIENTATION = "vault_orientation";
   public static final String USER_CRITSTRUCTS__MARKETPLACE_X_COORD = "marketplace_xcoord";
   public static final String USER_CRITSTRUCTS__MARKETPLACE_Y_COORD = "marketplace_ycoord";
+  public static final String USER_CRITSTRUCTS__MARKETPLACE_ORIENTATION = "marketplace_orientation";
   public static final String USER_CRITSTRUCTS__LUMBERMILL_X_COORD = "lumbermill_xcoord";
   public static final String USER_CRITSTRUCTS__LUMBERMILL_Y_COORD = "lumbermill_ycoord";
+  public static final String USER_CRITSTRUCTS__LUMBERMILL_ORIENTATION = "lumbermill_orientation";
   public static final String USER_CRITSTRUCTS__CARPENTER_X_COORD = "carpenter_xcoord";
   public static final String USER_CRITSTRUCTS__CARPENTER_Y_COORD = "carpenter_ycoord";
+  public static final String USER_CRITSTRUCTS__CARPENTER_ORIENTATION = "carpenter_orientation";
   public static final String USER_CRITSTRUCTS__AVIARY_X_COORD = "aviary_xcoord";
   public static final String USER_CRITSTRUCTS__AVIARY_Y_COORD = "aviary_ycoord";
+  public static final String USER_CRITSTRUCTS__AVIARY_ORIENTATION = "aviary_orientation";
   
   /*USER QUESTS TABLE*/
   public static final String USER_QUESTS__USER_ID = GENERIC__USER_ID;

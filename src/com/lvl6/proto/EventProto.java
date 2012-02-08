@@ -38258,35 +38258,35 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getOwnerAlliesOrBuilder(
         int index);
     
-    // optional .com.lvl6.proto.CoordinateProto armoryCoords = 5;
-    boolean hasArmoryCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getArmoryCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getArmoryCoordsOrBuilder();
+    // optional .com.lvl6.proto.FullUserCritstructProto armory = 5;
+    boolean hasArmory();
+    com.lvl6.proto.InfoProto.FullUserCritstructProto getArmory();
+    com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getArmoryOrBuilder();
     
-    // optional .com.lvl6.proto.CoordinateProto vaultCoords = 6;
-    boolean hasVaultCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getVaultCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getVaultCoordsOrBuilder();
+    // optional .com.lvl6.proto.FullUserCritstructProto vault = 6;
+    boolean hasVault();
+    com.lvl6.proto.InfoProto.FullUserCritstructProto getVault();
+    com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getVaultOrBuilder();
     
-    // optional .com.lvl6.proto.CoordinateProto marketplaceCoords = 7;
-    boolean hasMarketplaceCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getMarketplaceCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getMarketplaceCoordsOrBuilder();
+    // optional .com.lvl6.proto.FullUserCritstructProto marketplace = 7;
+    boolean hasMarketplace();
+    com.lvl6.proto.InfoProto.FullUserCritstructProto getMarketplace();
+    com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getMarketplaceOrBuilder();
     
-    // required .com.lvl6.proto.CoordinateProto lumbermillCoords = 8;
-    boolean hasLumbermillCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getLumbermillCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getLumbermillCoordsOrBuilder();
+    // required .com.lvl6.proto.FullUserCritstructProto lumbermill = 8;
+    boolean hasLumbermill();
+    com.lvl6.proto.InfoProto.FullUserCritstructProto getLumbermill();
+    com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getLumbermillOrBuilder();
     
-    // required .com.lvl6.proto.CoordinateProto carpenterCoords = 9;
-    boolean hasCarpenterCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getCarpenterCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCarpenterCoordsOrBuilder();
+    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 9;
+    boolean hasCarpenter();
+    com.lvl6.proto.InfoProto.FullUserCritstructProto getCarpenter();
+    com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getCarpenterOrBuilder();
     
-    // required .com.lvl6.proto.CoordinateProto aviaryCoords = 10;
-    boolean hasAviaryCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder();
+    // required .com.lvl6.proto.FullUserCritstructProto aviary = 10;
+    boolean hasAviary();
+    com.lvl6.proto.InfoProto.FullUserCritstructProto getAviary();
+    com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getAviaryOrBuilder();
   }
   public static final class LoadPlayerCityResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -38454,82 +38454,82 @@ public final class EventProto {
       return ownerAllies_.get(index);
     }
     
-    // optional .com.lvl6.proto.CoordinateProto armoryCoords = 5;
-    public static final int ARMORYCOORDS_FIELD_NUMBER = 5;
-    private com.lvl6.proto.InfoProto.CoordinateProto armoryCoords_;
-    public boolean hasArmoryCoords() {
+    // optional .com.lvl6.proto.FullUserCritstructProto armory = 5;
+    public static final int ARMORY_FIELD_NUMBER = 5;
+    private com.lvl6.proto.InfoProto.FullUserCritstructProto armory_;
+    public boolean hasArmory() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getArmoryCoords() {
-      return armoryCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProto getArmory() {
+      return armory_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getArmoryCoordsOrBuilder() {
-      return armoryCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getArmoryOrBuilder() {
+      return armory_;
     }
     
-    // optional .com.lvl6.proto.CoordinateProto vaultCoords = 6;
-    public static final int VAULTCOORDS_FIELD_NUMBER = 6;
-    private com.lvl6.proto.InfoProto.CoordinateProto vaultCoords_;
-    public boolean hasVaultCoords() {
+    // optional .com.lvl6.proto.FullUserCritstructProto vault = 6;
+    public static final int VAULT_FIELD_NUMBER = 6;
+    private com.lvl6.proto.InfoProto.FullUserCritstructProto vault_;
+    public boolean hasVault() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getVaultCoords() {
-      return vaultCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProto getVault() {
+      return vault_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getVaultCoordsOrBuilder() {
-      return vaultCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getVaultOrBuilder() {
+      return vault_;
     }
     
-    // optional .com.lvl6.proto.CoordinateProto marketplaceCoords = 7;
-    public static final int MARKETPLACECOORDS_FIELD_NUMBER = 7;
-    private com.lvl6.proto.InfoProto.CoordinateProto marketplaceCoords_;
-    public boolean hasMarketplaceCoords() {
+    // optional .com.lvl6.proto.FullUserCritstructProto marketplace = 7;
+    public static final int MARKETPLACE_FIELD_NUMBER = 7;
+    private com.lvl6.proto.InfoProto.FullUserCritstructProto marketplace_;
+    public boolean hasMarketplace() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getMarketplaceCoords() {
-      return marketplaceCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProto getMarketplace() {
+      return marketplace_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getMarketplaceCoordsOrBuilder() {
-      return marketplaceCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getMarketplaceOrBuilder() {
+      return marketplace_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto lumbermillCoords = 8;
-    public static final int LUMBERMILLCOORDS_FIELD_NUMBER = 8;
-    private com.lvl6.proto.InfoProto.CoordinateProto lumbermillCoords_;
-    public boolean hasLumbermillCoords() {
+    // required .com.lvl6.proto.FullUserCritstructProto lumbermill = 8;
+    public static final int LUMBERMILL_FIELD_NUMBER = 8;
+    private com.lvl6.proto.InfoProto.FullUserCritstructProto lumbermill_;
+    public boolean hasLumbermill() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getLumbermillCoords() {
-      return lumbermillCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProto getLumbermill() {
+      return lumbermill_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getLumbermillCoordsOrBuilder() {
-      return lumbermillCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getLumbermillOrBuilder() {
+      return lumbermill_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto carpenterCoords = 9;
-    public static final int CARPENTERCOORDS_FIELD_NUMBER = 9;
-    private com.lvl6.proto.InfoProto.CoordinateProto carpenterCoords_;
-    public boolean hasCarpenterCoords() {
+    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 9;
+    public static final int CARPENTER_FIELD_NUMBER = 9;
+    private com.lvl6.proto.InfoProto.FullUserCritstructProto carpenter_;
+    public boolean hasCarpenter() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getCarpenterCoords() {
-      return carpenterCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProto getCarpenter() {
+      return carpenter_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCarpenterCoordsOrBuilder() {
-      return carpenterCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getCarpenterOrBuilder() {
+      return carpenter_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto aviaryCoords = 10;
-    public static final int AVIARYCOORDS_FIELD_NUMBER = 10;
-    private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_;
-    public boolean hasAviaryCoords() {
+    // required .com.lvl6.proto.FullUserCritstructProto aviary = 10;
+    public static final int AVIARY_FIELD_NUMBER = 10;
+    private com.lvl6.proto.InfoProto.FullUserCritstructProto aviary_;
+    public boolean hasAviary() {
       return ((bitField0_ & 0x00000080) == 0x00000080);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords() {
-      return aviaryCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProto getAviary() {
+      return aviary_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder() {
-      return aviaryCoords_;
+    public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getAviaryOrBuilder() {
+      return aviary_;
     }
     
     private void initFields() {
@@ -38537,12 +38537,12 @@ public final class EventProto {
       status_ = com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS;
       ownerNormStructs_ = java.util.Collections.emptyList();
       ownerAllies_ = java.util.Collections.emptyList();
-      armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      armory_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
+      vault_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
+      marketplace_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
+      lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
+      carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
+      aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -38557,15 +38557,15 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasLumbermillCoords()) {
+      if (!hasLumbermill()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasCarpenterCoords()) {
+      if (!hasCarpenter()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasAviaryCoords()) {
+      if (!hasAviary()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -38585,33 +38585,33 @@ public final class EventProto {
           return false;
         }
       }
-      if (hasArmoryCoords()) {
-        if (!getArmoryCoords().isInitialized()) {
+      if (hasArmory()) {
+        if (!getArmory().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
       }
-      if (hasVaultCoords()) {
-        if (!getVaultCoords().isInitialized()) {
+      if (hasVault()) {
+        if (!getVault().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
       }
-      if (hasMarketplaceCoords()) {
-        if (!getMarketplaceCoords().isInitialized()) {
+      if (hasMarketplace()) {
+        if (!getMarketplace().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
       }
-      if (!getLumbermillCoords().isInitialized()) {
+      if (!getLumbermill().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getCarpenterCoords().isInitialized()) {
+      if (!getCarpenter().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getAviaryCoords().isInitialized()) {
+      if (!getAviary().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -38635,22 +38635,22 @@ public final class EventProto {
         output.writeMessage(4, ownerAllies_.get(i));
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(5, armoryCoords_);
+        output.writeMessage(5, armory_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(6, vaultCoords_);
+        output.writeMessage(6, vault_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeMessage(7, marketplaceCoords_);
+        output.writeMessage(7, marketplace_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeMessage(8, lumbermillCoords_);
+        output.writeMessage(8, lumbermill_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeMessage(9, carpenterCoords_);
+        output.writeMessage(9, carpenter_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeMessage(10, aviaryCoords_);
+        output.writeMessage(10, aviary_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -38679,27 +38679,27 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, armoryCoords_);
+          .computeMessageSize(5, armory_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, vaultCoords_);
+          .computeMessageSize(6, vault_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, marketplaceCoords_);
+          .computeMessageSize(7, marketplace_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, lumbermillCoords_);
+          .computeMessageSize(8, lumbermill_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, carpenterCoords_);
+          .computeMessageSize(9, carpenter_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, aviaryCoords_);
+          .computeMessageSize(10, aviary_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -38820,12 +38820,12 @@ public final class EventProto {
           getSenderFieldBuilder();
           getOwnerNormStructsFieldBuilder();
           getOwnerAlliesFieldBuilder();
-          getArmoryCoordsFieldBuilder();
-          getVaultCoordsFieldBuilder();
-          getMarketplaceCoordsFieldBuilder();
-          getLumbermillCoordsFieldBuilder();
-          getCarpenterCoordsFieldBuilder();
-          getAviaryCoordsFieldBuilder();
+          getArmoryFieldBuilder();
+          getVaultFieldBuilder();
+          getMarketplaceFieldBuilder();
+          getLumbermillFieldBuilder();
+          getCarpenterFieldBuilder();
+          getAviaryFieldBuilder();
         }
       }
       private static Builder create() {
@@ -38854,40 +38854,40 @@ public final class EventProto {
         } else {
           ownerAlliesBuilder_.clear();
         }
-        if (armoryCoordsBuilder_ == null) {
-          armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (armoryBuilder_ == null) {
+          armory_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
-          armoryCoordsBuilder_.clear();
+          armoryBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
-        if (vaultCoordsBuilder_ == null) {
-          vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (vaultBuilder_ == null) {
+          vault_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
-          vaultCoordsBuilder_.clear();
+          vaultBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000020);
-        if (marketplaceCoordsBuilder_ == null) {
-          marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (marketplaceBuilder_ == null) {
+          marketplace_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
-          marketplaceCoordsBuilder_.clear();
+          marketplaceBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000040);
-        if (lumbermillCoordsBuilder_ == null) {
-          lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (lumbermillBuilder_ == null) {
+          lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
-          lumbermillCoordsBuilder_.clear();
+          lumbermillBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000080);
-        if (carpenterCoordsBuilder_ == null) {
-          carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (carpenterBuilder_ == null) {
+          carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
-          carpenterCoordsBuilder_.clear();
+          carpenterBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000100);
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (aviaryBuilder_ == null) {
+          aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
-          aviaryCoordsBuilder_.clear();
+          aviaryBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000200);
         return this;
@@ -38961,50 +38961,50 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000004;
         }
-        if (armoryCoordsBuilder_ == null) {
-          result.armoryCoords_ = armoryCoords_;
+        if (armoryBuilder_ == null) {
+          result.armory_ = armory_;
         } else {
-          result.armoryCoords_ = armoryCoordsBuilder_.build();
+          result.armory_ = armoryBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000008;
         }
-        if (vaultCoordsBuilder_ == null) {
-          result.vaultCoords_ = vaultCoords_;
+        if (vaultBuilder_ == null) {
+          result.vault_ = vault_;
         } else {
-          result.vaultCoords_ = vaultCoordsBuilder_.build();
+          result.vault_ = vaultBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000010;
         }
-        if (marketplaceCoordsBuilder_ == null) {
-          result.marketplaceCoords_ = marketplaceCoords_;
+        if (marketplaceBuilder_ == null) {
+          result.marketplace_ = marketplace_;
         } else {
-          result.marketplaceCoords_ = marketplaceCoordsBuilder_.build();
+          result.marketplace_ = marketplaceBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000020;
         }
-        if (lumbermillCoordsBuilder_ == null) {
-          result.lumbermillCoords_ = lumbermillCoords_;
+        if (lumbermillBuilder_ == null) {
+          result.lumbermill_ = lumbermill_;
         } else {
-          result.lumbermillCoords_ = lumbermillCoordsBuilder_.build();
+          result.lumbermill_ = lumbermillBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000040;
         }
-        if (carpenterCoordsBuilder_ == null) {
-          result.carpenterCoords_ = carpenterCoords_;
+        if (carpenterBuilder_ == null) {
+          result.carpenter_ = carpenter_;
         } else {
-          result.carpenterCoords_ = carpenterCoordsBuilder_.build();
+          result.carpenter_ = carpenterBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000080;
         }
-        if (aviaryCoordsBuilder_ == null) {
-          result.aviaryCoords_ = aviaryCoords_;
+        if (aviaryBuilder_ == null) {
+          result.aviary_ = aviary_;
         } else {
-          result.aviaryCoords_ = aviaryCoordsBuilder_.build();
+          result.aviary_ = aviaryBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -39080,23 +39080,23 @@ public final class EventProto {
             }
           }
         }
-        if (other.hasArmoryCoords()) {
-          mergeArmoryCoords(other.getArmoryCoords());
+        if (other.hasArmory()) {
+          mergeArmory(other.getArmory());
         }
-        if (other.hasVaultCoords()) {
-          mergeVaultCoords(other.getVaultCoords());
+        if (other.hasVault()) {
+          mergeVault(other.getVault());
         }
-        if (other.hasMarketplaceCoords()) {
-          mergeMarketplaceCoords(other.getMarketplaceCoords());
+        if (other.hasMarketplace()) {
+          mergeMarketplace(other.getMarketplace());
         }
-        if (other.hasLumbermillCoords()) {
-          mergeLumbermillCoords(other.getLumbermillCoords());
+        if (other.hasLumbermill()) {
+          mergeLumbermill(other.getLumbermill());
         }
-        if (other.hasCarpenterCoords()) {
-          mergeCarpenterCoords(other.getCarpenterCoords());
+        if (other.hasCarpenter()) {
+          mergeCarpenter(other.getCarpenter());
         }
-        if (other.hasAviaryCoords()) {
-          mergeAviaryCoords(other.getAviaryCoords());
+        if (other.hasAviary()) {
+          mergeAviary(other.getAviary());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -39111,15 +39111,15 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasLumbermillCoords()) {
+        if (!hasLumbermill()) {
           
           return false;
         }
-        if (!hasCarpenterCoords()) {
+        if (!hasCarpenter()) {
           
           return false;
         }
-        if (!hasAviaryCoords()) {
+        if (!hasAviary()) {
           
           return false;
         }
@@ -39139,33 +39139,33 @@ public final class EventProto {
             return false;
           }
         }
-        if (hasArmoryCoords()) {
-          if (!getArmoryCoords().isInitialized()) {
+        if (hasArmory()) {
+          if (!getArmory().isInitialized()) {
             
             return false;
           }
         }
-        if (hasVaultCoords()) {
-          if (!getVaultCoords().isInitialized()) {
+        if (hasVault()) {
+          if (!getVault().isInitialized()) {
             
             return false;
           }
         }
-        if (hasMarketplaceCoords()) {
-          if (!getMarketplaceCoords().isInitialized()) {
+        if (hasMarketplace()) {
+          if (!getMarketplace().isInitialized()) {
             
             return false;
           }
         }
-        if (!getLumbermillCoords().isInitialized()) {
+        if (!getLumbermill().isInitialized()) {
           
           return false;
         }
-        if (!getCarpenterCoords().isInitialized()) {
+        if (!getCarpenter().isInitialized()) {
           
           return false;
         }
-        if (!getAviaryCoords().isInitialized()) {
+        if (!getAviary().isInitialized()) {
           
           return false;
         }
@@ -39228,57 +39228,57 @@ public final class EventProto {
               break;
             }
             case 42: {
-              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasArmoryCoords()) {
-                subBuilder.mergeFrom(getArmoryCoords());
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
+              if (hasArmory()) {
+                subBuilder.mergeFrom(getArmory());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setArmoryCoords(subBuilder.buildPartial());
+              setArmory(subBuilder.buildPartial());
               break;
             }
             case 50: {
-              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasVaultCoords()) {
-                subBuilder.mergeFrom(getVaultCoords());
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
+              if (hasVault()) {
+                subBuilder.mergeFrom(getVault());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setVaultCoords(subBuilder.buildPartial());
+              setVault(subBuilder.buildPartial());
               break;
             }
             case 58: {
-              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasMarketplaceCoords()) {
-                subBuilder.mergeFrom(getMarketplaceCoords());
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
+              if (hasMarketplace()) {
+                subBuilder.mergeFrom(getMarketplace());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setMarketplaceCoords(subBuilder.buildPartial());
+              setMarketplace(subBuilder.buildPartial());
               break;
             }
             case 66: {
-              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasLumbermillCoords()) {
-                subBuilder.mergeFrom(getLumbermillCoords());
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
+              if (hasLumbermill()) {
+                subBuilder.mergeFrom(getLumbermill());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setLumbermillCoords(subBuilder.buildPartial());
+              setLumbermill(subBuilder.buildPartial());
               break;
             }
             case 74: {
-              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasCarpenterCoords()) {
-                subBuilder.mergeFrom(getCarpenterCoords());
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
+              if (hasCarpenter()) {
+                subBuilder.mergeFrom(getCarpenter());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setCarpenterCoords(subBuilder.buildPartial());
+              setCarpenter(subBuilder.buildPartial());
               break;
             }
             case 82: {
-              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasAviaryCoords()) {
-                subBuilder.mergeFrom(getAviaryCoords());
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
+              if (hasAviary()) {
+                subBuilder.mergeFrom(getAviary());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setAviaryCoords(subBuilder.buildPartial());
+              setAviary(subBuilder.buildPartial());
               break;
             }
           }
@@ -39773,544 +39773,544 @@ public final class EventProto {
         return ownerAlliesBuilder_;
       }
       
-      // optional .com.lvl6.proto.CoordinateProto armoryCoords = 5;
-      private com.lvl6.proto.InfoProto.CoordinateProto armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // optional .com.lvl6.proto.FullUserCritstructProto armory = 5;
+      private com.lvl6.proto.InfoProto.FullUserCritstructProto armory_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> armoryCoordsBuilder_;
-      public boolean hasArmoryCoords() {
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> armoryBuilder_;
+      public boolean hasArmory() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getArmoryCoords() {
-        if (armoryCoordsBuilder_ == null) {
-          return armoryCoords_;
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto getArmory() {
+        if (armoryBuilder_ == null) {
+          return armory_;
         } else {
-          return armoryCoordsBuilder_.getMessage();
+          return armoryBuilder_.getMessage();
         }
       }
-      public Builder setArmoryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (armoryCoordsBuilder_ == null) {
+      public Builder setArmory(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (armoryBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          armoryCoords_ = value;
+          armory_ = value;
           onChanged();
         } else {
-          armoryCoordsBuilder_.setMessage(value);
+          armoryBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000010;
         return this;
       }
-      public Builder setArmoryCoords(
-          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (armoryCoordsBuilder_ == null) {
-          armoryCoords_ = builderForValue.build();
+      public Builder setArmory(
+          com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder builderForValue) {
+        if (armoryBuilder_ == null) {
+          armory_ = builderForValue.build();
           onChanged();
         } else {
-          armoryCoordsBuilder_.setMessage(builderForValue.build());
+          armoryBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000010;
         return this;
       }
-      public Builder mergeArmoryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (armoryCoordsBuilder_ == null) {
+      public Builder mergeArmory(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (armoryBuilder_ == null) {
           if (((bitField0_ & 0x00000010) == 0x00000010) &&
-              armoryCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            armoryCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(armoryCoords_).mergeFrom(value).buildPartial();
+              armory_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
+            armory_ =
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(armory_).mergeFrom(value).buildPartial();
           } else {
-            armoryCoords_ = value;
+            armory_ = value;
           }
           onChanged();
         } else {
-          armoryCoordsBuilder_.mergeFrom(value);
+          armoryBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000010;
         return this;
       }
-      public Builder clearArmoryCoords() {
-        if (armoryCoordsBuilder_ == null) {
-          armoryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearArmory() {
+        if (armoryBuilder_ == null) {
+          armory_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
           onChanged();
         } else {
-          armoryCoordsBuilder_.clear();
+          armoryBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getArmoryCoordsBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getArmoryBuilder() {
         bitField0_ |= 0x00000010;
         onChanged();
-        return getArmoryCoordsFieldBuilder().getBuilder();
+        return getArmoryFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getArmoryCoordsOrBuilder() {
-        if (armoryCoordsBuilder_ != null) {
-          return armoryCoordsBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getArmoryOrBuilder() {
+        if (armoryBuilder_ != null) {
+          return armoryBuilder_.getMessageOrBuilder();
         } else {
-          return armoryCoords_;
+          return armory_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getArmoryCoordsFieldBuilder() {
-        if (armoryCoordsBuilder_ == null) {
-          armoryCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  armoryCoords_,
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> 
+          getArmoryFieldBuilder() {
+        if (armoryBuilder_ == null) {
+          armoryBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder>(
+                  armory_,
                   getParentForChildren(),
                   isClean());
-          armoryCoords_ = null;
+          armory_ = null;
         }
-        return armoryCoordsBuilder_;
+        return armoryBuilder_;
       }
       
-      // optional .com.lvl6.proto.CoordinateProto vaultCoords = 6;
-      private com.lvl6.proto.InfoProto.CoordinateProto vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // optional .com.lvl6.proto.FullUserCritstructProto vault = 6;
+      private com.lvl6.proto.InfoProto.FullUserCritstructProto vault_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> vaultCoordsBuilder_;
-      public boolean hasVaultCoords() {
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> vaultBuilder_;
+      public boolean hasVault() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getVaultCoords() {
-        if (vaultCoordsBuilder_ == null) {
-          return vaultCoords_;
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto getVault() {
+        if (vaultBuilder_ == null) {
+          return vault_;
         } else {
-          return vaultCoordsBuilder_.getMessage();
+          return vaultBuilder_.getMessage();
         }
       }
-      public Builder setVaultCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (vaultCoordsBuilder_ == null) {
+      public Builder setVault(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (vaultBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          vaultCoords_ = value;
+          vault_ = value;
           onChanged();
         } else {
-          vaultCoordsBuilder_.setMessage(value);
+          vaultBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000020;
         return this;
       }
-      public Builder setVaultCoords(
-          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (vaultCoordsBuilder_ == null) {
-          vaultCoords_ = builderForValue.build();
+      public Builder setVault(
+          com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder builderForValue) {
+        if (vaultBuilder_ == null) {
+          vault_ = builderForValue.build();
           onChanged();
         } else {
-          vaultCoordsBuilder_.setMessage(builderForValue.build());
+          vaultBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000020;
         return this;
       }
-      public Builder mergeVaultCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (vaultCoordsBuilder_ == null) {
+      public Builder mergeVault(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (vaultBuilder_ == null) {
           if (((bitField0_ & 0x00000020) == 0x00000020) &&
-              vaultCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            vaultCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(vaultCoords_).mergeFrom(value).buildPartial();
+              vault_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
+            vault_ =
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(vault_).mergeFrom(value).buildPartial();
           } else {
-            vaultCoords_ = value;
+            vault_ = value;
           }
           onChanged();
         } else {
-          vaultCoordsBuilder_.mergeFrom(value);
+          vaultBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000020;
         return this;
       }
-      public Builder clearVaultCoords() {
-        if (vaultCoordsBuilder_ == null) {
-          vaultCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearVault() {
+        if (vaultBuilder_ == null) {
+          vault_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
           onChanged();
         } else {
-          vaultCoordsBuilder_.clear();
+          vaultBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getVaultCoordsBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getVaultBuilder() {
         bitField0_ |= 0x00000020;
         onChanged();
-        return getVaultCoordsFieldBuilder().getBuilder();
+        return getVaultFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getVaultCoordsOrBuilder() {
-        if (vaultCoordsBuilder_ != null) {
-          return vaultCoordsBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getVaultOrBuilder() {
+        if (vaultBuilder_ != null) {
+          return vaultBuilder_.getMessageOrBuilder();
         } else {
-          return vaultCoords_;
+          return vault_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getVaultCoordsFieldBuilder() {
-        if (vaultCoordsBuilder_ == null) {
-          vaultCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  vaultCoords_,
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> 
+          getVaultFieldBuilder() {
+        if (vaultBuilder_ == null) {
+          vaultBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder>(
+                  vault_,
                   getParentForChildren(),
                   isClean());
-          vaultCoords_ = null;
+          vault_ = null;
         }
-        return vaultCoordsBuilder_;
+        return vaultBuilder_;
       }
       
-      // optional .com.lvl6.proto.CoordinateProto marketplaceCoords = 7;
-      private com.lvl6.proto.InfoProto.CoordinateProto marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // optional .com.lvl6.proto.FullUserCritstructProto marketplace = 7;
+      private com.lvl6.proto.InfoProto.FullUserCritstructProto marketplace_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> marketplaceCoordsBuilder_;
-      public boolean hasMarketplaceCoords() {
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> marketplaceBuilder_;
+      public boolean hasMarketplace() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getMarketplaceCoords() {
-        if (marketplaceCoordsBuilder_ == null) {
-          return marketplaceCoords_;
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto getMarketplace() {
+        if (marketplaceBuilder_ == null) {
+          return marketplace_;
         } else {
-          return marketplaceCoordsBuilder_.getMessage();
+          return marketplaceBuilder_.getMessage();
         }
       }
-      public Builder setMarketplaceCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (marketplaceCoordsBuilder_ == null) {
+      public Builder setMarketplace(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (marketplaceBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          marketplaceCoords_ = value;
+          marketplace_ = value;
           onChanged();
         } else {
-          marketplaceCoordsBuilder_.setMessage(value);
+          marketplaceBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000040;
         return this;
       }
-      public Builder setMarketplaceCoords(
-          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (marketplaceCoordsBuilder_ == null) {
-          marketplaceCoords_ = builderForValue.build();
+      public Builder setMarketplace(
+          com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder builderForValue) {
+        if (marketplaceBuilder_ == null) {
+          marketplace_ = builderForValue.build();
           onChanged();
         } else {
-          marketplaceCoordsBuilder_.setMessage(builderForValue.build());
+          marketplaceBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000040;
         return this;
       }
-      public Builder mergeMarketplaceCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (marketplaceCoordsBuilder_ == null) {
+      public Builder mergeMarketplace(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (marketplaceBuilder_ == null) {
           if (((bitField0_ & 0x00000040) == 0x00000040) &&
-              marketplaceCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            marketplaceCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(marketplaceCoords_).mergeFrom(value).buildPartial();
+              marketplace_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
+            marketplace_ =
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(marketplace_).mergeFrom(value).buildPartial();
           } else {
-            marketplaceCoords_ = value;
+            marketplace_ = value;
           }
           onChanged();
         } else {
-          marketplaceCoordsBuilder_.mergeFrom(value);
+          marketplaceBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000040;
         return this;
       }
-      public Builder clearMarketplaceCoords() {
-        if (marketplaceCoordsBuilder_ == null) {
-          marketplaceCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearMarketplace() {
+        if (marketplaceBuilder_ == null) {
+          marketplace_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
           onChanged();
         } else {
-          marketplaceCoordsBuilder_.clear();
+          marketplaceBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getMarketplaceCoordsBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getMarketplaceBuilder() {
         bitField0_ |= 0x00000040;
         onChanged();
-        return getMarketplaceCoordsFieldBuilder().getBuilder();
+        return getMarketplaceFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getMarketplaceCoordsOrBuilder() {
-        if (marketplaceCoordsBuilder_ != null) {
-          return marketplaceCoordsBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getMarketplaceOrBuilder() {
+        if (marketplaceBuilder_ != null) {
+          return marketplaceBuilder_.getMessageOrBuilder();
         } else {
-          return marketplaceCoords_;
+          return marketplace_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getMarketplaceCoordsFieldBuilder() {
-        if (marketplaceCoordsBuilder_ == null) {
-          marketplaceCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  marketplaceCoords_,
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> 
+          getMarketplaceFieldBuilder() {
+        if (marketplaceBuilder_ == null) {
+          marketplaceBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder>(
+                  marketplace_,
                   getParentForChildren(),
                   isClean());
-          marketplaceCoords_ = null;
+          marketplace_ = null;
         }
-        return marketplaceCoordsBuilder_;
+        return marketplaceBuilder_;
       }
       
-      // required .com.lvl6.proto.CoordinateProto lumbermillCoords = 8;
-      private com.lvl6.proto.InfoProto.CoordinateProto lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // required .com.lvl6.proto.FullUserCritstructProto lumbermill = 8;
+      private com.lvl6.proto.InfoProto.FullUserCritstructProto lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> lumbermillCoordsBuilder_;
-      public boolean hasLumbermillCoords() {
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> lumbermillBuilder_;
+      public boolean hasLumbermill() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getLumbermillCoords() {
-        if (lumbermillCoordsBuilder_ == null) {
-          return lumbermillCoords_;
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto getLumbermill() {
+        if (lumbermillBuilder_ == null) {
+          return lumbermill_;
         } else {
-          return lumbermillCoordsBuilder_.getMessage();
+          return lumbermillBuilder_.getMessage();
         }
       }
-      public Builder setLumbermillCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (lumbermillCoordsBuilder_ == null) {
+      public Builder setLumbermill(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (lumbermillBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          lumbermillCoords_ = value;
+          lumbermill_ = value;
           onChanged();
         } else {
-          lumbermillCoordsBuilder_.setMessage(value);
+          lumbermillBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000080;
         return this;
       }
-      public Builder setLumbermillCoords(
-          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (lumbermillCoordsBuilder_ == null) {
-          lumbermillCoords_ = builderForValue.build();
+      public Builder setLumbermill(
+          com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder builderForValue) {
+        if (lumbermillBuilder_ == null) {
+          lumbermill_ = builderForValue.build();
           onChanged();
         } else {
-          lumbermillCoordsBuilder_.setMessage(builderForValue.build());
+          lumbermillBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000080;
         return this;
       }
-      public Builder mergeLumbermillCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (lumbermillCoordsBuilder_ == null) {
+      public Builder mergeLumbermill(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (lumbermillBuilder_ == null) {
           if (((bitField0_ & 0x00000080) == 0x00000080) &&
-              lumbermillCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            lumbermillCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(lumbermillCoords_).mergeFrom(value).buildPartial();
+              lumbermill_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
+            lumbermill_ =
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(lumbermill_).mergeFrom(value).buildPartial();
           } else {
-            lumbermillCoords_ = value;
+            lumbermill_ = value;
           }
           onChanged();
         } else {
-          lumbermillCoordsBuilder_.mergeFrom(value);
+          lumbermillBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000080;
         return this;
       }
-      public Builder clearLumbermillCoords() {
-        if (lumbermillCoordsBuilder_ == null) {
-          lumbermillCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearLumbermill() {
+        if (lumbermillBuilder_ == null) {
+          lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
           onChanged();
         } else {
-          lumbermillCoordsBuilder_.clear();
+          lumbermillBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getLumbermillCoordsBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getLumbermillBuilder() {
         bitField0_ |= 0x00000080;
         onChanged();
-        return getLumbermillCoordsFieldBuilder().getBuilder();
+        return getLumbermillFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getLumbermillCoordsOrBuilder() {
-        if (lumbermillCoordsBuilder_ != null) {
-          return lumbermillCoordsBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getLumbermillOrBuilder() {
+        if (lumbermillBuilder_ != null) {
+          return lumbermillBuilder_.getMessageOrBuilder();
         } else {
-          return lumbermillCoords_;
+          return lumbermill_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getLumbermillCoordsFieldBuilder() {
-        if (lumbermillCoordsBuilder_ == null) {
-          lumbermillCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  lumbermillCoords_,
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> 
+          getLumbermillFieldBuilder() {
+        if (lumbermillBuilder_ == null) {
+          lumbermillBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder>(
+                  lumbermill_,
                   getParentForChildren(),
                   isClean());
-          lumbermillCoords_ = null;
+          lumbermill_ = null;
         }
-        return lumbermillCoordsBuilder_;
+        return lumbermillBuilder_;
       }
       
-      // required .com.lvl6.proto.CoordinateProto carpenterCoords = 9;
-      private com.lvl6.proto.InfoProto.CoordinateProto carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // required .com.lvl6.proto.FullUserCritstructProto carpenter = 9;
+      private com.lvl6.proto.InfoProto.FullUserCritstructProto carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> carpenterCoordsBuilder_;
-      public boolean hasCarpenterCoords() {
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> carpenterBuilder_;
+      public boolean hasCarpenter() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getCarpenterCoords() {
-        if (carpenterCoordsBuilder_ == null) {
-          return carpenterCoords_;
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto getCarpenter() {
+        if (carpenterBuilder_ == null) {
+          return carpenter_;
         } else {
-          return carpenterCoordsBuilder_.getMessage();
+          return carpenterBuilder_.getMessage();
         }
       }
-      public Builder setCarpenterCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (carpenterCoordsBuilder_ == null) {
+      public Builder setCarpenter(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (carpenterBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          carpenterCoords_ = value;
+          carpenter_ = value;
           onChanged();
         } else {
-          carpenterCoordsBuilder_.setMessage(value);
+          carpenterBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000100;
         return this;
       }
-      public Builder setCarpenterCoords(
-          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (carpenterCoordsBuilder_ == null) {
-          carpenterCoords_ = builderForValue.build();
+      public Builder setCarpenter(
+          com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder builderForValue) {
+        if (carpenterBuilder_ == null) {
+          carpenter_ = builderForValue.build();
           onChanged();
         } else {
-          carpenterCoordsBuilder_.setMessage(builderForValue.build());
+          carpenterBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000100;
         return this;
       }
-      public Builder mergeCarpenterCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (carpenterCoordsBuilder_ == null) {
+      public Builder mergeCarpenter(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (carpenterBuilder_ == null) {
           if (((bitField0_ & 0x00000100) == 0x00000100) &&
-              carpenterCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            carpenterCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(carpenterCoords_).mergeFrom(value).buildPartial();
+              carpenter_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
+            carpenter_ =
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(carpenter_).mergeFrom(value).buildPartial();
           } else {
-            carpenterCoords_ = value;
+            carpenter_ = value;
           }
           onChanged();
         } else {
-          carpenterCoordsBuilder_.mergeFrom(value);
+          carpenterBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000100;
         return this;
       }
-      public Builder clearCarpenterCoords() {
-        if (carpenterCoordsBuilder_ == null) {
-          carpenterCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearCarpenter() {
+        if (carpenterBuilder_ == null) {
+          carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
           onChanged();
         } else {
-          carpenterCoordsBuilder_.clear();
+          carpenterBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getCarpenterCoordsBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getCarpenterBuilder() {
         bitField0_ |= 0x00000100;
         onChanged();
-        return getCarpenterCoordsFieldBuilder().getBuilder();
+        return getCarpenterFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCarpenterCoordsOrBuilder() {
-        if (carpenterCoordsBuilder_ != null) {
-          return carpenterCoordsBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getCarpenterOrBuilder() {
+        if (carpenterBuilder_ != null) {
+          return carpenterBuilder_.getMessageOrBuilder();
         } else {
-          return carpenterCoords_;
+          return carpenter_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getCarpenterCoordsFieldBuilder() {
-        if (carpenterCoordsBuilder_ == null) {
-          carpenterCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  carpenterCoords_,
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> 
+          getCarpenterFieldBuilder() {
+        if (carpenterBuilder_ == null) {
+          carpenterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder>(
+                  carpenter_,
                   getParentForChildren(),
                   isClean());
-          carpenterCoords_ = null;
+          carpenter_ = null;
         }
-        return carpenterCoordsBuilder_;
+        return carpenterBuilder_;
       }
       
-      // required .com.lvl6.proto.CoordinateProto aviaryCoords = 10;
-      private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // required .com.lvl6.proto.FullUserCritstructProto aviary = 10;
+      private com.lvl6.proto.InfoProto.FullUserCritstructProto aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> aviaryCoordsBuilder_;
-      public boolean hasAviaryCoords() {
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> aviaryBuilder_;
+      public boolean hasAviary() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords() {
-        if (aviaryCoordsBuilder_ == null) {
-          return aviaryCoords_;
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto getAviary() {
+        if (aviaryBuilder_ == null) {
+          return aviary_;
         } else {
-          return aviaryCoordsBuilder_.getMessage();
+          return aviaryBuilder_.getMessage();
         }
       }
-      public Builder setAviaryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (aviaryCoordsBuilder_ == null) {
+      public Builder setAviary(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (aviaryBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          aviaryCoords_ = value;
+          aviary_ = value;
           onChanged();
         } else {
-          aviaryCoordsBuilder_.setMessage(value);
+          aviaryBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000200;
         return this;
       }
-      public Builder setAviaryCoords(
-          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoords_ = builderForValue.build();
+      public Builder setAviary(
+          com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder builderForValue) {
+        if (aviaryBuilder_ == null) {
+          aviary_ = builderForValue.build();
           onChanged();
         } else {
-          aviaryCoordsBuilder_.setMessage(builderForValue.build());
+          aviaryBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000200;
         return this;
       }
-      public Builder mergeAviaryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (aviaryCoordsBuilder_ == null) {
+      public Builder mergeAviary(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
+        if (aviaryBuilder_ == null) {
           if (((bitField0_ & 0x00000200) == 0x00000200) &&
-              aviaryCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            aviaryCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(aviaryCoords_).mergeFrom(value).buildPartial();
+              aviary_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
+            aviary_ =
+              com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(aviary_).mergeFrom(value).buildPartial();
           } else {
-            aviaryCoords_ = value;
+            aviary_ = value;
           }
           onChanged();
         } else {
-          aviaryCoordsBuilder_.mergeFrom(value);
+          aviaryBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000200;
         return this;
       }
-      public Builder clearAviaryCoords() {
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearAviary() {
+        if (aviaryBuilder_ == null) {
+          aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
           onChanged();
         } else {
-          aviaryCoordsBuilder_.clear();
+          aviaryBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getAviaryCoordsBuilder() {
+      public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getAviaryBuilder() {
         bitField0_ |= 0x00000200;
         onChanged();
-        return getAviaryCoordsFieldBuilder().getBuilder();
+        return getAviaryFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder() {
-        if (aviaryCoordsBuilder_ != null) {
-          return aviaryCoordsBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getAviaryOrBuilder() {
+        if (aviaryBuilder_ != null) {
+          return aviaryBuilder_.getMessageOrBuilder();
         } else {
-          return aviaryCoords_;
+          return aviary_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getAviaryCoordsFieldBuilder() {
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  aviaryCoords_,
+          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> 
+          getAviaryFieldBuilder() {
+        if (aviaryBuilder_ == null) {
+          aviaryBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder>(
+                  aviary_,
                   getParentForChildren(),
                   isClean());
-          aviaryCoords_ = null;
+          aviary_ = null;
         }
-        return aviaryCoordsBuilder_;
+        return aviaryBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LoadPlayerCityResponseProto)
@@ -51012,89 +51012,89 @@ public final class EventProto {
       "SS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n\032LoadPlayerCityR" +
       "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
       "roto.MinimumUserProto\0223\n\tcityOwner\030\002 \002(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\"\265\005\n\033L",
+      "2 .com.lvl6.proto.MinimumUserProto\"\301\005\n\033L",
       "oadPlayerCityResponseProto\0220\n\006sender\030\001 \002" +
       "(\0132 .com.lvl6.proto.MinimumUserProto\022P\n\006" +
       "status\030\002 \002(\0162@.com.lvl6.proto.LoadPlayer" +
       "CityResponseProto.LoadPlayerCityStatus\022@" +
       "\n\020ownerNormStructs\030\003 \003(\0132&.com.lvl6.prot" +
       "o.FullUserStructureProto\0222\n\013ownerAllies\030" +
-      "\004 \003(\0132\035.com.lvl6.proto.FullUserProto\0225\n\014" +
-      "armoryCoords\030\005 \001(\0132\037.com.lvl6.proto.Coor" +
-      "dinateProto\0224\n\013vaultCoords\030\006 \001(\0132\037.com.l" +
-      "vl6.proto.CoordinateProto\022:\n\021marketplace",
-      "Coords\030\007 \001(\0132\037.com.lvl6.proto.Coordinate" +
-      "Proto\0229\n\020lumbermillCoords\030\010 \002(\0132\037.com.lv" +
-      "l6.proto.CoordinateProto\0228\n\017carpenterCoo" +
-      "rds\030\t \002(\0132\037.com.lvl6.proto.CoordinatePro" +
-      "to\0225\n\014aviaryCoords\030\n \002(\0132\037.com.lvl6.prot" +
-      "o.CoordinateProto\"G\n\024LoadPlayerCityStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOT" +
-      "HER_FAIL\020\002\"\\\n\027QuestAcceptRequestProto\0220\n" +
-      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022\017\n\007questId\030\002 \002(\005\"\341\001\n\030QuestAccept",
-      "ResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022J\n\006status\030\002 \002(\0162" +
-      ":.com.lvl6.proto.QuestAcceptResponseProt" +
-      "o.QuestAcceptStatus\"G\n\021QuestAcceptStatus" +
-      "\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n\n" +
-      "OTHER_FAIL\020\002\"}\n\032QuestCompleteResponsePro" +
-      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022-\n\005quest\030\002 \002(\0132\036.com.lvl6.p" +
-      "roto.FullQuestProto\"\\\n\027QuestRedeemReques" +
+      "\004 \003(\0132\035.com.lvl6.proto.FullUserProto\0227\n\006" +
+      "armory\030\005 \001(\0132\'.com.lvl6.proto.FullUserCr" +
+      "itstructProto\0226\n\005vault\030\006 \001(\0132\'.com.lvl6." +
+      "proto.FullUserCritstructProto\022<\n\013marketp",
+      "lace\030\007 \001(\0132\'.com.lvl6.proto.FullUserCrit" +
+      "structProto\022;\n\nlumbermill\030\010 \002(\0132\'.com.lv" +
+      "l6.proto.FullUserCritstructProto\022:\n\tcarp" +
+      "enter\030\t \002(\0132\'.com.lvl6.proto.FullUserCri" +
+      "tstructProto\0227\n\006aviary\030\n \002(\0132\'.com.lvl6." +
+      "proto.FullUserCritstructProto\"G\n\024LoadPla" +
+      "yerCityStatus\022\013\n\007SUCCESS\020\000\022\022\n\016NO_SUCH_PL" +
+      "AYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027QuestAcceptReq" +
+      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022\017\n\007questId\030\002 \002(\005\"\341\001\n",
+      "\030QuestAcceptResponseProto\0220\n\006sender\030\001 \002(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022J\n\006s" +
+      "tatus\030\002 \002(\0162:.com.lvl6.proto.QuestAccept" +
+      "ResponseProto.QuestAcceptStatus\"G\n\021Quest" +
+      "AcceptStatus\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_T" +
+      "O_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"}\n\032QuestComplet" +
+      "eResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022-\n\005quest\030\002 \002(\0132" +
+      "\036.com.lvl6.proto.FullQuestProto\"\\\n\027Quest" +
+      "RedeemRequestProto\0220\n\006sender\030\001 \002(\0132 .com",
+      ".lvl6.proto.MinimumUserProto\022\017\n\007questId\030" +
+      "\002 \002(\005\"\234\002\n\030QuestRedeemResponseProto\0220\n\006se" +
+      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022>\n\026updatedAvailableQuests\030\002 \003(\0132\036.c" +
+      "om.lvl6.proto.FullQuestProto\022J\n\006status\030\003" +
+      " \002(\0162:.com.lvl6.proto.QuestRedeemRespons" +
+      "eProto.QuestRedeemStatus\"B\n\021QuestRedeemS" +
+      "tatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\n" +
+      "OTHER_FAIL\020\002\"c\n\036QuestCheckCompleteReques" +
       "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.",
-      "MinimumUserProto\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030Qu" +
-      "estRedeemResponseProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022>\n\026upda" +
-      "tedAvailableQuests\030\002 \003(\0132\036.com.lvl6.prot" +
-      "o.FullQuestProto\022J\n\006status\030\003 \002(\0162:.com.l" +
-      "vl6.proto.QuestRedeemResponseProto.Quest" +
-      "RedeemStatus\"B\n\021QuestRedeemStatus\022\013\n\007SUC" +
-      "CESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002" +
-      "\"c\n\036QuestCheckCompleteRequestProto\0220\n\006se" +
-      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP",
-      "roto\022\017\n\007questId\030\002 \002(\005\"\357\001\n\037QuestCheckComp" +
-      "leteResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022S\n\006status\030\003 " +
-      "\002(\0162C.com.lvl6.proto.QuestCheckCompleteR" +
-      "esponseProto.QuestCompleteStatus\"E\n\023Ques" +
-      "tCompleteStatus\022\014\n\010COMPLETE\020\000\022\020\n\014NOT_COM" +
-      "PLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033QuestLogDetai" +
-      "lsRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\"\243\002\n\034QuestLogDet" +
-      "ailsResponseProto\0220\n\006sender\030\001 \002(\0132 .com.",
-      "lvl6.proto.MinimumUserProto\022G\n\027inProgres" +
-      "sUserQuestData\030\002 \003(\0132&.com.lvl6.proto.Fu" +
-      "llUserQuestDataLarge\022R\n\006status\030\003 \002(\0162B.c" +
-      "om.lvl6.proto.QuestLogDetailsResponsePro" +
-      "to.QuestLogDetailsStatus\"4\n\025QuestLogDeta" +
-      "ilsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\231" +
-      "\002\n\036RetrieveStaticDataRequestProto\0220\n\006sen" +
-      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003 \003(\005\022" +
-      "\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020\n\010eq",
-      "uipIds\030\006 \003(\005\022\031\n\021buildStructJobIds\030\014 \003(\005\022" +
-      "\030\n\020defeatTypeJobIds\030\r \003(\005\022\032\n\022possessEqui" +
-      "pJobIds\030\016 \003(\005\022\033\n\023upgradeStructJobIds\030\017 \003" +
-      "(\005\"\323\005\n\037RetrieveStaticDataResponseProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\0223\n\007structs\030\002 \003(\0132\".com.lvl6.pro" +
-      "to.FullStructureProto\022,\n\005tasks\030\003 \003(\0132\035.c" +
-      "om.lvl6.proto.FullTaskProto\022.\n\006quests\030\004 " +
-      "\003(\0132\036.com.lvl6.proto.FullQuestProto\022-\n\006c" +
-      "ities\030\005 \003(\0132\035.com.lvl6.proto.FullCityPro",
-      "to\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.proto.Full" +
-      "EquipProto\022<\n\017buildStructJobs\030\014 \003(\0132#.co" +
-      "m.lvl6.proto.BuildStructJobProto\022:\n\016defe" +
-      "atTypeJobs\030\r \003(\0132\".com.lvl6.proto.Defeat" +
-      "TypeJobProto\022>\n\020possessEquipJobs\030\016 \003(\0132$" +
-      ".com.lvl6.proto.PossessEquipJobProto\022@\n\021" +
-      "upgradeStructJobs\030\017 \003(\0132%.com.lvl6.proto" +
-      ".UpgradeStructJobProto\022X\n\006status\030\007 \002(\0162H" +
-      ".com.lvl6.proto.RetrieveStaticDataRespon" +
-      "seProto.RetrieveStaticDataStatus\"6\n\030Retr",
-      "ieveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOM" +
-      "E_FAIL\020\001B\014B\nEventProto"
+      "MinimumUserProto\022\017\n\007questId\030\002 \002(\005\"\357\001\n\037Qu" +
+      "estCheckCompleteResponseProto\0220\n\006sender\030" +
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "S\n\006status\030\003 \002(\0162C.com.lvl6.proto.QuestCh" +
+      "eckCompleteResponseProto.QuestCompleteSt" +
+      "atus\"E\n\023QuestCompleteStatus\022\014\n\010COMPLETE\020" +
+      "\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033Q" +
+      "uestLogDetailsRequestProto\0220\n\006sender\030\001 \002" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\"\243\002\n" +
+      "\034QuestLogDetailsResponseProto\0220\n\006sender\030",
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "G\n\027inProgressUserQuestData\030\002 \003(\0132&.com.l" +
+      "vl6.proto.FullUserQuestDataLarge\022R\n\006stat" +
+      "us\030\003 \002(\0162B.com.lvl6.proto.QuestLogDetail" +
+      "sResponseProto.QuestLogDetailsStatus\"4\n\025" +
+      "QuestLogDetailsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOT" +
+      "HER_FAIL\020\001\"\231\002\n\036RetrieveStaticDataRequest" +
+      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007ta" +
+      "skIds\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds",
+      "\030\005 \003(\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021buildStructJ" +
+      "obIds\030\014 \003(\005\022\030\n\020defeatTypeJobIds\030\r \003(\005\022\032\n" +
+      "\022possessEquipJobIds\030\016 \003(\005\022\033\n\023upgradeStru" +
+      "ctJobIds\030\017 \003(\005\"\323\005\n\037RetrieveStaticDataRes" +
+      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\0223\n\007structs\030\002 \003(\0132\"." +
+      "com.lvl6.proto.FullStructureProto\022,\n\005tas" +
+      "ks\030\003 \003(\0132\035.com.lvl6.proto.FullTaskProto\022" +
+      ".\n\006quests\030\004 \003(\0132\036.com.lvl6.proto.FullQue" +
+      "stProto\022-\n\006cities\030\005 \003(\0132\035.com.lvl6.proto",
+      ".FullCityProto\022.\n\006equips\030\006 \003(\0132\036.com.lvl" +
+      "6.proto.FullEquipProto\022<\n\017buildStructJob" +
+      "s\030\014 \003(\0132#.com.lvl6.proto.BuildStructJobP" +
+      "roto\022:\n\016defeatTypeJobs\030\r \003(\0132\".com.lvl6." +
+      "proto.DefeatTypeJobProto\022>\n\020possessEquip" +
+      "Jobs\030\016 \003(\0132$.com.lvl6.proto.PossessEquip" +
+      "JobProto\022@\n\021upgradeStructJobs\030\017 \003(\0132%.co" +
+      "m.lvl6.proto.UpgradeStructJobProto\022X\n\006st" +
+      "atus\030\007 \002(\0162H.com.lvl6.proto.RetrieveStat" +
+      "icDataResponseProto.RetrieveStaticDataSt",
+      "atus\"6\n\030RetrieveStaticDataStatus\022\013\n\007SUCC" +
+      "ESS\020\000\022\r\n\tSOME_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -51562,7 +51562,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "OwnerNormStructs", "OwnerAllies", "ArmoryCoords", "VaultCoords", "MarketplaceCoords", "LumbermillCoords", "CarpenterCoords", "AviaryCoords", },
+              new java.lang.String[] { "Sender", "Status", "OwnerNormStructs", "OwnerAllies", "Armory", "Vault", "Marketplace", "Lumbermill", "Carpenter", "Aviary", },
               com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.class,
               com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.Builder.class);
           internal_static_com_lvl6_proto_QuestAcceptRequestProto_descriptor =

@@ -9,8 +9,10 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.UserCritstruct;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.CritStructType;
+import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.utils.DBConnection;
 
 public class UserCritstructRetrieveUtils {
@@ -19,19 +21,19 @@ public class UserCritstructRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER_CRITSTRUCTS;
 
-  public static Map<CritStructType, CoordinatePair> getUserCritstructsForUser(int userId) {
+  public static Map<CritStructType, UserCritstruct> getUserCritstructsForUser(int userId) {
     log.info("retrieving user critstructs for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CRITSTRUCTS__USER_ID, userId);
     return convertRSToUserCritstructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
   
-  private static Map<CritStructType, CoordinatePair> convertRSToUserCritstructs(ResultSet rs) {
+  private static Map<CritStructType, UserCritstruct> convertRSToUserCritstructs(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        Map<CritStructType, CoordinatePair> critStructMap = new HashMap<CritStructType, CoordinatePair>();
+        Map<CritStructType, UserCritstruct> critStructMap = new HashMap<CritStructType, UserCritstruct>();
         while(rs.next()) {
           addToCritStructMap(rs, critStructMap);
         }
@@ -47,7 +49,7 @@ public class UserCritstructRetrieveUtils {
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
-  private static void addToCritStructMap(ResultSet rs, Map<CritStructType, CoordinatePair> critStructMap) throws SQLException {
+  private static void addToCritStructMap(ResultSet rs, Map<CritStructType, UserCritstruct> critStructMap) throws SQLException {
     if (critStructMap == null) {
       return;
     }
@@ -57,7 +59,9 @@ public class UserCritstructRetrieveUtils {
       i++;
     } else {
       int armoryYCoord = rs.getInt(i++);
-      critStructMap.put(CritStructType.ARMORY, new CoordinatePair(armoryXCoord, armoryYCoord));
+      CoordinatePair coords = new CoordinatePair(armoryXCoord, armoryYCoord);
+      StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
+      critStructMap.put(CritStructType.ARMORY, new UserCritstruct(CritStructType.ARMORY, coords, orientation));
     }
     
     int vaultXCoord = rs.getInt(i++);
@@ -65,7 +69,9 @@ public class UserCritstructRetrieveUtils {
       i++;
     } else {
       int vaultYCoord = rs.getInt(i++);
-      critStructMap.put(CritStructType.VAULT, new CoordinatePair(vaultXCoord, vaultYCoord));
+      CoordinatePair coords = new CoordinatePair(vaultXCoord, vaultYCoord);
+      StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
+      critStructMap.put(CritStructType.VAULT, new UserCritstruct(CritStructType.VAULT, coords, orientation));
     }
 
     int marketplaceXCoord = rs.getInt(i++);
@@ -73,7 +79,9 @@ public class UserCritstructRetrieveUtils {
       i++;
     } else {
       int marketplaceYCoord = rs.getInt(i++);
-      critStructMap.put(CritStructType.MARKETPLACE, new CoordinatePair(marketplaceXCoord, marketplaceYCoord));
+      CoordinatePair coords = new CoordinatePair(marketplaceXCoord, marketplaceYCoord);
+      StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
+      critStructMap.put(CritStructType.MARKETPLACE, new UserCritstruct(CritStructType.MARKETPLACE, coords, orientation));
     }
 
     int lumbermillXCoord = rs.getInt(i++);
@@ -81,7 +89,9 @@ public class UserCritstructRetrieveUtils {
       i++;
     } else {
       int lumbermillYCoord = rs.getInt(i++);
-      critStructMap.put(CritStructType.LUMBERMILL, new CoordinatePair(lumbermillXCoord, lumbermillYCoord));
+      CoordinatePair coords = new CoordinatePair(lumbermillXCoord, lumbermillYCoord);
+      StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
+      critStructMap.put(CritStructType.LUMBERMILL, new UserCritstruct(CritStructType.LUMBERMILL, coords, orientation));
     }
 
     int carpenterXCoord = rs.getInt(i++);
@@ -89,7 +99,9 @@ public class UserCritstructRetrieveUtils {
       i++;
     } else {
       int carpenterYCoord = rs.getInt(i++);
-      critStructMap.put(CritStructType.CARPENTER, new CoordinatePair(carpenterXCoord, carpenterYCoord));
+      CoordinatePair coords = new CoordinatePair(carpenterXCoord, carpenterYCoord);
+      StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
+      critStructMap.put(CritStructType.CARPENTER, new UserCritstruct(CritStructType.CARPENTER, coords, orientation));
     }
 
     int aviaryXCoord = rs.getInt(i++);
@@ -97,8 +109,10 @@ public class UserCritstructRetrieveUtils {
       i++;
     } else {
       int aviaryYCoord = rs.getInt(i++);
-      critStructMap.put(CritStructType.AVIARY, new CoordinatePair(aviaryXCoord, aviaryYCoord));
-    } 
+      CoordinatePair coords = new CoordinatePair(aviaryXCoord, aviaryYCoord);
+      StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
+      critStructMap.put(CritStructType.AVIARY, new UserCritstruct(CritStructType.AVIARY, coords, orientation));
+    }
   }
 
 }

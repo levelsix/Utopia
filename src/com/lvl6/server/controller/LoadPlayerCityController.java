@@ -8,6 +8,7 @@ import com.lvl6.events.request.LoadPlayerCityRequestEvent;
 import com.lvl6.events.response.LoadPlayerCityResponseEvent;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.User;
+import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LoadPlayerCityRequestProto;
@@ -51,8 +52,8 @@ public class LoadPlayerCityController extends EventController {
 
     try {
       User owner = UserRetrieveUtils.getUserById(cityOwnerProto.getUserId());
-      Map<CritStructType, CoordinatePair> cStructCoords = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
-      setResponseCritstructs(resBuilder, cStructCoords);
+      Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
+      setResponseCritstructs(resBuilder, userCritStructs);
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerProto.getUserId());
       setResponseUserStructs(resBuilder, userStructs);
       
@@ -94,28 +95,28 @@ public class LoadPlayerCityController extends EventController {
     }
   }
 
-  private void setResponseCritstructs(Builder resBuilder, Map<CritStructType, CoordinatePair> cStructCoords) {
-    if (cStructCoords != null) {
-      for (CritStructType cst : cStructCoords.keySet()) {
-        CoordinatePair cp = cStructCoords.get(cst);
-        if (cp != null) {
+  private void setResponseCritstructs(Builder resBuilder, Map<CritStructType, UserCritstruct> userCritStructs) {
+    if (userCritStructs != null) {
+      for (CritStructType cst : userCritStructs.keySet()) {
+        UserCritstruct uc = userCritStructs.get(cst);
+        if (uc != null) {
           if (cst == CritStructType.ARMORY) {
-            resBuilder.setArmoryCoords(CoordinateProto.newBuilder().setX(cp.getX()).setY(cp.getY()));
+            resBuilder.setArmory(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }
           if (cst == CritStructType.AVIARY) {
-            resBuilder.setAviaryCoords(CoordinateProto.newBuilder().setX(cp.getX()).setY(cp.getY()));
+            resBuilder.setAviary(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }
           if (cst == CritStructType.CARPENTER) {
-            resBuilder.setCarpenterCoords(CoordinateProto.newBuilder().setX(cp.getX()).setY(cp.getY()));
+            resBuilder.setCarpenter(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }
           if (cst == CritStructType.LUMBERMILL) {
-            resBuilder.setLumbermillCoords(CoordinateProto.newBuilder().setX(cp.getX()).setY(cp.getY()));
+            resBuilder.setLumbermill(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }
           if (cst == CritStructType.MARKETPLACE) {
-            resBuilder.setMarketplaceCoords(CoordinateProto.newBuilder().setX(cp.getX()).setY(cp.getY()));
+            resBuilder.setMarketplace(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }
           if (cst == CritStructType.VAULT) {
-            resBuilder.setVaultCoords(CoordinateProto.newBuilder().setX(cp.getX()).setY(cp.getY()));
+            resBuilder.setVault(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }
         } else {
           resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);

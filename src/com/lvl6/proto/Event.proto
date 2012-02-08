@@ -651,12 +651,12 @@ message LoadPlayerCityResponseProto {
 	repeated FullUserStructureProto ownerNormStructs = 3;
 	repeated FullUserProto ownerAllies = 4;
 
-    optional CoordinateProto armoryCoords = 5;
-    optional CoordinateProto vaultCoords = 6;
-    optional CoordinateProto marketplaceCoords = 7;
-    required CoordinateProto lumbermillCoords = 8;
-    required CoordinateProto carpenterCoords = 9;
-    required CoordinateProto aviaryCoords = 10;
+    optional FullUserCritstructProto armory = 5;
+    optional FullUserCritstructProto vault = 6;
+    optional FullUserCritstructProto marketplace = 7;
+    required FullUserCritstructProto lumbermill = 8;
+    required FullUserCritstructProto carpenter = 9;
+    required FullUserCritstructProto aviary = 10;    
      
     enum LoadPlayerCityStatus {
      	SUCCESS = 0;

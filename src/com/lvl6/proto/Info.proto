@@ -100,6 +100,7 @@ message FullUserStructureProto {
 	required int32 level = 6;
 	required int64 purchaseTime = 7;
 	required bool isComplete = 8;
+	required StructOrientation orientation = 9;
 }
 
 //------------------------------------------------------------------------------------------
@@ -217,6 +218,19 @@ enum CritStructType {
 	VAULT = 3;
 	ARMORY = 4;
 	MARKETPLACE = 5;
+}
+
+message FullUserCritstructProto {
+	required CritStructType type = 1;
+	required CoordinateProto coords = 2;
+	required StructOrientation orientation = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+enum StructOrientation {
+	POSITION_1 = 0;
+	POSITION_2 = 1;
 }
 
 //------------------------------------------------------------------------------------------

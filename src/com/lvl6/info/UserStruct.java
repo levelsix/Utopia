@@ -2,6 +2,8 @@ package com.lvl6.info;
 
 import java.util.Date;
 
+import com.lvl6.proto.InfoProto.StructOrientation;
+
 public class UserStruct {
   
   private int id;
@@ -12,10 +14,11 @@ public class UserStruct {
   private int level;
   private Date purchaseTime;
   private boolean isComplete;
+  private StructOrientation orientation;
   
   public UserStruct(int id, int userId, int structId, Date lastRetrieved,
       CoordinatePair coordinates, int level, Date purchaseTime,
-      boolean isComplete) {
+      boolean isComplete, StructOrientation orientation) {
     this.id = id;
     this.userId = userId;
     this.structId = structId;
@@ -24,6 +27,7 @@ public class UserStruct {
     this.level = level;
     this.purchaseTime = purchaseTime;
     this.isComplete = isComplete;
+    this.orientation = orientation;
   }
 
   public int getId() {
@@ -57,13 +61,17 @@ public class UserStruct {
   public boolean isComplete() {
     return isComplete;
   }
+  
+  public StructOrientation getOrientation() {
+    return orientation;
+  }
 
   @Override
   public String toString() {
     return "UserStruct [id=" + id + ", userId=" + userId + ", structId="
         + structId + ", lastRetrieved=" + lastRetrieved + ", coordinates="
         + coordinates + ", level=" + level + ", purchaseTime=" + purchaseTime
-        + ", isComplete=" + isComplete + "]";
+        + ", isComplete=" + isComplete + ", orientation=" + orientation + "]";
   }
   
 }
