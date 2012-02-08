@@ -117,21 +117,21 @@ public class CreateInfoProtoUtils {
     return builder.build();
   }
 
-  public static FullUserProto createFullUserProtoFromUser(User user) {
-    FullUserProto ftp = FullUserProto.newBuilder().setUserId(user.getId()).setName(user.getName())
-        .setLevel(user.getLevel()).setUserType(user.getType()).setAttack(user.getAttack())
-        .setDefense(user.getDefense()).setStamina(user.getStamina()).setEnergy(user.getEnergy())
-        .setSkillPoints(user.getSkillPoints()).setHealthMax(user.getHealthMax())
-        .setEnergyMax(user.getEnergyMax()).setStaminaMax(user.getStaminaMax()).setDiamonds(user.getDiamonds())
-        .setCoins(user.getCoins()).setWood(user.getWood()).setMarketplaceDiamondsEarnings(user.getMarketplaceDiamondsEarnings())
-        .setMarketplaceCoinsEarnings(user.getMarketplaceCoinsEarnings()).setMarketplaceWoodEarnings(user.getMarketplaceWoodEarnings())
-        .setVaultBalance(user.getVaultBalance()).setExperience(user.getEnergyMax())
-        .setTasksCompleted(user.getTasksCompleted()).setBattlesWon(user.getBattlesWon())
-        .setBattlesLost(user.getBattlesLost()).setHourlyCoins(user.getHourlyCoins())
-        .setArmyCode(user.getArmyCode()).setNumReferrals(user.getNumReferrals())
-        .setUdid(user.getUdid())
-        .setUserLocation(CreateInfoProtoUtils.createLocationProtoFromLocation(user.getUserLocation()))
-        .setNumPostsInMarketplace(user.getNumPostsInMarketplace()).build();
+  public static FullUserProto createFullUserProtoFromUser(User u) {
+    FullUserProto ftp = FullUserProto.newBuilder().setUserId(u.getId()).setName(u.getName())
+        .setLevel(u.getLevel()).setUserType(u.getType()).setAttack(u.getAttack())
+        .setDefense(u.getDefense()).setStamina(u.getStamina()).setEnergy(u.getEnergy())
+        .setSkillPoints(u.getSkillPoints()).setHealthMax(u.getHealthMax())
+        .setEnergyMax(u.getEnergyMax()).setStaminaMax(u.getStaminaMax()).setDiamonds(u.getDiamonds())
+        .setCoins(u.getCoins()).setWood(u.getWood()).setMarketplaceDiamondsEarnings(u.getMarketplaceDiamondsEarnings())
+        .setMarketplaceCoinsEarnings(u.getMarketplaceCoinsEarnings()).setMarketplaceWoodEarnings(u.getMarketplaceWoodEarnings())
+        .setVaultBalance(u.getVaultBalance()).setExperience(u.getEnergyMax())
+        .setTasksCompleted(u.getTasksCompleted()).setBattlesWon(u.getBattlesWon())
+        .setBattlesLost(u.getBattlesLost()).setHourlyCoins(u.getHourlyCoins())
+        .setArmyCode(u.getArmyCode()).setNumReferrals(u.getNumReferrals())
+        .setUdid(u.getUdid())
+        .setUserLocation(CreateInfoProtoUtils.createLocationProtoFromLocation(u.getUserLocation()))
+        .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed()).build();
     return ftp;
   }
 

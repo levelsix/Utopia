@@ -39,6 +39,7 @@ public class User {
   private String udid;
   private Location userLocation;
   private int numPostsInMarketplace;
+  private int numMarketplaceSalesUnredeemed;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int skillPoints,
@@ -47,7 +48,7 @@ public class User {
       int marketplaceWoodEarnings, int vaultBalance, int experience,
       int tasksCompleted, int battlesWon, int battlesLost, int hourlyCoins,
       String armyCode, int numReferrals, String udid, Location userLocation,
-      int numPostsInMarketplace) {
+      int numPostsInMarketplace, int numMarketplaceSalesUnredeemed) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -77,6 +78,7 @@ public class User {
     this.udid = udid;
     this.userLocation = userLocation;
     this.numPostsInMarketplace = numPostsInMarketplace;
+    this.numMarketplaceSalesUnredeemed = numMarketplaceSalesUnredeemed;
   }
 
   /*
@@ -197,7 +199,7 @@ public class User {
   /*
    * used for marketplace purchase
    */
-  public boolean updateMoveMarketplaceEarningsToRealStat() {
+  public boolean updateMoveMarketplaceEarningsToRealStatResetNummarketplacesalesunredeemed() {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -212,7 +214,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__MARKETPLACE_DIAMONDS_EARNINGS, 0);
     absoluteParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, 0);
     absoluteParams.put(DBConstants.USER__MARKETPLACE_WOOD_EARNINGS, 0);
-
+    absoluteParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, 0);
     
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
@@ -231,9 +233,9 @@ public class User {
   /*
    * used for marketplace purchase
    */
-  public boolean updateRelativeDiamondsearningsCoinsearningsWoodearningsNumpostsinmarketplaceNaive 
+  public boolean updateRelativeDiamondsearningsCoinsearningsWoodearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive 
   (int diamondEarningsChange, int coinEarningsChange, 
-      int woodEarningsChange, int numPostsInMarketplaceChange) {
+      int woodEarningsChange, int numPostsInMarketplaceChange, int numMarketplaceSalesUnredeemedChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -243,7 +245,8 @@ public class User {
     relativeParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, coinEarningsChange);
     relativeParams.put(DBConstants.USER__MARKETPLACE_WOOD_EARNINGS, woodEarningsChange);
     relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
-
+    relativeParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, numMarketplaceSalesUnredeemedChange);
+    
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -251,6 +254,7 @@ public class User {
       this.marketplaceCoinsEarnings += coinEarningsChange;
       this.marketplaceWoodEarnings += woodEarningsChange;
       this.numPostsInMarketplace += numPostsInMarketplaceChange;
+      this.numMarketplaceSalesUnredeemed += numMarketplaceSalesUnredeemedChange;
       return true;
     }
     return false;
@@ -519,22 +523,28 @@ public class User {
   public int getNumPostsInMarketplace() {
     return numPostsInMarketplace;
   }
+  
+  public int getNumMarketplaceSalesUnredeemed() {
+    return numMarketplaceSalesUnredeemed;
+  }
 
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
         + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
-        + stamina + ", energy=" + energy + ", skillPoints=" + skillPoints + ", healthMax=" + healthMax
-        + ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
-        + ", diamonds=" + diamonds + ", coins=" + coins + ", wood=" + wood
-        + ", marketplaceDiamondsEarnings=" + marketplaceDiamondsEarnings
-        + ", marketplaceCoinsEarnings=" + marketplaceCoinsEarnings
-        + ", marketplaceWoodEarnings=" + marketplaceWoodEarnings
-        + ", vaultBalance=" + vaultBalance + ", experience=" + experience
-        + ", tasksCompleted=" + tasksCompleted + ", battlesWon=" + battlesWon
-        + ", battlesLost=" + battlesLost + ", hourlyCoins=" + hourlyCoins
-        + ", armyCode=" + armyCode + ", numReferrals=" + numReferrals
-        + ", udid=" + udid + ", userLocation=" + userLocation
-        + ", numPostsInMarketplace=" + numPostsInMarketplace + "]";
-  }  
+        + stamina + ", energy=" + energy + ", skillPoints=" + skillPoints
+        + ", healthMax=" + healthMax + ", energyMax=" + energyMax
+        + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
+        + coins + ", wood=" + wood + ", marketplaceDiamondsEarnings="
+        + marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="
+        + marketplaceCoinsEarnings + ", marketplaceWoodEarnings="
+        + marketplaceWoodEarnings + ", vaultBalance=" + vaultBalance
+        + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
+        + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
+        + ", hourlyCoins=" + hourlyCoins + ", armyCode=" + armyCode
+        + ", numReferrals=" + numReferrals + ", udid=" + udid
+        + ", userLocation=" + userLocation + ", numPostsInMarketplace="
+        + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
+        + numMarketplaceSalesUnredeemed + "]";
+  }
 }

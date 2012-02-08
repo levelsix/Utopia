@@ -49,6 +49,8 @@ message FullUserProto {
 	required string udid = 28;
 	required LocationProto userLocation = 29;
 	required int32 numPostsInMarketplace = 30;
+	required int32 numMarketplaceSalesUnredeemed = 31;
+	
 }
 
 //------------------------------------------------------------------------------------------

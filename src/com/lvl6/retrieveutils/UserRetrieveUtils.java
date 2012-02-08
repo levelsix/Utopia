@@ -158,10 +158,12 @@ public class UserRetrieveUtils {
     String udid = rs.getString(i++);
     Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
     int numPostsInMarketplace = rs.getInt(i++);
+    int numMarketplaceSalesUnredeemed = rs.getInt(i++);
+
     User user = new User(userId, name, level, type, attack, defense, stamina, energy, skillPoints, 
         healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         marketplaceWoodEarnings, vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
-        hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace);
+        hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed);
     return user;
   }
 }

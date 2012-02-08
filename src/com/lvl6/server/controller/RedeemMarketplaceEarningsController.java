@@ -60,7 +60,7 @@ public class RedeemMarketplaceEarningsController extends EventController {
   }
 
   private void writeChangesToDB(User user) {
-    if (!user.updateMoveMarketplaceEarningsToRealStat()) {
+    if (!user.updateMoveMarketplaceEarningsToRealStatResetNummarketplacesalesunredeemed()) {
       log.error("problem with moving earnings to real stat for user in mktplace");
     }
   }
