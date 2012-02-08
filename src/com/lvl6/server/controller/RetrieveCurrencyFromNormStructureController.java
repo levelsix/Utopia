@@ -86,7 +86,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
 
   private boolean checkLegitRetrieval(Builder resBuilder, User user, UserStruct userStruct, Structure struct, Date timeOfRetrieval) {
     // TODO Auto-generated method stub
-    if (user == null || userStruct == null || timeOfRetrieval == null || user.getId() != userStruct.getUserId()) {
+    if (user == null || userStruct == null || timeOfRetrieval == null || user.getId() != userStruct.getUserId() || !userStruct.isComplete() || userStruct.getLastRetrieved() == null) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
       return false;
     }
