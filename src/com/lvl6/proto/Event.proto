@@ -276,7 +276,6 @@ message MoveNormStructureResponseProto {
 message SellNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
-	required int32 soldStructId = 3;		//optimization to prevent db call
 }
 
 																						//DONE

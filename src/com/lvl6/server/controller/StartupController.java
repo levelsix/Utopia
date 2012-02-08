@@ -80,7 +80,7 @@ public class StartupController extends EventController {
         setCitiesAvailableToUser(resBuilder, user);
         setInProgressAndAvailableQuests(resBuilder, user);
         setUserEquips(resBuilder, user);
-        setUserStructs(resBuilder, user);
+        //setUserStructs(resBuilder, user);
 
       }
     }
@@ -98,14 +98,15 @@ public class StartupController extends EventController {
     NIOUtils.channelWrite(server.removePreDbPlayer(udid), writeBuffer);
   }
 
+  /*
   private void setUserStructs(Builder resBuilder, User user) {
     List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
     if (userStructs != null) {
       for (UserStruct ue : userStructs) {
-        resBuilder.addUserStructures(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(ue));
+        resBuilder.addUserStructs(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(ue));
       }
     }    
-  }
+  }*/
 
   private void setUserEquips(Builder resBuilder, User user) {
     List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
