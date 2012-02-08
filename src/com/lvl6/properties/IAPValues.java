@@ -1,5 +1,8 @@
 package com.lvl6.properties;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class IAPValues {
 
   /*APPLE'S VARIABLES*/
@@ -35,6 +38,17 @@ public class IAPValues {
   private static final double PACKAGE_5_PRICE = 99.99;
   private static final double PACKAGE_6_PRICE = 999.99;
 
+  public static final List<String> packageNames = 
+      Arrays.asList(PACKAGE1, PACKAGE2, PACKAGE3, PACKAGE4, PACKAGE5, PACKAGE6);
+  public static final List<Integer> packageGivenDiamonds = 
+      Arrays.asList(PACKAGE_1_DIAMONDS, PACKAGE_2_DIAMONDS, PACKAGE_3_DIAMONDS, 
+          PACKAGE_4_DIAMONDS, PACKAGE_5_DIAMONDS, PACKAGE_6_DIAMONDS);
+  public static final List<Double> packagePrices = 
+      Arrays.asList(PACKAGE_1_PRICE, PACKAGE_2_PRICE, PACKAGE_3_PRICE, 
+          PACKAGE_4_PRICE, PACKAGE_5_PRICE, PACKAGE_6_PRICE);
+
+
+  
   public static int getDiamondsForPackageName(String packageName) {
     if (packageName.equals(PACKAGE1)) {
       return PACKAGE_1_DIAMONDS;

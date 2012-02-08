@@ -19,7 +19,7 @@ public class QuestRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static Map<Integer, List<Quest>> cityIdToQuests;
+  //private static Map<Integer, List<Quest>> cityIdToQuests;
   private static Map<Integer, Quest> questIdsToQuests;
   private static QuestGraph questGraph;
 
@@ -40,46 +40,13 @@ public class QuestRetrieveUtils {
     }
     return questIdsToQuests.get(questId);
   }
-
-  public static List<Integer> getAvailableQuests(List<Integer> completed, List<Integer> inProgress) {
+  
+  public static QuestGraph getQuestGraph() {
     log.info("retrieving available quests");
     if (questIdsToQuests == null) {
       setStaticQuestGraph();
     }
-    return questGraph.getQuestsAvailable(completed, inProgress);
-  }
-
-  public static List<Quest> getQuestsForCityId(int cityId) {
-    if (cityIdToQuests == null) {
-      setStaticCityIdsToQuests();
-    }
-    return cityIdToQuests.get(cityId);
-  }
-
-  private static void setStaticCityIdsToQuests() {
-    log.info("setting static map of cityId to quests");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        Map<Integer, List<Quest>> cityIdToQuestsTemp = new HashMap<Integer, List<Quest>>();
-        while(rs.next()) {
-          Quest quest = convertRSRowToQuest(rs);
-          if (quest != null) {
-            if (cityIdToQuestsTemp.get(quest.getCityId()) == null) {
-              cityIdToQuestsTemp.put(quest.getCityId(), new ArrayList<Quest>());
-            }
-            cityIdToQuestsTemp.get(quest.getCityId()).add(quest);
-          }
-        }
-        cityIdToQuests = cityIdToQuestsTemp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }    
+    return questGraph;
   }
 
   private static void setStaticQuestIdsToQuests() {
@@ -126,7 +93,7 @@ public class QuestRetrieveUtils {
   }
 
   public static void reload() {
-    setStaticCityIdsToQuests();
+    //setStaticCityIdsToQuests();
     setStaticQuestGraph();
     setStaticQuestIdsToQuests();
   }

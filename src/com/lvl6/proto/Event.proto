@@ -108,25 +108,28 @@ message StartupRequestProto {				//client will also send ChangeUserLocationReque
 }
 
 message StartupResponseProto {
-     optional FullUserProto sender = 1;
-     required StartupStatus startupStatus= 2;
-     required UpdateStatus updateStatus= 3;
-     optional int32 maxCityIdAccessibleToUser = 4;     //cityids must be in order of min_level
-     optional FullUserStructureProto userStructures = 5;
-     repeated string productIds = 6;
-
-     optional int32 diamondCostForEnergyRefill = 7; 
-     optional int32 diamondCostForStaminaRefill = 8;
-	 //ADD a bunch of other important constants
-	 
-     repeated FullUserEquipProto userEquips = 9;
-     
-    repeated FullQuestProto inProgressQuests = 10;
-	repeated FullQuestProto availableQuests = 11;   
-      
-      required int32 maxItemUsePerBattle = 12;
-     
-     enum UpdateStatus {
+    optional FullUserProto sender = 1;
+    required StartupStatus startupStatus= 2;
+    required UpdateStatus updateStatus= 3;
+    required StartupConstants startupConstants = 4;
+    repeated FullCityProto citiesAvailableToUser = 5;
+    repeated FullQuestProto inProgressQuests = 6;
+	repeated FullQuestProto availableQuests = 7;   
+	repeated FullUserEquipProto userEquips = 8;
+    //repeated FullUserStructureProto userStructures = 9;
+	  
+	message StartupConstants {
+	  	repeated string productIds = 1;
+	  	repeated int32 productDiamondsGiven = 2;
+	  	repeated double productPrices = 3;
+	    required int32 diamondCostForEnergyRefill = 4; 
+    	required int32 diamondCostForStaminaRefill = 5;
+    	required int32 maxItemUsePerBattle = 6;
+    	   	
+		//ADD a bunch of other important constants
+	}
+		     
+    enum UpdateStatus {
      	NO_UPDATE = 0;
      	MINOR_UPDATE = 1;			//NOTIFY USER OF NEW FEATURES AND/OR ASK USER IF HE WANTS TO UPDATE NOW
      	MAJOR_UPDATE = 2;			//NOT ALLOWED TO PLAY
@@ -365,7 +368,7 @@ message CriticalStructureActionResponseProto {
 
 message LevelUpResponseProto {
      required FullUserProto sender = 1;
-     optional int32 maxCityIdAccessibleToUser = 2;
+     optional FullCityProto unlockedCityAvailableToUser = 2;
 }
 
 //------------------------------------------------------------------------------------------
@@ -752,6 +755,7 @@ message QuestLogDetailsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RetrieveStaticDataRequestProto {
     required MinimumUserProto sender = 1;
 	repeated int32 structIds = 2;
@@ -765,6 +769,7 @@ message RetrieveStaticDataRequestProto {
 	repeated int32 upgradeStructJobIds = 15;
 }
 
+																						//DONE
 message RetrieveStaticDataResponseProto {
     required MinimumUserProto sender = 1;
 	repeated FullStructureProto structs = 2;

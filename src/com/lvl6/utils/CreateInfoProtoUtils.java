@@ -11,6 +11,7 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserStruct;
 import com.lvl6.info.jobs.BuildStructJob;
 import com.lvl6.info.jobs.DefeatTypeJob;
@@ -26,6 +27,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LocationProto;
@@ -146,7 +148,13 @@ public class CreateInfoProtoUtils {
     }
     return builder.build();
   }
-
+  
+  public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
+    return FullUserEquipProto.newBuilder().setUserId(ue.getUserId()).setEquipId(ue.getEquipId())
+        .setQuantity(ue.getQuantity()).setIsStolen(ue.isStolen()).build();
+  }
+  
+  
   public static FullTaskProto createFullTaskProtoFromTask(UserType userType, Task task) {
 
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);

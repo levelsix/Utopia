@@ -31,6 +31,7 @@ public class ControllerConstants {
   
   
   //BATTLE
+  public static final int BATTLE__MAX_ITEMS_USED = 4;
   public static final int BATTLE__MAX_DAMAGE = 24;
   public static final int BATTLE__MIN_DAMAGE_DEALT_TO_LOSER = BATTLE__MAX_DAMAGE - 10;
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 50;

@@ -22,6 +22,7 @@ import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.QuestGraph;
 
 public class QuestUtils {
   
@@ -102,4 +103,10 @@ public class QuestUtils {
     server.writeEvent(event);
   }
 
+  public static List<Integer> getAvailableQuestsForUser(List<Integer> completed, List<Integer> inProgress) {
+    QuestGraph graph = QuestRetrieveUtils.getQuestGraph();
+    return graph.getQuestsAvailable(completed, inProgress);
+  }
+
+  
 }
