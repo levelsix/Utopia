@@ -90,7 +90,7 @@ message FullEquipProto {
 //------------------------------------------------------------------------------------------
 
 message FullUserStructureProto {
-	required int32 id = 1;
+	required int32 userStructId = 1;
 	required int32 userId = 2;
 	required int32 structId = 3;
 	optional int64 lastRetrieved = 4;
@@ -112,7 +112,7 @@ message FullUserEquipProto {
 //------------------------------------------------------------------------------------------
 
 message FullStructureProto { 
-	required int32 id = 1;
+	required int32 structId = 1;
 	required string name = 2;
 	required int32 income = 3;
 	required int32 minutesToGain = 4;
@@ -155,7 +155,7 @@ message FullTaskProto {
 //------------------------------------------------------------------------------------------
 
 message FullCityProto {
-	required int32 id = 1;
+	required int32 cityId = 1;
 	required string name = 2;
 	required int32 minLevel = 3;
 	required int32 expGainedBaseOnRankup = 4;
@@ -246,7 +246,7 @@ message MinimumUserDefeatTypeJobProto {
 }
 
 message DefeatTypeJobProto {
-     required int32 id = 1;
+     required int32 defeatTypeJobId = 1;
      required UserType typeOfEnemy = 2;
      required int32 numEnemiesToDefeat = 3;
      required int32 cityId = 4;
@@ -260,7 +260,7 @@ message MinimumUserBuildStructJobProto {
 }
 
 message BuildStructJobProto {
-     required int32 id = 1;
+     required int32 buildStructJobId = 1;
      required int32 structId = 2;
      required int32 quantityRequired = 3;
 }
@@ -273,7 +273,7 @@ message MinimumUserUpgradeStructJobProto {
 }
 
 message UpgradeStructJobProto {
-     required int32 id = 1;
+     required int32 upgradeStructJobId = 1;
      required int32 structId = 2;
      required int32 levelReq = 3;
 }
@@ -286,7 +286,7 @@ message MinimumUserPossessEquipJobProto {
 }
 
 message PossessEquipJobProto {
-     required int32 id = 1;
+     required int32 possessEquipJobId = 1;
      required int32 equipId = 2;
      required int32 quantityReq = 3;
 }
@@ -294,7 +294,7 @@ message PossessEquipJobProto {
 //------------------------------------------------------------------------------------------
 
 message FullQuestProto {
-     required int32 id = 1;
+     required int32 questId = 1;
      required int32 cityId = 2;
      required string name = 3;
      required string description = 4;

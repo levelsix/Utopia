@@ -64,7 +64,7 @@ public class CreateInfoProtoUtils {
       defeatTypeReqs = quest.getDefeatGoodGuysJobsRequired();
     }
 
-    return FullQuestProto.newBuilder().setId(quest.getId()).setCityId(quest.getCityId()).setName(name)
+    return FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
         .setDescription(description).setDoneResponse(doneResponse).setInProgress(inProgress).setAssetNumWithinCity(quest.getAssetNumWithinCity())
         .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained()).setWoodGained(quest.getWoodGained())
         .setExpGained(quest.getExpGained()).setEquipIdGained(quest.getEquipIdGained()).addAllQuestsRequiredForThis(quest.getQuestsRequiredForThis())
@@ -104,7 +104,7 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullUserStructureProto createFullUserStructureProtoFromUserstruct(UserStruct userStruct) {
-    FullUserStructureProto.Builder builder = FullUserStructureProto.newBuilder().setId(userStruct.getId())
+    FullUserStructureProto.Builder builder = FullUserStructureProto.newBuilder().setUserStructId(userStruct.getId())
         .setUserId(userStruct.getUserId()).setStructId(userStruct.getStructId()).setLevel(userStruct.getLevel())
         .setIsComplete(userStruct.isComplete()).setCoordinates(CoordinateProto.newBuilder().setX(userStruct.getCoordinates().getX())
             .setY(userStruct.getCoordinates().getY()));
@@ -188,7 +188,7 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullStructureProto createFullStructureProtoFromStructure(Structure s) {
-    return FullStructureProto.newBuilder().setId(s.getId()).setName(s.getName()).setIncome(s.getIncome())
+    return FullStructureProto.newBuilder().setStructId(s.getId()).setName(s.getName()).setIncome(s.getIncome())
         .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(s.getMinutesToBuild()).setCoinPrice(s.getCoinPrice())
         .setDiamondPrice(s.getDiamondPrice()).setWoodPrice(s.getWoodPrice()).setMinLevel(s.getMinLevel())
         .setXLength(s.getxLength()).setYLength(s.getyLength()).setUpgradeCoinCostBase(s.getUpgradeCoinCostBase())
@@ -196,30 +196,30 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullCityProto createFullCityProtoFromCity(City c) {
-    return FullCityProto.newBuilder().setId(c.getId()).setName(c.getName()).setMinLevel(c.getMinLevel())
+    return FullCityProto.newBuilder().setCityId(c.getId()).setName(c.getName()).setMinLevel(c.getMinLevel())
         .setExpGainedBaseOnRankup(c.getExpGainedBaseOnRankup()).setCoinsGainedBaseOnRankup(c.getCoinsGainedBaseOnRankup())
         .build();
   }
 
   public static BuildStructJobProto createFullBuildStructJobProtoFromBuildStructJob(
       BuildStructJob j) {
-    return BuildStructJobProto.newBuilder().setId(j.getId()).setStructId(j.getStructId()).setQuantityRequired(j.getQuantity()).build();
+    return BuildStructJobProto.newBuilder().setBuildStructJobId(j.getId()).setStructId(j.getStructId()).setQuantityRequired(j.getQuantity()).build();
   }
 
   public static DefeatTypeJobProto createFullDefeatTypeJobProtoFromDefeatTypeJob(
       DefeatTypeJob j) {
-    return DefeatTypeJobProto.newBuilder().setId(j.getId()).setTypeOfEnemy(j.getEnemyType())
+    return DefeatTypeJobProto.newBuilder().setDefeatTypeJobId(j.getId()).setTypeOfEnemy(j.getEnemyType())
         .setNumEnemiesToDefeat(j.getNumEnemiesToDefeat()).setCityId(j.getCityId()).build();
   }
 
   public static UpgradeStructJobProto createFullUpgradeStructJobProtoFromUpgradeStructJob(
       UpgradeStructJob j) {
-    return UpgradeStructJobProto.newBuilder().setId(j.getId()).setStructId(j.getStructId()).setLevelReq(j.getLevelReq()).build();
+    return UpgradeStructJobProto.newBuilder().setUpgradeStructJobId(j.getId()).setStructId(j.getStructId()).setLevelReq(j.getLevelReq()).build();
   }
 
   public static PossessEquipJobProto createFullPossessEquipJobProtoFromPossessEquipJob(
       PossessEquipJob j) {
-    return PossessEquipJobProto.newBuilder().setId(j.getId()).setEquipId(j.getEquipId()).setQuantityReq(j.getQuantity()).build();
+    return PossessEquipJobProto.newBuilder().setPossessEquipJobId(j.getId()).setEquipId(j.getEquipId()).setQuantityReq(j.getQuantity()).build();
   }
 
 
