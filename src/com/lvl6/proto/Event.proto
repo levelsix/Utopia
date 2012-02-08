@@ -244,11 +244,9 @@ message PurchaseNormStructureResponseProto {
 	
 	enum PurchaseNormStructureStatus {
 		SUCCESS = 0;
-		NOT_ENOUGH_COINS = 1;
-		NOT_ENOUGH_DIAMONDS = 2;
-		NOT_ENOUGH_WOOD = 3;
-		LEVEL_TOO_LOW = 4;
-		OTHER_FAIL = 5;
+		NOT_ENOUGH_MATERIALS = 1;
+		LEVEL_TOO_LOW = 2;
+		OTHER_FAIL = 3;
 	}
 }
 

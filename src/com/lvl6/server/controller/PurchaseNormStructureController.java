@@ -97,15 +97,15 @@ public class PurchaseNormStructureController extends EventController {
       return false;
     }
     if (user.getCoins() < struct.getCoinPrice()) {
-      resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_COINS);
+      resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
     if (user.getDiamonds() < struct.getDiamondPrice()) {
-      resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_DIAMONDS);
+      resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
     if (user.getWood() < struct.getWoodPrice()) {
-      resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_WOOD);
+      resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }    
     resBuilder.setStatus(PurchaseNormStructureStatus.SUCCESS);
