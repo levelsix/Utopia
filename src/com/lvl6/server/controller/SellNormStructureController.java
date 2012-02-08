@@ -46,7 +46,7 @@ public class SellNormStructureController extends EventController {
     Structure struct = null;
 
     if (userStruct != null) {
-      struct = StructureRetrieveUtils.getStructForStructId(userStruct.getId());
+      struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
     }
 
     server.lockPlayer(senderProto.getUserId());
