@@ -105,7 +105,7 @@ public class CreateInfoProtoUtils {
 
   public static FullUserStructureProto createFullUserStructureProtoFromUserstruct(UserStruct userStruct) {
     FullUserStructureProto.Builder builder = FullUserStructureProto.newBuilder().setId(userStruct.getId())
-        .setUserId(userStruct.getId()).setStructId(userStruct.getStructId()).setLevel(userStruct.getLevel())
+        .setUserId(userStruct.getUserId()).setStructId(userStruct.getStructId()).setLevel(userStruct.getLevel())
         .setIsComplete(userStruct.isComplete()).setCoordinates(CoordinateProto.newBuilder().setX(userStruct.getCoordinates().getX())
             .setY(userStruct.getCoordinates().getY()));
     if (userStruct.getPurchaseTime() != null) {
