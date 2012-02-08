@@ -32,14 +32,15 @@ public class UserRetrieveUtils {
     return convertRSToUser(DBConnection.selectRowsById(userId, TABLE_NAME));
   }
   
+  /*
   public static List<User> getUsersByIds(List<Integer> ids) {
     log.info("retrieving users with userIds " + ids);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : ids) {
-      paramsToVals.put(DBConstants.USER__ID, i);
+      paramsToVals.put(DBConstants.USER__ID, i); BUG, IT OVERWRITES
     }
     return convertRSToUsers(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
-  }
+  }*/
   
   public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
     log.info("retrieving list of users for user " + userId);

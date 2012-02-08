@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -16,6 +15,7 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
+import com.lvl6.utils.utilmethods.StringUtils;
 
 public class UserStructRetrieveUtils {
 
@@ -39,15 +39,19 @@ public class UserStructRetrieveUtils {
   }
 
   public static List<UserStruct> getUserStructs(List<Integer> userStructIds) {
-    if (userStructIds == null || userStructIds.size() <= 0) {
-      return null;
+    if (userStructIds == null || userStructIds.size() <= 0 ) {
+      return new ArrayList<UserStruct>();
     }
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    
+    String query = "select * from " + TABLE_NAME + " where (";
+    List<String> condClauses = new ArrayList<String>();
+    List <Object> values = new ArrayList<Object>();
     for (Integer userStructId : userStructIds) {
-      paramsToVals.put(DBConstants.USER_STRUCTS__ID, userStructId);
+      condClauses.add(DBConstants.USER_STRUCTS__ID + "=?");
+      values.add(userStructId);
     }
-    return convertRSToUserStructs(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
-
+    query += StringUtils.getListInString(condClauses, "or") + ")";
+    return convertRSToUserStructs(DBConnection.selectDirectQueryNaive(query, values));
   }
 
   private static List<UserStruct> convertRSToUserStructs(ResultSet rs) {
@@ -67,7 +71,7 @@ public class UserStructRetrieveUtils {
     }
     return null;
   }
-  
+
 
   private static Map<Integer, List<UserStruct>> convertRSToStructIdsToUserStructs(
       ResultSet rs) {

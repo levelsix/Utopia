@@ -38,15 +38,43 @@ public class UserEquipRetrieveUtils {
     return convertRSSingleToUserEquips(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
   }
 
+  /*
   //returns map from userId to his equipments
   public static Map<Integer, List<UserEquip>> getUserEquipsForUserIds(List<Integer> userIds) {
     log.info("retrieving user equips for userIds " + userIds);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : userIds) {
-      paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, i);
+      paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, i); BUG BUG IT OVERWRITES
     }
     return convertRSToUserToUserEquips(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
+
+    private static Map<Integer, List<UserEquip>> convertRSToUserToUserEquips(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        Map<Integer, List<UserEquip>> userToUserEquips = new HashMap<Integer, List<UserEquip>>();
+        while(rs.next()) {  //should only be one
+          UserEquip ue = convertRSRowToUserEquip(rs);
+          List<UserEquip> userUEs = userToUserEquips.get(ue.getUserId());
+          if (userUEs != null) {
+            userUEs.add(ue);
+          } else {
+            List<UserEquip> ues = new ArrayList<UserEquip>();
+            ues.add(ue);
+            userToUserEquips.put(ue.getUserId(), ues);
+          }
+        }
+        return userToUserEquips;
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return null;
+  }
+   */
 
   private static Map<Integer, List<UserEquip>> convertRSToEquipIdsToUserEquips(
       ResultSet rs) {
@@ -67,33 +95,6 @@ public class UserEquipRetrieveUtils {
           }
         }
         return equipIdsToUserEquips;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }
-    return null;
-  }
-
-
-  private static Map<Integer, List<UserEquip>> convertRSToUserToUserEquips(ResultSet rs) {
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        Map<Integer, List<UserEquip>> userToUserEquips = new HashMap<Integer, List<UserEquip>>();
-        while(rs.next()) {  //should only be one
-          UserEquip ue = convertRSRowToUserEquip(rs);
-          List<UserEquip> userUEs = userToUserEquips.get(ue.getUserId());
-          if (userUEs != null) {
-            userUEs.add(ue);
-          } else {
-            List<UserEquip> ues = new ArrayList<UserEquip>();
-            ues.add(ue);
-            userToUserEquips.put(ue.getUserId(), ues);
-          }
-        }
-        return userToUserEquips;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);

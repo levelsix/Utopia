@@ -48,7 +48,6 @@ public class NormStructBuildsCompleteController extends EventController{
       boolean legitBuild = checkLegitBuild(resBuilder, userStructs, userStructIds);
 
       NormStructBuildsCompleteResponseEvent resEvent = new NormStructBuildsCompleteResponseEvent(senderProto.getUserId());
-      resEvent.setNormStructBuildsCompleteResponseProto(resBuilder.build());  
 
       if (legitBuild) {
         writeChangesToDB(userStructs);
@@ -58,6 +57,8 @@ public class NormStructBuildsCompleteController extends EventController{
       for (UserStruct userStruct : newUserStructs) {
         resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(userStruct));
       }
+      resEvent.setNormStructBuildsCompleteResponseProto(resBuilder.build());  
+
       server.writeEvent(resEvent);
       
       if (legitBuild) {
