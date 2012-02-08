@@ -56,7 +56,7 @@ public class NormStructBuildsCompleteController extends EventController{
       
       List<UserStruct> newUserStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
       for (UserStruct userStruct : newUserStructs) {
-        resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProto(userStruct));
+        resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(userStruct));
       }
       server.writeEvent(resEvent);
       

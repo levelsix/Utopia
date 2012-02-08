@@ -27,6 +27,14 @@ public class CityRetrieveUtils {
     return cityIdToCity.get(cityId);
   }
   
+  public static Map<Integer, City> getCityIdsToCities() {
+    log.info("retrieving all-cities data");
+    if (cityIdToCity == null) {
+      setStaticCityIdsToCity();
+    }
+    return cityIdToCity;
+  }
+  
   private static void setStaticCityIdsToCity() {
     log.info("setting static map of cityIds to city");
     ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
@@ -67,4 +75,5 @@ public class CityRetrieveUtils {
     int coinsGainedBaseOnRankup = rs.getInt(i++);
     return new City(id, name, minLevel, expGainedBaseOnRankup, coinsGainedBaseOnRankup);
   }
+
 }

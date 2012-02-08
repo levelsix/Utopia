@@ -87,7 +87,7 @@ public class LoadPlayerCityController extends EventController {
       List<UserStruct> userStructs) {
     if (userStructs != null) {
       for (UserStruct userStruct : userStructs) {
-        resBuilder.addOwnerNormStructs(CreateInfoProtoUtils.createFullUserStructureProto(userStruct));
+        resBuilder.addOwnerNormStructs(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(userStruct));
       }
     } else {
       resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);

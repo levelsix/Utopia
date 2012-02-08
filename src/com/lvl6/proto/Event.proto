@@ -687,6 +687,7 @@ message QuestAcceptResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message QuestCompleteResponseProto {
      required MinimumUserProto sender = 1;
      required FullQuestProto quest = 2;
@@ -749,3 +750,38 @@ message QuestLogDetailsResponseProto {
      }
 }
 
+//------------------------------------------------------------------------------------------
+
+message RetrieveStaticDataRequestProto {
+    required MinimumUserProto sender = 1;
+	repeated int32 structIds = 2;
+	repeated int32 taskIds = 3;
+	repeated int32 questIds = 4;
+	repeated int32 cityIds = 5;
+	repeated int32 equipIds = 6;
+	repeated int32 buildStructJobIds = 12;
+	repeated int32 defeatTypeJobIds = 13;
+	repeated int32 possessEquipJobIds = 14;
+	repeated int32 upgradeStructJobIds = 15;
+}
+
+message RetrieveStaticDataResponseProto {
+    required MinimumUserProto sender = 1;
+	repeated FullStructureProto structs = 2;
+	repeated FullTaskProto tasks = 3;
+	repeated FullQuestProto quests = 4;
+	repeated FullCityProto cities = 5;
+	repeated FullEquipProto equips = 6;
+	repeated BuildStructJobProto buildStructJobs = 12;
+	repeated DefeatTypeJobProto defeatTypeJobs = 13;
+	repeated PossessEquipJobProto possessEquipJobs = 14;
+	repeated UpgradeStructJobProto upgradeStructJobs = 15;
+	
+	required RetrieveStaticDataStatus status = 7;
+	
+	enum RetrieveStaticDataStatus {
+		SUCCESS = 0;
+		SOME_FAIL = 1;
+	}
+	
+}
