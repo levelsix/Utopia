@@ -205,7 +205,9 @@ public class CreateInfoProtoUtils {
         .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(s.getMinutesToBuild()).setCoinPrice(s.getCoinPrice())
         .setDiamondPrice(s.getDiamondPrice()).setWoodPrice(s.getWoodPrice()).setMinLevel(s.getMinLevel())
         .setXLength(s.getxLength()).setYLength(s.getyLength()).setUpgradeCoinCostBase(s.getUpgradeCoinCostBase())
-        .setUpgradeDiamondCostBase(s.getDiamondPrice()).setUpgradeWoodCostBase(s.getUpgradeWoodCostBase()).build();
+        .setUpgradeDiamondCostBase(s.getDiamondPrice()).setUpgradeWoodCostBase(s.getUpgradeWoodCostBase())
+        .setInstaBuildDiamondCostBase(s.getInstaBuildDiamondCostBase())
+        .setInstaRetrieveDiamondCostBase(s.getInstaRetrieveDiamondCostBase()).build();
   }
 
   public static FullCityProto createFullCityProtoFromCity(City c) {

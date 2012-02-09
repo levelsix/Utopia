@@ -16,10 +16,13 @@ public class Structure {
   private int upgradeCoinCostBase;
   private int upgradeDiamondCostBase;
   private int upgradeWoodCostBase;
-  
-  public Structure(int id, String name, int income, int minutesToGain, int minutesToBuild, 
-      int coinPrice, int diamondPrice, int woodPrice, int minLevel, int xLength,
-      int yLength, int upgradeCoinCostBase, int upgradeDiamondCostBase, int upgradeWoodCostBase) {
+  private int instaBuildDiamondCostBase;
+  private int instaRetrieveDiamondCostBase;
+  public Structure(int id, String name, int income, int minutesToGain,
+      int minutesToBuild, int coinPrice, int diamondPrice, int woodPrice,
+      int minLevel, int xLength, int yLength, int upgradeCoinCostBase,
+      int upgradeDiamondCostBase, int upgradeWoodCostBase,
+      int instaBuildDiamondCostBase, int instaRetrieveDiamondCostBase) {
     this.id = id;
     this.name = name;
     this.income = income;
@@ -34,64 +37,57 @@ public class Structure {
     this.upgradeCoinCostBase = upgradeCoinCostBase;
     this.upgradeDiamondCostBase = upgradeDiamondCostBase;
     this.upgradeWoodCostBase = upgradeWoodCostBase;
+    this.instaBuildDiamondCostBase = instaBuildDiamondCostBase;
+    this.instaRetrieveDiamondCostBase = instaRetrieveDiamondCostBase;
   }
-  
   public int getId() {
     return id;
   }
-
   public String getName() {
     return name;
   }
-
   public int getIncome() {
     return income;
   }
-
   public int getMinutesToGain() {
     return minutesToGain;
   }
-
   public int getMinutesToBuild() {
     return minutesToBuild;
   }
-  
   public int getCoinPrice() {
     return coinPrice;
   }
-
   public int getDiamondPrice() {
     return diamondPrice;
   }
-
   public int getWoodPrice() {
     return woodPrice;
   }
-  
   public int getMinLevel() {
     return minLevel;
   }
-
   public int getxLength() {
     return xLength;
   }
-
   public int getyLength() {
     return yLength;
   }
-
   public int getUpgradeCoinCostBase() {
     return upgradeCoinCostBase;
   }
-
   public int getUpgradeDiamondCostBase() {
     return upgradeDiamondCostBase;
   }
-  
   public int getUpgradeWoodCostBase() {
     return upgradeWoodCostBase;
   }
-
+  public int getInstaBuildDiamondCostBase() {
+    return instaBuildDiamondCostBase;
+  }
+  public int getInstaRetrieveDiamondCostBase() {
+    return instaRetrieveDiamondCostBase;
+  }
   @Override
   public String toString() {
     return "Structure [id=" + id + ", name=" + name + ", income=" + income
@@ -101,7 +97,9 @@ public class Structure {
         + ", xLength=" + xLength + ", yLength=" + yLength
         + ", upgradeCoinCostBase=" + upgradeCoinCostBase
         + ", upgradeDiamondCostBase=" + upgradeDiamondCostBase
-        + ", upgradeWoodCostBase=" + upgradeWoodCostBase + "]";
+        + ", upgradeWoodCostBase=" + upgradeWoodCostBase
+        + ", instaBuildDiamondCostBase=" + instaBuildDiamondCostBase
+        + ", instaRetrieveDiamondCostBase=" + instaRetrieveDiamondCostBase
+        + "]";
   }
-
 }

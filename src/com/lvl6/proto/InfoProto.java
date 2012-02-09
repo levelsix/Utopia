@@ -6160,6 +6160,14 @@ public final class InfoProto {
     // required int32 upgradeWoodCostBase = 14;
     boolean hasUpgradeWoodCostBase();
     int getUpgradeWoodCostBase();
+    
+    // required int32 instaBuildDiamondCostBase = 15;
+    boolean hasInstaBuildDiamondCostBase();
+    int getInstaBuildDiamondCostBase();
+    
+    // required int32 instaRetrieveDiamondCostBase = 16;
+    boolean hasInstaRetrieveDiamondCostBase();
+    int getInstaRetrieveDiamondCostBase();
   }
   public static final class FullStructureProto extends
       com.google.protobuf.GeneratedMessage
@@ -6352,6 +6360,26 @@ public final class InfoProto {
       return upgradeWoodCostBase_;
     }
     
+    // required int32 instaBuildDiamondCostBase = 15;
+    public static final int INSTABUILDDIAMONDCOSTBASE_FIELD_NUMBER = 15;
+    private int instaBuildDiamondCostBase_;
+    public boolean hasInstaBuildDiamondCostBase() {
+      return ((bitField0_ & 0x00004000) == 0x00004000);
+    }
+    public int getInstaBuildDiamondCostBase() {
+      return instaBuildDiamondCostBase_;
+    }
+    
+    // required int32 instaRetrieveDiamondCostBase = 16;
+    public static final int INSTARETRIEVEDIAMONDCOSTBASE_FIELD_NUMBER = 16;
+    private int instaRetrieveDiamondCostBase_;
+    public boolean hasInstaRetrieveDiamondCostBase() {
+      return ((bitField0_ & 0x00008000) == 0x00008000);
+    }
+    public int getInstaRetrieveDiamondCostBase() {
+      return instaRetrieveDiamondCostBase_;
+    }
+    
     private void initFields() {
       structId_ = 0;
       name_ = "";
@@ -6367,6 +6395,8 @@ public final class InfoProto {
       upgradeCoinCostBase_ = 0;
       upgradeDiamondCostBase_ = 0;
       upgradeWoodCostBase_ = 0;
+      instaBuildDiamondCostBase_ = 0;
+      instaRetrieveDiamondCostBase_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6429,6 +6459,14 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasInstaBuildDiamondCostBase()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasInstaRetrieveDiamondCostBase()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -6477,6 +6515,12 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         output.writeInt32(14, upgradeWoodCostBase_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        output.writeInt32(15, instaBuildDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        output.writeInt32(16, instaRetrieveDiamondCostBase_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6542,6 +6586,14 @@ public final class InfoProto {
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(14, upgradeWoodCostBase_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(15, instaBuildDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(16, instaRetrieveDiamondCostBase_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6695,6 +6747,10 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00001000);
         upgradeWoodCostBase_ = 0;
         bitField0_ = (bitField0_ & ~0x00002000);
+        instaBuildDiamondCostBase_ = 0;
+        bitField0_ = (bitField0_ & ~0x00004000);
+        instaRetrieveDiamondCostBase_ = 0;
+        bitField0_ = (bitField0_ & ~0x00008000);
         return this;
       }
       
@@ -6789,6 +6845,14 @@ public final class InfoProto {
           to_bitField0_ |= 0x00002000;
         }
         result.upgradeWoodCostBase_ = upgradeWoodCostBase_;
+        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+          to_bitField0_ |= 0x00004000;
+        }
+        result.instaBuildDiamondCostBase_ = instaBuildDiamondCostBase_;
+        if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
+          to_bitField0_ |= 0x00008000;
+        }
+        result.instaRetrieveDiamondCostBase_ = instaRetrieveDiamondCostBase_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6846,6 +6910,12 @@ public final class InfoProto {
         }
         if (other.hasUpgradeWoodCostBase()) {
           setUpgradeWoodCostBase(other.getUpgradeWoodCostBase());
+        }
+        if (other.hasInstaBuildDiamondCostBase()) {
+          setInstaBuildDiamondCostBase(other.getInstaBuildDiamondCostBase());
+        }
+        if (other.hasInstaRetrieveDiamondCostBase()) {
+          setInstaRetrieveDiamondCostBase(other.getInstaRetrieveDiamondCostBase());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -6905,6 +6975,14 @@ public final class InfoProto {
           return false;
         }
         if (!hasUpgradeWoodCostBase()) {
+          
+          return false;
+        }
+        if (!hasInstaBuildDiamondCostBase()) {
+          
+          return false;
+        }
+        if (!hasInstaRetrieveDiamondCostBase()) {
           
           return false;
         }
@@ -7002,6 +7080,16 @@ public final class InfoProto {
             case 112: {
               bitField0_ |= 0x00002000;
               upgradeWoodCostBase_ = input.readInt32();
+              break;
+            }
+            case 120: {
+              bitField0_ |= 0x00004000;
+              instaBuildDiamondCostBase_ = input.readInt32();
+              break;
+            }
+            case 128: {
+              bitField0_ |= 0x00008000;
+              instaRetrieveDiamondCostBase_ = input.readInt32();
               break;
             }
           }
@@ -7315,6 +7403,48 @@ public final class InfoProto {
       public Builder clearUpgradeWoodCostBase() {
         bitField0_ = (bitField0_ & ~0x00002000);
         upgradeWoodCostBase_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 instaBuildDiamondCostBase = 15;
+      private int instaBuildDiamondCostBase_ ;
+      public boolean hasInstaBuildDiamondCostBase() {
+        return ((bitField0_ & 0x00004000) == 0x00004000);
+      }
+      public int getInstaBuildDiamondCostBase() {
+        return instaBuildDiamondCostBase_;
+      }
+      public Builder setInstaBuildDiamondCostBase(int value) {
+        bitField0_ |= 0x00004000;
+        instaBuildDiamondCostBase_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearInstaBuildDiamondCostBase() {
+        bitField0_ = (bitField0_ & ~0x00004000);
+        instaBuildDiamondCostBase_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 instaRetrieveDiamondCostBase = 16;
+      private int instaRetrieveDiamondCostBase_ ;
+      public boolean hasInstaRetrieveDiamondCostBase() {
+        return ((bitField0_ & 0x00008000) == 0x00008000);
+      }
+      public int getInstaRetrieveDiamondCostBase() {
+        return instaRetrieveDiamondCostBase_;
+      }
+      public Builder setInstaRetrieveDiamondCostBase(int value) {
+        bitField0_ |= 0x00008000;
+        instaRetrieveDiamondCostBase_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearInstaRetrieveDiamondCostBase() {
+        bitField0_ = (bitField0_ & ~0x00008000);
+        instaRetrieveDiamondCostBase_ = 0;
         onChanged();
         return this;
       }
@@ -21244,7 +21374,7 @@ public final class InfoProto {
       "te\030\010 \002(\010\0226\n\013orientation\030\t \002(\0162!.com.lvl6",
       ".proto.StructOrientation\"Y\n\022FullUserEqui" +
       "pProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022" +
-      "\020\n\010quantity\030\003 \002(\005\022\020\n\010isStolen\030\004 \002(\010\"\275\002\n\022" +
+      "\020\n\010quantity\030\003 \002(\005\022\020\n\010isStolen\030\004 \002(\010\"\206\003\n\022" +
       "FullStructureProto\022\020\n\010structId\030\001 \002(\005\022\014\n\004" +
       "name\030\002 \002(\t\022\016\n\006income\030\003 \002(\005\022\025\n\rminutesToG" +
       "ain\030\004 \002(\005\022\026\n\016minutesToBuild\030\005 \002(\005\022\021\n\tcoi" +
@@ -21252,98 +21382,100 @@ public final class InfoProto {
       "odPrice\030\010 \002(\005\022\020\n\010minLevel\030\t \002(\005\022\017\n\007xLeng" +
       "th\030\n \002(\005\022\017\n\007yLength\030\013 \002(\005\022\033\n\023upgradeCoin" +
       "CostBase\030\014 \002(\005\022\036\n\026upgradeDiamondCostBase",
-      "\030\r \002(\005\022\033\n\023upgradeWoodCostBase\030\016 \002(\005\"\240\003\n\r" +
-      "FullTaskProto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004name\030\002 " +
-      "\002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequiredForCom" +
-      "pletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016min" +
-      "CoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGained\030\007 \002(" +
-      "\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025potentia" +
-      "lLootEquipIds\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022\032" +
-      "\n\022assetNumWithinCity\030\013 \002(\005\022F\n\tequipReqs\030" +
-      "\014 \003(\01323.com.lvl6.proto.FullTaskProto.Ful" +
-      "lTaskEquipReqProto\032J\n\025FullTaskEquipReqPr",
-      "oto\022\016\n\006taskId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010" +
-      "quantity\030\003 \002(\005\"\177\n\rFullCityProto\022\016\n\006cityI" +
-      "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030\003 \002(\005\022" +
-      "\035\n\025expGainedBaseOnRankup\030\004 \002(\005\022\037\n\027coinsG" +
-      "ainedBaseOnRankup\030\005 \002(\005\"\'\n\017CoordinatePro" +
-      "to\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProt" +
-      "o\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\301" +
-      "\002\n\030FullMarketplacePostProto\022\031\n\021marketpla" +
-      "cePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010post" +
-      "Type\030\003 \002(\0162#.com.lvl6.proto.MarketplaceP",
-      "ostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013postedEqu" +
-      "ip\030\005 \001(\0132\036.com.lvl6.proto.FullEquipProto" +
-      "\022\022\n\npostedWood\030\006 \001(\005\022\026\n\016postedDiamonds\030\007" +
-      " \001(\005\022\023\n\013postedCoins\030\010 \001(\005\022\023\n\013diamondCost" +
-      "\030\t \001(\005\022\020\n\010coinCost\030\n \001(\005\022\020\n\010woodCost\030\013 \001" +
-      "(\005\"\260\001\n\027FullUserCritstructProto\022,\n\004type\030\001" +
-      " \002(\0162\036.com.lvl6.proto.CritStructType\022/\n\006" +
-      "coords\030\002 \002(\0132\037.com.lvl6.proto.Coordinate" +
-      "Proto\0226\n\013orientation\030\003 \002(\0162!.com.lvl6.pr" +
-      "oto.StructOrientation\"j\n\024MinimumUserTask",
-      "Proto\022\016\n\006userId\030\001 \002(\005\022+\n\004task\030\002 \002(\0132\035.co" +
-      "m.lvl6.proto.FullTaskProto\022\025\n\rnumTimesAc" +
-      "ted\030\003 \002(\005\"\364\003\n\026FullUserQuestDataLarge\022\016\n\006" +
-      "userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010complet" +
-      "e\030\003 \002(\010\022C\n\025requiredTasksProgress\030\004 \003(\0132$" +
-      ".com.lvl6.proto.MinimumUserTaskProto\022T\n\035" +
-      "requiredDefeatTypeJobProgress\030\005 \003(\0132-.co" +
-      "m.lvl6.proto.MinimumUserDefeatTypeJobPro" +
-      "to\022V\n\036requiredBuildStructJobProgress\030\006 \003" +
-      "(\0132..com.lvl6.proto.MinimumUserBuildStru",
-      "ctJobProto\022Z\n requiredUpgradeStructJobPr" +
-      "ogress\030\007 \003(\01320.com.lvl6.proto.MinimumUse" +
-      "rUpgradeStructJobProto\022X\n\037requiredPosses" +
-      "sEquipJobProgress\030\010 \003(\0132/.com.lvl6.proto" +
-      ".MinimumUserPossessEquipJobProto\"\222\001\n\035Min" +
-      "imumUserDefeatTypeJobProto\022\016\n\006userId\030\001 \002" +
-      "(\005\022\017\n\007questId\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003" +
-      " \002(\0132\".com.lvl6.proto.DefeatTypeJobProto" +
-      "\022\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobP" +
-      "roto\022\027\n\017defeatTypeJobId\030\001 \002(\005\022-\n\013typeOfE",
-      "nemy\030\002 \002(\0162\030.com.lvl6.proto.UserType\022\032\n\022" +
-      "numEnemiesToDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005" +
-      "\"\232\001\n\036MinimumUserBuildStructJobProto\022\016\n\006u" +
-      "serId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016buildStr" +
-      "uctJob\030\003 \002(\0132#.com.lvl6.proto.BuildStruc" +
-      "tJobProto\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n" +
-      "\023BuildStructJobProto\022\030\n\020buildStructJobId" +
-      "\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequ" +
-      "ired\030\003 \002(\005\"\230\001\n MinimumUserUpgradeStructJ" +
-      "obProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005",
-      "\022?\n\020upgradeStructJob\030\003 \002(\0132%.com.lvl6.pr" +
-      "oto.UpgradeStructJobProto\022\022\n\nisComplete\030" +
-      "\004 \002(\010\"W\n\025UpgradeStructJobProto\022\032\n\022upgrad" +
-      "eStructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010" +
-      "levelReq\030\003 \002(\005\"\232\001\n\037MinimumUserPossessEqu" +
-      "ipJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 " +
-      "\002(\005\022B\n\024possessEquipJobProto\030\003 \002(\0132$.com." +
-      "lvl6.proto.PossessEquipJobProto\022\022\n\nisCom" +
-      "plete\030\004 \002(\010\"W\n\024PossessEquipJobProto\022\031\n\021p" +
-      "ossessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022",
-      "\023\n\013quantityReq\030\003 \002(\005\"\247\003\n\016FullQuestProto\022" +
-      "\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name" +
-      "\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneRespo" +
-      "nse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNu" +
-      "mWithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026" +
-      "\n\016diamondsGained\030\t \001(\005\022\022\n\nwoodGained\030\n \001" +
-      "(\005\022\021\n\texpGained\030\013 \001(\005\022\025\n\requipIdGained\030\014" +
-      " \001(\005\022\035\n\025questsRequiredForThis\030\r \003(\005\022\020\n\010t" +
-      "askReqs\030\016 \003(\005\022\035\n\025upgradeStructJobsReqs\030\017" +
-      " \003(\005\022\033\n\023buildStructJobsReqs\030\020 \003(\005\022\026\n\016def",
-      "eatTypeReqs\030\021 \003(\005\022\033\n\023possessEquipJobReqs" +
-      "\030\022 \003(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013" +
-      "GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARR" +
-      "IOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023M" +
-      "arketplacePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWO" +
-      "OD_POST\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST" +
-      "\020\003*2\n\035MarketplaceJobRequirementType\022\007\n\003B" +
-      "UY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIA" +
-      "RY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005V" +
-      "AULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021S",
-      "tructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSI" +
-      "TION_2\020\001B\013B\tInfoProto"
+      "\030\r \002(\005\022\033\n\023upgradeWoodCostBase\030\016 \002(\005\022!\n\031i" +
+      "nstaBuildDiamondCostBase\030\017 \002(\005\022$\n\034instaR" +
+      "etrieveDiamondCostBase\030\020 \002(\005\"\240\003\n\rFullTas" +
+      "kProto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006" +
+      "cityId\030\003 \002(\005\022 \n\030numRequiredForCompletion" +
+      "\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGa" +
+      "ined\030\006 \002(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021ch" +
+      "anceOfEquipLoot\030\010 \002(\002\022\035\n\025potentialLootEq" +
+      "uipIds\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022\032\n\022asset" +
+      "NumWithinCity\030\013 \002(\005\022F\n\tequipReqs\030\014 \003(\01323",
+      ".com.lvl6.proto.FullTaskProto.FullTaskEq" +
+      "uipReqProto\032J\n\025FullTaskEquipReqProto\022\016\n\006" +
+      "taskId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010quantit" +
+      "y\030\003 \002(\005\"\177\n\rFullCityProto\022\016\n\006cityId\030\001 \002(\005" +
+      "\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030\003 \002(\005\022\035\n\025expG" +
+      "ainedBaseOnRankup\030\004 \002(\005\022\037\n\027coinsGainedBa" +
+      "seOnRankup\030\005 \002(\005\"\'\n\017CoordinateProto\022\t\n\001x" +
+      "\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010la" +
+      "titude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\301\002\n\030Full" +
+      "MarketplacePostProto\022\031\n\021marketplacePostI",
+      "d\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType\030\003 " +
+      "\002(\0162#.com.lvl6.proto.MarketplacePostType" +
+      "\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013postedEquip\030\005 \001(" +
+      "\0132\036.com.lvl6.proto.FullEquipProto\022\022\n\npos" +
+      "tedWood\030\006 \001(\005\022\026\n\016postedDiamonds\030\007 \001(\005\022\023\n" +
+      "\013postedCoins\030\010 \001(\005\022\023\n\013diamondCost\030\t \001(\005\022" +
+      "\020\n\010coinCost\030\n \001(\005\022\020\n\010woodCost\030\013 \001(\005\"\260\001\n\027" +
+      "FullUserCritstructProto\022,\n\004type\030\001 \002(\0162\036." +
+      "com.lvl6.proto.CritStructType\022/\n\006coords\030" +
+      "\002 \002(\0132\037.com.lvl6.proto.CoordinateProto\0226",
+      "\n\013orientation\030\003 \002(\0162!.com.lvl6.proto.Str" +
+      "uctOrientation\"j\n\024MinimumUserTaskProto\022\016" +
+      "\n\006userId\030\001 \002(\005\022+\n\004task\030\002 \002(\0132\035.com.lvl6." +
+      "proto.FullTaskProto\022\025\n\rnumTimesActed\030\003 \002" +
+      "(\005\"\364\003\n\026FullUserQuestDataLarge\022\016\n\006userId\030" +
+      "\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010complete\030\003 \002(\010" +
+      "\022C\n\025requiredTasksProgress\030\004 \003(\0132$.com.lv" +
+      "l6.proto.MinimumUserTaskProto\022T\n\035require" +
+      "dDefeatTypeJobProgress\030\005 \003(\0132-.com.lvl6." +
+      "proto.MinimumUserDefeatTypeJobProto\022V\n\036r",
+      "equiredBuildStructJobProgress\030\006 \003(\0132..co" +
+      "m.lvl6.proto.MinimumUserBuildStructJobPr" +
+      "oto\022Z\n requiredUpgradeStructJobProgress\030" +
+      "\007 \003(\01320.com.lvl6.proto.MinimumUserUpgrad" +
+      "eStructJobProto\022X\n\037requiredPossessEquipJ" +
+      "obProgress\030\010 \003(\0132/.com.lvl6.proto.Minimu" +
+      "mUserPossessEquipJobProto\"\222\001\n\035MinimumUse" +
+      "rDefeatTypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007q" +
+      "uestId\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\"." +
+      "com.lvl6.proto.DefeatTypeJobProto\022\023\n\013num",
+      "Defeated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n" +
+      "\017defeatTypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 " +
+      "\002(\0162\030.com.lvl6.proto.UserType\022\032\n\022numEnem" +
+      "iesToDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036Mi" +
+      "nimumUserBuildStructJobProto\022\016\n\006userId\030\001" +
+      " \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016buildStructJob\030" +
+      "\003 \002(\0132#.com.lvl6.proto.BuildStructJobPro" +
+      "to\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildS" +
+      "tructJobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022" +
+      "\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 ",
+      "\002(\005\"\230\001\n MinimumUserUpgradeStructJobProto" +
+      "\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upg" +
+      "radeStructJob\030\003 \002(\0132%.com.lvl6.proto.Upg" +
+      "radeStructJobProto\022\022\n\nisComplete\030\004 \002(\010\"W" +
+      "\n\025UpgradeStructJobProto\022\032\n\022upgradeStruct" +
+      "JobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelRe" +
+      "q\030\003 \002(\005\"\232\001\n\037MinimumUserPossessEquipJobPr" +
+      "oto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024" +
+      "possessEquipJobProto\030\003 \002(\0132$.com.lvl6.pr" +
+      "oto.PossessEquipJobProto\022\022\n\nisComplete\030\004",
+      " \002(\010\"W\n\024PossessEquipJobProto\022\031\n\021possessE" +
+      "quipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013quan" +
+      "tityReq\030\003 \002(\005\"\247\003\n\016FullQuestProto\022\017\n\007ques" +
+      "tId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022" +
+      "\023\n\013description\030\004 \002(\t\022\024\n\014doneResponse\030\005 \002" +
+      "(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWithin" +
+      "City\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamo" +
+      "ndsGained\030\t \001(\005\022\022\n\nwoodGained\030\n \001(\005\022\021\n\te" +
+      "xpGained\030\013 \001(\005\022\025\n\requipIdGained\030\014 \001(\005\022\035\n" +
+      "\025questsRequiredForThis\030\r \003(\005\022\020\n\010taskReqs",
+      "\030\016 \003(\005\022\035\n\025upgradeStructJobsReqs\030\017 \003(\005\022\033\n" +
+      "\023buildStructJobsReqs\030\020 \003(\005\022\026\n\016defeatType" +
+      "Reqs\030\021 \003(\005\022\033\n\023possessEquipJobReqs\030\022 \003(\005*" +
+      "k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_AR" +
+      "CHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016" +
+      "\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023Marketpl" +
+      "acePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST" +
+      "\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035M" +
+      "arketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n" +
+      "\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n",
+      "\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022" +
+      "\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOr" +
+      "ientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020" +
+      "\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -21395,7 +21527,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullStructureProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullStructureProto_descriptor,
-              new java.lang.String[] { "StructId", "Name", "Income", "MinutesToGain", "MinutesToBuild", "CoinPrice", "DiamondPrice", "WoodPrice", "MinLevel", "XLength", "YLength", "UpgradeCoinCostBase", "UpgradeDiamondCostBase", "UpgradeWoodCostBase", },
+              new java.lang.String[] { "StructId", "Name", "Income", "MinutesToGain", "MinutesToBuild", "CoinPrice", "DiamondPrice", "WoodPrice", "MinLevel", "XLength", "YLength", "UpgradeCoinCostBase", "UpgradeDiamondCostBase", "UpgradeWoodCostBase", "InstaBuildDiamondCostBase", "InstaRetrieveDiamondCostBase", },
               com.lvl6.proto.InfoProto.FullStructureProto.class,
               com.lvl6.proto.InfoProto.FullStructureProto.Builder.class);
           internal_static_com_lvl6_proto_FullTaskProto_descriptor =
