@@ -43,7 +43,7 @@ public class QuestRetrieveUtils {
   
   public static QuestGraph getQuestGraph() {
     log.info("retrieving available quests");
-    if (questIdsToQuests == null) {
+    if (questGraph == null) {
       setStaticQuestGraph();
     }
     return questGraph;
