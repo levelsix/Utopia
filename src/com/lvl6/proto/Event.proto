@@ -400,18 +400,18 @@ message FinishNormStructWaittimeWithDiamondsResponseProto {
 											
 																						//DONE
 //NOT VERY EFFICIENT..extra db call. and for every newly built building, new db call. but w/e for now.																						
-message NormStructBuildsCompleteRequestProto {
+message NormStructWaitCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	repeated int32 userStructId = 2;
 }
 
 																						//DONE
-message NormStructBuildsCompleteResponseProto {
+message NormStructWaitCompleteResponseProto {
      required MinimumUserProto sender = 1;
-     required NormStructBuildsCompleteStatus status = 2;
+     required NormStructWaitCompleteStatus status = 2;
      repeated FullUserStructureProto userStruct = 3;
      
-     enum NormStructBuildsCompleteStatus {
+     enum NormStructWaitCompleteStatus {
      	SUCCESS = 0;
      	OTHER_FAIL = 1;
      }

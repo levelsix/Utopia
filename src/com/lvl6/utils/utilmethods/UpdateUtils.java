@@ -84,7 +84,50 @@ public class UpdateUtils {
   /*
    * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
    */
-  public static boolean updateUserStructsLastretrievedIscomplete(List<UserStruct> userStructs, boolean isComplete) {
+  public static boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(List<UserStruct> userStructs, int levelChange) {
+    Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
+
+    for (UserStruct userStruct : userStructs) {
+      Structure structure = structures.get(userStruct.getStructId());
+      if (structure == null) {
+        return false;
+      }
+      Timestamp lastRetrievedTime = new Timestamp(userStruct.getLastUpgradeTime().getTime() + 60000*structure.getMinutesToGain());
+      if (!UpdateUtils.updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), lastRetrievedTime, true, levelChange)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  /*
+   * used for updating last retrieved and/or last upgrade user struct time and is_complete
+   */
+  public static boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (lastRetrievedTime != null)
+      absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
+        
+    absoluteParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, isComplete);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER_STRUCTS__LEVEL, levelChange);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  /*
+   * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
+   */
+  public static boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct> userStructs) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
 
     for (UserStruct userStruct : userStructs) {
