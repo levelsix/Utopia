@@ -295,6 +295,7 @@ message SellNormStructureResponseProto {
 message UpgradeNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
+	required int64 timeOfUpgrade = 3;	
 }
 
 																						//DONE

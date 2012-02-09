@@ -136,6 +136,7 @@ public class DBConstants {
   public static final String USER_STRUCTS__Y_COORD = "ycoord";
   public static final String USER_STRUCTS__IS_COMPLETE = "is_complete";
   public static final String USER_STRUCTS__LEVEL = "level";
+  public static final String USER_STRUCTS__LAST_UPGRADE_TIME = "last_upgrade_time";
   public static final String USER_STRUCTS__ORIENTATION = "orientation";
   
   /*USER CRITSTRUCTS TABLE*/

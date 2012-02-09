@@ -80,7 +80,7 @@ public class UpdateUtils {
     }
     return false;
   }
-
+  
   /*
    * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
    */
@@ -93,7 +93,7 @@ public class UpdateUtils {
         return false;
       }
       Timestamp lastRetrievedTime = new Timestamp(userStruct.getPurchaseTime().getTime() + 60000*structure.getMinutesToGain());
-      if (!UpdateUtils.updateUserStructLastretrievedIscomplete(userStruct.getId(), lastRetrievedTime, true)) {
+      if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), lastRetrievedTime, null, true)) {
         return false;
       }
     }
@@ -101,15 +101,19 @@ public class UpdateUtils {
   }
 
   /*
-   * used for updating last retrieved user struct time and is_complete
+   * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
-  public static boolean updateUserStructLastretrievedIscomplete(int userStructId, Timestamp lastRetrievedTime, 
-      boolean isComplete) {
+  public static boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
+    if (lastRetrievedTime != null)
+      absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
+    
+    if (lastUpgradeTime != null)
+      absoluteParams.put(DBConstants.USER_STRUCTS__LAST_UPGRADE_TIME, lastUpgradeTime);
+    
     absoluteParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, isComplete);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 

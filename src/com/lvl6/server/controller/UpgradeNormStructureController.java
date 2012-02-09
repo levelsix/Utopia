@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UpgradeNormStructureRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -41,7 +43,8 @@ public class UpgradeNormStructureController extends EventController {
 
     MinimumUserProto senderProto = reqProto.getSender();
     int userStructId = reqProto.getUserStructId();
-
+    Timestamp timeOfUpgrade = new Timestamp(reqProto.getTimeOfUpgrade());
+    
     resBuilder.setSender(senderProto);
 
     Structure struct = null;
@@ -55,13 +58,13 @@ public class UpgradeNormStructureController extends EventController {
 
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-      boolean legitUpgrade = checkLegitUpgrade(resBuilder, user, userStruct, struct);
+      boolean legitUpgrade = checkLegitUpgrade(resBuilder, user, userStruct, struct, timeOfUpgrade);
       UpgradeNormStructureResponseEvent resEvent = new UpgradeNormStructureResponseEvent(senderProto.getUserId());
       resEvent.setUpgradeNormStructureResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitUpgrade) {
-        writeChangesToDB(user, userStruct, struct);
+        writeChangesToDB(user, userStruct, struct, timeOfUpgrade);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         server.writeEvent(resEventUpdate);
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
@@ -73,21 +76,25 @@ public class UpgradeNormStructureController extends EventController {
     }
   }
 
-  private void writeChangesToDB(User user, UserStruct userStruct, Structure struct) {
+  private void writeChangesToDB(User user, UserStruct userStruct, Structure struct, Timestamp timeOfUpgrade) {
     // TODO Auto-generated method stub
     if (user.updateRelativeDiamondsCoinsWoodNaive(calculateUpgradeDiamondCost(struct.getUpgradeDiamondCostBase(), userStruct.getLevel()), 
         calculateUpgradeCoinCost(struct.getUpgradeCoinCostBase(), userStruct.getLevel()), 
         calculateUpgradeWoodCost(struct.getUpgradeWoodCostBase(), userStruct.getLevel()))) {
       log.error("problem in updating user stats after upgrade");
     }
-    if (!UpdateUtils.updateUserStructLevel(userStruct.getId(), 1)) {
-      log.error("problem in upgrading user struct leve");
+    if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), null, timeOfUpgrade, false)) {
+      log.error("problem in upgrading user struct lastupgradetime and complete");
     }
   }
 
   private boolean checkLegitUpgrade(Builder resBuilder, User user, UserStruct userStruct,
-      Structure struct) {
-    if (user == null || userStruct == null || struct == null) {
+      Structure struct, Timestamp timeOfUpgrade) {
+    if (user == null || userStruct == null || struct == null || !userStruct.isComplete() || userStruct.getLastRetrieved() == null) {
+      resBuilder.setStatus(UpgradeNormStructureStatus.OTHER_FAIL);
+      return false;
+    }
+    if (timeOfUpgrade.getTime() < userStruct.getLastRetrieved().getTime()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.OTHER_FAIL);
       return false;
     }

@@ -88,7 +88,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
         log.error("problem with using diamonds to finish norm struct income waittime");
       }
     }
-    if (!UpdateUtils.updateUserStructLastretrievedIscomplete(userStruct.getId(), timeOfPurchase, true)) {
+    if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
       log.error("problem with using diamonds to finish norm struct build or norm struct income waittime");
     }
   }
