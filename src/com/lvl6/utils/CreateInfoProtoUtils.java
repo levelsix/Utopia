@@ -118,6 +118,9 @@ public class CreateInfoProtoUtils {
     if (userStruct.getLastRetrieved() != null) {
       builder.setLastRetrieved(userStruct.getLastRetrieved().getTime());
     }
+    if (userStruct.getLastUpgradeTime() != null) {
+      builder.setLastRetrieved(userStruct.getLastUpgradeTime().getTime());
+    }
     return builder.build();
   }
 
@@ -202,12 +205,14 @@ public class CreateInfoProtoUtils {
 
   public static FullStructureProto createFullStructureProtoFromStructure(Structure s) {
     return FullStructureProto.newBuilder().setStructId(s.getId()).setName(s.getName()).setIncome(s.getIncome())
-        .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(s.getMinutesToBuild()).setCoinPrice(s.getCoinPrice())
+        .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(s.getMinutesToBuild())
+        .setMinutesToUpgradeBase(s.getMinutesToUpgradeBase()).setCoinPrice(s.getCoinPrice())
         .setDiamondPrice(s.getDiamondPrice()).setWoodPrice(s.getWoodPrice()).setMinLevel(s.getMinLevel())
         .setXLength(s.getxLength()).setYLength(s.getyLength()).setUpgradeCoinCostBase(s.getUpgradeCoinCostBase())
         .setUpgradeDiamondCostBase(s.getDiamondPrice()).setUpgradeWoodCostBase(s.getUpgradeWoodCostBase())
         .setInstaBuildDiamondCostBase(s.getInstaBuildDiamondCostBase())
-        .setInstaRetrieveDiamondCostBase(s.getInstaRetrieveDiamondCostBase()).build();
+        .setInstaRetrieveDiamondCostBase(s.getInstaRetrieveDiamondCostBase())
+        .setInstaUpgradeDiamondCostBase(s.getInstaUpgradeDiamondCostBase()).build();
   }
 
   public static FullCityProto createFullCityProtoFromCity(City c) {

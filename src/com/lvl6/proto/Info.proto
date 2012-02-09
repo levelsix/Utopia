@@ -99,8 +99,9 @@ message FullUserStructureProto {
 	required CoordinateProto coordinates = 5;
 	required int32 level = 6;
 	required int64 purchaseTime = 7;
-	required bool isComplete = 8;
-	required StructOrientation orientation = 9;
+	optional int64 lastUpgradeTime = 8;
+	required bool isComplete = 9;
+	required StructOrientation orientation = 10;
 }
 
 //------------------------------------------------------------------------------------------
@@ -120,18 +121,19 @@ message FullStructureProto {
 	required int32 income = 3;
 	required int32 minutesToGain = 4;
 	required int32 minutesToBuild = 5;
-	required int32 coinPrice = 6;
-	required int32 diamondPrice = 7;
-	required int32 woodPrice = 8;
-	required int32 minLevel = 9;
-	required int32 xLength = 10;
-	required int32 yLength = 11;
-	required int32 upgradeCoinCostBase = 12;
-	required int32 upgradeDiamondCostBase = 13;
-	required int32 upgradeWoodCostBase = 14;
-	required int32 instaBuildDiamondCostBase = 15;
-	required int32 instaRetrieveDiamondCostBase = 16;
-	
+	required int32 minutesToUpgradeBase = 6;
+	required int32 coinPrice = 7;
+	required int32 diamondPrice = 8;
+	required int32 woodPrice = 9;
+	required int32 minLevel = 10;
+	required int32 xLength = 11;
+	required int32 yLength = 12;
+	required int32 upgradeCoinCostBase = 13;
+	required int32 upgradeDiamondCostBase = 14;
+	required int32 upgradeWoodCostBase = 15;
+	required int32 instaBuildDiamondCostBase = 16;
+	required int32 instaRetrieveDiamondCostBase = 17;
+	required int32 instaUpgradeDiamondCostBase = 18;	
 }
 
 //------------------------------------------------------------------------------------------

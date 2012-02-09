@@ -94,7 +94,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
   }
 
   private boolean checkLegitBuild(Builder resBuilder, User user, UserStruct userStruct, Timestamp timeOfPurchase, NormStructWaitTimeType waitTimeType, Structure struct) {
-    if (user == null || userStruct == null || waitTimeType == null || struct == null) {
+    if (user == null || userStruct == null || waitTimeType == null || struct == null || userStruct.getUserId() != user.getId() || userStruct.isComplete()) {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
       return false;
     }
