@@ -82,7 +82,7 @@ public class UpdateUtils {
   }
   
   /*
-   * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
+   * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct
    */
   public static boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(List<UserStruct> userStructs, int levelChange) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
