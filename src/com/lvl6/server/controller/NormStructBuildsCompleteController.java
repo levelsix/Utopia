@@ -45,7 +45,7 @@ public class NormStructBuildsCompleteController extends EventController{
     try {
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
       
-      boolean legitBuild = checkLegitBuild(resBuilder, userStructs, userStructIds);
+      boolean legitBuild = checkLegitBuild(resBuilder, userStructs, userStructIds, senderProto.getUserId());
 
       NormStructBuildsCompleteResponseEvent resEvent = new NormStructBuildsCompleteResponseEvent(senderProto.getUserId());
 
@@ -78,10 +78,16 @@ public class NormStructBuildsCompleteController extends EventController{
   }
 
   private boolean checkLegitBuild(Builder resBuilder,
-      List<UserStruct> userStructs, List<Integer> userStructIds) {
+      List<UserStruct> userStructs, List<Integer> userStructIds, int userId) {
     if (userStructs == null || userStructIds == null || userStructIds.size() != userStructs.size()) {
       resBuilder.setStatus(NormStructBuildsCompleteStatus.OTHER_FAIL);
       return false;
+    }
+    for (UserStruct us : userStructs) {
+      if (us.getUserId() != userId) {
+        resBuilder.setStatus(NormStructBuildsCompleteStatus.OTHER_FAIL);
+        return false;
+      }
     }
     resBuilder.setStatus(NormStructBuildsCompleteStatus.SUCCESS);
     return true;  

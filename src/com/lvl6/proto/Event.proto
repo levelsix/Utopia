@@ -363,6 +363,61 @@ message CriticalStructureActionResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+//done for both finishing a struct's building and instantly gettin income
+																						//DONE
+message FinishNormStructWaittimeWithDiamondsRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 userStructId = 2;
+	required int64 timeOfPurchase = 3;			//lastRetrieved will start with this date
+	required NormStructWaitTimeType waitTimeType = 4;
+
+	enum NormStructWaitTimeType {
+		FINISH_CONSTRUCTION = 0;
+		FINISH_INCOME_WAITTIME = 1;
+	}
+}
+
+																						//DONE
+message FinishNormStructWaittimeWithDiamondsResponseProto {
+     required MinimumUserProto sender = 1;
+     required FinishNormStructWaittimeStatus status = 2;
+     
+     enum FinishNormStructWaittimeStatus {
+     	SUCCESS = 0;
+     	NOT_ENOUGH_DIAMONDS = 1;
+     	OTHER_FAIL = 2;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+//this message sent to server after a player's homepage is loaded and client checks which structs 
+//have been built but not reflected in db yet (so when is_complete=0 but the purchase_time 
+//implies that it should be)
+//this message is also sent whenever the player is on the screen and the build completes
+//i would set last_retrieved manually to when it should have completed, and is_complete=1
+											
+																						//DONE
+//NOT VERY EFFICIENT..extra db call. and for every newly built building, new db call. but w/e for now.																						
+message NormStructBuildsCompleteRequestProto {
+	required MinimumUserProto sender = 1;
+	repeated int32 userStructId = 2;
+}
+
+																						//DONE
+message NormStructBuildsCompleteResponseProto {
+     required MinimumUserProto sender = 1;
+     required NormStructBuildsCompleteStatus status = 2;
+     repeated FullUserStructureProto userStruct = 3;
+     
+     enum NormStructBuildsCompleteStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
 message LevelUpResponseProto {
      required FullUserProto sender = 1;
      optional FullCityProto unlockedCityAvailableToUser = 2;
@@ -559,64 +614,6 @@ message RefillStatWithDiamondsResponseProto {
      	OTHER_FAIL = 2;
      }
 }
-
-//------------------------------------------------------------------------------------------
-
-//done for both finishing a struct's building and instantly gettin income
-																						//DONE
-message FinishNormStructWaittimeWithDiamondsRequestProto {
-	required MinimumUserProto sender = 1;
-	required int32 userStructId = 2;
-	required int64 timeOfPurchase = 3;			//lastRetrieved will start with this date
-	required NormStructWaitTimeType waitTimeType = 4;
-
-	enum NormStructWaitTimeType {
-		FINISH_CONSTRUCTION = 0;
-		FINISH_INCOME_WAITTIME = 1;
-	}
-}
-
-																						//DONE
-message FinishNormStructWaittimeWithDiamondsResponseProto {
-     required MinimumUserProto sender = 1;
-     required FinishNormStructWaittimeStatus status = 2;
-     
-     enum FinishNormStructWaittimeStatus {
-     	SUCCESS = 0;
-     	NOT_ENOUGH_DIAMONDS = 1;
-     	OTHER_FAIL = 2;
-     }
-}
-
-
-//------------------------------------------------------------------------------------------
-
-
-//this message sent to server after a player's homepage is loaded and client checks which structs 
-//have been built but not reflected in db yet (so when is_complete=0 but the purchase_time 
-//implies that it should be)
-//this message is also sent whenever the player is on the screen and the build completes
-//i would set last_retrieved manually to when it should have completed, and is_complete=1
-											
-																						//DONE
-//NOT VERY EFFICIENT..extra db call. and for every newly built building, new db call. but w/e for now.																						
-message NormStructBuildsCompleteRequestProto {
-	required MinimumUserProto sender = 1;
-	repeated int32 userStructId = 2;
-}
-
-																						//DONE
-message NormStructBuildsCompleteResponseProto {
-     required MinimumUserProto sender = 1;
-     required NormStructBuildsCompleteStatus status = 2;
-     repeated FullUserStructureProto userStruct = 3;
-     
-     enum NormStructBuildsCompleteStatus {
-     	SUCCESS = 0;
-     	OTHER_FAIL = 1;
-     }
-}
-
 
 //------------------------------------------------------------------------------------------
 

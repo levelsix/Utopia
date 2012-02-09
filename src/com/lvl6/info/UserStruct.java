@@ -13,12 +13,13 @@ public class UserStruct {
   private CoordinatePair coordinates;
   private int level;
   private Date purchaseTime;
+  private Date lastUpgradeTime;
   private boolean isComplete;
   private StructOrientation orientation;
   
   public UserStruct(int id, int userId, int structId, Date lastRetrieved,
       CoordinatePair coordinates, int level, Date purchaseTime,
-      boolean isComplete, StructOrientation orientation) {
+      Date lastUpgradeTime, boolean isComplete, StructOrientation orientation) {
     this.id = id;
     this.userId = userId;
     this.structId = structId;
@@ -26,6 +27,7 @@ public class UserStruct {
     this.coordinates = coordinates;
     this.level = level;
     this.purchaseTime = purchaseTime;
+    this.lastUpgradeTime = lastUpgradeTime;
     this.isComplete = isComplete;
     this.orientation = orientation;
   }
@@ -33,7 +35,7 @@ public class UserStruct {
   public int getId() {
     return id;
   }
-  
+
   public int getUserId() {
     return userId;
   }
@@ -58,10 +60,14 @@ public class UserStruct {
     return purchaseTime;
   }
 
+  public Date getLastUpgradeTime() {
+    return lastUpgradeTime;
+  }
+
   public boolean isComplete() {
     return isComplete;
   }
-  
+
   public StructOrientation getOrientation() {
     return orientation;
   }
@@ -71,7 +77,8 @@ public class UserStruct {
     return "UserStruct [id=" + id + ", userId=" + userId + ", structId="
         + structId + ", lastRetrieved=" + lastRetrieved + ", coordinates="
         + coordinates + ", level=" + level + ", purchaseTime=" + purchaseTime
-        + ", isComplete=" + isComplete + ", orientation=" + orientation + "]";
+        + ", lastUpgradeTime=" + lastUpgradeTime + ", isComplete=" + isComplete
+        + ", orientation=" + orientation + "]";
   }
   
 }

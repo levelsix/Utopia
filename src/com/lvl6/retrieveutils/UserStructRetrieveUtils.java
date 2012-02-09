@@ -125,18 +125,27 @@ public class UserStructRetrieveUtils {
     int id = rs.getInt(i++);
     int userId = rs.getInt(i++);
     int structId = rs.getInt(i++);
+    
     Date lastRetrieved = null;
     Timestamp ts = rs.getTimestamp(i++);
     if (ts != null) {
       lastRetrieved = new Date(ts.getTime());
     }
+    
     CoordinatePair coordinates = new CoordinatePair(rs.getInt(i++), rs.getInt(i++));
     int level = rs.getInt(i++);
     Date purchaseTime = new Date(rs.getTimestamp(i++).getTime());
+    
+    Date lastUpgradeTime = null;
+    Timestamp ts2 = rs.getTimestamp(i++);
+    if (ts2 != null) {
+      lastUpgradeTime = new Date(ts2.getTime());
+    }
+    
     boolean isComplete = rs.getBoolean(i++);
     StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
 
-    return new UserStruct(id, userId, structId, lastRetrieved, coordinates, level, purchaseTime, isComplete, orientation);
+    return new UserStruct(id, userId, structId, lastRetrieved, coordinates, level, purchaseTime, lastUpgradeTime, isComplete, orientation);
   }
 
 }

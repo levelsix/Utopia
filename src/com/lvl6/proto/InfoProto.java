@@ -4632,11 +4632,15 @@ public final class InfoProto {
     boolean hasPurchaseTime();
     long getPurchaseTime();
     
-    // required bool isComplete = 8;
+    // optional int64 lastUpgradeTime = 8;
+    boolean hasLastUpgradeTime();
+    long getLastUpgradeTime();
+    
+    // required bool isComplete = 9;
     boolean hasIsComplete();
     boolean getIsComplete();
     
-    // required .com.lvl6.proto.StructOrientation orientation = 9;
+    // required .com.lvl6.proto.StructOrientation orientation = 10;
     boolean hasOrientation();
     com.lvl6.proto.InfoProto.StructOrientation getOrientation();
   }
@@ -4742,21 +4746,31 @@ public final class InfoProto {
       return purchaseTime_;
     }
     
-    // required bool isComplete = 8;
-    public static final int ISCOMPLETE_FIELD_NUMBER = 8;
+    // optional int64 lastUpgradeTime = 8;
+    public static final int LASTUPGRADETIME_FIELD_NUMBER = 8;
+    private long lastUpgradeTime_;
+    public boolean hasLastUpgradeTime() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public long getLastUpgradeTime() {
+      return lastUpgradeTime_;
+    }
+    
+    // required bool isComplete = 9;
+    public static final int ISCOMPLETE_FIELD_NUMBER = 9;
     private boolean isComplete_;
     public boolean hasIsComplete() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     public boolean getIsComplete() {
       return isComplete_;
     }
     
-    // required .com.lvl6.proto.StructOrientation orientation = 9;
-    public static final int ORIENTATION_FIELD_NUMBER = 9;
+    // required .com.lvl6.proto.StructOrientation orientation = 10;
+    public static final int ORIENTATION_FIELD_NUMBER = 10;
     private com.lvl6.proto.InfoProto.StructOrientation orientation_;
     public boolean hasOrientation() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     public com.lvl6.proto.InfoProto.StructOrientation getOrientation() {
       return orientation_;
@@ -4770,6 +4784,7 @@ public final class InfoProto {
       coordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       level_ = 0;
       purchaseTime_ = 0L;
+      lastUpgradeTime_ = 0L;
       isComplete_ = false;
       orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
     }
@@ -4843,10 +4858,13 @@ public final class InfoProto {
         output.writeInt64(7, purchaseTime_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeBool(8, isComplete_);
+        output.writeInt64(8, lastUpgradeTime_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeEnum(9, orientation_.getNumber());
+        output.writeBool(9, isComplete_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeEnum(10, orientation_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4887,11 +4905,15 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(8, isComplete_);
+          .computeInt64Size(8, lastUpgradeTime_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(9, orientation_.getNumber());
+          .computeBoolSize(9, isComplete_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(10, orientation_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5036,10 +5058,12 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000020);
         purchaseTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000040);
-        isComplete_ = false;
+        lastUpgradeTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000080);
-        orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        isComplete_ = false;
         bitField0_ = (bitField0_ & ~0x00000100);
+        orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
       
@@ -5113,9 +5137,13 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.isComplete_ = isComplete_;
+        result.lastUpgradeTime_ = lastUpgradeTime_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
+        }
+        result.isComplete_ = isComplete_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
         }
         result.orientation_ = orientation_;
         result.bitField0_ = to_bitField0_;
@@ -5154,6 +5182,9 @@ public final class InfoProto {
         }
         if (other.hasPurchaseTime()) {
           setPurchaseTime(other.getPurchaseTime());
+        }
+        if (other.hasLastUpgradeTime()) {
+          setLastUpgradeTime(other.getLastUpgradeTime());
         }
         if (other.hasIsComplete()) {
           setIsComplete(other.getIsComplete());
@@ -5269,16 +5300,21 @@ public final class InfoProto {
             }
             case 64: {
               bitField0_ |= 0x00000080;
-              isComplete_ = input.readBool();
+              lastUpgradeTime_ = input.readInt64();
               break;
             }
             case 72: {
+              bitField0_ |= 0x00000100;
+              isComplete_ = input.readBool();
+              break;
+            }
+            case 80: {
               int rawValue = input.readEnum();
               com.lvl6.proto.InfoProto.StructOrientation value = com.lvl6.proto.InfoProto.StructOrientation.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(9, rawValue);
+                unknownFields.mergeVarintField(10, rawValue);
               } else {
-                bitField0_ |= 0x00000100;
+                bitField0_ |= 0x00000200;
                 orientation_ = value;
               }
               break;
@@ -5505,31 +5541,52 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isComplete = 8;
+      // optional int64 lastUpgradeTime = 8;
+      private long lastUpgradeTime_ ;
+      public boolean hasLastUpgradeTime() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public long getLastUpgradeTime() {
+        return lastUpgradeTime_;
+      }
+      public Builder setLastUpgradeTime(long value) {
+        bitField0_ |= 0x00000080;
+        lastUpgradeTime_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLastUpgradeTime() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        lastUpgradeTime_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // required bool isComplete = 9;
       private boolean isComplete_ ;
       public boolean hasIsComplete() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       public boolean getIsComplete() {
         return isComplete_;
       }
       public Builder setIsComplete(boolean value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         isComplete_ = value;
         onChanged();
         return this;
       }
       public Builder clearIsComplete() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         isComplete_ = false;
         onChanged();
         return this;
       }
       
-      // required .com.lvl6.proto.StructOrientation orientation = 9;
+      // required .com.lvl6.proto.StructOrientation orientation = 10;
       private com.lvl6.proto.InfoProto.StructOrientation orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
       public boolean hasOrientation() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       public com.lvl6.proto.InfoProto.StructOrientation getOrientation() {
         return orientation_;
@@ -5538,13 +5595,13 @@ public final class InfoProto {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         orientation_ = value;
         onChanged();
         return this;
       }
       public Builder clearOrientation() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
         onChanged();
         return this;
@@ -6125,41 +6182,57 @@ public final class InfoProto {
     boolean hasMinutesToBuild();
     int getMinutesToBuild();
     
-    // required int32 coinPrice = 6;
+    // required int32 minutesToUpgradeBase = 6;
+    boolean hasMinutesToUpgradeBase();
+    int getMinutesToUpgradeBase();
+    
+    // required int32 coinPrice = 7;
     boolean hasCoinPrice();
     int getCoinPrice();
     
-    // required int32 diamondPrice = 7;
+    // required int32 diamondPrice = 8;
     boolean hasDiamondPrice();
     int getDiamondPrice();
     
-    // required int32 woodPrice = 8;
+    // required int32 woodPrice = 9;
     boolean hasWoodPrice();
     int getWoodPrice();
     
-    // required int32 minLevel = 9;
+    // required int32 minLevel = 10;
     boolean hasMinLevel();
     int getMinLevel();
     
-    // required int32 xLength = 10;
+    // required int32 xLength = 11;
     boolean hasXLength();
     int getXLength();
     
-    // required int32 yLength = 11;
+    // required int32 yLength = 12;
     boolean hasYLength();
     int getYLength();
     
-    // required int32 upgradeCoinCostBase = 12;
+    // required int32 upgradeCoinCostBase = 13;
     boolean hasUpgradeCoinCostBase();
     int getUpgradeCoinCostBase();
     
-    // required int32 upgradeDiamondCostBase = 13;
+    // required int32 upgradeDiamondCostBase = 14;
     boolean hasUpgradeDiamondCostBase();
     int getUpgradeDiamondCostBase();
     
-    // required int32 upgradeWoodCostBase = 14;
+    // required int32 upgradeWoodCostBase = 15;
     boolean hasUpgradeWoodCostBase();
     int getUpgradeWoodCostBase();
+    
+    // required int32 instaBuildDiamondCostBase = 16;
+    boolean hasInstaBuildDiamondCostBase();
+    int getInstaBuildDiamondCostBase();
+    
+    // required int32 instaRetrieveDiamondCostBase = 17;
+    boolean hasInstaRetrieveDiamondCostBase();
+    int getInstaRetrieveDiamondCostBase();
+    
+    // required int32 instaUpgradeDiamondCostBase = 18;
+    boolean hasInstaUpgradeDiamondCostBase();
+    int getInstaUpgradeDiamondCostBase();
   }
   public static final class FullStructureProto extends
       com.google.protobuf.GeneratedMessage
@@ -6262,94 +6335,134 @@ public final class InfoProto {
       return minutesToBuild_;
     }
     
-    // required int32 coinPrice = 6;
-    public static final int COINPRICE_FIELD_NUMBER = 6;
+    // required int32 minutesToUpgradeBase = 6;
+    public static final int MINUTESTOUPGRADEBASE_FIELD_NUMBER = 6;
+    private int minutesToUpgradeBase_;
+    public boolean hasMinutesToUpgradeBase() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public int getMinutesToUpgradeBase() {
+      return minutesToUpgradeBase_;
+    }
+    
+    // required int32 coinPrice = 7;
+    public static final int COINPRICE_FIELD_NUMBER = 7;
     private int coinPrice_;
     public boolean hasCoinPrice() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public int getCoinPrice() {
       return coinPrice_;
     }
     
-    // required int32 diamondPrice = 7;
-    public static final int DIAMONDPRICE_FIELD_NUMBER = 7;
+    // required int32 diamondPrice = 8;
+    public static final int DIAMONDPRICE_FIELD_NUMBER = 8;
     private int diamondPrice_;
     public boolean hasDiamondPrice() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     public int getDiamondPrice() {
       return diamondPrice_;
     }
     
-    // required int32 woodPrice = 8;
-    public static final int WOODPRICE_FIELD_NUMBER = 8;
+    // required int32 woodPrice = 9;
+    public static final int WOODPRICE_FIELD_NUMBER = 9;
     private int woodPrice_;
     public boolean hasWoodPrice() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     public int getWoodPrice() {
       return woodPrice_;
     }
     
-    // required int32 minLevel = 9;
-    public static final int MINLEVEL_FIELD_NUMBER = 9;
+    // required int32 minLevel = 10;
+    public static final int MINLEVEL_FIELD_NUMBER = 10;
     private int minLevel_;
     public boolean hasMinLevel() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     public int getMinLevel() {
       return minLevel_;
     }
     
-    // required int32 xLength = 10;
-    public static final int XLENGTH_FIELD_NUMBER = 10;
+    // required int32 xLength = 11;
+    public static final int XLENGTH_FIELD_NUMBER = 11;
     private int xLength_;
     public boolean hasXLength() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     public int getXLength() {
       return xLength_;
     }
     
-    // required int32 yLength = 11;
-    public static final int YLENGTH_FIELD_NUMBER = 11;
+    // required int32 yLength = 12;
+    public static final int YLENGTH_FIELD_NUMBER = 12;
     private int yLength_;
     public boolean hasYLength() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     public int getYLength() {
       return yLength_;
     }
     
-    // required int32 upgradeCoinCostBase = 12;
-    public static final int UPGRADECOINCOSTBASE_FIELD_NUMBER = 12;
+    // required int32 upgradeCoinCostBase = 13;
+    public static final int UPGRADECOINCOSTBASE_FIELD_NUMBER = 13;
     private int upgradeCoinCostBase_;
     public boolean hasUpgradeCoinCostBase() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
+      return ((bitField0_ & 0x00001000) == 0x00001000);
     }
     public int getUpgradeCoinCostBase() {
       return upgradeCoinCostBase_;
     }
     
-    // required int32 upgradeDiamondCostBase = 13;
-    public static final int UPGRADEDIAMONDCOSTBASE_FIELD_NUMBER = 13;
+    // required int32 upgradeDiamondCostBase = 14;
+    public static final int UPGRADEDIAMONDCOSTBASE_FIELD_NUMBER = 14;
     private int upgradeDiamondCostBase_;
     public boolean hasUpgradeDiamondCostBase() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
+      return ((bitField0_ & 0x00002000) == 0x00002000);
     }
     public int getUpgradeDiamondCostBase() {
       return upgradeDiamondCostBase_;
     }
     
-    // required int32 upgradeWoodCostBase = 14;
-    public static final int UPGRADEWOODCOSTBASE_FIELD_NUMBER = 14;
+    // required int32 upgradeWoodCostBase = 15;
+    public static final int UPGRADEWOODCOSTBASE_FIELD_NUMBER = 15;
     private int upgradeWoodCostBase_;
     public boolean hasUpgradeWoodCostBase() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
+      return ((bitField0_ & 0x00004000) == 0x00004000);
     }
     public int getUpgradeWoodCostBase() {
       return upgradeWoodCostBase_;
+    }
+    
+    // required int32 instaBuildDiamondCostBase = 16;
+    public static final int INSTABUILDDIAMONDCOSTBASE_FIELD_NUMBER = 16;
+    private int instaBuildDiamondCostBase_;
+    public boolean hasInstaBuildDiamondCostBase() {
+      return ((bitField0_ & 0x00008000) == 0x00008000);
+    }
+    public int getInstaBuildDiamondCostBase() {
+      return instaBuildDiamondCostBase_;
+    }
+    
+    // required int32 instaRetrieveDiamondCostBase = 17;
+    public static final int INSTARETRIEVEDIAMONDCOSTBASE_FIELD_NUMBER = 17;
+    private int instaRetrieveDiamondCostBase_;
+    public boolean hasInstaRetrieveDiamondCostBase() {
+      return ((bitField0_ & 0x00010000) == 0x00010000);
+    }
+    public int getInstaRetrieveDiamondCostBase() {
+      return instaRetrieveDiamondCostBase_;
+    }
+    
+    // required int32 instaUpgradeDiamondCostBase = 18;
+    public static final int INSTAUPGRADEDIAMONDCOSTBASE_FIELD_NUMBER = 18;
+    private int instaUpgradeDiamondCostBase_;
+    public boolean hasInstaUpgradeDiamondCostBase() {
+      return ((bitField0_ & 0x00020000) == 0x00020000);
+    }
+    public int getInstaUpgradeDiamondCostBase() {
+      return instaUpgradeDiamondCostBase_;
     }
     
     private void initFields() {
@@ -6358,6 +6471,7 @@ public final class InfoProto {
       income_ = 0;
       minutesToGain_ = 0;
       minutesToBuild_ = 0;
+      minutesToUpgradeBase_ = 0;
       coinPrice_ = 0;
       diamondPrice_ = 0;
       woodPrice_ = 0;
@@ -6367,6 +6481,9 @@ public final class InfoProto {
       upgradeCoinCostBase_ = 0;
       upgradeDiamondCostBase_ = 0;
       upgradeWoodCostBase_ = 0;
+      instaBuildDiamondCostBase_ = 0;
+      instaRetrieveDiamondCostBase_ = 0;
+      instaUpgradeDiamondCostBase_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6390,6 +6507,10 @@ public final class InfoProto {
         return false;
       }
       if (!hasMinutesToBuild()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMinutesToUpgradeBase()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -6429,6 +6550,18 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasInstaBuildDiamondCostBase()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasInstaRetrieveDiamondCostBase()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasInstaUpgradeDiamondCostBase()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -6452,31 +6585,43 @@ public final class InfoProto {
         output.writeInt32(5, minutesToBuild_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, coinPrice_);
+        output.writeInt32(6, minutesToUpgradeBase_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, diamondPrice_);
+        output.writeInt32(7, coinPrice_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt32(8, woodPrice_);
+        output.writeInt32(8, diamondPrice_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt32(9, minLevel_);
+        output.writeInt32(9, woodPrice_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeInt32(10, xLength_);
+        output.writeInt32(10, minLevel_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeInt32(11, yLength_);
+        output.writeInt32(11, xLength_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeInt32(12, upgradeCoinCostBase_);
+        output.writeInt32(12, yLength_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        output.writeInt32(13, upgradeDiamondCostBase_);
+        output.writeInt32(13, upgradeCoinCostBase_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeInt32(14, upgradeWoodCostBase_);
+        output.writeInt32(14, upgradeDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        output.writeInt32(15, upgradeWoodCostBase_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        output.writeInt32(16, instaBuildDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        output.writeInt32(17, instaRetrieveDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        output.writeInt32(18, instaUpgradeDiamondCostBase_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6509,39 +6654,55 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, coinPrice_);
+          .computeInt32Size(6, minutesToUpgradeBase_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, diamondPrice_);
+          .computeInt32Size(7, coinPrice_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, woodPrice_);
+          .computeInt32Size(8, diamondPrice_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, minLevel_);
+          .computeInt32Size(9, woodPrice_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, xLength_);
+          .computeInt32Size(10, minLevel_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(11, yLength_);
+          .computeInt32Size(11, xLength_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(12, upgradeCoinCostBase_);
+          .computeInt32Size(12, yLength_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(13, upgradeDiamondCostBase_);
+          .computeInt32Size(13, upgradeCoinCostBase_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(14, upgradeWoodCostBase_);
+          .computeInt32Size(14, upgradeDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(15, upgradeWoodCostBase_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(16, instaBuildDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(17, instaRetrieveDiamondCostBase_);
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(18, instaUpgradeDiamondCostBase_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6677,24 +6838,32 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000008);
         minutesToBuild_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
-        coinPrice_ = 0;
+        minutesToUpgradeBase_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
-        diamondPrice_ = 0;
+        coinPrice_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        woodPrice_ = 0;
+        diamondPrice_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
-        minLevel_ = 0;
+        woodPrice_ = 0;
         bitField0_ = (bitField0_ & ~0x00000100);
-        xLength_ = 0;
+        minLevel_ = 0;
         bitField0_ = (bitField0_ & ~0x00000200);
-        yLength_ = 0;
+        xLength_ = 0;
         bitField0_ = (bitField0_ & ~0x00000400);
-        upgradeCoinCostBase_ = 0;
+        yLength_ = 0;
         bitField0_ = (bitField0_ & ~0x00000800);
-        upgradeDiamondCostBase_ = 0;
+        upgradeCoinCostBase_ = 0;
         bitField0_ = (bitField0_ & ~0x00001000);
-        upgradeWoodCostBase_ = 0;
+        upgradeDiamondCostBase_ = 0;
         bitField0_ = (bitField0_ & ~0x00002000);
+        upgradeWoodCostBase_ = 0;
+        bitField0_ = (bitField0_ & ~0x00004000);
+        instaBuildDiamondCostBase_ = 0;
+        bitField0_ = (bitField0_ & ~0x00008000);
+        instaRetrieveDiamondCostBase_ = 0;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        instaUpgradeDiamondCostBase_ = 0;
+        bitField0_ = (bitField0_ & ~0x00020000);
         return this;
       }
       
@@ -6756,39 +6925,55 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.coinPrice_ = coinPrice_;
+        result.minutesToUpgradeBase_ = minutesToUpgradeBase_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.diamondPrice_ = diamondPrice_;
+        result.coinPrice_ = coinPrice_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.woodPrice_ = woodPrice_;
+        result.diamondPrice_ = diamondPrice_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.minLevel_ = minLevel_;
+        result.woodPrice_ = woodPrice_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.xLength_ = xLength_;
+        result.minLevel_ = minLevel_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000400;
         }
-        result.yLength_ = yLength_;
+        result.xLength_ = xLength_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000800;
         }
-        result.upgradeCoinCostBase_ = upgradeCoinCostBase_;
+        result.yLength_ = yLength_;
         if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
           to_bitField0_ |= 0x00001000;
         }
-        result.upgradeDiamondCostBase_ = upgradeDiamondCostBase_;
+        result.upgradeCoinCostBase_ = upgradeCoinCostBase_;
         if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
           to_bitField0_ |= 0x00002000;
         }
+        result.upgradeDiamondCostBase_ = upgradeDiamondCostBase_;
+        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+          to_bitField0_ |= 0x00004000;
+        }
         result.upgradeWoodCostBase_ = upgradeWoodCostBase_;
+        if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
+          to_bitField0_ |= 0x00008000;
+        }
+        result.instaBuildDiamondCostBase_ = instaBuildDiamondCostBase_;
+        if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
+          to_bitField0_ |= 0x00010000;
+        }
+        result.instaRetrieveDiamondCostBase_ = instaRetrieveDiamondCostBase_;
+        if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
+          to_bitField0_ |= 0x00020000;
+        }
+        result.instaUpgradeDiamondCostBase_ = instaUpgradeDiamondCostBase_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6820,6 +7005,9 @@ public final class InfoProto {
         if (other.hasMinutesToBuild()) {
           setMinutesToBuild(other.getMinutesToBuild());
         }
+        if (other.hasMinutesToUpgradeBase()) {
+          setMinutesToUpgradeBase(other.getMinutesToUpgradeBase());
+        }
         if (other.hasCoinPrice()) {
           setCoinPrice(other.getCoinPrice());
         }
@@ -6847,6 +7035,15 @@ public final class InfoProto {
         if (other.hasUpgradeWoodCostBase()) {
           setUpgradeWoodCostBase(other.getUpgradeWoodCostBase());
         }
+        if (other.hasInstaBuildDiamondCostBase()) {
+          setInstaBuildDiamondCostBase(other.getInstaBuildDiamondCostBase());
+        }
+        if (other.hasInstaRetrieveDiamondCostBase()) {
+          setInstaRetrieveDiamondCostBase(other.getInstaRetrieveDiamondCostBase());
+        }
+        if (other.hasInstaUpgradeDiamondCostBase()) {
+          setInstaUpgradeDiamondCostBase(other.getInstaUpgradeDiamondCostBase());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -6869,6 +7066,10 @@ public final class InfoProto {
           return false;
         }
         if (!hasMinutesToBuild()) {
+          
+          return false;
+        }
+        if (!hasMinutesToUpgradeBase()) {
           
           return false;
         }
@@ -6905,6 +7106,18 @@ public final class InfoProto {
           return false;
         }
         if (!hasUpgradeWoodCostBase()) {
+          
+          return false;
+        }
+        if (!hasInstaBuildDiamondCostBase()) {
+          
+          return false;
+        }
+        if (!hasInstaRetrieveDiamondCostBase()) {
+          
+          return false;
+        }
+        if (!hasInstaUpgradeDiamondCostBase()) {
           
           return false;
         }
@@ -6961,47 +7174,67 @@ public final class InfoProto {
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              coinPrice_ = input.readInt32();
+              minutesToUpgradeBase_ = input.readInt32();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
-              diamondPrice_ = input.readInt32();
+              coinPrice_ = input.readInt32();
               break;
             }
             case 64: {
               bitField0_ |= 0x00000080;
-              woodPrice_ = input.readInt32();
+              diamondPrice_ = input.readInt32();
               break;
             }
             case 72: {
               bitField0_ |= 0x00000100;
-              minLevel_ = input.readInt32();
+              woodPrice_ = input.readInt32();
               break;
             }
             case 80: {
               bitField0_ |= 0x00000200;
-              xLength_ = input.readInt32();
+              minLevel_ = input.readInt32();
               break;
             }
             case 88: {
               bitField0_ |= 0x00000400;
-              yLength_ = input.readInt32();
+              xLength_ = input.readInt32();
               break;
             }
             case 96: {
               bitField0_ |= 0x00000800;
-              upgradeCoinCostBase_ = input.readInt32();
+              yLength_ = input.readInt32();
               break;
             }
             case 104: {
               bitField0_ |= 0x00001000;
-              upgradeDiamondCostBase_ = input.readInt32();
+              upgradeCoinCostBase_ = input.readInt32();
               break;
             }
             case 112: {
               bitField0_ |= 0x00002000;
+              upgradeDiamondCostBase_ = input.readInt32();
+              break;
+            }
+            case 120: {
+              bitField0_ |= 0x00004000;
               upgradeWoodCostBase_ = input.readInt32();
+              break;
+            }
+            case 128: {
+              bitField0_ |= 0x00008000;
+              instaBuildDiamondCostBase_ = input.readInt32();
+              break;
+            }
+            case 136: {
+              bitField0_ |= 0x00010000;
+              instaRetrieveDiamondCostBase_ = input.readInt32();
+              break;
+            }
+            case 144: {
+              bitField0_ |= 0x00020000;
+              instaUpgradeDiamondCostBase_ = input.readInt32();
               break;
             }
           }
@@ -7130,191 +7363,275 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 coinPrice = 6;
+      // required int32 minutesToUpgradeBase = 6;
+      private int minutesToUpgradeBase_ ;
+      public boolean hasMinutesToUpgradeBase() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getMinutesToUpgradeBase() {
+        return minutesToUpgradeBase_;
+      }
+      public Builder setMinutesToUpgradeBase(int value) {
+        bitField0_ |= 0x00000020;
+        minutesToUpgradeBase_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearMinutesToUpgradeBase() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        minutesToUpgradeBase_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 coinPrice = 7;
       private int coinPrice_ ;
       public boolean hasCoinPrice() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public int getCoinPrice() {
         return coinPrice_;
       }
       public Builder setCoinPrice(int value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         coinPrice_ = value;
         onChanged();
         return this;
       }
       public Builder clearCoinPrice() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         coinPrice_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 diamondPrice = 7;
+      // required int32 diamondPrice = 8;
       private int diamondPrice_ ;
       public boolean hasDiamondPrice() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public int getDiamondPrice() {
         return diamondPrice_;
       }
       public Builder setDiamondPrice(int value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         diamondPrice_ = value;
         onChanged();
         return this;
       }
       public Builder clearDiamondPrice() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         diamondPrice_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 woodPrice = 8;
+      // required int32 woodPrice = 9;
       private int woodPrice_ ;
       public boolean hasWoodPrice() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       public int getWoodPrice() {
         return woodPrice_;
       }
       public Builder setWoodPrice(int value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         woodPrice_ = value;
         onChanged();
         return this;
       }
       public Builder clearWoodPrice() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         woodPrice_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 minLevel = 9;
+      // required int32 minLevel = 10;
       private int minLevel_ ;
       public boolean hasMinLevel() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       public int getMinLevel() {
         return minLevel_;
       }
       public Builder setMinLevel(int value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         minLevel_ = value;
         onChanged();
         return this;
       }
       public Builder clearMinLevel() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         minLevel_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 xLength = 10;
+      // required int32 xLength = 11;
       private int xLength_ ;
       public boolean hasXLength() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       public int getXLength() {
         return xLength_;
       }
       public Builder setXLength(int value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000400;
         xLength_ = value;
         onChanged();
         return this;
       }
       public Builder clearXLength() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000400);
         xLength_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 yLength = 11;
+      // required int32 yLength = 12;
       private int yLength_ ;
       public boolean hasYLength() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       public int getYLength() {
         return yLength_;
       }
       public Builder setYLength(int value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         yLength_ = value;
         onChanged();
         return this;
       }
       public Builder clearYLength() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000800);
         yLength_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 upgradeCoinCostBase = 12;
+      // required int32 upgradeCoinCostBase = 13;
       private int upgradeCoinCostBase_ ;
       public boolean hasUpgradeCoinCostBase() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       public int getUpgradeCoinCostBase() {
         return upgradeCoinCostBase_;
       }
       public Builder setUpgradeCoinCostBase(int value) {
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         upgradeCoinCostBase_ = value;
         onChanged();
         return this;
       }
       public Builder clearUpgradeCoinCostBase() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00001000);
         upgradeCoinCostBase_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 upgradeDiamondCostBase = 13;
+      // required int32 upgradeDiamondCostBase = 14;
       private int upgradeDiamondCostBase_ ;
       public boolean hasUpgradeDiamondCostBase() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
+        return ((bitField0_ & 0x00002000) == 0x00002000);
       }
       public int getUpgradeDiamondCostBase() {
         return upgradeDiamondCostBase_;
       }
       public Builder setUpgradeDiamondCostBase(int value) {
-        bitField0_ |= 0x00001000;
+        bitField0_ |= 0x00002000;
         upgradeDiamondCostBase_ = value;
         onChanged();
         return this;
       }
       public Builder clearUpgradeDiamondCostBase() {
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00002000);
         upgradeDiamondCostBase_ = 0;
         onChanged();
         return this;
       }
       
-      // required int32 upgradeWoodCostBase = 14;
+      // required int32 upgradeWoodCostBase = 15;
       private int upgradeWoodCostBase_ ;
       public boolean hasUpgradeWoodCostBase() {
-        return ((bitField0_ & 0x00002000) == 0x00002000);
+        return ((bitField0_ & 0x00004000) == 0x00004000);
       }
       public int getUpgradeWoodCostBase() {
         return upgradeWoodCostBase_;
       }
       public Builder setUpgradeWoodCostBase(int value) {
-        bitField0_ |= 0x00002000;
+        bitField0_ |= 0x00004000;
         upgradeWoodCostBase_ = value;
         onChanged();
         return this;
       }
       public Builder clearUpgradeWoodCostBase() {
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00004000);
         upgradeWoodCostBase_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 instaBuildDiamondCostBase = 16;
+      private int instaBuildDiamondCostBase_ ;
+      public boolean hasInstaBuildDiamondCostBase() {
+        return ((bitField0_ & 0x00008000) == 0x00008000);
+      }
+      public int getInstaBuildDiamondCostBase() {
+        return instaBuildDiamondCostBase_;
+      }
+      public Builder setInstaBuildDiamondCostBase(int value) {
+        bitField0_ |= 0x00008000;
+        instaBuildDiamondCostBase_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearInstaBuildDiamondCostBase() {
+        bitField0_ = (bitField0_ & ~0x00008000);
+        instaBuildDiamondCostBase_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 instaRetrieveDiamondCostBase = 17;
+      private int instaRetrieveDiamondCostBase_ ;
+      public boolean hasInstaRetrieveDiamondCostBase() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      public int getInstaRetrieveDiamondCostBase() {
+        return instaRetrieveDiamondCostBase_;
+      }
+      public Builder setInstaRetrieveDiamondCostBase(int value) {
+        bitField0_ |= 0x00010000;
+        instaRetrieveDiamondCostBase_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearInstaRetrieveDiamondCostBase() {
+        bitField0_ = (bitField0_ & ~0x00010000);
+        instaRetrieveDiamondCostBase_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 instaUpgradeDiamondCostBase = 18;
+      private int instaUpgradeDiamondCostBase_ ;
+      public boolean hasInstaUpgradeDiamondCostBase() {
+        return ((bitField0_ & 0x00020000) == 0x00020000);
+      }
+      public int getInstaUpgradeDiamondCostBase() {
+        return instaUpgradeDiamondCostBase_;
+      }
+      public Builder setInstaUpgradeDiamondCostBase(int value) {
+        bitField0_ |= 0x00020000;
+        instaUpgradeDiamondCostBase_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearInstaUpgradeDiamondCostBase() {
+        bitField0_ = (bitField0_ & ~0x00020000);
+        instaUpgradeDiamondCostBase_ = 0;
         onChanged();
         return this;
       }
@@ -21235,115 +21552,119 @@ public final class InfoProto {
       "N\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004EPIC\020\003\022\r\n" +
       "\tLEGENDARY\020\004\"1\n\tEquipType\022\n\n\006WEAPON\020\000\022\t\n" +
       "\005ARMOR\020\001\022\r\n\tACCESSORY\020\002\".\n\tClassType\022\013\n\007" +
-      "WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\"\216\002\n\026Full" +
+      "WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\"\247\002\n\026Full" +
       "UserStructureProto\022\024\n\014userStructId\030\001 \002(\005" +
       "\022\016\n\006userId\030\002 \002(\005\022\020\n\010structId\030\003 \002(\005\022\025\n\rla" +
       "stRetrieved\030\004 \001(\003\0224\n\013coordinates\030\005 \002(\0132\037" +
       ".com.lvl6.proto.CoordinateProto\022\r\n\005level" +
-      "\030\006 \002(\005\022\024\n\014purchaseTime\030\007 \002(\003\022\022\n\nisComple" +
-      "te\030\010 \002(\010\0226\n\013orientation\030\t \002(\0162!.com.lvl6",
-      ".proto.StructOrientation\"Y\n\022FullUserEqui" +
-      "pProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022" +
-      "\020\n\010quantity\030\003 \002(\005\022\020\n\010isStolen\030\004 \002(\010\"\275\002\n\022" +
-      "FullStructureProto\022\020\n\010structId\030\001 \002(\005\022\014\n\004" +
-      "name\030\002 \002(\t\022\016\n\006income\030\003 \002(\005\022\025\n\rminutesToG" +
-      "ain\030\004 \002(\005\022\026\n\016minutesToBuild\030\005 \002(\005\022\021\n\tcoi" +
-      "nPrice\030\006 \002(\005\022\024\n\014diamondPrice\030\007 \002(\005\022\021\n\two" +
-      "odPrice\030\010 \002(\005\022\020\n\010minLevel\030\t \002(\005\022\017\n\007xLeng" +
-      "th\030\n \002(\005\022\017\n\007yLength\030\013 \002(\005\022\033\n\023upgradeCoin" +
-      "CostBase\030\014 \002(\005\022\036\n\026upgradeDiamondCostBase",
-      "\030\r \002(\005\022\033\n\023upgradeWoodCostBase\030\016 \002(\005\"\240\003\n\r" +
-      "FullTaskProto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004name\030\002 " +
-      "\002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequiredForCom" +
-      "pletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016min" +
-      "CoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGained\030\007 \002(" +
-      "\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025potentia" +
-      "lLootEquipIds\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022\032" +
-      "\n\022assetNumWithinCity\030\013 \002(\005\022F\n\tequipReqs\030" +
-      "\014 \003(\01323.com.lvl6.proto.FullTaskProto.Ful" +
-      "lTaskEquipReqProto\032J\n\025FullTaskEquipReqPr",
-      "oto\022\016\n\006taskId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010" +
-      "quantity\030\003 \002(\005\"\177\n\rFullCityProto\022\016\n\006cityI" +
-      "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030\003 \002(\005\022" +
-      "\035\n\025expGainedBaseOnRankup\030\004 \002(\005\022\037\n\027coinsG" +
-      "ainedBaseOnRankup\030\005 \002(\005\"\'\n\017CoordinatePro" +
-      "to\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProt" +
-      "o\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\301" +
-      "\002\n\030FullMarketplacePostProto\022\031\n\021marketpla" +
-      "cePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010post" +
-      "Type\030\003 \002(\0162#.com.lvl6.proto.MarketplaceP",
-      "ostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013postedEqu" +
-      "ip\030\005 \001(\0132\036.com.lvl6.proto.FullEquipProto" +
-      "\022\022\n\npostedWood\030\006 \001(\005\022\026\n\016postedDiamonds\030\007" +
-      " \001(\005\022\023\n\013postedCoins\030\010 \001(\005\022\023\n\013diamondCost" +
-      "\030\t \001(\005\022\020\n\010coinCost\030\n \001(\005\022\020\n\010woodCost\030\013 \001" +
-      "(\005\"\260\001\n\027FullUserCritstructProto\022,\n\004type\030\001" +
-      " \002(\0162\036.com.lvl6.proto.CritStructType\022/\n\006" +
-      "coords\030\002 \002(\0132\037.com.lvl6.proto.Coordinate" +
-      "Proto\0226\n\013orientation\030\003 \002(\0162!.com.lvl6.pr" +
-      "oto.StructOrientation\"j\n\024MinimumUserTask",
-      "Proto\022\016\n\006userId\030\001 \002(\005\022+\n\004task\030\002 \002(\0132\035.co" +
-      "m.lvl6.proto.FullTaskProto\022\025\n\rnumTimesAc" +
-      "ted\030\003 \002(\005\"\364\003\n\026FullUserQuestDataLarge\022\016\n\006" +
-      "userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010complet" +
-      "e\030\003 \002(\010\022C\n\025requiredTasksProgress\030\004 \003(\0132$" +
-      ".com.lvl6.proto.MinimumUserTaskProto\022T\n\035" +
-      "requiredDefeatTypeJobProgress\030\005 \003(\0132-.co" +
-      "m.lvl6.proto.MinimumUserDefeatTypeJobPro" +
-      "to\022V\n\036requiredBuildStructJobProgress\030\006 \003" +
-      "(\0132..com.lvl6.proto.MinimumUserBuildStru",
-      "ctJobProto\022Z\n requiredUpgradeStructJobPr" +
-      "ogress\030\007 \003(\01320.com.lvl6.proto.MinimumUse" +
-      "rUpgradeStructJobProto\022X\n\037requiredPosses" +
-      "sEquipJobProgress\030\010 \003(\0132/.com.lvl6.proto" +
-      ".MinimumUserPossessEquipJobProto\"\222\001\n\035Min" +
-      "imumUserDefeatTypeJobProto\022\016\n\006userId\030\001 \002" +
-      "(\005\022\017\n\007questId\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003" +
-      " \002(\0132\".com.lvl6.proto.DefeatTypeJobProto" +
-      "\022\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobP" +
-      "roto\022\027\n\017defeatTypeJobId\030\001 \002(\005\022-\n\013typeOfE",
-      "nemy\030\002 \002(\0162\030.com.lvl6.proto.UserType\022\032\n\022" +
-      "numEnemiesToDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005" +
-      "\"\232\001\n\036MinimumUserBuildStructJobProto\022\016\n\006u" +
-      "serId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016buildStr" +
-      "uctJob\030\003 \002(\0132#.com.lvl6.proto.BuildStruc" +
-      "tJobProto\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n" +
-      "\023BuildStructJobProto\022\030\n\020buildStructJobId" +
-      "\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequ" +
-      "ired\030\003 \002(\005\"\230\001\n MinimumUserUpgradeStructJ" +
-      "obProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005",
-      "\022?\n\020upgradeStructJob\030\003 \002(\0132%.com.lvl6.pr" +
-      "oto.UpgradeStructJobProto\022\022\n\nisComplete\030" +
-      "\004 \002(\010\"W\n\025UpgradeStructJobProto\022\032\n\022upgrad" +
-      "eStructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010" +
-      "levelReq\030\003 \002(\005\"\232\001\n\037MinimumUserPossessEqu" +
-      "ipJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 " +
-      "\002(\005\022B\n\024possessEquipJobProto\030\003 \002(\0132$.com." +
-      "lvl6.proto.PossessEquipJobProto\022\022\n\nisCom" +
-      "plete\030\004 \002(\010\"W\n\024PossessEquipJobProto\022\031\n\021p" +
-      "ossessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022",
-      "\023\n\013quantityReq\030\003 \002(\005\"\247\003\n\016FullQuestProto\022" +
-      "\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name" +
-      "\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneRespo" +
-      "nse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNu" +
-      "mWithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026" +
-      "\n\016diamondsGained\030\t \001(\005\022\022\n\nwoodGained\030\n \001" +
-      "(\005\022\021\n\texpGained\030\013 \001(\005\022\025\n\requipIdGained\030\014" +
-      " \001(\005\022\035\n\025questsRequiredForThis\030\r \003(\005\022\020\n\010t" +
-      "askReqs\030\016 \003(\005\022\035\n\025upgradeStructJobsReqs\030\017" +
-      " \003(\005\022\033\n\023buildStructJobsReqs\030\020 \003(\005\022\026\n\016def",
-      "eatTypeReqs\030\021 \003(\005\022\033\n\023possessEquipJobReqs" +
-      "\030\022 \003(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013" +
-      "GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARR" +
-      "IOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023M" +
-      "arketplacePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWO" +
-      "OD_POST\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST" +
-      "\020\003*2\n\035MarketplaceJobRequirementType\022\007\n\003B" +
-      "UY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIA" +
-      "RY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005V" +
-      "AULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021S",
-      "tructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSI" +
-      "TION_2\020\001B\013B\tInfoProto"
+      "\030\006 \002(\005\022\024\n\014purchaseTime\030\007 \002(\003\022\027\n\017lastUpgr" +
+      "adeTime\030\010 \001(\003\022\022\n\nisComplete\030\t \002(\010\0226\n\013ori",
+      "entation\030\n \002(\0162!.com.lvl6.proto.StructOr" +
+      "ientation\"Y\n\022FullUserEquipProto\022\016\n\006userI" +
+      "d\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010quantity\030\003 \002" +
+      "(\005\022\020\n\010isStolen\030\004 \002(\010\"\311\003\n\022FullStructurePr" +
+      "oto\022\020\n\010structId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006i" +
+      "ncome\030\003 \002(\005\022\025\n\rminutesToGain\030\004 \002(\005\022\026\n\016mi" +
+      "nutesToBuild\030\005 \002(\005\022\034\n\024minutesToUpgradeBa" +
+      "se\030\006 \002(\005\022\021\n\tcoinPrice\030\007 \002(\005\022\024\n\014diamondPr" +
+      "ice\030\010 \002(\005\022\021\n\twoodPrice\030\t \002(\005\022\020\n\010minLevel" +
+      "\030\n \002(\005\022\017\n\007xLength\030\013 \002(\005\022\017\n\007yLength\030\014 \002(\005",
+      "\022\033\n\023upgradeCoinCostBase\030\r \002(\005\022\036\n\026upgrade" +
+      "DiamondCostBase\030\016 \002(\005\022\033\n\023upgradeWoodCost" +
+      "Base\030\017 \002(\005\022!\n\031instaBuildDiamondCostBase\030" +
+      "\020 \002(\005\022$\n\034instaRetrieveDiamondCostBase\030\021 " +
+      "\002(\005\022#\n\033instaUpgradeDiamondCostBase\030\022 \002(\005" +
+      "\"\240\003\n\rFullTaskProto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004na" +
+      "me\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequiredF" +
+      "orCompletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026" +
+      "\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGained" +
+      "\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025pot",
+      "entialLootEquipIds\030\t \003(\005\022\021\n\texpGained\030\n " +
+      "\002(\005\022\032\n\022assetNumWithinCity\030\013 \002(\005\022F\n\tequip" +
+      "Reqs\030\014 \003(\01323.com.lvl6.proto.FullTaskProt" +
+      "o.FullTaskEquipReqProto\032J\n\025FullTaskEquip" +
+      "ReqProto\022\016\n\006taskId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(" +
+      "\005\022\020\n\010quantity\030\003 \002(\005\"\177\n\rFullCityProto\022\016\n\006" +
+      "cityId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030\003" +
+      " \002(\005\022\035\n\025expGainedBaseOnRankup\030\004 \002(\005\022\037\n\027c" +
+      "oinsGainedBaseOnRankup\030\005 \002(\005\"\'\n\017Coordina" +
+      "teProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocatio",
+      "nProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitude\030\002 " +
+      "\002(\002\"\301\002\n\030FullMarketplacePostProto\022\031\n\021mark" +
+      "etplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n" +
+      "\010postType\030\003 \002(\0162#.com.lvl6.proto.Marketp" +
+      "lacePostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013post" +
+      "edEquip\030\005 \001(\0132\036.com.lvl6.proto.FullEquip" +
+      "Proto\022\022\n\npostedWood\030\006 \001(\005\022\026\n\016postedDiamo" +
+      "nds\030\007 \001(\005\022\023\n\013postedCoins\030\010 \001(\005\022\023\n\013diamon" +
+      "dCost\030\t \001(\005\022\020\n\010coinCost\030\n \001(\005\022\020\n\010woodCos" +
+      "t\030\013 \001(\005\"\260\001\n\027FullUserCritstructProto\022,\n\004t",
+      "ype\030\001 \002(\0162\036.com.lvl6.proto.CritStructTyp" +
+      "e\022/\n\006coords\030\002 \002(\0132\037.com.lvl6.proto.Coord" +
+      "inateProto\0226\n\013orientation\030\003 \002(\0162!.com.lv" +
+      "l6.proto.StructOrientation\"j\n\024MinimumUse" +
+      "rTaskProto\022\016\n\006userId\030\001 \002(\005\022+\n\004task\030\002 \002(\013" +
+      "2\035.com.lvl6.proto.FullTaskProto\022\025\n\rnumTi" +
+      "mesActed\030\003 \002(\005\"\364\003\n\026FullUserQuestDataLarg" +
+      "e\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010co" +
+      "mplete\030\003 \002(\010\022C\n\025requiredTasksProgress\030\004 " +
+      "\003(\0132$.com.lvl6.proto.MinimumUserTaskProt",
+      "o\022T\n\035requiredDefeatTypeJobProgress\030\005 \003(\013" +
+      "2-.com.lvl6.proto.MinimumUserDefeatTypeJ" +
+      "obProto\022V\n\036requiredBuildStructJobProgres" +
+      "s\030\006 \003(\0132..com.lvl6.proto.MinimumUserBuil" +
+      "dStructJobProto\022Z\n requiredUpgradeStruct" +
+      "JobProgress\030\007 \003(\01320.com.lvl6.proto.Minim" +
+      "umUserUpgradeStructJobProto\022X\n\037requiredP" +
+      "ossessEquipJobProgress\030\010 \003(\0132/.com.lvl6." +
+      "proto.MinimumUserPossessEquipJobProto\"\222\001" +
+      "\n\035MinimumUserDefeatTypeJobProto\022\016\n\006userI",
+      "d\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\017defeatTypeJo" +
+      "bId\030\003 \002(\0132\".com.lvl6.proto.DefeatTypeJob" +
+      "Proto\022\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022DefeatTyp" +
+      "eJobProto\022\027\n\017defeatTypeJobId\030\001 \002(\005\022-\n\013ty" +
+      "peOfEnemy\030\002 \002(\0162\030.com.lvl6.proto.UserTyp" +
+      "e\022\032\n\022numEnemiesToDefeat\030\003 \002(\005\022\016\n\006cityId\030" +
+      "\004 \002(\005\"\232\001\n\036MinimumUserBuildStructJobProto" +
+      "\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016bui" +
+      "ldStructJob\030\003 \002(\0132#.com.lvl6.proto.Build" +
+      "StructJobProto\022\032\n\022numOfStructUserHas\030\004 \002",
+      "(\005\"[\n\023BuildStructJobProto\022\030\n\020buildStruct" +
+      "JobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020quantit" +
+      "yRequired\030\003 \002(\005\"\230\001\n MinimumUserUpgradeSt" +
+      "ructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030" +
+      "\002 \002(\005\022?\n\020upgradeStructJob\030\003 \002(\0132%.com.lv" +
+      "l6.proto.UpgradeStructJobProto\022\022\n\nisComp" +
+      "lete\030\004 \002(\010\"W\n\025UpgradeStructJobProto\022\032\n\022u" +
+      "pgradeStructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(" +
+      "\005\022\020\n\010levelReq\030\003 \002(\005\"\232\001\n\037MinimumUserPosse" +
+      "ssEquipJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007quest",
+      "Id\030\002 \002(\005\022B\n\024possessEquipJobProto\030\003 \002(\0132$" +
+      ".com.lvl6.proto.PossessEquipJobProto\022\022\n\n" +
+      "isComplete\030\004 \002(\010\"W\n\024PossessEquipJobProto" +
+      "\022\031\n\021possessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002" +
+      " \002(\005\022\023\n\013quantityReq\030\003 \002(\005\"\247\003\n\016FullQuestP" +
+      "roto\022\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n" +
+      "\004name\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014done" +
+      "Response\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022as" +
+      "setNumWithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 " +
+      "\001(\005\022\026\n\016diamondsGained\030\t \001(\005\022\022\n\nwoodGaine",
+      "d\030\n \001(\005\022\021\n\texpGained\030\013 \001(\005\022\025\n\requipIdGai" +
+      "ned\030\014 \001(\005\022\035\n\025questsRequiredForThis\030\r \003(\005" +
+      "\022\020\n\010taskReqs\030\016 \003(\005\022\035\n\025upgradeStructJobsR" +
+      "eqs\030\017 \003(\005\022\033\n\023buildStructJobsReqs\030\020 \003(\005\022\026" +
+      "\n\016defeatTypeReqs\030\021 \003(\005\022\033\n\023possessEquipJo" +
+      "bReqs\030\022 \003(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020" +
+      "\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD" +
+      "_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005" +
+      "*U\n\023MarketplacePostType\022\016\n\nEQUIP_POST\020\000\022" +
+      "\r\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN",
+      "_POST\020\003*2\n\035MarketplaceJobRequirementType" +
+      "\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n" +
+      "\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002" +
+      "\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005" +
+      "*3\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n" +
+      "\nPOSITION_2\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -21379,7 +21700,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullUserStructureProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserStructureProto_descriptor,
-              new java.lang.String[] { "UserStructId", "UserId", "StructId", "LastRetrieved", "Coordinates", "Level", "PurchaseTime", "IsComplete", "Orientation", },
+              new java.lang.String[] { "UserStructId", "UserId", "StructId", "LastRetrieved", "Coordinates", "Level", "PurchaseTime", "LastUpgradeTime", "IsComplete", "Orientation", },
               com.lvl6.proto.InfoProto.FullUserStructureProto.class,
               com.lvl6.proto.InfoProto.FullUserStructureProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserEquipProto_descriptor =
@@ -21395,7 +21716,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullStructureProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullStructureProto_descriptor,
-              new java.lang.String[] { "StructId", "Name", "Income", "MinutesToGain", "MinutesToBuild", "CoinPrice", "DiamondPrice", "WoodPrice", "MinLevel", "XLength", "YLength", "UpgradeCoinCostBase", "UpgradeDiamondCostBase", "UpgradeWoodCostBase", },
+              new java.lang.String[] { "StructId", "Name", "Income", "MinutesToGain", "MinutesToBuild", "MinutesToUpgradeBase", "CoinPrice", "DiamondPrice", "WoodPrice", "MinLevel", "XLength", "YLength", "UpgradeCoinCostBase", "UpgradeDiamondCostBase", "UpgradeWoodCostBase", "InstaBuildDiamondCostBase", "InstaRetrieveDiamondCostBase", "InstaUpgradeDiamondCostBase", },
               com.lvl6.proto.InfoProto.FullStructureProto.class,
               com.lvl6.proto.InfoProto.FullStructureProto.Builder.class);
           internal_static_com_lvl6_proto_FullTaskProto_descriptor =
