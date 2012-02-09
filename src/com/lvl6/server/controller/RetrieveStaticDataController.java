@@ -41,7 +41,7 @@ public class RetrieveStaticDataController extends EventController{
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_RETRIEVE_EQUIPS_FOR_ARMORY_EVENT;
+    return EventProtocolRequest.C_RETRIEVE_STATIC_DATA_EVENT;
   }
 
   @Override

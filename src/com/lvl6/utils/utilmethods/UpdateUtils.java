@@ -88,7 +88,7 @@ public class UpdateUtils {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
 
     for (UserStruct userStruct : userStructs) {
-      Structure structure = structures.get(userStruct.getId());
+      Structure structure = structures.get(userStruct.getStructId());
       if (structure == null) {
         return false;
       }

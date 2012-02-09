@@ -56,7 +56,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       UserStruct userStruct = UserStructRetrieveUtils.getSpecificUserStruct(userStructId);
       Structure struct = null;
       if (userStruct != null) {
-        struct = StructureRetrieveUtils.getStructForStructId(userStruct.getId());
+        struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
       }
       
       boolean legitBuild = checkLegitBuild(resBuilder, user, userStruct, timeOfPurchase, waitTimeType, struct);
