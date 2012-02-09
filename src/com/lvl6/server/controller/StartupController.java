@@ -156,7 +156,6 @@ public class StartupController extends EventController {
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
-      cb.addProductPrices(IAPValues.packagePrices.get(i));
     }
     startupBuilder.setStartupConstants(cb.build());
   }

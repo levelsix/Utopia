@@ -121,10 +121,9 @@ message StartupResponseProto {
 	message StartupConstants {
 	  	repeated string productIds = 1;
 	  	repeated int32 productDiamondsGiven = 2;
-	  	repeated double productPrices = 3;
-	    required int32 diamondCostForEnergyRefill = 4; 
-    	required int32 diamondCostForStaminaRefill = 5;
-    	required int32 maxItemUsePerBattle = 6;
+	    required int32 diamondCostForEnergyRefill = 3; 
+    	required int32 diamondCostForStaminaRefill = 4;
+    	required int32 maxItemUsePerBattle = 5;
     	   	
 		//ADD a bunch of other important constants
 	}
@@ -375,6 +374,7 @@ message FinishNormStructWaittimeWithDiamondsRequestProto {
 	enum NormStructWaitTimeType {
 		FINISH_CONSTRUCTION = 0;
 		FINISH_INCOME_WAITTIME = 1;
+		FINISH_UPGRADE = 2;
 	}
 }
 
