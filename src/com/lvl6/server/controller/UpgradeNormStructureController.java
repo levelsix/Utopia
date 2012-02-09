@@ -90,12 +90,16 @@ public class UpgradeNormStructureController extends EventController {
 
   private boolean checkLegitUpgrade(Builder resBuilder, User user, UserStruct userStruct,
       Structure struct, Timestamp timeOfUpgrade) {
-    if (user == null || userStruct == null || struct == null || !userStruct.isComplete() || userStruct.getLastRetrieved() == null) {
+    if (user == null || userStruct == null || struct == null || userStruct.getLastRetrieved() == null) {
       resBuilder.setStatus(UpgradeNormStructureStatus.OTHER_FAIL);
       return false;
     }
+    if (!userStruct.isComplete()) {
+      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
+      return false;
+    }
     if (timeOfUpgrade.getTime() < userStruct.getLastRetrieved().getTime()) {
-      resBuilder.setStatus(UpgradeNormStructureStatus.OTHER_FAIL);
+      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
       return false;
     }
 
@@ -105,10 +109,6 @@ public class UpgradeNormStructureController extends EventController {
 
     if (user.getId() != userStruct.getUserId()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_USERS_STRUCT);
-      return false;
-    }
-    if (!userStruct.isComplete()) {
-      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
       return false;
     }
     if (user.getCoins() < upgradeCoinCost) {
