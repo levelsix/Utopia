@@ -346,22 +346,24 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 																						//DONE
 message CriticalStructureActionRequestProto {
 	required MinimumUserProto sender = 1;
-	required CoordinateProto critStructCoordinates = 2;
+	required CritStructActionType actionType = 2;
 	required CritStructType critStructType = 3;
-	required CritStructAction critStructAction = 4;
+	optional CoordinateProto critStructCoordinates = 4;
+	optional StructOrientation orientation = 5;
 	
-	enum CritStructAction {
-		PLACE = 1;
-		MOVE = 2;
+	enum CritStructActionType {
+		PLACE = 0;
+		MOVE = 1;
+		ROTATE = 2;
 	}
 }
 
 																						//DONE
 message CriticalStructureActionResponseProto {
 	required MinimumUserProto sender = 1;
-	required CriticalStructureAction status = 3;
+	required CritStructActionStatus status = 3;
 	
-	enum CriticalStructureAction {
+	enum CritStructActionStatus {
 		SUCCESS = 0;
 		CANNOT_PLACE_NON_PLACEABLE_CRIT_STRUCT = 1;	//we only place armory/vault/marketplace 
 		NOT_ACCESSIBLE_TO_USERS_LEVEL = 2;

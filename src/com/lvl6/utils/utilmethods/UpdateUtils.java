@@ -61,6 +61,38 @@ public class UpdateUtils {
     return false;
   }
 
+  public static boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CRITSTRUCTS__USER_ID, userId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (critStructType == CritStructType.ARMORY) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.VAULT) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.MARKETPLACE) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.LUMBERMILL) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__LUMBERMILL_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.CARPENTER) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__CARPENTER_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.AVIARY) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__AVIARY_ORIENTATION, orientation.getNumber());
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   /*
    * used for moving user structs
    */
@@ -74,8 +106,8 @@ public class UpdateUtils {
       absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.VAULT) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.MARKETPLACE) {
       absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_X_COORD, coordinates.getX());

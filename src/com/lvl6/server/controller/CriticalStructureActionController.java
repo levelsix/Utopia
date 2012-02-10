@@ -7,12 +7,13 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CriticalStructureActionRequestProto;
-import com.lvl6.proto.EventProto.CriticalStructureActionRequestProto.CritStructAction;
+import com.lvl6.proto.EventProto.CriticalStructureActionRequestProto.CritStructActionType;
 import com.lvl6.proto.EventProto.CriticalStructureActionResponseProto;
 import com.lvl6.proto.EventProto.CriticalStructureActionResponseProto.Builder;
-import com.lvl6.proto.EventProto.CriticalStructureActionResponseProto.CriticalStructureAction;
+import com.lvl6.proto.EventProto.CriticalStructureActionResponseProto.CritStructActionStatus;
 import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -34,9 +35,18 @@ public class CriticalStructureActionController extends EventController {
     CriticalStructureActionRequestProto reqProto = ((CriticalStructureActionRequestEvent)event).getCriticalStructureActionRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    CoordinatePair cp = new CoordinatePair(reqProto.getCritStructCoordinates().getX(), reqProto.getCritStructCoordinates().getY());
-    CritStructAction action = reqProto.getCritStructAction();
+    CritStructActionType action = reqProto.getActionType();
     CritStructType cStructType = reqProto.getCritStructType();
+    CoordinatePair cp = null;
+    StructOrientation orientation = null;
+
+    if (action == CritStructActionType.MOVE || action == CritStructActionType.PLACE) {
+      if (reqProto.hasCritStructCoordinates()) {
+        cp = new CoordinatePair(reqProto.getCritStructCoordinates().getX(), reqProto.getCritStructCoordinates().getY());
+      }
+    } else if (action == CritStructActionType.ROTATE) {
+      orientation = reqProto.getOrientation();
+    }
 
     CriticalStructureActionResponseProto.Builder resBuilder = CriticalStructureActionResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -46,14 +56,14 @@ public class CriticalStructureActionController extends EventController {
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 
-      boolean legitAction = checkLegitAction(resBuilder, user, cStructType, action);
+      boolean legitAction = checkLegitAction(resBuilder, user, cStructType, action, cp, orientation);
 
       CriticalStructureActionResponseEvent resEvent = new CriticalStructureActionResponseEvent(senderProto.getUserId());
       resEvent.setCriticalStructureActionResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitAction) {
-        writeChangesToDB(user, cp, cStructType);
+        writeChangesToDB(user, action, cStructType, cp, orientation);
       }
     } catch (Exception e) {
       log.error("exception in CriticalStructureAction processEvent", e);
@@ -63,45 +73,64 @@ public class CriticalStructureActionController extends EventController {
   }
 
   private boolean checkLegitAction(Builder resBuilder, User user,
-      CritStructType cStructType, CritStructAction action) {
+      CritStructType cStructType, CritStructActionType action, CoordinatePair cp, StructOrientation orientation) {
     if (user == null || cStructType == null || action == null) {
-      resBuilder.setStatus(CriticalStructureAction.OTHER_FAIL);
+      resBuilder.setStatus(CritStructActionStatus.OTHER_FAIL);
       return false;
     }
-    if (action == CritStructAction.PLACE) {
+    if (action == CritStructActionType.MOVE || action == CritStructActionType.PLACE) {
+      if (cp == null) {
+        resBuilder.setStatus(CritStructActionStatus.OTHER_FAIL);
+        return false;
+      }
+    } else if (action == CritStructActionType.ROTATE) {
+      if (orientation == null) {
+        resBuilder.setStatus(CritStructActionStatus.OTHER_FAIL);
+        return false;
+      }
+    } else {
+      return false;
+    }
+    if (action == CritStructActionType.PLACE) {
       if (cStructType != CritStructType.ARMORY || cStructType != CritStructType.VAULT
           || cStructType != CritStructType.MARKETPLACE) {
-        resBuilder.setStatus(CriticalStructureAction.CANNOT_PLACE_NON_PLACEABLE_CRIT_STRUCT);
+        resBuilder.setStatus(CritStructActionStatus.CANNOT_PLACE_NON_PLACEABLE_CRIT_STRUCT);
         return false;
       }
     }
     if (cStructType == CritStructType.ARMORY) {
       if (user.getLevel() < ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY) {
-        resBuilder.setStatus(CriticalStructureAction.NOT_ACCESSIBLE_TO_USERS_LEVEL);
+        resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
     if (cStructType == CritStructType.VAULT) {
       if (user.getLevel() < ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_VAULT) {
-        resBuilder.setStatus(CriticalStructureAction.NOT_ACCESSIBLE_TO_USERS_LEVEL);
+        resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
     if (cStructType == CritStructType.MARKETPLACE) {
       if (user.getLevel() < ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE) {
-        resBuilder.setStatus(CriticalStructureAction.NOT_ACCESSIBLE_TO_USERS_LEVEL);
+        resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
-    if (cStructType == CritStructType.AVIARY) {
-      resBuilder.setStatus(CriticalStructureAction.CANNOT_MOVE_AVIARY);
+    if (action != CritStructActionType.ROTATE && cStructType == CritStructType.AVIARY) {
+      resBuilder.setStatus(CritStructActionStatus.CANNOT_MOVE_AVIARY);
       return false;
     }
-    resBuilder.setStatus(CriticalStructureAction.SUCCESS);
+    resBuilder.setStatus(CritStructActionStatus.SUCCESS);
     return true;
   }
 
-  private void writeChangesToDB(User user, CoordinatePair cp, CritStructType cStructType) {
-    if (!UpdateUtils.updateUserCritstructCoord(user.getId(), cp, cStructType)) {
-      log.error("error in changing critstruct location for " + user + " " + cStructType.toString());
+  private void writeChangesToDB(User user, CritStructActionType action, CritStructType cStructType, CoordinatePair cp,
+      StructOrientation orientation) {
+    if (action == CritStructActionType.MOVE || action == CritStructActionType.PLACE) {
+      if (!UpdateUtils.updateUserCritstructCoord(user.getId(), cp, cStructType)) {
+        log.error("error in changing critstruct location for " + user + " " + cStructType.toString());
+      }
+    } else if (action == CritStructActionType.ROTATE){
+      if (!UpdateUtils.updateUserCritstructOrientation(user.getId(), orientation, cStructType)) {
+        log.error("error in changing critstruct orientation for " + user + " " + cStructType.toString());
+      }
     }
   }
-
 }
