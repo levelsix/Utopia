@@ -17535,7 +17535,7 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.PurchaseNormStructureResponseProto)
   }
   
-  public interface MoveNormStructureRequestProtoOrBuilder
+  public interface MoveOrRotateNormStructureRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // required .com.lvl6.proto.MinimumUserProto sender = 1;
@@ -17547,37 +17547,114 @@ public final class EventProto {
     boolean hasUserStructId();
     int getUserStructId();
     
-    // required .com.lvl6.proto.CoordinateProto curStructCoordinates = 3;
+    // required .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
+    boolean hasType();
+    com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType getType();
+    
+    // optional .com.lvl6.proto.CoordinateProto curStructCoordinates = 4;
     boolean hasCurStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProto getCurStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCurStructCoordinatesOrBuilder();
+    
+    // optional .com.lvl6.proto.StructOrientation newOrientation = 5;
+    boolean hasNewOrientation();
+    com.lvl6.proto.InfoProto.StructOrientation getNewOrientation();
   }
-  public static final class MoveNormStructureRequestProto extends
+  public static final class MoveOrRotateNormStructureRequestProto extends
       com.google.protobuf.GeneratedMessage
-      implements MoveNormStructureRequestProtoOrBuilder {
-    // Use MoveNormStructureRequestProto.newBuilder() to construct.
-    private MoveNormStructureRequestProto(Builder builder) {
+      implements MoveOrRotateNormStructureRequestProtoOrBuilder {
+    // Use MoveOrRotateNormStructureRequestProto.newBuilder() to construct.
+    private MoveOrRotateNormStructureRequestProto(Builder builder) {
       super(builder);
     }
-    private MoveNormStructureRequestProto(boolean noInit) {}
+    private MoveOrRotateNormStructureRequestProto(boolean noInit) {}
     
-    private static final MoveNormStructureRequestProto defaultInstance;
-    public static MoveNormStructureRequestProto getDefaultInstance() {
+    private static final MoveOrRotateNormStructureRequestProto defaultInstance;
+    public static MoveOrRotateNormStructureRequestProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public MoveNormStructureRequestProto getDefaultInstanceForType() {
+    public MoveOrRotateNormStructureRequestProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureRequestProto_descriptor;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureRequestProto_fieldAccessorTable;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_fieldAccessorTable;
+    }
+    
+    public enum MoveOrRotateNormStructType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      MOVE(0, 0),
+      ROTATE(1, 1),
+      ;
+      
+      public static final int MOVE_VALUE = 0;
+      public static final int ROTATE_VALUE = 1;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static MoveOrRotateNormStructType valueOf(int value) {
+        switch (value) {
+          case 0: return MOVE;
+          case 1: return ROTATE;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<MoveOrRotateNormStructType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<MoveOrRotateNormStructType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<MoveOrRotateNormStructType>() {
+              public MoveOrRotateNormStructType findValueByNumber(int number) {
+                return MoveOrRotateNormStructType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final MoveOrRotateNormStructType[] VALUES = {
+        MOVE, ROTATE, 
+      };
+      
+      public static MoveOrRotateNormStructType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private MoveOrRotateNormStructType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType)
     }
     
     private int bitField0_;
@@ -17604,11 +17681,21 @@ public final class EventProto {
       return userStructId_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto curStructCoordinates = 3;
-    public static final int CURSTRUCTCOORDINATES_FIELD_NUMBER = 3;
+    // required .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type_;
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType getType() {
+      return type_;
+    }
+    
+    // optional .com.lvl6.proto.CoordinateProto curStructCoordinates = 4;
+    public static final int CURSTRUCTCOORDINATES_FIELD_NUMBER = 4;
     private com.lvl6.proto.InfoProto.CoordinateProto curStructCoordinates_;
     public boolean hasCurStructCoordinates() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public com.lvl6.proto.InfoProto.CoordinateProto getCurStructCoordinates() {
       return curStructCoordinates_;
@@ -17617,10 +17704,22 @@ public final class EventProto {
       return curStructCoordinates_;
     }
     
+    // optional .com.lvl6.proto.StructOrientation newOrientation = 5;
+    public static final int NEWORIENTATION_FIELD_NUMBER = 5;
+    private com.lvl6.proto.InfoProto.StructOrientation newOrientation_;
+    public boolean hasNewOrientation() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public com.lvl6.proto.InfoProto.StructOrientation getNewOrientation() {
+      return newOrientation_;
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       userStructId_ = 0;
+      type_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
       curStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      newOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -17635,7 +17734,7 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasCurStructCoordinates()) {
+      if (!hasType()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -17643,9 +17742,11 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getCurStructCoordinates().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
+      if (hasCurStructCoordinates()) {
+        if (!getCurStructCoordinates().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -17661,7 +17762,13 @@ public final class EventProto {
         output.writeInt32(2, userStructId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, curStructCoordinates_);
+        output.writeEnum(3, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, curStructCoordinates_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeEnum(5, newOrientation_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -17682,7 +17789,15 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, curStructCoordinates_);
+          .computeEnumSize(3, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, curStructCoordinates_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(5, newOrientation_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -17696,41 +17811,41 @@ public final class EventProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(byte[] data)
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -17739,7 +17854,7 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseDelimitedFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -17750,12 +17865,12 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -17765,7 +17880,7 @@ public final class EventProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.MoveNormStructureRequestProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -17778,18 +17893,18 @@ public final class EventProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.MoveNormStructureRequestProtoOrBuilder {
+       implements com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureRequestProto_descriptor;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureRequestProto_fieldAccessorTable;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.EventProto.MoveNormStructureRequestProto.newBuilder()
+      // Construct using com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -17818,12 +17933,16 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         userStructId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
+        type_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
+        bitField0_ = (bitField0_ & ~0x00000004);
         if (curStructCoordinatesBuilder_ == null) {
           curStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
         } else {
           curStructCoordinatesBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
+        newOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       
@@ -17833,24 +17952,24 @@ public final class EventProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.EventProto.MoveNormStructureRequestProto.getDescriptor();
+        return com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.getDescriptor();
       }
       
-      public com.lvl6.proto.EventProto.MoveNormStructureRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.MoveNormStructureRequestProto.getDefaultInstance();
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.EventProto.MoveNormStructureRequestProto build() {
-        com.lvl6.proto.EventProto.MoveNormStructureRequestProto result = buildPartial();
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto build() {
+        com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.EventProto.MoveNormStructureRequestProto buildParsed()
+      private com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.MoveNormStructureRequestProto result = buildPartial();
+        com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -17858,8 +17977,8 @@ public final class EventProto {
         return result;
       }
       
-      public com.lvl6.proto.EventProto.MoveNormStructureRequestProto buildPartial() {
-        com.lvl6.proto.EventProto.MoveNormStructureRequestProto result = new com.lvl6.proto.EventProto.MoveNormStructureRequestProto(this);
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto result = new com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -17877,35 +17996,49 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
         if (curStructCoordinatesBuilder_ == null) {
           result.curStructCoordinates_ = curStructCoordinates_;
         } else {
           result.curStructCoordinates_ = curStructCoordinatesBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.newOrientation_ = newOrientation_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.MoveNormStructureRequestProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.MoveNormStructureRequestProto)other);
+        if (other instanceof com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.EventProto.MoveNormStructureRequestProto other) {
-        if (other == com.lvl6.proto.EventProto.MoveNormStructureRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
         if (other.hasUserStructId()) {
           setUserStructId(other.getUserStructId());
         }
+        if (other.hasType()) {
+          setType(other.getType());
+        }
         if (other.hasCurStructCoordinates()) {
           mergeCurStructCoordinates(other.getCurStructCoordinates());
+        }
+        if (other.hasNewOrientation()) {
+          setNewOrientation(other.getNewOrientation());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -17920,7 +18053,7 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasCurStructCoordinates()) {
+        if (!hasType()) {
           
           return false;
         }
@@ -17928,9 +18061,11 @@ public final class EventProto {
           
           return false;
         }
-        if (!getCurStructCoordinates().isInitialized()) {
-          
-          return false;
+        if (hasCurStructCoordinates()) {
+          if (!getCurStructCoordinates().isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -17972,13 +18107,35 @@ public final class EventProto {
               userStructId_ = input.readInt32();
               break;
             }
-            case 26: {
+            case 24: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType value = com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                type_ = value;
+              }
+              break;
+            }
+            case 34: {
               com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
               if (hasCurStructCoordinates()) {
                 subBuilder.mergeFrom(getCurStructCoordinates());
               }
               input.readMessage(subBuilder, extensionRegistry);
               setCurStructCoordinates(subBuilder.buildPartial());
+              break;
+            }
+            case 40: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.StructOrientation value = com.lvl6.proto.InfoProto.StructOrientation.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(5, rawValue);
+              } else {
+                bitField0_ |= 0x00000010;
+                newOrientation_ = value;
+              }
               break;
             }
           }
@@ -18098,12 +18255,36 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.CoordinateProto curStructCoordinates = 3;
+      // required .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
+      private com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType getType() {
+        return type_;
+      }
+      public Builder setType(com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        type_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
+        onChanged();
+        return this;
+      }
+      
+      // optional .com.lvl6.proto.CoordinateProto curStructCoordinates = 4;
       private com.lvl6.proto.InfoProto.CoordinateProto curStructCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> curStructCoordinatesBuilder_;
       public boolean hasCurStructCoordinates() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public com.lvl6.proto.InfoProto.CoordinateProto getCurStructCoordinates() {
         if (curStructCoordinatesBuilder_ == null) {
@@ -18122,7 +18303,7 @@ public final class EventProto {
         } else {
           curStructCoordinatesBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder setCurStructCoordinates(
@@ -18133,12 +18314,12 @@ public final class EventProto {
         } else {
           curStructCoordinatesBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder mergeCurStructCoordinates(com.lvl6.proto.InfoProto.CoordinateProto value) {
         if (curStructCoordinatesBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
               curStructCoordinates_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
             curStructCoordinates_ =
               com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(curStructCoordinates_).mergeFrom(value).buildPartial();
@@ -18149,7 +18330,7 @@ public final class EventProto {
         } else {
           curStructCoordinatesBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder clearCurStructCoordinates() {
@@ -18159,11 +18340,11 @@ public final class EventProto {
         } else {
           curStructCoordinatesBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       public com.lvl6.proto.InfoProto.CoordinateProto.Builder getCurStructCoordinatesBuilder() {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getCurStructCoordinatesFieldBuilder().getBuilder();
       }
@@ -18188,18 +18369,42 @@ public final class EventProto {
         return curStructCoordinatesBuilder_;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MoveNormStructureRequestProto)
+      // optional .com.lvl6.proto.StructOrientation newOrientation = 5;
+      private com.lvl6.proto.InfoProto.StructOrientation newOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+      public boolean hasNewOrientation() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public com.lvl6.proto.InfoProto.StructOrientation getNewOrientation() {
+        return newOrientation_;
+      }
+      public Builder setNewOrientation(com.lvl6.proto.InfoProto.StructOrientation value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000010;
+        newOrientation_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNewOrientation() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        newOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MoveOrRotateNormStructureRequestProto)
     }
     
     static {
-      defaultInstance = new MoveNormStructureRequestProto(true);
+      defaultInstance = new MoveOrRotateNormStructureRequestProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MoveNormStructureRequestProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MoveOrRotateNormStructureRequestProto)
   }
   
-  public interface MoveNormStructureResponseProtoOrBuilder
+  public interface MoveOrRotateNormStructureResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // required .com.lvl6.proto.MinimumUserProto sender = 1;
@@ -18207,67 +18412,67 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.MoveNormStructureResponseProto.MoveNormStructureStatus status = 2;
+    // required .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
     boolean hasStatus();
-    com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus getStatus();
+    com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus getStatus();
   }
-  public static final class MoveNormStructureResponseProto extends
+  public static final class MoveOrRotateNormStructureResponseProto extends
       com.google.protobuf.GeneratedMessage
-      implements MoveNormStructureResponseProtoOrBuilder {
-    // Use MoveNormStructureResponseProto.newBuilder() to construct.
-    private MoveNormStructureResponseProto(Builder builder) {
+      implements MoveOrRotateNormStructureResponseProtoOrBuilder {
+    // Use MoveOrRotateNormStructureResponseProto.newBuilder() to construct.
+    private MoveOrRotateNormStructureResponseProto(Builder builder) {
       super(builder);
     }
-    private MoveNormStructureResponseProto(boolean noInit) {}
+    private MoveOrRotateNormStructureResponseProto(boolean noInit) {}
     
-    private static final MoveNormStructureResponseProto defaultInstance;
-    public static MoveNormStructureResponseProto getDefaultInstance() {
+    private static final MoveOrRotateNormStructureResponseProto defaultInstance;
+    public static MoveOrRotateNormStructureResponseProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public MoveNormStructureResponseProto getDefaultInstanceForType() {
+    public MoveOrRotateNormStructureResponseProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureResponseProto_descriptor;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureResponseProto_fieldAccessorTable;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_fieldAccessorTable;
     }
     
-    public enum MoveNormStructureStatus
+    public enum MoveOrRotateNormStructureStatus
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
-      FAIL(1, 1),
+      OTHER_FAIL(1, 2),
       ;
       
       public static final int SUCCESS_VALUE = 0;
-      public static final int FAIL_VALUE = 1;
+      public static final int OTHER_FAIL_VALUE = 2;
       
       
       public final int getNumber() { return value; }
       
-      public static MoveNormStructureStatus valueOf(int value) {
+      public static MoveOrRotateNormStructureStatus valueOf(int value) {
         switch (value) {
           case 0: return SUCCESS;
-          case 1: return FAIL;
+          case 2: return OTHER_FAIL;
           default: return null;
         }
       }
       
-      public static com.google.protobuf.Internal.EnumLiteMap<MoveNormStructureStatus>
+      public static com.google.protobuf.Internal.EnumLiteMap<MoveOrRotateNormStructureStatus>
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<MoveNormStructureStatus>
+      private static com.google.protobuf.Internal.EnumLiteMap<MoveOrRotateNormStructureStatus>
           internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<MoveNormStructureStatus>() {
-              public MoveNormStructureStatus findValueByNumber(int number) {
-                return MoveNormStructureStatus.valueOf(number);
+            new com.google.protobuf.Internal.EnumLiteMap<MoveOrRotateNormStructureStatus>() {
+              public MoveOrRotateNormStructureStatus findValueByNumber(int number) {
+                return MoveOrRotateNormStructureStatus.valueOf(number);
               }
             };
       
@@ -18281,14 +18486,14 @@ public final class EventProto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.MoveNormStructureResponseProto.getDescriptor().getEnumTypes().get(0);
+        return com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.getDescriptor().getEnumTypes().get(0);
       }
       
-      private static final MoveNormStructureStatus[] VALUES = {
-        SUCCESS, FAIL, 
+      private static final MoveOrRotateNormStructureStatus[] VALUES = {
+        SUCCESS, OTHER_FAIL, 
       };
       
-      public static MoveNormStructureStatus valueOf(
+      public static MoveOrRotateNormStructureStatus valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -18300,12 +18505,12 @@ public final class EventProto {
       private final int index;
       private final int value;
       
-      private MoveNormStructureStatus(int index, int value) {
+      private MoveOrRotateNormStructureStatus(int index, int value) {
         this.index = index;
         this.value = value;
       }
       
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MoveNormStructureResponseProto.MoveNormStructureStatus)
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus)
     }
     
     private int bitField0_;
@@ -18322,19 +18527,19 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.MoveNormStructureResponseProto.MoveNormStructureStatus status = 2;
+    // required .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus status_;
+    private com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status_;
     public boolean hasStatus() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus getStatus() {
+    public com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus getStatus() {
       return status_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      status_ = com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus.SUCCESS;
+      status_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -18395,41 +18600,41 @@ public final class EventProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(byte[] data)
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -18438,7 +18643,7 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseDelimitedFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -18449,12 +18654,12 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.MoveNormStructureResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -18464,7 +18669,7 @@ public final class EventProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.MoveNormStructureResponseProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -18477,18 +18682,18 @@ public final class EventProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.MoveNormStructureResponseProtoOrBuilder {
+       implements com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureResponseProto_descriptor;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveNormStructureResponseProto_fieldAccessorTable;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.EventProto.MoveNormStructureResponseProto.newBuilder()
+      // Construct using com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -18514,7 +18719,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -18525,24 +18730,24 @@ public final class EventProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.EventProto.MoveNormStructureResponseProto.getDescriptor();
+        return com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.getDescriptor();
       }
       
-      public com.lvl6.proto.EventProto.MoveNormStructureResponseProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.MoveNormStructureResponseProto.getDefaultInstance();
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.EventProto.MoveNormStructureResponseProto build() {
-        com.lvl6.proto.EventProto.MoveNormStructureResponseProto result = buildPartial();
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto build() {
+        com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.EventProto.MoveNormStructureResponseProto buildParsed()
+      private com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.MoveNormStructureResponseProto result = buildPartial();
+        com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -18550,8 +18755,8 @@ public final class EventProto {
         return result;
       }
       
-      public com.lvl6.proto.EventProto.MoveNormStructureResponseProto buildPartial() {
-        com.lvl6.proto.EventProto.MoveNormStructureResponseProto result = new com.lvl6.proto.EventProto.MoveNormStructureResponseProto(this);
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto result = new com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -18572,16 +18777,16 @@ public final class EventProto {
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.MoveNormStructureResponseProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.MoveNormStructureResponseProto)other);
+        if (other instanceof com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.EventProto.MoveNormStructureResponseProto other) {
-        if (other == com.lvl6.proto.EventProto.MoveNormStructureResponseProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
@@ -18642,7 +18847,7 @@ public final class EventProto {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus value = com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus.valueOf(rawValue);
+              com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus value = com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
@@ -18747,15 +18952,15 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.MoveNormStructureResponseProto.MoveNormStructureStatus status = 2;
-      private com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus status_ = com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus.SUCCESS;
+      // required .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
+      private com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus getStatus() {
+      public com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus getStatus() {
         return status_;
       }
-      public Builder setStatus(com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus value) {
+      public Builder setStatus(com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -18766,20 +18971,20 @@ public final class EventProto {
       }
       public Builder clearStatus() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        status_ = com.lvl6.proto.EventProto.MoveNormStructureResponseProto.MoveNormStructureStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus.SUCCESS;
         onChanged();
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MoveNormStructureResponseProto)
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.MoveOrRotateNormStructureResponseProto)
     }
     
     static {
-      defaultInstance = new MoveNormStructureResponseProto(true);
+      defaultInstance = new MoveOrRotateNormStructureResponseProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MoveNormStructureResponseProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.MoveOrRotateNormStructureResponseProto)
   }
   
   public interface SellNormStructureRequestProtoOrBuilder
@@ -51278,15 +51483,15 @@ public final class EventProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_PurchaseNormStructureResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_MoveNormStructureRequestProto_descriptor;
+    internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_MoveNormStructureRequestProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_MoveNormStructureResponseProto_descriptor;
+    internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_MoveNormStructureResponseProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_SellNormStructureRequestProto_descriptor;
   private static
@@ -51643,281 +51848,287 @@ public final class EventProto {
       "oto.PurchaseNormStructureStatus\022\024\n\014userS",
       "tructId\030\003 \001(\005\"g\n\033PurchaseNormStructureSt" +
       "atus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIAL" +
-      "S\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022\016\n\nOTHER_FAIL\020\003\"\246" +
-      "\001\n\035MoveNormStructureRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022\024\n\014userStructId\030\002 \002(\005\022=\n\024curStructCoo" +
-      "rdinates\030\003 \002(\0132\037.com.lvl6.proto.Coordina" +
-      "teProto\"\334\001\n\036MoveNormStructureResponsePro" +
-      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022V\n\006status\030\002 \002(\0162F.com.lvl6.",
-      "proto.MoveNormStructureResponseProto.Mov" +
-      "eNormStructureStatus\"0\n\027MoveNormStructur" +
-      "eStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"g\n\035SellNo" +
-      "rmStructureRequestProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\024\n\014use" +
-      "rStructId\030\002 \002(\005\"\334\001\n\036SellNormStructureRes" +
-      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022V\n\006status\030\002 \002(\0162F.c" +
-      "om.lvl6.proto.SellNormStructureResponseP" +
-      "roto.SellNormStructureStatus\"0\n\027SellNorm",
-      "StructureStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"\201" +
-      "\001\n UpgradeNormStructureRequestProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\024\n\014userStructId\030\002 \002(\005\022\025\n\rtimeOfUpg" +
-      "rade\030\003 \002(\003\"\261\002\n!UpgradeNormStructureRespo" +
-      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\\\n\006status\030\002 \002(\0162L.com" +
-      ".lvl6.proto.UpgradeNormStructureResponse" +
-      "Proto.UpgradeNormStructureStatus\"|\n\032Upgr" +
-      "adeNormStructureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024N",
-      "OT_ENOUGH_MATERIALS\020\001\022\021\n\rNOT_BUILT_YET\020\002" +
-      "\022\024\n\020NOT_USERS_STRUCT\020\003\022\016\n\nOTHER_FAIL\020\004\"\220" +
-      "\001\n-RetrieveCurrencyFromNormStructureRequ" +
-      "estProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\024\n\014userStructId\030\002 \002(\005" +
-      "\022\027\n\017timeOfRetrieval\030\003 \002(\003\"\267\002\n.RetrieveCu" +
-      "rrencyFromNormStructureResponseProto\0220\n\006" +
+      "S\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022\016\n\nOTHER_FAIL\020\003\"\375" +
+      "\002\n%MoveOrRotateNormStructureRequestProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\024\n\014userStructId\030\002 \002(\005\022^\n\004type" +
+      "\030\003 \002(\0162P.com.lvl6.proto.MoveOrRotateNorm" +
+      "StructureRequestProto.MoveOrRotateNormSt" +
+      "ructType\022=\n\024curStructCoordinates\030\004 \001(\0132\037" +
+      ".com.lvl6.proto.CoordinateProto\0229\n\016newOr",
+      "ientation\030\005 \001(\0162!.com.lvl6.proto.StructO" +
+      "rientation\"2\n\032MoveOrRotateNormStructType" +
+      "\022\010\n\004MOVE\020\000\022\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRotateN" +
+      "ormStructureResponseProto\0220\n\006sender\030\001 \002(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022f\n\006s" +
+      "tatus\030\002 \002(\0162V.com.lvl6.proto.MoveOrRotat" +
+      "eNormStructureResponseProto.MoveOrRotate" +
+      "NormStructureStatus\">\n\037MoveOrRotateNormS" +
+      "tructureStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAI" +
+      "L\020\002\"g\n\035SellNormStructureRequestProto\0220\n\006",
       "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\022v\n\006status\030\002 \002(\0162f.com.lvl6.proto." +
-      "RetrieveCurrencyFromNormStructureRespons",
-      "eProto.RetrieveCurrencyFromNormStructure" +
-      "Status\"[\n\'RetrieveCurrencyFromNormStruct" +
-      "ureStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NOT_LONG_ENOUG" +
-      "H\020\001\022\016\n\nOTHER_FAIL\020\002\"\330\002\n#CriticalStructur" +
-      "eActionRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022>\n\025critStr" +
-      "uctCoordinates\030\002 \002(\0132\037.com.lvl6.proto.Co" +
-      "ordinateProto\0226\n\016critStructType\030\003 \002(\0162\036." +
-      "com.lvl6.proto.CritStructType\022^\n\020critStr" +
-      "uctAction\030\004 \002(\0162D.com.lvl6.proto.Critica",
-      "lStructureActionRequestProto.CritStructA" +
-      "ction\"\'\n\020CritStructAction\022\t\n\005PLACE\020\001\022\010\n\004" +
-      "MOVE\020\002\"\326\002\n$CriticalStructureActionRespon" +
+      "rProto\022\024\n\014userStructId\030\002 \002(\005\"\334\001\n\036SellNor" +
+      "mStructureResponseProto\0220\n\006sender\030\001 \002(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022V\n\006sta" +
+      "tus\030\002 \002(\0162F.com.lvl6.proto.SellNormStruc" +
+      "tureResponseProto.SellNormStructureStatu" +
+      "s\"0\n\027SellNormStructureStatus\022\013\n\007SUCCESS\020" +
+      "\000\022\010\n\004FAIL\020\001\"\201\001\n UpgradeNormStructureRequ" +
+      "estProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\024\n\014userStructId\030\002 \002(\005",
+      "\022\025\n\rtimeOfUpgrade\030\003 \002(\003\"\261\002\n!UpgradeNormS" +
+      "tructureResponseProto\0220\n\006sender\030\001 \002(\0132 ." +
+      "com.lvl6.proto.MinimumUserProto\022\\\n\006statu" +
+      "s\030\002 \002(\0162L.com.lvl6.proto.UpgradeNormStru" +
+      "ctureResponseProto.UpgradeNormStructureS" +
+      "tatus\"|\n\032UpgradeNormStructureStatus\022\013\n\007S" +
+      "UCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\rNO" +
+      "T_BUILT_YET\020\002\022\024\n\020NOT_USERS_STRUCT\020\003\022\016\n\nO" +
+      "THER_FAIL\020\004\"\220\001\n-RetrieveCurrencyFromNorm" +
+      "StructureRequestProto\0220\n\006sender\030\001 \002(\0132 .",
+      "com.lvl6.proto.MinimumUserProto\022\024\n\014userS" +
+      "tructId\030\002 \002(\005\022\027\n\017timeOfRetrieval\030\003 \002(\003\"\267" +
+      "\002\n.RetrieveCurrencyFromNormStructureResp" +
+      "onseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022v\n\006status\030\002 \002(\0162f.co" +
+      "m.lvl6.proto.RetrieveCurrencyFromNormStr" +
+      "uctureResponseProto.RetrieveCurrencyFrom" +
+      "NormStructureStatus\"[\n\'RetrieveCurrencyF" +
+      "romNormStructureStatus\022\013\n\007SUCCESS\020\000\022\023\n\017N" +
+      "OT_LONG_ENOUGH\020\001\022\016\n\nOTHER_FAIL\020\002\"\330\002\n#Cri",
+      "ticalStructureActionRequestProto\0220\n\006send" +
+      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
+      "to\022>\n\025critStructCoordinates\030\002 \002(\0132\037.com." +
+      "lvl6.proto.CoordinateProto\0226\n\016critStruct" +
+      "Type\030\003 \002(\0162\036.com.lvl6.proto.CritStructTy" +
+      "pe\022^\n\020critStructAction\030\004 \002(\0162D.com.lvl6." +
+      "proto.CriticalStructureActionRequestProt" +
+      "o.CritStructAction\"\'\n\020CritStructAction\022\t" +
+      "\n\005PLACE\020\001\022\010\n\004MOVE\020\002\"\326\002\n$CriticalStructur" +
+      "eActionResponseProto\0220\n\006sender\030\001 \002(\0132 .c",
+      "om.lvl6.proto.MinimumUserProto\022\\\n\006status" +
+      "\030\003 \002(\0162L.com.lvl6.proto.CriticalStructur" +
+      "eActionResponseProto.CriticalStructureAc" +
+      "tion\"\235\001\n\027CriticalStructureAction\022\013\n\007SUCC" +
+      "ESS\020\000\022*\n&CANNOT_PLACE_NON_PLACEABLE_CRIT" +
+      "_STRUCT\020\001\022!\n\035NOT_ACCESSIBLE_TO_USERS_LEV" +
+      "EL\020\002\022\026\n\022CANNOT_MOVE_AVIARY\020\003\022\016\n\nOTHER_FA" +
+      "IL\020\004\"\344\002\n0FinishNormStructWaittimeWithDia" +
+      "mondsRequestProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022\024\n\014userStruc",
+      "tId\030\002 \002(\005\022\026\n\016timeOfPurchase\030\003 \002(\003\022m\n\014wai" +
+      "tTimeType\030\004 \002(\0162W.com.lvl6.proto.FinishN" +
+      "ormStructWaittimeWithDiamondsRequestProt" +
+      "o.NormStructWaitTimeType\"a\n\026NormStructWa" +
+      "itTimeType\022\027\n\023FINISH_CONSTRUCTION\020\000\022\032\n\026F" +
+      "INISH_INCOME_WAITTIME\020\001\022\022\n\016FINISH_UPGRAD" +
+      "E\020\002\"\257\002\n1FinishNormStructWaittimeWithDiam" +
+      "ondsResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022p\n\006status\030\002 " +
+      "\002(\0162`.com.lvl6.proto.FinishNormStructWai",
+      "ttimeWithDiamondsResponseProto.FinishNor" +
+      "mStructWaittimeStatus\"V\n\036FinishNormStruc" +
+      "tWaittimeStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOU" +
+      "GH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\"l\n\"NormStr" +
+      "uctWaitCompleteRequestProto\0220\n\006sender\030\001 " +
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022\024\n" +
+      "\014userStructId\030\002 \003(\005\"\262\002\n#NormStructWaitCo" +
+      "mpleteResponseProto\0220\n\006sender\030\001 \002(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022`\n\006status\030" +
+      "\002 \002(\0162P.com.lvl6.proto.NormStructWaitCom",
+      "pleteResponseProto.NormStructWaitComplet" +
+      "eStatus\022:\n\nuserStruct\030\003 \003(\0132&.com.lvl6.p" +
+      "roto.FullUserStructureProto\";\n\034NormStruc" +
+      "tWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHE" +
+      "R_FAIL\020\001\"\211\001\n\024LevelUpResponseProto\022-\n\006sen" +
+      "der\030\001 \002(\0132\035.com.lvl6.proto.FullUserProto" +
+      "\022B\n\033unlockedCityAvailableToUser\030\002 \001(\0132\035." +
+      "com.lvl6.proto.FullCityProto\"^\n\031InAppPur" +
+      "chaseRequestProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022\017\n\007receipt\030\002",
+      " \002(\t\"\344\001\n\032InAppPurchaseResponseProto\0220\n\006s" +
+      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022N\n\006status\030\002 \002(\0162>.com.lvl6.proto.I" +
+      "nAppPurchaseResponseProto.InAppPurchaseS" +
+      "tatus\022\026\n\016diamondsGained\030\003 \001(\005\",\n\023InAppPu" +
+      "rchaseStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035U" +
+      "pdateClientUserResponseProto\022-\n\006sender\030\001" +
+      " \002(\0132\035.com.lvl6.proto.FullUserProto\022\030\n\020t" +
+      "imeOfUserUpdate\030\002 \002(\003\"\215\001\n+RetrieveCurren" +
+      "tMarketplacePostsRequestProto\0220\n\006sender\030",
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "\030\n\020beforeThisPostId\030\002 \001(\005\022\022\n\nfromSender\030" +
+      "\003 \002(\010\"\322\001\n,RetrieveCurrentMarketplacePost" +
+      "sResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022B\n\020marketplaceP" +
+      "osts\030\002 \003(\0132(.com.lvl6.proto.FullMarketpl" +
+      "acePostProto\022\030\n\020beforeThisPostId\030\003 \001(\005\022\022" +
+      "\n\nfromSender\030\004 \002(\010\"\231\002\n\035PostToMarketplace" +
+      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\0225\n\010postType\030\002 \002(\016",
+      "2#.com.lvl6.proto.MarketplacePostType\022\025\n" +
+      "\rpostedEquipId\030\003 \001(\005\022\022\n\npostedWood\030\004 \001(\005" +
+      "\022\026\n\016postedDiamonds\030\005 \001(\005\022\023\n\013postedCoins\030" +
+      "\006 \001(\005\022\023\n\013diamondCost\030\007 \001(\005\022\020\n\010coinCost\030\010" +
+      " \001(\005\022\020\n\010woodCost\030\t \001(\005\"\230\003\n\036PostToMarketp" +
+      "laceResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022V\n\006status\030\002 " +
+      "\002(\0162F.com.lvl6.proto.PostToMarketplaceRe" +
+      "sponseProto.PostToMarketplaceStatus\"\353\001\n\027" +
+      "PostToMarketplaceStatus\022\013\n\007SUCCESS\020\000\022\021\n\r",
+      "NEGATIVE_POST\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n" +
+      "\rNEGATIVE_COST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_AL" +
+      "READY_MAX_MARKETPLACE_POSTS\020\005\022\023\n\017NOT_ENO" +
+      "UGH_WOOD\020\006\022\027\n\023NOT_ENOUGH_DIAMONDS\020\007\022\024\n\020N" +
+      "OT_ENOUGH_COINS\020\010\022\016\n\nOTHER_FAIL\020\t\"q\n\"Ret" +
+      "ractMarketplacePostRequestProto\0220\n\006sende" +
+      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022\031\n\021marketplacePostId\030\002 \002(\005\"\337\002\n#Retract" +
+      "MarketplacePostResponseProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022`",
+      "\n\006status\030\002 \002(\0162P.com.lvl6.proto.RetractM" +
+      "arketplacePostResponseProto.RetractMarke" +
+      "tplacePostStatus\"\243\001\n\034RetractMarketplaceP" +
+      "ostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_REQUESTERS" +
+      "_POST\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\023\n\017NO" +
+      "T_ENOUGH_WOOD\020\003\022\027\n\023NOT_ENOUGH_DIAMONDS\020\004" +
+      "\022\024\n\020NOT_ENOUGH_COINS\020\005\"\204\001\n#PurchaseFromM" +
+      "arketplaceRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022\031\n\021mark" +
+      "etplacePostId\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\311\002",
+      "\n$PurchaseFromMarketplaceResponseProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022b\n\006status\030\002 \002(\0162R.com.lvl6.prot" +
+      "o.PurchaseFromMarketplaceResponseProto.P" +
+      "urchaseFromMarketplaceStatus\"\212\001\n\035Purchas" +
+      "eFromMarketplaceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024N" +
+      "OT_ENOUGH_MATERIALS\020\001\022\031\n\025POST_NO_LONGER_" +
+      "EXISTS\020\002\022\027\n\023PURCHASER_IS_SELLER\020\003\022\016\n\nOTH" +
+      "ER_FAIL\020\004\"\340\001\n\031UseSkillPointRequestProto\022" +
+      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum",
+      "UserProto\022F\n\tboostType\030\002 \002(\01623.com.lvl6." +
+      "proto.UseSkillPointRequestProto.BoostTyp" +
+      "e\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022" +
+      "\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n" +
+      "\032UseSkillPointResponseProto\0220\n\006sender\030\001 " +
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022N\n" +
+      "\006status\030\002 \002(\0162>.com.lvl6.proto.UseSkillP" +
+      "ointResponseProto.UseSkillPointStatus\"O\n" +
+      "\023UseSkillPointStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT" +
+      "_ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\223",
+      "\001\n\036GenerateAttackListRequestProto\0220\n\006sen" +
+      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\022+\n\tenemyType\030\002 \001(\0162\030.com.lvl6.proto." +
+      "UserType\022\022\n\nnumEnemies\030\003 \001(\005\"\203\001\n\037Generat" +
+      "eAttackListResponseProto\0220\n\006sender\030\001 \002(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022.\n\007en" +
+      "emies\030\002 \003(\0132\035.com.lvl6.proto.FullUserPro" +
+      "to\"\312\001\n\"RefillStatWithDiamondsRequestProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022M\n\010statType\030\002 \002(\0162;.com.lvl6",
+      ".proto.RefillStatWithDiamondsRequestProt" +
+      "o.StatType\"#\n\010StatType\022\n\n\006ENERGY\020\000\022\013\n\007ST" +
+      "AMINA\020\001\"\367\001\n#RefillStatWithDiamondsRespon" +
       "seProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022\\\n\006status\030\003 \002(\0162L.com." +
-      "lvl6.proto.CriticalStructureActionRespon" +
-      "seProto.CriticalStructureAction\"\235\001\n\027Crit" +
-      "icalStructureAction\022\013\n\007SUCCESS\020\000\022*\n&CANN" +
-      "OT_PLACE_NON_PLACEABLE_CRIT_STRUCT\020\001\022!\n\035" +
-      "NOT_ACCESSIBLE_TO_USERS_LEVEL\020\002\022\026\n\022CANNO",
-      "T_MOVE_AVIARY\020\003\022\016\n\nOTHER_FAIL\020\004\"\344\002\n0Fini" +
-      "shNormStructWaittimeWithDiamondsRequestP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022\024\n\014userStructId\030\002 \002(\005\022\026\n\016" +
-      "timeOfPurchase\030\003 \002(\003\022m\n\014waitTimeType\030\004 \002" +
-      "(\0162W.com.lvl6.proto.FinishNormStructWait" +
-      "timeWithDiamondsRequestProto.NormStructW" +
-      "aitTimeType\"a\n\026NormStructWaitTimeType\022\027\n" +
-      "\023FINISH_CONSTRUCTION\020\000\022\032\n\026FINISH_INCOME_" +
-      "WAITTIME\020\001\022\022\n\016FINISH_UPGRADE\020\002\"\257\002\n1Finis",
-      "hNormStructWaittimeWithDiamondsResponseP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022p\n\006status\030\002 \002(\0162`.com.lvl" +
-      "6.proto.FinishNormStructWaittimeWithDiam" +
-      "ondsResponseProto.FinishNormStructWaitti" +
-      "meStatus\"V\n\036FinishNormStructWaittimeStat" +
-      "us\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001" +
-      "\022\016\n\nOTHER_FAIL\020\002\"l\n\"NormStructWaitComple" +
-      "teRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022\024\n\014userStructId",
-      "\030\002 \003(\005\"\262\002\n#NormStructWaitCompleteRespons" +
-      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022`\n\006status\030\002 \002(\0162P.com.l" +
-      "vl6.proto.NormStructWaitCompleteResponse" +
-      "Proto.NormStructWaitCompleteStatus\022:\n\nus" +
-      "erStruct\030\003 \003(\0132&.com.lvl6.proto.FullUser" +
-      "StructureProto\";\n\034NormStructWaitComplete" +
-      "Status\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\211\001\n\024" +
-      "LevelUpResponseProto\022-\n\006sender\030\001 \002(\0132\035.c" +
-      "om.lvl6.proto.FullUserProto\022B\n\033unlockedC",
-      "ityAvailableToUser\030\002 \001(\0132\035.com.lvl6.prot" +
-      "o.FullCityProto\"^\n\031InAppPurchaseRequestP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022\017\n\007receipt\030\002 \002(\t\"\344\001\n\032InAp" +
-      "pPurchaseResponseProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022N\n\006stat" +
-      "us\030\002 \002(\0162>.com.lvl6.proto.InAppPurchaseR" +
-      "esponseProto.InAppPurchaseStatus\022\026\n\016diam" +
-      "ondsGained\030\003 \001(\005\",\n\023InAppPurchaseStatus\022" +
-      "\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035UpdateClientUs",
-      "erResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lv" +
-      "l6.proto.FullUserProto\022\030\n\020timeOfUserUpda" +
-      "te\030\002 \002(\003\"\215\001\n+RetrieveCurrentMarketplaceP" +
-      "ostsRequestProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\030\n\020beforeThis" +
-      "PostId\030\002 \001(\005\022\022\n\nfromSender\030\003 \002(\010\"\322\001\n,Ret" +
-      "rieveCurrentMarketplacePostsResponseProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022B\n\020marketplacePosts\030\002 \003(\0132(." +
-      "com.lvl6.proto.FullMarketplacePostProto\022",
-      "\030\n\020beforeThisPostId\030\003 \001(\005\022\022\n\nfromSender\030" +
-      "\004 \002(\010\"\231\002\n\035PostToMarketplaceRequestProto\022" +
-      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\0225\n\010postType\030\002 \002(\0162#.com.lvl6.p" +
-      "roto.MarketplacePostType\022\025\n\rpostedEquipI" +
-      "d\030\003 \001(\005\022\022\n\npostedWood\030\004 \001(\005\022\026\n\016postedDia" +
-      "monds\030\005 \001(\005\022\023\n\013postedCoins\030\006 \001(\005\022\023\n\013diam" +
-      "ondCost\030\007 \001(\005\022\020\n\010coinCost\030\010 \001(\005\022\020\n\010woodC" +
-      "ost\030\t \001(\005\"\230\003\n\036PostToMarketplaceResponseP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi",
-      "nimumUserProto\022V\n\006status\030\002 \002(\0162F.com.lvl" +
-      "6.proto.PostToMarketplaceResponseProto.P" +
-      "ostToMarketplaceStatus\"\353\001\n\027PostToMarketp" +
-      "laceStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST" +
-      "\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COS" +
-      "T\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREADY_MAX_MAR" +
-      "KETPLACE_POSTS\020\005\022\023\n\017NOT_ENOUGH_WOOD\020\006\022\027\n" +
-      "\023NOT_ENOUGH_DIAMONDS\020\007\022\024\n\020NOT_ENOUGH_COI" +
-      "NS\020\010\022\016\n\nOTHER_FAIL\020\t\"q\n\"RetractMarketpla" +
-      "cePostRequestProto\0220\n\006sender\030\001 \002(\0132 .com",
-      ".lvl6.proto.MinimumUserProto\022\031\n\021marketpl" +
-      "acePostId\030\002 \002(\005\"\337\002\n#RetractMarketplacePo" +
-      "stResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
-      "l6.proto.MinimumUserProto\022`\n\006status\030\002 \002(" +
-      "\0162P.com.lvl6.proto.RetractMarketplacePos" +
-      "tResponseProto.RetractMarketplacePostSta" +
-      "tus\"\243\001\n\034RetractMarketplacePostStatus\022\013\n\007" +
-      "SUCCESS\020\000\022\027\n\023NOT_REQUESTERS_POST\020\001\022\031\n\025PO" +
-      "ST_NO_LONGER_EXISTS\020\002\022\023\n\017NOT_ENOUGH_WOOD" +
-      "\020\003\022\027\n\023NOT_ENOUGH_DIAMONDS\020\004\022\024\n\020NOT_ENOUG",
-      "H_COINS\020\005\"\204\001\n#PurchaseFromMarketplaceReq" +
-      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\031\n\021marketplacePostId" +
-      "\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\311\002\n$PurchaseFro" +
-      "mMarketplaceResponseProto\0220\n\006sender\030\001 \002(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022b\n\006s" +
-      "tatus\030\002 \002(\0162R.com.lvl6.proto.PurchaseFro" +
-      "mMarketplaceResponseProto.PurchaseFromMa" +
-      "rketplaceStatus\"\212\001\n\035PurchaseFromMarketpl" +
-      "aceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MAT",
-      "ERIALS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023P" +
-      "URCHASER_IS_SELLER\020\003\022\016\n\nOTHER_FAIL\020\004\"\340\001\n" +
-      "\031UseSkillPointRequestProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022F\n\t" +
-      "boostType\030\002 \002(\01623.com.lvl6.proto.UseSkil" +
-      "lPointRequestProto.BoostType\"I\n\tBoostTyp" +
-      "e\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY\020\002\022\n" +
-      "\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkillPoin" +
+      ".MinimumUserProto\022T\n\006status\030\002 \002(\0162D.com." +
+      "lvl6.proto.RefillStatWithDiamondsRespons" +
+      "eProto.RefillStatStatus\"H\n\020RefillStatSta" +
+      "tus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020" +
+      "\001\022\016\n\nOTHER_FAIL\020\002\"Y\n%RedeemMarketplaceEa" +
+      "rningsRequestProto\0220\n\006sender\030\001 \002(\0132 .com",
+      ".lvl6.proto.MinimumUserProto\"\202\002\n&RedeemM" +
+      "arketplaceEarningsResponseProto\0220\n\006sende" +
+      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022f\n\006status\030\002 \002(\0162V.com.lvl6.proto.Redee" +
+      "mMarketplaceEarningsResponseProto.Redeem" +
+      "MarketplaceEarningsStatus\">\n\037RedeemMarke" +
+      "tplaceEarningsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTH" +
+      "ER_FAIL\020\001\"\203\001\n\032LoadPlayerCityRequestProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\0223\n\tcityOwner\030\002 \002(\0132 .com.lvl6",
+      ".proto.MinimumUserProto\"\301\005\n\033LoadPlayerCi" +
+      "tyResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022P\n\006status\030\002 \002(" +
+      "\0162@.com.lvl6.proto.LoadPlayerCityRespons" +
+      "eProto.LoadPlayerCityStatus\022@\n\020ownerNorm" +
+      "Structs\030\003 \003(\0132&.com.lvl6.proto.FullUserS" +
+      "tructureProto\0222\n\013ownerAllies\030\004 \003(\0132\035.com" +
+      ".lvl6.proto.FullUserProto\0227\n\006armory\030\005 \001(" +
+      "\0132\'.com.lvl6.proto.FullUserCritstructPro" +
+      "to\0226\n\005vault\030\006 \001(\0132\'.com.lvl6.proto.FullU",
+      "serCritstructProto\022<\n\013marketplace\030\007 \001(\0132" +
+      "\'.com.lvl6.proto.FullUserCritstructProto" +
+      "\022;\n\nlumbermill\030\010 \002(\0132\'.com.lvl6.proto.Fu" +
+      "llUserCritstructProto\022:\n\tcarpenter\030\t \002(\013" +
+      "2\'.com.lvl6.proto.FullUserCritstructProt" +
+      "o\0227\n\006aviary\030\n \002(\0132\'.com.lvl6.proto.FullU" +
+      "serCritstructProto\"G\n\024LoadPlayerCityStat" +
+      "us\022\013\n\007SUCCESS\020\000\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nO" +
+      "THER_FAIL\020\002\"\\\n\027QuestAcceptRequestProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU",
+      "serProto\022\017\n\007questId\030\002 \002(\005\"\341\001\n\030QuestAccep" +
       "tResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022N\n\006status\030\002 \002(\016",
-      "2>.com.lvl6.proto.UseSkillPointResponseP" +
-      "roto.UseSkillPointStatus\"O\n\023UseSkillPoin" +
-      "tStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_SKILL" +
-      "_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\223\001\n\036GenerateAt" +
-      "tackListRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022+\n\tenemyT" +
-      "ype\030\002 \001(\0162\030.com.lvl6.proto.UserType\022\022\n\nn" +
-      "umEnemies\030\003 \001(\005\"\203\001\n\037GenerateAttackListRe" +
-      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022.\n\007enemies\030\002 \003(\0132\035",
-      ".com.lvl6.proto.FullUserProto\"\312\001\n\"Refill" +
-      "StatWithDiamondsRequestProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022M" +
-      "\n\010statType\030\002 \002(\0162;.com.lvl6.proto.Refill" +
-      "StatWithDiamondsRequestProto.StatType\"#\n" +
-      "\010StatType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\367\001\n#R" +
-      "efillStatWithDiamondsResponseProto\0220\n\006se" +
+      "6.proto.MinimumUserProto\022J\n\006status\030\002 \002(\016" +
+      "2:.com.lvl6.proto.QuestAcceptResponsePro" +
+      "to.QuestAcceptStatus\"G\n\021QuestAcceptStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n" +
+      "\nOTHER_FAIL\020\002\"}\n\032QuestCompleteResponsePr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022-\n\005quest\030\002 \002(\0132\036.com.lvl6." +
+      "proto.FullQuestProto\"\\\n\027QuestRedeemReque",
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030Q" +
+      "uestRedeemResponseProto\0220\n\006sender\030\001 \002(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022>\n\026upd" +
+      "atedAvailableQuests\030\002 \003(\0132\036.com.lvl6.pro" +
+      "to.FullQuestProto\022J\n\006status\030\003 \002(\0162:.com." +
+      "lvl6.proto.QuestRedeemResponseProto.Ques" +
+      "tRedeemStatus\"B\n\021QuestRedeemStatus\022\013\n\007SU" +
+      "CCESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020" +
+      "\002\"c\n\036QuestCheckCompleteRequestProto\0220\n\006s",
+      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022\017\n\007questId\030\002 \002(\005\"\357\001\n\037QuestCheckCom" +
+      "pleteResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022S\n\006status\030\003" +
+      " \002(\0162C.com.lvl6.proto.QuestCheckComplete" +
+      "ResponseProto.QuestCompleteStatus\"E\n\023Que" +
+      "stCompleteStatus\022\014\n\010COMPLETE\020\000\022\020\n\014NOT_CO" +
+      "MPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033QuestLogDeta" +
+      "ilsRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\"\243\002\n\034QuestLogDe",
+      "tailsResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022G\n\027inProgre" +
+      "ssUserQuestData\030\002 \003(\0132&.com.lvl6.proto.F" +
+      "ullUserQuestDataLarge\022R\n\006status\030\003 \002(\0162B." +
+      "com.lvl6.proto.QuestLogDetailsResponsePr" +
+      "oto.QuestLogDetailsStatus\"4\n\025QuestLogDet" +
+      "ailsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"" +
+      "\231\002\n\036RetrieveStaticDataRequestProto\0220\n\006se" +
       "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022T\n\006status\030\002 \002(\0162D.com.lvl6.proto.Re" +
-      "fillStatWithDiamondsResponseProto.Refill",
-      "StatStatus\"H\n\020RefillStatStatus\022\013\n\007SUCCES" +
-      "S\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FA" +
-      "IL\020\002\"Y\n%RedeemMarketplaceEarningsRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\"\202\002\n&RedeemMarketplaceEar" +
-      "ningsResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022f\n\006status\030\002" +
-      " \002(\0162V.com.lvl6.proto.RedeemMarketplaceE" +
-      "arningsResponseProto.RedeemMarketplaceEa" +
-      "rningsStatus\">\n\037RedeemMarketplaceEarning",
-      "sStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n" +
-      "\032LoadPlayerCityRequestProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\0223\n" +
-      "\tcityOwner\030\002 \002(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\"\301\005\n\033LoadPlayerCityResponsePro" +
-      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022P\n\006status\030\002 \002(\0162@.com.lvl6." +
-      "proto.LoadPlayerCityResponseProto.LoadPl" +
-      "ayerCityStatus\022@\n\020ownerNormStructs\030\003 \003(\013" +
-      "2&.com.lvl6.proto.FullUserStructureProto",
-      "\0222\n\013ownerAllies\030\004 \003(\0132\035.com.lvl6.proto.F" +
-      "ullUserProto\0227\n\006armory\030\005 \001(\0132\'.com.lvl6." +
-      "proto.FullUserCritstructProto\0226\n\005vault\030\006" +
-      " \001(\0132\'.com.lvl6.proto.FullUserCritstruct" +
-      "Proto\022<\n\013marketplace\030\007 \001(\0132\'.com.lvl6.pr" +
-      "oto.FullUserCritstructProto\022;\n\nlumbermil" +
-      "l\030\010 \002(\0132\'.com.lvl6.proto.FullUserCritstr" +
-      "uctProto\022:\n\tcarpenter\030\t \002(\0132\'.com.lvl6.p" +
-      "roto.FullUserCritstructProto\0227\n\006aviary\030\n" +
-      " \002(\0132\'.com.lvl6.proto.FullUserCritstruct",
-      "Proto\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCESS" +
-      "\020\000\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\" +
-      "\n\027QuestAcceptRequestProto\0220\n\006sender\030\001 \002(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022\017\n\007q" +
-      "uestId\030\002 \002(\005\"\341\001\n\030QuestAcceptResponseProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022J\n\006status\030\002 \002(\0162:.com.lvl6.p" +
-      "roto.QuestAcceptResponseProto.QuestAccep" +
-      "tStatus\"G\n\021QuestAcceptStatus\022\013\n\007SUCCESS\020" +
-      "\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002",
-      "\"}\n\032QuestCompleteResponseProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022-\n\005quest\030\002 \002(\0132\036.com.lvl6.proto.FullQue" +
-      "stProto\"\\\n\027QuestRedeemRequestProto\0220\n\006se" +
-      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030QuestRedeemRes" +
-      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022>\n\026updatedAvailable" +
-      "Quests\030\002 \003(\0132\036.com.lvl6.proto.FullQuestP" +
-      "roto\022J\n\006status\030\003 \002(\0162:.com.lvl6.proto.Qu",
-      "estRedeemResponseProto.QuestRedeemStatus" +
-      "\"B\n\021QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NO" +
-      "T_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"c\n\036QuestChe" +
-      "ckCompleteRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\017\n\007ques" +
-      "tId\030\002 \002(\005\"\357\001\n\037QuestCheckCompleteResponse" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022S\n\006status\030\003 \002(\0162C.com.lv" +
-      "l6.proto.QuestCheckCompleteResponseProto" +
-      ".QuestCompleteStatus\"E\n\023QuestCompleteSta",
-      "tus\022\014\n\010COMPLETE\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nO" +
-      "THER_FAIL\020\002\"O\n\033QuestLogDetailsRequestPro" +
-      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\"\243\002\n\034QuestLogDetailsResponse" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022G\n\027inProgressUserQuestDa" +
-      "ta\030\002 \003(\0132&.com.lvl6.proto.FullUserQuestD" +
-      "ataLarge\022R\n\006status\030\003 \002(\0162B.com.lvl6.prot" +
-      "o.QuestLogDetailsResponseProto.QuestLogD" +
-      "etailsStatus\"4\n\025QuestLogDetailsStatus\022\013\n",
-      "\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\231\002\n\036RetrieveS" +
-      "taticDataRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022\021\n\tstruc" +
-      "tIds\030\002 \003(\005\022\017\n\007taskIds\030\003 \003(\005\022\020\n\010questIds\030" +
-      "\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020\n\010equipIds\030\006 \003(\005" +
-      "\022\031\n\021buildStructJobIds\030\014 \003(\005\022\030\n\020defeatTyp" +
-      "eJobIds\030\r \003(\005\022\032\n\022possessEquipJobIds\030\016 \003(" +
-      "\005\022\033\n\023upgradeStructJobIds\030\017 \003(\005\"\323\005\n\037Retri" +
-      "eveStaticDataResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\0223\n\007",
-      "structs\030\002 \003(\0132\".com.lvl6.proto.FullStruc" +
-      "tureProto\022,\n\005tasks\030\003 \003(\0132\035.com.lvl6.prot" +
-      "o.FullTaskProto\022.\n\006quests\030\004 \003(\0132\036.com.lv" +
-      "l6.proto.FullQuestProto\022-\n\006cities\030\005 \003(\0132" +
-      "\035.com.lvl6.proto.FullCityProto\022.\n\006equips" +
-      "\030\006 \003(\0132\036.com.lvl6.proto.FullEquipProto\022<" +
-      "\n\017buildStructJobs\030\014 \003(\0132#.com.lvl6.proto" +
-      ".BuildStructJobProto\022:\n\016defeatTypeJobs\030\r" +
-      " \003(\0132\".com.lvl6.proto.DefeatTypeJobProto" +
-      "\022>\n\020possessEquipJobs\030\016 \003(\0132$.com.lvl6.pr",
-      "oto.PossessEquipJobProto\022@\n\021upgradeStruc" +
-      "tJobs\030\017 \003(\0132%.com.lvl6.proto.UpgradeStru" +
-      "ctJobProto\022X\n\006status\030\007 \002(\0162H.com.lvl6.pr" +
-      "oto.RetrieveStaticDataResponseProto.Retr" +
-      "ieveStaticDataStatus\"6\n\030RetrieveStaticDa" +
-      "taStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001B\014B\n" +
-      "EventProto"
+      "roto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003 \003(\005",
+      "\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020\n\010e" +
+      "quipIds\030\006 \003(\005\022\031\n\021buildStructJobIds\030\014 \003(\005" +
+      "\022\030\n\020defeatTypeJobIds\030\r \003(\005\022\032\n\022possessEqu" +
+      "ipJobIds\030\016 \003(\005\022\033\n\023upgradeStructJobIds\030\017 " +
+      "\003(\005\"\323\005\n\037RetrieveStaticDataResponseProto\022" +
+      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
+      "UserProto\0223\n\007structs\030\002 \003(\0132\".com.lvl6.pr" +
+      "oto.FullStructureProto\022,\n\005tasks\030\003 \003(\0132\035." +
+      "com.lvl6.proto.FullTaskProto\022.\n\006quests\030\004" +
+      " \003(\0132\036.com.lvl6.proto.FullQuestProto\022-\n\006",
+      "cities\030\005 \003(\0132\035.com.lvl6.proto.FullCityPr" +
+      "oto\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.proto.Ful" +
+      "lEquipProto\022<\n\017buildStructJobs\030\014 \003(\0132#.c" +
+      "om.lvl6.proto.BuildStructJobProto\022:\n\016def" +
+      "eatTypeJobs\030\r \003(\0132\".com.lvl6.proto.Defea" +
+      "tTypeJobProto\022>\n\020possessEquipJobs\030\016 \003(\0132" +
+      "$.com.lvl6.proto.PossessEquipJobProto\022@\n" +
+      "\021upgradeStructJobs\030\017 \003(\0132%.com.lvl6.prot" +
+      "o.UpgradeStructJobProto\022X\n\006status\030\007 \002(\0162" +
+      "H.com.lvl6.proto.RetrieveStaticDataRespo",
+      "nseProto.RetrieveStaticDataStatus\"6\n\030Ret" +
+      "rieveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSO" +
+      "ME_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -52100,22 +52311,22 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "Status", "UserStructId", },
               com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.class,
               com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.Builder.class);
-          internal_static_com_lvl6_proto_MoveNormStructureRequestProto_descriptor =
+          internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_descriptor =
             getDescriptor().getMessageTypes().get(21);
-          internal_static_com_lvl6_proto_MoveNormStructureRequestProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_MoveNormStructureRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "UserStructId", "CurStructCoordinates", },
-              com.lvl6.proto.EventProto.MoveNormStructureRequestProto.class,
-              com.lvl6.proto.EventProto.MoveNormStructureRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_MoveNormStructureResponseProto_descriptor =
+              internal_static_com_lvl6_proto_MoveOrRotateNormStructureRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "UserStructId", "Type", "CurStructCoordinates", "NewOrientation", },
+              com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.class,
+              com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_descriptor =
             getDescriptor().getMessageTypes().get(22);
-          internal_static_com_lvl6_proto_MoveNormStructureResponseProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_MoveNormStructureResponseProto_descriptor,
+              internal_static_com_lvl6_proto_MoveOrRotateNormStructureResponseProto_descriptor,
               new java.lang.String[] { "Sender", "Status", },
-              com.lvl6.proto.EventProto.MoveNormStructureResponseProto.class,
-              com.lvl6.proto.EventProto.MoveNormStructureResponseProto.Builder.class);
+              com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.class,
+              com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.Builder.class);
           internal_static_com_lvl6_proto_SellNormStructureRequestProto_descriptor =
             getDescriptor().getMessageTypes().get(23);
           internal_static_com_lvl6_proto_SellNormStructureRequestProto_fieldAccessorTable = new

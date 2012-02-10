@@ -254,20 +254,27 @@ message PurchaseNormStructureResponseProto {
 //------------------------------------------------------------------------------------------
 
 																						//DONE
-message MoveNormStructureRequestProto {
+message MoveOrRotateNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
-	required CoordinateProto curStructCoordinates = 3;
+	required MoveOrRotateNormStructType type = 3;
+	optional CoordinateProto curStructCoordinates = 4;
+	optional StructOrientation newOrientation = 5;
+	
+	enum MoveOrRotateNormStructType {
+		MOVE = 0;
+		ROTATE = 1;
+	}
 }
 
 																						//DONE
-message MoveNormStructureResponseProto {
+message MoveOrRotateNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
-	required MoveNormStructureStatus status = 2;
+	required MoveOrRotateNormStructureStatus status = 2;
 	
-	enum MoveNormStructureStatus {
+	enum MoveOrRotateNormStructureStatus {
 		SUCCESS = 0;
-		FAIL = 1;
+		OTHER_FAIL = 2;
 	}
 }
 

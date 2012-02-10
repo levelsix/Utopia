@@ -11,11 +11,32 @@ import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.CritStructType;
+import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
-  
+
+
+  /*
+   * changin orientation
+   */
+  public static boolean updateUserStructOrientation(int userStructId,
+      StructOrientation orientation) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_STRUCTS__ORIENTATION, orientation.getNumber());
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
   /*
    * used for setting a questitemtype as completed for a user quest
    */
@@ -31,7 +52,7 @@ public class UpdateUtils {
     if (setDefeatTypeJobsCompleteTrue) {
       absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true); 
     }
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
@@ -39,7 +60,7 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
   /*
    * used for moving user structs
    */
@@ -80,7 +101,7 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
   /*
    * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct
    */
@@ -99,7 +120,7 @@ public class UpdateUtils {
     }
     return true;
   }
-  
+
   /*
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
@@ -110,12 +131,12 @@ public class UpdateUtils {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (lastRetrievedTime != null)
       absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
-        
+
     absoluteParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, isComplete);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER_STRUCTS__LEVEL, levelChange);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
@@ -123,7 +144,7 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
   /*
    * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
    */
@@ -153,10 +174,10 @@ public class UpdateUtils {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (lastRetrievedTime != null)
       absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
-    
+
     if (lastUpgradeTime != null)
       absoluteParams.put(DBConstants.USER_STRUCTS__LAST_UPGRADE_TIME, lastUpgradeTime);
-    
+
     absoluteParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, isComplete);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
