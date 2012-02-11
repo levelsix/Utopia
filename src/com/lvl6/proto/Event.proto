@@ -723,23 +723,6 @@ message QuestRedeemResponseProto {
      }
 }
 
-//------------------------------------------------------------------------------------------
-
-message QuestCheckCompleteRequestProto {
-     required MinimumUserProto sender = 1;
-     required int32 questId = 2;
-}
-
-message QuestCheckCompleteResponseProto {
-     required MinimumUserProto sender = 1;
-     required QuestCompleteStatus status = 3;    
-
-     enum QuestCompleteStatus {
-          COMPLETE = 0;
-          NOT_COMPLETE = 1;
-          OTHER_FAIL = 2;
-     }
-}
 
 //------------------------------------------------------------------------------------------
 
@@ -749,13 +732,13 @@ message QuestLogDetailsRequestProto {
 
 message QuestLogDetailsResponseProto {
      required MinimumUserProto sender = 1;
-     repeated FullUserQuestDataLarge inProgressUserQuestData = 2;
+     repeated FullUserQuestDataLargeProto inProgressUserQuestData = 2;
 
     required QuestLogDetailsStatus status = 3;    
 
      enum QuestLogDetailsStatus {
           SUCCESS = 0;
-          OTHER_FAIL = 1;
+          SOME_FAIL = 1;
      }
 }
 

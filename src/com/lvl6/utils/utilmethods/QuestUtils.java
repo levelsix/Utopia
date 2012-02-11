@@ -81,13 +81,13 @@ public class QuestUtils {
         }
       }
       if (possessEquipJobsRequired != null && possessEquipJobsRequired.size() > 0) {
-        Map<Integer, List<UserEquip>> equipIdsToUserEquips = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(senderProto.getUserId());
+        Map<Integer, UserEquip> equipIdsToUserEquips = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(senderProto.getUserId());
         if (equipIdsToUserEquips == null || equipIdsToUserEquips.size() <= 0) {
           return;
         }
         Map<Integer, PossessEquipJob> pejs = PossessEquipJobRetrieveUtils.getPossessEquipJobsForPossessEquipJobIds(possessEquipJobsRequired);
         for (PossessEquipJob pej : pejs.values()) {
-          if (equipIdsToUserEquips.get(pej.getEquipId()) == null || equipIdsToUserEquips.get(pej.getEquipId()).size() < pej.getQuantity()) {
+          if (equipIdsToUserEquips.get(pej.getEquipId()) == null || equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() < pej.getQuantity()) {
             return;
           }
         }

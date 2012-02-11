@@ -358,6 +358,25 @@ public class UpdateUtils {
     }
     return false;
   }  
+  
+
+  public static boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, int defeatTypeJobId, int increment) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID, questId);
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID, defeatTypeJobId);
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
+
+    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, insertParams, 
+        DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
+
+    if (numUpdated == 1 || numUpdated == 1*2) {
+      return true;
+    }
+    return false;
+  }
+
 
   public static boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -376,5 +395,4 @@ public class UpdateUtils {
     }
     return false;
   }
-
 }

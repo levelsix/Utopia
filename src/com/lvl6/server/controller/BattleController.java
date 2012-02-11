@@ -198,6 +198,10 @@ public class BattleController extends EventController {
                       } else {
                         log.error("problem with adding defeat type jobs to user's completed tasks for quest");
                       }
+                    } else {
+                      if (!UpdateUtils.incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
+                        log.error("problem with updating user quest defeat type job progress");
+                      }
                     }
                   }
                 }
