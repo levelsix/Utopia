@@ -103,9 +103,9 @@ public class QuestUtils {
     server.writeEvent(event);
   }
 
-  public static List<Integer> getAvailableQuestsForUser(List<Integer> completed, List<Integer> inProgress) {
+  public static List<Integer> getAvailableQuestsForUser(List<Integer> redeemed, List<Integer> inProgress) {
     QuestGraph graph = QuestRetrieveUtils.getQuestGraph();
-    return graph.getQuestsAvailable(completed, inProgress);
+    return graph.getQuestsAvailable(redeemed, inProgress);
   }
 
   

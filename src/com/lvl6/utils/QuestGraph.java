@@ -41,14 +41,14 @@ public class QuestGraph {
     }
   }
 
-  public List<Integer> getQuestsAvailable(List<Integer> completed, List<Integer> inProgress) {
+  public List<Integer> getQuestsAvailable(List<Integer> redeemed, List<Integer> inProgress) {
     ArrayList<Integer> available = new ArrayList<Integer>();
 
     for (Vertex v : questVertices) {
-      if (completed == null || !completed.contains(v.getNodeId())) {
+      if (redeemed == null || !redeemed.contains(v.getNodeId())) {
         if (inProgress == null || !inProgress.contains(v.getNodeId())) {
           if (v.getRequiredVertices().isEmpty() || 
-              (completed != null && completed.containsAll(v.getRequiredVertices()))) {
+              (redeemed != null && redeemed.containsAll(v.getRequiredVertices()))) {
             available.add(v.getNodeId());
           }
         }

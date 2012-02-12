@@ -28,6 +28,22 @@ public class InsertUtils {
     return false;
   }
 
+  public static boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
+    
+    insertParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
+    insertParams.put(DBConstants.USER_QUESTS__TASKS_COMPLETE, hasNoRequiredTasks);
+    insertParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, hasNoRequiredDefeatTypeJobs);
+
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   /* used for quest defeat type jobs*/
   public static boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();

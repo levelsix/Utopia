@@ -126,21 +126,21 @@ public class StartupController extends EventController {
   }
 
   private void setInProgressAndAvailableQuests(Builder resBuilder, User user) {
-    List<UserQuest> inProgressAndAvailableUserQuests = UserQuestRetrieveUtils.getInProgressAndCompletedUserQuestsForUser(user.getId());
+    List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getInProgressAndRedeemedUserQuestsForUser(user.getId());
     List<Integer> inProgressQuestIds = new ArrayList<Integer>();
-    List<Integer> completedQuestIds = new ArrayList<Integer>();
+    List<Integer> redeemedQuestIds = new ArrayList<Integer>();
 
     Map<Integer, Quest> questIdToQuests = QuestRetrieveUtils.getQuestIdsToQuests();
-    for (UserQuest uq : inProgressAndAvailableUserQuests) {
+    for (UserQuest uq : inProgressAndRedeemedUserQuests) {
       if (uq.isRedeemed()) {
-        completedQuestIds.add(uq.getQuestId());
+        redeemedQuestIds.add(uq.getQuestId());
       } else {
         inProgressQuestIds.add(uq.getQuestId());  
         resBuilder.addInProgressQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(uq.getQuestId())));
       }
     }
     
-    List<Integer> availableQuestIds = QuestUtils.getAvailableQuestsForUser(completedQuestIds, inProgressQuestIds);
+    List<Integer> availableQuestIds = QuestUtils.getAvailableQuestsForUser(redeemedQuestIds, inProgressQuestIds);
     if (availableQuestIds != null) {
       for (Integer questId : availableQuestIds) {
         resBuilder.addAvailableQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(questId)));

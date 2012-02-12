@@ -18,7 +18,7 @@ public class UserQuestRetrieveUtils {
   
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS;
   
-  public static List<UserQuest> getInProgressAndCompletedUserQuestsForUser(int userId) {
+  public static List<UserQuest> getInProgressAndRedeemedUserQuestsForUser(int userId) {
     log.info("retrieving user quests for userId " + userId);
     return convertRSToUserQuests(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }

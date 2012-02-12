@@ -681,8 +681,6 @@ message QuestAcceptRequestProto {
      required int32 questId = 2;
 }
 
-//when you insert into user_quests on quest_accept, insert, and make the columns = 1 if theres no req for those
-
 message QuestAcceptResponseProto {
      required MinimumUserProto sender = 1;
      required QuestAcceptStatus status = 2;
