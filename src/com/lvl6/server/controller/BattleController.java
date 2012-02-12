@@ -190,7 +190,7 @@ public class BattleController extends EventController {
                         if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
                           if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
                             userQuest.setDefeatTypeJobsComplete(true);
-                            QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, attackerProto);
+                            QuestUtils.checkQuestComplete(server, quest, userQuest, attackerProto, true);
                           } else {
                             log.error("problem with marking defeat type jobs completed for a user quest");
                           }
@@ -208,7 +208,7 @@ public class BattleController extends EventController {
               }
             }
             if (equipCheck) {
-              QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, attackerProto);
+              QuestUtils.checkQuestComplete(server, quest, userQuest, attackerProto, true);
             }
           }
         }

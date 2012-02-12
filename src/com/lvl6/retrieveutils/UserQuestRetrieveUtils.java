@@ -36,6 +36,31 @@ public class UserQuestRetrieveUtils {
     return convertRSToUserQuests(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
   
+  public static UserQuest getSpecificUnredeemedUserQuest(int userId, int questId) {
+    log.info("retrieving specific user quest for userid " + userId + " and questId " + questId);
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
+    paramsToVals.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
+    paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
+    return convertRSToSingleUserQuest(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
+  }
+  
+  private static UserQuest convertRSToSingleUserQuest(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        while(rs.next()) {
+          return convertRSRowToUserQuest(rs);
+        }
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return null;
+  }
+
   private static List<UserQuest> convertRSToUserQuests(ResultSet rs) {
     if (rs != null) {
       try {

@@ -17,7 +17,27 @@ import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
 
+  /*
+   * changin orientation
+   */
+  public static boolean updateRedeemUserQuest(int userId, int questId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
 
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_QUESTS__IS_REDEEMED, true);
+    absoluteParams.put(DBConstants.USER_QUESTS__TASKS_COMPLETE, true);
+    absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   /*
    * changin orientation
    */
@@ -54,7 +74,7 @@ public class UpdateUtils {
     }
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
-        conditionParams, "or");
+        conditionParams, "and");
     if (numUpdated == 1) {
       return true;
     }

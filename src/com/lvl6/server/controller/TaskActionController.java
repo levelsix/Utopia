@@ -172,7 +172,7 @@ public class TaskActionController extends EventController {
                   if (userCompletedTasksForQuest.containsAll(quest.getTasksRequired())) {
                     if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                       userQuest.setTasksComplete(true);
-                      QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto);
+                      QuestUtils.checkQuestComplete(server, quest, userQuest, senderProto, true);
                     } else {
                       log.error("problem with marking tasks completed for a user quest");
                     }
@@ -183,7 +183,7 @@ public class TaskActionController extends EventController {
               }
             }
             if (equipCheck) {
-              QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto);
+              QuestUtils.checkQuestComplete(server, quest, userQuest, senderProto, true);
             }
           }
         }

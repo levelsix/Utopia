@@ -703,8 +703,8 @@ message QuestCompleteResponseProto {
 //------------------------------------------------------------------------------------------
 
 //delete all userquest data besides the one in user_quests
-
-message QuestRedeemRequestProto {                         //take away all the required items in here
+//client should also take away all the quests' required equips
+message QuestRedeemRequestProto {                         
      required MinimumUserProto sender = 1;
      required int32 questId = 2;
 }

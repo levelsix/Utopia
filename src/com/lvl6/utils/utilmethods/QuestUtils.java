@@ -25,47 +25,47 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.QuestGraph;
 
 public class QuestUtils {
-  
+
   public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(userId);
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
         Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
         if (quest != null) {
-          QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto);
+          QuestUtils.checkQuestComplete(server, quest, userQuest, senderProto, true);
         }
       }
     }
   }
 
-  public static void checkAndSendQuestComplete(GameServer server, Quest quest, UserQuest userQuest,
-      MinimumUserProto senderProto) {
+  public static boolean checkQuestComplete(GameServer server, Quest quest, UserQuest userQuest,
+      MinimumUserProto senderProto, boolean sendCompleteMessage) {
     if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();
       List<Integer> upgradeStructJobsRequired = quest.getUpgradeStructJobsRequired();
       List<Integer> possessEquipJobsRequired = quest.getPossessEquipJobsRequired();
-      
+
       if ((buildStructJobsRequired != null && buildStructJobsRequired.size()>0) || 
           (upgradeStructJobsRequired != null && upgradeStructJobsRequired.size()>0)) {
-        Map<Integer, List<UserStruct>> structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(senderProto.getUserId());
+        Map<Integer, List<UserStruct>> structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(userQuest.getUserId());
         if (structIdsToUserStructs == null || structIdsToUserStructs.size() <= 0) {
-          return;
+          return false;
         }
-        
+
         if (buildStructJobsRequired != null && buildStructJobsRequired.size()>0) {
           Map<Integer, BuildStructJob> bsjs = BuildStructJobRetrieveUtils.getBuildStructJobsForBuildStructJobIds(buildStructJobsRequired);
           for (BuildStructJob bsj : bsjs.values()) {
             if (structIdsToUserStructs.get(bsj.getStructId()) == null || structIdsToUserStructs.get(bsj.getStructId()).size() < bsj.getQuantity()) {
-              return;
+              return false;
             }
           }
         }
-        
+
         if (upgradeStructJobsRequired != null && upgradeStructJobsRequired.size()>0) {
           Map<Integer, UpgradeStructJob> usjs = UpgradeStructJobRetrieveUtils.getUpgradeStructJobsForUpgradeStructJobIds(upgradeStructJobsRequired);
           for (UpgradeStructJob usj : usjs.values()) {
             if (structIdsToUserStructs.get(usj.getStructId()) == null) {
-              return;
+              return false;
             }
             boolean usjComplete = false;
             for (UserStruct us : structIdsToUserStructs.get(usj.getStructId())) {
@@ -75,27 +75,31 @@ public class QuestUtils {
               }
             }
             if (!usjComplete) {
-              return;
+              return false;
             }
           }
         }
       }
       if (possessEquipJobsRequired != null && possessEquipJobsRequired.size() > 0) {
-        Map<Integer, UserEquip> equipIdsToUserEquips = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(senderProto.getUserId());
+        Map<Integer, UserEquip> equipIdsToUserEquips = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(userQuest.getUserId());
         if (equipIdsToUserEquips == null || equipIdsToUserEquips.size() <= 0) {
-          return;
+          return false;
         }
         Map<Integer, PossessEquipJob> pejs = PossessEquipJobRetrieveUtils.getPossessEquipJobsForPossessEquipJobIds(possessEquipJobsRequired);
         for (PossessEquipJob pej : pejs.values()) {
           if (equipIdsToUserEquips.get(pej.getEquipId()) == null || equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() < pej.getQuantity()) {
-            return;
+            return false;
           }
         }
       }
-      sendQuestCompleteResponse(server, senderProto, quest);      
+      if (server != null && senderProto != null && sendCompleteMessage) {
+        sendQuestCompleteResponse(server, senderProto, quest);      
+      }
+      return true;
     }
+    return false;
   }
-  
+
   public static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){
     QuestCompleteResponseEvent event = new QuestCompleteResponseEvent(senderProto.getUserId());
     event.setQuestCompleteResponseProto(QuestCompleteResponseProto.newBuilder().setSender(senderProto)
@@ -108,5 +112,5 @@ public class QuestUtils {
     return graph.getQuestsAvailable(redeemed, inProgress);
   }
 
-  
+
 }
