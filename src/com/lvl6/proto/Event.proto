@@ -116,15 +116,16 @@ message StartupResponseProto {
     repeated FullQuestProto inProgressQuests = 6;
 	repeated FullQuestProto availableQuests = 7;   
 	repeated FullUserEquipProto userEquips = 8;
-    //repeated FullUserStructureProto userStructures = 9;
+    repeated FullEquipProto equips = 9;
+	repeated FullUserStructureProto userStructures = 10;
+	repeated FullStructureProto structs = 11;
 	  
 	message StartupConstants {
 	  	repeated string productIds = 1;
 	  	repeated int32 productDiamondsGiven = 2;
-	  	repeated double productPrices = 3;
-	    required int32 diamondCostForEnergyRefill = 4; 
-    	required int32 diamondCostForStaminaRefill = 5;
-    	required int32 maxItemUsePerBattle = 6;
+	    required int32 diamondCostForEnergyRefill = 3; 
+    	required int32 diamondCostForStaminaRefill = 4;
+    	required int32 maxItemUsePerBattle = 5;
     	   	
 		//ADD a bunch of other important constants
 	}
@@ -253,20 +254,27 @@ message PurchaseNormStructureResponseProto {
 //------------------------------------------------------------------------------------------
 
 																						//DONE
-message MoveNormStructureRequestProto {
+message MoveOrRotateNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 userStructId = 2;
-	required CoordinateProto curStructCoordinates = 3;
+	required MoveOrRotateNormStructType type = 3;
+	optional CoordinateProto curStructCoordinates = 4;
+	optional StructOrientation newOrientation = 5;
+	
+	enum MoveOrRotateNormStructType {
+		MOVE = 0;
+		ROTATE = 1;
+	}
 }
 
 																						//DONE
-message MoveNormStructureResponseProto {
+message MoveOrRotateNormStructureResponseProto {
 	required MinimumUserProto sender = 1;
-	required MoveNormStructureStatus status = 2;
+	required MoveOrRotateNormStructureStatus status = 2;
 	
-	enum MoveNormStructureStatus {
+	enum MoveOrRotateNormStructureStatus {
 		SUCCESS = 0;
-		FAIL = 1;
+		OTHER_FAIL = 2;
 	}
 }
 
@@ -338,22 +346,24 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 																						//DONE
 message CriticalStructureActionRequestProto {
 	required MinimumUserProto sender = 1;
-	required CoordinateProto critStructCoordinates = 2;
+	required CritStructActionType actionType = 2;
 	required CritStructType critStructType = 3;
-	required CritStructAction critStructAction = 4;
+	optional CoordinateProto critStructCoordinates = 4;
+	optional StructOrientation orientation = 5;
 	
-	enum CritStructAction {
-		PLACE = 1;
-		MOVE = 2;
+	enum CritStructActionType {
+		PLACE = 0;
+		MOVE = 1;
+		ROTATE = 2;
 	}
 }
 
 																						//DONE
 message CriticalStructureActionResponseProto {
 	required MinimumUserProto sender = 1;
-	required CriticalStructureAction status = 3;
+	required CritStructActionStatus status = 3;
 	
-	enum CriticalStructureAction {
+	enum CritStructActionStatus {
 		SUCCESS = 0;
 		CANNOT_PLACE_NON_PLACEABLE_CRIT_STRUCT = 1;	//we only place armory/vault/marketplace 
 		NOT_ACCESSIBLE_TO_USERS_LEVEL = 2;
@@ -375,6 +385,7 @@ message FinishNormStructWaittimeWithDiamondsRequestProto {
 	enum NormStructWaitTimeType {
 		FINISH_CONSTRUCTION = 0;
 		FINISH_INCOME_WAITTIME = 1;
+		FINISH_UPGRADE = 2;
 	}
 }
 
@@ -400,18 +411,18 @@ message FinishNormStructWaittimeWithDiamondsResponseProto {
 											
 																						//DONE
 //NOT VERY EFFICIENT..extra db call. and for every newly built building, new db call. but w/e for now.																						
-message NormStructBuildsCompleteRequestProto {
+message NormStructWaitCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	repeated int32 userStructId = 2;
 }
 
 																						//DONE
-message NormStructBuildsCompleteResponseProto {
+message NormStructWaitCompleteResponseProto {
      required MinimumUserProto sender = 1;
-     required NormStructBuildsCompleteStatus status = 2;
+     required NormStructWaitCompleteStatus status = 2;
      repeated FullUserStructureProto userStruct = 3;
      
-     enum NormStructBuildsCompleteStatus {
+     enum NormStructWaitCompleteStatus {
      	SUCCESS = 0;
      	OTHER_FAIL = 1;
      }
@@ -670,8 +681,6 @@ message QuestAcceptRequestProto {
      required int32 questId = 2;
 }
 
-//when you insert into user_quests on quest_accept, insert, and make the columns = 1 if theres no req for those
-
 message QuestAcceptResponseProto {
      required MinimumUserProto sender = 1;
      required QuestAcceptStatus status = 2;
@@ -694,8 +703,8 @@ message QuestCompleteResponseProto {
 //------------------------------------------------------------------------------------------
 
 //delete all userquest data besides the one in user_quests
-
-message QuestRedeemRequestProto {                         //take away all the required items in here
+//client should also take away all the quests' required equips
+message QuestRedeemRequestProto {                         
      required MinimumUserProto sender = 1;
      required int32 questId = 2;
 }
@@ -712,23 +721,6 @@ message QuestRedeemResponseProto {
      }
 }
 
-//------------------------------------------------------------------------------------------
-
-message QuestCheckCompleteRequestProto {
-     required MinimumUserProto sender = 1;
-     required int32 questId = 2;
-}
-
-message QuestCheckCompleteResponseProto {
-     required MinimumUserProto sender = 1;
-     required QuestCompleteStatus status = 3;    
-
-     enum QuestCompleteStatus {
-          COMPLETE = 0;
-          NOT_COMPLETE = 1;
-          OTHER_FAIL = 2;
-     }
-}
 
 //------------------------------------------------------------------------------------------
 
@@ -738,13 +730,13 @@ message QuestLogDetailsRequestProto {
 
 message QuestLogDetailsResponseProto {
      required MinimumUserProto sender = 1;
-     repeated FullUserQuestDataLarge inProgressUserQuestData = 2;
+     repeated FullUserQuestDataLargeProto inProgressUserQuestData = 2;
 
     required QuestLogDetailsStatus status = 3;    
 
      enum QuestLogDetailsStatus {
           SUCCESS = 0;
-          OTHER_FAIL = 1;
+          SOME_FAIL = 1;
      }
 }
 

@@ -25,7 +25,7 @@ public class UserEquipRetrieveUtils {
     return convertRSToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
 
-  public static Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
+  public static Map<Integer, UserEquip> getEquipIdsToUserEquipsForUser(int userId) {
     log.info("retrieving user equips for userId " + userId);
     return convertRSToEquipIdsToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
@@ -76,23 +76,16 @@ public class UserEquipRetrieveUtils {
   }
    */
 
-  private static Map<Integer, List<UserEquip>> convertRSToEquipIdsToUserEquips(
+  private static Map<Integer, UserEquip> convertRSToEquipIdsToUserEquips(
       ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        Map<Integer, List<UserEquip>> equipIdsToUserEquips = new HashMap<Integer, List<UserEquip>>();
+        Map<Integer, UserEquip> equipIdsToUserEquips = new HashMap<Integer, UserEquip>();
         while(rs.next()) {
           UserEquip userEquip = convertRSRowToUserEquip(rs);
-          List<UserEquip> userEquipsForEquipId = equipIdsToUserEquips.get(userEquip.getEquipId());
-          if (userEquipsForEquipId != null) {
-            userEquipsForEquipId.add(userEquip);
-          } else {
-            List<UserEquip> userEquips = new ArrayList<UserEquip>();
-            userEquips.add(userEquip);
-            equipIdsToUserEquips.put(userEquip.getEquipId(), userEquips);
-          }
+          equipIdsToUserEquips.put(userEquip.getEquipId(), userEquip);
         }
         return equipIdsToUserEquips;
       } catch (SQLException e) {

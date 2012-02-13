@@ -78,7 +78,7 @@ public class ControllerConstants {
 
   
   //PURCHASE FROM MARKETPLACE
-  public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .15;
+  public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .20;
 
   
   //TASK ACTION

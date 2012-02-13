@@ -81,15 +81,29 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
     if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
       if (!user.updateRelativeDiamondsNaive(calculateDiamondCostForInstaBuild(userStruct, struct) * -1)) {
         log.error("problem with using diamonds to finish norm struct build");
+      } else {
+        if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
+          log.error("problem with using diamonds to finish norm struct build");
+        }
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
       if (!user.updateRelativeDiamondsCoinsWoodNaive(calculateDiamondCostForInstaRetrieve(userStruct, struct)*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0)) {
         log.error("problem with using diamonds to finish norm struct income waittime");
+      } else {
+        if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
+          log.error("problem with using diamonds to finish norm struct income waittime");
+        }
       }
     }
-    if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
-      log.error("problem with using diamonds to finish norm struct build or norm struct income waittime");
+    if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
+      if (!user.updateRelativeDiamondsNaive(calculateDiamondCostForInstaUpgrade(userStruct, struct) * -1)) {
+        log.error("problem with using diamonds to finish norm struct upgrade waittime");
+      } else {
+        if (!UpdateUtils.updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), timeOfPurchase, true, 1)) {
+          log.error("problem with using diamodns to finish upgrade waittime");
+        }
+      }
     }
   }
 
@@ -107,6 +121,8 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       diamondCost = calculateDiamondCostForInstaBuild(userStruct, struct);
     } else if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
       diamondCost = calculateDiamondCostForInstaRetrieve(userStruct, struct);
+    } else if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
+      diamondCost = calculateDiamondCostForInstaUpgrade(userStruct, struct);
     } else {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
       return false;
@@ -126,6 +142,11 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
 
   private int calculateDiamondCostForInstaRetrieve(UserStruct userStruct, Structure struct) {
     int result = struct.getInstaRetrieveDiamondCostBase() * userStruct.getLevel();
+    return Math.max(1, result);
+  }
+  
+  private int calculateDiamondCostForInstaUpgrade(UserStruct userStruct, Structure struct) {
+    int result = struct.getInstaUpgradeDiamondCostBase() * userStruct.getLevel();
     return Math.max(1, result);
   }
 

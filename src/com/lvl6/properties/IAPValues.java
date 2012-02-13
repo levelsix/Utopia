@@ -43,10 +43,6 @@ public class IAPValues {
   public static final List<Integer> packageGivenDiamonds = 
       Arrays.asList(PACKAGE_1_DIAMONDS, PACKAGE_2_DIAMONDS, PACKAGE_3_DIAMONDS, 
           PACKAGE_4_DIAMONDS, PACKAGE_5_DIAMONDS, PACKAGE_6_DIAMONDS);
-  public static final List<Double> packagePrices = 
-      Arrays.asList(PACKAGE_1_PRICE, PACKAGE_2_PRICE, PACKAGE_3_PRICE, 
-          PACKAGE_4_PRICE, PACKAGE_5_PRICE, PACKAGE_6_PRICE);
-
 
   
   public static int getDiamondsForPackageName(String packageName) {

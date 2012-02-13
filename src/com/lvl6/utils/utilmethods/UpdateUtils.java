@@ -11,11 +11,52 @@ import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.CritStructType;
+import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
+
+  /*
+   * changin orientation
+   */
+  public static boolean updateRedeemUserQuest(int userId, int questId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_QUESTS__IS_REDEEMED, true);
+    absoluteParams.put(DBConstants.USER_QUESTS__TASKS_COMPLETE, true);
+    absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
   
+  /*
+   * changin orientation
+   */
+  public static boolean updateUserStructOrientation(int userStructId,
+      StructOrientation orientation) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_STRUCTS__ORIENTATION, orientation.getNumber());
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
   /*
    * used for setting a questitemtype as completed for a user quest
    */
@@ -31,8 +72,40 @@ public class UpdateUtils {
     if (setDefeatTypeJobsCompleteTrue) {
       absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true); 
     }
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  public static boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CRITSTRUCTS__USER_ID, userId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (critStructType == CritStructType.ARMORY) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.VAULT) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.MARKETPLACE) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.LUMBERMILL) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__LUMBERMILL_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.CARPENTER) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__CARPENTER_ORIENTATION, orientation.getNumber());
+    }
+    if (critStructType == CritStructType.AVIARY) {
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__AVIARY_ORIENTATION, orientation.getNumber());
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -53,8 +126,8 @@ public class UpdateUtils {
       absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.VAULT) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.MARKETPLACE) {
       absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_X_COORD, coordinates.getX());
@@ -80,11 +153,54 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
+  /*
+   * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct
+   */
+  public static boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(List<UserStruct> userStructs, int levelChange) {
+    Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
+
+    for (UserStruct userStruct : userStructs) {
+      Structure structure = structures.get(userStruct.getStructId());
+      if (structure == null) {
+        return false;
+      }
+      Timestamp lastRetrievedTime = new Timestamp(userStruct.getLastUpgradeTime().getTime() + 60000*structure.getMinutesToGain());
+      if (!UpdateUtils.updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), lastRetrievedTime, true, levelChange)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /*
+   * used for updating last retrieved and/or last upgrade user struct time and is_complete
+   */
+  public static boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (lastRetrievedTime != null)
+      absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
+
+    absoluteParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, isComplete);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER_STRUCTS__LEVEL, levelChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
   /*
    * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
    */
-  public static boolean updateUserStructsLastretrievedIscomplete(List<UserStruct> userStructs, boolean isComplete) {
+  public static boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct> userStructs) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
 
     for (UserStruct userStruct : userStructs) {
@@ -110,10 +226,10 @@ public class UpdateUtils {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (lastRetrievedTime != null)
       absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
-    
+
     if (lastUpgradeTime != null)
       absoluteParams.put(DBConstants.USER_STRUCTS__LAST_UPGRADE_TIME, lastUpgradeTime);
-    
+
     absoluteParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, isComplete);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
@@ -262,6 +378,25 @@ public class UpdateUtils {
     }
     return false;
   }  
+  
+
+  public static boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, int defeatTypeJobId, int increment) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID, questId);
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID, defeatTypeJobId);
+    insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
+
+    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, insertParams, 
+        DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
+
+    if (numUpdated == 1 || numUpdated == 1*2) {
+      return true;
+    }
+    return false;
+  }
+
 
   public static boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -280,5 +415,4 @@ public class UpdateUtils {
     }
     return false;
   }
-
 }

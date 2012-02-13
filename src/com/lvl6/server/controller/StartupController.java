@@ -11,10 +11,13 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.Quest;
+import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
+import com.lvl6.info.UserStruct;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
@@ -29,8 +32,11 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
@@ -78,8 +84,8 @@ public class StartupController extends EventController {
 
         setCitiesAvailableToUser(resBuilder, user);
         setInProgressAndAvailableQuests(resBuilder, user);
-        setUserEquips(resBuilder, user);
-        //setUserStructs(resBuilder, user);
+        setUserEquipsAndEquips(resBuilder, user);
+        setUserStructsAndStructs(resBuilder, user);
 
       }
     }
@@ -99,41 +105,45 @@ public class StartupController extends EventController {
     NIOUtils.channelWrite(sc, writeBuffer);
   }
 
-  /*
-  private void setUserStructs(Builder resBuilder, User user) {
+  
+  private void setUserStructsAndStructs(Builder resBuilder, User user) {
     List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
     if (userStructs != null) {
-      for (UserStruct ue : userStructs) {
-        resBuilder.addUserStructs(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(ue));
+      Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
+      for (UserStruct us : userStructs) {
+        resBuilder.addUserStructures(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(us));
+        resBuilder.addStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(structIdsToStructures.get(us.getStructId())));
       }
     }    
-  }*/
+  }
 
-  private void setUserEquips(Builder resBuilder, User user) {
+  private void setUserEquipsAndEquips(Builder resBuilder, User user) {
     List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
     if (userEquips != null) {
+      Map<Integer, Equipment> equipIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       for (UserEquip ue : userEquips) {
         resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
+        resBuilder.addEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipIdsToEquipment.get(ue.getEquipId())));
       }
     }
   }
 
   private void setInProgressAndAvailableQuests(Builder resBuilder, User user) {
-    List<UserQuest> inProgressAndAvailableUserQuests = UserQuestRetrieveUtils.getInProgressAndCompletedUserQuestsForUser(user.getId());
+    List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getInProgressAndRedeemedUserQuestsForUser(user.getId());
     List<Integer> inProgressQuestIds = new ArrayList<Integer>();
-    List<Integer> completedQuestIds = new ArrayList<Integer>();
+    List<Integer> redeemedQuestIds = new ArrayList<Integer>();
 
     Map<Integer, Quest> questIdToQuests = QuestRetrieveUtils.getQuestIdsToQuests();
-    for (UserQuest uq : inProgressAndAvailableUserQuests) {
+    for (UserQuest uq : inProgressAndRedeemedUserQuests) {
       if (uq.isRedeemed()) {
-        completedQuestIds.add(uq.getQuestId());
+        redeemedQuestIds.add(uq.getQuestId());
       } else {
         inProgressQuestIds.add(uq.getQuestId());  
         resBuilder.addInProgressQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(uq.getQuestId())));
       }
     }
     
-    List<Integer> availableQuestIds = QuestUtils.getAvailableQuestsForUser(completedQuestIds, inProgressQuestIds);
+    List<Integer> availableQuestIds = QuestUtils.getAvailableQuestsForUser(redeemedQuestIds, inProgressQuestIds);
     if (availableQuestIds != null) {
       for (Integer questId : availableQuestIds) {
         resBuilder.addAvailableQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(questId)));
@@ -159,7 +169,6 @@ public class StartupController extends EventController {
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
-      cb.addProductPrices(IAPValues.packagePrices.get(i));
     }
     startupBuilder.setStartupConstants(cb.build());
   }
