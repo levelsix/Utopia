@@ -777,3 +777,17 @@ message RetrieveStaticDataResponseProto {
 	}
 	
 }
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message RetrieveUserEquipForUserRequestProto {
+    required MinimumUserProto sender = 1;
+    required int32 playerIdOfRequested = 2;
+}
+
+																						//DONE
+message RetrieveUserEquipForUserResponseProto {
+    required MinimumUserProto sender = 1;
+    repeated FullUserEquipProto userEquips = 2;
+}
