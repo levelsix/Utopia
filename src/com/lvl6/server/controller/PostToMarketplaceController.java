@@ -101,7 +101,7 @@ public class PostToMarketplaceController extends EventController {
       return false;
     }
     if (reqProto.getPostedCoins() == 0 && reqProto.getPostedDiamonds() == 0 && 
-        reqProto.getPostedWood() == 0) {
+        reqProto.getPostedWood() == 0 && reqProto.getPostType() != MarketplacePostType.EQUIP_POST) {
       resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_POST);
       return false;
     }
