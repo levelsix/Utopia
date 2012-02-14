@@ -10199,6 +10199,735 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullCityProto)
   }
   
+  public interface FullUserCityExpansionDataProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 userId = 1;
+    boolean hasUserId();
+    int getUserId();
+    
+    // required int32 nearLeftExpansions = 2;
+    boolean hasNearLeftExpansions();
+    int getNearLeftExpansions();
+    
+    // required int32 farLeftExpansions = 3;
+    boolean hasFarLeftExpansions();
+    int getFarLeftExpansions();
+    
+    // required int32 farRightExpansions = 4;
+    boolean hasFarRightExpansions();
+    int getFarRightExpansions();
+    
+    // required bool isExpanding = 5;
+    boolean hasIsExpanding();
+    boolean getIsExpanding();
+    
+    // optional int64 lastExpandTime = 6;
+    boolean hasLastExpandTime();
+    long getLastExpandTime();
+    
+    // optional .com.lvl6.proto.ExpansionDirection lastExpandDirection = 7;
+    boolean hasLastExpandDirection();
+    com.lvl6.proto.InfoProto.ExpansionDirection getLastExpandDirection();
+  }
+  public static final class FullUserCityExpansionDataProto extends
+      com.google.protobuf.GeneratedMessage
+      implements FullUserCityExpansionDataProtoOrBuilder {
+    // Use FullUserCityExpansionDataProto.newBuilder() to construct.
+    private FullUserCityExpansionDataProto(Builder builder) {
+      super(builder);
+    }
+    private FullUserCityExpansionDataProto(boolean noInit) {}
+    
+    private static final FullUserCityExpansionDataProto defaultInstance;
+    public static FullUserCityExpansionDataProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public FullUserCityExpansionDataProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required int32 userId = 1;
+    public static final int USERID_FIELD_NUMBER = 1;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // required int32 nearLeftExpansions = 2;
+    public static final int NEARLEFTEXPANSIONS_FIELD_NUMBER = 2;
+    private int nearLeftExpansions_;
+    public boolean hasNearLeftExpansions() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getNearLeftExpansions() {
+      return nearLeftExpansions_;
+    }
+    
+    // required int32 farLeftExpansions = 3;
+    public static final int FARLEFTEXPANSIONS_FIELD_NUMBER = 3;
+    private int farLeftExpansions_;
+    public boolean hasFarLeftExpansions() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getFarLeftExpansions() {
+      return farLeftExpansions_;
+    }
+    
+    // required int32 farRightExpansions = 4;
+    public static final int FARRIGHTEXPANSIONS_FIELD_NUMBER = 4;
+    private int farRightExpansions_;
+    public boolean hasFarRightExpansions() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getFarRightExpansions() {
+      return farRightExpansions_;
+    }
+    
+    // required bool isExpanding = 5;
+    public static final int ISEXPANDING_FIELD_NUMBER = 5;
+    private boolean isExpanding_;
+    public boolean hasIsExpanding() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public boolean getIsExpanding() {
+      return isExpanding_;
+    }
+    
+    // optional int64 lastExpandTime = 6;
+    public static final int LASTEXPANDTIME_FIELD_NUMBER = 6;
+    private long lastExpandTime_;
+    public boolean hasLastExpandTime() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public long getLastExpandTime() {
+      return lastExpandTime_;
+    }
+    
+    // optional .com.lvl6.proto.ExpansionDirection lastExpandDirection = 7;
+    public static final int LASTEXPANDDIRECTION_FIELD_NUMBER = 7;
+    private com.lvl6.proto.InfoProto.ExpansionDirection lastExpandDirection_;
+    public boolean hasLastExpandDirection() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public com.lvl6.proto.InfoProto.ExpansionDirection getLastExpandDirection() {
+      return lastExpandDirection_;
+    }
+    
+    private void initFields() {
+      userId_ = 0;
+      nearLeftExpansions_ = 0;
+      farLeftExpansions_ = 0;
+      farRightExpansions_ = 0;
+      isExpanding_ = false;
+      lastExpandTime_ = 0L;
+      lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasNearLeftExpansions()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFarLeftExpansions()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFarRightExpansions()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIsExpanding()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, nearLeftExpansions_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, farLeftExpansions_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, farRightExpansions_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBool(5, isExpanding_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt64(6, lastExpandTime_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeEnum(7, lastExpandDirection_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, nearLeftExpansions_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, farLeftExpansions_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, farRightExpansions_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, isExpanding_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, lastExpandTime_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, lastExpandDirection_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.FullUserCityExpansionDataProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        nearLeftExpansions_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        farLeftExpansions_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        farRightExpansions_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        isExpanding_ = false;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        lastExpandTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto build() {
+        com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto buildPartial() {
+        com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto result = new com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.nearLeftExpansions_ = nearLeftExpansions_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.farLeftExpansions_ = farLeftExpansions_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.farRightExpansions_ = farRightExpansions_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.isExpanding_ = isExpanding_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.lastExpandTime_ = lastExpandTime_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.lastExpandDirection_ = lastExpandDirection_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto other) {
+        if (other == com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasNearLeftExpansions()) {
+          setNearLeftExpansions(other.getNearLeftExpansions());
+        }
+        if (other.hasFarLeftExpansions()) {
+          setFarLeftExpansions(other.getFarLeftExpansions());
+        }
+        if (other.hasFarRightExpansions()) {
+          setFarRightExpansions(other.getFarRightExpansions());
+        }
+        if (other.hasIsExpanding()) {
+          setIsExpanding(other.getIsExpanding());
+        }
+        if (other.hasLastExpandTime()) {
+          setLastExpandTime(other.getLastExpandTime());
+        }
+        if (other.hasLastExpandDirection()) {
+          setLastExpandDirection(other.getLastExpandDirection());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          
+          return false;
+        }
+        if (!hasNearLeftExpansions()) {
+          
+          return false;
+        }
+        if (!hasFarLeftExpansions()) {
+          
+          return false;
+        }
+        if (!hasFarRightExpansions()) {
+          
+          return false;
+        }
+        if (!hasIsExpanding()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              nearLeftExpansions_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              farLeftExpansions_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              farRightExpansions_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              isExpanding_ = input.readBool();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              lastExpandTime_ = input.readInt64();
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.ExpansionDirection value = com.lvl6.proto.InfoProto.ExpansionDirection.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(7, rawValue);
+              } else {
+                bitField0_ |= 0x00000040;
+                lastExpandDirection_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 userId = 1;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 nearLeftExpansions = 2;
+      private int nearLeftExpansions_ ;
+      public boolean hasNearLeftExpansions() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getNearLeftExpansions() {
+        return nearLeftExpansions_;
+      }
+      public Builder setNearLeftExpansions(int value) {
+        bitField0_ |= 0x00000002;
+        nearLeftExpansions_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNearLeftExpansions() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        nearLeftExpansions_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 farLeftExpansions = 3;
+      private int farLeftExpansions_ ;
+      public boolean hasFarLeftExpansions() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getFarLeftExpansions() {
+        return farLeftExpansions_;
+      }
+      public Builder setFarLeftExpansions(int value) {
+        bitField0_ |= 0x00000004;
+        farLeftExpansions_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearFarLeftExpansions() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        farLeftExpansions_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 farRightExpansions = 4;
+      private int farRightExpansions_ ;
+      public boolean hasFarRightExpansions() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getFarRightExpansions() {
+        return farRightExpansions_;
+      }
+      public Builder setFarRightExpansions(int value) {
+        bitField0_ |= 0x00000008;
+        farRightExpansions_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearFarRightExpansions() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        farRightExpansions_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required bool isExpanding = 5;
+      private boolean isExpanding_ ;
+      public boolean hasIsExpanding() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public boolean getIsExpanding() {
+        return isExpanding_;
+      }
+      public Builder setIsExpanding(boolean value) {
+        bitField0_ |= 0x00000010;
+        isExpanding_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearIsExpanding() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        isExpanding_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // optional int64 lastExpandTime = 6;
+      private long lastExpandTime_ ;
+      public boolean hasLastExpandTime() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public long getLastExpandTime() {
+        return lastExpandTime_;
+      }
+      public Builder setLastExpandTime(long value) {
+        bitField0_ |= 0x00000020;
+        lastExpandTime_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLastExpandTime() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        lastExpandTime_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional .com.lvl6.proto.ExpansionDirection lastExpandDirection = 7;
+      private com.lvl6.proto.InfoProto.ExpansionDirection lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+      public boolean hasLastExpandDirection() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public com.lvl6.proto.InfoProto.ExpansionDirection getLastExpandDirection() {
+        return lastExpandDirection_;
+      }
+      public Builder setLastExpandDirection(com.lvl6.proto.InfoProto.ExpansionDirection value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000040;
+        lastExpandDirection_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLastExpandDirection() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullUserCityExpansionDataProto)
+    }
+    
+    static {
+      defaultInstance = new FullUserCityExpansionDataProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullUserCityExpansionDataProto)
+  }
+  
   public interface CoordinateProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -22143,6 +22872,11 @@ public final class InfoProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_FullCityProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_CoordinateProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -22299,89 +23033,96 @@ public final class InfoProto {
       "\005\022\020\n\010quantity\030\003 \002(\005\"\177\n\rFullCityProto\022\016\n\006" +
       "cityId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030\003" +
       " \002(\005\022\035\n\025expGainedBaseOnRankup\030\004 \002(\005\022\037\n\027c" +
-      "oinsGainedBaseOnRankup\030\005 \002(\005\"\'\n\017Coordina" +
-      "teProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocatio",
-      "nProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitude\030\002 " +
-      "\002(\002\"\301\002\n\030FullMarketplacePostProto\022\031\n\021mark" +
-      "etplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n" +
-      "\010postType\030\003 \002(\0162#.com.lvl6.proto.Marketp" +
-      "lacePostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013post" +
-      "edEquip\030\005 \001(\0132\036.com.lvl6.proto.FullEquip" +
-      "Proto\022\022\n\npostedWood\030\006 \001(\005\022\026\n\016postedDiamo" +
-      "nds\030\007 \001(\005\022\023\n\013postedCoins\030\010 \001(\005\022\023\n\013diamon" +
-      "dCost\030\t \001(\005\022\020\n\010coinCost\030\n \001(\005\022\020\n\010woodCos" +
-      "t\030\013 \001(\005\"\260\001\n\027FullUserCritstructProto\022,\n\004t",
-      "ype\030\001 \002(\0162\036.com.lvl6.proto.CritStructTyp" +
-      "e\022/\n\006coords\030\002 \002(\0132\037.com.lvl6.proto.Coord" +
-      "inateProto\0226\n\013orientation\030\003 \002(\0162!.com.lv" +
-      "l6.proto.StructOrientation\"j\n\024MinimumUse" +
-      "rTaskProto\022\016\n\006userId\030\001 \002(\005\022+\n\004task\030\002 \002(\013" +
-      "2\035.com.lvl6.proto.FullTaskProto\022\025\n\rnumTi" +
-      "mesActed\030\003 \002(\005\"\200\001\n\031MinimumUserQuestTaskP" +
-      "roto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022+\n" +
-      "\004task\030\003 \002(\0132\035.com.lvl6.proto.FullTaskPro" +
-      "to\022\025\n\rnumTimesActed\030\004 \002(\005\"\376\003\n\033FullUserQu",
-      "estDataLargeProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007que" +
-      "stId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(\010\022H\n\025required" +
-      "TasksProgress\030\004 \003(\0132).com.lvl6.proto.Min" +
-      "imumUserQuestTaskProto\022T\n\035requiredDefeat" +
-      "TypeJobProgress\030\005 \003(\0132-.com.lvl6.proto.M" +
-      "inimumUserDefeatTypeJobProto\022V\n\036required" +
-      "BuildStructJobProgress\030\006 \003(\0132..com.lvl6." +
-      "proto.MinimumUserBuildStructJobProto\022Z\n " +
-      "requiredUpgradeStructJobProgress\030\007 \003(\01320" +
-      ".com.lvl6.proto.MinimumUserUpgradeStruct",
-      "JobProto\022X\n\037requiredPossessEquipJobProgr" +
-      "ess\030\010 \003(\0132/.com.lvl6.proto.MinimumUserPo" +
-      "ssessEquipJobProto\"\222\001\n\035MinimumUserDefeat" +
-      "TypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030" +
-      "\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\".com.lvl" +
-      "6.proto.DefeatTypeJobProto\022\023\n\013numDefeate" +
-      "d\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017defeat" +
-      "TypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\0162\030.c" +
-      "om.lvl6.proto.UserType\022\032\n\022numEnemiesToDe" +
-      "feat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036MinimumUs",
-      "erBuildStructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n" +
-      "\007questId\030\002 \002(\005\022;\n\016buildStructJob\030\003 \002(\0132#" +
-      ".com.lvl6.proto.BuildStructJobProto\022\032\n\022n" +
-      "umOfStructUserHas\030\004 \002(\005\"[\n\023BuildStructJo" +
-      "bProto\022\030\n\020buildStructJobId\030\001 \002(\005\022\020\n\010stru" +
-      "ctId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 \002(\005\"\230\001\n" +
-      " MinimumUserUpgradeStructJobProto\022\016\n\006use" +
-      "rId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upgradeStr" +
-      "uctJob\030\003 \002(\0132%.com.lvl6.proto.UpgradeStr" +
-      "uctJobProto\022\022\n\nisComplete\030\004 \002(\010\"W\n\025Upgra",
-      "deStructJobProto\022\032\n\022upgradeStructJobId\030\001" +
-      " \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq\030\003 \002(\005" +
-      "\"\237\001\n\037MinimumUserPossessEquipJobProto\022\016\n\006" +
-      "userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024possess" +
-      "EquipJobProto\030\003 \002(\0132$.com.lvl6.proto.Pos" +
-      "sessEquipJobProto\022\027\n\017numEquipUserHas\030\004 \002" +
-      "(\005\"W\n\024PossessEquipJobProto\022\031\n\021possessEqu" +
-      "ipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013quanti" +
-      "tyReq\030\003 \002(\005\"\247\003\n\016FullQuestProto\022\017\n\007questI" +
-      "d\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\023\n",
-      "\013description\030\004 \002(\t\022\024\n\014doneResponse\030\005 \002(\t" +
-      "\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWithinCi" +
-      "ty\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamond" +
-      "sGained\030\t \001(\005\022\022\n\nwoodGained\030\n \001(\005\022\021\n\texp" +
-      "Gained\030\013 \001(\005\022\025\n\requipIdGained\030\014 \001(\005\022\035\n\025q" +
-      "uestsRequiredForThis\030\r \003(\005\022\020\n\010taskReqs\030\016" +
-      " \003(\005\022\035\n\025upgradeStructJobsReqs\030\017 \003(\005\022\033\n\023b" +
-      "uildStructJobsReqs\030\020 \003(\005\022\026\n\016defeatTypeRe" +
-      "qs\030\021 \003(\005\022\033\n\023possessEquipJobReqs\030\022 \003(\005*k\n" +
-      "\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCH",
-      "ER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\n" +
-      "BAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023Marketplac" +
-      "ePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001" +
-      "\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035Mar" +
-      "ketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004S" +
-      "ELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nL" +
-      "UMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n" +
-      "\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrie" +
-      "ntation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*" +
-      "@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010",
-      "FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
+      "oinsGainedBaseOnRankup\030\005 \002(\005\"\361\001\n\036FullUse" +
+      "rCityExpansionDataProto\022\016\n\006userId\030\001 \002(\005\022",
+      "\032\n\022nearLeftExpansions\030\002 \002(\005\022\031\n\021farLeftEx" +
+      "pansions\030\003 \002(\005\022\032\n\022farRightExpansions\030\004 \002" +
+      "(\005\022\023\n\013isExpanding\030\005 \002(\010\022\026\n\016lastExpandTim" +
+      "e\030\006 \001(\003\022?\n\023lastExpandDirection\030\007 \001(\0162\".c" +
+      "om.lvl6.proto.ExpansionDirection\"\'\n\017Coor" +
+      "dinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLoc" +
+      "ationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitud" +
+      "e\030\002 \002(\002\"\301\002\n\030FullMarketplacePostProto\022\031\n\021" +
+      "marketplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(" +
+      "\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.proto.Mar",
+      "ketplacePostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013" +
+      "postedEquip\030\005 \001(\0132\036.com.lvl6.proto.FullE" +
+      "quipProto\022\022\n\npostedWood\030\006 \001(\005\022\026\n\016postedD" +
+      "iamonds\030\007 \001(\005\022\023\n\013postedCoins\030\010 \001(\005\022\023\n\013di" +
+      "amondCost\030\t \001(\005\022\020\n\010coinCost\030\n \001(\005\022\020\n\010woo" +
+      "dCost\030\013 \001(\005\"\260\001\n\027FullUserCritstructProto\022" +
+      ",\n\004type\030\001 \002(\0162\036.com.lvl6.proto.CritStruc" +
+      "tType\022/\n\006coords\030\002 \002(\0132\037.com.lvl6.proto.C" +
+      "oordinateProto\0226\n\013orientation\030\003 \002(\0162!.co" +
+      "m.lvl6.proto.StructOrientation\"j\n\024Minimu",
+      "mUserTaskProto\022\016\n\006userId\030\001 \002(\005\022+\n\004task\030\002" +
+      " \002(\0132\035.com.lvl6.proto.FullTaskProto\022\025\n\rn" +
+      "umTimesActed\030\003 \002(\005\"\200\001\n\031MinimumUserQuestT" +
+      "askProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(" +
+      "\005\022+\n\004task\030\003 \002(\0132\035.com.lvl6.proto.FullTas" +
+      "kProto\022\025\n\rnumTimesActed\030\004 \002(\005\"\376\003\n\033FullUs" +
+      "erQuestDataLargeProto\022\016\n\006userId\030\001 \002(\005\022\017\n" +
+      "\007questId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(\010\022H\n\025requ" +
+      "iredTasksProgress\030\004 \003(\0132).com.lvl6.proto" +
+      ".MinimumUserQuestTaskProto\022T\n\035requiredDe",
+      "featTypeJobProgress\030\005 \003(\0132-.com.lvl6.pro" +
+      "to.MinimumUserDefeatTypeJobProto\022V\n\036requ" +
+      "iredBuildStructJobProgress\030\006 \003(\0132..com.l" +
+      "vl6.proto.MinimumUserBuildStructJobProto" +
+      "\022Z\n requiredUpgradeStructJobProgress\030\007 \003" +
+      "(\01320.com.lvl6.proto.MinimumUserUpgradeSt" +
+      "ructJobProto\022X\n\037requiredPossessEquipJobP" +
+      "rogress\030\010 \003(\0132/.com.lvl6.proto.MinimumUs" +
+      "erPossessEquipJobProto\"\222\001\n\035MinimumUserDe" +
+      "featTypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007ques",
+      "tId\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\".com" +
+      ".lvl6.proto.DefeatTypeJobProto\022\023\n\013numDef" +
+      "eated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017de" +
+      "featTypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\016" +
+      "2\030.com.lvl6.proto.UserType\022\032\n\022numEnemies" +
+      "ToDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036Minim" +
+      "umUserBuildStructJobProto\022\016\n\006userId\030\001 \002(" +
+      "\005\022\017\n\007questId\030\002 \002(\005\022;\n\016buildStructJob\030\003 \002" +
+      "(\0132#.com.lvl6.proto.BuildStructJobProto\022" +
+      "\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildStru",
+      "ctJobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022\020\n\010" +
+      "structId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 \002(\005" +
+      "\"\230\001\n MinimumUserUpgradeStructJobProto\022\016\n" +
+      "\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upgrad" +
+      "eStructJob\030\003 \002(\0132%.com.lvl6.proto.Upgrad" +
+      "eStructJobProto\022\022\n\nisComplete\030\004 \002(\010\"W\n\025U" +
+      "pgradeStructJobProto\022\032\n\022upgradeStructJob" +
+      "Id\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq\030\003" +
+      " \002(\005\"\237\001\n\037MinimumUserPossessEquipJobProto" +
+      "\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024pos",
+      "sessEquipJobProto\030\003 \002(\0132$.com.lvl6.proto" +
+      ".PossessEquipJobProto\022\027\n\017numEquipUserHas" +
+      "\030\004 \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021posses" +
+      "sEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013qu" +
+      "antityReq\030\003 \002(\005\"\247\003\n\016FullQuestProto\022\017\n\007qu" +
+      "estId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(" +
+      "\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneResponse\030\005" +
+      " \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWith" +
+      "inCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016dia" +
+      "mondsGained\030\t \001(\005\022\022\n\nwoodGained\030\n \001(\005\022\021\n",
+      "\texpGained\030\013 \001(\005\022\025\n\requipIdGained\030\014 \001(\005\022" +
+      "\035\n\025questsRequiredForThis\030\r \003(\005\022\020\n\010taskRe" +
+      "qs\030\016 \003(\005\022\035\n\025upgradeStructJobsReqs\030\017 \003(\005\022" +
+      "\033\n\023buildStructJobsReqs\030\020 \003(\005\022\026\n\016defeatTy" +
+      "peReqs\030\021 \003(\005\022\033\n\023possessEquipJobReqs\030\022 \003(" +
+      "\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_" +
+      "ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003" +
+      "\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*U\n\023Market" +
+      "placePostType\022\016\n\nEQUIP_POST\020\000\022\r\n\tWOOD_PO" +
+      "ST\020\001\022\020\n\014DIAMOND_POST\020\002\022\r\n\tCOIN_POST\020\003*2\n",
+      "\035MarketplaceJobRequirementType\022\007\n\003BUY\020\000\022" +
+      "\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022" +
+      "\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020" +
+      "\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021Struct" +
+      "Orientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_" +
+      "2\020\001*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000" +
+      "\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoPro" +
+      "to"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -22460,8 +23201,16 @@ public final class InfoProto {
               new java.lang.String[] { "CityId", "Name", "MinLevel", "ExpGainedBaseOnRankup", "CoinsGainedBaseOnRankup", },
               com.lvl6.proto.InfoProto.FullCityProto.class,
               com.lvl6.proto.InfoProto.FullCityProto.Builder.class);
-          internal_static_com_lvl6_proto_CoordinateProto_descriptor =
+          internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor =
             getDescriptor().getMessageTypes().get(8);
+          internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor,
+              new java.lang.String[] { "UserId", "NearLeftExpansions", "FarLeftExpansions", "FarRightExpansions", "IsExpanding", "LastExpandTime", "LastExpandDirection", },
+              com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.class,
+              com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.Builder.class);
+          internal_static_com_lvl6_proto_CoordinateProto_descriptor =
+            getDescriptor().getMessageTypes().get(9);
           internal_static_com_lvl6_proto_CoordinateProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_CoordinateProto_descriptor,
@@ -22469,7 +23218,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.CoordinateProto.class,
               com.lvl6.proto.InfoProto.CoordinateProto.Builder.class);
           internal_static_com_lvl6_proto_LocationProto_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+            getDescriptor().getMessageTypes().get(10);
           internal_static_com_lvl6_proto_LocationProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LocationProto_descriptor,
@@ -22477,7 +23226,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.LocationProto.class,
               com.lvl6.proto.InfoProto.LocationProto.Builder.class);
           internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor =
-            getDescriptor().getMessageTypes().get(10);
+            getDescriptor().getMessageTypes().get(11);
           internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor,
@@ -22485,7 +23234,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.class,
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserCritstructProto_descriptor =
-            getDescriptor().getMessageTypes().get(11);
+            getDescriptor().getMessageTypes().get(12);
           internal_static_com_lvl6_proto_FullUserCritstructProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserCritstructProto_descriptor,
@@ -22493,7 +23242,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserCritstructProto.class,
               com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+            getDescriptor().getMessageTypes().get(13);
           internal_static_com_lvl6_proto_MinimumUserTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor,
@@ -22501,7 +23250,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserTaskProto.class,
               com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_descriptor =
-            getDescriptor().getMessageTypes().get(13);
+            getDescriptor().getMessageTypes().get(14);
           internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_descriptor,
@@ -22509,7 +23258,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.class,
               com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_descriptor =
-            getDescriptor().getMessageTypes().get(14);
+            getDescriptor().getMessageTypes().get(15);
           internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_descriptor,
@@ -22517,7 +23266,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.class,
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(15);
+            getDescriptor().getMessageTypes().get(16);
           internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor,
@@ -22525,7 +23274,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder.class);
           internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(16);
+            getDescriptor().getMessageTypes().get(17);
           internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor,
@@ -22533,7 +23282,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.DefeatTypeJobProto.class,
               com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(17);
+            getDescriptor().getMessageTypes().get(18);
           internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor,
@@ -22541,7 +23290,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_BuildStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(18);
+            getDescriptor().getMessageTypes().get(19);
           internal_static_com_lvl6_proto_BuildStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_BuildStructJobProto_descriptor,
@@ -22549,7 +23298,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.BuildStructJobProto.class,
               com.lvl6.proto.InfoProto.BuildStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(19);
+            getDescriptor().getMessageTypes().get(20);
           internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor,
@@ -22557,7 +23306,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(20);
+            getDescriptor().getMessageTypes().get(21);
           internal_static_com_lvl6_proto_UpgradeStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor,
@@ -22565,7 +23314,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.UpgradeStructJobProto.class,
               com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(21);
+            getDescriptor().getMessageTypes().get(22);
           internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor,
@@ -22573,7 +23322,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder.class);
           internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(22);
+            getDescriptor().getMessageTypes().get(23);
           internal_static_com_lvl6_proto_PossessEquipJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor,
@@ -22581,7 +23330,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.PossessEquipJobProto.class,
               com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder.class);
           internal_static_com_lvl6_proto_FullQuestProto_descriptor =
-            getDescriptor().getMessageTypes().get(23);
+            getDescriptor().getMessageTypes().get(24);
           internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullQuestProto_descriptor,

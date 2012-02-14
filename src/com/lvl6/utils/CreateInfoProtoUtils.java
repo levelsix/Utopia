@@ -13,6 +13,7 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserCityExpansionData;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -31,6 +32,7 @@ import com.lvl6.proto.InfoProto.FullQuestProto;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
+import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCritstructProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
@@ -63,6 +65,20 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class CreateInfoProtoUtils {
 
+  public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
+    FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
+        .setNearLeftExpansions(uced.getNearLeftExpansions())
+        .setFarLeftExpansions(uced.getFarLeftExpansions()).setFarRightExpansions(uced.getFarRightExpansions())
+        .setIsExpanding(uced.isExpanding());
+    if (uced.getLastExpandTime() != null) {
+      builder.setLastExpandTime(uced.getLastExpandTime().getTime());
+    }
+    if (uced.getLastExpandDirection() != null) {
+      builder.setLastExpandDirection(uced.getLastExpandDirection());
+    }
+    return builder.build();
+  }
+  
   public static FullQuestProto createFullQuestProtoFromQuest(UserType userType, Quest quest) {
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
 

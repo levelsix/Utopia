@@ -5,21 +5,26 @@ import java.util.Date;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 
 public class UserCityExpansionData {
+  private int userId;
   private int nearLeftExpansions;
   private int farLeftExpansions;
   private int farRightExpansions;
   private boolean isExpanding;
-  private Date lastExpandTime;
+  private Date lastExpandTime;          //refers to last time the user clicks the upgrade button, not when the last upgrade was complete
   private ExpansionDirection lastExpandDirection;
-  public UserCityExpansionData(int nearLeftExpansions, int farLeftExpansions,
+  public UserCityExpansionData(int userId, int nearLeftExpansions, int farLeftExpansions,
       int farRightExpansions, boolean isExpanding, Date lastExpandTime,
       ExpansionDirection lastExpandDirection) {
+    this.userId = userId;
     this.nearLeftExpansions = nearLeftExpansions;
     this.farLeftExpansions = farLeftExpansions;
     this.farRightExpansions = farRightExpansions;
     this.isExpanding = isExpanding;
     this.lastExpandTime = lastExpandTime;
     this.lastExpandDirection = lastExpandDirection;
+  }
+  public int getUserId() {
+    return userId;
   }
   public int getNearLeftExpansions() {
     return nearLeftExpansions;
@@ -41,10 +46,10 @@ public class UserCityExpansionData {
   }
   @Override
   public String toString() {
-    return "UserCityExpansionData [nearLeftExpansions=" + nearLeftExpansions
-        + ", farLeftExpansions=" + farLeftExpansions + ", farRightExpansions="
-        + farRightExpansions + ", isExpanding=" + isExpanding
-        + ", lastExpandTime=" + lastExpandTime + ", lastExpandDirection="
-        + lastExpandDirection + "]";
-  }
+    return "UserCityExpansionData [userId=" + userId + ", nearLeftExpansions="
+        + nearLeftExpansions + ", farLeftExpansions=" + farLeftExpansions
+        + ", farRightExpansions=" + farRightExpansions + ", isExpanding="
+        + isExpanding + ", lastExpandTime=" + lastExpandTime
+        + ", lastExpandDirection=" + lastExpandDirection + "]";
+  }  
 }

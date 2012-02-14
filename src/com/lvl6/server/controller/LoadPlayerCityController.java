@@ -7,6 +7,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadPlayerCityRequestEvent;
 import com.lvl6.events.response.LoadPlayerCityResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.info.UserCityExpansionData;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.ControllerConstants;
@@ -17,6 +18,7 @@ import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatu
 import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
 import com.lvl6.retrieveutils.UserCritstructRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
@@ -50,10 +52,17 @@ public class LoadPlayerCityController extends EventController {
 
     try {
       User owner = UserRetrieveUtils.getUserById(cityOwnerProto.getUserId());
+      
       Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
       setResponseCritstructs(resBuilder, userCritStructs);
+      
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerProto.getUserId());
       setResponseUserStructs(resBuilder, userStructs);
+      
+      UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(cityOwnerProto.getUserId());
+      if (userCityExpansionData != null) {
+        resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
+      }
       
       boolean ownerIsGood = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
       List<User> ownerAllies = UserRetrieveUtils.getUsersForSide(ownerIsGood, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY, owner.getLevel(), owner.getId());

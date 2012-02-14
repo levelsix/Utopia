@@ -172,6 +172,18 @@ message FullCityProto {
 
 //------------------------------------------------------------------------------------------
 
+message FullUserCityExpansionDataProto {
+	required int32 userId = 1;
+	required int32 nearLeftExpansions = 2;
+	required int32 farLeftExpansions = 3;
+	required int32 farRightExpansions = 4;
+	required bool isExpanding = 5;
+	optional int64 lastExpandTime = 6;
+	optional ExpansionDirection lastExpandDirection = 7;
+}
+
+//------------------------------------------------------------------------------------------
+
 message CoordinateProto {
 	required int32 x = 1;
 	required int32 y = 2;

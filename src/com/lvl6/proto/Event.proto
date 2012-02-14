@@ -667,6 +667,8 @@ message LoadPlayerCityResponseProto {
     required FullUserCritstructProto lumbermill = 8;
     required FullUserCritstructProto carpenter = 9;
     required FullUserCritstructProto aviary = 10;    
+
+	optional FullUserCityExpansionDataProto userCityExpansionData = 11;
      
     enum LoadPlayerCityStatus {
      	SUCCESS = 0;
@@ -819,6 +821,7 @@ message PurchaseCityExpansionResponseProto {
 
 message ExpansionWaitCompleteRequestProto {
 	required MinimumUserProto sender = 1;
+	required int64 curTime = 2;						//used for checking
 }
 
 message ExpansionWaitCompleteResponseProto {
@@ -827,6 +830,8 @@ message ExpansionWaitCompleteResponseProto {
      
      enum ExpansionWaitCompleteStatus {
      	SUCCESS = 0;
-     	OTHER_FAIL = 1;
+     	WAS_NOT_EXPANDING = 1;
+     	NOT_DONE_YET = 2;
+     	OTHER_FAIL = 3;
      }
 }

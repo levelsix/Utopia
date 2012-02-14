@@ -19,18 +19,40 @@ import com.lvl6.utils.DBConnection;
 public class UpdateUtils {
 
   /*
-   * userd for purchasing a city expansion
+   * used when an expansion is complete
+   */
+  public static boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
+      int nearLeftExpansionsChange, int farLeftExpansionsChange, int farRightExpansionsChange, 
+      boolean isExpanding) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__NEAR_LEFT_EXPANSIONS, nearLeftExpansionsChange);
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__FAR_LEFT_EXPANSIONS, farLeftExpansionsChange);
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS, farRightExpansionsChange);
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  /*
+   * used for purchasing a city expansion
    */
   public static boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int userId, Timestamp lastExpandTime, 
       ExpansionDirection lastExpansionDirection, boolean isExpanding) {
-
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_TIME, lastExpandTime);
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_DIRECTION, lastExpansionDirection.getNumber());
-    absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, true);
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
     
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "and");

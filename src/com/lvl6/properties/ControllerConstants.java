@@ -132,5 +132,8 @@ public class ControllerConstants {
   
   //LOAD PLAYER CITY
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY = 4;
+  
+  //EXPANSION WAIT COMPLETE
+  public static final int EXPANSION_WAIT_COMPLETE__MINUTES_FOR_EXPANSION = 720;
 
 }
