@@ -148,7 +148,7 @@ public class QuestRedeemController extends EventController {
       return false;
     }
     resBuilder.setStatus(QuestRedeemStatus.SUCCESS);
-    return false;  
+    return true;  
   }
 
 }

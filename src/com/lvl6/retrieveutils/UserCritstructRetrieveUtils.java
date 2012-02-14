@@ -19,12 +19,12 @@ public class UserCritstructRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = DBConstants.TABLE_USER_CRITSTRUCTS;
+  private static final String TABLE_NAME = DBConstants.TABLE_USER_CITY_ELEMS;
 
   public static Map<CritStructType, UserCritstruct> getUserCritstructsForUser(int userId) {
     log.info("retrieving user critstructs for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_CRITSTRUCTS__USER_ID, userId);
+    paramsToVals.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
     return convertRSToUserCritstructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
   
@@ -36,8 +36,8 @@ public class UserCritstructRetrieveUtils {
         Map<CritStructType, UserCritstruct> critStructMap = new HashMap<CritStructType, UserCritstruct>();
         while(rs.next()) {
           addToCritStructMap(rs, critStructMap);
+          return critStructMap;
         }
-        return critStructMap;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);

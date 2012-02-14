@@ -9,21 +9,21 @@ import com.lvl6.proto.EventProto.QuestRedeemRequestProto;
 
 public class QuestRedeemRequestEvent extends RequestEvent {
 
-  private QuestRedeemRequestProto questRequestProto;
+  private QuestRedeemRequestProto questRedeemRequestProto;
   
   /**
    * read the event from the given ByteBuffer to populate this event
    */
   public void read(ByteBuffer buff) {
     try {
-      questRequestProto = QuestRedeemRequestProto.parseFrom(ByteString.copyFrom(buff));
-      playerId = questRequestProto.getSender().getUserId();
+      questRedeemRequestProto = QuestRedeemRequestProto.parseFrom(ByteString.copyFrom(buff));
+      playerId = questRedeemRequestProto.getSender().getUserId();
     } catch (InvalidProtocolBufferException e) {
       e.printStackTrace();
     }
   }
 
   public QuestRedeemRequestProto getQuestRedeemRequestProto() {
-    return questRequestProto;
+    return questRedeemRequestProto;
   }
 }

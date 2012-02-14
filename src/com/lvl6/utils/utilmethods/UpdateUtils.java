@@ -11,12 +11,35 @@ import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.CritStructType;
+import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
 
+  /*
+   * userd for purchasing a city expansion
+   */
+  public static boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int userId, Timestamp lastExpandTime, 
+      ExpansionDirection lastExpansionDirection, boolean isExpanding) {
+
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_TIME, lastExpandTime);
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_DIRECTION, lastExpansionDirection.getNumber());
+    absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, true);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   /*
    * changin orientation
    */
@@ -83,26 +106,26 @@ public class UpdateUtils {
 
   public static boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CRITSTRUCTS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (critStructType == CritStructType.ARMORY) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_ORIENTATION, orientation.getNumber());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__ARMORY_ORIENTATION, orientation.getNumber());
     }
     if (critStructType == CritStructType.VAULT) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_ORIENTATION, orientation.getNumber());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__VAULT_ORIENTATION, orientation.getNumber());
     }
     if (critStructType == CritStructType.MARKETPLACE) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_ORIENTATION, orientation.getNumber());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_ORIENTATION, orientation.getNumber());
     }
     if (critStructType == CritStructType.LUMBERMILL) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__LUMBERMILL_ORIENTATION, orientation.getNumber());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__LUMBERMILL_ORIENTATION, orientation.getNumber());
     }
     if (critStructType == CritStructType.CARPENTER) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__CARPENTER_ORIENTATION, orientation.getNumber());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_ORIENTATION, orientation.getNumber());
     }
     if (critStructType == CritStructType.AVIARY) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__AVIARY_ORIENTATION, orientation.getNumber());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_ORIENTATION, orientation.getNumber());
     }
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
@@ -118,32 +141,32 @@ public class UpdateUtils {
    */
   public static boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates, CritStructType critStructType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CRITSTRUCTS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (critStructType == CritStructType.ARMORY) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__ARMORY_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__ARMORY_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__ARMORY_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.VAULT) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__VAULT_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__VAULT_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__VAULT_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.MARKETPLACE) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__MARKETPLACE_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.LUMBERMILL) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__LUMBERMILL_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__LUMBERMILL_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__LUMBERMILL_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__LUMBERMILL_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.CARPENTER) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__CARPENTER_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__CARPENTER_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.AVIARY) {
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__AVIARY_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CRITSTRUCTS__AVIARY_Y_COORD, coordinates.getY());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_X_COORD, coordinates.getX());
+      absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_Y_COORD, coordinates.getY());
     }
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 

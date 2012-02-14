@@ -104,8 +104,11 @@ public class ArmoryController extends EventController {
       ArmoryResponseEvent resEvent = new ArmoryResponseEvent(senderProto.getUserId());
       resEvent.setArmoryResponseProto(resProto);
       server.writeEvent(resEvent);
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-      server.writeEvent(resEventUpdate);
+
+      if (legitBuy || legitSell) {
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        server.writeEvent(resEventUpdate);
+      }
 
       if (legitBuy) {
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);

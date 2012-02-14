@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseNormStructureRequestEvent;
 import com.lvl6.events.response.PurchaseNormStructureResponseEvent;
@@ -37,7 +39,8 @@ public class PurchaseNormStructureController extends EventController {
     MinimumUserProto senderProto = reqProto.getSender();
     int structId = reqProto.getStructId();
     CoordinatePair cp = new CoordinatePair(reqProto.getStructCoordinates().getX(), reqProto.getStructCoordinates().getY());
-
+    Timestamp timeOfPurchase = new Timestamp(reqProto.getTimeOfPurchase());
+    
     PurchaseNormStructureResponseProto.Builder resBuilder = PurchaseNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -47,10 +50,10 @@ public class PurchaseNormStructureController extends EventController {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       Structure struct = StructureRetrieveUtils.getStructForStructId(structId);
 
-      boolean legitPurchaseNorm = checkLegitPurchaseNorm(resBuilder, struct, user);
+      boolean legitPurchaseNorm = checkLegitPurchaseNorm(resBuilder, struct, user, timeOfPurchase);
 
       if (legitPurchaseNorm) {
-        int userStructId = InsertUtils.insertUserStruct(user.getId(), struct.getId(), cp);
+        int userStructId = InsertUtils.insertUserStruct(user.getId(), struct.getId(), cp, timeOfPurchase);
         if (userStructId <= 0) {
           legitPurchaseNorm = false;
           resBuilder.setStatus(PurchaseNormStructureStatus.OTHER_FAIL);
@@ -87,8 +90,8 @@ public class PurchaseNormStructureController extends EventController {
   }
 
   private boolean checkLegitPurchaseNorm(Builder resBuilder, Structure struct,
-      User user) {
-    if (user == null || struct == null) {
+      User user, Timestamp timeOfPurchase) {
+    if (user == null || struct == null || timeOfPurchase == null) {
       resBuilder.setStatus(PurchaseNormStructureStatus.OTHER_FAIL);
       return false;
     }

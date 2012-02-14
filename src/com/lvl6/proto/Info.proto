@@ -238,6 +238,12 @@ enum StructOrientation {
 	POSITION_2 = 1;
 }
 
+enum ExpansionDirection {
+	NEAR_LEFT = 0;
+	FAR_LEFT = 1;
+	FAR_RIGHT = 2;
+}
+
 //------------------------------------------------------------------------------------------
 
 message MinimumUserTaskProto {

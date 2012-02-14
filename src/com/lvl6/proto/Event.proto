@@ -235,6 +235,7 @@ message PurchaseNormStructureRequestProto {
 	required MinimumUserProto sender = 1;
 	required CoordinateProto structCoordinates = 2;
 	required int32 structId = 3;
+	required int64 timeOfPurchase = 4;
 }
 
 																						//DONE
@@ -790,4 +791,42 @@ message RetrieveUserEquipForUserRequestProto {
 message RetrieveUserEquipForUserResponseProto {
     required MinimumUserProto sender = 1;
     repeated FullUserEquipProto userEquips = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message PurchaseCityExpansionRequestProto {
+    required MinimumUserProto sender = 1;
+    required ExpansionDirection direction = 2;
+    required int64 timeOfPurchase = 3;
+}
+
+																						//DONE
+message PurchaseCityExpansionResponseProto {
+    required MinimumUserProto sender = 1;
+    required PurchaseCityExpansionStatus status = 2;
+    
+    enum PurchaseCityExpansionStatus {
+    	SUCCESS = 0;
+    	NOT_ENOUGH_COINS = 1;
+    	ALREADY_EXPANDING = 2;
+    	OTHER_FAIL = 3;
+    }
+}
+
+//------------------------------------------------------------------------------------------
+
+message ExpansionWaitCompleteRequestProto {
+	required MinimumUserProto sender = 1;
+}
+
+message ExpansionWaitCompleteResponseProto {
+     required MinimumUserProto sender = 1;
+     required ExpansionWaitCompleteStatus status = 2;
+     
+     enum ExpansionWaitCompleteStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     }
 }

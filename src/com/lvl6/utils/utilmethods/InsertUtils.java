@@ -1,5 +1,6 @@
 package com.lvl6.utils.utilmethods;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,12 +76,13 @@ public class InsertUtils {
   /*
    * returns the id of the userstruct, -1 if none
    */
-  public static int insertUserStruct(int userId, int structId, CoordinatePair coordinates) {
+  public static int insertUserStruct(int userId, int structId, CoordinatePair coordinates, Timestamp timeOfPurchase) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
     insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
     insertParams.put(DBConstants.USER_STRUCTS__X_COORD, coordinates.getX());
     insertParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
+    insertParams.put(DBConstants.USER_STRUCTS__PURCHASE_TIME, timeOfPurchase);
 
     int userStructId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER_STRUCTS, insertParams);
     return userStructId;

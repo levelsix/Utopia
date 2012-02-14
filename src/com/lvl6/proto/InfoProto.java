@@ -383,6 +383,78 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.StructOrientation)
   }
   
+  public enum ExpansionDirection
+      implements com.google.protobuf.ProtocolMessageEnum {
+    NEAR_LEFT(0, 0),
+    FAR_LEFT(1, 1),
+    FAR_RIGHT(2, 2),
+    ;
+    
+    public static final int NEAR_LEFT_VALUE = 0;
+    public static final int FAR_LEFT_VALUE = 1;
+    public static final int FAR_RIGHT_VALUE = 2;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static ExpansionDirection valueOf(int value) {
+      switch (value) {
+        case 0: return NEAR_LEFT;
+        case 1: return FAR_LEFT;
+        case 2: return FAR_RIGHT;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<ExpansionDirection>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<ExpansionDirection>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<ExpansionDirection>() {
+            public ExpansionDirection findValueByNumber(int number) {
+              return ExpansionDirection.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(5);
+    }
+    
+    private static final ExpansionDirection[] VALUES = {
+      NEAR_LEFT, FAR_LEFT, FAR_RIGHT, 
+    };
+    
+    public static ExpansionDirection valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private ExpansionDirection(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:com.lvl6.proto.ExpansionDirection)
+  }
+  
   public interface MinimumUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -22307,8 +22379,9 @@ public final class InfoProto {
       "ELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nL" +
       "UMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n" +
       "\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrie" +
-      "ntation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001B" +
-      "\013B\tInfoProto"
+      "ntation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*" +
+      "@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010",
+      "FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
