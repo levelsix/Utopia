@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 
 import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +100,9 @@ public class StartupController extends EventController {
     // Write event directly since EventWriter cannot handle without userId.
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
     NIOUtils.prepBuffer(resEvent, writeBuffer);
-    NIOUtils.channelWrite(server.removePreDbPlayer(udid), writeBuffer);
+    
+    SocketChannel sc = server.removePreDbPlayer(udid);
+    NIOUtils.channelWrite(sc, writeBuffer);
   }
 
   

@@ -178,15 +178,16 @@ public class SelectAndRead extends Thread{
     else {
       // first time we see a playerId, create the Player object
       // and populate the channel, and also add to our lists
-      p = new ConnectedPlayer();
       if (event.getPlayerId() > 0) {
+        p = new ConnectedPlayer();
         p.setPlayerId(event.getPlayerId());
         p.setChannel(channel);
         server.addPlayer(p);
         log.debug("delegate event, new player created and channel set, player:" + 
             p.getPlayerId() + ", channel: " + channel);
-      } else if (event.getPlayerId() == 0){
+      } else if (event.getPlayerId() == -1){
         // This is for the case before the tutorial has started
+        // Save the socket into another array so that controller can retrieve later
         String udid = ((PreDatabaseRequestEvent)event).getUdid();
         server.addPreDbPlayer(udid, channel);
         log.debug("new pre-db player, udid: "+ udid);
