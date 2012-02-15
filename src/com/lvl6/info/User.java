@@ -171,10 +171,10 @@ public class User {
   }
 
   /*
-   * used for purchasing and selling structures
+   * used for purchasing and selling structures, redeeming quests
    */
-  public boolean updateRelativeDiamondsCoinsWoodNaive (int diamondChange, int coinChange, 
-      int woodChange) {
+  public boolean updateRelativeDiamondsCoinsWoodExperienceNaive (int diamondChange, int coinChange, 
+      int woodChange, int experienceChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -183,6 +183,7 @@ public class User {
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     relativeParams.put(DBConstants.USER__COINS, coinChange);
     relativeParams.put(DBConstants.USER__WOOD, woodChange);
+    relativeParams.put(DBConstants.USER__EXPERIENCE, experienceChange);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
@@ -190,6 +191,7 @@ public class User {
       this.diamonds += diamondChange;
       this.coins += coinChange;
       this.wood += woodChange;
+      this.experience += experienceChange;
       return true;
     }
     return false;

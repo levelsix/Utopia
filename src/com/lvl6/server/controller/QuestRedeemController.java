@@ -8,7 +8,9 @@ import java.util.Map;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.QuestRedeemRequestEvent;
 import com.lvl6.events.response.QuestRedeemResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Quest;
+import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.PossessEquipJob;
@@ -21,6 +23,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
+import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -51,12 +54,16 @@ public class QuestRedeemController extends EventController {
     QuestRedeemResponseProto.Builder resBuilder = QuestRedeemResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
+    boolean legitRedeem = false;
+    UserQuest userQuest = null;
+    Quest quest = null;
+    
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      UserQuest userQuest = UserQuestRetrieveUtils.getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
-      Quest quest = QuestRetrieveUtils.getQuestForQuestId(questId);
-      boolean legitRedeem = checkLegitRedeem(resBuilder, userQuest, quest);
+      userQuest = UserQuestRetrieveUtils.getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
+      quest = QuestRetrieveUtils.getQuestForQuestId(questId);
+      legitRedeem = checkLegitRedeem(resBuilder, userQuest, quest);
 
       List<UserQuest> inProgressAndRedeemedUserQuests = null;
       if (legitRedeem) {
@@ -84,7 +91,10 @@ public class QuestRedeemController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitRedeem) {
-        writeChangesToDB(userQuest, quest, senderProto.getUserType());
+        User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+        writeChangesToDB(userQuest, quest, user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        server.writeEvent(resEventUpdate);
       }
 
     } catch (Exception e) {
@@ -92,12 +102,38 @@ public class QuestRedeemController extends EventController {
     } finally {
       server.unlockPlayer(senderProto.getUserId());      
     }
+    if (legitRedeem && quest != null && userQuest != null && senderProto.getUserType() != null) {
+      clearUserQuestData(quest, userQuest, senderProto.getUserType());
+    }
+    
   }
 
-  private void writeChangesToDB(UserQuest userQuest, Quest quest, UserType userType) {
+  private void clearUserQuestData(Quest quest, UserQuest userQuest, UserType userType) {
+    if (quest.getTasksRequired() != null && quest.getTasksRequired().size() > 0) {
+      if (!DeleteUtils.deleteUserQuestInfoInCompletedTasks(userQuest.getUserId(), userQuest.getQuestId(), quest.getTasksRequired().size())) {
+        log.error("problem with deleting user quest info in completed tasks");
+      }
+    }
+    boolean goodSide = MiscMethods.checkIfGoodSide(userType);
+    List<Integer> defeatTypeJobs = null;
+    if (goodSide) {
+      defeatTypeJobs = quest.getDefeatBadGuysJobsRequired();
+    } else {
+      defeatTypeJobs = quest.getDefeatGoodGuysJobsRequired();
+    }
+    if (defeatTypeJobs != null && defeatTypeJobs.size() > 0) {
+      if (!DeleteUtils.deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(userQuest.getUserId(), userQuest.getQuestId(), defeatTypeJobs.size())) {
+        log.error("problem with deleting user quest info for defeat type job tables");
+      }
+    }    
+  }
+
+  private void writeChangesToDB(UserQuest userQuest, Quest quest, User user) {
     if (!UpdateUtils.updateRedeemUserQuest(userQuest.getUserId(), userQuest.getQuestId())) {
       log.error("problem with logging user quest as redeemed");
     }
+    
+    //take away equips
     List<Integer> possessEquipJobsIds = quest.getPossessEquipJobsRequired();
     if (possessEquipJobsIds != null && possessEquipJobsIds.size() > 0) {
       Map<Integer, PossessEquipJob> possessEquipJobsForPossessEquipJobIds = PossessEquipJobRetrieveUtils.getPossessEquipJobsForPossessEquipJobIds(possessEquipJobsIds);
@@ -119,22 +155,19 @@ public class QuestRedeemController extends EventController {
         }
       }
     }
-    if (quest.getTasksRequired() != null && quest.getTasksRequired().size() > 0) {
-      if (!DeleteUtils.deleteUserQuestInfoInCompletedTasks(userQuest.getUserId(), userQuest.getQuestId(), quest.getTasksRequired().size())) {
-        log.error("problem with deleting user quest info in completed tasks");
+    
+    if (quest.getEquipIdGained() > 0) {
+      if (!UpdateUtils.incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
+        log.error("problem with giving user reward equip after completing the quest");
       }
     }
-    boolean goodSide = MiscMethods.checkIfGoodSide(userType);
-    List<Integer> defeatTypeJobs = null;
-    if (goodSide) {
-      defeatTypeJobs = quest.getDefeatBadGuysJobsRequired();
-    } else {
-      defeatTypeJobs = quest.getDefeatGoodGuysJobsRequired();
-    }
-    if (defeatTypeJobs != null && defeatTypeJobs.size() > 0) {
-      if (!DeleteUtils.deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(userQuest.getUserId(), userQuest.getQuestId(), defeatTypeJobs.size())) {
-        log.error("problem with deleting user quest info for defeat type job tables");
-      }
+    
+    int coinsGained = Math.max(0, quest.getCoinsGained());
+    int diamondsGained = Math.max(0, quest.getDiamondsGained());
+    int woodGained = Math.max(0,  quest.getWoodGained());
+    int expGained = Math.max(0,  quest.getExpGained());
+    if (!user.updateRelativeDiamondsCoinsWoodExperienceNaive(diamondsGained, coinsGained, woodGained, expGained)) {
+      log.error("problem with giving user currency rewards after completing the quest");
     }
   }
 
