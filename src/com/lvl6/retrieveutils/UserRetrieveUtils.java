@@ -141,15 +141,15 @@ public class UserRetrieveUtils {
     
     Date lastStaminaRefillTime = null;
     Timestamp ts = rs.getTimestamp(i++);
-    if (ts != null) {
+    if (!rs.wasNull()) {
       lastStaminaRefillTime = new Date(ts.getTime());
     }
     
     int energy = rs.getInt(i++);
     
     Date lastEnergyRefillTime = null;
-    Timestamp ts2 = rs.getTimestamp(i++);
-    if (ts2 != null) {
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
       lastEnergyRefillTime = new Date(ts.getTime());
     }
     

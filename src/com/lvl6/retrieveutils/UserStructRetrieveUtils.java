@@ -128,7 +128,7 @@ public class UserStructRetrieveUtils {
     
     Date lastRetrieved = null;
     Timestamp ts = rs.getTimestamp(i++);
-    if (ts != null) {
+    if (!rs.wasNull()) {
       lastRetrieved = new Date(ts.getTime());
     }
     
@@ -137,9 +137,9 @@ public class UserStructRetrieveUtils {
     Date purchaseTime = new Date(rs.getTimestamp(i++).getTime());
     
     Date lastUpgradeTime = null;
-    Timestamp ts2 = rs.getTimestamp(i++);
-    if (ts2 != null) {
-      lastUpgradeTime = new Date(ts2.getTime());
+    ts= rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastUpgradeTime = new Date(ts.getTime());
     }
     
     boolean isComplete = rs.getBoolean(i++);
