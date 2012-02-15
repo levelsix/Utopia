@@ -94,20 +94,26 @@ public class EquipmentRetrieveUtils {
     int id = rs.getInt(i++);
     String name = rs.getString(i++);
     EquipType type = EquipType.valueOf(rs.getInt(i++));
+    String description = rs.getString(i++);
     int attackBoost = rs.getInt(i++);
     int defenseBoost = rs.getInt(i++);
     int minLevel = rs.getInt(i++);
     int coinPrice = rs.getInt(i++);
+    boolean coinPriceSet = !rs.wasNull();
     int diamondPrice = rs.getInt(i++);
+    boolean diamondPriceSet = !rs.wasNull();
     float chanceOfLoss = rs.getFloat(i++);
     ClassType classType = ClassType.valueOf(rs.getInt(i++));
     Rarity rarity = Rarity.valueOf(rs.getInt(i++));
     Equipment equip = null;
-    if (coinPrice > 0) {
-      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss, classType, rarity);
-    } else {  //this should mean diamondPrice > 0.
-      equip = new Equipment(id, name, type, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity);      
+    if (coinPriceSet && !diamondPriceSet) {
+      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss, classType, rarity);
+    } else if (diamondPriceSet && !coinPriceSet){
+      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity);      
+    } else if (diamondPriceSet && coinPriceSet){
+      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, diamondPrice, chanceOfLoss, classType, rarity);            
     }
+    //there should never be anything where diamondPrice and coinPriceSet are both false. even bandanas have both set to 0
     return equip;
   }
 }

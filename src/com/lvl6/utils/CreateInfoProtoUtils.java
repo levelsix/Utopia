@@ -179,7 +179,7 @@ public class CreateInfoProtoUtils {
 
   public static FullEquipProto createFullEquipProtoFromEquip(Equipment equip) {
     FullEquipProto.Builder builder =  FullEquipProto.newBuilder().setEquipId(equip.getId()).setName(equip.getName())
-        .setEquipType(equip.getType()).setAttackBoost(equip.getAttackBoost()).setDefenseBoost(equip.getDefenseBoost())
+        .setEquipType(equip.getType()).setDescription(equip.getDescription()).setAttackBoost(equip.getAttackBoost()).setDefenseBoost(equip.getDefenseBoost())
         .setMinLevel(equip.getMinLevel()).setChanceOfLoss(equip.getChanceOfLoss()).setClassType(equip.getClassType())
         .setRarity(equip.getRarity());
     if (equip.getCoinPrice() != Equipment.NOT_SET) {

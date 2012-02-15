@@ -10,6 +10,7 @@ public class Equipment {
   private int id;
   private String name;
   private EquipType type;
+  private String description;
   private int attackBoost;
   private int defenseBoost;
   private int minLevel;
@@ -19,12 +20,13 @@ public class Equipment {
   private ClassType classType;
   private Rarity rarity;
 
-  public Equipment(int id, String name, EquipType type, int attackBoost,
+  public Equipment(int id, String name, EquipType type, String description, int attackBoost,
       int defenseBoost, int minLevel, int coinPrice, int diamondPrice, float chanceOfLoss, 
       ClassType classType, Rarity rarity) {
     this.id = id;
     this.name = name;
     this.type = type;
+    this.description = description;
     this.attackBoost = attackBoost;
     this.defenseBoost = defenseBoost;
     this.minLevel = minLevel;
@@ -33,6 +35,10 @@ public class Equipment {
     this.chanceOfLoss = chanceOfLoss;
     this.classType = classType;
     this.rarity = rarity;
+  }
+
+  public static int getNotSet() {
+    return NOT_SET;
   }
 
   public int getId() {
@@ -45,6 +51,10 @@ public class Equipment {
 
   public EquipType getType() {
     return type;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public int getAttackBoost() {
@@ -70,7 +80,7 @@ public class Equipment {
   public float getChanceOfLoss() {
     return chanceOfLoss;
   }
-  
+
   public ClassType getClassType() {
     return classType;
   }
@@ -78,14 +88,14 @@ public class Equipment {
   public Rarity getRarity() {
     return rarity;
   }
-  
+
   @Override
   public String toString() {
     return "Equipment [id=" + id + ", name=" + name + ", type=" + type
-        + ", attackBoost=" + attackBoost + ", defenseBoost=" + defenseBoost
-        + ", minLevel=" + minLevel + ", coinPrice=" + coinPrice
-        + ", diamondPrice=" + diamondPrice + ", chanceOfLoss=" + chanceOfLoss
-        + ", classType=" + classType + ", rarity=" + rarity + "]";
+        + ", description=" + description + ", attackBoost=" + attackBoost
+        + ", defenseBoost=" + defenseBoost + ", minLevel=" + minLevel
+        + ", coinPrice=" + coinPrice + ", diamondPrice=" + diamondPrice
+        + ", chanceOfLoss=" + chanceOfLoss + ", classType=" + classType
+        + ", rarity=" + rarity + "]";
   }
-
 }

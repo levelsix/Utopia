@@ -59,14 +59,15 @@ message FullEquipProto {
 	required int32 equipId = 1;
 	required string name = 2;
 	required EquipType equipType = 3;
-	required ClassType classType = 4;
+	required string description = 4;
 	required int32 attackBoost = 5;	
 	required int32 defenseBoost = 6;
 	required int32 minLevel = 7;
 	optional int32 coinPrice = 8;
 	optional int32 diamondPrice = 9;
 	required float chanceOfLoss = 10;
-	required Rarity rarity = 11;
+	required ClassType classType = 11;
+	required Rarity rarity = 12;
 	
 	enum Rarity {
 		COMMON = 0;
