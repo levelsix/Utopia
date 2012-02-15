@@ -1,7 +1,9 @@
 package com.lvl6.retrieveutils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,7 +138,21 @@ public class UserRetrieveUtils {
     int attack = rs.getInt(i++);
     int defense = rs.getInt(i++);
     int stamina = rs.getInt(i++);
+    
+    Date lastStaminaRefillTime = null;
+    Timestamp ts = rs.getTimestamp(i++);
+    if (ts != null) {
+      lastStaminaRefillTime = new Date(ts.getTime());
+    }
+    
     int energy = rs.getInt(i++);
+    
+    Date lastEnergyRefillTime = null;
+    Timestamp ts2 = rs.getTimestamp(i++);
+    if (ts2 != null) {
+      lastEnergyRefillTime = new Date(ts.getTime());
+    }
+    
     int skillPoints = rs.getInt(i++);
     int healthMax = rs.getInt(i++);
     int energyMax = rs.getInt(i++);
@@ -174,8 +190,8 @@ public class UserRetrieveUtils {
     }
     
 
-    User user = new User(userId, name, level, type, attack, defense, stamina, energy, skillPoints, 
-        healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
+    User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
+        skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         marketplaceWoodEarnings, vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped);

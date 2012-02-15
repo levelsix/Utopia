@@ -1,5 +1,6 @@
 package com.lvl6.info;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,9 @@ public class User {
   private int attack;
   private int defense;
   private int stamina;
+  private Date lastStaminaRefillTime;
   private int energy;
+  private Date lastEnergyRefillTime;
   private int skillPoints;
   private int healthMax;
   private int energyMax;
@@ -45,14 +48,15 @@ public class User {
   private int amuletEquipped;
 
   public User(int id, String name, int level, UserType type, int attack,
-      int defense, int stamina, int energy, int skillPoints,
-      int healthMax, int energyMax, int staminaMax, int diamonds, int coins,
-      int wood, int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
+      int defense, int stamina, Date lastStaminaRefillTime, int energy,
+      Date lastEnergyRefillTime, int skillPoints, int healthMax, int energyMax,
+      int staminaMax, int diamonds, int coins, int wood,
+      int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
       int marketplaceWoodEarnings, int vaultBalance, int experience,
       int tasksCompleted, int battlesWon, int battlesLost, int hourlyCoins,
       String armyCode, int numReferrals, String udid, Location userLocation,
-      int numPostsInMarketplace, int numMarketplaceSalesUnredeemed, int weaponEquipped, 
-      int armorEquipped, int amuletEquipped) {
+      int numPostsInMarketplace, int numMarketplaceSalesUnredeemed,
+      int weaponEquipped, int armorEquipped, int amuletEquipped) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -60,7 +64,9 @@ public class User {
     this.attack = attack;
     this.defense = defense;
     this.stamina = stamina;
+    this.lastStaminaRefillTime = lastStaminaRefillTime;
     this.energy = energy;
+    this.lastEnergyRefillTime = lastEnergyRefillTime;
     this.skillPoints = skillPoints;
     this.healthMax = healthMax;
     this.energyMax = energyMax;
@@ -445,8 +451,16 @@ public class User {
     return stamina;
   }
 
+  public Date getLastStaminaRefillTime() {
+    return lastStaminaRefillTime;
+  }
+
   public int getEnergy() {
     return energy;
+  }
+
+  public Date getLastEnergyRefillTime() {
+    return lastEnergyRefillTime;
   }
 
   public int getSkillPoints() {
@@ -553,7 +567,9 @@ public class User {
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
         + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
-        + stamina + ", energy=" + energy + ", skillPoints=" + skillPoints
+        + stamina + ", lastStaminaRefillTime=" + lastStaminaRefillTime
+        + ", energy=" + energy + ", lastEnergyRefillTime="
+        + lastEnergyRefillTime + ", skillPoints=" + skillPoints
         + ", healthMax=" + healthMax + ", energyMax=" + energyMax
         + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
         + coins + ", wood=" + wood + ", marketplaceDiamondsEarnings="
@@ -569,5 +585,5 @@ public class User {
         + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
         + ", armorEquipped=" + armorEquipped + ", amuletEquipped="
         + amuletEquipped + "]";
-  }
+  }  
 }

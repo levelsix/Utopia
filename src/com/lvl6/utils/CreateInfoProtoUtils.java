@@ -184,6 +184,12 @@ public class CreateInfoProtoUtils {
     if (u.getAmuletEquipped() != ControllerConstants.NOT_SET) {
       builder.setAmuletEquipped(u.getAmuletEquipped());
     }
+    if (u.getLastEnergyRefillTime() != null) {
+      builder.setLastEnergyRefillTime(u.getLastEnergyRefillTime().getTime());
+    }
+    if (u.getLastStaminaRefillTime() != null) {
+      builder.setLastStaminaRefillTime(u.getLastStaminaRefillTime().getTime());
+    }
     return builder.build();
   }
 
