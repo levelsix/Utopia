@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -23,8 +22,6 @@ public class UserCritstructRetrieveUtils {
 
   public static Map<CritStructType, UserCritstruct> getUserCritstructsForUser(int userId) {
     log.info("retrieving user critstructs for userId " + userId);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
     return convertRSToUserCritstructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
   }
   

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -24,6 +25,14 @@ public class UserStructRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER_STRUCTS;
 
+  public boolean checkIfUserHasStructCurrentlyBuilding(int userId) {
+    log.info("checking if user is building a struct");
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_STRUCTS__USER_ID, userId);
+    paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+    return convertRSSingleToUserEquips(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
+  }
+  
   public static List<UserStruct> getUserStructsForUser(int userId) {
     log.info("retrieving user structs for userId " + userId);
     return convertRSToUserStructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));

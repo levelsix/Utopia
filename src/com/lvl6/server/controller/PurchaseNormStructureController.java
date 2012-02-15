@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseNormStructureRequestEvent;
@@ -9,6 +10,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
+import com.lvl6.info.UserStruct;
 import com.lvl6.proto.EventProto.PurchaseNormStructureRequestProto;
 import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto;
 import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.Builder;
@@ -16,6 +18,7 @@ import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.PurchaseNorm
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -110,7 +113,16 @@ public class PurchaseNormStructureController extends EventController {
     if (user.getWood() < struct.getWoodPrice()) {
       resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
-    }    
+    } 
+    List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
+    if (userStructs != null) {
+      for (UserStruct us : userStructs) {
+        if (!us.isComplete() && us.getLastRetrieved() == null) {
+          resBuilder.setStatus(PurchaseNormStructureStatus.ANOTHER_STRUCT_STILL_BUILDING);
+          return false;
+        }
+      }
+    }
     resBuilder.setStatus(PurchaseNormStructureStatus.SUCCESS);
     return true;
   }

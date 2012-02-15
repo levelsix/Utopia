@@ -50,6 +50,9 @@ message FullUserProto {
 	required LocationProto userLocation = 29;
 	required int32 numPostsInMarketplace = 30;
 	required int32 numMarketplaceSalesUnredeemed = 31;
+	optional int32 weaponEquipped = 32;
+	optional int32 armorEquipped = 33;
+	optional int32 amuletEquipped = 34;
 	
 }
 

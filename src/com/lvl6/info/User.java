@@ -40,6 +40,9 @@ public class User {
   private Location userLocation;
   private int numPostsInMarketplace;
   private int numMarketplaceSalesUnredeemed;
+  private int weaponEquipped;
+  private int armorEquipped;
+  private int amuletEquipped;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, int energy, int skillPoints,
@@ -48,7 +51,8 @@ public class User {
       int marketplaceWoodEarnings, int vaultBalance, int experience,
       int tasksCompleted, int battlesWon, int battlesLost, int hourlyCoins,
       String armyCode, int numReferrals, String udid, Location userLocation,
-      int numPostsInMarketplace, int numMarketplaceSalesUnredeemed) {
+      int numPostsInMarketplace, int numMarketplaceSalesUnredeemed, int weaponEquipped, 
+      int armorEquipped, int amuletEquipped) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -79,6 +83,9 @@ public class User {
     this.userLocation = userLocation;
     this.numPostsInMarketplace = numPostsInMarketplace;
     this.numMarketplaceSalesUnredeemed = numMarketplaceSalesUnredeemed;
+    this.weaponEquipped = weaponEquipped;
+    this.armorEquipped = armorEquipped;
+    this.amuletEquipped = amuletEquipped;
   }
 
   /*
@@ -525,9 +532,21 @@ public class User {
   public int getNumPostsInMarketplace() {
     return numPostsInMarketplace;
   }
-  
+
   public int getNumMarketplaceSalesUnredeemed() {
     return numMarketplaceSalesUnredeemed;
+  }
+
+  public int getWeaponEquipped() {
+    return weaponEquipped;
+  }
+
+  public int getArmorEquipped() {
+    return armorEquipped;
+  }
+
+  public int getAmuletEquipped() {
+    return amuletEquipped;
   }
 
   @Override
@@ -547,6 +566,8 @@ public class User {
         + ", numReferrals=" + numReferrals + ", udid=" + udid
         + ", userLocation=" + userLocation + ", numPostsInMarketplace="
         + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
-        + numMarketplaceSalesUnredeemed + "]";
+        + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
+        + ", armorEquipped=" + armorEquipped + ", amuletEquipped="
+        + amuletEquipped + "]";
   }
 }

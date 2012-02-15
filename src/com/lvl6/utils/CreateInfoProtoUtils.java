@@ -22,6 +22,7 @@ import com.lvl6.info.jobs.BuildStructJob;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.info.jobs.UpgradeStructJob;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
@@ -160,7 +161,7 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullUserProto createFullUserProtoFromUser(User u) {
-    FullUserProto ftp = FullUserProto.newBuilder().setUserId(u.getId()).setName(u.getName())
+    FullUserProto.Builder builder = FullUserProto.newBuilder().setUserId(u.getId()).setName(u.getName())
         .setLevel(u.getLevel()).setUserType(u.getType()).setAttack(u.getAttack())
         .setDefense(u.getDefense()).setStamina(u.getStamina()).setEnergy(u.getEnergy())
         .setSkillPoints(u.getSkillPoints()).setHealthMax(u.getHealthMax())
@@ -173,8 +174,17 @@ public class CreateInfoProtoUtils {
         .setArmyCode(u.getArmyCode()).setNumReferrals(u.getNumReferrals())
         .setUdid(u.getUdid())
         .setUserLocation(CreateInfoProtoUtils.createLocationProtoFromLocation(u.getUserLocation()))
-        .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed()).build();
-    return ftp;
+        .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed());
+    if (u.getWeaponEquipped() != ControllerConstants.NOT_SET) {
+      builder.setWeaponEquipped(u.getWeaponEquipped());
+    }
+    if (u.getArmorEquipped() != ControllerConstants.NOT_SET) {
+      builder.setArmorEquipped(u.getArmorEquipped());
+    }
+    if (u.getAmuletEquipped() != ControllerConstants.NOT_SET) {
+      builder.setAmuletEquipped(u.getAmuletEquipped());
+    }
+    return builder.build();
   }
 
   public static FullEquipProto createFullEquipProtoFromEquip(Equipment equip) {

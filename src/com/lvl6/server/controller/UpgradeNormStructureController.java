@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UpgradeNormStructureRequestEvent;
@@ -122,6 +123,15 @@ public class UpgradeNormStructureController extends EventController {
     if (user.getDiamonds() < upgradeDiamondCost) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
+    }
+    List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
+    if (userStructs != null) {
+      for (UserStruct us : userStructs) {
+        if (!us.isComplete() && us.getLastRetrieved() != null && us.getLastUpgradeTime() != null) {
+          resBuilder.setStatus(UpgradeNormStructureStatus.ANOTHER_STRUCT_STILL_UPGRADING);
+          return false;
+        }
+      }
     }
     resBuilder.setStatus(UpgradeNormStructureStatus.SUCCESS);
     return true;

@@ -248,7 +248,8 @@ message PurchaseNormStructureResponseProto {
 		SUCCESS = 0;
 		NOT_ENOUGH_MATERIALS = 1;
 		LEVEL_TOO_LOW = 2;
-		OTHER_FAIL = 3;
+		ANOTHER_STRUCT_STILL_BUILDING = 3;
+		OTHER_FAIL = 4;
 	}
 }
 
@@ -317,7 +318,8 @@ message UpgradeNormStructureResponseProto {
 		NOT_ENOUGH_MATERIALS = 1;
 		NOT_BUILT_YET = 2;
 		NOT_USERS_STRUCT = 3;
-		OTHER_FAIL = 4;
+		ANOTHER_STRUCT_STILL_UPGRADING = 4;
+		OTHER_FAIL = 5;
 	}
 }
 
@@ -784,20 +786,6 @@ message RetrieveStaticDataResponseProto {
 //------------------------------------------------------------------------------------------
 
 																						//DONE
-message RetrieveUserEquipForUserRequestProto {
-    required MinimumUserProto sender = 1;
-    required int32 playerIdOfRequested = 2;
-}
-
-																						//DONE
-message RetrieveUserEquipForUserResponseProto {
-    required MinimumUserProto sender = 1;
-    repeated FullUserEquipProto userEquips = 2;
-}
-
-//------------------------------------------------------------------------------------------
-
-																						//DONE
 message PurchaseCityExpansionRequestProto {
     required MinimumUserProto sender = 1;
     required ExpansionDirection direction = 2;
@@ -819,11 +807,13 @@ message PurchaseCityExpansionResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message ExpansionWaitCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	required int64 curTime = 2;						//used for checking
 }
 
+																						//DONE
 message ExpansionWaitCompleteResponseProto {
      required MinimumUserProto sender = 1;
      required ExpansionWaitCompleteStatus status = 2;
