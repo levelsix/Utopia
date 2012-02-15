@@ -825,3 +825,27 @@ message ExpansionWaitCompleteResponseProto {
      	OTHER_FAIL = 3;
      }
 }
+
+//------------------------------------------------------------------------------------------
+
+message RefillStatWaitCompleteRequestProto {
+	required MinimumUserProto sender = 1;
+	required int64 curTime = 2;
+	required RefillStatWaitCompleteType type = 3;
+	
+	enum RefillStatWaitCompleteType { 
+		ENERGY = 0;
+		STAMINA = 1;
+	}
+}
+
+message RefillStatWaitCompleteResponseProto {
+     required MinimumUserProto sender = 1;
+     required RefillStatWaitCompleteStatus status = 2;
+     
+     enum RefillStatWaitCompleteStatus {
+     	SUCCESS = 0;
+     	NOT_READY_YET = 1;
+     	OTHER_FAIL = 2;
+     }
+}
