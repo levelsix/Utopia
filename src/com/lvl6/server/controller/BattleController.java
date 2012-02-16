@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,7 @@ public class BattleController extends EventController {
     MinimumUserProto attackerProto = reqProto.getAttacker();
     MinimumUserProto defenderProto = reqProto.getDefender();
     BattleResult result = reqProto.getBattleResult();
+    Timestamp clientTime = new Timestamp(reqProto.getCurTime());
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils
         .getEquipmentIdsToEquipment();
@@ -77,11 +79,10 @@ public class BattleController extends EventController {
       int lostCoins = ControllerConstants.NOT_SET;
       User winner = null;
       User loser = null;
-      boolean legitBattle = false;
 
       BattleResponseEvent resEvent = new BattleResponseEvent();
       int[] recipients = { attacker.getId(), defender.getId() };
-      ;
+
       resEvent.setRecipients(recipients);
 
       if (result == BattleResult.ATTACKER_WIN) {
@@ -117,8 +118,8 @@ public class BattleController extends EventController {
       log.info(resEvent + " is resevent");
       server.writeEvent(resEvent);
 
-      writeChangesToDB(legitBattle, lostEquip, winner, loser, attacker,
-          defender, expGained, lostCoins);
+      writeChangesToDB(lostEquip, winner, loser, attacker,
+          defender, expGained, lostCoins, clientTime);
       // TODO: should these send new response? or package inside battles?
       // TODO: AchievementCheck.checkBattle();
       // TODO: LevelCheck.checkUser();
@@ -217,39 +218,41 @@ public class BattleController extends EventController {
 
   }
 
-  private void writeChangesToDB(boolean legitBattle, UserEquip lostEquip,
+  private void writeChangesToDB(UserEquip lostEquip,
       User winner, User loser, User attacker, User defender, int expGained,
-      int lostCoins) {
-    if (legitBattle) {
-      if (lostEquip != null) {
-        if (!UpdateUtils.decrementUserEquip(loser.getId(),
-            lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
-          log.error("problem with decrementUserEquip in battle");
-        }
-        if (!UpdateUtils.incrementUserEquip(winner.getId(),
-            lostEquip.getEquipId(), 1)) {
-          log.error("problem with incrementUserEquip in battle");
-        }
+      int lostCoins, Timestamp clientTime) {
+    if (lostEquip != null) {
+      if (!UpdateUtils.decrementUserEquip(loser.getId(),
+          lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
+        log.error("problem with decrementUserEquip in battle");
       }
-
-      if (winner == attacker) {
-        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(-1,
-            expGained, lostCoins, 1, 0);
-        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(0,
-            0, lostCoins * -1, 0, 1);
-      } else if (winner == defender) {
-        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(-1,
-            0, lostCoins * -1, 0, 1);
-        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslost(0,
-            0, lostCoins, 1, 0);
+      if (!UpdateUtils.incrementUserEquip(winner.getId(),
+          lostEquip.getEquipId(), 1)) {
+        log.error("problem with incrementUserEquip in battle");
       }
-
-      /*
-       * TODO: write to battle_history id, attackerId, defenderId, winnerId,
-       * winnerHealthLoss, loserHealthLoss, coinTransfer, lostEquipId, expGain,
-       * timestamp
-       */
     }
+
+    boolean simulateStaminaRefill = false;
+    if (attacker.isLastStaminaStateFull()) {
+      simulateStaminaRefill = true;
+    }
+    if (winner == attacker) {
+      attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(-1,
+          expGained, lostCoins, 1, 0, simulateStaminaRefill, clientTime);
+      defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(0,
+          0, lostCoins * -1, 0, 1, false, null);
+    } else if (winner == defender) {
+      attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(-1,
+          0, lostCoins * -1, 0, 1, simulateStaminaRefill, clientTime);
+      defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(0,
+          0, lostCoins, 1, 0, false, null);
+    }
+
+    /*
+     * TODO: write to battle_history id, attackerId, defenderId, winnerId,
+     * winnerHealthLoss, loserHealthLoss, coinTransfer, lostEquipId, expGain,
+     * timestamp
+     */
 
   }
 

@@ -65,17 +65,27 @@ public class RefillStatWaitCompleteController extends EventController{
 
   private void writeChangesToDB(User user, RefillStatWaitCompleteType type, Timestamp clientTime) {
     if (type == RefillStatWaitCompleteType.ENERGY) {
-      int energyChange = (int)((clientTime.getTime() - user.getLastEnergyRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY));
+      int energyChange = Math.min(user.getEnergyMax()-user.getEnergy(), 
+          (int)((clientTime.getTime() - user.getLastEnergyRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY)));
+      boolean isLastEnergyStateFull = false;
+      if (energyChange == user.getEnergyMax()-user.getEnergy()) {
+        isLastEnergyStateFull = true;
+      }
       Timestamp newLastEnergyRefillTime = new Timestamp(user.getLastEnergyRefillTime().getTime() + 60000*energyChange*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY);
-      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(null, 0, newLastEnergyRefillTime, energyChange)) {
+      if (!user.updateLastenergyrefilltimeEnergyIslastenergystatefull(newLastEnergyRefillTime, energyChange, isLastEnergyStateFull)) {
         log.error("problem with updating user's energy and lastenergyrefill time");
       }
     } else if (type == RefillStatWaitCompleteType.STAMINA) {
-      int staminaChange = (int)((clientTime.getTime() - user.getLastStaminaRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA));
+      int staminaChange = Math.min(user.getStaminaMax()-user.getStamina(), 
+          (int)((clientTime.getTime() - user.getLastStaminaRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA)));
+      boolean isLastStaminaStateFull = false;
+      if (staminaChange == user.getStaminaMax()-user.getStamina()) {
+        isLastStaminaStateFull = true;
+      }
       Timestamp newLastStaminaRefillTime = new Timestamp(user.getLastStaminaRefillTime().getTime() + 60000*staminaChange*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA);
-      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(newLastStaminaRefillTime, staminaChange, null, 0)) {
+      if (!user.updateLaststaminarefilltimeStaminaIslaststaminastatefull(newLastStaminaRefillTime, staminaChange, isLastStaminaStateFull)) {
         log.error("problem with updating user's stamina and laststaminarefill time");
-      }  
+      }
     }
   }
 

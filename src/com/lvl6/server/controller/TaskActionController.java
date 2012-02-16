@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ public class TaskActionController extends EventController {
     TaskActionRequestProto reqProto = ((TaskActionRequestEvent)event).getTaskActionRequestProto();
     MinimumUserProto senderProto = reqProto.getSender();
     int taskId = reqProto.getTaskId();
+    Timestamp clientTime = new Timestamp(reqProto.getCurTime());
 
     server.lockPlayer(senderProto.getUserId());
     try {
@@ -75,7 +77,7 @@ public class TaskActionController extends EventController {
       boolean changeNumTimesUserActedInDB = true;
       List<Task> tasksInCity = null;
 
-      boolean legitAction = checkLegitAction(user, task, resBuilder);
+      boolean legitAction = checkLegitAction(user, task, clientTime, resBuilder);
       if (legitAction) {
         coinsGained = calculateCoinsGained(task);
         resBuilder.setCoinsGained(coinsGained);
@@ -136,7 +138,7 @@ public class TaskActionController extends EventController {
       }
 
       writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
-          totalCoinGain, totalExpGain, tasksInCity);
+          totalCoinGain, totalExpGain, tasksInCity, clientTime);
       //TODO: should these send new response? or package inside battles?
       //TODO: AchievementCheck.checkBattle(); 
       //TODO: LevelCheck.checkUser();
@@ -193,7 +195,7 @@ public class TaskActionController extends EventController {
 
 
   private void writeChangesToDB(boolean legitAction, User user, Task task, boolean cityRankedUp, boolean changeNumTimesUserActedInDB, 
-      int lootEquipId, int totalCoinGain, int totalExpGain, List<Task> tasksInCity) {
+      int lootEquipId, int totalCoinGain, int totalExpGain, List<Task> tasksInCity, Timestamp clientTime) {
 
     if (legitAction) {
       if (cityRankedUp) {
@@ -218,7 +220,11 @@ public class TaskActionController extends EventController {
           log.error("problem with incrementing user equip post-task");
         }
       }
-      if (!user.updateRelativeCoinsExpTaskscompletedEnergy(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1)) {
+      boolean simulateEnergyRefill = false;
+      if (user.isLastEnergyStateFull()) {
+        simulateEnergyRefill = true;
+      }
+      if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1, simulateEnergyRefill, clientTime)) {
         log.error("problem with updating user stats post-task");
       }
     }
@@ -253,10 +259,10 @@ public class TaskActionController extends EventController {
     return task.getMinCoinsGained() + (int)(Math.random()*(task.getMaxCoinsGained() + 1 - task.getMinCoinsGained()));
   }
 
-  private boolean checkLegitAction(User user, Task task, Builder resBuilder) {
+  private boolean checkLegitAction(User user, Task task, Timestamp clientTime, Builder resBuilder) {
     boolean actionIsLegit = true;
-    if (task == null) {
-      resBuilder.setStatus(TaskActionStatus.INVALID_TASK_ID);
+    if (task == null || clientTime == null) {
+      resBuilder.setStatus(TaskActionStatus.OTHER_FAIL);
       actionIsLegit = false;
     } else {
       if (user.getEnergy() < task.getEnergyCost()) {

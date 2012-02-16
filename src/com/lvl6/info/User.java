@@ -50,7 +50,7 @@ public class User {
   private int armorEquipped;
   private int amuletEquipped;
 
-  
+
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
       boolean isLastStaminaStateFull, int energy, Date lastEnergyRefillTime,
@@ -102,44 +102,63 @@ public class User {
   }
 
   /*
-   * used for refilling stats
+   * used for refilling stamina
    */
-  public boolean updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(Timestamp lastStaminaRefillTime, int staminaChange, Timestamp lastEnergyRefillTime, int energyChange) {
+  public boolean updateLaststaminarefilltimeStaminaIslaststaminastatefull(Timestamp lastStaminaRefillTime, int staminaChange, boolean isLastStaminaStateFull) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    if (lastStaminaRefillTime != null) {
-      absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, lastStaminaRefillTime);
-    }
-    if (lastEnergyRefillTime != null) {
-      absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, lastEnergyRefillTime);
-    }
+    absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, lastStaminaRefillTime);
+    absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, isLastStaminaStateFull);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+
+    if (absoluteParams.size() == 0) {
+      absoluteParams = null;
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.lastStaminaRefillTime = lastStaminaRefillTime;
+      this.stamina += staminaChange;
+      this.isLastStaminaStateFull = isLastStaminaStateFull;
+      return true;
+    }
+    return false;
+  }
+
+  /*
+   * used for refilling energy
+   */
+  public boolean updateLastenergyrefilltimeEnergyIslastenergystatefull(Timestamp lastEnergyRefillTime, int energyChange, boolean isLastEnergyStateFull) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, lastEnergyRefillTime);
+    absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, isLastEnergyStateFull);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__ENERGY, energyChange);
 
     if (absoluteParams.size() == 0) {
       absoluteParams = null;
     }
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
-      if (lastStaminaRefillTime != null) {
-        this.lastStaminaRefillTime = lastStaminaRefillTime;
-      }
-      if (lastEnergyRefillTime != null) {
-        this.lastEnergyRefillTime = lastEnergyRefillTime;
-      }
-      this.stamina += staminaChange;
+      this.lastEnergyRefillTime = lastEnergyRefillTime;
       this.energy += energyChange;
+      this.isLastEnergyStateFull = isLastEnergyStateFull;
       return true;
     }
     return false;
   }
-  
+
   /*
    * used for using diamonds to refill stat
    */
@@ -149,25 +168,29 @@ public class User {
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
-    
+
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (statType == StatType.ENERGY) {
       absoluteParams.put(DBConstants.USER__ENERGY, energyMax);
       absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, newRefillTime);
+      absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, true);
     } else if (statType == StatType.STAMINA) {
       absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
       absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, newRefillTime);
+      absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, true);
     }
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, 
         absoluteParams, conditionParams, "and");
     if (numUpdated == 1) {
       if (statType == StatType.ENERGY) {
         this.energy = energyMax;
         this.lastEnergyRefillTime = newRefillTime;
+        this.isLastEnergyStateFull = true;
       } else if (statType == StatType.STAMINA) {
         this.stamina = staminaMax;
         this.lastStaminaRefillTime = newRefillTime;
+        this.isLastStaminaStateFull = true;
       }
       this.diamonds += diamondChange;
       return true;
@@ -260,7 +283,7 @@ public class User {
     return false;
   }
 
-  
+
   /*
    * used for marketplace purchase
    */
@@ -280,7 +303,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, 0);
     absoluteParams.put(DBConstants.USER__MARKETPLACE_WOOD_EARNINGS, 0);
     absoluteParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, 0);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -294,7 +317,7 @@ public class User {
     }
     return false;
   }
-  
+
   /*
    * used for marketplace purchase
    */
@@ -311,7 +334,7 @@ public class User {
     relativeParams.put(DBConstants.USER__MARKETPLACE_WOOD_EARNINGS, woodEarningsChange);
     relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
     relativeParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, numMarketplaceSalesUnredeemedChange);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -358,8 +381,8 @@ public class User {
    * used for tasks
    *        * user- coins/exp/tasks_completed increase, energy decrease
    */
-  public boolean updateRelativeCoinsExpTaskscompletedEnergy (int coinChange, int expChange, int tasksCompletedChange, 
-      int energyChange) {
+  public boolean updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill (int coinChange, int expChange, int tasksCompletedChange, 
+      int energyChange, boolean simulateEnergyRefill, Timestamp clientTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -370,9 +393,22 @@ public class User {
     relativeParams.put(DBConstants.USER__TASKS_COMPLETED, tasksCompletedChange);
     relativeParams.put(DBConstants.USER__ENERGY, energyChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (simulateEnergyRefill) {
+      absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, false);
+      absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, clientTime);
+    }
+    if (absoluteParams.size() == 0) {
+      absoluteParams = null;
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
+      if (simulateEnergyRefill) {
+        this.isLastEnergyStateFull = false;
+        this.lastEnergyRefillTime = clientTime;
+      }
       this.coins += coinChange;
       this.experience += expChange;
       this.tasksCompleted += tasksCompletedChange;
@@ -448,8 +484,8 @@ public class User {
   /*
    * used for battles
    */
-  public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslost (int stamina, int experience, 
-      int coins, int battlesWon, int battlesLost) {
+  public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill (int stamina, int experience, 
+      int coins, int battlesWon, int battlesLost, boolean simulateStaminaRefill, Timestamp clientTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -460,9 +496,22 @@ public class User {
     if (battlesWon != 0) relativeParams.put(DBConstants.USER__BATTLES_WON, battlesWon);
     if (battlesLost != 0) relativeParams.put(DBConstants.USER__BATTLES_LOST, battlesLost);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (simulateStaminaRefill) {
+      absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, false);
+      absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, clientTime);
+    }
+    if (absoluteParams.size() == 0) {
+      absoluteParams = null;
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
+      if (simulateStaminaRefill) {
+        this.isLastStaminaStateFull = false;
+        this.lastStaminaRefillTime = clientTime;
+      }
       this.stamina += stamina;
       this.experience += experience;
       this.coins += coins;
@@ -472,9 +521,7 @@ public class User {
     }
     return false;
   }
-  
-  
-  
+
   public int getId() {
     return id;
   }
