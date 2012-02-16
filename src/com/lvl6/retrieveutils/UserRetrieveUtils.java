@@ -161,10 +161,8 @@ public class UserRetrieveUtils {
     int staminaMax = rs.getInt(i++);
     int diamonds = rs.getInt(i++);
     int coins = rs.getInt(i++);
-    int wood = rs.getInt(i++);
     int marketplaceDiamondsEarnings = rs.getInt(i++);
     int marketplaceCoinsEarnings = rs.getInt(i++);
-    int marketplaceWoodEarnings = rs.getInt(i++);
     int vaultBalance = rs.getInt(i++);
     int experience = rs.getInt(i++);
     int tasksCompleted = rs.getInt(i++);
@@ -193,8 +191,8 @@ public class UserRetrieveUtils {
     
 
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
-        isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
-        marketplaceWoodEarnings, vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
+        isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
+        vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped);
     return user;

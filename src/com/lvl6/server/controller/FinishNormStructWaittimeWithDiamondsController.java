@@ -88,7 +88,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       }
     }
     if (waitTimeType == NormStructWaitTimeType.FINISH_INCOME_WAITTIME) {
-      if (!user.updateRelativeDiamondsCoinsWoodExperienceNaive(calculateDiamondCostForInstaRetrieve(userStruct, struct)*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0, 0)) {
+      if (!user.updateRelativeDiamondsCoinsExperienceNaive(calculateDiamondCostForInstaRetrieve(userStruct, struct)*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0)) {
         log.error("problem with using diamonds to finish norm struct income waittime");
       } else {
         if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {

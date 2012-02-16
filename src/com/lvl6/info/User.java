@@ -30,10 +30,8 @@ public class User {
   private int staminaMax;
   private int diamonds;
   private int coins;
-  private int wood;
   private int marketplaceDiamondsEarnings;
   private int marketplaceCoinsEarnings;
-  private int marketplaceWoodEarnings;
   private int vaultBalance;
   private int experience;
   private int tasksCompleted;
@@ -55,9 +53,9 @@ public class User {
       int defense, int stamina, Date lastStaminaRefillTime,
       boolean isLastStaminaStateFull, int energy, Date lastEnergyRefillTime,
       boolean isLastEnergyStateFull, int skillPoints, int healthMax,
-      int energyMax, int staminaMax, int diamonds, int coins, int wood,
+      int energyMax, int staminaMax, int diamonds, int coins,
       int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
-      int marketplaceWoodEarnings, int vaultBalance, int experience,
+      int vaultBalance, int experience,
       int tasksCompleted, int battlesWon, int battlesLost, int hourlyCoins,
       String armyCode, int numReferrals, String udid, Location userLocation,
       int numPostsInMarketplace, int numMarketplaceSalesUnredeemed,
@@ -80,10 +78,8 @@ public class User {
     this.staminaMax = staminaMax;
     this.diamonds = diamonds;
     this.coins = coins;
-    this.wood = wood;
     this.marketplaceDiamondsEarnings = marketplaceDiamondsEarnings;
     this.marketplaceCoinsEarnings = marketplaceCoinsEarnings;
-    this.marketplaceWoodEarnings = marketplaceWoodEarnings;
     this.vaultBalance = vaultBalance;
     this.experience = experience;
     this.tasksCompleted = tasksCompleted;
@@ -259,8 +255,8 @@ public class User {
   /*
    * used for purchasing and selling structures, redeeming quests
    */
-  public boolean updateRelativeDiamondsCoinsWoodExperienceNaive (int diamondChange, int coinChange, 
-      int woodChange, int experienceChange) {
+  public boolean updateRelativeDiamondsCoinsExperienceNaive (int diamondChange, int coinChange, 
+      int experienceChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -268,7 +264,6 @@ public class User {
 
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     relativeParams.put(DBConstants.USER__COINS, coinChange);
-    relativeParams.put(DBConstants.USER__WOOD, woodChange);
     relativeParams.put(DBConstants.USER__EXPERIENCE, experienceChange);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
@@ -276,7 +271,6 @@ public class User {
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
       this.coins += coinChange;
-      this.wood += woodChange;
       this.experience += experienceChange;
       return true;
     }
@@ -295,13 +289,11 @@ public class User {
 
     relativeParams.put(DBConstants.USER__DIAMONDS, marketplaceDiamondsEarnings);
     relativeParams.put(DBConstants.USER__COINS, marketplaceCoinsEarnings);
-    relativeParams.put(DBConstants.USER__WOOD, marketplaceWoodEarnings);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
 
     absoluteParams.put(DBConstants.USER__MARKETPLACE_DIAMONDS_EARNINGS, 0);
     absoluteParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, 0);
-    absoluteParams.put(DBConstants.USER__MARKETPLACE_WOOD_EARNINGS, 0);
     absoluteParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, 0);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
@@ -309,10 +301,8 @@ public class User {
     if (numUpdated == 1) {
       this.diamonds += marketplaceDiamondsEarnings;
       this.coins += marketplaceCoinsEarnings;
-      this.wood += marketplaceWoodEarnings;
       this.marketplaceDiamondsEarnings = 0;
       this.marketplaceCoinsEarnings = 0;
-      this.marketplaceWoodEarnings = 0;
       return true;
     }
     return false;
@@ -321,9 +311,9 @@ public class User {
   /*
    * used for marketplace purchase
    */
-  public boolean updateRelativeDiamondsearningsCoinsearningsWoodearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive 
+  public boolean updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive 
   (int diamondEarningsChange, int coinEarningsChange, 
-      int woodEarningsChange, int numPostsInMarketplaceChange, int numMarketplaceSalesUnredeemedChange) {
+      int numPostsInMarketplaceChange, int numMarketplaceSalesUnredeemedChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -331,7 +321,6 @@ public class User {
 
     relativeParams.put(DBConstants.USER__MARKETPLACE_DIAMONDS_EARNINGS, diamondEarningsChange);
     relativeParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, coinEarningsChange);
-    relativeParams.put(DBConstants.USER__MARKETPLACE_WOOD_EARNINGS, woodEarningsChange);
     relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
     relativeParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, numMarketplaceSalesUnredeemedChange);
 
@@ -340,7 +329,6 @@ public class User {
     if (numUpdated == 1) {
       this.marketplaceDiamondsEarnings += diamondEarningsChange;
       this.marketplaceCoinsEarnings += coinEarningsChange;
-      this.marketplaceWoodEarnings += woodEarningsChange;
       this.numPostsInMarketplace += numPostsInMarketplaceChange;
       this.numMarketplaceSalesUnredeemed += numMarketplaceSalesUnredeemedChange;
       return true;
@@ -352,8 +340,8 @@ public class User {
   /*
    * used for marketplace
    */
-  public boolean updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive (int diamondChange, int coinChange, 
-      int woodChange, int numPostsInMarketplaceChange) {
+  public boolean updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive (int diamondChange, int coinChange, 
+      int numPostsInMarketplaceChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -361,7 +349,6 @@ public class User {
 
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     relativeParams.put(DBConstants.USER__COINS, coinChange);
-    relativeParams.put(DBConstants.USER__WOOD, woodChange);
     relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
@@ -369,7 +356,6 @@ public class User {
     if (numUpdated == 1) {
       this.coins += coinChange;
       this.diamonds += diamondChange;
-      this.wood += woodChange;
       this.numPostsInMarketplace += numPostsInMarketplaceChange;
       return true;
     }
@@ -594,20 +580,12 @@ public class User {
     return coins;
   }
 
-  public int getWood() {
-    return wood;
-  }
-
   public int getMarketplaceDiamondsEarnings() {
     return marketplaceDiamondsEarnings;
   }
 
   public int getMarketplaceCoinsEarnings() {
     return marketplaceCoinsEarnings;
-  }
-
-  public int getMarketplaceWoodEarnings() {
-    return marketplaceWoodEarnings;
   }
 
   public int getVaultBalance() {
@@ -680,10 +658,10 @@ public class User {
         + ", isLastEnergyStateFull=" + isLastEnergyStateFull + ", skillPoints="
         + skillPoints + ", healthMax=" + healthMax + ", energyMax=" + energyMax
         + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
-        + coins + ", wood=" + wood + ", marketplaceDiamondsEarnings="
+        + coins + ", marketplaceDiamondsEarnings="
         + marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="
-        + marketplaceCoinsEarnings + ", marketplaceWoodEarnings="
-        + marketplaceWoodEarnings + ", vaultBalance=" + vaultBalance
+        + marketplaceCoinsEarnings
+        + ", vaultBalance=" + vaultBalance
         + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
         + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
         + ", hourlyCoins=" + hourlyCoins + ", armyCode=" + armyCode

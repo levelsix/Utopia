@@ -493,12 +493,10 @@ message PostToMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required MarketplacePostType postType = 2;
 	optional int32 postedEquipId = 3;
-	optional int32 postedWood = 4;
-	optional int32 postedDiamonds = 5;
-	optional int32 postedCoins = 6;
-	optional int32 diamondCost = 7;
-	optional int32 coinCost = 8;
-	optional int32 woodCost = 9;
+	optional int32 postedDiamonds = 4;
+	optional int32 postedCoins = 5;
+	optional int32 diamondCost = 6;
+	optional int32 coinCost = 7;
 }
 
 																						//DONE
@@ -513,10 +511,9 @@ message PostToMarketplaceResponseProto {
 		NEGATIVE_COST = 3;
 		NO_COST = 4;
 		USER_ALREADY_MAX_MARKETPLACE_POSTS = 5;
-		NOT_ENOUGH_WOOD = 6;
-		NOT_ENOUGH_DIAMONDS = 7;
-		NOT_ENOUGH_COINS = 8;
-		OTHER_FAIL = 9;
+		NOT_ENOUGH_DIAMONDS = 6;
+		NOT_ENOUGH_COINS = 7;
+		OTHER_FAIL = 8;
 	}
 }
 
@@ -537,9 +534,8 @@ message RetractMarketplacePostResponseProto {
 		SUCCESS = 0;
 		NOT_REQUESTERS_POST = 1;
 		POST_NO_LONGER_EXISTS = 2;
-		NOT_ENOUGH_WOOD = 3;
-		NOT_ENOUGH_DIAMONDS = 4;
-		NOT_ENOUGH_COINS = 5;
+		NOT_ENOUGH_DIAMONDS = 3;
+		NOT_ENOUGH_COINS = 4;
 	}
 }
 
@@ -672,9 +668,8 @@ message LoadPlayerCityResponseProto {
     optional FullUserCritstructProto armory = 5;
     optional FullUserCritstructProto vault = 6;
     optional FullUserCritstructProto marketplace = 7;
-    required FullUserCritstructProto lumbermill = 8;
-    required FullUserCritstructProto carpenter = 9;
-    required FullUserCritstructProto aviary = 10;    
+    required FullUserCritstructProto carpenter = 8;
+    required FullUserCritstructProto aviary = 9;    
 
 	optional FullUserCityExpansionDataProto userCityExpansionData = 11;
      

@@ -85,9 +85,8 @@ public class PurchaseNormStructureController extends EventController {
   private void writeChangesToDB(User user, Structure struct) {
     int diamondChange = Math.max(0, struct.getDiamondPrice());
     int coinChange = Math.max(0, struct.getCoinPrice());
-    int woodChange = Math.max(0, struct.getWoodPrice());
 
-    if (!user.updateRelativeDiamondsCoinsWoodExperienceNaive(diamondChange, coinChange, woodChange, 0)) {
+    if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange, coinChange, 0)) {
       log.error("problem with changing user stats after purchasing a structure");
     }
   }
@@ -110,10 +109,6 @@ public class PurchaseNormStructureController extends EventController {
       resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
-    if (user.getWood() < struct.getWoodPrice()) {
-      resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
-      return false;
-    } 
     List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
     if (userStructs != null) {
       for (UserStruct us : userStructs) {

@@ -164,9 +164,8 @@ public class QuestRedeemController extends EventController {
     
     int coinsGained = Math.max(0, quest.getCoinsGained());
     int diamondsGained = Math.max(0, quest.getDiamondsGained());
-    int woodGained = Math.max(0,  quest.getWoodGained());
     int expGained = Math.max(0,  quest.getExpGained());
-    if (!user.updateRelativeDiamondsCoinsWoodExperienceNaive(diamondsGained, coinsGained, woodGained, expGained)) {
+    if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondsGained, coinsGained, expGained)) {
       log.error("problem with giving user currency rewards after completing the quest");
     }
   }

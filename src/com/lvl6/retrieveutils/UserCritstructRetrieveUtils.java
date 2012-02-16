@@ -81,16 +81,6 @@ public class UserCritstructRetrieveUtils {
       critStructMap.put(CritStructType.MARKETPLACE, new UserCritstruct(CritStructType.MARKETPLACE, coords, orientation));
     }
 
-    int lumbermillXCoord = rs.getInt(i++);
-    if (rs.wasNull()) {
-      i++;
-    } else {
-      int lumbermillYCoord = rs.getInt(i++);
-      CoordinatePair coords = new CoordinatePair(lumbermillXCoord, lumbermillYCoord);
-      StructOrientation orientation = StructOrientation.valueOf(rs.getInt(i++));
-      critStructMap.put(CritStructType.LUMBERMILL, new UserCritstruct(CritStructType.LUMBERMILL, coords, orientation));
-    }
-
     int carpenterXCoord = rs.getInt(i++);
     if (rs.wasNull()) {
       i++;

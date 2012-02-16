@@ -116,9 +116,6 @@ public class LoadPlayerCityController extends EventController {
           if (cst == CritStructType.CARPENTER) {
             resBuilder.setCarpenter(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }
-          if (cst == CritStructType.LUMBERMILL) {
-            resBuilder.setLumbermill(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-          }
           if (cst == CritStructType.MARKETPLACE) {
             resBuilder.setMarketplace(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
           }

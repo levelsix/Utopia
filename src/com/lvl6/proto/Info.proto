@@ -38,25 +38,23 @@ message FullUserProto {
 	required int32 staminaMax = 16;
 	required int32 diamonds = 17;
 	required int32 coins = 18;
-	required int32 wood = 19;
-	required int32 marketplaceDiamondsEarnings = 20;
-	required int32 marketplaceCoinsEarnings = 21;
-	required int32 marketplaceWoodEarnings = 22;
-	required int32 vaultBalance = 23;
-	required int32 experience = 24;
-	required int32 tasksCompleted = 25;
-	required int32 battlesWon = 26;
-	required int32 battlesLost = 27;
-	required int32 hourlyCoins = 28;
-	required string armyCode = 29;
-	required int32 numReferrals = 30;
-	required string udid = 31;
-	required LocationProto userLocation = 32;
-	required int32 numPostsInMarketplace = 33;
-	required int32 numMarketplaceSalesUnredeemed = 34;
-	optional int32 weaponEquipped = 35;
-	optional int32 armorEquipped = 36;
-	optional int32 amuletEquipped = 37;
+	required int32 marketplaceDiamondsEarnings = 19;
+	required int32 marketplaceCoinsEarnings = 20;
+	required int32 vaultBalance = 21;
+	required int32 experience = 22;
+	required int32 tasksCompleted = 23;
+	required int32 battlesWon = 24;
+	required int32 battlesLost = 25;
+	required int32 hourlyCoins = 26;
+	required string armyCode = 27;
+	required int32 numReferrals = 28;
+	required string udid = 29;
+	required LocationProto userLocation = 30;
+	required int32 numPostsInMarketplace = 31;
+	required int32 numMarketplaceSalesUnredeemed = 32;
+	optional int32 weaponEquipped = 33;
+	optional int32 armorEquipped = 34;
+	optional int32 amuletEquipped = 35;
 }
 
 //------------------------------------------------------------------------------------------
@@ -131,16 +129,14 @@ message FullStructureProto {
 	required int32 minutesToUpgradeBase = 6;
 	required int32 coinPrice = 7;
 	required int32 diamondPrice = 8;
-	required int32 woodPrice = 9;
-	required int32 minLevel = 10;
-	required int32 xLength = 11;
-	required int32 yLength = 12;
-	required int32 upgradeCoinCostBase = 13;
-	required int32 upgradeDiamondCostBase = 14;
-	required int32 upgradeWoodCostBase = 15;
-	required int32 instaBuildDiamondCostBase = 16;
-	required int32 instaRetrieveDiamondCostBase = 17;
-	required int32 instaUpgradeDiamondCostBase = 18;	
+	required int32 minLevel = 9;
+	required int32 xLength = 10;
+	required int32 yLength = 11;
+	required int32 upgradeCoinCostBase = 12;
+	required int32 upgradeDiamondCostBase = 13;
+	required int32 instaBuildDiamondCostBase = 14;
+	required int32 instaRetrieveDiamondCostBase = 15;
+	required int32 instaUpgradeDiamondCostBase = 16;	
 }
 
 //------------------------------------------------------------------------------------------
@@ -207,9 +203,8 @@ message LocationProto {
 
 enum MarketplacePostType {
 	EQUIP_POST = 0;
-	WOOD_POST = 1;
-	DIAMOND_POST = 2;
-	COIN_POST = 3;
+	DIAMOND_POST = 1;
+	COIN_POST = 2;
 }
 
 message FullMarketplacePostProto {
@@ -218,12 +213,10 @@ message FullMarketplacePostProto {
 	required MarketplacePostType postType = 3;
 	required int64 timeOfPost = 4;
 	optional FullEquipProto postedEquip = 5;
-	optional int32 postedWood = 6;
-	optional int32 postedDiamonds = 7;
-	optional int32 postedCoins = 8;
-	optional int32 diamondCost = 9;
-	optional int32 coinCost = 10;
-	optional int32 woodCost = 11;
+	optional int32 postedDiamonds = 6;
+	optional int32 postedCoins = 7;
+	optional int32 diamondCost = 8;
+	optional int32 coinCost = 9;
 }
 
 //------------------------------------------------------------------------------------------
@@ -358,13 +351,12 @@ message FullQuestProto {
      required int32 assetNumWithinCity = 7;
      optional int32 coinsGained = 8;
      optional int32 diamondsGained = 9;
-     optional int32 woodGained = 10;
-     optional int32 expGained = 11;
-     optional int32 equipIdGained = 12;
-     repeated int32 questsRequiredForThis = 13;
-     repeated int32 taskReqs = 14;
-     repeated int32 upgradeStructJobsReqs = 15;
-     repeated int32 buildStructJobsReqs = 16;
-     repeated int32 defeatTypeReqs = 17;
-     repeated int32 possessEquipJobReqs = 18;
+     optional int32 expGained = 10;
+     optional int32 equipIdGained = 11;
+     repeated int32 questsRequiredForThis = 12;
+     repeated int32 taskReqs = 13;
+     repeated int32 upgradeStructJobsReqs = 14;
+     repeated int32 buildStructJobsReqs = 15;
+     repeated int32 defeatTypeReqs = 16;
+     repeated int32 possessEquipJobReqs = 17;
 }

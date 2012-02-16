@@ -79,9 +79,8 @@ public class UpgradeNormStructureController extends EventController {
 
   private void writeChangesToDB(User user, UserStruct userStruct, Structure struct, Timestamp timeOfUpgrade) {
     // TODO Auto-generated method stub
-    if (user.updateRelativeDiamondsCoinsWoodExperienceNaive(calculateUpgradeDiamondCost(struct.getUpgradeDiamondCostBase(), userStruct.getLevel()), 
-        calculateUpgradeCoinCost(struct.getUpgradeCoinCostBase(), userStruct.getLevel()), 
-        calculateUpgradeWoodCost(struct.getUpgradeWoodCostBase(), userStruct.getLevel()), 0)) {
+    if (user.updateRelativeDiamondsCoinsExperienceNaive(calculateUpgradeDiamondCost(struct.getUpgradeDiamondCostBase(), userStruct.getLevel()), 
+        calculateUpgradeCoinCost(struct.getUpgradeCoinCostBase(), userStruct.getLevel()), 0)) {
       log.error("problem in updating user stats after upgrade");
     }
     if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), null, timeOfUpgrade, false)) {
@@ -105,7 +104,6 @@ public class UpgradeNormStructureController extends EventController {
     }
 
     int upgradeCoinCost = calculateUpgradeCoinCost(struct.getUpgradeCoinCostBase(), userStruct.getLevel());
-    int upgradeWoodCost = calculateUpgradeWoodCost(struct.getUpgradeWoodCostBase(), userStruct.getLevel());
     int upgradeDiamondCost = calculateUpgradeDiamondCost(struct.getUpgradeDiamondCostBase(), userStruct.getLevel());
 
     if (user.getId() != userStruct.getUserId()) {
@@ -113,10 +111,6 @@ public class UpgradeNormStructureController extends EventController {
       return false;
     }
     if (user.getCoins() < upgradeCoinCost) {
-      resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
-      return false;
-    }
-    if (user.getWood() < upgradeWoodCost) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
@@ -146,11 +140,5 @@ public class UpgradeNormStructureController extends EventController {
     int result = upgradeDiamondCostBase*(oldLevel/2);   //TODO: change later
     return Math.max(0, result);
   }
-
-  private int calculateUpgradeWoodCost(int upgradeWoodCostBase, int oldLevel) {
-    int result = upgradeWoodCostBase*(oldLevel/2);   //TODO:change later
-    return Math.max(0, result);
-  }
-
 
 }

@@ -58,9 +58,8 @@ public class SellNormStructureController extends EventController {
         if (user != null && struct != null && user.getId() == userStruct.getUserId() && userStruct.isComplete()) {
           int diamondChange = Math.max(0,  (int)Math.ceil(struct.getDiamondPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
           int coinChange = Math.max(0,  (int)Math.ceil(struct.getCoinPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
-          int woodChange = Math.max(0,  (int)Math.ceil(struct.getWoodPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
-
-          if (!user.updateRelativeDiamondsCoinsWoodExperienceNaive(diamondChange, coinChange, woodChange, 0)) {
+          
+          if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange, coinChange, 0)) {
             log.error("problem with giving user stats back after selling struct");
             resBuilder.setStatus(SellNormStructureStatus.FAIL);
           } else {

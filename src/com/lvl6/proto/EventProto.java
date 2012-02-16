@@ -30560,29 +30560,21 @@ public final class EventProto {
     boolean hasPostedEquipId();
     int getPostedEquipId();
     
-    // optional int32 postedWood = 4;
-    boolean hasPostedWood();
-    int getPostedWood();
-    
-    // optional int32 postedDiamonds = 5;
+    // optional int32 postedDiamonds = 4;
     boolean hasPostedDiamonds();
     int getPostedDiamonds();
     
-    // optional int32 postedCoins = 6;
+    // optional int32 postedCoins = 5;
     boolean hasPostedCoins();
     int getPostedCoins();
     
-    // optional int32 diamondCost = 7;
+    // optional int32 diamondCost = 6;
     boolean hasDiamondCost();
     int getDiamondCost();
     
-    // optional int32 coinCost = 8;
+    // optional int32 coinCost = 7;
     boolean hasCoinCost();
     int getCoinCost();
-    
-    // optional int32 woodCost = 9;
-    boolean hasWoodCost();
-    int getWoodCost();
   }
   public static final class PostToMarketplaceRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -30646,76 +30638,54 @@ public final class EventProto {
       return postedEquipId_;
     }
     
-    // optional int32 postedWood = 4;
-    public static final int POSTEDWOOD_FIELD_NUMBER = 4;
-    private int postedWood_;
-    public boolean hasPostedWood() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public int getPostedWood() {
-      return postedWood_;
-    }
-    
-    // optional int32 postedDiamonds = 5;
-    public static final int POSTEDDIAMONDS_FIELD_NUMBER = 5;
+    // optional int32 postedDiamonds = 4;
+    public static final int POSTEDDIAMONDS_FIELD_NUMBER = 4;
     private int postedDiamonds_;
     public boolean hasPostedDiamonds() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public int getPostedDiamonds() {
       return postedDiamonds_;
     }
     
-    // optional int32 postedCoins = 6;
-    public static final int POSTEDCOINS_FIELD_NUMBER = 6;
+    // optional int32 postedCoins = 5;
+    public static final int POSTEDCOINS_FIELD_NUMBER = 5;
     private int postedCoins_;
     public boolean hasPostedCoins() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     public int getPostedCoins() {
       return postedCoins_;
     }
     
-    // optional int32 diamondCost = 7;
-    public static final int DIAMONDCOST_FIELD_NUMBER = 7;
+    // optional int32 diamondCost = 6;
+    public static final int DIAMONDCOST_FIELD_NUMBER = 6;
     private int diamondCost_;
     public boolean hasDiamondCost() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     public int getDiamondCost() {
       return diamondCost_;
     }
     
-    // optional int32 coinCost = 8;
-    public static final int COINCOST_FIELD_NUMBER = 8;
+    // optional int32 coinCost = 7;
+    public static final int COINCOST_FIELD_NUMBER = 7;
     private int coinCost_;
     public boolean hasCoinCost() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public int getCoinCost() {
       return coinCost_;
-    }
-    
-    // optional int32 woodCost = 9;
-    public static final int WOODCOST_FIELD_NUMBER = 9;
-    private int woodCost_;
-    public boolean hasWoodCost() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
-    public int getWoodCost() {
-      return woodCost_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
       postedEquipId_ = 0;
-      postedWood_ = 0;
       postedDiamonds_ = 0;
       postedCoins_ = 0;
       diamondCost_ = 0;
       coinCost_ = 0;
-      woodCost_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -30751,22 +30721,16 @@ public final class EventProto {
         output.writeInt32(3, postedEquipId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, postedWood_);
+        output.writeInt32(4, postedDiamonds_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, postedDiamonds_);
+        output.writeInt32(5, postedCoins_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, postedCoins_);
+        output.writeInt32(6, diamondCost_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, diamondCost_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt32(8, coinCost_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt32(9, woodCost_);
+        output.writeInt32(7, coinCost_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -30791,27 +30755,19 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, postedWood_);
+          .computeInt32Size(4, postedDiamonds_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, postedDiamonds_);
+          .computeInt32Size(5, postedCoins_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, postedCoins_);
+          .computeInt32Size(6, diamondCost_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, diamondCost_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, coinCost_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, woodCost_);
+          .computeInt32Size(7, coinCost_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -30948,18 +30904,14 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         postedEquipId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        postedWood_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000008);
         postedDiamonds_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         postedCoins_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         diamondCost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         coinCost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000080);
-        woodCost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
       
@@ -31017,27 +30969,19 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.postedWood_ = postedWood_;
+        result.postedDiamonds_ = postedDiamonds_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.postedDiamonds_ = postedDiamonds_;
+        result.postedCoins_ = postedCoins_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.postedCoins_ = postedCoins_;
+        result.diamondCost_ = diamondCost_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.diamondCost_ = diamondCost_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
         result.coinCost_ = coinCost_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
-        }
-        result.woodCost_ = woodCost_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -31063,9 +31007,6 @@ public final class EventProto {
         if (other.hasPostedEquipId()) {
           setPostedEquipId(other.getPostedEquipId());
         }
-        if (other.hasPostedWood()) {
-          setPostedWood(other.getPostedWood());
-        }
         if (other.hasPostedDiamonds()) {
           setPostedDiamonds(other.getPostedDiamonds());
         }
@@ -31077,9 +31018,6 @@ public final class EventProto {
         }
         if (other.hasCoinCost()) {
           setCoinCost(other.getCoinCost());
-        }
-        if (other.hasWoodCost()) {
-          setWoodCost(other.getWoodCost());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -31151,32 +31089,22 @@ public final class EventProto {
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              postedWood_ = input.readInt32();
+              postedDiamonds_ = input.readInt32();
               break;
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              postedDiamonds_ = input.readInt32();
+              postedCoins_ = input.readInt32();
               break;
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              postedCoins_ = input.readInt32();
+              diamondCost_ = input.readInt32();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
-              diamondCost_ = input.readInt32();
-              break;
-            }
-            case 64: {
-              bitField0_ |= 0x00000080;
               coinCost_ = input.readInt32();
-              break;
-            }
-            case 72: {
-              bitField0_ |= 0x00000100;
-              woodCost_ = input.readInt32();
               break;
             }
           }
@@ -31320,128 +31248,86 @@ public final class EventProto {
         return this;
       }
       
-      // optional int32 postedWood = 4;
-      private int postedWood_ ;
-      public boolean hasPostedWood() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      public int getPostedWood() {
-        return postedWood_;
-      }
-      public Builder setPostedWood(int value) {
-        bitField0_ |= 0x00000008;
-        postedWood_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearPostedWood() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        postedWood_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // optional int32 postedDiamonds = 5;
+      // optional int32 postedDiamonds = 4;
       private int postedDiamonds_ ;
       public boolean hasPostedDiamonds() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public int getPostedDiamonds() {
         return postedDiamonds_;
       }
       public Builder setPostedDiamonds(int value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         postedDiamonds_ = value;
         onChanged();
         return this;
       }
       public Builder clearPostedDiamonds() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         postedDiamonds_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 postedCoins = 6;
+      // optional int32 postedCoins = 5;
       private int postedCoins_ ;
       public boolean hasPostedCoins() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public int getPostedCoins() {
         return postedCoins_;
       }
       public Builder setPostedCoins(int value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000010;
         postedCoins_ = value;
         onChanged();
         return this;
       }
       public Builder clearPostedCoins() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         postedCoins_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 diamondCost = 7;
+      // optional int32 diamondCost = 6;
       private int diamondCost_ ;
       public boolean hasDiamondCost() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       public int getDiamondCost() {
         return diamondCost_;
       }
       public Builder setDiamondCost(int value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         diamondCost_ = value;
         onChanged();
         return this;
       }
       public Builder clearDiamondCost() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         diamondCost_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 coinCost = 8;
+      // optional int32 coinCost = 7;
       private int coinCost_ ;
       public boolean hasCoinCost() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public int getCoinCost() {
         return coinCost_;
       }
       public Builder setCoinCost(int value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         coinCost_ = value;
         onChanged();
         return this;
       }
       public Builder clearCoinCost() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         coinCost_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // optional int32 woodCost = 9;
-      private int woodCost_ ;
-      public boolean hasWoodCost() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
-      }
-      public int getWoodCost() {
-        return woodCost_;
-      }
-      public Builder setWoodCost(int value) {
-        bitField0_ |= 0x00000100;
-        woodCost_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearWoodCost() {
-        bitField0_ = (bitField0_ & ~0x00000100);
-        woodCost_ = 0;
         onChanged();
         return this;
       }
@@ -31505,10 +31391,9 @@ public final class EventProto {
       NEGATIVE_COST(3, 3),
       NO_COST(4, 4),
       USER_ALREADY_MAX_MARKETPLACE_POSTS(5, 5),
-      NOT_ENOUGH_WOOD(6, 6),
-      NOT_ENOUGH_DIAMONDS(7, 7),
-      NOT_ENOUGH_COINS(8, 8),
-      OTHER_FAIL(9, 9),
+      NOT_ENOUGH_DIAMONDS(6, 6),
+      NOT_ENOUGH_COINS(7, 7),
+      OTHER_FAIL(8, 8),
       ;
       
       public static final int SUCCESS_VALUE = 0;
@@ -31517,10 +31402,9 @@ public final class EventProto {
       public static final int NEGATIVE_COST_VALUE = 3;
       public static final int NO_COST_VALUE = 4;
       public static final int USER_ALREADY_MAX_MARKETPLACE_POSTS_VALUE = 5;
-      public static final int NOT_ENOUGH_WOOD_VALUE = 6;
-      public static final int NOT_ENOUGH_DIAMONDS_VALUE = 7;
-      public static final int NOT_ENOUGH_COINS_VALUE = 8;
-      public static final int OTHER_FAIL_VALUE = 9;
+      public static final int NOT_ENOUGH_DIAMONDS_VALUE = 6;
+      public static final int NOT_ENOUGH_COINS_VALUE = 7;
+      public static final int OTHER_FAIL_VALUE = 8;
       
       
       public final int getNumber() { return value; }
@@ -31533,10 +31417,9 @@ public final class EventProto {
           case 3: return NEGATIVE_COST;
           case 4: return NO_COST;
           case 5: return USER_ALREADY_MAX_MARKETPLACE_POSTS;
-          case 6: return NOT_ENOUGH_WOOD;
-          case 7: return NOT_ENOUGH_DIAMONDS;
-          case 8: return NOT_ENOUGH_COINS;
-          case 9: return OTHER_FAIL;
+          case 6: return NOT_ENOUGH_DIAMONDS;
+          case 7: return NOT_ENOUGH_COINS;
+          case 8: return OTHER_FAIL;
           default: return null;
         }
       }
@@ -31567,7 +31450,7 @@ public final class EventProto {
       }
       
       private static final PostToMarketplaceStatus[] VALUES = {
-        SUCCESS, NEGATIVE_POST, NOT_ENOUGH_EQUIP, NEGATIVE_COST, NO_COST, USER_ALREADY_MAX_MARKETPLACE_POSTS, NOT_ENOUGH_WOOD, NOT_ENOUGH_DIAMONDS, NOT_ENOUGH_COINS, OTHER_FAIL, 
+        SUCCESS, NEGATIVE_POST, NOT_ENOUGH_EQUIP, NEGATIVE_COST, NO_COST, USER_ALREADY_MAX_MARKETPLACE_POSTS, NOT_ENOUGH_DIAMONDS, NOT_ENOUGH_COINS, OTHER_FAIL, 
       };
       
       public static PostToMarketplaceStatus valueOf(
@@ -39698,17 +39581,12 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserCritstructProto getMarketplace();
     com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getMarketplaceOrBuilder();
     
-    // required .com.lvl6.proto.FullUserCritstructProto lumbermill = 8;
-    boolean hasLumbermill();
-    com.lvl6.proto.InfoProto.FullUserCritstructProto getLumbermill();
-    com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getLumbermillOrBuilder();
-    
-    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 9;
+    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 8;
     boolean hasCarpenter();
     com.lvl6.proto.InfoProto.FullUserCritstructProto getCarpenter();
     com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getCarpenterOrBuilder();
     
-    // required .com.lvl6.proto.FullUserCritstructProto aviary = 10;
+    // required .com.lvl6.proto.FullUserCritstructProto aviary = 9;
     boolean hasAviary();
     com.lvl6.proto.InfoProto.FullUserCritstructProto getAviary();
     com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getAviaryOrBuilder();
@@ -39923,24 +39801,11 @@ public final class EventProto {
       return marketplace_;
     }
     
-    // required .com.lvl6.proto.FullUserCritstructProto lumbermill = 8;
-    public static final int LUMBERMILL_FIELD_NUMBER = 8;
-    private com.lvl6.proto.InfoProto.FullUserCritstructProto lumbermill_;
-    public boolean hasLumbermill() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    public com.lvl6.proto.InfoProto.FullUserCritstructProto getLumbermill() {
-      return lumbermill_;
-    }
-    public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getLumbermillOrBuilder() {
-      return lumbermill_;
-    }
-    
-    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 9;
-    public static final int CARPENTER_FIELD_NUMBER = 9;
+    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 8;
+    public static final int CARPENTER_FIELD_NUMBER = 8;
     private com.lvl6.proto.InfoProto.FullUserCritstructProto carpenter_;
     public boolean hasCarpenter() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     public com.lvl6.proto.InfoProto.FullUserCritstructProto getCarpenter() {
       return carpenter_;
@@ -39949,11 +39814,11 @@ public final class EventProto {
       return carpenter_;
     }
     
-    // required .com.lvl6.proto.FullUserCritstructProto aviary = 10;
-    public static final int AVIARY_FIELD_NUMBER = 10;
+    // required .com.lvl6.proto.FullUserCritstructProto aviary = 9;
+    public static final int AVIARY_FIELD_NUMBER = 9;
     private com.lvl6.proto.InfoProto.FullUserCritstructProto aviary_;
     public boolean hasAviary() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public com.lvl6.proto.InfoProto.FullUserCritstructProto getAviary() {
       return aviary_;
@@ -39966,7 +39831,7 @@ public final class EventProto {
     public static final int USERCITYEXPANSIONDATA_FIELD_NUMBER = 11;
     private com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto userCityExpansionData_;
     public boolean hasUserCityExpansionData() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     public com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto getUserCityExpansionData() {
       return userCityExpansionData_;
@@ -39983,7 +39848,6 @@ public final class EventProto {
       armory_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       vault_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       marketplace_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
-      lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       userCityExpansionData_ = com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.getDefaultInstance();
@@ -39998,10 +39862,6 @@ public final class EventProto {
         return false;
       }
       if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLumbermill()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -40047,10 +39907,6 @@ public final class EventProto {
           return false;
         }
       }
-      if (!getLumbermill().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!getCarpenter().isInitialized()) {
         memoizedIsInitialized = 0;
         return false;
@@ -40094,15 +39950,12 @@ public final class EventProto {
         output.writeMessage(7, marketplace_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeMessage(8, lumbermill_);
+        output.writeMessage(8, carpenter_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeMessage(9, carpenter_);
+        output.writeMessage(9, aviary_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeMessage(10, aviary_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
         output.writeMessage(11, userCityExpansionData_);
       }
       getUnknownFields().writeTo(output);
@@ -40144,17 +39997,13 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, lumbermill_);
+          .computeMessageSize(8, carpenter_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, carpenter_);
+          .computeMessageSize(9, aviary_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, aviary_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(11, userCityExpansionData_);
       }
@@ -40280,7 +40129,6 @@ public final class EventProto {
           getArmoryFieldBuilder();
           getVaultFieldBuilder();
           getMarketplaceFieldBuilder();
-          getLumbermillFieldBuilder();
           getCarpenterFieldBuilder();
           getAviaryFieldBuilder();
           getUserCityExpansionDataFieldBuilder();
@@ -40330,30 +40178,24 @@ public final class EventProto {
           marketplaceBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000040);
-        if (lumbermillBuilder_ == null) {
-          lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
-        } else {
-          lumbermillBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000080);
         if (carpenterBuilder_ == null) {
           carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
           carpenterBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         if (aviaryBuilder_ == null) {
           aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
         } else {
           aviaryBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         if (userCityExpansionDataBuilder_ == null) {
           userCityExpansionData_ = com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.getDefaultInstance();
         } else {
           userCityExpansionDataBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
       
@@ -40449,29 +40291,21 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000020;
         }
-        if (lumbermillBuilder_ == null) {
-          result.lumbermill_ = lumbermill_;
-        } else {
-          result.lumbermill_ = lumbermillBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000040;
-        }
         if (carpenterBuilder_ == null) {
           result.carpenter_ = carpenter_;
         } else {
           result.carpenter_ = carpenterBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000080;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000040;
         }
         if (aviaryBuilder_ == null) {
           result.aviary_ = aviary_;
         } else {
           result.aviary_ = aviaryBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
-          to_bitField0_ |= 0x00000100;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000080;
         }
         if (userCityExpansionDataBuilder_ == null) {
           result.userCityExpansionData_ = userCityExpansionData_;
@@ -40561,9 +40395,6 @@ public final class EventProto {
         if (other.hasMarketplace()) {
           mergeMarketplace(other.getMarketplace());
         }
-        if (other.hasLumbermill()) {
-          mergeLumbermill(other.getLumbermill());
-        }
         if (other.hasCarpenter()) {
           mergeCarpenter(other.getCarpenter());
         }
@@ -40583,10 +40414,6 @@ public final class EventProto {
           return false;
         }
         if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!hasLumbermill()) {
           
           return false;
         }
@@ -40631,10 +40458,6 @@ public final class EventProto {
             
             return false;
           }
-        }
-        if (!getLumbermill().isInitialized()) {
-          
-          return false;
         }
         if (!getCarpenter().isInitialized()) {
           
@@ -40737,15 +40560,6 @@ public final class EventProto {
             }
             case 66: {
               com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
-              if (hasLumbermill()) {
-                subBuilder.mergeFrom(getLumbermill());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setLumbermill(subBuilder.buildPartial());
-              break;
-            }
-            case 74: {
-              com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
               if (hasCarpenter()) {
                 subBuilder.mergeFrom(getCarpenter());
               }
@@ -40753,7 +40567,7 @@ public final class EventProto {
               setCarpenter(subBuilder.buildPartial());
               break;
             }
-            case 82: {
+            case 74: {
               com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder();
               if (hasAviary()) {
                 subBuilder.mergeFrom(getAviary());
@@ -41533,102 +41347,12 @@ public final class EventProto {
         return marketplaceBuilder_;
       }
       
-      // required .com.lvl6.proto.FullUserCritstructProto lumbermill = 8;
-      private com.lvl6.proto.InfoProto.FullUserCritstructProto lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> lumbermillBuilder_;
-      public boolean hasLumbermill() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
-      }
-      public com.lvl6.proto.InfoProto.FullUserCritstructProto getLumbermill() {
-        if (lumbermillBuilder_ == null) {
-          return lumbermill_;
-        } else {
-          return lumbermillBuilder_.getMessage();
-        }
-      }
-      public Builder setLumbermill(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
-        if (lumbermillBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          lumbermill_ = value;
-          onChanged();
-        } else {
-          lumbermillBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000080;
-        return this;
-      }
-      public Builder setLumbermill(
-          com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder builderForValue) {
-        if (lumbermillBuilder_ == null) {
-          lumbermill_ = builderForValue.build();
-          onChanged();
-        } else {
-          lumbermillBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000080;
-        return this;
-      }
-      public Builder mergeLumbermill(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
-        if (lumbermillBuilder_ == null) {
-          if (((bitField0_ & 0x00000080) == 0x00000080) &&
-              lumbermill_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
-            lumbermill_ =
-              com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(lumbermill_).mergeFrom(value).buildPartial();
-          } else {
-            lumbermill_ = value;
-          }
-          onChanged();
-        } else {
-          lumbermillBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000080;
-        return this;
-      }
-      public Builder clearLumbermill() {
-        if (lumbermillBuilder_ == null) {
-          lumbermill_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
-          onChanged();
-        } else {
-          lumbermillBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000080);
-        return this;
-      }
-      public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getLumbermillBuilder() {
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return getLumbermillFieldBuilder().getBuilder();
-      }
-      public com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getLumbermillOrBuilder() {
-        if (lumbermillBuilder_ != null) {
-          return lumbermillBuilder_.getMessageOrBuilder();
-        } else {
-          return lumbermill_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> 
-          getLumbermillFieldBuilder() {
-        if (lumbermillBuilder_ == null) {
-          lumbermillBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder>(
-                  lumbermill_,
-                  getParentForChildren(),
-                  isClean());
-          lumbermill_ = null;
-        }
-        return lumbermillBuilder_;
-      }
-      
-      // required .com.lvl6.proto.FullUserCritstructProto carpenter = 9;
+      // required .com.lvl6.proto.FullUserCritstructProto carpenter = 8;
       private com.lvl6.proto.InfoProto.FullUserCritstructProto carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> carpenterBuilder_;
       public boolean hasCarpenter() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public com.lvl6.proto.InfoProto.FullUserCritstructProto getCarpenter() {
         if (carpenterBuilder_ == null) {
@@ -41647,7 +41371,7 @@ public final class EventProto {
         } else {
           carpenterBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         return this;
       }
       public Builder setCarpenter(
@@ -41658,12 +41382,12 @@ public final class EventProto {
         } else {
           carpenterBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         return this;
       }
       public Builder mergeCarpenter(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
         if (carpenterBuilder_ == null) {
-          if (((bitField0_ & 0x00000100) == 0x00000100) &&
+          if (((bitField0_ & 0x00000080) == 0x00000080) &&
               carpenter_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
             carpenter_ =
               com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(carpenter_).mergeFrom(value).buildPartial();
@@ -41674,7 +41398,7 @@ public final class EventProto {
         } else {
           carpenterBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         return this;
       }
       public Builder clearCarpenter() {
@@ -41684,11 +41408,11 @@ public final class EventProto {
         } else {
           carpenterBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getCarpenterBuilder() {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         onChanged();
         return getCarpenterFieldBuilder().getBuilder();
       }
@@ -41713,12 +41437,12 @@ public final class EventProto {
         return carpenterBuilder_;
       }
       
-      // required .com.lvl6.proto.FullUserCritstructProto aviary = 10;
+      // required .com.lvl6.proto.FullUserCritstructProto aviary = 9;
       private com.lvl6.proto.InfoProto.FullUserCritstructProto aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> aviaryBuilder_;
       public boolean hasAviary() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       public com.lvl6.proto.InfoProto.FullUserCritstructProto getAviary() {
         if (aviaryBuilder_ == null) {
@@ -41737,7 +41461,7 @@ public final class EventProto {
         } else {
           aviaryBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         return this;
       }
       public Builder setAviary(
@@ -41748,12 +41472,12 @@ public final class EventProto {
         } else {
           aviaryBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         return this;
       }
       public Builder mergeAviary(com.lvl6.proto.InfoProto.FullUserCritstructProto value) {
         if (aviaryBuilder_ == null) {
-          if (((bitField0_ & 0x00000200) == 0x00000200) &&
+          if (((bitField0_ & 0x00000100) == 0x00000100) &&
               aviary_ != com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance()) {
             aviary_ =
               com.lvl6.proto.InfoProto.FullUserCritstructProto.newBuilder(aviary_).mergeFrom(value).buildPartial();
@@ -41764,7 +41488,7 @@ public final class EventProto {
         } else {
           aviaryBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         return this;
       }
       public Builder clearAviary() {
@@ -41774,11 +41498,11 @@ public final class EventProto {
         } else {
           aviaryBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
       public com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder getAviaryBuilder() {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         onChanged();
         return getAviaryFieldBuilder().getBuilder();
       }
@@ -41808,7 +41532,7 @@ public final class EventProto {
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto, com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.Builder, com.lvl6.proto.InfoProto.FullUserCityExpansionDataProtoOrBuilder> userCityExpansionDataBuilder_;
       public boolean hasUserCityExpansionData() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       public com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto getUserCityExpansionData() {
         if (userCityExpansionDataBuilder_ == null) {
@@ -41827,7 +41551,7 @@ public final class EventProto {
         } else {
           userCityExpansionDataBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         return this;
       }
       public Builder setUserCityExpansionData(
@@ -41838,12 +41562,12 @@ public final class EventProto {
         } else {
           userCityExpansionDataBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         return this;
       }
       public Builder mergeUserCityExpansionData(com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto value) {
         if (userCityExpansionDataBuilder_ == null) {
-          if (((bitField0_ & 0x00000400) == 0x00000400) &&
+          if (((bitField0_ & 0x00000200) == 0x00000200) &&
               userCityExpansionData_ != com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.getDefaultInstance()) {
             userCityExpansionData_ =
               com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.newBuilder(userCityExpansionData_).mergeFrom(value).buildPartial();
@@ -41854,7 +41578,7 @@ public final class EventProto {
         } else {
           userCityExpansionDataBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         return this;
       }
       public Builder clearUserCityExpansionData() {
@@ -41864,11 +41588,11 @@ public final class EventProto {
         } else {
           userCityExpansionDataBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
       public com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto.Builder getUserCityExpansionDataBuilder() {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         onChanged();
         return getUserCityExpansionDataFieldBuilder().getBuilder();
       }
@@ -54954,196 +54678,193 @@ public final class EventProto {
       "imumUserProto\022B\n\020marketplacePosts\030\002 \003(\0132" +
       "(.com.lvl6.proto.FullMarketplacePostProt" +
       "o\022\030\n\020beforeThisPostId\030\003 \001(\005\022\022\n\nfromSende" +
-      "r\030\004 \002(\010\"\231\002\n\035PostToMarketplaceRequestProt" +
+      "r\030\004 \002(\010\"\363\001\n\035PostToMarketplaceRequestProt" +
       "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
       "umUserProto\0225\n\010postType\030\002 \002(\0162#.com.lvl6" +
       ".proto.MarketplacePostType\022\025\n\rpostedEqui" +
-      "pId\030\003 \001(\005\022\022\n\npostedWood\030\004 \001(\005\022\026\n\016postedD" +
-      "iamonds\030\005 \001(\005\022\023\n\013postedCoins\030\006 \001(\005\022\023\n\013di" +
-      "amondCost\030\007 \001(\005\022\020\n\010coinCost\030\010 \001(\005\022\020\n\010woo",
-      "dCost\030\t \001(\005\"\230\003\n\036PostToMarketplaceRespons" +
-      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022V\n\006status\030\002 \002(\0162F.com.l" +
-      "vl6.proto.PostToMarketplaceResponseProto" +
-      ".PostToMarketplaceStatus\"\353\001\n\027PostToMarke" +
-      "tplaceStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_PO" +
-      "ST\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_C" +
-      "OST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREADY_MAX_M" +
-      "ARKETPLACE_POSTS\020\005\022\023\n\017NOT_ENOUGH_WOOD\020\006\022" +
-      "\027\n\023NOT_ENOUGH_DIAMONDS\020\007\022\024\n\020NOT_ENOUGH_C",
-      "OINS\020\010\022\016\n\nOTHER_FAIL\020\t\"q\n\"RetractMarketp" +
-      "lacePostRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022\031\n\021market" +
-      "placePostId\030\002 \002(\005\"\337\002\n#RetractMarketplace" +
-      "PostResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022`\n\006status\030\002 " +
-      "\002(\0162P.com.lvl6.proto.RetractMarketplaceP" +
-      "ostResponseProto.RetractMarketplacePostS" +
-      "tatus\"\243\001\n\034RetractMarketplacePostStatus\022\013" +
-      "\n\007SUCCESS\020\000\022\027\n\023NOT_REQUESTERS_POST\020\001\022\031\n\025",
-      "POST_NO_LONGER_EXISTS\020\002\022\023\n\017NOT_ENOUGH_WO" +
-      "OD\020\003\022\027\n\023NOT_ENOUGH_DIAMONDS\020\004\022\024\n\020NOT_ENO" +
-      "UGH_COINS\020\005\"\204\001\n#PurchaseFromMarketplaceR" +
-      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022\031\n\021marketplacePost" +
-      "Id\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\311\002\n$PurchaseF" +
-      "romMarketplaceResponseProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022b\n" +
-      "\006status\030\002 \002(\0162R.com.lvl6.proto.PurchaseF" +
-      "romMarketplaceResponseProto.PurchaseFrom",
-      "MarketplaceStatus\"\212\001\n\035PurchaseFromMarket" +
-      "placeStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_M" +
-      "ATERIALS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n" +
-      "\023PURCHASER_IS_SELLER\020\003\022\016\n\nOTHER_FAIL\020\004\"\340" +
-      "\001\n\031UseSkillPointRequestProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022F" +
-      "\n\tboostType\030\002 \002(\01623.com.lvl6.proto.UseSk" +
-      "illPointRequestProto.BoostType\"I\n\tBoostT" +
-      "ype\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY\020\002" +
-      "\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkillPo",
-      "intResponseProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022N\n\006status\030\002 \002" +
-      "(\0162>.com.lvl6.proto.UseSkillPointRespons" +
-      "eProto.UseSkillPointStatus\"O\n\023UseSkillPo" +
-      "intStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_SKI" +
-      "LL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\223\001\n\036Generate" +
-      "AttackListRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022+\n\tenem" +
-      "yType\030\002 \001(\0162\030.com.lvl6.proto.UserType\022\022\n" +
-      "\nnumEnemies\030\003 \001(\005\"\203\001\n\037GenerateAttackList",
-      "ResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022.\n\007enemies\030\002 \003(\013" +
-      "2\035.com.lvl6.proto.FullUserProto\"\333\001\n\"Refi" +
-      "llStatWithDiamondsRequestProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022M\n\010statType\030\002 \002(\0162;.com.lvl6.proto.Refi" +
-      "llStatWithDiamondsRequestProto.StatType\022" +
-      "\017\n\007curTime\030\003 \002(\003\"#\n\010StatType\022\n\n\006ENERGY\020\000" +
-      "\022\013\n\007STAMINA\020\001\"\210\002\n#RefillStatWithDiamonds" +
-      "ResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6",
-      ".proto.MinimumUserProto\022T\n\006status\030\002 \002(\0162" +
-      "D.com.lvl6.proto.RefillStatWithDiamondsR" +
-      "esponseProto.RefillStatStatus\"Y\n\020RefillS" +
-      "tatStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIA" +
-      "MONDS\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003" +
-      "\"Y\n%RedeemMarketplaceEarningsRequestProt" +
+      "pId\030\003 \001(\005\022\026\n\016postedDiamonds\030\004 \001(\005\022\023\n\013pos" +
+      "tedCoins\030\005 \001(\005\022\023\n\013diamondCost\030\006 \001(\005\022\020\n\010c" +
+      "oinCost\030\007 \001(\005\"\203\003\n\036PostToMarketplaceRespo",
+      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022V\n\006status\030\002 \002(\0162F.com" +
+      ".lvl6.proto.PostToMarketplaceResponsePro" +
+      "to.PostToMarketplaceStatus\"\326\001\n\027PostToMar" +
+      "ketplaceStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_" +
+      "POST\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE" +
+      "_COST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREADY_MAX" +
+      "_MARKETPLACE_POSTS\020\005\022\027\n\023NOT_ENOUGH_DIAMO" +
+      "NDS\020\006\022\024\n\020NOT_ENOUGH_COINS\020\007\022\016\n\nOTHER_FAI" +
+      "L\020\010\"q\n\"RetractMarketplacePostRequestProt",
       "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\"\202\002\n&RedeemMarketplaceEarning" +
-      "sResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022f\n\006status\030\002 \002(\016",
-      "2V.com.lvl6.proto.RedeemMarketplaceEarni" +
-      "ngsResponseProto.RedeemMarketplaceEarnin" +
-      "gsStatus\">\n\037RedeemMarketplaceEarningsSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n\032Loa" +
-      "dPlayerCityRequestProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\0223\n\tcit" +
-      "yOwner\030\002 \002(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\"\220\006\n\033LoadPlayerCityResponseProto\0220" +
+      "umUserProto\022\031\n\021marketplacePostId\030\002 \002(\005\"\337" +
+      "\002\n#RetractMarketplacePostResponseProto\0220" +
       "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022P\n\006status\030\002 \002(\0162@.com.lvl6.prot",
-      "o.LoadPlayerCityResponseProto.LoadPlayer" +
-      "CityStatus\022@\n\020ownerNormStructs\030\003 \003(\0132&.c" +
-      "om.lvl6.proto.FullUserStructureProto\0222\n\013" +
-      "ownerAllies\030\004 \003(\0132\035.com.lvl6.proto.FullU" +
-      "serProto\0227\n\006armory\030\005 \001(\0132\'.com.lvl6.prot" +
-      "o.FullUserCritstructProto\0226\n\005vault\030\006 \001(\013" +
-      "2\'.com.lvl6.proto.FullUserCritstructProt" +
-      "o\022<\n\013marketplace\030\007 \001(\0132\'.com.lvl6.proto." +
-      "FullUserCritstructProto\022;\n\nlumbermill\030\010 " +
-      "\002(\0132\'.com.lvl6.proto.FullUserCritstructP",
-      "roto\022:\n\tcarpenter\030\t \002(\0132\'.com.lvl6.proto" +
-      ".FullUserCritstructProto\0227\n\006aviary\030\n \002(\013" +
-      "2\'.com.lvl6.proto.FullUserCritstructProt" +
+      "serProto\022`\n\006status\030\002 \002(\0162P.com.lvl6.prot" +
+      "o.RetractMarketplacePostResponseProto.Re" +
+      "tractMarketplacePostStatus\"\243\001\n\034RetractMa" +
+      "rketplacePostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_" +
+      "REQUESTERS_POST\020\001\022\031\n\025POST_NO_LONGER_EXIS" +
+      "TS\020\002\022\023\n\017NOT_ENOUGH_WOOD\020\003\022\027\n\023NOT_ENOUGH_",
+      "DIAMONDS\020\004\022\024\n\020NOT_ENOUGH_COINS\020\005\"\204\001\n#Pur" +
+      "chaseFromMarketplaceRequestProto\0220\n\006send" +
+      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
+      "to\022\031\n\021marketplacePostId\030\002 \002(\005\022\020\n\010posterI" +
+      "d\030\003 \002(\005\"\311\002\n$PurchaseFromMarketplaceRespo" +
+      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022b\n\006status\030\002 \002(\0162R.com" +
+      ".lvl6.proto.PurchaseFromMarketplaceRespo" +
+      "nseProto.PurchaseFromMarketplaceStatus\"\212" +
+      "\001\n\035PurchaseFromMarketplaceStatus\022\013\n\007SUCC",
+      "ESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\031\n\025POST_" +
+      "NO_LONGER_EXISTS\020\002\022\027\n\023PURCHASER_IS_SELLE" +
+      "R\020\003\022\016\n\nOTHER_FAIL\020\004\"\340\001\n\031UseSkillPointReq" +
+      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022F\n\tboostType\030\002 \002(\01623" +
+      ".com.lvl6.proto.UseSkillPointRequestProt" +
+      "o.BoostType\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n\007" +
+      "DEFENSE\020\001\022\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STA" +
+      "MINA\020\004\"\357\001\n\032UseSkillPointResponseProto\0220\n" +
+      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs",
+      "erProto\022N\n\006status\030\002 \002(\0162>.com.lvl6.proto" +
+      ".UseSkillPointResponseProto.UseSkillPoin" +
+      "tStatus\"O\n\023UseSkillPointStatus\022\013\n\007SUCCES" +
+      "S\020\000\022\033\n\027NOT_ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTHE" +
+      "R_FAIL\020\002\"\223\001\n\036GenerateAttackListRequestPr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022+\n\tenemyType\030\002 \001(\0162\030.com.l" +
+      "vl6.proto.UserType\022\022\n\nnumEnemies\030\003 \001(\005\"\203" +
+      "\001\n\037GenerateAttackListResponseProto\0220\n\006se" +
+      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP",
+      "roto\022.\n\007enemies\030\002 \003(\0132\035.com.lvl6.proto.F" +
+      "ullUserProto\"\333\001\n\"RefillStatWithDiamondsR" +
+      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022M\n\010statType\030\002 \002(\0162" +
+      ";.com.lvl6.proto.RefillStatWithDiamondsR" +
+      "equestProto.StatType\022\017\n\007curTime\030\003 \002(\003\"#\n" +
+      "\010StatType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\210\002\n#R" +
+      "efillStatWithDiamondsResponseProto\0220\n\006se" +
+      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022T\n\006status\030\002 \002(\0162D.com.lvl6.proto.Re",
+      "fillStatWithDiamondsResponseProto.Refill" +
+      "StatStatus\"Y\n\020RefillStatStatus\022\013\n\007SUCCES" +
+      "S\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\017\n\013ALREADY_" +
+      "MAX\020\002\022\016\n\nOTHER_FAIL\020\003\"Y\n%RedeemMarketpla" +
+      "ceEarningsRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\"\202\002\n&Red" +
+      "eemMarketplaceEarningsResponseProto\0220\n\006s" +
+      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022f\n\006status\030\002 \002(\0162V.com.lvl6.proto.R" +
+      "edeemMarketplaceEarningsResponseProto.Re",
+      "deemMarketplaceEarningsStatus\">\n\037RedeemM" +
+      "arketplaceEarningsStatus\022\013\n\007SUCCESS\020\000\022\016\n" +
+      "\nOTHER_FAIL\020\001\"\203\001\n\032LoadPlayerCityRequestP" +
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\0223\n\tcityOwner\030\002 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\"\323\005\n\033LoadPlay" +
+      "erCityResponseProto\0220\n\006sender\030\001 \002(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022P\n\006status\030" +
+      "\002 \002(\0162@.com.lvl6.proto.LoadPlayerCityRes" +
+      "ponseProto.LoadPlayerCityStatus\022@\n\020owner",
+      "NormStructs\030\003 \003(\0132&.com.lvl6.proto.FullU" +
+      "serStructureProto\0222\n\013ownerAllies\030\004 \003(\0132\035" +
+      ".com.lvl6.proto.FullUserProto\0227\n\006armory\030" +
+      "\005 \001(\0132\'.com.lvl6.proto.FullUserCritstruc" +
+      "tProto\0226\n\005vault\030\006 \001(\0132\'.com.lvl6.proto.F" +
+      "ullUserCritstructProto\022<\n\013marketplace\030\007 " +
+      "\001(\0132\'.com.lvl6.proto.FullUserCritstructP" +
+      "roto\022:\n\tcarpenter\030\010 \002(\0132\'.com.lvl6.proto" +
+      ".FullUserCritstructProto\0227\n\006aviary\030\t \002(\013" +
+      "2\'.com.lvl6.proto.FullUserCritstructProt",
       "o\022M\n\025userCityExpansionData\030\013 \001(\0132..com.l" +
       "vl6.proto.FullUserCityExpansionDataProto" +
       "\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCESS\020\000\022\022\n" +
       "\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027Que" +
       "stAcceptRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
       "om.lvl6.proto.MinimumUserProto\022\017\n\007questI" +
-      "d\030\002 \002(\005\"\341\001\n\030QuestAcceptResponseProto\0220\n\006",
+      "d\030\002 \002(\005\"\341\001\n\030QuestAcceptResponseProto\0220\n\006" +
       "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
       "rProto\022J\n\006status\030\002 \002(\0162:.com.lvl6.proto." +
-      "QuestAcceptResponseProto.QuestAcceptStat" +
+      "QuestAcceptResponseProto.QuestAcceptStat",
       "us\"G\n\021QuestAcceptStatus\022\013\n\007SUCCESS\020\000\022\025\n\021" +
       "NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"}\n\032Q" +
       "uestCompleteResponseProto\0220\n\006sender\030\001 \002(" +
       "\0132 .com.lvl6.proto.MinimumUserProto\022-\n\005q" +
       "uest\030\002 \002(\0132\036.com.lvl6.proto.FullQuestPro" +
       "to\"\\\n\027QuestRedeemRequestProto\0220\n\006sender\030" +
-      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022",
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
       "\017\n\007questId\030\002 \002(\005\"\234\002\n\030QuestRedeemResponse" +
       "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022>\n\026updatedAvailableQuest" +
+      "inimumUserProto\022>\n\026updatedAvailableQuest",
       "s\030\002 \003(\0132\036.com.lvl6.proto.FullQuestProto\022" +
       "J\n\006status\030\003 \002(\0162:.com.lvl6.proto.QuestRe" +
       "deemResponseProto.QuestRedeemStatus\"B\n\021Q" +
       "uestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_COM" +
       "PLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033QuestLogDetai" +
       "lsRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\"\247\002\n\034QuestLogDet",
+      "6.proto.MinimumUserProto\"\247\002\n\034QuestLogDet" +
       "ailsResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
       "lvl6.proto.MinimumUserProto\022L\n\027inProgres" +
-      "sUserQuestData\030\002 \003(\0132+.com.lvl6.proto.Fu" +
+      "sUserQuestData\030\002 \003(\0132+.com.lvl6.proto.Fu",
       "llUserQuestDataLargeProto\022R\n\006status\030\003 \002(" +
       "\0162B.com.lvl6.proto.QuestLogDetailsRespon" +
       "seProto.QuestLogDetailsStatus\"3\n\025QuestLo" +
       "gDetailsStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL" +
       "\020\001\"\231\002\n\036RetrieveStaticDataRequestProto\0220\n" +
       "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003 ",
+      "erProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003 " +
       "\003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020" +
       "\n\010equipIds\030\006 \003(\005\022\031\n\021buildStructJobIds\030\014 " +
-      "\003(\005\022\030\n\020defeatTypeJobIds\030\r \003(\005\022\032\n\022possess" +
+      "\003(\005\022\030\n\020defeatTypeJobIds\030\r \003(\005\022\032\n\022possess",
       "EquipJobIds\030\016 \003(\005\022\033\n\023upgradeStructJobIds" +
       "\030\017 \003(\005\"\323\005\n\037RetrieveStaticDataResponsePro" +
       "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
       "mumUserProto\0223\n\007structs\030\002 \003(\0132\".com.lvl6" +
       ".proto.FullStructureProto\022,\n\005tasks\030\003 \003(\013" +
       "2\035.com.lvl6.proto.FullTaskProto\022.\n\006quest" +
-      "s\030\004 \003(\0132\036.com.lvl6.proto.FullQuestProto\022",
+      "s\030\004 \003(\0132\036.com.lvl6.proto.FullQuestProto\022" +
       "-\n\006cities\030\005 \003(\0132\035.com.lvl6.proto.FullCit" +
       "yProto\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.proto." +
-      "FullEquipProto\022<\n\017buildStructJobs\030\014 \003(\0132" +
+      "FullEquipProto\022<\n\017buildStructJobs\030\014 \003(\0132",
       "#.com.lvl6.proto.BuildStructJobProto\022:\n\016" +
       "defeatTypeJobs\030\r \003(\0132\".com.lvl6.proto.De" +
       "featTypeJobProto\022>\n\020possessEquipJobs\030\016 \003" +
       "(\0132$.com.lvl6.proto.PossessEquipJobProto" +
       "\022@\n\021upgradeStructJobs\030\017 \003(\0132%.com.lvl6.p" +
       "roto.UpgradeStructJobProto\022X\n\006status\030\007 \002" +
-      "(\0162H.com.lvl6.proto.RetrieveStaticDataRe",
+      "(\0162H.com.lvl6.proto.RetrieveStaticDataRe" +
       "sponseProto.RetrieveStaticDataStatus\"6\n\030" +
       "RetrieveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n" +
-      "\tSOME_FAIL\020\001\"\244\001\n!PurchaseCityExpansionRe" +
+      "\tSOME_FAIL\020\001\"\244\001\n!PurchaseCityExpansionRe",
       "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
       "oto.MinimumUserProto\0225\n\tdirection\030\002 \002(\0162" +
       "\".com.lvl6.proto.ExpansionDirection\022\026\n\016t" +
       "imeOfPurchase\030\003 \002(\003\"\237\002\n\"PurchaseCityExpa" +
       "nsionResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
       ".lvl6.proto.MinimumUserProto\022^\n\006status\030\002" +
-      " \002(\0162N.com.lvl6.proto.PurchaseCityExpans",
+      " \002(\0162N.com.lvl6.proto.PurchaseCityExpans" +
       "ionResponseProto.PurchaseCityExpansionSt" +
       "atus\"g\n\033PurchaseCityExpansionStatus\022\013\n\007S" +
-      "UCCESS\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREAD" +
+      "UCCESS\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREAD",
       "Y_EXPANDING\020\002\022\016\n\nOTHER_FAIL\020\003\"f\n!Expansi" +
       "onWaitCompleteRequestProto\0220\n\006sender\030\001 \002" +
       "(\0132 .com.lvl6.proto.MinimumUserProto\022\017\n\007" +
       "curTime\030\002 \002(\003\"\233\002\n\"ExpansionWaitCompleteR" +
       "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
       "proto.MinimumUserProto\022^\n\006status\030\002 \002(\0162N" +
-      ".com.lvl6.proto.ExpansionWaitCompleteRes",
+      ".com.lvl6.proto.ExpansionWaitCompleteRes" +
       "ponseProto.ExpansionWaitCompleteStatus\"c" +
       "\n\033ExpansionWaitCompleteStatus\022\013\n\007SUCCESS" +
-      "\020\000\022\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YE" +
+      "\020\000\022\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YE",
       "T\020\002\022\016\n\nOTHER_FAIL\020\003\"\373\001\n\"RefillStatWaitCo" +
       "mpleteRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
       ".lvl6.proto.MinimumUserProto\022\017\n\007curTime\030" +
       "\002 \002(\003\022[\n\004type\030\003 \002(\0162M.com.lvl6.proto.Ref" +
       "illStatWaitCompleteRequestProto.RefillSt" +
       "atWaitCompleteType\"5\n\032RefillStatWaitComp" +
-      "leteType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\232\002\n#Re",
+      "leteType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\232\002\n#Re" +
       "fillStatWaitCompleteResponseProto\0220\n\006sen" +
       "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022`\n\006status\030\002 \002(\0162P.com.lvl6.proto.Ref" +
+      "oto\022`\n\006status\030\002 \002(\0162P.com.lvl6.proto.Ref",
       "illStatWaitCompleteResponseProto.RefillS" +
       "tatWaitCompleteStatus\"_\n\034RefillStatWaitC" +
       "ompleteStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READY_" +
@@ -55496,7 +55217,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "PostType", "PostedEquipId", "PostedWood", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", "WoodCost", },
+              new java.lang.String[] { "Sender", "PostType", "PostedEquipId", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", },
               com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.class,
               com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.Builder.class);
           internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor =
@@ -55616,7 +55337,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LoadPlayerCityResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "OwnerNormStructs", "OwnerAllies", "Armory", "Vault", "Marketplace", "Lumbermill", "Carpenter", "Aviary", "UserCityExpansionData", },
+              new java.lang.String[] { "Sender", "Status", "OwnerNormStructs", "OwnerAllies", "Armory", "Vault", "Marketplace", "Carpenter", "Aviary", "UserCityExpansionData", },
               com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.class,
               com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.Builder.class);
           internal_static_com_lvl6_proto_QuestAcceptRequestProto_descriptor =

@@ -41,7 +41,6 @@ public class PostToMarketplaceController extends EventController {
 
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
-    int woodCost = reqProto.getWoodCost();
 
     PostToMarketplaceResponseProto.Builder resBuilder = PostToMarketplaceResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -58,7 +57,7 @@ public class PostToMarketplaceController extends EventController {
       }
 
       boolean legitPost = checkLegitPost(postType, user, resBuilder, reqProto, diamondCost, 
-          coinCost, woodCost, ue);
+          coinCost, ue);
 
       PostToMarketplaceResponseEvent resEvent = new PostToMarketplaceResponseEvent(senderProto.getUserId());
       resEvent.setPostToMarketplaceResponseProto(resBuilder.build());  
@@ -67,8 +66,7 @@ public class PostToMarketplaceController extends EventController {
       if (legitPost) {
         int postedDiamonds = Math.max(reqProto.getPostedDiamonds(), 0);
         int postedCoins = Math.max(reqProto.getPostedCoins(), 0);
-        int postedWood = Math.max(reqProto.getPostedWood(), 0);
-        writeChangesToDB(user, reqProto, postedDiamonds, postedCoins, postedWood, ue);
+        writeChangesToDB(user, reqProto, postedDiamonds, postedCoins, ue);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         server.writeEvent(resEventUpdate);
       }
@@ -81,27 +79,25 @@ public class PostToMarketplaceController extends EventController {
   }
 
   private boolean checkLegitPost(MarketplacePostType postType, User user, Builder resBuilder, 
-      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, int woodCost, 
-      UserEquip userEquip) {
+      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip) {
     if (user.getNumPostsInMarketplace() == ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER) {
       resBuilder.setStatus(PostToMarketplaceStatus.USER_ALREADY_MAX_MARKETPLACE_POSTS);
       return false;      
     }
-    if (diamondCost < 0 || coinCost < 0 || woodCost < 0) {
+    if (diamondCost < 0 || coinCost < 0) {
       resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_COST);
       return false;
     }
-    if (diamondCost == 0 && coinCost == 0 && woodCost == 0) {
+    if (diamondCost == 0 && coinCost == 0) {
       resBuilder.setStatus(PostToMarketplaceStatus.NO_COST);
       return false;
     }
-    if (reqProto.getPostedCoins() < 0 || reqProto.getPostedDiamonds() < 0 || 
-        reqProto.getPostedWood() < 0) {
+    if (reqProto.getPostedCoins() < 0 || reqProto.getPostedDiamonds() < 0) {
       resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_POST);
       return false;
     }
     if (reqProto.getPostedCoins() == 0 && reqProto.getPostedDiamonds() == 0 && 
-        reqProto.getPostedWood() == 0 && reqProto.getPostType() != MarketplacePostType.EQUIP_POST) {
+        reqProto.getPostType() != MarketplacePostType.EQUIP_POST) {
       resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_POST);
       return false;
     }
@@ -113,11 +109,6 @@ public class PostToMarketplaceController extends EventController {
     } else if (postType == MarketplacePostType.DIAMOND_POST) {
       if (user.getDiamonds() < reqProto.getPostedDiamonds()) {
         resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_DIAMONDS);
-        return false;
-      }      
-    } else if (postType == MarketplacePostType.WOOD_POST) {
-      if (user.getWood() < reqProto.getPostedWood()) {
-        resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_WOOD);
         return false;
       }      
     } else if (postType == MarketplacePostType.EQUIP_POST) {
@@ -135,10 +126,10 @@ public class PostToMarketplaceController extends EventController {
   }
 
   private void writeChangesToDB(User user, PostToMarketplaceRequestProto reqProto, 
-      int diamondChange, int coinChange, int woodChange, UserEquip ue) {
+      int diamondChange, int coinChange, UserEquip ue) {
 
-    if (diamondChange > 0 || coinChange > 0 || woodChange > 0) {
-      if (!user.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(diamondChange*-1, coinChange*-1, woodChange*-1, 1)) {
+    if (diamondChange > 0 || coinChange > 0) {
+      if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange*-1, coinChange*-1, 1)) {
         log.error("problem with updating user stats post-marketplace-post");
       }
     }
@@ -152,15 +143,13 @@ public class PostToMarketplaceController extends EventController {
     int posterId = reqProto.getSender().getUserId();
     MarketplacePostType postType = reqProto.getPostType();
     int postedEquipId = reqProto.getPostedEquipId();
-    int postedWood = reqProto.getPostedWood();
     int postedDiamonds = reqProto.getPostedDiamonds();
     int postedCoins = reqProto.getPostedCoins();
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
-    int woodCost = reqProto.getWoodCost();
     if (!InsertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
-        postedWood, postedDiamonds, postedCoins, diamondCost, 
-        coinCost, woodCost)) {
+        postedDiamonds, postedCoins, diamondCost, 
+        coinCost)) {
       log.error("problem with inserting into marketplace");      
     }
   } 

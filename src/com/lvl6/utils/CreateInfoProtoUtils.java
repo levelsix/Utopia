@@ -105,7 +105,7 @@ public class CreateInfoProtoUtils {
 
     return FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
         .setDescription(description).setDoneResponse(doneResponse).setInProgress(inProgress).setAssetNumWithinCity(quest.getAssetNumWithinCity())
-        .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained()).setWoodGained(quest.getWoodGained())
+        .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained())
         .setExpGained(quest.getExpGained()).setEquipIdGained(quest.getEquipIdGained()).addAllQuestsRequiredForThis(quest.getQuestsRequiredForThis())
         .addAllTaskReqs(quest.getTasksRequired()).addAllUpgradeStructJobsReqs(quest.getUpgradeStructJobsRequired())
         .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired())
@@ -127,17 +127,11 @@ public class CreateInfoProtoUtils {
       builder.setPostedEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(
           EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
     }
-    if (mp.getPostType() == MarketplacePostType.WOOD_POST) {
-      builder.setPostedWood(mp.getPostedWood());
-    }
     if (mp.getDiamondCost() != MarketplacePost.NOT_SET) {
       builder.setDiamondCost(mp.getDiamondCost());
     }
     if (mp.getCoinCost() != MarketplacePost.NOT_SET) {
       builder.setCoinCost(mp.getCoinCost());
-    }
-    if (mp.getWoodCost() != MarketplacePost.NOT_SET) {
-      builder.setWoodCost(mp.getWoodCost());
     }
     return builder.build();
   }
@@ -169,8 +163,8 @@ public class CreateInfoProtoUtils {
         .setIsLastEnergyStateFull(u.isLastEnergyStateFull())
         .setSkillPoints(u.getSkillPoints()).setHealthMax(u.getHealthMax())
         .setEnergyMax(u.getEnergyMax()).setStaminaMax(u.getStaminaMax()).setDiamonds(u.getDiamonds())
-        .setCoins(u.getCoins()).setWood(u.getWood()).setMarketplaceDiamondsEarnings(u.getMarketplaceDiamondsEarnings())
-        .setMarketplaceCoinsEarnings(u.getMarketplaceCoinsEarnings()).setMarketplaceWoodEarnings(u.getMarketplaceWoodEarnings())
+        .setCoins(u.getCoins()).setMarketplaceDiamondsEarnings(u.getMarketplaceDiamondsEarnings())
+        .setMarketplaceCoinsEarnings(u.getMarketplaceCoinsEarnings())
         .setVaultBalance(u.getVaultBalance()).setExperience(u.getEnergyMax())
         .setTasksCompleted(u.getTasksCompleted()).setBattlesWon(u.getBattlesWon())
         .setBattlesLost(u.getBattlesLost()).setHourlyCoins(u.getHourlyCoins())
@@ -261,9 +255,9 @@ public class CreateInfoProtoUtils {
     return FullStructureProto.newBuilder().setStructId(s.getId()).setName(s.getName()).setIncome(s.getIncome())
         .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(s.getMinutesToBuild())
         .setMinutesToUpgradeBase(s.getMinutesToUpgradeBase()).setCoinPrice(s.getCoinPrice())
-        .setDiamondPrice(s.getDiamondPrice()).setWoodPrice(s.getWoodPrice()).setMinLevel(s.getMinLevel())
+        .setDiamondPrice(s.getDiamondPrice()).setMinLevel(s.getMinLevel())
         .setXLength(s.getxLength()).setYLength(s.getyLength()).setUpgradeCoinCostBase(s.getUpgradeCoinCostBase())
-        .setUpgradeDiamondCostBase(s.getDiamondPrice()).setUpgradeWoodCostBase(s.getUpgradeWoodCostBase())
+        .setUpgradeDiamondCostBase(s.getDiamondPrice())
         .setInstaBuildDiamondCostBase(s.getInstaBuildDiamondCostBase())
         .setInstaRetrieveDiamondCostBase(s.getInstaRetrieveDiamondCostBase())
         .setInstaUpgradeDiamondCostBase(s.getInstaUpgradeDiamondCostBase()).build();

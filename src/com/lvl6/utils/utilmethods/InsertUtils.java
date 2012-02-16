@@ -117,17 +117,13 @@ public class InsertUtils {
   }
 
   public static boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
-      int postedEquipId, int postedWood, 
-      int postedDiamonds, int postedCoins, int diamondCost, int coinCost, int woodCost) {
+      int postedEquipId, int postedDiamonds, int postedCoins, int diamondCost, int coinCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType.getNumber());
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
-    }
-    if (postType == MarketplacePostType.WOOD_POST) {
-      insertParams.put(DBConstants.MARKETPLACE__POSTED_WOOD, postedWood);
     }
     if (postType == MarketplacePostType.DIAMOND_POST) {
       insertParams.put(DBConstants.MARKETPLACE__POSTED_DIAMONDS, postedDiamonds);
@@ -140,9 +136,6 @@ public class InsertUtils {
     }
     if (coinCost > 0) {
       insertParams.put(DBConstants.MARKETPLACE__COIN_COST, coinCost);
-    }
-    if (woodCost > 0) {
-      insertParams.put(DBConstants.MARKETPLACE__WOOD_COST, woodCost);
     }
 
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE, insertParams);
@@ -169,9 +162,6 @@ public class InsertUtils {
     if (postType == MarketplacePostType.EQUIP_POST) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
     }
-    if (postType == MarketplacePostType.WOOD_POST) {
-      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_WOOD, mp.getPostedWood());
-    }
     if (postType == MarketplacePostType.DIAMOND_POST) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_DIAMONDS, mp.getPostedDiamonds());
     }
@@ -183,9 +173,6 @@ public class InsertUtils {
     }
     if (mp.getCoinCost() > 0) {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__COIN_COST, mp.getCoinCost());
-    }
-    if (mp.getWoodCost() > 0) {
-      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__WOOD_COST, mp.getWoodCost());
     }
 
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY, insertParams);

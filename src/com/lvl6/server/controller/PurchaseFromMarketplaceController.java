@@ -92,10 +92,8 @@ public class PurchaseFromMarketplaceController extends EventController {
     }
     int totalSellerDiamondChange = 0;
     int totalSellerCoinChange = 0;
-    int totalSellerWoodChange = 0;
     int totalBuyerDiamondChange = 0;
     int totalBuyerCoinChange = 0;
-    int totalBuyerWoodChange = 0;
 
     if (mp.getDiamondCost() > 0) {
       totalSellerDiamondChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getDiamondCost());
@@ -104,10 +102,6 @@ public class PurchaseFromMarketplaceController extends EventController {
     if (mp.getCoinCost() > 0) {
       totalSellerCoinChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getCoinCost());
       totalBuyerCoinChange -= mp.getCoinCost();      
-    }
-    if (mp.getWoodCost() > 0) {
-      totalSellerWoodChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getWoodCost());;
-      totalBuyerWoodChange -= mp.getWoodCost();   
     }
 
     MarketplacePostType postType = mp.getPostType();
@@ -118,19 +112,15 @@ public class PurchaseFromMarketplaceController extends EventController {
     if (postType == MarketplacePostType.COIN_POST) {
       totalBuyerCoinChange += mp.getPostedCoins();
     }
-    if (postType == MarketplacePostType.WOOD_POST) {
-      totalBuyerWoodChange += mp.getPostedWood();
-    }
 
-    if (totalSellerDiamondChange != 0 || totalSellerCoinChange != 0 || 
-        totalSellerWoodChange != 0) {
-      if (!seller.updateRelativeDiamondsearningsCoinsearningsWoodearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive(totalSellerDiamondChange, totalSellerCoinChange, totalSellerWoodChange, -1, 1)) {
+    if (totalSellerDiamondChange != 0 || totalSellerCoinChange != 0) {
+      if (!seller.updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive(totalSellerDiamondChange, totalSellerCoinChange, -1, 1)) {
         log.error("problem with giving seller postmarketplace results");
       }
     }
-    if (totalBuyerDiamondChange != 0 || totalBuyerCoinChange != 0 || 
-        totalBuyerWoodChange != 0) {
-      if (!buyer.updateRelativeDiamondsCoinsWoodNumpostsinmarketplaceNaive(totalBuyerDiamondChange, totalBuyerCoinChange, totalBuyerWoodChange, 0)) {
+    if (totalBuyerDiamondChange != 0 || totalBuyerCoinChange != 0)
+    {
+      if (!buyer.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(totalBuyerDiamondChange, totalBuyerCoinChange, 0)) {
         log.error("problem with giving buyer postmarketplace results");
       }
     }
@@ -174,12 +164,6 @@ public class PurchaseFromMarketplaceController extends EventController {
         resBuilder.setStatus(PurchaseFromMarketplaceStatus.NOT_ENOUGH_MATERIALS);
         return false;
       }
-    }
-    if (mp.getWoodCost() > 0) {
-      if (buyer.getWood() < mp.getWoodCost()) {
-        resBuilder.setStatus(PurchaseFromMarketplaceStatus.NOT_ENOUGH_MATERIALS);
-        return false;
-      }      
     }
     resBuilder.setStatus(PurchaseFromMarketplaceStatus.SUCCESS);
     return true;

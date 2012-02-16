@@ -17,7 +17,6 @@ public class Quest {
   private int assetNumWithinCity;
   private int coinsGained;
   private int diamondsGained;
-  private int woodGained;
   private int expGained;
   private int equipIdGained;
   private List<Integer> questsRequiredForThis;
@@ -31,7 +30,7 @@ public class Quest {
       String goodDescription, String badDescription, String goodDoneResponse,
       String badDoneResponse, String goodInProgress, String badInProgress,
       int assetNumWithinCity, int coinsGained, int diamondsGained,
-      int woodGained, int expGained, int equipIdGained,
+      int expGained, int equipIdGained,
       List<Integer> questsRequiredForThis, List<Integer> tasksRequired,
       List<Integer> upgradeStructJobsRequired,
       List<Integer> buildStructJobsRequired,
@@ -51,7 +50,6 @@ public class Quest {
     this.assetNumWithinCity = assetNumWithinCity;
     this.coinsGained = coinsGained;
     this.diamondsGained = diamondsGained;
-    this.woodGained = woodGained;
     this.expGained = expGained;
     this.equipIdGained = equipIdGained;
     this.questsRequiredForThis = questsRequiredForThis;
@@ -101,9 +99,6 @@ public class Quest {
   public int getDiamondsGained() {
     return diamondsGained;
   }
-  public int getWoodGained() {
-    return woodGained;
-  }
   public int getExpGained() {
     return expGained;
   }
@@ -140,7 +135,7 @@ public class Quest {
         + ", goodInProgress=" + goodInProgress + ", badInProgress="
         + badInProgress + ", assetNumWithinCity=" + assetNumWithinCity
         + ", coinsGained=" + coinsGained + ", diamondsGained=" + diamondsGained
-        + ", woodGained=" + woodGained + ", expGained=" + expGained
+        + ", expGained=" + expGained
         + ", equipIdGained=" + equipIdGained + ", questsRequiredForThis="
         + questsRequiredForThis + ", tasksRequired=" + tasksRequired
         + ", upgradeStructJobsRequired=" + upgradeStructJobsRequired

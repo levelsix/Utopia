@@ -70,8 +70,7 @@ public class RedeemMarketplaceEarningsController extends EventController {
       resBuilder.setStatus(RedeemMarketplaceEarningsStatus.OTHER_FAIL);
       return false;
     }
-    if (user.getMarketplaceCoinsEarnings() <= 0 && user.getMarketplaceDiamondsEarnings() <= 0
-        && user.getMarketplaceWoodEarnings() <= 0) {
+    if (user.getMarketplaceCoinsEarnings() <= 0 && user.getMarketplaceDiamondsEarnings() <= 0) {
       resBuilder.setStatus(RedeemMarketplaceEarningsStatus.OTHER_FAIL);
       return false;      
     }
