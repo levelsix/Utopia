@@ -40,7 +40,7 @@ public class EquipmentRetrieveUtils {
     List <Equipment> equips = new ArrayList<Equipment>();
     for (Integer equipId : equipIdToEquipment.keySet()) {
       Equipment equip = equipIdToEquipment.get(equipId);
-      if (equip.getClassType() == classtype && (equip.getDiamondPrice() > 0 || equip.getCoinPrice() > 0)) {
+      if (equip.getClassType() == classtype && equip.isAvailableInArmory()) {
         equips.add(equip);
       }
     }
@@ -105,13 +105,15 @@ public class EquipmentRetrieveUtils {
     float chanceOfLoss = rs.getFloat(i++);
     ClassType classType = ClassType.valueOf(rs.getInt(i++));
     Rarity rarity = Rarity.valueOf(rs.getInt(i++));
+    boolean availableInArmory = rs.getBoolean(i++);
+
     Equipment equip = null;
     if (coinPriceSet && !diamondPriceSet) {
-      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss, classType, rarity);
+      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss, classType, rarity, availableInArmory);
     } else if (diamondPriceSet && !coinPriceSet){
-      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity);      
+      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity, availableInArmory);      
     } else if (diamondPriceSet && coinPriceSet){
-      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, diamondPrice, chanceOfLoss, classType, rarity);            
+      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, diamondPrice, chanceOfLoss, classType, rarity, availableInArmory);            
     }
     //there should never be anything where diamondPrice and coinPriceSet are both false. even bandanas have both set to 0
     return equip;
