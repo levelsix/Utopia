@@ -138,7 +138,7 @@ public class User {
   /*
    * used for using diamonds to refill stat
    */
-  public boolean updateRelativeDiamondsRestoreStat (int diamondChange, StatType statType) {
+  public boolean updateRelativeDiamondsRestoreStatChangerefilltime (int diamondChange, StatType statType, Timestamp newRefillTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -147,9 +147,11 @@ public class User {
     
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (statType == StatType.ENERGY) {
-      absoluteParams.put(DBConstants.USER__ENERGY, energyMax);      
+      absoluteParams.put(DBConstants.USER__ENERGY, energyMax);
+      absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, newRefillTime);
     } else if (statType == StatType.STAMINA) {
       absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
+      absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, newRefillTime);
     }
     
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, 
@@ -157,8 +159,10 @@ public class User {
     if (numUpdated == 1) {
       if (statType == StatType.ENERGY) {
         this.energy = energyMax;
+        this.lastEnergyRefillTime = newRefillTime;
       } else if (statType == StatType.STAMINA) {
         this.stamina = staminaMax;
+        this.lastStaminaRefillTime = newRefillTime;
       }
       this.diamonds += diamondChange;
       return true;
@@ -626,5 +630,5 @@ public class User {
         + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
         + ", armorEquipped=" + armorEquipped + ", amuletEquipped="
         + amuletEquipped + "]";
-  }  
+  }
 }

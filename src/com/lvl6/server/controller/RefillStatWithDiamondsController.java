@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RefillStatWithDiamondsRequestEvent;
 import com.lvl6.events.response.RefillStatWithDiamondsResponseEvent;
@@ -34,6 +36,8 @@ public class RefillStatWithDiamondsController extends EventController{
 
     MinimumUserProto senderProto = reqProto.getSender();
     StatType statType = reqProto.getStatType();
+    Timestamp clientTime = new Timestamp(reqProto.getCurTime());
+
 
     RefillStatWithDiamondsResponseProto.Builder resBuilder = RefillStatWithDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -43,14 +47,14 @@ public class RefillStatWithDiamondsController extends EventController{
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());      
 
-      boolean legitRefill = checkLegitRefill(resBuilder, user, statType);
+      boolean legitRefill = checkLegitRefill(resBuilder, user, statType, clientTime);
 
       RefillStatWithDiamondsResponseEvent resEvent = new RefillStatWithDiamondsResponseEvent(senderProto.getUserId());
       resEvent.setRefillStatWithDiamondsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitRefill) {
-        writeChangesToDB(user, statType);
+        writeChangesToDB(user, statType, clientTime);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         server.writeEvent(resEventUpdate);
       }
@@ -62,21 +66,20 @@ public class RefillStatWithDiamondsController extends EventController{
 
   }
 
-  private void writeChangesToDB(User user, StatType statType) {
+  private void writeChangesToDB(User user, StatType statType, Timestamp clientTime) {
     int diamondChange = 0;
     if (statType == StatType.ENERGY) {
       diamondChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL;
     } else if (statType == StatType.STAMINA) {
       diamondChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL;
     }
-    if (!user.updateRelativeDiamondsRestoreStat(diamondChange*-1, statType)) {
+    if (!user.updateRelativeDiamondsRestoreStatChangerefilltime(diamondChange*-1, statType, clientTime)) {
       log.error("problem with using diamonds to restore stats");
     }
   }
 
-  private boolean checkLegitRefill(Builder resBuilder, User user,
-      StatType statType) {
-    if (user == null || statType == null) {
+  private boolean checkLegitRefill(Builder resBuilder, User user, StatType statType, Timestamp clientTime) {
+    if (user == null || statType == null || clientTime == null) {
       resBuilder.setStatus(RefillStatStatus.OTHER_FAIL);
       return false;
     }

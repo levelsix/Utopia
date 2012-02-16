@@ -79,14 +79,13 @@ public class StartupController extends EventController {
       User user = UserRetrieveUtils.getUserByUDID(udid);
       if (user != null) {
         startupStatus = StartupStatus.USER_IN_DB;
-        FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
-        resBuilder.setSender(fup);
 
         setCitiesAvailableToUser(resBuilder, user);
         setInProgressAndAvailableQuests(resBuilder, user);
         setUserEquipsAndEquips(resBuilder, user);
         setUserStructsAndStructs(resBuilder, user);
-
+        FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
+        resBuilder.setSender(fup);
       }
     }
     resBuilder.setStartupStatus(startupStatus);

@@ -613,6 +613,7 @@ message GenerateAttackListResponseProto {
 message RefillStatWithDiamondsRequestProto {
 	required MinimumUserProto sender = 1;
 	required StatType statType = 2;
+	required int64 curTime = 3;
 
 	enum StatType {
 		ENERGY = 0;
@@ -628,7 +629,8 @@ message RefillStatWithDiamondsResponseProto {
      enum RefillStatStatus {
      	SUCCESS = 0;
      	NOT_ENOUGH_DIAMONDS = 1;
-     	OTHER_FAIL = 2;
+     	ALREADY_MAX = 2;
+     	OTHER_FAIL = 3;
      }
 }
 
