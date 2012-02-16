@@ -20,8 +20,10 @@ public class User {
   private int defense;
   private int stamina;
   private Date lastStaminaRefillTime;
+  private boolean isLastStaminaStateFull;
   private int energy;
   private Date lastEnergyRefillTime;
+  private boolean isLastEnergyStateFull;
   private int skillPoints;
   private int healthMax;
   private int energyMax;
@@ -48,10 +50,12 @@ public class User {
   private int armorEquipped;
   private int amuletEquipped;
 
+  
   public User(int id, String name, int level, UserType type, int attack,
-      int defense, int stamina, Date lastStaminaRefillTime, int energy,
-      Date lastEnergyRefillTime, int skillPoints, int healthMax, int energyMax,
-      int staminaMax, int diamonds, int coins, int wood,
+      int defense, int stamina, Date lastStaminaRefillTime,
+      boolean isLastStaminaStateFull, int energy, Date lastEnergyRefillTime,
+      boolean isLastEnergyStateFull, int skillPoints, int healthMax,
+      int energyMax, int staminaMax, int diamonds, int coins, int wood,
       int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
       int marketplaceWoodEarnings, int vaultBalance, int experience,
       int tasksCompleted, int battlesWon, int battlesLost, int hourlyCoins,
@@ -66,8 +70,10 @@ public class User {
     this.defense = defense;
     this.stamina = stamina;
     this.lastStaminaRefillTime = lastStaminaRefillTime;
+    this.isLastStaminaStateFull = isLastStaminaStateFull;
     this.energy = energy;
     this.lastEnergyRefillTime = lastEnergyRefillTime;
+    this.isLastEnergyStateFull = isLastEnergyStateFull;
     this.skillPoints = skillPoints;
     this.healthMax = healthMax;
     this.energyMax = energyMax;
@@ -95,7 +101,6 @@ public class User {
     this.amuletEquipped = amuletEquipped;
   }
 
-  
   /*
    * used for refilling stats
    */
@@ -467,7 +472,9 @@ public class User {
     }
     return false;
   }
-
+  
+  
+  
   public int getId() {
     return id;
   }
@@ -500,12 +507,20 @@ public class User {
     return lastStaminaRefillTime;
   }
 
+  public boolean isLastStaminaStateFull() {
+    return isLastStaminaStateFull;
+  }
+
   public int getEnergy() {
     return energy;
   }
 
   public Date getLastEnergyRefillTime() {
     return lastEnergyRefillTime;
+  }
+
+  public boolean isLastEnergyStateFull() {
+    return isLastEnergyStateFull;
   }
 
   public int getSkillPoints() {
@@ -613,9 +628,10 @@ public class User {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
         + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
         + stamina + ", lastStaminaRefillTime=" + lastStaminaRefillTime
-        + ", energy=" + energy + ", lastEnergyRefillTime="
-        + lastEnergyRefillTime + ", skillPoints=" + skillPoints
-        + ", healthMax=" + healthMax + ", energyMax=" + energyMax
+        + ", isLastStaminaStateFull=" + isLastStaminaStateFull + ", energy="
+        + energy + ", lastEnergyRefillTime=" + lastEnergyRefillTime
+        + ", isLastEnergyStateFull=" + isLastEnergyStateFull + ", skillPoints="
+        + skillPoints + ", healthMax=" + healthMax + ", energyMax=" + energyMax
         + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
         + coins + ", wood=" + wood + ", marketplaceDiamondsEarnings="
         + marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="

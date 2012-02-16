@@ -145,6 +145,7 @@ public class UserRetrieveUtils {
       lastStaminaRefillTime = new Date(ts.getTime());
     }
     
+    boolean isLastStaminaStateFull = rs.getBoolean(i++);
     int energy = rs.getInt(i++);
     
     Date lastEnergyRefillTime = null;
@@ -152,7 +153,8 @@ public class UserRetrieveUtils {
     if (!rs.wasNull()) {
       lastEnergyRefillTime = new Date(ts.getTime());
     }
-    
+
+    boolean isLastEnergyStateFull = rs.getBoolean(i++);
     int skillPoints = rs.getInt(i++);
     int healthMax = rs.getInt(i++);
     int energyMax = rs.getInt(i++);
@@ -190,8 +192,8 @@ public class UserRetrieveUtils {
     }
     
 
-    User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
-        skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
+    User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
+        isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, wood, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         marketplaceWoodEarnings, vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped);

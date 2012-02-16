@@ -163,7 +163,10 @@ public class CreateInfoProtoUtils {
   public static FullUserProto createFullUserProtoFromUser(User u) {
     FullUserProto.Builder builder = FullUserProto.newBuilder().setUserId(u.getId()).setName(u.getName())
         .setLevel(u.getLevel()).setUserType(u.getType()).setAttack(u.getAttack())
-        .setDefense(u.getDefense()).setStamina(u.getStamina()).setEnergy(u.getEnergy())
+        .setDefense(u.getDefense()).setStamina(u.getStamina())
+        .setIsLastStaminaStateFull(u.isLastStaminaStateFull())
+        .setEnergy(u.getEnergy())
+        .setIsLastEnergyStateFull(u.isLastEnergyStateFull())
         .setSkillPoints(u.getSkillPoints()).setHealthMax(u.getHealthMax())
         .setEnergyMax(u.getEnergyMax()).setStaminaMax(u.getStaminaMax()).setDiamonds(u.getDiamonds())
         .setCoins(u.getCoins()).setWood(u.getWood()).setMarketplaceDiamondsEarnings(u.getMarketplaceDiamondsEarnings())
