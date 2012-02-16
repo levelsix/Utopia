@@ -92,15 +92,13 @@ public final class InfoProto {
   public enum MarketplacePostType
       implements com.google.protobuf.ProtocolMessageEnum {
     EQUIP_POST(0, 0),
-    WOOD_POST(1, 1),
-    DIAMOND_POST(2, 2),
-    COIN_POST(3, 3),
+    DIAMOND_POST(1, 1),
+    COIN_POST(2, 2),
     ;
     
     public static final int EQUIP_POST_VALUE = 0;
-    public static final int WOOD_POST_VALUE = 1;
-    public static final int DIAMOND_POST_VALUE = 2;
-    public static final int COIN_POST_VALUE = 3;
+    public static final int DIAMOND_POST_VALUE = 1;
+    public static final int COIN_POST_VALUE = 2;
     
     
     public final int getNumber() { return value; }
@@ -108,9 +106,8 @@ public final class InfoProto {
     public static MarketplacePostType valueOf(int value) {
       switch (value) {
         case 0: return EQUIP_POST;
-        case 1: return WOOD_POST;
-        case 2: return DIAMOND_POST;
-        case 3: return COIN_POST;
+        case 1: return DIAMOND_POST;
+        case 2: return COIN_POST;
         default: return null;
       }
     }
@@ -141,7 +138,7 @@ public final class InfoProto {
     }
     
     private static final MarketplacePostType[] VALUES = {
-      EQUIP_POST, WOOD_POST, DIAMOND_POST, COIN_POST, 
+      EQUIP_POST, DIAMOND_POST, COIN_POST, 
     };
     
     public static MarketplacePostType valueOf(
@@ -23221,16 +23218,16 @@ public final class InfoProto {
       "ossessEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020\n\014" +
       "GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_" +
       "MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022" +
-      "\014\n\010BAD_MAGE\020\005*U\n\023MarketplacePostType\022\016\n\n",
-      "EQUIP_POST\020\000\022\r\n\tWOOD_POST\020\001\022\020\n\014DIAMOND_P" +
-      "OST\020\002\022\r\n\tCOIN_POST\020\003*2\n\035MarketplaceJobRe" +
-      "quirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016Crit" +
-      "StructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r" +
-      "\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013" +
-      "MARKETPLACE\020\005*3\n\021StructOrientation\022\016\n\nPO" +
-      "SITION_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022ExpansionD" +
-      "irection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n" +
-      "\tFAR_RIGHT\020\002B\013B\tInfoProto"
+      "\014\n\010BAD_MAGE\020\005*F\n\023MarketplacePostType\022\016\n\n",
+      "EQUIP_POST\020\000\022\020\n\014DIAMOND_POST\020\001\022\r\n\tCOIN_P" +
+      "OST\020\002*2\n\035MarketplaceJobRequirementType\022\007" +
+      "\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006A" +
+      "VIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t" +
+      "\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3" +
+      "\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nP" +
+      "OSITION_2\020\001*@\n\022ExpansionDirection\022\r\n\tNEA" +
+      "R_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B" +
+      "\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
