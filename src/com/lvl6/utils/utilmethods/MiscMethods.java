@@ -13,6 +13,10 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
   
+  public static int calculateMinutesToUpgradeForUserStruct(int minutesToUpgradeBase, int userStructLevel) {
+    return Math.max(1, (minutesToUpgradeBase * userStructLevel)/2);
+  }
+  
   public static int calculateIncomeGainedFromUserStruct(int structIncomeBase, int userStructLevel) {
     return userStructLevel * structIncomeBase;
   }

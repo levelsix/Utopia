@@ -1,11 +1,14 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.NormStructWaitCompleteRequestEvent;
 import com.lvl6.events.response.NormStructWaitCompleteResponseEvent;
+import com.lvl6.info.Structure;
 import com.lvl6.info.UserStruct;
 import com.lvl6.proto.EventProto.NormStructWaitCompleteRequestProto;
 import com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto;
@@ -14,7 +17,9 @@ import com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.NormStructW
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -37,6 +42,7 @@ public class NormStructWaitCompleteController extends EventController{
 
     MinimumUserProto senderProto = reqProto.getSender();
     List<Integer> userStructIds = reqProto.getUserStructIdList();
+    Timestamp clientTime = new Timestamp(reqProto.getCurTime());
 
     NormStructWaitCompleteResponseProto.Builder resBuilder = NormStructWaitCompleteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -46,7 +52,7 @@ public class NormStructWaitCompleteController extends EventController{
     try {
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
       
-      boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, userStructs, userStructIds, senderProto.getUserId());
+      boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, userStructs, userStructIds, senderProto.getUserId(), clientTime);
 
       NormStructWaitCompleteResponseEvent resEvent = new NormStructWaitCompleteResponseEvent(senderProto.getUserId());
 
@@ -93,15 +99,36 @@ public class NormStructWaitCompleteController extends EventController{
   }
 
   private boolean checkLegitWaitComplete(Builder resBuilder,
-      List<UserStruct> userStructs, List<Integer> userStructIds, int userId) {
-    if (userStructs == null || userStructIds == null || userStructIds.size() != userStructs.size()) {
+      List<UserStruct> userStructs, List<Integer> userStructIds, int userId, Timestamp clientTime) {
+    if (userStructs == null || userStructIds == null || clientTime == null || userStructIds.size() != userStructs.size()) {
       resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
       return false;
     }
+
+    Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
     for (UserStruct us : userStructs) {
       if (us.getUserId() != userId) {
         resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
         return false;
+      }
+      Structure struct = structures.get(us.getStructId());
+      if (struct == null) {
+        resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
+        return false;        
+      }
+      if (us.getLastUpgradeTime() != null) {
+        if (us.getLastUpgradeTime().getTime() + 60000*MiscMethods.calculateMinutesToUpgradeForUserStruct(struct.getMinutesToUpgradeBase(), us.getLevel()) > clientTime.getTime()) {
+          resBuilder.setStatus(NormStructWaitCompleteStatus.NOT_DONE_YET);
+          return false;
+        }
+      } else if (us.getPurchaseTime() != null) {
+        if (us.getPurchaseTime().getTime() + 60000*struct.getMinutesToBuild() > clientTime.getTime()) {
+          resBuilder.setStatus(NormStructWaitCompleteStatus.NOT_DONE_YET);
+          return false;
+        }        
+      } else {
+        resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
+        return false;                
       }
     }
     resBuilder.setStatus(NormStructWaitCompleteStatus.SUCCESS);

@@ -417,6 +417,7 @@ message FinishNormStructWaittimeWithDiamondsResponseProto {
 message NormStructWaitCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	repeated int32 userStructId = 2;
+	required int64 curTime = 3;						//used for checking
 }
 
 																						//DONE
@@ -427,7 +428,8 @@ message NormStructWaitCompleteResponseProto {
      
      enum NormStructWaitCompleteStatus {
      	SUCCESS = 0;
-     	OTHER_FAIL = 1;
+     	NOT_DONE_YET = 1;
+     	OTHER_FAIL = 2;
      }
 }
 
