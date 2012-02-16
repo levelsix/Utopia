@@ -1,5 +1,6 @@
 package com.lvl6.info;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -94,6 +95,46 @@ public class User {
     this.amuletEquipped = amuletEquipped;
   }
 
+  
+  /*
+   * used for refilling stats
+   */
+  public boolean updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(Timestamp lastStaminaRefillTime, int staminaChange, Timestamp lastEnergyRefillTime, int energyChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (lastStaminaRefillTime != null) {
+      absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, lastStaminaRefillTime);
+    }
+    if (lastEnergyRefillTime != null) {
+      absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, lastEnergyRefillTime);
+    }
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
+    relativeParams.put(DBConstants.USER__ENERGY, energyChange);
+
+    if (absoluteParams.size() == 0) {
+      absoluteParams = null;
+    }
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      if (lastStaminaRefillTime != null) {
+        this.lastStaminaRefillTime = lastStaminaRefillTime;
+      }
+      if (lastEnergyRefillTime != null) {
+        this.lastEnergyRefillTime = lastEnergyRefillTime;
+      }
+      this.stamina += staminaChange;
+      this.energy += energyChange;
+      return true;
+    }
+    return false;
+  }
+  
   /*
    * used for using diamonds to refill stat
    */

@@ -1,22 +1,22 @@
 package com.lvl6.server.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RefillStatWaitCompleteRequestEvent;
 import com.lvl6.events.response.RefillStatWaitCompleteResponseEvent;
-import com.lvl6.info.UserStruct;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto;
+import com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType;
 import com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto;
 import com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.Builder;
 import com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
-import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.utilmethods.QuestUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
+import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RefillStatWaitCompleteController extends EventController{
  
@@ -29,30 +29,6 @@ public class RefillStatWaitCompleteController extends EventController{
   public EventProtocolRequest getEventType() {
     return EventProtocolRequest.C_REFILL_STAT_WAIT_COMPLETE_EVENT;
   }
-
-  /*
-   * 
-  message RefillStatWaitCompleteRequestProto {
-  required MinimumUserProto sender = 1;
-  required int64 curTime = 2;
-  required RefillStatWaitCompleteType type = 3;
-  
-  enum RefillStatWaitCompleteType { 
-    ENERGY = 0;
-    STAMINA = 1;
-  }
-}
-
-message RefillStatWaitCompleteResponseProto {
-     required MinimumUserProto sender = 1;
-     required RefillStatWaitCompleteStatus status = 2;
-     
-     enum RefillStatWaitCompleteStatus {
-      SUCCESS = 0;
-      NOT_READY_YET = 1;
-      OTHER_FAIL = 2;
-     }
-   */
   
   @Override
   protected void processRequestEvent(RequestEvent event) {
@@ -60,34 +36,26 @@ message RefillStatWaitCompleteResponseProto {
     RefillStatWaitCompleteRequestProto reqProto = ((RefillStatWaitCompleteRequestEvent)event).getRefillStatWaitCompleteRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-
+    Timestamp clientTime = new Timestamp(reqProto.getCurTime());
+    RefillStatWaitCompleteType type = reqProto.getType();
+    
     RefillStatWaitCompleteResponseProto.Builder resBuilder = RefillStatWaitCompleteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
-      
-      boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, userStructs, userStructIds, senderProto.getUserId());
+      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, user, clientTime, type);
 
       RefillStatWaitCompleteResponseEvent resEvent = new RefillStatWaitCompleteResponseEvent(senderProto.getUserId());
 
       if (legitWaitComplete) {
-        writeChangesToDB(userStructs);
+        writeChangesToDB(user, type);
       }
-      
-      List<UserStruct> newUserStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
-      for (UserStruct userStruct : newUserStructs) {
-        resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(userStruct));
-      }
-      resEvent.setRefillStatWaitCompleteResponseProto(resBuilder.build());  
-
       server.writeEvent(resEvent);
-      
-      if (legitWaitComplete) {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);
-      }
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in RefillStatWaitCompleteController processEvent", e);
     } finally {
@@ -95,37 +63,39 @@ message RefillStatWaitCompleteResponseProto {
     }
   }
 
-  private void writeChangesToDB(List<UserStruct> userStructs) {
-    List<UserStruct> upgradesDone = new ArrayList<UserStruct>();
-    List<UserStruct> buildsDone = new ArrayList<UserStruct>();
-    
-    for (UserStruct userStruct : userStructs) {
-      if (userStruct.getLastUpgradeTime() != null) {
-        upgradesDone.add(userStruct);
-      } else {
-        buildsDone.add(userStruct);
+  private void writeChangesToDB(User user, RefillStatWaitCompleteType type) {
+    if (type == RefillStatWaitCompleteType.ENERGY) {
+      Timestamp newLastEnergyRefillTime = new Timestamp(user.getLastEnergyRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY);
+      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(null, 0, newLastEnergyRefillTime, 1)) {
+        log.error("problem with updating user's energy and lastenergyrefill time");
       }
-    }
-    
-    if (!UpdateUtils.updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(buildsDone, 1)) {
-      log.error("problem with marking norm struct upgrade as complete");
-    }    
-    if (!UpdateUtils.updateUserStructsLastretrievedpostbuildIscomplete(buildsDone)) {
-      log.error("problem with marking norm struct build as complete");
+    } else if (type == RefillStatWaitCompleteType.STAMINA) {
+      Timestamp newLastStaminaRefillTime = new Timestamp(user.getLastStaminaRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA);
+      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(newLastStaminaRefillTime, 1, null, 0)) {
+        log.error("problem with updating user's energy and lastenergyrefill time");
+      }  
     }
   }
 
   private boolean checkLegitWaitComplete(Builder resBuilder,
-      List<UserStruct> userStructs, List<Integer> userStructIds, int userId) {
-    if (userStructs == null || userStructIds == null || userStructIds.size() != userStructs.size()) {
+      User user, Timestamp clientTime, RefillStatWaitCompleteType type) {
+    if (user == null || clientTime == null || type == null ) {
       resBuilder.setStatus(RefillStatWaitCompleteStatus.OTHER_FAIL);
       return false;
     }
-    for (UserStruct us : userStructs) {
-      if (us.getUserId() != userId) {
-        resBuilder.setStatus(RefillStatWaitCompleteStatus.OTHER_FAIL);
+    if (type == RefillStatWaitCompleteType.ENERGY) {
+      if (user.getLastEnergyRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY > clientTime.getTime()) {
+        resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
         return false;
       }
+    } else if (type == RefillStatWaitCompleteType.STAMINA) { 
+      if (user.getLastStaminaRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA > clientTime.getTime()) {
+        resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
+        return false;
+      }    
+    } else {
+      resBuilder.setStatus(RefillStatWaitCompleteStatus.OTHER_FAIL);
+      return false;      
     }
     resBuilder.setStatus(RefillStatWaitCompleteStatus.SUCCESS);
     return true;  

@@ -17,7 +17,7 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
-
+  
   /*
    * used when an expansion is complete
    */
