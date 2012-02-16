@@ -848,6 +848,7 @@ message RefillStatWaitCompleteResponseProto {
      enum RefillStatWaitCompleteStatus {
      	SUCCESS = 0;
      	NOT_READY_YET = 1;
-     	OTHER_FAIL = 2;
+     	ALREADY_MAX = 2;
+     	OTHER_FAIL = 3;
      }
 }

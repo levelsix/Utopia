@@ -51,7 +51,7 @@ public class RefillStatWaitCompleteController extends EventController{
       RefillStatWaitCompleteResponseEvent resEvent = new RefillStatWaitCompleteResponseEvent(senderProto.getUserId());
 
       if (legitWaitComplete) {
-        writeChangesToDB(user, type);
+        writeChangesToDB(user, type, clientTime);
       }
       server.writeEvent(resEvent);
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
@@ -63,16 +63,18 @@ public class RefillStatWaitCompleteController extends EventController{
     }
   }
 
-  private void writeChangesToDB(User user, RefillStatWaitCompleteType type) {
+  private void writeChangesToDB(User user, RefillStatWaitCompleteType type, Timestamp clientTime) {
     if (type == RefillStatWaitCompleteType.ENERGY) {
-      Timestamp newLastEnergyRefillTime = new Timestamp(user.getLastEnergyRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY);
-      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(null, 0, newLastEnergyRefillTime, 1)) {
+      int energyChange = (int)((clientTime.getTime() - user.getLastEnergyRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY));
+      Timestamp newLastEnergyRefillTime = new Timestamp(user.getLastEnergyRefillTime().getTime() + 60000*energyChange*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY);
+      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(null, 0, newLastEnergyRefillTime, energyChange)) {
         log.error("problem with updating user's energy and lastenergyrefill time");
       }
     } else if (type == RefillStatWaitCompleteType.STAMINA) {
-      Timestamp newLastStaminaRefillTime = new Timestamp(user.getLastStaminaRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA);
-      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(newLastStaminaRefillTime, 1, null, 0)) {
-        log.error("problem with updating user's energy and lastenergyrefill time");
+      int staminaChange = (int)((clientTime.getTime() - user.getLastStaminaRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA));
+      Timestamp newLastStaminaRefillTime = new Timestamp(user.getLastStaminaRefillTime().getTime() + 60000*staminaChange*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA);
+      if (!user.updateLaststaminarefilltimeStaminaLastenergyrefilltimeEnergy(newLastStaminaRefillTime, staminaChange, null, 0)) {
+        log.error("problem with updating user's stamina and laststaminarefill time");
       }  
     }
   }
@@ -88,11 +90,19 @@ public class RefillStatWaitCompleteController extends EventController{
         resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
         return false;
       }
+      if (user.getEnergy() == user.getEnergyMax()) {
+        resBuilder.setStatus(RefillStatWaitCompleteStatus.ALREADY_MAX);
+        return false;        
+      }
     } else if (type == RefillStatWaitCompleteType.STAMINA) { 
       if (user.getLastStaminaRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA > clientTime.getTime()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
         return false;
       }    
+      if (user.getStamina() == user.getStaminaMax()) {
+        resBuilder.setStatus(RefillStatWaitCompleteStatus.ALREADY_MAX);
+        return false;        
+      }
     } else {
       resBuilder.setStatus(RefillStatWaitCompleteStatus.OTHER_FAIL);
       return false;      

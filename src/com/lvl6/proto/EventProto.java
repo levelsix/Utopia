@@ -53594,12 +53594,14 @@ public final class EventProto {
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
       NOT_READY_YET(1, 1),
-      OTHER_FAIL(2, 2),
+      ALREADY_MAX(2, 2),
+      OTHER_FAIL(3, 3),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int NOT_READY_YET_VALUE = 1;
-      public static final int OTHER_FAIL_VALUE = 2;
+      public static final int ALREADY_MAX_VALUE = 2;
+      public static final int OTHER_FAIL_VALUE = 3;
       
       
       public final int getNumber() { return value; }
@@ -53608,7 +53610,8 @@ public final class EventProto {
         switch (value) {
           case 0: return SUCCESS;
           case 1: return NOT_READY_YET;
-          case 2: return OTHER_FAIL;
+          case 2: return ALREADY_MAX;
+          case 3: return OTHER_FAIL;
           default: return null;
         }
       }
@@ -53639,7 +53642,7 @@ public final class EventProto {
       }
       
       private static final RefillStatWaitCompleteStatus[] VALUES = {
-        SUCCESS, NOT_READY_YET, OTHER_FAIL, 
+        SUCCESS, NOT_READY_YET, ALREADY_MAX, OTHER_FAIL, 
       };
       
       public static RefillStatWaitCompleteStatus valueOf(
@@ -54938,14 +54941,14 @@ public final class EventProto {
       "om.lvl6.proto.RefillStatWaitCompleteRequ" +
       "estProto.RefillStatWaitCompleteType\"5\n\032R" +
       "efillStatWaitCompleteType\022\n\n\006ENERGY\020\000\022\013\n" +
-      "\007STAMINA\020\001\"\211\002\n#RefillStatWaitCompleteRes" +
+      "\007STAMINA\020\001\"\232\002\n#RefillStatWaitCompleteRes" +
       "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr",
       "oto.MinimumUserProto\022`\n\006status\030\002 \002(\0162P.c" +
       "om.lvl6.proto.RefillStatWaitCompleteResp" +
-      "onseProto.RefillStatWaitCompleteStatus\"N" +
+      "onseProto.RefillStatWaitCompleteStatus\"_" +
       "\n\034RefillStatWaitCompleteStatus\022\013\n\007SUCCES" +
-      "S\020\000\022\021\n\rNOT_READY_YET\020\001\022\016\n\nOTHER_FAIL\020\002B\014" +
-      "B\nEventProto"
+      "S\020\000\022\021\n\rNOT_READY_YET\020\001\022\017\n\013ALREADY_MAX\020\002\022" +
+      "\016\n\nOTHER_FAIL\020\003B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

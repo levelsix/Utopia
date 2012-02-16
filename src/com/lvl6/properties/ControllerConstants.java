@@ -86,7 +86,7 @@ public class ControllerConstants {
   
   
   //SELL NORM STRUCTURE
-  public static final double SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER = .5;
+  public static final double SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER = .3;
 
   
   //RETRIEVE CURRENT MARKETPLACE POSTS
