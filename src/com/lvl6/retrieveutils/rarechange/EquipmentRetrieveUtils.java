@@ -116,7 +116,17 @@ public class EquipmentRetrieveUtils {
       log.error("equipment should only have coin or diamond price");
       return null;
     } 
-    //bandanas are listed in the armory with coinPrice = 0 and diamondPrice = null 
+    
+    //3 types
+    //1) sellable in armory, 2) not sellable in armory but sellable in marketplace, 3) never sellable
+    //1) normal sword. 2) epics/legendaries. 3) bandanas
+    
+    //all equips should have either diamondCost or coinCost set to be put in the hashmpa.
+      //bandanas are listed in the armory with coinPrice = 0 and diamondPrice = null. 
+      //same with epics and legendaries
+    
+    //bandanas can't be posted in marketplace, which ignores if (<= 0 && not epic && not legendary).
+    //they will be common
     return equip;
   }
 }

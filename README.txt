@@ -20,3 +20,4 @@ public class DBProperties {
     
 }
 
+4) Bottom of EquipmentRetrieveUtils.java explains how equipments are stored
