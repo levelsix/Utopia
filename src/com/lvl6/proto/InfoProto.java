@@ -3756,6 +3756,10 @@ public final class InfoProto {
     // required .com.lvl6.proto.FullEquipProto.Rarity rarity = 12;
     boolean hasRarity();
     com.lvl6.proto.InfoProto.FullEquipProto.Rarity getRarity();
+    
+    // required bool availInArmory = 13;
+    boolean hasAvailInArmory();
+    boolean getAvailInArmory();
   }
   public static final class FullEquipProto extends
       com.google.protobuf.GeneratedMessage
@@ -4172,6 +4176,16 @@ public final class InfoProto {
       return rarity_;
     }
     
+    // required bool availInArmory = 13;
+    public static final int AVAILINARMORY_FIELD_NUMBER = 13;
+    private boolean availInArmory_;
+    public boolean hasAvailInArmory() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    public boolean getAvailInArmory() {
+      return availInArmory_;
+    }
+    
     private void initFields() {
       equipId_ = 0;
       name_ = "";
@@ -4185,6 +4199,7 @@ public final class InfoProto {
       chanceOfLoss_ = 0F;
       classType_ = com.lvl6.proto.InfoProto.FullEquipProto.ClassType.WARRIOR;
       rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
+      availInArmory_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4231,6 +4246,10 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasAvailInArmory()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -4273,6 +4292,9 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         output.writeEnum(12, rarity_.getNumber());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeBool(13, availInArmory_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -4330,6 +4352,10 @@ public final class InfoProto {
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(12, rarity_.getNumber());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(13, availInArmory_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4479,6 +4505,8 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000400);
         rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
         bitField0_ = (bitField0_ & ~0x00000800);
+        availInArmory_ = false;
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
       
@@ -4565,6 +4593,10 @@ public final class InfoProto {
           to_bitField0_ |= 0x00000800;
         }
         result.rarity_ = rarity_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.availInArmory_ = availInArmory_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4617,6 +4649,9 @@ public final class InfoProto {
         if (other.hasRarity()) {
           setRarity(other.getRarity());
         }
+        if (other.hasAvailInArmory()) {
+          setAvailInArmory(other.getAvailInArmory());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -4659,6 +4694,10 @@ public final class InfoProto {
           return false;
         }
         if (!hasRarity()) {
+          
+          return false;
+        }
+        if (!hasAvailInArmory()) {
           
           return false;
         }
@@ -4764,6 +4803,11 @@ public final class InfoProto {
                 bitField0_ |= 0x00000800;
                 rarity_ = value;
               }
+              break;
+            }
+            case 104: {
+              bitField0_ |= 0x00001000;
+              availInArmory_ = input.readBool();
               break;
             }
           }
@@ -5059,6 +5103,27 @@ public final class InfoProto {
       public Builder clearRarity() {
         bitField0_ = (bitField0_ & ~0x00000800);
         rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
+        onChanged();
+        return this;
+      }
+      
+      // required bool availInArmory = 13;
+      private boolean availInArmory_ ;
+      public boolean hasAvailInArmory() {
+        return ((bitField0_ & 0x00001000) == 0x00001000);
+      }
+      public boolean getAvailInArmory() {
+        return availInArmory_;
+      }
+      public Builder setAvailInArmory(boolean value) {
+        bitField0_ |= 0x00001000;
+        availInArmory_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAvailInArmory() {
+        bitField0_ = (bitField0_ & ~0x00001000);
+        availInArmory_ = false;
         onChanged();
         return this;
       }
@@ -22980,7 +23045,7 @@ public final class InfoProto {
       "\025numPostsInMarketplace\030\037 \002(\005\022%\n\035numMarke" +
       "tplaceSalesUnredeemed\030  \002(\005\022\026\n\016weaponEqu" +
       "ipped\030! \001(\005\022\025\n\rarmorEquipped\030\" \001(\005\022\026\n\016am" +
-      "uletEquipped\030# \001(\005\"\233\004\n\016FullEquipProto\022\017\n" +
+      "uletEquipped\030# \001(\005\"\262\004\n\016FullEquipProto\022\017\n" +
       "\007equipId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022;\n\tequipTyp" +
       "e\030\003 \002(\0162(.com.lvl6.proto.FullEquipProto." +
       "EquipType\022\023\n\013description\030\004 \002(\t\022\023\n\013attack" +
@@ -22989,131 +23054,131 @@ public final class InfoProto {
       "dPrice\030\t \001(\005\022\024\n\014chanceOfLoss\030\n \002(\002\022;\n\tcl" +
       "assType\030\013 \002(\0162(.com.lvl6.proto.FullEquip" +
       "Proto.ClassType\0225\n\006rarity\030\014 \002(\0162%.com.lv" +
-      "l6.proto.FullEquipProto.Rarity\"E\n\006Rarity" +
-      "\022\n\n\006COMMON\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004" +
-      "EPIC\020\003\022\r\n\tLEGENDARY\020\004\"1\n\tEquipType\022\n\n\006WE" +
-      "APON\020\000\022\t\n\005ARMOR\020\001\022\r\n\tACCESSORY\020\002\".\n\tClas" +
-      "sType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002" +
-      "\"\247\002\n\026FullUserStructureProto\022\024\n\014userStruc" +
-      "tId\030\001 \002(\005\022\016\n\006userId\030\002 \002(\005\022\020\n\010structId\030\003 ",
-      "\002(\005\022\025\n\rlastRetrieved\030\004 \001(\003\0224\n\013coordinate" +
-      "s\030\005 \002(\0132\037.com.lvl6.proto.CoordinateProto" +
-      "\022\r\n\005level\030\006 \002(\005\022\024\n\014purchaseTime\030\007 \002(\003\022\027\n" +
-      "\017lastUpgradeTime\030\010 \001(\003\022\022\n\nisComplete\030\t \002" +
-      "(\010\0226\n\013orientation\030\n \002(\0162!.com.lvl6.proto" +
-      ".StructOrientation\"Y\n\022FullUserEquipProto" +
-      "\022\016\n\006userId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010qua" +
-      "ntity\030\003 \002(\005\022\020\n\010isStolen\030\004 \002(\010\"\231\003\n\022FullSt" +
-      "ructureProto\022\020\n\010structId\030\001 \002(\005\022\014\n\004name\030\002" +
-      " \002(\t\022\016\n\006income\030\003 \002(\005\022\025\n\rminutesToGain\030\004 ",
-      "\002(\005\022\026\n\016minutesToBuild\030\005 \002(\005\022\034\n\024minutesTo" +
-      "UpgradeBase\030\006 \002(\005\022\021\n\tcoinPrice\030\007 \002(\005\022\024\n\014" +
-      "diamondPrice\030\010 \002(\005\022\020\n\010minLevel\030\t \002(\005\022\017\n\007" +
-      "xLength\030\n \002(\005\022\017\n\007yLength\030\013 \002(\005\022\033\n\023upgrad" +
-      "eCoinCostBase\030\014 \002(\005\022\036\n\026upgradeDiamondCos" +
-      "tBase\030\r \002(\005\022!\n\031instaBuildDiamondCostBase" +
-      "\030\016 \002(\005\022$\n\034instaRetrieveDiamondCostBase\030\017" +
-      " \002(\005\022#\n\033instaUpgradeDiamondCostBase\030\020 \002(" +
-      "\005\"\240\003\n\rFullTaskProto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004n" +
-      "ame\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequired",
-      "ForCompletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022" +
-      "\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGaine" +
-      "d\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025po" +
-      "tentialLootEquipIds\030\t \003(\005\022\021\n\texpGained\030\n" +
-      " \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(\005\022F\n\tequi" +
-      "pReqs\030\014 \003(\01323.com.lvl6.proto.FullTaskPro" +
-      "to.FullTaskEquipReqProto\032J\n\025FullTaskEqui" +
-      "pReqProto\022\016\n\006taskId\030\001 \002(\005\022\017\n\007equipId\030\002 \002" +
-      "(\005\022\020\n\010quantity\030\003 \002(\005\"\177\n\rFullCityProto\022\016\n" +
-      "\006cityId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030",
-      "\003 \002(\005\022\035\n\025expGainedBaseOnRankup\030\004 \002(\005\022\037\n\027" +
-      "coinsGainedBaseOnRankup\030\005 \002(\005\"\361\001\n\036FullUs" +
-      "erCityExpansionDataProto\022\016\n\006userId\030\001 \002(\005" +
-      "\022\032\n\022nearLeftExpansions\030\002 \002(\005\022\031\n\021farLeftE" +
-      "xpansions\030\003 \002(\005\022\032\n\022farRightExpansions\030\004 " +
-      "\002(\005\022\023\n\013isExpanding\030\005 \002(\010\022\026\n\016lastExpandTi" +
-      "me\030\006 \001(\003\022?\n\023lastExpandDirection\030\007 \001(\0162\"." +
-      "com.lvl6.proto.ExpansionDirection\"\'\n\017Coo" +
-      "rdinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLo" +
-      "cationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitu",
-      "de\030\002 \002(\002\"\356\001\n\030FullMarketplacePostProto\022\031\n" +
-      "\021marketplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002" +
-      "(\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.proto.Ma" +
-      "rketplacePostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n" +
-      "\013postedEquip\030\005 \002(\0132\036.com.lvl6.proto.Full" +
-      "EquipProto\022\023\n\013diamondCost\030\006 \001(\005\022\020\n\010coinC" +
-      "ost\030\007 \001(\005\"\260\001\n\027FullUserCritstructProto\022,\n" +
-      "\004type\030\001 \002(\0162\036.com.lvl6.proto.CritStructT" +
-      "ype\022/\n\006coords\030\002 \002(\0132\037.com.lvl6.proto.Coo" +
-      "rdinateProto\0226\n\013orientation\030\003 \002(\0162!.com.",
-      "lvl6.proto.StructOrientation\"j\n\024MinimumU" +
-      "serTaskProto\022\016\n\006userId\030\001 \002(\005\022+\n\004task\030\002 \002" +
-      "(\0132\035.com.lvl6.proto.FullTaskProto\022\025\n\rnum" +
-      "TimesActed\030\003 \002(\005\"\200\001\n\031MinimumUserQuestTas" +
-      "kProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022" +
-      "+\n\004task\030\003 \002(\0132\035.com.lvl6.proto.FullTaskP" +
-      "roto\022\025\n\rnumTimesActed\030\004 \002(\005\"\376\003\n\033FullUser" +
-      "QuestDataLargeProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007q" +
-      "uestId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(\010\022H\n\025requir" +
-      "edTasksProgress\030\004 \003(\0132).com.lvl6.proto.M",
-      "inimumUserQuestTaskProto\022T\n\035requiredDefe" +
-      "atTypeJobProgress\030\005 \003(\0132-.com.lvl6.proto" +
-      ".MinimumUserDefeatTypeJobProto\022V\n\036requir" +
-      "edBuildStructJobProgress\030\006 \003(\0132..com.lvl" +
-      "6.proto.MinimumUserBuildStructJobProto\022Z" +
-      "\n requiredUpgradeStructJobProgress\030\007 \003(\013" +
-      "20.com.lvl6.proto.MinimumUserUpgradeStru" +
-      "ctJobProto\022X\n\037requiredPossessEquipJobPro" +
-      "gress\030\010 \003(\0132/.com.lvl6.proto.MinimumUser" +
-      "PossessEquipJobProto\"\222\001\n\035MinimumUserDefe",
-      "atTypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questI" +
-      "d\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\".com.l" +
-      "vl6.proto.DefeatTypeJobProto\022\023\n\013numDefea" +
-      "ted\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017defe" +
-      "atTypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\0162\030" +
-      ".com.lvl6.proto.UserType\022\032\n\022numEnemiesTo" +
-      "Defeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036Minimum" +
-      "UserBuildStructJobProto\022\016\n\006userId\030\001 \002(\005\022" +
-      "\017\n\007questId\030\002 \002(\005\022;\n\016buildStructJob\030\003 \002(\013" +
-      "2#.com.lvl6.proto.BuildStructJobProto\022\032\n",
-      "\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildStruct" +
-      "JobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022\020\n\010st" +
-      "ructId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 \002(\005\"\230" +
-      "\001\n MinimumUserUpgradeStructJobProto\022\016\n\006u" +
-      "serId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upgradeS" +
-      "tructJob\030\003 \002(\0132%.com.lvl6.proto.UpgradeS" +
-      "tructJobProto\022\022\n\nisComplete\030\004 \002(\010\"W\n\025Upg" +
-      "radeStructJobProto\022\032\n\022upgradeStructJobId" +
-      "\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq\030\003 \002" +
-      "(\005\"\237\001\n\037MinimumUserPossessEquipJobProto\022\016",
-      "\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024posse" +
-      "ssEquipJobProto\030\003 \002(\0132$.com.lvl6.proto.P" +
-      "ossessEquipJobProto\022\027\n\017numEquipUserHas\030\004" +
-      " \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021possessE" +
-      "quipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013quan" +
-      "tityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022\017\n\007ques" +
-      "tId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022" +
-      "\023\n\013description\030\004 \002(\t\022\024\n\014doneResponse\030\005 \002" +
-      "(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWithin" +
-      "City\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamo",
-      "ndsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\req" +
-      "uipIdGained\030\013 \001(\005\022\035\n\025questsRequiredForTh" +
-      "is\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeStr" +
-      "uctJobsReqs\030\016 \003(\005\022\033\n\023buildStructJobsReqs" +
-      "\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023posses" +
-      "sEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020\n\014GOOD_" +
-      "WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020" +
-      "\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BA" +
-      "D_MAGE\020\005*B\n\023MarketplacePostType\022\026\n\022PREMI" +
-      "UM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035",
-      "MarketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010" +
-      "\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016" +
-      "\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003" +
-      "\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructO" +
-      "rientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2" +
-      "\020\001*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022" +
-      "\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProt" +
-      "o"
+      "l6.proto.FullEquipProto.Rarity\022\025\n\ravailI" +
+      "nArmory\030\r \002(\010\"E\n\006Rarity\022\n\n\006COMMON\020\000\022\014\n\010U" +
+      "NCOMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004EPIC\020\003\022\r\n\tLEGENDA" +
+      "RY\020\004\"1\n\tEquipType\022\n\n\006WEAPON\020\000\022\t\n\005ARMOR\020\001" +
+      "\022\r\n\tACCESSORY\020\002\".\n\tClassType\022\013\n\007WARRIOR\020" +
+      "\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\"\247\002\n\026FullUserStru" +
+      "ctureProto\022\024\n\014userStructId\030\001 \002(\005\022\016\n\006user",
+      "Id\030\002 \002(\005\022\020\n\010structId\030\003 \002(\005\022\025\n\rlastRetrie" +
+      "ved\030\004 \001(\003\0224\n\013coordinates\030\005 \002(\0132\037.com.lvl" +
+      "6.proto.CoordinateProto\022\r\n\005level\030\006 \002(\005\022\024" +
+      "\n\014purchaseTime\030\007 \002(\003\022\027\n\017lastUpgradeTime\030" +
+      "\010 \001(\003\022\022\n\nisComplete\030\t \002(\010\0226\n\013orientation" +
+      "\030\n \002(\0162!.com.lvl6.proto.StructOrientatio" +
+      "n\"Y\n\022FullUserEquipProto\022\016\n\006userId\030\001 \002(\005\022" +
+      "\017\n\007equipId\030\002 \002(\005\022\020\n\010quantity\030\003 \002(\005\022\020\n\010is" +
+      "Stolen\030\004 \002(\010\"\231\003\n\022FullStructureProto\022\020\n\010s" +
+      "tructId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006income\030\003 ",
+      "\002(\005\022\025\n\rminutesToGain\030\004 \002(\005\022\026\n\016minutesToB" +
+      "uild\030\005 \002(\005\022\034\n\024minutesToUpgradeBase\030\006 \002(\005" +
+      "\022\021\n\tcoinPrice\030\007 \002(\005\022\024\n\014diamondPrice\030\010 \002(" +
+      "\005\022\020\n\010minLevel\030\t \002(\005\022\017\n\007xLength\030\n \002(\005\022\017\n\007" +
+      "yLength\030\013 \002(\005\022\033\n\023upgradeCoinCostBase\030\014 \002" +
+      "(\005\022\036\n\026upgradeDiamondCostBase\030\r \002(\005\022!\n\031in" +
+      "staBuildDiamondCostBase\030\016 \002(\005\022$\n\034instaRe" +
+      "trieveDiamondCostBase\030\017 \002(\005\022#\n\033instaUpgr" +
+      "adeDiamondCostBase\030\020 \002(\005\"\240\003\n\rFullTaskPro" +
+      "to\022\016\n\006taskId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006city",
+      "Id\030\003 \002(\005\022 \n\030numRequiredForCompletion\030\004 \002" +
+      "(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGained" +
+      "\030\006 \002(\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chance" +
+      "OfEquipLoot\030\010 \002(\002\022\035\n\025potentialLootEquipI" +
+      "ds\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022\032\n\022assetNumW" +
+      "ithinCity\030\013 \002(\005\022F\n\tequipReqs\030\014 \003(\01323.com" +
+      ".lvl6.proto.FullTaskProto.FullTaskEquipR" +
+      "eqProto\032J\n\025FullTaskEquipReqProto\022\016\n\006task" +
+      "Id\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010quantity\030\003 " +
+      "\002(\005\"\177\n\rFullCityProto\022\016\n\006cityId\030\001 \002(\005\022\014\n\004",
+      "name\030\002 \002(\t\022\020\n\010minLevel\030\003 \002(\005\022\035\n\025expGaine" +
+      "dBaseOnRankup\030\004 \002(\005\022\037\n\027coinsGainedBaseOn" +
+      "Rankup\030\005 \002(\005\"\361\001\n\036FullUserCityExpansionDa" +
+      "taProto\022\016\n\006userId\030\001 \002(\005\022\032\n\022nearLeftExpan" +
+      "sions\030\002 \002(\005\022\031\n\021farLeftExpansions\030\003 \002(\005\022\032" +
+      "\n\022farRightExpansions\030\004 \002(\005\022\023\n\013isExpandin" +
+      "g\030\005 \002(\010\022\026\n\016lastExpandTime\030\006 \001(\003\022?\n\023lastE" +
+      "xpandDirection\030\007 \001(\0162\".com.lvl6.proto.Ex" +
+      "pansionDirection\"\'\n\017CoordinateProto\022\t\n\001x" +
+      "\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010la",
+      "titude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\356\001\n\030Full" +
+      "MarketplacePostProto\022\031\n\021marketplacePostI" +
+      "d\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType\030\003 " +
+      "\002(\0162#.com.lvl6.proto.MarketplacePostType" +
+      "\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013postedEquip\030\005 \002(" +
+      "\0132\036.com.lvl6.proto.FullEquipProto\022\023\n\013dia" +
+      "mondCost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\"\260\001\n\027Ful" +
+      "lUserCritstructProto\022,\n\004type\030\001 \002(\0162\036.com" +
+      ".lvl6.proto.CritStructType\022/\n\006coords\030\002 \002" +
+      "(\0132\037.com.lvl6.proto.CoordinateProto\0226\n\013o",
+      "rientation\030\003 \002(\0162!.com.lvl6.proto.Struct" +
+      "Orientation\"j\n\024MinimumUserTaskProto\022\016\n\006u" +
+      "serId\030\001 \002(\005\022+\n\004task\030\002 \002(\0132\035.com.lvl6.pro" +
+      "to.FullTaskProto\022\025\n\rnumTimesActed\030\003 \002(\005\"" +
+      "\200\001\n\031MinimumUserQuestTaskProto\022\016\n\006userId\030" +
+      "\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022+\n\004task\030\003 \002(\0132\035.c" +
+      "om.lvl6.proto.FullTaskProto\022\025\n\rnumTimesA" +
+      "cted\030\004 \002(\005\"\376\003\n\033FullUserQuestDataLargePro" +
+      "to\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010r" +
+      "edeemed\030\003 \002(\010\022H\n\025requiredTasksProgress\030\004",
+      " \003(\0132).com.lvl6.proto.MinimumUserQuestTa" +
+      "skProto\022T\n\035requiredDefeatTypeJobProgress" +
+      "\030\005 \003(\0132-.com.lvl6.proto.MinimumUserDefea" +
+      "tTypeJobProto\022V\n\036requiredBuildStructJobP" +
+      "rogress\030\006 \003(\0132..com.lvl6.proto.MinimumUs" +
+      "erBuildStructJobProto\022Z\n requiredUpgrade" +
+      "StructJobProgress\030\007 \003(\01320.com.lvl6.proto" +
+      ".MinimumUserUpgradeStructJobProto\022X\n\037req" +
+      "uiredPossessEquipJobProgress\030\010 \003(\0132/.com" +
+      ".lvl6.proto.MinimumUserPossessEquipJobPr",
+      "oto\"\222\001\n\035MinimumUserDefeatTypeJobProto\022\016\n" +
+      "\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\017defeat" +
+      "TypeJobId\030\003 \002(\0132\".com.lvl6.proto.DefeatT" +
+      "ypeJobProto\022\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022Def" +
+      "eatTypeJobProto\022\027\n\017defeatTypeJobId\030\001 \002(\005" +
+      "\022-\n\013typeOfEnemy\030\002 \002(\0162\030.com.lvl6.proto.U" +
+      "serType\022\032\n\022numEnemiesToDefeat\030\003 \002(\005\022\016\n\006c" +
+      "ityId\030\004 \002(\005\"\232\001\n\036MinimumUserBuildStructJo" +
+      "bProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022" +
+      ";\n\016buildStructJob\030\003 \002(\0132#.com.lvl6.proto",
+      ".BuildStructJobProto\022\032\n\022numOfStructUserH" +
+      "as\030\004 \002(\005\"[\n\023BuildStructJobProto\022\030\n\020build" +
+      "StructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020q" +
+      "uantityRequired\030\003 \002(\005\"\230\001\n MinimumUserUpg" +
+      "radeStructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007qu" +
+      "estId\030\002 \002(\005\022?\n\020upgradeStructJob\030\003 \002(\0132%." +
+      "com.lvl6.proto.UpgradeStructJobProto\022\022\n\n" +
+      "isComplete\030\004 \002(\010\"W\n\025UpgradeStructJobProt" +
+      "o\022\032\n\022upgradeStructJobId\030\001 \002(\005\022\020\n\010structI" +
+      "d\030\002 \002(\005\022\020\n\010levelReq\030\003 \002(\005\"\237\001\n\037MinimumUse",
+      "rPossessEquipJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n" +
+      "\007questId\030\002 \002(\005\022B\n\024possessEquipJobProto\030\003" +
+      " \002(\0132$.com.lvl6.proto.PossessEquipJobPro" +
+      "to\022\027\n\017numEquipUserHas\030\004 \002(\005\"W\n\024PossessEq" +
+      "uipJobProto\022\031\n\021possessEquipJobId\030\001 \002(\005\022\017" +
+      "\n\007equipId\030\002 \002(\005\022\023\n\013quantityReq\030\003 \002(\005\"\223\003\n" +
+      "\016FullQuestProto\022\017\n\007questId\030\001 \002(\005\022\016\n\006city" +
+      "Id\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\023\n\013description\030\004 " +
+      "\002(\t\022\024\n\014doneResponse\030\005 \002(\t\022\022\n\ninProgress\030" +
+      "\006 \002(\t\022\032\n\022assetNumWithinCity\030\007 \002(\005\022\023\n\013coi",
+      "nsGained\030\010 \001(\005\022\026\n\016diamondsGained\030\t \001(\005\022\021" +
+      "\n\texpGained\030\n \001(\005\022\025\n\requipIdGained\030\013 \001(\005" +
+      "\022\035\n\025questsRequiredForThis\030\014 \003(\005\022\020\n\010taskR" +
+      "eqs\030\r \003(\005\022\035\n\025upgradeStructJobsReqs\030\016 \003(\005" +
+      "\022\033\n\023buildStructJobsReqs\030\017 \003(\005\022\026\n\016defeatT" +
+      "ypeReqs\030\020 \003(\005\022\033\n\023possessEquipJobReqs\030\021 \003" +
+      "(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD" +
+      "_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020" +
+      "\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*B\n\023Marke" +
+      "tplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023",
+      "\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobReq" +
+      "uirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritS" +
+      "tructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n" +
+      "\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013M" +
+      "ARKETPLACE\020\005*3\n\021StructOrientation\022\016\n\nPOS" +
+      "ITION_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022ExpansionDi" +
+      "rection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\t" +
+      "FAR_RIGHT\020\002B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -23141,7 +23206,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullEquipProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullEquipProto_descriptor,
-              new java.lang.String[] { "EquipId", "Name", "EquipType", "Description", "AttackBoost", "DefenseBoost", "MinLevel", "CoinPrice", "DiamondPrice", "ChanceOfLoss", "ClassType", "Rarity", },
+              new java.lang.String[] { "EquipId", "Name", "EquipType", "Description", "AttackBoost", "DefenseBoost", "MinLevel", "CoinPrice", "DiamondPrice", "ChanceOfLoss", "ClassType", "Rarity", "AvailInArmory", },
               com.lvl6.proto.InfoProto.FullEquipProto.class,
               com.lvl6.proto.InfoProto.FullEquipProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserStructureProto_descriptor =

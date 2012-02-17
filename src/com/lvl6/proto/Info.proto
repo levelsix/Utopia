@@ -72,6 +72,7 @@ message FullEquipProto {
 	required float chanceOfLoss = 10;
 	required ClassType classType = 11;
 	required Rarity rarity = 12;
+	required bool availInArmory = 13;
 	
 	enum Rarity {
 		COMMON = 0;
