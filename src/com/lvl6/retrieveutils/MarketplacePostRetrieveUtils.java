@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.MarketplacePost;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
@@ -98,19 +99,19 @@ public class MarketplacePostRetrieveUtils {
     Date timeOfPost = new Date(rs.getTimestamp(i++).getTime());
 
     int postedEquipId = rs.getInt(i++);
-    if (postedEquipId == 0) postedEquipId = MarketplacePost.NOT_SET;
+    if (postedEquipId == 0) postedEquipId = ControllerConstants.NOT_SET;
 
     int postedDiamonds = rs.getInt(i++);
-    if (postedDiamonds == 0) postedDiamonds = MarketplacePost.NOT_SET;
+    if (postedDiamonds == 0) postedDiamonds = ControllerConstants.NOT_SET;
 
     int postedCoins = rs.getInt(i++);
-    if (postedCoins == 0) postedCoins = MarketplacePost.NOT_SET;
+    if (postedCoins == 0) postedCoins = ControllerConstants.NOT_SET;
     
     int diamondCost = rs.getInt(i++);
-    if (diamondCost == 0) diamondCost = MarketplacePost.NOT_SET;
+    if (diamondCost == 0) diamondCost = ControllerConstants.NOT_SET;
     
     int coinCost = rs.getInt(i++);
-    if (coinCost == 0) coinCost = MarketplacePost.NOT_SET;
+    if (coinCost == 0) coinCost = ControllerConstants.NOT_SET;
 
     MarketplacePost mp = new MarketplacePost(id, posterId, postType, timeOfPost, 
         postedEquipId, postedDiamonds, postedCoins, 

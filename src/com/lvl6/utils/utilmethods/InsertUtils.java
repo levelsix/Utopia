@@ -117,20 +117,13 @@ public class InsertUtils {
   }
 
   public static boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
-      int postedEquipId, int postedDiamonds, int postedCoins, int diamondCost, int coinCost) {
+      int postedEquipId, int diamondCost, int coinCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType.getNumber());
-    if (postType == MarketplacePostType.EQUIP_POST) {
-      insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
-    }
-    if (postType == MarketplacePostType.DIAMOND_POST) {
-      insertParams.put(DBConstants.MARKETPLACE__POSTED_DIAMONDS, postedDiamonds);
-    }
-    if (postType == MarketplacePostType.COIN_POST) {
-      insertParams.put(DBConstants.MARKETPLACE__POSTED_COINS, postedCoins);
-    }
+    insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
+
     if (diamondCost > 0){
       insertParams.put(DBConstants.MARKETPLACE__DIAMOND_COST, diamondCost);
     }
@@ -159,15 +152,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType.getNumber());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST, mp.getTimeOfPost());
 
-    if (postType == MarketplacePostType.EQUIP_POST) {
-      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
-    }
-    if (postType == MarketplacePostType.DIAMOND_POST) {
-      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_DIAMONDS, mp.getPostedDiamonds());
-    }
-    if (postType == MarketplacePostType.COIN_POST) {
-      insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_COINS, mp.getPostedCoins());
-    }
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
     if (mp.getDiamondCost() > 0){
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST, mp.getDiamondCost());
     }

@@ -108,8 +108,6 @@ public class DBConstants {
   public static final String MARKETPLACE__POST_TYPE = "post_type";
   public static final String MARKETPLACE__TIME_OF_POST = "time_of_post";
   public static final String MARKETPLACE__POSTED_EQUIP_ID = "posted_equip_id";
-  public static final String MARKETPLACE__POSTED_DIAMONDS = "posted_diamonds"; 
-  public static final String MARKETPLACE__POSTED_COINS = "posted_coins";
   public static final String MARKETPLACE__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE__COIN_COST = "coin_cost";
   
@@ -119,9 +117,8 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID = "buyer_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE = "post_type";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST = "time_of_post";
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE = "time_of_purchase";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID = "posted_equip_id";
-  public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_DIAMONDS = "posted_diamonds"; 
-  public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_COINS = "posted_coins";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
   

@@ -202,9 +202,8 @@ message LocationProto {
 //------------------------------------------------------------------------------------------
 
 enum MarketplacePostType {
-	EQUIP_POST = 0;
-	DIAMOND_POST = 1;
-	COIN_POST = 2;
+	PREMIUM_EQUIP_POST = 0;		//diamond, epics, and legendarys for diamonds
+	NORM_EQUIP_POST = 2;		//coin items for coins
 }
 
 message FullMarketplacePostProto {
@@ -212,11 +211,9 @@ message FullMarketplacePostProto {
 	required int32 posterId = 2;
 	required MarketplacePostType postType = 3;
 	required int64 timeOfPost = 4;
-	optional FullEquipProto postedEquip = 5;
-	optional int32 postedDiamonds = 6;
-	optional int32 postedCoins = 7;
-	optional int32 diamondCost = 8;
-	optional int32 coinCost = 9;
+	required FullEquipProto postedEquip = 5;
+	optional int32 diamondCost = 6;
+	optional int32 coinCost = 7;
 }
 
 //------------------------------------------------------------------------------------------

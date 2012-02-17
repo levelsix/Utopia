@@ -91,23 +91,20 @@ public final class InfoProto {
   
   public enum MarketplacePostType
       implements com.google.protobuf.ProtocolMessageEnum {
-    EQUIP_POST(0, 0),
-    DIAMOND_POST(1, 1),
-    COIN_POST(2, 2),
+    PREMIUM_EQUIP_POST(0, 0),
+    NORM_EQUIP_POST(1, 2),
     ;
     
-    public static final int EQUIP_POST_VALUE = 0;
-    public static final int DIAMOND_POST_VALUE = 1;
-    public static final int COIN_POST_VALUE = 2;
+    public static final int PREMIUM_EQUIP_POST_VALUE = 0;
+    public static final int NORM_EQUIP_POST_VALUE = 2;
     
     
     public final int getNumber() { return value; }
     
     public static MarketplacePostType valueOf(int value) {
       switch (value) {
-        case 0: return EQUIP_POST;
-        case 1: return DIAMOND_POST;
-        case 2: return COIN_POST;
+        case 0: return PREMIUM_EQUIP_POST;
+        case 2: return NORM_EQUIP_POST;
         default: return null;
       }
     }
@@ -138,7 +135,7 @@ public final class InfoProto {
     }
     
     private static final MarketplacePostType[] VALUES = {
-      EQUIP_POST, DIAMOND_POST, COIN_POST, 
+      PREMIUM_EQUIP_POST, NORM_EQUIP_POST, 
     };
     
     public static MarketplacePostType valueOf(
@@ -12044,24 +12041,16 @@ public final class InfoProto {
     boolean hasTimeOfPost();
     long getTimeOfPost();
     
-    // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
+    // required .com.lvl6.proto.FullEquipProto postedEquip = 5;
     boolean hasPostedEquip();
     com.lvl6.proto.InfoProto.FullEquipProto getPostedEquip();
     com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getPostedEquipOrBuilder();
     
-    // optional int32 postedDiamonds = 6;
-    boolean hasPostedDiamonds();
-    int getPostedDiamonds();
-    
-    // optional int32 postedCoins = 7;
-    boolean hasPostedCoins();
-    int getPostedCoins();
-    
-    // optional int32 diamondCost = 8;
+    // optional int32 diamondCost = 6;
     boolean hasDiamondCost();
     int getDiamondCost();
     
-    // optional int32 coinCost = 9;
+    // optional int32 coinCost = 7;
     boolean hasCoinCost();
     int getCoinCost();
   }
@@ -12134,7 +12123,7 @@ public final class InfoProto {
       return timeOfPost_;
     }
     
-    // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
+    // required .com.lvl6.proto.FullEquipProto postedEquip = 5;
     public static final int POSTEDEQUIP_FIELD_NUMBER = 5;
     private com.lvl6.proto.InfoProto.FullEquipProto postedEquip_;
     public boolean hasPostedEquip() {
@@ -12147,41 +12136,21 @@ public final class InfoProto {
       return postedEquip_;
     }
     
-    // optional int32 postedDiamonds = 6;
-    public static final int POSTEDDIAMONDS_FIELD_NUMBER = 6;
-    private int postedDiamonds_;
-    public boolean hasPostedDiamonds() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    public int getPostedDiamonds() {
-      return postedDiamonds_;
-    }
-    
-    // optional int32 postedCoins = 7;
-    public static final int POSTEDCOINS_FIELD_NUMBER = 7;
-    private int postedCoins_;
-    public boolean hasPostedCoins() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    public int getPostedCoins() {
-      return postedCoins_;
-    }
-    
-    // optional int32 diamondCost = 8;
-    public static final int DIAMONDCOST_FIELD_NUMBER = 8;
+    // optional int32 diamondCost = 6;
+    public static final int DIAMONDCOST_FIELD_NUMBER = 6;
     private int diamondCost_;
     public boolean hasDiamondCost() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     public int getDiamondCost() {
       return diamondCost_;
     }
     
-    // optional int32 coinCost = 9;
-    public static final int COINCOST_FIELD_NUMBER = 9;
+    // optional int32 coinCost = 7;
+    public static final int COINCOST_FIELD_NUMBER = 7;
     private int coinCost_;
     public boolean hasCoinCost() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public int getCoinCost() {
       return coinCost_;
@@ -12190,11 +12159,9 @@ public final class InfoProto {
     private void initFields() {
       marketplacePostId_ = 0;
       posterId_ = 0;
-      postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+      postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.PREMIUM_EQUIP_POST;
       timeOfPost_ = 0L;
       postedEquip_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
-      postedDiamonds_ = 0;
-      postedCoins_ = 0;
       diamondCost_ = 0;
       coinCost_ = 0;
     }
@@ -12219,11 +12186,13 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (hasPostedEquip()) {
-        if (!getPostedEquip().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
+      if (!hasPostedEquip()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getPostedEquip().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
       }
       memoizedIsInitialized = 1;
       return true;
@@ -12248,16 +12217,10 @@ public final class InfoProto {
         output.writeMessage(5, postedEquip_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, postedDiamonds_);
+        output.writeInt32(6, diamondCost_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, postedCoins_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt32(8, diamondCost_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt32(9, coinCost_);
+        output.writeInt32(7, coinCost_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -12290,19 +12253,11 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, postedDiamonds_);
+          .computeInt32Size(6, diamondCost_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, postedCoins_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, diamondCost_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, coinCost_);
+          .computeInt32Size(7, coinCost_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -12433,7 +12388,7 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         posterId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.PREMIUM_EQUIP_POST;
         bitField0_ = (bitField0_ & ~0x00000004);
         timeOfPost_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -12443,14 +12398,10 @@ public final class InfoProto {
           postedEquipBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
-        postedDiamonds_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000020);
-        postedCoins_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000040);
         diamondCost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000020);
         coinCost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
       
@@ -12516,17 +12467,9 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.postedDiamonds_ = postedDiamonds_;
+        result.diamondCost_ = diamondCost_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
-        }
-        result.postedCoins_ = postedCoins_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
-        result.diamondCost_ = diamondCost_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
         }
         result.coinCost_ = coinCost_;
         result.bitField0_ = to_bitField0_;
@@ -12560,12 +12503,6 @@ public final class InfoProto {
         if (other.hasPostedEquip()) {
           mergePostedEquip(other.getPostedEquip());
         }
-        if (other.hasPostedDiamonds()) {
-          setPostedDiamonds(other.getPostedDiamonds());
-        }
-        if (other.hasPostedCoins()) {
-          setPostedCoins(other.getPostedCoins());
-        }
         if (other.hasDiamondCost()) {
           setDiamondCost(other.getDiamondCost());
         }
@@ -12593,11 +12530,13 @@ public final class InfoProto {
           
           return false;
         }
-        if (hasPostedEquip()) {
-          if (!getPostedEquip().isInitialized()) {
-            
-            return false;
-          }
+        if (!hasPostedEquip()) {
+          
+          return false;
+        }
+        if (!getPostedEquip().isInitialized()) {
+          
+          return false;
         }
         return true;
       }
@@ -12662,21 +12601,11 @@ public final class InfoProto {
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              postedDiamonds_ = input.readInt32();
+              diamondCost_ = input.readInt32();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
-              postedCoins_ = input.readInt32();
-              break;
-            }
-            case 64: {
-              bitField0_ |= 0x00000080;
-              diamondCost_ = input.readInt32();
-              break;
-            }
-            case 72: {
-              bitField0_ |= 0x00000100;
               coinCost_ = input.readInt32();
               break;
             }
@@ -12729,7 +12658,7 @@ public final class InfoProto {
       }
       
       // required .com.lvl6.proto.MarketplacePostType postType = 3;
-      private com.lvl6.proto.InfoProto.MarketplacePostType postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+      private com.lvl6.proto.InfoProto.MarketplacePostType postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.PREMIUM_EQUIP_POST;
       public boolean hasPostType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
@@ -12747,7 +12676,7 @@ public final class InfoProto {
       }
       public Builder clearPostType() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.EQUIP_POST;
+        postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.PREMIUM_EQUIP_POST;
         onChanged();
         return this;
       }
@@ -12773,7 +12702,7 @@ public final class InfoProto {
         return this;
       }
       
-      // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
+      // required .com.lvl6.proto.FullEquipProto postedEquip = 5;
       private com.lvl6.proto.InfoProto.FullEquipProto postedEquip_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> postedEquipBuilder_;
@@ -12863,85 +12792,43 @@ public final class InfoProto {
         return postedEquipBuilder_;
       }
       
-      // optional int32 postedDiamonds = 6;
-      private int postedDiamonds_ ;
-      public boolean hasPostedDiamonds() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
-      }
-      public int getPostedDiamonds() {
-        return postedDiamonds_;
-      }
-      public Builder setPostedDiamonds(int value) {
-        bitField0_ |= 0x00000020;
-        postedDiamonds_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearPostedDiamonds() {
-        bitField0_ = (bitField0_ & ~0x00000020);
-        postedDiamonds_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // optional int32 postedCoins = 7;
-      private int postedCoins_ ;
-      public boolean hasPostedCoins() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
-      }
-      public int getPostedCoins() {
-        return postedCoins_;
-      }
-      public Builder setPostedCoins(int value) {
-        bitField0_ |= 0x00000040;
-        postedCoins_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearPostedCoins() {
-        bitField0_ = (bitField0_ & ~0x00000040);
-        postedCoins_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // optional int32 diamondCost = 8;
+      // optional int32 diamondCost = 6;
       private int diamondCost_ ;
       public boolean hasDiamondCost() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       public int getDiamondCost() {
         return diamondCost_;
       }
       public Builder setDiamondCost(int value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000020;
         diamondCost_ = value;
         onChanged();
         return this;
       }
       public Builder clearDiamondCost() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000020);
         diamondCost_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 coinCost = 9;
+      // optional int32 coinCost = 7;
       private int coinCost_ ;
       public boolean hasCoinCost() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public int getCoinCost() {
         return coinCost_;
       }
       public Builder setCoinCost(int value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000040;
         coinCost_ = value;
         onChanged();
         return this;
       }
       public Builder clearCoinCost() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000040);
         coinCost_ = 0;
         onChanged();
         return this;
@@ -23149,85 +23036,84 @@ public final class InfoProto {
       "com.lvl6.proto.ExpansionDirection\"\'\n\017Coo" +
       "rdinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLo" +
       "cationProto\022\020\n\010latitude\030\001 \002(\002\022\021\n\tlongitu",
-      "de\030\002 \002(\002\"\233\002\n\030FullMarketplacePostProto\022\031\n" +
+      "de\030\002 \002(\002\"\356\001\n\030FullMarketplacePostProto\022\031\n" +
       "\021marketplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002" +
       "(\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.proto.Ma" +
       "rketplacePostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n" +
-      "\013postedEquip\030\005 \001(\0132\036.com.lvl6.proto.Full" +
-      "EquipProto\022\026\n\016postedDiamonds\030\006 \001(\005\022\023\n\013po" +
-      "stedCoins\030\007 \001(\005\022\023\n\013diamondCost\030\010 \001(\005\022\020\n\010" +
-      "coinCost\030\t \001(\005\"\260\001\n\027FullUserCritstructPro" +
-      "to\022,\n\004type\030\001 \002(\0162\036.com.lvl6.proto.CritSt" +
-      "ructType\022/\n\006coords\030\002 \002(\0132\037.com.lvl6.prot",
-      "o.CoordinateProto\0226\n\013orientation\030\003 \002(\0162!" +
-      ".com.lvl6.proto.StructOrientation\"j\n\024Min" +
-      "imumUserTaskProto\022\016\n\006userId\030\001 \002(\005\022+\n\004tas" +
-      "k\030\002 \002(\0132\035.com.lvl6.proto.FullTaskProto\022\025" +
-      "\n\rnumTimesActed\030\003 \002(\005\"\200\001\n\031MinimumUserQue" +
-      "stTaskProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002" +
-      " \002(\005\022+\n\004task\030\003 \002(\0132\035.com.lvl6.proto.Full" +
-      "TaskProto\022\025\n\rnumTimesActed\030\004 \002(\005\"\376\003\n\033Ful" +
-      "lUserQuestDataLargeProto\022\016\n\006userId\030\001 \002(\005" +
-      "\022\017\n\007questId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(\010\022H\n\025r",
-      "equiredTasksProgress\030\004 \003(\0132).com.lvl6.pr" +
-      "oto.MinimumUserQuestTaskProto\022T\n\035require" +
-      "dDefeatTypeJobProgress\030\005 \003(\0132-.com.lvl6." +
-      "proto.MinimumUserDefeatTypeJobProto\022V\n\036r" +
-      "equiredBuildStructJobProgress\030\006 \003(\0132..co" +
-      "m.lvl6.proto.MinimumUserBuildStructJobPr" +
-      "oto\022Z\n requiredUpgradeStructJobProgress\030" +
-      "\007 \003(\01320.com.lvl6.proto.MinimumUserUpgrad" +
-      "eStructJobProto\022X\n\037requiredPossessEquipJ" +
-      "obProgress\030\010 \003(\0132/.com.lvl6.proto.Minimu",
-      "mUserPossessEquipJobProto\"\222\001\n\035MinimumUse" +
-      "rDefeatTypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007q" +
-      "uestId\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\"." +
-      "com.lvl6.proto.DefeatTypeJobProto\022\023\n\013num" +
-      "Defeated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n" +
-      "\017defeatTypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 " +
-      "\002(\0162\030.com.lvl6.proto.UserType\022\032\n\022numEnem" +
-      "iesToDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036Mi" +
-      "nimumUserBuildStructJobProto\022\016\n\006userId\030\001" +
-      " \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016buildStructJob\030",
-      "\003 \002(\0132#.com.lvl6.proto.BuildStructJobPro" +
-      "to\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildS" +
-      "tructJobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022" +
-      "\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 " +
-      "\002(\005\"\230\001\n MinimumUserUpgradeStructJobProto" +
-      "\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upg" +
-      "radeStructJob\030\003 \002(\0132%.com.lvl6.proto.Upg" +
-      "radeStructJobProto\022\022\n\nisComplete\030\004 \002(\010\"W" +
-      "\n\025UpgradeStructJobProto\022\032\n\022upgradeStruct" +
-      "JobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelRe",
-      "q\030\003 \002(\005\"\237\001\n\037MinimumUserPossessEquipJobPr" +
-      "oto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024" +
-      "possessEquipJobProto\030\003 \002(\0132$.com.lvl6.pr" +
-      "oto.PossessEquipJobProto\022\027\n\017numEquipUser" +
-      "Has\030\004 \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021pos" +
-      "sessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n" +
-      "\013quantityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022\017\n" +
-      "\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003" +
-      " \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneRespons" +
-      "e\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumW",
-      "ithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016" +
-      "diamondsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022" +
-      "\025\n\requipIdGained\030\013 \001(\005\022\035\n\025questsRequired" +
-      "ForThis\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgra" +
-      "deStructJobsReqs\030\016 \003(\005\022\033\n\023buildStructJob" +
-      "sReqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023p" +
-      "ossessEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020\n\014" +
-      "GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_" +
-      "MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022" +
-      "\014\n\010BAD_MAGE\020\005*F\n\023MarketplacePostType\022\016\n\n",
-      "EQUIP_POST\020\000\022\020\n\014DIAMOND_POST\020\001\022\r\n\tCOIN_P" +
-      "OST\020\002*2\n\035MarketplaceJobRequirementType\022\007" +
-      "\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006A" +
-      "VIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t" +
-      "\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3" +
-      "\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nP" +
-      "OSITION_2\020\001*@\n\022ExpansionDirection\022\r\n\tNEA" +
-      "R_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B" +
-      "\tInfoProto"
+      "\013postedEquip\030\005 \002(\0132\036.com.lvl6.proto.Full" +
+      "EquipProto\022\023\n\013diamondCost\030\006 \001(\005\022\020\n\010coinC" +
+      "ost\030\007 \001(\005\"\260\001\n\027FullUserCritstructProto\022,\n" +
+      "\004type\030\001 \002(\0162\036.com.lvl6.proto.CritStructT" +
+      "ype\022/\n\006coords\030\002 \002(\0132\037.com.lvl6.proto.Coo" +
+      "rdinateProto\0226\n\013orientation\030\003 \002(\0162!.com.",
+      "lvl6.proto.StructOrientation\"j\n\024MinimumU" +
+      "serTaskProto\022\016\n\006userId\030\001 \002(\005\022+\n\004task\030\002 \002" +
+      "(\0132\035.com.lvl6.proto.FullTaskProto\022\025\n\rnum" +
+      "TimesActed\030\003 \002(\005\"\200\001\n\031MinimumUserQuestTas" +
+      "kProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022" +
+      "+\n\004task\030\003 \002(\0132\035.com.lvl6.proto.FullTaskP" +
+      "roto\022\025\n\rnumTimesActed\030\004 \002(\005\"\376\003\n\033FullUser" +
+      "QuestDataLargeProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007q" +
+      "uestId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(\010\022H\n\025requir" +
+      "edTasksProgress\030\004 \003(\0132).com.lvl6.proto.M",
+      "inimumUserQuestTaskProto\022T\n\035requiredDefe" +
+      "atTypeJobProgress\030\005 \003(\0132-.com.lvl6.proto" +
+      ".MinimumUserDefeatTypeJobProto\022V\n\036requir" +
+      "edBuildStructJobProgress\030\006 \003(\0132..com.lvl" +
+      "6.proto.MinimumUserBuildStructJobProto\022Z" +
+      "\n requiredUpgradeStructJobProgress\030\007 \003(\013" +
+      "20.com.lvl6.proto.MinimumUserUpgradeStru" +
+      "ctJobProto\022X\n\037requiredPossessEquipJobPro" +
+      "gress\030\010 \003(\0132/.com.lvl6.proto.MinimumUser" +
+      "PossessEquipJobProto\"\222\001\n\035MinimumUserDefe",
+      "atTypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questI" +
+      "d\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\".com.l" +
+      "vl6.proto.DefeatTypeJobProto\022\023\n\013numDefea" +
+      "ted\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017defe" +
+      "atTypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\0162\030" +
+      ".com.lvl6.proto.UserType\022\032\n\022numEnemiesTo" +
+      "Defeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036Minimum" +
+      "UserBuildStructJobProto\022\016\n\006userId\030\001 \002(\005\022" +
+      "\017\n\007questId\030\002 \002(\005\022;\n\016buildStructJob\030\003 \002(\013" +
+      "2#.com.lvl6.proto.BuildStructJobProto\022\032\n",
+      "\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildStruct" +
+      "JobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022\020\n\010st" +
+      "ructId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 \002(\005\"\230" +
+      "\001\n MinimumUserUpgradeStructJobProto\022\016\n\006u" +
+      "serId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upgradeS" +
+      "tructJob\030\003 \002(\0132%.com.lvl6.proto.UpgradeS" +
+      "tructJobProto\022\022\n\nisComplete\030\004 \002(\010\"W\n\025Upg" +
+      "radeStructJobProto\022\032\n\022upgradeStructJobId" +
+      "\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq\030\003 \002" +
+      "(\005\"\237\001\n\037MinimumUserPossessEquipJobProto\022\016",
+      "\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024posse" +
+      "ssEquipJobProto\030\003 \002(\0132$.com.lvl6.proto.P" +
+      "ossessEquipJobProto\022\027\n\017numEquipUserHas\030\004" +
+      " \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021possessE" +
+      "quipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013quan" +
+      "tityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022\017\n\007ques" +
+      "tId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022" +
+      "\023\n\013description\030\004 \002(\t\022\024\n\014doneResponse\030\005 \002" +
+      "(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWithin" +
+      "City\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamo",
+      "ndsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\req" +
+      "uipIdGained\030\013 \001(\005\022\035\n\025questsRequiredForTh" +
+      "is\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeStr" +
+      "uctJobsReqs\030\016 \003(\005\022\033\n\023buildStructJobsReqs" +
+      "\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023posses" +
+      "sEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020\n\014GOOD_" +
+      "WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020" +
+      "\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BA" +
+      "D_MAGE\020\005*B\n\023MarketplacePostType\022\026\n\022PREMI" +
+      "UM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035",
+      "MarketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010" +
+      "\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016" +
+      "\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003" +
+      "\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructO" +
+      "rientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2" +
+      "\020\001*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022" +
+      "\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProt" +
+      "o"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -23335,7 +23221,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor,
-              new java.lang.String[] { "MarketplacePostId", "PosterId", "PostType", "TimeOfPost", "PostedEquip", "PostedDiamonds", "PostedCoins", "DiamondCost", "CoinCost", },
+              new java.lang.String[] { "MarketplacePostId", "PosterId", "PostType", "TimeOfPost", "PostedEquip", "DiamondCost", "CoinCost", },
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.class,
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserCritstructProto_descriptor =

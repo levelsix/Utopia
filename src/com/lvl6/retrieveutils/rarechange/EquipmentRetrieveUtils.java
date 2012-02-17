@@ -113,9 +113,10 @@ public class EquipmentRetrieveUtils {
     } else if (diamondPriceSet && !coinPriceSet){
       equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity, availableInArmory);      
     } else if (diamondPriceSet && coinPriceSet){
-      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, diamondPrice, chanceOfLoss, classType, rarity, availableInArmory);            
-    }
-    //there should never be anything where diamondPrice and coinPriceSet are both false. even bandanas have both set to 0
+      log.error("equipment should only have coin or diamond price");
+      return null;
+    } 
+    //bandanas are listed in the armory with coinPrice = 0 and diamondPrice = null 
     return equip;
   }
 }

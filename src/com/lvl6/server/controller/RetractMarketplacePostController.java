@@ -11,7 +11,6 @@ import com.lvl6.proto.EventProto.RetractMarketplacePostRequestProto;
 import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto;
 import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.Builder;
 import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus;
-import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
@@ -51,8 +50,8 @@ public class RetractMarketplacePostController extends EventController{
       int diamondCost = mp.getDiamondCost();
       int coinCost = mp.getCoinCost();
 
-      int diamondCut = (int)(Math.ceil(diamondCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
-      int coinCut = (int)(Math.ceil(coinCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN));
+      int diamondCut = Math.max(0, (int)(Math.ceil(diamondCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
+      int coinCut = Math.max(0, (int)(Math.ceil(coinCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
       
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 
@@ -68,9 +67,7 @@ public class RetractMarketplacePostController extends EventController{
         if (mp != null) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
           server.writeEvent(resEventUpdate);
-          if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
-            QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
-          }
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
         }
       }
     } catch (Exception e) {
@@ -86,22 +83,11 @@ public class RetractMarketplacePostController extends EventController{
       log.error("problem with retracting marketplace post");
     }
 
-    MarketplacePostType postType = mp.getPostType();
-    
     int diamondChange = diamondCut * -1;
     int coinChange = coinCut * -1;
     
-    if (postType == MarketplacePostType.DIAMOND_POST) {
-      diamondChange += mp.getPostedDiamonds();
-    }
-    if (postType == MarketplacePostType.COIN_POST) {
-      coinChange += mp.getPostedCoins();
-    }
-
-    if (postType == MarketplacePostType.EQUIP_POST) {
-      if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
-        log.error("problem with giving user back equip");
-      }
+    if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
+      log.error("problem with giving user back equip");
     }
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, -1)) {
       log.error("problem with giving user back stuff after retract");

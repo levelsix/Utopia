@@ -491,12 +491,9 @@ message RetrieveCurrentMarketplacePostsResponseProto {
 																						//DONE
 message PostToMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
-	required MarketplacePostType postType = 2;
-	optional int32 postedEquipId = 3;
-	optional int32 postedDiamonds = 4;
-	optional int32 postedCoins = 5;
-	optional int32 diamondCost = 6;
-	optional int32 coinCost = 7;
+	required int32 postedEquipId = 2;
+	optional int32 diamondCost = 3;
+	optional int32 coinCost = 4;
 }
 
 																						//DONE
@@ -511,8 +508,8 @@ message PostToMarketplaceResponseProto {
 		NEGATIVE_COST = 3;
 		NO_COST = 4;
 		USER_ALREADY_MAX_MARKETPLACE_POSTS = 5;
-		NOT_ENOUGH_DIAMONDS = 6;
-		NOT_ENOUGH_COINS = 7;
+		CANT_DEMAND_BOTH = 6;
+		INVALID_COST_TYPE_FOR_POST = 7;
 		OTHER_FAIL = 8;
 	}
 }

@@ -40,7 +40,6 @@ import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LocationProto;
-import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
@@ -115,22 +114,12 @@ public class CreateInfoProtoUtils {
   public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp) {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
         .setPosterId(mp.getPosterId()).setPostType(mp.getPostType())
-        .setTimeOfPost(mp.getTimeOfPost().getTime());
-
-    if (mp.getPostType() == MarketplacePostType.COIN_POST) {
-      builder.setPostedCoins(mp.getPostedCoins());
-    }
-    if (mp.getPostType() == MarketplacePostType.DIAMOND_POST) {
-      builder.setPostedDiamonds(mp.getPostedDiamonds());
-    }
-    if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
-      builder.setPostedEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(
+        .setTimeOfPost(mp.getTimeOfPost().getTime()).setPostedEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(
           EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
-    }
-    if (mp.getDiamondCost() != MarketplacePost.NOT_SET) {
+    if (mp.getDiamondCost() != ControllerConstants.NOT_SET) {
       builder.setDiamondCost(mp.getDiamondCost());
     }
-    if (mp.getCoinCost() != MarketplacePost.NOT_SET) {
+    if (mp.getCoinCost() != ControllerConstants.NOT_SET) {
       builder.setCoinCost(mp.getCoinCost());
     }
     return builder.build();

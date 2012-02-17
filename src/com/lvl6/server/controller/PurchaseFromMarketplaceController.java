@@ -11,7 +11,6 @@ import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceRequestProto;
-import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
@@ -73,9 +72,7 @@ public class PurchaseFromMarketplaceController extends EventController {
           server.writeEvent(resEventUpdate);
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(seller);
           server.writeEvent(resEventUpdate);
-          if (mp.getPostType() == MarketplacePostType.EQUIP_POST) {
-            QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto);
-          }
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto);
         }
       }
     } catch (Exception e) {
@@ -104,15 +101,6 @@ public class PurchaseFromMarketplaceController extends EventController {
       totalBuyerCoinChange -= mp.getCoinCost();      
     }
 
-    MarketplacePostType postType = mp.getPostType();
-
-    if (postType == MarketplacePostType.DIAMOND_POST) {
-      totalBuyerDiamondChange += mp.getPostedDiamonds();
-    }
-    if (postType == MarketplacePostType.COIN_POST) {
-      totalBuyerCoinChange += mp.getPostedCoins();
-    }
-
     if (totalSellerDiamondChange != 0 || totalSellerCoinChange != 0) {
       if (!seller.updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive(totalSellerDiamondChange, totalSellerCoinChange, -1, 1)) {
         log.error("problem with giving seller postmarketplace results");
@@ -125,10 +113,8 @@ public class PurchaseFromMarketplaceController extends EventController {
       }
     }
 
-    if (postType == MarketplacePostType.EQUIP_POST) {
-      if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
-        log.error("problem with giving buyer marketplace equip");
-      }
+    if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
+      log.error("problem with giving buyer marketplace equip");
     }
     
     if (!InsertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId())) {

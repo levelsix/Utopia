@@ -2,21 +2,20 @@ package com.lvl6.info;
 
 import java.util.Date;
 
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 
 public class MarketplacePost {
-  
-  public static final int NOT_SET = -1;
   
   private int id;
   private int posterId;
   private MarketplacePostType postType;
   private Date timeOfPost;
-  private int postedEquipId = NOT_SET;
-  private int postedDiamonds = NOT_SET;
-  private int postedCoins = NOT_SET;
-  private int diamondCost = NOT_SET;
-  private int coinCost = NOT_SET;
+  private int postedEquipId = ControllerConstants.NOT_SET;
+  private int postedDiamonds = ControllerConstants.NOT_SET;
+  private int postedCoins = ControllerConstants.NOT_SET;
+  private int diamondCost = ControllerConstants.NOT_SET;
+  private int coinCost = ControllerConstants.NOT_SET;
   
   public MarketplacePost(int id, int posterId, MarketplacePostType postType,
       Date timeOfPost, int postedEquipId, int postedDiamonds,
