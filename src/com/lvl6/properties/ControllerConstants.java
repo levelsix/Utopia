@@ -4,6 +4,9 @@ public class ControllerConstants {
 
   public static final int NOT_SET = -1;
   
+  //LEVEL UP
+  public static final int MAX_LEVEL_FOR_USER = 300;
+  
   //CRIT STRUCTS
   public static final int LUMBERJACK_DEFAULT_X = 3;
   public static final int LUMBERJACK_DEFAULT_Y = 3;

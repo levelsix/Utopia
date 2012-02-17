@@ -16,6 +16,7 @@ message AdminChangeRequestProto {
 		UPGRADE_STRUCT_JOBS = 8;	
 		STRUCTURES = 9;		
 		POSSESS_EQUIP_JOBS = 10;
+		LEVELS_REQUIRED_EXPERIENCE = 11;
 	}
 	
 	optional int32 salePercentOff = 2;

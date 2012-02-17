@@ -33,13 +33,14 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class StartupController extends EventController {
@@ -79,13 +80,14 @@ public class StartupController extends EventController {
       User user = UserRetrieveUtils.getUserByUDID(udid);
       if (user != null) {
         startupStatus = StartupStatus.USER_IN_DB;
-
         setCitiesAvailableToUser(resBuilder, user);
         setInProgressAndAvailableQuests(resBuilder, user);
         setUserEquipsAndEquips(resBuilder, user);
         setUserStructsAndStructs(resBuilder, user);
         FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
         resBuilder.setSender(fup);
+        resBuilder.setExperienceRequiredForNextLevel(
+            LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1));
       }
     }
     resBuilder.setStartupStatus(startupStatus);
@@ -99,12 +101,12 @@ public class StartupController extends EventController {
     // Write event directly since EventWriter cannot handle without userId.
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
     NIOUtils.prepBuffer(resEvent, writeBuffer);
-    
+
     SocketChannel sc = server.removePreDbPlayer(udid);
     NIOUtils.channelWrite(sc, writeBuffer);
   }
 
-  
+
   private void setUserStructsAndStructs(Builder resBuilder, User user) {
     List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
     if (userStructs != null) {
@@ -141,7 +143,7 @@ public class StartupController extends EventController {
         resBuilder.addInProgressQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(uq.getQuestId())));
       }
     }
-    
+
     List<Integer> availableQuestIds = QuestUtils.getAvailableQuestsForUser(redeemedQuestIds, inProgressQuestIds);
     if (availableQuestIds != null) {
       for (Integer questId : availableQuestIds) {
@@ -151,12 +153,9 @@ public class StartupController extends EventController {
   }
 
   private void setCitiesAvailableToUser(Builder resBuilder, User user) {
-    Map<Integer, City> cities = CityRetrieveUtils.getCityIdsToCities();
-    for (Integer cityId : cities.keySet()) {
-      City city = cities.get(cityId);
-      if (user.getLevel() >= city.getMinLevel()) {
-        resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
-      }
+    List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(user.getLevel());
+    for (City city : availCities) {
+      resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
     }
   }
 

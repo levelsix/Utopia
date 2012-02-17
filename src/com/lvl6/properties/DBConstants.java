@@ -26,7 +26,8 @@ public class DBConstants {
   public static final String TABLE_JOBS_MARKETPLACE = "jobs_marketplace";
   public static final String TABLE_JOBS_POSSESS_EQUIP = "jobs_possess_equip";
   public static final String TABLE_QUESTS = "quests";
-  public static final String TABLE_STRUCTURES = "structures";  
+  public static final String TABLE_STRUCTURES = "structures";
+  public static final String TABLE_LEVELS_REQUIRED_EXPERIENCE = "levels_required_experience";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -184,6 +185,5 @@ public class DBConstants {
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID = "defeat_type_job_id";
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED = "num_defeated";
-
   
 }

@@ -174,7 +174,7 @@ public class TaskActionController extends EventController {
                   if (userCompletedTasksForQuest.containsAll(quest.getTasksRequired())) {
                     if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                       userQuest.setTasksComplete(true);
-                      QuestUtils.checkQuestComplete(server, quest, userQuest, senderProto, true);
+                      QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
                     } else {
                       log.error("problem with marking tasks completed for a user quest");
                     }
@@ -185,7 +185,7 @@ public class TaskActionController extends EventController {
               }
             }
             if (equipCheck) {
-              QuestUtils.checkQuestComplete(server, quest, userQuest, senderProto, true);
+              QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
             }
           }
         }
@@ -224,6 +224,7 @@ public class TaskActionController extends EventController {
       if (user.isLastEnergyStateFull()) {
         simulateEnergyRefill = true;
       }
+      
       if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1, simulateEnergyRefill, clientTime)) {
         log.error("problem with updating user stats post-task");
       }

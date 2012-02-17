@@ -7,7 +7,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.*;
 
 public class AdminController extends EventController {
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new AdminChangeRequestEvent();
@@ -21,7 +21,7 @@ public class AdminController extends EventController {
   @Override
   protected void processRequestEvent(RequestEvent event) {
     AdminChangeRequestProto reqProto = ((AdminChangeRequestEvent)event).getAdminChangeRequestProto();
-    
+
     if (reqProto.hasStaticDataReloadType()) {
       switch (reqProto.getStaticDataReloadType()) {
       case ALL:
@@ -33,6 +33,9 @@ public class AdminController extends EventController {
         TaskEquipReqRetrieveUtils.reload();
         TaskRetrieveUtils.reload();
         UpgradeStructJobRetrieveUtils.reload();
+        StructureRetrieveUtils.reload();
+        PossessEquipJobRetrieveUtils.reload();
+        LevelsRequiredExperienceRetrieveUtils.reload();
         break;
       case BUILD_STRUCT_JOBS:
         BuildStructJobRetrieveUtils.reload();
@@ -64,7 +67,11 @@ public class AdminController extends EventController {
       case POSSESS_EQUIP_JOBS:
         PossessEquipJobRetrieveUtils.reload();
         break;
+      case LEVELS_REQUIRED_EXPERIENCE:
+        LevelsRequiredExperienceRetrieveUtils.reload();
+        break;
       }
+
     }
   }
 }

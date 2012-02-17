@@ -175,7 +175,7 @@ public class QuestRedeemController extends EventController {
       resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
       return false;
     }
-    if (!QuestUtils.checkQuestComplete(null, quest, userQuest, null, false)) {
+    if (!QuestUtils.checkAndSendQuestComplete(null, quest, userQuest, null, false)) {
       resBuilder.setStatus(QuestRedeemStatus.NOT_COMPLETE);
       return false;
     }

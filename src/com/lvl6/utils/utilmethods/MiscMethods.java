@@ -2,16 +2,34 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.City;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
+ 
+  
+  public static List<City> getCitiesAvailableForUserLevel(int userLevel) {
+    List<City> availCities = new ArrayList<City>();
+    Map<Integer, City> cities = CityRetrieveUtils.getCityIdsToCities();
+    for (Integer cityId : cities.keySet()) {
+      City city = cities.get(cityId);
+      if (userLevel >= city.getMinLevel()) {
+        availCities.add(city);
+      }
+    }
+    return availCities;
+  }
   
   public static int calculateMinutesToUpgradeForUserStruct(int minutesToUpgradeBase, int userStructLevel) {
     return Math.max(1, (minutesToUpgradeBase * userStructLevel)/2);

@@ -120,6 +120,7 @@ message StartupResponseProto {
     repeated FullEquipProto equips = 9;
 	repeated FullUserStructureProto userStructures = 10;
 	repeated FullStructureProto structs = 11;
+	required int32 experienceRequiredForNextLevel = 12;
 	  
 	message StartupConstants {
 	  	repeated string productIds = 1;
@@ -437,9 +438,25 @@ message NormStructWaitCompleteResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+//client calls this whenever exp surpasses the next one
+//server checks if user's exp is over the next, if so, increments user's level
+message LevelUpRequestProto {
+	required MinimumUserProto sender = 1;
+}
+
 message LevelUpResponseProto {
-     required FullUserProto sender = 1;
-     optional FullCityProto unlockedCityAvailableToUser = 2;
+     required MinimumUserProto sender = 1;
+     required LevelUpStatus status = 2;
+     
+     optional int32 newNextLevel = 3;
+     optional int32 experienceRequiredForNewNextLevel = 4;
+	 repeated FullCityProto citiesAvailableToUser = 5;
+     
+	enum LevelUpStatus {
+     	SUCCESS = 0;
+     	NOT_ENOUGH_EXP_TO_NEXT_LEVEL = 1;
+     	OTHER_FAIL = 2;
+     }
 }
 
 //------------------------------------------------------------------------------------------
@@ -753,10 +770,11 @@ message RetrieveStaticDataRequestProto {
 	repeated int32 questIds = 4;
 	repeated int32 cityIds = 5;
 	repeated int32 equipIds = 6;
-	repeated int32 buildStructJobIds = 12;
-	repeated int32 defeatTypeJobIds = 13;
-	repeated int32 possessEquipJobIds = 14;
-	repeated int32 upgradeStructJobIds = 15;
+	repeated int32 buildStructJobIds = 7;
+	repeated int32 defeatTypeJobIds = 8;
+	repeated int32 possessEquipJobIds = 9;
+	repeated int32 upgradeStructJobIds = 10;
+	optional int32 levelForExpRequiredRequest = 11;
 }
 
 																						//DONE
@@ -767,12 +785,13 @@ message RetrieveStaticDataResponseProto {
 	repeated FullQuestProto quests = 4;
 	repeated FullCityProto cities = 5;
 	repeated FullEquipProto equips = 6;
-	repeated BuildStructJobProto buildStructJobs = 12;
-	repeated DefeatTypeJobProto defeatTypeJobs = 13;
-	repeated PossessEquipJobProto possessEquipJobs = 14;
-	repeated UpgradeStructJobProto upgradeStructJobs = 15;
+	repeated BuildStructJobProto buildStructJobs = 7;
+	repeated DefeatTypeJobProto defeatTypeJobs = 8;
+	repeated PossessEquipJobProto possessEquipJobs = 9;
+	repeated UpgradeStructJobProto upgradeStructJobs = 10;
+	optional int32 expRequiredForRequestedLevel = 11;
 	
-	required RetrieveStaticDataStatus status = 7;
+	required RetrieveStaticDataStatus status = 12;
 	
 	enum RetrieveStaticDataStatus {
 		SUCCESS = 0;

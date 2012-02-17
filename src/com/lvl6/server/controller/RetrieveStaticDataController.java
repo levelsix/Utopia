@@ -15,6 +15,7 @@ import com.lvl6.info.jobs.BuildStructJob;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.info.jobs.UpgradeStructJob;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetrieveStaticDataRequestProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.Builder;
@@ -25,6 +26,7 @@ import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
@@ -142,7 +144,7 @@ public class RetrieveStaticDataController extends EventController{
         }
       }
     }
-    
+
     List <Integer> defeatTypeJobIds = reqProto.getDefeatTypeJobIdsList();
     if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) {
       Map<Integer, DefeatTypeJob> defeatTypeJobIdsToDefeatTypeJobs = DefeatTypeJobRetrieveUtils.getDefeatTypeJobIdsToDefeatTypeJobs();
@@ -155,7 +157,7 @@ public class RetrieveStaticDataController extends EventController{
         }
       }
     }
-    
+
     List <Integer> possessEquipJobIds = reqProto.getPossessEquipJobIdsList();
     if (possessEquipJobIds != null && possessEquipJobIds.size() > 0) {
       Map<Integer, PossessEquipJob> possessEquipJobIdsToPossessEquipJobs = PossessEquipJobRetrieveUtils.getPossessEquipJobIdsToPossessEquipJobs();
@@ -168,7 +170,7 @@ public class RetrieveStaticDataController extends EventController{
         }
       }
     }
-    
+
     List <Integer> upgradeStructJobIds = reqProto.getUpgradeStructJobIdsList();
     if (upgradeStructJobIds != null && upgradeStructJobIds.size() > 0) {
       Map<Integer, UpgradeStructJob> upgradeStructJobIdsToUpgradeStructJobs = UpgradeStructJobRetrieveUtils.getUpgradeStructJobIdsToUpgradeStructJobs();
@@ -181,6 +183,17 @@ public class RetrieveStaticDataController extends EventController{
         }
       }
     }
+
+    if (reqProto.hasLevelForExpRequiredRequest()) {
+      int level = reqProto.getLevelForExpRequiredRequest();
+      if (level > ControllerConstants.MAX_LEVEL_FOR_USER || level < 2) {
+        resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+      } else {
+        int expRequired = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(level);
+        resBuilder.setExpRequiredForRequestedLevel(expRequired);
+      }
+    }
+
   }
 
 }

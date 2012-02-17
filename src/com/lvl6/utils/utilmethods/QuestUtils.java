@@ -32,13 +32,13 @@ public class QuestUtils {
       for (UserQuest userQuest : inProgressUserQuests) {
         Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
         if (quest != null) {
-          QuestUtils.checkQuestComplete(server, quest, userQuest, senderProto, true);
+          QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
         }
       }
     }
   }
 
-  public static boolean checkQuestComplete(GameServer server, Quest quest, UserQuest userQuest,
+  public static boolean checkAndSendQuestComplete(GameServer server, Quest quest, UserQuest userQuest,
       MinimumUserProto senderProto, boolean sendCompleteMessage) {
     if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();

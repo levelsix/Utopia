@@ -97,6 +97,22 @@ public class User {
     this.amuletEquipped = amuletEquipped;
   }
 
+  public boolean updateLevel(int levelChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__LEVEL, levelChange);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.level += levelChange;
+      return true;
+    }
+    return false;
+  }
+
   /*
    * used for refilling stamina
    */
@@ -672,4 +688,5 @@ public class User {
         + ", armorEquipped=" + armorEquipped + ", amuletEquipped="
         + amuletEquipped + "]";
   }
+
 }
