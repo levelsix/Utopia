@@ -6,7 +6,9 @@ import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
@@ -15,7 +17,9 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.events.PreDatabaseRequestEvent;
 import com.lvl6.events.RequestEvent;
+import com.lvl6.info.User;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.Attachment;
 import com.lvl6.utils.ConnectedPlayer;
@@ -66,8 +70,8 @@ public class SelectAndRead extends Thread{
       log.fatal("exception while opening Selector", e);
     }
   }
-  
-  
+
+
   /** 
    * do our select, read from the channels
    * and hand off events to GameControllers
@@ -91,7 +95,23 @@ public class SelectAndRead extends Thread{
           long nbytes = channel.read(attachment.readBuff);
           // check for end-of-stream condition
           if (nbytes == -1) {
-            server.removePlayer(channel);
+            int playerId = server.getPlayerIdOnChannel(channel);
+            if (playerId > 0) {
+              server.lockPlayer(playerId);
+              try {
+                User user = UserRetrieveUtils.getUserById(playerId);
+                if (user != null) {
+                  if (!user.updateLastloginLastlogout(null, new Timestamp(new Date().getTime()))) {
+                    log.error("problem with updating user's last logout time for user " + playerId);
+                  }
+                }
+              } catch (Exception e) {
+                log.error("exception in updating user logout", e);
+              } finally {
+                server.unlockPlayer(playerId); 
+                server.removePlayer(channel);
+              }
+            }
             channel.close();
             log.info("disconnect: " + channel.socket().getInetAddress() + 
                 ", end-of-stream");
@@ -141,7 +161,7 @@ public class SelectAndRead extends Thread{
 
     // get the controller and tell it to instantiate an event for us
     EventController ec = server.getEventControllerByEventType(attachment.eventType);
-    
+
     if (ec == null) {
       return null;
     }
@@ -193,7 +213,7 @@ public class SelectAndRead extends Thread{
         log.debug("new pre-db player, udid: "+ udid);
       }
     }
-    
+
     ec.handleEvent(event);
   }
 
@@ -218,5 +238,5 @@ public class SelectAndRead extends Thread{
       }
     }
   }
-  
+
 }

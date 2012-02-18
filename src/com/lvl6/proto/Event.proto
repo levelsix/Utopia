@@ -106,6 +106,7 @@ message ArmoryResponseProto {
 message StartupRequestProto {				//client will also send ChangeUserLocationRequestProto
      required string udid = 1;
      required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
+     required int64 clientTime = 3;
 }
 
 message StartupResponseProto {
@@ -146,6 +147,8 @@ message StartupResponseProto {
 
 //------------------------------------------------------------------------------------------
 //CALLED: AFTER THE TUTORIAL
+
+//add player to server maps. channelToPlayerId, playersByPlayerId
 
 message UserCreateRequestProto {
      required string udid = 1;
@@ -252,7 +255,8 @@ message PurchaseNormStructureResponseProto {
 		NOT_ENOUGH_MATERIALS = 1;
 		LEVEL_TOO_LOW = 2;
 		ANOTHER_STRUCT_STILL_BUILDING = 3;
-		OTHER_FAIL = 4;
+		ALREADY_HAVE_MAX_OF_THIS_STRUCT = 4;
+		OTHER_FAIL = 5;
 	}
 }
 
@@ -440,10 +444,13 @@ message NormStructWaitCompleteResponseProto {
 
 //client calls this whenever exp surpasses the next one
 //server checks if user's exp is over the next, if so, increments user's level
+																						//DONE
+
 message LevelUpRequestProto {
 	required MinimumUserProto sender = 1;
 }
 
+																						//DONE
 message LevelUpResponseProto {
      required MinimumUserProto sender = 1;
      required LevelUpStatus status = 2;

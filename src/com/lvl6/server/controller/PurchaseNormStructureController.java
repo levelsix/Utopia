@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseNormStructureRequestEvent;
@@ -11,6 +12,7 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserStruct;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseNormStructureRequestProto;
 import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto;
 import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.Builder;
@@ -109,12 +111,22 @@ public class PurchaseNormStructureController extends EventController {
       resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
       return false;
     }
-    List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
-    if (userStructs != null) {
-      for (UserStruct us : userStructs) {
-        if (!us.isComplete() && us.getLastRetrieved() == null) {
-          resBuilder.setStatus(PurchaseNormStructureStatus.ANOTHER_STRUCT_STILL_BUILDING);
-          return false;
+    
+    Map<Integer, List<UserStruct>> structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(user.getId());
+    if (structIdsToUserStructs != null) {
+      for (Integer structId : structIdsToUserStructs.keySet()) {
+        List<UserStruct> userStructsOfSameStructId = structIdsToUserStructs.get(structId);
+        if (userStructsOfSameStructId != null) {
+          if (userStructsOfSameStructId.size() >= ControllerConstants.PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE) {
+            resBuilder.setStatus(PurchaseNormStructureStatus.ALREADY_HAVE_MAX_OF_THIS_STRUCT);
+            return false;
+          }
+          for (UserStruct us : userStructsOfSameStructId) {
+            if (!us.isComplete() && us.getLastRetrieved() == null) {
+              resBuilder.setStatus(PurchaseNormStructureStatus.ANOTHER_STRUCT_STILL_BUILDING);
+              return false;
+            }
+          }
         }
       }
     }

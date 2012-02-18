@@ -65,6 +65,8 @@ public class DBConstants {
   public static final String USER__LONGITUDE = "longitude";
   public static final String USER__NUM_POSTS_IN_MARKETPLACE = "num_posts_in_marketplace";
   public static final String USER__NUM_MARKETPLACE_SALES_UNREDEEMED = "num_marketplace_sales_unredeemed";
+  public static final String USER__LAST_LOGIN = "last_login";
+  public static final String USER__LAST_LOGOUT = "last_logout";
 
   
   /*USER EQUIP TABLE*/

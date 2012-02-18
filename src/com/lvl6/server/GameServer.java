@@ -272,6 +272,14 @@ public class GameServer extends Thread{
       System.out.println("ChannelToPlayerId: "+channelToPlayerId);
     }
   }
+  
+  //returns -1 if he's not in there
+  public synchronized int getPlayerIdOnChannel(SocketChannel channel) {
+    if (channelToPlayerId.contains(channel)) {
+      return channelToPlayerId.get(channel);
+    }
+    return -1;
+  }
 
   public void lockPlayer(int playerId) {
     playersInAction.addPlayer(playerId);

@@ -189,12 +189,23 @@ public class UserRetrieveUtils {
       amuletEquipped = ControllerConstants.NOT_SET;
     }
     
+    Date lastLoginTime = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastLoginTime = new Date(ts.getTime());
+    }
+    
+    Date lastLogoutTime = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastLogoutTime = new Date(ts.getTime());
+    }
 
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
         isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
-        weaponEquipped, armorEquipped, amuletEquipped);
+        weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime);
     return user;
   }
 }

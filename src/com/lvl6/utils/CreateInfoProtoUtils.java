@@ -160,7 +160,8 @@ public class CreateInfoProtoUtils {
         .setArmyCode(u.getArmyCode()).setNumReferrals(u.getNumReferrals())
         .setUdid(u.getUdid())
         .setUserLocation(CreateInfoProtoUtils.createLocationProtoFromLocation(u.getUserLocation()))
-        .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed());
+        .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed())
+        .setLastLoginTime(u.getLastLogin().getTime());
     if (u.getWeaponEquipped() != ControllerConstants.NOT_SET) {
       builder.setWeaponEquipped(u.getWeaponEquipped());
     }
@@ -175,6 +176,9 @@ public class CreateInfoProtoUtils {
     }
     if (u.getLastStaminaRefillTime() != null) {
       builder.setLastStaminaRefillTime(u.getLastStaminaRefillTime().getTime());
+    }
+    if (u.getLastLogout() != null) {
+      builder.setLastLogoutTime(u.getLastLogout().getTime());
     }
     return builder.build();
   }

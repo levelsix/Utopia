@@ -47,7 +47,8 @@ public class User {
   private int weaponEquipped;
   private int armorEquipped;
   private int amuletEquipped;
-
+  private Date lastLogin;
+  private Date lastLogout;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
@@ -55,11 +56,11 @@ public class User {
       boolean isLastEnergyStateFull, int skillPoints, int healthMax,
       int energyMax, int staminaMax, int diamonds, int coins,
       int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
-      int vaultBalance, int experience,
-      int tasksCompleted, int battlesWon, int battlesLost, int hourlyCoins,
-      String armyCode, int numReferrals, String udid, Location userLocation,
-      int numPostsInMarketplace, int numMarketplaceSalesUnredeemed,
-      int weaponEquipped, int armorEquipped, int amuletEquipped) {
+      int vaultBalance, int experience, int tasksCompleted, int battlesWon,
+      int battlesLost, int hourlyCoins, String armyCode, int numReferrals,
+      String udid, Location userLocation, int numPostsInMarketplace,
+      int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
+      int amuletEquipped, Date lastLogin, Date lastLogout) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -95,6 +96,37 @@ public class User {
     this.weaponEquipped = weaponEquipped;
     this.armorEquipped = armorEquipped;
     this.amuletEquipped = amuletEquipped;
+    this.lastLogin = lastLogin;
+    this.lastLogout = lastLogout;
+  }
+
+
+  public boolean updateLastloginLastlogout(Timestamp lastLogin, Timestamp lastLogout) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (lastLogin == null && lastLogout == null) {
+      return false;
+    }
+    if (lastLogin != null) {
+      absoluteParams.put(DBConstants.USER__LAST_LOGIN, lastLogin);
+    }
+    if (lastLogout != null) {
+      absoluteParams.put(DBConstants.USER__LAST_LOGOUT, lastLogout);
+    }
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      if (lastLogin != null) {
+        this.lastLogin = lastLogin;
+      }
+      if (lastLogout != null) {
+        this.lastLogout = lastLogout;
+      }
+      return true;
+    }
+    return false;
   }
 
   public boolean updateLevel(int levelChange) {
@@ -664,6 +696,14 @@ public class User {
     return amuletEquipped;
   }
 
+  public Date getLastLogin() {
+    return lastLogin;
+  }
+
+  public Date getLastLogout() {
+    return lastLogout;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -676,8 +716,7 @@ public class User {
         + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
         + coins + ", marketplaceDiamondsEarnings="
         + marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="
-        + marketplaceCoinsEarnings
-        + ", vaultBalance=" + vaultBalance
+        + marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
         + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
         + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
         + ", hourlyCoins=" + hourlyCoins + ", armyCode=" + armyCode
@@ -686,7 +725,8 @@ public class User {
         + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
         + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
         + ", armorEquipped=" + armorEquipped + ", amuletEquipped="
-        + amuletEquipped + "]";
+        + amuletEquipped + ", lastLogin=" + lastLogin + ", lastLogout="
+        + lastLogout + "]";
   }
 
 }

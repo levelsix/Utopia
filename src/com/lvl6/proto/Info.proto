@@ -55,6 +55,8 @@ message FullUserProto {
 	optional int32 weaponEquipped = 33;
 	optional int32 armorEquipped = 34;
 	optional int32 amuletEquipped = 35;
+	required int64 lastLoginTime = 36;
+	optional int64 lastLogoutTime = 37;
 }
 
 //------------------------------------------------------------------------------------------

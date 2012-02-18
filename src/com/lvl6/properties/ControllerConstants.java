@@ -87,6 +87,8 @@ public class ControllerConstants {
   //TASK ACTION
   public static final int TASK_ACTION__MAX_CITY_RANK = 3;
   
+  //PURCHASE NORM STRUCTURE
+  public static final int PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE = 2;
   
   //SELL NORM STRUCTURE
   public static final double SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER = .3;
