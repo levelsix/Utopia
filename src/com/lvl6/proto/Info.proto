@@ -204,6 +204,14 @@ message LocationProto {
 
 //------------------------------------------------------------------------------------------
 
+enum BattleResult {
+   	ATTACKER_WIN = 0;
+ 	DEFENDER_WIN = 1;
+// 	ATTACKER_FLEE = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
 enum MarketplacePostType {
 	PREMIUM_EQUIP_POST = 0;		//diamond, epics, and legendarys for diamonds
 	NORM_EQUIP_POST = 2;		//coin items for coins

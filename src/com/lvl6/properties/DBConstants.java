@@ -28,6 +28,7 @@ public class DBConstants {
   public static final String TABLE_QUESTS = "quests";
   public static final String TABLE_STRUCTURES = "structures";
   public static final String TABLE_LEVELS_REQUIRED_EXPERIENCE = "levels_required_experience";
+  public static final String TABLE_BATTLE_HISTORY = "battle_history";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -187,5 +188,14 @@ public class DBConstants {
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID = "defeat_type_job_id";
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED = "num_defeated";
+  
+  /*BATTLE HISTORY*/
+  public static final String BATTLE_HISTORY__ATTACKER_ID = "attacker_id";
+  public static final String BATTLE_HISTORY__DEFENDER_ID = "defender_id";
+  public static final String BATTLE_HISTORY__RESULT = "result";
+  public static final String BATTLE_HISTORY__BATTLE_COMPLETE_TIME = "battle_complete_time";
+  public static final String BATTLE_HISTORY__COINS_STOLEN = "coins_stolen";
+  public static final String BATTLE_HISTORY__EQUIP_STOLEN = "equip_stolen";
+  public static final String BATTLE_HISTORY__EXP_GAINED = "exp_gained";
   
 }

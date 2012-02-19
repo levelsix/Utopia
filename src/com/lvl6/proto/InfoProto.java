@@ -89,6 +89,75 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.UserType)
   }
   
+  public enum BattleResult
+      implements com.google.protobuf.ProtocolMessageEnum {
+    ATTACKER_WIN(0, 0),
+    DEFENDER_WIN(1, 1),
+    ;
+    
+    public static final int ATTACKER_WIN_VALUE = 0;
+    public static final int DEFENDER_WIN_VALUE = 1;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static BattleResult valueOf(int value) {
+      switch (value) {
+        case 0: return ATTACKER_WIN;
+        case 1: return DEFENDER_WIN;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<BattleResult>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<BattleResult>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<BattleResult>() {
+            public BattleResult findValueByNumber(int number) {
+              return BattleResult.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(1);
+    }
+    
+    private static final BattleResult[] VALUES = {
+      ATTACKER_WIN, DEFENDER_WIN, 
+    };
+    
+    public static BattleResult valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private BattleResult(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:com.lvl6.proto.BattleResult)
+  }
+  
   public enum MarketplacePostType
       implements com.google.protobuf.ProtocolMessageEnum {
     PREMIUM_EQUIP_POST(0, 0),
@@ -131,7 +200,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(1);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(2);
     }
     
     private static final MarketplacePostType[] VALUES = {
@@ -200,7 +269,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(2);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(3);
     }
     
     private static final MarketplaceJobRequirementType[] VALUES = {
@@ -281,7 +350,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(3);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(4);
     }
     
     private static final CritStructType[] VALUES = {
@@ -350,7 +419,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(4);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(5);
     }
     
     private static final StructOrientation[] VALUES = {
@@ -422,7 +491,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(5);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(6);
     }
     
     private static final ExpansionDirection[] VALUES = {
@@ -23292,16 +23361,18 @@ public final class InfoProto {
       "defeatTypeReqs\030\020 \003(\005\022\033\n\023possessEquipJobR" +
       "eqs\030\021 \003(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022" +
       "\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_W" +
-      "ARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*B",
-      "\n\023MarketplacePostType\022\026\n\022PREMIUM_EQUIP_P" +
-      "OST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Marketplac" +
-      "eJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c" +
-      "\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMI" +
-      "LL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY" +
-      "\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrientation" +
-      "\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022Expa" +
-      "nsionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR_LEF" +
-      "T\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
+      "ARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*2",
+      "\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFE" +
+      "NDER_WIN\020\001*B\n\023MarketplacePostType\022\026\n\022PRE" +
+      "MIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2" +
+      "\n\035MarketplaceJobRequirementType\022\007\n\003BUY\020\000" +
+      "\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000" +
+      "\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT" +
+      "\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021Struc" +
+      "tOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION" +
+      "_2\020\001*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020" +
+      "\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoPr",
+      "oto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

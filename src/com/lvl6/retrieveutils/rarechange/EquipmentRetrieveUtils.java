@@ -125,6 +125,9 @@ public class EquipmentRetrieveUtils {
       //bandanas are listed in the armory with coinPrice = 0 and diamondPrice = null. 
       //same with epics and legendaries
     
+    //if the item is coinPrice = 0 but diamondPrice = null, the item can be stolen
+    //if the other way around, the item cannot be stolen
+    
     //bandanas can't be posted in marketplace, which ignores if (<= 0 && not epic && not legendary).
     //they will be common
     return equip;

@@ -18,9 +18,9 @@ import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
-import com.lvl6.proto.EventProto.BattleRequestProto.BattleResult;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
+import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -97,7 +97,7 @@ public class BattleController extends EventController {
           resBuilder.setEquipGained(CreateInfoProtoUtils
               .createFullEquipProtoFromEquip(equip));
         }
-      } else {
+      } else if (result == BattleResult.DEFENDER_WIN){
         winner = defender;
         loser = attacker;
       }
@@ -120,9 +120,6 @@ public class BattleController extends EventController {
 
       writeChangesToDB(lostEquip, winner, loser, attacker,
           defender, expGained, lostCoins, clientTime);
-      // TODO: should these send new response? or package inside battles?
-      // TODO: AchievementCheck.checkBattle();
-      // TODO: LevelCheck.checkUser();
 
       UpdateClientUserResponseEvent resEventAttacker = MiscMethods
           .createUpdateClientUserResponseEvent(attacker);
@@ -142,6 +139,15 @@ public class BattleController extends EventController {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto);
         }
       }
+
+      if (attacker != null && defender != null){
+        server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+        int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
+        if (!InsertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, clientTime, lostCoins, stolenEquipId, expGained)) {
+          log.error("problem with adding battle history into the db");
+        }
+      }
+
 
     } catch (Exception e) {
       log.error("exception in BattleController processEvent", e);

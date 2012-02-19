@@ -29,12 +29,7 @@ message BattleRequestProto {
     required MinimumUserProto defender = 2; 
     required BattleResult battleResult = 3;
     optional int32 neutralCityId = 4;
-    required int64 curTime = 5;
-    
-    enum BattleResult {
-    	ATTACKER_WIN = 0;
-    	DEFENDER_WIN = 1;
-    }
+    required int64 curTime = 5;    
 }
 
 																						//DONE

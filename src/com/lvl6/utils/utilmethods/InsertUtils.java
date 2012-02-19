@@ -1,6 +1,7 @@
 package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
+import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
 
@@ -29,10 +31,33 @@ public class InsertUtils {
     return false;
   }
 
+  public static boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
+      Date battleCompleteTime, int coinsStolen, int stolenEquipId, int expGained) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.BATTLE_HISTORY__ATTACKER_ID, attackerId);
+    insertParams.put(DBConstants.BATTLE_HISTORY__DEFENDER_ID, defenderId);
+    insertParams.put(DBConstants.BATTLE_HISTORY__RESULT, result.getNumber());
+    insertParams.put(DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, battleCompleteTime);
+    if (coinsStolen > 0) {
+      insertParams.put(DBConstants.BATTLE_HISTORY__COINS_STOLEN, coinsStolen);
+    }
+    if (stolenEquipId > 0) {
+      insertParams.put(DBConstants.BATTLE_HISTORY__EQUIP_STOLEN, stolenEquipId); 
+    }
+    if (expGained > 0) {
+      insertParams.put(DBConstants.BATTLE_HISTORY__EXP_GAINED, expGained);
+    }
+    
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_BATTLE_HISTORY, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   public static boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
-    
     insertParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
     insertParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
     insertParams.put(DBConstants.USER_QUESTS__TASKS_COMPLETE, hasNoRequiredTasks);
