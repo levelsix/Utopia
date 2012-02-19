@@ -50,6 +50,7 @@ public class MoveOrRotateNormStructureController extends EventController {
 
     try {
       boolean legit = true;
+      resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);
       if (type == MoveOrRotateNormStructType.MOVE && newCoords == null) {
         legit = false;
         resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);
