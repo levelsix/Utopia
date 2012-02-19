@@ -3,16 +3,15 @@ package com.lvl6.events.response;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
-import com.lvl6.events.NonBroadcastResponseEvent;
+import com.lvl6.events.BroadcastResponseEvent;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
-public class PurchaseFromMarketplaceResponseEvent extends NonBroadcastResponseEvent {
+public class PurchaseFromMarketplaceResponseEvent extends BroadcastResponseEvent {
 
   private PurchaseFromMarketplaceResponseProto purchaseFromMarketplaceResponseProto;
   
-  public PurchaseFromMarketplaceResponseEvent(int playerId){
-    super(playerId);
+  public PurchaseFromMarketplaceResponseEvent(){
     eventType = EventProtocolResponse.S_PURCHASE_FROM_MARKETPLACE_EVENT;
   }
   

@@ -22,7 +22,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseFromMarketplaceController extends EventController {
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new PurchaseFromMarketplaceRequestEvent();
@@ -43,23 +43,31 @@ public class PurchaseFromMarketplaceController extends EventController {
     int buyerId = senderProto.getUserId();
 
     PurchaseFromMarketplaceResponseProto.Builder resBuilder = PurchaseFromMarketplaceResponseProto.newBuilder();
-    resBuilder.setSender(senderProto);
+    resBuilder.setPurchaser(senderProto);
+    resBuilder.setPosterId(sellerId);
 
     if (buyerId == sellerId) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.PURCHASER_IS_SELLER);
-      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(senderProto.getUserId());
+      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent();
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
+      resEvent.setRecipients(new int[]{buyerId});
       server.writeEvent(resEvent);
       return;
     }
-    
+
     server.lockPlayers(sellerId, buyerId);
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = UserRetrieveUtils.getUserById(buyerId);
 
       boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, sellerId);
-      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(senderProto.getUserId());
+
+      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent();
+      if (legitPurchase) {
+        resEvent.setRecipients(new int[]{buyerId, sellerId});
+      } else {
+        resEvent.setRecipients(new int[]{buyerId});        
+      }
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
@@ -116,11 +124,11 @@ public class PurchaseFromMarketplaceController extends EventController {
     if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
       log.error("problem with giving buyer marketplace equip");
     }
-    
+
     if (!InsertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
       log.error("problem with adding to marketplace history");            
     }
-    
+
     if (!DeleteUtils.deleteMarketplacePost(mp.getId())) {
       log.error("problem with deleting marketplace post");      
     }

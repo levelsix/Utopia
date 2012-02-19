@@ -82,7 +82,6 @@ public class BattleController extends EventController {
 
       BattleResponseEvent resEvent = new BattleResponseEvent();
       int[] recipients = { attacker.getId(), defender.getId() };
-
       resEvent.setRecipients(recipients);
 
       if (result == BattleResult.ATTACKER_WIN) {
@@ -147,8 +146,6 @@ public class BattleController extends EventController {
           log.error("problem with adding battle history into the db");
         }
       }
-
-
     } catch (Exception e) {
       log.error("exception in BattleController processEvent", e);
     } finally {

@@ -566,8 +566,10 @@ message PurchaseFromMarketplaceRequestProto {
 
 																						//DONE
 message PurchaseFromMarketplaceResponseProto {
-     required MinimumUserProto sender = 1;
-     required PurchaseFromMarketplaceStatus status = 2;
+     required MinimumUserProto purchaser = 1;
+     required int32 posterId = 2;
+     
+     required PurchaseFromMarketplaceStatus status = 3;
 
 	enum PurchaseFromMarketplaceStatus {
 		SUCCESS = 0;
