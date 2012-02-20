@@ -17,13 +17,14 @@ import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.StringUtils;
 
 public class UserRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER;
-  
+
   private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
   private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
   private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
@@ -33,27 +34,33 @@ public class UserRetrieveUtils {
     log.info("retrieving user with userId " + userId);
     return convertRSToUser(DBConnection.selectRowsById(userId, TABLE_NAME));
   }
-  
-  /*
-  public static List<User> getUsersByIds(List<Integer> ids) {
-    log.info("retrieving users with userIds " + ids);
-    Map <String, Object> paramsToVals = new HashMap<String, Object>();
-    for (Integer i : ids) {
-      paramsToVals.put(DBConstants.USER__ID, i); BUG, IT OVERWRITES
+
+  public static Map<Integer, User> getUsersByIds(List<Integer> userIds) {
+    if (userIds == null || userIds.size() <= 0 ) {
+      return new HashMap<Integer, User>();
     }
-    return convertRSToUsers(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
-  }*/
-  
+
+    String query = "select * from " + TABLE_NAME + " where (";
+    List<String> condClauses = new ArrayList<String>();
+    List <Object> values = new ArrayList<Object>();
+    for (Integer userId : userIds) {
+      condClauses.add(DBConstants.USER__ID + "=?");
+      values.add(userId);
+    }
+    query += StringUtils.getListInString(condClauses, "or") + ")";
+    return convertRSToUserIdToUsersMap(DBConnection.selectDirectQueryNaive(query, values));
+  }
+
   public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
     log.info("retrieving list of users for user " + userId);
-    
+
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
-    
+
     String query = "select * from " + TABLE_NAME + " where (" + DBConstants.USER__TYPE + 
         "=? or " + DBConstants.USER__TYPE + "=? or " + DBConstants.USER__TYPE + "=?) and " +
         DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
-    
+
     List <Object> values = new ArrayList<Object>();
     if (generateListOfGoodSide) {
       values.add(UserType.GOOD_ARCHER_VALUE);
@@ -98,7 +105,7 @@ public class UserRetrieveUtils {
         rs.last();
         rs.beforeFirst();
         while(rs.next()) {  //should only be one
-         return convertRSRowToUser(rs);
+          return convertRSRowToUser(rs);
         }
       } catch (SQLException e) {
         log.error("problem with database call.");
@@ -107,7 +114,27 @@ public class UserRetrieveUtils {
     }
     return null;
   }
-  
+
+
+  private static Map<Integer, User> convertRSToUserIdToUsersMap(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        Map<Integer, User> userIdsToUsers = new HashMap<Integer, User>();
+        while(rs.next()) {
+          User user = convertRSRowToUser(rs);
+          userIdsToUsers.put(user.getId(), user);
+        }
+        return userIdsToUsers;
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return null;
+  }
+
   private static List<User> convertRSToUsers(ResultSet rs) {
     if (rs != null) {
       try {
@@ -125,7 +152,7 @@ public class UserRetrieveUtils {
     }
     return null;
   }
-  
+
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
@@ -138,16 +165,16 @@ public class UserRetrieveUtils {
     int attack = rs.getInt(i++);
     int defense = rs.getInt(i++);
     int stamina = rs.getInt(i++);
-    
+
     Date lastStaminaRefillTime = null;
     Timestamp ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {
       lastStaminaRefillTime = new Date(ts.getTime());
     }
-    
+
     boolean isLastStaminaStateFull = rs.getBoolean(i++);
     int energy = rs.getInt(i++);
-    
+
     Date lastEnergyRefillTime = null;
     ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {
@@ -175,7 +202,7 @@ public class UserRetrieveUtils {
     Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
     int numPostsInMarketplace = rs.getInt(i++);
     int numMarketplaceSalesUnredeemed = rs.getInt(i++);
-    
+
     int weaponEquipped = rs.getInt(i++);
     if (rs.wasNull()) {
       weaponEquipped = ControllerConstants.NOT_SET;
@@ -188,13 +215,13 @@ public class UserRetrieveUtils {
     if (rs.wasNull()) {
       amuletEquipped = ControllerConstants.NOT_SET;
     }
-    
+
     Date lastLoginTime = null;
     ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {
       lastLoginTime = new Date(ts.getTime());
     }
-    
+
     Date lastLogoutTime = null;
     ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {

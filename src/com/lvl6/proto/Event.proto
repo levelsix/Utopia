@@ -98,25 +98,6 @@ message ArmoryResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message StartupNotificationProto {
-	optional MarketplacePostPurchasedNotificationProto marketplacePostPurchasedNotification = 1;
-	optional AttackedNotificationProto attackedNotification = 2;
-
-	message MarketplacePostPurchasedNotificationProto {
-		required FullMarketplacePostProto marketplacePost = 1;
-		required MinimumUserProto buyer = 2;
-		required int64 timeOfPurchase = 3;
-	}
-
-	message AttackedNotificationProto {
-		required MinimumUserProto attacker = 1;
-		required BattleResult battleResult = 2;
-		required int64 battleCompleteTime = 3;
-		optional int32 coinsStolen = 4;
-		optional int32 stolenEquipId = 5;
-	}
-}
-
 message StartupRequestProto {				//client will also send ChangeUserLocationRequestProto
      required string udid = 1;
      required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
@@ -136,7 +117,23 @@ message StartupResponseProto {
 	repeated FullUserStructureProto userStructures = 10;
 	repeated FullStructureProto structs = 11;
 	required int32 experienceRequiredForNextLevel = 12;
-	repeated StartupNotificationProto startupNotifications = 13;
+	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 13;
+	repeated AttackedNotificationProto attackNotifications = 14;
+	
+	message MarketplacePostPurchasedNotificationProto {
+		required FullMarketplacePostProto marketplacePost = 1;
+		required MinimumUserProto buyer = 2;
+		required int64 timeOfPurchase = 3;
+	}
+
+	message AttackedNotificationProto {
+		required MinimumUserProto attacker = 1;
+		required BattleResult battleResult = 2;
+		required int64 battleCompleteTime = 3;
+		optional int32 coinsStolen = 4;
+		optional int32 stolenEquipId = 5;
+	}
+	
 	  
 	message StartupConstants {
 	  	repeated string productIds = 1;

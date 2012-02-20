@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.Timestamp;
@@ -11,8 +10,10 @@ import java.util.Map;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.StartupResponseEvent;
+import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
@@ -30,6 +31,8 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
+import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
@@ -94,6 +97,7 @@ public class StartupController extends EventController {
           resBuilder.setSender(fup);
           resBuilder.setExperienceRequiredForNextLevel(
               LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1));
+          setNotifications(resBuilder, user);
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
@@ -115,7 +119,7 @@ public class StartupController extends EventController {
 
     SocketChannel sc = server.removePreDbPlayer(udid);
     NIOUtils.channelWrite(sc, writeBuffer);
-    
+
     if (user != null && clientTime != null) {
       if (!user.updateLastloginLastlogout(clientTime, null)) {
         log.error("problem with updating user's last login time");
@@ -123,6 +127,43 @@ public class StartupController extends EventController {
     }    
   }
 
+
+  private void setNotifications(Builder resBuilder, User user) {
+    if (user.getLastLogout() != null) {
+      List <Integer> userIds = new ArrayList<Integer>();
+
+      List<MarketplaceTransaction> marketplaceTransactions = 
+          MarketplaceTransactionRetrieveUtils.getAllMarketplaceTransactionsAfterLastlogoutForDefender(new Timestamp(user.getLastLogout().getTime()), user.getId());
+      if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
+        for (MarketplaceTransaction mt : marketplaceTransactions) {
+          userIds.add(mt.getBuyerId());
+        }
+      }
+
+      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getAllBattleDetailsAfterLastlogoutForDefender(new Timestamp(user.getLastLogout().getTime()), user.getId());
+      if (battleDetails != null && battleDetails.size() > 0) {
+        for (BattleDetails bd : battleDetails) {
+          userIds.add(bd.getAttackerId());
+        }        
+      }
+
+      Map<Integer, User> usersByIds = null;
+      if (userIds.size() > 0) {
+        usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
+      }
+
+      if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
+        for (MarketplaceTransaction mt : marketplaceTransactions) {
+          resBuilder.addMarketplacePurchaseNotifications(CreateInfoProtoUtils.createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(mt, usersByIds.get(mt.getBuyerId())));
+        }
+      }
+      if (battleDetails != null && battleDetails.size() > 0) {
+        for (BattleDetails bd : battleDetails) {
+          resBuilder.addAttackNotifications(CreateInfoProtoUtils.createAttackedNotificationProtoFromBattleHistory(bd, usersByIds.get(bd.getAttackerId())));
+        }        
+      }      
+    }
+  }
 
   private void setUserStructsAndStructs(Builder resBuilder, User user) {
     List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
