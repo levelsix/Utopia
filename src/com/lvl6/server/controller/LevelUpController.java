@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lvl6.events.RequestEvent;
@@ -18,6 +19,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class LevelUpController extends EventController {
 
@@ -43,6 +45,7 @@ public class LevelUpController extends EventController {
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       boolean legitLevelUp = checkLegitLevelUp(resBuilder, user);
+      List<Integer> newlyUnlockedCityIds = null;
       if (legitLevelUp) {
         int newNextLevel = user.getLevel() + 2;
         int expRequiredForNewNextLevel = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 2);
@@ -50,19 +53,23 @@ public class LevelUpController extends EventController {
         resBuilder.setExperienceRequiredForNewNextLevel(expRequiredForNewNextLevel);
 
         List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(user.getLevel() + 1);
+        newlyUnlockedCityIds = new ArrayList<Integer>();
         for (City city : availCities) {
+          if (city.getMinLevel() == user.getLevel() + 1) {
+            newlyUnlockedCityIds.add(city.getId());
+          }
           resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
         }
       }
-      
-      
+
+
       LevelUpResponseProto resProto = resBuilder.build();
       LevelUpResponseEvent resEvent = new LevelUpResponseEvent(senderProto.getUserId());
       resEvent.setLevelUpResponseProto(resProto);
       server.writeEvent(resEvent);
 
-      writeChangesToDB(user);
-      
+      writeChangesToDB(user, newlyUnlockedCityIds);
+
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       server.writeEvent(resEventUpdate);
     } catch (Exception e) {
@@ -72,9 +79,14 @@ public class LevelUpController extends EventController {
     }
   }
 
-  private void writeChangesToDB(User user) {
+  private void writeChangesToDB(User user, List<Integer> newlyUnlockedCityIds) {
     if (!user.updateLevel(1)) {
       log.error("problem in changing the user's level");
+    }
+    if (newlyUnlockedCityIds != null && newlyUnlockedCityIds.size() > 0) {
+      for (Integer cityId : newlyUnlockedCityIds) {
+        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), cityId, 1));
+      }
     }
   }
 

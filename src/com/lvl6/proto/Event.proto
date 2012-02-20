@@ -165,12 +165,13 @@ message StartupResponseProto {
 message UserCreateRequestProto {
      required string udid = 1;
      required string name = 2;
-     repeated FullUserStructureProto structures = 3;
-     required LocationProto userLocation = 4;						
-     required CoordinateProto aviaryCoordinates = 5;
-     required CoordinateProto refineryCoordinates = 6;
-     required CoordinateProto carpenterCoordinates = 7;     
-     optional int32 referrerCode = 8;
+     required string macAddress = 3;
+     repeated FullUserStructureProto structures = 4;
+     required LocationProto userLocation = 5;						
+     required CoordinateProto aviaryCoordinates = 6;
+     required CoordinateProto refineryCoordinates = 7;
+     required CoordinateProto carpenterCoordinates = 8;     
+     optional int32 referrerCode = 9;
 }
 //CREATE UTILITY METHOD- unlockCityRankOneForCityId(int cityId)
 message UserCreateResponseProto {

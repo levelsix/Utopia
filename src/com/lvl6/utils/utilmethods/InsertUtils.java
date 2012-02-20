@@ -30,7 +30,7 @@ public class InsertUtils {
     }
     return false;
   }
-
+  
   public static boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
       Date battleCompleteTime, int coinsStolen, int stolenEquipId, int expGained) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
