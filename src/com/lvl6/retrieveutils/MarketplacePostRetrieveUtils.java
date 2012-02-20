@@ -30,7 +30,7 @@ public class MarketplacePostRetrieveUtils {
     log.info("retrieving limited marketplace posts before certain id");
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimitLessthan(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostIdForPoster(int limit, int postId, int posterId) {
@@ -39,19 +39,19 @@ public class MarketplacePostRetrieveUtils {
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimitLessthan(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
   }
 
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
     log.info("retrieving limited marketplace posts");
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
     log.info("retrieving limited marketplace posts");
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderByDescLimit(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
+    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimit(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
   }
   
   private static List<MarketplacePost> convertRSToMarketplacePosts(ResultSet rs) {

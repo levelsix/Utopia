@@ -83,17 +83,17 @@ public class DBConnection {
     return selectRows(null, absoluteConditionParams, null, null, tablename, "and", null, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAndOrderByDesc(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndOrderbydesc(Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn) {
     return selectRows(null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAndOrderByDescLimit(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndOrderbydescLimit(Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn, int limit) {
     return selectRows(null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, limit, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAndOrderByDescLimitLessthan(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndOrderbydescLimitLessthan(Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn, int limit, Map<String, Object> lessThanConditionParams) {
     return selectRows(null, absoluteConditionParams, null, lessThanConditionParams, tablename, "and", orderByColumn, false, limit, false);
   }
@@ -104,6 +104,12 @@ public class DBConnection {
     return selectRows(null, absoluteConditionParams, greaterThanConditionParams, lessThanConditionParams, tablename, "and", null, false, limit, true);
   }
 
+  public static ResultSet selectRowsAbsoluteAndOrderbydescGreaterthan(Map<String, Object> absoluteConditionParams, 
+      String tablename, String orderByColumn, Map<String, Object> greaterThanConditionParams) {
+    return selectRows(null, absoluteConditionParams, greaterThanConditionParams, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
+  }
+
+  
   /*assumes number of ? in the query = values.size()*/
   public static ResultSet selectDirectQueryNaive(String query, List<Object> values) {
     ResultSet rs = null;

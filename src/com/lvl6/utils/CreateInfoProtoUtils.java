@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Equipment;
@@ -23,6 +24,7 @@ import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.info.jobs.UpgradeStructJob;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.proto.EventProto.StartupNotificationProto.AttackedNotificationProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
@@ -43,6 +45,7 @@ import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
+import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
@@ -65,6 +68,23 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class CreateInfoProtoUtils {
 
+  public static AttackedNotificationProto createAttackedNotificationProtoFromBattleHistory(BattleDetails bd, User attacker) {
+    AttackedNotificationProto.Builder builder = AttackedNotificationProto.newBuilder();
+    builder.setAttacker(CreateInfoProtoUtils.createMinimumUserProtoFromUser(attacker)).setResult(bd.getResult())
+    .setBattleCompleteTime(bd.getBattleCompleteTime().getTime());
+    if (bd.getCoinsStolen() != ControllerConstants.NOT_SET && bd.getCoinsStolen() > 0) {
+      builder.setCoinsStolen(bd.getCoinsStolen());
+    }
+    if (bd.getEquipStolen() != ControllerConstants.NOT_SET && bd.getEquipStolen() > 0) {
+      builder.setStolenEquipId(bd.getEquipStolen());
+    }
+    return builder.build();
+  }
+  
+  public static MinimumUserProto createMinimumUserProtoFromUser(User u) {
+    return MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType()).build();
+  }
+  
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
         .setNearLeftExpansions(uced.getNearLeftExpansions())

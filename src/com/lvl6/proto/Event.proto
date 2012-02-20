@@ -98,19 +98,19 @@ message ArmoryResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message StartupNotification {
-	optional MarketplacePostPurchasedNotification marketplacePostPurchasedNotification = 1;
-	optional AttackedNotification attackedNotification = 2;
+message StartupNotificationProto {
+	optional MarketplacePostPurchasedNotificationProto marketplacePostPurchasedNotification = 1;
+	optional AttackedNotificationProto attackedNotification = 2;
 
-	message MarketplacePostPurchasedNotification {
+	message MarketplacePostPurchasedNotificationProto {
 		required FullMarketplacePostProto marketplacePost = 1;
 		required MinimumUserProto buyer = 2;
 		required int64 timeOfPurchase = 3;
 	}
 
-	message AttackedNotification {
+	message AttackedNotificationProto {
 		required MinimumUserProto attacker = 1;
-		required BattleResult result = 2;
+		required BattleResult battleResult = 2;
 		required int64 battleCompleteTime = 3;
 		optional int32 coinsStolen = 4;
 		optional int32 stolenEquipId = 5;
@@ -136,7 +136,7 @@ message StartupResponseProto {
 	repeated FullUserStructureProto userStructures = 10;
 	repeated FullStructureProto structs = 11;
 	required int32 experienceRequiredForNextLevel = 12;
-	repeated StartupNotification startupNotifications = 13;
+	repeated StartupNotificationProto startupNotifications = 13;
 	  
 	message StartupConstants {
 	  	repeated string productIds = 1;

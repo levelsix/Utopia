@@ -90,7 +90,7 @@ public class NormStructWaitCompleteController extends EventController{
       }
     }
     
-    if (!UpdateUtils.updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(buildsDone, 1)) {
+    if (!UpdateUtils.updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(upgradesDone, 1)) {
       log.error("problem with marking norm struct upgrade as complete");
     }    
     if (!UpdateUtils.updateUserStructsLastretrievedpostbuildIscomplete(buildsDone)) {
