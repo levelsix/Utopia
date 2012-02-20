@@ -12,21 +12,16 @@ public class MarketplacePost {
   private MarketplacePostType postType;
   private Date timeOfPost;
   private int postedEquipId = ControllerConstants.NOT_SET;
-  private int postedDiamonds = ControllerConstants.NOT_SET;
-  private int postedCoins = ControllerConstants.NOT_SET;
   private int diamondCost = ControllerConstants.NOT_SET;
   private int coinCost = ControllerConstants.NOT_SET;
   
   public MarketplacePost(int id, int posterId, MarketplacePostType postType,
-      Date timeOfPost, int postedEquipId, int postedDiamonds,
-      int postedCoins, int diamondCost, int coinCost) {
+      Date timeOfPost, int postedEquipId, int diamondCost, int coinCost) {
     this.id = id;
     this.posterId = posterId;
     this.postType = postType;
     this.timeOfPost = timeOfPost;
     this.postedEquipId = postedEquipId;
-    this.postedDiamonds = postedDiamonds;
-    this.postedCoins = postedCoins;
     this.diamondCost = diamondCost;
     this.coinCost = coinCost;
   }
@@ -46,12 +41,6 @@ public class MarketplacePost {
   public int getPostedEquipId() {
     return postedEquipId;
   }
-  public int getPostedDiamonds() {
-    return postedDiamonds;
-  }
-  public int getPostedCoins() {
-    return postedCoins;
-  }
   public int getDiamondCost() {
     return diamondCost;
   }
@@ -64,8 +53,7 @@ public class MarketplacePost {
     return "MarketplacePost [id=" + id + ", posterId=" + posterId
         + ", postType=" + postType + ", timeOfPost="
         + timeOfPost + ", postedEquipId=" + postedEquipId
-        + ", postedDiamonds=" + postedDiamonds
-        + ", postedCoins=" + postedCoins + ", diamondCost=" + diamondCost
+        + ", diamondCost=" + diamondCost
         + ", coinCost=" + coinCost + "]";
   }  
 }

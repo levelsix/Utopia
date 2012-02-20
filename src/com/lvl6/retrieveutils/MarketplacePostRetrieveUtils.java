@@ -99,14 +99,6 @@ public class MarketplacePostRetrieveUtils {
     Date timeOfPost = new Date(rs.getTimestamp(i++).getTime());
 
     int postedEquipId = rs.getInt(i++);
-    if (postedEquipId == 0) postedEquipId = ControllerConstants.NOT_SET;
-
-    int postedDiamonds = rs.getInt(i++);
-    if (postedDiamonds == 0) postedDiamonds = ControllerConstants.NOT_SET;
-
-    int postedCoins = rs.getInt(i++);
-    if (postedCoins == 0) postedCoins = ControllerConstants.NOT_SET;
-    
     int diamondCost = rs.getInt(i++);
     if (diamondCost == 0) diamondCost = ControllerConstants.NOT_SET;
     
@@ -114,8 +106,7 @@ public class MarketplacePostRetrieveUtils {
     if (coinCost == 0) coinCost = ControllerConstants.NOT_SET;
 
     MarketplacePost mp = new MarketplacePost(id, posterId, postType, timeOfPost, 
-        postedEquipId, postedDiamonds, postedCoins, 
-        diamondCost, coinCost);
+        postedEquipId, diamondCost, coinCost);
   
     return mp;
   }

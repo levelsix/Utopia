@@ -10,11 +10,11 @@ import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
-import com.lvl6.info.BattleDetails;
+import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.BattleResult;
+import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
 
 public class MarketplaceTransactionRetrieveUtils {
@@ -52,33 +52,26 @@ public class MarketplaceTransactionRetrieveUtils {
     }
     return null;
   }
-  
-  
-  
-  /*
+
   private static MarketplaceTransaction convertRSRowToMarketplaceTransaction(ResultSet rs) throws SQLException {
     int i = 1;
-    int attackerId = rs.getInt(i++);
-    int defenderId = rs.getInt(i++);
-    BattleResult result = BattleResult.valueOf(rs.getInt(i++));
-    Date battleCompleteTime = new Date(rs.getTimestamp(i++).getTime());
-    
-    int coinsStolen = rs.getInt(i++);
-    if (rs.wasNull()) {
-      coinsStolen = ControllerConstants.NOT_SET;
-    }
-    
-    int equipStolen = rs.getInt(i++);
-    if (rs.wasNull()) {
-      coinsStolen = ControllerConstants.NOT_SET;
-    }
-    
-    int expGained = rs.getInt(i++);
-    if (rs.wasNull()) {
-      expGained = ControllerConstants.NOT_SET;
-    }
+    int marketplaceId = rs.getInt(i++);
+    int posterId = rs.getInt(i++);
+    int buyerId = rs.getInt(i++);
+    MarketplacePostType postType = MarketplacePostType.valueOf(rs.getInt(i++));
+    Date timeOfPost = new Date(rs.getTimestamp(i++).getTime());
+    Date timeOfPurchase = new Date(rs.getTimestamp(i++).getTime());
+    int postedEquipId = rs.getInt(i++);
 
-    return new MarketplaceTransaction(attackerId, defenderId, result, battleCompleteTime, coinsStolen, equipStolen, expGained);
+    int diamondCost = rs.getInt(i++);
+    if (rs.wasNull()) diamondCost = ControllerConstants.NOT_SET;
+    
+    int coinCost = rs.getInt(i++);
+    if (rs.wasNull()) coinCost = ControllerConstants.NOT_SET;
+
+    MarketplacePost mp = new MarketplacePost(marketplaceId, posterId, postType, timeOfPost, 
+        postedEquipId, diamondCost, coinCost);
+    
+    return new MarketplaceTransaction(mp, buyerId, timeOfPurchase);
   }
-  */
 }
