@@ -10,6 +10,7 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
+import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
@@ -25,6 +26,7 @@ import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.info.jobs.UpgradeStructJob;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.StartupNotificationProto.AttackedNotificationProto;
+import com.lvl6.proto.EventProto.StartupNotificationProto.MarketplacePostPurchasedNotificationProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
@@ -68,9 +70,15 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class CreateInfoProtoUtils {
 
+  public static MarketplacePostPurchasedNotificationProto createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(MarketplaceTransaction mt, User buyer) {
+    FullMarketplacePostProto fmpp = createFullMarketplacePostProtoFromMarketplacePost(mt.getPost());
+    return MarketplacePostPurchasedNotificationProto.newBuilder().setMarketplacePost(fmpp)
+        .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime()).build();
+  }
+  
   public static AttackedNotificationProto createAttackedNotificationProtoFromBattleHistory(BattleDetails bd, User attacker) {
     AttackedNotificationProto.Builder builder = AttackedNotificationProto.newBuilder();
-    builder.setAttacker(CreateInfoProtoUtils.createMinimumUserProtoFromUser(attacker)).setResult(bd.getResult())
+    builder.setAttacker(createMinimumUserProtoFromUser(attacker)).setBattleResult(bd.getResult())
     .setBattleCompleteTime(bd.getBattleCompleteTime().getTime());
     if (bd.getCoinsStolen() != ControllerConstants.NOT_SET && bd.getCoinsStolen() > 0) {
       builder.setCoinsStolen(bd.getCoinsStolen());
@@ -134,7 +142,7 @@ public class CreateInfoProtoUtils {
   public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp) {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
         .setPosterId(mp.getPosterId()).setPostType(mp.getPostType())
-        .setTimeOfPost(mp.getTimeOfPost().getTime()).setPostedEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(
+        .setTimeOfPost(mp.getTimeOfPost().getTime()).setPostedEquip(createFullEquipProtoFromEquip(
           EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
     if (mp.getDiamondCost() != ControllerConstants.NOT_SET) {
       builder.setDiamondCost(mp.getDiamondCost());
@@ -149,7 +157,7 @@ public class CreateInfoProtoUtils {
     FullUserStructureProto.Builder builder = FullUserStructureProto.newBuilder().setUserStructId(userStruct.getId())
         .setUserId(userStruct.getUserId()).setStructId(userStruct.getStructId()).setLevel(userStruct.getLevel())
         .setIsComplete(userStruct.isComplete())
-        .setCoordinates(CreateInfoProtoUtils.createCoordinateProtoFromCoordinatePair(userStruct.getCoordinates()))
+        .setCoordinates(createCoordinateProtoFromCoordinatePair(userStruct.getCoordinates()))
         .setOrientation(userStruct.getOrientation());
     if (userStruct.getPurchaseTime() != null) {
       builder.setPurchaseTime(userStruct.getPurchaseTime().getTime());
@@ -179,7 +187,7 @@ public class CreateInfoProtoUtils {
         .setBattlesLost(u.getBattlesLost()).setHourlyCoins(u.getHourlyCoins())
         .setArmyCode(u.getArmyCode()).setNumReferrals(u.getNumReferrals())
         .setUdid(u.getUdid())
-        .setUserLocation(CreateInfoProtoUtils.createLocationProtoFromLocation(u.getUserLocation()))
+        .setUserLocation(createLocationProtoFromLocation(u.getUserLocation()))
         .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed())
         .setLastLoginTime(u.getLastLogin().getTime());
     if (u.getWeaponEquipped() != ControllerConstants.NOT_SET) {
@@ -224,7 +232,7 @@ public class CreateInfoProtoUtils {
 
   public static FullUserCritstructProto createFullUserCritstructProtoFromUserCritstruct(UserCritstruct uc) {
     return FullUserCritstructProto.newBuilder().setType(uc.getType())
-        .setCoords(CreateInfoProtoUtils.createCoordinateProtoFromCoordinatePair(uc.getCoords()))
+        .setCoords(createCoordinateProtoFromCoordinatePair(uc.getCoords()))
         .setOrientation(uc.getOrientation()).build();
   }
 
@@ -343,7 +351,7 @@ public class CreateInfoProtoUtils {
                   numTimesUserActed = 0;
                 }
               }
-              builder.addRequiredTasksProgress(CreateInfoProtoUtils.createMinimumUserQuestTaskProto(userQuest, userType, requiredTaskId, taskCompletedForQuest, numTimesUserActed));
+              builder.addRequiredTasksProgress(createMinimumUserQuestTaskProto(userQuest, userType, requiredTaskId, taskCompletedForQuest, numTimesUserActed));
             }
           }
 
@@ -372,7 +380,7 @@ public class CreateInfoProtoUtils {
                   numTimesUserDidJob = 0;
                 }
               }
-              builder.addRequiredDefeatTypeJobProgress(CreateInfoProtoUtils.createMinimumUserDefeatTypeJobProto(userQuest, userType, requiredDefeatTypeJobId, defeatJobCompletedForQuest, numTimesUserDidJob));
+              builder.addRequiredDefeatTypeJobProgress(createMinimumUserDefeatTypeJobProto(userQuest, userType, requiredDefeatTypeJobId, defeatJobCompletedForQuest, numTimesUserDidJob));
             }
           }
           if (quest.getBuildStructJobsRequired() != null && quest.getBuildStructJobsRequired().size() > 0) {
@@ -383,7 +391,7 @@ public class CreateInfoProtoUtils {
               BuildStructJob buildStructJob = BuildStructJobRetrieveUtils.getBuildStructJobForBuildStructJobId(buildStructJobId);
               List<UserStruct> userStructs = structIdsToUserStructs.get(buildStructJob.getStructId());
               int quantityOwned = (userStructs != null) ? userStructs.size() : 0;
-              builder.addRequiredBuildStructJobProgress(CreateInfoProtoUtils.createMinimumUserBuildStructJobProto(userQuest, buildStructJob, quantityOwned));
+              builder.addRequiredBuildStructJobProgress(createMinimumUserBuildStructJobProto(userQuest, buildStructJob, quantityOwned));
             }
           }
           if (quest.getUpgradeStructJobsRequired() != null && quest.getUpgradeStructJobsRequired().size() > 0) {
@@ -402,7 +410,7 @@ public class CreateInfoProtoUtils {
                   }
                 }
               }
-              builder.addRequiredUpgradeStructJobProgress(CreateInfoProtoUtils.createMinimumUserUpgradeStructJobProto(userQuest, upgradeStructJob, isComplete));
+              builder.addRequiredUpgradeStructJobProgress(createMinimumUserUpgradeStructJobProto(userQuest, upgradeStructJob, isComplete));
             }
           }
           if (quest.getPossessEquipJobsRequired() != null && quest.getPossessEquipJobsRequired().size() > 0) {
@@ -413,7 +421,7 @@ public class CreateInfoProtoUtils {
               PossessEquipJob possessEquipJob = PossessEquipJobRetrieveUtils.getPossessEquipJobForPossessEquipJobId(possessEquipJobId);
               UserEquip userEquip = equipIdsToUserEquips.get(possessEquipJob.getEquipId());
               int quantityOwned = (userEquip != null) ? userEquip.getQuantity() : 0;
-              builder.addRequiredPossessEquipJobProgress(CreateInfoProtoUtils.createMinimumUserPossessEquipJobProto(userQuest, possessEquipJob, quantityOwned));
+              builder.addRequiredPossessEquipJobProgress(createMinimumUserPossessEquipJobProto(userQuest, possessEquipJob, quantityOwned));
 
             }
           }
