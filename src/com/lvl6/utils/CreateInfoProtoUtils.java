@@ -166,7 +166,7 @@ public class CreateInfoProtoUtils {
       builder.setLastRetrieved(userStruct.getLastRetrieved().getTime());
     }
     if (userStruct.getLastUpgradeTime() != null) {
-      builder.setLastRetrieved(userStruct.getLastUpgradeTime().getTime());
+      builder.setLastUpgradeTime(userStruct.getLastUpgradeTime().getTime());
     }
     return builder.build();
   }
