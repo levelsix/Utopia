@@ -64,6 +64,7 @@ message FullUserProto {
 	optional int64 lastBattleNotificationTime = 39;
 	optional int64 lastTimeAttacked = 40;
 	optional string macAddress = 41;
+	optional int32 numBadges = 42;
 }
 
 //------------------------------------------------------------------------------------------

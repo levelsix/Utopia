@@ -20,4 +20,22 @@ public class DBProperties {
     
 }
 
+
+4) Also add
+
+APNSProperties
+in com.lvl6.properties package.
+
+Should look like this:
+package com.lvl6.properties;
+
+public class APNSProperties {
+
+  public static final String PATH_TO_CERT = <fill in your info>
+  public static final String CERT_PASSWORD = <fill in your info>
+  
+}
+
+
+
 4) Bottom of EquipmentRetrieveUtils.java explains how equipments are stored

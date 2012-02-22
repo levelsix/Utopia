@@ -80,9 +80,7 @@ public class BattleController extends EventController {
       User winner = null;
       User loser = null;
 
-      BattleResponseEvent resEvent = new BattleResponseEvent();
-      int[] recipients = { attacker.getId(), defender.getId() };
-      resEvent.setRecipients(recipients);
+      BattleResponseEvent resEvent = new BattleResponseEvent(attacker.getId());
 
       if (result == BattleResult.ATTACKER_WIN) {
         winner = attacker;
@@ -116,6 +114,10 @@ public class BattleController extends EventController {
 
       log.info(resEvent + " is resevent");
       server.writeEvent(resEvent);
+      
+      BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
+      resEvent2.setBattleResponseProto(resProto);
+      server.writeAPNSNotificationOrEvent(resEvent2);
 
       writeChangesToDB(lostEquip, winner, loser, attacker,
           defender, expGained, lostCoins, clientTime);

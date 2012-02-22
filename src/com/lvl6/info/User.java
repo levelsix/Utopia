@@ -53,6 +53,7 @@ public class User {
   private Date lastBattleNotificationTime;
   private Date lastTimeAttacked;
   private String macAddress;
+  private int numBadges;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
@@ -65,7 +66,7 @@ public class User {
       String udid, Location userLocation, int numPostsInMarketplace,
       int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
-      Date lastBattleNotificationTime, Date lastTimeAttacked, String macAddress) {
+      Date lastBattleNotificationTime, Date lastTimeAttacked, String macAddress, int numBadges) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -107,6 +108,7 @@ public class User {
     this.lastBattleNotificationTime = lastBattleNotificationTime;
     this.lastTimeAttacked = lastTimeAttacked;
     this.macAddress = macAddress;
+    this.numBadges = numBadges;
   }
 
   public boolean updateLastloginLastlogout(Timestamp lastLogin, Timestamp lastLogout) {
@@ -727,6 +729,10 @@ public class User {
   public String getMacAddress() {
     return macAddress;
   }
+  
+  public int getNumBadges() {
+    return numBadges;
+  }
 
   @Override
   public String toString() {
@@ -753,8 +759,7 @@ public class User {
         + lastLogout + ", deviceToken=" + deviceToken
         + ", lastBattleNotificationTime=" + lastBattleNotificationTime
         + ", lastTimeAttacked=" + lastTimeAttacked + ", macAddress="
-        + macAddress + "]";
+        + macAddress + ", numBadges=" + numBadges + "]";
   }
-
-
+  
 }

@@ -3,11 +3,11 @@ package com.lvl6.events.response;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
-import com.lvl6.events.NonBroadcastResponseEvent;
+import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.proto.EventProto.LevelUpResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
-public class LevelUpResponseEvent extends NonBroadcastResponseEvent {
+public class LevelUpResponseEvent extends NormalResponseEvent {
 
   private LevelUpResponseProto levelUpResponseProto;
   

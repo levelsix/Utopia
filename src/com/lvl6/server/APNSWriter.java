@@ -1,19 +1,27 @@
 package com.lvl6.server;
-import java.nio.*;
-import java.nio.channels.*;
 
-import com.lvl6.events.BroadcastResponseEvent;
+import java.util.Date;
+
 import com.lvl6.events.GameEvent;
-import com.lvl6.events.NonBroadcastResponseEvent;
+import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
-import com.lvl6.properties.Globals;
-import com.lvl6.utils.NIOUtils;
+import com.lvl6.events.response.BattleResponseEvent;
+import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
+import com.lvl6.info.User;
+import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
+import com.notnoop.apns.APNS;
+import com.notnoop.apns.ApnsService;
 
 public class APNSWriter extends Wrap {
   //reference to game server
   private GameServer server;
+  
+  private static final int SOFT_MAX_NOTIFICATION_BADGES = 10;
+  private static final int MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS = 180;
+  private static final int MINUTES_BEFORE_IGNORE_BADGE_CAP = 10080;
+
 
   /** 
    * constructor.
@@ -30,14 +38,12 @@ public class APNSWriter extends Wrap {
    * thread to use
    */
   public void run() {
-    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
-
     ResponseEvent event;
     running = true;
     while (running) {
       try {
-        if ((event = (ResponseEvent)eventQueue.deQueue()) != null) {
-          processResponseEvent(event, writeBuffer);
+        if ((event = (NormalResponseEvent)eventQueue.deQueue()) != null) {
+          processResponseEvent((NormalResponseEvent)event);
         }
       }
       catch(InterruptedException e) {
@@ -52,57 +58,40 @@ public class APNSWriter extends Wrap {
    * our own version of processEvent that takes 
    * the additional parameter of the writeBuffer 
    */
-  protected void processResponseEvent(ResponseEvent event, ByteBuffer writeBuffer) {
-    
-    
-    
-    
-    
-    
-    
-    
-    NIOUtils.prepBuffer(event, writeBuffer);
-
-    if (BroadcastResponseEvent.class.isInstance(event)) {
-      int[] recipients = ((BroadcastResponseEvent)event).getRecipients();
-      
-      for (int i = 0; i < recipients.length; i++) {
-        if (recipients[i] > 0) {
-          log.info("writeEvent(): type=" + event.getEventType() + ", id=" + 
-              recipients[i]);
-          write(recipients[i], writeBuffer);
+  protected void processResponseEvent(NormalResponseEvent event) {
+    int playerId = event.getPlayerId();
+    ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
+    if (connectedPlayer != null) {
+      server.writeEvent(event);
+    } else {
+      User user = UserRetrieveUtils.getUserById(playerId);
+      if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
+        if (BattleResponseEvent.class.isInstance(event)) {
+          handleBattleNotification(event, user);
+        }
+        if (PurchaseFromMarketplaceResponseEvent.class.isInstance(event)) {
+          handlePurchaseFromMarketplaceNotification(event, user);
         }
       }
     }
-    // Otherwise this is just a normal message, send response to sender.
-    else
-    {
-      int playerId = ((NonBroadcastResponseEvent)event).getPlayerId();
-      log.info("writeEvent: type=" + event.getEventType() + ", id=" + playerId);
-      write(playerId, writeBuffer);
-    }
   }
 
-  /**
-   * write the event to the given playerId's channel
-   */
-  private void write(int playerId, ByteBuffer writeBuffer) {  
-    ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
-    
-    if (connectedPlayer != null) {
-      SocketChannel channel = connectedPlayer.getChannel();
-  
-      if (channel == null || !channel.isConnected()) {
-        log.error("writeEvent: client channel null or not connected");
-        return;
-      }
-  
-      NIOUtils.channelWrite(channel, writeBuffer);
+  private void handlePurchaseFromMarketplaceNotification(NormalResponseEvent event, User user) {
+    //               send, increment badge
+  }
+
+  private void handleBattleNotification(NormalResponseEvent event, User user) {
+    Date lastBattleNotificationTime = user.getLastBattleNotificationTime();
+    Date now = new Date();
+    if ((user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES && 
+        (lastBattleNotificationTime == null || now.getTime() - lastBattleNotificationTime.getTime() > 60000*MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS)) ||
+        (lastBattleNotificationTime != null && lastBattleNotificationTime.getTime() + 60000*MINUTES_BEFORE_IGNORE_BADGE_CAP < now.getTime())) {
+      
+      ApnsService service = APNS.newService().withCert("/path/to/certificate.p12", "MyCertPassword").withSandboxDestination().build();
+      
+      
+      //send, increment badge, change last battle notification time
     }
-    
-    
-    
-    
   }
 
 }// APNSWriter

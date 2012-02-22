@@ -243,13 +243,14 @@ public class UserRetrieveUtils {
     }
 
     String macAddress = rs.getString(i++);
+    int numBadges = rs.getInt(i++);
 
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
         isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
-        lastBattleNotificationTime, lastTimeAttacked, macAddress);
+        lastBattleNotificationTime, lastTimeAttacked, macAddress, numBadges);
     return user;
   }
 }

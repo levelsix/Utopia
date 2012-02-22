@@ -3,11 +3,11 @@ package com.lvl6.events.response;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
-import com.lvl6.events.NonBroadcastResponseEvent;
+import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
-public class UpdateClientUserResponseEvent extends NonBroadcastResponseEvent{
+public class UpdateClientUserResponseEvent extends NormalResponseEvent{
 
   private UpdateClientUserResponseProto updateClientUserResponseProto;
   

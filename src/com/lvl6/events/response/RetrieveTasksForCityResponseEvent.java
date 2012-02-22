@@ -3,11 +3,11 @@ package com.lvl6.events.response;
 import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
-import com.lvl6.events.NonBroadcastResponseEvent;
+import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.proto.EventProto.RetrieveTasksForCityResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
-public class RetrieveTasksForCityResponseEvent extends NonBroadcastResponseEvent {
+public class RetrieveTasksForCityResponseEvent extends NormalResponseEvent {
 
   private RetrieveTasksForCityResponseProto retrieveTasksForCityResponseProto;
   

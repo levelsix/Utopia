@@ -4,7 +4,7 @@ import java.nio.channels.*;
 
 import com.lvl6.events.BroadcastResponseEvent;
 import com.lvl6.events.GameEvent;
-import com.lvl6.events.NonBroadcastResponseEvent;
+import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.utils.NIOUtils;
@@ -69,7 +69,7 @@ public class EventWriter extends Wrap {
     // Otherwise this is just a normal message, send response to sender.
     else
     {
-      int playerId = ((NonBroadcastResponseEvent)event).getPlayerId();
+      int playerId = ((NormalResponseEvent)event).getPlayerId();
       log.info("writeEvent: type=" + event.getEventType() + ", id=" + playerId);
       write(playerId, writeBuffer);
     }

@@ -48,9 +48,8 @@ public class PurchaseFromMarketplaceController extends EventController {
 
     if (buyerId == sellerId) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.PURCHASER_IS_SELLER);
-      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent();
+      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
-      resEvent.setRecipients(new int[]{buyerId});
       server.writeEvent(resEvent);
       return;
     }
@@ -62,16 +61,15 @@ public class PurchaseFromMarketplaceController extends EventController {
 
       boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, sellerId);
 
-      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent();
-      if (legitPurchase) {
-        resEvent.setRecipients(new int[]{buyerId, sellerId});
-      } else {
-        resEvent.setRecipients(new int[]{buyerId});        
-      }
+      PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
-
+      
       if (legitPurchase) {
+        PurchaseFromMarketplaceResponseEvent resEvent2 = new PurchaseFromMarketplaceResponseEvent(sellerId);
+        resEvent2.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
+        server.writeAPNSNotificationOrEvent(resEvent2);
+        
         User seller = UserRetrieveUtils.getUserById(sellerId);
         writeChangesToDB(buyer, seller, mp);
         UpdateClientUserResponseEvent resEventUpdate;
