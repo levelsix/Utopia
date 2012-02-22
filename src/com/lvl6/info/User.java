@@ -49,6 +49,10 @@ public class User {
   private int amuletEquipped;
   private Date lastLogin;
   private Date lastLogout;
+  private String deviceToken;
+  private Date lastBattleNotificationTime;
+  private Date lastTimeAttacked;
+  private String macAddress;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
@@ -60,7 +64,8 @@ public class User {
       int battlesLost, int hourlyCoins, String armyCode, int numReferrals,
       String udid, Location userLocation, int numPostsInMarketplace,
       int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
-      int amuletEquipped, Date lastLogin, Date lastLogout) {
+      int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
+      Date lastBattleNotificationTime, Date lastTimeAttacked, String macAddress) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -98,8 +103,11 @@ public class User {
     this.amuletEquipped = amuletEquipped;
     this.lastLogin = lastLogin;
     this.lastLogout = lastLogout;
+    this.deviceToken = deviceToken;
+    this.lastBattleNotificationTime = lastBattleNotificationTime;
+    this.lastTimeAttacked = lastTimeAttacked;
+    this.macAddress = macAddress;
   }
-
 
   public boolean updateLastloginLastlogout(Timestamp lastLogin, Timestamp lastLogout) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -704,6 +712,22 @@ public class User {
     return lastLogout;
   }
 
+  public String getDeviceToken() {
+    return deviceToken;
+  }
+
+  public Date getLastBattleNotificationTime() {
+    return lastBattleNotificationTime;
+  }
+
+  public Date getLastTimeAttacked() {
+    return lastTimeAttacked;
+  }
+
+  public String getMacAddress() {
+    return macAddress;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -726,7 +750,11 @@ public class User {
         + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
         + ", armorEquipped=" + armorEquipped + ", amuletEquipped="
         + amuletEquipped + ", lastLogin=" + lastLogin + ", lastLogout="
-        + lastLogout + "]";
+        + lastLogout + ", deviceToken=" + deviceToken
+        + ", lastBattleNotificationTime=" + lastBattleNotificationTime
+        + ", lastTimeAttacked=" + lastTimeAttacked + ", macAddress="
+        + macAddress + "]";
   }
+
 
 }

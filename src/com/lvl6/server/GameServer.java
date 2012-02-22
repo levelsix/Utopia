@@ -50,6 +50,7 @@ public class GameServer extends Thread{
   private Hashtable<String, SocketChannel> udidToChannel;
 
   private EventWriter eventWriter;
+  private APNSWriter apnsWriter;
 
   //user specified input
   private String serverIP;
@@ -92,6 +93,8 @@ public class GameServer extends Thread{
     selectAndRead.start();
     
     eventWriter = new EventWriter(this, Globals.EVENT_WRITER_WORKERS); 
+    apnsWriter = new APNSWriter(this, Globals.APNS_WRITER_WORKERS); 
+
     playersInAction = new PlayerSet();
   }
   
@@ -100,6 +103,13 @@ public class GameServer extends Thread{
    */
   public void writeEvent(ResponseEvent e) {
     eventWriter.handleEvent(e);
+  }
+  
+  /**
+   * pass the event on to the APNSWriter
+   */
+  public void writeAPNSNotificationOrEvent(ResponseEvent e) {
+    apnsWriter.handleEvent(e);
   }
   
   /**

@@ -227,12 +227,29 @@ public class UserRetrieveUtils {
     if (!rs.wasNull()) {
       lastLogoutTime = new Date(ts.getTime());
     }
+    
+    String deviceToken = rs.getString(i++);
+    
+    Date lastBattleNotificationTime = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastBattleNotificationTime = new Date(ts.getTime());
+    }
+
+    Date lastTimeAttacked = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastTimeAttacked = new Date(ts.getTime());
+    }
+
+    String macAddress = rs.getString(i++);
 
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
         isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
-        weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime);
+        weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
+        lastBattleNotificationTime, lastTimeAttacked, macAddress);
     return user;
   }
 }

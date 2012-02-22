@@ -12,6 +12,9 @@ public class Globals {
 
     /** number of worker threads for EventWriter */
     public static final int EVENT_WRITER_WORKERS = 5;
+    
+    /** number of worker threads for APNSWriter */
+    public static final int APNS_WRITER_WORKERS = 5;
 
     /** default number of workers for GameControllers */
     public static final int DEFAULT_CONTROLLER_WORKERS = 2;

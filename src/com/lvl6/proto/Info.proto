@@ -57,6 +57,13 @@ message FullUserProto {
 	optional int32 amuletEquipped = 35;
 	required int64 lastLoginTime = 36;
 	optional int64 lastLogoutTime = 37;
+
+	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
+	//consider making other fields like this
+	optional string deviceToken = 38;
+	optional int64 lastBattleNotificationTime = 39;
+	optional int64 lastTimeAttacked = 40;
+	optional string macAddress = 41;
 }
 
 //------------------------------------------------------------------------------------------
