@@ -68,6 +68,8 @@ public class DBConstants {
   public static final String USER__NUM_MARKETPLACE_SALES_UNREDEEMED = "num_marketplace_sales_unredeemed";
   public static final String USER__LAST_LOGIN = "last_login";
   public static final String USER__LAST_LOGOUT = "last_logout";
+  public static final String USER__NUM_BADGES = "num_badges";
+  public static final String USER__LAST_BATTLE_NOTIFICATION_TIME = "last_battle_notification_time";
 
   
   /*USER EQUIP TABLE*/

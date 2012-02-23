@@ -27,4 +27,8 @@ public class BattleResponseEvent extends NormalResponseEvent {
     this.battleResponseProto = battleResponseProto;
   }
 
+  public BattleResponseProto getBattleResponseProto() {   //because APNS required
+    return battleResponseProto;
+  }
+  
 }

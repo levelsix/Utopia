@@ -19,4 +19,6 @@ public class Globals {
     /** default number of workers for GameControllers */
     public static final int DEFAULT_CONTROLLER_WORKERS = 2;
 
+    public static final boolean IS_SANDBOX = false;
+
 }

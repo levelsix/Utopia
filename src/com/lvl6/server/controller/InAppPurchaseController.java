@@ -13,7 +13,7 @@ import com.lvl6.events.request.InAppPurchaseRequestEvent;
 import com.lvl6.events.response.InAppPurchaseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.properties.ControllerConstants;
+import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.InAppPurchaseRequestProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto;
@@ -66,7 +66,7 @@ public class InAppPurchaseController extends EventController {
   
         // Send data
         URL url;
-        if (ControllerConstants.IN_APP_PURCHASE__IS_SANDBOX) {
+        if (Globals.IS_SANDBOX) {
           url = new URL(SANDBOX_URL);
         } else {
           url = new URL(PRODUCTION_URL);

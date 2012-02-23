@@ -111,6 +111,27 @@ public class User {
     this.numBadges = numBadges;
   }
 
+  public boolean updateRelativeBadgeAbsoluteLastbattlenotificationtime(int badgeChange, Timestamp newLastBattleNotificationTime) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__LAST_BATTLE_NOTIFICATION_TIME, newLastBattleNotificationTime);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.numBadges += badgeChange;
+      this.lastBattleNotificationTime = newLastBattleNotificationTime;
+      return true;
+    }
+    return false;
+    
+  }
+  
   public boolean updateLastloginLastlogout(Timestamp lastLogin, Timestamp lastLogout) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);

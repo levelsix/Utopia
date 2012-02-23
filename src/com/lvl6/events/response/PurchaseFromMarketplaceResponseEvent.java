@@ -27,4 +27,8 @@ public class PurchaseFromMarketplaceResponseEvent extends NormalResponseEvent {
     this.purchaseFromMarketplaceResponseProto = purchaseFromMarketplaceResponseProto;
   }
 
+  public PurchaseFromMarketplaceResponseProto getPurchaseFromMarketplaceResponseProto() { //required for APNS
+    return purchaseFromMarketplaceResponseProto;
+  }
+  
 }
