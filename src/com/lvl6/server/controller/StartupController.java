@@ -20,6 +20,7 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.UserStruct;
+import com.lvl6.properties.APNSProperties;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
@@ -46,13 +47,16 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
+import com.notnoop.apns.APNS;
+import com.notnoop.apns.ApnsService;
+import com.notnoop.apns.ApnsServiceBuilder;
 
 public class StartupController extends EventController {
 
   public StartupController() {
     numAllocatedThreads = 3;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new StartupRequestEvent();
@@ -93,6 +97,10 @@ public class StartupController extends EventController {
         server.lockPlayer(user.getId());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
+          syncUserDevicetokenAndBadges(reqProto, user);
+          if (user.getNumBadges() <= 0) {
+            resetNumBadgesForUser(user);
+          }
           setCitiesAvailableToUser(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
@@ -129,6 +137,23 @@ public class StartupController extends EventController {
         log.error("problem with updating user's last login time");
       }
     }    
+  }
+
+  private void syncUserDevicetokenAndBadges(StartupRequestProto reqProto, User user) {
+    String newDeviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : "";
+    if (user.getNumBadges() != 0 || user.getDeviceToken() != newDeviceToken) {
+      if (newDeviceToken.length() > 0) { 
+        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
+        if (Globals.IS_SANDBOX) {
+          builder.withSandboxDestination();
+        }
+        ApnsService service = builder.build();
+        service.push(newDeviceToken, APNS.newPayload().badge(0).build());
+      }
+      if (!user.updateResetNumbadgesSetdevicetoken(newDeviceToken)) {
+        log.error("problem in resetting num badges and syncing device token");
+      }
+    }
   }
 
   private void setNotifications(Builder resBuilder, User user) {

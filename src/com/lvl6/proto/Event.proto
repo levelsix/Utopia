@@ -102,6 +102,7 @@ message StartupRequestProto {				//client will also send ChangeUserLocationReque
      required string udid = 1;
      required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
      required int64 clientTime = 3;
+     optional string deviceToken = 4;		//only set this if the client is registered/has a device token
 }
 
 message StartupResponseProto {
@@ -172,6 +173,7 @@ message UserCreateRequestProto {
      required CoordinateProto refineryCoordinates = 7;
      required CoordinateProto carpenterCoordinates = 8;     
      optional int32 referrerCode = 9;
+     optional string deviceToken = 10;
 }
 //CREATE UTILITY METHOD- unlockCityRankOneForCityId(int cityId)
 message UserCreateResponseProto {

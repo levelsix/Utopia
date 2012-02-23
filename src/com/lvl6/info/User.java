@@ -111,6 +111,40 @@ public class User {
     this.numBadges = numBadges;
   }
 
+  public boolean updateResetNumbadgesSetdevicetoken(String deviceToken) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__NUM_BADGES, 0);
+    absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.numBadges = 0;
+      this.deviceToken = deviceToken;
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean updateRelativeBadge(int badgeChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
+    
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.numBadges += badgeChange;
+      return true;
+    }
+    return false;
+  }
+  
   public boolean updateRelativeBadgeAbsoluteLastbattlenotificationtime(int badgeChange, Timestamp newLastBattleNotificationTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -129,7 +163,6 @@ public class User {
       return true;
     }
     return false;
-    
   }
   
   public boolean updateLastloginLastlogout(Timestamp lastLogin, Timestamp lastLogout) {

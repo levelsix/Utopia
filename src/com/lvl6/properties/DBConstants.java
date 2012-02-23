@@ -70,6 +70,7 @@ public class DBConstants {
   public static final String USER__LAST_LOGOUT = "last_logout";
   public static final String USER__NUM_BADGES = "num_badges";
   public static final String USER__LAST_BATTLE_NOTIFICATION_TIME = "last_battle_notification_time";
+  public static final String USER__DEVICE_TOKEN = "device_token";
 
   
   /*USER EQUIP TABLE*/

@@ -73,20 +73,34 @@ public class APNSWriter extends Wrap {
       User user = UserRetrieveUtils.getUserById(playerId);
       if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
         if (BattleResponseEvent.class.isInstance(event)) {
-          handleBattleNotification((BattleResponseEvent)event, user);
+          handleBattleNotification((BattleResponseEvent)event, user, user.getDeviceToken());
         }
         if (PurchaseFromMarketplaceResponseEvent.class.isInstance(event)) {
-          handlePurchaseFromMarketplaceNotification((PurchaseFromMarketplaceResponseEvent)event, user);
+          handlePurchaseFromMarketplaceNotification((PurchaseFromMarketplaceResponseEvent)event, user, user.getDeviceToken());
         }
       }
     }
   }
 
-  private void handlePurchaseFromMarketplaceNotification(PurchaseFromMarketplaceResponseEvent event, User user) {
-    //               send, increment badge
+  private void handlePurchaseFromMarketplaceNotification(PurchaseFromMarketplaceResponseEvent event, User user, String token) {
+    ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
+    if (Globals.IS_SANDBOX) {
+      builder.withSandboxDestination();
+    }
+    ApnsService service = builder.build();
+    PayloadBuilder pb = APNS.newPayload().actionKey("Redeem").badge(user.getNumBadges()+1).alertBody("Someone purchased your equipment in the marketplace. Redeem your earnings!");
+
+    //TODO: trigger button to bring up redeem screen
+
+    if (pb.isTooLong()) {
+      service.push(token, pb.build());
+      if (user.updateRelativeBadge(1)) {
+        log.error("problem with pushing notification to user " + user);
+      }
+    }
   }
 
-  private void handleBattleNotification(BattleResponseEvent event, User user) {
+  private void handleBattleNotification(BattleResponseEvent event, User user, String token) {
     Date lastBattleNotificationTime = user.getLastBattleNotificationTime();
     Date now = new Date();
     if ((user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES && 
@@ -98,7 +112,6 @@ public class APNSWriter extends Wrap {
         builder.withSandboxDestination();
       }
       ApnsService service = builder.build();
-      String token = user.getDeviceToken();
       PayloadBuilder pb = APNS.newPayload().actionKey("Retaliate").badge(user.getNumBadges()+1);
 
       BattleResponseProto battleResponseProto = event.getBattleResponseProto();
