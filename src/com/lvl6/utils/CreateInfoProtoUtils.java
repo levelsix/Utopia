@@ -182,7 +182,7 @@ public class CreateInfoProtoUtils {
         .setEnergyMax(u.getEnergyMax()).setStaminaMax(u.getStaminaMax()).setDiamonds(u.getDiamonds())
         .setCoins(u.getCoins()).setMarketplaceDiamondsEarnings(u.getMarketplaceDiamondsEarnings())
         .setMarketplaceCoinsEarnings(u.getMarketplaceCoinsEarnings())
-        .setVaultBalance(u.getVaultBalance()).setExperience(u.getEnergyMax())
+        .setVaultBalance(u.getVaultBalance()).setExperience(u.getExperience())
         .setTasksCompleted(u.getTasksCompleted()).setBattlesWon(u.getBattlesWon())
         .setBattlesLost(u.getBattlesLost()).setHourlyCoins(u.getHourlyCoins())
         .setArmyCode(u.getArmyCode()).setNumReferrals(u.getNumReferrals())
