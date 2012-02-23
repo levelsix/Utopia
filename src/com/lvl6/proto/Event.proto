@@ -209,13 +209,26 @@ message RetrieveTasksForCityResponseProto {
 //------------------------------------------------------------------------------------------
 
 																						//DONE
-message RetrieveEquipmentForArmoryRequestProto {
+message RetrieveStaticDataForShopRequestProto {
      required MinimumUserProto sender = 1;
+	required RetrieveForShopType type = 2;
+		
+	enum RetrieveForShopType {
+		EQUIPMENT_FOR_ARMORY = 0;
+		ALL_STRUCTURES = 1;
+	}
 }
 																						//DONE
-message RetrieveEquipmentForArmoryResponseProto {
+message RetrieveStaticDataForShopResponseProto {
      required MinimumUserProto sender = 1;
-     repeated FullEquipProto equips = 2;
+     required RetrieveStaticDataForShopStatus status = 2;
+     repeated FullEquipProto equips = 3;
+     repeated FullStructureProto structs = 4;
+     
+     enum RetrieveStaticDataForShopStatus {
+     	SUCCESS = 0;
+     	SOME_FAIL = 1;
+     }
 }
 
 //------------------------------------------------------------------------------------------
