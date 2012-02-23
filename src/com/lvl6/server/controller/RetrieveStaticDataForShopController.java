@@ -34,7 +34,7 @@ public class RetrieveStaticDataForShopController extends EventController{
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_RETRIEVE_STATIC_DATA_EVENT;
+    return EventProtocolRequest.C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT;
   }
 
   @Override
