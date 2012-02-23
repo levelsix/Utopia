@@ -25,6 +25,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class UpgradeNormStructureController extends EventController {
 
+  public UpgradeNormStructureController() {
+    numAllocatedThreads = 4;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new UpgradeNormStructureRequestEvent();

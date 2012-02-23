@@ -24,6 +24,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class QuestAcceptController extends EventController {
 
+  public QuestAcceptController() {
+    numAllocatedThreads = 5;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new QuestAcceptRequestEvent();

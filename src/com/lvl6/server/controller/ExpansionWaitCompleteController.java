@@ -19,6 +19,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ExpansionWaitCompleteController extends EventController{
 
+  public ExpansionWaitCompleteController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new ExpansionWaitCompleteRequestEvent();

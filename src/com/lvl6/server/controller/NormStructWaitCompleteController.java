@@ -25,6 +25,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class NormStructWaitCompleteController extends EventController{
  
+  public NormStructWaitCompleteController() {
+    numAllocatedThreads = 5;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new NormStructWaitCompleteRequestEvent();

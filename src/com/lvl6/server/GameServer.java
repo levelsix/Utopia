@@ -233,7 +233,7 @@ public class GameServer extends Thread{
 
         // get an instance and initialize
         EventController ec = (EventController) cl.newInstance();
-        ec.init(this);
+        ec.init(this, ec.getNumAllocatedThreads());
 
         // add to our controllers hash
         eventControllers.put(ec.getEventType(), ec);

@@ -16,6 +16,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RedeemMarketplaceEarningsController extends EventController {
 
+  public RedeemMarketplaceEarningsController() {
+    numAllocatedThreads = 4;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RedeemMarketplaceEarningsRequestEvent();

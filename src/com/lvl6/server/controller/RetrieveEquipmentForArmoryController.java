@@ -17,6 +17,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RetrieveEquipmentForArmoryController extends EventController{
 
+  public RetrieveEquipmentForArmoryController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RetrieveEquipmentForArmoryRequestEvent();

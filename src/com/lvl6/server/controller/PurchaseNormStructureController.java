@@ -27,6 +27,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class PurchaseNormStructureController extends EventController {
 
+  public PurchaseNormStructureController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new PurchaseNormStructureRequestEvent();

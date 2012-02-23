@@ -38,6 +38,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class TaskActionController extends EventController {
 
+  public TaskActionController() {
+    numAllocatedThreads = 20;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new TaskActionRequestEvent();

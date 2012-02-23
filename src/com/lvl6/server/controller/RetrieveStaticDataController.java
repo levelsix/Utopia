@@ -36,6 +36,10 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveStaticDataController extends EventController{
 
+  public RetrieveStaticDataController() {
+    numAllocatedThreads = 15;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RetrieveStaticDataRequestEvent();

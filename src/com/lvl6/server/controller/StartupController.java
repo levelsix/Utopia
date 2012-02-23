@@ -49,6 +49,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class StartupController extends EventController {
 
+  public StartupController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new StartupRequestEvent();

@@ -23,6 +23,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ArmoryController extends EventController {
 
+  public ArmoryController() {
+    numAllocatedThreads = 4;
+  }
+
   @Override
   public RequestEvent createRequestEvent() {
     return new ArmoryRequestEvent();

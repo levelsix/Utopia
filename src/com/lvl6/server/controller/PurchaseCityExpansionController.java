@@ -22,6 +22,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseCityExpansionController extends EventController {
 
+  public PurchaseCityExpansionController() {
+    numAllocatedThreads = 2;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new PurchaseCityExpansionRequestEvent();

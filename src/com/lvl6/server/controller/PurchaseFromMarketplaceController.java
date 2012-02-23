@@ -23,6 +23,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseFromMarketplaceController extends EventController {
 
+  public PurchaseFromMarketplaceController() {
+    numAllocatedThreads = 4;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new PurchaseFromMarketplaceRequestEvent();

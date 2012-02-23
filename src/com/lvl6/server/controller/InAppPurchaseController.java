@@ -30,6 +30,10 @@ public class InAppPurchaseController extends EventController {
   private static final String SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
   private static final String PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt";  
 
+  public InAppPurchaseController() {
+    numAllocatedThreads = 2;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new InAppPurchaseRequestEvent();

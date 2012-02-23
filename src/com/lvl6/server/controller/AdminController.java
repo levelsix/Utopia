@@ -8,6 +8,10 @@ import com.lvl6.retrieveutils.rarechange.*;
 
 public class AdminController extends EventController {
 
+  public AdminController() {
+    numAllocatedThreads = 1;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new AdminChangeRequestEvent();

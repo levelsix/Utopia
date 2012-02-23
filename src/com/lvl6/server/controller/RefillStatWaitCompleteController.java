@@ -19,7 +19,11 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RefillStatWaitCompleteController extends EventController{
- 
+
+  public RefillStatWaitCompleteController() {
+    numAllocatedThreads = 5;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RefillStatWaitCompleteRequestEvent();

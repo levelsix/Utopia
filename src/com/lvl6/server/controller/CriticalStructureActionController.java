@@ -20,6 +20,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class CriticalStructureActionController extends EventController {
 
+  public CriticalStructureActionController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new CriticalStructureActionRequestEvent();

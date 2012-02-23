@@ -18,6 +18,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GenerateAttackListController extends EventController {
 
+  public GenerateAttackListController() {
+    numAllocatedThreads = 4;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new GenerateAttackListRequestEvent();

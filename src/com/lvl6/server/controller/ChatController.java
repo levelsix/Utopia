@@ -12,6 +12,9 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 
 public class ChatController extends EventController {
 
+  public ChatController() {
+    numAllocatedThreads = 10;
+  }
   /** 
    * do ChatController specific initialization here 
    */

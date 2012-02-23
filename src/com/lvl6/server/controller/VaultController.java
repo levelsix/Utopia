@@ -16,6 +16,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class VaultController extends EventController {
 
+  public VaultController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new VaultRequestEvent();

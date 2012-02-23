@@ -20,6 +20,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RefillStatWithDiamondsController extends EventController{
 
+  public RefillStatWithDiamondsController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RefillStatWithDiamondsRequestEvent();

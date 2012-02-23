@@ -27,6 +27,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class LoadPlayerCityController extends EventController {
 
+  public LoadPlayerCityController() {
+    numAllocatedThreads = 10;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new LoadPlayerCityRequestEvent();

@@ -34,6 +34,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class QuestRedeemController extends EventController {
 
+  public QuestRedeemController() {
+    numAllocatedThreads = 4;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new QuestRedeemRequestEvent();

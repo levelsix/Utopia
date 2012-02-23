@@ -16,6 +16,10 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveTasksForCityController extends EventController{
 
+  public RetrieveTasksForCityController() {
+    numAllocatedThreads = 8;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RetrieveTasksForCityRequestEvent();

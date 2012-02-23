@@ -24,6 +24,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class RetrieveCurrencyFromNormStructureController extends EventController{
 
+  public RetrieveCurrencyFromNormStructureController() {
+    numAllocatedThreads = 14;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new RetrieveCurrencyFromNormStructureRequestEvent();

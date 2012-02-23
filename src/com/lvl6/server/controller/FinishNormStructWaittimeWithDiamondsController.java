@@ -25,6 +25,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class FinishNormStructWaittimeWithDiamondsController extends EventController{
 
+  public FinishNormStructWaittimeWithDiamondsController() {
+    numAllocatedThreads = 2;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new FinishNormStructWaittimeWithDiamondsRequestEvent();

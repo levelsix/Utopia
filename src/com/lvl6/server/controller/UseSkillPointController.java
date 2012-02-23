@@ -18,6 +18,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class UseSkillPointController extends EventController {
 
+  public UseSkillPointController() {
+    numAllocatedThreads = 4;
+  }
+
   @Override
   public RequestEvent createRequestEvent() {
     return new UseSkillPointRequestEvent();

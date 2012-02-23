@@ -15,6 +15,10 @@ import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveCurrentMarketplacePostsController extends EventController{
+
+  public RetrieveCurrentMarketplacePostsController() {
+    numAllocatedThreads = 4;
+  }
   
   @Override
   public RequestEvent createRequestEvent() {

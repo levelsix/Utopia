@@ -15,6 +15,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class MoveOrRotateNormStructureController extends EventController {
 
+  public MoveOrRotateNormStructureController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new MoveOrRotateNormStructureRequestEvent();

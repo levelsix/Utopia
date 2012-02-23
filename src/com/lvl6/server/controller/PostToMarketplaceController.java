@@ -27,6 +27,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PostToMarketplaceController extends EventController {
 
+  public PostToMarketplaceController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new PostToMarketplaceRequestEvent();

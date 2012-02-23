@@ -21,6 +21,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class SellNormStructureController extends EventController {
 
+  public SellNormStructureController() {
+    numAllocatedThreads = 3;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new SellNormStructureRequestEvent();

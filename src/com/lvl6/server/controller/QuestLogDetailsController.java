@@ -21,6 +21,10 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class QuestLogDetailsController extends EventController {
 
+  public QuestLogDetailsController() {
+    numAllocatedThreads = 5;
+  }
+  
   @Override
   public RequestEvent createRequestEvent() {
     return new QuestLogDetailsRequestEvent();
