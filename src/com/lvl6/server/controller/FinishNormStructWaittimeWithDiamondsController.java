@@ -65,12 +65,14 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       boolean legitBuild = checkLegitBuild(resBuilder, user, userStruct, timeOfPurchase, waitTimeType, struct);
 
       FinishNormStructWaittimeWithDiamondsResponseEvent resEvent = new FinishNormStructWaittimeWithDiamondsResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setFinishNormStructWaittimeWithDiamondsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitBuild) {
         writeChangesToDB(user, userStruct, timeOfPurchase, waitTimeType, struct);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
       }

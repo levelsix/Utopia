@@ -129,6 +129,7 @@ public class TaskActionController extends EventController {
 
       TaskActionResponseProto resProto = resBuilder.build();
       TaskActionResponseEvent resEvent = new TaskActionResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setTaskActionResponseProto(resProto);
       server.writeEvent(resEvent);
 
@@ -149,6 +150,7 @@ public class TaskActionController extends EventController {
 
       if (legitAction) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         if (taskCompleted) {
           boolean equipCheck = (lootEquipId > ControllerConstants.NOT_SET);

@@ -73,12 +73,14 @@ public class UseSkillPointController extends EventController {
       boolean legitBoost = checkLegitBoost(resBuilder, gain, cost, user);
 
       UseSkillPointResponseEvent resEvent = new UseSkillPointResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setUseSkillPointResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitBoost) {
         writeChangesToDB(user, boostType, gain, cost);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

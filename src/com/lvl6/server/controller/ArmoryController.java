@@ -106,11 +106,13 @@ public class ArmoryController extends EventController {
 
       ArmoryResponseProto resProto = resBuilder.build();
       ArmoryResponseEvent resEvent = new ArmoryResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setArmoryResponseProto(resProto);
       server.writeEvent(resEvent);
 
       if (legitBuy || legitSell) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

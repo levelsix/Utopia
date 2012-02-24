@@ -73,6 +73,7 @@ public class LoadPlayerCityController extends EventController {
       setResponseOwnerAllies(resBuilder, ownerAllies);
       
       LoadPlayerCityResponseEvent resEvent = new LoadPlayerCityResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setLoadPlayerCityResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 

@@ -65,12 +65,14 @@ public class UpgradeNormStructureController extends EventController {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       boolean legitUpgrade = checkLegitUpgrade(resBuilder, user, userStruct, struct, timeOfUpgrade);
       UpgradeNormStructureResponseEvent resEvent = new UpgradeNormStructureResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setUpgradeNormStructureResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitUpgrade) {
         writeChangesToDB(user, userStruct, struct, timeOfUpgrade);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
       }

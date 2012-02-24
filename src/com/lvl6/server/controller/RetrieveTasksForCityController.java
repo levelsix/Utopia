@@ -48,6 +48,7 @@ public class RetrieveTasksForCityController extends EventController{
     RetrieveTasksForCityResponseProto resProto = resBuilder.build();
     
     RetrieveTasksForCityResponseEvent resEvent = new RetrieveTasksForCityResponseEvent(senderProto.getUserId());
+    resEvent.setTag(event.getTag());
     resEvent.setRetrieveTasksForCityResponseProto(resProto);
     
     server.writeEvent(resEvent);

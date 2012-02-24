@@ -54,6 +54,7 @@ public class QuestLogDetailsController extends EventController {
       }
       QuestLogDetailsResponseProto resProto = resBuilder.build();
       QuestLogDetailsResponseEvent resEvent = new QuestLogDetailsResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setQuestLogDetailsResponseProto(resProto);
       server.writeEvent(resEvent);
     } catch (Exception e) {

@@ -63,6 +63,7 @@ public class RetractMarketplacePostController extends EventController{
           diamondCut, coinCut);
 
       RetractMarketplacePostResponseEvent resEvent = new RetractMarketplacePostResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setRetractMarketplacePostResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
@@ -70,6 +71,7 @@ public class RetractMarketplacePostController extends EventController{
         writeChangesToDB(user, mp, diamondCut, coinCut);
         if (mp != null) {
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+          resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
         }

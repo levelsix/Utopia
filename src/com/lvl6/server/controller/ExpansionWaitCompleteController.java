@@ -50,6 +50,7 @@ public class ExpansionWaitCompleteController extends EventController{
       boolean legitExpansionComplete = checkLegitExpansionComplete(resBuilder, userCityExpansionData, clientTime);
 
       ExpansionWaitCompleteResponseEvent resEvent = new ExpansionWaitCompleteResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setExpansionWaitCompleteResponseProto(resBuilder.build());  
 
       if (legitExpansionComplete) {

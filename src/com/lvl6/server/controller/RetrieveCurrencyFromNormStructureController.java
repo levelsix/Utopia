@@ -73,11 +73,13 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
       }
 
       RetrieveCurrencyFromNormStructureResponseEvent resEvent = new RetrieveCurrencyFromNormStructureResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setRetrieveCurrencyFromNormStructureResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
       if (legitRetrieval) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

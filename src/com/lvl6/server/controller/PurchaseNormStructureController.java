@@ -72,12 +72,14 @@ public class PurchaseNormStructureController extends EventController {
       }
 
       PurchaseNormStructureResponseEvent resEvent = new PurchaseNormStructureResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setPurchaseNormStructureResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitPurchaseNorm) {
         writeChangesToDB(user, struct);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

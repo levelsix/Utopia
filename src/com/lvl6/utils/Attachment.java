@@ -28,6 +28,9 @@ public class Attachment {
   
   /** size in bytes of the payload (GameEvent) */
   public int payloadSize;
+  
+  /** size in bytes of the payload (GameEvent) */
+  public int tag;
 
   /** do we have a full header yet? */
   private boolean gotHeader;
@@ -74,6 +77,7 @@ public class Attachment {
 
       // read the header info
       eventType = EventProtocolRequest.valueOf(readBuff.getInt());
+      tag = readBuff.getInt();
       payloadSize = readBuff.getInt();
       log.info("Read event type: "+eventType+" and size: "+payloadSize);
 

@@ -91,6 +91,7 @@ public class QuestRedeemController extends EventController {
         }
       }
       QuestRedeemResponseEvent resEvent = new QuestRedeemResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setQuestRedeemResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
@@ -98,6 +99,7 @@ public class QuestRedeemController extends EventController {
         User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
         writeChangesToDB(userQuest, quest, user);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

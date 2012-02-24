@@ -64,6 +64,7 @@ public class RetrieveStaticDataController extends EventController{
     RetrieveStaticDataResponseProto resProto = resBuilder.build();
 
     RetrieveStaticDataResponseEvent resEvent = new RetrieveStaticDataResponseEvent(senderProto.getUserId());
+    resEvent.setTag(event.getTag());
     resEvent.setRetrieveStaticDataResponseProto(resProto);
 
     server.writeEvent(resEvent);

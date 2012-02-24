@@ -68,6 +68,7 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
     RetrieveCurrentMarketplacePostsResponseProto resProto = resBuilder.build();
 
     RetrieveCurrentMarketplacePostsResponseEvent resEvent = new RetrieveCurrentMarketplacePostsResponseEvent(senderProto.getUserId());
+    resEvent.setTag(event.getTag());
     resEvent.setRetrieveCurrentMarketplacePostsResponseProto(resProto);
 
     server.writeEvent(resEvent);
