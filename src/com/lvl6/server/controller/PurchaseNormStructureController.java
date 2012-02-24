@@ -121,7 +121,7 @@ public class PurchaseNormStructureController extends EventController {
       for (Integer structId : structIdsToUserStructs.keySet()) {
         List<UserStruct> userStructsOfSameStructId = structIdsToUserStructs.get(structId);
         if (userStructsOfSameStructId != null) {
-          if (userStructsOfSameStructId.size() >= ControllerConstants.PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE) {
+          if (structId == struct.getId() && userStructsOfSameStructId.size() >= ControllerConstants.PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE) {
             resBuilder.setStatus(PurchaseNormStructureStatus.ALREADY_HAVE_MAX_OF_THIS_STRUCT);
             return false;
           }
