@@ -15,11 +15,20 @@ public abstract class ResponseEvent extends GameEvent{
   
   /** event type */
   protected EventProtocolResponse eventType;
+	protected int tag;
      
   public EventProtocolResponse getEventType() {
     return eventType;
   }
     
   public abstract int write (ByteBuffer bb);
+
+	public int getTag() {
+		return tag;
+	}
+
+	public void setTag(int tag) {
+		this.tag = tag;
+	}
 
 }// GameEvent

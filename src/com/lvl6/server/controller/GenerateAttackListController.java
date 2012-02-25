@@ -60,6 +60,7 @@ public class GenerateAttackListController extends EventController {
     GenerateAttackListResponseProto resProto = resBuilder.build();
 
     GenerateAttackListResponseEvent resEvent = new GenerateAttackListResponseEvent(senderProto.getUserId());
+    resEvent.setTag(event.getTag());
     resEvent.setGenerateAttackListResponseProto(resProto);
 
     server.writeEvent(resEvent);

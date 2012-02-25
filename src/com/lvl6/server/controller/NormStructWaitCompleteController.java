@@ -59,6 +59,7 @@ public class NormStructWaitCompleteController extends EventController{
       boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, userStructs, userStructIds, senderProto.getUserId(), clientTime);
 
       NormStructWaitCompleteResponseEvent resEvent = new NormStructWaitCompleteResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
 
       if (legitWaitComplete) {
         writeChangesToDB(userStructs);

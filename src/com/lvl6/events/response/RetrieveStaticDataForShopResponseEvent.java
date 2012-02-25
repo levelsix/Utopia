@@ -13,7 +13,7 @@ public class RetrieveStaticDataForShopResponseEvent extends NormalResponseEvent 
   
   public RetrieveStaticDataForShopResponseEvent(int playerId) {
     super(playerId);
-    eventType = EventProtocolResponse.S_RETRIEVE_STATIC_DATA_EVENT;
+    eventType = EventProtocolResponse.S_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT;
   }
 
   /** 

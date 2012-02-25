@@ -54,12 +54,14 @@ public class RefillStatWithDiamondsController extends EventController{
       boolean legitRefill = checkLegitRefill(resBuilder, user, statType, clientTime);
 
       RefillStatWithDiamondsResponseEvent resEvent = new RefillStatWithDiamondsResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setRefillStatWithDiamondsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitRefill) {
         writeChangesToDB(user, statType, clientTime);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
     } catch (Exception e) {

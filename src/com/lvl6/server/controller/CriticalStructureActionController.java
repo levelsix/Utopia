@@ -63,6 +63,7 @@ public class CriticalStructureActionController extends EventController {
       boolean legitAction = checkLegitAction(resBuilder, user, cStructType, action, cp, orientation);
 
       CriticalStructureActionResponseEvent resEvent = new CriticalStructureActionResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setCriticalStructureActionResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 

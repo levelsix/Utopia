@@ -53,12 +53,14 @@ public class RefillStatWaitCompleteController extends EventController{
       boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, user, clientTime, type);
 
       RefillStatWaitCompleteResponseEvent resEvent = new RefillStatWaitCompleteResponseEvent(senderProto.getUserId());
-
+      resEvent.setTag(event.getTag());
+      
       if (legitWaitComplete) {
         writeChangesToDB(user, type, clientTime);
       }
       server.writeEvent(resEvent);
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in RefillStatWaitCompleteController processEvent", e);

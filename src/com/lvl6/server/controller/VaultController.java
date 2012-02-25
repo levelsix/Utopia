@@ -64,11 +64,14 @@ public class VaultController extends EventController {
       VaultResponseProto resProto = resBuilder.build();
 
       VaultResponseEvent resEvent = new VaultResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setVaultResponseProto(resProto);
 
       server.writeEvent(resEvent);
 
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      resEventUpdate.setTag(event.getTag());
+      resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in VaultController processEvent", e);

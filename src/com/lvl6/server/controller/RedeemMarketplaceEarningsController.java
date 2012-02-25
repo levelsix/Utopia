@@ -47,12 +47,14 @@ public class RedeemMarketplaceEarningsController extends EventController {
       boolean legitRedeem = checkLegitRedeem(resBuilder, user);
 
       RedeemMarketplaceEarningsResponseEvent resEvent = new RedeemMarketplaceEarningsResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setRedeemMarketplaceEarningsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitRedeem) {
         writeChangesToDB(user);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

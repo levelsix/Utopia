@@ -114,10 +114,12 @@ public class InAppPurchaseController extends EventController {
       InAppPurchaseResponseProto resProto = resBuilder.build();
   
       InAppPurchaseResponseEvent resEvent = new InAppPurchaseResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setInAppPurchaseResponseProto(resProto);
       server.writeEvent(resEvent);
   
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in InAppPurchaseController processEvent", e);

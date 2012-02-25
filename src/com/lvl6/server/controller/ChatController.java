@@ -38,6 +38,7 @@ public class ChatController extends EventController {
     ChatResponseProto resProto = ChatResponseProto.newBuilder().setMessage(message).setSender(senderProto).build();
     
     ChatResponseEvent resEvent = new ChatResponseEvent();
+    resEvent.setTag(event.getTag());
     List<MinimumUserProto> recipients = reqProto.getRecipientsList();
     if (recipients != null && recipients.size() > 0) {
       int[] recipientIds = new int[recipients.size()];

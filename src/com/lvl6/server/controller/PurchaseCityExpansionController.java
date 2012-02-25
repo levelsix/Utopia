@@ -56,12 +56,14 @@ public class PurchaseCityExpansionController extends EventController {
       boolean legitExpansion = checkLegitExpansion(resBuilder, direction, timeOfPurchase, user, userCityExpansionData);
       
       PurchaseCityExpansionResponseEvent resEvent = new PurchaseCityExpansionResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setPurchaseCityExpansionResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitExpansion) {
         writeChangesToDB(user, timeOfPurchase, direction, userCityExpansionData);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

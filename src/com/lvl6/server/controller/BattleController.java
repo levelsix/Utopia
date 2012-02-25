@@ -85,6 +85,7 @@ public class BattleController extends EventController {
       User loser = null;
 
       BattleResponseEvent resEvent = new BattleResponseEvent(attacker.getId());
+      resEvent.setTag(event.getTag());
 
       if (result == BattleResult.ATTACKER_WIN) {
         winner = attacker;
@@ -128,6 +129,7 @@ public class BattleController extends EventController {
 
       UpdateClientUserResponseEvent resEventAttacker = MiscMethods
           .createUpdateClientUserResponseEvent(attacker);
+      resEventAttacker.setTag(event.getTag());
       UpdateClientUserResponseEvent resEventDefender = MiscMethods
           .createUpdateClientUserResponseEvent(defender);
 

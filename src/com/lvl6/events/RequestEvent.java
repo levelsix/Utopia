@@ -10,13 +10,22 @@ import java.nio.ByteBuffer;
  */
 
 public abstract class RequestEvent extends GameEvent{
-  
-  public abstract void read (ByteBuffer bb);
-  
-  protected int playerId;   //refers to whoever sent the event/triggered it
 
-  public int getPlayerId() {
-    return playerId;
-  }
-  
+	public abstract void read (ByteBuffer bb);
+
+	protected int playerId;   //refers to whoever sent the event/triggered it
+	protected int tag;
+
+	public int getPlayerId() {
+		return playerId;
+	}
+
+	public int getTag() {
+		return tag;
+	}
+
+	public void setTag(int tag) {
+		this.tag = tag;
+	}
+
 }// GameEvent

@@ -82,11 +82,13 @@ public class SellNormStructureController extends EventController {
       }
 
       SellNormStructureResponseEvent resEvent = new SellNormStructureResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setSellNormStructureResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (user != null) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

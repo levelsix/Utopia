@@ -68,6 +68,7 @@ public class PostToMarketplaceController extends EventController {
       boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip, timeOfPost);
 
       PostToMarketplaceResponseEvent resEvent = new PostToMarketplaceResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setPostToMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
@@ -80,6 +81,7 @@ public class PostToMarketplaceController extends EventController {
         }
         writeChangesToDB(user, reqProto, ue, postType);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
 

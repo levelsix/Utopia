@@ -166,6 +166,7 @@ public class SelectAndRead extends Thread{
       return null;
     }
     event = ec.createRequestEvent();
+    event.setTag(attachment.tag);
 
     // read the event from the payload
     event.read(bb); 

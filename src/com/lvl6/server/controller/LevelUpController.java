@@ -69,12 +69,14 @@ public class LevelUpController extends EventController {
 
       LevelUpResponseProto resProto = resBuilder.build();
       LevelUpResponseEvent resEvent = new LevelUpResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setLevelUpResponseProto(resProto);
       server.writeEvent(resEvent);
 
       writeChangesToDB(user, newlyUnlockedCityIds);
 
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in LevelUpController processEvent", e);

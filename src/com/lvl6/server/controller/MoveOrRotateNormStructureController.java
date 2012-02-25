@@ -79,6 +79,7 @@ public class MoveOrRotateNormStructureController extends EventController {
         }
       }
       MoveOrRotateNormStructureResponseEvent resEvent = new MoveOrRotateNormStructureResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setMoveOrRotateNormStructureResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 

@@ -57,6 +57,7 @@ public class QuestAcceptController extends EventController {
       boolean legitRedeem = checkLegitRedeem(resBuilder, user, quest);
 
       QuestAcceptResponseEvent resEvent = new QuestAcceptResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
       resEvent.setQuestAcceptResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 

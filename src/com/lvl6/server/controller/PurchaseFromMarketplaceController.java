@@ -53,6 +53,7 @@ public class PurchaseFromMarketplaceController extends EventController {
     if (buyerId == sellerId) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.PURCHASER_IS_SELLER);
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
+      resEvent.setTag(event.getTag());
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       return;
@@ -66,6 +67,7 @@ public class PurchaseFromMarketplaceController extends EventController {
       boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, sellerId);
 
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
+      resEvent.setTag(event.getTag());
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
@@ -79,6 +81,7 @@ public class PurchaseFromMarketplaceController extends EventController {
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) {
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(buyer);
+          resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(seller);
           server.writeEvent(resEventUpdate);

@@ -75,6 +75,7 @@ public class RetrieveStaticDataForShopController extends EventController{
     RetrieveStaticDataForShopResponseProto resProto = resBuilder.build();
 
     RetrieveStaticDataForShopResponseEvent resEvent = new RetrieveStaticDataForShopResponseEvent(senderProto.getUserId());
+    resEvent.setTag(event.getTag());
     resEvent.setRetrieveStaticDataForShopResponseProto(resProto);
 
     server.writeEvent(resEvent);
