@@ -70,7 +70,11 @@ public class ControllerConstants {
   
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
-  
+  public static final int GENERATE_ATTACK_LIST__LONGITUDE_MIN = -180;
+  public static final int GENERATE_ATTACK_LIST__LONGITUDE_MAX = 180;
+  public static final int GENERATE_ATTACK_LIST__LATITUDE_MIN = -90;
+  public static final int GENERATE_ATTACK_LIST__LATITUDE_MAX = 90;
+
   
   //IAP
   public static final boolean IN_APP_PURCHASE__IS_SANDBOX = false;
