@@ -51,7 +51,8 @@ public class UserRetrieveUtils {
     return convertRSToUserIdToUsersMap(DBConnection.selectDirectQueryNaive(query, values));
   }
 
-  public static List<User> getUsersOfTypes(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum) {
+  public static List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
+      Integer latLowerBound, Integer latUpperBound, Integer longLowerBound, Integer longUpperBound) {
     log.info("retrieving list of users for user " + userId);
 
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
@@ -74,6 +75,23 @@ public class UserRetrieveUtils {
       query += ") and ";
     }
 
+    if (latLowerBound != null) {
+      query += DBConstants.USER__LATITUDE + ">=? and ";
+      values.add(latLowerBound);
+    }
+    if (latUpperBound != null) {
+      query += DBConstants.USER__LATITUDE + "<=? and ";
+      values.add(latUpperBound);
+    }
+    if (longLowerBound != null) {
+      query += DBConstants.USER__LONGITUDE + ">=? and ";
+      values.add(latLowerBound);
+    }
+    if (longUpperBound != null) {
+      query += DBConstants.USER__LONGITUDE + "<=? and ";
+      values.add(latLowerBound);
+    }
+    
     query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
 
     values.add(levelMin);
@@ -248,7 +266,7 @@ public class UserRetrieveUtils {
     String armyCode = rs.getString(i++);
     int numReferrals = rs.getInt(i++);
     String udid = rs.getString(i++);
-    Location userLocation = new Location(rs.getFloat(i++), rs.getFloat(i++));
+    Location userLocation = new Location(rs.getDouble(i++), rs.getDouble(i++));
     int numPostsInMarketplace = rs.getInt(i++);
     int numMarketplaceSalesUnredeemed = rs.getInt(i++);
 

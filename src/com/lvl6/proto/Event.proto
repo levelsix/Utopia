@@ -163,6 +163,9 @@ message StartupResponseProto {
 
 //add player to server maps. channelToPlayerId, playersByPlayerId
 
+//for user location, check so range is -180 to 180 for y
+//and -90 to 90 for x?
+
 message UserCreateRequestProto {
      required string udid = 1;
      required string name = 2;
@@ -648,7 +651,11 @@ message UseSkillPointResponseProto {
 																						//DONE
 message GenerateAttackListRequestProto {
 	required MinimumUserProto sender = 1;
-	required int32 numEnemies = 2; 
+	required int32 numEnemies = 2;
+	optional int32 latLowerBound = 3;
+	optional int32 latUpperBound = 4;
+	optional int32 longLowerBound = 5;
+	optional int32 longUpperBound = 6;
 }
 
 																						//DONE
@@ -661,6 +668,7 @@ message GenerateAttackListResponseProto {
      	SUCCESS = 0;
      	SOME_FAIL = 1;
      	INVALID_NUM_ENEMIES_COUNT = 2;
+     	INVALID_BOUND = 3;
      }
 }
 

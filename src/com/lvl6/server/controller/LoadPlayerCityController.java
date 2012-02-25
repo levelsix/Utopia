@@ -81,7 +81,8 @@ public class LoadPlayerCityController extends EventController {
         userTypes.add(UserType.BAD_WARRIOR);
       }
 
-      List<User> ownerAllies = UserRetrieveUtils.getUsersOfTypes(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY, owner.getLevel(), owner.getId(), false);
+      List<User> ownerAllies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY, owner.getLevel(), owner.getId(), false, 
+          null, null, null, null);
       setResponseOwnerAllies(resBuilder, ownerAllies);
       
       LoadPlayerCityResponseEvent resEvent = new LoadPlayerCityResponseEvent(senderProto.getUserId());

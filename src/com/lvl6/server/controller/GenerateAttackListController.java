@@ -29,7 +29,7 @@ public class GenerateAttackListController extends EventController {
   public RequestEvent createRequestEvent() {
     return new GenerateAttackListRequestEvent();
   }
-
+  
   @Override
   public EventProtocolRequest getEventType() {
     return EventProtocolRequest.C_GENERATE_ATTACK_LIST_EVENT;
@@ -41,7 +41,11 @@ public class GenerateAttackListController extends EventController {
 
     MinimumUserProto senderProto = reqProto.getSender();
     int numEnemies = reqProto.getNumEnemies();
-
+    Integer latLowerBound = (reqProto.hasLatLowerBound()) ? reqProto.getLatLowerBound() : null;
+    Integer latUpperBound = (reqProto.hasLatUpperBound()) ? reqProto.getLatUpperBound() : null;
+    Integer longLowerBound = (reqProto.hasLongLowerBound()) ? reqProto.getLongLowerBound() : null;
+    Integer longUpperBound = (reqProto.hasLongUpperBound()) ? reqProto.getLongUpperBound() : null;
+    
     GenerateAttackListResponseProto.Builder resBuilder = GenerateAttackListResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(GenerateAttackListStatus.SUCCESS);
@@ -61,7 +65,8 @@ public class GenerateAttackListController extends EventController {
         userTypes.add(UserType.GOOD_WARRIOR);
       }
 
-      List<User> enemies = UserRetrieveUtils.getUsersOfTypes(userTypes, numEnemies, user.getLevel(), user.getId(), false);
+      List<User> enemies = UserRetrieveUtils.getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
+          latLowerBound, latUpperBound, longLowerBound, longUpperBound);
       if (enemies != null) {
         for (User enemy : enemies) {
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);

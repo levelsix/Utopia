@@ -12343,13 +12343,13 @@ public final class InfoProto {
   public interface LocationProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required float latitude = 1;
+    // required double latitude = 1;
     boolean hasLatitude();
-    float getLatitude();
+    double getLatitude();
     
-    // required float longitude = 2;
+    // required double longitude = 2;
     boolean hasLongitude();
-    float getLongitude();
+    double getLongitude();
   }
   public static final class LocationProto extends
       com.google.protobuf.GeneratedMessage
@@ -12380,29 +12380,29 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required float latitude = 1;
+    // required double latitude = 1;
     public static final int LATITUDE_FIELD_NUMBER = 1;
-    private float latitude_;
+    private double latitude_;
     public boolean hasLatitude() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public float getLatitude() {
+    public double getLatitude() {
       return latitude_;
     }
     
-    // required float longitude = 2;
+    // required double longitude = 2;
     public static final int LONGITUDE_FIELD_NUMBER = 2;
-    private float longitude_;
+    private double longitude_;
     public boolean hasLongitude() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public float getLongitude() {
+    public double getLongitude() {
       return longitude_;
     }
     
     private void initFields() {
-      latitude_ = 0F;
-      longitude_ = 0F;
+      latitude_ = 0D;
+      longitude_ = 0D;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -12425,10 +12425,10 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeFloat(1, latitude_);
+        output.writeDouble(1, latitude_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeFloat(2, longitude_);
+        output.writeDouble(2, longitude_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -12441,11 +12441,11 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(1, latitude_);
+          .computeDoubleSize(1, latitude_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, longitude_);
+          .computeDoubleSize(2, longitude_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -12571,9 +12571,9 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        latitude_ = 0F;
+        latitude_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000001);
-        longitude_ = 0F;
+        longitude_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -12682,14 +12682,14 @@ public final class InfoProto {
               }
               break;
             }
-            case 13: {
+            case 9: {
               bitField0_ |= 0x00000001;
-              latitude_ = input.readFloat();
+              latitude_ = input.readDouble();
               break;
             }
-            case 21: {
+            case 17: {
               bitField0_ |= 0x00000002;
-              longitude_ = input.readFloat();
+              longitude_ = input.readDouble();
               break;
             }
           }
@@ -12698,15 +12698,15 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required float latitude = 1;
-      private float latitude_ ;
+      // required double latitude = 1;
+      private double latitude_ ;
       public boolean hasLatitude() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public float getLatitude() {
+      public double getLatitude() {
         return latitude_;
       }
-      public Builder setLatitude(float value) {
+      public Builder setLatitude(double value) {
         bitField0_ |= 0x00000001;
         latitude_ = value;
         onChanged();
@@ -12714,20 +12714,20 @@ public final class InfoProto {
       }
       public Builder clearLatitude() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        latitude_ = 0F;
+        latitude_ = 0D;
         onChanged();
         return this;
       }
       
-      // required float longitude = 2;
-      private float longitude_ ;
+      // required double longitude = 2;
+      private double longitude_ ;
       public boolean hasLongitude() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public float getLongitude() {
+      public double getLongitude() {
         return longitude_;
       }
-      public Builder setLongitude(float value) {
+      public Builder setLongitude(double value) {
         bitField0_ |= 0x00000002;
         longitude_ = value;
         onChanged();
@@ -12735,7 +12735,7 @@ public final class InfoProto {
       }
       public Builder clearLongitude() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        longitude_ = 0F;
+        longitude_ = 0D;
         onChanged();
         return this;
       }
@@ -23771,7 +23771,7 @@ public final class InfoProto {
       "astExpandDirection\030\007 \001(\0162\".com.lvl6.prot" +
       "o.ExpansionDirection\"\'\n\017CoordinateProto\022" +
       "\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020" +
-      "\n\010latitude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002\"\356\001\n\030" +
+      "\n\010latitude\030\001 \002(\001\022\021\n\tlongitude\030\002 \002(\001\"\356\001\n\030" +
       "FullMarketplacePostProto\022\031\n\021marketplaceP" +
       "ostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postTyp" +
       "e\030\003 \002(\0162#.com.lvl6.proto.MarketplacePost",
