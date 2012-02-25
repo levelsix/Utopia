@@ -69,7 +69,7 @@ public class ControllerConstants {
 
   
   //GENERATE ATTACK LIST
-  public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE = 25;
+  public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
   
   
   //IAP

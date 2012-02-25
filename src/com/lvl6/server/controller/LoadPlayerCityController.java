@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.Builder;
 import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus;
 import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
 import com.lvl6.retrieveutils.UserCritstructRetrieveUtils;
@@ -68,8 +70,18 @@ public class LoadPlayerCityController extends EventController {
         resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
       }
       
-      boolean ownerIsGood = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
-      List<User> ownerAllies = UserRetrieveUtils.getUsersForSide(ownerIsGood, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY, owner.getLevel(), owner.getId());
+      List<UserType> userTypes = new ArrayList<UserType>();
+      if (MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType())) {
+        userTypes.add(UserType.GOOD_ARCHER);
+        userTypes.add(UserType.GOOD_MAGE);
+        userTypes.add(UserType.GOOD_WARRIOR);
+      } else {
+        userTypes.add(UserType.BAD_ARCHER);
+        userTypes.add(UserType.BAD_MAGE);
+        userTypes.add(UserType.BAD_WARRIOR);
+      }
+
+      List<User> ownerAllies = UserRetrieveUtils.getUsersOfTypes(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY, owner.getLevel(), owner.getId(), false);
       setResponseOwnerAllies(resBuilder, ownerAllies);
       
       LoadPlayerCityResponseEvent resEvent = new LoadPlayerCityResponseEvent(senderProto.getUserId());

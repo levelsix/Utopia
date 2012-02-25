@@ -51,7 +51,54 @@ public class UserRetrieveUtils {
     return convertRSToUserIdToUsersMap(DBConnection.selectDirectQueryNaive(query, values));
   }
 
-  public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId) {
+  public static List<User> getUsersOfTypes(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum) {
+    log.info("retrieving list of users for user " + userId);
+
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
+    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
+
+    List <Object> values = new ArrayList<Object>();
+
+    String query = "select * from " + TABLE_NAME + " where ";
+    
+    if (requestedTypes != null && requestedTypes.size() > 0) {
+      query += "(";
+      for (int i = 0; i < requestedTypes.size(); i++) {
+        values.add(requestedTypes.get(i).getNumber());
+        if (i == requestedTypes.size() - 1) {
+          query += DBConstants.USER__TYPE + "=?";
+        } else {
+          query += DBConstants.USER__TYPE + "=?  or ";
+        }
+      }
+      query += ") and ";
+    }
+
+    query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
+
+    values.add(levelMin);
+    values.add(levelMax);
+
+    int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
+    int numDBHits = 1;
+    ResultSet rs = DBConnection.selectDirectQueryNaive(query, values);
+    while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
+      values.remove(values.size()-1);
+      values.remove(values.size()-1);
+      values.add(Math.max(ControllerConstants.BATTLE__MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
+      values.add(levelMax + rangeIncrease/2);
+      rs = DBConnection.selectDirectQueryNaive(query, values);
+      numDBHits++;
+      if (!guaranteeNum) {
+        if (numDBHits == MAX_BATTLE_DB_HITS) break;
+      }
+      rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
+    }
+    return convertRSToUsers(rs);
+  }
+
+  /*
+  public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId, boolean guaranteeNum) {
     log.info("retrieving list of users for user " + userId);
 
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
@@ -84,11 +131,13 @@ public class UserRetrieveUtils {
       values.add(levelMax + rangeIncrease/2);
       rs = DBConnection.selectDirectQueryNaive(query, values);
       numDBHits++;
-      if (numDBHits == MAX_BATTLE_DB_HITS) break;
+      if (!guaranteeNum) {
+        if (numDBHits == MAX_BATTLE_DB_HITS) break;
+      }
       rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
     }
     return convertRSToUsers(rs);
-  }
+  }*/
 
   //when you first log in, call this
   //if this returns null, tell user it's the player's first time/launch tutorial
@@ -227,9 +276,9 @@ public class UserRetrieveUtils {
     if (!rs.wasNull()) {
       lastLogoutTime = new Date(ts.getTime());
     }
-    
+
     String deviceToken = rs.getString(i++);
-    
+
     Date lastBattleNotificationTime = null;
     ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {
@@ -244,7 +293,7 @@ public class UserRetrieveUtils {
 
     String macAddress = rs.getString(i++);
     int numBadges = rs.getInt(i++);
-    
+
     Date lastShortLicensePurchaseTime = null;
     ts = rs.getTimestamp(i++);
     if (!rs.wasNull()) {
@@ -256,7 +305,7 @@ public class UserRetrieveUtils {
     if (!rs.wasNull()) {
       lastLongLicensePurchaseTime = new Date(ts.getTime());
     }
-    
+
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
         isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 

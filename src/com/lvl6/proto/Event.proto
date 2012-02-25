@@ -648,14 +648,20 @@ message UseSkillPointResponseProto {
 																						//DONE
 message GenerateAttackListRequestProto {
 	required MinimumUserProto sender = 1;
-	optional UserType enemyType = 2;
-	optional int32 numEnemies = 3; 
+	required int32 numEnemies = 2; 
 }
 
 																						//DONE
 message GenerateAttackListResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullUserProto enemies = 2;
+     required GenerateAttackListStatus status = 3;
+     
+     enum GenerateAttackListStatus {
+     	SUCCESS = 0;
+     	SOME_FAIL = 1;
+     	INVALID_NUM_ENEMIES_COUNT = 2;
+     }
 }
 
 //------------------------------------------------------------------------------------------

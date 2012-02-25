@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lvl6.events.RequestEvent;
@@ -9,8 +10,10 @@ import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.GenerateAttackListRequestProto;
 import com.lvl6.proto.EventProto.GenerateAttackListResponseProto;
+import com.lvl6.proto.EventProto.GenerateAttackListResponseProto.GenerateAttackListStatus;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -21,7 +24,7 @@ public class GenerateAttackListController extends EventController {
   public GenerateAttackListController() {
     numAllocatedThreads = 4;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new GenerateAttackListRequestEvent();
@@ -37,24 +40,38 @@ public class GenerateAttackListController extends EventController {
     GenerateAttackListRequestProto reqProto = ((GenerateAttackListRequestEvent)event).getGenerateAttackListRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
+    int numEnemies = reqProto.getNumEnemies();
 
     GenerateAttackListResponseProto.Builder resBuilder = GenerateAttackListResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setStatus(GenerateAttackListStatus.SUCCESS);
 
     User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-    if (user != null) {
-      boolean generateListOfGoodSide = true;
+    if (numEnemies > ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX || numEnemies < 1) {
+      resBuilder.setStatus(GenerateAttackListStatus.INVALID_NUM_ENEMIES_COUNT);      
+    } else if (user != null) {
+      List<UserType> userTypes = new ArrayList<UserType>();
       if (MiscMethods.checkIfGoodSide(user.getType())) {
-        generateListOfGoodSide = false; 
+        userTypes.add(UserType.BAD_ARCHER);
+        userTypes.add(UserType.BAD_MAGE);
+        userTypes.add(UserType.BAD_WARRIOR);
+      } else {
+        userTypes.add(UserType.GOOD_ARCHER);
+        userTypes.add(UserType.GOOD_MAGE);
+        userTypes.add(UserType.GOOD_WARRIOR);
       }
-            
-      List<User> enemies = UserRetrieveUtils.getUsersForSide(generateListOfGoodSide, ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE, user.getLevel(), user.getId());
+
+      List<User> enemies = UserRetrieveUtils.getUsersOfTypes(userTypes, numEnemies, user.getLevel(), user.getId(), false);
       if (enemies != null) {
         for (User enemy : enemies) {
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);
           resBuilder.addEnemies(fup);
         }
+      } else {
+        resBuilder.setStatus(GenerateAttackListStatus.SOME_FAIL);
       }
+    } else {
+      resBuilder.setStatus(GenerateAttackListStatus.SOME_FAIL);
     }
 
     GenerateAttackListResponseProto resProto = resBuilder.build();
