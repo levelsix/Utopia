@@ -15,7 +15,6 @@ import com.lvl6.proto.EventProto.PostToMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.Builder;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus;
-import com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
