@@ -544,8 +544,9 @@ message RetrieveCurrentMarketplacePostsResponseProto {
 message PostToMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 postedEquipId = 2;
-	optional int32 diamondCost = 3;
-	optional int32 coinCost = 4;
+	required int64 timeOfPost = 3;
+	optional int32 diamondCost = 4;
+	optional int32 coinCost = 5;
 }
 
 																						//DONE
@@ -562,7 +563,8 @@ message PostToMarketplaceResponseProto {
 		USER_ALREADY_MAX_MARKETPLACE_POSTS = 5;
 		CANT_DEMAND_BOTH = 6;
 		INVALID_COST_TYPE_FOR_POST = 7;
-		OTHER_FAIL = 8;
+		NO_LICENSE = 8;
+		OTHER_FAIL = 9;
 	}
 }
 
@@ -733,11 +735,13 @@ message LoadPlayerCityResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message QuestAcceptRequestProto {
      required MinimumUserProto sender = 1;
      required int32 questId = 2;
 }
 
+																						//DONE
 message QuestAcceptResponseProto {
      required MinimumUserProto sender = 1;
      required QuestAcceptStatus status = 2;
@@ -761,11 +765,13 @@ message QuestCompleteResponseProto {
 
 //delete all userquest data besides the one in user_quests
 //client should also take away all the quests' required equips
+																						//DONE
 message QuestRedeemRequestProto {                         
      required MinimumUserProto sender = 1;
      required int32 questId = 2;
 }
 
+																						//DONE
 message QuestRedeemResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullQuestProto updatedAvailableQuests = 2;
@@ -882,6 +888,7 @@ message ExpansionWaitCompleteResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RefillStatWaitCompleteRequestProto {
 	required MinimumUserProto sender = 1;
 	required int64 curTime = 2;
@@ -893,6 +900,7 @@ message RefillStatWaitCompleteRequestProto {
 	}
 }
 
+																						//DONE
 message RefillStatWaitCompleteResponseProto {
      required MinimumUserProto sender = 1;
      required RefillStatWaitCompleteStatus status = 2;
@@ -903,4 +911,48 @@ message RefillStatWaitCompleteResponseProto {
      	ALREADY_MAX = 2;
      	OTHER_FAIL = 3;
      }
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message EnableAPNSRequestProto {
+	required MinimumUserProto sender = 1;
+	required string deviceToken = 2;
+}
+
+																						//DONE
+message EnableAPNSResponseProto {
+	required MinimumUserProto sender = 1;
+	required EnableAPNSStatus status = 2;
+	
+	enum EnableAPNSStatus {
+		SUCCESS = 0;
+		NOT_ENABLED = 1;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message PurchaseMarketplaceLicenseRequestProto {
+	required MinimumUserProto sender = 1;
+	required int64 clientTime = 2;
+	required LicenseType licenseType = 3;
+	
+	enum LicenseType {
+		SHORT = 0;
+		LONG = 1;
+	}
+}
+
+message PurchaseMarketplaceLicenseResponseProto {
+	required MinimumUserProto sender = 1;
+	required PurchaseMarketplaceLicenseStatus status = 2;
+	
+	enum PurchaseMarketplaceLicenseStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_DIAMONDS = 1;
+		ALREADY_HAVE_LICENSE_NOW = 2;
+		OTHER_FAIL = 3;
+	}
 }

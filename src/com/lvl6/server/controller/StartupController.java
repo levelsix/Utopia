@@ -98,9 +98,6 @@ public class StartupController extends EventController {
         try {
           startupStatus = StartupStatus.USER_IN_DB;
           syncUserDevicetokenAndBadges(reqProto, user);
-          if (user.getNumBadges() <= 0) {
-            resetNumBadgesForUser(user);
-          }
           setCitiesAvailableToUser(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);

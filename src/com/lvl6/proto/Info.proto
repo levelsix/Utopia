@@ -65,6 +65,10 @@ message FullUserProto {
 	optional int64 lastTimeAttacked = 40;
 	optional string macAddress = 41;
 	optional int32 numBadges = 42;
+	
+	optional int64 lastShortLicensePurchaseTime = 43;
+	optional int64 lastLongLicensePurchaseTime = 44;
+	
 }
 
 //------------------------------------------------------------------------------------------

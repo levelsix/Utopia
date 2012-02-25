@@ -208,6 +208,12 @@ public class CreateInfoProtoUtils {
     if (u.getLastLogout() != null) {
       builder.setLastLogoutTime(u.getLastLogout().getTime());
     }
+    if (u.getLastShortLicensePurchaseTime() != null) {
+      builder.setLastShortLicensePurchaseTime(u.getLastShortLicensePurchaseTime().getTime());
+    }
+    if (u.getLastLongLicensePurchaseTime() != null) {
+      builder.setLastLongLicensePurchaseTime(u.getLastLongLicensePurchaseTime().getTime());
+    }
     return builder.build();
   }
 

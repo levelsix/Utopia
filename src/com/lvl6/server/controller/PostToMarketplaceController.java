@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
@@ -14,6 +15,7 @@ import com.lvl6.proto.EventProto.PostToMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.Builder;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus;
+import com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
@@ -49,6 +51,7 @@ public class PostToMarketplaceController extends EventController {
 
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
+    Timestamp timeOfPost = new Timestamp(reqProto.getTimeOfPost());
 
     PostToMarketplaceResponseProto.Builder resBuilder = PostToMarketplaceResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -56,14 +59,13 @@ public class PostToMarketplaceController extends EventController {
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 
       UserEquip ue = UserEquipRetrieveUtils.getSpecificUserEquip(user.getId(), reqProto.getPostedEquipId());
 
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
-      boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip);
+      boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip, timeOfPost);
 
       PostToMarketplaceResponseEvent resEvent = new PostToMarketplaceResponseEvent(senderProto.getUserId());
       resEvent.setPostToMarketplaceResponseProto(resBuilder.build());  
@@ -89,13 +91,20 @@ public class PostToMarketplaceController extends EventController {
   }
 
   private boolean checkLegitPost(User user, Builder resBuilder, 
-      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip) {
+      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip, Timestamp timeOfPost) {
     if (user == null || equip == null) {
       resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
       return false;
     }
     if (userEquip == null || userEquip.getQuantity() < 1) {
       resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_EQUIP);
+      return false;
+    }
+    if ((user.getLastShortLicensePurchaseTime() == null || user.getLastShortLicensePurchaseTime().getTime() + 
+        86400000*ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE < timeOfPost.getTime()) && 
+        (user.getLastLongLicensePurchaseTime() == null || user.getLastLongLicensePurchaseTime().getTime() + 
+        86400000*ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE < timeOfPost.getTime())){
+      resBuilder.setStatus(PostToMarketplaceStatus.NO_LICENSE);
       return false;
     }
     if (user.getNumPostsInMarketplace() == ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER) {

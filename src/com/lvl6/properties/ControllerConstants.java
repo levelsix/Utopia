@@ -77,7 +77,7 @@ public class ControllerConstants {
   
   
   //POST TO MARKETPLACE
-  public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 500;  
+  public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 15;  
 
   
   //PURCHASE FROM MARKETPLACE
@@ -146,4 +146,10 @@ public class ControllerConstants {
   //REFILL STAT WAIT COMPLETE
   public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 3;
   public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 4;
+
+  //PURCHASE MARKETPLACE LICENSE
+  public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE = 3;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST = 50;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 30;
 }

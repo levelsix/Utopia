@@ -11895,6 +11895,10 @@ public final class EventProto {
     // optional int32 referrerCode = 9;
     boolean hasReferrerCode();
     int getReferrerCode();
+    
+    // optional string deviceToken = 10;
+    boolean hasDeviceToken();
+    String getDeviceToken();
   }
   public static final class UserCreateRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -12104,6 +12108,38 @@ public final class EventProto {
       return referrerCode_;
     }
     
+    // optional string deviceToken = 10;
+    public static final int DEVICETOKEN_FIELD_NUMBER = 10;
+    private java.lang.Object deviceToken_;
+    public boolean hasDeviceToken() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    public String getDeviceToken() {
+      java.lang.Object ref = deviceToken_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          deviceToken_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getDeviceTokenBytes() {
+      java.lang.Object ref = deviceToken_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        deviceToken_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
     private void initFields() {
       udid_ = "";
       name_ = "";
@@ -12114,6 +12150,7 @@ public final class EventProto {
       refineryCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       carpenterCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       referrerCode_ = 0;
+      deviceToken_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -12204,6 +12241,9 @@ public final class EventProto {
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeInt32(9, referrerCode_);
       }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeBytes(10, getDeviceTokenBytes());
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -12248,6 +12288,10 @@ public final class EventProto {
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(9, referrerCode_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(10, getDeviceTokenBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -12416,6 +12460,8 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000080);
         referrerCode_ = 0;
         bitField0_ = (bitField0_ & ~0x00000100);
+        deviceToken_ = "";
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
       
@@ -12511,6 +12557,10 @@ public final class EventProto {
           to_bitField0_ |= 0x00000080;
         }
         result.referrerCode_ = referrerCode_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.deviceToken_ = deviceToken_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -12576,6 +12626,9 @@ public final class EventProto {
         }
         if (other.hasReferrerCode()) {
           setReferrerCode(other.getReferrerCode());
+        }
+        if (other.hasDeviceToken()) {
+          setDeviceToken(other.getDeviceToken());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -12718,6 +12771,11 @@ public final class EventProto {
             case 72: {
               bitField0_ |= 0x00000100;
               referrerCode_ = input.readInt32();
+              break;
+            }
+            case 82: {
+              bitField0_ |= 0x00000200;
+              deviceToken_ = input.readBytes();
               break;
             }
           }
@@ -13399,6 +13457,42 @@ public final class EventProto {
         referrerCode_ = 0;
         onChanged();
         return this;
+      }
+      
+      // optional string deviceToken = 10;
+      private java.lang.Object deviceToken_ = "";
+      public boolean hasDeviceToken() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public String getDeviceToken() {
+        java.lang.Object ref = deviceToken_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          deviceToken_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setDeviceToken(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000200;
+        deviceToken_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDeviceToken() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        deviceToken_ = getDefaultInstance().getDeviceToken();
+        onChanged();
+        return this;
+      }
+      void setDeviceToken(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000200;
+        deviceToken_ = value;
+        onChanged();
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.UserCreateRequestProto)
@@ -34144,11 +34238,15 @@ public final class EventProto {
     boolean hasPostedEquipId();
     int getPostedEquipId();
     
-    // optional int32 diamondCost = 3;
+    // required int64 timeOfPost = 3;
+    boolean hasTimeOfPost();
+    long getTimeOfPost();
+    
+    // optional int32 diamondCost = 4;
     boolean hasDiamondCost();
     int getDiamondCost();
     
-    // optional int32 coinCost = 4;
+    // optional int32 coinCost = 5;
     boolean hasCoinCost();
     int getCoinCost();
   }
@@ -34204,21 +34302,31 @@ public final class EventProto {
       return postedEquipId_;
     }
     
-    // optional int32 diamondCost = 3;
-    public static final int DIAMONDCOST_FIELD_NUMBER = 3;
+    // required int64 timeOfPost = 3;
+    public static final int TIMEOFPOST_FIELD_NUMBER = 3;
+    private long timeOfPost_;
+    public boolean hasTimeOfPost() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public long getTimeOfPost() {
+      return timeOfPost_;
+    }
+    
+    // optional int32 diamondCost = 4;
+    public static final int DIAMONDCOST_FIELD_NUMBER = 4;
     private int diamondCost_;
     public boolean hasDiamondCost() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public int getDiamondCost() {
       return diamondCost_;
     }
     
-    // optional int32 coinCost = 4;
-    public static final int COINCOST_FIELD_NUMBER = 4;
+    // optional int32 coinCost = 5;
+    public static final int COINCOST_FIELD_NUMBER = 5;
     private int coinCost_;
     public boolean hasCoinCost() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     public int getCoinCost() {
       return coinCost_;
@@ -34227,6 +34335,7 @@ public final class EventProto {
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       postedEquipId_ = 0;
+      timeOfPost_ = 0L;
       diamondCost_ = 0;
       coinCost_ = 0;
     }
@@ -34240,6 +34349,10 @@ public final class EventProto {
         return false;
       }
       if (!hasPostedEquipId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTimeOfPost()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -34261,10 +34374,13 @@ public final class EventProto {
         output.writeInt32(2, postedEquipId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, diamondCost_);
+        output.writeInt64(3, timeOfPost_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, coinCost_);
+        output.writeInt32(4, diamondCost_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, coinCost_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -34285,11 +34401,15 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, diamondCost_);
+          .computeInt64Size(3, timeOfPost_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, coinCost_);
+          .computeInt32Size(4, diamondCost_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, coinCost_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -34424,10 +34544,12 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         postedEquipId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        diamondCost_ = 0;
+        timeOfPost_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
-        coinCost_ = 0;
+        diamondCost_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
+        coinCost_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       
@@ -34481,9 +34603,13 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.diamondCost_ = diamondCost_;
+        result.timeOfPost_ = timeOfPost_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
+        }
+        result.diamondCost_ = diamondCost_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
         }
         result.coinCost_ = coinCost_;
         result.bitField0_ = to_bitField0_;
@@ -34508,6 +34634,9 @@ public final class EventProto {
         if (other.hasPostedEquipId()) {
           setPostedEquipId(other.getPostedEquipId());
         }
+        if (other.hasTimeOfPost()) {
+          setTimeOfPost(other.getTimeOfPost());
+        }
         if (other.hasDiamondCost()) {
           setDiamondCost(other.getDiamondCost());
         }
@@ -34524,6 +34653,10 @@ public final class EventProto {
           return false;
         }
         if (!hasPostedEquipId()) {
+          
+          return false;
+        }
+        if (!hasTimeOfPost()) {
           
           return false;
         }
@@ -34573,11 +34706,16 @@ public final class EventProto {
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              diamondCost_ = input.readInt32();
+              timeOfPost_ = input.readInt64();
               break;
             }
             case 32: {
               bitField0_ |= 0x00000008;
+              diamondCost_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
               coinCost_ = input.readInt32();
               break;
             }
@@ -34698,43 +34836,64 @@ public final class EventProto {
         return this;
       }
       
-      // optional int32 diamondCost = 3;
+      // required int64 timeOfPost = 3;
+      private long timeOfPost_ ;
+      public boolean hasTimeOfPost() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public long getTimeOfPost() {
+        return timeOfPost_;
+      }
+      public Builder setTimeOfPost(long value) {
+        bitField0_ |= 0x00000004;
+        timeOfPost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTimeOfPost() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        timeOfPost_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 diamondCost = 4;
       private int diamondCost_ ;
       public boolean hasDiamondCost() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public int getDiamondCost() {
         return diamondCost_;
       }
       public Builder setDiamondCost(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         diamondCost_ = value;
         onChanged();
         return this;
       }
       public Builder clearDiamondCost() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         diamondCost_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 coinCost = 4;
+      // optional int32 coinCost = 5;
       private int coinCost_ ;
       public boolean hasCoinCost() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public int getCoinCost() {
         return coinCost_;
       }
       public Builder setCoinCost(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         coinCost_ = value;
         onChanged();
         return this;
       }
       public Builder clearCoinCost() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         coinCost_ = 0;
         onChanged();
         return this;
@@ -34801,7 +34960,8 @@ public final class EventProto {
       USER_ALREADY_MAX_MARKETPLACE_POSTS(5, 5),
       CANT_DEMAND_BOTH(6, 6),
       INVALID_COST_TYPE_FOR_POST(7, 7),
-      OTHER_FAIL(8, 8),
+      NO_LICENSE(8, 8),
+      OTHER_FAIL(9, 9),
       ;
       
       public static final int SUCCESS_VALUE = 0;
@@ -34812,7 +34972,8 @@ public final class EventProto {
       public static final int USER_ALREADY_MAX_MARKETPLACE_POSTS_VALUE = 5;
       public static final int CANT_DEMAND_BOTH_VALUE = 6;
       public static final int INVALID_COST_TYPE_FOR_POST_VALUE = 7;
-      public static final int OTHER_FAIL_VALUE = 8;
+      public static final int NO_LICENSE_VALUE = 8;
+      public static final int OTHER_FAIL_VALUE = 9;
       
       
       public final int getNumber() { return value; }
@@ -34827,7 +34988,8 @@ public final class EventProto {
           case 5: return USER_ALREADY_MAX_MARKETPLACE_POSTS;
           case 6: return CANT_DEMAND_BOTH;
           case 7: return INVALID_COST_TYPE_FOR_POST;
-          case 8: return OTHER_FAIL;
+          case 8: return NO_LICENSE;
+          case 9: return OTHER_FAIL;
           default: return null;
         }
       }
@@ -34858,7 +35020,7 @@ public final class EventProto {
       }
       
       private static final PostToMarketplaceStatus[] VALUES = {
-        SUCCESS, NEGATIVE_POST, NOT_ENOUGH_EQUIP, NEGATIVE_COST, NO_COST, USER_ALREADY_MAX_MARKETPLACE_POSTS, CANT_DEMAND_BOTH, INVALID_COST_TYPE_FOR_POST, OTHER_FAIL, 
+        SUCCESS, NEGATIVE_POST, NOT_ENOUGH_EQUIP, NEGATIVE_COST, NO_COST, USER_ALREADY_MAX_MARKETPLACE_POSTS, CANT_DEMAND_BOTH, INVALID_COST_TYPE_FOR_POST, NO_LICENSE, OTHER_FAIL, 
       };
       
       public static PostToMarketplaceStatus valueOf(
@@ -57645,6 +57807,2368 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.RefillStatWaitCompleteResponseProto)
   }
   
+  public interface EnableAPNSRequestProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required string deviceToken = 2;
+    boolean hasDeviceToken();
+    String getDeviceToken();
+  }
+  public static final class EnableAPNSRequestProto extends
+      com.google.protobuf.GeneratedMessage
+      implements EnableAPNSRequestProtoOrBuilder {
+    // Use EnableAPNSRequestProto.newBuilder() to construct.
+    private EnableAPNSRequestProto(Builder builder) {
+      super(builder);
+    }
+    private EnableAPNSRequestProto(boolean noInit) {}
+    
+    private static final EnableAPNSRequestProto defaultInstance;
+    public static EnableAPNSRequestProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public EnableAPNSRequestProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSRequestProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSRequestProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required string deviceToken = 2;
+    public static final int DEVICETOKEN_FIELD_NUMBER = 2;
+    private java.lang.Object deviceToken_;
+    public boolean hasDeviceToken() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public String getDeviceToken() {
+      java.lang.Object ref = deviceToken_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          deviceToken_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getDeviceTokenBytes() {
+      java.lang.Object ref = deviceToken_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        deviceToken_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      deviceToken_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDeviceToken()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getDeviceTokenBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getDeviceTokenBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.EnableAPNSRequestProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.EnableAPNSRequestProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSRequestProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSRequestProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.EnableAPNSRequestProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        deviceToken_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.EnableAPNSRequestProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.EnableAPNSRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.EnableAPNSRequestProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.EnableAPNSRequestProto build() {
+        com.lvl6.proto.EventProto.EnableAPNSRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.EnableAPNSRequestProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.EnableAPNSRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.EnableAPNSRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.EnableAPNSRequestProto result = new com.lvl6.proto.EventProto.EnableAPNSRequestProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.deviceToken_ = deviceToken_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.EnableAPNSRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.EnableAPNSRequestProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.EnableAPNSRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.EnableAPNSRequestProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasDeviceToken()) {
+          setDeviceToken(other.getDeviceToken());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasDeviceToken()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              deviceToken_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required string deviceToken = 2;
+      private java.lang.Object deviceToken_ = "";
+      public boolean hasDeviceToken() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public String getDeviceToken() {
+        java.lang.Object ref = deviceToken_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          deviceToken_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setDeviceToken(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        deviceToken_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDeviceToken() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        deviceToken_ = getDefaultInstance().getDeviceToken();
+        onChanged();
+        return this;
+      }
+      void setDeviceToken(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000002;
+        deviceToken_ = value;
+        onChanged();
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.EnableAPNSRequestProto)
+    }
+    
+    static {
+      defaultInstance = new EnableAPNSRequestProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.EnableAPNSRequestProto)
+  }
+  
+  public interface EnableAPNSResponseProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus getStatus();
+  }
+  public static final class EnableAPNSResponseProto extends
+      com.google.protobuf.GeneratedMessage
+      implements EnableAPNSResponseProtoOrBuilder {
+    // Use EnableAPNSResponseProto.newBuilder() to construct.
+    private EnableAPNSResponseProto(Builder builder) {
+      super(builder);
+    }
+    private EnableAPNSResponseProto(boolean noInit) {}
+    
+    private static final EnableAPNSResponseProto defaultInstance;
+    public static EnableAPNSResponseProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public EnableAPNSResponseProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSResponseProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSResponseProto_fieldAccessorTable;
+    }
+    
+    public enum EnableAPNSStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SUCCESS(0, 0),
+      NOT_ENABLED(1, 1),
+      ;
+      
+      public static final int SUCCESS_VALUE = 0;
+      public static final int NOT_ENABLED_VALUE = 1;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static EnableAPNSStatus valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return NOT_ENABLED;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<EnableAPNSStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<EnableAPNSStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<EnableAPNSStatus>() {
+              public EnableAPNSStatus findValueByNumber(int number) {
+                return EnableAPNSStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.EnableAPNSResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final EnableAPNSStatus[] VALUES = {
+        SUCCESS, NOT_ENABLED, 
+      };
+      
+      public static EnableAPNSStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private EnableAPNSStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus getStatus() {
+      return status_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      status_ = com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus.SUCCESS;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.EnableAPNSResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.EnableAPNSResponseProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.EnableAPNSResponseProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSResponseProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EnableAPNSResponseProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.EnableAPNSResponseProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.EnableAPNSResponseProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.EnableAPNSResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.EnableAPNSResponseProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.EnableAPNSResponseProto build() {
+        com.lvl6.proto.EventProto.EnableAPNSResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.EnableAPNSResponseProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.EnableAPNSResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.EnableAPNSResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.EnableAPNSResponseProto result = new com.lvl6.proto.EventProto.EnableAPNSResponseProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.EnableAPNSResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.EnableAPNSResponseProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.EnableAPNSResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.EnableAPNSResponseProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus value = com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                status_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
+      private com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus status_ = com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus getStatus() {
+        return status_;
+      }
+      public Builder setStatus(com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus.SUCCESS;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.EnableAPNSResponseProto)
+    }
+    
+    static {
+      defaultInstance = new EnableAPNSResponseProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.EnableAPNSResponseProto)
+  }
+  
+  public interface PurchaseMarketplaceLicenseRequestProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required int64 clientTime = 2;
+    boolean hasClientTime();
+    long getClientTime();
+    
+    // required .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
+    boolean hasLicenseType();
+    com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType getLicenseType();
+  }
+  public static final class PurchaseMarketplaceLicenseRequestProto extends
+      com.google.protobuf.GeneratedMessage
+      implements PurchaseMarketplaceLicenseRequestProtoOrBuilder {
+    // Use PurchaseMarketplaceLicenseRequestProto.newBuilder() to construct.
+    private PurchaseMarketplaceLicenseRequestProto(Builder builder) {
+      super(builder);
+    }
+    private PurchaseMarketplaceLicenseRequestProto(boolean noInit) {}
+    
+    private static final PurchaseMarketplaceLicenseRequestProto defaultInstance;
+    public static PurchaseMarketplaceLicenseRequestProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public PurchaseMarketplaceLicenseRequestProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_fieldAccessorTable;
+    }
+    
+    public enum LicenseType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SHORT(0, 0),
+      LONG(1, 1),
+      ;
+      
+      public static final int SHORT_VALUE = 0;
+      public static final int LONG_VALUE = 1;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static LicenseType valueOf(int value) {
+        switch (value) {
+          case 0: return SHORT;
+          case 1: return LONG;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<LicenseType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<LicenseType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<LicenseType>() {
+              public LicenseType findValueByNumber(int number) {
+                return LicenseType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final LicenseType[] VALUES = {
+        SHORT, LONG, 
+      };
+      
+      public static LicenseType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private LicenseType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required int64 clientTime = 2;
+    public static final int CLIENTTIME_FIELD_NUMBER = 2;
+    private long clientTime_;
+    public boolean hasClientTime() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public long getClientTime() {
+      return clientTime_;
+    }
+    
+    // required .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
+    public static final int LICENSETYPE_FIELD_NUMBER = 3;
+    private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType_;
+    public boolean hasLicenseType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType getLicenseType() {
+      return licenseType_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      clientTime_ = 0L;
+      licenseType_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType.SHORT;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasClientTime()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasLicenseType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt64(2, clientTime_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, licenseType_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, clientTime_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, licenseType_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        clientTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        licenseType_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType.SHORT;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto build() {
+        com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto result = new com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.clientTime_ = clientTime_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.licenseType_ = licenseType_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasClientTime()) {
+          setClientTime(other.getClientTime());
+        }
+        if (other.hasLicenseType()) {
+          setLicenseType(other.getLicenseType());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasClientTime()) {
+          
+          return false;
+        }
+        if (!hasLicenseType()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              clientTime_ = input.readInt64();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType value = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                licenseType_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required int64 clientTime = 2;
+      private long clientTime_ ;
+      public boolean hasClientTime() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public long getClientTime() {
+        return clientTime_;
+      }
+      public Builder setClientTime(long value) {
+        bitField0_ |= 0x00000002;
+        clientTime_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearClientTime() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        clientTime_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
+      private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType.SHORT;
+      public boolean hasLicenseType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType getLicenseType() {
+        return licenseType_;
+      }
+      public Builder setLicenseType(com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        licenseType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLicenseType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        licenseType_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType.SHORT;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto)
+    }
+    
+    static {
+      defaultInstance = new PurchaseMarketplaceLicenseRequestProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto)
+  }
+  
+  public interface PurchaseMarketplaceLicenseResponseProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus getStatus();
+  }
+  public static final class PurchaseMarketplaceLicenseResponseProto extends
+      com.google.protobuf.GeneratedMessage
+      implements PurchaseMarketplaceLicenseResponseProtoOrBuilder {
+    // Use PurchaseMarketplaceLicenseResponseProto.newBuilder() to construct.
+    private PurchaseMarketplaceLicenseResponseProto(Builder builder) {
+      super(builder);
+    }
+    private PurchaseMarketplaceLicenseResponseProto(boolean noInit) {}
+    
+    private static final PurchaseMarketplaceLicenseResponseProto defaultInstance;
+    public static PurchaseMarketplaceLicenseResponseProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public PurchaseMarketplaceLicenseResponseProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_fieldAccessorTable;
+    }
+    
+    public enum PurchaseMarketplaceLicenseStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SUCCESS(0, 0),
+      NOT_ENOUGH_DIAMONDS(1, 1),
+      ALREADY_HAVE_LICENSE_NOW(2, 2),
+      OTHER_FAIL(3, 3),
+      ;
+      
+      public static final int SUCCESS_VALUE = 0;
+      public static final int NOT_ENOUGH_DIAMONDS_VALUE = 1;
+      public static final int ALREADY_HAVE_LICENSE_NOW_VALUE = 2;
+      public static final int OTHER_FAIL_VALUE = 3;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static PurchaseMarketplaceLicenseStatus valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return NOT_ENOUGH_DIAMONDS;
+          case 2: return ALREADY_HAVE_LICENSE_NOW;
+          case 3: return OTHER_FAIL;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<PurchaseMarketplaceLicenseStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<PurchaseMarketplaceLicenseStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<PurchaseMarketplaceLicenseStatus>() {
+              public PurchaseMarketplaceLicenseStatus findValueByNumber(int number) {
+                return PurchaseMarketplaceLicenseStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final PurchaseMarketplaceLicenseStatus[] VALUES = {
+        SUCCESS, NOT_ENOUGH_DIAMONDS, ALREADY_HAVE_LICENSE_NOW, OTHER_FAIL, 
+      };
+      
+      public static PurchaseMarketplaceLicenseStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private PurchaseMarketplaceLicenseStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus getStatus() {
+      return status_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      status_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus.SUCCESS;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto build() {
+        com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto result = new com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus value = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                status_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
+      private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus getStatus() {
+        return status_;
+      }
+      public Builder setStatus(com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus.SUCCESS;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto)
+    }
+    
+    static {
+      defaultInstance = new PurchaseMarketplaceLicenseResponseProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_ChatRequestProto_descriptor;
   private static
@@ -58025,6 +60549,26 @@ public final class EventProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_RefillStatWaitCompleteResponseProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_EnableAPNSRequestProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_EnableAPNSRequestProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_EnableAPNSResponseProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_EnableAPNSResponseProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -58118,7 +60662,7 @@ public final class EventProto {
       "ItemUsePerBattle\030\005 \002(\005\"A\n\014UpdateStatus\022\r" +
       "\n\tNO_UPDATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020\n\014MAJOR" +
       "_UPDATE\020\002\"3\n\rStartupStatus\022\016\n\nUSER_IN_DB" +
-      "\020\000\022\022\n\016USER_NOT_IN_DB\020\001\"\210\003\n\026UserCreateReq" +
+      "\020\000\022\022\n\016USER_NOT_IN_DB\020\001\"\235\003\n\026UserCreateReq" +
       "uestProto\022\014\n\004udid\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\022\n" +
       "\nmacAddress\030\003 \002(\t\022:\n\nstructures\030\004 \003(\0132&." +
       "com.lvl6.proto.FullUserStructureProto\0223\n" +
@@ -58128,380 +60672,403 @@ public final class EventProto {
       "ryCoordinates\030\007 \002(\0132\037.com.lvl6.proto.Coo" +
       "rdinateProto\022=\n\024carpenterCoordinates\030\010 \002" +
       "(\0132\037.com.lvl6.proto.CoordinateProto\022\024\n\014r" +
-      "eferrerCode\030\t \001(\005\"\267\001\n\027UserCreateResponse" +
-      "Proto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6.proto.F" +
-      "ullUserProto\022E\n\006status\030\002 \002(\01625.com.lvl6." +
-      "proto.UserCreateResponseProto.StartupSta" +
-      "tus\"&\n\rStartupStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAI" +
-      "L\020\001\"\227\001\n\036ChangeUserLocationRequestProto\0220",
+      "eferrerCode\030\t \001(\005\022\023\n\013deviceToken\030\n \001(\t\"\267" +
+      "\001\n\027UserCreateResponseProto\022-\n\006sender\030\001 \002" +
+      "(\0132\035.com.lvl6.proto.FullUserProto\022E\n\006sta" +
+      "tus\030\002 \002(\01625.com.lvl6.proto.UserCreateRes" +
+      "ponseProto.StartupStatus\"&\n\rStartupStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"\227\001\n\036ChangeUserL",
+      "ocationRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022\016\n\006cityId\030" +
+      "\002 \001(\005\0223\n\014userLocation\030\003 \002(\0132\035.com.lvl6.p" +
+      "roto.LocationProto\"d\n RetrieveTasksForCi" +
+      "tyRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022\016\n\006cityId\030\002 \001(\005" +
+      "\"\203\001\n!RetrieveTasksForCityResponseProto\0220" +
       "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022\016\n\006cityId\030\002 \001(\005\0223\n\014userLocation" +
-      "\030\003 \002(\0132\035.com.lvl6.proto.LocationProto\"d\n" +
-      " RetrieveTasksForCityRequestProto\0220\n\006sen" +
-      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!RetrieveTasksFor" +
-      "CityResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022,\n\005tasks\030\002 \003" +
-      "(\0132\035.com.lvl6.proto.FullTaskProto\"\367\001\n%Re" +
-      "trieveStaticDataForShopRequestProto\0220\n\006s",
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022W\n\004type\030\002 \002(\0162I.com.lvl6.proto.Ret" +
-      "rieveStaticDataForShopRequestProto.Retri" +
-      "eveForShopType\"C\n\023RetrieveForShopType\022\030\n" +
-      "\024EQUIPMENT_FOR_ARMORY\020\000\022\022\n\016ALL_STRUCTURE" +
-      "S\020\001\"\346\002\n&RetrieveStaticDataForShopRespons" +
-      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022f\n\006status\030\002 \002(\0162V.com.l" +
-      "vl6.proto.RetrieveStaticDataForShopRespo" +
-      "nseProto.RetrieveStaticDataForShopStatus",
-      "\022.\n\006equips\030\003 \003(\0132\036.com.lvl6.proto.FullEq" +
-      "uipProto\0223\n\007structs\030\004 \003(\0132\".com.lvl6.pro" +
-      "to.FullStructureProto\"=\n\037RetrieveStaticD" +
-      "ataForShopStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FA" +
-      "IL\020\001\"k\n\026TaskActionRequestProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022\016\n\006taskId\030\002 \002(\005\022\017\n\007curTime\030\003 \002(\003\"\227\003\n\027Ta" +
-      "skActionResponseProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022H\n\006statu" +
-      "s\030\002 \002(\01628.com.lvl6.proto.TaskActionRespo",
-      "nseProto.TaskActionStatus\022\025\n\rtaskComplet" +
-      "ed\030\003 \001(\010\022\024\n\014cityRankedUp\030\004 \001(\010\022\023\n\013lootEq" +
-      "uipId\030\005 \001(\005\022\023\n\013coinsGained\030\006 \001(\005\022\035\n\025coin" +
-      "BonusIfCityRankup\030\007 \001(\005\022\034\n\024expBonusIfCit" +
-      "yRankup\030\010 \001(\005\"l\n\020TaskActionStatus\022\013\n\007SUC" +
-      "CESS\020\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\037\n\033US" +
-      "ER_NOT_ALL_REQUIRED_ITEMS\020\002\022\016\n\nOTHER_FAI" +
-      "L\020\003\"\273\001\n!PurchaseNormStructureRequestProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022:\n\021structCoordinates\030\002 \002(\0132\037",
-      ".com.lvl6.proto.CoordinateProto\022\020\n\010struc" +
-      "tId\030\003 \002(\005\022\026\n\016timeOfPurchase\030\004 \002(\003\"\376\002\n\"Pu" +
-      "rchaseNormStructureResponseProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022^\n\006status\030\002 \002(\0162N.com.lvl6.proto.Purc" +
-      "haseNormStructureResponseProto.PurchaseN" +
-      "ormStructureStatus\022\024\n\014userStructId\030\003 \001(\005" +
-      "\"\257\001\n\033PurchaseNormStructureStatus\022\013\n\007SUCC" +
-      "ESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\rLEVEL" +
-      "_TOO_LOW\020\002\022!\n\035ANOTHER_STRUCT_STILL_BUILD",
-      "ING\020\003\022#\n\037ALREADY_HAVE_MAX_OF_THIS_STRUCT" +
-      "\020\004\022\016\n\nOTHER_FAIL\020\005\"\375\002\n%MoveOrRotateNormS" +
-      "tructureRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022\024\n\014userSt" +
-      "ructId\030\002 \002(\005\022^\n\004type\030\003 \002(\0162P.com.lvl6.pr" +
-      "oto.MoveOrRotateNormStructureRequestProt" +
-      "o.MoveOrRotateNormStructType\022=\n\024curStruc" +
-      "tCoordinates\030\004 \001(\0132\037.com.lvl6.proto.Coor" +
-      "dinateProto\0229\n\016newOrientation\030\005 \001(\0162!.co" +
-      "m.lvl6.proto.StructOrientation\"2\n\032MoveOr",
-      "RotateNormStructType\022\010\n\004MOVE\020\000\022\n\n\006ROTATE" +
-      "\020\001\"\202\002\n&MoveOrRotateNormStructureResponse" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022f\n\006status\030\002 \002(\0162V.com.lv" +
-      "l6.proto.MoveOrRotateNormStructureRespon" +
-      "seProto.MoveOrRotateNormStructureStatus\"" +
-      ">\n\037MoveOrRotateNormStructureStatus\022\013\n\007SU" +
-      "CCESS\020\000\022\016\n\nOTHER_FAIL\020\002\"g\n\035SellNormStruc" +
-      "tureRequestProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\024\n\014userStruct",
-      "Id\030\002 \002(\005\"\334\001\n\036SellNormStructureResponsePr" +
-      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022V\n\006status\030\002 \002(\0162F.com.lvl6" +
-      ".proto.SellNormStructureResponseProto.Se" +
-      "llNormStructureStatus\"0\n\027SellNormStructu" +
-      "reStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"\201\001\n Upgr" +
-      "adeNormStructureRequestProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022\024" +
-      "\n\014userStructId\030\002 \002(\005\022\025\n\rtimeOfUpgrade\030\003 " +
-      "\002(\003\"\326\002\n!UpgradeNormStructureResponseProt",
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\\\n\006status\030\002 \002(\0162L.com.lvl6.p" +
-      "roto.UpgradeNormStructureResponseProto.U" +
-      "pgradeNormStructureStatus\"\240\001\n\032UpgradeNor" +
-      "mStructureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENO" +
-      "UGH_MATERIALS\020\001\022\021\n\rNOT_BUILT_YET\020\002\022\024\n\020NO" +
-      "T_USERS_STRUCT\020\003\022\"\n\036ANOTHER_STRUCT_STILL" +
-      "_UPGRADING\020\004\022\016\n\nOTHER_FAIL\020\005\"\220\001\n-Retriev" +
-      "eCurrencyFromNormStructureRequestProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU",
-      "serProto\022\024\n\014userStructId\030\002 \002(\005\022\027\n\017timeOf" +
-      "Retrieval\030\003 \002(\003\"\267\002\n.RetrieveCurrencyFrom" +
-      "NormStructureResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022v\n\006" +
-      "status\030\002 \002(\0162f.com.lvl6.proto.RetrieveCu" +
-      "rrencyFromNormStructureResponseProto.Ret" +
-      "rieveCurrencyFromNormStructureStatus\"[\n\'" +
-      "RetrieveCurrencyFromNormStructureStatus\022" +
-      "\013\n\007SUCCESS\020\000\022\023\n\017NOT_LONG_ENOUGH\020\001\022\016\n\nOTH" +
-      "ER_FAIL\020\002\"\236\003\n#CriticalStructureActionReq",
-      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\\\n\nactionType\030\002 \002(\0162" +
-      "H.com.lvl6.proto.CriticalStructureAction" +
-      "RequestProto.CritStructActionType\0226\n\016cri" +
-      "tStructType\030\003 \002(\0162\036.com.lvl6.proto.CritS" +
-      "tructType\022>\n\025critStructCoordinates\030\004 \001(\013" +
-      "2\037.com.lvl6.proto.CoordinateProto\0226\n\013ori" +
-      "entation\030\005 \001(\0162!.com.lvl6.proto.StructOr" +
-      "ientation\"7\n\024CritStructActionType\022\t\n\005PLA" +
-      "CE\020\000\022\010\n\004MOVE\020\001\022\n\n\006ROTATE\020\002\"\324\002\n$CriticalS",
-      "tructureActionResponseProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022[\n" +
-      "\006status\030\003 \002(\0162K.com.lvl6.proto.CriticalS" +
-      "tructureActionResponseProto.CritStructAc" +
-      "tionStatus\"\234\001\n\026CritStructActionStatus\022\013\n" +
-      "\007SUCCESS\020\000\022*\n&CANNOT_PLACE_NON_PLACEABLE" +
-      "_CRIT_STRUCT\020\001\022!\n\035NOT_ACCESSIBLE_TO_USER" +
-      "S_LEVEL\020\002\022\026\n\022CANNOT_MOVE_AVIARY\020\003\022\016\n\nOTH" +
-      "ER_FAIL\020\004\"\344\002\n0FinishNormStructWaittimeWi" +
-      "thDiamondsRequestProto\0220\n\006sender\030\001 \002(\0132 ",
-      ".com.lvl6.proto.MinimumUserProto\022\024\n\014user" +
-      "StructId\030\002 \002(\005\022\026\n\016timeOfPurchase\030\003 \002(\003\022m" +
-      "\n\014waitTimeType\030\004 \002(\0162W.com.lvl6.proto.Fi" +
-      "nishNormStructWaittimeWithDiamondsReques" +
-      "tProto.NormStructWaitTimeType\"a\n\026NormStr" +
-      "uctWaitTimeType\022\027\n\023FINISH_CONSTRUCTION\020\000" +
-      "\022\032\n\026FINISH_INCOME_WAITTIME\020\001\022\022\n\016FINISH_U" +
-      "PGRADE\020\002\"\257\002\n1FinishNormStructWaittimeWit" +
-      "hDiamondsResponseProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022p\n\006stat",
-      "us\030\002 \002(\0162`.com.lvl6.proto.FinishNormStru" +
-      "ctWaittimeWithDiamondsResponseProto.Fini" +
-      "shNormStructWaittimeStatus\"V\n\036FinishNorm" +
-      "StructWaittimeStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT" +
-      "_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\"}\n\"No" +
-      "rmStructWaitCompleteRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022\024\n\014userStructId\030\002 \003(\005\022\017\n\007curTime\030\003 \002(" +
-      "\003\"\304\002\n#NormStructWaitCompleteResponseProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim",
-      "umUserProto\022`\n\006status\030\002 \002(\0162P.com.lvl6.p" +
-      "roto.NormStructWaitCompleteResponseProto" +
-      ".NormStructWaitCompleteStatus\022:\n\nuserStr" +
-      "uct\030\003 \003(\0132&.com.lvl6.proto.FullUserStruc" +
-      "tureProto\"M\n\034NormStructWaitCompleteStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016\n\nOTHE" +
-      "R_FAIL\020\002\"G\n\023LevelUpRequestProto\0220\n\006sende" +
-      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\"\333\002\n\024LevelUpResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022B\n\006",
-      "status\030\002 \002(\01622.com.lvl6.proto.LevelUpRes" +
-      "ponseProto.LevelUpStatus\022\024\n\014newNextLevel" +
-      "\030\003 \001(\005\022)\n!experienceRequiredForNewNextLe" +
-      "vel\030\004 \001(\005\022<\n\025citiesAvailableToUser\030\005 \003(\013" +
-      "2\035.com.lvl6.proto.FullCityProto\"N\n\rLevel" +
-      "UpStatus\022\013\n\007SUCCESS\020\000\022 \n\034NOT_ENOUGH_EXP_" +
-      "TO_NEXT_LEVEL\020\001\022\016\n\nOTHER_FAIL\020\002\"^\n\031InApp" +
-      "PurchaseRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022\017\n\007receip" +
-      "t\030\002 \002(\t\"\344\001\n\032InAppPurchaseResponseProto\0220",
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022N\n\006status\030\002 \002(\0162>.com.lvl6.prot" +
-      "o.InAppPurchaseResponseProto.InAppPurcha" +
-      "seStatus\022\026\n\016diamondsGained\030\003 \001(\005\",\n\023InAp" +
-      "pPurchaseStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h" +
-      "\n\035UpdateClientUserResponseProto\022-\n\006sende" +
-      "r\030\001 \002(\0132\035.com.lvl6.proto.FullUserProto\022\030" +
-      "\n\020timeOfUserUpdate\030\002 \002(\003\"\215\001\n+RetrieveCur" +
-      "rentMarketplacePostsRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro",
-      "to\022\030\n\020beforeThisPostId\030\002 \001(\005\022\022\n\nfromSend" +
-      "er\030\003 \002(\010\"\322\001\n,RetrieveCurrentMarketplaceP" +
-      "ostsResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022B\n\020marketpla" +
-      "cePosts\030\002 \003(\0132(.com.lvl6.proto.FullMarke" +
-      "tplacePostProto\022\030\n\020beforeThisPostId\030\003 \001(" +
-      "\005\022\022\n\nfromSender\030\004 \002(\010\"\217\001\n\035PostToMarketpl" +
-      "aceRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
-      "l6.proto.MinimumUserProto\022\025\n\rpostedEquip" +
-      "Id\030\002 \002(\005\022\023\n\013diamondCost\030\003 \001(\005\022\020\n\010coinCos",
-      "t\030\004 \001(\005\"\212\003\n\036PostToMarketplaceResponsePro" +
+      "serProto\022,\n\005tasks\030\002 \003(\0132\035.com.lvl6.proto" +
+      ".FullTaskProto\"\367\001\n%RetrieveStaticDataFor",
+      "ShopRequestProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022W\n\004type\030\002 \002(\016" +
+      "2I.com.lvl6.proto.RetrieveStaticDataForS" +
+      "hopRequestProto.RetrieveForShopType\"C\n\023R" +
+      "etrieveForShopType\022\030\n\024EQUIPMENT_FOR_ARMO" +
+      "RY\020\000\022\022\n\016ALL_STRUCTURES\020\001\"\346\002\n&RetrieveSta" +
+      "ticDataForShopResponseProto\0220\n\006sender\030\001 " +
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022f\n" +
+      "\006status\030\002 \002(\0162V.com.lvl6.proto.RetrieveS" +
+      "taticDataForShopResponseProto.RetrieveSt",
+      "aticDataForShopStatus\022.\n\006equips\030\003 \003(\0132\036." +
+      "com.lvl6.proto.FullEquipProto\0223\n\007structs" +
+      "\030\004 \003(\0132\".com.lvl6.proto.FullStructurePro" +
+      "to\"=\n\037RetrieveStaticDataForShopStatus\022\013\n" +
+      "\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"k\n\026TaskActionR" +
+      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\016\n\006taskId\030\002 \002(\005\022\017\n" +
+      "\007curTime\030\003 \002(\003\"\227\003\n\027TaskActionResponsePro" +
       "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022V\n\006status\030\002 \002(\0162F.com.lvl6." +
-      "proto.PostToMarketplaceResponseProto.Pos" +
-      "tToMarketplaceStatus\"\335\001\n\027PostToMarketpla" +
-      "ceStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001" +
-      "\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COST\020" +
-      "\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREADY_MAX_MARKE" +
-      "TPLACE_POSTS\020\005\022\024\n\020CANT_DEMAND_BOTH\020\006\022\036\n\032" +
-      "INVALID_COST_TYPE_FOR_POST\020\007\022\016\n\nOTHER_FA",
-      "IL\020\010\"q\n\"RetractMarketplacePostRequestPro" +
-      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022\031\n\021marketplacePostId\030\002 \002(\005\"" +
-      "\312\002\n#RetractMarketplacePostResponseProto\022" +
-      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022`\n\006status\030\002 \002(\0162P.com.lvl6.pro" +
-      "to.RetractMarketplacePostResponseProto.R" +
-      "etractMarketplacePostStatus\"\216\001\n\034RetractM" +
-      "arketplacePostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT" +
-      "_REQUESTERS_POST\020\001\022\031\n\025POST_NO_LONGER_EXI",
-      "STS\020\002\022\027\n\023NOT_ENOUGH_DIAMONDS\020\003\022\024\n\020NOT_EN" +
-      "OUGH_COINS\020\004\"\204\001\n#PurchaseFromMarketplace" +
-      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022\031\n\021marketplacePos" +
-      "tId\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\336\002\n$Purchase" +
-      "FromMarketplaceResponseProto\0223\n\tpurchase" +
-      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022\020\n\010posterId\030\002 \002(\005\022b\n\006status\030\003 \002(\0162R.co" +
-      "m.lvl6.proto.PurchaseFromMarketplaceResp" +
-      "onseProto.PurchaseFromMarketplaceStatus\"",
-      "\212\001\n\035PurchaseFromMarketplaceStatus\022\013\n\007SUC" +
-      "CESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\031\n\025POST" +
-      "_NO_LONGER_EXISTS\020\002\022\027\n\023PURCHASER_IS_SELL" +
-      "ER\020\003\022\016\n\nOTHER_FAIL\020\004\"\340\001\n\031UseSkillPointRe" +
-      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022F\n\tboostType\030\002 \002(\0162" +
-      "3.com.lvl6.proto.UseSkillPointRequestPro" +
-      "to.BoostType\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n" +
-      "\007DEFENSE\020\001\022\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007ST" +
-      "AMINA\020\004\"\357\001\n\032UseSkillPointResponseProto\0220",
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022N\n\006status\030\002 \002(\0162>.com.lvl6.prot" +
-      "o.UseSkillPointResponseProto.UseSkillPoi" +
-      "ntStatus\"O\n\023UseSkillPointStatus\022\013\n\007SUCCE" +
-      "SS\020\000\022\033\n\027NOT_ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTH" +
-      "ER_FAIL\020\002\"\223\001\n\036GenerateAttackListRequestP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022+\n\tenemyType\030\002 \001(\0162\030.com." +
-      "lvl6.proto.UserType\022\022\n\nnumEnemies\030\003 \001(\005\"" +
-      "\203\001\n\037GenerateAttackListResponseProto\0220\n\006s",
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022.\n\007enemies\030\002 \003(\0132\035.com.lvl6.proto." +
-      "FullUserProto\"\333\001\n\"RefillStatWithDiamonds" +
-      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022M\n\010statType\030\002 \002(\016" +
-      "2;.com.lvl6.proto.RefillStatWithDiamonds" +
-      "RequestProto.StatType\022\017\n\007curTime\030\003 \002(\003\"#" +
-      "\n\010StatType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\210\002\n#" +
-      "RefillStatWithDiamondsResponseProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser",
-      "Proto\022T\n\006status\030\002 \002(\0162D.com.lvl6.proto.R" +
-      "efillStatWithDiamondsResponseProto.Refil" +
-      "lStatStatus\"Y\n\020RefillStatStatus\022\013\n\007SUCCE" +
-      "SS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\017\n\013ALREADY" +
-      "_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\"Y\n%RedeemMarketpl" +
-      "aceEarningsRequestProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\"\202\002\n&Re" +
-      "deemMarketplaceEarningsResponseProto\0220\n\006" +
-      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\022f\n\006status\030\002 \002(\0162V.com.lvl6.proto.",
-      "RedeemMarketplaceEarningsResponseProto.R" +
-      "edeemMarketplaceEarningsStatus\">\n\037Redeem" +
-      "MarketplaceEarningsStatus\022\013\n\007SUCCESS\020\000\022\016" +
-      "\n\nOTHER_FAIL\020\001\"\203\001\n\032LoadPlayerCityRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\0223\n\tcityOwner\030\002 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\"\323\005\n\033LoadPla" +
-      "yerCityResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022P\n\006status" +
-      "\030\002 \002(\0162@.com.lvl6.proto.LoadPlayerCityRe",
-      "sponseProto.LoadPlayerCityStatus\022@\n\020owne" +
-      "rNormStructs\030\003 \003(\0132&.com.lvl6.proto.Full" +
-      "UserStructureProto\0222\n\013ownerAllies\030\004 \003(\0132" +
-      "\035.com.lvl6.proto.FullUserProto\0227\n\006armory" +
-      "\030\005 \001(\0132\'.com.lvl6.proto.FullUserCritstru" +
-      "ctProto\0226\n\005vault\030\006 \001(\0132\'.com.lvl6.proto." +
-      "FullUserCritstructProto\022<\n\013marketplace\030\007" +
-      " \001(\0132\'.com.lvl6.proto.FullUserCritstruct" +
-      "Proto\022:\n\tcarpenter\030\010 \002(\0132\'.com.lvl6.prot" +
-      "o.FullUserCritstructProto\0227\n\006aviary\030\t \002(",
-      "\0132\'.com.lvl6.proto.FullUserCritstructPro" +
-      "to\022M\n\025userCityExpansionData\030\013 \001(\0132..com." +
-      "lvl6.proto.FullUserCityExpansionDataProt" +
-      "o\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCESS\020\000\022\022" +
-      "\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027Qu" +
-      "estAcceptRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022\017\n\007quest" +
-      "Id\030\002 \002(\005\"\341\001\n\030QuestAcceptResponseProto\0220\n" +
-      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022J\n\006status\030\002 \002(\0162:.com.lvl6.proto",
-      ".QuestAcceptResponseProto.QuestAcceptSta" +
-      "tus\"G\n\021QuestAcceptStatus\022\013\n\007SUCCESS\020\000\022\025\n" +
-      "\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"}\n\032" +
-      "QuestCompleteResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022-\n\005" +
-      "quest\030\002 \002(\0132\036.com.lvl6.proto.FullQuestPr" +
-      "oto\"\\\n\027QuestRedeemRequestProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030QuestRedeemRespons" +
-      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.",
-      "MinimumUserProto\022>\n\026updatedAvailableQues" +
-      "ts\030\002 \003(\0132\036.com.lvl6.proto.FullQuestProto" +
-      "\022J\n\006status\030\003 \002(\0162:.com.lvl6.proto.QuestR" +
-      "edeemResponseProto.QuestRedeemStatus\"B\n\021" +
-      "QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_CO" +
-      "MPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033QuestLogDeta" +
-      "ilsRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
-      "l6.proto.MinimumUserProto\"\247\002\n\034QuestLogDe" +
-      "tailsResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022L\n\027inProgre",
-      "ssUserQuestData\030\002 \003(\0132+.com.lvl6.proto.F" +
-      "ullUserQuestDataLargeProto\022R\n\006status\030\003 \002" +
-      "(\0162B.com.lvl6.proto.QuestLogDetailsRespo" +
-      "nseProto.QuestLogDetailsStatus\"3\n\025QuestL" +
-      "ogDetailsStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAI" +
-      "L\020\001\"\275\002\n\036RetrieveStaticDataRequestProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003" +
-      " \003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022" +
-      "\020\n\010equipIds\030\006 \003(\005\022\031\n\021buildStructJobIds\030\007",
-      " \003(\005\022\030\n\020defeatTypeJobIds\030\010 \003(\005\022\032\n\022posses" +
-      "sEquipJobIds\030\t \003(\005\022\033\n\023upgradeStructJobId" +
-      "s\030\n \003(\005\022\"\n\032levelForExpRequiredRequest\030\013 " +
-      "\001(\005\"\371\005\n\037RetrieveStaticDataResponseProto\022" +
-      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\0223\n\007structs\030\002 \003(\0132\".com.lvl6.pr" +
-      "oto.FullStructureProto\022,\n\005tasks\030\003 \003(\0132\035." +
-      "com.lvl6.proto.FullTaskProto\022.\n\006quests\030\004" +
-      " \003(\0132\036.com.lvl6.proto.FullQuestProto\022-\n\006" +
-      "cities\030\005 \003(\0132\035.com.lvl6.proto.FullCityPr",
-      "oto\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.proto.Ful" +
-      "lEquipProto\022<\n\017buildStructJobs\030\007 \003(\0132#.c" +
-      "om.lvl6.proto.BuildStructJobProto\022:\n\016def" +
-      "eatTypeJobs\030\010 \003(\0132\".com.lvl6.proto.Defea" +
-      "tTypeJobProto\022>\n\020possessEquipJobs\030\t \003(\0132" +
-      "$.com.lvl6.proto.PossessEquipJobProto\022@\n" +
-      "\021upgradeStructJobs\030\n \003(\0132%.com.lvl6.prot" +
-      "o.UpgradeStructJobProto\022$\n\034expRequiredFo" +
-      "rRequestedLevel\030\013 \001(\005\022X\n\006status\030\014 \002(\0162H." +
-      "com.lvl6.proto.RetrieveStaticDataRespons",
-      "eProto.RetrieveStaticDataStatus\"6\n\030Retri" +
-      "eveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME" +
-      "_FAIL\020\001\"\244\001\n!PurchaseCityExpansionRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\0225\n\tdirection\030\002 \002(\0162\".com" +
-      ".lvl6.proto.ExpansionDirection\022\026\n\016timeOf" +
-      "Purchase\030\003 \002(\003\"\237\002\n\"PurchaseCityExpansion" +
+      "mumUserProto\022H\n\006status\030\002 \002(\01628.com.lvl6.",
+      "proto.TaskActionResponseProto.TaskAction" +
+      "Status\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRan" +
+      "kedUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coin" +
+      "sGained\030\006 \001(\005\022\035\n\025coinBonusIfCityRankup\030\007" +
+      " \001(\005\022\034\n\024expBonusIfCityRankup\030\010 \001(\005\"l\n\020Ta" +
+      "skActionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USER_NOT_" +
+      "ENOUGH_ENERGY\020\001\022\037\n\033USER_NOT_ALL_REQUIRED" +
+      "_ITEMS\020\002\022\016\n\nOTHER_FAIL\020\003\"\273\001\n!PurchaseNor" +
+      "mStructureRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022:\n\021stru",
+      "ctCoordinates\030\002 \002(\0132\037.com.lvl6.proto.Coo" +
+      "rdinateProto\022\020\n\010structId\030\003 \002(\005\022\026\n\016timeOf" +
+      "Purchase\030\004 \002(\003\"\376\002\n\"PurchaseNormStructure" +
       "ResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
       ".proto.MinimumUserProto\022^\n\006status\030\002 \002(\0162" +
-      "N.com.lvl6.proto.PurchaseCityExpansionRe",
-      "sponseProto.PurchaseCityExpansionStatus\"" +
-      "g\n\033PurchaseCityExpansionStatus\022\013\n\007SUCCES" +
-      "S\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREADY_EXP" +
-      "ANDING\020\002\022\016\n\nOTHER_FAIL\020\003\"f\n!ExpansionWai" +
-      "tCompleteRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022\017\n\007curTi" +
-      "me\030\002 \002(\003\"\233\002\n\"ExpansionWaitCompleteRespon" +
+      "N.com.lvl6.proto.PurchaseNormStructureRe" +
+      "sponseProto.PurchaseNormStructureStatus\022" +
+      "\024\n\014userStructId\030\003 \001(\005\"\257\001\n\033PurchaseNormSt" +
+      "ructureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH" +
+      "_MATERIALS\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022!\n\035ANOTH",
+      "ER_STRUCT_STILL_BUILDING\020\003\022#\n\037ALREADY_HA" +
+      "VE_MAX_OF_THIS_STRUCT\020\004\022\016\n\nOTHER_FAIL\020\005\"" +
+      "\375\002\n%MoveOrRotateNormStructureRequestProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\024\n\014userStructId\030\002 \002(\005\022^\n\004typ" +
+      "e\030\003 \002(\0162P.com.lvl6.proto.MoveOrRotateNor" +
+      "mStructureRequestProto.MoveOrRotateNormS" +
+      "tructType\022=\n\024curStructCoordinates\030\004 \001(\0132" +
+      "\037.com.lvl6.proto.CoordinateProto\0229\n\016newO" +
+      "rientation\030\005 \001(\0162!.com.lvl6.proto.Struct",
+      "Orientation\"2\n\032MoveOrRotateNormStructTyp" +
+      "e\022\010\n\004MOVE\020\000\022\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRotate" +
+      "NormStructureResponseProto\0220\n\006sender\030\001 \002" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022f\n\006" +
+      "status\030\002 \002(\0162V.com.lvl6.proto.MoveOrRota" +
+      "teNormStructureResponseProto.MoveOrRotat" +
+      "eNormStructureStatus\">\n\037MoveOrRotateNorm" +
+      "StructureStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FA" +
+      "IL\020\002\"g\n\035SellNormStructureRequestProto\0220\n" +
+      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs",
+      "erProto\022\024\n\014userStructId\030\002 \002(\005\"\334\001\n\036SellNo" +
+      "rmStructureResponseProto\0220\n\006sender\030\001 \002(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022V\n\006st" +
+      "atus\030\002 \002(\0162F.com.lvl6.proto.SellNormStru" +
+      "ctureResponseProto.SellNormStructureStat" +
+      "us\"0\n\027SellNormStructureStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\010\n\004FAIL\020\001\"\201\001\n UpgradeNormStructureReq" +
+      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022\024\n\014userStructId\030\002 \002(" +
+      "\005\022\025\n\rtimeOfUpgrade\030\003 \002(\003\"\326\002\n!UpgradeNorm",
+      "StructureResponseProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022\\\n\006stat" +
+      "us\030\002 \002(\0162L.com.lvl6.proto.UpgradeNormStr" +
+      "uctureResponseProto.UpgradeNormStructure" +
+      "Status\"\240\001\n\032UpgradeNormStructureStatus\022\013\n" +
+      "\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\r" +
+      "NOT_BUILT_YET\020\002\022\024\n\020NOT_USERS_STRUCT\020\003\022\"\n" +
+      "\036ANOTHER_STRUCT_STILL_UPGRADING\020\004\022\016\n\nOTH" +
+      "ER_FAIL\020\005\"\220\001\n-RetrieveCurrencyFromNormSt" +
+      "ructureRequestProto\0220\n\006sender\030\001 \002(\0132 .co",
+      "m.lvl6.proto.MinimumUserProto\022\024\n\014userStr" +
+      "uctId\030\002 \002(\005\022\027\n\017timeOfRetrieval\030\003 \002(\003\"\267\002\n" +
+      ".RetrieveCurrencyFromNormStructureRespon" +
       "seProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022^\n\006status\030\002 \002(\0162N.com." +
-      "lvl6.proto.ExpansionWaitCompleteResponse",
-      "Proto.ExpansionWaitCompleteStatus\"c\n\033Exp" +
-      "ansionWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\025\n" +
-      "\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YET\020\002\022\016" +
-      "\n\nOTHER_FAIL\020\003\"\373\001\n\"RefillStatWaitComplet" +
+      ".MinimumUserProto\022v\n\006status\030\002 \002(\0162f.com." +
+      "lvl6.proto.RetrieveCurrencyFromNormStruc" +
+      "tureResponseProto.RetrieveCurrencyFromNo" +
+      "rmStructureStatus\"[\n\'RetrieveCurrencyFro" +
+      "mNormStructureStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NOT" +
+      "_LONG_ENOUGH\020\001\022\016\n\nOTHER_FAIL\020\002\"\236\003\n#Criti",
+      "calStructureActionRequestProto\0220\n\006sender" +
+      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\\\n\nactionType\030\002 \002(\0162H.com.lvl6.proto.Cr" +
+      "iticalStructureActionRequestProto.CritSt" +
+      "ructActionType\0226\n\016critStructType\030\003 \002(\0162\036" +
+      ".com.lvl6.proto.CritStructType\022>\n\025critSt" +
+      "ructCoordinates\030\004 \001(\0132\037.com.lvl6.proto.C" +
+      "oordinateProto\0226\n\013orientation\030\005 \001(\0162!.co" +
+      "m.lvl6.proto.StructOrientation\"7\n\024CritSt" +
+      "ructActionType\022\t\n\005PLACE\020\000\022\010\n\004MOVE\020\001\022\n\n\006R",
+      "OTATE\020\002\"\324\002\n$CriticalStructureActionRespo" +
+      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022[\n\006status\030\003 \002(\0162K.com" +
+      ".lvl6.proto.CriticalStructureActionRespo" +
+      "nseProto.CritStructActionStatus\"\234\001\n\026Crit" +
+      "StructActionStatus\022\013\n\007SUCCESS\020\000\022*\n&CANNO" +
+      "T_PLACE_NON_PLACEABLE_CRIT_STRUCT\020\001\022!\n\035N" +
+      "OT_ACCESSIBLE_TO_USERS_LEVEL\020\002\022\026\n\022CANNOT" +
+      "_MOVE_AVIARY\020\003\022\016\n\nOTHER_FAIL\020\004\"\344\002\n0Finis" +
+      "hNormStructWaittimeWithDiamondsRequestPr",
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022\024\n\014userStructId\030\002 \002(\005\022\026\n\016t" +
+      "imeOfPurchase\030\003 \002(\003\022m\n\014waitTimeType\030\004 \002(" +
+      "\0162W.com.lvl6.proto.FinishNormStructWaitt" +
+      "imeWithDiamondsRequestProto.NormStructWa" +
+      "itTimeType\"a\n\026NormStructWaitTimeType\022\027\n\023" +
+      "FINISH_CONSTRUCTION\020\000\022\032\n\026FINISH_INCOME_W" +
+      "AITTIME\020\001\022\022\n\016FINISH_UPGRADE\020\002\"\257\002\n1Finish" +
+      "NormStructWaittimeWithDiamondsResponsePr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min",
+      "imumUserProto\022p\n\006status\030\002 \002(\0162`.com.lvl6" +
+      ".proto.FinishNormStructWaittimeWithDiamo" +
+      "ndsResponseProto.FinishNormStructWaittim" +
+      "eStatus\"V\n\036FinishNormStructWaittimeStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022" +
+      "\016\n\nOTHER_FAIL\020\002\"}\n\"NormStructWaitComplet" +
       "eRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022\017\n\007curTime\030\002 \002(\003" +
-      "\022[\n\004type\030\003 \002(\0162M.com.lvl6.proto.RefillSt" +
-      "atWaitCompleteRequestProto.RefillStatWai" +
-      "tCompleteType\"5\n\032RefillStatWaitCompleteT" +
-      "ype\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\232\002\n#RefillS",
-      "tatWaitCompleteResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022`" +
-      "\n\006status\030\002 \002(\0162P.com.lvl6.proto.RefillSt" +
-      "atWaitCompleteResponseProto.RefillStatWa" +
-      "itCompleteStatus\"_\n\034RefillStatWaitComple" +
-      "teStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READY_YET\020\001" +
-      "\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003B\014B\nEve" +
-      "ntProto"
+      ".proto.MinimumUserProto\022\024\n\014userStructId\030" +
+      "\002 \003(\005\022\017\n\007curTime\030\003 \002(\003\"\304\002\n#NormStructWai" +
+      "tCompleteResponseProto\0220\n\006sender\030\001 \002(\0132 ",
+      ".com.lvl6.proto.MinimumUserProto\022`\n\006stat" +
+      "us\030\002 \002(\0162P.com.lvl6.proto.NormStructWait" +
+      "CompleteResponseProto.NormStructWaitComp" +
+      "leteStatus\022:\n\nuserStruct\030\003 \003(\0132&.com.lvl" +
+      "6.proto.FullUserStructureProto\"M\n\034NormSt" +
+      "ructWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\020\n\014N" +
+      "OT_DONE_YET\020\001\022\016\n\nOTHER_FAIL\020\002\"G\n\023LevelUp" +
+      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\"\333\002\n\024LevelUpRespon" +
+      "seProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto",
+      ".MinimumUserProto\022B\n\006status\030\002 \002(\01622.com." +
+      "lvl6.proto.LevelUpResponseProto.LevelUpS" +
+      "tatus\022\024\n\014newNextLevel\030\003 \001(\005\022)\n!experienc" +
+      "eRequiredForNewNextLevel\030\004 \001(\005\022<\n\025cities" +
+      "AvailableToUser\030\005 \003(\0132\035.com.lvl6.proto.F" +
+      "ullCityProto\"N\n\rLevelUpStatus\022\013\n\007SUCCESS" +
+      "\020\000\022 \n\034NOT_ENOUGH_EXP_TO_NEXT_LEVEL\020\001\022\016\n\n" +
+      "OTHER_FAIL\020\002\"^\n\031InAppPurchaseRequestProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\017\n\007receipt\030\002 \002(\t\"\344\001\n\032InAppPu",
+      "rchaseResponseProto\0220\n\006sender\030\001 \002(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022N\n\006status\030" +
+      "\002 \002(\0162>.com.lvl6.proto.InAppPurchaseResp" +
+      "onseProto.InAppPurchaseStatus\022\026\n\016diamond" +
+      "sGained\030\003 \001(\005\",\n\023InAppPurchaseStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035UpdateClientUserR" +
+      "esponseProto\022-\n\006sender\030\001 \002(\0132\035.com.lvl6." +
+      "proto.FullUserProto\022\030\n\020timeOfUserUpdate\030" +
+      "\002 \002(\003\"\215\001\n+RetrieveCurrentMarketplacePost" +
+      "sRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6",
+      ".proto.MinimumUserProto\022\030\n\020beforeThisPos" +
+      "tId\030\002 \001(\005\022\022\n\nfromSender\030\003 \002(\010\"\322\001\n,Retrie" +
+      "veCurrentMarketplacePostsResponseProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022B\n\020marketplacePosts\030\002 \003(\0132(.com" +
+      ".lvl6.proto.FullMarketplacePostProto\022\030\n\020" +
+      "beforeThisPostId\030\003 \001(\005\022\022\n\nfromSender\030\004 \002" +
+      "(\010\"\243\001\n\035PostToMarketplaceRequestProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022\025\n\rpostedEquipId\030\002 \002(\005\022\022\n\ntimeOfP",
+      "ost\030\003 \002(\003\022\023\n\013diamondCost\030\004 \001(\005\022\020\n\010coinCo" +
+      "st\030\005 \001(\005\"\232\003\n\036PostToMarketplaceResponsePr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022V\n\006status\030\002 \002(\0162F.com.lvl6" +
+      ".proto.PostToMarketplaceResponseProto.Po" +
+      "stToMarketplaceStatus\"\355\001\n\027PostToMarketpl" +
+      "aceStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020" +
+      "\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COST" +
+      "\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREADY_MAX_MARK" +
+      "ETPLACE_POSTS\020\005\022\024\n\020CANT_DEMAND_BOTH\020\006\022\036\n",
+      "\032INVALID_COST_TYPE_FOR_POST\020\007\022\016\n\nNO_LICE" +
+      "NSE\020\010\022\016\n\nOTHER_FAIL\020\t\"q\n\"RetractMarketpl" +
+      "acePostRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022\031\n\021marketp" +
+      "lacePostId\030\002 \002(\005\"\312\002\n#RetractMarketplaceP" +
+      "ostResponseProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022`\n\006status\030\002 \002" +
+      "(\0162P.com.lvl6.proto.RetractMarketplacePo" +
+      "stResponseProto.RetractMarketplacePostSt" +
+      "atus\"\216\001\n\034RetractMarketplacePostStatus\022\013\n",
+      "\007SUCCESS\020\000\022\027\n\023NOT_REQUESTERS_POST\020\001\022\031\n\025P" +
+      "OST_NO_LONGER_EXISTS\020\002\022\027\n\023NOT_ENOUGH_DIA" +
+      "MONDS\020\003\022\024\n\020NOT_ENOUGH_COINS\020\004\"\204\001\n#Purcha" +
+      "seFromMarketplaceRequestProto\0220\n\006sender\030" +
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "\031\n\021marketplacePostId\030\002 \002(\005\022\020\n\010posterId\030\003" +
+      " \002(\005\"\336\002\n$PurchaseFromMarketplaceResponse" +
+      "Proto\0223\n\tpurchaser\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\020\n\010posterId\030\002 \002(\005\022b\n\006" +
+      "status\030\003 \002(\0162R.com.lvl6.proto.PurchaseFr",
+      "omMarketplaceResponseProto.PurchaseFromM" +
+      "arketplaceStatus\"\212\001\n\035PurchaseFromMarketp" +
+      "laceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MA" +
+      "TERIALS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023" +
+      "PURCHASER_IS_SELLER\020\003\022\016\n\nOTHER_FAIL\020\004\"\340\001" +
+      "\n\031UseSkillPointRequestProto\0220\n\006sender\030\001 " +
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022F\n" +
+      "\tboostType\030\002 \002(\01623.com.lvl6.proto.UseSki" +
+      "llPointRequestProto.BoostType\"I\n\tBoostTy" +
+      "pe\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY\020\002\022",
+      "\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkillPoi" +
+      "ntResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022N\n\006status\030\002 \002(" +
+      "\0162>.com.lvl6.proto.UseSkillPointResponse" +
+      "Proto.UseSkillPointStatus\"O\n\023UseSkillPoi" +
+      "ntStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_SKIL" +
+      "L_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\223\001\n\036GenerateA" +
+      "ttackListRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
+      "com.lvl6.proto.MinimumUserProto\022+\n\tenemy" +
+      "Type\030\002 \001(\0162\030.com.lvl6.proto.UserType\022\022\n\n",
+      "numEnemies\030\003 \001(\005\"\203\001\n\037GenerateAttackListR" +
+      "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022.\n\007enemies\030\002 \003(\0132" +
+      "\035.com.lvl6.proto.FullUserProto\"\333\001\n\"Refil" +
+      "lStatWithDiamondsRequestProto\0220\n\006sender\030" +
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "M\n\010statType\030\002 \002(\0162;.com.lvl6.proto.Refil" +
+      "lStatWithDiamondsRequestProto.StatType\022\017" +
+      "\n\007curTime\030\003 \002(\003\"#\n\010StatType\022\n\n\006ENERGY\020\000\022" +
+      "\013\n\007STAMINA\020\001\"\210\002\n#RefillStatWithDiamondsR",
+      "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022T\n\006status\030\002 \002(\0162D" +
+      ".com.lvl6.proto.RefillStatWithDiamondsRe" +
+      "sponseProto.RefillStatStatus\"Y\n\020RefillSt" +
+      "atStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAM" +
+      "ONDS\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\"" +
+      "Y\n%RedeemMarketplaceEarningsRequestProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\"\202\002\n&RedeemMarketplaceEarnings" +
+      "ResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6",
+      ".proto.MinimumUserProto\022f\n\006status\030\002 \002(\0162" +
+      "V.com.lvl6.proto.RedeemMarketplaceEarnin" +
+      "gsResponseProto.RedeemMarketplaceEarning" +
+      "sStatus\">\n\037RedeemMarketplaceEarningsStat" +
+      "us\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n\032Load" +
+      "PlayerCityRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\0223\n\tcity" +
+      "Owner\030\002 \002(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\"\323\005\n\033LoadPlayerCityResponseProto\0220\n" +
+      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs",
+      "erProto\022P\n\006status\030\002 \002(\0162@.com.lvl6.proto" +
+      ".LoadPlayerCityResponseProto.LoadPlayerC" +
+      "ityStatus\022@\n\020ownerNormStructs\030\003 \003(\0132&.co" +
+      "m.lvl6.proto.FullUserStructureProto\0222\n\013o" +
+      "wnerAllies\030\004 \003(\0132\035.com.lvl6.proto.FullUs" +
+      "erProto\0227\n\006armory\030\005 \001(\0132\'.com.lvl6.proto" +
+      ".FullUserCritstructProto\0226\n\005vault\030\006 \001(\0132" +
+      "\'.com.lvl6.proto.FullUserCritstructProto" +
+      "\022<\n\013marketplace\030\007 \001(\0132\'.com.lvl6.proto.F" +
+      "ullUserCritstructProto\022:\n\tcarpenter\030\010 \002(",
+      "\0132\'.com.lvl6.proto.FullUserCritstructPro" +
+      "to\0227\n\006aviary\030\t \002(\0132\'.com.lvl6.proto.Full" +
+      "UserCritstructProto\022M\n\025userCityExpansion" +
+      "Data\030\013 \001(\0132..com.lvl6.proto.FullUserCity" +
+      "ExpansionDataProto\"G\n\024LoadPlayerCityStat" +
+      "us\022\013\n\007SUCCESS\020\000\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nO" +
+      "THER_FAIL\020\002\"\\\n\027QuestAcceptRequestProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\017\n\007questId\030\002 \002(\005\"\341\001\n\030QuestAccep" +
+      "tResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl",
+      "6.proto.MinimumUserProto\022J\n\006status\030\002 \002(\016" +
+      "2:.com.lvl6.proto.QuestAcceptResponsePro" +
+      "to.QuestAcceptStatus\"G\n\021QuestAcceptStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n" +
+      "\nOTHER_FAIL\020\002\"}\n\032QuestCompleteResponsePr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022-\n\005quest\030\002 \002(\0132\036.com.lvl6." +
+      "proto.FullQuestProto\"\\\n\027QuestRedeemReque" +
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030Q",
+      "uestRedeemResponseProto\0220\n\006sender\030\001 \002(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022>\n\026upd" +
+      "atedAvailableQuests\030\002 \003(\0132\036.com.lvl6.pro" +
+      "to.FullQuestProto\022J\n\006status\030\003 \002(\0162:.com." +
+      "lvl6.proto.QuestRedeemResponseProto.Ques" +
+      "tRedeemStatus\"B\n\021QuestRedeemStatus\022\013\n\007SU" +
+      "CCESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020" +
+      "\002\"O\n\033QuestLogDetailsRequestProto\0220\n\006send" +
+      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
+      "to\"\247\002\n\034QuestLogDetailsResponseProto\0220\n\006s",
+      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022L\n\027inProgressUserQuestData\030\002 \003(\0132+" +
+      ".com.lvl6.proto.FullUserQuestDataLargePr" +
+      "oto\022R\n\006status\030\003 \002(\0162B.com.lvl6.proto.Que" +
+      "stLogDetailsResponseProto.QuestLogDetail" +
+      "sStatus\"3\n\025QuestLogDetailsStatus\022\013\n\007SUCC" +
+      "ESS\020\000\022\r\n\tSOME_FAIL\020\001\"\275\002\n\036RetrieveStaticD" +
+      "ataRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022\021\n\tstructIds\030\002" +
+      " \003(\005\022\017\n\007taskIds\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022",
+      "\017\n\007cityIds\030\005 \003(\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021bu" +
+      "ildStructJobIds\030\007 \003(\005\022\030\n\020defeatTypeJobId" +
+      "s\030\010 \003(\005\022\032\n\022possessEquipJobIds\030\t \003(\005\022\033\n\023u" +
+      "pgradeStructJobIds\030\n \003(\005\022\"\n\032levelForExpR" +
+      "equiredRequest\030\013 \001(\005\"\371\005\n\037RetrieveStaticD" +
+      "ataResponseProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\0223\n\007structs\030\002 " +
+      "\003(\0132\".com.lvl6.proto.FullStructureProto\022" +
+      ",\n\005tasks\030\003 \003(\0132\035.com.lvl6.proto.FullTask" +
+      "Proto\022.\n\006quests\030\004 \003(\0132\036.com.lvl6.proto.F",
+      "ullQuestProto\022-\n\006cities\030\005 \003(\0132\035.com.lvl6" +
+      ".proto.FullCityProto\022.\n\006equips\030\006 \003(\0132\036.c" +
+      "om.lvl6.proto.FullEquipProto\022<\n\017buildStr" +
+      "uctJobs\030\007 \003(\0132#.com.lvl6.proto.BuildStru" +
+      "ctJobProto\022:\n\016defeatTypeJobs\030\010 \003(\0132\".com" +
+      ".lvl6.proto.DefeatTypeJobProto\022>\n\020posses" +
+      "sEquipJobs\030\t \003(\0132$.com.lvl6.proto.Posses" +
+      "sEquipJobProto\022@\n\021upgradeStructJobs\030\n \003(" +
+      "\0132%.com.lvl6.proto.UpgradeStructJobProto" +
+      "\022$\n\034expRequiredForRequestedLevel\030\013 \001(\005\022X",
+      "\n\006status\030\014 \002(\0162H.com.lvl6.proto.Retrieve" +
+      "StaticDataResponseProto.RetrieveStaticDa" +
+      "taStatus\"6\n\030RetrieveStaticDataStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"\244\001\n!PurchaseCit" +
+      "yExpansionRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\0225\n\tdire" +
+      "ction\030\002 \002(\0162\".com.lvl6.proto.ExpansionDi" +
+      "rection\022\026\n\016timeOfPurchase\030\003 \002(\003\"\237\002\n\"Purc" +
+      "haseCityExpansionResponseProto\0220\n\006sender" +
+      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto",
+      "\022^\n\006status\030\002 \002(\0162N.com.lvl6.proto.Purcha" +
+      "seCityExpansionResponseProto.PurchaseCit" +
+      "yExpansionStatus\"g\n\033PurchaseCityExpansio" +
+      "nStatus\022\013\n\007SUCCESS\020\000\022\024\n\020NOT_ENOUGH_COINS" +
+      "\020\001\022\025\n\021ALREADY_EXPANDING\020\002\022\016\n\nOTHER_FAIL\020" +
+      "\003\"f\n!ExpansionWaitCompleteRequestProto\0220" +
+      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\017\n\007curTime\030\002 \002(\003\"\233\002\n\"ExpansionW" +
+      "aitCompleteResponseProto\0220\n\006sender\030\001 \002(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022^\n\006st",
+      "atus\030\002 \002(\0162N.com.lvl6.proto.ExpansionWai" +
+      "tCompleteResponseProto.ExpansionWaitComp" +
+      "leteStatus\"c\n\033ExpansionWaitCompleteStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n" +
+      "\014NOT_DONE_YET\020\002\022\016\n\nOTHER_FAIL\020\003\"\373\001\n\"Refi" +
+      "llStatWaitCompleteRequestProto\0220\n\006sender" +
+      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\017\n\007curTime\030\002 \002(\003\022[\n\004type\030\003 \002(\0162M.com.lv" +
+      "l6.proto.RefillStatWaitCompleteRequestPr" +
+      "oto.RefillStatWaitCompleteType\"5\n\032Refill",
+      "StatWaitCompleteType\022\n\n\006ENERGY\020\000\022\013\n\007STAM" +
+      "INA\020\001\"\232\002\n#RefillStatWaitCompleteResponse" +
+      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022`\n\006status\030\002 \002(\0162P.com.lv" +
+      "l6.proto.RefillStatWaitCompleteResponseP" +
+      "roto.RefillStatWaitCompleteStatus\"_\n\034Ref" +
+      "illStatWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\021" +
+      "\n\rNOT_READY_YET\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOT" +
+      "HER_FAIL\020\003\"_\n\026EnableAPNSRequestProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse",
+      "rProto\022\023\n\013deviceToken\030\002 \002(\t\"\307\001\n\027EnableAP" +
+      "NSResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022H\n\006status\030\002 \002(" +
+      "\01628.com.lvl6.proto.EnableAPNSResponsePro" +
+      "to.EnableAPNSStatus\"0\n\020EnableAPNSStatus\022" +
+      "\013\n\007SUCCESS\020\000\022\017\n\013NOT_ENABLED\020\001\"\353\001\n&Purcha" +
+      "seMarketplaceLicenseRequestProto\0220\n\006send" +
+      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
+      "to\022\022\n\nclientTime\030\002 \002(\003\022W\n\013licenseType\030\003 " +
+      "\002(\0162B.com.lvl6.proto.PurchaseMarketplace",
+      "LicenseRequestProto.LicenseType\"\"\n\013Licen" +
+      "seType\022\t\n\005SHORT\020\000\022\010\n\004LONG\020\001\"\275\002\n\'Purchase" +
+      "MarketplaceLicenseResponseProto\0220\n\006sende" +
+      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022h\n\006status\030\002 \002(\0162X.com.lvl6.proto.Purch" +
+      "aseMarketplaceLicenseResponseProto.Purch" +
+      "aseMarketplaceLicenseStatus\"v\n PurchaseM" +
+      "arketplaceLicenseStatus\022\013\n\007SUCCESS\020\000\022\027\n\023" +
+      "NOT_ENOUGH_DIAMONDS\020\001\022\034\n\030ALREADY_HAVE_LI" +
+      "CENSE_NOW\020\002\022\016\n\nOTHER_FAIL\020\003B\014B\nEventProt",
+      "o"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -58617,7 +61184,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_UserCreateRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UserCreateRequestProto_descriptor,
-              new java.lang.String[] { "Udid", "Name", "MacAddress", "Structures", "UserLocation", "AviaryCoordinates", "RefineryCoordinates", "CarpenterCoordinates", "ReferrerCode", },
+              new java.lang.String[] { "Udid", "Name", "MacAddress", "Structures", "UserLocation", "AviaryCoordinates", "RefineryCoordinates", "CarpenterCoordinates", "ReferrerCode", "DeviceToken", },
               com.lvl6.proto.EventProto.UserCreateRequestProto.class,
               com.lvl6.proto.EventProto.UserCreateRequestProto.Builder.class);
           internal_static_com_lvl6_proto_UserCreateResponseProto_descriptor =
@@ -58873,7 +61440,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PostToMarketplaceRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "PostedEquipId", "DiamondCost", "CoinCost", },
+              new java.lang.String[] { "Sender", "PostedEquipId", "TimeOfPost", "DiamondCost", "CoinCost", },
               com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.class,
               com.lvl6.proto.EventProto.PostToMarketplaceRequestProto.Builder.class);
           internal_static_com_lvl6_proto_PostToMarketplaceResponseProto_descriptor =
@@ -59116,6 +61683,38 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "Status", },
               com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.class,
               com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.Builder.class);
+          internal_static_com_lvl6_proto_EnableAPNSRequestProto_descriptor =
+            getDescriptor().getMessageTypes().get(73);
+          internal_static_com_lvl6_proto_EnableAPNSRequestProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_EnableAPNSRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "DeviceToken", },
+              com.lvl6.proto.EventProto.EnableAPNSRequestProto.class,
+              com.lvl6.proto.EventProto.EnableAPNSRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_EnableAPNSResponseProto_descriptor =
+            getDescriptor().getMessageTypes().get(74);
+          internal_static_com_lvl6_proto_EnableAPNSResponseProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_EnableAPNSResponseProto_descriptor,
+              new java.lang.String[] { "Sender", "Status", },
+              com.lvl6.proto.EventProto.EnableAPNSResponseProto.class,
+              com.lvl6.proto.EventProto.EnableAPNSResponseProto.Builder.class);
+          internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_descriptor =
+            getDescriptor().getMessageTypes().get(75);
+          internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "ClientTime", "LicenseType", },
+              com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.class,
+              com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_descriptor =
+            getDescriptor().getMessageTypes().get(76);
+          internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_PurchaseMarketplaceLicenseResponseProto_descriptor,
+              new java.lang.String[] { "Sender", "Status", },
+              com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.class,
+              com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.Builder.class);
           return null;
         }
       };

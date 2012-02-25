@@ -54,6 +54,8 @@ public class User {
   private Date lastTimeAttacked;
   private String macAddress;
   private int numBadges;
+  private Date lastShortLicensePurchaseTime;
+  private Date lastLongLicensePurchaseTime;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
@@ -66,7 +68,9 @@ public class User {
       String udid, Location userLocation, int numPostsInMarketplace,
       int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
-      Date lastBattleNotificationTime, Date lastTimeAttacked, String macAddress, int numBadges) {
+      Date lastBattleNotificationTime, Date lastTimeAttacked,
+      String macAddress, int numBadges, Date lastShortLicensePurchaseTime,
+      Date lastLongLicensePurchaseTime) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -109,6 +113,55 @@ public class User {
     this.lastTimeAttacked = lastTimeAttacked;
     this.macAddress = macAddress;
     this.numBadges = numBadges;
+    this.lastShortLicensePurchaseTime = lastShortLicensePurchaseTime;
+    this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
+  }
+
+  public boolean updateRelativeDiamondsAbsoluteLastshortlicensepurchasetimeLastlonglicensepurchasetime(int diamondChange, 
+      Timestamp lastShortLicensePurchaseTime, Timestamp lastLongLicensePurchaseTime) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (lastShortLicensePurchaseTime != null) {
+      absoluteParams.put(DBConstants.USER__LAST_SHORT_LICENSE_PURCHASE_TIME, lastShortLicensePurchaseTime);
+    }
+    if (lastLongLicensePurchaseTime != null) {
+      absoluteParams.put(DBConstants.USER__LAST_LONG_LICENSE_PURCHASE_TIME, lastLongLicensePurchaseTime);
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      if (lastShortLicensePurchaseTime != null) {
+        this.lastShortLicensePurchaseTime = lastShortLicensePurchaseTime;
+      }
+      if (lastLongLicensePurchaseTime != null) {
+        this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  public boolean updateSetdevicetoken(String deviceToken) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.deviceToken = deviceToken;
+      return true;
+    }
+    return false;
   }
 
   public boolean updateResetNumbadgesSetdevicetoken(String deviceToken) {
@@ -118,7 +171,7 @@ public class User {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__NUM_BADGES, 0);
     absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -128,14 +181,14 @@ public class User {
     }
     return false;
   }
-  
+
   public boolean updateRelativeBadge(int badgeChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -144,7 +197,7 @@ public class User {
     }
     return false;
   }
-  
+
   public boolean updateRelativeBadgeAbsoluteLastbattlenotificationtime(int badgeChange, Timestamp newLastBattleNotificationTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -154,7 +207,7 @@ public class User {
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -164,7 +217,7 @@ public class User {
     }
     return false;
   }
-  
+
   public boolean updateLastloginLastlogout(Timestamp lastLogin, Timestamp lastLogout) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -783,9 +836,17 @@ public class User {
   public String getMacAddress() {
     return macAddress;
   }
-  
+
   public int getNumBadges() {
     return numBadges;
+  }
+
+  public Date getLastShortLicensePurchaseTime() {
+    return lastShortLicensePurchaseTime;
+  }
+
+  public Date getLastLongLicensePurchaseTime() {
+    return lastLongLicensePurchaseTime;
   }
 
   @Override
@@ -813,7 +874,9 @@ public class User {
         + lastLogout + ", deviceToken=" + deviceToken
         + ", lastBattleNotificationTime=" + lastBattleNotificationTime
         + ", lastTimeAttacked=" + lastTimeAttacked + ", macAddress="
-        + macAddress + ", numBadges=" + numBadges + "]";
+        + macAddress + ", numBadges=" + numBadges
+        + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
+        + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime + "]";
   }
-  
+
 }

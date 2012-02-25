@@ -244,13 +244,25 @@ public class UserRetrieveUtils {
 
     String macAddress = rs.getString(i++);
     int numBadges = rs.getInt(i++);
+    
+    Date lastShortLicensePurchaseTime = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastShortLicensePurchaseTime = new Date(ts.getTime());
+    }
 
+    Date lastLongLicensePurchaseTime = null;
+    ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      lastLongLicensePurchaseTime = new Date(ts.getTime());
+    }
+    
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
         isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, 
         hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
-        lastBattleNotificationTime, lastTimeAttacked, macAddress, numBadges);
+        lastBattleNotificationTime, lastTimeAttacked, macAddress, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime);
     return user;
   }
 }
