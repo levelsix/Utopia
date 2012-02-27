@@ -78,7 +78,7 @@ public class PostToMarketplaceController extends EventController {
         } else {
           postType = MarketplacePostType.NORM_EQUIP_POST;
         }
-        writeChangesToDB(user, reqProto, ue, postType);
+        writeChangesToDB(user, reqProto, ue, postType, timeOfPost);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -93,7 +93,7 @@ public class PostToMarketplaceController extends EventController {
 
   private boolean checkLegitPost(User user, Builder resBuilder, 
       PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip, Timestamp timeOfPost) {
-    if (user == null || equip == null) {
+    if (user == null || equip == null || timeOfPost == null) {
       resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
       return false;
     }
@@ -142,7 +142,7 @@ public class PostToMarketplaceController extends EventController {
   }
 
   private void writeChangesToDB(User user, PostToMarketplaceRequestProto reqProto, 
-      UserEquip ue, MarketplacePostType postType) {
+      UserEquip ue, MarketplacePostType postType, Timestamp timeOfPost) {
 
     if (ue != null) {
       if (!UpdateUtils.decrementUserEquip(user.getId(), reqProto.getPostedEquipId(), 
@@ -156,7 +156,7 @@ public class PostToMarketplaceController extends EventController {
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
     if (!InsertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
-        diamondCost, coinCost)) {
+        diamondCost, coinCost, timeOfPost)) {
       log.error("problem with inserting into marketplace");      
     }
   } 

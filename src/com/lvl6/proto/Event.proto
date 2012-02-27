@@ -600,6 +600,7 @@ message PurchaseFromMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 marketplacePostId = 2;
 	required int32 posterId = 3;
+	required int64 timeOfPurchase = 4;
 }
 
 																						//DONE

@@ -258,13 +258,6 @@ public class BattleController extends EventController {
       defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(0,
           0, lostCoins, 1, 0, false, null);
     }
-
-    /*
-     * TODO: write to battle_history id, attackerId, defenderId, winnerId,
-     * winnerHealthLoss, loserHealthLoss, coinTransfer, lostEquipId, expGain,
-     * timestamp
-     */
-
   }
 
   private int calculateLostCoins(User loser, Random random) {

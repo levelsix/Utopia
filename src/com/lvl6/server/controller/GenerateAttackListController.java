@@ -71,7 +71,7 @@ public class GenerateAttackListController extends EventController {
       }
 
       List<User> enemies = UserRetrieveUtils.getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
-          latLowerBound, latUpperBound, longLowerBound, longUpperBound);
+          latLowerBound, latUpperBound, longLowerBound, longUpperBound, true);
       if (enemies != null) {
         for (User enemy : enemies) {
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);

@@ -52,7 +52,7 @@ public class UserRetrieveUtils {
   }
 
   public static List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
-      Integer latLowerBound, Integer latUpperBound, Integer longLowerBound, Integer longUpperBound) {
+      Integer latLowerBound, Integer latUpperBound, Integer longLowerBound, Integer longUpperBound, boolean forBattle) {
     log.info("retrieving list of users for user " + userId);
 
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
@@ -90,6 +90,11 @@ public class UserRetrieveUtils {
     if (longUpperBound != null) {
       query += DBConstants.USER__LONGITUDE + "<=? and ";
       values.add(latLowerBound);
+    }
+    
+    if (forBattle) {
+      query += DBConstants.USER__LAST_BATTLE_NOTIFICATION_TIME + "<=? and ";
+      values.add(new Timestamp(ControllerConstants.NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS*60000));
     }
     
     query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";

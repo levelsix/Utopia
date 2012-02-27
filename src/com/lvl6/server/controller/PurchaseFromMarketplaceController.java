@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
@@ -45,6 +47,7 @@ public class PurchaseFromMarketplaceController extends EventController {
     int postId = reqProto.getMarketplacePostId();
     int sellerId = reqProto.getPosterId();
     int buyerId = senderProto.getUserId();
+    Timestamp timeOfPurchase = new Timestamp(reqProto.getTimeOfPurchase());
 
     PurchaseFromMarketplaceResponseProto.Builder resBuilder = PurchaseFromMarketplaceResponseProto.newBuilder();
     resBuilder.setPurchaser(senderProto);
@@ -77,7 +80,7 @@ public class PurchaseFromMarketplaceController extends EventController {
         server.writeAPNSNotificationOrEvent(resEvent2);
         
         User seller = UserRetrieveUtils.getUserById(sellerId);
-        writeChangesToDB(buyer, seller, mp);
+        writeChangesToDB(buyer, seller, mp, timeOfPurchase);
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) {
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(buyer);
@@ -96,7 +99,7 @@ public class PurchaseFromMarketplaceController extends EventController {
   }
 
 
-  private void writeChangesToDB(User buyer, User seller, MarketplacePost mp) {
+  private void writeChangesToDB(User buyer, User seller, MarketplacePost mp, Timestamp timeOfPurchase) {
     if (seller == null || buyer == null || mp == null) {
       log.error("problem with retracting marketplace post");
     }
@@ -130,7 +133,7 @@ public class PurchaseFromMarketplaceController extends EventController {
       log.error("problem with giving buyer marketplace equip");
     }
 
-    if (!InsertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
+    if (!InsertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId(), timeOfPurchase)) {
       log.error("problem with adding to marketplace history");            
     }
 

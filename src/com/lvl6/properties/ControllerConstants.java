@@ -7,6 +7,9 @@ public class ControllerConstants {
   //LEVEL UP
   public static final int MAX_LEVEL_FOR_USER = 300;
   
+  //GENERATING LISTS OF ENEMIES
+  public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 20;
+  
   //CRIT STRUCTS
   public static final int LUMBERJACK_DEFAULT_X = 3;
   public static final int LUMBERJACK_DEFAULT_Y = 3;
