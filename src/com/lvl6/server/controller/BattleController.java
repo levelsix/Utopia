@@ -64,8 +64,8 @@ public class BattleController extends EventController {
     MinimumUserProto attackerProto = reqProto.getAttacker();
     MinimumUserProto defenderProto = reqProto.getDefender();
     BattleResult result = reqProto.getBattleResult();
-    
-    
+
+
     Timestamp battleTime = new Timestamp(new Date().getTime());
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils
@@ -106,17 +106,20 @@ public class BattleController extends EventController {
             resBuilder.setEquipGained(CreateInfoProtoUtils
                 .createFullEquipProtoFromEquip(equip));
           }
-        } else if (result == BattleResult.DEFENDER_WIN){
+        } else if (result == BattleResult.DEFENDER_WIN || result == BattleResult.ATTACKER_FLEE){
           winner = defender;
           loser = attacker;
         }
 
         Random random = new Random();
-        lostCoins = calculateLostCoins(loser, random);
+        lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
-        expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN
-            + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN
-                - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
+
+        if (result == BattleResult.ATTACKER_WIN) {
+          expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN
+              + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN
+                  - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
+        }
         resBuilder.setExpGained(expGained);
         resBuilder.setStatus(BattleStatus.SUCCESS);
       }
@@ -278,10 +281,14 @@ public class BattleController extends EventController {
     }
   }
 
-  private int calculateLostCoins(User loser, Random random) {
-    return (int) Math.rint(Math.min(loser.getCoins() * (Math.random() + 1)
+  private int calculateLostCoins(User loser, Random random, boolean isFlee) {
+    int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * (Math.random() + 1)
         / ControllerConstants.BATTLE__A, loser.getLevel()
         * ControllerConstants.BATTLE__B));
+    if (isFlee) {
+      return lostCoins/2;
+    }
+    return lostCoins;
   }
 
   /*

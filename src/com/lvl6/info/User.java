@@ -37,6 +37,7 @@ public class User {
   private int tasksCompleted;
   private int battlesWon;
   private int battlesLost;
+  private int flees;
   private int hourlyCoins;
   private String armyCode;
   private int numReferrals;
@@ -64,7 +65,7 @@ public class User {
       int energyMax, int staminaMax, int diamonds, int coins,
       int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
       int vaultBalance, int experience, int tasksCompleted, int battlesWon,
-      int battlesLost, int hourlyCoins, String armyCode, int numReferrals,
+      int battlesLost, int flees, int hourlyCoins, String armyCode, int numReferrals,
       String udid, Location userLocation, int numPostsInMarketplace,
       int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
@@ -96,6 +97,7 @@ public class User {
     this.tasksCompleted = tasksCompleted;
     this.battlesWon = battlesWon;
     this.battlesLost = battlesLost;
+    this.flees = flees;
     this.hourlyCoins = hourlyCoins;
     this.armyCode = armyCode;
     this.numReferrals = numReferrals;
@@ -772,6 +774,10 @@ public class User {
   public int getBattlesLost() {
     return battlesLost;
   }
+  
+  public int getFlees() {
+    return flees;
+  }
 
   public int getHourlyCoins() {
     return hourlyCoins;
@@ -864,8 +870,8 @@ public class User {
         + marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
         + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
         + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
-        + ", hourlyCoins=" + hourlyCoins + ", armyCode=" + armyCode
-        + ", numReferrals=" + numReferrals + ", udid=" + udid
+        + ", flees=" + flees + ", hourlyCoins=" + hourlyCoins + ", armyCode="
+        + armyCode + ", numReferrals=" + numReferrals + ", udid=" + udid
         + ", userLocation=" + userLocation + ", numPostsInMarketplace="
         + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
         + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped

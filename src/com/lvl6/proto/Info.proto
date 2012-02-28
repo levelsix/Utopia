@@ -45,6 +45,7 @@ message FullUserProto {
 	required int32 tasksCompleted = 23;
 	required int32 battlesWon = 24;
 	required int32 battlesLost = 25;
+	required int32 flees = 45;
 	required int32 hourlyCoins = 26;
 	required string armyCode = 27;
 	required int32 numReferrals = 28;
@@ -219,7 +220,7 @@ message LocationProto {
 enum BattleResult {
    	ATTACKER_WIN = 0;
  	DEFENDER_WIN = 1;
-// 	ATTACKER_FLEE = 2;
+ 	ATTACKER_FLEE = 2;
 }
 
 //------------------------------------------------------------------------------------------
