@@ -118,6 +118,10 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
       return false;
     }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfPurchase)) {
+      resBuilder.setStatus(FinishNormStructWaittimeStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
     if (timeOfPurchase.getTime() < userStruct.getPurchaseTime().getTime()) {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
       return false;

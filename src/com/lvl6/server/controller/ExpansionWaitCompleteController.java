@@ -15,6 +15,7 @@ import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ExpansionWaitCompleteController extends EventController{
@@ -84,6 +85,10 @@ public class ExpansionWaitCompleteController extends EventController{
   private boolean checkLegitExpansionComplete(Builder resBuilder, UserCityExpansionData userCityExpansionData, Timestamp clientTime) {
     if (userCityExpansionData==null || userCityExpansionData.getLastExpandTime() == null || userCityExpansionData.getLastExpandDirection() == null || clientTime == null) {
       resBuilder.setStatus(ExpansionWaitCompleteStatus.OTHER_FAIL);
+      return false;
+    }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+      resBuilder.setStatus(ExpansionWaitCompleteStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }
     if (!userCityExpansionData.isExpanding()) {

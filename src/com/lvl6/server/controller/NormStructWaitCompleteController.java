@@ -109,7 +109,11 @@ public class NormStructWaitCompleteController extends EventController{
       resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
       return false;
     }
-
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+      resBuilder.setStatus(NormStructWaitCompleteStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
+    
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
     for (UserStruct us : userStructs) {
       if (us.getUserId() != userId) {

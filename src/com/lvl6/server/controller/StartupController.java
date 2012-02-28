@@ -1,9 +1,11 @@
+
 package com.lvl6.server.controller;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -87,13 +89,14 @@ public class StartupController extends EventController {
     resBuilder.setUpdateStatus(updateStatus);
 
     User user = null;
-    Timestamp clientTime = null;
+    
     // Don't fill in other fields if it is a major update
     StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
+    
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       user = UserRetrieveUtils.getUserByUDID(udid);
       if (user != null) {
-        clientTime = new Timestamp(reqProto.getClientTime());
+        
         server.lockPlayer(user.getId());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
@@ -130,8 +133,8 @@ public class StartupController extends EventController {
     SocketChannel sc = server.removePreDbPlayer(udid);
     NIOUtils.channelWrite(sc, writeBuffer);
 
-    if (user != null && clientTime != null) {
-      if (!user.updateLastloginLastlogout(clientTime, null)) {
+    if (user != null) {
+      if (!user.updateLastloginLastlogout(new Timestamp(new Date().getTime()), null)) {
         log.error("problem with updating user's last login time");
       }
     }    

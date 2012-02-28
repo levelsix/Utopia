@@ -41,7 +41,7 @@ public class TaskActionController extends EventController {
   public TaskActionController() {
     numAllocatedThreads = 20;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new TaskActionRequestEvent();
@@ -230,7 +230,7 @@ public class TaskActionController extends EventController {
       if (user.isLastEnergyStateFull()) {
         simulateEnergyRefill = true;
       }
-      
+
       if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1, simulateEnergyRefill, clientTime)) {
         log.error("problem with updating user stats post-task");
       }
@@ -267,27 +267,29 @@ public class TaskActionController extends EventController {
   }
 
   private boolean checkLegitAction(User user, Task task, Timestamp clientTime, Builder resBuilder) {
-    boolean actionIsLegit = true;
     if (task == null || clientTime == null) {
       resBuilder.setStatus(TaskActionStatus.OTHER_FAIL);
-      actionIsLegit = false;
-    } else {
-      if (user.getEnergy() < task.getEnergyCost()) {
-        resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ENERGY);
-        actionIsLegit = false;
-      }
+      return false;
+    } 
 
-      int numReqEquipsWithoutQuantityReqFulfilled = getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(user, task);
-      if (numReqEquipsWithoutQuantityReqFulfilled != 0) {
-        resBuilder.setStatus(TaskActionStatus.USER_NOT_ALL_REQUIRED_ITEMS);
-        actionIsLegit = false;
-      }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+      resBuilder.setStatus(TaskActionStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
+    
+    if (user.getEnergy() < task.getEnergyCost()) {
+      resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ENERGY);
+      return false;
+    }
 
+    int numReqEquipsWithoutQuantityReqFulfilled = getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(user, task);
+    if (numReqEquipsWithoutQuantityReqFulfilled != 0) {
+      resBuilder.setStatus(TaskActionStatus.USER_NOT_ALL_REQUIRED_ITEMS);
+      return false;
     }
-    if (actionIsLegit) {
-      resBuilder.setStatus(TaskActionStatus.SUCCESS);
-    }
-    return actionIsLegit;
+
+    resBuilder.setStatus(TaskActionStatus.SUCCESS);
+    return true;
   }
 
   private int getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(User user, Task task) {

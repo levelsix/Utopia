@@ -101,6 +101,11 @@ public class RefillStatWaitCompleteController extends EventController{
       resBuilder.setStatus(RefillStatWaitCompleteStatus.OTHER_FAIL);
       return false;
     }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+      resBuilder.setStatus(RefillStatWaitCompleteStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
+
     if (type == RefillStatWaitCompleteType.ENERGY) {
       if (user.getLastEnergyRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY > clientTime.getTime()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);

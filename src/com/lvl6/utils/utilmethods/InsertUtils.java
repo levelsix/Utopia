@@ -147,8 +147,8 @@ public class InsertUtils {
 
     insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     insertParams.put(DBConstants.MARKETPLACE__POST_TYPE, postType.getNumber());
-    insertParams.put(DBConstants.MARKETPLACE__TIME_OF_POST, timeOfPost);
     insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, postedEquipId);
+    insertParams.put(DBConstants.MARKETPLACE__TIME_OF_POST, timeOfPost);
 
     if (diamondCost > 0){
       insertParams.put(DBConstants.MARKETPLACE__DIAMOND_COST, diamondCost);
@@ -167,7 +167,7 @@ public class InsertUtils {
 
 
   public static boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
-      int buyerId, Timestamp timeOfPurchase) {
+      int buyerId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     MarketplacePostType postType = mp.getPostType();
@@ -177,7 +177,6 @@ public class InsertUtils {
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID, buyerId);
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType.getNumber());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST, mp.getTimeOfPost());
-    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, timeOfPurchase);
     
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
     if (mp.getDiamondCost() > 0){

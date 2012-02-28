@@ -86,6 +86,10 @@ public class PurchaseMarketplaceLicenseController extends EventController {
       resBuilder.setStatus(PurchaseMarketplaceLicenseStatus.OTHER_FAIL);
       return false;
     }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfPurchase)) {
+      resBuilder.setStatus(PurchaseMarketplaceLicenseStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
 
     int diamondCost;
     if (type == LicenseType.SHORT) {

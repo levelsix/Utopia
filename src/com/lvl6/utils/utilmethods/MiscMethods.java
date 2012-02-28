@@ -2,6 +2,7 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.User;
+import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.UserType;
@@ -18,6 +20,12 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
  
+  public static boolean checkClientTimeBeforeApproximateNow(Timestamp clientTime) {
+    if (clientTime.getTime() < new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
+      return true;
+    }
+    return false;
+  }
   
   public static List<City> getCitiesAvailableForUserLevel(int userLevel) {
     List<City> availCities = new ArrayList<City>();

@@ -88,6 +88,10 @@ public class PurchaseCityExpansionController extends EventController {
       resBuilder.setStatus(PurchaseCityExpansionStatus.OTHER_FAIL);
       return false;
     }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfPurchase)) {
+      resBuilder.setStatus(PurchaseCityExpansionStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
     if (direction != ExpansionDirection.FAR_LEFT || direction != ExpansionDirection.NEAR_LEFT || 
         direction != ExpansionDirection.FAR_RIGHT) {
       resBuilder.setStatus(PurchaseCityExpansionStatus.OTHER_FAIL);

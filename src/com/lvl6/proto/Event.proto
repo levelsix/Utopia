@@ -29,7 +29,6 @@ message BattleRequestProto {
     required MinimumUserProto defender = 2; 
     required BattleResult battleResult = 3;
     optional int32 neutralCityId = 4;
-    required int64 curTime = 5;    
 }
 
 																						//DONE
@@ -101,7 +100,6 @@ message ArmoryResponseProto {
 message StartupRequestProto {				//client will also send ChangeUserLocationRequestProto
      required string udid = 1;
      required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
-     required int64 clientTime = 3;
      optional string deviceToken = 4;		//only set this if the client is registered/has a device token
 }
 
@@ -262,6 +260,7 @@ message TaskActionResponseProto {
 		USER_NOT_ENOUGH_ENERGY = 1;
 		USER_NOT_ALL_REQUIRED_ITEMS = 2;
 		OTHER_FAIL = 3;
+		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
 	} 
 }
 
@@ -288,6 +287,7 @@ message PurchaseNormStructureResponseProto {
 		ANOTHER_STRUCT_STILL_BUILDING = 3;
 		ALREADY_HAVE_MAX_OF_THIS_STRUCT = 4;
 		OTHER_FAIL = 5;
+		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 6;
 	}
 }
 
@@ -358,6 +358,7 @@ message UpgradeNormStructureResponseProto {
 		NOT_USERS_STRUCT = 3;
 		ANOTHER_STRUCT_STILL_UPGRADING = 4;
 		OTHER_FAIL = 5;
+		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 6;
 	}
 }
 
@@ -379,6 +380,7 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 		SUCCESS = 0;
 		NOT_LONG_ENOUGH = 1;
 		OTHER_FAIL = 2;
+		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 3;
 	}
 }
 
@@ -439,6 +441,7 @@ message FinishNormStructWaittimeWithDiamondsResponseProto {
      	SUCCESS = 0;
      	NOT_ENOUGH_DIAMONDS = 1;
      	OTHER_FAIL = 2;
+     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 3;
      }
 }
 
@@ -468,6 +471,7 @@ message NormStructWaitCompleteResponseProto {
      	SUCCESS = 0;
      	NOT_DONE_YET = 1;
      	OTHER_FAIL = 2;
+     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 3;
      }
 }
 
@@ -547,9 +551,8 @@ message RetrieveCurrentMarketplacePostsResponseProto {
 message PostToMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 postedEquipId = 2;
-	required int64 timeOfPost = 3;
-	optional int32 diamondCost = 4;
-	optional int32 coinCost = 5;
+	optional int32 diamondCost = 3;
+	optional int32 coinCost = 4;
 }
 
 																						//DONE
@@ -600,7 +603,6 @@ message PurchaseFromMarketplaceRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 marketplacePostId = 2;
 	required int32 posterId = 3;
-	required int64 timeOfPurchase = 4;
 }
 
 																						//DONE
@@ -697,6 +699,7 @@ message RefillStatWithDiamondsResponseProto {
      	NOT_ENOUGH_DIAMONDS = 1;
      	ALREADY_MAX = 2;
      	OTHER_FAIL = 3;
+     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
      }
 }
 
@@ -877,6 +880,7 @@ message PurchaseCityExpansionResponseProto {
     	NOT_ENOUGH_COINS = 1;
     	ALREADY_EXPANDING = 2;
     	OTHER_FAIL = 3;
+    	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
     }
 }
 
@@ -898,6 +902,7 @@ message ExpansionWaitCompleteResponseProto {
      	WAS_NOT_EXPANDING = 1;
      	NOT_DONE_YET = 2;
      	OTHER_FAIL = 3;
+     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
      }
 }
 
@@ -925,6 +930,7 @@ message RefillStatWaitCompleteResponseProto {
      	NOT_READY_YET = 1;
      	ALREADY_MAX = 2;
      	OTHER_FAIL = 3;
+     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
      }
 }
 
@@ -969,5 +975,6 @@ message PurchaseMarketplaceLicenseResponseProto {
 		NOT_ENOUGH_DIAMONDS = 1;
 		ALREADY_HAVE_LICENSE_NOW = 2;
 		OTHER_FAIL = 3;
+		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
 	}
 }

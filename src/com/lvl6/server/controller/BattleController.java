@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -20,6 +21,7 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
+import com.lvl6.proto.EventProto.BattleResponseProto.Builder;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -43,7 +45,7 @@ public class BattleController extends EventController {
   public BattleController() {
     numAllocatedThreads = 10;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new BattleRequestEvent();
@@ -62,7 +64,9 @@ public class BattleController extends EventController {
     MinimumUserProto attackerProto = reqProto.getAttacker();
     MinimumUserProto defenderProto = reqProto.getDefender();
     BattleResult result = reqProto.getBattleResult();
-    Timestamp clientTime = new Timestamp(reqProto.getCurTime());
+    
+    
+    Timestamp battleTime = new Timestamp(new Date().getTime());
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils
         .getEquipmentIdsToEquipment();
@@ -73,10 +77,13 @@ public class BattleController extends EventController {
       User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
       User defender = UserRetrieveUtils.getUserById(defenderProto.getUserId());
 
+
       BattleResponseProto.Builder resBuilder = BattleResponseProto.newBuilder();
 
       resBuilder.setAttacker(attackerProto);
       resBuilder.setDefender(defenderProto);
+      BattleResponseEvent resEvent = new BattleResponseEvent(attacker.getId());
+      resEvent.setTag(event.getTag());
 
       UserEquip lostEquip = null;
       int expGained = ControllerConstants.NOT_SET;
@@ -84,74 +91,76 @@ public class BattleController extends EventController {
       User winner = null;
       User loser = null;
 
-      BattleResponseEvent resEvent = new BattleResponseEvent(attacker.getId());
-      resEvent.setTag(event.getTag());
+      boolean legitBattle = checkLegitBattle(resBuilder, result, attacker, defender);
 
-      if (result == BattleResult.ATTACKER_WIN) {
-        winner = attacker;
-        loser = defender;
-        List<UserEquip> defenderEquips = UserEquipRetrieveUtils
-            .getUserEquipsForUser(defender.getId());
-        lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
-            defender.getLevel());
-        if (lostEquip != null) {
-          Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
-          resBuilder.setEquipGained(CreateInfoProtoUtils
-              .createFullEquipProtoFromEquip(equip));
+      if (legitBattle) {
+        if (result == BattleResult.ATTACKER_WIN) {
+          winner = attacker;
+          loser = defender;
+          List<UserEquip> defenderEquips = UserEquipRetrieveUtils
+              .getUserEquipsForUser(defender.getId());
+          lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
+              defender.getLevel());
+          if (lostEquip != null) {
+            Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
+            resBuilder.setEquipGained(CreateInfoProtoUtils
+                .createFullEquipProtoFromEquip(equip));
+          }
+        } else if (result == BattleResult.DEFENDER_WIN){
+          winner = defender;
+          loser = attacker;
         }
-      } else if (result == BattleResult.DEFENDER_WIN){
-        winner = defender;
-        loser = attacker;
+
+        Random random = new Random();
+        lostCoins = calculateLostCoins(loser, random);
+        resBuilder.setCoinsGained(lostCoins);
+        expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN
+            + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN
+                - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
+        resBuilder.setExpGained(expGained);
+        resBuilder.setStatus(BattleStatus.SUCCESS);
       }
-
-      Random random = new Random();
-      lostCoins = calculateLostCoins(loser, random);
-      resBuilder.setCoinsGained(lostCoins);
-      expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN
-          + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN
-              - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
-      resBuilder.setExpGained(expGained);
-      resBuilder.setStatus(BattleStatus.SUCCESS);
-
       BattleResponseProto resProto = resBuilder.build();
 
       resEvent.setBattleResponseProto(resProto);
 
       log.info(resEvent + " is resevent");
       server.writeEvent(resEvent);
-      
-      BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
-      resEvent2.setBattleResponseProto(resProto);
-      server.writeAPNSNotificationOrEvent(resEvent2);
 
-      writeChangesToDB(lostEquip, winner, loser, attacker,
-          defender, expGained, lostCoins, clientTime);
+      if (legitBattle) {
+        BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
+        resEvent2.setBattleResponseProto(resProto);
+        server.writeAPNSNotificationOrEvent(resEvent2);
 
-      UpdateClientUserResponseEvent resEventAttacker = MiscMethods
-          .createUpdateClientUserResponseEvent(attacker);
-      resEventAttacker.setTag(event.getTag());
-      UpdateClientUserResponseEvent resEventDefender = MiscMethods
-          .createUpdateClientUserResponseEvent(defender);
+        writeChangesToDB(lostEquip, winner, loser, attacker,
+            defender, expGained, lostCoins, battleTime);
 
-      server.writeEvent(resEventAttacker);
-      server.writeEvent(resEventDefender);
+        UpdateClientUserResponseEvent resEventAttacker = MiscMethods
+            .createUpdateClientUserResponseEvent(attacker);
+        resEventAttacker.setTag(event.getTag());
+        UpdateClientUserResponseEvent resEventDefender = MiscMethods
+            .createUpdateClientUserResponseEvent(defender);
 
-      if (winner != null && attacker != null && winner == attacker) {
-        if (reqProto.hasNeutralCityId() && reqProto.getNeutralCityId() > 0) {
-          server.unlockPlayer(defenderProto.getUserId());
-          boolean equipCheck = (lostEquip!=null);
-          checkQuestsPostBattle(winner, defenderProto.getUserType(),
-              attackerProto, reqProto.getNeutralCityId(), equipCheck);
-        } else if (lostEquip != null) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto);
+        server.writeEvent(resEventAttacker);
+        server.writeEvent(resEventDefender);
+
+        if (winner != null && attacker != null && winner == attacker) {
+          if (reqProto.hasNeutralCityId() && reqProto.getNeutralCityId() > 0) {
+            server.unlockPlayer(defenderProto.getUserId());
+            boolean equipCheck = (lostEquip!=null);
+            checkQuestsPostBattle(winner, defenderProto.getUserType(),
+                attackerProto, reqProto.getNeutralCityId(), equipCheck);
+          } else if (lostEquip != null) {
+            QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto);
+          }
         }
-      }
 
-      if (attacker != null && defender != null){
-        server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
-        int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
-        if (!InsertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, clientTime, lostCoins, stolenEquipId, expGained)) {
-          log.error("problem with adding battle history into the db");
+        if (attacker != null && defender != null){
+          server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+          int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
+          if (!InsertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained)) {
+            log.error("problem with adding battle history into the db");
+          }
         }
       }
     } catch (Exception e) {
@@ -160,6 +169,15 @@ public class BattleController extends EventController {
       server
       .unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
+  }
+
+  private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
+    if (attacker == null || defender == null) {
+      resBuilder.setStatus(BattleStatus.OTHER_FAIL);
+      return false;
+    }
+    resBuilder.setStatus(BattleStatus.SUCCESS);
+    return true;
   }
 
   private void checkQuestsPostBattle(User attacker, UserType enemyType,
@@ -231,7 +249,7 @@ public class BattleController extends EventController {
 
   private void writeChangesToDB(UserEquip lostEquip,
       User winner, User loser, User attacker, User defender, int expGained,
-      int lostCoins, Timestamp clientTime) {
+      int lostCoins, Timestamp battleTime) {
     if (lostEquip != null) {
       if (!UpdateUtils.decrementUserEquip(loser.getId(),
           lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
@@ -249,12 +267,12 @@ public class BattleController extends EventController {
     }
     if (winner == attacker) {
       attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(-1,
-          expGained, lostCoins, 1, 0, simulateStaminaRefill, clientTime);
+          expGained, lostCoins, 1, 0, simulateStaminaRefill, battleTime);
       defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(0,
           0, lostCoins * -1, 0, 1, false, null);
     } else if (winner == defender) {
       attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(-1,
-          0, lostCoins * -1, 0, 1, simulateStaminaRefill, clientTime);
+          0, lostCoins * -1, 0, 1, simulateStaminaRefill, battleTime);
       defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(0,
           0, lostCoins, 1, 0, false, null);
     }

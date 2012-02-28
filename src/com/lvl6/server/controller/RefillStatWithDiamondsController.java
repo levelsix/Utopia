@@ -89,6 +89,10 @@ public class RefillStatWithDiamondsController extends EventController{
       resBuilder.setStatus(RefillStatStatus.OTHER_FAIL);
       return false;
     }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+      resBuilder.setStatus(RefillStatStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
     if (statType == StatType.ENERGY) {
       if (user.getDiamonds() < ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL) {
         resBuilder.setStatus(RefillStatStatus.NOT_ENOUGH_DIAMONDS);

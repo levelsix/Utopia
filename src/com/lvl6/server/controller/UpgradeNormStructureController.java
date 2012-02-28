@@ -100,6 +100,10 @@ public class UpgradeNormStructureController extends EventController {
       resBuilder.setStatus(UpgradeNormStructureStatus.OTHER_FAIL);
       return false;
     }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfUpgrade)) {
+      resBuilder.setStatus(UpgradeNormStructureStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      return false;
+    }
     if (!userStruct.isComplete()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
       return false;

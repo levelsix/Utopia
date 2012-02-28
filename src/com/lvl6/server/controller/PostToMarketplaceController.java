@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
@@ -50,7 +51,7 @@ public class PostToMarketplaceController extends EventController {
 
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
-    Timestamp timeOfPost = new Timestamp(reqProto.getTimeOfPost());
+    Timestamp timeOfPost = new Timestamp(new Date().getTime());
 
     PostToMarketplaceResponseProto.Builder resBuilder = PostToMarketplaceResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
