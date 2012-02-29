@@ -126,7 +126,6 @@ public class DBConnection {
         }
       }
       rs = stmt.executeQuery();
-      stmt.close();
       availableConnections.put(conn);
       conn = null;
     } catch (SQLException e) {
