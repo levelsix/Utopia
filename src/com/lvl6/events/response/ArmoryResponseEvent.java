@@ -13,7 +13,7 @@ public class ArmoryResponseEvent extends NormalResponseEvent {
   
   public ArmoryResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_BATTLE_EVENT;
+    eventType = EventProtocolResponse.S_ARMORY_EVENT;
   }
   
   @Override
