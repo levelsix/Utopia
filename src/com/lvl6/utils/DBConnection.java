@@ -126,7 +126,6 @@ public class DBConnection {
         }
       }
       rs = stmt.executeQuery();
-      stmt.close();
       availableConnections.put(conn);
       conn = null;
     } catch (SQLException e) {
@@ -206,7 +205,6 @@ public class DBConnection {
         }
       }
       int numUpdated = stmt.executeUpdate();
-      stmt.close();
       availableConnections.put(conn);
       conn = null;
       return numUpdated;
@@ -254,8 +252,7 @@ public class DBConnection {
           }
         }
         int numUpdated = stmt.executeUpdate();
-        stmt.close();
-        availableConnections.put(conn);
+          availableConnections.put(conn);
         conn = null;
         return numUpdated;
       } catch (SQLException e) {
@@ -303,8 +300,7 @@ public class DBConnection {
           }
         }
         int numUpdated = stmt.executeUpdate();
-        stmt.close();
-        availableConnections.put(conn);
+          availableConnections.put(conn);
         conn = null;
         int generatedKey = 0;
         if (numUpdated == 1) {
@@ -362,8 +358,7 @@ public class DBConnection {
           }
         }
         int numUpdated = stmt.executeUpdate();
-        stmt.close();
-        availableConnections.put(conn);
+          availableConnections.put(conn);
         conn = null;
         return numUpdated;
       } catch (SQLException e) {
@@ -414,7 +409,6 @@ public class DBConnection {
         }
       }
       int numDeleted = stmt.executeUpdate();
-      stmt.close();
       availableConnections.put(conn);
       conn = null;
       return numDeleted;
@@ -454,7 +448,6 @@ public class DBConnection {
       PreparedStatement stmt = conn.prepareStatement(query);
       stmt.setInt(1, value);
       rs = stmt.executeQuery();
-      stmt.close();
       availableConnections.put(conn);
       conn = null;
     } catch (SQLException e) {
@@ -567,7 +560,6 @@ public class DBConnection {
         }
       }
       rs = stmt.executeQuery();
-      stmt.close();
       availableConnections.put(conn);
       conn = null;
     } catch (SQLException e) {
