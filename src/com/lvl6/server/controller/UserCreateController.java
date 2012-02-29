@@ -111,12 +111,13 @@ public class UserCreateController extends EventController {
 
       
       /*
-//recruit code strategy
-//fill last_regen_stat time as current_timestamp
+      //recruit code strategy
+      //fill last_regen_stat time as current_timestamp
        */
       //TODO: write his user struct in
       //TODO: give him the default critstructs (make user_city_elems row)
       //TODO: give him access to first city
+      
       if (referrer != null && user != null) {
         rewardReferrer(referrer, user);        
       }

@@ -81,7 +81,7 @@ public class ArmoryController extends EventController {
           if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
             resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
           } else {
-            if (userEquip.getQuantity() >= quantity) {
+            if (userEquip != null && userEquip.getQuantity() >= quantity) {
               legitSell = true;
             } else {
               resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_EQUIP_TO_SELL);
