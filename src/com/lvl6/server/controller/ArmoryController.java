@@ -79,7 +79,7 @@ public class ArmoryController extends EventController {
         } else if (requestType == ArmoryRequestType.SELL) {
           userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equipId);
           if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
-            resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
+            resBuilder.setStatus(ArmoryStatus.CANNOT_SELL_DIAMOND_EQUIP);
           } else {
             if (userEquip != null && userEquip.getQuantity() >= quantity) {
               legitSell = true;
@@ -100,6 +100,9 @@ public class ArmoryController extends EventController {
       }
       if (legitSell) {
         UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity);
+        if (quantity >= userEquip.getQuantity()) {
+          unequipUserEquip(user, equipId);
+        }
         user.updateRelativeCoinsNaive((int)(-1 * ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
@@ -123,6 +126,14 @@ public class ArmoryController extends EventController {
       log.error("exception in ArmoryController processEvent", e);
     } finally {
       server.unlockPlayer(senderProto.getUserId()); 
+    }
+  }
+
+  private void unequipUserEquip(User user, int equipId) {
+    if (user.getWeaponEquipped() == equipId || user.getArmorEquipped() == equipId || user.getAmuletEquipped() == equipId) {
+      if (!user.updateUnequip(equipId, user.getWeaponEquipped() == equipId, user.getArmorEquipped() == equipId, user.getAmuletEquipped() == equipId)) {
+        log.error("problem with unequipping " + equipId + " for " + user);
+      }
     }
   }
 

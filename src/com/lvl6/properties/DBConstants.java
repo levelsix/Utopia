@@ -76,6 +76,10 @@ public class DBConstants {
   public static final String USER__LAST_LONG_LICENSE_PURCHASE_TIME = "last_long_license_purchase_time";
   public static final String USER__REFERRAL_CODE = "referral_code";
   public static final String USER__NUM_REFERRALS = "num_referrals";
+  public static final String USER__WEAPON_EQUIPPED = "weapon_equipped";
+  public static final String USER__ARMOR_EQUIPPED = "armor_equipped";
+  public static final String USER__AMULET_EQUIPPED = "amulet_equipped";
+
   
   
   /*USER EQUIP TABLE*/

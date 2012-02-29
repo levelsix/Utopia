@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
 import com.lvl6.proto.InfoProto.UserType;
@@ -115,6 +116,42 @@ public class User {
     this.numBadges = numBadges;
     this.lastShortLicensePurchaseTime = lastShortLicensePurchaseTime;
     this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
+  }
+
+  public boolean updateUnequip(int equipId, boolean isWeapon, boolean isArmor, boolean isAmulet) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (isWeapon) {
+      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED, null);
+    }
+    if (isArmor) {
+      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED, null);      
+    }
+    if (isAmulet) {
+      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED, null);
+    }
+
+    if (lastLongLicensePurchaseTime != null) {
+      absoluteParams.put(DBConstants.USER__LAST_LONG_LICENSE_PURCHASE_TIME, lastLongLicensePurchaseTime);
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      if (isWeapon) {
+        this.weaponEquipped = ControllerConstants.NOT_SET;
+      }
+      if (isArmor) {
+        this.armorEquipped = ControllerConstants.NOT_SET;
+      }
+      if (isAmulet) {
+        this.amuletEquipped = ControllerConstants.NOT_SET;
+      }
+      return true;
+    }
+    return false;
   }
 
   public boolean updateRelativeDiamondsAbsoluteLastshortlicensepurchasetimeLastlonglicensepurchasetime(int diamondChange, 
@@ -568,7 +605,7 @@ public class User {
     }
     return false;
   }
-  
+
   public boolean updateRelativeDiamondsNumreferrals (int diamondChange, int numReferralsChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -797,7 +834,7 @@ public class User {
   public int getBattlesLost() {
     return battlesLost;
   }
-  
+
   public int getFlees() {
     return flees;
   }
@@ -902,5 +939,6 @@ public class User {
         + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
         + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime + "]";
   }
+
 
 }
