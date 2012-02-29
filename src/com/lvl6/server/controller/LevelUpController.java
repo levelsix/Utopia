@@ -34,7 +34,7 @@ public class LevelUpController extends EventController {
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_ARMORY_EVENT;
+    return EventProtocolRequest.C_LEVEL_UP_EVENT;
   }
 
   @Override
