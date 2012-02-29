@@ -17,6 +17,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.Quest;
+import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -36,6 +37,7 @@ import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
+import com.lvl6.retrieveutils.ReferralsRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
@@ -96,7 +98,6 @@ public class StartupController extends EventController {
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       user = UserRetrieveUtils.getUserByUDID(udid);
       if (user != null) {
-        
         server.lockPlayer(user.getId());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
@@ -161,19 +162,28 @@ public class StartupController extends EventController {
     if (user.getLastLogout() != null) {
       List <Integer> userIds = new ArrayList<Integer>();
 
+      Timestamp lastLogout = new Timestamp(user.getLastLogout().getTime());
+      
       List<MarketplaceTransaction> marketplaceTransactions = 
-          MarketplaceTransactionRetrieveUtils.getAllMarketplaceTransactionsAfterLastlogoutForDefender(new Timestamp(user.getLastLogout().getTime()), user.getId());
+          MarketplaceTransactionRetrieveUtils.getAllMarketplaceTransactionsAfterLastlogoutForDefender(lastLogout, user.getId());
       if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
         for (MarketplaceTransaction mt : marketplaceTransactions) {
           userIds.add(mt.getBuyerId());
         }
       }
 
-      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getAllBattleDetailsAfterLastlogoutForDefender(new Timestamp(user.getLastLogout().getTime()), user.getId());
+      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getAllBattleDetailsAfterLastlogoutForDefender(lastLogout, user.getId());
       if (battleDetails != null && battleDetails.size() > 0) {
         for (BattleDetails bd : battleDetails) {
           userIds.add(bd.getAttackerId());
         }        
+      }
+      
+      List<Referral> referrals = ReferralsRetrieveUtils.getAllReferralsAfterLastlogoutForReferrer(lastLogout, user.getId());
+      if (referrals != null && referrals.size() > 0) {
+        for (Referral r : referrals) {
+          userIds.add(r.getNewlyReferredId());
+        }
       }
 
       Map<Integer, User> usersByIds = null;
@@ -190,7 +200,12 @@ public class StartupController extends EventController {
         for (BattleDetails bd : battleDetails) {
           resBuilder.addAttackNotifications(CreateInfoProtoUtils.createAttackedNotificationProtoFromBattleHistory(bd, usersByIds.get(bd.getAttackerId())));
         }        
-      }      
+      } 
+      if (referrals != null && referrals.size() > 0) {
+        for (Referral r : referrals) {
+          resBuilder.addReferralNotifications(CreateInfoProtoUtils.createReferralNotificationProtoFromReferral(r, usersByIds.get(r.getNewlyReferredId())));
+        }
+      }
     }
   }
 

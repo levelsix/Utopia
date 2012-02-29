@@ -118,6 +118,7 @@ message StartupResponseProto {
 	required int32 experienceRequiredForNextLevel = 12;
 	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 13;
 	repeated AttackedNotificationProto attackNotifications = 14;
+	repeated ReferralNotificationProto referralNotifications = 15;
 	
 	message MarketplacePostPurchasedNotificationProto {
 		required FullMarketplacePostProto marketplacePost = 1;
@@ -133,6 +134,10 @@ message StartupResponseProto {
 		optional int32 stolenEquipId = 5;
 	}
 	
+	message ReferralNotificationProto {
+		required MinimumUserProto referred = 1;
+		required int64 recruitTime = 2;
+	}
 	  
 	message StartupConstants {
 	  	repeated string productIds = 1;
@@ -159,31 +164,29 @@ message StartupResponseProto {
 //------------------------------------------------------------------------------------------
 //CALLED: AFTER THE TUTORIAL
 
-//add player to server maps. channelToPlayerId, playersByPlayerId
-
-//for user location, check so range is -180 to 180 for y
-//and -90 to 90 for x?
-
+//if devicetoken doesnt work, itll still return success
+//client can check user's diamonds to see if it went through
 message UserCreateRequestProto {
      required string udid = 1;
      required string name = 2;
-     required string macAddress = 3;
-     repeated FullUserStructureProto structures = 4;
-     required LocationProto userLocation = 5;						
-     required CoordinateProto aviaryCoordinates = 6;
-     required CoordinateProto refineryCoordinates = 7;
-     required CoordinateProto carpenterCoordinates = 8;     
-     optional int32 referrerCode = 9;
-     optional string deviceToken = 10;
+     required UserType type = 3;
+     required string macAddress = 4;
+     repeated FullUserStructureProto structures = 5;
+     required LocationProto userLocation = 6;     
+     optional string referrerCode = 7;
+     optional string deviceToken = 8;
 }
-//CREATE UTILITY METHOD- unlockCityRankOneForCityId(int cityId)
+
 message UserCreateResponseProto {
-	required FullUserProto sender = 1;
-	required StartupStatus status = 2;
+	optional FullUserProto sender = 1;
+	required UserCreateStatus status = 2;
 	
-    enum StartupStatus {
-		SUCCESS = 0; 
-		FAIL = 1;
+    enum UserCreateStatus {
+		SUCCESS = 0;
+		INVALID_NAME = 1;
+		INVALID_LOCATION = 2;
+		USER_WITH_UDID_ALREADY_EXISTS = 3;
+		OTHER_FAIL = 4;
 	}  
 }
 
@@ -955,6 +958,7 @@ message EnableAPNSResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message PurchaseMarketplaceLicenseRequestProto {
 	required MinimumUserProto sender = 1;
 	required int64 clientTime = 2;
@@ -966,6 +970,7 @@ message PurchaseMarketplaceLicenseRequestProto {
 	}
 }
 
+																						//DONE
 message PurchaseMarketplaceLicenseResponseProto {
 	required MinimumUserProto sender = 1;
 	required PurchaseMarketplaceLicenseStatus status = 2;
@@ -977,4 +982,12 @@ message PurchaseMarketplaceLicenseResponseProto {
 		OTHER_FAIL = 3;
 		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
 	}
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message ReferralCodeUsedResponseProto {
+	required MinimumUserProto sender = 1;
+	required MinimumUserProto referredPlayer = 2;
 }

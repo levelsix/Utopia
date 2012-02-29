@@ -8,10 +8,12 @@ import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
+import com.lvl6.events.response.ReferralCodeUsedResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.properties.APNSProperties;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.BattleResponseProto;
+import com.lvl6.proto.EventProto.ReferralCodeUsedResponseProto;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
@@ -78,6 +80,28 @@ public class APNSWriter extends Wrap {
         if (PurchaseFromMarketplaceResponseEvent.class.isInstance(event)) {
           handlePurchaseFromMarketplaceNotification((PurchaseFromMarketplaceResponseEvent)event, user, user.getDeviceToken());
         }
+        if (ReferralCodeUsedResponseEvent.class.isInstance(event)) {
+          handleReferralCodeUsedNotification((ReferralCodeUsedResponseEvent)event, user, user.getDeviceToken());
+        }
+      }
+    }
+  }
+
+  private void handleReferralCodeUsedNotification(ReferralCodeUsedResponseEvent event, User user, String token) {
+    ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
+    if (Globals.IS_SANDBOX) {
+      builder.withSandboxDestination();
+    }
+    ApnsService service = builder.build();
+    PayloadBuilder pb = APNS.newPayload().actionKey("Use").badge(user.getNumBadges()+1);
+
+    ReferralCodeUsedResponseProto resProto = event.getReferralCodeUsedResponseProto();
+    pb.alertBody("Congrats! You received free diamonds because " + resProto.getReferredPlayer().getName() + " used your referral code.");
+
+    if (pb.isTooLong()) {
+      service.push(token, pb.build());
+      if (user.updateRelativeBadge(1)) {
+        log.error("problem with pushing notification to user " + user);
       }
     }
   }
@@ -121,7 +145,7 @@ public class APNSWriter extends Wrap {
         equipStolen = true;
       }
       String attacker = (battleResponseProto.getAttacker().hasName()) ? battleResponseProto.getAttacker().getName() : "";
-      if (attacker == "") {
+      if (attacker.length() == 0) {
         attacker = "An enemy";
       }
       String alertBody = attacker + " has just humiliated you ";

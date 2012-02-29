@@ -53,10 +53,10 @@ public class GenerateAttackListController extends EventController {
     User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
     if (numEnemies > ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX || numEnemies < 1) {
       resBuilder.setStatus(GenerateAttackListStatus.INVALID_NUM_ENEMIES_COUNT);      
-    } else if ((latLowerBound != null && (latLowerBound < ControllerConstants.GENERATE_ATTACK_LIST__LATITUDE_MIN || latLowerBound > ControllerConstants.GENERATE_ATTACK_LIST__LATITUDE_MAX)) || 
-        (latUpperBound != null && (latUpperBound < ControllerConstants.GENERATE_ATTACK_LIST__LATITUDE_MIN || latUpperBound > ControllerConstants.GENERATE_ATTACK_LIST__LATITUDE_MAX)) || 
-        (longLowerBound != null && (longLowerBound < ControllerConstants.GENERATE_ATTACK_LIST__LONGITUDE_MIN || longLowerBound > ControllerConstants.GENERATE_ATTACK_LIST__LONGITUDE_MAX)) ||
-        (longUpperBound != null && (longUpperBound < ControllerConstants.GENERATE_ATTACK_LIST__LONGITUDE_MIN || longUpperBound > ControllerConstants.GENERATE_ATTACK_LIST__LONGITUDE_MAX))) {
+    } else if ((latLowerBound != null && (latLowerBound < ControllerConstants.LATITUDE_MIN || latLowerBound > ControllerConstants.LATITUDE_MAX)) || 
+        (latUpperBound != null && (latUpperBound < ControllerConstants.LATITUDE_MIN || latUpperBound > ControllerConstants.LATITUDE_MAX)) || 
+        (longLowerBound != null && (longLowerBound < ControllerConstants.LONGITUDE_MIN || longLowerBound > ControllerConstants.LONGITUDE_MAX)) ||
+        (longUpperBound != null && (longUpperBound < ControllerConstants.LONGITUDE_MIN || longUpperBound > ControllerConstants.LONGITUDE_MAX))) {
       resBuilder.setStatus(GenerateAttackListStatus.INVALID_BOUND);
     } else if (user != null) {
       List<UserType> userTypes = new ArrayList<UserType>();

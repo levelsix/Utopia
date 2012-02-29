@@ -28,7 +28,7 @@ public class BattleDetailsRetrieveUtils {
     absoluteParams.put(DBConstants.BATTLE_HISTORY__DEFENDER_ID, defenderId);
 
     TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
-    absoluteParams.put(DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, lastLogout);
+    greaterThanParams.put(DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, lastLogout);
     
     return convertRSToBattleDetailsList(DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, greaterThanParams));
   }

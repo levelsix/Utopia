@@ -29,7 +29,7 @@ public class MarketplaceTransactionRetrieveUtils {
     absoluteParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, posterId);
 
     TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
-    absoluteParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, lastLogout);
+    greaterThanParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, lastLogout);
     
     return convertRSToMarketplaceTransactionsList(DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, greaterThanParams));
   }

@@ -6,13 +6,18 @@ public class ControllerConstants {
   
   //LEVEL UP
   public static final int MAX_LEVEL_FOR_USER = 300;
+
+  //LOCATION RESTRICTIONS
+  public static final int LONGITUDE_MIN = -180;
+  public static final int LONGITUDE_MAX = 180;
+  public static final int LATITUDE_MIN = -90;
+  public static final int LATITUDE_MAX = 90;
+
   
   //GENERATING LISTS OF ENEMIES
   public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 20;
   
   //CRIT STRUCTS
-  public static final int LUMBERJACK_DEFAULT_X = 3;
-  public static final int LUMBERJACK_DEFAULT_Y = 3;
   public static final int CARPENTER_DEFAULT_X = 3;
   public static final int CARPENTER_DEFAULT_Y = 3;
   public static final int AVIARY_DEFAULT_X = 3;
@@ -24,8 +29,6 @@ public class ControllerConstants {
   public static final int VAULT_YLENGTH = 3;
   public static final int MARKETPLACE_XLENGTH = 3;
   public static final int MARKETPLACE_YLENGTH = 3;
-  public static final int LUMBERJACK_XLENGTH = 3;
-  public static final int LUMBERJACK_YLENGTH = 3;
   public static final int CARPENTER_XLENGTH = 3;
   public static final int CARPENTER_YLENGTH = 3;
   public static final int AVIARY_XLENGTH = 3;
@@ -73,10 +76,6 @@ public class ControllerConstants {
   
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
-  public static final int GENERATE_ATTACK_LIST__LONGITUDE_MIN = -180;
-  public static final int GENERATE_ATTACK_LIST__LONGITUDE_MAX = 180;
-  public static final int GENERATE_ATTACK_LIST__LATITUDE_MIN = -90;
-  public static final int GENERATE_ATTACK_LIST__LATITUDE_MAX = 90;
 
   
   //IAP
@@ -159,4 +158,14 @@ public class ControllerConstants {
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE = 3;
   public static final int PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST = 50;
   public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 30;
+
+  //USER CREATE 
+  public static final int USER_CREATE__MIN_NAME_LENGTH = 0;
+  public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
+  public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
+
+  
+  
+
+  
 }

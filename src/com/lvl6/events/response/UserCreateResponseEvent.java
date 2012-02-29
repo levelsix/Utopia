@@ -4,16 +4,16 @@ import java.nio.ByteBuffer;
 
 import com.google.protobuf.ByteString;
 import com.lvl6.events.PreDatabaseResponseEvent;
-import com.lvl6.proto.EventProto.StartupResponseProto;
+import com.lvl6.proto.EventProto.UserCreateResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolResponse;
 
-public class StartupResponseEvent extends PreDatabaseResponseEvent{
+public class UserCreateResponseEvent extends PreDatabaseResponseEvent{
 
-  private StartupResponseProto startupResponseProto;
+  private UserCreateResponseProto userCreateResponseProto;
   
-  public StartupResponseEvent(String udid) {
+  public UserCreateResponseEvent(String udid) {
     super(udid);
-    eventType = EventProtocolResponse.S_STARTUP_EVENT;
+    eventType = EventProtocolResponse.S_USER_CREATE_EVENT;
   }
   
   /** 
@@ -24,13 +24,13 @@ public class StartupResponseEvent extends PreDatabaseResponseEvent{
    * versions on the client and use old-style socket input/output streams
    */
   public int write(ByteBuffer buff) {
-    ByteString b = startupResponseProto.toByteString();
+    ByteString b = userCreateResponseProto.toByteString();
     b.copyTo(buff);
     return b.size();
   }
 
-  public void setStartupResponseProto(StartupResponseProto StartupResponseProto) {
-    this.startupResponseProto = StartupResponseProto;
+  public void setUserCreateResponseProto(UserCreateResponseProto UserCreateResponseProto) {
+    this.userCreateResponseProto = UserCreateResponseProto;
   }
   
 }

@@ -14,22 +14,12 @@ import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.InfoProto.BattleResult;
+import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
 public class InsertUtils {
-
-  public static boolean createUser(String name) {
-    Map <String, Object> insertParams = new HashMap<String, Object>();
-    insertParams.put(DBConstants.TABLE_USER, name);
-    //TODO: IMPL- work out default stats. actually leave defaults in db so we dont need server reboot for change
-
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER, insertParams);
-    if (numInserted == 1) {
-      return true;
-    }
-    return false;
-  }
   
   public static boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
       Date battleCompleteTime, int coinsStolen, int stolenEquipId, int expGained) {
@@ -192,5 +182,31 @@ public class InsertUtils {
     }
 
     return false;
+  }
+
+  public static boolean insertReferral(int referrerId, int referredId) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    insertParams.put(DBConstants.REFERRALS__REFERRER_ID, referrerId);
+    insertParams.put(DBConstants.REFERRALS__NEWLY_REFERRED_ID, referredId);
+
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_REFERRALS, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  //returns -1 if error
+  public static int insertUser(String udid, String name, UserType type, String macAddress, LocationProto location, boolean b, String deviceToken) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
+    insertParams.put(DBConstants.USER_STRUCTS__X_COORD, coordinates.getX());
+    insertParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
+    insertParams.put(DBConstants.USER_STRUCTS__PURCHASE_TIME, timeOfPurchase);
+
+    int userStructId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER_STRUCTS, insertParams);
+    return userStructId;
   }
 }

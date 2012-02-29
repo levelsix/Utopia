@@ -119,8 +119,8 @@ public class BattleController extends EventController {
           expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN
               + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN
                   - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
+          resBuilder.setExpGained(expGained);
         }
-        resBuilder.setExpGained(expGained);
         resBuilder.setStatus(BattleStatus.SUCCESS);
       }
       BattleResponseProto resProto = resBuilder.build();
@@ -136,7 +136,7 @@ public class BattleController extends EventController {
         server.writeAPNSNotificationOrEvent(resEvent2);
 
         writeChangesToDB(lostEquip, winner, loser, attacker,
-            defender, expGained, lostCoins, battleTime);
+            defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
 
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
             .createUpdateClientUserResponseEvent(attacker);
@@ -252,7 +252,7 @@ public class BattleController extends EventController {
 
   private void writeChangesToDB(UserEquip lostEquip,
       User winner, User loser, User attacker, User defender, int expGained,
-      int lostCoins, Timestamp battleTime) {
+      int lostCoins, Timestamp battleTime, boolean isFlee) {
     if (lostEquip != null) {
       if (!UpdateUtils.decrementUserEquip(loser.getId(),
           lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
@@ -269,15 +269,22 @@ public class BattleController extends EventController {
       simulateStaminaRefill = true;
     }
     if (winner == attacker) {
-      attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(-1,
-          expGained, lostCoins, 1, 0, simulateStaminaRefill, battleTime);
-      defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(0,
-          0, lostCoins * -1, 0, 1, false, null);
+      attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
+          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, battleTime);
+      defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
+          0, lostCoins * -1, 0, 1, 0, false, null);
     } else if (winner == defender) {
-      attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(-1,
-          0, lostCoins * -1, 0, 1, simulateStaminaRefill, battleTime);
-      defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill(0,
-          0, lostCoins, 1, 0, false, null);
+      if (isFlee) {   //change method to include numFlees, increment that too
+        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
+            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, battleTime);
+        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
+            0, lostCoins, 1, 0, 0, false, null);
+      } else {  //change method to include numFlees
+        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
+            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, battleTime);
+        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
+            0, lostCoins, 1, 0, 0, false, null);        
+      }
     }
   }
 

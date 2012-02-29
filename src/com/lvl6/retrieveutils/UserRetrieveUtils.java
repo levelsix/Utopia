@@ -168,9 +168,16 @@ public class UserRetrieveUtils {
     log.info("retrieving user with udid " + UDID);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
-    return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, "users"));
+    return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
-
+  
+  public static User getUserByReferralCode(String referralCode) {
+    log.info("retrieving user with referral code " + referralCode);
+    Map <String, Object> paramsToVals = new HashMap<String, Object>();
+    paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
+    return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));    
+  }
+  
   private static User convertRSToUser(ResultSet rs) {
     if (rs != null) {
       try {
@@ -269,7 +276,7 @@ public class UserRetrieveUtils {
     int battlesLost = rs.getInt(i++);
     int flees = rs.getInt(i++);
     int hourlyCoins = rs.getInt(i++);
-    String armyCode = rs.getString(i++);
+    String referralCode = rs.getString(i++);
     int numReferrals = rs.getInt(i++);
     String udid = rs.getString(i++);
     Location userLocation = new Location(rs.getDouble(i++), rs.getDouble(i++));
@@ -315,7 +322,6 @@ public class UserRetrieveUtils {
       lastTimeAttacked = new Date(ts.getTime());
     }
 
-    String macAddress = rs.getString(i++);
     int numBadges = rs.getInt(i++);
 
     Date lastShortLicensePurchaseTime = null;
@@ -333,9 +339,9 @@ public class UserRetrieveUtils {
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
         isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,
-        hourlyCoins, armyCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
+        hourlyCoins, referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
-        lastBattleNotificationTime, lastTimeAttacked, macAddress, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime);
+        lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime);
     return user;
   }
 }

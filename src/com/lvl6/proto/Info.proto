@@ -47,7 +47,7 @@ message FullUserProto {
 	required int32 battlesLost = 25;
 	required int32 flees = 45;
 	required int32 hourlyCoins = 26;
-	required string armyCode = 27;
+	required string referralCode = 27;
 	required int32 numReferrals = 28;
 	required string udid = 29;
 	required LocationProto userLocation = 30;
@@ -64,7 +64,6 @@ message FullUserProto {
 	optional string deviceToken = 38;
 	optional int64 lastBattleNotificationTime = 39;
 	optional int64 lastTimeAttacked = 40;
-	optional string macAddress = 41;
 	optional int32 numBadges = 42;
 	
 	optional int64 lastShortLicensePurchaseTime = 43;

@@ -49,10 +49,10 @@ public class MiscMethods {
 
   public static UpdateClientUserResponseEvent createUpdateClientUserResponseEvent(User user) {
     UpdateClientUserResponseEvent resEvent = new UpdateClientUserResponseEvent(user.getId());
-    UpdateClientUserResponseProto resProtoAttacker = UpdateClientUserResponseProto.newBuilder()
+    UpdateClientUserResponseProto resProto = UpdateClientUserResponseProto.newBuilder()
         .setSender(CreateInfoProtoUtils.createFullUserProtoFromUser(user))
         .setTimeOfUserUpdate(new Date().getTime()).build();
-    resEvent.setUpdateClientUserResponseProto(resProtoAttacker);
+    resEvent.setUpdateClientUserResponseProto(resProto);
     return resEvent;
   }
 

@@ -39,7 +39,7 @@ public class User {
   private int battlesLost;
   private int flees;
   private int hourlyCoins;
-  private String armyCode;
+  private String referralCode;
   private int numReferrals;
   private String udid;
   private Location userLocation;
@@ -53,7 +53,6 @@ public class User {
   private String deviceToken;
   private Date lastBattleNotificationTime;
   private Date lastTimeAttacked;
-  private String macAddress;
   private int numBadges;
   private Date lastShortLicensePurchaseTime;
   private Date lastLongLicensePurchaseTime;
@@ -65,12 +64,12 @@ public class User {
       int energyMax, int staminaMax, int diamonds, int coins,
       int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
       int vaultBalance, int experience, int tasksCompleted, int battlesWon,
-      int battlesLost, int flees, int hourlyCoins, String armyCode, int numReferrals,
+      int battlesLost, int flees, int hourlyCoins, String referralCode, int numReferrals,
       String udid, Location userLocation, int numPostsInMarketplace,
       int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
       Date lastBattleNotificationTime, Date lastTimeAttacked,
-      String macAddress, int numBadges, Date lastShortLicensePurchaseTime,
+      int numBadges, Date lastShortLicensePurchaseTime,
       Date lastLongLicensePurchaseTime) {
     this.id = id;
     this.name = name;
@@ -99,7 +98,7 @@ public class User {
     this.battlesLost = battlesLost;
     this.flees = flees;
     this.hourlyCoins = hourlyCoins;
-    this.armyCode = armyCode;
+    this.referralCode = referralCode;
     this.numReferrals = numReferrals;
     this.udid = udid;
     this.userLocation = userLocation;
@@ -113,7 +112,6 @@ public class User {
     this.deviceToken = deviceToken;
     this.lastBattleNotificationTime = lastBattleNotificationTime;
     this.lastTimeAttacked = lastTimeAttacked;
-    this.macAddress = macAddress;
     this.numBadges = numBadges;
     this.lastShortLicensePurchaseTime = lastShortLicensePurchaseTime;
     this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
@@ -570,6 +568,29 @@ public class User {
     }
     return false;
   }
+  
+  public boolean updateRelativeDiamondsNumreferrals (int diamondChange, int numReferralsChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (diamondChange != 0) {
+      relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    }
+    if (numReferralsChange != 0) {
+      relativeParams.put(DBConstants.USER__NUM_REFERRALS, numReferralsChange); 
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      this.numReferrals += numReferralsChange;
+      return true;
+    }
+    return false;
+  }
 
   /*
    * used for in app purchases, armory, finishingnormstructbuild
@@ -637,8 +658,8 @@ public class User {
   /*
    * used for battles
    */
-  public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostSimulatestaminarefill (int stamina, int experience, 
-      int coins, int battlesWon, int battlesLost, boolean simulateStaminaRefill, Timestamp clientTime) {
+  public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill (int stamina, int experience, 
+      int coins, int battlesWon, int battlesLost, int fleesChange,  boolean simulateStaminaRefill, Timestamp clientTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -648,6 +669,7 @@ public class User {
     if (coins != 0) relativeParams.put(DBConstants.USER__COINS, coins);
     if (battlesWon != 0) relativeParams.put(DBConstants.USER__BATTLES_WON, battlesWon);
     if (battlesLost != 0) relativeParams.put(DBConstants.USER__BATTLES_LOST, battlesLost);
+    if (fleesChange != 0) relativeParams.put(DBConstants.USER__FLEES, fleesChange);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (simulateStaminaRefill) {
@@ -670,6 +692,7 @@ public class User {
       this.coins += coins;
       this.battlesWon += battlesWon;
       this.battlesLost += battlesLost;
+      this.flees += fleesChange;
       return true;
     }
     return false;
@@ -783,8 +806,8 @@ public class User {
     return hourlyCoins;
   }
 
-  public String getArmyCode() {
-    return armyCode;
+  public String getReferralCode() {
+    return referralCode;
   }
 
   public int getNumReferrals() {
@@ -839,10 +862,6 @@ public class User {
     return lastTimeAttacked;
   }
 
-  public String getMacAddress() {
-    return macAddress;
-  }
-
   public int getNumBadges() {
     return numBadges;
   }
@@ -870,8 +889,8 @@ public class User {
         + marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
         + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
         + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
-        + ", flees=" + flees + ", hourlyCoins=" + hourlyCoins + ", armyCode="
-        + armyCode + ", numReferrals=" + numReferrals + ", udid=" + udid
+        + ", flees=" + flees + ", hourlyCoins=" + hourlyCoins + ", referralCode="
+        + referralCode + ", numReferrals=" + numReferrals + ", udid=" + udid
         + ", userLocation=" + userLocation + ", numPostsInMarketplace="
         + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
         + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
@@ -879,8 +898,7 @@ public class User {
         + amuletEquipped + ", lastLogin=" + lastLogin + ", lastLogout="
         + lastLogout + ", deviceToken=" + deviceToken
         + ", lastBattleNotificationTime=" + lastBattleNotificationTime
-        + ", lastTimeAttacked=" + lastTimeAttacked + ", macAddress="
-        + macAddress + ", numBadges=" + numBadges
+        + ", lastTimeAttacked=" + lastTimeAttacked + ", numBadges=" + numBadges
         + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
         + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime + "]";
   }

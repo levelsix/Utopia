@@ -12,6 +12,7 @@ import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.Quest;
+import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
@@ -27,6 +28,7 @@ import com.lvl6.info.jobs.UpgradeStructJob;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto;
+import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
@@ -69,6 +71,13 @@ import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class CreateInfoProtoUtils {
+
+
+  public static ReferralNotificationProto createReferralNotificationProtoFromReferral(
+      Referral r, User newlyReferred) {
+    return ReferralNotificationProto.newBuilder().setReferred(createMinimumUserProtoFromUser(newlyReferred))
+        .setRecruitTime(r.getTimeOfReferral().getTime()).build();
+  }
 
   public static MarketplacePostPurchasedNotificationProto createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(MarketplaceTransaction mt, User buyer) {
     FullMarketplacePostProto fmpp = createFullMarketplacePostProtoFromMarketplacePost(mt.getPost());
@@ -186,7 +195,7 @@ public class CreateInfoProtoUtils {
         .setTasksCompleted(u.getTasksCompleted()).setBattlesWon(u.getBattlesWon())
         .setBattlesLost(u.getBattlesLost()).setFlees(u.getFlees())
         .setHourlyCoins(u.getHourlyCoins())
-        .setArmyCode(u.getArmyCode()).setNumReferrals(u.getNumReferrals())
+        .setReferralCode(u.getReferralCode()).setNumReferrals(u.getNumReferrals())
         .setUdid(u.getUdid())
         .setUserLocation(createLocationProtoFromLocation(u.getUserLocation()))
         .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed())
