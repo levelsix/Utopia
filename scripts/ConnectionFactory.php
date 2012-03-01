@@ -32,7 +32,8 @@ class ConnectionFactory{
 		if (!$this->db) {
 			try {			
 				include 'DBProperties.php';
-				$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$this->db = new PDO("mysql:host=".$db_host.";dbname=".$db_name, $db_user, $db_pass);
+								$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
 				echo $e;
 				die("test");
