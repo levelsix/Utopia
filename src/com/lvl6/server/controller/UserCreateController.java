@@ -52,7 +52,6 @@ public class UserCreateController extends EventController {
     String udid = reqProto.getUdid();
     String name = reqProto.getName();
     UserType type = reqProto.getType();
-    String macAddress = reqProto.getMacAddress();
     List<FullUserStructureProto> fullUserStructs = reqProto.getStructuresList();
     LocationProto location = reqProto.getUserLocation();
 
@@ -71,7 +70,7 @@ public class UserCreateController extends EventController {
 
       String newReferCode = grabNewReferCode();
       
-      int userId = InsertUtils.insertUser(udid, name, type, macAddress, location, referrer != null, deviceToken, newReferCode);
+      int userId = InsertUtils.insertUser(udid, name, type, location, referrer != null, deviceToken, newReferCode);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {

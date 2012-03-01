@@ -170,7 +170,6 @@ message UserCreateRequestProto {
      required string udid = 1;
      required string name = 2;
      required UserType type = 3;
-     required string macAddress = 4;
      repeated FullUserStructureProto structures = 5;
      required LocationProto userLocation = 6;     
      optional string referrerCode = 7;

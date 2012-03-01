@@ -275,7 +275,6 @@ public class UserRetrieveUtils {
     int battlesWon = rs.getInt(i++);
     int battlesLost = rs.getInt(i++);
     int flees = rs.getInt(i++);
-    int hourlyCoins = rs.getInt(i++);
     String referralCode = rs.getString(i++);
     int numReferrals = rs.getInt(i++);
     String udid = rs.getString(i++);
@@ -339,7 +338,7 @@ public class UserRetrieveUtils {
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
         isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,
-        hourlyCoins, referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
+        referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime);
     return user;

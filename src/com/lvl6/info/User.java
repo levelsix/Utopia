@@ -39,7 +39,6 @@ public class User {
   private int battlesWon;
   private int battlesLost;
   private int flees;
-  private int hourlyCoins;
   private String referralCode;
   private int numReferrals;
   private String udid;
@@ -65,7 +64,7 @@ public class User {
       int energyMax, int staminaMax, int diamonds, int coins,
       int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
       int vaultBalance, int experience, int tasksCompleted, int battlesWon,
-      int battlesLost, int flees, int hourlyCoins, String referralCode, int numReferrals,
+      int battlesLost, int flees, String referralCode, int numReferrals,
       String udid, Location userLocation, int numPostsInMarketplace,
       int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
@@ -98,7 +97,6 @@ public class User {
     this.battlesWon = battlesWon;
     this.battlesLost = battlesLost;
     this.flees = flees;
-    this.hourlyCoins = hourlyCoins;
     this.referralCode = referralCode;
     this.numReferrals = numReferrals;
     this.udid = udid;
@@ -839,10 +837,6 @@ public class User {
     return flees;
   }
 
-  public int getHourlyCoins() {
-    return hourlyCoins;
-  }
-
   public String getReferralCode() {
     return referralCode;
   }
@@ -926,7 +920,7 @@ public class User {
         + marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
         + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
         + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
-        + ", flees=" + flees + ", hourlyCoins=" + hourlyCoins + ", referralCode="
+        + ", flees=" + flees + ", referralCode="
         + referralCode + ", numReferrals=" + numReferrals + ", udid=" + udid
         + ", userLocation=" + userLocation + ", numPostsInMarketplace="
         + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="

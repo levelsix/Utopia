@@ -46,7 +46,6 @@ message FullUserProto {
 	required int32 battlesWon = 24;
 	required int32 battlesLost = 25;
 	required int32 flees = 45;
-	required int32 hourlyCoins = 26;
 	required string referralCode = 27;
 	required int32 numReferrals = 28;
 	required string udid = 29;

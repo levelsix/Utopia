@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.InfoProto.BattleResult;
@@ -198,15 +199,38 @@ public class InsertUtils {
   }
   
   //returns -1 if error
-  public static int insertUser(String udid, String name, UserType type, String macAddress, LocationProto location, boolean isReferred, String deviceToken, String newReferCode) {
+  public static int insertUser(String udid, String name, UserType type, LocationProto location, boolean isReferred, String deviceToken, String newReferCode) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
-    insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
-    insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
-    insertParams.put(DBConstants.USER_STRUCTS__X_COORD, coordinates.getX());
-    insertParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
-    insertParams.put(DBConstants.USER_STRUCTS__PURCHASE_TIME, timeOfPurchase);
+    insertParams.put(DBConstants.USER__UDID, udid);
+    insertParams.put(DBConstants.USER__NAME, name);
+    insertParams.put(DBConstants.USER__TYPE, type);
+    
+    if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
+      insertParams.put(DBConstants.USER__ATTACK, ControllerConstants.USER_CREATE__ARCHER_INIT_ATTACK);
+      insertParams.put(DBConstants.USER__DEFENSE, ControllerConstants.USER_CREATE__ARCHER_INIT_DEFENSE);
+    } else if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
+      insertParams.put(DBConstants.USER__ATTACK, ControllerConstants.USER_CREATE__WARRIOR_INIT_ATTACK);
+      insertParams.put(DBConstants.USER__DEFENSE, ControllerConstants.USER_CREATE__WARRIOR_INIT_DEFENSE);      
+    } else if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
+      insertParams.put(DBConstants.USER__ATTACK, ControllerConstants.USER_CREATE__MAGE_INIT_ATTACK);
+      insertParams.put(DBConstants.USER__DEFENSE, ControllerConstants.USER_CREATE__MAGE_INIT_DEFENSE);      
+    } else {
+      return -1;
+    }
+    
+    if (isReferred) {
+      insertParams.put(DBConstants.USER__DIAMONDS, ControllerConstants.USER_CREATE__DEFAULT_DIAMONDS + ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED);
+    } else {
+      insertParams.put(DBConstants.USER__DIAMONDS, ControllerConstants.USER_CREATE__DEFAULT_DIAMONDS);
+    }
+    
+    insertParams.put(DBConstants.USER__REFERRAL_CODE, newReferCode);
+    insertParams.put(DBConstants.USER__LATITUDE, location.getLatitude());
+    insertParams.put(DBConstants.USER__LONGITUDE, location.getLongitude());
+    insertParams.put(DBConstants.USER__LAST_LOGIN, new Timestamp(new Date().getTime()));
+    insertParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
 
-    int userStructId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER_STRUCTS, insertParams);
-    return userStructId;
+    int userId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER, insertParams);
+    return userId;
   }
 }
