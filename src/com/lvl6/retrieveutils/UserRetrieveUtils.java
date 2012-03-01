@@ -93,7 +93,7 @@ public class UserRetrieveUtils {
     }
     
     if (forBattle) {
-      query += "(" + DBConstants.USER__LAST_TIME_ATTACKED + "<=? or " +  DBConstants.USER__LAST_TIME_ATTACKED + "=?";
+      query += "(" + DBConstants.USER__LAST_TIME_ATTACKED + "<=? or " +  DBConstants.USER__LAST_TIME_ATTACKED + "=?) and ";
       values.add(new Timestamp(ControllerConstants.NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS*60000));
       values.add(null);
     }
