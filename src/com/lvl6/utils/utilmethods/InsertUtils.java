@@ -22,6 +22,21 @@ import com.lvl6.utils.DBConnection;
 
 public class InsertUtils {
   
+  public static boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary, CoordinatePair carpenter) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_X_COORD, aviary.getX());
+    insertParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_Y_COORD, aviary.getY());
+    insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_X_COORD, carpenter.getX());
+    insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_Y_COORD, carpenter.getY());
+
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_CITY_ELEMS, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   public static boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
       Date battleCompleteTime, int coinsStolen, int stolenEquipId, int expGained) {
     Map <String, Object> insertParams = new HashMap<String, Object>();

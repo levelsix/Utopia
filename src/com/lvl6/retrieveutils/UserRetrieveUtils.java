@@ -85,7 +85,7 @@ public class UserRetrieveUtils {
     }
     if (longLowerBound != null) {
       query += DBConstants.USER__LONGITUDE + ">=? and ";
-      values.add(latLowerBound);
+      values.add(longLowerBound);
     }
     if (longUpperBound != null) {
       query += DBConstants.USER__LONGITUDE + "<=? and ";
@@ -94,7 +94,7 @@ public class UserRetrieveUtils {
     
     if (forBattle) {
       query += "(" + DBConstants.USER__LAST_TIME_ATTACKED + "<=? or " +  DBConstants.USER__LAST_TIME_ATTACKED + "=?) and ";
-      values.add(new Timestamp(ControllerConstants.NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS*60000));
+      values.add(new Timestamp(new Date().getTime() - ControllerConstants.NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS*60000));
       values.add(null);
     }
     

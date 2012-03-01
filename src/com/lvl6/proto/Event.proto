@@ -28,7 +28,8 @@ message BattleRequestProto {
     required MinimumUserProto attacker = 1; 
     required MinimumUserProto defender = 2; 
     required BattleResult battleResult = 3;
-    optional int32 neutralCityId = 4;
+    required int64 clientTime = 4;
+    optional int32 neutralCityId = 5;
 }
 
 																						//DONE

@@ -1,5 +1,7 @@
 package com.lvl6.properties;
 
+import com.lvl6.info.CoordinatePair;
+
 public class ControllerConstants {
 
   public static final int NOT_SET = -1;
@@ -15,13 +17,11 @@ public class ControllerConstants {
 
   
   //GENERATING LISTS OF ENEMIES
-  public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 20;
+  public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 10;
   
   //CRIT STRUCTS
-  public static final int CARPENTER_DEFAULT_X = 3;
-  public static final int CARPENTER_DEFAULT_Y = 3;
-  public static final int AVIARY_DEFAULT_X = 3;
-  public static final int AVIARY_DEFAULT_Y = 3;
+  public static final CoordinatePair CARPENTER_COORDS = new CoordinatePair(3, 3);
+  public static final CoordinatePair AVIARY_COORDS = new CoordinatePair(7, 7);
   
   public static final int ARMORY_XLENGTH = 3;
   public static final int ARMORY_YLENGTH = 3;

@@ -694,7 +694,7 @@ public class User {
    * used for battles
    */
   public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill (int stamina, int experience, 
-      int coins, int battlesWon, int battlesLost, int fleesChange,  boolean simulateStaminaRefill, Timestamp clientTime) {
+      int coins, int battlesWon, int battlesLost, int fleesChange,  boolean simulateStaminaRefill, boolean updateLastAttackedTime, Timestamp clientTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -711,6 +711,9 @@ public class User {
       absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, false);
       absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, clientTime);
     }
+    if (updateLastAttackedTime) {
+      absoluteParams.put(DBConstants.USER__LAST_TIME_ATTACKED, clientTime);
+    }
     if (absoluteParams.size() == 0) {
       absoluteParams = null;
     }
@@ -721,6 +724,9 @@ public class User {
       if (simulateStaminaRefill) {
         this.isLastStaminaStateFull = false;
         this.lastStaminaRefillTime = clientTime;
+      }
+      if (updateLastAttackedTime) {
+        this.lastTimeAttacked = clientTime;
       }
       this.stamina += stamina;
       this.experience += experience;
