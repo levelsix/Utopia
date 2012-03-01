@@ -8,7 +8,7 @@ if [ $count -lt 2000 ]
 then
 
 `/usr/bin/php $path/generate_referral_codes.php`
-echo 'Generated referral codes at' `date` >> $path/referral_code_logs
+echo 'Generated referral codes at' `date` $count >> $path/referral_code_logs
 
 else
 
