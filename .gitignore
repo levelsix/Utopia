@@ -1,6 +1,7 @@
 #project specific
 src/com/lvl6/properties/DBProperties.java
 src/com/lvl6/properties/APNSProperties.java
+scripts/DBProperties.php
 
 #java specific
 *.class

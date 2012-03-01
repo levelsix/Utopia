@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM utopia.available_referral_codes;

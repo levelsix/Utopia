@@ -112,6 +112,11 @@ public class UserCreateController extends EventController {
       
       /*
       //recruit code strategy
+       * - SELECT code FROM soldier_code LIMIT 0,1
+       * if null, run script (this should seriously never happen)
+       * while (delete from avail fails)
+       * get a new soldier code from avail
+       * 
       //fill last_regen_stat time as current_timestamp
        */
       //TODO: write his user struct in
