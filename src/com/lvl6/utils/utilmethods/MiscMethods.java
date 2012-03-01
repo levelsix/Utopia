@@ -20,6 +20,13 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
  
+  public static boolean unequipUserEquip(User user, int equipId) {
+    if (user.getWeaponEquipped() == equipId || user.getArmorEquipped() == equipId || user.getAmuletEquipped() == equipId) {
+      return user.updateUnequip(equipId, user.getWeaponEquipped() == equipId, user.getArmorEquipped() == equipId, user.getAmuletEquipped() == equipId);
+    }
+    return false;
+  }
+  
   public static boolean checkClientTimeBeforeApproximateNow(Timestamp clientTime) {
     if (clientTime.getTime() < new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
       return true;

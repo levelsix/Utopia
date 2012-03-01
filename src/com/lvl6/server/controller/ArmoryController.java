@@ -101,9 +101,9 @@ public class ArmoryController extends EventController {
       if (legitSell) {
         UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity);
         if (quantity >= userEquip.getQuantity()) {
-          unequipUserEquip(user, equipId);
+          MiscMethods.unequipUserEquip(user, equipId);
         }
-        user.updateRelativeCoinsNaive((int)(-1 * ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
+        user.updateRelativeCoinsNaive((int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
 
@@ -126,14 +126,6 @@ public class ArmoryController extends EventController {
       log.error("exception in ArmoryController processEvent", e);
     } finally {
       server.unlockPlayer(senderProto.getUserId()); 
-    }
-  }
-
-  private void unequipUserEquip(User user, int equipId) {
-    if (user.getWeaponEquipped() == equipId || user.getArmorEquipped() == equipId || user.getAmuletEquipped() == equipId) {
-      if (!user.updateUnequip(equipId, user.getWeaponEquipped() == equipId, user.getArmorEquipped() == equipId, user.getAmuletEquipped() == equipId)) {
-        log.error("problem with unequipping " + equipId + " for " + user);
-      }
     }
   }
 

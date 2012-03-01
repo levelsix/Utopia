@@ -151,6 +151,9 @@ public class PostToMarketplaceController extends EventController {
         log.error("problem with updating user equips post-marketplace-post");
       }
     }
+    if (ue.getQuantity() == 1) {
+      MiscMethods.unequipUserEquip(user, reqProto.getPostedEquipId());
+    }
 
     int posterId = reqProto.getSender().getUserId();
     int postedEquipId = reqProto.getPostedEquipId();
