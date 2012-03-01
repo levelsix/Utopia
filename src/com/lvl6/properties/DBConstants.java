@@ -30,6 +30,7 @@ public class DBConstants {
   public static final String TABLE_LEVELS_REQUIRED_EXPERIENCE = "levels_required_experience";
   public static final String TABLE_BATTLE_HISTORY = "battle_history";
   public static final String TABLE_REFERRALS = "referrals";
+  public static final String TABLE_AVAILABLE_REFERRAL_CODES = "available_referral_codes";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -214,5 +215,8 @@ public class DBConstants {
   public static final String REFERRALS__REFERRER_ID = "referrer_id";
   public static final String REFERRALS__NEWLY_REFERRED_ID = "newly_referred_id";
   public static final String REFERRALS__TIME_OF_REFERRAL = "time_of_referral";
+  
+  /*AVAILABLE REFERRAL CODES*/
+  public static final String AVAILABLE_REFERRAL_CODES__CODE = "code";
   
 }

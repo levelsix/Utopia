@@ -22,10 +22,12 @@ import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 
 public class UserCreateController extends EventController {
@@ -67,7 +69,9 @@ public class UserCreateController extends EventController {
     if (legitUserCreate) {
       referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;
 
-      int userId = InsertUtils.insertUser(udid, name, type, macAddress, location, referrer != null, deviceToken);
+      String newReferCode = grabNewReferCode();
+      
+      int userId = InsertUtils.insertUser(udid, name, type, macAddress, location, referrer != null, deviceToken, newReferCode);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
@@ -108,17 +112,6 @@ public class UserCreateController extends EventController {
     NIOUtils.channelWrite(sc, writeBuffer);
 
     if (legitUserCreate) {
-
-      
-      /*
-      //recruit code strategy
-       * - SELECT code FROM soldier_code LIMIT 0,1
-       * if null, run script (this should seriously never happen)
-       * while (delete from avail fails)
-       * get a new soldier code from avail
-       * 
-      //fill last_regen_stat time as current_timestamp
-       */
       //TODO: write his user struct in
       //TODO: give him the default critstructs (make user_city_elems row)
       //TODO: give him access to first city
@@ -127,6 +120,16 @@ public class UserCreateController extends EventController {
         rewardReferrer(referrer, user);        
       }
     }    
+  }
+
+  private String grabNewReferCode() {
+    String newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
+    if (newReferCode != null && newReferCode.length() > 0) {
+      while (!DeleteUtils.deleteAvailableReferralCode(newReferCode)) {
+        newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
+      }
+    }
+    return newReferCode;
   }
 
   private void rewardReferrer(User referrer, User user) {

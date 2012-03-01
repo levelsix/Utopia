@@ -8,6 +8,16 @@ import com.lvl6.utils.DBConnection;
 
 public class DeleteUtils {
 
+  public static boolean deleteAvailableReferralCode(String referralCode) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.AVAILABLE_REFERRAL_CODES__CODE, referralCode);
+
+    int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_AVAILABLE_REFERRAL_CODES, conditionParams, "and");
+    if (numDeleted != 1) {
+      return false;
+    }
+    return true;  
+  }
 
   public static boolean deleteUserQuestInfoInCompletedTasks(int userId, int questId, int numTasks) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();

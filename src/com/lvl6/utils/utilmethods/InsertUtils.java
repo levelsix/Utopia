@@ -198,7 +198,7 @@ public class InsertUtils {
   }
   
   //returns -1 if error
-  public static int insertUser(String udid, String name, UserType type, String macAddress, LocationProto location, boolean b, String deviceToken) {
+  public static int insertUser(String udid, String name, UserType type, String macAddress, LocationProto location, boolean isReferred, String deviceToken, String newReferCode) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
     insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);

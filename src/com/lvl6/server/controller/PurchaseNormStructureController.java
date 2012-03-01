@@ -94,7 +94,7 @@ public class PurchaseNormStructureController extends EventController {
     int diamondChange = Math.max(0, struct.getDiamondPrice());
     int coinChange = Math.max(0, struct.getCoinPrice());
 
-    if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange, coinChange, 0)) {
+    if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange*-1, coinChange*-1, 0)) {
       log.error("problem with changing user stats after purchasing a structure");
     }
   }
