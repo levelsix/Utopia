@@ -93,8 +93,9 @@ public class UserRetrieveUtils {
     }
     
     if (forBattle) {
-      query += DBConstants.USER__LAST_BATTLE_NOTIFICATION_TIME + "<=? and ";
+      query += "(" + DBConstants.USER__LAST_TIME_ATTACKED + "<=? or " +  DBConstants.USER__LAST_TIME_ATTACKED + "=?";
       values.add(new Timestamp(ControllerConstants.NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS*60000));
+      values.add(null);
     }
     
     query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";

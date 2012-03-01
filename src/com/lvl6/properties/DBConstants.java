@@ -72,6 +72,7 @@ public class DBConstants {
   public static final String USER__LAST_LOGOUT = "last_logout";
   public static final String USER__NUM_BADGES = "num_badges";
   public static final String USER__LAST_BATTLE_NOTIFICATION_TIME = "last_battle_notification_time";
+  public static final String USER__LAST_TIME_ATTACKED = "last_time_attacked";
   public static final String USER__DEVICE_TOKEN = "device_token";
   public static final String USER__LAST_SHORT_LICENSE_PURCHASE_TIME = "last_short_license_purchase_time";
   public static final String USER__LAST_LONG_LICENSE_PURCHASE_TIME = "last_long_license_purchase_time";

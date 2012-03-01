@@ -91,7 +91,9 @@ public class LevelUpController extends EventController {
     }
     if (newlyUnlockedCityIds != null && newlyUnlockedCityIds.size() > 0) {
       for (Integer cityId : newlyUnlockedCityIds) {
-        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), cityId, 1));
+        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), cityId, 1)) {
+          log.error("problem with unlocking city for user");
+        }
       }
     }
   }

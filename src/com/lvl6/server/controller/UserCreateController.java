@@ -29,6 +29,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class UserCreateController extends EventController {
 
@@ -111,9 +112,11 @@ public class UserCreateController extends EventController {
     NIOUtils.channelWrite(sc, writeBuffer);
 
     if (legitUserCreate) {
-      //TODO: write his user struct in
-      //TODO: give him the default critstructs (make user_city_elems row)
-      //TODO: give him access to first city
+      writeUserStructs(fullUserStructs);
+      writeUserCritstructs();
+      if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
+        log.error("problem with giving user access to first city");
+      }
       
       if (referrer != null && user != null) {
         rewardReferrer(referrer, user);        
