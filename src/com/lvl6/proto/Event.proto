@@ -732,11 +732,11 @@ message LoadPlayerCityResponseProto {
 	repeated FullUserProto ownerAllies = 4;			//only if owner is an enemy
 	repeated FullUserProto ownerEnemies = 5;		//only if owner is you or ally
 
-    optional FullUserCritstructProto armory = 5;
-    optional FullUserCritstructProto vault = 6;
-    optional FullUserCritstructProto marketplace = 7;
-    required FullUserCritstructProto carpenter = 8;
-    required FullUserCritstructProto aviary = 9;    
+    optional FullUserCritstructProto armory = 6;
+    optional FullUserCritstructProto vault = 7;
+    optional FullUserCritstructProto marketplace = 8;
+    required FullUserCritstructProto carpenter = 9;
+    required FullUserCritstructProto aviary = 10;    
 
 	optional FullUserCityExpansionDataProto userCityExpansionData = 11;
      

@@ -71,10 +71,10 @@ public class LoadPlayerCityController extends EventController {
       }
       
       
+      boolean cityOwnerIsSender = (cityOwnerProto.getUserId() == senderProto.getUserId());
+      boolean ownerIsGood = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
+      boolean senderIsGood = MiscMethods.checkIfGoodSide(senderProto.getUserType());
       
-      
-      
-      boolean goodSide = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
       List<UserType> userTypes = new ArrayList<UserType>();
       if (goodSide) {
         userTypes.add(UserType.GOOD_ARCHER);

@@ -1058,7 +1058,7 @@ public final class InfoProto {
     boolean hasStamina();
     int getStamina();
     
-    // required int64 lastStaminaRefillTime = 8;
+    // optional int64 lastStaminaRefillTime = 8;
     boolean hasLastStaminaRefillTime();
     long getLastStaminaRefillTime();
     
@@ -1070,7 +1070,7 @@ public final class InfoProto {
     boolean hasEnergy();
     int getEnergy();
     
-    // required int64 lastEnergyRefillTime = 11;
+    // optional int64 lastEnergyRefillTime = 11;
     boolean hasLastEnergyRefillTime();
     long getLastEnergyRefillTime();
     
@@ -1325,7 +1325,7 @@ public final class InfoProto {
       return stamina_;
     }
     
-    // required int64 lastStaminaRefillTime = 8;
+    // optional int64 lastStaminaRefillTime = 8;
     public static final int LASTSTAMINAREFILLTIME_FIELD_NUMBER = 8;
     private long lastStaminaRefillTime_;
     public boolean hasLastStaminaRefillTime() {
@@ -1355,7 +1355,7 @@ public final class InfoProto {
       return energy_;
     }
     
-    // required int64 lastEnergyRefillTime = 11;
+    // optional int64 lastEnergyRefillTime = 11;
     public static final int LASTENERGYREFILLTIME_FIELD_NUMBER = 11;
     private long lastEnergyRefillTime_;
     public boolean hasLastEnergyRefillTime() {
@@ -1832,19 +1832,11 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasLastStaminaRefillTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasIsLastStaminaStateFull()) {
         memoizedIsInitialized = 0;
         return false;
       }
       if (!hasEnergy()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLastEnergyRefillTime()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2867,19 +2859,11 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasLastStaminaRefillTime()) {
-          
-          return false;
-        }
         if (!hasIsLastStaminaStateFull()) {
           
           return false;
         }
         if (!hasEnergy()) {
-          
-          return false;
-        }
-        if (!hasLastEnergyRefillTime()) {
           
           return false;
         }
@@ -3398,7 +3382,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int64 lastStaminaRefillTime = 8;
+      // optional int64 lastStaminaRefillTime = 8;
       private long lastStaminaRefillTime_ ;
       public boolean hasLastStaminaRefillTime() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -3461,7 +3445,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int64 lastEnergyRefillTime = 11;
+      // optional int64 lastEnergyRefillTime = 11;
       private long lastEnergyRefillTime_ ;
       public boolean hasLastEnergyRefillTime() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -23604,9 +23588,9 @@ public final class InfoProto {
       "name\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\022*\n\010userType\030\004 " +
       "\002(\0162\030.com.lvl6.proto.UserType\022\016\n\006attack\030" +
       "\005 \002(\005\022\017\n\007defense\030\006 \002(\005\022\017\n\007stamina\030\007 \002(\005\022" +
-      "\035\n\025lastStaminaRefillTime\030\010 \002(\003\022\036\n\026isLast" +
+      "\035\n\025lastStaminaRefillTime\030\010 \001(\003\022\036\n\026isLast" +
       "StaminaStateFull\030\t \002(\010\022\016\n\006energy\030\n \002(\005\022\034" +
-      "\n\024lastEnergyRefillTime\030\013 \002(\003\022\035\n\025isLastEn",
+      "\n\024lastEnergyRefillTime\030\013 \001(\003\022\035\n\025isLastEn",
       "ergyStateFull\030\014 \002(\010\022\023\n\013skillPoints\030\r \002(\005" +
       "\022\021\n\thealthMax\030\016 \002(\005\022\021\n\tenergyMax\030\017 \002(\005\022\022" +
       "\n\nstaminaMax\030\020 \002(\005\022\020\n\010diamonds\030\021 \002(\005\022\r\n\005" +
