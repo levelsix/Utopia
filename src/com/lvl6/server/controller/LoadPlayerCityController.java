@@ -70,8 +70,13 @@ public class LoadPlayerCityController extends EventController {
         resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
       }
       
+      
+      
+      
+      
+      boolean goodSide = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
       List<UserType> userTypes = new ArrayList<UserType>();
-      if (MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType())) {
+      if (goodSide) {
         userTypes.add(UserType.GOOD_ARCHER);
         userTypes.add(UserType.GOOD_MAGE);
         userTypes.add(UserType.GOOD_WARRIOR);
@@ -84,6 +89,13 @@ public class LoadPlayerCityController extends EventController {
       List<User> ownerAllies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY, owner.getLevel(), owner.getId(), false, 
           null, null, null, null, false);
       setResponseOwnerAllies(resBuilder, ownerAllies);
+      
+      
+      
+      
+      
+      
+      
       
       LoadPlayerCityResponseEvent resEvent = new LoadPlayerCityResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());

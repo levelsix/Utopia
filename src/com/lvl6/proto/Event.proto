@@ -729,7 +729,8 @@ message LoadPlayerCityResponseProto {
     required MinimumUserProto sender = 1;
 	required LoadPlayerCityStatus status = 2;
 	repeated FullUserStructureProto ownerNormStructs = 3;
-	repeated FullUserProto ownerAllies = 4;
+	repeated FullUserProto ownerAllies = 4;			//only if owner is an enemy
+	repeated FullUserProto ownerEnemies = 5;		//only if owner is you or ally
 
     optional FullUserCritstructProto armory = 5;
     optional FullUserCritstructProto vault = 6;

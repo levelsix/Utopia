@@ -27,10 +27,10 @@ message FullUserProto {
 	required int32 attack = 5;
 	required int32 defense = 6;
 	required int32 stamina = 7;
-	required int64 lastStaminaRefillTime = 8;
+	optional int64 lastStaminaRefillTime = 8;
 	required bool isLastStaminaStateFull = 9;
 	required int32 energy = 10;
-	required int64 lastEnergyRefillTime = 11;
+	optional int64 lastEnergyRefillTime = 11;
 	required bool isLastEnergyStateFull = 12;
 	required int32 skillPoints = 13;
 	required int32 healthMax = 14;
