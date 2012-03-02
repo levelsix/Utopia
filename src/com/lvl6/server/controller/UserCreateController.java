@@ -32,6 +32,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class UserCreateController extends EventController {
@@ -57,15 +58,17 @@ public class UserCreateController extends EventController {
     String name = reqProto.getName();
     UserType type = reqProto.getType();
     List<FullUserStructureProto> fullUserStructs = reqProto.getStructuresList();
-    LocationProto location = reqProto.getUserLocation();
 
+    LocationProto locationProto = (reqProto.hasUserLocation()) ? reqProto.getUserLocation() : null;
     String referrerCode = (reqProto.hasReferrerCode()) ? reqProto.getReferrerCode() : null;
     String deviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : null;
 
     UserCreateResponseProto.Builder resBuilder = UserCreateResponseProto.newBuilder();
 
+    Location loc = (locationProto == null) ? MiscMethods.getRandomValidLocation() : new Location(locationProto.getLatitude(), locationProto.getLongitude());
+
     boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, fullUserStructs, 
-        location);
+        loc);
 
     User referrer = null;
     User user = null;
@@ -73,8 +76,8 @@ public class UserCreateController extends EventController {
       referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;
 
       String newReferCode = grabNewReferCode();
-      
-      int userId = InsertUtils.insertUser(udid, name, type, new Location(location.getLatitude(), location.getLongitude()), referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL);
+
+      int userId = InsertUtils.insertUser(udid, name, type, loc, referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
@@ -120,7 +123,7 @@ public class UserCreateController extends EventController {
       if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
         log.error("problem with giving user access to first city");
       }
-      
+
       if (referrer != null && user != null) {
         rewardReferrer(referrer, user);        
       }
@@ -177,8 +180,8 @@ public class UserCreateController extends EventController {
 
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
       String name, List<FullUserStructureProto> fullUserStructs,
-      LocationProto location) {
-    if (udid == null || name == null || fullUserStructs == null || fullUserStructs.size() == 0 || location == null) {
+      Location loc) {
+    if (udid == null || name == null || fullUserStructs == null || fullUserStructs.size() == 0) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
@@ -186,8 +189,8 @@ public class UserCreateController extends EventController {
       resBuilder.setStatus(UserCreateStatus.USER_WITH_UDID_ALREADY_EXISTS);
       return false;
     }
-    if (location.getLatitude() < ControllerConstants.LATITUDE_MIN || location.getLatitude() > ControllerConstants.LATITUDE_MAX || 
-        location.getLongitude() < ControllerConstants.LONGITUDE_MIN || location.getLongitude() > ControllerConstants.LONGITUDE_MAX) {
+    if (loc.getLatitude() < ControllerConstants.LATITUDE_MIN || loc.getLatitude() > ControllerConstants.LATITUDE_MAX || 
+        loc.getLongitude() < ControllerConstants.LONGITUDE_MIN || loc.getLongitude() > ControllerConstants.LONGITUDE_MAX) {
       resBuilder.setStatus(UserCreateStatus.INVALID_LOCATION);
       return false;
     }

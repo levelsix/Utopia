@@ -1,6 +1,7 @@
 package com.lvl6.properties;
 
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.ValidLocationBox;
 
 public class ControllerConstants {
 
@@ -175,5 +176,16 @@ public class ControllerConstants {
   public static final int USER_CREATE__WARRIOR_INIT_ATTACK = 15;
   public static final int USER_CREATE__WARRIOR_INIT_DEFENSE = 10;
 
+  public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
+    new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
+    new ValidLocationBox(-118.76606, 50.595863, 27.16478, 9.0692883, "CANADA"),
+    new ValidLocationBox(-108.42838, 25.134665, 10.040737, 5.1833048, "MEXICO"),
+    new ValidLocationBox(-75.779137, -9.728591, 21.797827, 12.667298, "SOUTH AMERICA TOP"),
+    new ValidLocationBox(-4.8001895, 7.449348, 43.104004, 23.590857, "AFRICA TOP"),
+    new ValidLocationBox(17.695606, -18.203896, 19.675283, 11.1834, "AFRICA BOTTOM"),
+    new ValidLocationBox(50.203793, 41.678776, 67.458984, 23.556379, "RUSSIA"),
+    new ValidLocationBox(7.239326, 45.496315, 22.494024, 8.4832458, "EUROPE RIGHT"),
+    new ValidLocationBox(-50.585747, 70.842873, 19.442516, 3.4063075, "GREENLAND"),
+    new ValidLocationBox(122.57473, -29.775003, 22.857393, 12.192301, "GREENLAND")};
   
 }

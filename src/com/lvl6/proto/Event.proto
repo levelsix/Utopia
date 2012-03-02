@@ -172,7 +172,7 @@ message UserCreateRequestProto {
      required string name = 2;
      required UserType type = 3;
      repeated FullUserStructureProto structures = 5;
-     required LocationProto userLocation = 6;     
+     optional LocationProto userLocation = 6;     
      optional string referrerCode = 7;
      optional string deviceToken = 8;
 }

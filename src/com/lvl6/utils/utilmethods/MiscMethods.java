@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.Location;
 import com.lvl6.info.User;
+import com.lvl6.info.ValidLocationBox;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
@@ -19,21 +23,21 @@ import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
- 
+
   public static boolean unequipUserEquip(User user, int equipId) {
     if (user.getWeaponEquipped() == equipId || user.getArmorEquipped() == equipId || user.getAmuletEquipped() == equipId) {
       return user.updateUnequip(equipId, user.getWeaponEquipped() == equipId, user.getArmorEquipped() == equipId, user.getAmuletEquipped() == equipId);
     }
     return false;
   }
-  
+
   public static boolean checkClientTimeBeforeApproximateNow(Timestamp clientTime) {
     if (clientTime.getTime() < new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
       return true;
     }
     return false;
   }
-  
+
   public static List<City> getCitiesAvailableForUserLevel(int userLevel) {
     List<City> availCities = new ArrayList<City>();
     Map<Integer, City> cities = CityRetrieveUtils.getCityIdsToCities();
@@ -45,11 +49,11 @@ public class MiscMethods {
     }
     return availCities;
   }
-  
+
   public static int calculateMinutesToUpgradeForUserStruct(int minutesToUpgradeBase, int userStructLevel) {
     return Math.max(1, (minutesToUpgradeBase * userStructLevel)/2);
   }
-  
+
   public static int calculateIncomeGainedFromUserStruct(int structIncomeBase, int userStructLevel) {
     return userStructLevel * structIncomeBase;
   }
@@ -99,5 +103,16 @@ public class MiscMethods {
       return -1;
     }     
 
+  }
+
+  public static Location getRandomValidLocation() {
+    ValidLocationBox[] vlbs = ControllerConstants.USER_CREATE__VALIDATION_BOXES;
+    if (vlbs != null && vlbs.length >= 1) {
+      ValidLocationBox vlb = vlbs[new Random().nextInt(vlbs.length)];
+      double latitude = vlb.getBotLeftX() + Math.random()*vlb.getWidth();
+      double longitude = vlb.getBotLeftY() + Math.random()*vlb.getHeight();
+      return new Location(latitude, longitude);
+    }
+    return new Location(-117.69765, 33.57793);    //ARBITRARY LAND SPOT
   }
 }
