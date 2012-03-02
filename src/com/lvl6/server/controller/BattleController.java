@@ -98,7 +98,7 @@ public class BattleController extends EventController {
           List<UserEquip> defenderEquips = UserEquipRetrieveUtils
               .getUserEquipsForUser(defender.getId());
           lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
-              defender.getLevel());
+              defender);
           if (lostEquip != null) {
             Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
             resBuilder.setEquipGained(CreateInfoProtoUtils
@@ -258,6 +258,9 @@ public class BattleController extends EventController {
           lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
         log.error("problem with decrementUserEquip in battle");
       }
+      if (lostEquip.getQuantity() == 1) {
+        MiscMethods.unequipUserEquip(loser, lostEquip.getEquipId());
+      }
       if (!UpdateUtils.incrementUserEquip(winner.getId(),
           lostEquip.getEquipId(), 1)) {
         log.error("problem with incrementUserEquip in battle");
@@ -306,14 +309,14 @@ public class BattleController extends EventController {
    * items - min level applies for usage, not for holding
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips,
-      Map<Integer, Equipment> equipmentIdsToEquipment, int level) {
+      Map<Integer, Equipment> equipmentIdsToEquipment, User defender) {
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {
-        Equipment equip = equipmentIdsToEquipment.get(defenderEquip
-            .getEquipId());
+        int equipId = defenderEquip.getEquipId();
+        Equipment equip = equipmentIdsToEquipment.get(equipId);
         if (equip.getDiamondPrice() == Equipment.NOT_SET
-            && equip.getMinLevel() < level) {
+            && equip.getMinLevel() < defender.getLevel()) {
           double rand = Math.random();
           if (rand <= equip.getChanceOfLoss()) {
             potentialLosses.add(defenderEquip);
