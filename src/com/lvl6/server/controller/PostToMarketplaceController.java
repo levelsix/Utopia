@@ -132,12 +132,11 @@ public class PostToMarketplaceController extends EventController {
       }
     }
     if (coinCost > 0) {
-      if (equip.getCoinPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
+      if (equip.getCoinPrice() <= 0 || equip.getRarity() == Rarity.EPIC || equip.getRarity() == Rarity.LEGENDARY) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
         return true;        
       }
     }
-
     resBuilder.setStatus(PostToMarketplaceStatus.SUCCESS);
     return true;
   }

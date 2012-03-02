@@ -226,7 +226,7 @@ enum BattleResult {
 
 enum MarketplacePostType {
 	PREMIUM_EQUIP_POST = 0;		//diamond, epics, and legendarys for diamonds
-	NORM_EQUIP_POST = 2;		//coin items for coins
+	NORM_EQUIP_POST = 2;		//armory (so non epic and non legendar	y) coin items for coins
 }
 
 message FullMarketplacePostProto {

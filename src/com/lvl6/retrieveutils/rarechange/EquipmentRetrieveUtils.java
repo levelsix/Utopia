@@ -121,15 +121,19 @@ public class EquipmentRetrieveUtils {
     //1) sellable in armory, 2) not sellable in armory but sellable in marketplace, 3) never sellable
     //1) normal sword. 2) epics/legendaries. 3) bandanas
     
-    //all equips should have either diamondCost or coinCost set to be put in the hashmpa.
-      //bandanas are listed in the armory with coinPrice = 0 and diamondPrice = null. 
+    //all equips should have either diamondCost or coinCost set to be put in the hashmap.
+    //armory is now determined by flag
+    
+      //bandanas are listed in the table with coinPrice = 0 and diamondPrice = null
       //same with epics and legendaries
+      //bandanas rarity is common
+    
+    //all non epic, non legendary, need either diamondPrice > 0 or coinPrice > 0 to show up in marketplace
+    //this is why bandanas cant be sold in the marketplace, but epic/legendary can be sold for gold
+    //epic and legendary items not in armory
     
     //if the item is coinPrice = 0 but diamondPrice = null, the item can be stolen
     //if the other way around, the item cannot be stolen
-    
-    //bandanas can't be posted in marketplace, which ignores if (<= 0 && not epic && not legendary).
-    //they will be common
     return equip;
   }
 }
