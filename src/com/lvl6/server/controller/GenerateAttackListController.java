@@ -22,7 +22,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public class GenerateAttackListController extends EventController {
 
   public GenerateAttackListController() {
-    numAllocatedThreads = 10;
+    numAllocatedThreads = 20;
   }
 
   @Override

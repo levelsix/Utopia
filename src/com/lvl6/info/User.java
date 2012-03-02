@@ -8,6 +8,7 @@ import java.util.Map;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
@@ -116,6 +117,57 @@ public class User {
     this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
   }
 
+  public boolean updateAbsoluteUserLocation(Location location) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__LATITUDE, location.getLatitude());
+    absoluteParams.put(DBConstants.USER__LONGITUDE, location.getLongitude());
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.userLocation = location;
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean updateEquipped(Equipment equipment) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    
+    int equipId = equipment.getId();
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (equipment.getType() == EquipType.WEAPON) {
+      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED, equipId);
+    }
+    if (equipment.getType() == EquipType.ARMOR) {
+      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED, equipId);      
+    }
+    if (equipment.getType() == EquipType.AMULET) {
+      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED, equipId);
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      if (equipment.getType() == EquipType.WEAPON) {
+        this.weaponEquipped = equipId;
+      }
+      if (equipment.getType() == EquipType.ARMOR) {
+        this.armorEquipped = equipId;
+      }
+      if (equipment.getType() == EquipType.AMULET) {
+        this.amuletEquipped = equipId;
+      }
+      return true;
+    }
+    return false;
+  }
+
   public boolean updateUnequip(int equipId, boolean isWeapon, boolean isArmor, boolean isAmulet) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -129,10 +181,6 @@ public class User {
     }
     if (isAmulet) {
       absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED, null);
-    }
-
-    if (lastLongLicensePurchaseTime != null) {
-      absoluteParams.put(DBConstants.USER__LAST_LONG_LICENSE_PURCHASE_TIME, lastLongLicensePurchaseTime);
     }
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
@@ -694,7 +742,7 @@ public class User {
    * used for battles
    */
   public boolean updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill (int stamina, int experience, 
-      int coins, int battlesWon, int battlesLost, int fleesChange,  boolean simulateStaminaRefill, Timestamp clientTime) {
+      int coins, int battlesWon, int battlesLost, int fleesChange,  boolean simulateStaminaRefill, boolean updateLastAttackedTime, Timestamp clientTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -711,6 +759,9 @@ public class User {
       absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, false);
       absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, clientTime);
     }
+    if (updateLastAttackedTime) {
+      absoluteParams.put(DBConstants.USER__LAST_TIME_ATTACKED, clientTime);
+    }
     if (absoluteParams.size() == 0) {
       absoluteParams = null;
     }
@@ -721,6 +772,9 @@ public class User {
       if (simulateStaminaRefill) {
         this.isLastStaminaStateFull = false;
         this.lastStaminaRefillTime = clientTime;
+      }
+      if (updateLastAttackedTime) {
+        this.lastTimeAttacked = clientTime;
       }
       this.stamina += stamina;
       this.experience += experience;

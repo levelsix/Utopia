@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -65,8 +64,7 @@ public class BattleController extends EventController {
     MinimumUserProto defenderProto = reqProto.getDefender();
     BattleResult result = reqProto.getBattleResult();
 
-
-    Timestamp battleTime = new Timestamp(new Date().getTime());
+    Timestamp battleTime = new Timestamp(reqProto.getClientTime());
 
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils
         .getEquipmentIdsToEquipment();
@@ -100,7 +98,7 @@ public class BattleController extends EventController {
           List<UserEquip> defenderEquips = UserEquipRetrieveUtils
               .getUserEquipsForUser(defender.getId());
           lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
-              defender.getLevel());
+              defender);
           if (lostEquip != null) {
             Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
             resBuilder.setEquipGained(CreateInfoProtoUtils
@@ -131,9 +129,11 @@ public class BattleController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitBattle) {
-        BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
-        resEvent2.setBattleResponseProto(resProto);
-        server.writeAPNSNotificationOrEvent(resEvent2);
+        if (result == BattleResult.ATTACKER_WIN) {
+          BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
+          resEvent2.setBattleResponseProto(resProto);
+          server.writeAPNSNotificationOrEvent(resEvent2);
+        }
 
         writeChangesToDB(lostEquip, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
@@ -258,6 +258,9 @@ public class BattleController extends EventController {
           lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
         log.error("problem with decrementUserEquip in battle");
       }
+      if (lostEquip.getQuantity() == 1) {
+        MiscMethods.unequipUserEquip(loser, lostEquip.getEquipId());
+      }
       if (!UpdateUtils.incrementUserEquip(winner.getId(),
           lostEquip.getEquipId(), 1)) {
         log.error("problem with incrementUserEquip in battle");
@@ -270,20 +273,20 @@ public class BattleController extends EventController {
     }
     if (winner == attacker) {
       attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, battleTime);
+          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime);
       defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-          0, lostCoins * -1, 0, 1, 0, false, null);
+          0, lostCoins * -1, 0, 1, 0, false, true, battleTime);
     } else if (winner == defender) {
-      if (isFlee) {   //change method to include numFlees, increment that too
+      if (isFlee) {
         attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, battleTime);
+            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime);
         defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, lostCoins, 1, 0, 0, false, null);
-      } else {  //change method to include numFlees
+            0, lostCoins, 1, 0, 0, false, false, battleTime);
+      } else {
         attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, battleTime);
+            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime);
         defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, lostCoins, 1, 0, 0, false, null);        
+            0, lostCoins, 1, 0, 0, false, true, battleTime);        
       }
     }
   }
@@ -306,14 +309,14 @@ public class BattleController extends EventController {
    * items - min level applies for usage, not for holding
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips,
-      Map<Integer, Equipment> equipmentIdsToEquipment, int level) {
+      Map<Integer, Equipment> equipmentIdsToEquipment, User defender) {
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {
-        Equipment equip = equipmentIdsToEquipment.get(defenderEquip
-            .getEquipId());
+        int equipId = defenderEquip.getEquipId();
+        Equipment equip = equipmentIdsToEquipment.get(equipId);
         if (equip.getDiamondPrice() == Equipment.NOT_SET
-            && equip.getMinLevel() < level) {
+            && equip.getMinLevel() < defender.getLevel()) {
           double rand = Math.random();
           if (rand <= equip.getChanceOfLoss()) {
             potentialLosses.add(defenderEquip);

@@ -3,12 +3,15 @@ package com.lvl6.server.controller;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UserCreateRequestEvent;
 import com.lvl6.events.response.ReferralCodeUsedResponseEvent;
 import com.lvl6.events.response.UserCreateResponseEvent;
+import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.Location;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
@@ -71,7 +74,7 @@ public class UserCreateController extends EventController {
 
       String newReferCode = grabNewReferCode();
       
-      int userId = InsertUtils.insertUser(udid, name, type, location, referrer != null, deviceToken, newReferCode);
+      int userId = InsertUtils.insertUser(udid, name, type, new Location(location.getLatitude(), location.getLongitude()), referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
@@ -113,7 +116,7 @@ public class UserCreateController extends EventController {
 
     if (legitUserCreate) {
       writeUserStructs(fullUserStructs);
-      writeUserCritstructs();
+      writeUserCritstructs(user.getId());
       if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
         log.error("problem with giving user access to first city");
       }
@@ -122,6 +125,22 @@ public class UserCreateController extends EventController {
         rewardReferrer(referrer, user);        
       }
     }    
+  }
+
+  private void writeUserCritstructs(int userId) {
+    if (!InsertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
+      log.error("problem with giving user his critical structs");
+    }
+  }
+
+  private void writeUserStructs(List<FullUserStructureProto> fullUserStructs) {
+    if (fullUserStructs != null) {
+      for (FullUserStructureProto fusp : fullUserStructs) {
+        if (InsertUtils.insertUserStruct(fusp.getUserId(), fusp.getStructId(), new CoordinatePair(fusp.getCoordinates().getX(), fusp.getCoordinates().getY()), new Timestamp(fusp.getPurchaseTime())) < 0) {
+          log.error("problem in giving user the user struct");
+        }
+      }
+    }
   }
 
   private String grabNewReferCode() {

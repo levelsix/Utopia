@@ -1,5 +1,7 @@
 package com.lvl6.properties;
 
+import com.lvl6.info.CoordinatePair;
+
 public class ControllerConstants {
 
   public static final int NOT_SET = -1;
@@ -15,13 +17,11 @@ public class ControllerConstants {
 
   
   //GENERATING LISTS OF ENEMIES
-  public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 20;
+  public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 10;
   
   //CRIT STRUCTS
-  public static final int CARPENTER_DEFAULT_X = 3;
-  public static final int CARPENTER_DEFAULT_Y = 3;
-  public static final int AVIARY_DEFAULT_X = 3;
-  public static final int AVIARY_DEFAULT_Y = 3;
+  public static final CoordinatePair CARPENTER_COORDS = new CoordinatePair(3, 3);
+  public static final CoordinatePair AVIARY_COORDS = new CoordinatePair(7, 7);
   
   public static final int ARMORY_XLENGTH = 3;
   public static final int ARMORY_YLENGTH = 3;
@@ -160,19 +160,20 @@ public class ControllerConstants {
   public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 30;
 
   //USER CREATE 
+  public static final int USER_CREATE__START_LEVEL = 1;
   public static final int USER_CREATE__MIN_NAME_LENGTH = 0;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
   public static final int USER_CREATE__DEFAULT_DIAMONDS = 20;
   
-  public static final int USER_CREATE__ARCHER_INIT_ATTACK = 15;
-  public static final int USER_CREATE__ARCHER_INIT_DEFENSE = 15;
+  public static final int USER_CREATE__ARCHER_INIT_ATTACK = 10;
+  public static final int USER_CREATE__ARCHER_INIT_DEFENSE = 18;
 
-  public static final int USER_CREATE__MAGE_INIT_ATTACK = 15;
-  public static final int USER_CREATE__MAGE_INIT_DEFENSE = 15;
+  public static final int USER_CREATE__MAGE_INIT_ATTACK = 13;
+  public static final int USER_CREATE__MAGE_INIT_DEFENSE = 13;
 
   public static final int USER_CREATE__WARRIOR_INIT_ATTACK = 15;
-  public static final int USER_CREATE__WARRIOR_INIT_DEFENSE = 15;
+  public static final int USER_CREATE__WARRIOR_INIT_DEFENSE = 10;
 
   
 }
