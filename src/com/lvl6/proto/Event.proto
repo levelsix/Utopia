@@ -986,11 +986,13 @@ message ReferralCodeUsedResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message EquipEquipmentRequestProto {
 	required MinimumUserProto sender = 1;
 	required int32 equipId = 2;
 }
 
+																						//DONE
 message EquipEquipmentResponseProto {
 	required MinimumUserProto sender = 1;
 	required EquipEquipmentStatus status = 2;
@@ -1000,7 +1002,8 @@ message EquipEquipmentResponseProto {
 		NOT_HIGH_ENOUGH_LEVEL = 1;
 		DOES_NOT_HAVE_THIS_EQUIP = 2;
 		NOT_AN_EQUIP = 3;
-		OTHER_FAIL = 4;
+		INCORRECT_CLASS_TYPE = 4;
+		OTHER_FAIL = 5;
 	}
 }
 

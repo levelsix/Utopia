@@ -61204,14 +61204,16 @@ public final class EventProto {
       NOT_HIGH_ENOUGH_LEVEL(1, 1),
       DOES_NOT_HAVE_THIS_EQUIP(2, 2),
       NOT_AN_EQUIP(3, 3),
-      OTHER_FAIL(4, 4),
+      INCORRECT_CLASS_TYPE(4, 4),
+      OTHER_FAIL(5, 5),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int NOT_HIGH_ENOUGH_LEVEL_VALUE = 1;
       public static final int DOES_NOT_HAVE_THIS_EQUIP_VALUE = 2;
       public static final int NOT_AN_EQUIP_VALUE = 3;
-      public static final int OTHER_FAIL_VALUE = 4;
+      public static final int INCORRECT_CLASS_TYPE_VALUE = 4;
+      public static final int OTHER_FAIL_VALUE = 5;
       
       
       public final int getNumber() { return value; }
@@ -61222,7 +61224,8 @@ public final class EventProto {
           case 1: return NOT_HIGH_ENOUGH_LEVEL;
           case 2: return DOES_NOT_HAVE_THIS_EQUIP;
           case 3: return NOT_AN_EQUIP;
-          case 4: return OTHER_FAIL;
+          case 4: return INCORRECT_CLASS_TYPE;
+          case 5: return OTHER_FAIL;
           default: return null;
         }
       }
@@ -61253,7 +61256,7 @@ public final class EventProto {
       }
       
       private static final EquipEquipmentStatus[] VALUES = {
-        SUCCESS, NOT_HIGH_ENOUGH_LEVEL, DOES_NOT_HAVE_THIS_EQUIP, NOT_AN_EQUIP, OTHER_FAIL, 
+        SUCCESS, NOT_HIGH_ENOUGH_LEVEL, DOES_NOT_HAVE_THIS_EQUIP, NOT_AN_EQUIP, INCORRECT_CLASS_TYPE, OTHER_FAIL, 
       };
       
       public static EquipEquipmentStatus valueOf(
@@ -63879,24 +63882,25 @@ public final class EventProto {
       "\0132 .com.lvl6.proto.MinimumUserProto\"_\n\032E" +
       "quipEquipmentRequestProto\0220\n\006sender\030\001 \002(" +
       "\0132 .com.lvl6.proto.MinimumUserProto\022\017\n\007e",
-      "quipId\030\002 \002(\005\"\241\002\n\033EquipEquipmentResponseP" +
+      "quipId\030\002 \002(\005\"\274\002\n\033EquipEquipmentResponseP" +
       "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
       "nimumUserProto\022P\n\006status\030\002 \002(\0162@.com.lvl" +
       "6.proto.EquipEquipmentResponseProto.Equi" +
-      "pEquipmentStatus\"~\n\024EquipEquipmentStatus" +
-      "\022\013\n\007SUCCESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_LEVEL\020\001" +
-      "\022\034\n\030DOES_NOT_HAVE_THIS_EQUIP\020\002\022\020\n\014NOT_AN" +
-      "_EQUIP\020\003\022\016\n\nOTHER_FAIL\020\004\"\207\001\n\036ChangeUserL" +
-      "ocationRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\0223\n\014userLoc",
-      "ation\030\002 \002(\0132\035.com.lvl6.proto.LocationPro" +
-      "to\"\372\001\n\037ChangeUserLocationResponseProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022X\n\006status\030\002 \002(\0162H.com.lvl6.prot" +
-      "o.ChangeUserLocationResponseProto.Change" +
-      "UserLocationStatus\"K\n\030ChangeUserLocation" +
-      "Status\022\013\n\007SUCCESS\020\000\022\022\n\016INVALID_BOUNDS\020\001\022" +
-      "\016\n\nOTHER_FAIL\020\002B\014B\nEventProto"
+      "pEquipmentStatus\"\230\001\n\024EquipEquipmentStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_LEVEL\020" +
+      "\001\022\034\n\030DOES_NOT_HAVE_THIS_EQUIP\020\002\022\020\n\014NOT_A" +
+      "N_EQUIP\020\003\022\030\n\024INCORRECT_CLASS_TYPE\020\004\022\016\n\nO" +
+      "THER_FAIL\020\005\"\207\001\n\036ChangeUserLocationReques" +
+      "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.",
+      "MinimumUserProto\0223\n\014userLocation\030\002 \002(\0132\035" +
+      ".com.lvl6.proto.LocationProto\"\372\001\n\037Change" +
+      "UserLocationResponseProto\0220\n\006sender\030\001 \002(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022X\n\006s" +
+      "tatus\030\002 \002(\0162H.com.lvl6.proto.ChangeUserL" +
+      "ocationResponseProto.ChangeUserLocationS" +
+      "tatus\"K\n\030ChangeUserLocationStatus\022\013\n\007SUC" +
+      "CESS\020\000\022\022\n\016INVALID_BOUNDS\020\001\022\016\n\nOTHER_FAIL" +
+      "\020\002B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

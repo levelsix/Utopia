@@ -98,7 +98,7 @@ message FullEquipProto {
 	enum EquipType {
 		WEAPON = 0;
 		ARMOR = 1;
-		ACCESSORY = 2;
+		AMULET = 2;
 	}
 	
 	enum ClassType {
