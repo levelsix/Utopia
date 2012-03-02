@@ -11,6 +11,7 @@ import com.lvl6.events.request.UserCreateRequestEvent;
 import com.lvl6.events.response.ReferralCodeUsedResponseEvent;
 import com.lvl6.events.response.UserCreateResponseEvent;
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.Location;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
@@ -73,7 +74,7 @@ public class UserCreateController extends EventController {
 
       String newReferCode = grabNewReferCode();
       
-      int userId = InsertUtils.insertUser(udid, name, type, location, referrer != null, deviceToken, newReferCode);
+      int userId = InsertUtils.insertUser(udid, name, type, new Location(location.getLatitude(), location.getLongitude()), referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {

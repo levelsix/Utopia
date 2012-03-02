@@ -9,13 +9,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.InfoProto.BattleResult;
-import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
@@ -214,11 +214,12 @@ public class InsertUtils {
   }
   
   //returns -1 if error
-  public static int insertUser(String udid, String name, UserType type, LocationProto location, boolean isReferred, String deviceToken, String newReferCode) {
+  public static int insertUser(String udid, String name, UserType type, Location location, boolean isReferred, String deviceToken, String newReferCode, int level) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER__UDID, udid);
     insertParams.put(DBConstants.USER__NAME, name);
-    insertParams.put(DBConstants.USER__TYPE, type);
+    insertParams.put(DBConstants.USER__TYPE, type.getNumber());
+    insertParams.put(DBConstants.USER__LEVEL, level);
     
     if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
       insertParams.put(DBConstants.USER__ATTACK, ControllerConstants.USER_CREATE__ARCHER_INIT_ATTACK);

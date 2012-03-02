@@ -160,19 +160,20 @@ public class ControllerConstants {
   public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 30;
 
   //USER CREATE 
+  public static final int USER_CREATE__START_LEVEL = 1;
   public static final int USER_CREATE__MIN_NAME_LENGTH = 0;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
   public static final int USER_CREATE__DEFAULT_DIAMONDS = 20;
   
-  public static final int USER_CREATE__ARCHER_INIT_ATTACK = 15;
-  public static final int USER_CREATE__ARCHER_INIT_DEFENSE = 15;
+  public static final int USER_CREATE__ARCHER_INIT_ATTACK = 10;
+  public static final int USER_CREATE__ARCHER_INIT_DEFENSE = 18;
 
-  public static final int USER_CREATE__MAGE_INIT_ATTACK = 15;
-  public static final int USER_CREATE__MAGE_INIT_DEFENSE = 15;
+  public static final int USER_CREATE__MAGE_INIT_ATTACK = 13;
+  public static final int USER_CREATE__MAGE_INIT_DEFENSE = 13;
 
   public static final int USER_CREATE__WARRIOR_INIT_ATTACK = 15;
-  public static final int USER_CREATE__WARRIOR_INIT_DEFENSE = 15;
+  public static final int USER_CREATE__WARRIOR_INIT_DEFENSE = 10;
 
   
 }
