@@ -32,7 +32,7 @@ public class LoadPlayerCityController extends EventController {
   public LoadPlayerCityController() {
     numAllocatedThreads = 10;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new LoadPlayerCityRequestEvent();
@@ -58,45 +58,42 @@ public class LoadPlayerCityController extends EventController {
 
     try {
       User owner = UserRetrieveUtils.getUserById(cityOwnerProto.getUserId());
-      
+
       Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
       setResponseCritstructs(resBuilder, userCritStructs);
-      
+
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerProto.getUserId());
       setResponseUserStructs(resBuilder, userStructs);
-      
+
       UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(cityOwnerProto.getUserId());
       if (userCityExpansionData != null) {
         resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
       }
-      
-      
-      boolean cityOwnerIsSender = (cityOwnerProto.getUserId() == senderProto.getUserId());
+
       boolean ownerIsGood = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
       boolean senderIsGood = MiscMethods.checkIfGoodSide(senderProto.getUserType());
-      
+
       List<UserType> userTypes = new ArrayList<UserType>();
-      if (goodSide) {
-        userTypes.add(UserType.GOOD_ARCHER);
-        userTypes.add(UserType.GOOD_MAGE);
-        userTypes.add(UserType.GOOD_WARRIOR);
-      } else {
+      if (senderIsGood) {
         userTypes.add(UserType.BAD_ARCHER);
         userTypes.add(UserType.BAD_MAGE);
         userTypes.add(UserType.BAD_WARRIOR);
+      } else {
+        userTypes.add(UserType.GOOD_ARCHER);
+        userTypes.add(UserType.GOOD_MAGE);
+        userTypes.add(UserType.GOOD_WARRIOR);
       }
 
-      List<User> ownerAllies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_ALLIES_IN_CITY, owner.getLevel(), owner.getId(), false, 
-          null, null, null, null, false);
-      setResponseOwnerAllies(resBuilder, ownerAllies);
-      
-      
-      
-      
-      
-      
-      
-      
+      if (ownerIsGood != senderIsGood) {    //loading enemy city, load some of owners allies (more enemies from your POV)
+        List<User> ownerAllies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
+            null, null, null, null, false);
+        setResponseOwnerAlliesOrEnemies(resBuilder, ownerAllies, true);
+      } else {                              //loading ally city or your city, creating some of owners enemies
+        List<User> ownerEnemies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
+            null, null, null, null, false);
+        setResponseOwnerAlliesOrEnemies(resBuilder, ownerEnemies, false);
+      }
+
       LoadPlayerCityResponseEvent resEvent = new LoadPlayerCityResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setLoadPlayerCityResponseProto(resBuilder.build());  
@@ -111,10 +108,14 @@ public class LoadPlayerCityController extends EventController {
 
   }
 
-  private void setResponseOwnerAllies(Builder resBuilder, List<User> ownerAllies) {
-    if (ownerAllies != null) {
-      for (User ownerAlly : ownerAllies) {
-        resBuilder.addOwnerAllies(CreateInfoProtoUtils.createFullUserProtoFromUser(ownerAlly));
+  private void setResponseOwnerAlliesOrEnemies(Builder resBuilder, List<User> users, boolean ownerAllies) {
+    if (users != null) {
+      for (User user : users) {
+        if (ownerAllies) {
+          resBuilder.addOwnerAllies(CreateInfoProtoUtils.createFullUserProtoFromUser(user));
+        } else {
+          resBuilder.addOwnerEnemies(CreateInfoProtoUtils.createFullUserProtoFromUser(user));          
+        }
       }
     } else {
       resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
