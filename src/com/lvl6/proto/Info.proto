@@ -104,7 +104,8 @@ message FullEquipProto {
 	enum ClassType {
 		WARRIOR = 0;
 		ARCHER = 1;
-		MAGE = 2;	
+		MAGE = 2;
+		ALL_AMULET = 3;	
 	}
 }
 

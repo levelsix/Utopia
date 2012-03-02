@@ -192,14 +192,6 @@ message UserCreateResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message ChangeUserLocationRequestProto {
-     required MinimumUserProto sender = 1;
-     optional int32 cityId = 2;
-     required LocationProto userLocation = 3;    
-}
-
-//------------------------------------------------------------------------------------------
-
 																						//DONE
 message RetrieveTasksForCityRequestProto {
      required MinimumUserProto sender = 1;
@@ -990,4 +982,44 @@ message PurchaseMarketplaceLicenseResponseProto {
 message ReferralCodeUsedResponseProto {
 	required MinimumUserProto sender = 1;
 	required MinimumUserProto referredPlayer = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message EquipEquipmentRequestProto {
+	required MinimumUserProto sender = 1;
+	required int32 equipId = 2;
+}
+
+message EquipEquipmentResponseProto {
+	required MinimumUserProto sender = 1;
+	required EquipEquipmentStatus status = 2;
+	
+	enum EquipEquipmentStatus {
+		SUCCESS = 0;
+		NOT_HIGH_ENOUGH_LEVEL = 1;
+		DOES_NOT_HAVE_THIS_EQUIP = 2;
+		NOT_AN_EQUIP = 3;
+		OTHER_FAIL = 4;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message ChangeUserLocationRequestProto {
+     required MinimumUserProto sender = 1;
+     required LocationProto userLocation = 2;    
+}
+
+																						//DONE
+message ChangeUserLocationResponseProto {
+     required MinimumUserProto sender = 1;
+     required ChangeUserLocationStatus status = 2;
+     
+     enum ChangeUserLocationStatus {
+     	SUCCESS = 0;
+     	INVALID_BOUNDS = 1;
+     	OTHER_FAIL = 2;
+     }    
 }

@@ -116,6 +116,23 @@ public class User {
     this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
   }
 
+  public boolean updateAbsoluteUserLocation(Location location) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__LATITUDE, location.getLatitude());
+    absoluteParams.put(DBConstants.USER__LONGITUDE, location.getLongitude());
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.userLocation = location;
+      return true;
+    }
+    return false;
+  }
+
   public boolean updateUnequip(int equipId, boolean isWeapon, boolean isArmor, boolean isAmulet) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
