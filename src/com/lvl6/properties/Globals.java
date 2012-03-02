@@ -2,10 +2,10 @@ package com.lvl6.properties;
 
 public class Globals {
     /** size of ByteBuffer for reading/writing from channels */
-    public static final int NET_BUFFER_SIZE=8192;
+    public static final int NET_BUFFER_SIZE=16384;
 
     /** maximum event size in bytes */
-    public static final int MAX_EVENT_SIZE=4096;
+    public static final int MAX_EVENT_SIZE=16384;
 
     /** interval to sleep between attempts to write to a channel. */
     public static final long CHANNEL_WRITE_SLEEP = 10L;
