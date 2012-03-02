@@ -98,10 +98,11 @@ public class UserRetrieveUtils {
       values.add(null);
     }
     
-    query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
+    query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand() limit ?";
 
     values.add(levelMin);
     values.add(levelMax);
+    values.add(numUsers);
 
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
     int numDBHits = 1;
@@ -109,8 +110,10 @@ public class UserRetrieveUtils {
     while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
       values.remove(values.size()-1);
       values.remove(values.size()-1);
+      values.remove(values.size()-1);
       values.add(Math.max(ControllerConstants.BATTLE__MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
       values.add(levelMax + rangeIncrease/2);
+      values.add(numUsers);
       rs = DBConnection.selectDirectQueryNaive(query, values);
       numDBHits++;
       if (!guaranteeNum) {
