@@ -51,6 +51,7 @@ import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
+import com.lvl6.proto.InfoProto.MinimumUserTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
@@ -84,7 +85,7 @@ public class CreateInfoProtoUtils {
     return MarketplacePostPurchasedNotificationProto.newBuilder().setMarketplacePost(fmpp)
         .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime()).build();
   }
-  
+
   public static AttackedNotificationProto createAttackedNotificationProtoFromBattleHistory(BattleDetails bd, User attacker) {
     AttackedNotificationProto.Builder builder = AttackedNotificationProto.newBuilder();
     builder.setAttacker(createMinimumUserProtoFromUser(attacker)).setBattleResult(bd.getResult())
@@ -97,11 +98,11 @@ public class CreateInfoProtoUtils {
     }
     return builder.build();
   }
-  
+
   public static MinimumUserProto createMinimumUserProtoFromUser(User u) {
     return MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType()).build();
   }
-  
+
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
         .setNearLeftExpansions(uced.getNearLeftExpansions())
@@ -115,7 +116,7 @@ public class CreateInfoProtoUtils {
     }
     return builder.build();
   }
-  
+
   public static FullQuestProto createFullQuestProtoFromQuest(UserType userType, Quest quest) {
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
 
@@ -152,7 +153,7 @@ public class CreateInfoProtoUtils {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
         .setPosterId(mp.getPosterId()).setPostType(mp.getPostType())
         .setTimeOfPost(mp.getTimeOfPost().getTime()).setPostedEquip(createFullEquipProtoFromEquip(
-          EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
+            EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
     if (mp.getDiamondCost() != ControllerConstants.NOT_SET) {
       builder.setDiamondCost(mp.getDiamondCost());
     }
@@ -329,14 +330,14 @@ public class CreateInfoProtoUtils {
   public static List<FullUserQuestDataLargeProto> createFullUserQuestDataLarges(List<UserQuest> userQuests, Map<Integer, Quest> questIdsToQuests, UserType userType) {
     List<FullUserQuestDataLargeProto> fullUserQuestDataLargeProtos = new ArrayList<FullUserQuestDataLargeProto>();
 
+    Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
     Map<Integer, Integer> taskIdsToNumTimesActedInRankForUser = null;
-    List<Integer> userTasksCompletedForQuest = null;
 
-    List<Integer> userDefeatTypeJobsCompletedForQuest = null;
+    Map<Integer, List<Integer>> questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
     Map<Integer, Integer> defeatTypeJobIdsToNumDefeatedForUserQuest = null;
-    
+
     Map<Integer, List<UserStruct>> structIdsToUserStructs = null;
-    
+
     Map<Integer, UserEquip> equipIdsToUserEquips = null;
 
     for (UserQuest userQuest : userQuests) {
@@ -349,13 +350,14 @@ public class CreateInfoProtoUtils {
         builder.setRedeemed(userQuest.isRedeemed());
         if (!userQuest.isRedeemed()) {
           if (quest.getTasksRequired() != null && quest.getTasksRequired().size() > 0) {
-            if (userTasksCompletedForQuest == null){
-              userTasksCompletedForQuest = UserQuestsCompletedTasksRetrieveUtils.getUserTasksCompletedForQuest(userQuest.getUserId(), userQuest.getQuestId());
+            if (questIdToUserTasksCompletedForQuestForUser == null) {
+              questIdToUserTasksCompletedForQuestForUser = UserQuestsCompletedTasksRetrieveUtils.getQuestIdToUserTasksCompletedForQuestForUser(userQuest.getUserId());
             }
+            List<Integer> userTasksCompletedForQuest = questIdToUserTasksCompletedForQuestForUser.get(userQuest.getQuestId());
             for (Integer requiredTaskId : quest.getTasksRequired()) {
               boolean taskCompletedForQuest = false;
               Integer numTimesUserActed = null;
-              if (userTasksCompletedForQuest.contains(requiredTaskId)) {
+              if (userTasksCompletedForQuest != null && userTasksCompletedForQuest.contains(requiredTaskId)) {
                 taskCompletedForQuest = true;
               } else {
                 if (taskIdsToNumTimesActedInRankForUser == null) {
@@ -378,13 +380,14 @@ public class CreateInfoProtoUtils {
             defeatTypeJobsRequired = quest.getDefeatGoodGuysJobsRequired();
           }
           if (defeatTypeJobsRequired != null && defeatTypeJobsRequired.size() > 0) {
-            if (userDefeatTypeJobsCompletedForQuest == null) {
-              userDefeatTypeJobsCompletedForQuest = UserQuestsCompletedDefeatTypeJobsRetrieveUtils.getUserDefeatTypeJobsCompletedForQuest(userQuest.getUserId(), userQuest.getQuestId());
+            if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
+              questIdToUserDefeatTypeJobsCompletedForQuestForUser = UserQuestsCompletedDefeatTypeJobsRetrieveUtils.getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(userQuest.getUserId());
             }
+            List<Integer> userDefeatTypeJobsCompletedForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(userQuest.getQuestId());
             for (Integer requiredDefeatTypeJobId : defeatTypeJobsRequired) {
               boolean defeatJobCompletedForQuest = false;
               Integer numTimesUserDidJob = null;
-              if (userDefeatTypeJobsCompletedForQuest.contains(requiredDefeatTypeJobId)) {
+              if (userDefeatTypeJobsCompletedForQuest != null && userDefeatTypeJobsCompletedForQuest.contains(requiredDefeatTypeJobId)) {
                 defeatJobCompletedForQuest = true;
               } else {
                 if (defeatTypeJobIdsToNumDefeatedForUserQuest == null) {
@@ -445,7 +448,7 @@ public class CreateInfoProtoUtils {
     }
     return fullUserQuestDataLargeProtos;
   }
-  
+
   private static MinimumUserPossessEquipJobProto createMinimumUserPossessEquipJobProto(UserQuest userQuest, PossessEquipJob possessEquipJob, int quantityOwned) {
     PossessEquipJobProto pejp = createFullPossessEquipJobProtoFromPossessEquipJob(possessEquipJob);
     return MinimumUserPossessEquipJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setPossessEquipJobProto(pejp).setNumEquipUserHas(quantityOwned).build();
@@ -472,5 +475,10 @@ public class CreateInfoProtoUtils {
     FullTaskProto ftp = createFullTaskProtoFromTask(userType, TaskRetrieveUtils.getTaskForTaskId(requiredTaskId));
     int numTimesCompleted = (taskCompletedForQuest) ? ftp.getNumRequiredForCompletion() : numTimesUserActed;
     return MinimumUserQuestTaskProto.newBuilder().setUserId(userQuest.getUserId()).setTask(ftp).setNumTimesActed(numTimesCompleted).setQuestId(userQuest.getQuestId()).build();
+  }
+
+  public static MinimumUserTaskProto createMinimumUserTaskProto(UserType userType, Integer userId, Task task, Integer numTimesUserActed) {
+    FullTaskProto ftp = createFullTaskProtoFromTask(userType, task);
+    return MinimumUserTaskProto.newBuilder().setUserId(userId).setTask(ftp).setNumTimesActed(numTimesUserActed).build();
   }
 }

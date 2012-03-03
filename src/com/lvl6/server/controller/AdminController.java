@@ -40,6 +40,7 @@ public class AdminController extends EventController {
         StructureRetrieveUtils.reload();
         PossessEquipJobRetrieveUtils.reload();
         LevelsRequiredExperienceRetrieveUtils.reload();
+        NeutralCityElementsRetrieveUtils.reload();
         break;
       case BUILD_STRUCT_JOBS:
         BuildStructJobRetrieveUtils.reload();
@@ -73,6 +74,9 @@ public class AdminController extends EventController {
         break;
       case LEVELS_REQUIRED_EXPERIENCE:
         LevelsRequiredExperienceRetrieveUtils.reload();
+        break;
+      case NEUTRAL_CITY_ELEMS:
+        NeutralCityElementsRetrieveUtils.reload();
         break;
       }
 

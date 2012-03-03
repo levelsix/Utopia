@@ -12589,7 +12589,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getStructuresOrBuilder(
         int index);
     
-    // required .com.lvl6.proto.LocationProto userLocation = 6;
+    // optional .com.lvl6.proto.LocationProto userLocation = 6;
     boolean hasUserLocation();
     com.lvl6.proto.InfoProto.LocationProto getUserLocation();
     com.lvl6.proto.InfoProto.LocationProtoOrBuilder getUserLocationOrBuilder();
@@ -12726,7 +12726,7 @@ public final class EventProto {
       return structures_.get(index);
     }
     
-    // required .com.lvl6.proto.LocationProto userLocation = 6;
+    // optional .com.lvl6.proto.LocationProto userLocation = 6;
     public static final int USERLOCATION_FIELD_NUMBER = 6;
     private com.lvl6.proto.InfoProto.LocationProto userLocation_;
     public boolean hasUserLocation() {
@@ -12829,19 +12829,17 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasUserLocation()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       for (int i = 0; i < getStructuresCount(); i++) {
         if (!getStructures(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
       }
-      if (!getUserLocation().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
+      if (hasUserLocation()) {
+        if (!getUserLocation().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -13208,19 +13206,17 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasUserLocation()) {
-          
-          return false;
-        }
         for (int i = 0; i < getStructuresCount(); i++) {
           if (!getStructures(i).isInitialized()) {
             
             return false;
           }
         }
-        if (!getUserLocation().isInitialized()) {
-          
-          return false;
+        if (hasUserLocation()) {
+          if (!getUserLocation().isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -13582,7 +13578,7 @@ public final class EventProto {
         return structuresBuilder_;
       }
       
-      // required .com.lvl6.proto.LocationProto userLocation = 6;
+      // optional .com.lvl6.proto.LocationProto userLocation = 6;
       private com.lvl6.proto.InfoProto.LocationProto userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.LocationProto, com.lvl6.proto.InfoProto.LocationProto.Builder, com.lvl6.proto.InfoProto.LocationProtoOrBuilder> userLocationBuilder_;
@@ -63223,6 +63219,1667 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.ChangeUserLocationResponseProto)
   }
   
+  public interface LoadNeutralCityRequestProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required int32 cityId = 2;
+    boolean hasCityId();
+    int getCityId();
+  }
+  public static final class LoadNeutralCityRequestProto extends
+      com.google.protobuf.GeneratedMessage
+      implements LoadNeutralCityRequestProtoOrBuilder {
+    // Use LoadNeutralCityRequestProto.newBuilder() to construct.
+    private LoadNeutralCityRequestProto(Builder builder) {
+      super(builder);
+    }
+    private LoadNeutralCityRequestProto(boolean noInit) {}
+    
+    private static final LoadNeutralCityRequestProto defaultInstance;
+    public static LoadNeutralCityRequestProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public LoadNeutralCityRequestProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required int32 cityId = 2;
+    public static final int CITYID_FIELD_NUMBER = 2;
+    private int cityId_;
+    public boolean hasCityId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getCityId() {
+      return cityId_;
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      cityId_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCityId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, cityId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, cityId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityRequestProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.LoadNeutralCityRequestProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.LoadNeutralCityRequestProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.LoadNeutralCityRequestProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        cityId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.LoadNeutralCityRequestProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadNeutralCityRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.LoadNeutralCityRequestProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadNeutralCityRequestProto build() {
+        com.lvl6.proto.EventProto.LoadNeutralCityRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.LoadNeutralCityRequestProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.LoadNeutralCityRequestProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.LoadNeutralCityRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.LoadNeutralCityRequestProto result = new com.lvl6.proto.EventProto.LoadNeutralCityRequestProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.cityId_ = cityId_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.LoadNeutralCityRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.LoadNeutralCityRequestProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.LoadNeutralCityRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.LoadNeutralCityRequestProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasCityId()) {
+          setCityId(other.getCityId());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasCityId()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              cityId_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required int32 cityId = 2;
+      private int cityId_ ;
+      public boolean hasCityId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getCityId() {
+        return cityId_;
+      }
+      public Builder setCityId(int value) {
+        bitField0_ |= 0x00000002;
+        cityId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCityId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        cityId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LoadNeutralCityRequestProto)
+    }
+    
+    static {
+      defaultInstance = new LoadNeutralCityRequestProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LoadNeutralCityRequestProto)
+  }
+  
+  public interface LoadNeutralCityResponseProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    boolean hasSender();
+    com.lvl6.proto.InfoProto.MinimumUserProto getSender();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus getStatus();
+    
+    // repeated .com.lvl6.proto.MinimumUserTaskProto userTasksInfo = 3;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> 
+        getUserTasksInfoList();
+    com.lvl6.proto.InfoProto.MinimumUserTaskProto getUserTasksInfo(int index);
+    int getUserTasksInfoCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+        getUserTasksInfoOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder getUserTasksInfoOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.FullUserProto defeatTypeJobEnemies = 4;
+    java.util.List<com.lvl6.proto.InfoProto.FullUserProto> 
+        getDefeatTypeJobEnemiesList();
+    com.lvl6.proto.InfoProto.FullUserProto getDefeatTypeJobEnemies(int index);
+    int getDefeatTypeJobEnemiesCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+        getDefeatTypeJobEnemiesOrBuilderList();
+    com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getDefeatTypeJobEnemiesOrBuilder(
+        int index);
+  }
+  public static final class LoadNeutralCityResponseProto extends
+      com.google.protobuf.GeneratedMessage
+      implements LoadNeutralCityResponseProtoOrBuilder {
+    // Use LoadNeutralCityResponseProto.newBuilder() to construct.
+    private LoadNeutralCityResponseProto(Builder builder) {
+      super(builder);
+    }
+    private LoadNeutralCityResponseProto(boolean noInit) {}
+    
+    private static final LoadNeutralCityResponseProto defaultInstance;
+    public static LoadNeutralCityResponseProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public LoadNeutralCityResponseProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_fieldAccessorTable;
+    }
+    
+    public enum LoadNeutralCityStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      SUCCESS(0, 0),
+      NOT_ACCESSIBLE_TO_USER(1, 1),
+      OTHER_FAIL(2, 2),
+      ;
+      
+      public static final int SUCCESS_VALUE = 0;
+      public static final int NOT_ACCESSIBLE_TO_USER_VALUE = 1;
+      public static final int OTHER_FAIL_VALUE = 2;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static LoadNeutralCityStatus valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return NOT_ACCESSIBLE_TO_USER;
+          case 2: return OTHER_FAIL;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<LoadNeutralCityStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<LoadNeutralCityStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<LoadNeutralCityStatus>() {
+              public LoadNeutralCityStatus findValueByNumber(int number) {
+                return LoadNeutralCityStatus.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final LoadNeutralCityStatus[] VALUES = {
+        SUCCESS, NOT_ACCESSIBLE_TO_USER, OTHER_FAIL, 
+      };
+      
+      public static LoadNeutralCityStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private LoadNeutralCityStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus)
+    }
+    
+    private int bitField0_;
+    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    public static final int SENDER_FIELD_NUMBER = 1;
+    private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
+    public boolean hasSender() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+      return sender_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+      return sender_;
+    }
+    
+    // required .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus getStatus() {
+      return status_;
+    }
+    
+    // repeated .com.lvl6.proto.MinimumUserTaskProto userTasksInfo = 3;
+    public static final int USERTASKSINFO_FIELD_NUMBER = 3;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> userTasksInfo_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> getUserTasksInfoList() {
+      return userTasksInfo_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+        getUserTasksInfoOrBuilderList() {
+      return userTasksInfo_;
+    }
+    public int getUserTasksInfoCount() {
+      return userTasksInfo_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserTaskProto getUserTasksInfo(int index) {
+      return userTasksInfo_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder getUserTasksInfoOrBuilder(
+        int index) {
+      return userTasksInfo_.get(index);
+    }
+    
+    // repeated .com.lvl6.proto.FullUserProto defeatTypeJobEnemies = 4;
+    public static final int DEFEATTYPEJOBENEMIES_FIELD_NUMBER = 4;
+    private java.util.List<com.lvl6.proto.InfoProto.FullUserProto> defeatTypeJobEnemies_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullUserProto> getDefeatTypeJobEnemiesList() {
+      return defeatTypeJobEnemies_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+        getDefeatTypeJobEnemiesOrBuilderList() {
+      return defeatTypeJobEnemies_;
+    }
+    public int getDefeatTypeJobEnemiesCount() {
+      return defeatTypeJobEnemies_.size();
+    }
+    public com.lvl6.proto.InfoProto.FullUserProto getDefeatTypeJobEnemies(int index) {
+      return defeatTypeJobEnemies_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getDefeatTypeJobEnemiesOrBuilder(
+        int index) {
+      return defeatTypeJobEnemies_.get(index);
+    }
+    
+    private void initFields() {
+      sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      status_ = com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus.SUCCESS;
+      userTasksInfo_ = java.util.Collections.emptyList();
+      defeatTypeJobEnemies_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getSender().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getUserTasksInfoCount(); i++) {
+        if (!getUserTasksInfo(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getDefeatTypeJobEnemiesCount(); i++) {
+        if (!getDefeatTypeJobEnemies(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
+      }
+      for (int i = 0; i < userTasksInfo_.size(); i++) {
+        output.writeMessage(3, userTasksInfo_.get(i));
+      }
+      for (int i = 0; i < defeatTypeJobEnemies_.size(); i++) {
+        output.writeMessage(4, defeatTypeJobEnemies_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
+      }
+      for (int i = 0; i < userTasksInfo_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, userTasksInfo_.get(i));
+      }
+      for (int i = 0; i < defeatTypeJobEnemies_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, defeatTypeJobEnemies_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.EventProto.LoadNeutralCityResponseProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.EventProto.LoadNeutralCityResponseProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.EventProto.LoadNeutralCityResponseProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSenderFieldBuilder();
+          getUserTasksInfoFieldBuilder();
+          getDefeatTypeJobEnemiesFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (userTasksInfoBuilder_ == null) {
+          userTasksInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          userTasksInfoBuilder_.clear();
+        }
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          defeatTypeJobEnemies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          defeatTypeJobEnemiesBuilder_.clear();
+        }
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadNeutralCityResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.EventProto.LoadNeutralCityResponseProto build() {
+        com.lvl6.proto.EventProto.LoadNeutralCityResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.EventProto.LoadNeutralCityResponseProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.EventProto.LoadNeutralCityResponseProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.EventProto.LoadNeutralCityResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.LoadNeutralCityResponseProto result = new com.lvl6.proto.EventProto.LoadNeutralCityResponseProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (senderBuilder_ == null) {
+          result.sender_ = sender_;
+        } else {
+          result.sender_ = senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        if (userTasksInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            userTasksInfo_ = java.util.Collections.unmodifiableList(userTasksInfo_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.userTasksInfo_ = userTasksInfo_;
+        } else {
+          result.userTasksInfo_ = userTasksInfoBuilder_.build();
+        }
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            defeatTypeJobEnemies_ = java.util.Collections.unmodifiableList(defeatTypeJobEnemies_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.defeatTypeJobEnemies_ = defeatTypeJobEnemies_;
+        } else {
+          result.defeatTypeJobEnemies_ = defeatTypeJobEnemiesBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.EventProto.LoadNeutralCityResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.LoadNeutralCityResponseProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.EventProto.LoadNeutralCityResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.getDefaultInstance()) return this;
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        if (userTasksInfoBuilder_ == null) {
+          if (!other.userTasksInfo_.isEmpty()) {
+            if (userTasksInfo_.isEmpty()) {
+              userTasksInfo_ = other.userTasksInfo_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureUserTasksInfoIsMutable();
+              userTasksInfo_.addAll(other.userTasksInfo_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.userTasksInfo_.isEmpty()) {
+            if (userTasksInfoBuilder_.isEmpty()) {
+              userTasksInfoBuilder_.dispose();
+              userTasksInfoBuilder_ = null;
+              userTasksInfo_ = other.userTasksInfo_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              userTasksInfoBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getUserTasksInfoFieldBuilder() : null;
+            } else {
+              userTasksInfoBuilder_.addAllMessages(other.userTasksInfo_);
+            }
+          }
+        }
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          if (!other.defeatTypeJobEnemies_.isEmpty()) {
+            if (defeatTypeJobEnemies_.isEmpty()) {
+              defeatTypeJobEnemies_ = other.defeatTypeJobEnemies_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureDefeatTypeJobEnemiesIsMutable();
+              defeatTypeJobEnemies_.addAll(other.defeatTypeJobEnemies_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.defeatTypeJobEnemies_.isEmpty()) {
+            if (defeatTypeJobEnemiesBuilder_.isEmpty()) {
+              defeatTypeJobEnemiesBuilder_.dispose();
+              defeatTypeJobEnemiesBuilder_ = null;
+              defeatTypeJobEnemies_ = other.defeatTypeJobEnemies_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              defeatTypeJobEnemiesBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getDefeatTypeJobEnemiesFieldBuilder() : null;
+            } else {
+              defeatTypeJobEnemiesBuilder_.addAllMessages(other.defeatTypeJobEnemies_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!getSender().isInitialized()) {
+          
+          return false;
+        }
+        for (int i = 0; i < getUserTasksInfoCount(); i++) {
+          if (!getUserTasksInfo(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getDefeatTypeJobEnemiesCount(); i++) {
+          if (!getDefeatTypeJobEnemies(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasSender()) {
+                subBuilder.mergeFrom(getSender());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus value = com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                status_ = value;
+              }
+              break;
+            }
+            case 26: {
+              com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserTaskProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addUserTasksInfo(subBuilder.buildPartial());
+              break;
+            }
+            case 34: {
+              com.lvl6.proto.InfoProto.FullUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addDefeatTypeJobEnemies(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto getSender() {
+        if (senderBuilder_ == null) {
+          return sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      public Builder setSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder setSender(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+          onChanged();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder mergeSender(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              sender_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            sender_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(sender_).mergeFrom(value).buildPartial();
+          } else {
+            sender_ = value;
+          }
+          onChanged();
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      public Builder clearSender() {
+        if (senderBuilder_ == null) {
+          sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          senderBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  sender_,
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+      
+      // required .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
+      private com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status_ = com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus getStatus() {
+        return status_;
+      }
+      public Builder setStatus(com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus.SUCCESS;
+        onChanged();
+        return this;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserTaskProto userTasksInfo = 3;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> userTasksInfo_ =
+        java.util.Collections.emptyList();
+      private void ensureUserTasksInfoIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          userTasksInfo_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserTaskProto>(userTasksInfo_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserTaskProto, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> userTasksInfoBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto> getUserTasksInfoList() {
+        if (userTasksInfoBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(userTasksInfo_);
+        } else {
+          return userTasksInfoBuilder_.getMessageList();
+        }
+      }
+      public int getUserTasksInfoCount() {
+        if (userTasksInfoBuilder_ == null) {
+          return userTasksInfo_.size();
+        } else {
+          return userTasksInfoBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto getUserTasksInfo(int index) {
+        if (userTasksInfoBuilder_ == null) {
+          return userTasksInfo_.get(index);
+        } else {
+          return userTasksInfoBuilder_.getMessage(index);
+        }
+      }
+      public Builder setUserTasksInfo(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto value) {
+        if (userTasksInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTasksInfoIsMutable();
+          userTasksInfo_.set(index, value);
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setUserTasksInfo(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder builderForValue) {
+        if (userTasksInfoBuilder_ == null) {
+          ensureUserTasksInfoIsMutable();
+          userTasksInfo_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addUserTasksInfo(com.lvl6.proto.InfoProto.MinimumUserTaskProto value) {
+        if (userTasksInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTasksInfoIsMutable();
+          userTasksInfo_.add(value);
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addUserTasksInfo(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto value) {
+        if (userTasksInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTasksInfoIsMutable();
+          userTasksInfo_.add(index, value);
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addUserTasksInfo(
+          com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder builderForValue) {
+        if (userTasksInfoBuilder_ == null) {
+          ensureUserTasksInfoIsMutable();
+          userTasksInfo_.add(builderForValue.build());
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addUserTasksInfo(
+          int index, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder builderForValue) {
+        if (userTasksInfoBuilder_ == null) {
+          ensureUserTasksInfoIsMutable();
+          userTasksInfo_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllUserTasksInfo(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProto> values) {
+        if (userTasksInfoBuilder_ == null) {
+          ensureUserTasksInfoIsMutable();
+          super.addAll(values, userTasksInfo_);
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearUserTasksInfo() {
+        if (userTasksInfoBuilder_ == null) {
+          userTasksInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeUserTasksInfo(int index) {
+        if (userTasksInfoBuilder_ == null) {
+          ensureUserTasksInfoIsMutable();
+          userTasksInfo_.remove(index);
+          onChanged();
+        } else {
+          userTasksInfoBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder getUserTasksInfoBuilder(
+          int index) {
+        return getUserTasksInfoFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder getUserTasksInfoOrBuilder(
+          int index) {
+        if (userTasksInfoBuilder_ == null) {
+          return userTasksInfo_.get(index);  } else {
+          return userTasksInfoBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+           getUserTasksInfoOrBuilderList() {
+        if (userTasksInfoBuilder_ != null) {
+          return userTasksInfoBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(userTasksInfo_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder addUserTasksInfoBuilder() {
+        return getUserTasksInfoFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserTaskProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder addUserTasksInfoBuilder(
+          int index) {
+        return getUserTasksInfoFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserTaskProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder> 
+           getUserTasksInfoBuilderList() {
+        return getUserTasksInfoFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserTaskProto, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder> 
+          getUserTasksInfoFieldBuilder() {
+        if (userTasksInfoBuilder_ == null) {
+          userTasksInfoBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserTaskProto, com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserTaskProtoOrBuilder>(
+                  userTasksInfo_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          userTasksInfo_ = null;
+        }
+        return userTasksInfoBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.FullUserProto defeatTypeJobEnemies = 4;
+      private java.util.List<com.lvl6.proto.InfoProto.FullUserProto> defeatTypeJobEnemies_ =
+        java.util.Collections.emptyList();
+      private void ensureDefeatTypeJobEnemiesIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          defeatTypeJobEnemies_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserProto>(defeatTypeJobEnemies_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> defeatTypeJobEnemiesBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserProto> getDefeatTypeJobEnemiesList() {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(defeatTypeJobEnemies_);
+        } else {
+          return defeatTypeJobEnemiesBuilder_.getMessageList();
+        }
+      }
+      public int getDefeatTypeJobEnemiesCount() {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          return defeatTypeJobEnemies_.size();
+        } else {
+          return defeatTypeJobEnemiesBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto getDefeatTypeJobEnemies(int index) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          return defeatTypeJobEnemies_.get(index);
+        } else {
+          return defeatTypeJobEnemiesBuilder_.getMessage(index);
+        }
+      }
+      public Builder setDefeatTypeJobEnemies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto value) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDefeatTypeJobEnemiesIsMutable();
+          defeatTypeJobEnemies_.set(index, value);
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setDefeatTypeJobEnemies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          ensureDefeatTypeJobEnemiesIsMutable();
+          defeatTypeJobEnemies_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addDefeatTypeJobEnemies(com.lvl6.proto.InfoProto.FullUserProto value) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDefeatTypeJobEnemiesIsMutable();
+          defeatTypeJobEnemies_.add(value);
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addDefeatTypeJobEnemies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto value) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDefeatTypeJobEnemiesIsMutable();
+          defeatTypeJobEnemies_.add(index, value);
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addDefeatTypeJobEnemies(
+          com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          ensureDefeatTypeJobEnemiesIsMutable();
+          defeatTypeJobEnemies_.add(builderForValue.build());
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addDefeatTypeJobEnemies(
+          int index, com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          ensureDefeatTypeJobEnemiesIsMutable();
+          defeatTypeJobEnemies_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllDefeatTypeJobEnemies(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserProto> values) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          ensureDefeatTypeJobEnemiesIsMutable();
+          super.addAll(values, defeatTypeJobEnemies_);
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearDefeatTypeJobEnemies() {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          defeatTypeJobEnemies_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeDefeatTypeJobEnemies(int index) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          ensureDefeatTypeJobEnemiesIsMutable();
+          defeatTypeJobEnemies_.remove(index);
+          onChanged();
+        } else {
+          defeatTypeJobEnemiesBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto.Builder getDefeatTypeJobEnemiesBuilder(
+          int index) {
+        return getDefeatTypeJobEnemiesFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getDefeatTypeJobEnemiesOrBuilder(
+          int index) {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          return defeatTypeJobEnemies_.get(index);  } else {
+          return defeatTypeJobEnemiesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+           getDefeatTypeJobEnemiesOrBuilderList() {
+        if (defeatTypeJobEnemiesBuilder_ != null) {
+          return defeatTypeJobEnemiesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(defeatTypeJobEnemies_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto.Builder addDefeatTypeJobEnemiesBuilder() {
+        return getDefeatTypeJobEnemiesFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.FullUserProto.Builder addDefeatTypeJobEnemiesBuilder(
+          int index) {
+        return getDefeatTypeJobEnemiesFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserProto.Builder> 
+           getDefeatTypeJobEnemiesBuilderList() {
+        return getDefeatTypeJobEnemiesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+          getDefeatTypeJobEnemiesFieldBuilder() {
+        if (defeatTypeJobEnemiesBuilder_ == null) {
+          defeatTypeJobEnemiesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder>(
+                  defeatTypeJobEnemies_,
+                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  getParentForChildren(),
+                  isClean());
+          defeatTypeJobEnemies_ = null;
+        }
+        return defeatTypeJobEnemiesBuilder_;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LoadNeutralCityResponseProto)
+    }
+    
+    static {
+      defaultInstance = new LoadNeutralCityResponseProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LoadNeutralCityResponseProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_ChatRequestProto_descriptor;
   private static
@@ -63648,6 +65305,16 @@ public final class EventProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_ChangeUserLocationResponseProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -63750,7 +65417,7 @@ public final class EventProto {
       "\002(\t\022\014\n\004name\030\002 \002(\t\022&\n\004type\030\003 \002(\0162\030.com.lv" +
       "l6.proto.UserType\022:\n\nstructures\030\005 \003(\0132&." +
       "com.lvl6.proto.FullUserStructureProto\0223\n" +
-      "\014userLocation\030\006 \002(\0132\035.com.lvl6.proto.Loc" +
+      "\014userLocation\030\006 \001(\0132\035.com.lvl6.proto.Loc" +
       "ationProto\022\024\n\014referrerCode\030\007 \001(\t\022\023\n\013devi" +
       "ceToken\030\010 \001(\t\"\216\002\n\027UserCreateResponseProt" +
       "o\022-\n\006sender\030\001 \001(\0132\035.com.lvl6.proto.FullU" +
@@ -64186,7 +65853,19 @@ public final class EventProto {
       "o.ChangeUserLocationResponseProto.Change" +
       "UserLocationStatus\"K\n\030ChangeUserLocation" +
       "Status\022\013\n\007SUCCESS\020\000\022\022\n\016INVALID_BOUNDS\020\001\022" +
-      "\016\n\nOTHER_FAIL\020\002B\014B\nEventProto"
+      "\016\n\nOTHER_FAIL\020\002\"_\n\033LoadNeutralCityReques",
+      "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022\016\n\006cityId\030\002 \002(\005\"\360\002\n\034Loa" +
+      "dNeutralCityResponseProto\0220\n\006sender\030\001 \002(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022R\n\006s" +
+      "tatus\030\002 \002(\0162B.com.lvl6.proto.LoadNeutral" +
+      "CityResponseProto.LoadNeutralCityStatus\022" +
+      ";\n\ruserTasksInfo\030\003 \003(\0132$.com.lvl6.proto." +
+      "MinimumUserTaskProto\022;\n\024defeatTypeJobEne" +
+      "mies\030\004 \003(\0132\035.com.lvl6.proto.FullUserProt" +
+      "o\"P\n\025LoadNeutralCityStatus\022\013\n\007SUCCESS\020\000\022",
+      "\032\n\026NOT_ACCESSIBLE_TO_USER\020\001\022\016\n\nOTHER_FAI" +
+      "L\020\002B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -64873,6 +66552,22 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "Status", },
               com.lvl6.proto.EventProto.ChangeUserLocationResponseProto.class,
               com.lvl6.proto.EventProto.ChangeUserLocationResponseProto.Builder.class);
+          internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_descriptor =
+            getDescriptor().getMessageTypes().get(81);
+          internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_LoadNeutralCityRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "CityId", },
+              com.lvl6.proto.EventProto.LoadNeutralCityRequestProto.class,
+              com.lvl6.proto.EventProto.LoadNeutralCityRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_descriptor =
+            getDescriptor().getMessageTypes().get(82);
+          internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_descriptor,
+              new java.lang.String[] { "Sender", "Status", "UserTasksInfo", "DefeatTypeJobEnemies", },
+              com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.class,
+              com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.Builder.class);
           return null;
         }
       };

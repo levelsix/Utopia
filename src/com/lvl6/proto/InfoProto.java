@@ -12647,6 +12647,890 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.LocationProto)
   }
   
+  public interface NeutralCityElementProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // required int32 cityId = 1;
+    boolean hasCityId();
+    int getCityId();
+    
+    // required int32 assetId = 2;
+    boolean hasAssetId();
+    int getAssetId();
+    
+    // required .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
+    boolean hasType();
+    com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType getType();
+    
+    // required .com.lvl6.proto.CoordinateProto coords = 4;
+    boolean hasCoords();
+    com.lvl6.proto.InfoProto.CoordinateProto getCoords();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordsOrBuilder();
+    
+    // required string imgId = 5;
+    boolean hasImgId();
+    String getImgId();
+    
+    // optional .com.lvl6.proto.StructOrientation orientation = 6;
+    boolean hasOrientation();
+    com.lvl6.proto.InfoProto.StructOrientation getOrientation();
+  }
+  public static final class NeutralCityElementProto extends
+      com.google.protobuf.GeneratedMessage
+      implements NeutralCityElementProtoOrBuilder {
+    // Use NeutralCityElementProto.newBuilder() to construct.
+    private NeutralCityElementProto(Builder builder) {
+      super(builder);
+    }
+    private NeutralCityElementProto(boolean noInit) {}
+    
+    private static final NeutralCityElementProto defaultInstance;
+    public static NeutralCityElementProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public NeutralCityElementProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NeutralCityElementProto_fieldAccessorTable;
+    }
+    
+    public enum NeutralCityElemType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      PERSON(0, 0),
+      BUILDING(1, 1),
+      DECORATION(2, 2),
+      ;
+      
+      public static final int PERSON_VALUE = 0;
+      public static final int BUILDING_VALUE = 1;
+      public static final int DECORATION_VALUE = 2;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static NeutralCityElemType valueOf(int value) {
+        switch (value) {
+          case 0: return PERSON;
+          case 1: return BUILDING;
+          case 2: return DECORATION;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<NeutralCityElemType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<NeutralCityElemType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<NeutralCityElemType>() {
+              public NeutralCityElemType findValueByNumber(int number) {
+                return NeutralCityElemType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.NeutralCityElementProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final NeutralCityElemType[] VALUES = {
+        PERSON, BUILDING, DECORATION, 
+      };
+      
+      public static NeutralCityElemType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private NeutralCityElemType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType)
+    }
+    
+    private int bitField0_;
+    // required int32 cityId = 1;
+    public static final int CITYID_FIELD_NUMBER = 1;
+    private int cityId_;
+    public boolean hasCityId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getCityId() {
+      return cityId_;
+    }
+    
+    // required int32 assetId = 2;
+    public static final int ASSETID_FIELD_NUMBER = 2;
+    private int assetId_;
+    public boolean hasAssetId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getAssetId() {
+      return assetId_;
+    }
+    
+    // required .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType type_;
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType getType() {
+      return type_;
+    }
+    
+    // required .com.lvl6.proto.CoordinateProto coords = 4;
+    public static final int COORDS_FIELD_NUMBER = 4;
+    private com.lvl6.proto.InfoProto.CoordinateProto coords_;
+    public boolean hasCoords() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProto getCoords() {
+      return coords_;
+    }
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordsOrBuilder() {
+      return coords_;
+    }
+    
+    // required string imgId = 5;
+    public static final int IMGID_FIELD_NUMBER = 5;
+    private java.lang.Object imgId_;
+    public boolean hasImgId() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public String getImgId() {
+      java.lang.Object ref = imgId_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          imgId_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getImgIdBytes() {
+      java.lang.Object ref = imgId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        imgId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // optional .com.lvl6.proto.StructOrientation orientation = 6;
+    public static final int ORIENTATION_FIELD_NUMBER = 6;
+    private com.lvl6.proto.InfoProto.StructOrientation orientation_;
+    public boolean hasOrientation() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public com.lvl6.proto.InfoProto.StructOrientation getOrientation() {
+      return orientation_;
+    }
+    
+    private void initFields() {
+      cityId_ = 0;
+      assetId_ = 0;
+      type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON;
+      coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      imgId_ = "";
+      orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (!hasCityId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasAssetId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCoords()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasImgId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getCoords().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, cityId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, assetId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, coords_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getImgIdBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeEnum(6, orientation_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, cityId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, assetId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, coords_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getImgIdBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(6, orientation_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.NeutralCityElementProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.NeutralCityElementProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.NeutralCityElementProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_NeutralCityElementProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.NeutralCityElementProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getCoordsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        cityId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        assetId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (coordsBuilder_ == null) {
+          coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        } else {
+          coordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        imgId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.NeutralCityElementProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.NeutralCityElementProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.NeutralCityElementProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.NeutralCityElementProto build() {
+        com.lvl6.proto.InfoProto.NeutralCityElementProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.NeutralCityElementProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.NeutralCityElementProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.NeutralCityElementProto buildPartial() {
+        com.lvl6.proto.InfoProto.NeutralCityElementProto result = new com.lvl6.proto.InfoProto.NeutralCityElementProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.cityId_ = cityId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.assetId_ = assetId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        if (coordsBuilder_ == null) {
+          result.coords_ = coords_;
+        } else {
+          result.coords_ = coordsBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.imgId_ = imgId_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.orientation_ = orientation_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.NeutralCityElementProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.NeutralCityElementProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.NeutralCityElementProto other) {
+        if (other == com.lvl6.proto.InfoProto.NeutralCityElementProto.getDefaultInstance()) return this;
+        if (other.hasCityId()) {
+          setCityId(other.getCityId());
+        }
+        if (other.hasAssetId()) {
+          setAssetId(other.getAssetId());
+        }
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (other.hasCoords()) {
+          mergeCoords(other.getCoords());
+        }
+        if (other.hasImgId()) {
+          setImgId(other.getImgId());
+        }
+        if (other.hasOrientation()) {
+          setOrientation(other.getOrientation());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (!hasCityId()) {
+          
+          return false;
+        }
+        if (!hasAssetId()) {
+          
+          return false;
+        }
+        if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasCoords()) {
+          
+          return false;
+        }
+        if (!hasImgId()) {
+          
+          return false;
+        }
+        if (!getCoords().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              cityId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              assetId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType value = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                type_ = value;
+              }
+              break;
+            }
+            case 34: {
+              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
+              if (hasCoords()) {
+                subBuilder.mergeFrom(getCoords());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setCoords(subBuilder.buildPartial());
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              imgId_ = input.readBytes();
+              break;
+            }
+            case 48: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.StructOrientation value = com.lvl6.proto.InfoProto.StructOrientation.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(6, rawValue);
+              } else {
+                bitField0_ |= 0x00000020;
+                orientation_ = value;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // required int32 cityId = 1;
+      private int cityId_ ;
+      public boolean hasCityId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getCityId() {
+        return cityId_;
+      }
+      public Builder setCityId(int value) {
+        bitField0_ |= 0x00000001;
+        cityId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCityId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        cityId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 assetId = 2;
+      private int assetId_ ;
+      public boolean hasAssetId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getAssetId() {
+        return assetId_;
+      }
+      public Builder setAssetId(int value) {
+        bitField0_ |= 0x00000002;
+        assetId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAssetId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        assetId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
+      private com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON;
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType getType() {
+        return type_;
+      }
+      public Builder setType(com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON;
+        onChanged();
+        return this;
+      }
+      
+      // required .com.lvl6.proto.CoordinateProto coords = 4;
+      private com.lvl6.proto.InfoProto.CoordinateProto coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> coordsBuilder_;
+      public boolean hasCoords() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto getCoords() {
+        if (coordsBuilder_ == null) {
+          return coords_;
+        } else {
+          return coordsBuilder_.getMessage();
+        }
+      }
+      public Builder setCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (coordsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          coords_ = value;
+          onChanged();
+        } else {
+          coordsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      public Builder setCoords(
+          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
+        if (coordsBuilder_ == null) {
+          coords_ = builderForValue.build();
+          onChanged();
+        } else {
+          coordsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      public Builder mergeCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (coordsBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              coords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            coords_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(coords_).mergeFrom(value).buildPartial();
+          } else {
+            coords_ = value;
+          }
+          onChanged();
+        } else {
+          coordsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      public Builder clearCoords() {
+        if (coordsBuilder_ == null) {
+          coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+          onChanged();
+        } else {
+          coordsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getCoordsBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getCoordsFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordsOrBuilder() {
+        if (coordsBuilder_ != null) {
+          return coordsBuilder_.getMessageOrBuilder();
+        } else {
+          return coords_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
+          getCoordsFieldBuilder() {
+        if (coordsBuilder_ == null) {
+          coordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
+                  coords_,
+                  getParentForChildren(),
+                  isClean());
+          coords_ = null;
+        }
+        return coordsBuilder_;
+      }
+      
+      // required string imgId = 5;
+      private java.lang.Object imgId_ = "";
+      public boolean hasImgId() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public String getImgId() {
+        java.lang.Object ref = imgId_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          imgId_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setImgId(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        imgId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearImgId() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        imgId_ = getDefaultInstance().getImgId();
+        onChanged();
+        return this;
+      }
+      void setImgId(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000010;
+        imgId_ = value;
+        onChanged();
+      }
+      
+      // optional .com.lvl6.proto.StructOrientation orientation = 6;
+      private com.lvl6.proto.InfoProto.StructOrientation orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+      public boolean hasOrientation() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public com.lvl6.proto.InfoProto.StructOrientation getOrientation() {
+        return orientation_;
+      }
+      public Builder setOrientation(com.lvl6.proto.InfoProto.StructOrientation value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000020;
+        orientation_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearOrientation() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.NeutralCityElementProto)
+    }
+    
+    static {
+      defaultInstance = new NeutralCityElementProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.NeutralCityElementProto)
+  }
+  
   public interface FullMarketplacePostProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
@@ -23503,6 +24387,11 @@ public final class InfoProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_LocationProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_NeutralCityElementProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -23667,86 +24556,94 @@ public final class InfoProto {
       "Direction\030\007 \001(\0162\".com.lvl6.proto.Expansi" +
       "onDirection\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(" +
       "\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationProto\022\020\n\010latitud" +
-      "e\030\001 \002(\001\022\021\n\tlongitude\030\002 \002(\001\"\356\001\n\030FullMarke" +
-      "tplacePostProto\022\031\n\021marketplacePostId\030\001 \002" +
-      "(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType\030\003 \002(\0162#" +
-      ".com.lvl6.proto.MarketplacePostType\022\022\n\nt",
-      "imeOfPost\030\004 \002(\003\0223\n\013postedEquip\030\005 \002(\0132\036.c" +
-      "om.lvl6.proto.FullEquipProto\022\023\n\013diamondC" +
-      "ost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\"\260\001\n\027FullUser" +
-      "CritstructProto\022,\n\004type\030\001 \002(\0162\036.com.lvl6" +
-      ".proto.CritStructType\022/\n\006coords\030\002 \002(\0132\037." +
-      "com.lvl6.proto.CoordinateProto\0226\n\013orient" +
-      "ation\030\003 \002(\0162!.com.lvl6.proto.StructOrien" +
-      "tation\"j\n\024MinimumUserTaskProto\022\016\n\006userId" +
-      "\030\001 \002(\005\022+\n\004task\030\002 \002(\0132\035.com.lvl6.proto.Fu" +
-      "llTaskProto\022\025\n\rnumTimesActed\030\003 \002(\005\"\200\001\n\031M",
-      "inimumUserQuestTaskProto\022\016\n\006userId\030\001 \002(\005" +
-      "\022\017\n\007questId\030\002 \002(\005\022+\n\004task\030\003 \002(\0132\035.com.lv" +
-      "l6.proto.FullTaskProto\022\025\n\rnumTimesActed\030" +
-      "\004 \002(\005\"\376\003\n\033FullUserQuestDataLargeProto\022\016\n" +
-      "\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010redeem" +
-      "ed\030\003 \002(\010\022H\n\025requiredTasksProgress\030\004 \003(\0132" +
-      ").com.lvl6.proto.MinimumUserQuestTaskPro" +
-      "to\022T\n\035requiredDefeatTypeJobProgress\030\005 \003(" +
-      "\0132-.com.lvl6.proto.MinimumUserDefeatType" +
-      "JobProto\022V\n\036requiredBuildStructJobProgre",
-      "ss\030\006 \003(\0132..com.lvl6.proto.MinimumUserBui" +
-      "ldStructJobProto\022Z\n requiredUpgradeStruc" +
-      "tJobProgress\030\007 \003(\01320.com.lvl6.proto.Mini" +
-      "mumUserUpgradeStructJobProto\022X\n\037required" +
-      "PossessEquipJobProgress\030\010 \003(\0132/.com.lvl6" +
-      ".proto.MinimumUserPossessEquipJobProto\"\222" +
-      "\001\n\035MinimumUserDefeatTypeJobProto\022\016\n\006user" +
-      "Id\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\017defeatTypeJ" +
-      "obId\030\003 \002(\0132\".com.lvl6.proto.DefeatTypeJo" +
-      "bProto\022\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022DefeatTy",
-      "peJobProto\022\027\n\017defeatTypeJobId\030\001 \002(\005\022-\n\013t" +
-      "ypeOfEnemy\030\002 \002(\0162\030.com.lvl6.proto.UserTy" +
-      "pe\022\032\n\022numEnemiesToDefeat\030\003 \002(\005\022\016\n\006cityId" +
-      "\030\004 \002(\005\"\232\001\n\036MinimumUserBuildStructJobProt" +
-      "o\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016bu" +
-      "ildStructJob\030\003 \002(\0132#.com.lvl6.proto.Buil" +
-      "dStructJobProto\022\032\n\022numOfStructUserHas\030\004 " +
-      "\002(\005\"[\n\023BuildStructJobProto\022\030\n\020buildStruc" +
-      "tJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020quanti" +
-      "tyRequired\030\003 \002(\005\"\230\001\n MinimumUserUpgradeS",
-      "tructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId" +
-      "\030\002 \002(\005\022?\n\020upgradeStructJob\030\003 \002(\0132%.com.l" +
-      "vl6.proto.UpgradeStructJobProto\022\022\n\nisCom" +
-      "plete\030\004 \002(\010\"W\n\025UpgradeStructJobProto\022\032\n\022" +
-      "upgradeStructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002" +
-      "(\005\022\020\n\010levelReq\030\003 \002(\005\"\237\001\n\037MinimumUserPoss" +
-      "essEquipJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007ques" +
-      "tId\030\002 \002(\005\022B\n\024possessEquipJobProto\030\003 \002(\0132" +
-      "$.com.lvl6.proto.PossessEquipJobProto\022\027\n" +
-      "\017numEquipUserHas\030\004 \002(\005\"W\n\024PossessEquipJo",
-      "bProto\022\031\n\021possessEquipJobId\030\001 \002(\005\022\017\n\007equ" +
-      "ipId\030\002 \002(\005\022\023\n\013quantityReq\030\003 \002(\005\"\223\003\n\016Full" +
-      "QuestProto\022\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 " +
-      "\002(\005\022\014\n\004name\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024" +
-      "\n\014doneResponse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t" +
-      "\022\032\n\022assetNumWithinCity\030\007 \002(\005\022\023\n\013coinsGai" +
-      "ned\030\010 \001(\005\022\026\n\016diamondsGained\030\t \001(\005\022\021\n\texp" +
-      "Gained\030\n \001(\005\022\025\n\requipIdGained\030\013 \001(\005\022\035\n\025q" +
-      "uestsRequiredForThis\030\014 \003(\005\022\020\n\010taskReqs\030\r" +
-      " \003(\005\022\035\n\025upgradeStructJobsReqs\030\016 \003(\005\022\033\n\023b",
-      "uildStructJobsReqs\030\017 \003(\005\022\026\n\016defeatTypeRe" +
-      "qs\030\020 \003(\005\022\033\n\023possessEquipJobReqs\030\021 \003(\005*k\n" +
-      "\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCH" +
-      "ER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\n" +
-      "BAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResu" +
-      "lt\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021" +
-      "\n\rATTACKER_FLEE\020\002*B\n\023MarketplacePostType" +
-      "\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_P" +
-      "OST\020\002*2\n\035MarketplaceJobRequirementType\022\007" +
-      "\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006A",
-      "VIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t" +
-      "\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3" +
-      "\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nP" +
-      "OSITION_2\020\001*@\n\022ExpansionDirection\022\r\n\tNEA" +
-      "R_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B" +
-      "\tInfoProto"
+      "e\030\001 \002(\001\022\021\n\tlongitude\030\002 \002(\001\"\276\002\n\027NeutralCi" +
+      "tyElementProto\022\016\n\006cityId\030\001 \002(\005\022\017\n\007assetI" +
+      "d\030\002 \002(\005\022I\n\004type\030\003 \002(\0162;.com.lvl6.proto.N" +
+      "eutralCityElementProto.NeutralCityElemTy",
+      "pe\022/\n\006coords\030\004 \002(\0132\037.com.lvl6.proto.Coor" +
+      "dinateProto\022\r\n\005imgId\030\005 \002(\t\0226\n\013orientatio" +
+      "n\030\006 \001(\0162!.com.lvl6.proto.StructOrientati" +
+      "on\"?\n\023NeutralCityElemType\022\n\n\006PERSON\020\000\022\014\n" +
+      "\010BUILDING\020\001\022\016\n\nDECORATION\020\002\"\356\001\n\030FullMark" +
+      "etplacePostProto\022\031\n\021marketplacePostId\030\001 " +
+      "\002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType\030\003 \002(\0162" +
+      "#.com.lvl6.proto.MarketplacePostType\022\022\n\n" +
+      "timeOfPost\030\004 \002(\003\0223\n\013postedEquip\030\005 \002(\0132\036." +
+      "com.lvl6.proto.FullEquipProto\022\023\n\013diamond",
+      "Cost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\"\260\001\n\027FullUse" +
+      "rCritstructProto\022,\n\004type\030\001 \002(\0162\036.com.lvl" +
+      "6.proto.CritStructType\022/\n\006coords\030\002 \002(\0132\037" +
+      ".com.lvl6.proto.CoordinateProto\0226\n\013orien" +
+      "tation\030\003 \002(\0162!.com.lvl6.proto.StructOrie" +
+      "ntation\"j\n\024MinimumUserTaskProto\022\016\n\006userI" +
+      "d\030\001 \002(\005\022+\n\004task\030\002 \002(\0132\035.com.lvl6.proto.F" +
+      "ullTaskProto\022\025\n\rnumTimesActed\030\003 \002(\005\"\200\001\n\031" +
+      "MinimumUserQuestTaskProto\022\016\n\006userId\030\001 \002(" +
+      "\005\022\017\n\007questId\030\002 \002(\005\022+\n\004task\030\003 \002(\0132\035.com.l",
+      "vl6.proto.FullTaskProto\022\025\n\rnumTimesActed" +
+      "\030\004 \002(\005\"\376\003\n\033FullUserQuestDataLargeProto\022\016" +
+      "\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010redee" +
+      "med\030\003 \002(\010\022H\n\025requiredTasksProgress\030\004 \003(\013" +
+      "2).com.lvl6.proto.MinimumUserQuestTaskPr" +
+      "oto\022T\n\035requiredDefeatTypeJobProgress\030\005 \003" +
+      "(\0132-.com.lvl6.proto.MinimumUserDefeatTyp" +
+      "eJobProto\022V\n\036requiredBuildStructJobProgr" +
+      "ess\030\006 \003(\0132..com.lvl6.proto.MinimumUserBu" +
+      "ildStructJobProto\022Z\n requiredUpgradeStru",
+      "ctJobProgress\030\007 \003(\01320.com.lvl6.proto.Min" +
+      "imumUserUpgradeStructJobProto\022X\n\037require" +
+      "dPossessEquipJobProgress\030\010 \003(\0132/.com.lvl" +
+      "6.proto.MinimumUserPossessEquipJobProto\"" +
+      "\222\001\n\035MinimumUserDefeatTypeJobProto\022\016\n\006use" +
+      "rId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\017defeatType" +
+      "JobId\030\003 \002(\0132\".com.lvl6.proto.DefeatTypeJ" +
+      "obProto\022\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022DefeatT" +
+      "ypeJobProto\022\027\n\017defeatTypeJobId\030\001 \002(\005\022-\n\013" +
+      "typeOfEnemy\030\002 \002(\0162\030.com.lvl6.proto.UserT",
+      "ype\022\032\n\022numEnemiesToDefeat\030\003 \002(\005\022\016\n\006cityI" +
+      "d\030\004 \002(\005\"\232\001\n\036MinimumUserBuildStructJobPro" +
+      "to\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016b" +
+      "uildStructJob\030\003 \002(\0132#.com.lvl6.proto.Bui" +
+      "ldStructJobProto\022\032\n\022numOfStructUserHas\030\004" +
+      " \002(\005\"[\n\023BuildStructJobProto\022\030\n\020buildStru" +
+      "ctJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020quant" +
+      "ityRequired\030\003 \002(\005\"\230\001\n MinimumUserUpgrade" +
+      "StructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questI" +
+      "d\030\002 \002(\005\022?\n\020upgradeStructJob\030\003 \002(\0132%.com.",
+      "lvl6.proto.UpgradeStructJobProto\022\022\n\nisCo" +
+      "mplete\030\004 \002(\010\"W\n\025UpgradeStructJobProto\022\032\n" +
+      "\022upgradeStructJobId\030\001 \002(\005\022\020\n\010structId\030\002 " +
+      "\002(\005\022\020\n\010levelReq\030\003 \002(\005\"\237\001\n\037MinimumUserPos" +
+      "sessEquipJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007que" +
+      "stId\030\002 \002(\005\022B\n\024possessEquipJobProto\030\003 \002(\013" +
+      "2$.com.lvl6.proto.PossessEquipJobProto\022\027" +
+      "\n\017numEquipUserHas\030\004 \002(\005\"W\n\024PossessEquipJ" +
+      "obProto\022\031\n\021possessEquipJobId\030\001 \002(\005\022\017\n\007eq" +
+      "uipId\030\002 \002(\005\022\023\n\013quantityReq\030\003 \002(\005\"\223\003\n\016Ful",
+      "lQuestProto\022\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002" +
+      " \002(\005\022\014\n\004name\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022" +
+      "\024\n\014doneResponse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(" +
+      "\t\022\032\n\022assetNumWithinCity\030\007 \002(\005\022\023\n\013coinsGa" +
+      "ined\030\010 \001(\005\022\026\n\016diamondsGained\030\t \001(\005\022\021\n\tex" +
+      "pGained\030\n \001(\005\022\025\n\requipIdGained\030\013 \001(\005\022\035\n\025" +
+      "questsRequiredForThis\030\014 \003(\005\022\020\n\010taskReqs\030" +
+      "\r \003(\005\022\035\n\025upgradeStructJobsReqs\030\016 \003(\005\022\033\n\023" +
+      "buildStructJobsReqs\030\017 \003(\005\022\026\n\016defeatTypeR" +
+      "eqs\030\020 \003(\005\022\033\n\023possessEquipJobReqs\030\021 \003(\005*k",
+      "\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARC" +
+      "HER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n" +
+      "\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleRes" +
+      "ult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022" +
+      "\021\n\rATTACKER_FLEE\020\002*B\n\023MarketplacePostTyp" +
+      "e\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_" +
+      "POST\020\002*2\n\035MarketplaceJobRequirementType\022" +
+      "\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006" +
+      "AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022" +
+      "\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*",
+      "3\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\n" +
+      "POSITION_2\020\001*@\n\022ExpansionDirection\022\r\n\tNE" +
+      "AR_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013" +
+      "B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -23849,8 +24746,16 @@ public final class InfoProto {
               new java.lang.String[] { "Latitude", "Longitude", },
               com.lvl6.proto.InfoProto.LocationProto.class,
               com.lvl6.proto.InfoProto.LocationProto.Builder.class);
-          internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor =
+          internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor =
             getDescriptor().getMessageTypes().get(11);
+          internal_static_com_lvl6_proto_NeutralCityElementProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor,
+              new java.lang.String[] { "CityId", "AssetId", "Type", "Coords", "ImgId", "Orientation", },
+              com.lvl6.proto.InfoProto.NeutralCityElementProto.class,
+              com.lvl6.proto.InfoProto.NeutralCityElementProto.Builder.class);
+          internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor =
+            getDescriptor().getMessageTypes().get(12);
           internal_static_com_lvl6_proto_FullMarketplacePostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor,
@@ -23858,7 +24763,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.class,
               com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserCritstructProto_descriptor =
-            getDescriptor().getMessageTypes().get(12);
+            getDescriptor().getMessageTypes().get(13);
           internal_static_com_lvl6_proto_FullUserCritstructProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserCritstructProto_descriptor,
@@ -23866,7 +24771,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserCritstructProto.class,
               com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor =
-            getDescriptor().getMessageTypes().get(13);
+            getDescriptor().getMessageTypes().get(14);
           internal_static_com_lvl6_proto_MinimumUserTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserTaskProto_descriptor,
@@ -23874,7 +24779,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserTaskProto.class,
               com.lvl6.proto.InfoProto.MinimumUserTaskProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_descriptor =
-            getDescriptor().getMessageTypes().get(14);
+            getDescriptor().getMessageTypes().get(15);
           internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_descriptor,
@@ -23882,7 +24787,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.class,
               com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_descriptor =
-            getDescriptor().getMessageTypes().get(15);
+            getDescriptor().getMessageTypes().get(16);
           internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_descriptor,
@@ -23890,7 +24795,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.class,
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(16);
+            getDescriptor().getMessageTypes().get(17);
           internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserDefeatTypeJobProto_descriptor,
@@ -23898,7 +24803,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto.Builder.class);
           internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(17);
+            getDescriptor().getMessageTypes().get(18);
           internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_DefeatTypeJobProto_descriptor,
@@ -23906,7 +24811,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.DefeatTypeJobProto.class,
               com.lvl6.proto.InfoProto.DefeatTypeJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(18);
+            getDescriptor().getMessageTypes().get(19);
           internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserBuildStructJobProto_descriptor,
@@ -23914,7 +24819,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_BuildStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(19);
+            getDescriptor().getMessageTypes().get(20);
           internal_static_com_lvl6_proto_BuildStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_BuildStructJobProto_descriptor,
@@ -23922,7 +24827,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.BuildStructJobProto.class,
               com.lvl6.proto.InfoProto.BuildStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(20);
+            getDescriptor().getMessageTypes().get(21);
           internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor,
@@ -23930,7 +24835,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(21);
+            getDescriptor().getMessageTypes().get(22);
           internal_static_com_lvl6_proto_UpgradeStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor,
@@ -23938,7 +24843,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.UpgradeStructJobProto.class,
               com.lvl6.proto.InfoProto.UpgradeStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(22);
+            getDescriptor().getMessageTypes().get(23);
           internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserPossessEquipJobProto_descriptor,
@@ -23946,7 +24851,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder.class);
           internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor =
-            getDescriptor().getMessageTypes().get(23);
+            getDescriptor().getMessageTypes().get(24);
           internal_static_com_lvl6_proto_PossessEquipJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PossessEquipJobProto_descriptor,
@@ -23954,7 +24859,7 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.PossessEquipJobProto.class,
               com.lvl6.proto.InfoProto.PossessEquipJobProto.Builder.class);
           internal_static_com_lvl6_proto_FullQuestProto_descriptor =
-            getDescriptor().getMessageTypes().get(24);
+            getDescriptor().getMessageTypes().get(25);
           internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullQuestProto_descriptor,

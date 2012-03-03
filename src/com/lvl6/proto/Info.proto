@@ -224,6 +224,23 @@ enum BattleResult {
 
 //------------------------------------------------------------------------------------------
 
+message NeutralCityElementProto {
+	required int32 cityId = 1;
+	required int32 assetId = 2;
+	required NeutralCityElemType type = 3;
+	required CoordinateProto coords = 4;
+	required string imgId = 5;
+	optional StructOrientation orientation = 6;
+	
+	enum NeutralCityElemType {
+		PERSON = 0;
+		BUILDING = 1;
+		DECORATION = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
 enum MarketplacePostType {
 	PREMIUM_EQUIP_POST = 0;		//diamond, epics, and legendarys for diamonds
 	NORM_EQUIP_POST = 2;		//armory (so non epic and non legendar	y) coin items for coins

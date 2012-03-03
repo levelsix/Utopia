@@ -819,6 +819,8 @@ message QuestLogDetailsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+
+//in the future, put in neutral city elems?
 																						//DONE
 message RetrieveStaticDataRequestProto {
     required MinimumUserProto sender = 1;
@@ -1024,6 +1026,27 @@ message ChangeUserLocationResponseProto {
      enum ChangeUserLocationStatus {
      	SUCCESS = 0;
      	INVALID_BOUNDS = 1;
+     	OTHER_FAIL = 2;
+     }    
+}
+
+//------------------------------------------------------------------------------------------
+
+message LoadNeutralCityRequestProto {
+     required MinimumUserProto sender = 1;
+     required int32 cityId = 2;    
+}
+
+message LoadNeutralCityResponseProto {
+     required MinimumUserProto sender = 1;
+     required LoadNeutralCityStatus status = 2;
+     repeated MinimumUserTaskProto userTasksInfo = 3;
+	     //client shouldnt show bars if already at max city level
+     repeated FullUserProto defeatTypeJobEnemies = 4;
+     
+     enum LoadNeutralCityStatus {
+     	SUCCESS = 0;
+     	NOT_ACCESSIBLE_TO_USER = 1;
      	OTHER_FAIL = 2;
      }    
 }

@@ -109,8 +109,8 @@ public class MiscMethods {
     ValidLocationBox[] vlbs = ControllerConstants.USER_CREATE__VALIDATION_BOXES;
     if (vlbs != null && vlbs.length >= 1) {
       ValidLocationBox vlb = vlbs[new Random().nextInt(vlbs.length)];
-      double latitude = vlb.getBotLeftX() + Math.random()*vlb.getWidth();
-      double longitude = vlb.getBotLeftY() + Math.random()*vlb.getHeight();
+      double latitude = vlb.getBotLeftY() + Math.random()*vlb.getHeight();
+      double longitude = vlb.getBotLeftX() + Math.random()*vlb.getWidth();
       return new Location(latitude, longitude);
     }
     return new Location(-117.69765, 33.57793);    //ARBITRARY LAND SPOT

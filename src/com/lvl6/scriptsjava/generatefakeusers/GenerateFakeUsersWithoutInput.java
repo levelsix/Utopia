@@ -14,7 +14,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public class GenerateFakeUsersWithoutInput {
 
   private static String nameRulesFile = "src/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
-  private static int numEnemiesToCreatePerLevel = 100;
+  private static int numEnemiesToCreatePerLevel = 75;
   private static int minLevel = 1;
   private static int maxLevel = 25;
   private static int syllablesInName = 2;
@@ -53,6 +53,8 @@ public class GenerateFakeUsersWithoutInput {
       while (!DeleteUtils.deleteAvailableReferralCode(newReferCode)) {
         newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
       }
+    } else {
+      //TODO: generate more codes?
     }
     
     if (InsertUtils.insertUser(newReferCode+newReferCode, name, type, location, false, null, newReferCode, level) < 0) {

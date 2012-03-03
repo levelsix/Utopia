@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -166,14 +167,19 @@ public class TaskActionController extends EventController {
 
   private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto, boolean equipCheck) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(user.getId());
+    
     if (inProgressUserQuests != null) {
+      Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
       for (UserQuest userQuest : inProgressUserQuests) {
         if (!userQuest.isTasksComplete()) {
+          if (questIdToUserTasksCompletedForQuestForUser == null) {
+            questIdToUserTasksCompletedForQuestForUser = UserQuestsCompletedTasksRetrieveUtils.getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
+          }
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
           if (quest != null) {
             if (quest.getTasksRequired() != null && quest.getTasksRequired().contains(task.getId())) {
-              List<Integer> userCompletedTasksForQuest = UserQuestsCompletedTasksRetrieveUtils.
-                  getUserTasksCompletedForQuest(user.getId(), quest.getId());
+              List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser.get(userQuest.getQuestId());
+              if (userCompletedTasksForQuest == null) userCompletedTasksForQuest = new ArrayList<Integer>();
               if (!userCompletedTasksForQuest.contains(task.getId())) {
                 if (InsertUtils.insertCompletedTaskIdForUserQuest(user.getId(), task.getId(), quest.getId())) {
                   userCompletedTasksForQuest.add(task.getId());

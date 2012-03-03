@@ -3,8 +3,9 @@ package com.lvl6.retrieveutils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -16,28 +17,31 @@ public class UserQuestsCompletedDefeatTypeJobsRetrieveUtils {
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS;
-  
-  public static List<Integer> getUserDefeatTypeJobsCompletedForQuest(int userId, int questId) {
-    log.info("getting user defeatTypeJobs done for quest num " + questId);
-    List<Integer> completedDefeatTypeJobs = new ArrayList<Integer>();
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID, userId);
-    paramsToVals.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID, questId);
-    
-    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
+
+  public static Map<Integer, List<Integer>> getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(int userId) {
+    log.info("getting user defeatTypeJobs done for user " + userId);
+    Map <Integer, List<Integer>> questIdToUserDefeatTypeJobsCompleted = new HashMap<Integer, List<Integer>>();
+
+    ResultSet rs = DBConnection.selectRowsByUserId(userId, TABLE_NAME);
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
         while(rs.next()) {
-          completedDefeatTypeJobs.add(rs.getInt(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID));
+          Integer questId = rs.getInt(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID);
+          Integer completedDefeatTypeJobId = rs.getInt(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID);
+          if (questIdToUserDefeatTypeJobsCompleted.get(questId) == null) {
+            questIdToUserDefeatTypeJobsCompleted.put(questId, new ArrayList<Integer>());
+          }
+          questIdToUserDefeatTypeJobsCompleted.get(questId).add(completedDefeatTypeJobId);
         }
-        return completedDefeatTypeJobs;
+        return questIdToUserDefeatTypeJobsCompleted;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);
       }
     } 
-    return completedDefeatTypeJobs;
+    return questIdToUserDefeatTypeJobsCompleted;
   }
+
 }

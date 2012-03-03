@@ -65,6 +65,7 @@ public final class AdminProto {
       STRUCTURES(9, 9),
       POSSESS_EQUIP_JOBS(10, 10),
       LEVELS_REQUIRED_EXPERIENCE(11, 11),
+      NEUTRAL_CITY_ELEMS(12, 12),
       ;
       
       public static final int ALL_VALUE = 0;
@@ -79,6 +80,7 @@ public final class AdminProto {
       public static final int STRUCTURES_VALUE = 9;
       public static final int POSSESS_EQUIP_JOBS_VALUE = 10;
       public static final int LEVELS_REQUIRED_EXPERIENCE_VALUE = 11;
+      public static final int NEUTRAL_CITY_ELEMS_VALUE = 12;
       
       
       public final int getNumber() { return value; }
@@ -97,6 +99,7 @@ public final class AdminProto {
           case 9: return STRUCTURES;
           case 10: return POSSESS_EQUIP_JOBS;
           case 11: return LEVELS_REQUIRED_EXPERIENCE;
+          case 12: return NEUTRAL_CITY_ELEMS;
           default: return null;
         }
       }
@@ -127,7 +130,7 @@ public final class AdminProto {
       }
       
       private static final StaticDataReloadType[] VALUES = {
-        ALL, BUILD_STRUCT_JOBS, CITIES, DEFEAT_TYPE_JOBS, EQUIPMENT, QUESTS, TASK_EQUIP_REQUIREMENTS, TASKS, UPGRADE_STRUCT_JOBS, STRUCTURES, POSSESS_EQUIP_JOBS, LEVELS_REQUIRED_EXPERIENCE, 
+        ALL, BUILD_STRUCT_JOBS, CITIES, DEFEAT_TYPE_JOBS, EQUIPMENT, QUESTS, TASK_EQUIP_REQUIREMENTS, TASKS, UPGRADE_STRUCT_JOBS, STRUCTURES, POSSESS_EQUIP_JOBS, LEVELS_REQUIRED_EXPERIENCE, NEUTRAL_CITY_ELEMS, 
       };
       
       public static StaticDataReloadType valueOf(
@@ -582,18 +585,19 @@ public final class AdminProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013Admin.proto\022\016com.lvl6.proto\"\262\003\n\027AdminC" +
+      "\n\013Admin.proto\022\016com.lvl6.proto\"\312\003\n\027AdminC" +
       "hangeRequestProto\022Z\n\024staticDataReloadTyp" +
       "e\030\001 \001(\0162<.com.lvl6.proto.AdminChangeRequ" +
       "estProto.StaticDataReloadType\022\026\n\016salePer" +
       "centOff\030\002 \001(\005\022$\n\034multipleOfRecruitsBaseR" +
-      "eward\030\003 \001(\002\"\374\001\n\024StaticDataReloadType\022\007\n\003" +
+      "eward\030\003 \001(\002\"\224\002\n\024StaticDataReloadType\022\007\n\003" +
       "ALL\020\000\022\025\n\021BUILD_STRUCT_JOBS\020\001\022\n\n\006CITIES\020\002" +
       "\022\024\n\020DEFEAT_TYPE_JOBS\020\003\022\r\n\tEQUIPMENT\020\004\022\n\n" +
       "\006QUESTS\020\005\022\033\n\027TASK_EQUIP_REQUIREMENTS\020\006\022\t" +
       "\n\005TASKS\020\007\022\027\n\023UPGRADE_STRUCT_JOBS\020\010\022\016\n\nST",
       "RUCTURES\020\t\022\026\n\022POSSESS_EQUIP_JOBS\020\n\022\036\n\032LE" +
-      "VELS_REQUIRED_EXPERIENCE\020\013B\014B\nAdminProto"
+      "VELS_REQUIRED_EXPERIENCE\020\013\022\026\n\022NEUTRAL_CI" +
+      "TY_ELEMS\020\014B\014B\nAdminProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

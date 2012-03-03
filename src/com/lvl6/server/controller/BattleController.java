@@ -190,6 +190,7 @@ public class BattleController extends EventController {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils
         .getInProgressUserQuestsForUser(attacker.getId());
     if (inProgressUserQuests != null) {
+      Map<Integer, List<Integer>> questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
       for (UserQuest userQuest : inProgressUserQuests) {
         if (!userQuest.isDefeatTypeJobsComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest
@@ -202,8 +203,11 @@ public class BattleController extends EventController {
               defeatTypeJobsRequired = quest.getDefeatGoodGuysJobsRequired();
             }
             if (defeatTypeJobsRequired != null) {
-              List<Integer> userCompletedDefeatTypeJobsForQuest = UserQuestsCompletedDefeatTypeJobsRetrieveUtils
-                  .getUserDefeatTypeJobsCompletedForQuest(attacker.getId(), quest.getId());
+              if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
+                questIdToUserDefeatTypeJobsCompletedForQuestForUser = UserQuestsCompletedDefeatTypeJobsRetrieveUtils.getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(attacker.getId());
+              }
+              List<Integer> userCompletedDefeatTypeJobsForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(quest.getId());
+              if (userCompletedDefeatTypeJobsForQuest == null) userCompletedDefeatTypeJobsForQuest = new ArrayList<Integer>();
               List<Integer> defeatTypeJobsRemaining = new ArrayList<Integer>(defeatTypeJobsRequired);
               defeatTypeJobsRemaining.removeAll(userCompletedDefeatTypeJobsForQuest);
               Map<Integer, DefeatTypeJob> remainingDTJMap = DefeatTypeJobRetrieveUtils
