@@ -1043,6 +1043,7 @@ message LoadNeutralCityResponseProto {
      repeated MinimumUserTaskProto userTasksInfo = 3;
 	     //client shouldnt show bars if already at max city level
      repeated FullUserProto defeatTypeJobEnemies = 4;
+     repeated NeutralCityElementProto cityElements = 5;
      
      enum LoadNeutralCityStatus {
      	SUCCESS = 0;

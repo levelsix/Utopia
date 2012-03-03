@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,10 +9,12 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadNeutralCityRequestEvent;
 import com.lvl6.events.response.LoadNeutralCityResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserQuest;
+import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.proto.EventProto.LoadNeutralCityRequestProto;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.Builder;
@@ -25,6 +29,8 @@ import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -67,13 +73,20 @@ public class LoadNeutralCityController extends EventController {
       boolean legitCityLoad = checkLegitCityLoad(resBuilder, user, city, currentCityRankForUser);
 
       if (legitCityLoad) {
+        List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(cityId);
+        if (neutralCityElements != null) {
+          for (NeutralCityElement nce : neutralCityElements) {
+            resBuilder.addCityElements(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce));
+          }
+        }
+
         List<Task> tasks = TaskRetrieveUtils.getAllTasksForCityId(cityId);
         if (tasks != null && tasks.size() > 0) {
           setResponseUserTaskInfos(resBuilder, tasks, user.getId(), senderProto.getUserType());
         }
         List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(senderProto.getUserId());
         if (inProgressUserQuests != null && inProgressUserQuests.size() > 0) {
-          setResponseDefeatTypeJobEnemies(inProgressUserQuests, senderProto.getUserType());
+          setResponseDefeatTypeJobEnemies(resBuilder, inProgressUserQuests, user, cityId);
         }
       }
 
@@ -89,48 +102,66 @@ public class LoadNeutralCityController extends EventController {
     }
   }
 
-  private void setResponseDefeatTypeJobEnemies(List<UserQuest> inProgressUserQuests, UserType userType) {
-    /*
+  private void setResponseDefeatTypeJobEnemies(Builder resBuilder, List<UserQuest> inProgressUserQuests, User user, int cityId) {
+
     Map<Integer, List<Integer>>  questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
-    Map<Integer, Integer> defeatTypeJobIdsToNumDefeatedForUserQuest = null;
+    Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = null;
 
     Map<Integer, Quest> questIdsToQuests = QuestRetrieveUtils.getQuestIdsToQuests();
+
+    Map<UserType, Integer> numToGenerate = new HashMap<UserType, Integer>();
 
     for (UserQuest userQuest : inProgressUserQuests) {
       Quest quest = questIdsToQuests.get(userQuest.getQuestId());
 
-      boolean goodSide = MiscMethods.checkIfGoodSide(userType);
+      boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
 
       List<Integer> defeatTypeJobsRequired = (goodSide) ? quest.getDefeatBadGuysJobsRequired() : quest.getDefeatGoodGuysJobsRequired();
-
 
       if (defeatTypeJobsRequired != null && defeatTypeJobsRequired.size() > 0) {
         if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
           questIdToUserDefeatTypeJobsCompletedForQuestForUser = UserQuestsCompletedDefeatTypeJobsRetrieveUtils.getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(userQuest.getUserId());
         }
-
         List<Integer> userDefeatTypeJobsCompletedForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(userQuest.getQuestId());
         for (Integer requiredDefeatTypeJobId : defeatTypeJobsRequired) {
-          boolean defeatJobCompletedForQuest = false;
-          Integer numTimesUserDidJob = null;
-          if (userDefeatTypeJobsCompletedForQuest != null && userDefeatTypeJobsCompletedForQuest.contains(requiredDefeatTypeJobId)) {
-            defeatJobCompletedForQuest = true;
-          } else {
-            if (defeatTypeJobIdsToNumDefeatedForUserQuest == null) {
-              defeatTypeJobIdsToNumDefeatedForUserQuest = UserQuestsDefeatTypeJobProgressRetrieveUtils.getDefeatTypeJobIdsToNumDefeatedForUserQuest(userQuest.getUserId(), userQuest.getQuestId());
-            }
-            numTimesUserDidJob = defeatTypeJobIdsToNumDefeatedForUserQuest.get(requiredDefeatTypeJobId);
-            if (numTimesUserDidJob == null) {
-              numTimesUserDidJob = 0;
+          DefeatTypeJob dtj = DefeatTypeJobRetrieveUtils.getDefeatTypeJobForDefeatTypeJobId(requiredDefeatTypeJobId);
+          if (dtj.getCityId() == cityId) {
+            Integer numTimesUserDidJob = null;
+            if (userDefeatTypeJobsCompletedForQuest == null || !userDefeatTypeJobsCompletedForQuest.contains(requiredDefeatTypeJobId)) {
+              if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
+                questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
+              }
+              Map<Integer, Integer> defeatTypeJobIdsToNumDefeatedForUserQuest = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId());
+              if (defeatTypeJobIdsToNumDefeatedForUserQuest != null) {
+                numTimesUserDidJob = defeatTypeJobIdsToNumDefeatedForUserQuest.get(requiredDefeatTypeJobId);
+                if (numTimesUserDidJob == null) {
+                  numTimesUserDidJob = 0;
+                }
+              } else {
+                numTimesUserDidJob = 0;
+              }
+              int numRemaining = dtj.getNumEnemiesToDefeat() - numTimesUserDidJob;
+              if (numRemaining > 0) {
+                if (!numToGenerate.containsKey(dtj.getEnemyType()) || numToGenerate.get(dtj.getEnemyType()) < numRemaining) {
+                  numToGenerate.put(dtj.getEnemyType(), numRemaining);
+                }
+              }
             }
           }
-          builder.addRequiredDefeatTypeJobProgress(createMinimumUserDefeatTypeJobProto(userQuest, userType, requiredDefeatTypeJobId, defeatJobCompletedForQuest, numTimesUserDidJob));
         }
       }
-
+      for (UserType type : numToGenerate.keySet()) {
+        List<UserType> temp = new ArrayList<UserType>();
+        temp.add(type);
+        List<User> users = UserRetrieveUtils.getUsers(temp,
+            numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true);
+        if (users != null) {
+          for (User u : users) {
+            resBuilder.addDefeatTypeJobEnemies(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
+          }
+        }
+      }
     }
-    //     repeated FullUserProto defeatTypeJobEnemies = 5;
-*/
 
   }
 
