@@ -8,6 +8,7 @@ import com.lvl6.events.request.LevelUpRequestEvent;
 import com.lvl6.events.response.LevelUpResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.LevelUpRequestProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto;
@@ -16,6 +17,7 @@ import com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -66,6 +68,15 @@ public class LevelUpController extends EventController {
         }
       }
 
+      List<Equipment> availToUserInArmoryEquips = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(MiscMethods.getClassTypeFromUserType(user.getType()));
+      if (availToUserInArmoryEquips != null) {
+        for (Equipment e : availToUserInArmoryEquips) {
+          if (e.getMinLevel() == user.getLevel() + 1) {
+            resBuilder.addNewlyEquippableAvailableInArmory(CreateInfoProtoUtils.createFullEquipProtoFromEquip(e));
+          }
+        }
+      }
+      
       LevelUpResponseProto resProto = resBuilder.build();
       LevelUpResponseEvent resEvent = new LevelUpResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());

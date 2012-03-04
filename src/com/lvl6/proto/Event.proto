@@ -490,7 +490,7 @@ message LevelUpResponseProto {
      optional int32 newNextLevel = 3;
      optional int32 experienceRequiredForNewNextLevel = 4;
 	 repeated FullCityProto citiesAvailableToUser = 5;						//all, not new
-     repeated FullEquipProto newlyAvailableInArmoryAndEquippable = 6;		//only new ones
+     repeated FullEquipProto newlyEquippableAvailableInArmory = 6;			//only new ones
      
 	enum LevelUpStatus {
      	SUCCESS = 0;

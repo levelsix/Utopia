@@ -238,6 +238,7 @@ enum BattleResult {
 message NeutralCityElementProto {
 	required int32 cityId = 1;
 	required int32 assetId = 2;
+	required string name = 9;
 	required NeutralCityElemType type = 3;
 	required CoordinateProto coords = 4;
 	optional int32 xLength = 5;

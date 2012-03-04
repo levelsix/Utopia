@@ -468,7 +468,8 @@ public class CreateInfoProtoUtils {
   }
   
   public static NeutralCityElementProto createNeutralCityElementProtoFromNeutralCityElement(NeutralCityElement nce) {
-    NeutralCityElementProto.Builder builder = NeutralCityElementProto.newBuilder().setCityId(nce.getCityId()).setAssetId(nce.getAssetId()).setType(nce.getType())
+    NeutralCityElementProto.Builder builder = NeutralCityElementProto.newBuilder().setCityId(nce.getCityId()).setAssetId(nce.getAssetId())
+        .setName(nce.getName()).setType(nce.getType())
         .setCoords(createCoordinateProtoFromCoordinatePair(nce.getCoords())).setImgId(nce.getImgId());
     if (nce.getOrientation() != null) {
       builder.setOrientation(nce.getOrientation());
