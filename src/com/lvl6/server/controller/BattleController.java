@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -191,6 +192,8 @@ public class BattleController extends EventController {
         .getInProgressUserQuestsForUser(attacker.getId());
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
+      Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = null;
+
       for (UserQuest userQuest : inProgressUserQuests) {
         if (!userQuest.isDefeatTypeJobsComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest
@@ -213,12 +216,13 @@ public class BattleController extends EventController {
               Map<Integer, DefeatTypeJob> remainingDTJMap = DefeatTypeJobRetrieveUtils
                   .getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobsRemaining);
               if (remainingDTJMap != null && remainingDTJMap.size() > 0) {
-                Map<Integer, Integer> userJobIdToNumDefeated = null;
                 for (DefeatTypeJob remainingDTJ : remainingDTJMap.values()) {
                   if (remainingDTJ.getCityId() == cityId && enemyType == remainingDTJ.getEnemyType()) {
-                    if (userJobIdToNumDefeated == null) {
-                      userJobIdToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getDefeatTypeJobIdsToNumDefeatedForUserQuest(attacker.getId(), quest.getId());
+                    if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
+                      questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                     }
+                    Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
+                    if (userJobIdToNumDefeated == null) userJobIdToNumDefeated = new HashMap<Integer, Integer>();
                     if (userJobIdToNumDefeated.get(remainingDTJ.getId()) != null && 
                         userJobIdToNumDefeated.get(remainingDTJ.getId()) + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
                       //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)

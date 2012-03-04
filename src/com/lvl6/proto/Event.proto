@@ -110,6 +110,8 @@ message StartupResponseProto {
     required UpdateStatus updateStatus= 3;
     required StartupConstants startupConstants = 4;
     repeated FullCityProto citiesAvailableToUser = 5;
+    repeated FullUserCityProto userCityInfos = 16;
+    
     repeated FullQuestProto inProgressQuests = 6;
 	repeated FullQuestProto availableQuests = 7;   
 	repeated FullUserEquipProto userEquips = 8;
@@ -727,18 +729,19 @@ message LoadPlayerCityRequestProto {
 																						//DONE
 message LoadPlayerCityResponseProto {
     required MinimumUserProto sender = 1;
-	required LoadPlayerCityStatus status = 2;
-	repeated FullUserStructureProto ownerNormStructs = 3;
-	repeated FullUserProto ownerAllies = 4;			//only if owner is an enemy
-	repeated FullUserProto ownerEnemies = 5;		//only if owner is you or ally
+    required MinimumUserProto cityOwner = 2;
+	required LoadPlayerCityStatus status = 3;
+	repeated FullUserStructureProto ownerNormStructs = 4;
+	repeated FullUserProto ownerAllies = 5;			//only if owner is an enemy
+	repeated FullUserProto ownerEnemies = 6;		//only if owner is you or ally
 
-    optional FullUserCritstructProto armory = 6;
-    optional FullUserCritstructProto vault = 7;
-    optional FullUserCritstructProto marketplace = 8;
-    required FullUserCritstructProto carpenter = 9;
-    required FullUserCritstructProto aviary = 10;    
+    optional FullUserCritstructProto armory = 7;
+    optional FullUserCritstructProto vault = 8;
+    optional FullUserCritstructProto marketplace = 9;
+    required FullUserCritstructProto carpenter = 10;
+    required FullUserCritstructProto aviary = 11;    
 
-	optional FullUserCityExpansionDataProto userCityExpansionData = 11;
+	optional FullUserCityExpansionDataProto userCityExpansionData = 12;
      
     enum LoadPlayerCityStatus {
      	SUCCESS = 0;

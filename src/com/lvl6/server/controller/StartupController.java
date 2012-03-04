@@ -1,4 +1,3 @@
-
 package com.lvl6.server.controller;
 
 import java.nio.ByteBuffer;
@@ -19,6 +18,7 @@ import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
+import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -38,17 +38,21 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.ReferralsRetrieveUtils;
+import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
+import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
+import com.lvl6.utils.required;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.notnoop.apns.APNS;
@@ -91,10 +95,10 @@ public class StartupController extends EventController {
     resBuilder.setUpdateStatus(updateStatus);
 
     User user = null;
-    
+
     // Don't fill in other fields if it is a major update
     StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
-    
+
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       user = UserRetrieveUtils.getUserByUDID(udid);
       if (user != null) {
@@ -102,7 +106,7 @@ public class StartupController extends EventController {
         try {
           startupStatus = StartupStatus.USER_IN_DB;
           syncUserDevicetokenAndBadges(reqProto, user);
-          setCitiesAvailableToUser(resBuilder, user);
+          setCitiesAvailableToUserAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
           setUserStructsAndStructs(resBuilder, user);
@@ -163,7 +167,7 @@ public class StartupController extends EventController {
       List <Integer> userIds = new ArrayList<Integer>();
 
       Timestamp lastLogout = new Timestamp(user.getLastLogout().getTime());
-      
+
       List<MarketplaceTransaction> marketplaceTransactions = 
           MarketplaceTransactionRetrieveUtils.getAllMarketplaceTransactionsAfterLastlogoutForDefender(lastLogout, user.getId());
       if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
@@ -178,7 +182,7 @@ public class StartupController extends EventController {
           userIds.add(bd.getAttackerId());
         }        
       }
-      
+
       List<Referral> referrals = ReferralsRetrieveUtils.getAllReferralsAfterLastlogoutForReferrer(lastLogout, user.getId());
       if (referrals != null && referrals.size() > 0) {
         for (Referral r : referrals) {
@@ -254,11 +258,34 @@ public class StartupController extends EventController {
     }
   }
 
-  private void setCitiesAvailableToUser(Builder resBuilder, User user) {
+  private void setCitiesAvailableToUserAndUserCityInfos(Builder resBuilder, User user) {
+    Map<Integer, Integer> cityIdsToUserCityRanks = UserCityRetrieveUtils.getCityIdToUserCityRank(user.getId());
+    Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(user.getId());
+    
     List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(user.getLevel());
     for (City city : availCities) {
-      resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
+      if (cityIdsToUserCityRanks.containsKey(city.getId())) {   //should always be true
+        resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
+        
+        int numTasksComplete = getNumTasksCompleteForUserCity(user, city, taskIdToNumTimesActedInRank);
+        
+        resBuilder.addUserCityInfos(CreateInfoProtoUtils.createFullUserCityProto(user.getId(), city.getId(), 
+            cityIdsToUserCityRanks.get(city.getId()), numTasksComplete));
+      }
     }
+  }
+
+  private int getNumTasksCompleteForUserCity(User user, City city, Map<Integer, Integer> taskIdToNumTimesActedInRank) {
+    List<Task> tasks = TaskRetrieveUtils.getAllTasksForCityId(city.getId());
+    int numCompletedTasks = 0;
+    if (tasks != null) {
+      for (Task t : tasks) {
+        if (taskIdToNumTimesActedInRank.containsKey(t.getId()) && taskIdToNumTimesActedInRank.get(t.getId()) >= t.getNumForCompletion()) {
+          numCompletedTasks++;
+        }
+      }
+    }
+    return numCompletedTasks;
   }
 
   private void setConstants(Builder startupBuilder) {

@@ -186,6 +186,8 @@ message FullCityProto {
 	required int32 minLevel = 3;
 	required int32 expGainedBaseOnRankup = 4;
 	required int32 coinsGainedBaseOnRankup = 5;
+	
+	repeated int32 taskIds = 6;
 }
 
 //------------------------------------------------------------------------------------------
@@ -198,6 +200,15 @@ message FullUserCityExpansionDataProto {
 	required bool isExpanding = 5;
 	optional int64 lastExpandTime = 6;
 	optional ExpansionDirection lastExpandDirection = 7;
+}
+
+//------------------------------------------------------------------------------------------
+
+message FullUserCityProto {
+	required int32 userId = 1;
+	required int32 cityId = 2;
+	required int32 currentRank = 3;
+	required int32 numTasksCurrentlyCompleteInRank = 4;
 }
 
 //------------------------------------------------------------------------------------------
@@ -297,7 +308,7 @@ enum ExpansionDirection {
 
 message MinimumUserTaskProto {
      required int32 userId = 1;
-     required FullTaskProto task = 2;
+     required int32 taskId = 2;
      required int32 numTimesActed = 3;
 }
 

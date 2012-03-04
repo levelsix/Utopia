@@ -41,6 +41,7 @@ import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
+import com.lvl6.proto.InfoProto.FullUserCityProto;
 import com.lvl6.proto.InfoProto.FullUserCritstructProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
@@ -303,9 +304,15 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullCityProto createFullCityProtoFromCity(City c) {
-    return FullCityProto.newBuilder().setCityId(c.getId()).setName(c.getName()).setMinLevel(c.getMinLevel())
-        .setExpGainedBaseOnRankup(c.getExpGainedBaseOnRankup()).setCoinsGainedBaseOnRankup(c.getCoinsGainedBaseOnRankup())
-        .build();
+    FullCityProto.Builder builder = FullCityProto.newBuilder().setCityId(c.getId()).setName(c.getName()).setMinLevel(c.getMinLevel())
+        .setExpGainedBaseOnRankup(c.getExpGainedBaseOnRankup()).setCoinsGainedBaseOnRankup(c.getCoinsGainedBaseOnRankup());
+    List<Task> tasks = TaskRetrieveUtils.getAllTasksForCityId(c.getId());
+    if (tasks != null) {
+      for (Task t : tasks) {
+        builder.addTaskIds(t.getId());
+      }
+    }
+    return builder.build();
   }
 
   public static BuildStructJobProto createFullBuildStructJobProtoFromBuildStructJob(
@@ -456,9 +463,8 @@ public class CreateInfoProtoUtils {
     return fullUserQuestDataLargeProtos;
   }
 
-  public static MinimumUserTaskProto createMinimumUserTaskProto(UserType userType, Integer userId, Task task, Integer numTimesUserActed) {
-    FullTaskProto ftp = createFullTaskProtoFromTask(userType, task);
-    return MinimumUserTaskProto.newBuilder().setUserId(userId).setTask(ftp).setNumTimesActed(numTimesUserActed).build();
+  public static MinimumUserTaskProto createMinimumUserTaskProto(UserType userType, Integer userId, int taskId, Integer numTimesUserActed) {
+    return MinimumUserTaskProto.newBuilder().setUserId(userId).setTaskId(taskId).setNumTimesActed(numTimesUserActed).build();
   }
   
   public static NeutralCityElementProto createNeutralCityElementProtoFromNeutralCityElement(NeutralCityElement nce) {
@@ -468,6 +474,10 @@ public class CreateInfoProtoUtils {
       builder.setOrientation(nce.getOrientation());
     }
     return builder.build();
+  }
+  
+  public static FullUserCityProto createFullUserCityProto(int userId, int cityId, int currentRank, int numTasksCurrentlyCompleteInRank) {
+    return FullUserCityProto.newBuilder().setUserId(userId).setCityId(cityId).setCurrentRank(currentRank).setNumTasksCurrentlyCompleteInRank(numTasksCurrentlyCompleteInRank).build();
   }
 
   private static MinimumUserPossessEquipJobProto createMinimumUserPossessEquipJobProto(UserQuest userQuest, PossessEquipJob possessEquipJob, int quantityOwned) {

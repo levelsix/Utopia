@@ -52,6 +52,7 @@ public class LoadPlayerCityController extends EventController {
 
     LoadPlayerCityResponseProto.Builder resBuilder = LoadPlayerCityResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setCityOwner(cityOwnerProto);
 
     resBuilder.setStatus(LoadPlayerCityStatus.SUCCESS);
     server.lockPlayer(senderProto.getUserId());

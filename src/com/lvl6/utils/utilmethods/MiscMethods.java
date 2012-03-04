@@ -38,6 +38,7 @@ public class MiscMethods {
     return false;
   }
 
+  //should check the db instead
   public static List<City> getCitiesAvailableForUserLevel(int userLevel) {
     List<City> availCities = new ArrayList<City>();
     Map<Integer, City> cities = CityRetrieveUtils.getCityIdsToCities();

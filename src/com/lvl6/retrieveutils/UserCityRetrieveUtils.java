@@ -2,6 +2,8 @@ package com.lvl6.retrieveutils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -18,6 +20,11 @@ public class UserCityRetrieveUtils {
   
   private static final String TABLE_NAME = DBConstants.TABLE_USER_CITIES;
   
+  public static Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
+    log.info("retrieving city id to user city rank map for userId " + userId);
+    return convertRSToCityIdToCityRankMap(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+  }
+  
   public static int getCurrentCityRankForUser(int userId, int cityId) {
     log.info("retrieving user city info for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
@@ -26,8 +33,7 @@ public class UserCityRetrieveUtils {
     return convertRSToCityRank(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
   }
   
-  private static int convertRSToCityRank(
-      ResultSet rs) {
+  private static int convertRSToCityRank(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -43,5 +49,27 @@ public class UserCityRetrieveUtils {
     }
     return NOT_SET;
   }
+
+  private static Map<Integer, Integer> convertRSToCityIdToCityRankMap(ResultSet rs) {
+    Map<Integer, Integer> cityIdToCityRankMap = new HashMap<Integer, Integer>();
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        while(rs.next()) {  //should only be one
+          int cityId = rs.getInt(DBConstants.USER_CITIES__CITY_ID);
+          int currentRank = rs.getInt(DBConstants.USER_CITIES__CURRENT_RANK);
+          cityIdToCityRankMap.put(cityId, currentRank);
+        }
+        return cityIdToCityRankMap;
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return cityIdToCityRankMap;
+  }
+
+  
   
 }
