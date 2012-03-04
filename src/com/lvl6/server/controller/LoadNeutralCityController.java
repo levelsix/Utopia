@@ -62,6 +62,7 @@ public class LoadNeutralCityController extends EventController {
 
     LoadNeutralCityResponseProto.Builder resBuilder = LoadNeutralCityResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setCityId(cityId);
 
     resBuilder.setStatus(LoadNeutralCityStatus.SUCCESS);
     server.lockPlayer(senderProto.getUserId());

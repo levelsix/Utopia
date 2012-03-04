@@ -66,7 +66,6 @@ public class LevelUpController extends EventController {
         }
       }
 
-
       LevelUpResponseProto resProto = resBuilder.build();
       LevelUpResponseEvent resEvent = new LevelUpResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());

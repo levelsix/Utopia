@@ -40,7 +40,7 @@ public class EquipmentRetrieveUtils {
     List <Equipment> equips = new ArrayList<Equipment>();
     for (Integer equipId : equipIdToEquipment.keySet()) {
       Equipment equip = equipIdToEquipment.get(equipId);
-      if (equip.getClassType() == classtype && equip.isAvailableInArmory()) {
+      if ((equip.getClassType() == classtype || equip.getClassType() == ClassType.ALL_AMULET) && equip.isAvailableInArmory()) {
         equips.add(equip);
       }
     }

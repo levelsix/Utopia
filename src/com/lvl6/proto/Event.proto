@@ -489,7 +489,8 @@ message LevelUpResponseProto {
      
      optional int32 newNextLevel = 3;
      optional int32 experienceRequiredForNewNextLevel = 4;
-	 repeated FullCityProto citiesAvailableToUser = 5;
+	 repeated FullCityProto citiesAvailableToUser = 5;						//all, not new
+     repeated FullEquipProto newlyAvailableInArmoryAndEquippable = 6;		//only new ones
      
 	enum LevelUpStatus {
      	SUCCESS = 0;
@@ -1047,6 +1048,7 @@ message LoadNeutralCityResponseProto {
 	     //client shouldnt show bars if already at max city level
      repeated FullUserProto defeatTypeJobEnemies = 4;
      repeated NeutralCityElementProto cityElements = 5;
+     required int32 cityId = 6;
      
      enum LoadNeutralCityStatus {
      	SUCCESS = 0;
