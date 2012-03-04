@@ -240,8 +240,10 @@ message NeutralCityElementProto {
 	required int32 assetId = 2;
 	required NeutralCityElemType type = 3;
 	required CoordinateProto coords = 4;
-	required string imgId = 5;
-	optional StructOrientation orientation = 6;
+	optional int32 xLength = 5;
+	optional int32 yLength = 6;
+	required string imgId = 7;
+	optional StructOrientation orientation = 8;
 	
 	enum NeutralCityElemType {
 		PERSON = 0;

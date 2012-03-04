@@ -13316,11 +13316,19 @@ public final class InfoProto {
     com.lvl6.proto.InfoProto.CoordinateProto getCoords();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordsOrBuilder();
     
-    // required string imgId = 5;
+    // optional int32 xLength = 5;
+    boolean hasXLength();
+    int getXLength();
+    
+    // optional int32 yLength = 6;
+    boolean hasYLength();
+    int getYLength();
+    
+    // required string imgId = 7;
     boolean hasImgId();
     String getImgId();
     
-    // optional .com.lvl6.proto.StructOrientation orientation = 6;
+    // optional .com.lvl6.proto.StructOrientation orientation = 8;
     boolean hasOrientation();
     com.lvl6.proto.InfoProto.StructOrientation getOrientation();
   }
@@ -13468,11 +13476,31 @@ public final class InfoProto {
       return coords_;
     }
     
-    // required string imgId = 5;
-    public static final int IMGID_FIELD_NUMBER = 5;
+    // optional int32 xLength = 5;
+    public static final int XLENGTH_FIELD_NUMBER = 5;
+    private int xLength_;
+    public boolean hasXLength() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public int getXLength() {
+      return xLength_;
+    }
+    
+    // optional int32 yLength = 6;
+    public static final int YLENGTH_FIELD_NUMBER = 6;
+    private int yLength_;
+    public boolean hasYLength() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public int getYLength() {
+      return yLength_;
+    }
+    
+    // required string imgId = 7;
+    public static final int IMGID_FIELD_NUMBER = 7;
     private java.lang.Object imgId_;
     public boolean hasImgId() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public String getImgId() {
       java.lang.Object ref = imgId_;
@@ -13500,11 +13528,11 @@ public final class InfoProto {
       }
     }
     
-    // optional .com.lvl6.proto.StructOrientation orientation = 6;
-    public static final int ORIENTATION_FIELD_NUMBER = 6;
+    // optional .com.lvl6.proto.StructOrientation orientation = 8;
+    public static final int ORIENTATION_FIELD_NUMBER = 8;
     private com.lvl6.proto.InfoProto.StructOrientation orientation_;
     public boolean hasOrientation() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     public com.lvl6.proto.InfoProto.StructOrientation getOrientation() {
       return orientation_;
@@ -13515,6 +13543,8 @@ public final class InfoProto {
       assetId_ = 0;
       type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON;
       coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      xLength_ = 0;
+      yLength_ = 0;
       imgId_ = "";
       orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
     }
@@ -13567,10 +13597,16 @@ public final class InfoProto {
         output.writeMessage(4, coords_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getImgIdBytes());
+        output.writeInt32(5, xLength_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeEnum(6, orientation_.getNumber());
+        output.writeInt32(6, yLength_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBytes(7, getImgIdBytes());
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeEnum(8, orientation_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -13599,11 +13635,19 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getImgIdBytes());
+          .computeInt32Size(5, xLength_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(6, orientation_.getNumber());
+          .computeInt32Size(6, yLength_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, getImgIdBytes());
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(8, orientation_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -13742,10 +13786,14 @@ public final class InfoProto {
           coordsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
-        imgId_ = "";
+        xLength_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
-        orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        yLength_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
+        imgId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000040);
+        orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       
@@ -13807,9 +13855,17 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.imgId_ = imgId_;
+        result.xLength_ = xLength_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
+        }
+        result.yLength_ = yLength_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.imgId_ = imgId_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
         }
         result.orientation_ = orientation_;
         result.bitField0_ = to_bitField0_;
@@ -13839,6 +13895,12 @@ public final class InfoProto {
         }
         if (other.hasCoords()) {
           mergeCoords(other.getCoords());
+        }
+        if (other.hasXLength()) {
+          setXLength(other.getXLength());
+        }
+        if (other.hasYLength()) {
+          setYLength(other.getYLength());
         }
         if (other.hasImgId()) {
           setImgId(other.getImgId());
@@ -13931,18 +13993,28 @@ public final class InfoProto {
               setCoords(subBuilder.buildPartial());
               break;
             }
-            case 42: {
+            case 40: {
               bitField0_ |= 0x00000010;
-              imgId_ = input.readBytes();
+              xLength_ = input.readInt32();
               break;
             }
             case 48: {
+              bitField0_ |= 0x00000020;
+              yLength_ = input.readInt32();
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000040;
+              imgId_ = input.readBytes();
+              break;
+            }
+            case 64: {
               int rawValue = input.readEnum();
               com.lvl6.proto.InfoProto.StructOrientation value = com.lvl6.proto.InfoProto.StructOrientation.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(6, rawValue);
+                unknownFields.mergeVarintField(8, rawValue);
               } else {
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000080;
                 orientation_ = value;
               }
               break;
@@ -14109,10 +14181,52 @@ public final class InfoProto {
         return coordsBuilder_;
       }
       
-      // required string imgId = 5;
+      // optional int32 xLength = 5;
+      private int xLength_ ;
+      public boolean hasXLength() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public int getXLength() {
+        return xLength_;
+      }
+      public Builder setXLength(int value) {
+        bitField0_ |= 0x00000010;
+        xLength_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearXLength() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        xLength_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 yLength = 6;
+      private int yLength_ ;
+      public boolean hasYLength() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getYLength() {
+        return yLength_;
+      }
+      public Builder setYLength(int value) {
+        bitField0_ |= 0x00000020;
+        yLength_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearYLength() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        yLength_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required string imgId = 7;
       private java.lang.Object imgId_ = "";
       public boolean hasImgId() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public String getImgId() {
         java.lang.Object ref = imgId_;
@@ -14128,27 +14242,27 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000040;
         imgId_ = value;
         onChanged();
         return this;
       }
       public Builder clearImgId() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000040);
         imgId_ = getDefaultInstance().getImgId();
         onChanged();
         return this;
       }
       void setImgId(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000040;
         imgId_ = value;
         onChanged();
       }
       
-      // optional .com.lvl6.proto.StructOrientation orientation = 6;
+      // optional .com.lvl6.proto.StructOrientation orientation = 8;
       private com.lvl6.proto.InfoProto.StructOrientation orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
       public boolean hasOrientation() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public com.lvl6.proto.InfoProto.StructOrientation getOrientation() {
         return orientation_;
@@ -14157,13 +14271,13 @@ public final class InfoProto {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000080;
         orientation_ = value;
         onChanged();
         return this;
       }
       public Builder clearOrientation() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000080);
         orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
         onChanged();
         return this;
@@ -25120,92 +25234,93 @@ public final class InfoProto {
       "ntlyCompleteInRank\030\004 \002(\005\"\'\n\017CoordinatePr" +
       "oto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationPro" +
       "to\022\020\n\010latitude\030\001 \002(\001\022\021\n\tlongitude\030\002 \002(\001\"",
-      "\276\002\n\027NeutralCityElementProto\022\016\n\006cityId\030\001 " +
+      "\340\002\n\027NeutralCityElementProto\022\016\n\006cityId\030\001 " +
       "\002(\005\022\017\n\007assetId\030\002 \002(\005\022I\n\004type\030\003 \002(\0162;.com" +
       ".lvl6.proto.NeutralCityElementProto.Neut" +
       "ralCityElemType\022/\n\006coords\030\004 \002(\0132\037.com.lv" +
-      "l6.proto.CoordinateProto\022\r\n\005imgId\030\005 \002(\t\022" +
-      "6\n\013orientation\030\006 \001(\0162!.com.lvl6.proto.St" +
-      "ructOrientation\"?\n\023NeutralCityElemType\022\n" +
-      "\n\006PERSON\020\000\022\014\n\010BUILDING\020\001\022\016\n\nDECORATION\020\002" +
-      "\"\356\001\n\030FullMarketplacePostProto\022\031\n\021marketp" +
-      "lacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010po",
-      "stType\030\003 \002(\0162#.com.lvl6.proto.Marketplac" +
-      "ePostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013postedE" +
-      "quip\030\005 \002(\0132\036.com.lvl6.proto.FullEquipPro" +
-      "to\022\023\n\013diamondCost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(" +
-      "\005\"\260\001\n\027FullUserCritstructProto\022,\n\004type\030\001 " +
-      "\002(\0162\036.com.lvl6.proto.CritStructType\022/\n\006c" +
-      "oords\030\002 \002(\0132\037.com.lvl6.proto.CoordinateP" +
-      "roto\0226\n\013orientation\030\003 \002(\0162!.com.lvl6.pro" +
-      "to.StructOrientation\"M\n\024MinimumUserTaskP" +
-      "roto\022\016\n\006userId\030\001 \002(\005\022\016\n\006taskId\030\002 \002(\005\022\025\n\r",
-      "numTimesActed\030\003 \002(\005\"\200\001\n\031MinimumUserQuest" +
-      "TaskProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002" +
-      "(\005\022+\n\004task\030\003 \002(\0132\035.com.lvl6.proto.FullTa" +
-      "skProto\022\025\n\rnumTimesActed\030\004 \002(\005\"\376\003\n\033FullU" +
-      "serQuestDataLargeProto\022\016\n\006userId\030\001 \002(\005\022\017" +
-      "\n\007questId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(\010\022H\n\025req" +
-      "uiredTasksProgress\030\004 \003(\0132).com.lvl6.prot" +
-      "o.MinimumUserQuestTaskProto\022T\n\035requiredD" +
-      "efeatTypeJobProgress\030\005 \003(\0132-.com.lvl6.pr" +
-      "oto.MinimumUserDefeatTypeJobProto\022V\n\036req",
-      "uiredBuildStructJobProgress\030\006 \003(\0132..com." +
-      "lvl6.proto.MinimumUserBuildStructJobProt" +
-      "o\022Z\n requiredUpgradeStructJobProgress\030\007 " +
-      "\003(\01320.com.lvl6.proto.MinimumUserUpgradeS" +
-      "tructJobProto\022X\n\037requiredPossessEquipJob" +
-      "Progress\030\010 \003(\0132/.com.lvl6.proto.MinimumU" +
-      "serPossessEquipJobProto\"\222\001\n\035MinimumUserD" +
-      "efeatTypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007que" +
-      "stId\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\".co" +
-      "m.lvl6.proto.DefeatTypeJobProto\022\023\n\013numDe",
-      "feated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017d" +
-      "efeatTypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(" +
-      "\0162\030.com.lvl6.proto.UserType\022\032\n\022numEnemie" +
-      "sToDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036Mini" +
-      "mumUserBuildStructJobProto\022\016\n\006userId\030\001 \002" +
-      "(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016buildStructJob\030\003 " +
-      "\002(\0132#.com.lvl6.proto.BuildStructJobProto" +
-      "\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildStr" +
-      "uctJobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022\020\n" +
-      "\010structId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 \002(",
-      "\005\"\230\001\n MinimumUserUpgradeStructJobProto\022\016" +
-      "\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upgra" +
-      "deStructJob\030\003 \002(\0132%.com.lvl6.proto.Upgra" +
-      "deStructJobProto\022\022\n\nisComplete\030\004 \002(\010\"W\n\025" +
-      "UpgradeStructJobProto\022\032\n\022upgradeStructJo" +
-      "bId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq\030" +
-      "\003 \002(\005\"\237\001\n\037MinimumUserPossessEquipJobProt" +
-      "o\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024po" +
-      "ssessEquipJobProto\030\003 \002(\0132$.com.lvl6.prot" +
-      "o.PossessEquipJobProto\022\027\n\017numEquipUserHa",
-      "s\030\004 \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021posse" +
-      "ssEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013q" +
-      "uantityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022\017\n\007q" +
-      "uestId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002" +
-      "(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneResponse\030" +
-      "\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWit" +
-      "hinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016di" +
-      "amondsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n" +
-      "\requipIdGained\030\013 \001(\005\022\035\n\025questsRequiredFo" +
-      "rThis\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgrade",
-      "StructJobsReqs\030\016 \003(\005\022\033\n\023buildStructJobsR" +
-      "eqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023pos" +
-      "sessEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020\n\014GO" +
-      "OD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MA" +
-      "GE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n" +
-      "\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_" +
-      "WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE" +
-      "\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIUM_EQU" +
-      "IP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Market" +
-      "placeJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL",
-      "\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMB" +
-      "ERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006AR" +
-      "MORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrienta" +
-      "tion\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022" +
-      "ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR" +
-      "_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
+      "l6.proto.CoordinateProto\022\017\n\007xLength\030\005 \001(" +
+      "\005\022\017\n\007yLength\030\006 \001(\005\022\r\n\005imgId\030\007 \002(\t\0226\n\013ori" +
+      "entation\030\010 \001(\0162!.com.lvl6.proto.StructOr" +
+      "ientation\"?\n\023NeutralCityElemType\022\n\n\006PERS" +
+      "ON\020\000\022\014\n\010BUILDING\020\001\022\016\n\nDECORATION\020\002\"\356\001\n\030F" +
+      "ullMarketplacePostProto\022\031\n\021marketplacePo",
+      "stId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType" +
+      "\030\003 \002(\0162#.com.lvl6.proto.MarketplacePostT" +
+      "ype\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013postedEquip\030\005" +
+      " \002(\0132\036.com.lvl6.proto.FullEquipProto\022\023\n\013" +
+      "diamondCost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\"\260\001\n\027" +
+      "FullUserCritstructProto\022,\n\004type\030\001 \002(\0162\036." +
+      "com.lvl6.proto.CritStructType\022/\n\006coords\030" +
+      "\002 \002(\0132\037.com.lvl6.proto.CoordinateProto\0226" +
+      "\n\013orientation\030\003 \002(\0162!.com.lvl6.proto.Str" +
+      "uctOrientation\"M\n\024MinimumUserTaskProto\022\016",
+      "\n\006userId\030\001 \002(\005\022\016\n\006taskId\030\002 \002(\005\022\025\n\rnumTim" +
+      "esActed\030\003 \002(\005\"\200\001\n\031MinimumUserQuestTaskPr" +
+      "oto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022+\n\004" +
+      "task\030\003 \002(\0132\035.com.lvl6.proto.FullTaskProt" +
+      "o\022\025\n\rnumTimesActed\030\004 \002(\005\"\376\003\n\033FullUserQue" +
+      "stDataLargeProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007ques" +
+      "tId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(\010\022H\n\025requiredT" +
+      "asksProgress\030\004 \003(\0132).com.lvl6.proto.Mini" +
+      "mumUserQuestTaskProto\022T\n\035requiredDefeatT" +
+      "ypeJobProgress\030\005 \003(\0132-.com.lvl6.proto.Mi",
+      "nimumUserDefeatTypeJobProto\022V\n\036requiredB" +
+      "uildStructJobProgress\030\006 \003(\0132..com.lvl6.p" +
+      "roto.MinimumUserBuildStructJobProto\022Z\n r" +
+      "equiredUpgradeStructJobProgress\030\007 \003(\01320." +
+      "com.lvl6.proto.MinimumUserUpgradeStructJ" +
+      "obProto\022X\n\037requiredPossessEquipJobProgre" +
+      "ss\030\010 \003(\0132/.com.lvl6.proto.MinimumUserPos" +
+      "sessEquipJobProto\"\222\001\n\035MinimumUserDefeatT" +
+      "ypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002" +
+      " \002(\005\022;\n\017defeatTypeJobId\030\003 \002(\0132\".com.lvl6",
+      ".proto.DefeatTypeJobProto\022\023\n\013numDefeated" +
+      "\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017defeatT" +
+      "ypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\0162\030.co" +
+      "m.lvl6.proto.UserType\022\032\n\022numEnemiesToDef" +
+      "eat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036MinimumUse" +
+      "rBuildStructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007" +
+      "questId\030\002 \002(\005\022;\n\016buildStructJob\030\003 \002(\0132#." +
+      "com.lvl6.proto.BuildStructJobProto\022\032\n\022nu" +
+      "mOfStructUserHas\030\004 \002(\005\"[\n\023BuildStructJob" +
+      "Proto\022\030\n\020buildStructJobId\030\001 \002(\005\022\020\n\010struc",
+      "tId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 \002(\005\"\230\001\n " +
+      "MinimumUserUpgradeStructJobProto\022\016\n\006user" +
+      "Id\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022?\n\020upgradeStru" +
+      "ctJob\030\003 \002(\0132%.com.lvl6.proto.UpgradeStru" +
+      "ctJobProto\022\022\n\nisComplete\030\004 \002(\010\"W\n\025Upgrad" +
+      "eStructJobProto\022\032\n\022upgradeStructJobId\030\001 " +
+      "\002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq\030\003 \002(\005\"" +
+      "\237\001\n\037MinimumUserPossessEquipJobProto\022\016\n\006u" +
+      "serId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024possessE" +
+      "quipJobProto\030\003 \002(\0132$.com.lvl6.proto.Poss",
+      "essEquipJobProto\022\027\n\017numEquipUserHas\030\004 \002(" +
+      "\005\"W\n\024PossessEquipJobProto\022\031\n\021possessEqui" +
+      "pJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013quantit" +
+      "yReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022\017\n\007questId" +
+      "\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\023\n\013" +
+      "description\030\004 \002(\t\022\024\n\014doneResponse\030\005 \002(\t\022" +
+      "\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWithinCit" +
+      "y\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamonds" +
+      "Gained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\requip" +
+      "IdGained\030\013 \001(\005\022\035\n\025questsRequiredForThis\030",
+      "\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeStruct" +
+      "JobsReqs\030\016 \003(\005\022\033\n\023buildStructJobsReqs\030\017 " +
+      "\003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023possessEq" +
+      "uipJobReqs\030\021 \003(\005*k\n\010UserType\022\020\n\014GOOD_WAR" +
+      "RIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017" +
+      "\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_M" +
+      "AGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022" +
+      "\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023" +
+      "MarketplacePostType\022\026\n\022PREMIUM_EQUIP_POS" +
+      "T\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJ",
+      "obRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016" +
+      "CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL" +
+      "\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004" +
+      "\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrientation\022\016" +
+      "\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022Expans" +
+      "ionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR_LEFT\020" +
+      "\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -25321,7 +25436,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_NeutralCityElementProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_NeutralCityElementProto_descriptor,
-              new java.lang.String[] { "CityId", "AssetId", "Type", "Coords", "ImgId", "Orientation", },
+              new java.lang.String[] { "CityId", "AssetId", "Type", "Coords", "XLength", "YLength", "ImgId", "Orientation", },
               com.lvl6.proto.InfoProto.NeutralCityElementProto.class,
               com.lvl6.proto.InfoProto.NeutralCityElementProto.Builder.class);
           internal_static_com_lvl6_proto_FullMarketplacePostProto_descriptor =

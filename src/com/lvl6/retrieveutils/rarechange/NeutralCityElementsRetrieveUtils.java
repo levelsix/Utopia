@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.NeutralCityElement;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType;
@@ -75,12 +76,19 @@ public class NeutralCityElementsRetrieveUtils {
     int assetId = rs.getInt(i++);
     NeutralCityElemType type = NeutralCityElemType.valueOf(rs.getInt(i++));
     CoordinatePair coords = new CoordinatePair(rs.getInt(i++), rs.getInt(i++));
+    
+    int xLength = rs.getInt(i++);
+    if (rs.wasNull()) xLength = ControllerConstants.NOT_SET;
+
+    int yLength = rs.getInt(i++);
+    if (rs.wasNull()) yLength = ControllerConstants.NOT_SET;
+    
     String imgId = rs.getString(i++);
 
     int orientationNum = rs.getInt(i++);
     StructOrientation orientation = (rs.wasNull()) ? null : StructOrientation.valueOf(orientationNum);
     
-    return new NeutralCityElement(cityId, assetId, type, coords, imgId, orientation);
+    return new NeutralCityElement(cityId, assetId, type, coords, xLength, yLength, imgId, orientation);
   }
 
 

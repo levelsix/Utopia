@@ -8,14 +8,19 @@ public class NeutralCityElement {
   private int assetId;
   private NeutralCityElemType type;
   private CoordinatePair coords;
+  private int xLength;
+  private int yLength;
   private String imgId;
   private StructOrientation orientation;
   public NeutralCityElement(int cityId, int assetId, NeutralCityElemType type,
-      CoordinatePair coords, String imgId, StructOrientation orientation) {
+      CoordinatePair coords, int xLength, int yLength, String imgId,
+      StructOrientation orientation) {
     this.cityId = cityId;
     this.assetId = assetId;
     this.type = type;
     this.coords = coords;
+    this.xLength = xLength;
+    this.yLength = yLength;
     this.imgId = imgId;
     this.orientation = orientation;
   }
@@ -31,6 +36,12 @@ public class NeutralCityElement {
   public CoordinatePair getCoords() {
     return coords;
   }
+  public int getxLength() {
+    return xLength;
+  }
+  public int getyLength() {
+    return yLength;
+  }
   public String getImgId() {
     return imgId;
   }
@@ -40,7 +51,8 @@ public class NeutralCityElement {
   @Override
   public String toString() {
     return "NeutralCityElement [cityId=" + cityId + ", assetId=" + assetId
-        + ", type=" + type + ", coords=" + coords + ", imgId=" + imgId
-        + ", orientation=" + orientation + "]";
+        + ", type=" + type + ", coords=" + coords + ", xLength=" + xLength
+        + ", yLength=" + yLength + ", imgId=" + imgId + ", orientation="
+        + orientation + "]";
   }
 }

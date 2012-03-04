@@ -473,6 +473,12 @@ public class CreateInfoProtoUtils {
     if (nce.getOrientation() != null) {
       builder.setOrientation(nce.getOrientation());
     }
+    if (nce.getxLength() > 0) {
+      builder.setXLength(nce.getxLength());
+    }
+    if (nce.getyLength() > 0) {
+      builder.setYLength(nce.getyLength());
+    }
     return builder.build();
   }
   
