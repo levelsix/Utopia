@@ -31,7 +31,7 @@ public class LevelUpController extends EventController {
   public LevelUpController() {
     numAllocatedThreads = 4;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new LevelUpRequestEvent();
@@ -49,6 +49,7 @@ public class LevelUpController extends EventController {
     MinimumUserProto senderProto = reqProto.getSender();
 
     LevelUpResponseProto.Builder resBuilder = LevelUpResponseProto.newBuilder();
+    resBuilder.setSender(senderProto);
 
     server.lockPlayer(senderProto.getUserId());
     try {
@@ -79,15 +80,17 @@ public class LevelUpController extends EventController {
           }
         }
       }
-      
+
       LevelUpResponseProto resProto = resBuilder.build();
       LevelUpResponseEvent resEvent = new LevelUpResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setLevelUpResponseProto(resProto);
       server.writeEvent(resEvent);
 
-      writeChangesToDB(user, newlyUnlockedCityIds);
-
+      if (legitLevelUp) {
+        writeChangesToDB(user, newlyUnlockedCityIds);
+      }
+      
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);

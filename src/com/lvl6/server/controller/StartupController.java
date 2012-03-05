@@ -113,6 +113,8 @@ public class StartupController extends EventController {
           resBuilder.setSender(fup);
           resBuilder.setExperienceRequiredForNextLevel(
               LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1));
+          resBuilder.setExperienceRequiredForCurrentLevel(
+              LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel()));
           setNotifications(resBuilder, user);
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);

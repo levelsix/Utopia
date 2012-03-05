@@ -22,18 +22,14 @@ public class ControllerConstants {
   public static final int TUTORIAL__FIRST_TASK_COIN_GAIN = 50;
   public static final int TUTORIAL__FIRST_BATTLE_COIN_GAIN = 50;
   public static final int TUTORIAL__FIRST_BATTLE_EXP_GAIN = 50;
-  public static final int TUTORIAL__FIRST_BATTLE_LOOT_EQUIP_ID = 1;   //has to be an amulet
-  
-//  //first quest don't give loot
-//  //in user create
-//  int playerExp = task.getExpGained() + FIRST_BATTLE_EXP_GAIN + quest.getExpGained_
-//  int playerCoins = FIRST_TASK_COIN_GAIN + FIRST_BATTLE_COIN_GAIN + quest.getCoinsGained
-//
-//      level up should refill energy and stamina
-//      give skill points
+  public static final int TUTORIAL__FIRST_BATTLE_AMULET_LOOT_EQUIP_ID = 1;
 
-
-      
+  public static final int TUTORIAL__ARCHER_INIT_WEAPON = 1;
+  public static final int TUTORIAL__ARCHER_INIT_ARMOR = 1;
+  public static final int TUTORIAL__MAGE_INIT_WEAPON = 1;
+  public static final int TUTORIAL__MAGE_INIT_ARMOR = 1;
+  public static final int TUTORIAL__WARRIOR_INIT_WEAPON = 1;
+  public static final int TUTORIAL__WARRIOR_INIT_ARMOR = 1;
   
   //LEVEL UP
   public static final int MAX_LEVEL_FOR_USER = 300;
