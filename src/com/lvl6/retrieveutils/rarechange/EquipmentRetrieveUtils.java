@@ -111,14 +111,11 @@ public class EquipmentRetrieveUtils {
     if (coinPriceSet && !diamondPriceSet) {
       equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, Equipment.NOT_SET, chanceOfLoss, classType, rarity, availableInArmory);
     } else if (diamondPriceSet && !coinPriceSet){
-      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity, availableInArmory);
+      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity, availableInArmory);      
     } else if (diamondPriceSet && coinPriceSet){
       log.error("equipment should only have coin or diamond price");
       return null;
-    } else if (!availableInArmory) {
-    	// No price, so it is in the armory
-      equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, Equipment.NOT_SET, chanceOfLoss, classType, rarity, availableInArmory);
-    }
+    } 
     
     //3 types
     //1) sellable in armory, 2) not sellable in armory but sellable in marketplace, 3) never sellable
