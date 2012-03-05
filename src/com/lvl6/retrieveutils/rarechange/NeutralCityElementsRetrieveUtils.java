@@ -84,12 +84,14 @@ public class NeutralCityElementsRetrieveUtils {
     int yLength = rs.getInt(i++);
     if (rs.wasNull()) yLength = ControllerConstants.NOT_SET;
     
-    String imgId = rs.getString(i++);
+    String imgIdGood = rs.getString(i++);
+    String imgIdBad = rs.getString(i++);
 
+    
     int orientationNum = rs.getInt(i++);
     StructOrientation orientation = (rs.wasNull()) ? null : StructOrientation.valueOf(orientationNum);
     
-    return new NeutralCityElement(cityId, assetId, name, type, coords, xLength, yLength, imgId, orientation);
+    return new NeutralCityElement(cityId, assetId, name, type, coords, xLength, yLength, imgIdGood, imgIdBad, orientation);
   }
 
 

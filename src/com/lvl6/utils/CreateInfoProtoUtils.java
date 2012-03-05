@@ -467,10 +467,16 @@ public class CreateInfoProtoUtils {
     return MinimumUserTaskProto.newBuilder().setUserId(userId).setTaskId(taskId).setNumTimesActed(numTimesUserActed).build();
   }
   
-  public static NeutralCityElementProto createNeutralCityElementProtoFromNeutralCityElement(NeutralCityElement nce) {
+  public static NeutralCityElementProto createNeutralCityElementProtoFromNeutralCityElement(NeutralCityElement nce, UserType type) {
     NeutralCityElementProto.Builder builder = NeutralCityElementProto.newBuilder().setCityId(nce.getCityId()).setAssetId(nce.getAssetId())
         .setName(nce.getName()).setType(nce.getType())
-        .setCoords(createCoordinateProtoFromCoordinatePair(nce.getCoords())).setImgId(nce.getImgId());
+        .setCoords(createCoordinateProtoFromCoordinatePair(nce.getCoords()));
+    boolean goodSide = MiscMethods.checkIfGoodSide(type);
+    if (goodSide) {
+      builder.setImgId(nce.getImgGood());
+    } else {
+      builder.setImgId(nce.getImgBad());      
+    }
     if (nce.getOrientation() != null) {
       builder.setOrientation(nce.getOrientation());
     }

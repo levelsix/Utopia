@@ -263,7 +263,7 @@ public class StartupController extends EventController {
     
     List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(user.getLevel());
     for (City city : availCities) {
-      if (cityIdsToUserCityRanks.containsKey(city.getId())) {   //should always be true
+      if (cityIdsToUserCityRanks.containsKey(city.getId())) {   //should always be true, except for fake users.
         resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
         
         int numTasksComplete = getNumTasksCompleteForUserCity(user, city, taskIdToNumTimesActedInRank);
