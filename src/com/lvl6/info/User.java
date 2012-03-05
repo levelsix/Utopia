@@ -22,10 +22,8 @@ public class User {
   private int defense;
   private int stamina;
   private Date lastStaminaRefillTime;
-  private boolean isLastStaminaStateFull;
   private int energy;
   private Date lastEnergyRefillTime;
-  private boolean isLastEnergyStateFull;
   private int skillPoints;
   private int healthMax;
   private int energyMax;
@@ -60,8 +58,8 @@ public class User {
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
-      boolean isLastStaminaStateFull, int energy, Date lastEnergyRefillTime,
-      boolean isLastEnergyStateFull, int skillPoints, int healthMax,
+      int energy, Date lastEnergyRefillTime,
+      int skillPoints, int healthMax,
       int energyMax, int staminaMax, int diamonds, int coins,
       int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
       int vaultBalance, int experience, int tasksCompleted, int battlesWon,
@@ -80,10 +78,8 @@ public class User {
     this.defense = defense;
     this.stamina = stamina;
     this.lastStaminaRefillTime = lastStaminaRefillTime;
-    this.isLastStaminaStateFull = isLastStaminaStateFull;
     this.energy = energy;
     this.lastEnergyRefillTime = lastEnergyRefillTime;
-    this.isLastEnergyStateFull = isLastEnergyStateFull;
     this.skillPoints = skillPoints;
     this.healthMax = healthMax;
     this.energyMax = energyMax;
@@ -348,13 +344,12 @@ public class User {
   /*
    * used for refilling stamina
    */
-  public boolean updateLaststaminarefilltimeStaminaIslaststaminastatefull(Timestamp lastStaminaRefillTime, int staminaChange, boolean isLastStaminaStateFull) {
+  public boolean updateLaststaminarefilltimeStaminaIslaststaminastatefull(Timestamp lastStaminaRefillTime, int staminaChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, lastStaminaRefillTime);
-    absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, isLastStaminaStateFull);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
@@ -368,7 +363,6 @@ public class User {
     if (numUpdated == 1) {
       this.lastStaminaRefillTime = lastStaminaRefillTime;
       this.stamina += staminaChange;
-      this.isLastStaminaStateFull = isLastStaminaStateFull;
       return true;
     }
     return false;
@@ -377,13 +371,12 @@ public class User {
   /*
    * used for refilling energy
    */
-  public boolean updateLastenergyrefilltimeEnergyIslastenergystatefull(Timestamp lastEnergyRefillTime, int energyChange, boolean isLastEnergyStateFull) {
+  public boolean updateLastenergyrefilltimeEnergy(Timestamp lastEnergyRefillTime, int energyChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, lastEnergyRefillTime);
-    absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, isLastEnergyStateFull);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__ENERGY, energyChange);
@@ -397,7 +390,6 @@ public class User {
     if (numUpdated == 1) {
       this.lastEnergyRefillTime = lastEnergyRefillTime;
       this.energy += energyChange;
-      this.isLastEnergyStateFull = isLastEnergyStateFull;
       return true;
     }
     return false;
@@ -406,7 +398,7 @@ public class User {
   /*
    * used for using diamonds to refill stat
    */
-  public boolean updateRelativeDiamondsRestoreStatChangerefilltime (int diamondChange, StatType statType, Timestamp newRefillTime) {
+  public boolean updateRelativeDiamondsRestoreStat (int diamondChange, StatType statType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -416,12 +408,8 @@ public class User {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (statType == StatType.ENERGY) {
       absoluteParams.put(DBConstants.USER__ENERGY, energyMax);
-      absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, newRefillTime);
-      absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, true);
     } else if (statType == StatType.STAMINA) {
       absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
-      absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, newRefillTime);
-      absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, true);
     }
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, 
@@ -429,12 +417,8 @@ public class User {
     if (numUpdated == 1) {
       if (statType == StatType.ENERGY) {
         this.energy = energyMax;
-        this.lastEnergyRefillTime = newRefillTime;
-        this.isLastEnergyStateFull = true;
       } else if (statType == StatType.STAMINA) {
         this.stamina = staminaMax;
-        this.lastStaminaRefillTime = newRefillTime;
-        this.isLastStaminaStateFull = true;
       }
       this.diamonds += diamondChange;
       return true;
@@ -459,11 +443,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__ENERGY, energyMax);
     absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
     absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, levelUpTime);
-    absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, true);
     absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, levelUpTime);
-    absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, true);
-
-
 
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
@@ -472,9 +452,7 @@ public class User {
       this.stamina = staminaMax;
       this.skillPoints += skillPointsChange;
       this.lastEnergyRefillTime = levelUpTime;
-      this.isLastEnergyStateFull = true;
       this.lastStaminaRefillTime = levelUpTime;
-      this.isLastStaminaStateFull = true;
       return true;
     }
     return false;
@@ -668,7 +646,6 @@ public class User {
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (simulateEnergyRefill) {
-      absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, false);
       absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, clientTime);
     }
     if (absoluteParams.size() == 0) {
@@ -679,7 +656,6 @@ public class User {
         conditionParams, "and");
     if (numUpdated == 1) {
       if (simulateEnergyRefill) {
-        this.isLastEnergyStateFull = false;
         this.lastEnergyRefillTime = clientTime;
       }
       this.coins += coinChange;
@@ -795,7 +771,6 @@ public class User {
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (simulateStaminaRefill) {
-      absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, false);
       absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, clientTime);
     }
     if (updateLastAttackedTime) {
@@ -809,7 +784,6 @@ public class User {
         conditionParams, "and");
     if (numUpdated == 1) {
       if (simulateStaminaRefill) {
-        this.isLastStaminaStateFull = false;
         this.lastStaminaRefillTime = clientTime;
       }
       if (updateLastAttackedTime) {
@@ -858,20 +832,12 @@ public class User {
     return lastStaminaRefillTime;
   }
 
-  public boolean isLastStaminaStateFull() {
-    return isLastStaminaStateFull;
-  }
-
   public int getEnergy() {
     return energy;
   }
 
   public Date getLastEnergyRefillTime() {
     return lastEnergyRefillTime;
-  }
-
-  public boolean isLastEnergyStateFull() {
-    return isLastEnergyStateFull;
   }
 
   public int getSkillPoints() {
@@ -1003,9 +969,9 @@ public class User {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
         + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
         + stamina + ", lastStaminaRefillTime=" + lastStaminaRefillTime
-        + ", isLastStaminaStateFull=" + isLastStaminaStateFull + ", energy="
+        + ", energy="
         + energy + ", lastEnergyRefillTime=" + lastEnergyRefillTime
-        + ", isLastEnergyStateFull=" + isLastEnergyStateFull + ", skillPoints="
+        + ", skillPoints="
         + skillPoints + ", healthMax=" + healthMax + ", energyMax=" + energyMax
         + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
         + coins + ", marketplaceDiamondsEarnings="

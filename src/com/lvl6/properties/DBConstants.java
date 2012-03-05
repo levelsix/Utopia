@@ -47,10 +47,8 @@ public class DBConstants {
   public static final String USER__DEFENSE = "defense";
   public static final String USER__STAMINA = "stamina";
   public static final String USER__LAST_STAMINA_REFILL_TIME = "last_stamina_refill_time";
-  public static final String USER__IS_LAST_STAMINA_STATE_FULL = "is_last_stamina_state_full";
   public static final String USER__ENERGY = "energy";
   public static final String USER__LAST_ENERGY_REFILL_TIME = "last_energy_refill_time";
-  public static final String USER__IS_LAST_ENERGY_STATE_FULL = "is_last_energy_state_full";
   public static final String USER__SKILL_POINTS = "skill_points";
   public static final String USER__HEALTH_MAX = "health_max";
   public static final String USER__ENERGY_MAX = "energy_max";

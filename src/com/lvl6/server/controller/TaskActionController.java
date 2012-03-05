@@ -145,9 +145,6 @@ public class TaskActionController extends EventController {
 
       writeChangesToDB(legitAction, user, task, cityRankedUp, changeNumTimesUserActedInDB, lootEquipId, 
           totalCoinGain, totalExpGain, tasksInCity, clientTime);
-      //TODO: should these send new response? or package inside battles?
-      //TODO: AchievementCheck.checkBattle(); 
-      //TODO: LevelCheck.checkUser();
 
       if (legitAction) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
@@ -232,11 +229,8 @@ public class TaskActionController extends EventController {
           log.error("problem with incrementing user equip post-task");
         }
       }
-      boolean simulateEnergyRefill = false;
-      if (user.isLastEnergyStateFull()) {
-        simulateEnergyRefill = true;
-      }
-
+      
+      boolean simulateEnergyRefill = (user.getEnergy() == user.getEnergyMax());
       if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1, simulateEnergyRefill, clientTime)) {
         log.error("problem with updating user stats post-task");
       }

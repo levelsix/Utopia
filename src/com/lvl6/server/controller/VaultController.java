@@ -9,6 +9,8 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.VaultRequestProto;
 import com.lvl6.proto.EventProto.VaultRequestProto.VaultRequestType;
 import com.lvl6.proto.EventProto.VaultResponseProto;
+import com.lvl6.proto.EventProto.VaultResponseProto.Builder;
+import com.lvl6.proto.EventProto.VaultResponseProto.VaultStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
@@ -42,27 +44,31 @@ public class VaultController extends EventController {
     VaultRequestType requestType = reqProto.getRequestType();
     int amount = reqProto.getAmount();
 
+    VaultResponseProto.Builder resBuilder = VaultResponseProto.newBuilder();
+    resBuilder.setSender(senderProto);
     // Lock this player's ID
     server.lockPlayer(senderProto.getUserId());
 
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-      VaultResponseProto.Builder resBuilder = VaultResponseProto.newBuilder();
-      resBuilder.setSender(senderProto);
 
-      if (amount > 0 && requestType == VaultRequestType.WITHDRAW && amount <= user.getVaultBalance()) {
-        if (!user.updateRelativeCoinsVault(amount, -1*amount)) {
-          log.error("problem with vault transaction");
+      boolean legitTransaction = checkLegitTransaction(resBuilder, user, amount, requestType);
+            
+      if (legitTransaction) {
+        if (requestType == VaultRequestType.WITHDRAW) {
+          if (!user.updateRelativeCoinsVault(amount, -1*amount)) {
+            log.error("problem with vault transaction");
+          }
+        } else if (requestType == VaultRequestType.DEPOSIT) {
+          if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT/100.0)*amount))) {
+            log.error("problem with vault transaction");          
+          }
         }
-      } else if (amount > 0 && requestType == VaultRequestType.DEPOSIT && amount <= user.getCoins()){
-        if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT/100.0)*amount))) {
-          log.error("problem with vault transaction");          
-        }
+        resBuilder.setCoinAmount(user.getCoins());
+        resBuilder.setVaultAmount(user.getVaultBalance());
       }
-      resBuilder.setCoinAmount(user.getCoins());
-      resBuilder.setVaultAmount(user.getVaultBalance());
+      
       VaultResponseProto resProto = resBuilder.build();
-
       VaultResponseEvent resEvent = new VaultResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setVaultResponseProto(resProto);
@@ -79,6 +85,31 @@ public class VaultController extends EventController {
       // Unlock this player
       server.unlockPlayer(senderProto.getUserId());
     }
+  }
+
+  private boolean checkLegitTransaction(Builder resBuilder, User user, int amount, VaultRequestType requestType) {
+    if (amount <= 0 || user == null) {
+      resBuilder.setStatus(VaultStatus.OTHER_FAIL);
+      return false;
+    }
+    if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_VAULT) {
+      resBuilder.setStatus(VaultStatus.LEVEL_TOO_LOW);
+      return false;
+    }
+    if (requestType == VaultRequestType.WITHDRAW) {
+      if (amount > user.getVaultBalance()) {
+        resBuilder.setStatus(VaultStatus.OTHER_FAIL);
+        return false;
+      }
+    }
+    if (requestType == VaultRequestType.DEPOSIT) {
+      if (amount > user.getCoins()) {
+        resBuilder.setStatus(VaultStatus.OTHER_FAIL);
+        return false;
+      }
+    }    
+    resBuilder.setStatus(VaultStatus.SUCCESS);
+    return true;
   }
 
 }

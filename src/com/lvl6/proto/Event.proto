@@ -52,20 +52,28 @@ message BattleResponseProto {
 
 																						//DONE
 message VaultRequestProto {
-   enum VaultRequestType {
-		DEPOSIT = 0; 
-		WITHDRAW = 1;
-	} 
 	required MinimumUserProto sender = 1;
 	optional VaultRequestType requestType = 2;
 	optional int32 amount = 3;
+	enum VaultRequestType {
+		DEPOSIT = 0; 
+		WITHDRAW = 1;
+	} 
+	
 }
 
 																						//DONE
 message VaultResponseProto {
 	required MinimumUserProto sender = 1;
-	optional int32 vaultAmount = 2;
-	optional int32 coinAmount = 3;
+	required VaultStatus status = 2;	
+	optional int32 vaultAmount = 3;
+	optional int32 coinAmount = 4;
+	
+	enum VaultStatus {
+		SUCCESS = 0;
+		LEVEL_TOO_LOW = 1;
+		OTHER_FAIL = 2;
+	}
 }
 
 //------------------------------------------------------------------------------------------
@@ -92,7 +100,8 @@ message ArmoryResponseProto {
 		NOT_ENOUGH_EQUIP_TO_SELL = 1;
 		NOT_ENOUGH_CURRENCY_TO_BUY = 2;
 		CANNOT_SELL_DIAMOND_EQUIP = 3;
-		OTHER_FAIL = 4;
+		LEVEL_TOO_LOW = 4;
+		OTHER_FAIL = 5;
 	} 
 }
 
@@ -385,6 +394,7 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 		NOT_LONG_ENOUGH = 1;
 		OTHER_FAIL = 2;
 		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 3;
+		LEVEL_TOO_LOW = 4;
 	}
 }
 
@@ -575,7 +585,8 @@ message PostToMarketplaceResponseProto {
 		CANT_DEMAND_BOTH = 6;
 		INVALID_COST_TYPE_FOR_POST = 7;
 		NO_LICENSE = 8;
-		OTHER_FAIL = 9;
+		LEVEL_TOO_LOW = 9;
+		OTHER_FAIL = 10;
 	}
 }
 
@@ -598,6 +609,7 @@ message RetractMarketplacePostResponseProto {
 		POST_NO_LONGER_EXISTS = 2;
 		NOT_ENOUGH_DIAMONDS = 3;
 		NOT_ENOUGH_COINS = 4;
+		LEVEL_TOO_LOW = 5;
 	}
 }
 
@@ -622,7 +634,8 @@ message PurchaseFromMarketplaceResponseProto {
 		NOT_ENOUGH_MATERIALS = 1;
 		POST_NO_LONGER_EXISTS = 2;
 		PURCHASER_IS_SELLER = 3;
-		OTHER_FAIL = 4;
+		LEVEL_TOO_LOW = 4;
+		OTHER_FAIL = 5;
 	}
 }
 
@@ -703,7 +716,6 @@ message RefillStatWithDiamondsResponseProto {
      	NOT_ENOUGH_DIAMONDS = 1;
      	ALREADY_MAX = 2;
      	OTHER_FAIL = 3;
-     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
      }
 }
 

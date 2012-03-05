@@ -60,6 +60,8 @@ public class ArmoryController extends EventController {
 
       if (quantity < 1 || equipment == null) {
         resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
+      } else if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_ARMORY) {
+        resBuilder.setStatus(ArmoryStatus.LEVEL_TOO_LOW);
       } else {
         if (requestType == ArmoryRequestType.BUY) {
           if (equipment.getCoinPrice() != Equipment.NOT_SET) {

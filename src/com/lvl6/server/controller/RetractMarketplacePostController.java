@@ -122,6 +122,10 @@ public class RetractMarketplacePostController extends EventController{
       resBuilder.setStatus(RetractMarketplacePostStatus.NOT_ENOUGH_COINS);
       return false;
     }
+    if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
+      resBuilder.setStatus(RetractMarketplacePostStatus.LEVEL_TOO_LOW);
+      return false;
+    }
     resBuilder.setStatus(RetractMarketplacePostStatus.SUCCESS);
     return true;
   }

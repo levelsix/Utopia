@@ -145,12 +145,12 @@ public class PurchaseFromMarketplaceController extends EventController {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.POST_NO_LONGER_EXISTS);
       return false;
     }
-    if (buyer == null) {
+    if (buyer == null || sellerId != mp.getPosterId()) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
       return false;      
     }
-    if (sellerId != mp.getPosterId()) {
-      resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
+    if (buyer.getLevel() < ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
+      resBuilder.setStatus(PurchaseFromMarketplaceStatus.LEVEL_TOO_LOW);
       return false;
     }
     if (mp.getDiamondCost() > 0) {

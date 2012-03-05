@@ -73,23 +73,15 @@ public class RefillStatWaitCompleteController extends EventController{
     if (type == RefillStatWaitCompleteType.ENERGY) {
       int energyChange = Math.min(user.getEnergyMax()-user.getEnergy(), 
           (int)((clientTime.getTime() - user.getLastEnergyRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY)));
-      boolean isLastEnergyStateFull = false;
-      if (energyChange == user.getEnergyMax()-user.getEnergy()) {
-        isLastEnergyStateFull = true;
-      }
       Timestamp newLastEnergyRefillTime = new Timestamp(user.getLastEnergyRefillTime().getTime() + 60000*energyChange*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY);
-      if (!user.updateLastenergyrefilltimeEnergyIslastenergystatefull(newLastEnergyRefillTime, energyChange, isLastEnergyStateFull)) {
+      if (!user.updateLastenergyrefilltimeEnergy(newLastEnergyRefillTime, energyChange)) {
         log.error("problem with updating user's energy and lastenergyrefill time");
       }
     } else if (type == RefillStatWaitCompleteType.STAMINA) {
       int staminaChange = Math.min(user.getStaminaMax()-user.getStamina(), 
           (int)((clientTime.getTime() - user.getLastStaminaRefillTime().getTime()) / (60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA)));
-      boolean isLastStaminaStateFull = false;
-      if (staminaChange == user.getStaminaMax()-user.getStamina()) {
-        isLastStaminaStateFull = true;
-      }
       Timestamp newLastStaminaRefillTime = new Timestamp(user.getLastStaminaRefillTime().getTime() + 60000*staminaChange*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA);
-      if (!user.updateLaststaminarefilltimeStaminaIslaststaminastatefull(newLastStaminaRefillTime, staminaChange, isLastStaminaStateFull)) {
+      if (!user.updateLaststaminarefilltimeStaminaIslaststaminastatefull(newLastStaminaRefillTime, staminaChange)) {
         log.error("problem with updating user's stamina and laststaminarefill time");
       }
     }

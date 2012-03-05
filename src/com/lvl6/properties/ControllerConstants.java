@@ -7,6 +7,43 @@ public class ControllerConstants {
 
   public static final int NOT_SET = -1;
   
+  //LEVEL UP
+  public static final int MAX_LEVEL_FOR_USER = 300;
+
+  //LOCATION RESTRICTIONS
+  public static final int LONGITUDE_MIN = -180;
+  public static final int LONGITUDE_MAX = 180;
+  public static final int LATITUDE_MIN = -90;
+  public static final int LATITUDE_MAX = 90;
+
+  //GENERATING LISTS OF ENEMIES
+  public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 10;
+  
+  //CRIT STRUCTS
+  public static final CoordinatePair CARPENTER_COORDS = new CoordinatePair(3, 3);
+  public static final CoordinatePair AVIARY_COORDS = new CoordinatePair(7, 7);
+  
+  public static final int ARMORY_XLENGTH = 3;
+  public static final int ARMORY_YLENGTH = 3;
+  public static final int VAULT_XLENGTH = 3;
+  public static final int VAULT_YLENGTH = 3;
+  public static final int MARKETPLACE_XLENGTH = 3;
+  public static final int MARKETPLACE_YLENGTH = 3;
+  public static final int CARPENTER_XLENGTH = 3;
+  public static final int CARPENTER_YLENGTH = 3;
+  public static final int AVIARY_XLENGTH = 3;
+  public static final int AVIARY_YLENGTH = 3;
+  
+  public static final int MIN_LEVEL_FOR_ARMORY = 3;
+  public static final int MIN_LEVEL_FOR_VAULT = 4;
+  public static final int MIN_LEVEL_FOR_MARKETPLACE = 6;
+
+  
+  
+  //--------------------------------------------------------------------------------------------------------------------------
+  
+  
+  
   //TUTORIAL CONSTANTS
   public static final int TUTORIAL__ARCHER_INIT_ATTACK = 10;
   public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 18;
@@ -30,35 +67,6 @@ public class ControllerConstants {
   public static final int TUTORIAL__MAGE_INIT_ARMOR = 1;
   public static final int TUTORIAL__WARRIOR_INIT_WEAPON = 1;
   public static final int TUTORIAL__WARRIOR_INIT_ARMOR = 1;
-  
-  //LEVEL UP
-  public static final int MAX_LEVEL_FOR_USER = 300;
-
-  //LOCATION RESTRICTIONS
-  public static final int LONGITUDE_MIN = -180;
-  public static final int LONGITUDE_MAX = 180;
-  public static final int LATITUDE_MIN = -90;
-  public static final int LATITUDE_MAX = 90;
-
-  
-  //GENERATING LISTS OF ENEMIES
-  public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 10;
-  
-  //CRIT STRUCTS
-  public static final CoordinatePair CARPENTER_COORDS = new CoordinatePair(3, 3);
-  public static final CoordinatePair AVIARY_COORDS = new CoordinatePair(7, 7);
-  
-  public static final int ARMORY_XLENGTH = 3;
-  public static final int ARMORY_YLENGTH = 3;
-  public static final int VAULT_XLENGTH = 3;
-  public static final int VAULT_YLENGTH = 3;
-  public static final int MARKETPLACE_XLENGTH = 3;
-  public static final int MARKETPLACE_YLENGTH = 3;
-  public static final int CARPENTER_XLENGTH = 3;
-  public static final int CARPENTER_YLENGTH = 3;
-  public static final int AVIARY_XLENGTH = 3;
-  public static final int AVIARY_YLENGTH = 3;
-  
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.5;

@@ -1062,10 +1062,6 @@ public final class InfoProto {
     boolean hasLastStaminaRefillTime();
     long getLastStaminaRefillTime();
     
-    // required bool isLastStaminaStateFull = 9;
-    boolean hasIsLastStaminaStateFull();
-    boolean getIsLastStaminaStateFull();
-    
     // required int32 energy = 10;
     boolean hasEnergy();
     int getEnergy();
@@ -1073,10 +1069,6 @@ public final class InfoProto {
     // optional int64 lastEnergyRefillTime = 11;
     boolean hasLastEnergyRefillTime();
     long getLastEnergyRefillTime();
-    
-    // required bool isLastEnergyStateFull = 12;
-    boolean hasIsLastEnergyStateFull();
-    boolean getIsLastEnergyStateFull();
     
     // required int32 skillPoints = 13;
     boolean hasSkillPoints();
@@ -1335,21 +1327,11 @@ public final class InfoProto {
       return lastStaminaRefillTime_;
     }
     
-    // required bool isLastStaminaStateFull = 9;
-    public static final int ISLASTSTAMINASTATEFULL_FIELD_NUMBER = 9;
-    private boolean isLastStaminaStateFull_;
-    public boolean hasIsLastStaminaStateFull() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
-    public boolean getIsLastStaminaStateFull() {
-      return isLastStaminaStateFull_;
-    }
-    
     // required int32 energy = 10;
     public static final int ENERGY_FIELD_NUMBER = 10;
     private int energy_;
     public boolean hasEnergy() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     public int getEnergy() {
       return energy_;
@@ -1359,27 +1341,17 @@ public final class InfoProto {
     public static final int LASTENERGYREFILLTIME_FIELD_NUMBER = 11;
     private long lastEnergyRefillTime_;
     public boolean hasLastEnergyRefillTime() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     public long getLastEnergyRefillTime() {
       return lastEnergyRefillTime_;
-    }
-    
-    // required bool isLastEnergyStateFull = 12;
-    public static final int ISLASTENERGYSTATEFULL_FIELD_NUMBER = 12;
-    private boolean isLastEnergyStateFull_;
-    public boolean hasIsLastEnergyStateFull() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
-    }
-    public boolean getIsLastEnergyStateFull() {
-      return isLastEnergyStateFull_;
     }
     
     // required int32 skillPoints = 13;
     public static final int SKILLPOINTS_FIELD_NUMBER = 13;
     private int skillPoints_;
     public boolean hasSkillPoints() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     public int getSkillPoints() {
       return skillPoints_;
@@ -1389,7 +1361,7 @@ public final class InfoProto {
     public static final int HEALTHMAX_FIELD_NUMBER = 14;
     private int healthMax_;
     public boolean hasHealthMax() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     public int getHealthMax() {
       return healthMax_;
@@ -1399,7 +1371,7 @@ public final class InfoProto {
     public static final int ENERGYMAX_FIELD_NUMBER = 15;
     private int energyMax_;
     public boolean hasEnergyMax() {
-      return ((bitField0_ & 0x00004000) == 0x00004000);
+      return ((bitField0_ & 0x00001000) == 0x00001000);
     }
     public int getEnergyMax() {
       return energyMax_;
@@ -1409,7 +1381,7 @@ public final class InfoProto {
     public static final int STAMINAMAX_FIELD_NUMBER = 16;
     private int staminaMax_;
     public boolean hasStaminaMax() {
-      return ((bitField0_ & 0x00008000) == 0x00008000);
+      return ((bitField0_ & 0x00002000) == 0x00002000);
     }
     public int getStaminaMax() {
       return staminaMax_;
@@ -1419,7 +1391,7 @@ public final class InfoProto {
     public static final int DIAMONDS_FIELD_NUMBER = 17;
     private int diamonds_;
     public boolean hasDiamonds() {
-      return ((bitField0_ & 0x00010000) == 0x00010000);
+      return ((bitField0_ & 0x00004000) == 0x00004000);
     }
     public int getDiamonds() {
       return diamonds_;
@@ -1429,7 +1401,7 @@ public final class InfoProto {
     public static final int COINS_FIELD_NUMBER = 18;
     private int coins_;
     public boolean hasCoins() {
-      return ((bitField0_ & 0x00020000) == 0x00020000);
+      return ((bitField0_ & 0x00008000) == 0x00008000);
     }
     public int getCoins() {
       return coins_;
@@ -1439,7 +1411,7 @@ public final class InfoProto {
     public static final int MARKETPLACEDIAMONDSEARNINGS_FIELD_NUMBER = 19;
     private int marketplaceDiamondsEarnings_;
     public boolean hasMarketplaceDiamondsEarnings() {
-      return ((bitField0_ & 0x00040000) == 0x00040000);
+      return ((bitField0_ & 0x00010000) == 0x00010000);
     }
     public int getMarketplaceDiamondsEarnings() {
       return marketplaceDiamondsEarnings_;
@@ -1449,7 +1421,7 @@ public final class InfoProto {
     public static final int MARKETPLACECOINSEARNINGS_FIELD_NUMBER = 20;
     private int marketplaceCoinsEarnings_;
     public boolean hasMarketplaceCoinsEarnings() {
-      return ((bitField0_ & 0x00080000) == 0x00080000);
+      return ((bitField0_ & 0x00020000) == 0x00020000);
     }
     public int getMarketplaceCoinsEarnings() {
       return marketplaceCoinsEarnings_;
@@ -1459,7 +1431,7 @@ public final class InfoProto {
     public static final int VAULTBALANCE_FIELD_NUMBER = 21;
     private int vaultBalance_;
     public boolean hasVaultBalance() {
-      return ((bitField0_ & 0x00100000) == 0x00100000);
+      return ((bitField0_ & 0x00040000) == 0x00040000);
     }
     public int getVaultBalance() {
       return vaultBalance_;
@@ -1469,7 +1441,7 @@ public final class InfoProto {
     public static final int EXPERIENCE_FIELD_NUMBER = 22;
     private int experience_;
     public boolean hasExperience() {
-      return ((bitField0_ & 0x00200000) == 0x00200000);
+      return ((bitField0_ & 0x00080000) == 0x00080000);
     }
     public int getExperience() {
       return experience_;
@@ -1479,7 +1451,7 @@ public final class InfoProto {
     public static final int TASKSCOMPLETED_FIELD_NUMBER = 23;
     private int tasksCompleted_;
     public boolean hasTasksCompleted() {
-      return ((bitField0_ & 0x00400000) == 0x00400000);
+      return ((bitField0_ & 0x00100000) == 0x00100000);
     }
     public int getTasksCompleted() {
       return tasksCompleted_;
@@ -1489,7 +1461,7 @@ public final class InfoProto {
     public static final int BATTLESWON_FIELD_NUMBER = 24;
     private int battlesWon_;
     public boolean hasBattlesWon() {
-      return ((bitField0_ & 0x00800000) == 0x00800000);
+      return ((bitField0_ & 0x00200000) == 0x00200000);
     }
     public int getBattlesWon() {
       return battlesWon_;
@@ -1499,7 +1471,7 @@ public final class InfoProto {
     public static final int BATTLESLOST_FIELD_NUMBER = 25;
     private int battlesLost_;
     public boolean hasBattlesLost() {
-      return ((bitField0_ & 0x01000000) == 0x01000000);
+      return ((bitField0_ & 0x00400000) == 0x00400000);
     }
     public int getBattlesLost() {
       return battlesLost_;
@@ -1509,7 +1481,7 @@ public final class InfoProto {
     public static final int FLEES_FIELD_NUMBER = 45;
     private int flees_;
     public boolean hasFlees() {
-      return ((bitField0_ & 0x02000000) == 0x02000000);
+      return ((bitField0_ & 0x00800000) == 0x00800000);
     }
     public int getFlees() {
       return flees_;
@@ -1519,7 +1491,7 @@ public final class InfoProto {
     public static final int REFERRALCODE_FIELD_NUMBER = 27;
     private java.lang.Object referralCode_;
     public boolean hasReferralCode() {
-      return ((bitField0_ & 0x04000000) == 0x04000000);
+      return ((bitField0_ & 0x01000000) == 0x01000000);
     }
     public String getReferralCode() {
       java.lang.Object ref = referralCode_;
@@ -1551,7 +1523,7 @@ public final class InfoProto {
     public static final int NUMREFERRALS_FIELD_NUMBER = 28;
     private int numReferrals_;
     public boolean hasNumReferrals() {
-      return ((bitField0_ & 0x08000000) == 0x08000000);
+      return ((bitField0_ & 0x02000000) == 0x02000000);
     }
     public int getNumReferrals() {
       return numReferrals_;
@@ -1561,7 +1533,7 @@ public final class InfoProto {
     public static final int UDID_FIELD_NUMBER = 29;
     private java.lang.Object udid_;
     public boolean hasUdid() {
-      return ((bitField0_ & 0x10000000) == 0x10000000);
+      return ((bitField0_ & 0x04000000) == 0x04000000);
     }
     public String getUdid() {
       java.lang.Object ref = udid_;
@@ -1593,7 +1565,7 @@ public final class InfoProto {
     public static final int USERLOCATION_FIELD_NUMBER = 30;
     private com.lvl6.proto.InfoProto.LocationProto userLocation_;
     public boolean hasUserLocation() {
-      return ((bitField0_ & 0x20000000) == 0x20000000);
+      return ((bitField0_ & 0x08000000) == 0x08000000);
     }
     public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
       return userLocation_;
@@ -1606,7 +1578,7 @@ public final class InfoProto {
     public static final int NUMPOSTSINMARKETPLACE_FIELD_NUMBER = 31;
     private int numPostsInMarketplace_;
     public boolean hasNumPostsInMarketplace() {
-      return ((bitField0_ & 0x40000000) == 0x40000000);
+      return ((bitField0_ & 0x10000000) == 0x10000000);
     }
     public int getNumPostsInMarketplace() {
       return numPostsInMarketplace_;
@@ -1616,7 +1588,7 @@ public final class InfoProto {
     public static final int NUMMARKETPLACESALESUNREDEEMED_FIELD_NUMBER = 32;
     private int numMarketplaceSalesUnredeemed_;
     public boolean hasNumMarketplaceSalesUnredeemed() {
-      return ((bitField0_ & 0x80000000) == 0x80000000);
+      return ((bitField0_ & 0x20000000) == 0x20000000);
     }
     public int getNumMarketplaceSalesUnredeemed() {
       return numMarketplaceSalesUnredeemed_;
@@ -1626,7 +1598,7 @@ public final class InfoProto {
     public static final int WEAPONEQUIPPED_FIELD_NUMBER = 33;
     private int weaponEquipped_;
     public boolean hasWeaponEquipped() {
-      return ((bitField1_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x40000000) == 0x40000000);
     }
     public int getWeaponEquipped() {
       return weaponEquipped_;
@@ -1636,7 +1608,7 @@ public final class InfoProto {
     public static final int ARMOREQUIPPED_FIELD_NUMBER = 34;
     private int armorEquipped_;
     public boolean hasArmorEquipped() {
-      return ((bitField1_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x80000000) == 0x80000000);
     }
     public int getArmorEquipped() {
       return armorEquipped_;
@@ -1646,7 +1618,7 @@ public final class InfoProto {
     public static final int AMULETEQUIPPED_FIELD_NUMBER = 35;
     private int amuletEquipped_;
     public boolean hasAmuletEquipped() {
-      return ((bitField1_ & 0x00000004) == 0x00000004);
+      return ((bitField1_ & 0x00000001) == 0x00000001);
     }
     public int getAmuletEquipped() {
       return amuletEquipped_;
@@ -1656,7 +1628,7 @@ public final class InfoProto {
     public static final int LASTLOGINTIME_FIELD_NUMBER = 36;
     private long lastLoginTime_;
     public boolean hasLastLoginTime() {
-      return ((bitField1_ & 0x00000008) == 0x00000008);
+      return ((bitField1_ & 0x00000002) == 0x00000002);
     }
     public long getLastLoginTime() {
       return lastLoginTime_;
@@ -1666,7 +1638,7 @@ public final class InfoProto {
     public static final int LASTLOGOUTTIME_FIELD_NUMBER = 37;
     private long lastLogoutTime_;
     public boolean hasLastLogoutTime() {
-      return ((bitField1_ & 0x00000010) == 0x00000010);
+      return ((bitField1_ & 0x00000004) == 0x00000004);
     }
     public long getLastLogoutTime() {
       return lastLogoutTime_;
@@ -1676,7 +1648,7 @@ public final class InfoProto {
     public static final int DEVICETOKEN_FIELD_NUMBER = 38;
     private java.lang.Object deviceToken_;
     public boolean hasDeviceToken() {
-      return ((bitField1_ & 0x00000020) == 0x00000020);
+      return ((bitField1_ & 0x00000008) == 0x00000008);
     }
     public String getDeviceToken() {
       java.lang.Object ref = deviceToken_;
@@ -1708,7 +1680,7 @@ public final class InfoProto {
     public static final int LASTBATTLENOTIFICATIONTIME_FIELD_NUMBER = 39;
     private long lastBattleNotificationTime_;
     public boolean hasLastBattleNotificationTime() {
-      return ((bitField1_ & 0x00000040) == 0x00000040);
+      return ((bitField1_ & 0x00000010) == 0x00000010);
     }
     public long getLastBattleNotificationTime() {
       return lastBattleNotificationTime_;
@@ -1718,7 +1690,7 @@ public final class InfoProto {
     public static final int LASTTIMEATTACKED_FIELD_NUMBER = 40;
     private long lastTimeAttacked_;
     public boolean hasLastTimeAttacked() {
-      return ((bitField1_ & 0x00000080) == 0x00000080);
+      return ((bitField1_ & 0x00000020) == 0x00000020);
     }
     public long getLastTimeAttacked() {
       return lastTimeAttacked_;
@@ -1728,7 +1700,7 @@ public final class InfoProto {
     public static final int NUMBADGES_FIELD_NUMBER = 42;
     private int numBadges_;
     public boolean hasNumBadges() {
-      return ((bitField1_ & 0x00000100) == 0x00000100);
+      return ((bitField1_ & 0x00000040) == 0x00000040);
     }
     public int getNumBadges() {
       return numBadges_;
@@ -1738,7 +1710,7 @@ public final class InfoProto {
     public static final int LASTSHORTLICENSEPURCHASETIME_FIELD_NUMBER = 43;
     private long lastShortLicensePurchaseTime_;
     public boolean hasLastShortLicensePurchaseTime() {
-      return ((bitField1_ & 0x00000200) == 0x00000200);
+      return ((bitField1_ & 0x00000080) == 0x00000080);
     }
     public long getLastShortLicensePurchaseTime() {
       return lastShortLicensePurchaseTime_;
@@ -1748,7 +1720,7 @@ public final class InfoProto {
     public static final int LASTLONGLICENSEPURCHASETIME_FIELD_NUMBER = 44;
     private long lastLongLicensePurchaseTime_;
     public boolean hasLastLongLicensePurchaseTime() {
-      return ((bitField1_ & 0x00000400) == 0x00000400);
+      return ((bitField1_ & 0x00000100) == 0x00000100);
     }
     public long getLastLongLicensePurchaseTime() {
       return lastLongLicensePurchaseTime_;
@@ -1763,10 +1735,8 @@ public final class InfoProto {
       defense_ = 0;
       stamina_ = 0;
       lastStaminaRefillTime_ = 0L;
-      isLastStaminaStateFull_ = false;
       energy_ = 0;
       lastEnergyRefillTime_ = 0L;
-      isLastEnergyStateFull_ = false;
       skillPoints_ = 0;
       healthMax_ = 0;
       energyMax_ = 0;
@@ -1832,15 +1802,7 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasIsLastStaminaStateFull()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasEnergy()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIsLastEnergyStateFull()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1964,108 +1926,102 @@ public final class InfoProto {
         output.writeInt64(8, lastStaminaRefillTime_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeBool(9, isLastStaminaStateFull_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
         output.writeInt32(10, energy_);
       }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
         output.writeInt64(11, lastEnergyRefillTime_);
       }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeBool(12, isLastEnergyStateFull_);
-      }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
         output.writeInt32(13, skillPoints_);
       }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
         output.writeInt32(14, healthMax_);
       }
-      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
         output.writeInt32(15, energyMax_);
       }
-      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
         output.writeInt32(16, staminaMax_);
       }
-      if (((bitField0_ & 0x00010000) == 0x00010000)) {
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
         output.writeInt32(17, diamonds_);
       }
-      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
         output.writeInt32(18, coins_);
       }
-      if (((bitField0_ & 0x00040000) == 0x00040000)) {
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
         output.writeInt32(19, marketplaceDiamondsEarnings_);
       }
-      if (((bitField0_ & 0x00080000) == 0x00080000)) {
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
         output.writeInt32(20, marketplaceCoinsEarnings_);
       }
-      if (((bitField0_ & 0x00100000) == 0x00100000)) {
+      if (((bitField0_ & 0x00040000) == 0x00040000)) {
         output.writeInt32(21, vaultBalance_);
       }
-      if (((bitField0_ & 0x00200000) == 0x00200000)) {
+      if (((bitField0_ & 0x00080000) == 0x00080000)) {
         output.writeInt32(22, experience_);
       }
-      if (((bitField0_ & 0x00400000) == 0x00400000)) {
+      if (((bitField0_ & 0x00100000) == 0x00100000)) {
         output.writeInt32(23, tasksCompleted_);
       }
-      if (((bitField0_ & 0x00800000) == 0x00800000)) {
+      if (((bitField0_ & 0x00200000) == 0x00200000)) {
         output.writeInt32(24, battlesWon_);
       }
-      if (((bitField0_ & 0x01000000) == 0x01000000)) {
+      if (((bitField0_ & 0x00400000) == 0x00400000)) {
         output.writeInt32(25, battlesLost_);
       }
-      if (((bitField0_ & 0x04000000) == 0x04000000)) {
+      if (((bitField0_ & 0x01000000) == 0x01000000)) {
         output.writeBytes(27, getReferralCodeBytes());
       }
-      if (((bitField0_ & 0x08000000) == 0x08000000)) {
+      if (((bitField0_ & 0x02000000) == 0x02000000)) {
         output.writeInt32(28, numReferrals_);
       }
-      if (((bitField0_ & 0x10000000) == 0x10000000)) {
+      if (((bitField0_ & 0x04000000) == 0x04000000)) {
         output.writeBytes(29, getUdidBytes());
       }
-      if (((bitField0_ & 0x20000000) == 0x20000000)) {
+      if (((bitField0_ & 0x08000000) == 0x08000000)) {
         output.writeMessage(30, userLocation_);
       }
-      if (((bitField0_ & 0x40000000) == 0x40000000)) {
+      if (((bitField0_ & 0x10000000) == 0x10000000)) {
         output.writeInt32(31, numPostsInMarketplace_);
       }
-      if (((bitField0_ & 0x80000000) == 0x80000000)) {
+      if (((bitField0_ & 0x20000000) == 0x20000000)) {
         output.writeInt32(32, numMarketplaceSalesUnredeemed_);
       }
-      if (((bitField1_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x40000000) == 0x40000000)) {
         output.writeInt32(33, weaponEquipped_);
       }
-      if (((bitField1_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x80000000) == 0x80000000)) {
         output.writeInt32(34, armorEquipped_);
       }
-      if (((bitField1_ & 0x00000004) == 0x00000004)) {
+      if (((bitField1_ & 0x00000001) == 0x00000001)) {
         output.writeInt32(35, amuletEquipped_);
       }
-      if (((bitField1_ & 0x00000008) == 0x00000008)) {
+      if (((bitField1_ & 0x00000002) == 0x00000002)) {
         output.writeInt64(36, lastLoginTime_);
       }
-      if (((bitField1_ & 0x00000010) == 0x00000010)) {
+      if (((bitField1_ & 0x00000004) == 0x00000004)) {
         output.writeInt64(37, lastLogoutTime_);
       }
-      if (((bitField1_ & 0x00000020) == 0x00000020)) {
+      if (((bitField1_ & 0x00000008) == 0x00000008)) {
         output.writeBytes(38, getDeviceTokenBytes());
       }
-      if (((bitField1_ & 0x00000040) == 0x00000040)) {
+      if (((bitField1_ & 0x00000010) == 0x00000010)) {
         output.writeInt64(39, lastBattleNotificationTime_);
       }
-      if (((bitField1_ & 0x00000080) == 0x00000080)) {
+      if (((bitField1_ & 0x00000020) == 0x00000020)) {
         output.writeInt64(40, lastTimeAttacked_);
       }
-      if (((bitField1_ & 0x00000100) == 0x00000100)) {
+      if (((bitField1_ & 0x00000040) == 0x00000040)) {
         output.writeInt32(42, numBadges_);
       }
-      if (((bitField1_ & 0x00000200) == 0x00000200)) {
+      if (((bitField1_ & 0x00000080) == 0x00000080)) {
         output.writeInt64(43, lastShortLicensePurchaseTime_);
       }
-      if (((bitField1_ & 0x00000400) == 0x00000400)) {
+      if (((bitField1_ & 0x00000100) == 0x00000100)) {
         output.writeInt64(44, lastLongLicensePurchaseTime_);
       }
-      if (((bitField0_ & 0x02000000) == 0x02000000)) {
+      if (((bitField0_ & 0x00800000) == 0x00800000)) {
         output.writeInt32(45, flees_);
       }
       getUnknownFields().writeTo(output);
@@ -2111,141 +2067,133 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(9, isLastStaminaStateFull_);
+          .computeInt32Size(10, energy_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, energy_);
+          .computeInt64Size(11, lastEnergyRefillTime_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(11, lastEnergyRefillTime_);
+          .computeInt32Size(13, skillPoints_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(12, isLastEnergyStateFull_);
+          .computeInt32Size(14, healthMax_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(13, skillPoints_);
+          .computeInt32Size(15, energyMax_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(14, healthMax_);
+          .computeInt32Size(16, staminaMax_);
       }
       if (((bitField0_ & 0x00004000) == 0x00004000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(15, energyMax_);
+          .computeInt32Size(17, diamonds_);
       }
       if (((bitField0_ & 0x00008000) == 0x00008000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(16, staminaMax_);
+          .computeInt32Size(18, coins_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(17, diamonds_);
+          .computeInt32Size(19, marketplaceDiamondsEarnings_);
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(18, coins_);
+          .computeInt32Size(20, marketplaceCoinsEarnings_);
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(19, marketplaceDiamondsEarnings_);
+          .computeInt32Size(21, vaultBalance_);
       }
       if (((bitField0_ & 0x00080000) == 0x00080000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(20, marketplaceCoinsEarnings_);
+          .computeInt32Size(22, experience_);
       }
       if (((bitField0_ & 0x00100000) == 0x00100000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(21, vaultBalance_);
+          .computeInt32Size(23, tasksCompleted_);
       }
       if (((bitField0_ & 0x00200000) == 0x00200000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(22, experience_);
+          .computeInt32Size(24, battlesWon_);
       }
       if (((bitField0_ & 0x00400000) == 0x00400000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(23, tasksCompleted_);
-      }
-      if (((bitField0_ & 0x00800000) == 0x00800000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(24, battlesWon_);
+          .computeInt32Size(25, battlesLost_);
       }
       if (((bitField0_ & 0x01000000) == 0x01000000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(25, battlesLost_);
-      }
-      if (((bitField0_ & 0x04000000) == 0x04000000)) {
-        size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(27, getReferralCodeBytes());
       }
-      if (((bitField0_ & 0x08000000) == 0x08000000)) {
+      if (((bitField0_ & 0x02000000) == 0x02000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(28, numReferrals_);
       }
-      if (((bitField0_ & 0x10000000) == 0x10000000)) {
+      if (((bitField0_ & 0x04000000) == 0x04000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(29, getUdidBytes());
       }
-      if (((bitField0_ & 0x20000000) == 0x20000000)) {
+      if (((bitField0_ & 0x08000000) == 0x08000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(30, userLocation_);
       }
-      if (((bitField0_ & 0x40000000) == 0x40000000)) {
+      if (((bitField0_ & 0x10000000) == 0x10000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(31, numPostsInMarketplace_);
       }
-      if (((bitField0_ & 0x80000000) == 0x80000000)) {
+      if (((bitField0_ & 0x20000000) == 0x20000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(32, numMarketplaceSalesUnredeemed_);
       }
-      if (((bitField1_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x40000000) == 0x40000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(33, weaponEquipped_);
       }
-      if (((bitField1_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x80000000) == 0x80000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(34, armorEquipped_);
       }
-      if (((bitField1_ & 0x00000004) == 0x00000004)) {
+      if (((bitField1_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(35, amuletEquipped_);
       }
-      if (((bitField1_ & 0x00000008) == 0x00000008)) {
+      if (((bitField1_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(36, lastLoginTime_);
       }
-      if (((bitField1_ & 0x00000010) == 0x00000010)) {
+      if (((bitField1_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(37, lastLogoutTime_);
       }
-      if (((bitField1_ & 0x00000020) == 0x00000020)) {
+      if (((bitField1_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(38, getDeviceTokenBytes());
       }
-      if (((bitField1_ & 0x00000040) == 0x00000040)) {
+      if (((bitField1_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(39, lastBattleNotificationTime_);
       }
-      if (((bitField1_ & 0x00000080) == 0x00000080)) {
+      if (((bitField1_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(40, lastTimeAttacked_);
       }
-      if (((bitField1_ & 0x00000100) == 0x00000100)) {
+      if (((bitField1_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(42, numBadges_);
       }
-      if (((bitField1_ & 0x00000200) == 0x00000200)) {
+      if (((bitField1_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(43, lastShortLicensePurchaseTime_);
       }
-      if (((bitField1_ & 0x00000400) == 0x00000400)) {
+      if (((bitField1_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(44, lastLongLicensePurchaseTime_);
       }
-      if (((bitField0_ & 0x02000000) == 0x02000000)) {
+      if (((bitField0_ & 0x00800000) == 0x00800000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(45, flees_);
       }
@@ -2390,80 +2338,76 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000040);
         lastStaminaRefillTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000080);
-        isLastStaminaStateFull_ = false;
-        bitField0_ = (bitField0_ & ~0x00000100);
         energy_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         lastEnergyRefillTime_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000400);
-        isLastEnergyStateFull_ = false;
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000200);
         skillPoints_ = 0;
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000400);
         healthMax_ = 0;
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         energyMax_ = 0;
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         staminaMax_ = 0;
-        bitField0_ = (bitField0_ & ~0x00008000);
+        bitField0_ = (bitField0_ & ~0x00002000);
         diamonds_ = 0;
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00004000);
         coins_ = 0;
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         marketplaceDiamondsEarnings_ = 0;
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         marketplaceCoinsEarnings_ = 0;
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00020000);
         vaultBalance_ = 0;
-        bitField0_ = (bitField0_ & ~0x00100000);
+        bitField0_ = (bitField0_ & ~0x00040000);
         experience_ = 0;
-        bitField0_ = (bitField0_ & ~0x00200000);
+        bitField0_ = (bitField0_ & ~0x00080000);
         tasksCompleted_ = 0;
-        bitField0_ = (bitField0_ & ~0x00400000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         battlesWon_ = 0;
-        bitField0_ = (bitField0_ & ~0x00800000);
+        bitField0_ = (bitField0_ & ~0x00200000);
         battlesLost_ = 0;
-        bitField0_ = (bitField0_ & ~0x01000000);
+        bitField0_ = (bitField0_ & ~0x00400000);
         flees_ = 0;
-        bitField0_ = (bitField0_ & ~0x02000000);
+        bitField0_ = (bitField0_ & ~0x00800000);
         referralCode_ = "";
-        bitField0_ = (bitField0_ & ~0x04000000);
+        bitField0_ = (bitField0_ & ~0x01000000);
         numReferrals_ = 0;
-        bitField0_ = (bitField0_ & ~0x08000000);
+        bitField0_ = (bitField0_ & ~0x02000000);
         udid_ = "";
-        bitField0_ = (bitField0_ & ~0x10000000);
+        bitField0_ = (bitField0_ & ~0x04000000);
         if (userLocationBuilder_ == null) {
           userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x20000000);
+        bitField0_ = (bitField0_ & ~0x08000000);
         numPostsInMarketplace_ = 0;
-        bitField0_ = (bitField0_ & ~0x40000000);
+        bitField0_ = (bitField0_ & ~0x10000000);
         numMarketplaceSalesUnredeemed_ = 0;
-        bitField0_ = (bitField0_ & ~0x80000000);
+        bitField0_ = (bitField0_ & ~0x20000000);
         weaponEquipped_ = 0;
-        bitField1_ = (bitField1_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x40000000);
         armorEquipped_ = 0;
-        bitField1_ = (bitField1_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x80000000);
         amuletEquipped_ = 0;
-        bitField1_ = (bitField1_ & ~0x00000004);
+        bitField1_ = (bitField1_ & ~0x00000001);
         lastLoginTime_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000008);
+        bitField1_ = (bitField1_ & ~0x00000002);
         lastLogoutTime_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000010);
+        bitField1_ = (bitField1_ & ~0x00000004);
         deviceToken_ = "";
-        bitField1_ = (bitField1_ & ~0x00000020);
+        bitField1_ = (bitField1_ & ~0x00000008);
         lastBattleNotificationTime_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000040);
+        bitField1_ = (bitField1_ & ~0x00000010);
         lastTimeAttacked_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000080);
+        bitField1_ = (bitField1_ & ~0x00000020);
         numBadges_ = 0;
-        bitField1_ = (bitField1_ & ~0x00000100);
+        bitField1_ = (bitField1_ & ~0x00000040);
         lastShortLicensePurchaseTime_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000200);
+        bitField1_ = (bitField1_ & ~0x00000080);
         lastLongLicensePurchaseTime_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000400);
+        bitField1_ = (bitField1_ & ~0x00000100);
         return this;
       }
       
@@ -2539,145 +2483,137 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.isLastStaminaStateFull_ = isLastStaminaStateFull_;
+        result.energy_ = energy_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.energy_ = energy_;
+        result.lastEnergyRefillTime_ = lastEnergyRefillTime_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000400;
         }
-        result.lastEnergyRefillTime_ = lastEnergyRefillTime_;
+        result.skillPoints_ = skillPoints_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000800;
         }
-        result.isLastEnergyStateFull_ = isLastEnergyStateFull_;
+        result.healthMax_ = healthMax_;
         if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
           to_bitField0_ |= 0x00001000;
         }
-        result.skillPoints_ = skillPoints_;
+        result.energyMax_ = energyMax_;
         if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
           to_bitField0_ |= 0x00002000;
         }
-        result.healthMax_ = healthMax_;
+        result.staminaMax_ = staminaMax_;
         if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
           to_bitField0_ |= 0x00004000;
         }
-        result.energyMax_ = energyMax_;
+        result.diamonds_ = diamonds_;
         if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
           to_bitField0_ |= 0x00008000;
         }
-        result.staminaMax_ = staminaMax_;
+        result.coins_ = coins_;
         if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
           to_bitField0_ |= 0x00010000;
         }
-        result.diamonds_ = diamonds_;
+        result.marketplaceDiamondsEarnings_ = marketplaceDiamondsEarnings_;
         if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
           to_bitField0_ |= 0x00020000;
         }
-        result.coins_ = coins_;
+        result.marketplaceCoinsEarnings_ = marketplaceCoinsEarnings_;
         if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
           to_bitField0_ |= 0x00040000;
         }
-        result.marketplaceDiamondsEarnings_ = marketplaceDiamondsEarnings_;
+        result.vaultBalance_ = vaultBalance_;
         if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
           to_bitField0_ |= 0x00080000;
         }
-        result.marketplaceCoinsEarnings_ = marketplaceCoinsEarnings_;
+        result.experience_ = experience_;
         if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
           to_bitField0_ |= 0x00100000;
         }
-        result.vaultBalance_ = vaultBalance_;
+        result.tasksCompleted_ = tasksCompleted_;
         if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
           to_bitField0_ |= 0x00200000;
         }
-        result.experience_ = experience_;
+        result.battlesWon_ = battlesWon_;
         if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
           to_bitField0_ |= 0x00400000;
         }
-        result.tasksCompleted_ = tasksCompleted_;
+        result.battlesLost_ = battlesLost_;
         if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
           to_bitField0_ |= 0x00800000;
         }
-        result.battlesWon_ = battlesWon_;
+        result.flees_ = flees_;
         if (((from_bitField0_ & 0x01000000) == 0x01000000)) {
           to_bitField0_ |= 0x01000000;
         }
-        result.battlesLost_ = battlesLost_;
+        result.referralCode_ = referralCode_;
         if (((from_bitField0_ & 0x02000000) == 0x02000000)) {
           to_bitField0_ |= 0x02000000;
         }
-        result.flees_ = flees_;
+        result.numReferrals_ = numReferrals_;
         if (((from_bitField0_ & 0x04000000) == 0x04000000)) {
           to_bitField0_ |= 0x04000000;
         }
-        result.referralCode_ = referralCode_;
+        result.udid_ = udid_;
         if (((from_bitField0_ & 0x08000000) == 0x08000000)) {
           to_bitField0_ |= 0x08000000;
-        }
-        result.numReferrals_ = numReferrals_;
-        if (((from_bitField0_ & 0x10000000) == 0x10000000)) {
-          to_bitField0_ |= 0x10000000;
-        }
-        result.udid_ = udid_;
-        if (((from_bitField0_ & 0x20000000) == 0x20000000)) {
-          to_bitField0_ |= 0x20000000;
         }
         if (userLocationBuilder_ == null) {
           result.userLocation_ = userLocation_;
         } else {
           result.userLocation_ = userLocationBuilder_.build();
         }
+        if (((from_bitField0_ & 0x10000000) == 0x10000000)) {
+          to_bitField0_ |= 0x10000000;
+        }
+        result.numPostsInMarketplace_ = numPostsInMarketplace_;
+        if (((from_bitField0_ & 0x20000000) == 0x20000000)) {
+          to_bitField0_ |= 0x20000000;
+        }
+        result.numMarketplaceSalesUnredeemed_ = numMarketplaceSalesUnredeemed_;
         if (((from_bitField0_ & 0x40000000) == 0x40000000)) {
           to_bitField0_ |= 0x40000000;
         }
-        result.numPostsInMarketplace_ = numPostsInMarketplace_;
+        result.weaponEquipped_ = weaponEquipped_;
         if (((from_bitField0_ & 0x80000000) == 0x80000000)) {
           to_bitField0_ |= 0x80000000;
         }
-        result.numMarketplaceSalesUnredeemed_ = numMarketplaceSalesUnredeemed_;
+        result.armorEquipped_ = armorEquipped_;
         if (((from_bitField1_ & 0x00000001) == 0x00000001)) {
           to_bitField1_ |= 0x00000001;
         }
-        result.weaponEquipped_ = weaponEquipped_;
+        result.amuletEquipped_ = amuletEquipped_;
         if (((from_bitField1_ & 0x00000002) == 0x00000002)) {
           to_bitField1_ |= 0x00000002;
         }
-        result.armorEquipped_ = armorEquipped_;
+        result.lastLoginTime_ = lastLoginTime_;
         if (((from_bitField1_ & 0x00000004) == 0x00000004)) {
           to_bitField1_ |= 0x00000004;
         }
-        result.amuletEquipped_ = amuletEquipped_;
+        result.lastLogoutTime_ = lastLogoutTime_;
         if (((from_bitField1_ & 0x00000008) == 0x00000008)) {
           to_bitField1_ |= 0x00000008;
         }
-        result.lastLoginTime_ = lastLoginTime_;
+        result.deviceToken_ = deviceToken_;
         if (((from_bitField1_ & 0x00000010) == 0x00000010)) {
           to_bitField1_ |= 0x00000010;
         }
-        result.lastLogoutTime_ = lastLogoutTime_;
+        result.lastBattleNotificationTime_ = lastBattleNotificationTime_;
         if (((from_bitField1_ & 0x00000020) == 0x00000020)) {
           to_bitField1_ |= 0x00000020;
         }
-        result.deviceToken_ = deviceToken_;
+        result.lastTimeAttacked_ = lastTimeAttacked_;
         if (((from_bitField1_ & 0x00000040) == 0x00000040)) {
           to_bitField1_ |= 0x00000040;
         }
-        result.lastBattleNotificationTime_ = lastBattleNotificationTime_;
+        result.numBadges_ = numBadges_;
         if (((from_bitField1_ & 0x00000080) == 0x00000080)) {
           to_bitField1_ |= 0x00000080;
         }
-        result.lastTimeAttacked_ = lastTimeAttacked_;
+        result.lastShortLicensePurchaseTime_ = lastShortLicensePurchaseTime_;
         if (((from_bitField1_ & 0x00000100) == 0x00000100)) {
           to_bitField1_ |= 0x00000100;
-        }
-        result.numBadges_ = numBadges_;
-        if (((from_bitField1_ & 0x00000200) == 0x00000200)) {
-          to_bitField1_ |= 0x00000200;
-        }
-        result.lastShortLicensePurchaseTime_ = lastShortLicensePurchaseTime_;
-        if (((from_bitField1_ & 0x00000400) == 0x00000400)) {
-          to_bitField1_ |= 0x00000400;
         }
         result.lastLongLicensePurchaseTime_ = lastLongLicensePurchaseTime_;
         result.bitField0_ = to_bitField0_;
@@ -2721,17 +2657,11 @@ public final class InfoProto {
         if (other.hasLastStaminaRefillTime()) {
           setLastStaminaRefillTime(other.getLastStaminaRefillTime());
         }
-        if (other.hasIsLastStaminaStateFull()) {
-          setIsLastStaminaStateFull(other.getIsLastStaminaStateFull());
-        }
         if (other.hasEnergy()) {
           setEnergy(other.getEnergy());
         }
         if (other.hasLastEnergyRefillTime()) {
           setLastEnergyRefillTime(other.getLastEnergyRefillTime());
-        }
-        if (other.hasIsLastEnergyStateFull()) {
-          setIsLastEnergyStateFull(other.getIsLastEnergyStateFull());
         }
         if (other.hasSkillPoints()) {
           setSkillPoints(other.getSkillPoints());
@@ -2859,15 +2789,7 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasIsLastStaminaStateFull()) {
-          
-          return false;
-        }
         if (!hasEnergy()) {
-          
-          return false;
-        }
-        if (!hasIsLastEnergyStateFull()) {
           
           return false;
         }
@@ -3031,103 +2953,93 @@ public final class InfoProto {
               lastStaminaRefillTime_ = input.readInt64();
               break;
             }
-            case 72: {
-              bitField0_ |= 0x00000100;
-              isLastStaminaStateFull_ = input.readBool();
-              break;
-            }
             case 80: {
-              bitField0_ |= 0x00000200;
+              bitField0_ |= 0x00000100;
               energy_ = input.readInt32();
               break;
             }
             case 88: {
-              bitField0_ |= 0x00000400;
+              bitField0_ |= 0x00000200;
               lastEnergyRefillTime_ = input.readInt64();
               break;
             }
-            case 96: {
-              bitField0_ |= 0x00000800;
-              isLastEnergyStateFull_ = input.readBool();
-              break;
-            }
             case 104: {
-              bitField0_ |= 0x00001000;
+              bitField0_ |= 0x00000400;
               skillPoints_ = input.readInt32();
               break;
             }
             case 112: {
-              bitField0_ |= 0x00002000;
+              bitField0_ |= 0x00000800;
               healthMax_ = input.readInt32();
               break;
             }
             case 120: {
-              bitField0_ |= 0x00004000;
+              bitField0_ |= 0x00001000;
               energyMax_ = input.readInt32();
               break;
             }
             case 128: {
-              bitField0_ |= 0x00008000;
+              bitField0_ |= 0x00002000;
               staminaMax_ = input.readInt32();
               break;
             }
             case 136: {
-              bitField0_ |= 0x00010000;
+              bitField0_ |= 0x00004000;
               diamonds_ = input.readInt32();
               break;
             }
             case 144: {
-              bitField0_ |= 0x00020000;
+              bitField0_ |= 0x00008000;
               coins_ = input.readInt32();
               break;
             }
             case 152: {
-              bitField0_ |= 0x00040000;
+              bitField0_ |= 0x00010000;
               marketplaceDiamondsEarnings_ = input.readInt32();
               break;
             }
             case 160: {
-              bitField0_ |= 0x00080000;
+              bitField0_ |= 0x00020000;
               marketplaceCoinsEarnings_ = input.readInt32();
               break;
             }
             case 168: {
-              bitField0_ |= 0x00100000;
+              bitField0_ |= 0x00040000;
               vaultBalance_ = input.readInt32();
               break;
             }
             case 176: {
-              bitField0_ |= 0x00200000;
+              bitField0_ |= 0x00080000;
               experience_ = input.readInt32();
               break;
             }
             case 184: {
-              bitField0_ |= 0x00400000;
+              bitField0_ |= 0x00100000;
               tasksCompleted_ = input.readInt32();
               break;
             }
             case 192: {
-              bitField0_ |= 0x00800000;
+              bitField0_ |= 0x00200000;
               battlesWon_ = input.readInt32();
               break;
             }
             case 200: {
-              bitField0_ |= 0x01000000;
+              bitField0_ |= 0x00400000;
               battlesLost_ = input.readInt32();
               break;
             }
             case 218: {
-              bitField0_ |= 0x04000000;
+              bitField0_ |= 0x01000000;
               referralCode_ = input.readBytes();
               break;
             }
             case 224: {
-              bitField0_ |= 0x08000000;
+              bitField0_ |= 0x02000000;
               numReferrals_ = input.readInt32();
               break;
             }
             case 234: {
-              bitField0_ |= 0x10000000;
+              bitField0_ |= 0x04000000;
               udid_ = input.readBytes();
               break;
             }
@@ -3141,72 +3053,72 @@ public final class InfoProto {
               break;
             }
             case 248: {
-              bitField0_ |= 0x40000000;
+              bitField0_ |= 0x10000000;
               numPostsInMarketplace_ = input.readInt32();
               break;
             }
             case 256: {
-              bitField0_ |= 0x80000000;
+              bitField0_ |= 0x20000000;
               numMarketplaceSalesUnredeemed_ = input.readInt32();
               break;
             }
             case 264: {
-              bitField1_ |= 0x00000001;
+              bitField0_ |= 0x40000000;
               weaponEquipped_ = input.readInt32();
               break;
             }
             case 272: {
-              bitField1_ |= 0x00000002;
+              bitField0_ |= 0x80000000;
               armorEquipped_ = input.readInt32();
               break;
             }
             case 280: {
-              bitField1_ |= 0x00000004;
+              bitField1_ |= 0x00000001;
               amuletEquipped_ = input.readInt32();
               break;
             }
             case 288: {
-              bitField1_ |= 0x00000008;
+              bitField1_ |= 0x00000002;
               lastLoginTime_ = input.readInt64();
               break;
             }
             case 296: {
-              bitField1_ |= 0x00000010;
+              bitField1_ |= 0x00000004;
               lastLogoutTime_ = input.readInt64();
               break;
             }
             case 306: {
-              bitField1_ |= 0x00000020;
+              bitField1_ |= 0x00000008;
               deviceToken_ = input.readBytes();
               break;
             }
             case 312: {
-              bitField1_ |= 0x00000040;
+              bitField1_ |= 0x00000010;
               lastBattleNotificationTime_ = input.readInt64();
               break;
             }
             case 320: {
-              bitField1_ |= 0x00000080;
+              bitField1_ |= 0x00000020;
               lastTimeAttacked_ = input.readInt64();
               break;
             }
             case 336: {
-              bitField1_ |= 0x00000100;
+              bitField1_ |= 0x00000040;
               numBadges_ = input.readInt32();
               break;
             }
             case 344: {
-              bitField1_ |= 0x00000200;
+              bitField1_ |= 0x00000080;
               lastShortLicensePurchaseTime_ = input.readInt64();
               break;
             }
             case 352: {
-              bitField1_ |= 0x00000400;
+              bitField1_ |= 0x00000100;
               lastLongLicensePurchaseTime_ = input.readInt64();
               break;
             }
             case 360: {
-              bitField0_ |= 0x02000000;
+              bitField0_ |= 0x00800000;
               flees_ = input.readInt32();
               break;
             }
@@ -3403,43 +3315,22 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isLastStaminaStateFull = 9;
-      private boolean isLastStaminaStateFull_ ;
-      public boolean hasIsLastStaminaStateFull() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
-      }
-      public boolean getIsLastStaminaStateFull() {
-        return isLastStaminaStateFull_;
-      }
-      public Builder setIsLastStaminaStateFull(boolean value) {
-        bitField0_ |= 0x00000100;
-        isLastStaminaStateFull_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearIsLastStaminaStateFull() {
-        bitField0_ = (bitField0_ & ~0x00000100);
-        isLastStaminaStateFull_ = false;
-        onChanged();
-        return this;
-      }
-      
       // required int32 energy = 10;
       private int energy_ ;
       public boolean hasEnergy() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       public int getEnergy() {
         return energy_;
       }
       public Builder setEnergy(int value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         energy_ = value;
         onChanged();
         return this;
       }
       public Builder clearEnergy() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         energy_ = 0;
         onChanged();
         return this;
@@ -3448,41 +3339,20 @@ public final class InfoProto {
       // optional int64 lastEnergyRefillTime = 11;
       private long lastEnergyRefillTime_ ;
       public boolean hasLastEnergyRefillTime() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       public long getLastEnergyRefillTime() {
         return lastEnergyRefillTime_;
       }
       public Builder setLastEnergyRefillTime(long value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         lastEnergyRefillTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastEnergyRefillTime() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000200);
         lastEnergyRefillTime_ = 0L;
-        onChanged();
-        return this;
-      }
-      
-      // required bool isLastEnergyStateFull = 12;
-      private boolean isLastEnergyStateFull_ ;
-      public boolean hasIsLastEnergyStateFull() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
-      }
-      public boolean getIsLastEnergyStateFull() {
-        return isLastEnergyStateFull_;
-      }
-      public Builder setIsLastEnergyStateFull(boolean value) {
-        bitField0_ |= 0x00000800;
-        isLastEnergyStateFull_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearIsLastEnergyStateFull() {
-        bitField0_ = (bitField0_ & ~0x00000800);
-        isLastEnergyStateFull_ = false;
         onChanged();
         return this;
       }
@@ -3490,19 +3360,19 @@ public final class InfoProto {
       // required int32 skillPoints = 13;
       private int skillPoints_ ;
       public boolean hasSkillPoints() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       public int getSkillPoints() {
         return skillPoints_;
       }
       public Builder setSkillPoints(int value) {
-        bitField0_ |= 0x00001000;
+        bitField0_ |= 0x00000400;
         skillPoints_ = value;
         onChanged();
         return this;
       }
       public Builder clearSkillPoints() {
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000400);
         skillPoints_ = 0;
         onChanged();
         return this;
@@ -3511,19 +3381,19 @@ public final class InfoProto {
       // required int32 healthMax = 14;
       private int healthMax_ ;
       public boolean hasHealthMax() {
-        return ((bitField0_ & 0x00002000) == 0x00002000);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       public int getHealthMax() {
         return healthMax_;
       }
       public Builder setHealthMax(int value) {
-        bitField0_ |= 0x00002000;
+        bitField0_ |= 0x00000800;
         healthMax_ = value;
         onChanged();
         return this;
       }
       public Builder clearHealthMax() {
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         healthMax_ = 0;
         onChanged();
         return this;
@@ -3532,19 +3402,19 @@ public final class InfoProto {
       // required int32 energyMax = 15;
       private int energyMax_ ;
       public boolean hasEnergyMax() {
-        return ((bitField0_ & 0x00004000) == 0x00004000);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       public int getEnergyMax() {
         return energyMax_;
       }
       public Builder setEnergyMax(int value) {
-        bitField0_ |= 0x00004000;
+        bitField0_ |= 0x00001000;
         energyMax_ = value;
         onChanged();
         return this;
       }
       public Builder clearEnergyMax() {
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         energyMax_ = 0;
         onChanged();
         return this;
@@ -3553,19 +3423,19 @@ public final class InfoProto {
       // required int32 staminaMax = 16;
       private int staminaMax_ ;
       public boolean hasStaminaMax() {
-        return ((bitField0_ & 0x00008000) == 0x00008000);
+        return ((bitField0_ & 0x00002000) == 0x00002000);
       }
       public int getStaminaMax() {
         return staminaMax_;
       }
       public Builder setStaminaMax(int value) {
-        bitField0_ |= 0x00008000;
+        bitField0_ |= 0x00002000;
         staminaMax_ = value;
         onChanged();
         return this;
       }
       public Builder clearStaminaMax() {
-        bitField0_ = (bitField0_ & ~0x00008000);
+        bitField0_ = (bitField0_ & ~0x00002000);
         staminaMax_ = 0;
         onChanged();
         return this;
@@ -3574,19 +3444,19 @@ public final class InfoProto {
       // required int32 diamonds = 17;
       private int diamonds_ ;
       public boolean hasDiamonds() {
-        return ((bitField0_ & 0x00010000) == 0x00010000);
+        return ((bitField0_ & 0x00004000) == 0x00004000);
       }
       public int getDiamonds() {
         return diamonds_;
       }
       public Builder setDiamonds(int value) {
-        bitField0_ |= 0x00010000;
+        bitField0_ |= 0x00004000;
         diamonds_ = value;
         onChanged();
         return this;
       }
       public Builder clearDiamonds() {
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00004000);
         diamonds_ = 0;
         onChanged();
         return this;
@@ -3595,19 +3465,19 @@ public final class InfoProto {
       // required int32 coins = 18;
       private int coins_ ;
       public boolean hasCoins() {
-        return ((bitField0_ & 0x00020000) == 0x00020000);
+        return ((bitField0_ & 0x00008000) == 0x00008000);
       }
       public int getCoins() {
         return coins_;
       }
       public Builder setCoins(int value) {
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00008000;
         coins_ = value;
         onChanged();
         return this;
       }
       public Builder clearCoins() {
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         coins_ = 0;
         onChanged();
         return this;
@@ -3616,19 +3486,19 @@ public final class InfoProto {
       // required int32 marketplaceDiamondsEarnings = 19;
       private int marketplaceDiamondsEarnings_ ;
       public boolean hasMarketplaceDiamondsEarnings() {
-        return ((bitField0_ & 0x00040000) == 0x00040000);
+        return ((bitField0_ & 0x00010000) == 0x00010000);
       }
       public int getMarketplaceDiamondsEarnings() {
         return marketplaceDiamondsEarnings_;
       }
       public Builder setMarketplaceDiamondsEarnings(int value) {
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00010000;
         marketplaceDiamondsEarnings_ = value;
         onChanged();
         return this;
       }
       public Builder clearMarketplaceDiamondsEarnings() {
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         marketplaceDiamondsEarnings_ = 0;
         onChanged();
         return this;
@@ -3637,19 +3507,19 @@ public final class InfoProto {
       // required int32 marketplaceCoinsEarnings = 20;
       private int marketplaceCoinsEarnings_ ;
       public boolean hasMarketplaceCoinsEarnings() {
-        return ((bitField0_ & 0x00080000) == 0x00080000);
+        return ((bitField0_ & 0x00020000) == 0x00020000);
       }
       public int getMarketplaceCoinsEarnings() {
         return marketplaceCoinsEarnings_;
       }
       public Builder setMarketplaceCoinsEarnings(int value) {
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00020000;
         marketplaceCoinsEarnings_ = value;
         onChanged();
         return this;
       }
       public Builder clearMarketplaceCoinsEarnings() {
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00020000);
         marketplaceCoinsEarnings_ = 0;
         onChanged();
         return this;
@@ -3658,19 +3528,19 @@ public final class InfoProto {
       // required int32 vaultBalance = 21;
       private int vaultBalance_ ;
       public boolean hasVaultBalance() {
-        return ((bitField0_ & 0x00100000) == 0x00100000);
+        return ((bitField0_ & 0x00040000) == 0x00040000);
       }
       public int getVaultBalance() {
         return vaultBalance_;
       }
       public Builder setVaultBalance(int value) {
-        bitField0_ |= 0x00100000;
+        bitField0_ |= 0x00040000;
         vaultBalance_ = value;
         onChanged();
         return this;
       }
       public Builder clearVaultBalance() {
-        bitField0_ = (bitField0_ & ~0x00100000);
+        bitField0_ = (bitField0_ & ~0x00040000);
         vaultBalance_ = 0;
         onChanged();
         return this;
@@ -3679,19 +3549,19 @@ public final class InfoProto {
       // required int32 experience = 22;
       private int experience_ ;
       public boolean hasExperience() {
-        return ((bitField0_ & 0x00200000) == 0x00200000);
+        return ((bitField0_ & 0x00080000) == 0x00080000);
       }
       public int getExperience() {
         return experience_;
       }
       public Builder setExperience(int value) {
-        bitField0_ |= 0x00200000;
+        bitField0_ |= 0x00080000;
         experience_ = value;
         onChanged();
         return this;
       }
       public Builder clearExperience() {
-        bitField0_ = (bitField0_ & ~0x00200000);
+        bitField0_ = (bitField0_ & ~0x00080000);
         experience_ = 0;
         onChanged();
         return this;
@@ -3700,19 +3570,19 @@ public final class InfoProto {
       // required int32 tasksCompleted = 23;
       private int tasksCompleted_ ;
       public boolean hasTasksCompleted() {
-        return ((bitField0_ & 0x00400000) == 0x00400000);
+        return ((bitField0_ & 0x00100000) == 0x00100000);
       }
       public int getTasksCompleted() {
         return tasksCompleted_;
       }
       public Builder setTasksCompleted(int value) {
-        bitField0_ |= 0x00400000;
+        bitField0_ |= 0x00100000;
         tasksCompleted_ = value;
         onChanged();
         return this;
       }
       public Builder clearTasksCompleted() {
-        bitField0_ = (bitField0_ & ~0x00400000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         tasksCompleted_ = 0;
         onChanged();
         return this;
@@ -3721,19 +3591,19 @@ public final class InfoProto {
       // required int32 battlesWon = 24;
       private int battlesWon_ ;
       public boolean hasBattlesWon() {
-        return ((bitField0_ & 0x00800000) == 0x00800000);
+        return ((bitField0_ & 0x00200000) == 0x00200000);
       }
       public int getBattlesWon() {
         return battlesWon_;
       }
       public Builder setBattlesWon(int value) {
-        bitField0_ |= 0x00800000;
+        bitField0_ |= 0x00200000;
         battlesWon_ = value;
         onChanged();
         return this;
       }
       public Builder clearBattlesWon() {
-        bitField0_ = (bitField0_ & ~0x00800000);
+        bitField0_ = (bitField0_ & ~0x00200000);
         battlesWon_ = 0;
         onChanged();
         return this;
@@ -3742,19 +3612,19 @@ public final class InfoProto {
       // required int32 battlesLost = 25;
       private int battlesLost_ ;
       public boolean hasBattlesLost() {
-        return ((bitField0_ & 0x01000000) == 0x01000000);
+        return ((bitField0_ & 0x00400000) == 0x00400000);
       }
       public int getBattlesLost() {
         return battlesLost_;
       }
       public Builder setBattlesLost(int value) {
-        bitField0_ |= 0x01000000;
+        bitField0_ |= 0x00400000;
         battlesLost_ = value;
         onChanged();
         return this;
       }
       public Builder clearBattlesLost() {
-        bitField0_ = (bitField0_ & ~0x01000000);
+        bitField0_ = (bitField0_ & ~0x00400000);
         battlesLost_ = 0;
         onChanged();
         return this;
@@ -3763,19 +3633,19 @@ public final class InfoProto {
       // required int32 flees = 45;
       private int flees_ ;
       public boolean hasFlees() {
-        return ((bitField0_ & 0x02000000) == 0x02000000);
+        return ((bitField0_ & 0x00800000) == 0x00800000);
       }
       public int getFlees() {
         return flees_;
       }
       public Builder setFlees(int value) {
-        bitField0_ |= 0x02000000;
+        bitField0_ |= 0x00800000;
         flees_ = value;
         onChanged();
         return this;
       }
       public Builder clearFlees() {
-        bitField0_ = (bitField0_ & ~0x02000000);
+        bitField0_ = (bitField0_ & ~0x00800000);
         flees_ = 0;
         onChanged();
         return this;
@@ -3784,7 +3654,7 @@ public final class InfoProto {
       // required string referralCode = 27;
       private java.lang.Object referralCode_ = "";
       public boolean hasReferralCode() {
-        return ((bitField0_ & 0x04000000) == 0x04000000);
+        return ((bitField0_ & 0x01000000) == 0x01000000);
       }
       public String getReferralCode() {
         java.lang.Object ref = referralCode_;
@@ -3800,19 +3670,19 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x04000000;
+  bitField0_ |= 0x01000000;
         referralCode_ = value;
         onChanged();
         return this;
       }
       public Builder clearReferralCode() {
-        bitField0_ = (bitField0_ & ~0x04000000);
+        bitField0_ = (bitField0_ & ~0x01000000);
         referralCode_ = getDefaultInstance().getReferralCode();
         onChanged();
         return this;
       }
       void setReferralCode(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x04000000;
+        bitField0_ |= 0x01000000;
         referralCode_ = value;
         onChanged();
       }
@@ -3820,19 +3690,19 @@ public final class InfoProto {
       // required int32 numReferrals = 28;
       private int numReferrals_ ;
       public boolean hasNumReferrals() {
-        return ((bitField0_ & 0x08000000) == 0x08000000);
+        return ((bitField0_ & 0x02000000) == 0x02000000);
       }
       public int getNumReferrals() {
         return numReferrals_;
       }
       public Builder setNumReferrals(int value) {
-        bitField0_ |= 0x08000000;
+        bitField0_ |= 0x02000000;
         numReferrals_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumReferrals() {
-        bitField0_ = (bitField0_ & ~0x08000000);
+        bitField0_ = (bitField0_ & ~0x02000000);
         numReferrals_ = 0;
         onChanged();
         return this;
@@ -3841,7 +3711,7 @@ public final class InfoProto {
       // required string udid = 29;
       private java.lang.Object udid_ = "";
       public boolean hasUdid() {
-        return ((bitField0_ & 0x10000000) == 0x10000000);
+        return ((bitField0_ & 0x04000000) == 0x04000000);
       }
       public String getUdid() {
         java.lang.Object ref = udid_;
@@ -3857,19 +3727,19 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x10000000;
+  bitField0_ |= 0x04000000;
         udid_ = value;
         onChanged();
         return this;
       }
       public Builder clearUdid() {
-        bitField0_ = (bitField0_ & ~0x10000000);
+        bitField0_ = (bitField0_ & ~0x04000000);
         udid_ = getDefaultInstance().getUdid();
         onChanged();
         return this;
       }
       void setUdid(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x10000000;
+        bitField0_ |= 0x04000000;
         udid_ = value;
         onChanged();
       }
@@ -3879,7 +3749,7 @@ public final class InfoProto {
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.LocationProto, com.lvl6.proto.InfoProto.LocationProto.Builder, com.lvl6.proto.InfoProto.LocationProtoOrBuilder> userLocationBuilder_;
       public boolean hasUserLocation() {
-        return ((bitField0_ & 0x20000000) == 0x20000000);
+        return ((bitField0_ & 0x08000000) == 0x08000000);
       }
       public com.lvl6.proto.InfoProto.LocationProto getUserLocation() {
         if (userLocationBuilder_ == null) {
@@ -3898,7 +3768,7 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x20000000;
+        bitField0_ |= 0x08000000;
         return this;
       }
       public Builder setUserLocation(
@@ -3909,12 +3779,12 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x20000000;
+        bitField0_ |= 0x08000000;
         return this;
       }
       public Builder mergeUserLocation(com.lvl6.proto.InfoProto.LocationProto value) {
         if (userLocationBuilder_ == null) {
-          if (((bitField0_ & 0x20000000) == 0x20000000) &&
+          if (((bitField0_ & 0x08000000) == 0x08000000) &&
               userLocation_ != com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance()) {
             userLocation_ =
               com.lvl6.proto.InfoProto.LocationProto.newBuilder(userLocation_).mergeFrom(value).buildPartial();
@@ -3925,7 +3795,7 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x20000000;
+        bitField0_ |= 0x08000000;
         return this;
       }
       public Builder clearUserLocation() {
@@ -3935,11 +3805,11 @@ public final class InfoProto {
         } else {
           userLocationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x20000000);
+        bitField0_ = (bitField0_ & ~0x08000000);
         return this;
       }
       public com.lvl6.proto.InfoProto.LocationProto.Builder getUserLocationBuilder() {
-        bitField0_ |= 0x20000000;
+        bitField0_ |= 0x08000000;
         onChanged();
         return getUserLocationFieldBuilder().getBuilder();
       }
@@ -3967,19 +3837,19 @@ public final class InfoProto {
       // required int32 numPostsInMarketplace = 31;
       private int numPostsInMarketplace_ ;
       public boolean hasNumPostsInMarketplace() {
-        return ((bitField0_ & 0x40000000) == 0x40000000);
+        return ((bitField0_ & 0x10000000) == 0x10000000);
       }
       public int getNumPostsInMarketplace() {
         return numPostsInMarketplace_;
       }
       public Builder setNumPostsInMarketplace(int value) {
-        bitField0_ |= 0x40000000;
+        bitField0_ |= 0x10000000;
         numPostsInMarketplace_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumPostsInMarketplace() {
-        bitField0_ = (bitField0_ & ~0x40000000);
+        bitField0_ = (bitField0_ & ~0x10000000);
         numPostsInMarketplace_ = 0;
         onChanged();
         return this;
@@ -3988,19 +3858,19 @@ public final class InfoProto {
       // required int32 numMarketplaceSalesUnredeemed = 32;
       private int numMarketplaceSalesUnredeemed_ ;
       public boolean hasNumMarketplaceSalesUnredeemed() {
-        return ((bitField0_ & 0x80000000) == 0x80000000);
+        return ((bitField0_ & 0x20000000) == 0x20000000);
       }
       public int getNumMarketplaceSalesUnredeemed() {
         return numMarketplaceSalesUnredeemed_;
       }
       public Builder setNumMarketplaceSalesUnredeemed(int value) {
-        bitField0_ |= 0x80000000;
+        bitField0_ |= 0x20000000;
         numMarketplaceSalesUnredeemed_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumMarketplaceSalesUnredeemed() {
-        bitField0_ = (bitField0_ & ~0x80000000);
+        bitField0_ = (bitField0_ & ~0x20000000);
         numMarketplaceSalesUnredeemed_ = 0;
         onChanged();
         return this;
@@ -4009,19 +3879,19 @@ public final class InfoProto {
       // optional int32 weaponEquipped = 33;
       private int weaponEquipped_ ;
       public boolean hasWeaponEquipped() {
-        return ((bitField1_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x40000000) == 0x40000000);
       }
       public int getWeaponEquipped() {
         return weaponEquipped_;
       }
       public Builder setWeaponEquipped(int value) {
-        bitField1_ |= 0x00000001;
+        bitField0_ |= 0x40000000;
         weaponEquipped_ = value;
         onChanged();
         return this;
       }
       public Builder clearWeaponEquipped() {
-        bitField1_ = (bitField1_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x40000000);
         weaponEquipped_ = 0;
         onChanged();
         return this;
@@ -4030,19 +3900,19 @@ public final class InfoProto {
       // optional int32 armorEquipped = 34;
       private int armorEquipped_ ;
       public boolean hasArmorEquipped() {
-        return ((bitField1_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x80000000) == 0x80000000);
       }
       public int getArmorEquipped() {
         return armorEquipped_;
       }
       public Builder setArmorEquipped(int value) {
-        bitField1_ |= 0x00000002;
+        bitField0_ |= 0x80000000;
         armorEquipped_ = value;
         onChanged();
         return this;
       }
       public Builder clearArmorEquipped() {
-        bitField1_ = (bitField1_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x80000000);
         armorEquipped_ = 0;
         onChanged();
         return this;
@@ -4051,19 +3921,19 @@ public final class InfoProto {
       // optional int32 amuletEquipped = 35;
       private int amuletEquipped_ ;
       public boolean hasAmuletEquipped() {
-        return ((bitField1_ & 0x00000004) == 0x00000004);
+        return ((bitField1_ & 0x00000001) == 0x00000001);
       }
       public int getAmuletEquipped() {
         return amuletEquipped_;
       }
       public Builder setAmuletEquipped(int value) {
-        bitField1_ |= 0x00000004;
+        bitField1_ |= 0x00000001;
         amuletEquipped_ = value;
         onChanged();
         return this;
       }
       public Builder clearAmuletEquipped() {
-        bitField1_ = (bitField1_ & ~0x00000004);
+        bitField1_ = (bitField1_ & ~0x00000001);
         amuletEquipped_ = 0;
         onChanged();
         return this;
@@ -4072,19 +3942,19 @@ public final class InfoProto {
       // required int64 lastLoginTime = 36;
       private long lastLoginTime_ ;
       public boolean hasLastLoginTime() {
-        return ((bitField1_ & 0x00000008) == 0x00000008);
+        return ((bitField1_ & 0x00000002) == 0x00000002);
       }
       public long getLastLoginTime() {
         return lastLoginTime_;
       }
       public Builder setLastLoginTime(long value) {
-        bitField1_ |= 0x00000008;
+        bitField1_ |= 0x00000002;
         lastLoginTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastLoginTime() {
-        bitField1_ = (bitField1_ & ~0x00000008);
+        bitField1_ = (bitField1_ & ~0x00000002);
         lastLoginTime_ = 0L;
         onChanged();
         return this;
@@ -4093,19 +3963,19 @@ public final class InfoProto {
       // optional int64 lastLogoutTime = 37;
       private long lastLogoutTime_ ;
       public boolean hasLastLogoutTime() {
-        return ((bitField1_ & 0x00000010) == 0x00000010);
+        return ((bitField1_ & 0x00000004) == 0x00000004);
       }
       public long getLastLogoutTime() {
         return lastLogoutTime_;
       }
       public Builder setLastLogoutTime(long value) {
-        bitField1_ |= 0x00000010;
+        bitField1_ |= 0x00000004;
         lastLogoutTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastLogoutTime() {
-        bitField1_ = (bitField1_ & ~0x00000010);
+        bitField1_ = (bitField1_ & ~0x00000004);
         lastLogoutTime_ = 0L;
         onChanged();
         return this;
@@ -4114,7 +3984,7 @@ public final class InfoProto {
       // optional string deviceToken = 38;
       private java.lang.Object deviceToken_ = "";
       public boolean hasDeviceToken() {
-        return ((bitField1_ & 0x00000020) == 0x00000020);
+        return ((bitField1_ & 0x00000008) == 0x00000008);
       }
       public String getDeviceToken() {
         java.lang.Object ref = deviceToken_;
@@ -4130,19 +4000,19 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField1_ |= 0x00000020;
+  bitField1_ |= 0x00000008;
         deviceToken_ = value;
         onChanged();
         return this;
       }
       public Builder clearDeviceToken() {
-        bitField1_ = (bitField1_ & ~0x00000020);
+        bitField1_ = (bitField1_ & ~0x00000008);
         deviceToken_ = getDefaultInstance().getDeviceToken();
         onChanged();
         return this;
       }
       void setDeviceToken(com.google.protobuf.ByteString value) {
-        bitField1_ |= 0x00000020;
+        bitField1_ |= 0x00000008;
         deviceToken_ = value;
         onChanged();
       }
@@ -4150,19 +4020,19 @@ public final class InfoProto {
       // optional int64 lastBattleNotificationTime = 39;
       private long lastBattleNotificationTime_ ;
       public boolean hasLastBattleNotificationTime() {
-        return ((bitField1_ & 0x00000040) == 0x00000040);
+        return ((bitField1_ & 0x00000010) == 0x00000010);
       }
       public long getLastBattleNotificationTime() {
         return lastBattleNotificationTime_;
       }
       public Builder setLastBattleNotificationTime(long value) {
-        bitField1_ |= 0x00000040;
+        bitField1_ |= 0x00000010;
         lastBattleNotificationTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastBattleNotificationTime() {
-        bitField1_ = (bitField1_ & ~0x00000040);
+        bitField1_ = (bitField1_ & ~0x00000010);
         lastBattleNotificationTime_ = 0L;
         onChanged();
         return this;
@@ -4171,19 +4041,19 @@ public final class InfoProto {
       // optional int64 lastTimeAttacked = 40;
       private long lastTimeAttacked_ ;
       public boolean hasLastTimeAttacked() {
-        return ((bitField1_ & 0x00000080) == 0x00000080);
+        return ((bitField1_ & 0x00000020) == 0x00000020);
       }
       public long getLastTimeAttacked() {
         return lastTimeAttacked_;
       }
       public Builder setLastTimeAttacked(long value) {
-        bitField1_ |= 0x00000080;
+        bitField1_ |= 0x00000020;
         lastTimeAttacked_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastTimeAttacked() {
-        bitField1_ = (bitField1_ & ~0x00000080);
+        bitField1_ = (bitField1_ & ~0x00000020);
         lastTimeAttacked_ = 0L;
         onChanged();
         return this;
@@ -4192,19 +4062,19 @@ public final class InfoProto {
       // optional int32 numBadges = 42;
       private int numBadges_ ;
       public boolean hasNumBadges() {
-        return ((bitField1_ & 0x00000100) == 0x00000100);
+        return ((bitField1_ & 0x00000040) == 0x00000040);
       }
       public int getNumBadges() {
         return numBadges_;
       }
       public Builder setNumBadges(int value) {
-        bitField1_ |= 0x00000100;
+        bitField1_ |= 0x00000040;
         numBadges_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumBadges() {
-        bitField1_ = (bitField1_ & ~0x00000100);
+        bitField1_ = (bitField1_ & ~0x00000040);
         numBadges_ = 0;
         onChanged();
         return this;
@@ -4213,19 +4083,19 @@ public final class InfoProto {
       // optional int64 lastShortLicensePurchaseTime = 43;
       private long lastShortLicensePurchaseTime_ ;
       public boolean hasLastShortLicensePurchaseTime() {
-        return ((bitField1_ & 0x00000200) == 0x00000200);
+        return ((bitField1_ & 0x00000080) == 0x00000080);
       }
       public long getLastShortLicensePurchaseTime() {
         return lastShortLicensePurchaseTime_;
       }
       public Builder setLastShortLicensePurchaseTime(long value) {
-        bitField1_ |= 0x00000200;
+        bitField1_ |= 0x00000080;
         lastShortLicensePurchaseTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastShortLicensePurchaseTime() {
-        bitField1_ = (bitField1_ & ~0x00000200);
+        bitField1_ = (bitField1_ & ~0x00000080);
         lastShortLicensePurchaseTime_ = 0L;
         onChanged();
         return this;
@@ -4234,19 +4104,19 @@ public final class InfoProto {
       // optional int64 lastLongLicensePurchaseTime = 44;
       private long lastLongLicensePurchaseTime_ ;
       public boolean hasLastLongLicensePurchaseTime() {
-        return ((bitField1_ & 0x00000400) == 0x00000400);
+        return ((bitField1_ & 0x00000100) == 0x00000100);
       }
       public long getLastLongLicensePurchaseTime() {
         return lastLongLicensePurchaseTime_;
       }
       public Builder setLastLongLicensePurchaseTime(long value) {
-        bitField1_ |= 0x00000400;
+        bitField1_ |= 0x00000100;
         lastLongLicensePurchaseTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastLongLicensePurchaseTime() {
-        bitField1_ = (bitField1_ & ~0x00000400);
+        bitField1_ = (bitField1_ & ~0x00000100);
         lastLongLicensePurchaseTime_ = 0L;
         onChanged();
         return this;
@@ -25249,181 +25119,179 @@ public final class InfoProto {
       "\n\nInfo.proto\022\016com.lvl6.proto\"\\\n\020MinimumU" +
       "serProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004name\030\002 \001(\t\022*" +
       "\n\010userType\030\003 \001(\0162\030.com.lvl6.proto.UserTy" +
-      "pe\"\263\010\n\rFullUserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004" +
+      "pe\"\364\007\n\rFullUserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004" +
       "name\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\022*\n\010userType\030\004 " +
       "\002(\0162\030.com.lvl6.proto.UserType\022\016\n\006attack\030" +
       "\005 \002(\005\022\017\n\007defense\030\006 \002(\005\022\017\n\007stamina\030\007 \002(\005\022" +
-      "\035\n\025lastStaminaRefillTime\030\010 \001(\003\022\036\n\026isLast" +
-      "StaminaStateFull\030\t \002(\010\022\016\n\006energy\030\n \002(\005\022\034" +
-      "\n\024lastEnergyRefillTime\030\013 \001(\003\022\035\n\025isLastEn",
-      "ergyStateFull\030\014 \002(\010\022\023\n\013skillPoints\030\r \002(\005" +
-      "\022\021\n\thealthMax\030\016 \002(\005\022\021\n\tenergyMax\030\017 \002(\005\022\022" +
-      "\n\nstaminaMax\030\020 \002(\005\022\020\n\010diamonds\030\021 \002(\005\022\r\n\005" +
-      "coins\030\022 \002(\005\022#\n\033marketplaceDiamondsEarnin" +
-      "gs\030\023 \002(\005\022 \n\030marketplaceCoinsEarnings\030\024 \002" +
-      "(\005\022\024\n\014vaultBalance\030\025 \002(\005\022\022\n\nexperience\030\026" +
-      " \002(\005\022\026\n\016tasksCompleted\030\027 \002(\005\022\022\n\nbattlesW" +
-      "on\030\030 \002(\005\022\023\n\013battlesLost\030\031 \002(\005\022\r\n\005flees\030-" +
-      " \002(\005\022\024\n\014referralCode\030\033 \002(\t\022\024\n\014numReferra" +
-      "ls\030\034 \002(\005\022\014\n\004udid\030\035 \002(\t\0223\n\014userLocation\030\036",
-      " \002(\0132\035.com.lvl6.proto.LocationProto\022\035\n\025n" +
-      "umPostsInMarketplace\030\037 \002(\005\022%\n\035numMarketp" +
-      "laceSalesUnredeemed\030  \002(\005\022\026\n\016weaponEquip" +
-      "ped\030! \001(\005\022\025\n\rarmorEquipped\030\" \001(\005\022\026\n\016amul" +
-      "etEquipped\030# \001(\005\022\025\n\rlastLoginTime\030$ \002(\003\022" +
-      "\026\n\016lastLogoutTime\030% \001(\003\022\023\n\013deviceToken\030&" +
-      " \001(\t\022\"\n\032lastBattleNotificationTime\030\' \001(\003" +
-      "\022\030\n\020lastTimeAttacked\030( \001(\003\022\021\n\tnumBadges\030" +
-      "* \001(\005\022$\n\034lastShortLicensePurchaseTime\030+ " +
-      "\001(\003\022#\n\033lastLongLicensePurchaseTime\030, \001(\003",
-      "\"\277\004\n\016FullEquipProto\022\017\n\007equipId\030\001 \002(\005\022\014\n\004" +
-      "name\030\002 \002(\t\022;\n\tequipType\030\003 \002(\0162(.com.lvl6" +
-      ".proto.FullEquipProto.EquipType\022\023\n\013descr" +
-      "iption\030\004 \002(\t\022\023\n\013attackBoost\030\005 \002(\005\022\024\n\014def" +
-      "enseBoost\030\006 \002(\005\022\020\n\010minLevel\030\007 \002(\005\022\021\n\tcoi" +
-      "nPrice\030\010 \001(\005\022\024\n\014diamondPrice\030\t \001(\005\022\024\n\014ch" +
-      "anceOfLoss\030\n \002(\002\022;\n\tclassType\030\013 \002(\0162(.co" +
-      "m.lvl6.proto.FullEquipProto.ClassType\0225\n" +
-      "\006rarity\030\014 \002(\0162%.com.lvl6.proto.FullEquip" +
-      "Proto.Rarity\022\025\n\ravailInArmory\030\r \002(\010\"E\n\006R",
-      "arity\022\n\n\006COMMON\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020" +
-      "\002\022\010\n\004EPIC\020\003\022\r\n\tLEGENDARY\020\004\".\n\tEquipType\022" +
-      "\n\n\006WEAPON\020\000\022\t\n\005ARMOR\020\001\022\n\n\006AMULET\020\002\">\n\tCl" +
-      "assType\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE" +
-      "\020\002\022\016\n\nALL_AMULET\020\003\"\247\002\n\026FullUserStructure" +
-      "Proto\022\024\n\014userStructId\030\001 \002(\005\022\016\n\006userId\030\002 " +
-      "\002(\005\022\020\n\010structId\030\003 \002(\005\022\025\n\rlastRetrieved\030\004" +
-      " \001(\003\0224\n\013coordinates\030\005 \002(\0132\037.com.lvl6.pro" +
-      "to.CoordinateProto\022\r\n\005level\030\006 \002(\005\022\024\n\014pur" +
-      "chaseTime\030\007 \002(\003\022\027\n\017lastUpgradeTime\030\010 \001(\003",
-      "\022\022\n\nisComplete\030\t \002(\010\0226\n\013orientation\030\n \002(" +
-      "\0162!.com.lvl6.proto.StructOrientation\"Y\n\022" +
-      "FullUserEquipProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007eq" +
-      "uipId\030\002 \002(\005\022\020\n\010quantity\030\003 \002(\005\022\020\n\010isStole" +
-      "n\030\004 \002(\010\"\231\003\n\022FullStructureProto\022\020\n\010struct" +
-      "Id\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006income\030\003 \002(\005\022\025" +
-      "\n\rminutesToGain\030\004 \002(\005\022\026\n\016minutesToBuild\030" +
-      "\005 \002(\005\022\034\n\024minutesToUpgradeBase\030\006 \002(\005\022\021\n\tc" +
-      "oinPrice\030\007 \002(\005\022\024\n\014diamondPrice\030\010 \002(\005\022\020\n\010" +
-      "minLevel\030\t \002(\005\022\017\n\007xLength\030\n \002(\005\022\017\n\007yLeng",
-      "th\030\013 \002(\005\022\033\n\023upgradeCoinCostBase\030\014 \002(\005\022\036\n" +
-      "\026upgradeDiamondCostBase\030\r \002(\005\022!\n\031instaBu" +
-      "ildDiamondCostBase\030\016 \002(\005\022$\n\034instaRetriev" +
-      "eDiamondCostBase\030\017 \002(\005\022#\n\033instaUpgradeDi" +
-      "amondCostBase\030\020 \002(\005\"\240\003\n\rFullTaskProto\022\016\n" +
-      "\006taskId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId\030\003 " +
-      "\002(\005\022 \n\030numRequiredForCompletion\030\004 \002(\005\022\022\n" +
-      "\nenergyCost\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002(" +
-      "\005\022\026\n\016maxCoinsGained\030\007 \002(\005\022\031\n\021chanceOfEqu" +
-      "ipLoot\030\010 \002(\002\022\035\n\025potentialLootEquipIds\030\t ",
-      "\003(\005\022\021\n\texpGained\030\n \002(\005\022\032\n\022assetNumWithin" +
-      "City\030\013 \002(\005\022F\n\tequipReqs\030\014 \003(\01323.com.lvl6" +
-      ".proto.FullTaskProto.FullTaskEquipReqPro" +
-      "to\032J\n\025FullTaskEquipReqProto\022\016\n\006taskId\030\001 " +
-      "\002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010quantity\030\003 \002(\005\"\220" +
-      "\001\n\rFullCityProto\022\016\n\006cityId\030\001 \002(\005\022\014\n\004name" +
-      "\030\002 \002(\t\022\020\n\010minLevel\030\003 \002(\005\022\035\n\025expGainedBas" +
-      "eOnRankup\030\004 \002(\005\022\037\n\027coinsGainedBaseOnRank" +
-      "up\030\005 \002(\005\022\017\n\007taskIds\030\006 \003(\005\"\361\001\n\036FullUserCi" +
-      "tyExpansionDataProto\022\016\n\006userId\030\001 \002(\005\022\032\n\022",
-      "nearLeftExpansions\030\002 \002(\005\022\031\n\021farLeftExpan" +
-      "sions\030\003 \002(\005\022\032\n\022farRightExpansions\030\004 \002(\005\022" +
-      "\023\n\013isExpanding\030\005 \002(\010\022\026\n\016lastExpandTime\030\006" +
-      " \001(\003\022?\n\023lastExpandDirection\030\007 \001(\0162\".com." +
-      "lvl6.proto.ExpansionDirection\"q\n\021FullUse" +
-      "rCityProto\022\016\n\006userId\030\001 \002(\005\022\016\n\006cityId\030\002 \002" +
-      "(\005\022\023\n\013currentRank\030\003 \002(\005\022\'\n\037numTasksCurre" +
-      "ntlyCompleteInRank\030\004 \002(\005\"\'\n\017CoordinatePr" +
-      "oto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\"4\n\rLocationPro" +
-      "to\022\020\n\010latitude\030\001 \002(\001\022\021\n\tlongitude\030\002 \002(\001\"",
-      "\356\002\n\027NeutralCityElementProto\022\016\n\006cityId\030\001 " +
-      "\002(\005\022\017\n\007assetId\030\002 \002(\005\022\014\n\004name\030\t \002(\t\022I\n\004ty" +
-      "pe\030\003 \002(\0162;.com.lvl6.proto.NeutralCityEle" +
-      "mentProto.NeutralCityElemType\022/\n\006coords\030" +
-      "\004 \002(\0132\037.com.lvl6.proto.CoordinateProto\022\017" +
-      "\n\007xLength\030\005 \001(\005\022\017\n\007yLength\030\006 \001(\005\022\r\n\005imgI" +
-      "d\030\007 \002(\t\0226\n\013orientation\030\010 \001(\0162!.com.lvl6." +
-      "proto.StructOrientation\"?\n\023NeutralCityEl" +
-      "emType\022\n\n\006PERSON\020\000\022\014\n\010BUILDING\020\001\022\016\n\nDECO" +
-      "RATION\020\002\"\356\001\n\030FullMarketplacePostProto\022\031\n",
-      "\021marketplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002" +
-      "(\005\0225\n\010postType\030\003 \002(\0162#.com.lvl6.proto.Ma" +
-      "rketplacePostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n" +
-      "\013postedEquip\030\005 \002(\0132\036.com.lvl6.proto.Full" +
-      "EquipProto\022\023\n\013diamondCost\030\006 \001(\005\022\020\n\010coinC" +
-      "ost\030\007 \001(\005\"\260\001\n\027FullUserCritstructProto\022,\n" +
-      "\004type\030\001 \002(\0162\036.com.lvl6.proto.CritStructT" +
-      "ype\022/\n\006coords\030\002 \002(\0132\037.com.lvl6.proto.Coo" +
-      "rdinateProto\0226\n\013orientation\030\003 \002(\0162!.com." +
-      "lvl6.proto.StructOrientation\"M\n\024MinimumU",
-      "serTaskProto\022\016\n\006userId\030\001 \002(\005\022\016\n\006taskId\030\002" +
-      " \002(\005\022\025\n\rnumTimesActed\030\003 \002(\005\"\200\001\n\031MinimumU" +
-      "serQuestTaskProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007que" +
-      "stId\030\002 \002(\005\022+\n\004task\030\003 \002(\0132\035.com.lvl6.prot" +
-      "o.FullTaskProto\022\025\n\rnumTimesActed\030\004 \002(\005\"\376" +
-      "\003\n\033FullUserQuestDataLargeProto\022\016\n\006userId" +
-      "\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010redeemed\030\003 \002(" +
-      "\010\022H\n\025requiredTasksProgress\030\004 \003(\0132).com.l" +
-      "vl6.proto.MinimumUserQuestTaskProto\022T\n\035r" +
-      "equiredDefeatTypeJobProgress\030\005 \003(\0132-.com",
-      ".lvl6.proto.MinimumUserDefeatTypeJobProt" +
-      "o\022V\n\036requiredBuildStructJobProgress\030\006 \003(" +
-      "\0132..com.lvl6.proto.MinimumUserBuildStruc" +
-      "tJobProto\022Z\n requiredUpgradeStructJobPro" +
-      "gress\030\007 \003(\01320.com.lvl6.proto.MinimumUser" +
-      "UpgradeStructJobProto\022X\n\037requiredPossess" +
-      "EquipJobProgress\030\010 \003(\0132/.com.lvl6.proto." +
-      "MinimumUserPossessEquipJobProto\"\222\001\n\035Mini" +
-      "mumUserDefeatTypeJobProto\022\016\n\006userId\030\001 \002(" +
-      "\005\022\017\n\007questId\030\002 \002(\005\022;\n\017defeatTypeJobId\030\003 ",
-      "\002(\0132\".com.lvl6.proto.DefeatTypeJobProto\022" +
-      "\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobPr" +
-      "oto\022\027\n\017defeatTypeJobId\030\001 \002(\005\022-\n\013typeOfEn" +
-      "emy\030\002 \002(\0162\030.com.lvl6.proto.UserType\022\032\n\022n" +
-      "umEnemiesToDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"" +
-      "\232\001\n\036MinimumUserBuildStructJobProto\022\016\n\006us" +
-      "erId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\016buildStru" +
-      "ctJob\030\003 \002(\0132#.com.lvl6.proto.BuildStruct" +
-      "JobProto\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n\023" +
-      "BuildStructJobProto\022\030\n\020buildStructJobId\030",
-      "\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequi" +
-      "red\030\003 \002(\005\"\230\001\n MinimumUserUpgradeStructJo" +
-      "bProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022" +
-      "?\n\020upgradeStructJob\030\003 \002(\0132%.com.lvl6.pro" +
-      "to.UpgradeStructJobProto\022\022\n\nisComplete\030\004" +
-      " \002(\010\"W\n\025UpgradeStructJobProto\022\032\n\022upgrade" +
-      "StructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010l" +
-      "evelReq\030\003 \002(\005\"\237\001\n\037MinimumUserPossessEqui" +
-      "pJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002" +
-      "(\005\022B\n\024possessEquipJobProto\030\003 \002(\0132$.com.l",
-      "vl6.proto.PossessEquipJobProto\022\027\n\017numEqu" +
-      "ipUserHas\030\004 \002(\005\"W\n\024PossessEquipJobProto\022" +
-      "\031\n\021possessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 " +
-      "\002(\005\022\023\n\013quantityReq\030\003 \002(\005\"\223\003\n\016FullQuestPr" +
-      "oto\022\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004" +
-      "name\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneR" +
-      "esponse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022ass" +
-      "etNumWithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001" +
-      "(\005\022\026\n\016diamondsGained\030\t \001(\005\022\021\n\texpGained\030" +
-      "\n \001(\005\022\025\n\requipIdGained\030\013 \001(\005\022\035\n\025questsRe",
-      "quiredForThis\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n" +
-      "\025upgradeStructJobsReqs\030\016 \003(\005\022\033\n\023buildStr" +
-      "uctJobsReqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(" +
-      "\005\022\033\n\023possessEquipJobReqs\030\021 \003(\005*k\n\010UserTy" +
-      "pe\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n" +
-      "\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARC" +
-      "HER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014A" +
-      "TTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTAC" +
-      "KER_FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PRE" +
-      "MIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2",
-      "\n\035MarketplaceJobRequirementType\022\007\n\003BUY\020\000" +
-      "\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000" +
-      "\022\016\n\nLUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT" +
-      "\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021Struc" +
-      "tOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION" +
-      "_2\020\001*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020" +
-      "\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoPr" +
-      "oto"
+      "\035\n\025lastStaminaRefillTime\030\010 \001(\003\022\016\n\006energy" +
+      "\030\n \002(\005\022\034\n\024lastEnergyRefillTime\030\013 \001(\003\022\023\n\013" +
+      "skillPoints\030\r \002(\005\022\021\n\thealthMax\030\016 \002(\005\022\021\n\t",
+      "energyMax\030\017 \002(\005\022\022\n\nstaminaMax\030\020 \002(\005\022\020\n\010d" +
+      "iamonds\030\021 \002(\005\022\r\n\005coins\030\022 \002(\005\022#\n\033marketpl" +
+      "aceDiamondsEarnings\030\023 \002(\005\022 \n\030marketplace" +
+      "CoinsEarnings\030\024 \002(\005\022\024\n\014vaultBalance\030\025 \002(" +
+      "\005\022\022\n\nexperience\030\026 \002(\005\022\026\n\016tasksCompleted\030" +
+      "\027 \002(\005\022\022\n\nbattlesWon\030\030 \002(\005\022\023\n\013battlesLost" +
+      "\030\031 \002(\005\022\r\n\005flees\030- \002(\005\022\024\n\014referralCode\030\033 " +
+      "\002(\t\022\024\n\014numReferrals\030\034 \002(\005\022\014\n\004udid\030\035 \002(\t\022" +
+      "3\n\014userLocation\030\036 \002(\0132\035.com.lvl6.proto.L" +
+      "ocationProto\022\035\n\025numPostsInMarketplace\030\037 ",
+      "\002(\005\022%\n\035numMarketplaceSalesUnredeemed\030  \002" +
+      "(\005\022\026\n\016weaponEquipped\030! \001(\005\022\025\n\rarmorEquip" +
+      "ped\030\" \001(\005\022\026\n\016amuletEquipped\030# \001(\005\022\025\n\rlas" +
+      "tLoginTime\030$ \002(\003\022\026\n\016lastLogoutTime\030% \001(\003" +
+      "\022\023\n\013deviceToken\030& \001(\t\022\"\n\032lastBattleNotif" +
+      "icationTime\030\' \001(\003\022\030\n\020lastTimeAttacked\030( " +
+      "\001(\003\022\021\n\tnumBadges\030* \001(\005\022$\n\034lastShortLicen" +
+      "sePurchaseTime\030+ \001(\003\022#\n\033lastLongLicenseP" +
+      "urchaseTime\030, \001(\003\"\277\004\n\016FullEquipProto\022\017\n\007" +
+      "equipId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022;\n\tequipType",
+      "\030\003 \002(\0162(.com.lvl6.proto.FullEquipProto.E" +
+      "quipType\022\023\n\013description\030\004 \002(\t\022\023\n\013attackB" +
+      "oost\030\005 \002(\005\022\024\n\014defenseBoost\030\006 \002(\005\022\020\n\010minL" +
+      "evel\030\007 \002(\005\022\021\n\tcoinPrice\030\010 \001(\005\022\024\n\014diamond" +
+      "Price\030\t \001(\005\022\024\n\014chanceOfLoss\030\n \002(\002\022;\n\tcla" +
+      "ssType\030\013 \002(\0162(.com.lvl6.proto.FullEquipP" +
+      "roto.ClassType\0225\n\006rarity\030\014 \002(\0162%.com.lvl" +
+      "6.proto.FullEquipProto.Rarity\022\025\n\ravailIn" +
+      "Armory\030\r \002(\010\"E\n\006Rarity\022\n\n\006COMMON\020\000\022\014\n\010UN" +
+      "COMMON\020\001\022\010\n\004RARE\020\002\022\010\n\004EPIC\020\003\022\r\n\tLEGENDAR",
+      "Y\020\004\".\n\tEquipType\022\n\n\006WEAPON\020\000\022\t\n\005ARMOR\020\001\022" +
+      "\n\n\006AMULET\020\002\">\n\tClassType\022\013\n\007WARRIOR\020\000\022\n\n" +
+      "\006ARCHER\020\001\022\010\n\004MAGE\020\002\022\016\n\nALL_AMULET\020\003\"\247\002\n\026" +
+      "FullUserStructureProto\022\024\n\014userStructId\030\001" +
+      " \002(\005\022\016\n\006userId\030\002 \002(\005\022\020\n\010structId\030\003 \002(\005\022\025" +
+      "\n\rlastRetrieved\030\004 \001(\003\0224\n\013coordinates\030\005 \002" +
+      "(\0132\037.com.lvl6.proto.CoordinateProto\022\r\n\005l" +
+      "evel\030\006 \002(\005\022\024\n\014purchaseTime\030\007 \002(\003\022\027\n\017last" +
+      "UpgradeTime\030\010 \001(\003\022\022\n\nisComplete\030\t \002(\010\0226\n" +
+      "\013orientation\030\n \002(\0162!.com.lvl6.proto.Stru",
+      "ctOrientation\"Y\n\022FullUserEquipProto\022\016\n\006u" +
+      "serId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010quantity" +
+      "\030\003 \002(\005\022\020\n\010isStolen\030\004 \002(\010\"\231\003\n\022FullStructu" +
+      "reProto\022\020\n\010structId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022" +
+      "\016\n\006income\030\003 \002(\005\022\025\n\rminutesToGain\030\004 \002(\005\022\026" +
+      "\n\016minutesToBuild\030\005 \002(\005\022\034\n\024minutesToUpgra" +
+      "deBase\030\006 \002(\005\022\021\n\tcoinPrice\030\007 \002(\005\022\024\n\014diamo" +
+      "ndPrice\030\010 \002(\005\022\020\n\010minLevel\030\t \002(\005\022\017\n\007xLeng" +
+      "th\030\n \002(\005\022\017\n\007yLength\030\013 \002(\005\022\033\n\023upgradeCoin" +
+      "CostBase\030\014 \002(\005\022\036\n\026upgradeDiamondCostBase",
+      "\030\r \002(\005\022!\n\031instaBuildDiamondCostBase\030\016 \002(" +
+      "\005\022$\n\034instaRetrieveDiamondCostBase\030\017 \002(\005\022" +
+      "#\n\033instaUpgradeDiamondCostBase\030\020 \002(\005\"\240\003\n" +
+      "\rFullTaskProto\022\016\n\006taskId\030\001 \002(\005\022\014\n\004name\030\002" +
+      " \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030numRequiredForCo" +
+      "mpletion\030\004 \002(\005\022\022\n\nenergyCost\030\005 \002(\005\022\026\n\016mi" +
+      "nCoinsGained\030\006 \002(\005\022\026\n\016maxCoinsGained\030\007 \002" +
+      "(\005\022\031\n\021chanceOfEquipLoot\030\010 \002(\002\022\035\n\025potenti" +
+      "alLootEquipIds\030\t \003(\005\022\021\n\texpGained\030\n \002(\005\022" +
+      "\032\n\022assetNumWithinCity\030\013 \002(\005\022F\n\tequipReqs",
+      "\030\014 \003(\01323.com.lvl6.proto.FullTaskProto.Fu" +
+      "llTaskEquipReqProto\032J\n\025FullTaskEquipReqP" +
+      "roto\022\016\n\006taskId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n" +
+      "\010quantity\030\003 \002(\005\"\220\001\n\rFullCityProto\022\016\n\006cit" +
+      "yId\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030\003 \002(" +
+      "\005\022\035\n\025expGainedBaseOnRankup\030\004 \002(\005\022\037\n\027coin" +
+      "sGainedBaseOnRankup\030\005 \002(\005\022\017\n\007taskIds\030\006 \003" +
+      "(\005\"\361\001\n\036FullUserCityExpansionDataProto\022\016\n" +
+      "\006userId\030\001 \002(\005\022\032\n\022nearLeftExpansions\030\002 \002(" +
+      "\005\022\031\n\021farLeftExpansions\030\003 \002(\005\022\032\n\022farRight",
+      "Expansions\030\004 \002(\005\022\023\n\013isExpanding\030\005 \002(\010\022\026\n" +
+      "\016lastExpandTime\030\006 \001(\003\022?\n\023lastExpandDirec" +
+      "tion\030\007 \001(\0162\".com.lvl6.proto.ExpansionDir" +
+      "ection\"q\n\021FullUserCityProto\022\016\n\006userId\030\001 " +
+      "\002(\005\022\016\n\006cityId\030\002 \002(\005\022\023\n\013currentRank\030\003 \002(\005" +
+      "\022\'\n\037numTasksCurrentlyCompleteInRank\030\004 \002(" +
+      "\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002" +
+      "(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001 \002(\001\022\021\n" +
+      "\tlongitude\030\002 \002(\001\"\356\002\n\027NeutralCityElementP" +
+      "roto\022\016\n\006cityId\030\001 \002(\005\022\017\n\007assetId\030\002 \002(\005\022\014\n",
+      "\004name\030\t \002(\t\022I\n\004type\030\003 \002(\0162;.com.lvl6.pro" +
+      "to.NeutralCityElementProto.NeutralCityEl" +
+      "emType\022/\n\006coords\030\004 \002(\0132\037.com.lvl6.proto." +
+      "CoordinateProto\022\017\n\007xLength\030\005 \001(\005\022\017\n\007yLen" +
+      "gth\030\006 \001(\005\022\r\n\005imgId\030\007 \002(\t\0226\n\013orientation\030" +
+      "\010 \001(\0162!.com.lvl6.proto.StructOrientation" +
+      "\"?\n\023NeutralCityElemType\022\n\n\006PERSON\020\000\022\014\n\010B" +
+      "UILDING\020\001\022\016\n\nDECORATION\020\002\"\356\001\n\030FullMarket" +
+      "placePostProto\022\031\n\021marketplacePostId\030\001 \002(" +
+      "\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010postType\030\003 \002(\0162#.",
+      "com.lvl6.proto.MarketplacePostType\022\022\n\nti" +
+      "meOfPost\030\004 \002(\003\0223\n\013postedEquip\030\005 \002(\0132\036.co" +
+      "m.lvl6.proto.FullEquipProto\022\023\n\013diamondCo" +
+      "st\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\"\260\001\n\027FullUserC" +
+      "ritstructProto\022,\n\004type\030\001 \002(\0162\036.com.lvl6." +
+      "proto.CritStructType\022/\n\006coords\030\002 \002(\0132\037.c" +
+      "om.lvl6.proto.CoordinateProto\0226\n\013orienta" +
+      "tion\030\003 \002(\0162!.com.lvl6.proto.StructOrient" +
+      "ation\"M\n\024MinimumUserTaskProto\022\016\n\006userId\030" +
+      "\001 \002(\005\022\016\n\006taskId\030\002 \002(\005\022\025\n\rnumTimesActed\030\003",
+      " \002(\005\"\200\001\n\031MinimumUserQuestTaskProto\022\016\n\006us" +
+      "erId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022+\n\004task\030\003 \002(" +
+      "\0132\035.com.lvl6.proto.FullTaskProto\022\025\n\rnumT" +
+      "imesActed\030\004 \002(\005\"\376\003\n\033FullUserQuestDataLar" +
+      "geProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005" +
+      "\022\020\n\010redeemed\030\003 \002(\010\022H\n\025requiredTasksProgr" +
+      "ess\030\004 \003(\0132).com.lvl6.proto.MinimumUserQu" +
+      "estTaskProto\022T\n\035requiredDefeatTypeJobPro" +
+      "gress\030\005 \003(\0132-.com.lvl6.proto.MinimumUser" +
+      "DefeatTypeJobProto\022V\n\036requiredBuildStruc",
+      "tJobProgress\030\006 \003(\0132..com.lvl6.proto.Mini" +
+      "mumUserBuildStructJobProto\022Z\n requiredUp" +
+      "gradeStructJobProgress\030\007 \003(\01320.com.lvl6." +
+      "proto.MinimumUserUpgradeStructJobProto\022X" +
+      "\n\037requiredPossessEquipJobProgress\030\010 \003(\0132" +
+      "/.com.lvl6.proto.MinimumUserPossessEquip" +
+      "JobProto\"\222\001\n\035MinimumUserDefeatTypeJobPro" +
+      "to\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022;\n\017d" +
+      "efeatTypeJobId\030\003 \002(\0132\".com.lvl6.proto.De" +
+      "featTypeJobProto\022\023\n\013numDefeated\030\004 \002(\005\"\210\001",
+      "\n\022DefeatTypeJobProto\022\027\n\017defeatTypeJobId\030" +
+      "\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\0162\030.com.lvl6.pr" +
+      "oto.UserType\022\032\n\022numEnemiesToDefeat\030\003 \002(\005" +
+      "\022\016\n\006cityId\030\004 \002(\005\"\232\001\n\036MinimumUserBuildStr" +
+      "uctJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002" +
+      " \002(\005\022;\n\016buildStructJob\030\003 \002(\0132#.com.lvl6." +
+      "proto.BuildStructJobProto\022\032\n\022numOfStruct" +
+      "UserHas\030\004 \002(\005\"[\n\023BuildStructJobProto\022\030\n\020" +
+      "buildStructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005" +
+      "\022\030\n\020quantityRequired\030\003 \002(\005\"\230\001\n MinimumUs",
+      "erUpgradeStructJobProto\022\016\n\006userId\030\001 \002(\005\022" +
+      "\017\n\007questId\030\002 \002(\005\022?\n\020upgradeStructJob\030\003 \002" +
+      "(\0132%.com.lvl6.proto.UpgradeStructJobProt" +
+      "o\022\022\n\nisComplete\030\004 \002(\010\"W\n\025UpgradeStructJo" +
+      "bProto\022\032\n\022upgradeStructJobId\030\001 \002(\005\022\020\n\010st" +
+      "ructId\030\002 \002(\005\022\020\n\010levelReq\030\003 \002(\005\"\237\001\n\037Minim" +
+      "umUserPossessEquipJobProto\022\016\n\006userId\030\001 \002" +
+      "(\005\022\017\n\007questId\030\002 \002(\005\022B\n\024possessEquipJobPr" +
+      "oto\030\003 \002(\0132$.com.lvl6.proto.PossessEquipJ" +
+      "obProto\022\027\n\017numEquipUserHas\030\004 \002(\005\"W\n\024Poss",
+      "essEquipJobProto\022\031\n\021possessEquipJobId\030\001 " +
+      "\002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013quantityReq\030\003 \002(" +
+      "\005\"\223\003\n\016FullQuestProto\022\017\n\007questId\030\001 \002(\005\022\016\n" +
+      "\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\023\n\013descripti" +
+      "on\030\004 \002(\t\022\024\n\014doneResponse\030\005 \002(\t\022\022\n\ninProg" +
+      "ress\030\006 \002(\t\022\032\n\022assetNumWithinCity\030\007 \002(\005\022\023" +
+      "\n\013coinsGained\030\010 \001(\005\022\026\n\016diamondsGained\030\t " +
+      "\001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\requipIdGained\030" +
+      "\013 \001(\005\022\035\n\025questsRequiredForThis\030\014 \003(\005\022\020\n\010" +
+      "taskReqs\030\r \003(\005\022\035\n\025upgradeStructJobsReqs\030",
+      "\016 \003(\005\022\033\n\023buildStructJobsReqs\030\017 \003(\005\022\026\n\016de" +
+      "featTypeReqs\030\020 \003(\005\022\033\n\023possessEquipJobReq" +
+      "s\030\021 \003(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n" +
+      "\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WAR" +
+      "RIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014" +
+      "BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFEND" +
+      "ER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marketpla" +
+      "cePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NO" +
+      "RM_EQUIP_POST\020\002*2\n\035MarketplaceJobRequire" +
+      "mentType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStruc",
+      "tType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCAR" +
+      "PENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKE" +
+      "TPLACE\020\005*3\n\021StructOrientation\022\016\n\nPOSITIO" +
+      "N_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022ExpansionDirect" +
+      "ion\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_" +
+      "RIGHT\020\002B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -25443,7 +25311,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserProto_descriptor,
-              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "LastStaminaRefillTime", "IsLastStaminaStateFull", "Energy", "LastEnergyRefillTime", "IsLastEnergyStateFull", "SkillPoints", "HealthMax", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "MarketplaceDiamondsEarnings", "MarketplaceCoinsEarnings", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "Flees", "ReferralCode", "NumReferrals", "Udid", "UserLocation", "NumPostsInMarketplace", "NumMarketplaceSalesUnredeemed", "WeaponEquipped", "ArmorEquipped", "AmuletEquipped", "LastLoginTime", "LastLogoutTime", "DeviceToken", "LastBattleNotificationTime", "LastTimeAttacked", "NumBadges", "LastShortLicensePurchaseTime", "LastLongLicensePurchaseTime", },
+              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "LastStaminaRefillTime", "Energy", "LastEnergyRefillTime", "SkillPoints", "HealthMax", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "MarketplaceDiamondsEarnings", "MarketplaceCoinsEarnings", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "Flees", "ReferralCode", "NumReferrals", "Udid", "UserLocation", "NumPostsInMarketplace", "NumMarketplaceSalesUnredeemed", "WeaponEquipped", "ArmorEquipped", "AmuletEquipped", "LastLoginTime", "LastLogoutTime", "DeviceToken", "LastBattleNotificationTime", "LastTimeAttacked", "NumBadges", "LastShortLicensePurchaseTime", "LastLongLicensePurchaseTime", },
               com.lvl6.proto.InfoProto.FullUserProto.class,
               com.lvl6.proto.InfoProto.FullUserProto.Builder.class);
           internal_static_com_lvl6_proto_FullEquipProto_descriptor =

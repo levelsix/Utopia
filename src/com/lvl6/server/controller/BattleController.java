@@ -275,10 +275,7 @@ public class BattleController extends EventController {
       }
     }
 
-    boolean simulateStaminaRefill = false;
-    if (attacker.isLastStaminaStateFull()) {
-      simulateStaminaRefill = true;
-    }
+    boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
     if (winner == attacker) {
       attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
           expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime);

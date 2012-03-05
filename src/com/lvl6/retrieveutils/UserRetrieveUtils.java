@@ -255,7 +255,6 @@ public class UserRetrieveUtils {
       lastStaminaRefillTime = new Date(ts.getTime());
     }
 
-    boolean isLastStaminaStateFull = rs.getBoolean(i++);
     int energy = rs.getInt(i++);
 
     Date lastEnergyRefillTime = null;
@@ -264,7 +263,6 @@ public class UserRetrieveUtils {
       lastEnergyRefillTime = new Date(ts.getTime());
     }
 
-    boolean isLastEnergyStateFull = rs.getBoolean(i++);
     int skillPoints = rs.getInt(i++);
     int healthMax = rs.getInt(i++);
     int energyMax = rs.getInt(i++);
@@ -339,8 +337,8 @@ public class UserRetrieveUtils {
       lastLongLicensePurchaseTime = new Date(ts.getTime());
     }
 
-    User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, isLastStaminaStateFull, energy, lastEnergyRefillTime, 
-        isLastEnergyStateFull, skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
+    User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
+        skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,
         referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
