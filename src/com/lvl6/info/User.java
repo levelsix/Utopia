@@ -443,6 +443,45 @@ public class User {
   }
 
   /*
+   * used for leveling up
+   */
+  public boolean updateAbsoluteRestoreEnergyStaminaRelativeUpdateSkillPoints(int skillPointsChange, Timestamp levelUpTime) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = null;
+    if (skillPointsChange > 0) {
+      relativeParams = new HashMap<String, Object>();
+      relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
+    }
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__ENERGY, energyMax);
+    absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
+    absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, levelUpTime);
+    absoluteParams.put(DBConstants.USER__IS_LAST_ENERGY_STATE_FULL, true);
+    absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, levelUpTime);
+    absoluteParams.put(DBConstants.USER__IS_LAST_STAMINA_STATE_FULL, true);
+
+
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.energy = energyMax;
+      this.stamina = staminaMax;
+      this.skillPoints += skillPointsChange;
+      this.lastEnergyRefillTime = levelUpTime;
+      this.isLastEnergyStateFull = true;
+      this.lastStaminaRefillTime = levelUpTime;
+      this.isLastStaminaStateFull = true;
+      return true;
+    }
+    return false;
+  }
+  
+  
+  /*
    * used for using skill points
    */
   public boolean updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints 

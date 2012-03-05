@@ -177,6 +177,11 @@ message UserCreateRequestProto {
      optional LocationProto userLocation = 6;     
      optional string referrerCode = 7;
      optional string deviceToken = 8;
+     required int32 attack = 9;
+     required int32 defense = 10;
+     required int32 health = 11;
+     required int32 energy = 12;
+     required int32 stamina = 13;     
 }
 
 message UserCreateResponseProto {
@@ -679,7 +684,6 @@ message GenerateAttackListResponseProto {
 message RefillStatWithDiamondsRequestProto {
 	required MinimumUserProto sender = 1;
 	required StatType statType = 2;
-	required int64 curTime = 3;
 
 	enum StatType {
 		ENERGY = 0;

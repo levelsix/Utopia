@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RefillStatWithDiamondsRequestEvent;
@@ -40,8 +41,7 @@ public class RefillStatWithDiamondsController extends EventController{
 
     MinimumUserProto senderProto = reqProto.getSender();
     StatType statType = reqProto.getStatType();
-    Timestamp clientTime = new Timestamp(reqProto.getCurTime());
-
+    Timestamp clientTime = new Timestamp(new Date().getTime());
 
     RefillStatWithDiamondsResponseProto.Builder resBuilder = RefillStatWithDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -94,11 +94,19 @@ public class RefillStatWithDiamondsController extends EventController{
       return false;
     }
     if (statType == StatType.ENERGY) {
+      if (user.getEnergy() >= user.getEnergyMax()) {
+        resBuilder.setStatus(RefillStatStatus.ALREADY_MAX);
+        return false;
+      }
       if (user.getDiamonds() < ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL) {
         resBuilder.setStatus(RefillStatStatus.NOT_ENOUGH_DIAMONDS);
         return false;
       }
     } else if (statType == StatType.STAMINA) {
+      if (user.getStamina() >= user.getStaminaMax()) {
+        resBuilder.setStatus(RefillStatStatus.ALREADY_MAX);
+        return false;
+      }
       if (user.getDiamonds() < ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL) {
         resBuilder.setStatus(RefillStatStatus.NOT_ENOUGH_DIAMONDS);
         return false;

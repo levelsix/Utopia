@@ -1,4 +1,3 @@
-
 package com.lvl6.server.controller;
 
 import java.nio.ByteBuffer;
@@ -63,12 +62,18 @@ public class UserCreateController extends EventController {
     String referrerCode = (reqProto.hasReferrerCode()) ? reqProto.getReferrerCode() : null;
     String deviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : null;
 
+    int attack = reqProto.getAttack();
+    int defense = reqProto.getDefense();
+    int energy = reqProto.getEnergy();
+    int health = reqProto.getHealth();
+    int stamina = reqProto.getStamina();
+    
     UserCreateResponseProto.Builder resBuilder = UserCreateResponseProto.newBuilder();
 
     Location loc = (locationProto == null) ? MiscMethods.getRandomValidLocation() : new Location(locationProto.getLatitude(), locationProto.getLongitude());
 
     boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, fullUserStructs, 
-        loc);
+        loc, type, attack, defense, energy, health, stamina);
 
     User referrer = null;
     User user = null;
@@ -77,7 +82,7 @@ public class UserCreateController extends EventController {
 
       String newReferCode = grabNewReferCode();
 
-      int userId = InsertUtils.insertUser(udid, name, type, loc, referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL);
+      int userId = InsertUtils.insertUser(udid, name, type, loc, referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, attack, defense, energy, health, stamina);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
@@ -180,8 +185,8 @@ public class UserCreateController extends EventController {
 
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
       String name, List<FullUserStructureProto> fullUserStructs,
-      Location loc) {
-    if (udid == null || name == null || fullUserStructs == null || fullUserStructs.size() == 0) {
+      Location loc, UserType type, int attack, int defense, int energy, int health, int stamina) {
+    if (udid == null || name == null || fullUserStructs == null || fullUserStructs.size() == 0 || type == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
@@ -198,6 +203,52 @@ public class UserCreateController extends EventController {
       resBuilder.setStatus(UserCreateStatus.INVALID_NAME);
       return false;
     }
+    if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
+      if (attack < ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK) {
+        resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        return false;
+      }
+      if (defense < ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE) {
+        resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        return false;
+      }
+    }
+    if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
+      if (attack < ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK) {
+        resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        return false;
+      }
+      if (defense < ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE) {
+        resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        return false;
+      }      
+    }
+    if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
+      if (attack < ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK) {
+        resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        return false;
+      }
+      if (defense < ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE) {
+        resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        return false;
+      }            
+    } else {
+      resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      return false;
+    }
+    if (energy < ControllerConstants.TUTORIAL__INIT_ENERGY) {
+      resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      return false;      
+    }
+    if (health < ControllerConstants.TUTORIAL__INIT_HEALTH) {
+      resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      return false;
+    }
+    if (stamina < ControllerConstants.TUTORIAL__INIT_STAMINA) {
+      resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      return false;
+    }
+    
     resBuilder.setStatus(UserCreateStatus.SUCCESS);
     return true;
   }
