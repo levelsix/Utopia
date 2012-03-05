@@ -77,7 +77,7 @@ public class LoadNeutralCityController extends EventController {
         List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(cityId);
         if (neutralCityElements != null) {
           for (NeutralCityElement nce : neutralCityElements) {
-            resBuilder.addCityElements(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce));
+            resBuilder.addCityElements(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce, user.getType()));
           }
         }
 
