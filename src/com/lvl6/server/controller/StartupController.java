@@ -122,7 +122,7 @@ public class StartupController extends EventController {
       }
     }
     resBuilder.setStartupStatus(startupStatus);
-    setConstants(resBuilder);
+    setConstants(resBuilder, startupStatus);
 
     StartupResponseProto resProto = resBuilder.build();
     StartupResponseEvent resEvent = new StartupResponseEvent(udid);
@@ -287,7 +287,7 @@ public class StartupController extends EventController {
     return numCompletedTasks;
   }
 
-  private void setConstants(Builder startupBuilder) {
+  private void setConstants(Builder startupBuilder, StartupStatus startupStatus) {
     StartupConstants.Builder cb = StartupConstants.newBuilder()
         .setDiamondCostForEnergyRefill(ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL)
         .setDiamondCostForStaminaRefill(ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL)
@@ -295,6 +295,13 @@ public class StartupController extends EventController {
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
+    }
+    if (startupStatus == StartupStatus.USER_NOT_IN_DB) {
+      
+      
+      
+      
+      
     }
     startupBuilder.setStartupConstants(cb.build());
   }

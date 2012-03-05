@@ -7,6 +7,34 @@ public class ControllerConstants {
 
   public static final int NOT_SET = -1;
   
+  //TUTORIAL CONSTANTS
+  public static final int TUTORIAL__ARCHER_INIT_ATTACK = 10;
+  public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 18;
+  public static final int TUTORIAL__MAGE_INIT_ATTACK = 13;
+  public static final int TUTORIAL__MAGE_INIT_DEFENSE = 13;
+  public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 15;
+  public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 10;
+  public static final int TUTORIAL__INIT_ENERGY = 20;
+  public static final int TUTORIAL__INIT_STAMINA = 7;
+  public static final int TUTORIAL__INIT_HEALTH = 100;
+  public static final int TUTORIAL__FIRST_QUEST_ID = 1;         //give user full quest protos for both sides
+  public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
+  public static final int TUTORIAL__FIRST_TASK_COIN_GAIN = 50;
+  public static final int TUTORIAL__FIRST_BATTLE_COIN_GAIN = 50;
+  public static final int TUTORIAL__FIRST_BATTLE_EXP_GAIN = 50;
+  public static final int TUTORIAL__FIRST_BATTLE_LOOT_EQUIP_ID = 1;   //has to be an amulet
+  
+//  //first quest don't give loot
+//  //in user create
+//  int playerExp = task.getExpGained() + FIRST_BATTLE_EXP_GAIN + quest.getExpGained_
+//  int playerCoins = FIRST_TASK_COIN_GAIN + FIRST_BATTLE_COIN_GAIN + quest.getCoinsGained
+//
+//      level up should refill energy and stamina
+//      give skill points
+
+
+      
+  
   //LEVEL UP
   public static final int MAX_LEVEL_FOR_USER = 300;
 
@@ -113,7 +141,7 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__ATTACK_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_GAIN = 1;
-  public static final int USE_SKILL_POINT__HEALTH_BASE_GAIN = 10;
+  public static final int USE_SKILL_POINT__HEALTH_BASE_GAIN = 5;
   public static final int USE_SKILL_POINT__STAMINA_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ATTACK_BASE_COST = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_COST = 1;
@@ -161,21 +189,15 @@ public class ControllerConstants {
   public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 30;
 
   //USER CREATE 
-  public static final int USER_CREATE__START_LEVEL = 1;
+  public static final int USER_CREATE__START_LEVEL = 2;
   public static final int USER_CREATE__MIN_NAME_LENGTH = 0;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
   public static final int USER_CREATE__DEFAULT_DIAMONDS = 20;
   
-  public static final int USER_CREATE__ARCHER_INIT_ATTACK = 10;
-  public static final int USER_CREATE__ARCHER_INIT_DEFENSE = 18;
-
-  public static final int USER_CREATE__MAGE_INIT_ATTACK = 13;
-  public static final int USER_CREATE__MAGE_INIT_DEFENSE = 13;
-
-  public static final int USER_CREATE__WARRIOR_INIT_ATTACK = 15;
-  public static final int USER_CREATE__WARRIOR_INIT_DEFENSE = 10;
-
+  //LEVEL UP
+  public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
+  
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
     new ValidLocationBox(-118.76606, 50.595863, 27.16478, 9.0692883, "CANADA"),

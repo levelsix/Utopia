@@ -1,6 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.lvl6.events.RequestEvent;
@@ -10,6 +12,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LevelUpRequestProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto.Builder;
@@ -105,6 +108,9 @@ public class LevelUpController extends EventController {
           log.error("problem with unlocking city for user");
         }
       }
+    }
+    if (!user.updateAbsoluteRestoreEnergyStaminaRelativeUpdateSkillPoints(ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED, new Timestamp(new Date().getTime()))) {
+      log.error("problem with restoring energy and stamina and awarding skill points");
     }
   }
 

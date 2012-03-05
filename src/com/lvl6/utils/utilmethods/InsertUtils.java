@@ -214,25 +214,21 @@ public class InsertUtils {
   }
   
   //returns -1 if error
-  public static int insertUser(String udid, String name, UserType type, Location location, boolean isReferred, String deviceToken, String newReferCode, int level) {
+  public static int insertUser(String udid, String name, UserType type, Location location, boolean isReferred, String deviceToken, String newReferCode, int level, 
+      int attack, int defense, int energy, int health, int stamina) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER__UDID, udid);
     insertParams.put(DBConstants.USER__NAME, name);
     insertParams.put(DBConstants.USER__TYPE, type.getNumber());
     insertParams.put(DBConstants.USER__LEVEL, level);
-    
-    if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
-      insertParams.put(DBConstants.USER__ATTACK, ControllerConstants.USER_CREATE__ARCHER_INIT_ATTACK);
-      insertParams.put(DBConstants.USER__DEFENSE, ControllerConstants.USER_CREATE__ARCHER_INIT_DEFENSE);
-    } else if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
-      insertParams.put(DBConstants.USER__ATTACK, ControllerConstants.USER_CREATE__WARRIOR_INIT_ATTACK);
-      insertParams.put(DBConstants.USER__DEFENSE, ControllerConstants.USER_CREATE__WARRIOR_INIT_DEFENSE);      
-    } else if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
-      insertParams.put(DBConstants.USER__ATTACK, ControllerConstants.USER_CREATE__MAGE_INIT_ATTACK);
-      insertParams.put(DBConstants.USER__DEFENSE, ControllerConstants.USER_CREATE__MAGE_INIT_DEFENSE);      
-    } else {
-      return -1;
-    }
+
+    insertParams.put(DBConstants.USER__ATTACK, attack);
+    insertParams.put(DBConstants.USER__DEFENSE, defense);
+    insertParams.put(DBConstants.USER__ENERGY, energy);
+    insertParams.put(DBConstants.USER__ENERGY_MAX, energy);
+    insertParams.put(DBConstants.USER__HEALTH_MAX, health);
+    insertParams.put(DBConstants.USER__STAMINA, stamina);
+    insertParams.put(DBConstants.USER__STAMINA_MAX, stamina);
     
     if (isReferred) {
       insertParams.put(DBConstants.USER__DIAMONDS, ControllerConstants.USER_CREATE__DEFAULT_DIAMONDS + ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED);

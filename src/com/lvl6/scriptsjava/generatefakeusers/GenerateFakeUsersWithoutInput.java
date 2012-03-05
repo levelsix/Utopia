@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import com.lvl6.info.Location;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.utils.DBConnection;
@@ -57,7 +58,49 @@ public class GenerateFakeUsersWithoutInput {
       //TODO: generate more codes?
     }
     
-    if (InsertUtils.insertUser(newReferCode+newReferCode, name, type, location, false, null, newReferCode, level) < 0) {
+    
+    int skillPoints = (level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
+    int attack = 1;
+    int defense = 1;
+    if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
+      attack = ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK;
+      defense = ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE;
+    }
+    if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
+      attack = ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK;
+      defense = ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE;      
+    }
+    if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
+      attack = ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK;
+      defense = ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE;
+    } else {
+      System.out.println("problem with user type");
+    }
+    int stamina = ControllerConstants.TUTORIAL__INIT_STAMINA;
+    int energy = ControllerConstants.TUTORIAL__INIT_ENERGY;
+    int health = ControllerConstants.TUTORIAL__INIT_HEALTH;
+
+    for (int i = 0; i < skillPoints; i++) {
+      int rint = (int)Math.floor(Math.random() * 5) + 1;
+      switch (rint) {
+      case 1:
+        attack++;
+        break;
+      case 2:
+        defense++;
+        break;
+      case 3:
+        stamina++;
+        break;
+      case 4:
+        health++;
+        break;
+      case 5:
+        energy++;
+        break;
+      }
+    }
+    if (InsertUtils.insertUser(newReferCode+newReferCode, name, type, location, false, null, newReferCode, level, attack, defense, energy, health, stamina) < 0) {
       System.out.println("error in creating user");
     }
   }
