@@ -122,9 +122,9 @@ public class EquipmentRetrieveUtils {
     //1) normal sword. 2) epics/legendaries. 3) bandanas
     
     //all equips should have either diamondCost or coinCost set to be put in the hashmap.
-    //armory is now determined by flag
+    //buyable in armory is now determined by flag
     
-      //bandanas are listed in the table with coinPrice = 0 and diamondPrice = null
+      //bandanas are listed in the table with coinPrice = 0 and diamondPrice = null and not buyable
       //same with epics and legendaries
       //bandanas rarity is common
     

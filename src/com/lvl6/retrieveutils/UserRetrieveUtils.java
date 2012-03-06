@@ -98,16 +98,24 @@ public class UserRetrieveUtils {
       values.add(null);
     }
     
-    query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand() limit ?";
-
+    query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? ";
     values.add(levelMin);
     values.add(levelMax);
+    
+    String firstQuery = query + "and " + DBConstants.USER__IS_FAKE + "=? ";
+    values.add(false);
+
+    firstQuery += "order by rand() limit ?";
+    query += "order by rand() limit ?";
     values.add(numUsers);
 
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
     int numDBHits = 1;
-    ResultSet rs = DBConnection.selectDirectQueryNaive(query, values);
+    ResultSet rs = DBConnection.selectDirectQueryNaive(firstQuery, values);
     while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
+      if (numDBHits == 1) {
+        values.remove(values.size()-1);        
+      }
       values.remove(values.size()-1);
       values.remove(values.size()-1);
       values.remove(values.size()-1);

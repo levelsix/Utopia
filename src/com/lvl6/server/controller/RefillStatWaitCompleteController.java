@@ -23,7 +23,7 @@ public class RefillStatWaitCompleteController extends EventController{
   public RefillStatWaitCompleteController() {
     numAllocatedThreads = 5;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new RefillStatWaitCompleteRequestEvent();
@@ -33,16 +33,16 @@ public class RefillStatWaitCompleteController extends EventController{
   public EventProtocolRequest getEventType() {
     return EventProtocolRequest.C_REFILL_STAT_WAIT_COMPLETE_EVENT;
   }
-  
+
   @Override
   protected void processRequestEvent(RequestEvent event) {
-    
+
     RefillStatWaitCompleteRequestProto reqProto = ((RefillStatWaitCompleteRequestEvent)event).getRefillStatWaitCompleteRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
     Timestamp clientTime = new Timestamp(reqProto.getCurTime());
     RefillStatWaitCompleteType type = reqProto.getType();
-    
+
     RefillStatWaitCompleteResponseProto.Builder resBuilder = RefillStatWaitCompleteResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -54,14 +54,20 @@ public class RefillStatWaitCompleteController extends EventController{
 
       RefillStatWaitCompleteResponseEvent resEvent = new RefillStatWaitCompleteResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
-      
+
       if (legitWaitComplete) {
         writeChangesToDB(user, type, clientTime);
       }
+
+      resEvent.setTag(event.getTag());
+      resEvent.setRefillStatWaitCompleteResponseProto(resBuilder.build());
       server.writeEvent(resEvent);
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-      resEventUpdate.setTag(event.getTag());
-      server.writeEvent(resEventUpdate);
+
+      if (legitWaitComplete) {
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
+      }
     } catch (Exception e) {
       log.error("exception in RefillStatWaitCompleteController processEvent", e);
     } finally {
