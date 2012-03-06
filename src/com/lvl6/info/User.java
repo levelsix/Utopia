@@ -55,6 +55,7 @@ public class User {
   private int numBadges;
   private Date lastShortLicensePurchaseTime;
   private Date lastLongLicensePurchaseTime;
+  private boolean isFake;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
@@ -69,7 +70,7 @@ public class User {
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
       Date lastBattleNotificationTime, Date lastTimeAttacked,
       int numBadges, Date lastShortLicensePurchaseTime,
-      Date lastLongLicensePurchaseTime) {
+      Date lastLongLicensePurchaseTime, boolean isFake) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -111,6 +112,7 @@ public class User {
     this.numBadges = numBadges;
     this.lastShortLicensePurchaseTime = lastShortLicensePurchaseTime;
     this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
+    this.isFake = isFake;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -964,23 +966,26 @@ public class User {
     return lastLongLicensePurchaseTime;
   }
 
+  public boolean isFake() {
+    return isFake;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
         + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
         + stamina + ", lastStaminaRefillTime=" + lastStaminaRefillTime
-        + ", energy="
-        + energy + ", lastEnergyRefillTime=" + lastEnergyRefillTime
-        + ", skillPoints="
-        + skillPoints + ", healthMax=" + healthMax + ", energyMax=" + energyMax
+        + ", energy=" + energy + ", lastEnergyRefillTime="
+        + lastEnergyRefillTime + ", skillPoints=" + skillPoints
+        + ", healthMax=" + healthMax + ", energyMax=" + energyMax
         + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
         + coins + ", marketplaceDiamondsEarnings="
         + marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="
         + marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
         + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
         + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
-        + ", flees=" + flees + ", referralCode="
-        + referralCode + ", numReferrals=" + numReferrals + ", udid=" + udid
+        + ", flees=" + flees + ", referralCode=" + referralCode
+        + ", numReferrals=" + numReferrals + ", udid=" + udid
         + ", userLocation=" + userLocation + ", numPostsInMarketplace="
         + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
         + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
@@ -990,8 +995,8 @@ public class User {
         + ", lastBattleNotificationTime=" + lastBattleNotificationTime
         + ", lastTimeAttacked=" + lastTimeAttacked + ", numBadges=" + numBadges
         + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
-        + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime + "]";
+        + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime
+        + ", isFake=" + isFake + "]";
   }
-
 
 }

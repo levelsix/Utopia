@@ -215,7 +215,7 @@ public class InsertUtils {
   
   //returns -1 if error
   public static int insertUser(String udid, String name, UserType type, Location location, boolean isReferred, String deviceToken, String newReferCode, int level, 
-      int attack, int defense, int energy, int health, int stamina) {
+      int attack, int defense, int energy, int health, int stamina, boolean isFake) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER__UDID, udid);
     insertParams.put(DBConstants.USER__NAME, name);
@@ -241,6 +241,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER__LONGITUDE, location.getLongitude());
     insertParams.put(DBConstants.USER__LAST_LOGIN, new Timestamp(new Date().getTime()));
     insertParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
+    insertParams.put(DBConstants.USER__IS_FAKE, isFake);
 
     int userId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER, insertParams);
     return userId;

@@ -82,7 +82,8 @@ public class UserCreateController extends EventController {
 
       String newReferCode = grabNewReferCode();
 
-      int userId = InsertUtils.insertUser(udid, name, type, loc, referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, attack, defense, energy, health, stamina);
+      int userId = InsertUtils.insertUser(udid, name, type, loc, referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
+          attack, defense, energy, health, stamina, false);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {

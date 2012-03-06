@@ -200,7 +200,7 @@ public class CreateInfoProtoUtils {
         .setUdid(u.getUdid())
         .setUserLocation(createLocationProtoFromLocation(u.getUserLocation()))
         .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed())
-        .setLastLoginTime(u.getLastLogin().getTime());
+        .setLastLoginTime(u.getLastLogin().getTime()).setIsFake(u.isFake());
     if (u.getWeaponEquipped() != ControllerConstants.NOT_SET) {
       builder.setWeaponEquipped(u.getWeaponEquipped());
     }

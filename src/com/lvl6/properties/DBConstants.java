@@ -81,7 +81,7 @@ public class DBConstants {
   public static final String USER__WEAPON_EQUIPPED = "weapon_equipped";
   public static final String USER__ARMOR_EQUIPPED = "armor_equipped";
   public static final String USER__AMULET_EQUIPPED = "amulet_equipped";
-
+  public static final String USER__IS_FAKE = "is_fake";
   
   
   /*USER EQUIP TABLE*/
