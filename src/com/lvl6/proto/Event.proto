@@ -555,9 +555,17 @@ message RetrieveCurrentMarketplacePostsRequestProto {
 																						//DONE
 message RetrieveCurrentMarketplacePostsResponseProto {
      required MinimumUserProto sender = 1;
-     repeated FullMarketplacePostProto marketplacePosts = 2;
+     required bool fromSender = 2;
      optional int32 beforeThisPostId = 3;
-     required bool fromSender = 4;
+	 required RetrieveCurrentMarketplacePostsStatus status = 4;
+     
+     repeated FullMarketplacePostProto marketplacePosts = 5;
+     
+     enum RetrieveCurrentMarketplacePostsStatus {
+     	SUCCESS = 0;
+     	LEVEL_TOO_LOW = 1;
+     	OTHER_FAIL = 2;
+     }
 }
 
 //------------------------------------------------------------------------------------------
