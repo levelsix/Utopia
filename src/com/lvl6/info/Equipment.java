@@ -19,11 +19,11 @@ public class Equipment {
   private float chanceOfLoss = NOT_SET;
   private ClassType classType;
   private Rarity rarity;
-  private boolean availableInArmory;
+  private boolean isBuyableInArmory;
 
   public Equipment(int id, String name, EquipType type, String description, int attackBoost,
       int defenseBoost, int minLevel, int coinPrice, int diamondPrice, float chanceOfLoss, 
-      ClassType classType, Rarity rarity, boolean availableInArmory) {
+      ClassType classType, Rarity rarity, boolean isBuyableInArmory) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -36,7 +36,7 @@ public class Equipment {
     this.chanceOfLoss = chanceOfLoss;
     this.classType = classType;
     this.rarity = rarity;
-    this.availableInArmory = availableInArmory;
+    this.isBuyableInArmory = isBuyableInArmory;
   }
 
   public static int getNotSet() {
@@ -90,9 +90,9 @@ public class Equipment {
   public Rarity getRarity() {
     return rarity;
   }
-  
-  public boolean isAvailableInArmory() {
-    return availableInArmory;
+
+  public boolean isBuyableInArmory() {
+    return isBuyableInArmory;
   }
 
   @Override
@@ -102,7 +102,7 @@ public class Equipment {
         + ", defenseBoost=" + defenseBoost + ", minLevel=" + minLevel
         + ", coinPrice=" + coinPrice + ", diamondPrice=" + diamondPrice
         + ", chanceOfLoss=" + chanceOfLoss + ", classType=" + classType
-        + ", rarity=" + rarity + ", availableInArmory=" + availableInArmory
+        + ", rarity=" + rarity + ", isBuyableInArmory=" + isBuyableInArmory
         + "]";
   }
 
