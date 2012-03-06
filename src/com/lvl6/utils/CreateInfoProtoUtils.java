@@ -467,12 +467,14 @@ public class CreateInfoProtoUtils {
   
   public static NeutralCityElementProto createNeutralCityElementProtoFromNeutralCityElement(NeutralCityElement nce, UserType type) {
     NeutralCityElementProto.Builder builder = NeutralCityElementProto.newBuilder().setCityId(nce.getCityId()).setAssetId(nce.getAssetId())
-        .setName(nce.getName()).setType(nce.getType())
+        .setType(nce.getType())
         .setCoords(createCoordinateProtoFromCoordinatePair(nce.getCoords()));
     boolean goodSide = MiscMethods.checkIfGoodSide(type);
     if (goodSide) {
+      builder.setName(nce.getGoodName());
       builder.setImgId(nce.getImgGood());
     } else {
+      builder.setName(nce.getBadName());
       builder.setImgId(nce.getImgBad());      
     }
     if (nce.getOrientation() != null) {

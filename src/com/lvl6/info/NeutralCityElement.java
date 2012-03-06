@@ -6,7 +6,8 @@ import com.lvl6.proto.InfoProto.StructOrientation;
 public class NeutralCityElement {
   private int cityId;
   private int assetId;
-  private String name;
+  private String goodName;
+  private String badName;
   private NeutralCityElemType type;
   private CoordinatePair coords;
   private int xLength;
@@ -14,12 +15,14 @@ public class NeutralCityElement {
   private String imgGood;
   private String imgBad;
   private StructOrientation orientation;
-  public NeutralCityElement(int cityId, int assetId, String name,
-      NeutralCityElemType type, CoordinatePair coords, int xLength,
-      int yLength, String imgGood, String imgBad, StructOrientation orientation) {
+  public NeutralCityElement(int cityId, int assetId, String goodName,
+      String badName, NeutralCityElemType type, CoordinatePair coords,
+      int xLength, int yLength, String imgGood, String imgBad,
+      StructOrientation orientation) {
     this.cityId = cityId;
     this.assetId = assetId;
-    this.name = name;
+    this.goodName = goodName;
+    this.badName = badName;
     this.type = type;
     this.coords = coords;
     this.xLength = xLength;
@@ -34,8 +37,11 @@ public class NeutralCityElement {
   public int getAssetId() {
     return assetId;
   }
-  public String getName() {
-    return name;
+  public String getGoodName() {
+    return goodName;
+  }
+  public String getBadName() {
+    return badName;
   }
   public NeutralCityElemType getType() {
     return type;
@@ -61,8 +67,9 @@ public class NeutralCityElement {
   @Override
   public String toString() {
     return "NeutralCityElement [cityId=" + cityId + ", assetId=" + assetId
-        + ", name=" + name + ", type=" + type + ", coords=" + coords
-        + ", xLength=" + xLength + ", yLength=" + yLength + ", imgGood="
-        + imgGood + ", imgBad=" + imgBad + ", orientation=" + orientation + "]";
+        + ", goodName=" + goodName + ", badName=" + badName + ", type=" + type
+        + ", coords=" + coords + ", xLength=" + xLength + ", yLength="
+        + yLength + ", imgGood=" + imgGood + ", imgBad=" + imgBad
+        + ", orientation=" + orientation + "]";
   }
 }

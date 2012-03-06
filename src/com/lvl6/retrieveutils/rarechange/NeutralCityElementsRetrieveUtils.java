@@ -74,7 +74,8 @@ public class NeutralCityElementsRetrieveUtils {
     int i = 1;
     int cityId = rs.getInt(i++);
     int assetId = rs.getInt(i++);
-    String name = rs.getString(i++);
+    String goodName = rs.getString(i++);
+    String badName = rs.getString(i++);
     NeutralCityElemType type = NeutralCityElemType.valueOf(rs.getInt(i++));
     CoordinatePair coords = new CoordinatePair(rs.getInt(i++), rs.getInt(i++));
     
@@ -91,7 +92,7 @@ public class NeutralCityElementsRetrieveUtils {
     int orientationNum = rs.getInt(i++);
     StructOrientation orientation = (rs.wasNull()) ? null : StructOrientation.valueOf(orientationNum);
     
-    return new NeutralCityElement(cityId, assetId, name, type, coords, xLength, yLength, imgIdGood, imgIdBad, orientation);
+    return new NeutralCityElement(cityId, assetId, goodName, badName, type, coords, xLength, yLength, imgIdGood, imgIdBad, orientation);
   }
 
 
