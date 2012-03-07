@@ -3,7 +3,6 @@ package com.lvl6.server.controller;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.Timestamp;
-import java.util.List;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UserCreateRequestEvent;
@@ -11,6 +10,7 @@ import com.lvl6.events.response.ReferralCodeUsedResponseEvent;
 import com.lvl6.events.response.UserCreateResponseEvent;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
+import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
@@ -26,6 +26,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
@@ -56,7 +57,7 @@ public class UserCreateController extends EventController {
     String udid = reqProto.getUdid();
     String name = reqProto.getName();
     UserType type = reqProto.getType();
-    List<FullUserStructureProto> fullUserStructs = reqProto.getStructuresList();
+    FullUserStructureProto fullUserStruct = reqProto.getStructure();
 
     LocationProto locationProto = (reqProto.hasUserLocation()) ? reqProto.getUserLocation() : null;
     String referrerCode = (reqProto.hasReferrerCode()) ? reqProto.getReferrerCode() : null;
@@ -67,23 +68,48 @@ public class UserCreateController extends EventController {
     int energy = reqProto.getEnergy();
     int health = reqProto.getHealth();
     int stamina = reqProto.getStamina();
-    
+
     UserCreateResponseProto.Builder resBuilder = UserCreateResponseProto.newBuilder();
 
     Location loc = (locationProto == null) ? MiscMethods.getRandomValidLocation() : new Location(locationProto.getLatitude(), locationProto.getLongitude());
 
-    boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, fullUserStructs, 
+    boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, fullUserStruct, 
         loc, type, attack, defense, energy, health, stamina);
 
     User referrer = null;
     User user = null;
+    int userId = ControllerConstants.NOT_SET;
     if (legitUserCreate) {
       referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;
 
       String newReferCode = grabNewReferCode();
 
-      int userId = InsertUtils.insertUser(udid, name, type, loc, referrer != null, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
-          attack, defense, energy, health, stamina, false);
+      Task taskCompleted = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
+
+      int playerExp = taskCompleted.getExpGained() * taskCompleted.getNumForCompletion() + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED;
+      int playerCoins = MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED; 
+      
+      int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS - ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
+      if (referrer != null) playerDiamonds += ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED;
+      
+      Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
+      Integer weaponEquipped = null, armorEquipped = null;
+      if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
+        weaponEquipped = ControllerConstants.TUTORIAL__ARCHER_INIT_WEAPON_ID;
+        armorEquipped = ControllerConstants.TUTORIAL__ARCHER_INIT_ARMOR_ID;
+      }
+      if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
+        weaponEquipped = ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID;
+        armorEquipped = ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID;
+      }
+      if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
+        weaponEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID;
+        armorEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID;
+      }
+      
+      userId = InsertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
+          attack, defense, energy, health, stamina, playerExp, playerCoins, playerDiamonds, 
+          weaponEquipped, armorEquipped, amuletEquipped, false);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
@@ -123,16 +149,23 @@ public class UserCreateController extends EventController {
 
     NIOUtils.channelWrite(sc, writeBuffer);
 
-    if (legitUserCreate) {
-      writeUserStructs(fullUserStructs);
-      writeUserCritstructs(user.getId());
-      if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
-        log.error("problem with giving user access to first city");
+    if (legitUserCreate && userId > 0) {
+      server.lockPlayer(userId);
+      try {
+        writeUserStruct(fullUserStruct);
+        writeUserCritstructs(user.getId());
+        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
+          log.error("problem with giving user access to first city");
+        }
+        if (referrer != null && user != null) {
+          rewardReferrer(referrer, user);        
+        }
+      } catch (Exception e) {
+        log.error("exception in UserCreateController processEvent", e);
+      } finally {
+        server.unlockPlayer(userId); 
       }
 
-      if (referrer != null && user != null) {
-        rewardReferrer(referrer, user);        
-      }
     }    
   }
 
@@ -142,13 +175,9 @@ public class UserCreateController extends EventController {
     }
   }
 
-  private void writeUserStructs(List<FullUserStructureProto> fullUserStructs) {
-    if (fullUserStructs != null) {
-      for (FullUserStructureProto fusp : fullUserStructs) {
-        if (InsertUtils.insertUserStruct(fusp.getUserId(), fusp.getStructId(), new CoordinatePair(fusp.getCoordinates().getX(), fusp.getCoordinates().getY()), new Timestamp(fusp.getPurchaseTime())) < 0) {
-          log.error("problem in giving user the user struct");
-        }
-      }
+  private void writeUserStruct(FullUserStructureProto fusp) {
+    if (InsertUtils.insertUserStruct(fusp.getUserId(), fusp.getStructId(), new CoordinatePair(fusp.getCoordinates().getX(), fusp.getCoordinates().getY()), new Timestamp(fusp.getPurchaseTime())) < 0) {
+      log.error("problem in giving user the user struct");
     }
   }
 
@@ -185,9 +214,9 @@ public class UserCreateController extends EventController {
   }
 
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
-      String name, List<FullUserStructureProto> fullUserStructs,
+      String name, FullUserStructureProto fullUserStruct,
       Location loc, UserType type, int attack, int defense, int energy, int health, int stamina) {
-    if (udid == null || name == null || fullUserStructs == null || fullUserStructs.size() == 0 || type == null) {
+    if (udid == null || name == null || fullUserStruct == null || fullUserStruct == null || type == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
@@ -249,7 +278,7 @@ public class UserCreateController extends EventController {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
-    
+
     resBuilder.setStatus(UserCreateStatus.SUCCESS);
     return true;
   }

@@ -117,8 +117,6 @@ public class SelectAndRead extends Thread{
                 ", end-of-stream");
           }
 
-          // check for a complete event
-          try {
             if (attachment.readBuff.position() >= Attachment.HEADER_SIZE) {
               attachment.readBuff.flip();
 
@@ -131,13 +129,13 @@ public class SelectAndRead extends Thread{
               // prepare for more channel reading
               attachment.readBuff.compact();
             }
-          }
-          catch (IllegalArgumentException e) {
-            log.error("illegal argument exception", e);
-          }
         }
         catch (IOException ioe) {
           log.warn("IOException during read(), closing channel:" + channel.socket().getInetAddress());
+          channel.close();
+        }
+        catch (Exception e) {
+          log.warn("Exception: " + e);
           channel.close();
         }
       }
@@ -148,7 +146,6 @@ public class SelectAndRead extends Thread{
     catch (Exception e) {
       log.error("exception during select()", e);
       e.printStackTrace();
-      while (true);
     }
   }
 

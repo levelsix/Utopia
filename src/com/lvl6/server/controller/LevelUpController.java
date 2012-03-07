@@ -68,7 +68,7 @@ public class LevelUpController extends EventController {
           if (city.getMinLevel() == user.getLevel() + 1) {
             newlyUnlockedCityIds.add(city.getId());
           }
-          resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
+          resBuilder.addCitiesNewlyAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
         }
       }
 

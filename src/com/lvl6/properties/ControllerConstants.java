@@ -38,11 +38,7 @@ public class ControllerConstants {
   public static final int MIN_LEVEL_FOR_VAULT = 4;
   public static final int MIN_LEVEL_FOR_MARKETPLACE = 6;
 
-  
-  
   //--------------------------------------------------------------------------------------------------------------------------
-  
-  
   
   //TUTORIAL CONSTANTS
   public static final int TUTORIAL__ARCHER_INIT_ATTACK = 10;
@@ -54,23 +50,33 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 7;
   public static final int TUTORIAL__INIT_HEALTH = 100;
-  public static final int TUTORIAL__FIRST_QUEST_ID = 1;         //give user full quest protos for both sides
+  public static final int TUTORIAL__INIT_DIAMONDS = 20;
+  public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 10;
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
-  public static final int TUTORIAL__FIRST_TASK_COIN_GAIN = 50;
-  public static final int TUTORIAL__FIRST_BATTLE_COIN_GAIN = 50;
-  public static final int TUTORIAL__FIRST_BATTLE_EXP_GAIN = 50;
-  public static final int TUTORIAL__FIRST_BATTLE_AMULET_LOOT_EQUIP_ID = 1;
-
-  public static final int TUTORIAL__ARCHER_INIT_WEAPON = 1;
-  public static final int TUTORIAL__ARCHER_INIT_ARMOR = 1;
-  public static final int TUTORIAL__MAGE_INIT_WEAPON = 1;
-  public static final int TUTORIAL__MAGE_INIT_ARMOR = 1;
-  public static final int TUTORIAL__WARRIOR_INIT_WEAPON = 1;
-  public static final int TUTORIAL__WARRIOR_INIT_ARMOR = 1;
+  public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 1;
+  public static final int TUTORIAL__ARCHER_INIT_ARMOR_ID = 1;
+  public static final int TUTORIAL__MAGE_INIT_WEAPON_ID = 1;
+  public static final int TUTORIAL__MAGE_INIT_ARMOR_ID = 1;
+  public static final int TUTORIAL__WARRIOR_INIT_WEAPON_ID = 1;
+  public static final int TUTORIAL__WARRIOR_INIT_ARMOR_ID = 1;
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_NAME = "";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION = "";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE = "";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_IN_PROGRESS = "";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_IN_PROGRESS = "";
+  public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 1;
+  public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 1;
+  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 1;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 50;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 50;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 1;
+  public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.5;
-  
   
   //BATTLE
   public static final int BATTLE__MAX_ITEMS_USED = 4;
@@ -163,11 +169,6 @@ public class ControllerConstants {
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
   
   
-  //FINISH NORM STRUCT BUILD WITH DIAMONDS
-  public static final int FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_BUILD = 10;
-  public static final int FINISH_NORM_STRUCT_BUILD__DIAMOND_COST_FOR_FINISH_NORM_STRUCT_INCOME_WAIT = 10;
-  
-  
   //PLACE CRIT STRUCT
   public static final double PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY = 3;
   public static final double PLACE_CRITSTRUCT__MIN_LEVEL_VAULT = 4;
@@ -197,7 +198,6 @@ public class ControllerConstants {
   public static final int USER_CREATE__MIN_NAME_LENGTH = 0;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
-  public static final int USER_CREATE__DEFAULT_DIAMONDS = 20;
   
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;

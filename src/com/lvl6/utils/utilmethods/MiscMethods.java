@@ -12,7 +12,10 @@ import java.util.Random;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Location;
+import com.lvl6.info.Structure;
+import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserStruct;
 import com.lvl6.info.ValidLocationBox;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
@@ -24,6 +27,16 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
 
+  public static int calculateDiamondCostForInstaBuild(UserStruct userStruct, Structure struct) {
+    int result = struct.getInstaBuildDiamondCostBase() * userStruct.getLevel();
+    return Math.max(1, result);
+  }
+  
+  public static int calculateCoinsGainedFromTutorialTask(Task firstTaskToComplete) {
+    return ((firstTaskToComplete.getMinCoinsGained() + firstTaskToComplete.getMaxCoinsGained())/2)
+        * firstTaskToComplete.getNumForCompletion();
+  }
+  
   public static boolean unequipUserEquip(User user, int equipId) {
     if (user.getWeaponEquipped() == equipId || user.getArmorEquipped() == equipId || user.getAmuletEquipped() == equipId) {
       return user.updateUnequip(equipId, user.getWeaponEquipped() == equipId, user.getArmorEquipped() == equipId, user.getAmuletEquipped() == equipId);

@@ -118,6 +118,7 @@ message StartupResponseProto {
     required StartupStatus startupStatus= 2;
     required UpdateStatus updateStatus= 3;
     required StartupConstants startupConstants = 4;
+    optional TutorialConstants tutorialConstants = 18;
     repeated FullCityProto citiesAvailableToUser = 5;
     repeated FullUserCityProto userCityInfos = 16;
     
@@ -162,6 +163,53 @@ message StartupResponseProto {
     	   	
 		//ADD a bunch of other important constants
 	}
+	
+	message TutorialConstants {
+		required int32 initEnergy = 1;
+		required int32 initStamina = 2;
+		required int32 initHealth = 3;
+		required FullTutorialQuestProto tutorialQuest = 4;
+		required int32 structToBuild = 5;
+		required int32 diamondCostToInstabuildFirstStruct = 6;
+
+		required int32 archerInitAttack = 17;
+		required int32 archerInitDefense = 18;
+		required FullEquipProto archerInitWeapon = 7;
+		required FullEquipProto archerInitArmor = 8;
+		
+		required int32 mageInitAttack = 9;
+		required int32 mageInitDefense = 10;
+		required FullEquipProto mageInitWeapon = 11;
+		required FullEquipProto mageInitArmor = 12;
+		
+		required int32 warriorInitAttack = 13;
+		required int32 warriorInitDefense = 14;
+		required FullEquipProto warriorInitWeapon = 15;
+		required FullEquipProto warriorInitArmor = 16;
+		
+		message FullTutorialQuestProto {
+				//do one task once, kill one enemy
+			required string goodName = 1;
+			required string badName = 2;
+			required string goodDescription = 3;
+			required string badDescription = 4;
+			required string goodDoneResponse = 5;
+			required string badDoneResponse = 6;
+			required string goodInProgress = 7;
+			required string badInProgress = 8;
+			required int32 assetNumWithinCity = 9; 
+			required int32 coinsGained = 10;
+			required int32 expGained = 11;
+			
+			required FullTaskProto firstTaskGood = 12;
+			required FullTaskProto firstTaskBad = 13;
+			required int32 firstTaskCompleteCoinGain = 14;	//tasks coin gain should sum to this
+
+			required int32 firstDefeatTypeJobBattleCoinGain = 17;
+			required int32 firstDefeatTypeJobBattleExpGain = 18;
+			required FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
+		}
+	}
 		     
     enum UpdateStatus {
      	NO_UPDATE = 0;
@@ -176,7 +224,20 @@ message StartupResponseProto {
 }
 
 //------------------------------------------------------------------------------------------
-//CALLED: AFTER THE TUTORIAL
+//CALLED: AFTER THE TUTORIAL. 
+//CALL STARTUP AFTER THIS. or just
+//    repeated FullCityProto citiesAvailableToUser = 5;
+  //  repeated FullUserCityProto userCityInfos = 16;
+    
+    //repeated FullQuestProto inProgressQuests = 6;
+//	repeated FullQuestProto availableQuests = 7;   
+//	repeated FullUserEquipProto userEquips = 8;
+ //   repeated FullEquipProto equips = 9;
+//	repeated FullUserStructureProto userStructures = 10;
+//	repeated FullStructureProto structs = 11;
+//	optional int32 experienceRequiredForNextLevel = 12;
+//	optional int32 experienceRequiredForCurrentLevel = 17;
+
 
 //if devicetoken doesnt work, itll still return success
 //client can check user's diamonds to see if it went through
@@ -184,7 +245,7 @@ message UserCreateRequestProto {
      required string udid = 1;
      required string name = 2;
      required UserType type = 3;
-     repeated FullUserStructureProto structures = 5;
+     required FullUserStructureProto structure = 5;
      optional LocationProto userLocation = 6;     
      optional string referrerCode = 7;
      optional string deviceToken = 8;
@@ -192,7 +253,7 @@ message UserCreateRequestProto {
      required int32 defense = 10;
      required int32 health = 11;
      required int32 energy = 12;
-     required int32 stamina = 13;     
+     required int32 stamina = 13;
 }
 
 message UserCreateResponseProto {
@@ -506,7 +567,7 @@ message LevelUpResponseProto {
      
      optional int32 newNextLevel = 3;
      optional int32 experienceRequiredForNewNextLevel = 4;
-	 repeated FullCityProto citiesAvailableToUser = 5;						//all, not new
+	 repeated FullCityProto citiesNewlyAvailableToUser = 5;					//only new ones
      repeated FullEquipProto newlyEquippableAvailableInArmory = 6;			//only new ones
      
 	enum LevelUpStatus {
