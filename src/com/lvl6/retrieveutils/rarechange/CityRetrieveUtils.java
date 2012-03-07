@@ -73,7 +73,8 @@ public class CityRetrieveUtils {
     int minLevel = rs.getInt(i++);
     int expGainedBaseOnRankup = rs.getInt(i++);
     int coinsGainedBaseOnRankup = rs.getInt(i++);
-    return new City(id, name, minLevel, expGainedBaseOnRankup, coinsGainedBaseOnRankup);
+    String mapImgName = rs.getString(i++);
+    return new City(id, name, minLevel, expGainedBaseOnRankup, coinsGainedBaseOnRankup, mapImgName);
   }
 
 }

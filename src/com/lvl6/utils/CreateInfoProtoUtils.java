@@ -303,7 +303,8 @@ public class CreateInfoProtoUtils {
 
   public static FullCityProto createFullCityProtoFromCity(City c) {
     FullCityProto.Builder builder = FullCityProto.newBuilder().setCityId(c.getId()).setName(c.getName()).setMinLevel(c.getMinLevel())
-        .setExpGainedBaseOnRankup(c.getExpGainedBaseOnRankup()).setCoinsGainedBaseOnRankup(c.getCoinsGainedBaseOnRankup());
+        .setExpGainedBaseOnRankup(c.getExpGainedBaseOnRankup()).setCoinsGainedBaseOnRankup(c.getCoinsGainedBaseOnRankup())
+        .setMapImgName(c.getMapImgName());
     List<Task> tasks = TaskRetrieveUtils.getAllTasksForCityId(c.getId());
     if (tasks != null) {
       for (Task t : tasks) {

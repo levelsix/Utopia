@@ -185,8 +185,9 @@ message FullCityProto {
 	required int32 minLevel = 3;
 	required int32 expGainedBaseOnRankup = 4;
 	required int32 coinsGainedBaseOnRankup = 5;
+	required string mapImgName = 6;
 	
-	repeated int32 taskIds = 6;
+	repeated int32 taskIds = 7;
 }
 
 //------------------------------------------------------------------------------------------
