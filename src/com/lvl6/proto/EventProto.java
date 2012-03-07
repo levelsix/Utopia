@@ -53069,14 +53069,14 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // repeated .com.lvl6.proto.FullQuestProto updatedAvailableQuests = 2;
+    // repeated .com.lvl6.proto.FullQuestProto newlyAvailableQuests = 2;
     java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> 
-        getUpdatedAvailableQuestsList();
-    com.lvl6.proto.InfoProto.FullQuestProto getUpdatedAvailableQuests(int index);
-    int getUpdatedAvailableQuestsCount();
+        getNewlyAvailableQuestsList();
+    com.lvl6.proto.InfoProto.FullQuestProto getNewlyAvailableQuests(int index);
+    int getNewlyAvailableQuestsCount();
     java.util.List<? extends com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> 
-        getUpdatedAvailableQuestsOrBuilderList();
-    com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getUpdatedAvailableQuestsOrBuilder(
+        getNewlyAvailableQuestsOrBuilderList();
+    com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getNewlyAvailableQuestsOrBuilder(
         int index);
     
     // required .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
@@ -53197,25 +53197,25 @@ public final class EventProto {
       return sender_;
     }
     
-    // repeated .com.lvl6.proto.FullQuestProto updatedAvailableQuests = 2;
-    public static final int UPDATEDAVAILABLEQUESTS_FIELD_NUMBER = 2;
-    private java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> updatedAvailableQuests_;
-    public java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> getUpdatedAvailableQuestsList() {
-      return updatedAvailableQuests_;
+    // repeated .com.lvl6.proto.FullQuestProto newlyAvailableQuests = 2;
+    public static final int NEWLYAVAILABLEQUESTS_FIELD_NUMBER = 2;
+    private java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> newlyAvailableQuests_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> getNewlyAvailableQuestsList() {
+      return newlyAvailableQuests_;
     }
     public java.util.List<? extends com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> 
-        getUpdatedAvailableQuestsOrBuilderList() {
-      return updatedAvailableQuests_;
+        getNewlyAvailableQuestsOrBuilderList() {
+      return newlyAvailableQuests_;
     }
-    public int getUpdatedAvailableQuestsCount() {
-      return updatedAvailableQuests_.size();
+    public int getNewlyAvailableQuestsCount() {
+      return newlyAvailableQuests_.size();
     }
-    public com.lvl6.proto.InfoProto.FullQuestProto getUpdatedAvailableQuests(int index) {
-      return updatedAvailableQuests_.get(index);
+    public com.lvl6.proto.InfoProto.FullQuestProto getNewlyAvailableQuests(int index) {
+      return newlyAvailableQuests_.get(index);
     }
-    public com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getUpdatedAvailableQuestsOrBuilder(
+    public com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getNewlyAvailableQuestsOrBuilder(
         int index) {
-      return updatedAvailableQuests_.get(index);
+      return newlyAvailableQuests_.get(index);
     }
     
     // required .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
@@ -53230,7 +53230,7 @@ public final class EventProto {
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      updatedAvailableQuests_ = java.util.Collections.emptyList();
+      newlyAvailableQuests_ = java.util.Collections.emptyList();
       status_ = com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
@@ -53250,8 +53250,8 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      for (int i = 0; i < getUpdatedAvailableQuestsCount(); i++) {
-        if (!getUpdatedAvailableQuests(i).isInitialized()) {
+      for (int i = 0; i < getNewlyAvailableQuestsCount(); i++) {
+        if (!getNewlyAvailableQuests(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -53266,8 +53266,8 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, sender_);
       }
-      for (int i = 0; i < updatedAvailableQuests_.size(); i++) {
-        output.writeMessage(2, updatedAvailableQuests_.get(i));
+      for (int i = 0; i < newlyAvailableQuests_.size(); i++) {
+        output.writeMessage(2, newlyAvailableQuests_.get(i));
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeEnum(3, status_.getNumber());
@@ -53285,9 +53285,9 @@ public final class EventProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, sender_);
       }
-      for (int i = 0; i < updatedAvailableQuests_.size(); i++) {
+      for (int i = 0; i < newlyAvailableQuests_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, updatedAvailableQuests_.get(i));
+          .computeMessageSize(2, newlyAvailableQuests_.get(i));
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -53410,7 +53410,7 @@ public final class EventProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getSenderFieldBuilder();
-          getUpdatedAvailableQuestsFieldBuilder();
+          getNewlyAvailableQuestsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -53425,11 +53425,11 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (updatedAvailableQuestsBuilder_ == null) {
-          updatedAvailableQuests_ = java.util.Collections.emptyList();
+        if (newlyAvailableQuestsBuilder_ == null) {
+          newlyAvailableQuests_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000002);
         } else {
-          updatedAvailableQuestsBuilder_.clear();
+          newlyAvailableQuestsBuilder_.clear();
         }
         status_ = com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -53479,14 +53479,14 @@ public final class EventProto {
         } else {
           result.sender_ = senderBuilder_.build();
         }
-        if (updatedAvailableQuestsBuilder_ == null) {
+        if (newlyAvailableQuestsBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            updatedAvailableQuests_ = java.util.Collections.unmodifiableList(updatedAvailableQuests_);
+            newlyAvailableQuests_ = java.util.Collections.unmodifiableList(newlyAvailableQuests_);
             bitField0_ = (bitField0_ & ~0x00000002);
           }
-          result.updatedAvailableQuests_ = updatedAvailableQuests_;
+          result.newlyAvailableQuests_ = newlyAvailableQuests_;
         } else {
-          result.updatedAvailableQuests_ = updatedAvailableQuestsBuilder_.build();
+          result.newlyAvailableQuests_ = newlyAvailableQuestsBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000002;
@@ -53511,29 +53511,29 @@ public final class EventProto {
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
-        if (updatedAvailableQuestsBuilder_ == null) {
-          if (!other.updatedAvailableQuests_.isEmpty()) {
-            if (updatedAvailableQuests_.isEmpty()) {
-              updatedAvailableQuests_ = other.updatedAvailableQuests_;
+        if (newlyAvailableQuestsBuilder_ == null) {
+          if (!other.newlyAvailableQuests_.isEmpty()) {
+            if (newlyAvailableQuests_.isEmpty()) {
+              newlyAvailableQuests_ = other.newlyAvailableQuests_;
               bitField0_ = (bitField0_ & ~0x00000002);
             } else {
-              ensureUpdatedAvailableQuestsIsMutable();
-              updatedAvailableQuests_.addAll(other.updatedAvailableQuests_);
+              ensureNewlyAvailableQuestsIsMutable();
+              newlyAvailableQuests_.addAll(other.newlyAvailableQuests_);
             }
             onChanged();
           }
         } else {
-          if (!other.updatedAvailableQuests_.isEmpty()) {
-            if (updatedAvailableQuestsBuilder_.isEmpty()) {
-              updatedAvailableQuestsBuilder_.dispose();
-              updatedAvailableQuestsBuilder_ = null;
-              updatedAvailableQuests_ = other.updatedAvailableQuests_;
+          if (!other.newlyAvailableQuests_.isEmpty()) {
+            if (newlyAvailableQuestsBuilder_.isEmpty()) {
+              newlyAvailableQuestsBuilder_.dispose();
+              newlyAvailableQuestsBuilder_ = null;
+              newlyAvailableQuests_ = other.newlyAvailableQuests_;
               bitField0_ = (bitField0_ & ~0x00000002);
-              updatedAvailableQuestsBuilder_ = 
+              newlyAvailableQuestsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getUpdatedAvailableQuestsFieldBuilder() : null;
+                   getNewlyAvailableQuestsFieldBuilder() : null;
             } else {
-              updatedAvailableQuestsBuilder_.addAllMessages(other.updatedAvailableQuests_);
+              newlyAvailableQuestsBuilder_.addAllMessages(other.newlyAvailableQuests_);
             }
           }
         }
@@ -53557,8 +53557,8 @@ public final class EventProto {
           
           return false;
         }
-        for (int i = 0; i < getUpdatedAvailableQuestsCount(); i++) {
-          if (!getUpdatedAvailableQuests(i).isInitialized()) {
+        for (int i = 0; i < getNewlyAvailableQuestsCount(); i++) {
+          if (!getNewlyAvailableQuests(i).isInitialized()) {
             
             return false;
           }
@@ -53601,7 +53601,7 @@ public final class EventProto {
             case 18: {
               com.lvl6.proto.InfoProto.FullQuestProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullQuestProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
-              addUpdatedAvailableQuests(subBuilder.buildPartial());
+              addNewlyAvailableQuests(subBuilder.buildPartial());
               break;
             }
             case 24: {
@@ -53711,190 +53711,190 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // repeated .com.lvl6.proto.FullQuestProto updatedAvailableQuests = 2;
-      private java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> updatedAvailableQuests_ =
+      // repeated .com.lvl6.proto.FullQuestProto newlyAvailableQuests = 2;
+      private java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> newlyAvailableQuests_ =
         java.util.Collections.emptyList();
-      private void ensureUpdatedAvailableQuestsIsMutable() {
+      private void ensureNewlyAvailableQuestsIsMutable() {
         if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          updatedAvailableQuests_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullQuestProto>(updatedAvailableQuests_);
+          newlyAvailableQuests_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullQuestProto>(newlyAvailableQuests_);
           bitField0_ |= 0x00000002;
          }
       }
       
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullQuestProto, com.lvl6.proto.InfoProto.FullQuestProto.Builder, com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> updatedAvailableQuestsBuilder_;
+          com.lvl6.proto.InfoProto.FullQuestProto, com.lvl6.proto.InfoProto.FullQuestProto.Builder, com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> newlyAvailableQuestsBuilder_;
       
-      public java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> getUpdatedAvailableQuestsList() {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(updatedAvailableQuests_);
+      public java.util.List<com.lvl6.proto.InfoProto.FullQuestProto> getNewlyAvailableQuestsList() {
+        if (newlyAvailableQuestsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(newlyAvailableQuests_);
         } else {
-          return updatedAvailableQuestsBuilder_.getMessageList();
+          return newlyAvailableQuestsBuilder_.getMessageList();
         }
       }
-      public int getUpdatedAvailableQuestsCount() {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          return updatedAvailableQuests_.size();
+      public int getNewlyAvailableQuestsCount() {
+        if (newlyAvailableQuestsBuilder_ == null) {
+          return newlyAvailableQuests_.size();
         } else {
-          return updatedAvailableQuestsBuilder_.getCount();
+          return newlyAvailableQuestsBuilder_.getCount();
         }
       }
-      public com.lvl6.proto.InfoProto.FullQuestProto getUpdatedAvailableQuests(int index) {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          return updatedAvailableQuests_.get(index);
+      public com.lvl6.proto.InfoProto.FullQuestProto getNewlyAvailableQuests(int index) {
+        if (newlyAvailableQuestsBuilder_ == null) {
+          return newlyAvailableQuests_.get(index);
         } else {
-          return updatedAvailableQuestsBuilder_.getMessage(index);
+          return newlyAvailableQuestsBuilder_.getMessage(index);
         }
       }
-      public Builder setUpdatedAvailableQuests(
+      public Builder setNewlyAvailableQuests(
           int index, com.lvl6.proto.InfoProto.FullQuestProto value) {
-        if (updatedAvailableQuestsBuilder_ == null) {
+        if (newlyAvailableQuestsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureUpdatedAvailableQuestsIsMutable();
-          updatedAvailableQuests_.set(index, value);
+          ensureNewlyAvailableQuestsIsMutable();
+          newlyAvailableQuests_.set(index, value);
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.setMessage(index, value);
+          newlyAvailableQuestsBuilder_.setMessage(index, value);
         }
         return this;
       }
-      public Builder setUpdatedAvailableQuests(
+      public Builder setNewlyAvailableQuests(
           int index, com.lvl6.proto.InfoProto.FullQuestProto.Builder builderForValue) {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          ensureUpdatedAvailableQuestsIsMutable();
-          updatedAvailableQuests_.set(index, builderForValue.build());
+        if (newlyAvailableQuestsBuilder_ == null) {
+          ensureNewlyAvailableQuestsIsMutable();
+          newlyAvailableQuests_.set(index, builderForValue.build());
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.setMessage(index, builderForValue.build());
+          newlyAvailableQuestsBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
-      public Builder addUpdatedAvailableQuests(com.lvl6.proto.InfoProto.FullQuestProto value) {
-        if (updatedAvailableQuestsBuilder_ == null) {
+      public Builder addNewlyAvailableQuests(com.lvl6.proto.InfoProto.FullQuestProto value) {
+        if (newlyAvailableQuestsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureUpdatedAvailableQuestsIsMutable();
-          updatedAvailableQuests_.add(value);
+          ensureNewlyAvailableQuestsIsMutable();
+          newlyAvailableQuests_.add(value);
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.addMessage(value);
+          newlyAvailableQuestsBuilder_.addMessage(value);
         }
         return this;
       }
-      public Builder addUpdatedAvailableQuests(
+      public Builder addNewlyAvailableQuests(
           int index, com.lvl6.proto.InfoProto.FullQuestProto value) {
-        if (updatedAvailableQuestsBuilder_ == null) {
+        if (newlyAvailableQuestsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureUpdatedAvailableQuestsIsMutable();
-          updatedAvailableQuests_.add(index, value);
+          ensureNewlyAvailableQuestsIsMutable();
+          newlyAvailableQuests_.add(index, value);
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.addMessage(index, value);
+          newlyAvailableQuestsBuilder_.addMessage(index, value);
         }
         return this;
       }
-      public Builder addUpdatedAvailableQuests(
+      public Builder addNewlyAvailableQuests(
           com.lvl6.proto.InfoProto.FullQuestProto.Builder builderForValue) {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          ensureUpdatedAvailableQuestsIsMutable();
-          updatedAvailableQuests_.add(builderForValue.build());
+        if (newlyAvailableQuestsBuilder_ == null) {
+          ensureNewlyAvailableQuestsIsMutable();
+          newlyAvailableQuests_.add(builderForValue.build());
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.addMessage(builderForValue.build());
+          newlyAvailableQuestsBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
-      public Builder addUpdatedAvailableQuests(
+      public Builder addNewlyAvailableQuests(
           int index, com.lvl6.proto.InfoProto.FullQuestProto.Builder builderForValue) {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          ensureUpdatedAvailableQuestsIsMutable();
-          updatedAvailableQuests_.add(index, builderForValue.build());
+        if (newlyAvailableQuestsBuilder_ == null) {
+          ensureNewlyAvailableQuestsIsMutable();
+          newlyAvailableQuests_.add(index, builderForValue.build());
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.addMessage(index, builderForValue.build());
+          newlyAvailableQuestsBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
-      public Builder addAllUpdatedAvailableQuests(
+      public Builder addAllNewlyAvailableQuests(
           java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullQuestProto> values) {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          ensureUpdatedAvailableQuestsIsMutable();
-          super.addAll(values, updatedAvailableQuests_);
+        if (newlyAvailableQuestsBuilder_ == null) {
+          ensureNewlyAvailableQuestsIsMutable();
+          super.addAll(values, newlyAvailableQuests_);
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.addAllMessages(values);
+          newlyAvailableQuestsBuilder_.addAllMessages(values);
         }
         return this;
       }
-      public Builder clearUpdatedAvailableQuests() {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          updatedAvailableQuests_ = java.util.Collections.emptyList();
+      public Builder clearNewlyAvailableQuests() {
+        if (newlyAvailableQuestsBuilder_ == null) {
+          newlyAvailableQuests_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.clear();
+          newlyAvailableQuestsBuilder_.clear();
         }
         return this;
       }
-      public Builder removeUpdatedAvailableQuests(int index) {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          ensureUpdatedAvailableQuestsIsMutable();
-          updatedAvailableQuests_.remove(index);
+      public Builder removeNewlyAvailableQuests(int index) {
+        if (newlyAvailableQuestsBuilder_ == null) {
+          ensureNewlyAvailableQuestsIsMutable();
+          newlyAvailableQuests_.remove(index);
           onChanged();
         } else {
-          updatedAvailableQuestsBuilder_.remove(index);
+          newlyAvailableQuestsBuilder_.remove(index);
         }
         return this;
       }
-      public com.lvl6.proto.InfoProto.FullQuestProto.Builder getUpdatedAvailableQuestsBuilder(
+      public com.lvl6.proto.InfoProto.FullQuestProto.Builder getNewlyAvailableQuestsBuilder(
           int index) {
-        return getUpdatedAvailableQuestsFieldBuilder().getBuilder(index);
+        return getNewlyAvailableQuestsFieldBuilder().getBuilder(index);
       }
-      public com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getUpdatedAvailableQuestsOrBuilder(
+      public com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getNewlyAvailableQuestsOrBuilder(
           int index) {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          return updatedAvailableQuests_.get(index);  } else {
-          return updatedAvailableQuestsBuilder_.getMessageOrBuilder(index);
+        if (newlyAvailableQuestsBuilder_ == null) {
+          return newlyAvailableQuests_.get(index);  } else {
+          return newlyAvailableQuestsBuilder_.getMessageOrBuilder(index);
         }
       }
       public java.util.List<? extends com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> 
-           getUpdatedAvailableQuestsOrBuilderList() {
-        if (updatedAvailableQuestsBuilder_ != null) {
-          return updatedAvailableQuestsBuilder_.getMessageOrBuilderList();
+           getNewlyAvailableQuestsOrBuilderList() {
+        if (newlyAvailableQuestsBuilder_ != null) {
+          return newlyAvailableQuestsBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(updatedAvailableQuests_);
+          return java.util.Collections.unmodifiableList(newlyAvailableQuests_);
         }
       }
-      public com.lvl6.proto.InfoProto.FullQuestProto.Builder addUpdatedAvailableQuestsBuilder() {
-        return getUpdatedAvailableQuestsFieldBuilder().addBuilder(
+      public com.lvl6.proto.InfoProto.FullQuestProto.Builder addNewlyAvailableQuestsBuilder() {
+        return getNewlyAvailableQuestsFieldBuilder().addBuilder(
             com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance());
       }
-      public com.lvl6.proto.InfoProto.FullQuestProto.Builder addUpdatedAvailableQuestsBuilder(
+      public com.lvl6.proto.InfoProto.FullQuestProto.Builder addNewlyAvailableQuestsBuilder(
           int index) {
-        return getUpdatedAvailableQuestsFieldBuilder().addBuilder(
+        return getNewlyAvailableQuestsFieldBuilder().addBuilder(
             index, com.lvl6.proto.InfoProto.FullQuestProto.getDefaultInstance());
       }
       public java.util.List<com.lvl6.proto.InfoProto.FullQuestProto.Builder> 
-           getUpdatedAvailableQuestsBuilderList() {
-        return getUpdatedAvailableQuestsFieldBuilder().getBuilderList();
+           getNewlyAvailableQuestsBuilderList() {
+        return getNewlyAvailableQuestsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
           com.lvl6.proto.InfoProto.FullQuestProto, com.lvl6.proto.InfoProto.FullQuestProto.Builder, com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder> 
-          getUpdatedAvailableQuestsFieldBuilder() {
-        if (updatedAvailableQuestsBuilder_ == null) {
-          updatedAvailableQuestsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          getNewlyAvailableQuestsFieldBuilder() {
+        if (newlyAvailableQuestsBuilder_ == null) {
+          newlyAvailableQuestsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.lvl6.proto.InfoProto.FullQuestProto, com.lvl6.proto.InfoProto.FullQuestProto.Builder, com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder>(
-                  updatedAvailableQuests_,
+                  newlyAvailableQuests_,
                   ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
                   isClean());
-          updatedAvailableQuests_ = null;
+          newlyAvailableQuests_ = null;
         }
-        return updatedAvailableQuestsBuilder_;
+        return newlyAvailableQuestsBuilder_;
       }
       
       // required .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
@@ -71590,148 +71590,148 @@ public final class EventProto {
       "o\022-\n\005quest\030\002 \002(\0132\036.com.lvl6.proto.FullQu" +
       "estProto\"\\\n\027QuestRedeemRequestProto\0220\n\006s" +
       "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\017\n\007questId\030\002 \002(\005\"\234\002\n\030QuestRedeemRe" +
+      "Proto\022\017\n\007questId\030\002 \002(\005\"\232\002\n\030QuestRedeemRe" +
       "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022>\n\026updatedAvailabl" +
-      "eQuests\030\002 \003(\0132\036.com.lvl6.proto.FullQuest" +
-      "Proto\022J\n\006status\030\003 \002(\0162:.com.lvl6.proto.Q" +
-      "uestRedeemResponseProto.QuestRedeemStatu",
-      "s\"B\n\021QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014N" +
-      "OT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033QuestLo" +
-      "gDetailsRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\"\247\002\n\034Quest" +
-      "LogDetailsResponseProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022L\n\027inP" +
-      "rogressUserQuestData\030\002 \003(\0132+.com.lvl6.pr" +
-      "oto.FullUserQuestDataLargeProto\022R\n\006statu" +
-      "s\030\003 \002(\0162B.com.lvl6.proto.QuestLogDetails" +
-      "ResponseProto.QuestLogDetailsStatus\"3\n\025Q",
-      "uestLogDetailsStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOM" +
-      "E_FAIL\020\001\"\275\002\n\036RetrieveStaticDataRequestPr" +
-      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007task" +
-      "Ids\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005" +
-      " \003(\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021buildStructJob" +
-      "Ids\030\007 \003(\005\022\030\n\020defeatTypeJobIds\030\010 \003(\005\022\032\n\022p" +
-      "ossessEquipJobIds\030\t \003(\005\022\033\n\023upgradeStruct" +
-      "JobIds\030\n \003(\005\022\"\n\032levelForExpRequiredReque" +
-      "st\030\013 \001(\005\"\371\005\n\037RetrieveStaticDataResponseP",
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\0223\n\007structs\030\002 \003(\0132\".com.lv" +
-      "l6.proto.FullStructureProto\022,\n\005tasks\030\003 \003" +
-      "(\0132\035.com.lvl6.proto.FullTaskProto\022.\n\006que" +
-      "sts\030\004 \003(\0132\036.com.lvl6.proto.FullQuestProt" +
-      "o\022-\n\006cities\030\005 \003(\0132\035.com.lvl6.proto.FullC" +
-      "ityProto\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.prot" +
-      "o.FullEquipProto\022<\n\017buildStructJobs\030\007 \003(" +
-      "\0132#.com.lvl6.proto.BuildStructJobProto\022:" +
-      "\n\016defeatTypeJobs\030\010 \003(\0132\".com.lvl6.proto.",
-      "DefeatTypeJobProto\022>\n\020possessEquipJobs\030\t" +
-      " \003(\0132$.com.lvl6.proto.PossessEquipJobPro" +
-      "to\022@\n\021upgradeStructJobs\030\n \003(\0132%.com.lvl6" +
-      ".proto.UpgradeStructJobProto\022$\n\034expRequi" +
-      "redForRequestedLevel\030\013 \001(\005\022X\n\006status\030\014 \002" +
-      "(\0162H.com.lvl6.proto.RetrieveStaticDataRe" +
-      "sponseProto.RetrieveStaticDataStatus\"6\n\030" +
-      "RetrieveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n" +
-      "\tSOME_FAIL\020\001\"\244\001\n!PurchaseCityExpansionRe" +
-      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr",
-      "oto.MinimumUserProto\0225\n\tdirection\030\002 \002(\0162" +
-      "\".com.lvl6.proto.ExpansionDirection\022\026\n\016t" +
-      "imeOfPurchase\030\003 \002(\003\"\305\002\n\"PurchaseCityExpa" +
-      "nsionResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022^\n\006status\030\002" +
-      " \002(\0162N.com.lvl6.proto.PurchaseCityExpans" +
-      "ionResponseProto.PurchaseCityExpansionSt" +
-      "atus\"\214\001\n\033PurchaseCityExpansionStatus\022\013\n\007" +
-      "SUCCESS\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREA" +
-      "DY_EXPANDING\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT",
-      "_TOO_AHEAD_OF_SERVER_TIME\020\004\"f\n!Expansion" +
-      "WaitCompleteRequestProto\0220\n\006sender\030\001 \002(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022\017\n\007cu" +
-      "rTime\030\002 \002(\003\"\301\002\n\"ExpansionWaitCompleteRes" +
-      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022^\n\006status\030\002 \002(\0162N.c" +
-      "om.lvl6.proto.ExpansionWaitCompleteRespo" +
-      "nseProto.ExpansionWaitCompleteStatus\"\210\001\n" +
-      "\033ExpansionWaitCompleteStatus\022\013\n\007SUCCESS\020" +
-      "\000\022\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YET",
-      "\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_O" +
-      "F_SERVER_TIME\020\004\"\373\001\n\"RefillStatWaitComple" +
-      "teRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022\017\n\007curTime\030\002 \002(" +
-      "\003\022[\n\004type\030\003 \002(\0162M.com.lvl6.proto.RefillS" +
-      "tatWaitCompleteRequestProto.RefillStatWa" +
-      "itCompleteType\"5\n\032RefillStatWaitComplete" +
-      "Type\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\300\002\n#Refill" +
-      "StatWaitCompleteResponseProto\0220\n\006sender\030" +
-      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022",
-      "`\n\006status\030\002 \002(\0162P.com.lvl6.proto.RefillS" +
-      "tatWaitCompleteResponseProto.RefillStatW" +
-      "aitCompleteStatus\"\204\001\n\034RefillStatWaitComp" +
-      "leteStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READY_YET" +
-      "\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037C" +
-      "LIENT_TOO_AHEAD_OF_SERVER_TIME\020\004\"_\n\026Enab" +
-      "leAPNSRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022\023\n\013deviceTo" +
-      "ken\030\002 \002(\t\"\307\001\n\027EnableAPNSResponseProto\0220\n" +
-      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs",
-      "erProto\022H\n\006status\030\002 \002(\01628.com.lvl6.proto" +
-      ".EnableAPNSResponseProto.EnableAPNSStatu" +
-      "s\"0\n\020EnableAPNSStatus\022\013\n\007SUCCESS\020\000\022\017\n\013NO" +
-      "T_ENABLED\020\001\"\353\001\n&PurchaseMarketplaceLicen" +
-      "seRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022\022\n\nclientTime\030\002" +
-      " \002(\003\022W\n\013licenseType\030\003 \002(\0162B.com.lvl6.pro" +
-      "to.PurchaseMarketplaceLicenseRequestProt" +
-      "o.LicenseType\"\"\n\013LicenseType\022\t\n\005SHORT\020\000\022" +
-      "\010\n\004LONG\020\001\"\343\002\n\'PurchaseMarketplaceLicense",
-      "ResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022h\n\006status\030\002 \002(\0162" +
-      "X.com.lvl6.proto.PurchaseMarketplaceLice" +
-      "nseResponseProto.PurchaseMarketplaceLice" +
-      "nseStatus\"\233\001\n PurchaseMarketplaceLicense" +
-      "Status\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMON" +
-      "DS\020\001\022\034\n\030ALREADY_HAVE_LICENSE_NOW\020\002\022\016\n\nOT" +
-      "HER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER" +
-      "_TIME\020\004\"\213\001\n\035ReferralCodeUsedResponseProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim",
-      "umUserProto\0228\n\016referredPlayer\030\002 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\"_\n\032EquipEq" +
-      "uipmentRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022\017\n\007equipId" +
-      "\030\002 \002(\005\"\274\002\n\033EquipEquipmentResponseProto\0220" +
+      "roto.MinimumUserProto\022<\n\024newlyAvailableQ" +
+      "uests\030\002 \003(\0132\036.com.lvl6.proto.FullQuestPr" +
+      "oto\022J\n\006status\030\003 \002(\0162:.com.lvl6.proto.Que" +
+      "stRedeemResponseProto.QuestRedeemStatus\"",
+      "B\n\021QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT" +
+      "_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"O\n\033QuestLogD" +
+      "etailsRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\"\247\002\n\034QuestLo" +
+      "gDetailsResponseProto\0220\n\006sender\030\001 \002(\0132 ." +
+      "com.lvl6.proto.MinimumUserProto\022L\n\027inPro" +
+      "gressUserQuestData\030\002 \003(\0132+.com.lvl6.prot" +
+      "o.FullUserQuestDataLargeProto\022R\n\006status\030" +
+      "\003 \002(\0162B.com.lvl6.proto.QuestLogDetailsRe" +
+      "sponseProto.QuestLogDetailsStatus\"3\n\025Que",
+      "stLogDetailsStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_" +
+      "FAIL\020\001\"\275\002\n\036RetrieveStaticDataRequestProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskId" +
+      "s\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003" +
+      "(\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021buildStructJobId" +
+      "s\030\007 \003(\005\022\030\n\020defeatTypeJobIds\030\010 \003(\005\022\032\n\022pos" +
+      "sessEquipJobIds\030\t \003(\005\022\033\n\023upgradeStructJo" +
+      "bIds\030\n \003(\005\022\"\n\032levelForExpRequiredRequest" +
+      "\030\013 \001(\005\"\371\005\n\037RetrieveStaticDataResponsePro",
+      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
+      "mumUserProto\0223\n\007structs\030\002 \003(\0132\".com.lvl6" +
+      ".proto.FullStructureProto\022,\n\005tasks\030\003 \003(\013" +
+      "2\035.com.lvl6.proto.FullTaskProto\022.\n\006quest" +
+      "s\030\004 \003(\0132\036.com.lvl6.proto.FullQuestProto\022" +
+      "-\n\006cities\030\005 \003(\0132\035.com.lvl6.proto.FullCit" +
+      "yProto\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.proto." +
+      "FullEquipProto\022<\n\017buildStructJobs\030\007 \003(\0132" +
+      "#.com.lvl6.proto.BuildStructJobProto\022:\n\016" +
+      "defeatTypeJobs\030\010 \003(\0132\".com.lvl6.proto.De",
+      "featTypeJobProto\022>\n\020possessEquipJobs\030\t \003" +
+      "(\0132$.com.lvl6.proto.PossessEquipJobProto" +
+      "\022@\n\021upgradeStructJobs\030\n \003(\0132%.com.lvl6.p" +
+      "roto.UpgradeStructJobProto\022$\n\034expRequire" +
+      "dForRequestedLevel\030\013 \001(\005\022X\n\006status\030\014 \002(\016" +
+      "2H.com.lvl6.proto.RetrieveStaticDataResp" +
+      "onseProto.RetrieveStaticDataStatus\"6\n\030Re" +
+      "trieveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tS" +
+      "OME_FAIL\020\001\"\244\001\n!PurchaseCityExpansionRequ" +
+      "estProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot",
+      "o.MinimumUserProto\0225\n\tdirection\030\002 \002(\0162\"." +
+      "com.lvl6.proto.ExpansionDirection\022\026\n\016tim" +
+      "eOfPurchase\030\003 \002(\003\"\305\002\n\"PurchaseCityExpans" +
+      "ionResponseProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022^\n\006status\030\002 \002" +
+      "(\0162N.com.lvl6.proto.PurchaseCityExpansio" +
+      "nResponseProto.PurchaseCityExpansionStat" +
+      "us\"\214\001\n\033PurchaseCityExpansionStatus\022\013\n\007SU" +
+      "CCESS\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREADY" +
+      "_EXPANDING\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_T",
+      "OO_AHEAD_OF_SERVER_TIME\020\004\"f\n!ExpansionWa" +
+      "itCompleteRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022\017\n\007curT" +
+      "ime\030\002 \002(\003\"\301\002\n\"ExpansionWaitCompleteRespo" +
+      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022^\n\006status\030\002 \002(\0162N.com" +
+      ".lvl6.proto.ExpansionWaitCompleteRespons" +
+      "eProto.ExpansionWaitCompleteStatus\"\210\001\n\033E" +
+      "xpansionWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022" +
+      "\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YET\020\002",
+      "\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_" +
+      "SERVER_TIME\020\004\"\373\001\n\"RefillStatWaitComplete" +
+      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022\017\n\007curTime\030\002 \002(\003\022" +
+      "[\n\004type\030\003 \002(\0162M.com.lvl6.proto.RefillSta" +
+      "tWaitCompleteRequestProto.RefillStatWait" +
+      "CompleteType\"5\n\032RefillStatWaitCompleteTy" +
+      "pe\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\300\002\n#RefillSt" +
+      "atWaitCompleteResponseProto\0220\n\006sender\030\001 " +
+      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022`\n",
+      "\006status\030\002 \002(\0162P.com.lvl6.proto.RefillSta" +
+      "tWaitCompleteResponseProto.RefillStatWai" +
+      "tCompleteStatus\"\204\001\n\034RefillStatWaitComple" +
+      "teStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READY_YET\020\001" +
+      "\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLI" +
+      "ENT_TOO_AHEAD_OF_SERVER_TIME\020\004\"_\n\026Enable" +
+      "APNSRequestProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\023\n\013deviceToke" +
+      "n\030\002 \002(\t\"\307\001\n\027EnableAPNSResponseProto\0220\n\006s" +
+      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser",
+      "Proto\022H\n\006status\030\002 \002(\01628.com.lvl6.proto.E" +
+      "nableAPNSResponseProto.EnableAPNSStatus\"" +
+      "0\n\020EnableAPNSStatus\022\013\n\007SUCCESS\020\000\022\017\n\013NOT_" +
+      "ENABLED\020\001\"\353\001\n&PurchaseMarketplaceLicense" +
+      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022\022\n\nclientTime\030\002 \002" +
+      "(\003\022W\n\013licenseType\030\003 \002(\0162B.com.lvl6.proto" +
+      ".PurchaseMarketplaceLicenseRequestProto." +
+      "LicenseType\"\"\n\013LicenseType\022\t\n\005SHORT\020\000\022\010\n" +
+      "\004LONG\020\001\"\343\002\n\'PurchaseMarketplaceLicenseRe",
+      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022h\n\006status\030\002 \002(\0162X." +
+      "com.lvl6.proto.PurchaseMarketplaceLicens" +
+      "eResponseProto.PurchaseMarketplaceLicens" +
+      "eStatus\"\233\001\n PurchaseMarketplaceLicenseSt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS" +
+      "\020\001\022\034\n\030ALREADY_HAVE_LICENSE_NOW\020\002\022\016\n\nOTHE" +
+      "R_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_T" +
+      "IME\020\004\"\213\001\n\035ReferralCodeUsedResponseProto\022" +
+      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum",
+      "UserProto\0228\n\016referredPlayer\030\002 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\"_\n\032EquipEqui" +
+      "pmentRequestProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022\017\n\007equipId\030\002" +
+      " \002(\005\"\274\002\n\033EquipEquipmentResponseProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022P\n\006status\030\002 \002(\0162@.com.lvl6.proto." +
+      "EquipEquipmentResponseProto.EquipEquipme" +
+      "ntStatus\"\230\001\n\024EquipEquipmentStatus\022\013\n\007SUC" +
+      "CESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_LEVEL\020\001\022\034\n\030DOE",
+      "S_NOT_HAVE_THIS_EQUIP\020\002\022\020\n\014NOT_AN_EQUIP\020" +
+      "\003\022\030\n\024INCORRECT_CLASS_TYPE\020\004\022\016\n\nOTHER_FAI" +
+      "L\020\005\"\207\001\n\036ChangeUserLocationRequestProto\0220" +
       "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022P\n\006status\030\002 \002(\0162@.com.lvl6.prot" +
-      "o.EquipEquipmentResponseProto.EquipEquip" +
-      "mentStatus\"\230\001\n\024EquipEquipmentStatus\022\013\n\007S" +
-      "UCCESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_LEVEL\020\001\022\034\n\030D",
-      "OES_NOT_HAVE_THIS_EQUIP\020\002\022\020\n\014NOT_AN_EQUI" +
-      "P\020\003\022\030\n\024INCORRECT_CLASS_TYPE\020\004\022\016\n\nOTHER_F" +
-      "AIL\020\005\"\207\001\n\036ChangeUserLocationRequestProto" +
-      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\0223\n\014userLocation\030\002 \002(\0132\035.com.l" +
-      "vl6.proto.LocationProto\"\372\001\n\037ChangeUserLo" +
-      "cationResponseProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022X\n\006status\030" +
-      "\002 \002(\0162H.com.lvl6.proto.ChangeUserLocatio" +
-      "nResponseProto.ChangeUserLocationStatus\"",
-      "K\n\030ChangeUserLocationStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\022\n\016INVALID_BOUNDS\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\033" +
-      "LoadNeutralCityRequestProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022\016\n" +
-      "\006cityId\030\002 \002(\005\"\277\003\n\034LoadNeutralCityRespons" +
-      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022R\n\006status\030\002 \002(\0162B.com.l" +
-      "vl6.proto.LoadNeutralCityResponseProto.L" +
-      "oadNeutralCityStatus\022;\n\ruserTasksInfo\030\003 " +
-      "\003(\0132$.com.lvl6.proto.MinimumUserTaskProt",
-      "o\022;\n\024defeatTypeJobEnemies\030\004 \003(\0132\035.com.lv" +
-      "l6.proto.FullUserProto\022=\n\014cityElements\030\005" +
-      " \003(\0132\'.com.lvl6.proto.NeutralCityElement" +
-      "Proto\022\016\n\006cityId\030\006 \002(\005\"P\n\025LoadNeutralCity" +
-      "Status\022\013\n\007SUCCESS\020\000\022\032\n\026NOT_ACCESSIBLE_TO" +
-      "_USER\020\001\022\016\n\nOTHER_FAIL\020\002B\014B\nEventProto"
+      "serProto\0223\n\014userLocation\030\002 \002(\0132\035.com.lvl" +
+      "6.proto.LocationProto\"\372\001\n\037ChangeUserLoca" +
+      "tionResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022X\n\006status\030\002 " +
+      "\002(\0162H.com.lvl6.proto.ChangeUserLocationR" +
+      "esponseProto.ChangeUserLocationStatus\"K\n",
+      "\030ChangeUserLocationStatus\022\013\n\007SUCCESS\020\000\022\022" +
+      "\n\016INVALID_BOUNDS\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\033Lo" +
+      "adNeutralCityRequestProto\0220\n\006sender\030\001 \002(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022\016\n\006c" +
+      "ityId\030\002 \002(\005\"\277\003\n\034LoadNeutralCityResponseP" +
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022R\n\006status\030\002 \002(\0162B.com.lvl" +
+      "6.proto.LoadNeutralCityResponseProto.Loa" +
+      "dNeutralCityStatus\022;\n\ruserTasksInfo\030\003 \003(" +
+      "\0132$.com.lvl6.proto.MinimumUserTaskProto\022",
+      ";\n\024defeatTypeJobEnemies\030\004 \003(\0132\035.com.lvl6" +
+      ".proto.FullUserProto\022=\n\014cityElements\030\005 \003" +
+      "(\0132\'.com.lvl6.proto.NeutralCityElementPr" +
+      "oto\022\016\n\006cityId\030\006 \002(\005\"P\n\025LoadNeutralCitySt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\032\n\026NOT_ACCESSIBLE_TO_U" +
+      "SER\020\001\022\016\n\nOTHER_FAIL\020\002B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -72279,7 +72279,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_QuestRedeemResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_QuestRedeemResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "UpdatedAvailableQuests", "Status", },
+              new java.lang.String[] { "Sender", "NewlyAvailableQuests", "Status", },
               com.lvl6.proto.EventProto.QuestRedeemResponseProto.class,
               com.lvl6.proto.EventProto.QuestRedeemResponseProto.Builder.class);
           internal_static_com_lvl6_proto_QuestLogDetailsRequestProto_descriptor =

@@ -879,7 +879,7 @@ message QuestRedeemRequestProto {
 																						//DONE
 message QuestRedeemResponseProto {
      required MinimumUserProto sender = 1;
-     repeated FullQuestProto updatedAvailableQuests = 2;
+     repeated FullQuestProto newlyAvailableQuests = 2;
      required QuestRedeemStatus status = 3;    
 
      enum QuestRedeemStatus {
