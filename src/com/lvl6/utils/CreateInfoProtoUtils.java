@@ -495,31 +495,28 @@ public class CreateInfoProtoUtils {
   }
 
   private static MinimumUserPossessEquipJobProto createMinimumUserPossessEquipJobProto(UserQuest userQuest, PossessEquipJob possessEquipJob, int quantityOwned) {
-    PossessEquipJobProto pejp = createFullPossessEquipJobProtoFromPossessEquipJob(possessEquipJob);
-    return MinimumUserPossessEquipJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setPossessEquipJobProto(pejp).setNumEquipUserHas(quantityOwned).build();
+    return MinimumUserPossessEquipJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setPossessEquipJobId(possessEquipJob.getId()).setNumEquipUserHas(quantityOwned).build();
   }
 
   private static MinimumUserUpgradeStructJobProto createMinimumUserUpgradeStructJobProto(UserQuest userQuest, UpgradeStructJob upgradeStructJob, boolean isComplete) {
-    UpgradeStructJobProto usjp = createFullUpgradeStructJobProtoFromUpgradeStructJob(upgradeStructJob);
-    return MinimumUserUpgradeStructJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setUpgradeStructJob(usjp).setIsComplete(isComplete).build();
+    return MinimumUserUpgradeStructJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setUpgradeStructJobId(upgradeStructJob.getId()).setIsComplete(isComplete).build();
   }
 
   private static MinimumUserBuildStructJobProto createMinimumUserBuildStructJobProto(UserQuest userQuest, BuildStructJob buildStructJob, int quantityOwned) {
-    BuildStructJobProto bsjp = createFullBuildStructJobProtoFromBuildStructJob(buildStructJob);
-    return MinimumUserBuildStructJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setBuildStructJob(bsjp).setNumOfStructUserHas(quantityOwned).build();
+    return MinimumUserBuildStructJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setBuildStructJobId(buildStructJob.getId()).setNumOfStructUserHas(quantityOwned).build();
   }
 
   private static MinimumUserDefeatTypeJobProto createMinimumUserDefeatTypeJobProto(UserQuest userQuest, UserType userType, Integer requiredDefeatTypeJobId, boolean defeatJobCompletedForQuest, 
       Integer numTimesUserDidJob) {
-    DefeatTypeJobProto fdtjp = createFullDefeatTypeJobProtoFromDefeatTypeJob(DefeatTypeJobRetrieveUtils.getDefeatTypeJobForDefeatTypeJobId(requiredDefeatTypeJobId));
-    int numDefeated = (defeatJobCompletedForQuest) ? fdtjp.getNumEnemiesToDefeat() : numTimesUserDidJob;
-    return MinimumUserDefeatTypeJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setDefeatTypeJobId(fdtjp).setNumDefeated(numDefeated).build();
+    DefeatTypeJob dtj = DefeatTypeJobRetrieveUtils.getDefeatTypeJobForDefeatTypeJobId(requiredDefeatTypeJobId);
+    int numDefeated = (defeatJobCompletedForQuest) ? dtj.getNumEnemiesToDefeat() : numTimesUserDidJob;
+    return MinimumUserDefeatTypeJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setDefeatTypeJobId(requiredDefeatTypeJobId).setNumDefeated(numDefeated).build();
   }
 
   private static MinimumUserQuestTaskProto createMinimumUserQuestTaskProto(UserQuest userQuest, UserType userType, Integer requiredTaskId, boolean taskCompletedForQuest, Integer numTimesUserActed) {
-    FullTaskProto ftp = createFullTaskProtoFromTask(userType, TaskRetrieveUtils.getTaskForTaskId(requiredTaskId));
-    int numTimesCompleted = (taskCompletedForQuest) ? ftp.getNumRequiredForCompletion() : numTimesUserActed;
-    return MinimumUserQuestTaskProto.newBuilder().setUserId(userQuest.getUserId()).setTask(ftp).setNumTimesActed(numTimesCompleted).setQuestId(userQuest.getQuestId()).build();
+    Task task = TaskRetrieveUtils.getTaskForTaskId(requiredTaskId);
+    int numTimesCompleted = (taskCompletedForQuest) ? task.getNumForCompletion() : numTimesUserActed;
+    return MinimumUserQuestTaskProto.newBuilder().setUserId(userQuest.getUserId()).setTaskId(requiredTaskId).setNumTimesActed(numTimesCompleted).setQuestId(userQuest.getQuestId()).build();
   }
 
 }
