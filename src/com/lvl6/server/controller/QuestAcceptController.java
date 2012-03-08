@@ -73,16 +73,16 @@ public class QuestAcceptController extends EventController {
   }
 
   private void writeChangesToDB(User user, Quest quest) {
-    boolean tasksComplete = (quest.getTasksRequired() == null) ? true : false;
+    boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
     
     boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
     boolean defeatTypeJobsComplete = true;
     if (goodSide) {
-      if (quest.getDefeatBadGuysJobsRequired() != null) {
+      if (quest.getDefeatBadGuysJobsRequired() != null || quest.getDefeatBadGuysJobsRequired().size() > 0) {
         defeatTypeJobsComplete = false;
       }
     } else {
-      if (quest.getDefeatGoodGuysJobsRequired() != null) {
+      if (quest.getDefeatGoodGuysJobsRequired() != null || quest.getDefeatGoodGuysJobsRequired().size() > 0) {
         defeatTypeJobsComplete = false;
       }      
     }
