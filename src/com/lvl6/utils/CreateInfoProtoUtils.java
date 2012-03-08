@@ -439,16 +439,15 @@ public class CreateInfoProtoUtils {
             for (Integer upgradeStructJobId : quest.getUpgradeStructJobsRequired()) {
               UpgradeStructJob upgradeStructJob = UpgradeStructJobRetrieveUtils.getUpgradeStructJobForUpgradeStructJobId(upgradeStructJobId);
               List<UserStruct> userStructs = structIdsToUserStructs.get(upgradeStructJob.getStructId());
-              boolean isComplete = false;
+              int currentLevel = 0;
               if (userStructs != null) {
                 for (UserStruct us : userStructs) {
-                  if (us.getLevel() >= upgradeStructJob.getLevelReq()) {
-                    isComplete = true;
-                    break;
+                  if (us.getLevel() > currentLevel) {
+                    currentLevel = us.getLevel();
                   }
                 }
               }
-              builder.addRequiredUpgradeStructJobProgress(createMinimumUserUpgradeStructJobProto(userQuest, upgradeStructJob, isComplete));
+              builder.addRequiredUpgradeStructJobProgress(createMinimumUserUpgradeStructJobProto(userQuest, upgradeStructJob, currentLevel));
             }
           }
           if (quest.getPossessEquipJobsRequired() != null && quest.getPossessEquipJobsRequired().size() > 0) {
@@ -505,8 +504,8 @@ public class CreateInfoProtoUtils {
     return MinimumUserPossessEquipJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setPossessEquipJobId(possessEquipJob.getId()).setNumEquipUserHas(quantityOwned).build();
   }
 
-  private static MinimumUserUpgradeStructJobProto createMinimumUserUpgradeStructJobProto(UserQuest userQuest, UpgradeStructJob upgradeStructJob, boolean isComplete) {
-    return MinimumUserUpgradeStructJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setUpgradeStructJobId(upgradeStructJob.getId()).setIsComplete(isComplete).build();
+  private static MinimumUserUpgradeStructJobProto createMinimumUserUpgradeStructJobProto(UserQuest userQuest, UpgradeStructJob upgradeStructJob, int currentLevel) {
+    return MinimumUserUpgradeStructJobProto.newBuilder().setUserId(userQuest.getUserId()).setQuestId(userQuest.getQuestId()).setUpgradeStructJobId(upgradeStructJob.getId()).setCurrentLevel(currentLevel).build();
   }
 
   private static MinimumUserBuildStructJobProto createMinimumUserBuildStructJobProto(UserQuest userQuest, BuildStructJob buildStructJob, int quantityOwned) {

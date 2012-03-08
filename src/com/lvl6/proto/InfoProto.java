@@ -20885,9 +20885,9 @@ public final class InfoProto {
     boolean hasUpgradeStructJobId();
     int getUpgradeStructJobId();
     
-    // required bool isComplete = 4;
-    boolean hasIsComplete();
-    boolean getIsComplete();
+    // required int32 currentLevel = 4;
+    boolean hasCurrentLevel();
+    int getCurrentLevel();
   }
   public static final class MinimumUserUpgradeStructJobProto extends
       com.google.protobuf.GeneratedMessage
@@ -20948,21 +20948,21 @@ public final class InfoProto {
       return upgradeStructJobId_;
     }
     
-    // required bool isComplete = 4;
-    public static final int ISCOMPLETE_FIELD_NUMBER = 4;
-    private boolean isComplete_;
-    public boolean hasIsComplete() {
+    // required int32 currentLevel = 4;
+    public static final int CURRENTLEVEL_FIELD_NUMBER = 4;
+    private int currentLevel_;
+    public boolean hasCurrentLevel() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public boolean getIsComplete() {
-      return isComplete_;
+    public int getCurrentLevel() {
+      return currentLevel_;
     }
     
     private void initFields() {
       userId_ = 0;
       questId_ = 0;
       upgradeStructJobId_ = 0;
-      isComplete_ = false;
+      currentLevel_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -20981,7 +20981,7 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasIsComplete()) {
+      if (!hasCurrentLevel()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -21002,7 +21002,7 @@ public final class InfoProto {
         output.writeInt32(3, upgradeStructJobId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBool(4, isComplete_);
+        output.writeInt32(4, currentLevel_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -21027,7 +21027,7 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, isComplete_);
+          .computeInt32Size(4, currentLevel_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -21159,7 +21159,7 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         upgradeStructJobId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        isComplete_ = false;
+        currentLevel_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
@@ -21214,7 +21214,7 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.isComplete_ = isComplete_;
+        result.currentLevel_ = currentLevel_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -21240,8 +21240,8 @@ public final class InfoProto {
         if (other.hasUpgradeStructJobId()) {
           setUpgradeStructJobId(other.getUpgradeStructJobId());
         }
-        if (other.hasIsComplete()) {
-          setIsComplete(other.getIsComplete());
+        if (other.hasCurrentLevel()) {
+          setCurrentLevel(other.getCurrentLevel());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -21260,7 +21260,7 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasIsComplete()) {
+        if (!hasCurrentLevel()) {
           
           return false;
         }
@@ -21307,7 +21307,7 @@ public final class InfoProto {
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              isComplete_ = input.readBool();
+              currentLevel_ = input.readInt32();
               break;
             }
           }
@@ -21379,23 +21379,23 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isComplete = 4;
-      private boolean isComplete_ ;
-      public boolean hasIsComplete() {
+      // required int32 currentLevel = 4;
+      private int currentLevel_ ;
+      public boolean hasCurrentLevel() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public boolean getIsComplete() {
-        return isComplete_;
+      public int getCurrentLevel() {
+        return currentLevel_;
       }
-      public Builder setIsComplete(boolean value) {
+      public Builder setCurrentLevel(int value) {
         bitField0_ |= 0x00000008;
-        isComplete_ = value;
+        currentLevel_ = value;
         onChanged();
         return this;
       }
-      public Builder clearIsComplete() {
+      public Builder clearCurrentLevel() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        isComplete_ = false;
+        currentLevel_ = 0;
         onChanged();
         return this;
       }
@@ -24951,40 +24951,40 @@ public final class InfoProto {
       "(\005\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildS" +
       "tructJobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022" +
       "\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 " +
-      "\002(\005\"s\n MinimumUserUpgradeStructJobProto\022" +
+      "\002(\005\"u\n MinimumUserUpgradeStructJobProto\022" +
       "\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\032\n\022upgr",
-      "adeStructJobId\030\003 \002(\005\022\022\n\nisComplete\030\004 \002(\010" +
-      "\"W\n\025UpgradeStructJobProto\022\032\n\022upgradeStru" +
-      "ctJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010level" +
-      "Req\030\003 \002(\005\"v\n\037MinimumUserPossessEquipJobP" +
-      "roto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\031\n" +
-      "\021possessEquipJobId\030\003 \002(\005\022\027\n\017numEquipUser" +
-      "Has\030\004 \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021pos" +
-      "sessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n" +
-      "\013quantityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022\017\n" +
-      "\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003",
-      " \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneRespons" +
-      "e\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumW" +
-      "ithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016" +
-      "diamondsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022" +
-      "\025\n\requipIdGained\030\013 \001(\005\022\035\n\025questsRequired" +
-      "ForThis\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgra" +
-      "deStructJobsReqs\030\016 \003(\005\022\033\n\023buildStructJob" +
-      "sReqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023p" +
-      "ossessEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020\n\014" +
-      "GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_",
-      "MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022" +
-      "\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKE" +
-      "R_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FL" +
-      "EE\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIUM_E" +
-      "QUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Mark" +
-      "etplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SE" +
-      "LL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\nLU" +
-      "MBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006" +
-      "ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrien" +
-      "tation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*@",
-      "\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010F" +
-      "AR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
+      "adeStructJobId\030\003 \002(\005\022\024\n\014currentLevel\030\004 \002" +
+      "(\005\"W\n\025UpgradeStructJobProto\022\032\n\022upgradeSt" +
+      "ructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010lev" +
+      "elReq\030\003 \002(\005\"v\n\037MinimumUserPossessEquipJo" +
+      "bProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022" +
+      "\031\n\021possessEquipJobId\030\003 \002(\005\022\027\n\017numEquipUs" +
+      "erHas\030\004 \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021p" +
+      "ossessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022" +
+      "\023\n\013quantityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022" +
+      "\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name",
+      "\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneRespo" +
+      "nse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNu" +
+      "mWithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026" +
+      "\n\016diamondsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(" +
+      "\005\022\025\n\requipIdGained\030\013 \001(\005\022\035\n\025questsRequir" +
+      "edForThis\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upg" +
+      "radeStructJobsReqs\030\016 \003(\005\022\033\n\023buildStructJ" +
+      "obsReqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n" +
+      "\023possessEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020" +
+      "\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOO",
+      "D_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020" +
+      "\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTAC" +
+      "KER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_" +
+      "FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIUM" +
+      "_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Ma" +
+      "rketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004" +
+      "SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\n" +
+      "LUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n" +
+      "\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOri" +
+      "entation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001",
+      "*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n" +
+      "\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -25180,7 +25180,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_MinimumUserUpgradeStructJobProto_descriptor,
-              new java.lang.String[] { "UserId", "QuestId", "UpgradeStructJobId", "IsComplete", },
+              new java.lang.String[] { "UserId", "QuestId", "UpgradeStructJobId", "CurrentLevel", },
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.class,
               com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto.Builder.class);
           internal_static_com_lvl6_proto_UpgradeStructJobProto_descriptor =
