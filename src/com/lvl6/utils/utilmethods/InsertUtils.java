@@ -1,8 +1,10 @@
 package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -20,6 +22,32 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
 public class InsertUtils {
+  
+  public static boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity) {
+    if (equipIds != null && equipIds.size() > 0) {
+      
+    }
+    
+//insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
+
+    
+    
+    Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
+    insertParams.put(DBConstants.USER_EQUIP__USER_ID, new ArrayList<Object>());
+    insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, new ArrayList<Object>());
+    insertParams.put(DBConstants.USER_EQUIP__QUANTITY, new ArrayList<Object>());
+    for (Integer equipId : equipIds) {
+      insertParams.get(DBConstants.USER_EQUIP__USER_ID).add(userId);
+      insertParams.get(DBConstants.USER_EQUIP__EQUIP_ID).add(equipId);
+      insertParams.get(DBConstants.USER_EQUIP__QUANTITY).add(quantity);
+    }
+    
+    int numInserted = DBConnection.insertIntoTableMultipleRows(DBConstants.TABLE_USER_EQUIP, insertParams, equipIds.size());
+    if (numInserted == equipIds.size()) {
+      return true;
+    }
+    return false;
+  }
   
   public static boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary, CoordinatePair carpenter) {
     Map <String, Object> insertParams = new HashMap<String, Object>();

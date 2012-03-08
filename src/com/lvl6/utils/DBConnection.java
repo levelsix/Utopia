@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class DBConnection {
   protected static Logger log;
 
   private static final TimeZone timeZone = TimeZone.getDefault();
-  
+
   private static final int NUM_CONNECTIONS = 5;
   private static BlockingQueue<Connection> availableConnections;
 
@@ -109,7 +110,7 @@ public class DBConnection {
     return selectRows(null, absoluteConditionParams, greaterThanConditionParams, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  
+
   /*assumes number of ? in the query = values.size()*/
   public static ResultSet selectDirectQueryNaive(String query, List<Object> values) {
     ResultSet rs = null;
@@ -252,7 +253,76 @@ public class DBConnection {
           }
         }
         int numUpdated = stmt.executeUpdate();
-          availableConnections.put(conn);
+        availableConnections.put(conn);
+        conn = null;
+        return numUpdated;
+      } catch (SQLException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      } catch (InterruptedException e) {
+        log.error("problem with " + query, e);
+        e.printStackTrace();
+      } finally {
+        if (conn != null) {
+          try {
+            availableConnections.put(conn);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+    return 0;
+  }
+
+  /*
+   * assumes every list for each column is numRows length
+   */
+  public static int insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
+    List<String> questionsPerRow = new LinkedList<String>();
+    List<String> columns = new LinkedList<String>();
+    List<Object> values = new LinkedList<Object>();
+
+    if (numRows > 0 && insertParams != null && insertParams.size() > 0) {
+      boolean firstTime = true;
+      for (int i = 0; i < numRows; i++) {
+        for (String column : insertParams.keySet()) {
+          List<Object> valuesForColumn = insertParams.get(column);
+          values.add(valuesForColumn.get(i));
+
+          if (firstTime) {
+            if (valuesForColumn.size() != numRows) {
+              return 0;
+            }
+            columns.add(column);
+            questionsPerRow.add("?");
+          }
+        }
+        firstTime = false;
+      }
+
+      String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES ";
+
+      List<String> valuesStrings = new ArrayList<String>();
+      String rowQuestionsString = StringUtils.getListInString(questionsPerRow, ",");
+      for (int i = 0; i < numRows; i++) {
+        valuesStrings.add("(" + rowQuestionsString + ")");
+      }
+      query += StringUtils.getListInString(valuesStrings, ",");
+
+      Connection conn = null;
+      try {
+        conn = availableConnections.take();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        if (values.size()>0) {
+          int i = 1;
+          for (Object value : values) {
+            stmt.setObject(i, value);
+            i++;
+          }
+        }
+        int numUpdated = stmt.executeUpdate();
+        availableConnections.put(conn);
         conn = null;
         return numUpdated;
       } catch (SQLException e) {
@@ -300,7 +370,7 @@ public class DBConnection {
           }
         }
         int numUpdated = stmt.executeUpdate();
-          availableConnections.put(conn);
+        availableConnections.put(conn);
         conn = null;
         int generatedKey = 0;
         if (numUpdated == 1) {
@@ -358,7 +428,7 @@ public class DBConnection {
           }
         }
         int numUpdated = stmt.executeUpdate();
-          availableConnections.put(conn);
+        availableConnections.put(conn);
         conn = null;
         return numUpdated;
       } catch (SQLException e) {
