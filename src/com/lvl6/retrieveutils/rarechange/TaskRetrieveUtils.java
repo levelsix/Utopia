@@ -39,6 +39,18 @@ public class TaskRetrieveUtils {
     return taskIdsToTasks.get(taskId);
   }
 
+  public static Map<Integer, Task> getTasksForTaskIds(List<Integer> ids) {
+    log.info("retrieve task data");
+    if (taskIdsToTasks == null) {
+      setStaticTaskIdsToTasks();      
+    }
+    Map<Integer, Task> toreturn = new HashMap<Integer, Task>();
+    for (Integer id : ids) {
+        toreturn.put(id,  taskIdsToTasks.get(id));
+    }
+    return toreturn;
+  }
+
   public static List<Task> getAllTasksForCityId(int cityId) {
     if (cityIdsToTasks == null) {
       setStaticCityIdsToTasks();

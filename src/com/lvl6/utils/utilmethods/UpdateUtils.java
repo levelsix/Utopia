@@ -17,7 +17,7 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
-  
+
   /*
    * used when an expansion is complete
    */
@@ -32,7 +32,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__FAR_LEFT_EXPANSIONS, farLeftExpansionsChange);
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS, farRightExpansionsChange);
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -40,7 +40,7 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
   /*
    * used for purchasing a city expansion
    */
@@ -53,7 +53,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_TIME, lastExpandTime);
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_DIRECTION, lastExpansionDirection.getNumber());
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -61,7 +61,7 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
   /*
    * changin orientation
    */
@@ -74,7 +74,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_QUESTS__IS_REDEEMED, true);
     absoluteParams.put(DBConstants.USER_QUESTS__TASKS_COMPLETE, true);
     absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true);
-    
+
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -82,7 +82,7 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
   /*
    * changin orientation
    */
@@ -157,7 +157,7 @@ public class UpdateUtils {
     }
     return false;
   }
-  
+
   /*
    * used for moving user structs
    */
@@ -423,7 +423,7 @@ public class UpdateUtils {
     }
     return false;
   }  
-  
+
 
   public static boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, int defeatTypeJobId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
@@ -441,6 +441,24 @@ public class UpdateUtils {
     }
     return false;
   }
+
+  public static boolean incrementUserQuestTaskProgress(int userId, int questId, int taskId, int increment) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__QUEST_ID, questId);
+    insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__TASK_ID, taskId);
+    insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
+
+    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, insertParams, 
+        DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
+
+    if (numUpdated == 1 || numUpdated == 1*2) {
+      return true;
+    }
+    return false;
+  }
+
 
 
   public static boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
@@ -460,4 +478,5 @@ public class UpdateUtils {
     }
     return false;
   }
+
 }

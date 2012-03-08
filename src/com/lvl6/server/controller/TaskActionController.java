@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedTasksRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -150,10 +152,7 @@ public class TaskActionController extends EventController {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        if (taskCompleted) {
-          boolean equipCheck = (lootEquipId > ControllerConstants.NOT_SET);
-          checkQuestsPostTaskAction(user, task, senderProto, equipCheck);
-        }
+        checkQuestsPostTaskAction(user, task, senderProto, lootEquipId > ControllerConstants.NOT_SET);
       }
     } catch (Exception e) {
       log.error("exception in TaskActionController processEvent", e);
@@ -164,36 +163,65 @@ public class TaskActionController extends EventController {
 
   private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto, boolean equipCheck) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(user.getId());
-    
+
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
+      Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = null;
+
       for (UserQuest userQuest : inProgressUserQuests) {
+        boolean questCheckedForCompletion = false;
         if (!userQuest.isTasksComplete()) {
-          if (questIdToUserTasksCompletedForQuestForUser == null) {
-            questIdToUserTasksCompletedForQuestForUser = UserQuestsCompletedTasksRetrieveUtils.getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
-          }
-          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
+          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest
+              .getQuestId());
+
           if (quest != null) {
-            if (quest.getTasksRequired() != null && quest.getTasksRequired().contains(task.getId())) {
-              List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser.get(userQuest.getQuestId());
+            List<Integer> tasksRequired = quest.getTasksRequired();
+            if (tasksRequired != null) {
+              if (questIdToUserTasksCompletedForQuestForUser == null) {
+                questIdToUserTasksCompletedForQuestForUser = UserQuestsCompletedTasksRetrieveUtils.getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
+              }
+              List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser.get(quest.getId());
               if (userCompletedTasksForQuest == null) userCompletedTasksForQuest = new ArrayList<Integer>();
-              if (!userCompletedTasksForQuest.contains(task.getId())) {
-                if (InsertUtils.insertCompletedTaskIdForUserQuest(user.getId(), task.getId(), quest.getId())) {
-                  userCompletedTasksForQuest.add(task.getId());
-                  if (userCompletedTasksForQuest.containsAll(quest.getTasksRequired())) {
-                    if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
-                      userQuest.setTasksComplete(true);
-                      QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
+              List<Integer> tasksRemaining = new ArrayList<Integer>(tasksRequired);
+              tasksRemaining.removeAll(userCompletedTasksForQuest);
+              
+              Map<Integer, Task> remainingTaskMap = TaskRetrieveUtils.getTasksForTaskIds(tasksRemaining);
+              if (remainingTaskMap != null && remainingTaskMap.size() > 0) {
+                for (Task remainingTask : remainingTaskMap.values()) {
+                  if (remainingTask.getCityId() == task.getId()) {
+                    if (questIdToTaskIdsToNumTimesActedInQuest == null) {
+                      questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest.getUserId());
+                    }
+                    Map<Integer, Integer> taskIdToNumTimesActed = questIdToTaskIdsToNumTimesActedInQuest.get(userQuest.getQuestId()); 
+                    
+                    if (taskIdToNumTimesActed == null) taskIdToNumTimesActed = new HashMap<Integer, Integer>();
+                    if (taskIdToNumTimesActed.get(remainingTask.getId()) != null && 
+                        taskIdToNumTimesActed.get(remainingTask.getId()) + 1 == remainingTask.getNumForCompletion()) {
+                      //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
+                      if (InsertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
+                        userCompletedTasksForQuest.add(remainingTask.getId());
+                        if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
+                          if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
+                            userQuest.setTasksComplete(true);
+                            QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
+                            questCheckedForCompletion = true;
+                          } else {
+                            log.error("problem with marking tasks completed for a user quest");
+                          }
+                        }
+                      } else {
+                        log.error("problem with adding tasks to user's completed tasks for quest");
+                      }
                     } else {
-                      log.error("problem with marking tasks completed for a user quest");
+                      if (!UpdateUtils.incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
+                        log.error("problem with updating user quest task progress");
+                      }
                     }
                   }
-                } else {
-                  log.error("problem with adding task to user's completed tasks for quest");
                 }
               }
             }
-            if (equipCheck) {
+            if (equipCheck && !questCheckedForCompletion) {
               QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
             }
           }
@@ -229,7 +257,7 @@ public class TaskActionController extends EventController {
           log.error("problem with incrementing user equip post-task");
         }
       }
-      
+
       boolean simulateEnergyRefill = (user.getEnergy() == user.getEnergyMax());
       if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1, simulateEnergyRefill, clientTime)) {
         log.error("problem with updating user stats post-task");
@@ -276,7 +304,7 @@ public class TaskActionController extends EventController {
       resBuilder.setStatus(TaskActionStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }
-    
+
     if (user.getEnergy() < task.getEnergyCost()) {
       resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ENERGY);
       return false;

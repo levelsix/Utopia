@@ -76,7 +76,6 @@ public class BattleController extends EventController {
       User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
       User defender = UserRetrieveUtils.getUserById(defenderProto.getUserId());
 
-
       BattleResponseProto.Builder resBuilder = BattleResponseProto.newBuilder();
 
       resBuilder.setAttacker(attackerProto);
@@ -195,6 +194,7 @@ public class BattleController extends EventController {
       Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = null;
 
       for (UserQuest userQuest : inProgressUserQuests) {
+        boolean questCheckedForCompletion = false;
         if (!userQuest.isDefeatTypeJobsComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest
               .getQuestId());
@@ -232,6 +232,7 @@ public class BattleController extends EventController {
                           if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
                             userQuest.setDefeatTypeJobsComplete(true);
                             QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, attackerProto, true);
+                            questCheckedForCompletion = true;
                           } else {
                             log.error("problem with marking defeat type jobs completed for a user quest");
                           }
@@ -248,7 +249,7 @@ public class BattleController extends EventController {
                 }
               }
             }
-            if (equipCheck) {
+            if (equipCheck && !questCheckedForCompletion) {
               QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, attackerProto, true);
             }
           }

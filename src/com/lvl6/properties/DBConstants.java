@@ -13,6 +13,7 @@ public class DBConstants {
   public static final String TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS = "user_quests_completed_defeat_type_jobs";
   public static final String TABLE_USER_QUESTS_COMPLETED_TASKS = "user_quests_completed_tasks";
   public static final String TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS = "user_quests_defeat_type_job_progress";
+  public static final String TABLE_USER_QUESTS_TASK_PROGRESS = "user_quests_task_progress";
   public static final String TABLE_EQUIPMENT = "equipment";
   public static final String TABLE_TASKS = "tasks";
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
@@ -197,11 +198,17 @@ public class DBConstants {
   public static final String USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID = "completed_defeat_type_job_id";
 
-  /*USER DEFEAT TYPE JOB PROGRESS*/
+  /*USER QUESTS DEFEAT TYPE JOB PROGRESS*/
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID = GENERIC__USER_ID;
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID = "defeat_type_job_id";
   public static final String USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED = "num_defeated";
+  
+  /*USER QUESTS DEFEAT TYPE JOB PROGRESS*/
+  public static final String USER_QUESTS_TASK_PROGRESS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_QUESTS_TASK_PROGRESS__QUEST_ID = "quest_id";
+  public static final String USER_QUESTS_TASK_PROGRESS__TASK_ID = "task_id";
+  public static final String USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED = "num_times_acted";
   
   /*BATTLE HISTORY*/
   public static final String BATTLE_HISTORY__ATTACKER_ID = "attacker_id";

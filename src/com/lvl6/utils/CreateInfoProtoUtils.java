@@ -63,8 +63,8 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedDefeatTypeJobsRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedTasksRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
-import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -339,7 +339,7 @@ public class CreateInfoProtoUtils {
     List<FullUserQuestDataLargeProto> fullUserQuestDataLargeProtos = new ArrayList<FullUserQuestDataLargeProto>();
 
     Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
-    Map<Integer, Integer> taskIdsToNumTimesActedInRankForUser = null;
+    Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = null;
 
     Map<Integer, List<Integer>> questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
     Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = null;
@@ -357,26 +357,32 @@ public class CreateInfoProtoUtils {
         builder.setQuestId(quest.getId());
         builder.setRedeemed(userQuest.isRedeemed());
         if (!userQuest.isRedeemed()) {
-          if (quest.getTasksRequired() != null && quest.getTasksRequired().size() > 0) {
+          List<Integer> tasksRequired = quest.getTasksRequired(); 
+          if (tasksRequired != null && tasksRequired.size() > 0) {
             if (questIdToUserTasksCompletedForQuestForUser == null) {
               questIdToUserTasksCompletedForQuestForUser = UserQuestsCompletedTasksRetrieveUtils.getQuestIdToUserTasksCompletedForQuestForUser(userQuest.getUserId());
             }
             List<Integer> userTasksCompletedForQuest = questIdToUserTasksCompletedForQuestForUser.get(userQuest.getQuestId());
-            for (Integer requiredTaskId : quest.getTasksRequired()) {
+            for (Integer requiredTaskId : tasksRequired) {
               boolean taskCompletedForQuest = false;
-              Integer numTimesUserActed = null;
+              Integer numTimesActed = null;
               if (userTasksCompletedForQuest != null && userTasksCompletedForQuest.contains(requiredTaskId)) {
                 taskCompletedForQuest = true;
               } else {
-                if (taskIdsToNumTimesActedInRankForUser == null) {
-                  taskIdsToNumTimesActedInRankForUser = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(userQuest.getUserId());
+                if (questIdToTaskIdsToNumTimesActedInQuest == null) {
+                  questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest.getUserId());
                 }
-                numTimesUserActed = taskIdsToNumTimesActedInRankForUser.get(requiredTaskId);
-                if (numTimesUserActed == null) {
-                  numTimesUserActed = 0;
+                Map<Integer, Integer> taskIdsToNumTimesActedForUserQuest = questIdToTaskIdsToNumTimesActedInQuest.get(userQuest.getQuestId());
+                if (taskIdsToNumTimesActedForUserQuest != null) {
+                  numTimesActed = taskIdsToNumTimesActedForUserQuest.get(requiredTaskId);
+                  if (numTimesActed == null) {
+                    numTimesActed = 0;
+                  }
+                } else {
+                  numTimesActed = 0;
                 }
               }
-              builder.addRequiredTasksProgress(createMinimumUserQuestTaskProto(userQuest, userType, requiredTaskId, taskCompletedForQuest, numTimesUserActed));
+              builder.addRequiredTasksProgress(createMinimumUserQuestTaskProto(userQuest, userType, requiredTaskId, taskCompletedForQuest, numTimesActed));
             }
           }
 
@@ -414,6 +420,7 @@ public class CreateInfoProtoUtils {
               builder.addRequiredDefeatTypeJobProgress(createMinimumUserDefeatTypeJobProto(userQuest, userType, requiredDefeatTypeJobId, defeatJobCompletedForQuest, numTimesUserDidJob));
             }
           }
+          
           if (quest.getBuildStructJobsRequired() != null && quest.getBuildStructJobsRequired().size() > 0) {
             if (structIdsToUserStructs == null) {
               structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(userQuest.getUserId());              
