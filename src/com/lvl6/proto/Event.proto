@@ -892,19 +892,22 @@ message QuestRedeemResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message QuestLogDetailsRequestProto {
+//if no questId supplied, returns userquestdetails for all in progress quests
+message UserQuestDetailsRequestProto {
      required MinimumUserProto sender = 1;
+     optional int32 questId = 2;
 }
 
-message QuestLogDetailsResponseProto {
+message UserQuestDetailsResponseProto {
      required MinimumUserProto sender = 1;
      repeated FullUserQuestDataLargeProto inProgressUserQuestData = 2;
 
-    required QuestLogDetailsStatus status = 3;    
+    required UserQuestDetailsStatus status = 3;    
 
-     enum QuestLogDetailsStatus {
+     enum UserQuestDetailsStatus {
           SUCCESS = 0;
-          SOME_FAIL = 1;
+          SUPPLIED_QUESTID_CURRENTLY_NOT_IN_PROGRESS = 1;
+          SOME_FAIL = 2;
      }
 }
 
