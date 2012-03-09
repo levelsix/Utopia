@@ -78,11 +78,11 @@ public class QuestAcceptController extends EventController {
     boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
     boolean defeatTypeJobsComplete = true;
     if (goodSide) {
-      if (quest.getDefeatBadGuysJobsRequired() != null || quest.getDefeatBadGuysJobsRequired().size() > 0) {
+      if (quest.getDefeatBadGuysJobsRequired() != null && quest.getDefeatBadGuysJobsRequired().size() > 0) {
         defeatTypeJobsComplete = false;
       }
     } else {
-      if (quest.getDefeatGoodGuysJobsRequired() != null || quest.getDefeatGoodGuysJobsRequired().size() > 0) {
+      if (quest.getDefeatGoodGuysJobsRequired() != null && quest.getDefeatGoodGuysJobsRequired().size() > 0) {
         defeatTypeJobsComplete = false;
       }      
     }
