@@ -160,6 +160,7 @@ message StartupResponseProto {
 	    required int32 diamondCostForEnergyRefill = 3; 
     	required int32 diamondCostForStaminaRefill = 4;
     	required int32 maxItemUsePerBattle = 5;
+    	required int32 maxLevelDifferenceForBattle = 6;
     	   	
 		//ADD a bunch of other important constants
 	}

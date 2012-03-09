@@ -1,25 +1,19 @@
 package com.lvl6.info;
 
 public class CoordinatePair {
-  private int x;
-  private int y;
+  private float x;
+  private float y;
   
-  public CoordinatePair(int x, int y) {
+  public CoordinatePair(float x, float y) {
     this.x = x;
     this.y = y;
   }
   
-  public int getX() {
+  public float getX() {
     return x;
   }
-  public void setX(int x) {
-    this.x = x;
-  }
-  public int getY() {
+  public float getY() {
     return y;
-  }
-  public void setY(int y) {
-    this.y = y;
   }
   
   @Override

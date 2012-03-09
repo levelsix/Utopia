@@ -21,22 +21,22 @@ public class GenerateFakeUsersWithoutInput {
   private static int syllablesInName = 2;
 
   public static void main(String[] args) {
-    NameGenerator nameGenerator = null;
-    Random random = new Random();
-    try {
-      nameGenerator = new NameGenerator(nameRulesFile);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    if (nameGenerator != null) {
-      DBConnection.init();
-      for (int i = minLevel; i <= maxLevel; i++){
-        for (int j = 0; j < numEnemiesToCreatePerLevel; j++) {
-          createUser(random, nameGenerator, i);
-        }
-      }
-      System.out.println("successfully created users!");
-    }
+//    NameGenerator nameGenerator = null;
+//    Random random = new Random();
+//    try {
+//      nameGenerator = new NameGenerator(nameRulesFile);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//    if (nameGenerator != null) {
+//      DBConnection.init();
+//      for (int i = minLevel; i <= maxLevel; i++){
+//        for (int j = 0; j < numEnemiesToCreatePerLevel; j++) {
+//          createUser(random, nameGenerator, i);
+//        }
+//      }
+//      System.out.println("successfully created users!");
+//    }
   }
 
   

@@ -77,7 +77,7 @@ public class NeutralCityElementsRetrieveUtils {
     String goodName = rs.getString(i++);
     String badName = rs.getString(i++);
     NeutralCityElemType type = NeutralCityElemType.valueOf(rs.getInt(i++));
-    CoordinatePair coords = new CoordinatePair(rs.getInt(i++), rs.getInt(i++));
+    CoordinatePair coords = new CoordinatePair(rs.getFloat(i++), rs.getFloat(i++));
     
     int xLength = rs.getInt(i++);
     if (rs.wasNull()) xLength = ControllerConstants.NOT_SET;

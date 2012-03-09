@@ -12514,13 +12514,13 @@ public final class InfoProto {
   public interface CoordinateProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 x = 1;
+    // required float x = 1;
     boolean hasX();
-    int getX();
+    float getX();
     
-    // required int32 y = 2;
+    // required float y = 2;
     boolean hasY();
-    int getY();
+    float getY();
   }
   public static final class CoordinateProto extends
       com.google.protobuf.GeneratedMessage
@@ -12551,29 +12551,29 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 x = 1;
+    // required float x = 1;
     public static final int X_FIELD_NUMBER = 1;
-    private int x_;
+    private float x_;
     public boolean hasX() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getX() {
+    public float getX() {
       return x_;
     }
     
-    // required int32 y = 2;
+    // required float y = 2;
     public static final int Y_FIELD_NUMBER = 2;
-    private int y_;
+    private float y_;
     public boolean hasY() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public int getY() {
+    public float getY() {
       return y_;
     }
     
     private void initFields() {
-      x_ = 0;
-      y_ = 0;
+      x_ = 0F;
+      y_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -12596,10 +12596,10 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, x_);
+        output.writeFloat(1, x_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, y_);
+        output.writeFloat(2, y_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -12612,11 +12612,11 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, x_);
+          .computeFloatSize(1, x_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, y_);
+          .computeFloatSize(2, y_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -12742,9 +12742,9 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        x_ = 0;
+        x_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000001);
-        y_ = 0;
+        y_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -12853,14 +12853,14 @@ public final class InfoProto {
               }
               break;
             }
-            case 8: {
+            case 13: {
               bitField0_ |= 0x00000001;
-              x_ = input.readInt32();
+              x_ = input.readFloat();
               break;
             }
-            case 16: {
+            case 21: {
               bitField0_ |= 0x00000002;
-              y_ = input.readInt32();
+              y_ = input.readFloat();
               break;
             }
           }
@@ -12869,15 +12869,15 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 x = 1;
-      private int x_ ;
+      // required float x = 1;
+      private float x_ ;
       public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getX() {
+      public float getX() {
         return x_;
       }
-      public Builder setX(int value) {
+      public Builder setX(float value) {
         bitField0_ |= 0x00000001;
         x_ = value;
         onChanged();
@@ -12885,20 +12885,20 @@ public final class InfoProto {
       }
       public Builder clearX() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        x_ = 0;
+        x_ = 0F;
         onChanged();
         return this;
       }
       
-      // required int32 y = 2;
-      private int y_ ;
+      // required float y = 2;
+      private float y_ ;
       public boolean hasY() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getY() {
+      public float getY() {
         return y_;
       }
-      public Builder setY(int value) {
+      public Builder setY(float value) {
         bitField0_ |= 0x00000002;
         y_ = value;
         onChanged();
@@ -12906,7 +12906,7 @@ public final class InfoProto {
       }
       public Builder clearY() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        y_ = 0;
+        y_ = 0F;
         onChanged();
         return this;
       }
@@ -24965,8 +24965,8 @@ public final class InfoProto {
       "ection\"q\n\021FullUserCityProto\022\016\n\006userId\030\001 " +
       "\002(\005\022\016\n\006cityId\030\002 \002(\005\022\023\n\013currentRank\030\003 \002(\005" +
       "\022\'\n\037numTasksCurrentlyCompleteInRank\030\004 \002(" +
-      "\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002" +
-      "(\005\"4\n\rLocationProto\022\020\n\010latitude\030\001 \002(\001\022\021\n" +
+      "\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \002(\002\022\t\n\001y\030\002 \002" +
+      "(\002\"4\n\rLocationProto\022\020\n\010latitude\030\001 \002(\001\022\021\n" +
       "\tlongitude\030\002 \002(\001\"\356\002\n\027NeutralCityElementP",
       "roto\022\016\n\006cityId\030\001 \002(\005\022\017\n\007assetId\030\002 \002(\005\022\014\n" +
       "\004name\030\t \002(\t\022I\n\004type\030\003 \002(\0162;.com.lvl6.pro" +
