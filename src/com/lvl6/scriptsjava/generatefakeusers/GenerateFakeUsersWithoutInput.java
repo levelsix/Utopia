@@ -100,9 +100,9 @@ public class GenerateFakeUsersWithoutInput {
         break;
       }
     }
-    if (InsertUtils.insertUser(newReferCode+newReferCode, name, type, location, false, null, newReferCode, level, attack, defense, energy, health, stamina, true) < 0) {
-      System.out.println("error in creating user");
-    }
+//    if (InsertUtils.insertUser(newReferCode+newReferCode, name, type, location, false, null, newReferCode, level, attack, defense, energy, health, stamina, true) < 0) {
+//      System.out.println("error in creating user");
+//    }
   }
 
 }

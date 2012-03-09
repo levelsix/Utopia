@@ -463,7 +463,9 @@ public class CreateInfoProtoUtils {
             }
           }
         }
-      }
+        fullUserQuestDataLargeProtos.add(builder.build());
+        
+      }      
     }
     return fullUserQuestDataLargeProtos;
   }
