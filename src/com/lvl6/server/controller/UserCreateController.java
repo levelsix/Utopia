@@ -217,24 +217,26 @@ public class UserCreateController extends EventController {
   }
 
   private void rewardReferrer(User referrer, User user) {
-    server.lockPlayer(referrer.getId());
-    try {
-      if (!referrer.updateRelativeDiamondsNumreferrals(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER, 1)) {
-        log.error("problem with rewarding the referrer");
-      } else {
-        InsertUtils.insertReferral(referrer.getId(), user.getId());
+    if (!referrer.isFake()) {
+      server.lockPlayer(referrer.getId());
+      try {
+        if (!referrer.updateRelativeDiamondsNumreferrals(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER, 1)) {
+          log.error("problem with rewarding the referrer");
+        } else {
+          InsertUtils.insertReferral(referrer.getId(), user.getId());
 
-        ReferralCodeUsedResponseEvent resEvent = new ReferralCodeUsedResponseEvent(referrer.getId());
-        ReferralCodeUsedResponseProto resProto = ReferralCodeUsedResponseProto.newBuilder()
-            .setSender(CreateInfoProtoUtils.createMinimumUserProtoFromUser(referrer))
-            .setReferredPlayer(CreateInfoProtoUtils.createMinimumUserProtoFromUser(user)).build();
-        resEvent.setReferralCodeUsedResponseProto(resProto);
-        server.writeAPNSNotificationOrEvent(resEvent);
+          ReferralCodeUsedResponseEvent resEvent = new ReferralCodeUsedResponseEvent(referrer.getId());
+          ReferralCodeUsedResponseProto resProto = ReferralCodeUsedResponseProto.newBuilder()
+              .setSender(CreateInfoProtoUtils.createMinimumUserProtoFromUser(referrer))
+              .setReferredPlayer(CreateInfoProtoUtils.createMinimumUserProtoFromUser(user)).build();
+          resEvent.setReferralCodeUsedResponseProto(resProto);
+          server.writeAPNSNotificationOrEvent(resEvent);
+        }
+      } catch (Exception e) {
+        log.error("exception in UserCreateController processEvent", e);
+      } finally {
+        server.unlockPlayer(referrer.getId()); 
       }
-    } catch (Exception e) {
-      log.error("exception in UserCreateController processEvent", e);
-    } finally {
-      server.unlockPlayer(referrer.getId()); 
     }
   }
 

@@ -129,12 +129,6 @@ public class BattleController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitBattle) {
-        if (result == BattleResult.ATTACKER_WIN) {
-          BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
-          resEvent2.setBattleResponseProto(resProto);
-          server.writeAPNSNotificationOrEvent(resEvent2);
-        }
-
         writeChangesToDB(lostEquip, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
 
@@ -160,6 +154,11 @@ public class BattleController extends EventController {
 
         if (attacker != null && defender != null){
           server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+          if (result == BattleResult.ATTACKER_WIN && !defender.isFake()) {
+            BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
+            resEvent2.setBattleResponseProto(resProto);
+            server.writeAPNSNotificationOrEvent(resEvent2);
+          }
           int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
           if (!InsertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained)) {
             log.error("problem with adding battle history into the db");
