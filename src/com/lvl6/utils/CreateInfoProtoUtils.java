@@ -470,12 +470,14 @@ public class CreateInfoProtoUtils {
               PossessEquipJob possessEquipJob = PossessEquipJobRetrieveUtils.getPossessEquipJobForPossessEquipJobId(possessEquipJobId);
               UserEquip userEquip = equipIdsToUserEquips.get(possessEquipJob.getEquipId());
               int quantityOwned = (userEquip != null) ? userEquip.getQuantity() : 0;
+              if (quantityOwned < possessEquipJob.getQuantity()) {
+                isComplete = false;
+              }
               builder.addRequiredPossessEquipJobProgress(createMinimumUserPossessEquipJobProto(userQuest, possessEquipJob, quantityOwned));
             }
           }
         }
-        fullUserQuestDataLargeProtos.add(builder.build());
-        
+        fullUserQuestDataLargeProtos.add(builder.setIsComplete(isComplete).build());
       }      
     }
     return fullUserQuestDataLargeProtos;
