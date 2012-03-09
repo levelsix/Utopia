@@ -301,7 +301,8 @@ public class StartupController extends EventController {
     StartupConstants.Builder cb = StartupConstants.newBuilder()
         .setDiamondCostForEnergyRefill(ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL)
         .setDiamondCostForStaminaRefill(ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL)
-        .setMaxItemUsePerBattle(ControllerConstants.BATTLE__MAX_ITEMS_USED);
+        .setMaxItemUsePerBattle(ControllerConstants.BATTLE__MAX_ITEMS_USED)
+        .setMaxLevelDifferenceForBattle(ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE);
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
