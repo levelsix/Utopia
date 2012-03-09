@@ -320,12 +320,13 @@ message MinimumUserTaskProto {
 message FullUserQuestDataLargeProto {
      required int32 userId = 1;
      required int32 questId = 2;
-     required bool redeemed = 3;
-     repeated MinimumUserQuestTaskProto requiredTasksProgress = 4;
+     required bool isRedeemed = 3;
+     required bool isComplete = 4;
      repeated MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
      repeated MinimumUserBuildStructJobProto requiredBuildStructJobProgress = 6;
      repeated MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 7;
      repeated MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 8;
+     repeated MinimumUserQuestTaskProto requiredTasksProgress = 9;
 }
 
 message MinimumUserQuestTaskProto {

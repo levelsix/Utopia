@@ -16331,19 +16331,13 @@ public final class InfoProto {
     boolean hasQuestId();
     int getQuestId();
     
-    // required bool redeemed = 3;
-    boolean hasRedeemed();
-    boolean getRedeemed();
+    // required bool isRedeemed = 3;
+    boolean hasIsRedeemed();
+    boolean getIsRedeemed();
     
-    // repeated .com.lvl6.proto.MinimumUserQuestTaskProto requiredTasksProgress = 4;
-    java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> 
-        getRequiredTasksProgressList();
-    com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto getRequiredTasksProgress(int index);
-    int getRequiredTasksProgressCount();
-    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
-        getRequiredTasksProgressOrBuilderList();
-    com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
-        int index);
+    // required bool isComplete = 4;
+    boolean hasIsComplete();
+    boolean getIsComplete();
     
     // repeated .com.lvl6.proto.MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
     java.util.List<com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto> 
@@ -16383,6 +16377,16 @@ public final class InfoProto {
     java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder> 
         getRequiredPossessEquipJobProgressOrBuilderList();
     com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProtoOrBuilder getRequiredPossessEquipJobProgressOrBuilder(
+        int index);
+    
+    // repeated .com.lvl6.proto.MinimumUserQuestTaskProto requiredTasksProgress = 9;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> 
+        getRequiredTasksProgressList();
+    com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto getRequiredTasksProgress(int index);
+    int getRequiredTasksProgressCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
+        getRequiredTasksProgressOrBuilderList();
+    com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
         int index);
   }
   public static final class FullUserQuestDataLargeProto extends
@@ -16434,35 +16438,24 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required bool redeemed = 3;
-    public static final int REDEEMED_FIELD_NUMBER = 3;
-    private boolean redeemed_;
-    public boolean hasRedeemed() {
+    // required bool isRedeemed = 3;
+    public static final int ISREDEEMED_FIELD_NUMBER = 3;
+    private boolean isRedeemed_;
+    public boolean hasIsRedeemed() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public boolean getRedeemed() {
-      return redeemed_;
+    public boolean getIsRedeemed() {
+      return isRedeemed_;
     }
     
-    // repeated .com.lvl6.proto.MinimumUserQuestTaskProto requiredTasksProgress = 4;
-    public static final int REQUIREDTASKSPROGRESS_FIELD_NUMBER = 4;
-    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> requiredTasksProgress_;
-    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> getRequiredTasksProgressList() {
-      return requiredTasksProgress_;
+    // required bool isComplete = 4;
+    public static final int ISCOMPLETE_FIELD_NUMBER = 4;
+    private boolean isComplete_;
+    public boolean hasIsComplete() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
-        getRequiredTasksProgressOrBuilderList() {
-      return requiredTasksProgress_;
-    }
-    public int getRequiredTasksProgressCount() {
-      return requiredTasksProgress_.size();
-    }
-    public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto getRequiredTasksProgress(int index) {
-      return requiredTasksProgress_.get(index);
-    }
-    public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
-        int index) {
-      return requiredTasksProgress_.get(index);
+    public boolean getIsComplete() {
+      return isComplete_;
     }
     
     // repeated .com.lvl6.proto.MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
@@ -16549,15 +16542,37 @@ public final class InfoProto {
       return requiredPossessEquipJobProgress_.get(index);
     }
     
+    // repeated .com.lvl6.proto.MinimumUserQuestTaskProto requiredTasksProgress = 9;
+    public static final int REQUIREDTASKSPROGRESS_FIELD_NUMBER = 9;
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> requiredTasksProgress_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> getRequiredTasksProgressList() {
+      return requiredTasksProgress_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
+        getRequiredTasksProgressOrBuilderList() {
+      return requiredTasksProgress_;
+    }
+    public int getRequiredTasksProgressCount() {
+      return requiredTasksProgress_.size();
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto getRequiredTasksProgress(int index) {
+      return requiredTasksProgress_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
+        int index) {
+      return requiredTasksProgress_.get(index);
+    }
+    
     private void initFields() {
       userId_ = 0;
       questId_ = 0;
-      redeemed_ = false;
-      requiredTasksProgress_ = java.util.Collections.emptyList();
+      isRedeemed_ = false;
+      isComplete_ = false;
       requiredDefeatTypeJobProgress_ = java.util.Collections.emptyList();
       requiredBuildStructJobProgress_ = java.util.Collections.emptyList();
       requiredUpgradeStructJobProgress_ = java.util.Collections.emptyList();
       requiredPossessEquipJobProgress_ = java.util.Collections.emptyList();
+      requiredTasksProgress_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -16572,15 +16587,13 @@ public final class InfoProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasRedeemed()) {
+      if (!hasIsRedeemed()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
-        if (!getRequiredTasksProgress(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
+      if (!hasIsComplete()) {
+        memoizedIsInitialized = 0;
+        return false;
       }
       for (int i = 0; i < getRequiredDefeatTypeJobProgressCount(); i++) {
         if (!getRequiredDefeatTypeJobProgress(i).isInitialized()) {
@@ -16606,6 +16619,12 @@ public final class InfoProto {
           return false;
         }
       }
+      for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
+        if (!getRequiredTasksProgress(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -16620,10 +16639,10 @@ public final class InfoProto {
         output.writeInt32(2, questId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBool(3, redeemed_);
+        output.writeBool(3, isRedeemed_);
       }
-      for (int i = 0; i < requiredTasksProgress_.size(); i++) {
-        output.writeMessage(4, requiredTasksProgress_.get(i));
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBool(4, isComplete_);
       }
       for (int i = 0; i < requiredDefeatTypeJobProgress_.size(); i++) {
         output.writeMessage(5, requiredDefeatTypeJobProgress_.get(i));
@@ -16636,6 +16655,9 @@ public final class InfoProto {
       }
       for (int i = 0; i < requiredPossessEquipJobProgress_.size(); i++) {
         output.writeMessage(8, requiredPossessEquipJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredTasksProgress_.size(); i++) {
+        output.writeMessage(9, requiredTasksProgress_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -16656,11 +16678,11 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, redeemed_);
+          .computeBoolSize(3, isRedeemed_);
       }
-      for (int i = 0; i < requiredTasksProgress_.size(); i++) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, requiredTasksProgress_.get(i));
+          .computeBoolSize(4, isComplete_);
       }
       for (int i = 0; i < requiredDefeatTypeJobProgress_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -16677,6 +16699,10 @@ public final class InfoProto {
       for (int i = 0; i < requiredPossessEquipJobProgress_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(8, requiredPossessEquipJobProgress_.get(i));
+      }
+      for (int i = 0; i < requiredTasksProgress_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, requiredTasksProgress_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -16794,11 +16820,11 @@ public final class InfoProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getRequiredTasksProgressFieldBuilder();
           getRequiredDefeatTypeJobProgressFieldBuilder();
           getRequiredBuildStructJobProgressFieldBuilder();
           getRequiredUpgradeStructJobProgressFieldBuilder();
           getRequiredPossessEquipJobProgressFieldBuilder();
+          getRequiredTasksProgressFieldBuilder();
         }
       }
       private static Builder create() {
@@ -16811,14 +16837,10 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         questId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        redeemed_ = false;
+        isRedeemed_ = false;
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (requiredTasksProgressBuilder_ == null) {
-          requiredTasksProgress_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
-        } else {
-          requiredTasksProgressBuilder_.clear();
-        }
+        isComplete_ = false;
+        bitField0_ = (bitField0_ & ~0x00000008);
         if (requiredDefeatTypeJobProgressBuilder_ == null) {
           requiredDefeatTypeJobProgress_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000010);
@@ -16842,6 +16864,12 @@ public final class InfoProto {
           bitField0_ = (bitField0_ & ~0x00000080);
         } else {
           requiredPossessEquipJobProgressBuilder_.clear();
+        }
+        if (requiredTasksProgressBuilder_ == null) {
+          requiredTasksProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000100);
+        } else {
+          requiredTasksProgressBuilder_.clear();
         }
         return this;
       }
@@ -16892,16 +16920,11 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.redeemed_ = redeemed_;
-        if (requiredTasksProgressBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
-            requiredTasksProgress_ = java.util.Collections.unmodifiableList(requiredTasksProgress_);
-            bitField0_ = (bitField0_ & ~0x00000008);
-          }
-          result.requiredTasksProgress_ = requiredTasksProgress_;
-        } else {
-          result.requiredTasksProgress_ = requiredTasksProgressBuilder_.build();
+        result.isRedeemed_ = isRedeemed_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
+        result.isComplete_ = isComplete_;
         if (requiredDefeatTypeJobProgressBuilder_ == null) {
           if (((bitField0_ & 0x00000010) == 0x00000010)) {
             requiredDefeatTypeJobProgress_ = java.util.Collections.unmodifiableList(requiredDefeatTypeJobProgress_);
@@ -16938,6 +16961,15 @@ public final class InfoProto {
         } else {
           result.requiredPossessEquipJobProgress_ = requiredPossessEquipJobProgressBuilder_.build();
         }
+        if (requiredTasksProgressBuilder_ == null) {
+          if (((bitField0_ & 0x00000100) == 0x00000100)) {
+            requiredTasksProgress_ = java.util.Collections.unmodifiableList(requiredTasksProgress_);
+            bitField0_ = (bitField0_ & ~0x00000100);
+          }
+          result.requiredTasksProgress_ = requiredTasksProgress_;
+        } else {
+          result.requiredTasksProgress_ = requiredTasksProgressBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -16960,34 +16992,11 @@ public final class InfoProto {
         if (other.hasQuestId()) {
           setQuestId(other.getQuestId());
         }
-        if (other.hasRedeemed()) {
-          setRedeemed(other.getRedeemed());
+        if (other.hasIsRedeemed()) {
+          setIsRedeemed(other.getIsRedeemed());
         }
-        if (requiredTasksProgressBuilder_ == null) {
-          if (!other.requiredTasksProgress_.isEmpty()) {
-            if (requiredTasksProgress_.isEmpty()) {
-              requiredTasksProgress_ = other.requiredTasksProgress_;
-              bitField0_ = (bitField0_ & ~0x00000008);
-            } else {
-              ensureRequiredTasksProgressIsMutable();
-              requiredTasksProgress_.addAll(other.requiredTasksProgress_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.requiredTasksProgress_.isEmpty()) {
-            if (requiredTasksProgressBuilder_.isEmpty()) {
-              requiredTasksProgressBuilder_.dispose();
-              requiredTasksProgressBuilder_ = null;
-              requiredTasksProgress_ = other.requiredTasksProgress_;
-              bitField0_ = (bitField0_ & ~0x00000008);
-              requiredTasksProgressBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getRequiredTasksProgressFieldBuilder() : null;
-            } else {
-              requiredTasksProgressBuilder_.addAllMessages(other.requiredTasksProgress_);
-            }
-          }
+        if (other.hasIsComplete()) {
+          setIsComplete(other.getIsComplete());
         }
         if (requiredDefeatTypeJobProgressBuilder_ == null) {
           if (!other.requiredDefeatTypeJobProgress_.isEmpty()) {
@@ -17093,6 +17102,32 @@ public final class InfoProto {
             }
           }
         }
+        if (requiredTasksProgressBuilder_ == null) {
+          if (!other.requiredTasksProgress_.isEmpty()) {
+            if (requiredTasksProgress_.isEmpty()) {
+              requiredTasksProgress_ = other.requiredTasksProgress_;
+              bitField0_ = (bitField0_ & ~0x00000100);
+            } else {
+              ensureRequiredTasksProgressIsMutable();
+              requiredTasksProgress_.addAll(other.requiredTasksProgress_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requiredTasksProgress_.isEmpty()) {
+            if (requiredTasksProgressBuilder_.isEmpty()) {
+              requiredTasksProgressBuilder_.dispose();
+              requiredTasksProgressBuilder_ = null;
+              requiredTasksProgress_ = other.requiredTasksProgress_;
+              bitField0_ = (bitField0_ & ~0x00000100);
+              requiredTasksProgressBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRequiredTasksProgressFieldBuilder() : null;
+            } else {
+              requiredTasksProgressBuilder_.addAllMessages(other.requiredTasksProgress_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -17106,15 +17141,13 @@ public final class InfoProto {
           
           return false;
         }
-        if (!hasRedeemed()) {
+        if (!hasIsRedeemed()) {
           
           return false;
         }
-        for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
-          if (!getRequiredTasksProgress(i).isInitialized()) {
-            
-            return false;
-          }
+        if (!hasIsComplete()) {
+          
+          return false;
         }
         for (int i = 0; i < getRequiredDefeatTypeJobProgressCount(); i++) {
           if (!getRequiredDefeatTypeJobProgress(i).isInitialized()) {
@@ -17136,6 +17169,12 @@ public final class InfoProto {
         }
         for (int i = 0; i < getRequiredPossessEquipJobProgressCount(); i++) {
           if (!getRequiredPossessEquipJobProgress(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
+          if (!getRequiredTasksProgress(i).isInitialized()) {
             
             return false;
           }
@@ -17178,13 +17217,12 @@ public final class InfoProto {
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              redeemed_ = input.readBool();
+              isRedeemed_ = input.readBool();
               break;
             }
-            case 34: {
-              com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addRequiredTasksProgress(subBuilder.buildPartial());
+            case 32: {
+              bitField0_ |= 0x00000008;
+              isComplete_ = input.readBool();
               break;
             }
             case 42: {
@@ -17209,6 +17247,12 @@ public final class InfoProto {
               com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addRequiredPossessEquipJobProgress(subBuilder.buildPartial());
+              break;
+            }
+            case 74: {
+              com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addRequiredTasksProgress(subBuilder.buildPartial());
               break;
             }
           }
@@ -17259,211 +17303,46 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool redeemed = 3;
-      private boolean redeemed_ ;
-      public boolean hasRedeemed() {
+      // required bool isRedeemed = 3;
+      private boolean isRedeemed_ ;
+      public boolean hasIsRedeemed() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public boolean getRedeemed() {
-        return redeemed_;
+      public boolean getIsRedeemed() {
+        return isRedeemed_;
       }
-      public Builder setRedeemed(boolean value) {
+      public Builder setIsRedeemed(boolean value) {
         bitField0_ |= 0x00000004;
-        redeemed_ = value;
+        isRedeemed_ = value;
         onChanged();
         return this;
       }
-      public Builder clearRedeemed() {
+      public Builder clearIsRedeemed() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        redeemed_ = false;
+        isRedeemed_ = false;
         onChanged();
         return this;
       }
       
-      // repeated .com.lvl6.proto.MinimumUserQuestTaskProto requiredTasksProgress = 4;
-      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> requiredTasksProgress_ =
-        java.util.Collections.emptyList();
-      private void ensureRequiredTasksProgressIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
-          requiredTasksProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto>(requiredTasksProgress_);
-          bitField0_ |= 0x00000008;
-         }
+      // required bool isComplete = 4;
+      private boolean isComplete_ ;
+      public boolean hasIsComplete() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> requiredTasksProgressBuilder_;
-      
-      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> getRequiredTasksProgressList() {
-        if (requiredTasksProgressBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(requiredTasksProgress_);
-        } else {
-          return requiredTasksProgressBuilder_.getMessageList();
-        }
+      public boolean getIsComplete() {
+        return isComplete_;
       }
-      public int getRequiredTasksProgressCount() {
-        if (requiredTasksProgressBuilder_ == null) {
-          return requiredTasksProgress_.size();
-        } else {
-          return requiredTasksProgressBuilder_.getCount();
-        }
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto getRequiredTasksProgress(int index) {
-        if (requiredTasksProgressBuilder_ == null) {
-          return requiredTasksProgress_.get(index);
-        } else {
-          return requiredTasksProgressBuilder_.getMessage(index);
-        }
-      }
-      public Builder setRequiredTasksProgress(
-          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto value) {
-        if (requiredTasksProgressBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureRequiredTasksProgressIsMutable();
-          requiredTasksProgress_.set(index, value);
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.setMessage(index, value);
-        }
+      public Builder setIsComplete(boolean value) {
+        bitField0_ |= 0x00000008;
+        isComplete_ = value;
+        onChanged();
         return this;
       }
-      public Builder setRequiredTasksProgress(
-          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder builderForValue) {
-        if (requiredTasksProgressBuilder_ == null) {
-          ensureRequiredTasksProgressIsMutable();
-          requiredTasksProgress_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.setMessage(index, builderForValue.build());
-        }
+      public Builder clearIsComplete() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        isComplete_ = false;
+        onChanged();
         return this;
-      }
-      public Builder addRequiredTasksProgress(com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto value) {
-        if (requiredTasksProgressBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureRequiredTasksProgressIsMutable();
-          requiredTasksProgress_.add(value);
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      public Builder addRequiredTasksProgress(
-          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto value) {
-        if (requiredTasksProgressBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureRequiredTasksProgressIsMutable();
-          requiredTasksProgress_.add(index, value);
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      public Builder addRequiredTasksProgress(
-          com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder builderForValue) {
-        if (requiredTasksProgressBuilder_ == null) {
-          ensureRequiredTasksProgressIsMutable();
-          requiredTasksProgress_.add(builderForValue.build());
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addRequiredTasksProgress(
-          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder builderForValue) {
-        if (requiredTasksProgressBuilder_ == null) {
-          ensureRequiredTasksProgressIsMutable();
-          requiredTasksProgress_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addAllRequiredTasksProgress(
-          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> values) {
-        if (requiredTasksProgressBuilder_ == null) {
-          ensureRequiredTasksProgressIsMutable();
-          super.addAll(values, requiredTasksProgress_);
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      public Builder clearRequiredTasksProgress() {
-        if (requiredTasksProgressBuilder_ == null) {
-          requiredTasksProgress_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.clear();
-        }
-        return this;
-      }
-      public Builder removeRequiredTasksProgress(int index) {
-        if (requiredTasksProgressBuilder_ == null) {
-          ensureRequiredTasksProgressIsMutable();
-          requiredTasksProgress_.remove(index);
-          onChanged();
-        } else {
-          requiredTasksProgressBuilder_.remove(index);
-        }
-        return this;
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder getRequiredTasksProgressBuilder(
-          int index) {
-        return getRequiredTasksProgressFieldBuilder().getBuilder(index);
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
-          int index) {
-        if (requiredTasksProgressBuilder_ == null) {
-          return requiredTasksProgress_.get(index);  } else {
-          return requiredTasksProgressBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
-           getRequiredTasksProgressOrBuilderList() {
-        if (requiredTasksProgressBuilder_ != null) {
-          return requiredTasksProgressBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(requiredTasksProgress_);
-        }
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder addRequiredTasksProgressBuilder() {
-        return getRequiredTasksProgressFieldBuilder().addBuilder(
-            com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.getDefaultInstance());
-      }
-      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder addRequiredTasksProgressBuilder(
-          int index) {
-        return getRequiredTasksProgressFieldBuilder().addBuilder(
-            index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.getDefaultInstance());
-      }
-      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder> 
-           getRequiredTasksProgressBuilderList() {
-        return getRequiredTasksProgressFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
-          getRequiredTasksProgressFieldBuilder() {
-        if (requiredTasksProgressBuilder_ == null) {
-          requiredTasksProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder>(
-                  requiredTasksProgress_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
-                  getParentForChildren(),
-                  isClean());
-          requiredTasksProgress_ = null;
-        }
-        return requiredTasksProgressBuilder_;
       }
       
       // repeated .com.lvl6.proto.MinimumUserDefeatTypeJobProto requiredDefeatTypeJobProgress = 5;
@@ -18208,6 +18087,192 @@ public final class InfoProto {
           requiredPossessEquipJobProgress_ = null;
         }
         return requiredPossessEquipJobProgressBuilder_;
+      }
+      
+      // repeated .com.lvl6.proto.MinimumUserQuestTaskProto requiredTasksProgress = 9;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> requiredTasksProgress_ =
+        java.util.Collections.emptyList();
+      private void ensureRequiredTasksProgressIsMutable() {
+        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
+          requiredTasksProgress_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto>(requiredTasksProgress_);
+          bitField0_ |= 0x00000100;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> requiredTasksProgressBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> getRequiredTasksProgressList() {
+        if (requiredTasksProgressBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requiredTasksProgress_);
+        } else {
+          return requiredTasksProgressBuilder_.getMessageList();
+        }
+      }
+      public int getRequiredTasksProgressCount() {
+        if (requiredTasksProgressBuilder_ == null) {
+          return requiredTasksProgress_.size();
+        } else {
+          return requiredTasksProgressBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto getRequiredTasksProgress(int index) {
+        if (requiredTasksProgressBuilder_ == null) {
+          return requiredTasksProgress_.get(index);
+        } else {
+          return requiredTasksProgressBuilder_.getMessage(index);
+        }
+      }
+      public Builder setRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto value) {
+        if (requiredTasksProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.set(index, value);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder builderForValue) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto value) {
+        if (requiredTasksProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(value);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto value) {
+        if (requiredTasksProgressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(index, value);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(
+          com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder builderForValue) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addRequiredTasksProgress(
+          int index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder builderForValue) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllRequiredTasksProgress(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto> values) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          super.addAll(values, requiredTasksProgress_);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearRequiredTasksProgress() {
+        if (requiredTasksProgressBuilder_ == null) {
+          requiredTasksProgress_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000100);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeRequiredTasksProgress(int index) {
+        if (requiredTasksProgressBuilder_ == null) {
+          ensureRequiredTasksProgressIsMutable();
+          requiredTasksProgress_.remove(index);
+          onChanged();
+        } else {
+          requiredTasksProgressBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder getRequiredTasksProgressBuilder(
+          int index) {
+        return getRequiredTasksProgressFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder getRequiredTasksProgressOrBuilder(
+          int index) {
+        if (requiredTasksProgressBuilder_ == null) {
+          return requiredTasksProgress_.get(index);  } else {
+          return requiredTasksProgressBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
+           getRequiredTasksProgressOrBuilderList() {
+        if (requiredTasksProgressBuilder_ != null) {
+          return requiredTasksProgressBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requiredTasksProgress_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder addRequiredTasksProgressBuilder() {
+        return getRequiredTasksProgressFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder addRequiredTasksProgressBuilder(
+          int index) {
+        return getRequiredTasksProgressFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder> 
+           getRequiredTasksProgressBuilderList() {
+        return getRequiredTasksProgressFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder> 
+          getRequiredTasksProgressFieldBuilder() {
+        if (requiredTasksProgressBuilder_ == null) {
+          requiredTasksProgressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto.Builder, com.lvl6.proto.InfoProto.MinimumUserQuestTaskProtoOrBuilder>(
+                  requiredTasksProgress_,
+                  ((bitField0_ & 0x00000100) == 0x00000100),
+                  getParentForChildren(),
+                  isClean());
+          requiredTasksProgress_ = null;
+        }
+        return requiredTasksProgressBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullUserQuestDataLargeProto)
@@ -24924,67 +24989,68 @@ public final class InfoProto {
       "tion\030\003 \002(\0162!.com.lvl6.proto.StructOrient" +
       "ation\"M\n\024MinimumUserTaskProto\022\016\n\006userId\030",
       "\001 \002(\005\022\016\n\006taskId\030\002 \002(\005\022\025\n\rnumTimesActed\030\003" +
-      " \002(\005\"\376\003\n\033FullUserQuestDataLargeProto\022\016\n\006" +
-      "userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\020\n\010redeeme" +
-      "d\030\003 \002(\010\022H\n\025requiredTasksProgress\030\004 \003(\0132)" +
-      ".com.lvl6.proto.MinimumUserQuestTaskProt" +
-      "o\022T\n\035requiredDefeatTypeJobProgress\030\005 \003(\013" +
-      "2-.com.lvl6.proto.MinimumUserDefeatTypeJ" +
-      "obProto\022V\n\036requiredBuildStructJobProgres" +
-      "s\030\006 \003(\0132..com.lvl6.proto.MinimumUserBuil" +
-      "dStructJobProto\022Z\n requiredUpgradeStruct",
-      "JobProgress\030\007 \003(\01320.com.lvl6.proto.Minim" +
-      "umUserUpgradeStructJobProto\022X\n\037requiredP" +
-      "ossessEquipJobProgress\030\010 \003(\0132/.com.lvl6." +
-      "proto.MinimumUserPossessEquipJobProto\"c\n" +
-      "\031MinimumUserQuestTaskProto\022\016\n\006userId\030\001 \002" +
-      "(\005\022\017\n\007questId\030\002 \002(\005\022\016\n\006taskId\030\003 \002(\005\022\025\n\rn" +
-      "umTimesActed\030\004 \002(\005\"n\n\035MinimumUserDefeatT" +
-      "ypeJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002" +
-      " \002(\005\022\027\n\017defeatTypeJobId\030\003 \002(\005\022\023\n\013numDefe" +
-      "ated\030\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017def",
-      "eatTypeJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\0162" +
-      "\030.com.lvl6.proto.UserType\022\032\n\022numEnemiesT" +
-      "oDefeat\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"w\n\036Minimum" +
-      "UserBuildStructJobProto\022\016\n\006userId\030\001 \002(\005\022" +
-      "\017\n\007questId\030\002 \002(\005\022\030\n\020buildStructJobId\030\003 \002" +
-      "(\005\022\032\n\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildS" +
-      "tructJobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022" +
-      "\020\n\010structId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 " +
-      "\002(\005\"u\n MinimumUserUpgradeStructJobProto\022" +
-      "\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\032\n\022upgr",
-      "adeStructJobId\030\003 \002(\005\022\024\n\014currentLevel\030\004 \002" +
-      "(\005\"W\n\025UpgradeStructJobProto\022\032\n\022upgradeSt" +
-      "ructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010lev" +
-      "elReq\030\003 \002(\005\"v\n\037MinimumUserPossessEquipJo" +
-      "bProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022" +
-      "\031\n\021possessEquipJobId\030\003 \002(\005\022\027\n\017numEquipUs" +
-      "erHas\030\004 \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021p" +
-      "ossessEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022" +
-      "\023\n\013quantityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022" +
-      "\017\n\007questId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name",
-      "\030\003 \002(\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneRespo" +
-      "nse\030\005 \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNu" +
-      "mWithinCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026" +
-      "\n\016diamondsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(" +
-      "\005\022\025\n\requipIdGained\030\013 \001(\005\022\035\n\025questsRequir" +
-      "edForThis\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upg" +
-      "radeStructJobsReqs\030\016 \003(\005\022\033\n\023buildStructJ" +
-      "obsReqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n" +
-      "\023possessEquipJobReqs\030\021 \003(\005*k\n\010UserType\022\020" +
-      "\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOO",
-      "D_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020" +
-      "\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTAC" +
-      "KER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_" +
-      "FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIUM" +
-      "_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Ma" +
-      "rketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004" +
-      "SELL\020\001*c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\016\n\n" +
-      "LUMBERMILL\020\001\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n" +
-      "\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOri" +
-      "entation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001",
-      "*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020\000\022\014\n" +
-      "\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoProto"
+      " \002(\005\"\224\004\n\033FullUserQuestDataLargeProto\022\016\n\006" +
+      "userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\022\n\nisRedee" +
+      "med\030\003 \002(\010\022\022\n\nisComplete\030\004 \002(\010\022T\n\035require" +
+      "dDefeatTypeJobProgress\030\005 \003(\0132-.com.lvl6." +
+      "proto.MinimumUserDefeatTypeJobProto\022V\n\036r" +
+      "equiredBuildStructJobProgress\030\006 \003(\0132..co" +
+      "m.lvl6.proto.MinimumUserBuildStructJobPr" +
+      "oto\022Z\n requiredUpgradeStructJobProgress\030" +
+      "\007 \003(\01320.com.lvl6.proto.MinimumUserUpgrad",
+      "eStructJobProto\022X\n\037requiredPossessEquipJ" +
+      "obProgress\030\010 \003(\0132/.com.lvl6.proto.Minimu" +
+      "mUserPossessEquipJobProto\022H\n\025requiredTas" +
+      "ksProgress\030\t \003(\0132).com.lvl6.proto.Minimu" +
+      "mUserQuestTaskProto\"c\n\031MinimumUserQuestT" +
+      "askProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(" +
+      "\005\022\016\n\006taskId\030\003 \002(\005\022\025\n\rnumTimesActed\030\004 \002(\005" +
+      "\"n\n\035MinimumUserDefeatTypeJobProto\022\016\n\006use" +
+      "rId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\027\n\017defeatType" +
+      "JobId\030\003 \002(\005\022\023\n\013numDefeated\030\004 \002(\005\"\210\001\n\022Def",
+      "eatTypeJobProto\022\027\n\017defeatTypeJobId\030\001 \002(\005" +
+      "\022-\n\013typeOfEnemy\030\002 \002(\0162\030.com.lvl6.proto.U" +
+      "serType\022\032\n\022numEnemiesToDefeat\030\003 \002(\005\022\016\n\006c" +
+      "ityId\030\004 \002(\005\"w\n\036MinimumUserBuildStructJob" +
+      "Proto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\030" +
+      "\n\020buildStructJobId\030\003 \002(\005\022\032\n\022numOfStructU" +
+      "serHas\030\004 \002(\005\"[\n\023BuildStructJobProto\022\030\n\020b" +
+      "uildStructJobId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022" +
+      "\030\n\020quantityRequired\030\003 \002(\005\"u\n MinimumUser" +
+      "UpgradeStructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n",
+      "\007questId\030\002 \002(\005\022\032\n\022upgradeStructJobId\030\003 \002" +
+      "(\005\022\024\n\014currentLevel\030\004 \002(\005\"W\n\025UpgradeStruc" +
+      "tJobProto\022\032\n\022upgradeStructJobId\030\001 \002(\005\022\020\n" +
+      "\010structId\030\002 \002(\005\022\020\n\010levelReq\030\003 \002(\005\"v\n\037Min" +
+      "imumUserPossessEquipJobProto\022\016\n\006userId\030\001" +
+      " \002(\005\022\017\n\007questId\030\002 \002(\005\022\031\n\021possessEquipJob" +
+      "Id\030\003 \002(\005\022\027\n\017numEquipUserHas\030\004 \002(\005\"W\n\024Pos" +
+      "sessEquipJobProto\022\031\n\021possessEquipJobId\030\001" +
+      " \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013quantityReq\030\003 \002" +
+      "(\005\"\223\003\n\016FullQuestProto\022\017\n\007questId\030\001 \002(\005\022\016",
+      "\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(\t\022\023\n\013descript" +
+      "ion\030\004 \002(\t\022\024\n\014doneResponse\030\005 \002(\t\022\022\n\ninPro" +
+      "gress\030\006 \002(\t\022\032\n\022assetNumWithinCity\030\007 \002(\005\022" +
+      "\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamondsGained\030\t" +
+      " \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\requipIdGained" +
+      "\030\013 \001(\005\022\035\n\025questsRequiredForThis\030\014 \003(\005\022\020\n" +
+      "\010taskReqs\030\r \003(\005\022\035\n\025upgradeStructJobsReqs" +
+      "\030\016 \003(\005\022\033\n\023buildStructJobsReqs\030\017 \003(\005\022\026\n\016d" +
+      "efeatTypeReqs\030\020 \003(\005\022\033\n\023possessEquipJobRe" +
+      "qs\030\021 \003(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017",
+      "\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WA" +
+      "RRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n" +
+      "\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFEN" +
+      "DER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marketpl" +
+      "acePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017N" +
+      "ORM_EQUIP_POST\020\002*2\n\035MarketplaceJobRequir" +
+      "ementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStru" +
+      "ctType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n\tCA" +
+      "RPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARK" +
+      "ETPLACE\020\005*3\n\021StructOrientation\022\016\n\nPOSITI",
+      "ON_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022ExpansionDirec" +
+      "tion\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR" +
+      "_RIGHT\020\002B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -25132,7 +25198,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserQuestDataLargeProto_descriptor,
-              new java.lang.String[] { "UserId", "QuestId", "Redeemed", "RequiredTasksProgress", "RequiredDefeatTypeJobProgress", "RequiredBuildStructJobProgress", "RequiredUpgradeStructJobProgress", "RequiredPossessEquipJobProgress", },
+              new java.lang.String[] { "UserId", "QuestId", "IsRedeemed", "IsComplete", "RequiredDefeatTypeJobProgress", "RequiredBuildStructJobProgress", "RequiredUpgradeStructJobProgress", "RequiredPossessEquipJobProgress", "RequiredTasksProgress", },
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.class,
               com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder.class);
           internal_static_com_lvl6_proto_MinimumUserQuestTaskProto_descriptor =
