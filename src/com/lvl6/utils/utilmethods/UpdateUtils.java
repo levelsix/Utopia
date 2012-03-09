@@ -340,9 +340,6 @@ public class UpdateUtils {
     return false;
   }
 
-  /*
-   * used for battles, tasks
-   */
   public static boolean incrementUserEquip(int userId, int equipId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);

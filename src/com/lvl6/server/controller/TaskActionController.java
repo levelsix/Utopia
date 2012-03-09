@@ -123,7 +123,6 @@ public class TaskActionController extends EventController {
               resBuilder.setExpBonusIfCityRankup(expBonus);
             }
           }
-
         }
       }
 
@@ -188,7 +187,7 @@ public class TaskActionController extends EventController {
               Map<Integer, Task> remainingTaskMap = TaskRetrieveUtils.getTasksForTaskIds(tasksRemaining);
               if (remainingTaskMap != null && remainingTaskMap.size() > 0) {
                 for (Task remainingTask : remainingTaskMap.values()) {
-                  if (remainingTask.getCityId() == task.getId()) {
+                  if (remainingTask.getId() == task.getId()) {
                     if (questIdToTaskIdsToNumTimesActedInQuest == null) {
                       questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest.getUserId());
                     }

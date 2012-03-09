@@ -3,6 +3,8 @@ package com.lvl6.server.controller;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UserCreateRequestEvent;
@@ -79,19 +81,21 @@ public class UserCreateController extends EventController {
     User referrer = null;
     User user = null;
     int userId = ControllerConstants.NOT_SET;
+    List<Integer> equipIds = new ArrayList<Integer>();
+    Task taskCompleted = null;
     if (legitUserCreate) {
       referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;
 
       String newReferCode = grabNewReferCode();
 
-      Task taskCompleted = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
+      taskCompleted = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
 
       int playerExp = taskCompleted.getExpGained() * taskCompleted.getNumForCompletion() + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED;
       int playerCoins = MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED; 
-      
+
       int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS - ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
       if (referrer != null) playerDiamonds += ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED;
-      
+
       Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
       Integer weaponEquipped = null, armorEquipped = null;
       if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
@@ -106,7 +110,11 @@ public class UserCreateController extends EventController {
         weaponEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID;
         armorEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID;
       }
-      
+
+      if (weaponEquipped > 0) equipIds.add(weaponEquipped);
+      if (armorEquipped > 0) equipIds.add(armorEquipped);
+      if (amuletEquipped > 0) equipIds.add(amuletEquipped);
+
       userId = InsertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
           attack, defense, energy, health, stamina, playerExp, playerCoins, playerDiamonds, 
           weaponEquipped, armorEquipped, amuletEquipped, false);
@@ -154,6 +162,8 @@ public class UserCreateController extends EventController {
       try {
         writeUserStruct(fullUserStruct);
         writeUserCritstructs(user.getId());
+        writeUserEquips(user.getId(), equipIds);
+        writeTaskCompleted(user.getId(), taskCompleted);
         if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
           log.error("problem with giving user access to first city");
         }
@@ -165,8 +175,23 @@ public class UserCreateController extends EventController {
       } finally {
         server.unlockPlayer(userId); 
       }
-
     }    
+  }
+
+  private void writeTaskCompleted(int userId, Task taskCompleted) {
+    if (taskCompleted != null) {
+      if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(userId, taskCompleted.getId(), taskCompleted.getNumForCompletion())) {
+        log.error("problem with incrementing user times completed in rank in tutorial");
+      }
+    }
+  }
+
+  private void writeUserEquips(int userId, List<Integer> equipIds) {
+    if (equipIds.size() > 0) {
+      if (!InsertUtils.insertUserEquips(userId, equipIds, 1)) {
+        log.error("problem with giving user initial user equips for user " + userId);
+      }
+    }
   }
 
   private void writeUserCritstructs(int userId) {
