@@ -10,6 +10,7 @@ import com.lvl6.events.response.UpgradeNormStructureResponseEvent;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserStruct;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.UpgradeNormStructureRequestProto;
 import com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto;
 import com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto.Builder;
@@ -108,6 +109,10 @@ public class UpgradeNormStructureController extends EventController {
     }
     if (timeOfUpgrade.getTime() < userStruct.getLastRetrieved().getTime()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
+      return false;
+    }
+    if (userStruct.getLevel() == ControllerConstants.UPGRADE_NORM_STRUCTURE__MAX_STRUCT_LEVEL) {
+      resBuilder.setStatus(UpgradeNormStructureStatus.AT_MAX_LEVEL_ALREADY);
       return false;
     }
 

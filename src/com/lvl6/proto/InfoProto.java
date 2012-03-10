@@ -302,15 +302,13 @@ public final class InfoProto {
   public enum CritStructType
       implements com.google.protobuf.ProtocolMessageEnum {
     AVIARY(0, 0),
-    LUMBERMILL(1, 1),
-    CARPENTER(2, 2),
-    VAULT(3, 3),
-    ARMORY(4, 4),
-    MARKETPLACE(5, 5),
+    CARPENTER(1, 2),
+    VAULT(2, 3),
+    ARMORY(3, 4),
+    MARKETPLACE(4, 5),
     ;
     
     public static final int AVIARY_VALUE = 0;
-    public static final int LUMBERMILL_VALUE = 1;
     public static final int CARPENTER_VALUE = 2;
     public static final int VAULT_VALUE = 3;
     public static final int ARMORY_VALUE = 4;
@@ -322,7 +320,6 @@ public final class InfoProto {
     public static CritStructType valueOf(int value) {
       switch (value) {
         case 0: return AVIARY;
-        case 1: return LUMBERMILL;
         case 2: return CARPENTER;
         case 3: return VAULT;
         case 4: return ARMORY;
@@ -357,7 +354,7 @@ public final class InfoProto {
     }
     
     private static final CritStructType[] VALUES = {
-      AVIARY, LUMBERMILL, CARPENTER, VAULT, ARMORY, MARKETPLACE, 
+      AVIARY, CARPENTER, VAULT, ARMORY, MARKETPLACE, 
     };
     
     public static CritStructType valueOf(
@@ -25365,13 +25362,13 @@ public final class InfoProto {
       "FENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marke" +
       "tplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023" +
       "\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobReq" +
-      "uirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritS",
-      "tructType\022\n\n\006AVIARY\020\000\022\016\n\nLUMBERMILL\020\001\022\r\n" +
-      "\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013M" +
-      "ARKETPLACE\020\005*3\n\021StructOrientation\022\016\n\nPOS" +
-      "ITION_1\020\000\022\016\n\nPOSITION_2\020\001*@\n\022ExpansionDi" +
-      "rection\022\r\n\tNEAR_LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\t" +
-      "FAR_RIGHT\020\002B\013B\tInfoProto"
+      "uirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritS",
+      "tructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005" +
+      "VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021" +
+      "StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOS" +
+      "ITION_2\020\001*@\n\022ExpansionDirection\022\r\n\tNEAR_" +
+      "LEFT\020\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tI" +
+      "nfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

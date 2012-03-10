@@ -17,20 +17,16 @@ import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Referral;
-import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
-import com.lvl6.info.UserStruct;
 import com.lvl6.properties.APNSProperties;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
-import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.Builder;
-import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
@@ -46,12 +42,10 @@ import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -112,7 +106,6 @@ public class StartupController extends EventController {
           setCitiesAvailableToUserAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
-          setUserStructsAndStructs(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
           resBuilder.setExperienceRequiredForNextLevel(
@@ -221,18 +214,7 @@ public class StartupController extends EventController {
       }
     }
   }
-
-  private void setUserStructsAndStructs(Builder resBuilder, User user) {
-    List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
-    if (userStructs != null) {
-      Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
-      for (UserStruct us : userStructs) {
-        resBuilder.addUserStructures(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(us));
-        resBuilder.addStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(structIdsToStructures.get(us.getStructId())));
-      }
-    }    
-  }
-
+  
   private void setUserEquipsAndEquips(Builder resBuilder, User user) {
     List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
     if (userEquips != null) {
@@ -298,16 +280,7 @@ public class StartupController extends EventController {
   }
 
   private void setConstants(Builder startupBuilder) {
-    StartupConstants.Builder cb = StartupConstants.newBuilder()
-        .setDiamondCostForEnergyRefill(ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL)
-        .setDiamondCostForStaminaRefill(ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL)
-        .setMaxItemUsePerBattle(ControllerConstants.BATTLE__MAX_ITEMS_USED)
-        .setMaxLevelDifferenceForBattle(ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE);
-    for (int i = 0; i < IAPValues.packageNames.size(); i++) {
-      cb.addProductIds(IAPValues.packageNames.get(i));
-      cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
-    }
-    startupBuilder.setStartupConstants(cb.build());
+    startupBuilder.setStartupConstants(MiscMethods.createStartupConstantsProto());
   }
 
   private void setTutorialConstants(Builder resBuilder) {
@@ -353,7 +326,9 @@ public class StartupController extends EventController {
         .setWarriorInitAttack(ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK).setWarriorInitDefense(ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE)
         .setWarriorInitWeapon(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
         .setWarriorInitArmor(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
-        .setTutorialQuest(tqbp)
+        .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
+        .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
+        .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
         .build();
     
     resBuilder.setTutorialConstants(tc);

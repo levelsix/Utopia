@@ -283,7 +283,6 @@ enum MarketplaceJobRequirementType {
 
 enum CritStructType {
 	AVIARY = 0;
-	LUMBERMILL = 1;
 	CARPENTER = 2;
 	VAULT = 3;
 	ARMORY = 4;

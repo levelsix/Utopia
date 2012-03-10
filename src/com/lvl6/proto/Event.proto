@@ -126,14 +126,12 @@ message StartupResponseProto {
 	repeated FullQuestProto availableQuests = 7;   
 	repeated FullUserEquipProto userEquips = 8;
     repeated FullEquipProto equips = 9;
-	repeated FullUserStructureProto userStructures = 10;
-	repeated FullStructureProto structs = 11;
-	optional int32 experienceRequiredForNextLevel = 12;
-	optional int32 experienceRequiredForCurrentLevel = 17;
+	optional int32 experienceRequiredForNextLevel = 10;
+	optional int32 experienceRequiredForCurrentLevel = 15;
 	
-	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 13;
-	repeated AttackedNotificationProto attackNotifications = 14;
-	repeated ReferralNotificationProto referralNotifications = 15;
+	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
+	repeated AttackedNotificationProto attackNotifications = 13;
+	repeated ReferralNotificationProto referralNotifications = 14;
 	
 	message MarketplacePostPurchasedNotificationProto {
 		required FullMarketplacePostProto marketplacePost = 1;
@@ -157,11 +155,60 @@ message StartupResponseProto {
 	message StartupConstants {
 	  	repeated string productIds = 1;
 	  	repeated int32 productDiamondsGiven = 2;
-	    required int32 diamondCostForEnergyRefill = 3; 
-    	required int32 diamondCostForStaminaRefill = 4;
-    	required int32 maxItemUsePerBattle = 5;
     	required int32 maxLevelDifferenceForBattle = 6;
-    	   	
+    	
+    	required int32 armoryXLength = 7;
+    	required int32 armoryYLength = 8;
+    	required int32 vaultXLength = 9;
+    	required int32 vaultYLength = 10;
+    	required int32 marketplaceXLength = 11;
+    	required int32 marketplaceYLength = 12;
+    	required int32 carpenterXLength = 13;
+    	required int32 carpenterYLength = 14;
+    	required int32 aviaryXLength = 15;
+    	required int32 aviaryYLength = 16;    	
+
+		required int32 attackBaseGain = 17;
+		required int32 defenseBaseGain = 18;
+		required int32 energyBaseGain = 19;
+		required int32 healthBaseGain = 20;
+		required int32 staminaBaseGain = 21;
+		required int32 attackBaseCost = 22;
+		required int32 defenseBaseCost = 23;
+		required int32 energyBaseCost = 24;
+		required int32 healthBaseCost = 25;
+		required int32 staminaBaseCost = 26;
+		
+		required int32 skillPointsGainedOnLevelup = 27;
+		required int32 cutOfVaultDepositTaken = 28;
+		
+		required int32 minVaultLevel = 29;
+		required int32 minMarketplaceLevel = 30;
+		required int32 minArmoryLevel = 31;
+		
+		required int32 maxRankForCity = 32;
+		required int32 maxLevelForStruct = 33;
+		required int32 maxNumOfSingleStruct = 34;
+		required double percentReturnedToUserForSellingNormStructure = 35;
+		
+		required int32 minutesToRefillAEnergy = 36;
+		required int32 minutesToRefillAStamina = 37;
+		
+		required int32 diamondCostForFullStaminaRefill = 48;
+		required int32 diamondCostForFullEnergyRefill = 49;
+		
+		required int32 maxNumberOfMarketplacePosts = 40;
+		required double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
+   		required double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
+		required int32 numDaysLongMarketplaceLicenseLastsFor = 43;
+		required int32 numDaysShortMarketplaceLicenseLastsFor = 44;
+		required int32 diamondCostOfLongMarketplaceLicense = 45;
+		required int32 diamondCostOfShortMarketplaceLicense = 46;
+
+		required int32 minutesForCityExpansion = 3;
+		required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
+		required double percentReturnedToUserForSellingEquipInArmory = 5;
+		    	   	
 		//ADD a bunch of other important constants
 	}
 	
@@ -188,6 +235,10 @@ message StartupResponseProto {
 		required FullEquipProto warriorInitWeapon = 15;
 		required FullEquipProto warriorInitArmor = 16;
 		
+		required int32 minNameLength = 19;
+		required int32 diamondRewardForReferrer = 20;
+		required int32 diamondRewardForBeingReferred = 21;		
+
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
 			required string goodName = 1;
@@ -434,6 +485,7 @@ message UpgradeNormStructureResponseProto {
 		ANOTHER_STRUCT_STILL_UPGRADING = 4;
 		OTHER_FAIL = 5;
 		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 6;
+		AT_MAX_LEVEL_ALREADY = 7;
 	}
 }
 
@@ -574,7 +626,8 @@ message LevelUpResponseProto {
 	enum LevelUpStatus {
      	SUCCESS = 0;
      	NOT_ENOUGH_EXP_TO_NEXT_LEVEL = 1;
-     	OTHER_FAIL = 2;
+     	ALREADY_AT_MAX_LEVEL = 2;
+     	OTHER_FAIL = 3;
      }
 }
 

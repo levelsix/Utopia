@@ -122,6 +122,10 @@ public class LevelUpController extends EventController {
       resBuilder.setStatus(LevelUpStatus.OTHER_FAIL);
       return false;
     }
+    if (user.getLevel() == ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER) {
+      resBuilder.setStatus(LevelUpStatus.ALREADY_AT_MAX_LEVEL);
+      return false;
+    }
     Integer expRequiredForNextLevel = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1);
     if (expRequiredForNextLevel == null) {
       resBuilder.setStatus(LevelUpStatus.OTHER_FAIL);

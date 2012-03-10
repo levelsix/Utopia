@@ -6451,35 +6451,15 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getEquipsOrBuilder(
         int index);
     
-    // repeated .com.lvl6.proto.FullUserStructureProto userStructures = 10;
-    java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> 
-        getUserStructuresList();
-    com.lvl6.proto.InfoProto.FullUserStructureProto getUserStructures(int index);
-    int getUserStructuresCount();
-    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
-        getUserStructuresOrBuilderList();
-    com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getUserStructuresOrBuilder(
-        int index);
-    
-    // repeated .com.lvl6.proto.FullStructureProto structs = 11;
-    java.util.List<com.lvl6.proto.InfoProto.FullStructureProto> 
-        getStructsList();
-    com.lvl6.proto.InfoProto.FullStructureProto getStructs(int index);
-    int getStructsCount();
-    java.util.List<? extends com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder> 
-        getStructsOrBuilderList();
-    com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder getStructsOrBuilder(
-        int index);
-    
-    // optional int32 experienceRequiredForNextLevel = 12;
+    // optional int32 experienceRequiredForNextLevel = 10;
     boolean hasExperienceRequiredForNextLevel();
     int getExperienceRequiredForNextLevel();
     
-    // optional int32 experienceRequiredForCurrentLevel = 17;
+    // optional int32 experienceRequiredForCurrentLevel = 15;
     boolean hasExperienceRequiredForCurrentLevel();
     int getExperienceRequiredForCurrentLevel();
     
-    // repeated .com.lvl6.proto.StartupResponseProto.MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 13;
+    // repeated .com.lvl6.proto.StartupResponseProto.MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
     java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto> 
         getMarketplacePurchaseNotificationsList();
     com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto getMarketplacePurchaseNotifications(int index);
@@ -6489,7 +6469,7 @@ public final class EventProto {
     com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProtoOrBuilder getMarketplacePurchaseNotificationsOrBuilder(
         int index);
     
-    // repeated .com.lvl6.proto.StartupResponseProto.AttackedNotificationProto attackNotifications = 14;
+    // repeated .com.lvl6.proto.StartupResponseProto.AttackedNotificationProto attackNotifications = 13;
     java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto> 
         getAttackNotificationsList();
     com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto getAttackNotifications(int index);
@@ -6499,7 +6479,7 @@ public final class EventProto {
     com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProtoOrBuilder getAttackNotificationsOrBuilder(
         int index);
     
-    // repeated .com.lvl6.proto.StartupResponseProto.ReferralNotificationProto referralNotifications = 15;
+    // repeated .com.lvl6.proto.StartupResponseProto.ReferralNotificationProto referralNotifications = 14;
     java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto> 
         getReferralNotificationsList();
     com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto getReferralNotifications(int index);
@@ -8553,21 +8533,181 @@ public final class EventProto {
       int getProductDiamondsGivenCount();
       int getProductDiamondsGiven(int index);
       
-      // required int32 diamondCostForEnergyRefill = 3;
-      boolean hasDiamondCostForEnergyRefill();
-      int getDiamondCostForEnergyRefill();
-      
-      // required int32 diamondCostForStaminaRefill = 4;
-      boolean hasDiamondCostForStaminaRefill();
-      int getDiamondCostForStaminaRefill();
-      
-      // required int32 maxItemUsePerBattle = 5;
-      boolean hasMaxItemUsePerBattle();
-      int getMaxItemUsePerBattle();
-      
       // required int32 maxLevelDifferenceForBattle = 6;
       boolean hasMaxLevelDifferenceForBattle();
       int getMaxLevelDifferenceForBattle();
+      
+      // required int32 armoryXLength = 7;
+      boolean hasArmoryXLength();
+      int getArmoryXLength();
+      
+      // required int32 armoryYLength = 8;
+      boolean hasArmoryYLength();
+      int getArmoryYLength();
+      
+      // required int32 vaultXLength = 9;
+      boolean hasVaultXLength();
+      int getVaultXLength();
+      
+      // required int32 vaultYLength = 10;
+      boolean hasVaultYLength();
+      int getVaultYLength();
+      
+      // required int32 marketplaceXLength = 11;
+      boolean hasMarketplaceXLength();
+      int getMarketplaceXLength();
+      
+      // required int32 marketplaceYLength = 12;
+      boolean hasMarketplaceYLength();
+      int getMarketplaceYLength();
+      
+      // required int32 carpenterXLength = 13;
+      boolean hasCarpenterXLength();
+      int getCarpenterXLength();
+      
+      // required int32 carpenterYLength = 14;
+      boolean hasCarpenterYLength();
+      int getCarpenterYLength();
+      
+      // required int32 aviaryXLength = 15;
+      boolean hasAviaryXLength();
+      int getAviaryXLength();
+      
+      // required int32 aviaryYLength = 16;
+      boolean hasAviaryYLength();
+      int getAviaryYLength();
+      
+      // required int32 attackBaseGain = 17;
+      boolean hasAttackBaseGain();
+      int getAttackBaseGain();
+      
+      // required int32 defenseBaseGain = 18;
+      boolean hasDefenseBaseGain();
+      int getDefenseBaseGain();
+      
+      // required int32 energyBaseGain = 19;
+      boolean hasEnergyBaseGain();
+      int getEnergyBaseGain();
+      
+      // required int32 healthBaseGain = 20;
+      boolean hasHealthBaseGain();
+      int getHealthBaseGain();
+      
+      // required int32 staminaBaseGain = 21;
+      boolean hasStaminaBaseGain();
+      int getStaminaBaseGain();
+      
+      // required int32 attackBaseCost = 22;
+      boolean hasAttackBaseCost();
+      int getAttackBaseCost();
+      
+      // required int32 defenseBaseCost = 23;
+      boolean hasDefenseBaseCost();
+      int getDefenseBaseCost();
+      
+      // required int32 energyBaseCost = 24;
+      boolean hasEnergyBaseCost();
+      int getEnergyBaseCost();
+      
+      // required int32 healthBaseCost = 25;
+      boolean hasHealthBaseCost();
+      int getHealthBaseCost();
+      
+      // required int32 staminaBaseCost = 26;
+      boolean hasStaminaBaseCost();
+      int getStaminaBaseCost();
+      
+      // required int32 skillPointsGainedOnLevelup = 27;
+      boolean hasSkillPointsGainedOnLevelup();
+      int getSkillPointsGainedOnLevelup();
+      
+      // required int32 cutOfVaultDepositTaken = 28;
+      boolean hasCutOfVaultDepositTaken();
+      int getCutOfVaultDepositTaken();
+      
+      // required int32 minVaultLevel = 29;
+      boolean hasMinVaultLevel();
+      int getMinVaultLevel();
+      
+      // required int32 minMarketplaceLevel = 30;
+      boolean hasMinMarketplaceLevel();
+      int getMinMarketplaceLevel();
+      
+      // required int32 minArmoryLevel = 31;
+      boolean hasMinArmoryLevel();
+      int getMinArmoryLevel();
+      
+      // required int32 maxRankForCity = 32;
+      boolean hasMaxRankForCity();
+      int getMaxRankForCity();
+      
+      // required int32 maxLevelForStruct = 33;
+      boolean hasMaxLevelForStruct();
+      int getMaxLevelForStruct();
+      
+      // required int32 maxNumOfSingleStruct = 34;
+      boolean hasMaxNumOfSingleStruct();
+      int getMaxNumOfSingleStruct();
+      
+      // required double percentReturnedToUserForSellingNormStructure = 35;
+      boolean hasPercentReturnedToUserForSellingNormStructure();
+      double getPercentReturnedToUserForSellingNormStructure();
+      
+      // required int32 minutesToRefillAEnergy = 36;
+      boolean hasMinutesToRefillAEnergy();
+      int getMinutesToRefillAEnergy();
+      
+      // required int32 minutesToRefillAStamina = 37;
+      boolean hasMinutesToRefillAStamina();
+      int getMinutesToRefillAStamina();
+      
+      // required int32 diamondCostForFullStaminaRefill = 48;
+      boolean hasDiamondCostForFullStaminaRefill();
+      int getDiamondCostForFullStaminaRefill();
+      
+      // required int32 diamondCostForFullEnergyRefill = 49;
+      boolean hasDiamondCostForFullEnergyRefill();
+      int getDiamondCostForFullEnergyRefill();
+      
+      // required int32 maxNumberOfMarketplacePosts = 40;
+      boolean hasMaxNumberOfMarketplacePosts();
+      int getMaxNumberOfMarketplacePosts();
+      
+      // required double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
+      boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase();
+      double getPercentOfSellingCostTakenFromSellerOnMarketplacePurchase();
+      
+      // required double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
+      boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract();
+      double getPercentOfSellingCostTakenFromSellerOnMarketplaceRetract();
+      
+      // required int32 numDaysLongMarketplaceLicenseLastsFor = 43;
+      boolean hasNumDaysLongMarketplaceLicenseLastsFor();
+      int getNumDaysLongMarketplaceLicenseLastsFor();
+      
+      // required int32 numDaysShortMarketplaceLicenseLastsFor = 44;
+      boolean hasNumDaysShortMarketplaceLicenseLastsFor();
+      int getNumDaysShortMarketplaceLicenseLastsFor();
+      
+      // required int32 diamondCostOfLongMarketplaceLicense = 45;
+      boolean hasDiamondCostOfLongMarketplaceLicense();
+      int getDiamondCostOfLongMarketplaceLicense();
+      
+      // required int32 diamondCostOfShortMarketplaceLicense = 46;
+      boolean hasDiamondCostOfShortMarketplaceLicense();
+      int getDiamondCostOfShortMarketplaceLicense();
+      
+      // required int32 minutesForCityExpansion = 3;
+      boolean hasMinutesForCityExpansion();
+      int getMinutesForCityExpansion();
+      
+      // required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
+      boolean hasMaxNumbersOfEnemiesToGenerateAtOnce();
+      int getMaxNumbersOfEnemiesToGenerateAtOnce();
+      
+      // required double percentReturnedToUserForSellingEquipInArmory = 5;
+      boolean hasPercentReturnedToUserForSellingEquipInArmory();
+      double getPercentReturnedToUserForSellingEquipInArmory();
     }
     public static final class StartupConstants extends
         com.google.protobuf.GeneratedMessage
@@ -8598,6 +8738,7 @@ public final class EventProto {
       }
       
       private int bitField0_;
+      private int bitField1_;
       // repeated string productIds = 1;
       public static final int PRODUCTIDS_FIELD_NUMBER = 1;
       private com.google.protobuf.LazyStringList productIds_;
@@ -8626,72 +8767,672 @@ public final class EventProto {
         return productDiamondsGiven_.get(index);
       }
       
-      // required int32 diamondCostForEnergyRefill = 3;
-      public static final int DIAMONDCOSTFORENERGYREFILL_FIELD_NUMBER = 3;
-      private int diamondCostForEnergyRefill_;
-      public boolean hasDiamondCostForEnergyRefill() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public int getDiamondCostForEnergyRefill() {
-        return diamondCostForEnergyRefill_;
-      }
-      
-      // required int32 diamondCostForStaminaRefill = 4;
-      public static final int DIAMONDCOSTFORSTAMINAREFILL_FIELD_NUMBER = 4;
-      private int diamondCostForStaminaRefill_;
-      public boolean hasDiamondCostForStaminaRefill() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public int getDiamondCostForStaminaRefill() {
-        return diamondCostForStaminaRefill_;
-      }
-      
-      // required int32 maxItemUsePerBattle = 5;
-      public static final int MAXITEMUSEPERBATTLE_FIELD_NUMBER = 5;
-      private int maxItemUsePerBattle_;
-      public boolean hasMaxItemUsePerBattle() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public int getMaxItemUsePerBattle() {
-        return maxItemUsePerBattle_;
-      }
-      
       // required int32 maxLevelDifferenceForBattle = 6;
       public static final int MAXLEVELDIFFERENCEFORBATTLE_FIELD_NUMBER = 6;
       private int maxLevelDifferenceForBattle_;
       public boolean hasMaxLevelDifferenceForBattle() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       public int getMaxLevelDifferenceForBattle() {
         return maxLevelDifferenceForBattle_;
       }
       
+      // required int32 armoryXLength = 7;
+      public static final int ARMORYXLENGTH_FIELD_NUMBER = 7;
+      private int armoryXLength_;
+      public boolean hasArmoryXLength() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getArmoryXLength() {
+        return armoryXLength_;
+      }
+      
+      // required int32 armoryYLength = 8;
+      public static final int ARMORYYLENGTH_FIELD_NUMBER = 8;
+      private int armoryYLength_;
+      public boolean hasArmoryYLength() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getArmoryYLength() {
+        return armoryYLength_;
+      }
+      
+      // required int32 vaultXLength = 9;
+      public static final int VAULTXLENGTH_FIELD_NUMBER = 9;
+      private int vaultXLength_;
+      public boolean hasVaultXLength() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getVaultXLength() {
+        return vaultXLength_;
+      }
+      
+      // required int32 vaultYLength = 10;
+      public static final int VAULTYLENGTH_FIELD_NUMBER = 10;
+      private int vaultYLength_;
+      public boolean hasVaultYLength() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public int getVaultYLength() {
+        return vaultYLength_;
+      }
+      
+      // required int32 marketplaceXLength = 11;
+      public static final int MARKETPLACEXLENGTH_FIELD_NUMBER = 11;
+      private int marketplaceXLength_;
+      public boolean hasMarketplaceXLength() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getMarketplaceXLength() {
+        return marketplaceXLength_;
+      }
+      
+      // required int32 marketplaceYLength = 12;
+      public static final int MARKETPLACEYLENGTH_FIELD_NUMBER = 12;
+      private int marketplaceYLength_;
+      public boolean hasMarketplaceYLength() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getMarketplaceYLength() {
+        return marketplaceYLength_;
+      }
+      
+      // required int32 carpenterXLength = 13;
+      public static final int CARPENTERXLENGTH_FIELD_NUMBER = 13;
+      private int carpenterXLength_;
+      public boolean hasCarpenterXLength() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getCarpenterXLength() {
+        return carpenterXLength_;
+      }
+      
+      // required int32 carpenterYLength = 14;
+      public static final int CARPENTERYLENGTH_FIELD_NUMBER = 14;
+      private int carpenterYLength_;
+      public boolean hasCarpenterYLength() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public int getCarpenterYLength() {
+        return carpenterYLength_;
+      }
+      
+      // required int32 aviaryXLength = 15;
+      public static final int AVIARYXLENGTH_FIELD_NUMBER = 15;
+      private int aviaryXLength_;
+      public boolean hasAviaryXLength() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public int getAviaryXLength() {
+        return aviaryXLength_;
+      }
+      
+      // required int32 aviaryYLength = 16;
+      public static final int AVIARYYLENGTH_FIELD_NUMBER = 16;
+      private int aviaryYLength_;
+      public boolean hasAviaryYLength() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      public int getAviaryYLength() {
+        return aviaryYLength_;
+      }
+      
+      // required int32 attackBaseGain = 17;
+      public static final int ATTACKBASEGAIN_FIELD_NUMBER = 17;
+      private int attackBaseGain_;
+      public boolean hasAttackBaseGain() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      public int getAttackBaseGain() {
+        return attackBaseGain_;
+      }
+      
+      // required int32 defenseBaseGain = 18;
+      public static final int DEFENSEBASEGAIN_FIELD_NUMBER = 18;
+      private int defenseBaseGain_;
+      public boolean hasDefenseBaseGain() {
+        return ((bitField0_ & 0x00001000) == 0x00001000);
+      }
+      public int getDefenseBaseGain() {
+        return defenseBaseGain_;
+      }
+      
+      // required int32 energyBaseGain = 19;
+      public static final int ENERGYBASEGAIN_FIELD_NUMBER = 19;
+      private int energyBaseGain_;
+      public boolean hasEnergyBaseGain() {
+        return ((bitField0_ & 0x00002000) == 0x00002000);
+      }
+      public int getEnergyBaseGain() {
+        return energyBaseGain_;
+      }
+      
+      // required int32 healthBaseGain = 20;
+      public static final int HEALTHBASEGAIN_FIELD_NUMBER = 20;
+      private int healthBaseGain_;
+      public boolean hasHealthBaseGain() {
+        return ((bitField0_ & 0x00004000) == 0x00004000);
+      }
+      public int getHealthBaseGain() {
+        return healthBaseGain_;
+      }
+      
+      // required int32 staminaBaseGain = 21;
+      public static final int STAMINABASEGAIN_FIELD_NUMBER = 21;
+      private int staminaBaseGain_;
+      public boolean hasStaminaBaseGain() {
+        return ((bitField0_ & 0x00008000) == 0x00008000);
+      }
+      public int getStaminaBaseGain() {
+        return staminaBaseGain_;
+      }
+      
+      // required int32 attackBaseCost = 22;
+      public static final int ATTACKBASECOST_FIELD_NUMBER = 22;
+      private int attackBaseCost_;
+      public boolean hasAttackBaseCost() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      public int getAttackBaseCost() {
+        return attackBaseCost_;
+      }
+      
+      // required int32 defenseBaseCost = 23;
+      public static final int DEFENSEBASECOST_FIELD_NUMBER = 23;
+      private int defenseBaseCost_;
+      public boolean hasDefenseBaseCost() {
+        return ((bitField0_ & 0x00020000) == 0x00020000);
+      }
+      public int getDefenseBaseCost() {
+        return defenseBaseCost_;
+      }
+      
+      // required int32 energyBaseCost = 24;
+      public static final int ENERGYBASECOST_FIELD_NUMBER = 24;
+      private int energyBaseCost_;
+      public boolean hasEnergyBaseCost() {
+        return ((bitField0_ & 0x00040000) == 0x00040000);
+      }
+      public int getEnergyBaseCost() {
+        return energyBaseCost_;
+      }
+      
+      // required int32 healthBaseCost = 25;
+      public static final int HEALTHBASECOST_FIELD_NUMBER = 25;
+      private int healthBaseCost_;
+      public boolean hasHealthBaseCost() {
+        return ((bitField0_ & 0x00080000) == 0x00080000);
+      }
+      public int getHealthBaseCost() {
+        return healthBaseCost_;
+      }
+      
+      // required int32 staminaBaseCost = 26;
+      public static final int STAMINABASECOST_FIELD_NUMBER = 26;
+      private int staminaBaseCost_;
+      public boolean hasStaminaBaseCost() {
+        return ((bitField0_ & 0x00100000) == 0x00100000);
+      }
+      public int getStaminaBaseCost() {
+        return staminaBaseCost_;
+      }
+      
+      // required int32 skillPointsGainedOnLevelup = 27;
+      public static final int SKILLPOINTSGAINEDONLEVELUP_FIELD_NUMBER = 27;
+      private int skillPointsGainedOnLevelup_;
+      public boolean hasSkillPointsGainedOnLevelup() {
+        return ((bitField0_ & 0x00200000) == 0x00200000);
+      }
+      public int getSkillPointsGainedOnLevelup() {
+        return skillPointsGainedOnLevelup_;
+      }
+      
+      // required int32 cutOfVaultDepositTaken = 28;
+      public static final int CUTOFVAULTDEPOSITTAKEN_FIELD_NUMBER = 28;
+      private int cutOfVaultDepositTaken_;
+      public boolean hasCutOfVaultDepositTaken() {
+        return ((bitField0_ & 0x00400000) == 0x00400000);
+      }
+      public int getCutOfVaultDepositTaken() {
+        return cutOfVaultDepositTaken_;
+      }
+      
+      // required int32 minVaultLevel = 29;
+      public static final int MINVAULTLEVEL_FIELD_NUMBER = 29;
+      private int minVaultLevel_;
+      public boolean hasMinVaultLevel() {
+        return ((bitField0_ & 0x00800000) == 0x00800000);
+      }
+      public int getMinVaultLevel() {
+        return minVaultLevel_;
+      }
+      
+      // required int32 minMarketplaceLevel = 30;
+      public static final int MINMARKETPLACELEVEL_FIELD_NUMBER = 30;
+      private int minMarketplaceLevel_;
+      public boolean hasMinMarketplaceLevel() {
+        return ((bitField0_ & 0x01000000) == 0x01000000);
+      }
+      public int getMinMarketplaceLevel() {
+        return minMarketplaceLevel_;
+      }
+      
+      // required int32 minArmoryLevel = 31;
+      public static final int MINARMORYLEVEL_FIELD_NUMBER = 31;
+      private int minArmoryLevel_;
+      public boolean hasMinArmoryLevel() {
+        return ((bitField0_ & 0x02000000) == 0x02000000);
+      }
+      public int getMinArmoryLevel() {
+        return minArmoryLevel_;
+      }
+      
+      // required int32 maxRankForCity = 32;
+      public static final int MAXRANKFORCITY_FIELD_NUMBER = 32;
+      private int maxRankForCity_;
+      public boolean hasMaxRankForCity() {
+        return ((bitField0_ & 0x04000000) == 0x04000000);
+      }
+      public int getMaxRankForCity() {
+        return maxRankForCity_;
+      }
+      
+      // required int32 maxLevelForStruct = 33;
+      public static final int MAXLEVELFORSTRUCT_FIELD_NUMBER = 33;
+      private int maxLevelForStruct_;
+      public boolean hasMaxLevelForStruct() {
+        return ((bitField0_ & 0x08000000) == 0x08000000);
+      }
+      public int getMaxLevelForStruct() {
+        return maxLevelForStruct_;
+      }
+      
+      // required int32 maxNumOfSingleStruct = 34;
+      public static final int MAXNUMOFSINGLESTRUCT_FIELD_NUMBER = 34;
+      private int maxNumOfSingleStruct_;
+      public boolean hasMaxNumOfSingleStruct() {
+        return ((bitField0_ & 0x10000000) == 0x10000000);
+      }
+      public int getMaxNumOfSingleStruct() {
+        return maxNumOfSingleStruct_;
+      }
+      
+      // required double percentReturnedToUserForSellingNormStructure = 35;
+      public static final int PERCENTRETURNEDTOUSERFORSELLINGNORMSTRUCTURE_FIELD_NUMBER = 35;
+      private double percentReturnedToUserForSellingNormStructure_;
+      public boolean hasPercentReturnedToUserForSellingNormStructure() {
+        return ((bitField0_ & 0x20000000) == 0x20000000);
+      }
+      public double getPercentReturnedToUserForSellingNormStructure() {
+        return percentReturnedToUserForSellingNormStructure_;
+      }
+      
+      // required int32 minutesToRefillAEnergy = 36;
+      public static final int MINUTESTOREFILLAENERGY_FIELD_NUMBER = 36;
+      private int minutesToRefillAEnergy_;
+      public boolean hasMinutesToRefillAEnergy() {
+        return ((bitField0_ & 0x40000000) == 0x40000000);
+      }
+      public int getMinutesToRefillAEnergy() {
+        return minutesToRefillAEnergy_;
+      }
+      
+      // required int32 minutesToRefillAStamina = 37;
+      public static final int MINUTESTOREFILLASTAMINA_FIELD_NUMBER = 37;
+      private int minutesToRefillAStamina_;
+      public boolean hasMinutesToRefillAStamina() {
+        return ((bitField0_ & 0x80000000) == 0x80000000);
+      }
+      public int getMinutesToRefillAStamina() {
+        return minutesToRefillAStamina_;
+      }
+      
+      // required int32 diamondCostForFullStaminaRefill = 48;
+      public static final int DIAMONDCOSTFORFULLSTAMINAREFILL_FIELD_NUMBER = 48;
+      private int diamondCostForFullStaminaRefill_;
+      public boolean hasDiamondCostForFullStaminaRefill() {
+        return ((bitField1_ & 0x00000001) == 0x00000001);
+      }
+      public int getDiamondCostForFullStaminaRefill() {
+        return diamondCostForFullStaminaRefill_;
+      }
+      
+      // required int32 diamondCostForFullEnergyRefill = 49;
+      public static final int DIAMONDCOSTFORFULLENERGYREFILL_FIELD_NUMBER = 49;
+      private int diamondCostForFullEnergyRefill_;
+      public boolean hasDiamondCostForFullEnergyRefill() {
+        return ((bitField1_ & 0x00000002) == 0x00000002);
+      }
+      public int getDiamondCostForFullEnergyRefill() {
+        return diamondCostForFullEnergyRefill_;
+      }
+      
+      // required int32 maxNumberOfMarketplacePosts = 40;
+      public static final int MAXNUMBEROFMARKETPLACEPOSTS_FIELD_NUMBER = 40;
+      private int maxNumberOfMarketplacePosts_;
+      public boolean hasMaxNumberOfMarketplacePosts() {
+        return ((bitField1_ & 0x00000004) == 0x00000004);
+      }
+      public int getMaxNumberOfMarketplacePosts() {
+        return maxNumberOfMarketplacePosts_;
+      }
+      
+      // required double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
+      public static final int PERCENTOFSELLINGCOSTTAKENFROMSELLERONMARKETPLACEPURCHASE_FIELD_NUMBER = 41;
+      private double percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
+      public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
+        return ((bitField1_ & 0x00000008) == 0x00000008);
+      }
+      public double getPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
+        return percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
+      }
+      
+      // required double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
+      public static final int PERCENTOFSELLINGCOSTTAKENFROMSELLERONMARKETPLACERETRACT_FIELD_NUMBER = 42;
+      private double percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
+      public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
+        return ((bitField1_ & 0x00000010) == 0x00000010);
+      }
+      public double getPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
+        return percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
+      }
+      
+      // required int32 numDaysLongMarketplaceLicenseLastsFor = 43;
+      public static final int NUMDAYSLONGMARKETPLACELICENSELASTSFOR_FIELD_NUMBER = 43;
+      private int numDaysLongMarketplaceLicenseLastsFor_;
+      public boolean hasNumDaysLongMarketplaceLicenseLastsFor() {
+        return ((bitField1_ & 0x00000020) == 0x00000020);
+      }
+      public int getNumDaysLongMarketplaceLicenseLastsFor() {
+        return numDaysLongMarketplaceLicenseLastsFor_;
+      }
+      
+      // required int32 numDaysShortMarketplaceLicenseLastsFor = 44;
+      public static final int NUMDAYSSHORTMARKETPLACELICENSELASTSFOR_FIELD_NUMBER = 44;
+      private int numDaysShortMarketplaceLicenseLastsFor_;
+      public boolean hasNumDaysShortMarketplaceLicenseLastsFor() {
+        return ((bitField1_ & 0x00000040) == 0x00000040);
+      }
+      public int getNumDaysShortMarketplaceLicenseLastsFor() {
+        return numDaysShortMarketplaceLicenseLastsFor_;
+      }
+      
+      // required int32 diamondCostOfLongMarketplaceLicense = 45;
+      public static final int DIAMONDCOSTOFLONGMARKETPLACELICENSE_FIELD_NUMBER = 45;
+      private int diamondCostOfLongMarketplaceLicense_;
+      public boolean hasDiamondCostOfLongMarketplaceLicense() {
+        return ((bitField1_ & 0x00000080) == 0x00000080);
+      }
+      public int getDiamondCostOfLongMarketplaceLicense() {
+        return diamondCostOfLongMarketplaceLicense_;
+      }
+      
+      // required int32 diamondCostOfShortMarketplaceLicense = 46;
+      public static final int DIAMONDCOSTOFSHORTMARKETPLACELICENSE_FIELD_NUMBER = 46;
+      private int diamondCostOfShortMarketplaceLicense_;
+      public boolean hasDiamondCostOfShortMarketplaceLicense() {
+        return ((bitField1_ & 0x00000100) == 0x00000100);
+      }
+      public int getDiamondCostOfShortMarketplaceLicense() {
+        return diamondCostOfShortMarketplaceLicense_;
+      }
+      
+      // required int32 minutesForCityExpansion = 3;
+      public static final int MINUTESFORCITYEXPANSION_FIELD_NUMBER = 3;
+      private int minutesForCityExpansion_;
+      public boolean hasMinutesForCityExpansion() {
+        return ((bitField1_ & 0x00000200) == 0x00000200);
+      }
+      public int getMinutesForCityExpansion() {
+        return minutesForCityExpansion_;
+      }
+      
+      // required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
+      public static final int MAXNUMBERSOFENEMIESTOGENERATEATONCE_FIELD_NUMBER = 4;
+      private int maxNumbersOfEnemiesToGenerateAtOnce_;
+      public boolean hasMaxNumbersOfEnemiesToGenerateAtOnce() {
+        return ((bitField1_ & 0x00000400) == 0x00000400);
+      }
+      public int getMaxNumbersOfEnemiesToGenerateAtOnce() {
+        return maxNumbersOfEnemiesToGenerateAtOnce_;
+      }
+      
+      // required double percentReturnedToUserForSellingEquipInArmory = 5;
+      public static final int PERCENTRETURNEDTOUSERFORSELLINGEQUIPINARMORY_FIELD_NUMBER = 5;
+      private double percentReturnedToUserForSellingEquipInArmory_;
+      public boolean hasPercentReturnedToUserForSellingEquipInArmory() {
+        return ((bitField1_ & 0x00000800) == 0x00000800);
+      }
+      public double getPercentReturnedToUserForSellingEquipInArmory() {
+        return percentReturnedToUserForSellingEquipInArmory_;
+      }
+      
       private void initFields() {
         productIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         productDiamondsGiven_ = java.util.Collections.emptyList();;
-        diamondCostForEnergyRefill_ = 0;
-        diamondCostForStaminaRefill_ = 0;
-        maxItemUsePerBattle_ = 0;
         maxLevelDifferenceForBattle_ = 0;
+        armoryXLength_ = 0;
+        armoryYLength_ = 0;
+        vaultXLength_ = 0;
+        vaultYLength_ = 0;
+        marketplaceXLength_ = 0;
+        marketplaceYLength_ = 0;
+        carpenterXLength_ = 0;
+        carpenterYLength_ = 0;
+        aviaryXLength_ = 0;
+        aviaryYLength_ = 0;
+        attackBaseGain_ = 0;
+        defenseBaseGain_ = 0;
+        energyBaseGain_ = 0;
+        healthBaseGain_ = 0;
+        staminaBaseGain_ = 0;
+        attackBaseCost_ = 0;
+        defenseBaseCost_ = 0;
+        energyBaseCost_ = 0;
+        healthBaseCost_ = 0;
+        staminaBaseCost_ = 0;
+        skillPointsGainedOnLevelup_ = 0;
+        cutOfVaultDepositTaken_ = 0;
+        minVaultLevel_ = 0;
+        minMarketplaceLevel_ = 0;
+        minArmoryLevel_ = 0;
+        maxRankForCity_ = 0;
+        maxLevelForStruct_ = 0;
+        maxNumOfSingleStruct_ = 0;
+        percentReturnedToUserForSellingNormStructure_ = 0D;
+        minutesToRefillAEnergy_ = 0;
+        minutesToRefillAStamina_ = 0;
+        diamondCostForFullStaminaRefill_ = 0;
+        diamondCostForFullEnergyRefill_ = 0;
+        maxNumberOfMarketplacePosts_ = 0;
+        percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = 0D;
+        percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = 0D;
+        numDaysLongMarketplaceLicenseLastsFor_ = 0;
+        numDaysShortMarketplaceLicenseLastsFor_ = 0;
+        diamondCostOfLongMarketplaceLicense_ = 0;
+        diamondCostOfShortMarketplaceLicense_ = 0;
+        minutesForCityExpansion_ = 0;
+        maxNumbersOfEnemiesToGenerateAtOnce_ = 0;
+        percentReturnedToUserForSellingEquipInArmory_ = 0D;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasDiamondCostForEnergyRefill()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondCostForStaminaRefill()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMaxItemUsePerBattle()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
         if (!hasMaxLevelDifferenceForBattle()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasArmoryXLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasArmoryYLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasVaultXLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasVaultYLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMarketplaceXLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMarketplaceYLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasCarpenterXLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasCarpenterYLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasAviaryXLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasAviaryYLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasAttackBaseGain()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDefenseBaseGain()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasEnergyBaseGain()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasHealthBaseGain()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasStaminaBaseGain()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasAttackBaseCost()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDefenseBaseCost()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasEnergyBaseCost()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasHealthBaseCost()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasStaminaBaseCost()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasSkillPointsGainedOnLevelup()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasCutOfVaultDepositTaken()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMinVaultLevel()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMinMarketplaceLevel()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMinArmoryLevel()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMaxRankForCity()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMaxLevelForStruct()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMaxNumOfSingleStruct()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasPercentReturnedToUserForSellingNormStructure()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMinutesToRefillAEnergy()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMinutesToRefillAStamina()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDiamondCostForFullStaminaRefill()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDiamondCostForFullEnergyRefill()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMaxNumberOfMarketplacePosts()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasNumDaysLongMarketplaceLicenseLastsFor()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasNumDaysShortMarketplaceLicenseLastsFor()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDiamondCostOfLongMarketplaceLicense()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDiamondCostOfShortMarketplaceLicense()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMinutesForCityExpansion()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMaxNumbersOfEnemiesToGenerateAtOnce()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasPercentReturnedToUserForSellingEquipInArmory()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -8708,17 +9449,137 @@ public final class EventProto {
         for (int i = 0; i < productDiamondsGiven_.size(); i++) {
           output.writeInt32(2, productDiamondsGiven_.get(i));
         }
+        if (((bitField1_ & 0x00000200) == 0x00000200)) {
+          output.writeInt32(3, minutesForCityExpansion_);
+        }
+        if (((bitField1_ & 0x00000400) == 0x00000400)) {
+          output.writeInt32(4, maxNumbersOfEnemiesToGenerateAtOnce_);
+        }
+        if (((bitField1_ & 0x00000800) == 0x00000800)) {
+          output.writeDouble(5, percentReturnedToUserForSellingEquipInArmory_);
+        }
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeInt32(3, diamondCostForEnergyRefill_);
+          output.writeInt32(6, maxLevelDifferenceForBattle_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeInt32(4, diamondCostForStaminaRefill_);
+          output.writeInt32(7, armoryXLength_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(5, maxItemUsePerBattle_);
+          output.writeInt32(8, armoryYLength_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeInt32(6, maxLevelDifferenceForBattle_);
+          output.writeInt32(9, vaultXLength_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeInt32(10, vaultYLength_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          output.writeInt32(11, marketplaceXLength_);
+        }
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          output.writeInt32(12, marketplaceYLength_);
+        }
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
+          output.writeInt32(13, carpenterXLength_);
+        }
+        if (((bitField0_ & 0x00000100) == 0x00000100)) {
+          output.writeInt32(14, carpenterYLength_);
+        }
+        if (((bitField0_ & 0x00000200) == 0x00000200)) {
+          output.writeInt32(15, aviaryXLength_);
+        }
+        if (((bitField0_ & 0x00000400) == 0x00000400)) {
+          output.writeInt32(16, aviaryYLength_);
+        }
+        if (((bitField0_ & 0x00000800) == 0x00000800)) {
+          output.writeInt32(17, attackBaseGain_);
+        }
+        if (((bitField0_ & 0x00001000) == 0x00001000)) {
+          output.writeInt32(18, defenseBaseGain_);
+        }
+        if (((bitField0_ & 0x00002000) == 0x00002000)) {
+          output.writeInt32(19, energyBaseGain_);
+        }
+        if (((bitField0_ & 0x00004000) == 0x00004000)) {
+          output.writeInt32(20, healthBaseGain_);
+        }
+        if (((bitField0_ & 0x00008000) == 0x00008000)) {
+          output.writeInt32(21, staminaBaseGain_);
+        }
+        if (((bitField0_ & 0x00010000) == 0x00010000)) {
+          output.writeInt32(22, attackBaseCost_);
+        }
+        if (((bitField0_ & 0x00020000) == 0x00020000)) {
+          output.writeInt32(23, defenseBaseCost_);
+        }
+        if (((bitField0_ & 0x00040000) == 0x00040000)) {
+          output.writeInt32(24, energyBaseCost_);
+        }
+        if (((bitField0_ & 0x00080000) == 0x00080000)) {
+          output.writeInt32(25, healthBaseCost_);
+        }
+        if (((bitField0_ & 0x00100000) == 0x00100000)) {
+          output.writeInt32(26, staminaBaseCost_);
+        }
+        if (((bitField0_ & 0x00200000) == 0x00200000)) {
+          output.writeInt32(27, skillPointsGainedOnLevelup_);
+        }
+        if (((bitField0_ & 0x00400000) == 0x00400000)) {
+          output.writeInt32(28, cutOfVaultDepositTaken_);
+        }
+        if (((bitField0_ & 0x00800000) == 0x00800000)) {
+          output.writeInt32(29, minVaultLevel_);
+        }
+        if (((bitField0_ & 0x01000000) == 0x01000000)) {
+          output.writeInt32(30, minMarketplaceLevel_);
+        }
+        if (((bitField0_ & 0x02000000) == 0x02000000)) {
+          output.writeInt32(31, minArmoryLevel_);
+        }
+        if (((bitField0_ & 0x04000000) == 0x04000000)) {
+          output.writeInt32(32, maxRankForCity_);
+        }
+        if (((bitField0_ & 0x08000000) == 0x08000000)) {
+          output.writeInt32(33, maxLevelForStruct_);
+        }
+        if (((bitField0_ & 0x10000000) == 0x10000000)) {
+          output.writeInt32(34, maxNumOfSingleStruct_);
+        }
+        if (((bitField0_ & 0x20000000) == 0x20000000)) {
+          output.writeDouble(35, percentReturnedToUserForSellingNormStructure_);
+        }
+        if (((bitField0_ & 0x40000000) == 0x40000000)) {
+          output.writeInt32(36, minutesToRefillAEnergy_);
+        }
+        if (((bitField0_ & 0x80000000) == 0x80000000)) {
+          output.writeInt32(37, minutesToRefillAStamina_);
+        }
+        if (((bitField1_ & 0x00000004) == 0x00000004)) {
+          output.writeInt32(40, maxNumberOfMarketplacePosts_);
+        }
+        if (((bitField1_ & 0x00000008) == 0x00000008)) {
+          output.writeDouble(41, percentOfSellingCostTakenFromSellerOnMarketplacePurchase_);
+        }
+        if (((bitField1_ & 0x00000010) == 0x00000010)) {
+          output.writeDouble(42, percentOfSellingCostTakenFromSellerOnMarketplaceRetract_);
+        }
+        if (((bitField1_ & 0x00000020) == 0x00000020)) {
+          output.writeInt32(43, numDaysLongMarketplaceLicenseLastsFor_);
+        }
+        if (((bitField1_ & 0x00000040) == 0x00000040)) {
+          output.writeInt32(44, numDaysShortMarketplaceLicenseLastsFor_);
+        }
+        if (((bitField1_ & 0x00000080) == 0x00000080)) {
+          output.writeInt32(45, diamondCostOfLongMarketplaceLicense_);
+        }
+        if (((bitField1_ & 0x00000100) == 0x00000100)) {
+          output.writeInt32(46, diamondCostOfShortMarketplaceLicense_);
+        }
+        if (((bitField1_ & 0x00000001) == 0x00000001)) {
+          output.writeInt32(48, diamondCostForFullStaminaRefill_);
+        }
+        if (((bitField1_ & 0x00000002) == 0x00000002)) {
+          output.writeInt32(49, diamondCostForFullEnergyRefill_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -8747,21 +9608,181 @@ public final class EventProto {
           size += dataSize;
           size += 1 * getProductDiamondsGivenList().size();
         }
+        if (((bitField1_ & 0x00000200) == 0x00000200)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(3, minutesForCityExpansion_);
+        }
+        if (((bitField1_ & 0x00000400) == 0x00000400)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(4, maxNumbersOfEnemiesToGenerateAtOnce_);
+        }
+        if (((bitField1_ & 0x00000800) == 0x00000800)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(5, percentReturnedToUserForSellingEquipInArmory_);
+        }
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, diamondCostForEnergyRefill_);
+            .computeInt32Size(6, maxLevelDifferenceForBattle_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, diamondCostForStaminaRefill_);
+            .computeInt32Size(7, armoryXLength_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(5, maxItemUsePerBattle_);
+            .computeInt32Size(8, armoryYLength_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(6, maxLevelDifferenceForBattle_);
+            .computeInt32Size(9, vaultXLength_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(10, vaultYLength_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(11, marketplaceXLength_);
+        }
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(12, marketplaceYLength_);
+        }
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(13, carpenterXLength_);
+        }
+        if (((bitField0_ & 0x00000100) == 0x00000100)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(14, carpenterYLength_);
+        }
+        if (((bitField0_ & 0x00000200) == 0x00000200)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(15, aviaryXLength_);
+        }
+        if (((bitField0_ & 0x00000400) == 0x00000400)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(16, aviaryYLength_);
+        }
+        if (((bitField0_ & 0x00000800) == 0x00000800)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(17, attackBaseGain_);
+        }
+        if (((bitField0_ & 0x00001000) == 0x00001000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(18, defenseBaseGain_);
+        }
+        if (((bitField0_ & 0x00002000) == 0x00002000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(19, energyBaseGain_);
+        }
+        if (((bitField0_ & 0x00004000) == 0x00004000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(20, healthBaseGain_);
+        }
+        if (((bitField0_ & 0x00008000) == 0x00008000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(21, staminaBaseGain_);
+        }
+        if (((bitField0_ & 0x00010000) == 0x00010000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(22, attackBaseCost_);
+        }
+        if (((bitField0_ & 0x00020000) == 0x00020000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(23, defenseBaseCost_);
+        }
+        if (((bitField0_ & 0x00040000) == 0x00040000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(24, energyBaseCost_);
+        }
+        if (((bitField0_ & 0x00080000) == 0x00080000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(25, healthBaseCost_);
+        }
+        if (((bitField0_ & 0x00100000) == 0x00100000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(26, staminaBaseCost_);
+        }
+        if (((bitField0_ & 0x00200000) == 0x00200000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(27, skillPointsGainedOnLevelup_);
+        }
+        if (((bitField0_ & 0x00400000) == 0x00400000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(28, cutOfVaultDepositTaken_);
+        }
+        if (((bitField0_ & 0x00800000) == 0x00800000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(29, minVaultLevel_);
+        }
+        if (((bitField0_ & 0x01000000) == 0x01000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(30, minMarketplaceLevel_);
+        }
+        if (((bitField0_ & 0x02000000) == 0x02000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(31, minArmoryLevel_);
+        }
+        if (((bitField0_ & 0x04000000) == 0x04000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(32, maxRankForCity_);
+        }
+        if (((bitField0_ & 0x08000000) == 0x08000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(33, maxLevelForStruct_);
+        }
+        if (((bitField0_ & 0x10000000) == 0x10000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(34, maxNumOfSingleStruct_);
+        }
+        if (((bitField0_ & 0x20000000) == 0x20000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(35, percentReturnedToUserForSellingNormStructure_);
+        }
+        if (((bitField0_ & 0x40000000) == 0x40000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(36, minutesToRefillAEnergy_);
+        }
+        if (((bitField0_ & 0x80000000) == 0x80000000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(37, minutesToRefillAStamina_);
+        }
+        if (((bitField1_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(40, maxNumberOfMarketplacePosts_);
+        }
+        if (((bitField1_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(41, percentOfSellingCostTakenFromSellerOnMarketplacePurchase_);
+        }
+        if (((bitField1_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(42, percentOfSellingCostTakenFromSellerOnMarketplaceRetract_);
+        }
+        if (((bitField1_ & 0x00000020) == 0x00000020)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(43, numDaysLongMarketplaceLicenseLastsFor_);
+        }
+        if (((bitField1_ & 0x00000040) == 0x00000040)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(44, numDaysShortMarketplaceLicenseLastsFor_);
+        }
+        if (((bitField1_ & 0x00000080) == 0x00000080)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(45, diamondCostOfLongMarketplaceLicense_);
+        }
+        if (((bitField1_ & 0x00000100) == 0x00000100)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(46, diamondCostOfShortMarketplaceLicense_);
+        }
+        if (((bitField1_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(48, diamondCostForFullStaminaRefill_);
+        }
+        if (((bitField1_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(49, diamondCostForFullEnergyRefill_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -8891,14 +9912,94 @@ public final class EventProto {
           bitField0_ = (bitField0_ & ~0x00000001);
           productDiamondsGiven_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000002);
-          diamondCostForEnergyRefill_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          diamondCostForStaminaRefill_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000008);
-          maxItemUsePerBattle_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000010);
           maxLevelDifferenceForBattle_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          armoryXLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          armoryYLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000010);
+          vaultXLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000020);
+          vaultYLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000040);
+          marketplaceXLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000080);
+          marketplaceYLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000100);
+          carpenterXLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000200);
+          carpenterYLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000400);
+          aviaryXLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000800);
+          aviaryYLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00001000);
+          attackBaseGain_ = 0;
+          bitField0_ = (bitField0_ & ~0x00002000);
+          defenseBaseGain_ = 0;
+          bitField0_ = (bitField0_ & ~0x00004000);
+          energyBaseGain_ = 0;
+          bitField0_ = (bitField0_ & ~0x00008000);
+          healthBaseGain_ = 0;
+          bitField0_ = (bitField0_ & ~0x00010000);
+          staminaBaseGain_ = 0;
+          bitField0_ = (bitField0_ & ~0x00020000);
+          attackBaseCost_ = 0;
+          bitField0_ = (bitField0_ & ~0x00040000);
+          defenseBaseCost_ = 0;
+          bitField0_ = (bitField0_ & ~0x00080000);
+          energyBaseCost_ = 0;
+          bitField0_ = (bitField0_ & ~0x00100000);
+          healthBaseCost_ = 0;
+          bitField0_ = (bitField0_ & ~0x00200000);
+          staminaBaseCost_ = 0;
+          bitField0_ = (bitField0_ & ~0x00400000);
+          skillPointsGainedOnLevelup_ = 0;
+          bitField0_ = (bitField0_ & ~0x00800000);
+          cutOfVaultDepositTaken_ = 0;
+          bitField0_ = (bitField0_ & ~0x01000000);
+          minVaultLevel_ = 0;
+          bitField0_ = (bitField0_ & ~0x02000000);
+          minMarketplaceLevel_ = 0;
+          bitField0_ = (bitField0_ & ~0x04000000);
+          minArmoryLevel_ = 0;
+          bitField0_ = (bitField0_ & ~0x08000000);
+          maxRankForCity_ = 0;
+          bitField0_ = (bitField0_ & ~0x10000000);
+          maxLevelForStruct_ = 0;
+          bitField0_ = (bitField0_ & ~0x20000000);
+          maxNumOfSingleStruct_ = 0;
+          bitField0_ = (bitField0_ & ~0x40000000);
+          percentReturnedToUserForSellingNormStructure_ = 0D;
+          bitField0_ = (bitField0_ & ~0x80000000);
+          minutesToRefillAEnergy_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000001);
+          minutesToRefillAStamina_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000002);
+          diamondCostForFullStaminaRefill_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000004);
+          diamondCostForFullEnergyRefill_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000008);
+          maxNumberOfMarketplacePosts_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000010);
+          percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = 0D;
+          bitField1_ = (bitField1_ & ~0x00000020);
+          percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = 0D;
+          bitField1_ = (bitField1_ & ~0x00000040);
+          numDaysLongMarketplaceLicenseLastsFor_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000080);
+          numDaysShortMarketplaceLicenseLastsFor_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000100);
+          diamondCostOfLongMarketplaceLicense_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000200);
+          diamondCostOfShortMarketplaceLicense_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000400);
+          minutesForCityExpansion_ = 0;
+          bitField1_ = (bitField1_ & ~0x00000800);
+          maxNumbersOfEnemiesToGenerateAtOnce_ = 0;
+          bitField1_ = (bitField1_ & ~0x00001000);
+          percentReturnedToUserForSellingEquipInArmory_ = 0D;
+          bitField1_ = (bitField1_ & ~0x00002000);
           return this;
         }
         
@@ -8936,7 +10037,9 @@ public final class EventProto {
         public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants buildPartial() {
           com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants result = new com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants(this);
           int from_bitField0_ = bitField0_;
+          int from_bitField1_ = bitField1_;
           int to_bitField0_ = 0;
+          int to_bitField1_ = 0;
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
             productIds_ = new com.google.protobuf.UnmodifiableLazyStringList(
                 productIds_);
@@ -8951,20 +10054,181 @@ public final class EventProto {
           if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
             to_bitField0_ |= 0x00000001;
           }
-          result.diamondCostForEnergyRefill_ = diamondCostForEnergyRefill_;
+          result.maxLevelDifferenceForBattle_ = maxLevelDifferenceForBattle_;
           if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
             to_bitField0_ |= 0x00000002;
           }
-          result.diamondCostForStaminaRefill_ = diamondCostForStaminaRefill_;
+          result.armoryXLength_ = armoryXLength_;
           if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
             to_bitField0_ |= 0x00000004;
           }
-          result.maxItemUsePerBattle_ = maxItemUsePerBattle_;
+          result.armoryYLength_ = armoryYLength_;
           if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
             to_bitField0_ |= 0x00000008;
           }
-          result.maxLevelDifferenceForBattle_ = maxLevelDifferenceForBattle_;
+          result.vaultXLength_ = vaultXLength_;
+          if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.vaultYLength_ = vaultYLength_;
+          if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+            to_bitField0_ |= 0x00000020;
+          }
+          result.marketplaceXLength_ = marketplaceXLength_;
+          if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+            to_bitField0_ |= 0x00000040;
+          }
+          result.marketplaceYLength_ = marketplaceYLength_;
+          if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+            to_bitField0_ |= 0x00000080;
+          }
+          result.carpenterXLength_ = carpenterXLength_;
+          if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+            to_bitField0_ |= 0x00000100;
+          }
+          result.carpenterYLength_ = carpenterYLength_;
+          if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+            to_bitField0_ |= 0x00000200;
+          }
+          result.aviaryXLength_ = aviaryXLength_;
+          if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+            to_bitField0_ |= 0x00000400;
+          }
+          result.aviaryYLength_ = aviaryYLength_;
+          if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
+            to_bitField0_ |= 0x00000800;
+          }
+          result.attackBaseGain_ = attackBaseGain_;
+          if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+            to_bitField0_ |= 0x00001000;
+          }
+          result.defenseBaseGain_ = defenseBaseGain_;
+          if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
+            to_bitField0_ |= 0x00002000;
+          }
+          result.energyBaseGain_ = energyBaseGain_;
+          if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
+            to_bitField0_ |= 0x00004000;
+          }
+          result.healthBaseGain_ = healthBaseGain_;
+          if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
+            to_bitField0_ |= 0x00008000;
+          }
+          result.staminaBaseGain_ = staminaBaseGain_;
+          if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
+            to_bitField0_ |= 0x00010000;
+          }
+          result.attackBaseCost_ = attackBaseCost_;
+          if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
+            to_bitField0_ |= 0x00020000;
+          }
+          result.defenseBaseCost_ = defenseBaseCost_;
+          if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
+            to_bitField0_ |= 0x00040000;
+          }
+          result.energyBaseCost_ = energyBaseCost_;
+          if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
+            to_bitField0_ |= 0x00080000;
+          }
+          result.healthBaseCost_ = healthBaseCost_;
+          if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
+            to_bitField0_ |= 0x00100000;
+          }
+          result.staminaBaseCost_ = staminaBaseCost_;
+          if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
+            to_bitField0_ |= 0x00200000;
+          }
+          result.skillPointsGainedOnLevelup_ = skillPointsGainedOnLevelup_;
+          if (((from_bitField0_ & 0x01000000) == 0x01000000)) {
+            to_bitField0_ |= 0x00400000;
+          }
+          result.cutOfVaultDepositTaken_ = cutOfVaultDepositTaken_;
+          if (((from_bitField0_ & 0x02000000) == 0x02000000)) {
+            to_bitField0_ |= 0x00800000;
+          }
+          result.minVaultLevel_ = minVaultLevel_;
+          if (((from_bitField0_ & 0x04000000) == 0x04000000)) {
+            to_bitField0_ |= 0x01000000;
+          }
+          result.minMarketplaceLevel_ = minMarketplaceLevel_;
+          if (((from_bitField0_ & 0x08000000) == 0x08000000)) {
+            to_bitField0_ |= 0x02000000;
+          }
+          result.minArmoryLevel_ = minArmoryLevel_;
+          if (((from_bitField0_ & 0x10000000) == 0x10000000)) {
+            to_bitField0_ |= 0x04000000;
+          }
+          result.maxRankForCity_ = maxRankForCity_;
+          if (((from_bitField0_ & 0x20000000) == 0x20000000)) {
+            to_bitField0_ |= 0x08000000;
+          }
+          result.maxLevelForStruct_ = maxLevelForStruct_;
+          if (((from_bitField0_ & 0x40000000) == 0x40000000)) {
+            to_bitField0_ |= 0x10000000;
+          }
+          result.maxNumOfSingleStruct_ = maxNumOfSingleStruct_;
+          if (((from_bitField0_ & 0x80000000) == 0x80000000)) {
+            to_bitField0_ |= 0x20000000;
+          }
+          result.percentReturnedToUserForSellingNormStructure_ = percentReturnedToUserForSellingNormStructure_;
+          if (((from_bitField1_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x40000000;
+          }
+          result.minutesToRefillAEnergy_ = minutesToRefillAEnergy_;
+          if (((from_bitField1_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x80000000;
+          }
+          result.minutesToRefillAStamina_ = minutesToRefillAStamina_;
+          if (((from_bitField1_ & 0x00000004) == 0x00000004)) {
+            to_bitField1_ |= 0x00000001;
+          }
+          result.diamondCostForFullStaminaRefill_ = diamondCostForFullStaminaRefill_;
+          if (((from_bitField1_ & 0x00000008) == 0x00000008)) {
+            to_bitField1_ |= 0x00000002;
+          }
+          result.diamondCostForFullEnergyRefill_ = diamondCostForFullEnergyRefill_;
+          if (((from_bitField1_ & 0x00000010) == 0x00000010)) {
+            to_bitField1_ |= 0x00000004;
+          }
+          result.maxNumberOfMarketplacePosts_ = maxNumberOfMarketplacePosts_;
+          if (((from_bitField1_ & 0x00000020) == 0x00000020)) {
+            to_bitField1_ |= 0x00000008;
+          }
+          result.percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
+          if (((from_bitField1_ & 0x00000040) == 0x00000040)) {
+            to_bitField1_ |= 0x00000010;
+          }
+          result.percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
+          if (((from_bitField1_ & 0x00000080) == 0x00000080)) {
+            to_bitField1_ |= 0x00000020;
+          }
+          result.numDaysLongMarketplaceLicenseLastsFor_ = numDaysLongMarketplaceLicenseLastsFor_;
+          if (((from_bitField1_ & 0x00000100) == 0x00000100)) {
+            to_bitField1_ |= 0x00000040;
+          }
+          result.numDaysShortMarketplaceLicenseLastsFor_ = numDaysShortMarketplaceLicenseLastsFor_;
+          if (((from_bitField1_ & 0x00000200) == 0x00000200)) {
+            to_bitField1_ |= 0x00000080;
+          }
+          result.diamondCostOfLongMarketplaceLicense_ = diamondCostOfLongMarketplaceLicense_;
+          if (((from_bitField1_ & 0x00000400) == 0x00000400)) {
+            to_bitField1_ |= 0x00000100;
+          }
+          result.diamondCostOfShortMarketplaceLicense_ = diamondCostOfShortMarketplaceLicense_;
+          if (((from_bitField1_ & 0x00000800) == 0x00000800)) {
+            to_bitField1_ |= 0x00000200;
+          }
+          result.minutesForCityExpansion_ = minutesForCityExpansion_;
+          if (((from_bitField1_ & 0x00001000) == 0x00001000)) {
+            to_bitField1_ |= 0x00000400;
+          }
+          result.maxNumbersOfEnemiesToGenerateAtOnce_ = maxNumbersOfEnemiesToGenerateAtOnce_;
+          if (((from_bitField1_ & 0x00002000) == 0x00002000)) {
+            to_bitField1_ |= 0x00000800;
+          }
+          result.percentReturnedToUserForSellingEquipInArmory_ = percentReturnedToUserForSellingEquipInArmory_;
           result.bitField0_ = to_bitField0_;
+          result.bitField1_ = to_bitField1_;
           onBuilt();
           return result;
         }
@@ -9000,36 +10264,316 @@ public final class EventProto {
             }
             onChanged();
           }
-          if (other.hasDiamondCostForEnergyRefill()) {
-            setDiamondCostForEnergyRefill(other.getDiamondCostForEnergyRefill());
-          }
-          if (other.hasDiamondCostForStaminaRefill()) {
-            setDiamondCostForStaminaRefill(other.getDiamondCostForStaminaRefill());
-          }
-          if (other.hasMaxItemUsePerBattle()) {
-            setMaxItemUsePerBattle(other.getMaxItemUsePerBattle());
-          }
           if (other.hasMaxLevelDifferenceForBattle()) {
             setMaxLevelDifferenceForBattle(other.getMaxLevelDifferenceForBattle());
+          }
+          if (other.hasArmoryXLength()) {
+            setArmoryXLength(other.getArmoryXLength());
+          }
+          if (other.hasArmoryYLength()) {
+            setArmoryYLength(other.getArmoryYLength());
+          }
+          if (other.hasVaultXLength()) {
+            setVaultXLength(other.getVaultXLength());
+          }
+          if (other.hasVaultYLength()) {
+            setVaultYLength(other.getVaultYLength());
+          }
+          if (other.hasMarketplaceXLength()) {
+            setMarketplaceXLength(other.getMarketplaceXLength());
+          }
+          if (other.hasMarketplaceYLength()) {
+            setMarketplaceYLength(other.getMarketplaceYLength());
+          }
+          if (other.hasCarpenterXLength()) {
+            setCarpenterXLength(other.getCarpenterXLength());
+          }
+          if (other.hasCarpenterYLength()) {
+            setCarpenterYLength(other.getCarpenterYLength());
+          }
+          if (other.hasAviaryXLength()) {
+            setAviaryXLength(other.getAviaryXLength());
+          }
+          if (other.hasAviaryYLength()) {
+            setAviaryYLength(other.getAviaryYLength());
+          }
+          if (other.hasAttackBaseGain()) {
+            setAttackBaseGain(other.getAttackBaseGain());
+          }
+          if (other.hasDefenseBaseGain()) {
+            setDefenseBaseGain(other.getDefenseBaseGain());
+          }
+          if (other.hasEnergyBaseGain()) {
+            setEnergyBaseGain(other.getEnergyBaseGain());
+          }
+          if (other.hasHealthBaseGain()) {
+            setHealthBaseGain(other.getHealthBaseGain());
+          }
+          if (other.hasStaminaBaseGain()) {
+            setStaminaBaseGain(other.getStaminaBaseGain());
+          }
+          if (other.hasAttackBaseCost()) {
+            setAttackBaseCost(other.getAttackBaseCost());
+          }
+          if (other.hasDefenseBaseCost()) {
+            setDefenseBaseCost(other.getDefenseBaseCost());
+          }
+          if (other.hasEnergyBaseCost()) {
+            setEnergyBaseCost(other.getEnergyBaseCost());
+          }
+          if (other.hasHealthBaseCost()) {
+            setHealthBaseCost(other.getHealthBaseCost());
+          }
+          if (other.hasStaminaBaseCost()) {
+            setStaminaBaseCost(other.getStaminaBaseCost());
+          }
+          if (other.hasSkillPointsGainedOnLevelup()) {
+            setSkillPointsGainedOnLevelup(other.getSkillPointsGainedOnLevelup());
+          }
+          if (other.hasCutOfVaultDepositTaken()) {
+            setCutOfVaultDepositTaken(other.getCutOfVaultDepositTaken());
+          }
+          if (other.hasMinVaultLevel()) {
+            setMinVaultLevel(other.getMinVaultLevel());
+          }
+          if (other.hasMinMarketplaceLevel()) {
+            setMinMarketplaceLevel(other.getMinMarketplaceLevel());
+          }
+          if (other.hasMinArmoryLevel()) {
+            setMinArmoryLevel(other.getMinArmoryLevel());
+          }
+          if (other.hasMaxRankForCity()) {
+            setMaxRankForCity(other.getMaxRankForCity());
+          }
+          if (other.hasMaxLevelForStruct()) {
+            setMaxLevelForStruct(other.getMaxLevelForStruct());
+          }
+          if (other.hasMaxNumOfSingleStruct()) {
+            setMaxNumOfSingleStruct(other.getMaxNumOfSingleStruct());
+          }
+          if (other.hasPercentReturnedToUserForSellingNormStructure()) {
+            setPercentReturnedToUserForSellingNormStructure(other.getPercentReturnedToUserForSellingNormStructure());
+          }
+          if (other.hasMinutesToRefillAEnergy()) {
+            setMinutesToRefillAEnergy(other.getMinutesToRefillAEnergy());
+          }
+          if (other.hasMinutesToRefillAStamina()) {
+            setMinutesToRefillAStamina(other.getMinutesToRefillAStamina());
+          }
+          if (other.hasDiamondCostForFullStaminaRefill()) {
+            setDiamondCostForFullStaminaRefill(other.getDiamondCostForFullStaminaRefill());
+          }
+          if (other.hasDiamondCostForFullEnergyRefill()) {
+            setDiamondCostForFullEnergyRefill(other.getDiamondCostForFullEnergyRefill());
+          }
+          if (other.hasMaxNumberOfMarketplacePosts()) {
+            setMaxNumberOfMarketplacePosts(other.getMaxNumberOfMarketplacePosts());
+          }
+          if (other.hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase()) {
+            setPercentOfSellingCostTakenFromSellerOnMarketplacePurchase(other.getPercentOfSellingCostTakenFromSellerOnMarketplacePurchase());
+          }
+          if (other.hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract()) {
+            setPercentOfSellingCostTakenFromSellerOnMarketplaceRetract(other.getPercentOfSellingCostTakenFromSellerOnMarketplaceRetract());
+          }
+          if (other.hasNumDaysLongMarketplaceLicenseLastsFor()) {
+            setNumDaysLongMarketplaceLicenseLastsFor(other.getNumDaysLongMarketplaceLicenseLastsFor());
+          }
+          if (other.hasNumDaysShortMarketplaceLicenseLastsFor()) {
+            setNumDaysShortMarketplaceLicenseLastsFor(other.getNumDaysShortMarketplaceLicenseLastsFor());
+          }
+          if (other.hasDiamondCostOfLongMarketplaceLicense()) {
+            setDiamondCostOfLongMarketplaceLicense(other.getDiamondCostOfLongMarketplaceLicense());
+          }
+          if (other.hasDiamondCostOfShortMarketplaceLicense()) {
+            setDiamondCostOfShortMarketplaceLicense(other.getDiamondCostOfShortMarketplaceLicense());
+          }
+          if (other.hasMinutesForCityExpansion()) {
+            setMinutesForCityExpansion(other.getMinutesForCityExpansion());
+          }
+          if (other.hasMaxNumbersOfEnemiesToGenerateAtOnce()) {
+            setMaxNumbersOfEnemiesToGenerateAtOnce(other.getMaxNumbersOfEnemiesToGenerateAtOnce());
+          }
+          if (other.hasPercentReturnedToUserForSellingEquipInArmory()) {
+            setPercentReturnedToUserForSellingEquipInArmory(other.getPercentReturnedToUserForSellingEquipInArmory());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
         
         public final boolean isInitialized() {
-          if (!hasDiamondCostForEnergyRefill()) {
-            
-            return false;
-          }
-          if (!hasDiamondCostForStaminaRefill()) {
-            
-            return false;
-          }
-          if (!hasMaxItemUsePerBattle()) {
-            
-            return false;
-          }
           if (!hasMaxLevelDifferenceForBattle()) {
+            
+            return false;
+          }
+          if (!hasArmoryXLength()) {
+            
+            return false;
+          }
+          if (!hasArmoryYLength()) {
+            
+            return false;
+          }
+          if (!hasVaultXLength()) {
+            
+            return false;
+          }
+          if (!hasVaultYLength()) {
+            
+            return false;
+          }
+          if (!hasMarketplaceXLength()) {
+            
+            return false;
+          }
+          if (!hasMarketplaceYLength()) {
+            
+            return false;
+          }
+          if (!hasCarpenterXLength()) {
+            
+            return false;
+          }
+          if (!hasCarpenterYLength()) {
+            
+            return false;
+          }
+          if (!hasAviaryXLength()) {
+            
+            return false;
+          }
+          if (!hasAviaryYLength()) {
+            
+            return false;
+          }
+          if (!hasAttackBaseGain()) {
+            
+            return false;
+          }
+          if (!hasDefenseBaseGain()) {
+            
+            return false;
+          }
+          if (!hasEnergyBaseGain()) {
+            
+            return false;
+          }
+          if (!hasHealthBaseGain()) {
+            
+            return false;
+          }
+          if (!hasStaminaBaseGain()) {
+            
+            return false;
+          }
+          if (!hasAttackBaseCost()) {
+            
+            return false;
+          }
+          if (!hasDefenseBaseCost()) {
+            
+            return false;
+          }
+          if (!hasEnergyBaseCost()) {
+            
+            return false;
+          }
+          if (!hasHealthBaseCost()) {
+            
+            return false;
+          }
+          if (!hasStaminaBaseCost()) {
+            
+            return false;
+          }
+          if (!hasSkillPointsGainedOnLevelup()) {
+            
+            return false;
+          }
+          if (!hasCutOfVaultDepositTaken()) {
+            
+            return false;
+          }
+          if (!hasMinVaultLevel()) {
+            
+            return false;
+          }
+          if (!hasMinMarketplaceLevel()) {
+            
+            return false;
+          }
+          if (!hasMinArmoryLevel()) {
+            
+            return false;
+          }
+          if (!hasMaxRankForCity()) {
+            
+            return false;
+          }
+          if (!hasMaxLevelForStruct()) {
+            
+            return false;
+          }
+          if (!hasMaxNumOfSingleStruct()) {
+            
+            return false;
+          }
+          if (!hasPercentReturnedToUserForSellingNormStructure()) {
+            
+            return false;
+          }
+          if (!hasMinutesToRefillAEnergy()) {
+            
+            return false;
+          }
+          if (!hasMinutesToRefillAStamina()) {
+            
+            return false;
+          }
+          if (!hasDiamondCostForFullStaminaRefill()) {
+            
+            return false;
+          }
+          if (!hasDiamondCostForFullEnergyRefill()) {
+            
+            return false;
+          }
+          if (!hasMaxNumberOfMarketplacePosts()) {
+            
+            return false;
+          }
+          if (!hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase()) {
+            
+            return false;
+          }
+          if (!hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract()) {
+            
+            return false;
+          }
+          if (!hasNumDaysLongMarketplaceLicenseLastsFor()) {
+            
+            return false;
+          }
+          if (!hasNumDaysShortMarketplaceLicenseLastsFor()) {
+            
+            return false;
+          }
+          if (!hasDiamondCostOfLongMarketplaceLicense()) {
+            
+            return false;
+          }
+          if (!hasDiamondCostOfShortMarketplaceLicense()) {
+            
+            return false;
+          }
+          if (!hasMinutesForCityExpansion()) {
+            
+            return false;
+          }
+          if (!hasMaxNumbersOfEnemiesToGenerateAtOnce()) {
+            
+            return false;
+          }
+          if (!hasPercentReturnedToUserForSellingEquipInArmory()) {
             
             return false;
           }
@@ -9079,23 +10623,223 @@ public final class EventProto {
                 break;
               }
               case 24: {
-                bitField0_ |= 0x00000004;
-                diamondCostForEnergyRefill_ = input.readInt32();
+                bitField1_ |= 0x00000800;
+                minutesForCityExpansion_ = input.readInt32();
                 break;
               }
               case 32: {
-                bitField0_ |= 0x00000008;
-                diamondCostForStaminaRefill_ = input.readInt32();
+                bitField1_ |= 0x00001000;
+                maxNumbersOfEnemiesToGenerateAtOnce_ = input.readInt32();
                 break;
               }
-              case 40: {
-                bitField0_ |= 0x00000010;
-                maxItemUsePerBattle_ = input.readInt32();
+              case 41: {
+                bitField1_ |= 0x00002000;
+                percentReturnedToUserForSellingEquipInArmory_ = input.readDouble();
                 break;
               }
               case 48: {
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000004;
                 maxLevelDifferenceForBattle_ = input.readInt32();
+                break;
+              }
+              case 56: {
+                bitField0_ |= 0x00000008;
+                armoryXLength_ = input.readInt32();
+                break;
+              }
+              case 64: {
+                bitField0_ |= 0x00000010;
+                armoryYLength_ = input.readInt32();
+                break;
+              }
+              case 72: {
+                bitField0_ |= 0x00000020;
+                vaultXLength_ = input.readInt32();
+                break;
+              }
+              case 80: {
+                bitField0_ |= 0x00000040;
+                vaultYLength_ = input.readInt32();
+                break;
+              }
+              case 88: {
+                bitField0_ |= 0x00000080;
+                marketplaceXLength_ = input.readInt32();
+                break;
+              }
+              case 96: {
+                bitField0_ |= 0x00000100;
+                marketplaceYLength_ = input.readInt32();
+                break;
+              }
+              case 104: {
+                bitField0_ |= 0x00000200;
+                carpenterXLength_ = input.readInt32();
+                break;
+              }
+              case 112: {
+                bitField0_ |= 0x00000400;
+                carpenterYLength_ = input.readInt32();
+                break;
+              }
+              case 120: {
+                bitField0_ |= 0x00000800;
+                aviaryXLength_ = input.readInt32();
+                break;
+              }
+              case 128: {
+                bitField0_ |= 0x00001000;
+                aviaryYLength_ = input.readInt32();
+                break;
+              }
+              case 136: {
+                bitField0_ |= 0x00002000;
+                attackBaseGain_ = input.readInt32();
+                break;
+              }
+              case 144: {
+                bitField0_ |= 0x00004000;
+                defenseBaseGain_ = input.readInt32();
+                break;
+              }
+              case 152: {
+                bitField0_ |= 0x00008000;
+                energyBaseGain_ = input.readInt32();
+                break;
+              }
+              case 160: {
+                bitField0_ |= 0x00010000;
+                healthBaseGain_ = input.readInt32();
+                break;
+              }
+              case 168: {
+                bitField0_ |= 0x00020000;
+                staminaBaseGain_ = input.readInt32();
+                break;
+              }
+              case 176: {
+                bitField0_ |= 0x00040000;
+                attackBaseCost_ = input.readInt32();
+                break;
+              }
+              case 184: {
+                bitField0_ |= 0x00080000;
+                defenseBaseCost_ = input.readInt32();
+                break;
+              }
+              case 192: {
+                bitField0_ |= 0x00100000;
+                energyBaseCost_ = input.readInt32();
+                break;
+              }
+              case 200: {
+                bitField0_ |= 0x00200000;
+                healthBaseCost_ = input.readInt32();
+                break;
+              }
+              case 208: {
+                bitField0_ |= 0x00400000;
+                staminaBaseCost_ = input.readInt32();
+                break;
+              }
+              case 216: {
+                bitField0_ |= 0x00800000;
+                skillPointsGainedOnLevelup_ = input.readInt32();
+                break;
+              }
+              case 224: {
+                bitField0_ |= 0x01000000;
+                cutOfVaultDepositTaken_ = input.readInt32();
+                break;
+              }
+              case 232: {
+                bitField0_ |= 0x02000000;
+                minVaultLevel_ = input.readInt32();
+                break;
+              }
+              case 240: {
+                bitField0_ |= 0x04000000;
+                minMarketplaceLevel_ = input.readInt32();
+                break;
+              }
+              case 248: {
+                bitField0_ |= 0x08000000;
+                minArmoryLevel_ = input.readInt32();
+                break;
+              }
+              case 256: {
+                bitField0_ |= 0x10000000;
+                maxRankForCity_ = input.readInt32();
+                break;
+              }
+              case 264: {
+                bitField0_ |= 0x20000000;
+                maxLevelForStruct_ = input.readInt32();
+                break;
+              }
+              case 272: {
+                bitField0_ |= 0x40000000;
+                maxNumOfSingleStruct_ = input.readInt32();
+                break;
+              }
+              case 281: {
+                bitField0_ |= 0x80000000;
+                percentReturnedToUserForSellingNormStructure_ = input.readDouble();
+                break;
+              }
+              case 288: {
+                bitField1_ |= 0x00000001;
+                minutesToRefillAEnergy_ = input.readInt32();
+                break;
+              }
+              case 296: {
+                bitField1_ |= 0x00000002;
+                minutesToRefillAStamina_ = input.readInt32();
+                break;
+              }
+              case 320: {
+                bitField1_ |= 0x00000010;
+                maxNumberOfMarketplacePosts_ = input.readInt32();
+                break;
+              }
+              case 329: {
+                bitField1_ |= 0x00000020;
+                percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = input.readDouble();
+                break;
+              }
+              case 337: {
+                bitField1_ |= 0x00000040;
+                percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = input.readDouble();
+                break;
+              }
+              case 344: {
+                bitField1_ |= 0x00000080;
+                numDaysLongMarketplaceLicenseLastsFor_ = input.readInt32();
+                break;
+              }
+              case 352: {
+                bitField1_ |= 0x00000100;
+                numDaysShortMarketplaceLicenseLastsFor_ = input.readInt32();
+                break;
+              }
+              case 360: {
+                bitField1_ |= 0x00000200;
+                diamondCostOfLongMarketplaceLicense_ = input.readInt32();
+                break;
+              }
+              case 368: {
+                bitField1_ |= 0x00000400;
+                diamondCostOfShortMarketplaceLicense_ = input.readInt32();
+                break;
+              }
+              case 384: {
+                bitField1_ |= 0x00000004;
+                diamondCostForFullStaminaRefill_ = input.readInt32();
+                break;
+              }
+              case 392: {
+                bitField1_ |= 0x00000008;
+                diamondCostForFullEnergyRefill_ = input.readInt32();
                 break;
               }
             }
@@ -9103,6 +10847,7 @@ public final class EventProto {
         }
         
         private int bitField0_;
+        private int bitField1_;
         
         // repeated string productIds = 1;
         private com.google.protobuf.LazyStringList productIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -9205,86 +10950,926 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondCostForEnergyRefill = 3;
-        private int diamondCostForEnergyRefill_ ;
-        public boolean hasDiamondCostForEnergyRefill() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
-        }
-        public int getDiamondCostForEnergyRefill() {
-          return diamondCostForEnergyRefill_;
-        }
-        public Builder setDiamondCostForEnergyRefill(int value) {
-          bitField0_ |= 0x00000004;
-          diamondCostForEnergyRefill_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearDiamondCostForEnergyRefill() {
-          bitField0_ = (bitField0_ & ~0x00000004);
-          diamondCostForEnergyRefill_ = 0;
-          onChanged();
-          return this;
-        }
-        
-        // required int32 diamondCostForStaminaRefill = 4;
-        private int diamondCostForStaminaRefill_ ;
-        public boolean hasDiamondCostForStaminaRefill() {
-          return ((bitField0_ & 0x00000008) == 0x00000008);
-        }
-        public int getDiamondCostForStaminaRefill() {
-          return diamondCostForStaminaRefill_;
-        }
-        public Builder setDiamondCostForStaminaRefill(int value) {
-          bitField0_ |= 0x00000008;
-          diamondCostForStaminaRefill_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearDiamondCostForStaminaRefill() {
-          bitField0_ = (bitField0_ & ~0x00000008);
-          diamondCostForStaminaRefill_ = 0;
-          onChanged();
-          return this;
-        }
-        
-        // required int32 maxItemUsePerBattle = 5;
-        private int maxItemUsePerBattle_ ;
-        public boolean hasMaxItemUsePerBattle() {
-          return ((bitField0_ & 0x00000010) == 0x00000010);
-        }
-        public int getMaxItemUsePerBattle() {
-          return maxItemUsePerBattle_;
-        }
-        public Builder setMaxItemUsePerBattle(int value) {
-          bitField0_ |= 0x00000010;
-          maxItemUsePerBattle_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearMaxItemUsePerBattle() {
-          bitField0_ = (bitField0_ & ~0x00000010);
-          maxItemUsePerBattle_ = 0;
-          onChanged();
-          return this;
-        }
-        
         // required int32 maxLevelDifferenceForBattle = 6;
         private int maxLevelDifferenceForBattle_ ;
         public boolean hasMaxLevelDifferenceForBattle() {
-          return ((bitField0_ & 0x00000020) == 0x00000020);
+          return ((bitField0_ & 0x00000004) == 0x00000004);
         }
         public int getMaxLevelDifferenceForBattle() {
           return maxLevelDifferenceForBattle_;
         }
         public Builder setMaxLevelDifferenceForBattle(int value) {
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000004;
           maxLevelDifferenceForBattle_ = value;
           onChanged();
           return this;
         }
         public Builder clearMaxLevelDifferenceForBattle() {
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000004);
           maxLevelDifferenceForBattle_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 armoryXLength = 7;
+        private int armoryXLength_ ;
+        public boolean hasArmoryXLength() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        public int getArmoryXLength() {
+          return armoryXLength_;
+        }
+        public Builder setArmoryXLength(int value) {
+          bitField0_ |= 0x00000008;
+          armoryXLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearArmoryXLength() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          armoryXLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 armoryYLength = 8;
+        private int armoryYLength_ ;
+        public boolean hasArmoryYLength() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        public int getArmoryYLength() {
+          return armoryYLength_;
+        }
+        public Builder setArmoryYLength(int value) {
+          bitField0_ |= 0x00000010;
+          armoryYLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearArmoryYLength() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          armoryYLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 vaultXLength = 9;
+        private int vaultXLength_ ;
+        public boolean hasVaultXLength() {
+          return ((bitField0_ & 0x00000020) == 0x00000020);
+        }
+        public int getVaultXLength() {
+          return vaultXLength_;
+        }
+        public Builder setVaultXLength(int value) {
+          bitField0_ |= 0x00000020;
+          vaultXLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearVaultXLength() {
+          bitField0_ = (bitField0_ & ~0x00000020);
+          vaultXLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 vaultYLength = 10;
+        private int vaultYLength_ ;
+        public boolean hasVaultYLength() {
+          return ((bitField0_ & 0x00000040) == 0x00000040);
+        }
+        public int getVaultYLength() {
+          return vaultYLength_;
+        }
+        public Builder setVaultYLength(int value) {
+          bitField0_ |= 0x00000040;
+          vaultYLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearVaultYLength() {
+          bitField0_ = (bitField0_ & ~0x00000040);
+          vaultYLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 marketplaceXLength = 11;
+        private int marketplaceXLength_ ;
+        public boolean hasMarketplaceXLength() {
+          return ((bitField0_ & 0x00000080) == 0x00000080);
+        }
+        public int getMarketplaceXLength() {
+          return marketplaceXLength_;
+        }
+        public Builder setMarketplaceXLength(int value) {
+          bitField0_ |= 0x00000080;
+          marketplaceXLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMarketplaceXLength() {
+          bitField0_ = (bitField0_ & ~0x00000080);
+          marketplaceXLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 marketplaceYLength = 12;
+        private int marketplaceYLength_ ;
+        public boolean hasMarketplaceYLength() {
+          return ((bitField0_ & 0x00000100) == 0x00000100);
+        }
+        public int getMarketplaceYLength() {
+          return marketplaceYLength_;
+        }
+        public Builder setMarketplaceYLength(int value) {
+          bitField0_ |= 0x00000100;
+          marketplaceYLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMarketplaceYLength() {
+          bitField0_ = (bitField0_ & ~0x00000100);
+          marketplaceYLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 carpenterXLength = 13;
+        private int carpenterXLength_ ;
+        public boolean hasCarpenterXLength() {
+          return ((bitField0_ & 0x00000200) == 0x00000200);
+        }
+        public int getCarpenterXLength() {
+          return carpenterXLength_;
+        }
+        public Builder setCarpenterXLength(int value) {
+          bitField0_ |= 0x00000200;
+          carpenterXLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearCarpenterXLength() {
+          bitField0_ = (bitField0_ & ~0x00000200);
+          carpenterXLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 carpenterYLength = 14;
+        private int carpenterYLength_ ;
+        public boolean hasCarpenterYLength() {
+          return ((bitField0_ & 0x00000400) == 0x00000400);
+        }
+        public int getCarpenterYLength() {
+          return carpenterYLength_;
+        }
+        public Builder setCarpenterYLength(int value) {
+          bitField0_ |= 0x00000400;
+          carpenterYLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearCarpenterYLength() {
+          bitField0_ = (bitField0_ & ~0x00000400);
+          carpenterYLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 aviaryXLength = 15;
+        private int aviaryXLength_ ;
+        public boolean hasAviaryXLength() {
+          return ((bitField0_ & 0x00000800) == 0x00000800);
+        }
+        public int getAviaryXLength() {
+          return aviaryXLength_;
+        }
+        public Builder setAviaryXLength(int value) {
+          bitField0_ |= 0x00000800;
+          aviaryXLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearAviaryXLength() {
+          bitField0_ = (bitField0_ & ~0x00000800);
+          aviaryXLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 aviaryYLength = 16;
+        private int aviaryYLength_ ;
+        public boolean hasAviaryYLength() {
+          return ((bitField0_ & 0x00001000) == 0x00001000);
+        }
+        public int getAviaryYLength() {
+          return aviaryYLength_;
+        }
+        public Builder setAviaryYLength(int value) {
+          bitField0_ |= 0x00001000;
+          aviaryYLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearAviaryYLength() {
+          bitField0_ = (bitField0_ & ~0x00001000);
+          aviaryYLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 attackBaseGain = 17;
+        private int attackBaseGain_ ;
+        public boolean hasAttackBaseGain() {
+          return ((bitField0_ & 0x00002000) == 0x00002000);
+        }
+        public int getAttackBaseGain() {
+          return attackBaseGain_;
+        }
+        public Builder setAttackBaseGain(int value) {
+          bitField0_ |= 0x00002000;
+          attackBaseGain_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearAttackBaseGain() {
+          bitField0_ = (bitField0_ & ~0x00002000);
+          attackBaseGain_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 defenseBaseGain = 18;
+        private int defenseBaseGain_ ;
+        public boolean hasDefenseBaseGain() {
+          return ((bitField0_ & 0x00004000) == 0x00004000);
+        }
+        public int getDefenseBaseGain() {
+          return defenseBaseGain_;
+        }
+        public Builder setDefenseBaseGain(int value) {
+          bitField0_ |= 0x00004000;
+          defenseBaseGain_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDefenseBaseGain() {
+          bitField0_ = (bitField0_ & ~0x00004000);
+          defenseBaseGain_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 energyBaseGain = 19;
+        private int energyBaseGain_ ;
+        public boolean hasEnergyBaseGain() {
+          return ((bitField0_ & 0x00008000) == 0x00008000);
+        }
+        public int getEnergyBaseGain() {
+          return energyBaseGain_;
+        }
+        public Builder setEnergyBaseGain(int value) {
+          bitField0_ |= 0x00008000;
+          energyBaseGain_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearEnergyBaseGain() {
+          bitField0_ = (bitField0_ & ~0x00008000);
+          energyBaseGain_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 healthBaseGain = 20;
+        private int healthBaseGain_ ;
+        public boolean hasHealthBaseGain() {
+          return ((bitField0_ & 0x00010000) == 0x00010000);
+        }
+        public int getHealthBaseGain() {
+          return healthBaseGain_;
+        }
+        public Builder setHealthBaseGain(int value) {
+          bitField0_ |= 0x00010000;
+          healthBaseGain_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearHealthBaseGain() {
+          bitField0_ = (bitField0_ & ~0x00010000);
+          healthBaseGain_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 staminaBaseGain = 21;
+        private int staminaBaseGain_ ;
+        public boolean hasStaminaBaseGain() {
+          return ((bitField0_ & 0x00020000) == 0x00020000);
+        }
+        public int getStaminaBaseGain() {
+          return staminaBaseGain_;
+        }
+        public Builder setStaminaBaseGain(int value) {
+          bitField0_ |= 0x00020000;
+          staminaBaseGain_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearStaminaBaseGain() {
+          bitField0_ = (bitField0_ & ~0x00020000);
+          staminaBaseGain_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 attackBaseCost = 22;
+        private int attackBaseCost_ ;
+        public boolean hasAttackBaseCost() {
+          return ((bitField0_ & 0x00040000) == 0x00040000);
+        }
+        public int getAttackBaseCost() {
+          return attackBaseCost_;
+        }
+        public Builder setAttackBaseCost(int value) {
+          bitField0_ |= 0x00040000;
+          attackBaseCost_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearAttackBaseCost() {
+          bitField0_ = (bitField0_ & ~0x00040000);
+          attackBaseCost_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 defenseBaseCost = 23;
+        private int defenseBaseCost_ ;
+        public boolean hasDefenseBaseCost() {
+          return ((bitField0_ & 0x00080000) == 0x00080000);
+        }
+        public int getDefenseBaseCost() {
+          return defenseBaseCost_;
+        }
+        public Builder setDefenseBaseCost(int value) {
+          bitField0_ |= 0x00080000;
+          defenseBaseCost_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDefenseBaseCost() {
+          bitField0_ = (bitField0_ & ~0x00080000);
+          defenseBaseCost_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 energyBaseCost = 24;
+        private int energyBaseCost_ ;
+        public boolean hasEnergyBaseCost() {
+          return ((bitField0_ & 0x00100000) == 0x00100000);
+        }
+        public int getEnergyBaseCost() {
+          return energyBaseCost_;
+        }
+        public Builder setEnergyBaseCost(int value) {
+          bitField0_ |= 0x00100000;
+          energyBaseCost_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearEnergyBaseCost() {
+          bitField0_ = (bitField0_ & ~0x00100000);
+          energyBaseCost_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 healthBaseCost = 25;
+        private int healthBaseCost_ ;
+        public boolean hasHealthBaseCost() {
+          return ((bitField0_ & 0x00200000) == 0x00200000);
+        }
+        public int getHealthBaseCost() {
+          return healthBaseCost_;
+        }
+        public Builder setHealthBaseCost(int value) {
+          bitField0_ |= 0x00200000;
+          healthBaseCost_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearHealthBaseCost() {
+          bitField0_ = (bitField0_ & ~0x00200000);
+          healthBaseCost_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 staminaBaseCost = 26;
+        private int staminaBaseCost_ ;
+        public boolean hasStaminaBaseCost() {
+          return ((bitField0_ & 0x00400000) == 0x00400000);
+        }
+        public int getStaminaBaseCost() {
+          return staminaBaseCost_;
+        }
+        public Builder setStaminaBaseCost(int value) {
+          bitField0_ |= 0x00400000;
+          staminaBaseCost_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearStaminaBaseCost() {
+          bitField0_ = (bitField0_ & ~0x00400000);
+          staminaBaseCost_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 skillPointsGainedOnLevelup = 27;
+        private int skillPointsGainedOnLevelup_ ;
+        public boolean hasSkillPointsGainedOnLevelup() {
+          return ((bitField0_ & 0x00800000) == 0x00800000);
+        }
+        public int getSkillPointsGainedOnLevelup() {
+          return skillPointsGainedOnLevelup_;
+        }
+        public Builder setSkillPointsGainedOnLevelup(int value) {
+          bitField0_ |= 0x00800000;
+          skillPointsGainedOnLevelup_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearSkillPointsGainedOnLevelup() {
+          bitField0_ = (bitField0_ & ~0x00800000);
+          skillPointsGainedOnLevelup_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 cutOfVaultDepositTaken = 28;
+        private int cutOfVaultDepositTaken_ ;
+        public boolean hasCutOfVaultDepositTaken() {
+          return ((bitField0_ & 0x01000000) == 0x01000000);
+        }
+        public int getCutOfVaultDepositTaken() {
+          return cutOfVaultDepositTaken_;
+        }
+        public Builder setCutOfVaultDepositTaken(int value) {
+          bitField0_ |= 0x01000000;
+          cutOfVaultDepositTaken_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearCutOfVaultDepositTaken() {
+          bitField0_ = (bitField0_ & ~0x01000000);
+          cutOfVaultDepositTaken_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 minVaultLevel = 29;
+        private int minVaultLevel_ ;
+        public boolean hasMinVaultLevel() {
+          return ((bitField0_ & 0x02000000) == 0x02000000);
+        }
+        public int getMinVaultLevel() {
+          return minVaultLevel_;
+        }
+        public Builder setMinVaultLevel(int value) {
+          bitField0_ |= 0x02000000;
+          minVaultLevel_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMinVaultLevel() {
+          bitField0_ = (bitField0_ & ~0x02000000);
+          minVaultLevel_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 minMarketplaceLevel = 30;
+        private int minMarketplaceLevel_ ;
+        public boolean hasMinMarketplaceLevel() {
+          return ((bitField0_ & 0x04000000) == 0x04000000);
+        }
+        public int getMinMarketplaceLevel() {
+          return minMarketplaceLevel_;
+        }
+        public Builder setMinMarketplaceLevel(int value) {
+          bitField0_ |= 0x04000000;
+          minMarketplaceLevel_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMinMarketplaceLevel() {
+          bitField0_ = (bitField0_ & ~0x04000000);
+          minMarketplaceLevel_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 minArmoryLevel = 31;
+        private int minArmoryLevel_ ;
+        public boolean hasMinArmoryLevel() {
+          return ((bitField0_ & 0x08000000) == 0x08000000);
+        }
+        public int getMinArmoryLevel() {
+          return minArmoryLevel_;
+        }
+        public Builder setMinArmoryLevel(int value) {
+          bitField0_ |= 0x08000000;
+          minArmoryLevel_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMinArmoryLevel() {
+          bitField0_ = (bitField0_ & ~0x08000000);
+          minArmoryLevel_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 maxRankForCity = 32;
+        private int maxRankForCity_ ;
+        public boolean hasMaxRankForCity() {
+          return ((bitField0_ & 0x10000000) == 0x10000000);
+        }
+        public int getMaxRankForCity() {
+          return maxRankForCity_;
+        }
+        public Builder setMaxRankForCity(int value) {
+          bitField0_ |= 0x10000000;
+          maxRankForCity_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMaxRankForCity() {
+          bitField0_ = (bitField0_ & ~0x10000000);
+          maxRankForCity_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 maxLevelForStruct = 33;
+        private int maxLevelForStruct_ ;
+        public boolean hasMaxLevelForStruct() {
+          return ((bitField0_ & 0x20000000) == 0x20000000);
+        }
+        public int getMaxLevelForStruct() {
+          return maxLevelForStruct_;
+        }
+        public Builder setMaxLevelForStruct(int value) {
+          bitField0_ |= 0x20000000;
+          maxLevelForStruct_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMaxLevelForStruct() {
+          bitField0_ = (bitField0_ & ~0x20000000);
+          maxLevelForStruct_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 maxNumOfSingleStruct = 34;
+        private int maxNumOfSingleStruct_ ;
+        public boolean hasMaxNumOfSingleStruct() {
+          return ((bitField0_ & 0x40000000) == 0x40000000);
+        }
+        public int getMaxNumOfSingleStruct() {
+          return maxNumOfSingleStruct_;
+        }
+        public Builder setMaxNumOfSingleStruct(int value) {
+          bitField0_ |= 0x40000000;
+          maxNumOfSingleStruct_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMaxNumOfSingleStruct() {
+          bitField0_ = (bitField0_ & ~0x40000000);
+          maxNumOfSingleStruct_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required double percentReturnedToUserForSellingNormStructure = 35;
+        private double percentReturnedToUserForSellingNormStructure_ ;
+        public boolean hasPercentReturnedToUserForSellingNormStructure() {
+          return ((bitField0_ & 0x80000000) == 0x80000000);
+        }
+        public double getPercentReturnedToUserForSellingNormStructure() {
+          return percentReturnedToUserForSellingNormStructure_;
+        }
+        public Builder setPercentReturnedToUserForSellingNormStructure(double value) {
+          bitField0_ |= 0x80000000;
+          percentReturnedToUserForSellingNormStructure_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearPercentReturnedToUserForSellingNormStructure() {
+          bitField0_ = (bitField0_ & ~0x80000000);
+          percentReturnedToUserForSellingNormStructure_ = 0D;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 minutesToRefillAEnergy = 36;
+        private int minutesToRefillAEnergy_ ;
+        public boolean hasMinutesToRefillAEnergy() {
+          return ((bitField1_ & 0x00000001) == 0x00000001);
+        }
+        public int getMinutesToRefillAEnergy() {
+          return minutesToRefillAEnergy_;
+        }
+        public Builder setMinutesToRefillAEnergy(int value) {
+          bitField1_ |= 0x00000001;
+          minutesToRefillAEnergy_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMinutesToRefillAEnergy() {
+          bitField1_ = (bitField1_ & ~0x00000001);
+          minutesToRefillAEnergy_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 minutesToRefillAStamina = 37;
+        private int minutesToRefillAStamina_ ;
+        public boolean hasMinutesToRefillAStamina() {
+          return ((bitField1_ & 0x00000002) == 0x00000002);
+        }
+        public int getMinutesToRefillAStamina() {
+          return minutesToRefillAStamina_;
+        }
+        public Builder setMinutesToRefillAStamina(int value) {
+          bitField1_ |= 0x00000002;
+          minutesToRefillAStamina_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMinutesToRefillAStamina() {
+          bitField1_ = (bitField1_ & ~0x00000002);
+          minutesToRefillAStamina_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 diamondCostForFullStaminaRefill = 48;
+        private int diamondCostForFullStaminaRefill_ ;
+        public boolean hasDiamondCostForFullStaminaRefill() {
+          return ((bitField1_ & 0x00000004) == 0x00000004);
+        }
+        public int getDiamondCostForFullStaminaRefill() {
+          return diamondCostForFullStaminaRefill_;
+        }
+        public Builder setDiamondCostForFullStaminaRefill(int value) {
+          bitField1_ |= 0x00000004;
+          diamondCostForFullStaminaRefill_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDiamondCostForFullStaminaRefill() {
+          bitField1_ = (bitField1_ & ~0x00000004);
+          diamondCostForFullStaminaRefill_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 diamondCostForFullEnergyRefill = 49;
+        private int diamondCostForFullEnergyRefill_ ;
+        public boolean hasDiamondCostForFullEnergyRefill() {
+          return ((bitField1_ & 0x00000008) == 0x00000008);
+        }
+        public int getDiamondCostForFullEnergyRefill() {
+          return diamondCostForFullEnergyRefill_;
+        }
+        public Builder setDiamondCostForFullEnergyRefill(int value) {
+          bitField1_ |= 0x00000008;
+          diamondCostForFullEnergyRefill_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDiamondCostForFullEnergyRefill() {
+          bitField1_ = (bitField1_ & ~0x00000008);
+          diamondCostForFullEnergyRefill_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 maxNumberOfMarketplacePosts = 40;
+        private int maxNumberOfMarketplacePosts_ ;
+        public boolean hasMaxNumberOfMarketplacePosts() {
+          return ((bitField1_ & 0x00000010) == 0x00000010);
+        }
+        public int getMaxNumberOfMarketplacePosts() {
+          return maxNumberOfMarketplacePosts_;
+        }
+        public Builder setMaxNumberOfMarketplacePosts(int value) {
+          bitField1_ |= 0x00000010;
+          maxNumberOfMarketplacePosts_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMaxNumberOfMarketplacePosts() {
+          bitField1_ = (bitField1_ & ~0x00000010);
+          maxNumberOfMarketplacePosts_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
+        private double percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ ;
+        public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
+          return ((bitField1_ & 0x00000020) == 0x00000020);
+        }
+        public double getPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
+          return percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
+        }
+        public Builder setPercentOfSellingCostTakenFromSellerOnMarketplacePurchase(double value) {
+          bitField1_ |= 0x00000020;
+          percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
+          bitField1_ = (bitField1_ & ~0x00000020);
+          percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = 0D;
+          onChanged();
+          return this;
+        }
+        
+        // required double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
+        private double percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ ;
+        public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
+          return ((bitField1_ & 0x00000040) == 0x00000040);
+        }
+        public double getPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
+          return percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
+        }
+        public Builder setPercentOfSellingCostTakenFromSellerOnMarketplaceRetract(double value) {
+          bitField1_ |= 0x00000040;
+          percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
+          bitField1_ = (bitField1_ & ~0x00000040);
+          percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = 0D;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 numDaysLongMarketplaceLicenseLastsFor = 43;
+        private int numDaysLongMarketplaceLicenseLastsFor_ ;
+        public boolean hasNumDaysLongMarketplaceLicenseLastsFor() {
+          return ((bitField1_ & 0x00000080) == 0x00000080);
+        }
+        public int getNumDaysLongMarketplaceLicenseLastsFor() {
+          return numDaysLongMarketplaceLicenseLastsFor_;
+        }
+        public Builder setNumDaysLongMarketplaceLicenseLastsFor(int value) {
+          bitField1_ |= 0x00000080;
+          numDaysLongMarketplaceLicenseLastsFor_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearNumDaysLongMarketplaceLicenseLastsFor() {
+          bitField1_ = (bitField1_ & ~0x00000080);
+          numDaysLongMarketplaceLicenseLastsFor_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 numDaysShortMarketplaceLicenseLastsFor = 44;
+        private int numDaysShortMarketplaceLicenseLastsFor_ ;
+        public boolean hasNumDaysShortMarketplaceLicenseLastsFor() {
+          return ((bitField1_ & 0x00000100) == 0x00000100);
+        }
+        public int getNumDaysShortMarketplaceLicenseLastsFor() {
+          return numDaysShortMarketplaceLicenseLastsFor_;
+        }
+        public Builder setNumDaysShortMarketplaceLicenseLastsFor(int value) {
+          bitField1_ |= 0x00000100;
+          numDaysShortMarketplaceLicenseLastsFor_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearNumDaysShortMarketplaceLicenseLastsFor() {
+          bitField1_ = (bitField1_ & ~0x00000100);
+          numDaysShortMarketplaceLicenseLastsFor_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 diamondCostOfLongMarketplaceLicense = 45;
+        private int diamondCostOfLongMarketplaceLicense_ ;
+        public boolean hasDiamondCostOfLongMarketplaceLicense() {
+          return ((bitField1_ & 0x00000200) == 0x00000200);
+        }
+        public int getDiamondCostOfLongMarketplaceLicense() {
+          return diamondCostOfLongMarketplaceLicense_;
+        }
+        public Builder setDiamondCostOfLongMarketplaceLicense(int value) {
+          bitField1_ |= 0x00000200;
+          diamondCostOfLongMarketplaceLicense_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDiamondCostOfLongMarketplaceLicense() {
+          bitField1_ = (bitField1_ & ~0x00000200);
+          diamondCostOfLongMarketplaceLicense_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 diamondCostOfShortMarketplaceLicense = 46;
+        private int diamondCostOfShortMarketplaceLicense_ ;
+        public boolean hasDiamondCostOfShortMarketplaceLicense() {
+          return ((bitField1_ & 0x00000400) == 0x00000400);
+        }
+        public int getDiamondCostOfShortMarketplaceLicense() {
+          return diamondCostOfShortMarketplaceLicense_;
+        }
+        public Builder setDiamondCostOfShortMarketplaceLicense(int value) {
+          bitField1_ |= 0x00000400;
+          diamondCostOfShortMarketplaceLicense_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDiamondCostOfShortMarketplaceLicense() {
+          bitField1_ = (bitField1_ & ~0x00000400);
+          diamondCostOfShortMarketplaceLicense_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 minutesForCityExpansion = 3;
+        private int minutesForCityExpansion_ ;
+        public boolean hasMinutesForCityExpansion() {
+          return ((bitField1_ & 0x00000800) == 0x00000800);
+        }
+        public int getMinutesForCityExpansion() {
+          return minutesForCityExpansion_;
+        }
+        public Builder setMinutesForCityExpansion(int value) {
+          bitField1_ |= 0x00000800;
+          minutesForCityExpansion_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMinutesForCityExpansion() {
+          bitField1_ = (bitField1_ & ~0x00000800);
+          minutesForCityExpansion_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
+        private int maxNumbersOfEnemiesToGenerateAtOnce_ ;
+        public boolean hasMaxNumbersOfEnemiesToGenerateAtOnce() {
+          return ((bitField1_ & 0x00001000) == 0x00001000);
+        }
+        public int getMaxNumbersOfEnemiesToGenerateAtOnce() {
+          return maxNumbersOfEnemiesToGenerateAtOnce_;
+        }
+        public Builder setMaxNumbersOfEnemiesToGenerateAtOnce(int value) {
+          bitField1_ |= 0x00001000;
+          maxNumbersOfEnemiesToGenerateAtOnce_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMaxNumbersOfEnemiesToGenerateAtOnce() {
+          bitField1_ = (bitField1_ & ~0x00001000);
+          maxNumbersOfEnemiesToGenerateAtOnce_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required double percentReturnedToUserForSellingEquipInArmory = 5;
+        private double percentReturnedToUserForSellingEquipInArmory_ ;
+        public boolean hasPercentReturnedToUserForSellingEquipInArmory() {
+          return ((bitField1_ & 0x00002000) == 0x00002000);
+        }
+        public double getPercentReturnedToUserForSellingEquipInArmory() {
+          return percentReturnedToUserForSellingEquipInArmory_;
+        }
+        public Builder setPercentReturnedToUserForSellingEquipInArmory(double value) {
+          bitField1_ |= 0x00002000;
+          percentReturnedToUserForSellingEquipInArmory_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearPercentReturnedToUserForSellingEquipInArmory() {
+          bitField1_ = (bitField1_ & ~0x00002000);
+          percentReturnedToUserForSellingEquipInArmory_ = 0D;
           onChanged();
           return this;
         }
@@ -9381,6 +11966,18 @@ public final class EventProto {
       boolean hasWarriorInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProto getWarriorInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getWarriorInitArmorOrBuilder();
+      
+      // required int32 minNameLength = 19;
+      boolean hasMinNameLength();
+      int getMinNameLength();
+      
+      // required int32 diamondRewardForReferrer = 20;
+      boolean hasDiamondRewardForReferrer();
+      int getDiamondRewardForReferrer();
+      
+      // required int32 diamondRewardForBeingReferred = 21;
+      boolean hasDiamondRewardForBeingReferred();
+      int getDiamondRewardForBeingReferred();
     }
     public static final class TutorialConstants extends
         com.google.protobuf.GeneratedMessage
@@ -11576,6 +14173,36 @@ public final class EventProto {
         return warriorInitArmor_;
       }
       
+      // required int32 minNameLength = 19;
+      public static final int MINNAMELENGTH_FIELD_NUMBER = 19;
+      private int minNameLength_;
+      public boolean hasMinNameLength() {
+        return ((bitField0_ & 0x00040000) == 0x00040000);
+      }
+      public int getMinNameLength() {
+        return minNameLength_;
+      }
+      
+      // required int32 diamondRewardForReferrer = 20;
+      public static final int DIAMONDREWARDFORREFERRER_FIELD_NUMBER = 20;
+      private int diamondRewardForReferrer_;
+      public boolean hasDiamondRewardForReferrer() {
+        return ((bitField0_ & 0x00080000) == 0x00080000);
+      }
+      public int getDiamondRewardForReferrer() {
+        return diamondRewardForReferrer_;
+      }
+      
+      // required int32 diamondRewardForBeingReferred = 21;
+      public static final int DIAMONDREWARDFORBEINGREFERRED_FIELD_NUMBER = 21;
+      private int diamondRewardForBeingReferred_;
+      public boolean hasDiamondRewardForBeingReferred() {
+        return ((bitField0_ & 0x00100000) == 0x00100000);
+      }
+      public int getDiamondRewardForBeingReferred() {
+        return diamondRewardForBeingReferred_;
+      }
+      
       private void initFields() {
         initEnergy_ = 0;
         initStamina_ = 0;
@@ -11595,6 +14222,9 @@ public final class EventProto {
         warriorInitDefense_ = 0;
         warriorInitWeapon_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
         warriorInitArmor_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
+        minNameLength_ = 0;
+        diamondRewardForReferrer_ = 0;
+        diamondRewardForBeingReferred_ = 0;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -11670,6 +14300,18 @@ public final class EventProto {
           return false;
         }
         if (!hasWarriorInitArmor()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasMinNameLength()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDiamondRewardForReferrer()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDiamondRewardForBeingReferred()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -11762,6 +14404,15 @@ public final class EventProto {
         if (((bitField0_ & 0x00000080) == 0x00000080)) {
           output.writeInt32(18, archerInitDefense_);
         }
+        if (((bitField0_ & 0x00040000) == 0x00040000)) {
+          output.writeInt32(19, minNameLength_);
+        }
+        if (((bitField0_ & 0x00080000) == 0x00080000)) {
+          output.writeInt32(20, diamondRewardForReferrer_);
+        }
+        if (((bitField0_ & 0x00100000) == 0x00100000)) {
+          output.writeInt32(21, diamondRewardForBeingReferred_);
+        }
         getUnknownFields().writeTo(output);
       }
       
@@ -11842,6 +14493,18 @@ public final class EventProto {
         if (((bitField0_ & 0x00000080) == 0x00000080)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(18, archerInitDefense_);
+        }
+        if (((bitField0_ & 0x00040000) == 0x00040000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(19, minNameLength_);
+        }
+        if (((bitField0_ & 0x00080000) == 0x00080000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(20, diamondRewardForReferrer_);
+        }
+        if (((bitField0_ & 0x00100000) == 0x00100000)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(21, diamondRewardForBeingReferred_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -12038,6 +14701,12 @@ public final class EventProto {
             warriorInitArmorBuilder_.clear();
           }
           bitField0_ = (bitField0_ & ~0x00020000);
+          minNameLength_ = 0;
+          bitField0_ = (bitField0_ & ~0x00040000);
+          diamondRewardForReferrer_ = 0;
+          bitField0_ = (bitField0_ & ~0x00080000);
+          diamondRewardForBeingReferred_ = 0;
+          bitField0_ = (bitField0_ & ~0x00100000);
           return this;
         }
         
@@ -12176,6 +14845,18 @@ public final class EventProto {
           } else {
             result.warriorInitArmor_ = warriorInitArmorBuilder_.build();
           }
+          if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
+            to_bitField0_ |= 0x00040000;
+          }
+          result.minNameLength_ = minNameLength_;
+          if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
+            to_bitField0_ |= 0x00080000;
+          }
+          result.diamondRewardForReferrer_ = diamondRewardForReferrer_;
+          if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
+            to_bitField0_ |= 0x00100000;
+          }
+          result.diamondRewardForBeingReferred_ = diamondRewardForBeingReferred_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
@@ -12245,6 +14926,15 @@ public final class EventProto {
           }
           if (other.hasWarriorInitArmor()) {
             mergeWarriorInitArmor(other.getWarriorInitArmor());
+          }
+          if (other.hasMinNameLength()) {
+            setMinNameLength(other.getMinNameLength());
+          }
+          if (other.hasDiamondRewardForReferrer()) {
+            setDiamondRewardForReferrer(other.getDiamondRewardForReferrer());
+          }
+          if (other.hasDiamondRewardForBeingReferred()) {
+            setDiamondRewardForBeingReferred(other.getDiamondRewardForBeingReferred());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
@@ -12320,6 +15010,18 @@ public final class EventProto {
             return false;
           }
           if (!hasWarriorInitArmor()) {
+            
+            return false;
+          }
+          if (!hasMinNameLength()) {
+            
+            return false;
+          }
+          if (!hasDiamondRewardForReferrer()) {
+            
+            return false;
+          }
+          if (!hasDiamondRewardForBeingReferred()) {
             
             return false;
           }
@@ -12493,6 +15195,21 @@ public final class EventProto {
               case 144: {
                 bitField0_ |= 0x00000080;
                 archerInitDefense_ = input.readInt32();
+                break;
+              }
+              case 152: {
+                bitField0_ |= 0x00040000;
+                minNameLength_ = input.readInt32();
+                break;
+              }
+              case 160: {
+                bitField0_ |= 0x00080000;
+                diamondRewardForReferrer_ = input.readInt32();
+                break;
+              }
+              case 168: {
+                bitField0_ |= 0x00100000;
+                diamondRewardForBeingReferred_ = input.readInt32();
                 break;
               }
             }
@@ -13362,6 +16079,69 @@ public final class EventProto {
           return warriorInitArmorBuilder_;
         }
         
+        // required int32 minNameLength = 19;
+        private int minNameLength_ ;
+        public boolean hasMinNameLength() {
+          return ((bitField0_ & 0x00040000) == 0x00040000);
+        }
+        public int getMinNameLength() {
+          return minNameLength_;
+        }
+        public Builder setMinNameLength(int value) {
+          bitField0_ |= 0x00040000;
+          minNameLength_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMinNameLength() {
+          bitField0_ = (bitField0_ & ~0x00040000);
+          minNameLength_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 diamondRewardForReferrer = 20;
+        private int diamondRewardForReferrer_ ;
+        public boolean hasDiamondRewardForReferrer() {
+          return ((bitField0_ & 0x00080000) == 0x00080000);
+        }
+        public int getDiamondRewardForReferrer() {
+          return diamondRewardForReferrer_;
+        }
+        public Builder setDiamondRewardForReferrer(int value) {
+          bitField0_ |= 0x00080000;
+          diamondRewardForReferrer_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDiamondRewardForReferrer() {
+          bitField0_ = (bitField0_ & ~0x00080000);
+          diamondRewardForReferrer_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 diamondRewardForBeingReferred = 21;
+        private int diamondRewardForBeingReferred_ ;
+        public boolean hasDiamondRewardForBeingReferred() {
+          return ((bitField0_ & 0x00100000) == 0x00100000);
+        }
+        public int getDiamondRewardForBeingReferred() {
+          return diamondRewardForBeingReferred_;
+        }
+        public Builder setDiamondRewardForBeingReferred(int value) {
+          bitField0_ |= 0x00100000;
+          diamondRewardForBeingReferred_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDiamondRewardForBeingReferred() {
+          bitField0_ = (bitField0_ & ~0x00100000);
+          diamondRewardForBeingReferred_ = 0;
+          onChanged();
+          return this;
+        }
+        
         // @@protoc_insertion_point(builder_scope:com.lvl6.proto.StartupResponseProto.TutorialConstants)
       }
       
@@ -13559,50 +16339,8 @@ public final class EventProto {
       return equips_.get(index);
     }
     
-    // repeated .com.lvl6.proto.FullUserStructureProto userStructures = 10;
-    public static final int USERSTRUCTURES_FIELD_NUMBER = 10;
-    private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> userStructures_;
-    public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getUserStructuresList() {
-      return userStructures_;
-    }
-    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
-        getUserStructuresOrBuilderList() {
-      return userStructures_;
-    }
-    public int getUserStructuresCount() {
-      return userStructures_.size();
-    }
-    public com.lvl6.proto.InfoProto.FullUserStructureProto getUserStructures(int index) {
-      return userStructures_.get(index);
-    }
-    public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getUserStructuresOrBuilder(
-        int index) {
-      return userStructures_.get(index);
-    }
-    
-    // repeated .com.lvl6.proto.FullStructureProto structs = 11;
-    public static final int STRUCTS_FIELD_NUMBER = 11;
-    private java.util.List<com.lvl6.proto.InfoProto.FullStructureProto> structs_;
-    public java.util.List<com.lvl6.proto.InfoProto.FullStructureProto> getStructsList() {
-      return structs_;
-    }
-    public java.util.List<? extends com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder> 
-        getStructsOrBuilderList() {
-      return structs_;
-    }
-    public int getStructsCount() {
-      return structs_.size();
-    }
-    public com.lvl6.proto.InfoProto.FullStructureProto getStructs(int index) {
-      return structs_.get(index);
-    }
-    public com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder getStructsOrBuilder(
-        int index) {
-      return structs_.get(index);
-    }
-    
-    // optional int32 experienceRequiredForNextLevel = 12;
-    public static final int EXPERIENCEREQUIREDFORNEXTLEVEL_FIELD_NUMBER = 12;
+    // optional int32 experienceRequiredForNextLevel = 10;
+    public static final int EXPERIENCEREQUIREDFORNEXTLEVEL_FIELD_NUMBER = 10;
     private int experienceRequiredForNextLevel_;
     public boolean hasExperienceRequiredForNextLevel() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -13611,8 +16349,8 @@ public final class EventProto {
       return experienceRequiredForNextLevel_;
     }
     
-    // optional int32 experienceRequiredForCurrentLevel = 17;
-    public static final int EXPERIENCEREQUIREDFORCURRENTLEVEL_FIELD_NUMBER = 17;
+    // optional int32 experienceRequiredForCurrentLevel = 15;
+    public static final int EXPERIENCEREQUIREDFORCURRENTLEVEL_FIELD_NUMBER = 15;
     private int experienceRequiredForCurrentLevel_;
     public boolean hasExperienceRequiredForCurrentLevel() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -13621,8 +16359,8 @@ public final class EventProto {
       return experienceRequiredForCurrentLevel_;
     }
     
-    // repeated .com.lvl6.proto.StartupResponseProto.MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 13;
-    public static final int MARKETPLACEPURCHASENOTIFICATIONS_FIELD_NUMBER = 13;
+    // repeated .com.lvl6.proto.StartupResponseProto.MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
+    public static final int MARKETPLACEPURCHASENOTIFICATIONS_FIELD_NUMBER = 12;
     private java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto> marketplacePurchaseNotifications_;
     public java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto> getMarketplacePurchaseNotificationsList() {
       return marketplacePurchaseNotifications_;
@@ -13642,8 +16380,8 @@ public final class EventProto {
       return marketplacePurchaseNotifications_.get(index);
     }
     
-    // repeated .com.lvl6.proto.StartupResponseProto.AttackedNotificationProto attackNotifications = 14;
-    public static final int ATTACKNOTIFICATIONS_FIELD_NUMBER = 14;
+    // repeated .com.lvl6.proto.StartupResponseProto.AttackedNotificationProto attackNotifications = 13;
+    public static final int ATTACKNOTIFICATIONS_FIELD_NUMBER = 13;
     private java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto> attackNotifications_;
     public java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto> getAttackNotificationsList() {
       return attackNotifications_;
@@ -13663,8 +16401,8 @@ public final class EventProto {
       return attackNotifications_.get(index);
     }
     
-    // repeated .com.lvl6.proto.StartupResponseProto.ReferralNotificationProto referralNotifications = 15;
-    public static final int REFERRALNOTIFICATIONS_FIELD_NUMBER = 15;
+    // repeated .com.lvl6.proto.StartupResponseProto.ReferralNotificationProto referralNotifications = 14;
+    public static final int REFERRALNOTIFICATIONS_FIELD_NUMBER = 14;
     private java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto> referralNotifications_;
     public java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto> getReferralNotificationsList() {
       return referralNotifications_;
@@ -13696,8 +16434,6 @@ public final class EventProto {
       availableQuests_ = java.util.Collections.emptyList();
       userEquips_ = java.util.Collections.emptyList();
       equips_ = java.util.Collections.emptyList();
-      userStructures_ = java.util.Collections.emptyList();
-      structs_ = java.util.Collections.emptyList();
       experienceRequiredForNextLevel_ = 0;
       experienceRequiredForCurrentLevel_ = 0;
       marketplacePurchaseNotifications_ = java.util.Collections.emptyList();
@@ -13773,18 +16509,6 @@ public final class EventProto {
           return false;
         }
       }
-      for (int i = 0; i < getUserStructuresCount(); i++) {
-        if (!getUserStructures(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getStructsCount(); i++) {
-        if (!getStructs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       for (int i = 0; i < getMarketplacePurchaseNotificationsCount(); i++) {
         if (!getMarketplacePurchaseNotifications(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -13837,29 +16561,23 @@ public final class EventProto {
       for (int i = 0; i < equips_.size(); i++) {
         output.writeMessage(9, equips_.get(i));
       }
-      for (int i = 0; i < userStructures_.size(); i++) {
-        output.writeMessage(10, userStructures_.get(i));
-      }
-      for (int i = 0; i < structs_.size(); i++) {
-        output.writeMessage(11, structs_.get(i));
-      }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(12, experienceRequiredForNextLevel_);
+        output.writeInt32(10, experienceRequiredForNextLevel_);
       }
       for (int i = 0; i < marketplacePurchaseNotifications_.size(); i++) {
-        output.writeMessage(13, marketplacePurchaseNotifications_.get(i));
+        output.writeMessage(12, marketplacePurchaseNotifications_.get(i));
       }
       for (int i = 0; i < attackNotifications_.size(); i++) {
-        output.writeMessage(14, attackNotifications_.get(i));
+        output.writeMessage(13, attackNotifications_.get(i));
       }
       for (int i = 0; i < referralNotifications_.size(); i++) {
-        output.writeMessage(15, referralNotifications_.get(i));
+        output.writeMessage(14, referralNotifications_.get(i));
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(15, experienceRequiredForCurrentLevel_);
       }
       for (int i = 0; i < userCityInfos_.size(); i++) {
         output.writeMessage(16, userCityInfos_.get(i));
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(17, experienceRequiredForCurrentLevel_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeMessage(18, tutorialConstants_);
@@ -13909,37 +16627,29 @@ public final class EventProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, equips_.get(i));
       }
-      for (int i = 0; i < userStructures_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, userStructures_.get(i));
-      }
-      for (int i = 0; i < structs_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(11, structs_.get(i));
-      }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(12, experienceRequiredForNextLevel_);
+          .computeInt32Size(10, experienceRequiredForNextLevel_);
       }
       for (int i = 0; i < marketplacePurchaseNotifications_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(13, marketplacePurchaseNotifications_.get(i));
+          .computeMessageSize(12, marketplacePurchaseNotifications_.get(i));
       }
       for (int i = 0; i < attackNotifications_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(14, attackNotifications_.get(i));
+          .computeMessageSize(13, attackNotifications_.get(i));
       }
       for (int i = 0; i < referralNotifications_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(15, referralNotifications_.get(i));
+          .computeMessageSize(14, referralNotifications_.get(i));
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(15, experienceRequiredForCurrentLevel_);
       }
       for (int i = 0; i < userCityInfos_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(16, userCityInfos_.get(i));
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(17, experienceRequiredForCurrentLevel_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
@@ -14070,8 +16780,6 @@ public final class EventProto {
           getAvailableQuestsFieldBuilder();
           getUserEquipsFieldBuilder();
           getEquipsFieldBuilder();
-          getUserStructuresFieldBuilder();
-          getStructsFieldBuilder();
           getMarketplacePurchaseNotificationsFieldBuilder();
           getAttackNotificationsFieldBuilder();
           getReferralNotificationsFieldBuilder();
@@ -14141,37 +16849,25 @@ public final class EventProto {
         } else {
           equipsBuilder_.clear();
         }
-        if (userStructuresBuilder_ == null) {
-          userStructures_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000800);
-        } else {
-          userStructuresBuilder_.clear();
-        }
-        if (structsBuilder_ == null) {
-          structs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00001000);
-        } else {
-          structsBuilder_.clear();
-        }
         experienceRequiredForNextLevel_ = 0;
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         experienceRequiredForCurrentLevel_ = 0;
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         if (marketplacePurchaseNotificationsBuilder_ == null) {
           marketplacePurchaseNotifications_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00008000);
+          bitField0_ = (bitField0_ & ~0x00002000);
         } else {
           marketplacePurchaseNotificationsBuilder_.clear();
         }
         if (attackNotificationsBuilder_ == null) {
           attackNotifications_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00010000);
+          bitField0_ = (bitField0_ & ~0x00004000);
         } else {
           attackNotificationsBuilder_.clear();
         }
         if (referralNotificationsBuilder_ == null) {
           referralNotifications_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00020000);
+          bitField0_ = (bitField0_ & ~0x00008000);
         } else {
           referralNotificationsBuilder_.clear();
         }
@@ -14299,54 +16995,36 @@ public final class EventProto {
         } else {
           result.equips_ = equipsBuilder_.build();
         }
-        if (userStructuresBuilder_ == null) {
-          if (((bitField0_ & 0x00000800) == 0x00000800)) {
-            userStructures_ = java.util.Collections.unmodifiableList(userStructures_);
-            bitField0_ = (bitField0_ & ~0x00000800);
-          }
-          result.userStructures_ = userStructures_;
-        } else {
-          result.userStructures_ = userStructuresBuilder_.build();
-        }
-        if (structsBuilder_ == null) {
-          if (((bitField0_ & 0x00001000) == 0x00001000)) {
-            structs_ = java.util.Collections.unmodifiableList(structs_);
-            bitField0_ = (bitField0_ & ~0x00001000);
-          }
-          result.structs_ = structs_;
-        } else {
-          result.structs_ = structsBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000020;
         }
         result.experienceRequiredForNextLevel_ = experienceRequiredForNextLevel_;
-        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
           to_bitField0_ |= 0x00000040;
         }
         result.experienceRequiredForCurrentLevel_ = experienceRequiredForCurrentLevel_;
         if (marketplacePurchaseNotificationsBuilder_ == null) {
-          if (((bitField0_ & 0x00008000) == 0x00008000)) {
+          if (((bitField0_ & 0x00002000) == 0x00002000)) {
             marketplacePurchaseNotifications_ = java.util.Collections.unmodifiableList(marketplacePurchaseNotifications_);
-            bitField0_ = (bitField0_ & ~0x00008000);
+            bitField0_ = (bitField0_ & ~0x00002000);
           }
           result.marketplacePurchaseNotifications_ = marketplacePurchaseNotifications_;
         } else {
           result.marketplacePurchaseNotifications_ = marketplacePurchaseNotificationsBuilder_.build();
         }
         if (attackNotificationsBuilder_ == null) {
-          if (((bitField0_ & 0x00010000) == 0x00010000)) {
+          if (((bitField0_ & 0x00004000) == 0x00004000)) {
             attackNotifications_ = java.util.Collections.unmodifiableList(attackNotifications_);
-            bitField0_ = (bitField0_ & ~0x00010000);
+            bitField0_ = (bitField0_ & ~0x00004000);
           }
           result.attackNotifications_ = attackNotifications_;
         } else {
           result.attackNotifications_ = attackNotificationsBuilder_.build();
         }
         if (referralNotificationsBuilder_ == null) {
-          if (((bitField0_ & 0x00020000) == 0x00020000)) {
+          if (((bitField0_ & 0x00008000) == 0x00008000)) {
             referralNotifications_ = java.util.Collections.unmodifiableList(referralNotifications_);
-            bitField0_ = (bitField0_ & ~0x00020000);
+            bitField0_ = (bitField0_ & ~0x00008000);
           }
           result.referralNotifications_ = referralNotifications_;
         } else {
@@ -14539,58 +17217,6 @@ public final class EventProto {
             }
           }
         }
-        if (userStructuresBuilder_ == null) {
-          if (!other.userStructures_.isEmpty()) {
-            if (userStructures_.isEmpty()) {
-              userStructures_ = other.userStructures_;
-              bitField0_ = (bitField0_ & ~0x00000800);
-            } else {
-              ensureUserStructuresIsMutable();
-              userStructures_.addAll(other.userStructures_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.userStructures_.isEmpty()) {
-            if (userStructuresBuilder_.isEmpty()) {
-              userStructuresBuilder_.dispose();
-              userStructuresBuilder_ = null;
-              userStructures_ = other.userStructures_;
-              bitField0_ = (bitField0_ & ~0x00000800);
-              userStructuresBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getUserStructuresFieldBuilder() : null;
-            } else {
-              userStructuresBuilder_.addAllMessages(other.userStructures_);
-            }
-          }
-        }
-        if (structsBuilder_ == null) {
-          if (!other.structs_.isEmpty()) {
-            if (structs_.isEmpty()) {
-              structs_ = other.structs_;
-              bitField0_ = (bitField0_ & ~0x00001000);
-            } else {
-              ensureStructsIsMutable();
-              structs_.addAll(other.structs_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.structs_.isEmpty()) {
-            if (structsBuilder_.isEmpty()) {
-              structsBuilder_.dispose();
-              structsBuilder_ = null;
-              structs_ = other.structs_;
-              bitField0_ = (bitField0_ & ~0x00001000);
-              structsBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getStructsFieldBuilder() : null;
-            } else {
-              structsBuilder_.addAllMessages(other.structs_);
-            }
-          }
-        }
         if (other.hasExperienceRequiredForNextLevel()) {
           setExperienceRequiredForNextLevel(other.getExperienceRequiredForNextLevel());
         }
@@ -14601,7 +17227,7 @@ public final class EventProto {
           if (!other.marketplacePurchaseNotifications_.isEmpty()) {
             if (marketplacePurchaseNotifications_.isEmpty()) {
               marketplacePurchaseNotifications_ = other.marketplacePurchaseNotifications_;
-              bitField0_ = (bitField0_ & ~0x00008000);
+              bitField0_ = (bitField0_ & ~0x00002000);
             } else {
               ensureMarketplacePurchaseNotificationsIsMutable();
               marketplacePurchaseNotifications_.addAll(other.marketplacePurchaseNotifications_);
@@ -14614,7 +17240,7 @@ public final class EventProto {
               marketplacePurchaseNotificationsBuilder_.dispose();
               marketplacePurchaseNotificationsBuilder_ = null;
               marketplacePurchaseNotifications_ = other.marketplacePurchaseNotifications_;
-              bitField0_ = (bitField0_ & ~0x00008000);
+              bitField0_ = (bitField0_ & ~0x00002000);
               marketplacePurchaseNotificationsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getMarketplacePurchaseNotificationsFieldBuilder() : null;
@@ -14627,7 +17253,7 @@ public final class EventProto {
           if (!other.attackNotifications_.isEmpty()) {
             if (attackNotifications_.isEmpty()) {
               attackNotifications_ = other.attackNotifications_;
-              bitField0_ = (bitField0_ & ~0x00010000);
+              bitField0_ = (bitField0_ & ~0x00004000);
             } else {
               ensureAttackNotificationsIsMutable();
               attackNotifications_.addAll(other.attackNotifications_);
@@ -14640,7 +17266,7 @@ public final class EventProto {
               attackNotificationsBuilder_.dispose();
               attackNotificationsBuilder_ = null;
               attackNotifications_ = other.attackNotifications_;
-              bitField0_ = (bitField0_ & ~0x00010000);
+              bitField0_ = (bitField0_ & ~0x00004000);
               attackNotificationsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getAttackNotificationsFieldBuilder() : null;
@@ -14653,7 +17279,7 @@ public final class EventProto {
           if (!other.referralNotifications_.isEmpty()) {
             if (referralNotifications_.isEmpty()) {
               referralNotifications_ = other.referralNotifications_;
-              bitField0_ = (bitField0_ & ~0x00020000);
+              bitField0_ = (bitField0_ & ~0x00008000);
             } else {
               ensureReferralNotificationsIsMutable();
               referralNotifications_.addAll(other.referralNotifications_);
@@ -14666,7 +17292,7 @@ public final class EventProto {
               referralNotificationsBuilder_.dispose();
               referralNotificationsBuilder_ = null;
               referralNotifications_ = other.referralNotifications_;
-              bitField0_ = (bitField0_ & ~0x00020000);
+              bitField0_ = (bitField0_ & ~0x00008000);
               referralNotificationsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getReferralNotificationsFieldBuilder() : null;
@@ -14740,18 +17366,6 @@ public final class EventProto {
         }
         for (int i = 0; i < getEquipsCount(); i++) {
           if (!getEquips(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getUserStructuresCount(); i++) {
-          if (!getUserStructures(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getStructsCount(); i++) {
-          if (!getStructs(i).isInitialized()) {
             
             return false;
           }
@@ -14870,50 +17484,38 @@ public final class EventProto {
               addEquips(subBuilder.buildPartial());
               break;
             }
-            case 82: {
-              com.lvl6.proto.InfoProto.FullUserStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserStructureProto.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addUserStructures(subBuilder.buildPartial());
-              break;
-            }
-            case 90: {
-              com.lvl6.proto.InfoProto.FullStructureProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullStructureProto.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addStructs(subBuilder.buildPartial());
-              break;
-            }
-            case 96: {
-              bitField0_ |= 0x00002000;
+            case 80: {
+              bitField0_ |= 0x00000800;
               experienceRequiredForNextLevel_ = input.readInt32();
               break;
             }
-            case 106: {
+            case 98: {
               com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto.Builder subBuilder = com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addMarketplacePurchaseNotifications(subBuilder.buildPartial());
               break;
             }
-            case 114: {
+            case 106: {
               com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto.Builder subBuilder = com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addAttackNotifications(subBuilder.buildPartial());
               break;
             }
-            case 122: {
+            case 114: {
               com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto.Builder subBuilder = com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addReferralNotifications(subBuilder.buildPartial());
+              break;
+            }
+            case 120: {
+              bitField0_ |= 0x00001000;
+              experienceRequiredForCurrentLevel_ = input.readInt32();
               break;
             }
             case 130: {
               com.lvl6.proto.InfoProto.FullUserCityProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserCityProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addUserCityInfos(subBuilder.buildPartial());
-              break;
-            }
-            case 136: {
-              bitField0_ |= 0x00004000;
-              experienceRequiredForCurrentLevel_ = input.readInt32();
               break;
             }
             case 146: {
@@ -16365,427 +18967,55 @@ public final class EventProto {
         return equipsBuilder_;
       }
       
-      // repeated .com.lvl6.proto.FullUserStructureProto userStructures = 10;
-      private java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> userStructures_ =
-        java.util.Collections.emptyList();
-      private void ensureUserStructuresIsMutable() {
-        if (!((bitField0_ & 0x00000800) == 0x00000800)) {
-          userStructures_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserStructureProto>(userStructures_);
-          bitField0_ |= 0x00000800;
-         }
-      }
-      
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> userStructuresBuilder_;
-      
-      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto> getUserStructuresList() {
-        if (userStructuresBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(userStructures_);
-        } else {
-          return userStructuresBuilder_.getMessageList();
-        }
-      }
-      public int getUserStructuresCount() {
-        if (userStructuresBuilder_ == null) {
-          return userStructures_.size();
-        } else {
-          return userStructuresBuilder_.getCount();
-        }
-      }
-      public com.lvl6.proto.InfoProto.FullUserStructureProto getUserStructures(int index) {
-        if (userStructuresBuilder_ == null) {
-          return userStructures_.get(index);
-        } else {
-          return userStructuresBuilder_.getMessage(index);
-        }
-      }
-      public Builder setUserStructures(
-          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
-        if (userStructuresBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureUserStructuresIsMutable();
-          userStructures_.set(index, value);
-          onChanged();
-        } else {
-          userStructuresBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      public Builder setUserStructures(
-          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
-        if (userStructuresBuilder_ == null) {
-          ensureUserStructuresIsMutable();
-          userStructures_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          userStructuresBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addUserStructures(com.lvl6.proto.InfoProto.FullUserStructureProto value) {
-        if (userStructuresBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureUserStructuresIsMutable();
-          userStructures_.add(value);
-          onChanged();
-        } else {
-          userStructuresBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      public Builder addUserStructures(
-          int index, com.lvl6.proto.InfoProto.FullUserStructureProto value) {
-        if (userStructuresBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureUserStructuresIsMutable();
-          userStructures_.add(index, value);
-          onChanged();
-        } else {
-          userStructuresBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      public Builder addUserStructures(
-          com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
-        if (userStructuresBuilder_ == null) {
-          ensureUserStructuresIsMutable();
-          userStructures_.add(builderForValue.build());
-          onChanged();
-        } else {
-          userStructuresBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addUserStructures(
-          int index, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder builderForValue) {
-        if (userStructuresBuilder_ == null) {
-          ensureUserStructuresIsMutable();
-          userStructures_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          userStructuresBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addAllUserStructures(
-          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserStructureProto> values) {
-        if (userStructuresBuilder_ == null) {
-          ensureUserStructuresIsMutable();
-          super.addAll(values, userStructures_);
-          onChanged();
-        } else {
-          userStructuresBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      public Builder clearUserStructures() {
-        if (userStructuresBuilder_ == null) {
-          userStructures_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000800);
-          onChanged();
-        } else {
-          userStructuresBuilder_.clear();
-        }
-        return this;
-      }
-      public Builder removeUserStructures(int index) {
-        if (userStructuresBuilder_ == null) {
-          ensureUserStructuresIsMutable();
-          userStructures_.remove(index);
-          onChanged();
-        } else {
-          userStructuresBuilder_.remove(index);
-        }
-        return this;
-      }
-      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder getUserStructuresBuilder(
-          int index) {
-        return getUserStructuresFieldBuilder().getBuilder(index);
-      }
-      public com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder getUserStructuresOrBuilder(
-          int index) {
-        if (userStructuresBuilder_ == null) {
-          return userStructures_.get(index);  } else {
-          return userStructuresBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
-           getUserStructuresOrBuilderList() {
-        if (userStructuresBuilder_ != null) {
-          return userStructuresBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(userStructures_);
-        }
-      }
-      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addUserStructuresBuilder() {
-        return getUserStructuresFieldBuilder().addBuilder(
-            com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
-      }
-      public com.lvl6.proto.InfoProto.FullUserStructureProto.Builder addUserStructuresBuilder(
-          int index) {
-        return getUserStructuresFieldBuilder().addBuilder(
-            index, com.lvl6.proto.InfoProto.FullUserStructureProto.getDefaultInstance());
-      }
-      public java.util.List<com.lvl6.proto.InfoProto.FullUserStructureProto.Builder> 
-           getUserStructuresBuilderList() {
-        return getUserStructuresFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder> 
-          getUserStructuresFieldBuilder() {
-        if (userStructuresBuilder_ == null) {
-          userStructuresBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.lvl6.proto.InfoProto.FullUserStructureProto, com.lvl6.proto.InfoProto.FullUserStructureProto.Builder, com.lvl6.proto.InfoProto.FullUserStructureProtoOrBuilder>(
-                  userStructures_,
-                  ((bitField0_ & 0x00000800) == 0x00000800),
-                  getParentForChildren(),
-                  isClean());
-          userStructures_ = null;
-        }
-        return userStructuresBuilder_;
-      }
-      
-      // repeated .com.lvl6.proto.FullStructureProto structs = 11;
-      private java.util.List<com.lvl6.proto.InfoProto.FullStructureProto> structs_ =
-        java.util.Collections.emptyList();
-      private void ensureStructsIsMutable() {
-        if (!((bitField0_ & 0x00001000) == 0x00001000)) {
-          structs_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullStructureProto>(structs_);
-          bitField0_ |= 0x00001000;
-         }
-      }
-      
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullStructureProto, com.lvl6.proto.InfoProto.FullStructureProto.Builder, com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder> structsBuilder_;
-      
-      public java.util.List<com.lvl6.proto.InfoProto.FullStructureProto> getStructsList() {
-        if (structsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(structs_);
-        } else {
-          return structsBuilder_.getMessageList();
-        }
-      }
-      public int getStructsCount() {
-        if (structsBuilder_ == null) {
-          return structs_.size();
-        } else {
-          return structsBuilder_.getCount();
-        }
-      }
-      public com.lvl6.proto.InfoProto.FullStructureProto getStructs(int index) {
-        if (structsBuilder_ == null) {
-          return structs_.get(index);
-        } else {
-          return structsBuilder_.getMessage(index);
-        }
-      }
-      public Builder setStructs(
-          int index, com.lvl6.proto.InfoProto.FullStructureProto value) {
-        if (structsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureStructsIsMutable();
-          structs_.set(index, value);
-          onChanged();
-        } else {
-          structsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      public Builder setStructs(
-          int index, com.lvl6.proto.InfoProto.FullStructureProto.Builder builderForValue) {
-        if (structsBuilder_ == null) {
-          ensureStructsIsMutable();
-          structs_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          structsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addStructs(com.lvl6.proto.InfoProto.FullStructureProto value) {
-        if (structsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureStructsIsMutable();
-          structs_.add(value);
-          onChanged();
-        } else {
-          structsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      public Builder addStructs(
-          int index, com.lvl6.proto.InfoProto.FullStructureProto value) {
-        if (structsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureStructsIsMutable();
-          structs_.add(index, value);
-          onChanged();
-        } else {
-          structsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      public Builder addStructs(
-          com.lvl6.proto.InfoProto.FullStructureProto.Builder builderForValue) {
-        if (structsBuilder_ == null) {
-          ensureStructsIsMutable();
-          structs_.add(builderForValue.build());
-          onChanged();
-        } else {
-          structsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addStructs(
-          int index, com.lvl6.proto.InfoProto.FullStructureProto.Builder builderForValue) {
-        if (structsBuilder_ == null) {
-          ensureStructsIsMutable();
-          structs_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          structsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addAllStructs(
-          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullStructureProto> values) {
-        if (structsBuilder_ == null) {
-          ensureStructsIsMutable();
-          super.addAll(values, structs_);
-          onChanged();
-        } else {
-          structsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      public Builder clearStructs() {
-        if (structsBuilder_ == null) {
-          structs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00001000);
-          onChanged();
-        } else {
-          structsBuilder_.clear();
-        }
-        return this;
-      }
-      public Builder removeStructs(int index) {
-        if (structsBuilder_ == null) {
-          ensureStructsIsMutable();
-          structs_.remove(index);
-          onChanged();
-        } else {
-          structsBuilder_.remove(index);
-        }
-        return this;
-      }
-      public com.lvl6.proto.InfoProto.FullStructureProto.Builder getStructsBuilder(
-          int index) {
-        return getStructsFieldBuilder().getBuilder(index);
-      }
-      public com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder getStructsOrBuilder(
-          int index) {
-        if (structsBuilder_ == null) {
-          return structs_.get(index);  } else {
-          return structsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      public java.util.List<? extends com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder> 
-           getStructsOrBuilderList() {
-        if (structsBuilder_ != null) {
-          return structsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(structs_);
-        }
-      }
-      public com.lvl6.proto.InfoProto.FullStructureProto.Builder addStructsBuilder() {
-        return getStructsFieldBuilder().addBuilder(
-            com.lvl6.proto.InfoProto.FullStructureProto.getDefaultInstance());
-      }
-      public com.lvl6.proto.InfoProto.FullStructureProto.Builder addStructsBuilder(
-          int index) {
-        return getStructsFieldBuilder().addBuilder(
-            index, com.lvl6.proto.InfoProto.FullStructureProto.getDefaultInstance());
-      }
-      public java.util.List<com.lvl6.proto.InfoProto.FullStructureProto.Builder> 
-           getStructsBuilderList() {
-        return getStructsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullStructureProto, com.lvl6.proto.InfoProto.FullStructureProto.Builder, com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder> 
-          getStructsFieldBuilder() {
-        if (structsBuilder_ == null) {
-          structsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.lvl6.proto.InfoProto.FullStructureProto, com.lvl6.proto.InfoProto.FullStructureProto.Builder, com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder>(
-                  structs_,
-                  ((bitField0_ & 0x00001000) == 0x00001000),
-                  getParentForChildren(),
-                  isClean());
-          structs_ = null;
-        }
-        return structsBuilder_;
-      }
-      
-      // optional int32 experienceRequiredForNextLevel = 12;
+      // optional int32 experienceRequiredForNextLevel = 10;
       private int experienceRequiredForNextLevel_ ;
       public boolean hasExperienceRequiredForNextLevel() {
-        return ((bitField0_ & 0x00002000) == 0x00002000);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       public int getExperienceRequiredForNextLevel() {
         return experienceRequiredForNextLevel_;
       }
       public Builder setExperienceRequiredForNextLevel(int value) {
-        bitField0_ |= 0x00002000;
+        bitField0_ |= 0x00000800;
         experienceRequiredForNextLevel_ = value;
         onChanged();
         return this;
       }
       public Builder clearExperienceRequiredForNextLevel() {
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00000800);
         experienceRequiredForNextLevel_ = 0;
         onChanged();
         return this;
       }
       
-      // optional int32 experienceRequiredForCurrentLevel = 17;
+      // optional int32 experienceRequiredForCurrentLevel = 15;
       private int experienceRequiredForCurrentLevel_ ;
       public boolean hasExperienceRequiredForCurrentLevel() {
-        return ((bitField0_ & 0x00004000) == 0x00004000);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       public int getExperienceRequiredForCurrentLevel() {
         return experienceRequiredForCurrentLevel_;
       }
       public Builder setExperienceRequiredForCurrentLevel(int value) {
-        bitField0_ |= 0x00004000;
+        bitField0_ |= 0x00001000;
         experienceRequiredForCurrentLevel_ = value;
         onChanged();
         return this;
       }
       public Builder clearExperienceRequiredForCurrentLevel() {
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00001000);
         experienceRequiredForCurrentLevel_ = 0;
         onChanged();
         return this;
       }
       
-      // repeated .com.lvl6.proto.StartupResponseProto.MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 13;
+      // repeated .com.lvl6.proto.StartupResponseProto.MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
       private java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto> marketplacePurchaseNotifications_ =
         java.util.Collections.emptyList();
       private void ensureMarketplacePurchaseNotificationsIsMutable() {
-        if (!((bitField0_ & 0x00008000) == 0x00008000)) {
+        if (!((bitField0_ & 0x00002000) == 0x00002000)) {
           marketplacePurchaseNotifications_ = new java.util.ArrayList<com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto>(marketplacePurchaseNotifications_);
-          bitField0_ |= 0x00008000;
+          bitField0_ |= 0x00002000;
          }
       }
       
@@ -16901,7 +19131,7 @@ public final class EventProto {
       public Builder clearMarketplacePurchaseNotifications() {
         if (marketplacePurchaseNotificationsBuilder_ == null) {
           marketplacePurchaseNotifications_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00008000);
+          bitField0_ = (bitField0_ & ~0x00002000);
           onChanged();
         } else {
           marketplacePurchaseNotificationsBuilder_.clear();
@@ -16957,7 +19187,7 @@ public final class EventProto {
           marketplacePurchaseNotificationsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto, com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto.Builder, com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProtoOrBuilder>(
                   marketplacePurchaseNotifications_,
-                  ((bitField0_ & 0x00008000) == 0x00008000),
+                  ((bitField0_ & 0x00002000) == 0x00002000),
                   getParentForChildren(),
                   isClean());
           marketplacePurchaseNotifications_ = null;
@@ -16965,13 +19195,13 @@ public final class EventProto {
         return marketplacePurchaseNotificationsBuilder_;
       }
       
-      // repeated .com.lvl6.proto.StartupResponseProto.AttackedNotificationProto attackNotifications = 14;
+      // repeated .com.lvl6.proto.StartupResponseProto.AttackedNotificationProto attackNotifications = 13;
       private java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto> attackNotifications_ =
         java.util.Collections.emptyList();
       private void ensureAttackNotificationsIsMutable() {
-        if (!((bitField0_ & 0x00010000) == 0x00010000)) {
+        if (!((bitField0_ & 0x00004000) == 0x00004000)) {
           attackNotifications_ = new java.util.ArrayList<com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto>(attackNotifications_);
-          bitField0_ |= 0x00010000;
+          bitField0_ |= 0x00004000;
          }
       }
       
@@ -17087,7 +19317,7 @@ public final class EventProto {
       public Builder clearAttackNotifications() {
         if (attackNotificationsBuilder_ == null) {
           attackNotifications_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00010000);
+          bitField0_ = (bitField0_ & ~0x00004000);
           onChanged();
         } else {
           attackNotificationsBuilder_.clear();
@@ -17143,7 +19373,7 @@ public final class EventProto {
           attackNotificationsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto, com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto.Builder, com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProtoOrBuilder>(
                   attackNotifications_,
-                  ((bitField0_ & 0x00010000) == 0x00010000),
+                  ((bitField0_ & 0x00004000) == 0x00004000),
                   getParentForChildren(),
                   isClean());
           attackNotifications_ = null;
@@ -17151,13 +19381,13 @@ public final class EventProto {
         return attackNotificationsBuilder_;
       }
       
-      // repeated .com.lvl6.proto.StartupResponseProto.ReferralNotificationProto referralNotifications = 15;
+      // repeated .com.lvl6.proto.StartupResponseProto.ReferralNotificationProto referralNotifications = 14;
       private java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto> referralNotifications_ =
         java.util.Collections.emptyList();
       private void ensureReferralNotificationsIsMutable() {
-        if (!((bitField0_ & 0x00020000) == 0x00020000)) {
+        if (!((bitField0_ & 0x00008000) == 0x00008000)) {
           referralNotifications_ = new java.util.ArrayList<com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto>(referralNotifications_);
-          bitField0_ |= 0x00020000;
+          bitField0_ |= 0x00008000;
          }
       }
       
@@ -17273,7 +19503,7 @@ public final class EventProto {
       public Builder clearReferralNotifications() {
         if (referralNotificationsBuilder_ == null) {
           referralNotifications_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00020000);
+          bitField0_ = (bitField0_ & ~0x00008000);
           onChanged();
         } else {
           referralNotificationsBuilder_.clear();
@@ -17329,7 +19559,7 @@ public final class EventProto {
           referralNotificationsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto, com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto.Builder, com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProtoOrBuilder>(
                   referralNotifications_,
-                  ((bitField0_ & 0x00020000) == 0x00020000),
+                  ((bitField0_ & 0x00008000) == 0x00008000),
                   getParentForChildren(),
                   isClean());
           referralNotifications_ = null;
@@ -28327,6 +30557,7 @@ public final class EventProto {
       ANOTHER_STRUCT_STILL_UPGRADING(4, 4),
       OTHER_FAIL(5, 5),
       CLIENT_TOO_AHEAD_OF_SERVER_TIME(6, 6),
+      AT_MAX_LEVEL_ALREADY(7, 7),
       ;
       
       public static final int SUCCESS_VALUE = 0;
@@ -28336,6 +30567,7 @@ public final class EventProto {
       public static final int ANOTHER_STRUCT_STILL_UPGRADING_VALUE = 4;
       public static final int OTHER_FAIL_VALUE = 5;
       public static final int CLIENT_TOO_AHEAD_OF_SERVER_TIME_VALUE = 6;
+      public static final int AT_MAX_LEVEL_ALREADY_VALUE = 7;
       
       
       public final int getNumber() { return value; }
@@ -28349,6 +30581,7 @@ public final class EventProto {
           case 4: return ANOTHER_STRUCT_STILL_UPGRADING;
           case 5: return OTHER_FAIL;
           case 6: return CLIENT_TOO_AHEAD_OF_SERVER_TIME;
+          case 7: return AT_MAX_LEVEL_ALREADY;
           default: return null;
         }
       }
@@ -28379,7 +30612,7 @@ public final class EventProto {
       }
       
       private static final UpgradeNormStructureStatus[] VALUES = {
-        SUCCESS, NOT_ENOUGH_MATERIALS, NOT_BUILT_YET, NOT_USERS_STRUCT, ANOTHER_STRUCT_STILL_UPGRADING, OTHER_FAIL, CLIENT_TOO_AHEAD_OF_SERVER_TIME, 
+        SUCCESS, NOT_ENOUGH_MATERIALS, NOT_BUILT_YET, NOT_USERS_STRUCT, ANOTHER_STRUCT_STILL_UPGRADING, OTHER_FAIL, CLIENT_TOO_AHEAD_OF_SERVER_TIME, AT_MAX_LEVEL_ALREADY, 
       };
       
       public static UpgradeNormStructureStatus valueOf(
@@ -34815,12 +37048,14 @@ public final class EventProto {
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
       NOT_ENOUGH_EXP_TO_NEXT_LEVEL(1, 1),
-      OTHER_FAIL(2, 2),
+      ALREADY_AT_MAX_LEVEL(2, 2),
+      OTHER_FAIL(3, 3),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int NOT_ENOUGH_EXP_TO_NEXT_LEVEL_VALUE = 1;
-      public static final int OTHER_FAIL_VALUE = 2;
+      public static final int ALREADY_AT_MAX_LEVEL_VALUE = 2;
+      public static final int OTHER_FAIL_VALUE = 3;
       
       
       public final int getNumber() { return value; }
@@ -34829,7 +37064,8 @@ public final class EventProto {
         switch (value) {
           case 0: return SUCCESS;
           case 1: return NOT_ENOUGH_EXP_TO_NEXT_LEVEL;
-          case 2: return OTHER_FAIL;
+          case 2: return ALREADY_AT_MAX_LEVEL;
+          case 3: return OTHER_FAIL;
           default: return null;
         }
       }
@@ -34860,7 +37096,7 @@ public final class EventProto {
       }
       
       private static final LevelUpStatus[] VALUES = {
-        SUCCESS, NOT_ENOUGH_EXP_TO_NEXT_LEVEL, OTHER_FAIL, 
+        SUCCESS, NOT_ENOUGH_EXP_TO_NEXT_LEVEL, ALREADY_AT_MAX_LEVEL, OTHER_FAIL, 
       };
       
       public static LevelUpStatus valueOf(
@@ -71307,7 +73543,7 @@ public final class EventProto {
       "_TO_BUY\020\002\022\035\n\031CANNOT_SELL_DIAMOND_EQUIP\020\003" +
       "\022\021\n\rLEVEL_TOO_LOW\020\004\022\016\n\nOTHER_FAIL\020\005\"L\n\023S" +
       "tartupRequestProto\022\014\n\004udid\030\001 \002(\t\022\022\n\nvers" +
-      "ionNum\030\002 \002(\002\022\023\n\013deviceToken\030\004 \001(\t\"\270\032\n\024St" +
+      "ionNum\030\002 \002(\002\022\023\n\013deviceToken\030\004 \001(\t\"\264$\n\024St" +
       "artupResponseProto\022-\n\006sender\030\001 \001(\0132\035.com" +
       ".lvl6.proto.FullUserProto\022I\n\rstartupStat" +
       "us\030\002 \002(\01622.com.lvl6.proto.StartupRespons",
@@ -71325,541 +73561,574 @@ public final class EventProto {
       "vailableQuests\030\007 \003(\0132\036.com.lvl6.proto.Fu" +
       "llQuestProto\0226\n\nuserEquips\030\010 \003(\0132\".com.l" +
       "vl6.proto.FullUserEquipProto\022.\n\006equips\030\t" +
-      " \003(\0132\036.com.lvl6.proto.FullEquipProto\022>\n\016" +
-      "userStructures\030\n \003(\0132&.com.lvl6.proto.Fu" +
-      "llUserStructureProto\0223\n\007structs\030\013 \003(\0132\"." +
-      "com.lvl6.proto.FullStructureProto\022&\n\036exp" +
-      "erienceRequiredForNextLevel\030\014 \001(\005\022)\n!exp" +
-      "erienceRequiredForCurrentLevel\030\021 \001(\005\022x\n ",
-      "marketplacePurchaseNotifications\030\r \003(\0132N" +
-      ".com.lvl6.proto.StartupResponseProto.Mar" +
-      "ketplacePostPurchasedNotificationProto\022[" +
-      "\n\023attackNotifications\030\016 \003(\0132>.com.lvl6.p" +
-      "roto.StartupResponseProto.AttackedNotifi" +
-      "cationProto\022]\n\025referralNotifications\030\017 \003" +
-      "(\0132>.com.lvl6.proto.StartupResponseProto" +
-      ".ReferralNotificationProto\032\267\001\n)Marketpla" +
-      "cePostPurchasedNotificationProto\022A\n\017mark" +
-      "etplacePost\030\001 \002(\0132(.com.lvl6.proto.FullM",
-      "arketplacePostProto\022/\n\005buyer\030\002 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022\026\n\016timeOfPu" +
-      "rchase\030\003 \002(\003\032\313\001\n\031AttackedNotificationPro" +
-      "to\0222\n\010attacker\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\0222\n\014battleResult\030\002 \002(\0162\034.c" +
-      "om.lvl6.proto.BattleResult\022\032\n\022battleComp" +
-      "leteTime\030\003 \002(\003\022\023\n\013coinsStolen\030\004 \001(\005\022\025\n\rs" +
-      "tolenEquipId\030\005 \001(\005\032d\n\031ReferralNotificati" +
-      "onProto\0222\n\010referred\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\023\n\013recruitTime\030\002 \002(\003",
-      "\032\317\001\n\020StartupConstants\022\022\n\nproductIds\030\001 \003(" +
-      "\t\022\034\n\024productDiamondsGiven\030\002 \003(\005\022\"\n\032diamo" +
-      "ndCostForEnergyRefill\030\003 \002(\005\022#\n\033diamondCo" +
-      "stForStaminaRefill\030\004 \002(\005\022\033\n\023maxItemUsePe" +
-      "rBattle\030\005 \002(\005\022#\n\033maxLevelDifferenceForBa" +
-      "ttle\030\006 \002(\005\032\257\n\n\021TutorialConstants\022\022\n\ninit" +
-      "Energy\030\001 \002(\005\022\023\n\013initStamina\030\002 \002(\005\022\022\n\nini" +
-      "tHealth\030\003 \002(\005\022d\n\rtutorialQuest\030\004 \002(\0132M.c" +
-      "om.lvl6.proto.StartupResponseProto.Tutor" +
-      "ialConstants.FullTutorialQuestProto\022\025\n\rs",
-      "tructToBuild\030\005 \002(\005\022*\n\"diamondCostToInsta" +
-      "buildFirstStruct\030\006 \002(\005\022\030\n\020archerInitAtta" +
-      "ck\030\021 \002(\005\022\031\n\021archerInitDefense\030\022 \002(\005\0228\n\020a" +
-      "rcherInitWeapon\030\007 \002(\0132\036.com.lvl6.proto.F" +
-      "ullEquipProto\0227\n\017archerInitArmor\030\010 \002(\0132\036" +
-      ".com.lvl6.proto.FullEquipProto\022\026\n\016mageIn" +
-      "itAttack\030\t \002(\005\022\027\n\017mageInitDefense\030\n \002(\005\022" +
-      "6\n\016mageInitWeapon\030\013 \002(\0132\036.com.lvl6.proto" +
-      ".FullEquipProto\0225\n\rmageInitArmor\030\014 \002(\0132\036" +
-      ".com.lvl6.proto.FullEquipProto\022\031\n\021warrio",
-      "rInitAttack\030\r \002(\005\022\032\n\022warriorInitDefense\030" +
-      "\016 \002(\005\0229\n\021warriorInitWeapon\030\017 \002(\0132\036.com.l" +
-      "vl6.proto.FullEquipProto\0228\n\020warriorInitA" +
-      "rmor\030\020 \002(\0132\036.com.lvl6.proto.FullEquipPro" +
-      "to\032\277\004\n\026FullTutorialQuestProto\022\020\n\010goodNam" +
-      "e\030\001 \002(\t\022\017\n\007badName\030\002 \002(\t\022\027\n\017goodDescript" +
-      "ion\030\003 \002(\t\022\026\n\016badDescription\030\004 \002(\t\022\030\n\020goo" +
-      "dDoneResponse\030\005 \002(\t\022\027\n\017badDoneResponse\030\006" +
-      " \002(\t\022\026\n\016goodInProgress\030\007 \002(\t\022\025\n\rbadInPro" +
-      "gress\030\010 \002(\t\022\032\n\022assetNumWithinCity\030\t \002(\005\022",
-      "\023\n\013coinsGained\030\n \002(\005\022\021\n\texpGained\030\013 \002(\005\022" +
-      "4\n\rfirstTaskGood\030\014 \002(\0132\035.com.lvl6.proto." +
-      "FullTaskProto\0223\n\014firstTaskBad\030\r \002(\0132\035.co" +
-      "m.lvl6.proto.FullTaskProto\022!\n\031firstTaskC" +
-      "ompleteCoinGain\030\016 \002(\005\022(\n firstDefeatType" +
-      "JobBattleCoinGain\030\021 \002(\005\022\'\n\037firstDefeatTy" +
-      "peJobBattleExpGain\030\022 \002(\005\022J\n\"firstDefeatT" +
-      "ypeJobBattleLootAmulet\030\023 \002(\0132\036.com.lvl6." +
-      "proto.FullEquipProto\"A\n\014UpdateStatus\022\r\n\t" +
-      "NO_UPDATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020\n\014MAJOR_U",
-      "PDATE\020\002\"3\n\rStartupStatus\022\016\n\nUSER_IN_DB\020\000" +
-      "\022\022\n\016USER_NOT_IN_DB\020\001\"\311\002\n\026UserCreateReque" +
-      "stProto\022\014\n\004udid\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022&\n\004t" +
-      "ype\030\003 \002(\0162\030.com.lvl6.proto.UserType\0229\n\ts" +
-      "tructure\030\005 \002(\0132&.com.lvl6.proto.FullUser" +
-      "StructureProto\0223\n\014userLocation\030\006 \001(\0132\035.c" +
-      "om.lvl6.proto.LocationProto\022\024\n\014referrerC" +
-      "ode\030\007 \001(\t\022\023\n\013deviceToken\030\010 \001(\t\022\016\n\006attack" +
-      "\030\t \002(\005\022\017\n\007defense\030\n \002(\005\022\016\n\006health\030\013 \002(\005\022" +
-      "\016\n\006energy\030\014 \002(\005\022\017\n\007stamina\030\r \002(\005\"\216\002\n\027Use",
-      "rCreateResponseProto\022-\n\006sender\030\001 \001(\0132\035.c" +
-      "om.lvl6.proto.FullUserProto\022H\n\006status\030\002 " +
-      "\002(\01628.com.lvl6.proto.UserCreateResponseP" +
-      "roto.UserCreateStatus\"z\n\020UserCreateStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\024\n\020INVA" +
-      "LID_LOCATION\020\002\022!\n\035USER_WITH_UDID_ALREADY" +
-      "_EXISTS\020\003\022\016\n\nOTHER_FAIL\020\004\"d\n RetrieveTas" +
-      "ksForCityRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022\016\n\006cityI" +
-      "d\030\002 \001(\005\"\203\001\n!RetrieveTasksForCityResponse",
+      " \003(\0132\036.com.lvl6.proto.FullEquipProto\022&\n\036" +
+      "experienceRequiredForNextLevel\030\n \001(\005\022)\n!" +
+      "experienceRequiredForCurrentLevel\030\017 \001(\005\022" +
+      "x\n marketplacePurchaseNotifications\030\014 \003(" +
+      "\0132N.com.lvl6.proto.StartupResponseProto." +
+      "MarketplacePostPurchasedNotificationProt",
+      "o\022[\n\023attackNotifications\030\r \003(\0132>.com.lvl" +
+      "6.proto.StartupResponseProto.AttackedNot" +
+      "ificationProto\022]\n\025referralNotifications\030" +
+      "\016 \003(\0132>.com.lvl6.proto.StartupResponsePr" +
+      "oto.ReferralNotificationProto\032\267\001\n)Market" +
+      "placePostPurchasedNotificationProto\022A\n\017m" +
+      "arketplacePost\030\001 \002(\0132(.com.lvl6.proto.Fu" +
+      "llMarketplacePostProto\022/\n\005buyer\030\002 \002(\0132 ." +
+      "com.lvl6.proto.MinimumUserProto\022\026\n\016timeO" +
+      "fPurchase\030\003 \002(\003\032\313\001\n\031AttackedNotification",
+      "Proto\0222\n\010attacker\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\0222\n\014battleResult\030\002 \002(\0162" +
+      "\034.com.lvl6.proto.BattleResult\022\032\n\022battleC" +
+      "ompleteTime\030\003 \002(\003\022\023\n\013coinsStolen\030\004 \001(\005\022\025" +
+      "\n\rstolenEquipId\030\005 \001(\005\032d\n\031ReferralNotific" +
+      "ationProto\0222\n\010referred\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022\023\n\013recruitTime\030\002 " +
+      "\002(\003\032\340\013\n\020StartupConstants\022\022\n\nproductIds\030\001" +
+      " \003(\t\022\034\n\024productDiamondsGiven\030\002 \003(\005\022#\n\033ma" +
+      "xLevelDifferenceForBattle\030\006 \002(\005\022\025\n\rarmor",
+      "yXLength\030\007 \002(\005\022\025\n\rarmoryYLength\030\010 \002(\005\022\024\n" +
+      "\014vaultXLength\030\t \002(\005\022\024\n\014vaultYLength\030\n \002(" +
+      "\005\022\032\n\022marketplaceXLength\030\013 \002(\005\022\032\n\022marketp" +
+      "laceYLength\030\014 \002(\005\022\030\n\020carpenterXLength\030\r " +
+      "\002(\005\022\030\n\020carpenterYLength\030\016 \002(\005\022\025\n\raviaryX" +
+      "Length\030\017 \002(\005\022\025\n\raviaryYLength\030\020 \002(\005\022\026\n\016a" +
+      "ttackBaseGain\030\021 \002(\005\022\027\n\017defenseBaseGain\030\022" +
+      " \002(\005\022\026\n\016energyBaseGain\030\023 \002(\005\022\026\n\016healthBa" +
+      "seGain\030\024 \002(\005\022\027\n\017staminaBaseGain\030\025 \002(\005\022\026\n" +
+      "\016attackBaseCost\030\026 \002(\005\022\027\n\017defenseBaseCost",
+      "\030\027 \002(\005\022\026\n\016energyBaseCost\030\030 \002(\005\022\026\n\016health" +
+      "BaseCost\030\031 \002(\005\022\027\n\017staminaBaseCost\030\032 \002(\005\022" +
+      "\"\n\032skillPointsGainedOnLevelup\030\033 \002(\005\022\036\n\026c" +
+      "utOfVaultDepositTaken\030\034 \002(\005\022\025\n\rminVaultL" +
+      "evel\030\035 \002(\005\022\033\n\023minMarketplaceLevel\030\036 \002(\005\022" +
+      "\026\n\016minArmoryLevel\030\037 \002(\005\022\026\n\016maxRankForCit" +
+      "y\030  \002(\005\022\031\n\021maxLevelForStruct\030! \002(\005\022\034\n\024ma" +
+      "xNumOfSingleStruct\030\" \002(\005\0224\n,percentRetur" +
+      "nedToUserForSellingNormStructure\030# \002(\001\022\036" +
+      "\n\026minutesToRefillAEnergy\030$ \002(\005\022\037\n\027minute",
+      "sToRefillAStamina\030% \002(\005\022\'\n\037diamondCostFo" +
+      "rFullStaminaRefill\0300 \002(\005\022&\n\036diamondCostF" +
+      "orFullEnergyRefill\0301 \002(\005\022#\n\033maxNumberOfM" +
+      "arketplacePosts\030( \002(\005\022@\n8percentOfSellin" +
+      "gCostTakenFromSellerOnMarketplacePurchas" +
+      "e\030) \002(\001\022?\n7percentOfSellingCostTakenFrom" +
+      "SellerOnMarketplaceRetract\030* \002(\001\022-\n%numD" +
+      "aysLongMarketplaceLicenseLastsFor\030+ \002(\005\022" +
+      ".\n&numDaysShortMarketplaceLicenseLastsFo" +
+      "r\030, \002(\005\022+\n#diamondCostOfLongMarketplaceL",
+      "icense\030- \002(\005\022,\n$diamondCostOfShortMarket" +
+      "placeLicense\030. \002(\005\022\037\n\027minutesForCityExpa" +
+      "nsion\030\003 \002(\005\022+\n#maxNumbersOfEnemiesToGene" +
+      "rateAtOnce\030\004 \002(\005\0224\n,percentReturnedToUse" +
+      "rForSellingEquipInArmory\030\005 \002(\001\032\217\013\n\021Tutor" +
+      "ialConstants\022\022\n\ninitEnergy\030\001 \002(\005\022\023\n\013init" +
+      "Stamina\030\002 \002(\005\022\022\n\ninitHealth\030\003 \002(\005\022d\n\rtut" +
+      "orialQuest\030\004 \002(\0132M.com.lvl6.proto.Startu" +
+      "pResponseProto.TutorialConstants.FullTut" +
+      "orialQuestProto\022\025\n\rstructToBuild\030\005 \002(\005\022*",
+      "\n\"diamondCostToInstabuildFirstStruct\030\006 \002" +
+      "(\005\022\030\n\020archerInitAttack\030\021 \002(\005\022\031\n\021archerIn" +
+      "itDefense\030\022 \002(\005\0228\n\020archerInitWeapon\030\007 \002(" +
+      "\0132\036.com.lvl6.proto.FullEquipProto\0227\n\017arc" +
+      "herInitArmor\030\010 \002(\0132\036.com.lvl6.proto.Full" +
+      "EquipProto\022\026\n\016mageInitAttack\030\t \002(\005\022\027\n\017ma" +
+      "geInitDefense\030\n \002(\005\0226\n\016mageInitWeapon\030\013 " +
+      "\002(\0132\036.com.lvl6.proto.FullEquipProto\0225\n\rm" +
+      "ageInitArmor\030\014 \002(\0132\036.com.lvl6.proto.Full" +
+      "EquipProto\022\031\n\021warriorInitAttack\030\r \002(\005\022\032\n",
+      "\022warriorInitDefense\030\016 \002(\005\0229\n\021warriorInit" +
+      "Weapon\030\017 \002(\0132\036.com.lvl6.proto.FullEquipP" +
+      "roto\0228\n\020warriorInitArmor\030\020 \002(\0132\036.com.lvl" +
+      "6.proto.FullEquipProto\022\025\n\rminNameLength\030" +
+      "\023 \002(\005\022 \n\030diamondRewardForReferrer\030\024 \002(\005\022" +
+      "%\n\035diamondRewardForBeingReferred\030\025 \002(\005\032\277" +
+      "\004\n\026FullTutorialQuestProto\022\020\n\010goodName\030\001 " +
+      "\002(\t\022\017\n\007badName\030\002 \002(\t\022\027\n\017goodDescription\030" +
+      "\003 \002(\t\022\026\n\016badDescription\030\004 \002(\t\022\030\n\020goodDon" +
+      "eResponse\030\005 \002(\t\022\027\n\017badDoneResponse\030\006 \002(\t",
+      "\022\026\n\016goodInProgress\030\007 \002(\t\022\025\n\rbadInProgres" +
+      "s\030\010 \002(\t\022\032\n\022assetNumWithinCity\030\t \002(\005\022\023\n\013c" +
+      "oinsGained\030\n \002(\005\022\021\n\texpGained\030\013 \002(\005\0224\n\rf" +
+      "irstTaskGood\030\014 \002(\0132\035.com.lvl6.proto.Full" +
+      "TaskProto\0223\n\014firstTaskBad\030\r \002(\0132\035.com.lv" +
+      "l6.proto.FullTaskProto\022!\n\031firstTaskCompl" +
+      "eteCoinGain\030\016 \002(\005\022(\n firstDefeatTypeJobB" +
+      "attleCoinGain\030\021 \002(\005\022\'\n\037firstDefeatTypeJo" +
+      "bBattleExpGain\030\022 \002(\005\022J\n\"firstDefeatTypeJ" +
+      "obBattleLootAmulet\030\023 \002(\0132\036.com.lvl6.prot",
+      "o.FullEquipProto\"A\n\014UpdateStatus\022\r\n\tNO_U" +
+      "PDATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020\n\014MAJOR_UPDAT" +
+      "E\020\002\"3\n\rStartupStatus\022\016\n\nUSER_IN_DB\020\000\022\022\n\016" +
+      "USER_NOT_IN_DB\020\001\"\311\002\n\026UserCreateRequestPr" +
+      "oto\022\014\n\004udid\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022&\n\004type\030" +
+      "\003 \002(\0162\030.com.lvl6.proto.UserType\0229\n\tstruc" +
+      "ture\030\005 \002(\0132&.com.lvl6.proto.FullUserStru" +
+      "ctureProto\0223\n\014userLocation\030\006 \001(\0132\035.com.l" +
+      "vl6.proto.LocationProto\022\024\n\014referrerCode\030" +
+      "\007 \001(\t\022\023\n\013deviceToken\030\010 \001(\t\022\016\n\006attack\030\t \002",
+      "(\005\022\017\n\007defense\030\n \002(\005\022\016\n\006health\030\013 \002(\005\022\016\n\006e" +
+      "nergy\030\014 \002(\005\022\017\n\007stamina\030\r \002(\005\"\216\002\n\027UserCre" +
+      "ateResponseProto\022-\n\006sender\030\001 \001(\0132\035.com.l" +
+      "vl6.proto.FullUserProto\022H\n\006status\030\002 \002(\0162" +
+      "8.com.lvl6.proto.UserCreateResponseProto" +
+      ".UserCreateStatus\"z\n\020UserCreateStatus\022\013\n" +
+      "\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\024\n\020INVALID_" +
+      "LOCATION\020\002\022!\n\035USER_WITH_UDID_ALREADY_EXI" +
+      "STS\020\003\022\016\n\nOTHER_FAIL\020\004\"d\n RetrieveTasksFo" +
+      "rCityRequestProto\0220\n\006sender\030\001 \002(\0132 .com.",
+      "lvl6.proto.MinimumUserProto\022\016\n\006cityId\030\002 " +
+      "\001(\005\"\203\001\n!RetrieveTasksForCityResponseProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022,\n\005tasks\030\002 \003(\0132\035.com.lvl6.pr" +
+      "oto.FullTaskProto\"\367\001\n%RetrieveStaticData" +
+      "ForShopRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022W\n\004type\030\002 " +
+      "\002(\0162I.com.lvl6.proto.RetrieveStaticDataF" +
+      "orShopRequestProto.RetrieveForShopType\"C" +
+      "\n\023RetrieveForShopType\022\030\n\024EQUIPMENT_FOR_A",
+      "RMORY\020\000\022\022\n\016ALL_STRUCTURES\020\001\"\346\002\n&Retrieve" +
+      "StaticDataForShopResponseProto\0220\n\006sender" +
+      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022f\n\006status\030\002 \002(\0162V.com.lvl6.proto.Retrie" +
+      "veStaticDataForShopResponseProto.Retriev" +
+      "eStaticDataForShopStatus\022.\n\006equips\030\003 \003(\013" +
+      "2\036.com.lvl6.proto.FullEquipProto\0223\n\007stru" +
+      "cts\030\004 \003(\0132\".com.lvl6.proto.FullStructure" +
+      "Proto\"=\n\037RetrieveStaticDataForShopStatus" +
+      "\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"k\n\026TaskActi",
+      "onRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022\016\n\006taskId\030\002 \002(\005" +
+      "\022\017\n\007curTime\030\003 \002(\003\"\275\003\n\027TaskActionResponse" +
       "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022,\n\005tasks\030\002 \003(\0132\035.com.lvl" +
-      "6.proto.FullTaskProto\"\367\001\n%RetrieveStatic" +
-      "DataForShopRequestProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022W\n\004typ" +
-      "e\030\002 \002(\0162I.com.lvl6.proto.RetrieveStaticD" +
-      "ataForShopRequestProto.RetrieveForShopTy" +
-      "pe\"C\n\023RetrieveForShopType\022\030\n\024EQUIPMENT_F" +
-      "OR_ARMORY\020\000\022\022\n\016ALL_STRUCTURES\020\001\"\346\002\n&Retr" +
-      "ieveStaticDataForShopResponseProto\0220\n\006se",
-      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022f\n\006status\030\002 \002(\0162V.com.lvl6.proto.Re" +
-      "trieveStaticDataForShopResponseProto.Ret" +
-      "rieveStaticDataForShopStatus\022.\n\006equips\030\003" +
-      " \003(\0132\036.com.lvl6.proto.FullEquipProto\0223\n\007" +
-      "structs\030\004 \003(\0132\".com.lvl6.proto.FullStruc" +
-      "tureProto\"=\n\037RetrieveStaticDataForShopSt" +
-      "atus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"k\n\026Task" +
-      "ActionRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022\016\n\006taskId\030\002",
-      " \002(\005\022\017\n\007curTime\030\003 \002(\003\"\275\003\n\027TaskActionResp" +
-      "onseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022H\n\006status\030\002 \002(\01628.co" +
-      "m.lvl6.proto.TaskActionResponseProto.Tas" +
-      "kActionStatus\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014" +
-      "cityRankedUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022" +
-      "\023\n\013coinsGained\030\006 \001(\005\022\035\n\025coinBonusIfCityR" +
-      "ankup\030\007 \001(\005\022\034\n\024expBonusIfCityRankup\030\010 \001(" +
-      "\005\"\221\001\n\020TaskActionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026U" +
-      "SER_NOT_ENOUGH_ENERGY\020\001\022\037\n\033USER_NOT_ALL_",
-      "REQUIRED_ITEMS\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIE" +
-      "NT_TOO_AHEAD_OF_SERVER_TIME\020\004\"\273\001\n!Purcha" +
-      "seNormStructureRequestProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022:\n" +
-      "\021structCoordinates\030\002 \002(\0132\037.com.lvl6.prot" +
-      "o.CoordinateProto\022\020\n\010structId\030\003 \002(\005\022\026\n\016t" +
-      "imeOfPurchase\030\004 \002(\003\"\243\003\n\"PurchaseNormStru" +
-      "ctureResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022^\n\006status\030\002" +
-      " \002(\0162N.com.lvl6.proto.PurchaseNormStruct",
-      "ureResponseProto.PurchaseNormStructureSt" +
-      "atus\022\024\n\014userStructId\030\003 \001(\005\"\324\001\n\033PurchaseN" +
-      "ormStructureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_E" +
-      "NOUGH_MATERIALS\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022!\n\035" +
-      "ANOTHER_STRUCT_STILL_BUILDING\020\003\022#\n\037ALREA" +
-      "DY_HAVE_MAX_OF_THIS_STRUCT\020\004\022\016\n\nOTHER_FA" +
-      "IL\020\005\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020" +
-      "\006\"\375\002\n%MoveOrRotateNormStructureRequestPr" +
-      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022\024\n\014userStructId\030\002 \002(\005\022^\n\004t",
-      "ype\030\003 \002(\0162P.com.lvl6.proto.MoveOrRotateN" +
-      "ormStructureRequestProto.MoveOrRotateNor" +
-      "mStructType\022=\n\024curStructCoordinates\030\004 \001(" +
-      "\0132\037.com.lvl6.proto.CoordinateProto\0229\n\016ne" +
-      "wOrientation\030\005 \001(\0162!.com.lvl6.proto.Stru" +
-      "ctOrientation\"2\n\032MoveOrRotateNormStructT" +
-      "ype\022\010\n\004MOVE\020\000\022\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRota" +
-      "teNormStructureResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022f" +
-      "\n\006status\030\002 \002(\0162V.com.lvl6.proto.MoveOrRo",
-      "tateNormStructureResponseProto.MoveOrRot" +
-      "ateNormStructureStatus\">\n\037MoveOrRotateNo" +
-      "rmStructureStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_" +
-      "FAIL\020\002\"g\n\035SellNormStructureRequestProto\022" +
+      "inimumUserProto\022H\n\006status\030\002 \002(\01628.com.lv" +
+      "l6.proto.TaskActionResponseProto.TaskAct" +
+      "ionStatus\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014city" +
+      "RankedUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013c" +
+      "oinsGained\030\006 \001(\005\022\035\n\025coinBonusIfCityRanku" +
+      "p\030\007 \001(\005\022\034\n\024expBonusIfCityRankup\030\010 \001(\005\"\221\001",
+      "\n\020TaskActionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USER_" +
+      "NOT_ENOUGH_ENERGY\020\001\022\037\n\033USER_NOT_ALL_REQU" +
+      "IRED_ITEMS\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_T" +
+      "OO_AHEAD_OF_SERVER_TIME\020\004\"\273\001\n!PurchaseNo" +
+      "rmStructureRequestProto\0220\n\006sender\030\001 \002(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022:\n\021str" +
+      "uctCoordinates\030\002 \002(\0132\037.com.lvl6.proto.Co" +
+      "ordinateProto\022\020\n\010structId\030\003 \002(\005\022\026\n\016timeO" +
+      "fPurchase\030\004 \002(\003\"\243\003\n\"PurchaseNormStructur" +
+      "eResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl",
+      "6.proto.MinimumUserProto\022^\n\006status\030\002 \002(\016" +
+      "2N.com.lvl6.proto.PurchaseNormStructureR" +
+      "esponseProto.PurchaseNormStructureStatus" +
+      "\022\024\n\014userStructId\030\003 \001(\005\"\324\001\n\033PurchaseNormS" +
+      "tructureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUG" +
+      "H_MATERIALS\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022!\n\035ANOT" +
+      "HER_STRUCT_STILL_BUILDING\020\003\022#\n\037ALREADY_H" +
+      "AVE_MAX_OF_THIS_STRUCT\020\004\022\016\n\nOTHER_FAIL\020\005" +
+      "\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\006\"\375\002" +
+      "\n%MoveOrRotateNormStructureRequestProto\022",
       "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022\024\n\014userStructId\030\002 \002(\005\"\334\001\n\036Sell" +
-      "NormStructureResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022V\n\006" +
-      "status\030\002 \002(\0162F.com.lvl6.proto.SellNormSt" +
-      "ructureResponseProto.SellNormStructureSt",
-      "atus\"0\n\027SellNormStructureStatus\022\013\n\007SUCCE" +
-      "SS\020\000\022\010\n\004FAIL\020\001\"\201\001\n UpgradeNormStructureR" +
-      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022\024\n\014userStructId\030\002 " +
-      "\002(\005\022\025\n\rtimeOfUpgrade\030\003 \002(\003\"\373\002\n!UpgradeNo" +
-      "rmStructureResponseProto\0220\n\006sender\030\001 \002(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022\\\n\006st" +
-      "atus\030\002 \002(\0162L.com.lvl6.proto.UpgradeNormS" +
-      "tructureResponseProto.UpgradeNormStructu" +
-      "reStatus\"\305\001\n\032UpgradeNormStructureStatus\022",
-      "\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021" +
-      "\n\rNOT_BUILT_YET\020\002\022\024\n\020NOT_USERS_STRUCT\020\003\022" +
-      "\"\n\036ANOTHER_STRUCT_STILL_UPGRADING\020\004\022\016\n\nO" +
-      "THER_FAIL\020\005\022#\n\037CLIENT_TOO_AHEAD_OF_SERVE" +
-      "R_TIME\020\006\"\220\001\n-RetrieveCurrencyFromNormStr" +
-      "uctureRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022\024\n\014userStru" +
-      "ctId\030\002 \002(\005\022\027\n\017timeOfRetrieval\030\003 \002(\003\"\360\002\n." +
-      "RetrieveCurrencyFromNormStructureRespons" +
-      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.",
-      "MinimumUserProto\022v\n\006status\030\002 \002(\0162f.com.l" +
-      "vl6.proto.RetrieveCurrencyFromNormStruct" +
-      "ureResponseProto.RetrieveCurrencyFromNor" +
-      "mStructureStatus\"\223\001\n\'RetrieveCurrencyFro" +
-      "mNormStructureStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NOT" +
-      "_LONG_ENOUGH\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037CLIENT" +
-      "_TOO_AHEAD_OF_SERVER_TIME\020\003\022\021\n\rLEVEL_TOO" +
-      "_LOW\020\004\"\236\003\n#CriticalStructureActionReques" +
-      "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022\\\n\nactionType\030\002 \002(\0162H.c",
-      "om.lvl6.proto.CriticalStructureActionReq" +
-      "uestProto.CritStructActionType\0226\n\016critSt" +
-      "ructType\030\003 \002(\0162\036.com.lvl6.proto.CritStru" +
-      "ctType\022>\n\025critStructCoordinates\030\004 \001(\0132\037." +
-      "com.lvl6.proto.CoordinateProto\0226\n\013orient" +
-      "ation\030\005 \001(\0162!.com.lvl6.proto.StructOrien" +
-      "tation\"7\n\024CritStructActionType\022\t\n\005PLACE\020" +
-      "\000\022\010\n\004MOVE\020\001\022\n\n\006ROTATE\020\002\"\324\002\n$CriticalStru" +
-      "ctureActionResponseProto\0220\n\006sender\030\001 \002(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022[\n\006st",
-      "atus\030\003 \002(\0162K.com.lvl6.proto.CriticalStru" +
-      "ctureActionResponseProto.CritStructActio" +
-      "nStatus\"\234\001\n\026CritStructActionStatus\022\013\n\007SU" +
-      "CCESS\020\000\022*\n&CANNOT_PLACE_NON_PLACEABLE_CR" +
-      "IT_STRUCT\020\001\022!\n\035NOT_ACCESSIBLE_TO_USERS_L" +
-      "EVEL\020\002\022\026\n\022CANNOT_MOVE_AVIARY\020\003\022\016\n\nOTHER_" +
-      "FAIL\020\004\"\344\002\n0FinishNormStructWaittimeWithD" +
-      "iamondsRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022\024\n\014userStr" +
-      "uctId\030\002 \002(\005\022\026\n\016timeOfPurchase\030\003 \002(\003\022m\n\014w",
-      "aitTimeType\030\004 \002(\0162W.com.lvl6.proto.Finis" +
-      "hNormStructWaittimeWithDiamondsRequestPr" +
-      "oto.NormStructWaitTimeType\"a\n\026NormStruct" +
-      "WaitTimeType\022\027\n\023FINISH_CONSTRUCTION\020\000\022\032\n" +
-      "\026FINISH_INCOME_WAITTIME\020\001\022\022\n\016FINISH_UPGR" +
-      "ADE\020\002\"\324\002\n1FinishNormStructWaittimeWithDi" +
-      "amondsResponseProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022p\n\006status\030" +
-      "\002 \002(\0162`.com.lvl6.proto.FinishNormStructW" +
-      "aittimeWithDiamondsResponseProto.FinishN",
-      "ormStructWaittimeStatus\"{\n\036FinishNormStr" +
-      "uctWaittimeStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_EN" +
-      "OUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037CLIEN" +
-      "T_TOO_AHEAD_OF_SERVER_TIME\020\003\"}\n\"NormStru" +
-      "ctWaitCompleteRequestProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022\024\n\014" +
-      "userStructId\030\002 \003(\005\022\017\n\007curTime\030\003 \002(\003\"\351\002\n#" +
-      "NormStructWaitCompleteResponseProto\0220\n\006s" +
+      "UserProto\022\024\n\014userStructId\030\002 \002(\005\022^\n\004type\030" +
+      "\003 \002(\0162P.com.lvl6.proto.MoveOrRotateNormS" +
+      "tructureRequestProto.MoveOrRotateNormStr" +
+      "uctType\022=\n\024curStructCoordinates\030\004 \001(\0132\037." +
+      "com.lvl6.proto.CoordinateProto\0229\n\016newOri" +
+      "entation\030\005 \001(\0162!.com.lvl6.proto.StructOr" +
+      "ientation\"2\n\032MoveOrRotateNormStructType\022" +
+      "\010\n\004MOVE\020\000\022\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRotateNo" +
+      "rmStructureResponseProto\0220\n\006sender\030\001 \002(\013",
+      "2 .com.lvl6.proto.MinimumUserProto\022f\n\006st" +
+      "atus\030\002 \002(\0162V.com.lvl6.proto.MoveOrRotate" +
+      "NormStructureResponseProto.MoveOrRotateN" +
+      "ormStructureStatus\">\n\037MoveOrRotateNormSt" +
+      "ructureStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL" +
+      "\020\002\"g\n\035SellNormStructureRequestProto\0220\n\006s" +
       "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022`\n\006status\030\002 \002(\0162P.com.lvl6.proto.N",
-      "ormStructWaitCompleteResponseProto.NormS" +
-      "tructWaitCompleteStatus\022:\n\nuserStruct\030\003 " +
-      "\003(\0132&.com.lvl6.proto.FullUserStructurePr" +
-      "oto\"r\n\034NormStructWaitCompleteStatus\022\013\n\007S" +
-      "UCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016\n\nOTHER_FAIL" +
-      "\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\003\"" +
-      "G\n\023LevelUpRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\"\252\003\n\024Lev" +
-      "elUpResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022B\n\006status\030\002 ",
-      "\002(\01622.com.lvl6.proto.LevelUpResponseProt" +
-      "o.LevelUpStatus\022\024\n\014newNextLevel\030\003 \001(\005\022)\n" +
-      "!experienceRequiredForNewNextLevel\030\004 \001(\005" +
-      "\022A\n\032citiesNewlyAvailableToUser\030\005 \003(\0132\035.c" +
-      "om.lvl6.proto.FullCityProto\022H\n newlyEqui" +
-      "ppableAvailableInArmory\030\006 \003(\0132\036.com.lvl6" +
-      ".proto.FullEquipProto\"N\n\rLevelUpStatus\022\013" +
-      "\n\007SUCCESS\020\000\022 \n\034NOT_ENOUGH_EXP_TO_NEXT_LE" +
-      "VEL\020\001\022\016\n\nOTHER_FAIL\020\002\"^\n\031InAppPurchaseRe" +
-      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr",
-      "oto.MinimumUserProto\022\017\n\007receipt\030\002 \002(\t\"\344\001" +
-      "\n\032InAppPurchaseResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022N" +
-      "\n\006status\030\002 \002(\0162>.com.lvl6.proto.InAppPur" +
-      "chaseResponseProto.InAppPurchaseStatus\022\026" +
-      "\n\016diamondsGained\030\003 \001(\005\",\n\023InAppPurchaseS" +
-      "tatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035UpdateCl" +
-      "ientUserResponseProto\022-\n\006sender\030\001 \002(\0132\035." +
-      "com.lvl6.proto.FullUserProto\022\030\n\020timeOfUs" +
-      "erUpdate\030\002 \002(\003\"\215\001\n+RetrieveCurrentMarket",
-      "placePostsRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\030\n\020befo" +
-      "reThisPostId\030\002 \001(\005\022\022\n\nfromSender\030\003 \002(\010\"\237" +
-      "\003\n,RetrieveCurrentMarketplacePostsRespon" +
-      "seProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022\022\n\nfromSender\030\002 \002(\010\022\030\n" +
-      "\020beforeThisPostId\030\003 \001(\005\022r\n\006status\030\004 \002(\0162" +
-      "b.com.lvl6.proto.RetrieveCurrentMarketpl" +
-      "acePostsResponseProto.RetrieveCurrentMar" +
-      "ketplacePostsStatus\022B\n\020marketplacePosts\030",
-      "\005 \003(\0132(.com.lvl6.proto.FullMarketplacePo" +
-      "stProto\"W\n%RetrieveCurrentMarketplacePos" +
-      "tsStatus\022\013\n\007SUCCESS\020\000\022\021\n\rLEVEL_TOO_LOW\020\001" +
-      "\022\016\n\nOTHER_FAIL\020\002\"\217\001\n\035PostToMarketplaceRe" +
-      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022\025\n\rpostedEquipId\030\002 " +
-      "\002(\005\022\023\n\013diamondCost\030\003 \001(\005\022\020\n\010coinCost\030\004 \001" +
-      "(\005\"\255\003\n\036PostToMarketplaceResponseProto\0220\n" +
-      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022V\n\006status\030\002 \002(\0162F.com.lvl6.proto",
-      ".PostToMarketplaceResponseProto.PostToMa" +
-      "rketplaceStatus\"\200\002\n\027PostToMarketplaceSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020N" +
-      "OT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COST\020\003\022\013\n\007" +
-      "NO_COST\020\004\022&\n\"USER_ALREADY_MAX_MARKETPLAC" +
-      "E_POSTS\020\005\022\024\n\020CANT_DEMAND_BOTH\020\006\022\036\n\032INVAL" +
-      "ID_COST_TYPE_FOR_POST\020\007\022\016\n\nNO_LICENSE\020\010\022" +
-      "\021\n\rLEVEL_TOO_LOW\020\t\022\016\n\nOTHER_FAIL\020\n\"q\n\"Re" +
-      "tractMarketplacePostRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro",
-      "to\022\031\n\021marketplacePostId\030\002 \002(\005\"\335\002\n#Retrac" +
-      "tMarketplacePostResponseProto\0220\n\006sender\030" +
-      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "`\n\006status\030\002 \002(\0162P.com.lvl6.proto.Retract" +
-      "MarketplacePostResponseProto.RetractMark" +
-      "etplacePostStatus\"\241\001\n\034RetractMarketplace" +
-      "PostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_REQUESTER" +
-      "S_POST\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023N" +
-      "OT_ENOUGH_DIAMONDS\020\003\022\024\n\020NOT_ENOUGH_COINS" +
-      "\020\004\022\021\n\rLEVEL_TOO_LOW\020\005\"\204\001\n#PurchaseFromMa",
-      "rketplaceRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022\031\n\021marke" +
-      "tplacePostId\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\361\002\n" +
-      "$PurchaseFromMarketplaceResponseProto\0223\n" +
-      "\tpurchaser\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\020\n\010posterId\030\002 \002(\005\022b\n\006status\030\003" +
-      " \002(\0162R.com.lvl6.proto.PurchaseFromMarket" +
-      "placeResponseProto.PurchaseFromMarketpla" +
-      "ceStatus\"\235\001\n\035PurchaseFromMarketplaceStat" +
-      "us\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020",
-      "\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023PURCHASE" +
-      "R_IS_SELLER\020\003\022\021\n\rLEVEL_TOO_LOW\020\004\022\016\n\nOTHE" +
-      "R_FAIL\020\005\"\340\001\n\031UseSkillPointRequestProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022F\n\tboostType\030\002 \002(\01623.com.lvl6.p" +
-      "roto.UseSkillPointRequestProto.BoostType" +
-      "\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n" +
-      "\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032" +
-      "UseSkillPointResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022N\n\006",
-      "status\030\002 \002(\0162>.com.lvl6.proto.UseSkillPo" +
-      "intResponseProto.UseSkillPointStatus\"O\n\023" +
-      "UseSkillPointStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_" +
-      "ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\304\001" +
-      "\n\036GenerateAttackListRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022\022\n\nnumEnemies\030\002 \002(\005\022\025\n\rlatLowerBound\030" +
-      "\003 \001(\005\022\025\n\rlatUpperBound\030\004 \001(\005\022\026\n\016longLowe" +
-      "rBound\030\005 \001(\005\022\026\n\016longUpperBound\030\006 \001(\005\"\307\002\n" +
-      "\037GenerateAttackListResponseProto\0220\n\006send",
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022.\n\007enemies\030\002 \003(\0132\035.com.lvl6.proto.Ful" +
-      "lUserProto\022X\n\006status\030\003 \002(\0162H.com.lvl6.pr" +
-      "oto.GenerateAttackListResponseProto.Gene" +
-      "rateAttackListStatus\"h\n\030GenerateAttackLi" +
-      "stStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\022\035\n\031" +
-      "INVALID_NUM_ENEMIES_COUNT\020\002\022\021\n\rINVALID_B" +
-      "OUND\020\003\"\312\001\n\"RefillStatWithDiamondsRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022M\n\010statType\030\002 \002(\0162;.com.",
-      "lvl6.proto.RefillStatWithDiamondsRequest" +
-      "Proto.StatType\"#\n\010StatType\022\n\n\006ENERGY\020\000\022\013" +
-      "\n\007STAMINA\020\001\"\210\002\n#RefillStatWithDiamondsRe" +
-      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
-      "roto.MinimumUserProto\022T\n\006status\030\002 \002(\0162D." +
-      "com.lvl6.proto.RefillStatWithDiamondsRes" +
-      "ponseProto.RefillStatStatus\"Y\n\020RefillSta" +
-      "tStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMO" +
-      "NDS\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\"Y" +
-      "\n%RedeemMarketplaceEarningsRequestProto\022",
+      "Proto\022\024\n\014userStructId\030\002 \002(\005\"\334\001\n\036SellNorm" +
+      "StructureResponseProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022V\n\006stat",
+      "us\030\002 \002(\0162F.com.lvl6.proto.SellNormStruct" +
+      "ureResponseProto.SellNormStructureStatus" +
+      "\"0\n\027SellNormStructureStatus\022\013\n\007SUCCESS\020\000" +
+      "\022\010\n\004FAIL\020\001\"\201\001\n UpgradeNormStructureReque" +
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022\024\n\014userStructId\030\002 \002(\005\022" +
+      "\025\n\rtimeOfUpgrade\030\003 \002(\003\"\225\003\n!UpgradeNormSt" +
+      "ructureResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022\\\n\006status" +
+      "\030\002 \002(\0162L.com.lvl6.proto.UpgradeNormStruc",
+      "tureResponseProto.UpgradeNormStructureSt" +
+      "atus\"\337\001\n\032UpgradeNormStructureStatus\022\013\n\007S" +
+      "UCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\rNO" +
+      "T_BUILT_YET\020\002\022\024\n\020NOT_USERS_STRUCT\020\003\022\"\n\036A" +
+      "NOTHER_STRUCT_STILL_UPGRADING\020\004\022\016\n\nOTHER" +
+      "_FAIL\020\005\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TI" +
+      "ME\020\006\022\030\n\024AT_MAX_LEVEL_ALREADY\020\007\"\220\001\n-Retri" +
+      "eveCurrencyFromNormStructureRequestProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\024\n\014userStructId\030\002 \002(\005\022\027\n\017time",
+      "OfRetrieval\030\003 \002(\003\"\360\002\n.RetrieveCurrencyFr" +
+      "omNormStructureResponseProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022v" +
+      "\n\006status\030\002 \002(\0162f.com.lvl6.proto.Retrieve" +
+      "CurrencyFromNormStructureResponseProto.R" +
+      "etrieveCurrencyFromNormStructureStatus\"\223" +
+      "\001\n\'RetrieveCurrencyFromNormStructureStat" +
+      "us\022\013\n\007SUCCESS\020\000\022\023\n\017NOT_LONG_ENOUGH\020\001\022\016\n\n" +
+      "OTHER_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SERV" +
+      "ER_TIME\020\003\022\021\n\rLEVEL_TOO_LOW\020\004\"\236\003\n#Critica",
+      "lStructureActionRequestProto\0220\n\006sender\030\001" +
+      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022\\" +
+      "\n\nactionType\030\002 \002(\0162H.com.lvl6.proto.Crit" +
+      "icalStructureActionRequestProto.CritStru" +
+      "ctActionType\0226\n\016critStructType\030\003 \002(\0162\036.c" +
+      "om.lvl6.proto.CritStructType\022>\n\025critStru" +
+      "ctCoordinates\030\004 \001(\0132\037.com.lvl6.proto.Coo" +
+      "rdinateProto\0226\n\013orientation\030\005 \001(\0162!.com." +
+      "lvl6.proto.StructOrientation\"7\n\024CritStru" +
+      "ctActionType\022\t\n\005PLACE\020\000\022\010\n\004MOVE\020\001\022\n\n\006ROT",
+      "ATE\020\002\"\324\002\n$CriticalStructureActionRespons" +
+      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022[\n\006status\030\003 \002(\0162K.com.l" +
+      "vl6.proto.CriticalStructureActionRespons" +
+      "eProto.CritStructActionStatus\"\234\001\n\026CritSt" +
+      "ructActionStatus\022\013\n\007SUCCESS\020\000\022*\n&CANNOT_" +
+      "PLACE_NON_PLACEABLE_CRIT_STRUCT\020\001\022!\n\035NOT" +
+      "_ACCESSIBLE_TO_USERS_LEVEL\020\002\022\026\n\022CANNOT_M" +
+      "OVE_AVIARY\020\003\022\016\n\nOTHER_FAIL\020\004\"\344\002\n0FinishN" +
+      "ormStructWaittimeWithDiamondsRequestProt",
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\024\n\014userStructId\030\002 \002(\005\022\026\n\016tim" +
+      "eOfPurchase\030\003 \002(\003\022m\n\014waitTimeType\030\004 \002(\0162" +
+      "W.com.lvl6.proto.FinishNormStructWaittim" +
+      "eWithDiamondsRequestProto.NormStructWait" +
+      "TimeType\"a\n\026NormStructWaitTimeType\022\027\n\023FI" +
+      "NISH_CONSTRUCTION\020\000\022\032\n\026FINISH_INCOME_WAI" +
+      "TTIME\020\001\022\022\n\016FINISH_UPGRADE\020\002\"\324\002\n1FinishNo" +
+      "rmStructWaittimeWithDiamondsResponseProt" +
+      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim",
+      "umUserProto\022p\n\006status\030\002 \002(\0162`.com.lvl6.p" +
+      "roto.FinishNormStructWaittimeWithDiamond" +
+      "sResponseProto.FinishNormStructWaittimeS" +
+      "tatus\"{\n\036FinishNormStructWaittimeStatus\022" +
+      "\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n" +
+      "\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SER" +
+      "VER_TIME\020\003\"}\n\"NormStructWaitCompleteRequ" +
+      "estProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\024\n\014userStructId\030\002 \003(\005" +
+      "\022\017\n\007curTime\030\003 \002(\003\"\351\002\n#NormStructWaitComp",
+      "leteResponseProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022`\n\006status\030\002 " +
+      "\002(\0162P.com.lvl6.proto.NormStructWaitCompl" +
+      "eteResponseProto.NormStructWaitCompleteS" +
+      "tatus\022:\n\nuserStruct\030\003 \003(\0132&.com.lvl6.pro" +
+      "to.FullUserStructureProto\"r\n\034NormStructW" +
+      "aitCompleteStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DO" +
+      "NE_YET\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO_A" +
+      "HEAD_OF_SERVER_TIME\020\003\"G\n\023LevelUpRequestP" +
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi",
+      "nimumUserProto\"\304\003\n\024LevelUpResponseProto\022" +
       "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\"\202\002\n&RedeemMarketplaceEarningsR" +
-      "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022f\n\006status\030\002 \002(\0162V" +
-      ".com.lvl6.proto.RedeemMarketplaceEarning" +
-      "sResponseProto.RedeemMarketplaceEarnings" +
-      "Status\">\n\037RedeemMarketplaceEarningsStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n\032LoadP" +
-      "layerCityRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\0223\n\tcityO",
-      "wner\030\002 \002(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\"\275\006\n\033LoadPlayerCityResponseProto\0220\n\006" +
+      "UserProto\022B\n\006status\030\002 \002(\01622.com.lvl6.pro" +
+      "to.LevelUpResponseProto.LevelUpStatus\022\024\n" +
+      "\014newNextLevel\030\003 \001(\005\022)\n!experienceRequire" +
+      "dForNewNextLevel\030\004 \001(\005\022A\n\032citiesNewlyAva" +
+      "ilableToUser\030\005 \003(\0132\035.com.lvl6.proto.Full" +
+      "CityProto\022H\n newlyEquippableAvailableInA" +
+      "rmory\030\006 \003(\0132\036.com.lvl6.proto.FullEquipPr" +
+      "oto\"h\n\rLevelUpStatus\022\013\n\007SUCCESS\020\000\022 \n\034NOT",
+      "_ENOUGH_EXP_TO_NEXT_LEVEL\020\001\022\030\n\024ALREADY_A" +
+      "T_MAX_LEVEL\020\002\022\016\n\nOTHER_FAIL\020\003\"^\n\031InAppPu" +
+      "rchaseRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022\017\n\007receipt\030" +
+      "\002 \002(\t\"\344\001\n\032InAppPurchaseResponseProto\0220\n\006" +
       "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\0223\n\tcityOwner\030\002 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022P\n\006status\030\003 \002(\0162@.co" +
-      "m.lvl6.proto.LoadPlayerCityResponseProto" +
-      ".LoadPlayerCityStatus\022@\n\020ownerNormStruct" +
-      "s\030\004 \003(\0132&.com.lvl6.proto.FullUserStructu" +
-      "reProto\0222\n\013ownerAllies\030\005 \003(\0132\035.com.lvl6." +
-      "proto.FullUserProto\0223\n\014ownerEnemies\030\006 \003(",
-      "\0132\035.com.lvl6.proto.FullUserProto\0227\n\006armo" +
-      "ry\030\007 \001(\0132\'.com.lvl6.proto.FullUserCritst" +
-      "ructProto\0226\n\005vault\030\010 \001(\0132\'.com.lvl6.prot" +
-      "o.FullUserCritstructProto\022<\n\013marketplace" +
-      "\030\t \001(\0132\'.com.lvl6.proto.FullUserCritstru" +
-      "ctProto\022:\n\tcarpenter\030\n \002(\0132\'.com.lvl6.pr" +
-      "oto.FullUserCritstructProto\0227\n\006aviary\030\013 " +
-      "\002(\0132\'.com.lvl6.proto.FullUserCritstructP" +
-      "roto\022M\n\025userCityExpansionData\030\014 \001(\0132..co" +
-      "m.lvl6.proto.FullUserCityExpansionDataPr",
-      "oto\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027" +
-      "QuestAcceptRequestProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\017\n\007que" +
-      "stId\030\002 \002(\005\"\341\001\n\030QuestAcceptResponseProto\022" +
-      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022J\n\006status\030\002 \002(\0162:.com.lvl6.pro" +
-      "to.QuestAcceptResponseProto.QuestAcceptS" +
-      "tatus\"G\n\021QuestAcceptStatus\022\013\n\007SUCCESS\020\000\022" +
-      "\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"}",
-      "\n\032QuestCompleteResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022-" +
-      "\n\005quest\030\002 \002(\0132\036.com.lvl6.proto.FullQuest" +
-      "Proto\"\\\n\027QuestRedeemRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022\017\n\007questId\030\002 \002(\005\"\232\002\n\030QuestRedeemRespo" +
-      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022<\n\024newlyAvailableQues" +
-      "ts\030\002 \003(\0132\036.com.lvl6.proto.FullQuestProto" +
-      "\022J\n\006status\030\003 \002(\0162:.com.lvl6.proto.QuestR",
-      "edeemResponseProto.QuestRedeemStatus\"B\n\021" +
-      "QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_CO" +
-      "MPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"a\n\034UserQuestDet" +
-      "ailsRequestProto\0220\n\006sender\030\001 \002(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\017\n\007questId\030\002 " +
-      "\001(\005\"\333\002\n\035UserQuestDetailsResponseProto\0220\n" +
+      "rProto\022N\n\006status\030\002 \002(\0162>.com.lvl6.proto." +
+      "InAppPurchaseResponseProto.InAppPurchase" +
+      "Status\022\026\n\016diamondsGained\030\003 \001(\005\",\n\023InAppP" +
+      "urchaseStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035",
+      "UpdateClientUserResponseProto\022-\n\006sender\030" +
+      "\001 \002(\0132\035.com.lvl6.proto.FullUserProto\022\030\n\020" +
+      "timeOfUserUpdate\030\002 \002(\003\"\215\001\n+RetrieveCurre" +
+      "ntMarketplacePostsRequestProto\0220\n\006sender" +
+      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\030\n\020beforeThisPostId\030\002 \001(\005\022\022\n\nfromSender" +
+      "\030\003 \002(\010\"\237\003\n,RetrieveCurrentMarketplacePos" +
+      "tsResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022\022\n\nfromSender\030" +
+      "\002 \002(\010\022\030\n\020beforeThisPostId\030\003 \001(\005\022r\n\006statu",
+      "s\030\004 \002(\0162b.com.lvl6.proto.RetrieveCurrent" +
+      "MarketplacePostsResponseProto.RetrieveCu" +
+      "rrentMarketplacePostsStatus\022B\n\020marketpla" +
+      "cePosts\030\005 \003(\0132(.com.lvl6.proto.FullMarke" +
+      "tplacePostProto\"W\n%RetrieveCurrentMarket" +
+      "placePostsStatus\022\013\n\007SUCCESS\020\000\022\021\n\rLEVEL_T" +
+      "OO_LOW\020\001\022\016\n\nOTHER_FAIL\020\002\"\217\001\n\035PostToMarke" +
+      "tplaceRequestProto\0220\n\006sender\030\001 \002(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022\025\n\rpostedEq" +
+      "uipId\030\002 \002(\005\022\023\n\013diamondCost\030\003 \001(\005\022\020\n\010coin",
+      "Cost\030\004 \001(\005\"\255\003\n\036PostToMarketplaceResponse" +
+      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022V\n\006status\030\002 \002(\0162F.com.lv" +
+      "l6.proto.PostToMarketplaceResponseProto." +
+      "PostToMarketplaceStatus\"\200\002\n\027PostToMarket" +
+      "placeStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POS" +
+      "T\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_CO" +
+      "ST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREADY_MAX_MA" +
+      "RKETPLACE_POSTS\020\005\022\024\n\020CANT_DEMAND_BOTH\020\006\022" +
+      "\036\n\032INVALID_COST_TYPE_FOR_POST\020\007\022\016\n\nNO_LI",
+      "CENSE\020\010\022\021\n\rLEVEL_TOO_LOW\020\t\022\016\n\nOTHER_FAIL" +
+      "\020\n\"q\n\"RetractMarketplacePostRequestProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\031\n\021marketplacePostId\030\002 \002(\005\"\335\002" +
+      "\n#RetractMarketplacePostResponseProto\0220\n" +
       "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022L\n\027inProgressUserQuestData\030\002 \003(\013" +
-      "2+.com.lvl6.proto.FullUserQuestDataLarge" +
-      "Proto\022T\n\006status\030\003 \002(\0162D.com.lvl6.proto.U",
-      "serQuestDetailsResponseProto.UserQuestDe" +
-      "tailsStatus\"d\n\026UserQuestDetailsStatus\022\013\n" +
-      "\007SUCCESS\020\000\022.\n*SUPPLIED_QUESTID_CURRENTLY" +
-      "_NOT_IN_PROGRESS\020\001\022\r\n\tSOME_FAIL\020\002\"\275\002\n\036Re" +
-      "trieveStaticDataRequestProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022\021" +
-      "\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003 \003(\005\022\020\n\010qu" +
-      "estIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020\n\010equipId" +
-      "s\030\006 \003(\005\022\031\n\021buildStructJobIds\030\007 \003(\005\022\030\n\020de" +
-      "featTypeJobIds\030\010 \003(\005\022\032\n\022possessEquipJobI",
-      "ds\030\t \003(\005\022\033\n\023upgradeStructJobIds\030\n \003(\005\022\"\n" +
-      "\032levelForExpRequiredRequest\030\013 \001(\005\"\371\005\n\037Re" +
-      "trieveStaticDataResponseProto\0220\n\006sender\030" +
+      "erProto\022`\n\006status\030\002 \002(\0162P.com.lvl6.proto" +
+      ".RetractMarketplacePostResponseProto.Ret" +
+      "ractMarketplacePostStatus\"\241\001\n\034RetractMar" +
+      "ketplacePostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_R",
+      "EQUESTERS_POST\020\001\022\031\n\025POST_NO_LONGER_EXIST" +
+      "S\020\002\022\027\n\023NOT_ENOUGH_DIAMONDS\020\003\022\024\n\020NOT_ENOU" +
+      "GH_COINS\020\004\022\021\n\rLEVEL_TOO_LOW\020\005\"\204\001\n#Purcha" +
+      "seFromMarketplaceRequestProto\0220\n\006sender\030" +
       "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "3\n\007structs\030\002 \003(\0132\".com.lvl6.proto.FullSt" +
-      "ructureProto\022,\n\005tasks\030\003 \003(\0132\035.com.lvl6.p" +
-      "roto.FullTaskProto\022.\n\006quests\030\004 \003(\0132\036.com" +
-      ".lvl6.proto.FullQuestProto\022-\n\006cities\030\005 \003" +
-      "(\0132\035.com.lvl6.proto.FullCityProto\022.\n\006equ" +
-      "ips\030\006 \003(\0132\036.com.lvl6.proto.FullEquipProt",
-      "o\022<\n\017buildStructJobs\030\007 \003(\0132#.com.lvl6.pr" +
-      "oto.BuildStructJobProto\022:\n\016defeatTypeJob" +
-      "s\030\010 \003(\0132\".com.lvl6.proto.DefeatTypeJobPr" +
-      "oto\022>\n\020possessEquipJobs\030\t \003(\0132$.com.lvl6" +
-      ".proto.PossessEquipJobProto\022@\n\021upgradeSt" +
-      "ructJobs\030\n \003(\0132%.com.lvl6.proto.UpgradeS" +
-      "tructJobProto\022$\n\034expRequiredForRequested" +
-      "Level\030\013 \001(\005\022X\n\006status\030\014 \002(\0162H.com.lvl6.p" +
-      "roto.RetrieveStaticDataResponseProto.Ret" +
-      "rieveStaticDataStatus\"6\n\030RetrieveStaticD",
-      "ataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"\244\001" +
-      "\n!PurchaseCityExpansionRequestProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\0225\n\tdirection\030\002 \002(\0162\".com.lvl6.prot" +
-      "o.ExpansionDirection\022\026\n\016timeOfPurchase\030\003" +
-      " \002(\003\"\305\002\n\"PurchaseCityExpansionResponsePr" +
+      "\031\n\021marketplacePostId\030\002 \002(\005\022\020\n\010posterId\030\003" +
+      " \002(\005\"\361\002\n$PurchaseFromMarketplaceResponse" +
+      "Proto\0223\n\tpurchaser\030\001 \002(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\020\n\010posterId\030\002 \002(\005\022b\n\006" +
+      "status\030\003 \002(\0162R.com.lvl6.proto.PurchaseFr",
+      "omMarketplaceResponseProto.PurchaseFromM" +
+      "arketplaceStatus\"\235\001\n\035PurchaseFromMarketp" +
+      "laceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MA" +
+      "TERIALS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023" +
+      "PURCHASER_IS_SELLER\020\003\022\021\n\rLEVEL_TOO_LOW\020\004" +
+      "\022\016\n\nOTHER_FAIL\020\005\"\340\001\n\031UseSkillPointReques" +
+      "tProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022F\n\tboostType\030\002 \002(\01623.co" +
+      "m.lvl6.proto.UseSkillPointRequestProto.B" +
+      "oostType\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n\007DEF",
+      "ENSE\020\001\022\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMIN" +
+      "A\020\004\"\357\001\n\032UseSkillPointResponseProto\0220\n\006se" +
+      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022N\n\006status\030\002 \002(\0162>.com.lvl6.proto.Us" +
+      "eSkillPointResponseProto.UseSkillPointSt" +
+      "atus\"O\n\023UseSkillPointStatus\022\013\n\007SUCCESS\020\000" +
+      "\022\033\n\027NOT_ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTHER_F" +
+      "AIL\020\002\"\304\001\n\036GenerateAttackListRequestProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\022\n\nnumEnemies\030\002 \002(\005\022\025\n\rlatLow",
+      "erBound\030\003 \001(\005\022\025\n\rlatUpperBound\030\004 \001(\005\022\026\n\016" +
+      "longLowerBound\030\005 \001(\005\022\026\n\016longUpperBound\030\006" +
+      " \001(\005\"\307\002\n\037GenerateAttackListResponseProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022.\n\007enemies\030\002 \003(\0132\035.com.lvl6.p" +
+      "roto.FullUserProto\022X\n\006status\030\003 \002(\0162H.com" +
+      ".lvl6.proto.GenerateAttackListResponsePr" +
+      "oto.GenerateAttackListStatus\"h\n\030Generate" +
+      "AttackListStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FA" +
+      "IL\020\001\022\035\n\031INVALID_NUM_ENEMIES_COUNT\020\002\022\021\n\rI",
+      "NVALID_BOUND\020\003\"\312\001\n\"RefillStatWithDiamond" +
+      "sRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\022M\n\010statType\030\002 \002(" +
+      "\0162;.com.lvl6.proto.RefillStatWithDiamond" +
+      "sRequestProto.StatType\"#\n\010StatType\022\n\n\006EN" +
+      "ERGY\020\000\022\013\n\007STAMINA\020\001\"\210\002\n#RefillStatWithDi" +
+      "amondsResponseProto\0220\n\006sender\030\001 \002(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022T\n\006status\030" +
+      "\002 \002(\0162D.com.lvl6.proto.RefillStatWithDia" +
+      "mondsResponseProto.RefillStatStatus\"Y\n\020R",
+      "efillStatStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOU" +
+      "GH_DIAMONDS\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_" +
+      "FAIL\020\003\"Y\n%RedeemMarketplaceEarningsReque" +
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\"\202\002\n&RedeemMarketplaceE" +
+      "arningsResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022f\n\006status" +
+      "\030\002 \002(\0162V.com.lvl6.proto.RedeemMarketplac" +
+      "eEarningsResponseProto.RedeemMarketplace" +
+      "EarningsStatus\">\n\037RedeemMarketplaceEarni",
+      "ngsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203" +
+      "\001\n\032LoadPlayerCityRequestProto\0220\n\006sender\030" +
+      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "3\n\tcityOwner\030\002 \002(\0132 .com.lvl6.proto.Mini" +
+      "mumUserProto\"\275\006\n\033LoadPlayerCityResponseP" +
+      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\0223\n\tcityOwner\030\002 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022P\n\006status\030\003 " +
+      "\002(\0162@.com.lvl6.proto.LoadPlayerCityRespo" +
+      "nseProto.LoadPlayerCityStatus\022@\n\020ownerNo",
+      "rmStructs\030\004 \003(\0132&.com.lvl6.proto.FullUse" +
+      "rStructureProto\0222\n\013ownerAllies\030\005 \003(\0132\035.c" +
+      "om.lvl6.proto.FullUserProto\0223\n\014ownerEnem" +
+      "ies\030\006 \003(\0132\035.com.lvl6.proto.FullUserProto" +
+      "\0227\n\006armory\030\007 \001(\0132\'.com.lvl6.proto.FullUs" +
+      "erCritstructProto\0226\n\005vault\030\010 \001(\0132\'.com.l" +
+      "vl6.proto.FullUserCritstructProto\022<\n\013mar" +
+      "ketplace\030\t \001(\0132\'.com.lvl6.proto.FullUser" +
+      "CritstructProto\022:\n\tcarpenter\030\n \002(\0132\'.com" +
+      ".lvl6.proto.FullUserCritstructProto\0227\n\006a",
+      "viary\030\013 \002(\0132\'.com.lvl6.proto.FullUserCri" +
+      "tstructProto\022M\n\025userCityExpansionData\030\014 " +
+      "\001(\0132..com.lvl6.proto.FullUserCityExpansi" +
+      "onDataProto\"G\n\024LoadPlayerCityStatus\022\013\n\007S" +
+      "UCCESS\020\000\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FA" +
+      "IL\020\002\"\\\n\027QuestAcceptRequestProto\0220\n\006sende" +
+      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022\017\n\007questId\030\002 \002(\005\"\341\001\n\030QuestAcceptRespon" +
+      "seProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022J\n\006status\030\002 \002(\0162:.com.",
+      "lvl6.proto.QuestAcceptResponseProto.Ques" +
+      "tAcceptStatus\"G\n\021QuestAcceptStatus\022\013\n\007SU" +
+      "CCESS\020\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_" +
+      "FAIL\020\002\"}\n\032QuestCompleteResponseProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022-\n\005quest\030\002 \002(\0132\036.com.lvl6.proto.F" +
+      "ullQuestProto\"\\\n\027QuestRedeemRequestProto" +
+      "\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\017\n\007questId\030\002 \002(\005\"\232\002\n\030QuestRed" +
+      "eemResponseProto\0220\n\006sender\030\001 \002(\0132 .com.l",
+      "vl6.proto.MinimumUserProto\022<\n\024newlyAvail" +
+      "ableQuests\030\002 \003(\0132\036.com.lvl6.proto.FullQu" +
+      "estProto\022J\n\006status\030\003 \002(\0162:.com.lvl6.prot" +
+      "o.QuestRedeemResponseProto.QuestRedeemSt" +
+      "atus\"B\n\021QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020" +
+      "\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"a\n\034User" +
+      "QuestDetailsRequestProto\0220\n\006sender\030\001 \002(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022\017\n\007qu" +
+      "estId\030\002 \001(\005\"\333\002\n\035UserQuestDetailsResponse" +
+      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M",
+      "inimumUserProto\022L\n\027inProgressUserQuestDa" +
+      "ta\030\002 \003(\0132+.com.lvl6.proto.FullUserQuestD" +
+      "ataLargeProto\022T\n\006status\030\003 \002(\0162D.com.lvl6" +
+      ".proto.UserQuestDetailsResponseProto.Use" +
+      "rQuestDetailsStatus\"d\n\026UserQuestDetailsS" +
+      "tatus\022\013\n\007SUCCESS\020\000\022.\n*SUPPLIED_QUESTID_C" +
+      "URRENTLY_NOT_IN_PROGRESS\020\001\022\r\n\tSOME_FAIL\020" +
+      "\002\"\275\002\n\036RetrieveStaticDataRequestProto\0220\n\006" +
+      "sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003 \003",
+      "(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020\n" +
+      "\010equipIds\030\006 \003(\005\022\031\n\021buildStructJobIds\030\007 \003" +
+      "(\005\022\030\n\020defeatTypeJobIds\030\010 \003(\005\022\032\n\022possessE" +
+      "quipJobIds\030\t \003(\005\022\033\n\023upgradeStructJobIds\030" +
+      "\n \003(\005\022\"\n\032levelForExpRequiredRequest\030\013 \001(" +
+      "\005\"\371\005\n\037RetrieveStaticDataResponseProto\0220\n" +
+      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\0223\n\007structs\030\002 \003(\0132\".com.lvl6.prot" +
+      "o.FullStructureProto\022,\n\005tasks\030\003 \003(\0132\035.co" +
+      "m.lvl6.proto.FullTaskProto\022.\n\006quests\030\004 \003",
+      "(\0132\036.com.lvl6.proto.FullQuestProto\022-\n\006ci" +
+      "ties\030\005 \003(\0132\035.com.lvl6.proto.FullCityProt" +
+      "o\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.proto.FullE" +
+      "quipProto\022<\n\017buildStructJobs\030\007 \003(\0132#.com" +
+      ".lvl6.proto.BuildStructJobProto\022:\n\016defea" +
+      "tTypeJobs\030\010 \003(\0132\".com.lvl6.proto.DefeatT" +
+      "ypeJobProto\022>\n\020possessEquipJobs\030\t \003(\0132$." +
+      "com.lvl6.proto.PossessEquipJobProto\022@\n\021u" +
+      "pgradeStructJobs\030\n \003(\0132%.com.lvl6.proto." +
+      "UpgradeStructJobProto\022$\n\034expRequiredForR",
+      "equestedLevel\030\013 \001(\005\022X\n\006status\030\014 \002(\0162H.co" +
+      "m.lvl6.proto.RetrieveStaticDataResponseP" +
+      "roto.RetrieveStaticDataStatus\"6\n\030Retriev" +
+      "eStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_F" +
+      "AIL\020\001\"\244\001\n!PurchaseCityExpansionRequestPr" +
+      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\0225\n\tdirection\030\002 \002(\0162\".com.l" +
+      "vl6.proto.ExpansionDirection\022\026\n\016timeOfPu" +
+      "rchase\030\003 \002(\003\"\305\002\n\"PurchaseCityExpansionRe" +
+      "sponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p",
+      "roto.MinimumUserProto\022^\n\006status\030\002 \002(\0162N." +
+      "com.lvl6.proto.PurchaseCityExpansionResp" +
+      "onseProto.PurchaseCityExpansionStatus\"\214\001" +
+      "\n\033PurchaseCityExpansionStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREADY_EXPA" +
+      "NDING\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AH" +
+      "EAD_OF_SERVER_TIME\020\004\"f\n!ExpansionWaitCom" +
+      "pleteRequestProto\0220\n\006sender\030\001 \002(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022\017\n\007curTime\030\002" +
+      " \002(\003\"\301\002\n\"ExpansionWaitCompleteResponsePr",
       "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
       "imumUserProto\022^\n\006status\030\002 \002(\0162N.com.lvl6" +
-      ".proto.PurchaseCityExpansionResponseProt" +
-      "o.PurchaseCityExpansionStatus\"\214\001\n\033Purcha",
-      "seCityExpansionStatus\022\013\n\007SUCCESS\020\000\022\024\n\020NO" +
-      "T_ENOUGH_COINS\020\001\022\025\n\021ALREADY_EXPANDING\020\002\022" +
-      "\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_S" +
-      "ERVER_TIME\020\004\"f\n!ExpansionWaitCompleteReq" +
-      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\017\n\007curTime\030\002 \002(\003\"\301\002\n" +
-      "\"ExpansionWaitCompleteResponseProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022^\n\006status\030\002 \002(\0162N.com.lvl6.proto.E" +
-      "xpansionWaitCompleteResponseProto.Expans",
-      "ionWaitCompleteStatus\"\210\001\n\033ExpansionWaitC" +
-      "ompleteStatus\022\013\n\007SUCCESS\020\000\022\025\n\021WAS_NOT_EX" +
-      "PANDING\020\001\022\020\n\014NOT_DONE_YET\020\002\022\016\n\nOTHER_FAI" +
+      ".proto.ExpansionWaitCompleteResponseProt" +
+      "o.ExpansionWaitCompleteStatus\"\210\001\n\033Expans" +
+      "ionWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\025\n\021WA" +
+      "S_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YET\020\002\022\016\n\nO" +
+      "THER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVE" +
+      "R_TIME\020\004\"\373\001\n\"RefillStatWaitCompleteReque" +
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022\017\n\007curTime\030\002 \002(\003\022[\n\004ty",
+      "pe\030\003 \002(\0162M.com.lvl6.proto.RefillStatWait" +
+      "CompleteRequestProto.RefillStatWaitCompl" +
+      "eteType\"5\n\032RefillStatWaitCompleteType\022\n\n" +
+      "\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\300\002\n#RefillStatWai" +
+      "tCompleteResponseProto\0220\n\006sender\030\001 \002(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022`\n\006stat" +
+      "us\030\002 \002(\0162P.com.lvl6.proto.RefillStatWait" +
+      "CompleteResponseProto.RefillStatWaitComp" +
+      "leteStatus\"\204\001\n\034RefillStatWaitCompleteSta" +
+      "tus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READY_YET\020\001\022\017\n\013A",
+      "LREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_T" +
+      "OO_AHEAD_OF_SERVER_TIME\020\004\"_\n\026EnableAPNSR" +
+      "equestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\023\n\013deviceToken\030\002 \002" +
+      "(\t\"\307\001\n\027EnableAPNSResponseProto\0220\n\006sender" +
+      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022H\n\006status\030\002 \002(\01628.com.lvl6.proto.Enable" +
+      "APNSResponseProto.EnableAPNSStatus\"0\n\020En" +
+      "ableAPNSStatus\022\013\n\007SUCCESS\020\000\022\017\n\013NOT_ENABL" +
+      "ED\020\001\"\353\001\n&PurchaseMarketplaceLicenseReque",
+      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022\022\n\nclientTime\030\002 \002(\003\022W\n" +
+      "\013licenseType\030\003 \002(\0162B.com.lvl6.proto.Purc" +
+      "haseMarketplaceLicenseRequestProto.Licen" +
+      "seType\"\"\n\013LicenseType\022\t\n\005SHORT\020\000\022\010\n\004LONG" +
+      "\020\001\"\343\002\n\'PurchaseMarketplaceLicenseRespons" +
+      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022h\n\006status\030\002 \002(\0162X.com.l" +
+      "vl6.proto.PurchaseMarketplaceLicenseResp" +
+      "onseProto.PurchaseMarketplaceLicenseStat",
+      "us\"\233\001\n PurchaseMarketplaceLicenseStatus\022" +
+      "\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\034\n" +
+      "\030ALREADY_HAVE_LICENSE_NOW\020\002\022\016\n\nOTHER_FAI" +
       "L\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\004" +
-      "\"\373\001\n\"RefillStatWaitCompleteRequestProto\022" +
-      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022\017\n\007curTime\030\002 \002(\003\022[\n\004type\030\003 \002(\016" +
-      "2M.com.lvl6.proto.RefillStatWaitComplete" +
-      "RequestProto.RefillStatWaitCompleteType\"" +
-      "5\n\032RefillStatWaitCompleteType\022\n\n\006ENERGY\020",
-      "\000\022\013\n\007STAMINA\020\001\"\300\002\n#RefillStatWaitComplet" +
-      "eResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022`\n\006status\030\002 \002(\016" +
-      "2P.com.lvl6.proto.RefillStatWaitComplete" +
-      "ResponseProto.RefillStatWaitCompleteStat" +
-      "us\"\204\001\n\034RefillStatWaitCompleteStatus\022\013\n\007S" +
-      "UCCESS\020\000\022\021\n\rNOT_READY_YET\020\001\022\017\n\013ALREADY_M" +
-      "AX\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD" +
-      "_OF_SERVER_TIME\020\004\"_\n\026EnableAPNSRequestPr" +
-      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min",
-      "imumUserProto\022\023\n\013deviceToken\030\002 \002(\t\"\307\001\n\027E" +
-      "nableAPNSResponseProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022H\n\006stat" +
-      "us\030\002 \002(\01628.com.lvl6.proto.EnableAPNSResp" +
-      "onseProto.EnableAPNSStatus\"0\n\020EnableAPNS" +
-      "Status\022\013\n\007SUCCESS\020\000\022\017\n\013NOT_ENABLED\020\001\"\353\001\n" +
-      "&PurchaseMarketplaceLicenseRequestProto\022" +
-      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022\022\n\nclientTime\030\002 \002(\003\022W\n\013license" +
-      "Type\030\003 \002(\0162B.com.lvl6.proto.PurchaseMark",
-      "etplaceLicenseRequestProto.LicenseType\"\"" +
-      "\n\013LicenseType\022\t\n\005SHORT\020\000\022\010\n\004LONG\020\001\"\343\002\n\'P" +
-      "urchaseMarketplaceLicenseResponseProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022h\n\006status\030\002 \002(\0162X.com.lvl6.prot" +
-      "o.PurchaseMarketplaceLicenseResponseProt" +
-      "o.PurchaseMarketplaceLicenseStatus\"\233\001\n P" +
-      "urchaseMarketplaceLicenseStatus\022\013\n\007SUCCE" +
-      "SS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\034\n\030ALREADY" +
-      "_HAVE_LICENSE_NOW\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037C",
-      "LIENT_TOO_AHEAD_OF_SERVER_TIME\020\004\"\213\001\n\035Ref" +
-      "erralCodeUsedResponseProto\0220\n\006sender\030\001 \002" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\0228\n\016" +
-      "referredPlayer\030\002 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\"_\n\032EquipEquipmentRequestP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022\017\n\007equipId\030\002 \002(\005\"\274\002\n\033Equi" +
-      "pEquipmentResponseProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022P\n\006sta" +
-      "tus\030\002 \002(\0162@.com.lvl6.proto.EquipEquipmen",
-      "tResponseProto.EquipEquipmentStatus\"\230\001\n\024" +
-      "EquipEquipmentStatus\022\013\n\007SUCCESS\020\000\022\031\n\025NOT" +
-      "_HIGH_ENOUGH_LEVEL\020\001\022\034\n\030DOES_NOT_HAVE_TH" +
-      "IS_EQUIP\020\002\022\020\n\014NOT_AN_EQUIP\020\003\022\030\n\024INCORREC" +
-      "T_CLASS_TYPE\020\004\022\016\n\nOTHER_FAIL\020\005\"\207\001\n\036Chang" +
-      "eUserLocationRequestProto\0220\n\006sender\030\001 \002(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\0223\n\014u" +
-      "serLocation\030\002 \002(\0132\035.com.lvl6.proto.Locat" +
-      "ionProto\"\372\001\n\037ChangeUserLocationResponseP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi",
-      "nimumUserProto\022X\n\006status\030\002 \002(\0162H.com.lvl" +
-      "6.proto.ChangeUserLocationResponseProto." +
-      "ChangeUserLocationStatus\"K\n\030ChangeUserLo" +
-      "cationStatus\022\013\n\007SUCCESS\020\000\022\022\n\016INVALID_BOU" +
-      "NDS\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\033LoadNeutralCity" +
+      "\"\213\001\n\035ReferralCodeUsedResponseProto\0220\n\006se" +
+      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\0228\n\016referredPlayer\030\002 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\"_\n\032EquipEquipment" +
       "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022\016\n\006cityId\030\002 \002(\005\"\277" +
-      "\003\n\034LoadNeutralCityResponseProto\0220\n\006sende" +
+      "proto.MinimumUserProto\022\017\n\007equipId\030\002 \002(\005\"",
+      "\274\002\n\033EquipEquipmentResponseProto\0220\n\006sende" +
       "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022R\n\006status\030\002 \002(\0162B.com.lvl6.proto.LoadN",
-      "eutralCityResponseProto.LoadNeutralCityS" +
-      "tatus\022;\n\ruserTasksInfo\030\003 \003(\0132$.com.lvl6." +
-      "proto.MinimumUserTaskProto\022;\n\024defeatType" +
-      "JobEnemies\030\004 \003(\0132\035.com.lvl6.proto.FullUs" +
-      "erProto\022=\n\014cityElements\030\005 \003(\0132\'.com.lvl6" +
-      ".proto.NeutralCityElementProto\022\016\n\006cityId" +
-      "\030\006 \002(\005\"P\n\025LoadNeutralCityStatus\022\013\n\007SUCCE" +
-      "SS\020\000\022\032\n\026NOT_ACCESSIBLE_TO_USER\020\001\022\016\n\nOTHE" +
-      "R_FAIL\020\002B\014B\nEventProto"
+      "o\022P\n\006status\030\002 \002(\0162@.com.lvl6.proto.Equip" +
+      "EquipmentResponseProto.EquipEquipmentSta" +
+      "tus\"\230\001\n\024EquipEquipmentStatus\022\013\n\007SUCCESS\020" +
+      "\000\022\031\n\025NOT_HIGH_ENOUGH_LEVEL\020\001\022\034\n\030DOES_NOT" +
+      "_HAVE_THIS_EQUIP\020\002\022\020\n\014NOT_AN_EQUIP\020\003\022\030\n\024" +
+      "INCORRECT_CLASS_TYPE\020\004\022\016\n\nOTHER_FAIL\020\005\"\207" +
+      "\001\n\036ChangeUserLocationRequestProto\0220\n\006sen" +
+      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr",
+      "oto\0223\n\014userLocation\030\002 \002(\0132\035.com.lvl6.pro" +
+      "to.LocationProto\"\372\001\n\037ChangeUserLocationR" +
+      "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022X\n\006status\030\002 \002(\0162H" +
+      ".com.lvl6.proto.ChangeUserLocationRespon" +
+      "seProto.ChangeUserLocationStatus\"K\n\030Chan" +
+      "geUserLocationStatus\022\013\n\007SUCCESS\020\000\022\022\n\016INV" +
+      "ALID_BOUNDS\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\033LoadNeu" +
+      "tralCityRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022\016\n\006cityId",
+      "\030\002 \002(\005\"\277\003\n\034LoadNeutralCityResponseProto\022" +
+      "0\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minimum" +
+      "UserProto\022R\n\006status\030\002 \002(\0162B.com.lvl6.pro" +
+      "to.LoadNeutralCityResponseProto.LoadNeut" +
+      "ralCityStatus\022;\n\ruserTasksInfo\030\003 \003(\0132$.c" +
+      "om.lvl6.proto.MinimumUserTaskProto\022;\n\024de" +
+      "featTypeJobEnemies\030\004 \003(\0132\035.com.lvl6.prot" +
+      "o.FullUserProto\022=\n\014cityElements\030\005 \003(\0132\'." +
+      "com.lvl6.proto.NeutralCityElementProto\022\016" +
+      "\n\006cityId\030\006 \002(\005\"P\n\025LoadNeutralCityStatus\022",
+      "\013\n\007SUCCESS\020\000\022\032\n\026NOT_ACCESSIBLE_TO_USER\020\001" +
+      "\022\016\n\nOTHER_FAIL\020\002B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -71943,7 +74212,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "StartupStatus", "UpdateStatus", "StartupConstants", "TutorialConstants", "CitiesAvailableToUser", "UserCityInfos", "InProgressQuests", "AvailableQuests", "UserEquips", "Equips", "UserStructures", "Structs", "ExperienceRequiredForNextLevel", "ExperienceRequiredForCurrentLevel", "MarketplacePurchaseNotifications", "AttackNotifications", "ReferralNotifications", },
+              new java.lang.String[] { "Sender", "StartupStatus", "UpdateStatus", "StartupConstants", "TutorialConstants", "CitiesAvailableToUser", "UserCityInfos", "InProgressQuests", "AvailableQuests", "UserEquips", "Equips", "ExperienceRequiredForNextLevel", "ExperienceRequiredForCurrentLevel", "MarketplacePurchaseNotifications", "AttackNotifications", "ReferralNotifications", },
               com.lvl6.proto.EventProto.StartupResponseProto.class,
               com.lvl6.proto.EventProto.StartupResponseProto.Builder.class);
           internal_static_com_lvl6_proto_StartupResponseProto_MarketplacePostPurchasedNotificationProto_descriptor =
@@ -71975,7 +74244,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_StartupConstants_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_StartupConstants_descriptor,
-              new java.lang.String[] { "ProductIds", "ProductDiamondsGiven", "DiamondCostForEnergyRefill", "DiamondCostForStaminaRefill", "MaxItemUsePerBattle", "MaxLevelDifferenceForBattle", },
+              new java.lang.String[] { "ProductIds", "ProductDiamondsGiven", "MaxLevelDifferenceForBattle", "ArmoryXLength", "ArmoryYLength", "VaultXLength", "VaultYLength", "MarketplaceXLength", "MarketplaceYLength", "CarpenterXLength", "CarpenterYLength", "AviaryXLength", "AviaryYLength", "AttackBaseGain", "DefenseBaseGain", "EnergyBaseGain", "HealthBaseGain", "StaminaBaseGain", "AttackBaseCost", "DefenseBaseCost", "EnergyBaseCost", "HealthBaseCost", "StaminaBaseCost", "SkillPointsGainedOnLevelup", "CutOfVaultDepositTaken", "MinVaultLevel", "MinMarketplaceLevel", "MinArmoryLevel", "MaxRankForCity", "MaxLevelForStruct", "MaxNumOfSingleStruct", "PercentReturnedToUserForSellingNormStructure", "MinutesToRefillAEnergy", "MinutesToRefillAStamina", "DiamondCostForFullStaminaRefill", "DiamondCostForFullEnergyRefill", "MaxNumberOfMarketplacePosts", "PercentOfSellingCostTakenFromSellerOnMarketplacePurchase", "PercentOfSellingCostTakenFromSellerOnMarketplaceRetract", "NumDaysLongMarketplaceLicenseLastsFor", "NumDaysShortMarketplaceLicenseLastsFor", "DiamondCostOfLongMarketplaceLicense", "DiamondCostOfShortMarketplaceLicense", "MinutesForCityExpansion", "MaxNumbersOfEnemiesToGenerateAtOnce", "PercentReturnedToUserForSellingEquipInArmory", },
               com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.class,
               com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.Builder.class);
           internal_static_com_lvl6_proto_StartupResponseProto_TutorialConstants_descriptor =
@@ -71983,7 +74252,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_TutorialConstants_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_TutorialConstants_descriptor,
-              new java.lang.String[] { "InitEnergy", "InitStamina", "InitHealth", "TutorialQuest", "StructToBuild", "DiamondCostToInstabuildFirstStruct", "ArcherInitAttack", "ArcherInitDefense", "ArcherInitWeapon", "ArcherInitArmor", "MageInitAttack", "MageInitDefense", "MageInitWeapon", "MageInitArmor", "WarriorInitAttack", "WarriorInitDefense", "WarriorInitWeapon", "WarriorInitArmor", },
+              new java.lang.String[] { "InitEnergy", "InitStamina", "InitHealth", "TutorialQuest", "StructToBuild", "DiamondCostToInstabuildFirstStruct", "ArcherInitAttack", "ArcherInitDefense", "ArcherInitWeapon", "ArcherInitArmor", "MageInitAttack", "MageInitDefense", "MageInitWeapon", "MageInitArmor", "WarriorInitAttack", "WarriorInitDefense", "WarriorInitWeapon", "WarriorInitArmor", "MinNameLength", "DiamondRewardForReferrer", "DiamondRewardForBeingReferred", },
               com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.class,
               com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.Builder.class);
           internal_static_com_lvl6_proto_StartupResponseProto_TutorialConstants_FullTutorialQuestProto_descriptor =

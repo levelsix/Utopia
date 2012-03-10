@@ -191,7 +191,7 @@ public class RetrieveStaticDataController extends EventController{
 
     if (reqProto.hasLevelForExpRequiredRequest()) {
       int level = reqProto.getLevelForExpRequiredRequest();
-      if (level > ControllerConstants.MAX_LEVEL_FOR_USER || level < 2) {
+      if (level > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER || level < 2) {
         resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
       } else {
         int expRequired = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(level);

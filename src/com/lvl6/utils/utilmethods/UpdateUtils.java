@@ -140,9 +140,6 @@ public class UpdateUtils {
     if (critStructType == CritStructType.MARKETPLACE) {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_ORIENTATION, orientation.getNumber());
     }
-    if (critStructType == CritStructType.LUMBERMILL) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__LUMBERMILL_ORIENTATION, orientation.getNumber());
-    }
     if (critStructType == CritStructType.CARPENTER) {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_ORIENTATION, orientation.getNumber());
     }
@@ -177,10 +174,6 @@ public class UpdateUtils {
     if (critStructType == CritStructType.MARKETPLACE) {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_X_COORD, coordinates.getX());
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_Y_COORD, coordinates.getY());
-    }
-    if (critStructType == CritStructType.LUMBERMILL) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__LUMBERMILL_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__LUMBERMILL_Y_COORD, coordinates.getY());
     }
     if (critStructType == CritStructType.CARPENTER) {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_X_COORD, coordinates.getX());
