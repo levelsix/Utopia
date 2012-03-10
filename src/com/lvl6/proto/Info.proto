@@ -186,8 +186,10 @@ message FullCityProto {
 	required int32 expGainedBaseOnRankup = 4;
 	required int32 coinsGainedBaseOnRankup = 5;
 	required string mapImgName = 6;
+	required CoordinateProto aviaryCoords = 7;
+	required CoordinateProto spriteAviaryLandingCoords = 8;
 	
-	repeated int32 taskIds = 7;
+	repeated int32 taskIds = 9;
 }
 
 //------------------------------------------------------------------------------------------
@@ -250,7 +252,6 @@ message NeutralCityElementProto {
 		PERSON = 0;
 		BUILDING = 1;
 		DECORATION = 2;
-		AVIARY = 3;
 	}
 }
 

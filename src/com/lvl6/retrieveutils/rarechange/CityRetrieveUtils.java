@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.lvl6.info.City;
+import com.lvl6.info.CoordinatePair;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
@@ -74,7 +75,10 @@ public class CityRetrieveUtils {
     int expGainedBaseOnRankup = rs.getInt(i++);
     int coinsGainedBaseOnRankup = rs.getInt(i++);
     String mapImgName = rs.getString(i++);
-    return new City(id, name, minLevel, expGainedBaseOnRankup, coinsGainedBaseOnRankup, mapImgName);
+    CoordinatePair aviary = new CoordinatePair(rs.getFloat(i++), rs.getFloat(i++));
+    CoordinatePair spriteAviaryLanding = new CoordinatePair(rs.getFloat(i++), rs.getFloat(i++));
+    
+    return new City(id, name, minLevel, expGainedBaseOnRankup, coinsGainedBaseOnRankup, mapImgName, aviary, spriteAviaryLanding);
   }
 
 }

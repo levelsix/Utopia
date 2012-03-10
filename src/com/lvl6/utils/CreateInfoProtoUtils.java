@@ -304,7 +304,8 @@ public class CreateInfoProtoUtils {
   public static FullCityProto createFullCityProtoFromCity(City c) {
     FullCityProto.Builder builder = FullCityProto.newBuilder().setCityId(c.getId()).setName(c.getName()).setMinLevel(c.getMinLevel())
         .setExpGainedBaseOnRankup(c.getExpGainedBaseOnRankup()).setCoinsGainedBaseOnRankup(c.getCoinsGainedBaseOnRankup())
-        .setMapImgName(c.getMapImgName());
+        .setMapImgName(c.getMapImgName()).setAviaryCoords(createCoordinateProtoFromCoordinatePair(c.getAviaryCoords()))
+        .setSpriteAviaryLandingCoords(createCoordinateProtoFromCoordinatePair(c.getSpriteAviaryLandingCoords()));
     List<Task> tasks = TaskRetrieveUtils.getAllTasksForCityId(c.getId());
     if (tasks != null) {
       for (Task t : tasks) {
@@ -512,7 +513,8 @@ public class CreateInfoProtoUtils {
   }
   
   public static FullUserCityProto createFullUserCityProto(int userId, int cityId, int currentRank, int numTasksCurrentlyCompleteInRank) {
-    return FullUserCityProto.newBuilder().setUserId(userId).setCityId(cityId).setCurrentRank(currentRank).setNumTasksCurrentlyCompleteInRank(numTasksCurrentlyCompleteInRank).build();
+    return FullUserCityProto.newBuilder().setUserId(userId).setCityId(cityId).setCurrentRank(currentRank).setNumTasksCurrentlyCompleteInRank(numTasksCurrentlyCompleteInRank)
+        .build();
   }
 
   private static MinimumUserPossessEquipJobProto createMinimumUserPossessEquipJobProto(UserQuest userQuest, PossessEquipJob possessEquipJob, int quantityOwned) {

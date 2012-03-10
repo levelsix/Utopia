@@ -87,7 +87,6 @@ public class NeutralCityElementsRetrieveUtils {
     
     String imgIdGood = rs.getString(i++);
     String imgIdBad = rs.getString(i++);
-
     
     int orientationNum = rs.getInt(i++);
     StructOrientation orientation = (rs.wasNull()) ? null : StructOrientation.valueOf(orientationNum);
