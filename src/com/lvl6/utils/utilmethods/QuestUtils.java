@@ -26,20 +26,42 @@ import com.lvl6.utils.QuestGraph;
 
 public class QuestUtils {
 
-  public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto) {
+  public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto, 
+      Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
+      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(userId);
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
         Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
         if (quest != null) {
-          QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
+          QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
+              justBuiltStructId, justUpgradedStructId, justUpgradedStructLevel, justObtainedEquipId, 
+              justObtainedEquipQuantity);
         }
       }
     }
   }
 
-  public static boolean checkAndSendQuestComplete(GameServer server, Quest quest, UserQuest userQuest,
-      MinimumUserProto senderProto, boolean sendCompleteMessage) {
+  public static boolean checkQuestCompleteAndMaybeSend(GameServer server, Quest quest, UserQuest userQuest,
+      MinimumUserProto senderProto, boolean sendCompleteMessageIfJustCompleted, 
+      Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
+      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
+
+    boolean sendMessage = false;
+
+    if (sendCompleteMessageIfJustCompleted && 
+        justBuiltStructId == null && justUpgradedStructId == null && justUpgradedStructLevel == null && 
+        justObtainedEquipId == null) {    //came from task or defeat job type
+      sendMessage = true;
+    }
+
+    /* for tasks and defeattypejobs, doing those triggers this. 
+     * if justBuiltStructId isnt null and it didnt cause the quest completion, sendMessage = false
+     * if justObtainedEquip isnt null and it didnt cause the quest completion, sendMessage = false
+     * if justUpgradedStructId isnt null and it didnt cause the quest completion, sendMessage = false
+     *    and level
+     */
+
     if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();
       List<Integer> upgradeStructJobsRequired = quest.getUpgradeStructJobsRequired();
@@ -54,29 +76,45 @@ public class QuestUtils {
 
         if (buildStructJobsRequired != null && buildStructJobsRequired.size()>0) {
           Map<Integer, BuildStructJob> bsjs = BuildStructJobRetrieveUtils.getBuildStructJobsForBuildStructJobIds(buildStructJobsRequired);
+
+          boolean justCompletedBuildStructJob = false;
           for (BuildStructJob bsj : bsjs.values()) {
             if (structIdsToUserStructs.get(bsj.getStructId()) == null || structIdsToUserStructs.get(bsj.getStructId()).size() < bsj.getQuantity()) {
               return false;
+            } else {
+              if (justBuiltStructId == bsj.getStructId() && structIdsToUserStructs.get(bsj.getStructId()).size() == bsj.getQuantity()) {
+                justCompletedBuildStructJob = true;
+              }
             }
+          }
+          if (justCompletedBuildStructJob && sendCompleteMessageIfJustCompleted) {
+            sendMessage = true;
           }
         }
 
         if (upgradeStructJobsRequired != null && upgradeStructJobsRequired.size()>0) {
           Map<Integer, UpgradeStructJob> usjs = UpgradeStructJobRetrieveUtils.getUpgradeStructJobsForUpgradeStructJobIds(upgradeStructJobsRequired);
+          
+          boolean justCompletedUpgradeStructJob = false;
           for (UpgradeStructJob usj : usjs.values()) {
             if (structIdsToUserStructs.get(usj.getStructId()) == null) {
               return false;
             }
             boolean usjComplete = false;
+            int numStructsThatJustCompletedThisUpgradeStructJob = 0;
             for (UserStruct us : structIdsToUserStructs.get(usj.getStructId())) {
               if (us.getLevel() >= usj.getLevelReq()) {
                 usjComplete = true;
-                break;
               }
+              if (usj.getLevelReq() == justUpgradedStructLevel && usj.getStructId() == justUpgradedStructId) numStructsThatJustCompletedThisUpgradeStructJob++;
             }
+            if (numStructsThatJustCompletedThisUpgradeStructJob == 1) justCompletedUpgradeStructJob = true;
             if (!usjComplete) {
               return false;
             }
+          }
+          if (justCompletedUpgradeStructJob && sendCompleteMessageIfJustCompleted) {
+            sendMessage = true;
           }
         }
       }
@@ -86,13 +124,22 @@ public class QuestUtils {
           return false;
         }
         Map<Integer, PossessEquipJob> pejs = PossessEquipJobRetrieveUtils.getPossessEquipJobsForPossessEquipJobIds(possessEquipJobsRequired);
+        boolean justCompletedPossessEquipJob = false;
         for (PossessEquipJob pej : pejs.values()) {
           if (equipIdsToUserEquips.get(pej.getEquipId()) == null || equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() < pej.getQuantity()) {
             return false;
+          } else {
+            if (justObtainedEquipId == pej.getEquipId() && justObtainedEquipQuantity != null && 
+                equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() - justObtainedEquipQuantity <  pej.getQuantity()) {
+              justCompletedPossessEquipJob = true;
+            }
           }
         }
+        if (justCompletedPossessEquipJob && sendCompleteMessageIfJustCompleted) {
+          sendMessage = true;
+        }
       }
-      if (server != null && senderProto != null && sendCompleteMessage) {
+      if (server != null && senderProto != null && sendMessage) {
         sendQuestCompleteResponse(server, senderProto, quest);      
       }
       return true;

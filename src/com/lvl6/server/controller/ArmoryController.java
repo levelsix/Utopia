@@ -122,7 +122,7 @@ public class ArmoryController extends EventController {
       }
 
       if (legitBuy) {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, equipId, quantity);
       }
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);

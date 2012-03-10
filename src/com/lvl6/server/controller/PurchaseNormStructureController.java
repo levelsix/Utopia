@@ -24,7 +24,6 @@ import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
-import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class PurchaseNormStructureController extends EventController {
 
@@ -82,7 +81,6 @@ public class PurchaseNormStructureController extends EventController {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
       }
 
     } catch (Exception e) {

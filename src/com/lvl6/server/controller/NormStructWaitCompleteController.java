@@ -61,8 +61,19 @@ public class NormStructWaitCompleteController extends EventController{
       NormStructWaitCompleteResponseEvent resEvent = new NormStructWaitCompleteResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
 
+      List<UserStruct> upgradesDone = new ArrayList<UserStruct>();
+      List<UserStruct> buildsDone = new ArrayList<UserStruct>();
+
       if (legitWaitComplete) {
-        writeChangesToDB(userStructs);
+        for (UserStruct userStruct : userStructs) {
+          if (userStruct.getLastUpgradeTime() != null) {
+            upgradesDone.add(userStruct);
+          } else {
+            buildsDone.add(userStruct);
+          }
+        }
+
+        writeChangesToDB(upgradesDone, buildsDone);
       }
       
       List<UserStruct> newUserStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
@@ -74,7 +85,14 @@ public class NormStructWaitCompleteController extends EventController{
       server.writeEvent(resEvent);
       
       if (legitWaitComplete) {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);
+        for (UserStruct upgradeDone : upgradesDone) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto, 
+              null, upgradeDone.getStructId(), upgradeDone.getLevel()+1, null, null);          
+        }
+        for (UserStruct buildDone : buildsDone) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto, 
+              buildDone.getStructId(), null, null, null, null);          
+        }
       }
     } catch (Exception e) {
       log.error("exception in NormStructWaitCompleteController processEvent", e);
@@ -83,18 +101,7 @@ public class NormStructWaitCompleteController extends EventController{
     }
   }
 
-  private void writeChangesToDB(List<UserStruct> userStructs) {
-    List<UserStruct> upgradesDone = new ArrayList<UserStruct>();
-    List<UserStruct> buildsDone = new ArrayList<UserStruct>();
-    
-    for (UserStruct userStruct : userStructs) {
-      if (userStruct.getLastUpgradeTime() != null) {
-        upgradesDone.add(userStruct);
-      } else {
-        buildsDone.add(userStruct);
-      }
-    }
-    
+  private void writeChangesToDB(List<UserStruct> upgradesDone, List<UserStruct> buildsDone) {
     if (!UpdateUtils.updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(upgradesDone, 1)) {
       log.error("problem with marking norm struct upgrade as complete");
     }    

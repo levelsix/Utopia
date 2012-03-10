@@ -151,7 +151,7 @@ public class TaskActionController extends EventController {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        checkQuestsPostTaskAction(user, task, senderProto, lootEquipId > ControllerConstants.NOT_SET);
+        checkQuestsPostTaskAction(user, task, senderProto, lootEquipId);
       }
     } catch (Exception e) {
       log.error("exception in TaskActionController processEvent", e);
@@ -160,7 +160,7 @@ public class TaskActionController extends EventController {
     }
   }
 
-  private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto, boolean equipCheck) {
+  private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto, int lootEquipId) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(user.getId());
 
     if (inProgressUserQuests != null) {
@@ -168,7 +168,7 @@ public class TaskActionController extends EventController {
       Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = null;
 
       for (UserQuest userQuest : inProgressUserQuests) {
-        boolean questCheckedForCompletion = false;
+        boolean questCompletedAndSent = false;
         if (!userQuest.isTasksComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest
               .getQuestId());
@@ -183,7 +183,7 @@ public class TaskActionController extends EventController {
               if (userCompletedTasksForQuest == null) userCompletedTasksForQuest = new ArrayList<Integer>();
               List<Integer> tasksRemaining = new ArrayList<Integer>(tasksRequired);
               tasksRemaining.removeAll(userCompletedTasksForQuest);
-              
+
               Map<Integer, Task> remainingTaskMap = TaskRetrieveUtils.getTasksForTaskIds(tasksRemaining);
               if (remainingTaskMap != null && remainingTaskMap.size() > 0) {
                 for (Task remainingTask : remainingTaskMap.values()) {
@@ -192,7 +192,7 @@ public class TaskActionController extends EventController {
                       questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest.getUserId());
                     }
                     Map<Integer, Integer> taskIdToNumTimesActed = questIdToTaskIdsToNumTimesActedInQuest.get(userQuest.getQuestId()); 
-                    
+
                     if (taskIdToNumTimesActed == null) taskIdToNumTimesActed = new HashMap<Integer, Integer>();
                     if (taskIdToNumTimesActed.get(remainingTask.getId()) != null && 
                         taskIdToNumTimesActed.get(remainingTask.getId()) + 1 == remainingTask.getNumForCompletion()) {
@@ -202,8 +202,8 @@ public class TaskActionController extends EventController {
                         if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
                           if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                             userQuest.setTasksComplete(true);
-                            QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
-                            questCheckedForCompletion = true;
+                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
+                                null, null, null, null, null);
                           } else {
                             log.error("problem with marking tasks completed for a user quest");
                           }
@@ -220,8 +220,9 @@ public class TaskActionController extends EventController {
                 }
               }
             }
-            if (equipCheck && !questCheckedForCompletion) {
-              QuestUtils.checkAndSendQuestComplete(server, quest, userQuest, senderProto, true);
+            if (lootEquipId > ControllerConstants.NOT_SET && !questCompletedAndSent) {
+              QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
+                  null, null, null, lootEquipId, 1);
             }
           }
         }

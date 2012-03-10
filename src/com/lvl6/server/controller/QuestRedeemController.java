@@ -100,7 +100,7 @@ public class QuestRedeemController extends EventController {
 
       if (legitRedeem) {
         User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-        writeChangesToDB(userQuest, quest, user);
+        writeChangesToDB(userQuest, quest, user, senderProto);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -137,7 +137,7 @@ public class QuestRedeemController extends EventController {
     }    
   }
 
-  private void writeChangesToDB(UserQuest userQuest, Quest quest, User user) {
+  private void writeChangesToDB(UserQuest userQuest, Quest quest, User user, MinimumUserProto senderProto) {
     if (!UpdateUtils.updateRedeemUserQuest(userQuest.getUserId(), userQuest.getQuestId())) {
       log.error("problem with logging user quest as redeemed");
     }
@@ -168,6 +168,8 @@ public class QuestRedeemController extends EventController {
     if (quest.getEquipIdGained() > 0) {
       if (!UpdateUtils.incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
         log.error("problem with giving user reward equip after completing the quest");
+      } else {
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, quest.getEquipIdGained(), 1);
       }
     }
 
@@ -184,7 +186,7 @@ public class QuestRedeemController extends EventController {
       resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
       return false;
     }
-    if (!QuestUtils.checkAndSendQuestComplete(null, quest, userQuest, null, false)) {
+    if (!QuestUtils.checkQuestCompleteAndMaybeSend(null, quest, userQuest, null, false, null, null, null, null, null)) {
       resBuilder.setStatus(QuestRedeemStatus.NOT_COMPLETE);
       return false;
     }

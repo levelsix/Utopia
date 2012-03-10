@@ -74,7 +74,15 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+        
+        if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, userStruct.getStructId(), 
+              null, null, null, null);
+        }
+        if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, 
+              userStruct.getId(), userStruct.getLevel() + 1, null, null);
+        }
       }
     } catch (Exception e) {
       log.error("exception in FinishNormStructWaittimeWithDiamondsController processEvent", e);
