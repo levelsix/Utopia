@@ -256,7 +256,8 @@ public class UserCreateController extends EventController {
       resBuilder.setStatus(UserCreateStatus.INVALID_LOCATION);
       return false;
     }
-    if (name.length() < ControllerConstants.USER_CREATE__MIN_NAME_LENGTH) {
+    if (name.length() < ControllerConstants.USER_CREATE__MIN_NAME_LENGTH || 
+        name.length() > ControllerConstants.USER_CREATE__MAX_NAME_LENGTH) {
       resBuilder.setStatus(UserCreateStatus.INVALID_NAME);
       return false;
     }

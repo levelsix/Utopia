@@ -170,7 +170,8 @@ public class ControllerConstants {
 
   //USER CREATE 
   public static final int USER_CREATE__START_LEVEL = 2;
-  public static final int USER_CREATE__MIN_NAME_LENGTH = 0;
+  public static final int USER_CREATE__MIN_NAME_LENGTH = 3;
+  public static final int USER_CREATE__MAX_NAME_LENGTH = 15;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
   

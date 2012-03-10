@@ -188,8 +188,9 @@ message FullCityProto {
 	required string mapImgName = 6;
 	required CoordinateProto aviaryCoords = 7;
 	required CoordinateProto spriteAviaryLandingCoords = 8;
+	required StructOrientation aviaryOrientation = 9;
 	
-	repeated int32 taskIds = 9;
+	repeated int32 taskIds = 10;
 }
 
 //------------------------------------------------------------------------------------------

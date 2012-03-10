@@ -236,8 +236,9 @@ message StartupResponseProto {
 		required FullEquipProto warriorInitArmor = 16;
 		
 		required int32 minNameLength = 19;
-		required int32 diamondRewardForReferrer = 20;
-		required int32 diamondRewardForBeingReferred = 21;		
+		required int32 maxNameLength = 20;
+		required int32 diamondRewardForReferrer = 21;
+		required int32 diamondRewardForBeingReferred = 22;		
 
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy

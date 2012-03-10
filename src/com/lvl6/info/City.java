@@ -1,5 +1,7 @@
 package com.lvl6.info;
 
+import com.lvl6.proto.InfoProto.StructOrientation;
+
 public class City {
 
   private int id;
@@ -10,9 +12,11 @@ public class City {
   private String mapImgName;
   private CoordinatePair aviaryCoords;
   private CoordinatePair spriteAviaryLandingCoords;
+  private StructOrientation aviaryOrientation;
   public City(int id, String name, int minLevel, int expGainedBaseOnRankup,
       int coinsGainedBaseOnRankup, String mapImgName,
-      CoordinatePair aviaryCoords, CoordinatePair spriteAviaryLandingCoords) {
+      CoordinatePair aviaryCoords, CoordinatePair spriteAviaryLandingCoords, 
+      StructOrientation aviaryOrientation) {
     this.id = id;
     this.name = name;
     this.minLevel = minLevel;
@@ -21,6 +25,7 @@ public class City {
     this.mapImgName = mapImgName;
     this.aviaryCoords = aviaryCoords;
     this.spriteAviaryLandingCoords = spriteAviaryLandingCoords;
+    this.aviaryOrientation = aviaryOrientation;
   }
   public int getId() {
     return id;
@@ -46,13 +51,16 @@ public class City {
   public CoordinatePair getSpriteAviaryLandingCoords() {
     return spriteAviaryLandingCoords;
   }
+  public StructOrientation getAviaryOrientation() {
+    return aviaryOrientation;
+  }
   @Override
   public String toString() {
     return "City [id=" + id + ", name=" + name + ", minLevel=" + minLevel
         + ", expGainedBaseOnRankup=" + expGainedBaseOnRankup
         + ", coinsGainedBaseOnRankup=" + coinsGainedBaseOnRankup
         + ", mapImgName=" + mapImgName + ", aviaryCoords=" + aviaryCoords
-        + ", spriteAviaryLandingCoords=" + spriteAviaryLandingCoords + "]";
+        + ", spriteAviaryLandingCoords=" + spriteAviaryLandingCoords
+        + ", aviaryOrientation=" + aviaryOrientation + "]";
   }
-  
 }

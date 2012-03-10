@@ -305,7 +305,8 @@ public class CreateInfoProtoUtils {
     FullCityProto.Builder builder = FullCityProto.newBuilder().setCityId(c.getId()).setName(c.getName()).setMinLevel(c.getMinLevel())
         .setExpGainedBaseOnRankup(c.getExpGainedBaseOnRankup()).setCoinsGainedBaseOnRankup(c.getCoinsGainedBaseOnRankup())
         .setMapImgName(c.getMapImgName()).setAviaryCoords(createCoordinateProtoFromCoordinatePair(c.getAviaryCoords()))
-        .setSpriteAviaryLandingCoords(createCoordinateProtoFromCoordinatePair(c.getSpriteAviaryLandingCoords()));
+        .setSpriteAviaryLandingCoords(createCoordinateProtoFromCoordinatePair(c.getSpriteAviaryLandingCoords()))
+        .setAviaryOrientation(c.getAviaryOrientation());
     List<Task> tasks = TaskRetrieveUtils.getAllTasksForCityId(c.getId());
     if (tasks != null) {
       for (Task t : tasks) {
