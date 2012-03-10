@@ -30,4 +30,10 @@ public class StartupRequestEvent extends PreDatabaseRequestEvent{
   public StartupRequestProto getStartupRequestProto() {
     return startupRequestProto;
   }
+
+  public void setStartupRequestProto(StartupRequestProto startupRequestProto) {
+    this.startupRequestProto = startupRequestProto;
+  }
+  
+  
 }

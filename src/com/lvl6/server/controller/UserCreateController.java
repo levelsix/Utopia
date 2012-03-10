@@ -22,7 +22,6 @@ import com.lvl6.proto.EventProto.UserCreateResponseProto;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.Builder;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus;
 import com.lvl6.proto.InfoProto.FullUserProto;
-import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -59,30 +58,35 @@ public class UserCreateController extends EventController {
     String udid = reqProto.getUdid();
     String name = reqProto.getName();
     UserType type = reqProto.getType();
-    FullUserStructureProto fullUserStruct = reqProto.getStructure();
 
     LocationProto locationProto = (reqProto.hasUserLocation()) ? reqProto.getUserLocation() : null;
     String referrerCode = (reqProto.hasReferrerCode()) ? reqProto.getReferrerCode() : null;
     String deviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : null;
 
+    Timestamp timeOfStructPurchase = new Timestamp(reqProto.getTimeOfStructPurchase());
+    Timestamp timeOfDiamondInstabuild = new Timestamp(reqProto.getTimeOfStructDiamondInstabuild());
+    CoordinatePair structCoords = new CoordinatePair(reqProto.getStructCoords().getX(), reqProto.getStructCoords().getY());
+    
     int attack = reqProto.getAttack();
     int defense = reqProto.getDefense();
     int energy = reqProto.getEnergy();
     int health = reqProto.getHealth();
     int stamina = reqProto.getStamina();
+    
 
     UserCreateResponseProto.Builder resBuilder = UserCreateResponseProto.newBuilder();
 
     Location loc = (locationProto == null) ? MiscMethods.getRandomValidLocation() : new Location(locationProto.getLatitude(), locationProto.getLongitude());
 
-    boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, fullUserStruct, 
-        loc, type, attack, defense, energy, health, stamina);
+    boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, 
+        loc, type, attack, defense, energy, health, stamina, timeOfStructPurchase, timeOfDiamondInstabuild, structCoords);
 
     User referrer = null;
     User user = null;
     int userId = ControllerConstants.NOT_SET;
     List<Integer> equipIds = new ArrayList<Integer>();
     Task taskCompleted = null;
+    
     if (legitUserCreate) {
       referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;
 
@@ -160,7 +164,7 @@ public class UserCreateController extends EventController {
     if (legitUserCreate && userId > 0) {
       server.lockPlayer(userId);
       try {
-        writeUserStruct(fullUserStruct);
+        writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfDiamondInstabuild, structCoords);
         writeUserCritstructs(user.getId());
         writeUserEquips(user.getId(), equipIds);
         writeTaskCompleted(user.getId(), taskCompleted);
@@ -176,6 +180,13 @@ public class UserCreateController extends EventController {
         server.unlockPlayer(userId); 
       }
     }    
+  }
+
+  private void writeUserStruct(int userId, int structId, Timestamp timeOfStructPurchase, Timestamp timeOfDiamondInstabuild,
+      CoordinatePair structCoords) {
+    if (InsertUtils.insertUserStructJustBuiltWithDiamonds(userId, structId, timeOfStructPurchase, timeOfDiamondInstabuild, structCoords)) {
+      log.error("problem in giving user the user struct");
+    }
   }
 
   private void writeTaskCompleted(int userId, Task taskCompleted) {
@@ -197,12 +208,6 @@ public class UserCreateController extends EventController {
   private void writeUserCritstructs(int userId) {
     if (!InsertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
       log.error("problem with giving user his critical structs");
-    }
-  }
-
-  private void writeUserStruct(FullUserStructureProto fusp) {
-    if (InsertUtils.insertUserStruct(fusp.getUserId(), fusp.getStructId(), new CoordinatePair(fusp.getCoordinates().getX(), fusp.getCoordinates().getY()), new Timestamp(fusp.getPurchaseTime())) < 0) {
-      log.error("problem in giving user the user struct");
     }
   }
 
@@ -241,14 +246,18 @@ public class UserCreateController extends EventController {
   }
 
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
-      String name, FullUserStructureProto fullUserStruct,
-      Location loc, UserType type, int attack, int defense, int energy, int health, int stamina) {
-    if (udid == null || name == null || fullUserStruct == null || fullUserStruct == null || type == null) {
+      String name, Location loc, UserType type, int attack, int defense, int energy, int health, int stamina, 
+      Timestamp timeOfStructPurchase, Timestamp timeOfDiamondInstabuild, CoordinatePair coordinatePair) {
+    if (udid == null || name == null || timeOfStructPurchase == null || coordinatePair == null || type == null || timeOfDiamondInstabuild == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
     if (UserRetrieveUtils.getUserByUDID(udid) != null) {
       resBuilder.setStatus(UserCreateStatus.USER_WITH_UDID_ALREADY_EXISTS);
+      return false;
+    }
+    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfDiamondInstabuild) || !MiscMethods.checkClientTimeBeforeApproximateNow(timeOfStructPurchase)) {
+      resBuilder.setStatus(UserCreateStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }
     if (loc.getLatitude() < ControllerConstants.LATITUDE_MIN || loc.getLatitude() > ControllerConstants.LATITUDE_MAX || 

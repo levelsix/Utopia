@@ -109,7 +109,7 @@ message ArmoryResponseProto {
 
 message StartupRequestProto {				//client will also send ChangeUserLocationRequestProto
      required string udid = 1;
-     required float versionNum = 2;	//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
+     required float versionNum = 2;			//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
      optional string deviceToken = 4;		//only set this if the client is registered/has a device token
 }
 
@@ -277,20 +277,7 @@ message StartupResponseProto {
 }
 
 //------------------------------------------------------------------------------------------
-//CALLED: AFTER THE TUTORIAL. 
-//CALL STARTUP AFTER THIS. or just
-//    repeated FullCityProto citiesAvailableToUser = 5;
-  //  repeated FullUserCityProto userCityInfos = 16;
-    
-    //repeated FullQuestProto inProgressQuests = 6;
-//	repeated FullQuestProto availableQuests = 7;   
-//	repeated FullUserEquipProto userEquips = 8;
- //   repeated FullEquipProto equips = 9;
-//	repeated FullUserStructureProto userStructures = 10;
-//	repeated FullStructureProto structs = 11;
-//	optional int32 experienceRequiredForNextLevel = 12;
-//	optional int32 experienceRequiredForCurrentLevel = 17;
-
+//CALL STARTUP AFTER THIS
 
 //if devicetoken doesnt work, itll still return success
 //client can check user's diamonds to see if it went through
@@ -298,7 +285,6 @@ message UserCreateRequestProto {
      required string udid = 1;
      required string name = 2;
      required UserType type = 3;
-     required FullUserStructureProto structure = 5;
      optional LocationProto userLocation = 6;     
      optional string referrerCode = 7;
      optional string deviceToken = 8;
@@ -307,6 +293,10 @@ message UserCreateRequestProto {
      required int32 health = 11;
      required int32 energy = 12;
      required int32 stamina = 13;
+     
+     required int64 timeOfStructPurchase = 14;
+     required int64 timeOfStructDiamondInstabuild = 15;
+     required CoordinateProto structCoords = 4;
 }
 
 message UserCreateResponseProto {
@@ -318,6 +308,7 @@ message UserCreateResponseProto {
 		INVALID_NAME = 1;
 		INVALID_LOCATION = 2;
 		USER_WITH_UDID_ALREADY_EXISTS = 3;
+     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
 		OTHER_FAIL = 4;
 	}  
 }
