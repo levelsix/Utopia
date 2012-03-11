@@ -157,6 +157,7 @@ public class StartupController extends EventController {
         }
         ApnsService service = builder.build();
         service.push(newDeviceToken, APNS.newPayload().badge(0).build());
+        service.stop();
       }
       if (!user.updateResetNumbadgesSetdevicetoken(newDeviceToken)) {
         log.error("problem in resetting num badges and syncing device token");

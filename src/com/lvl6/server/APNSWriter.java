@@ -2,6 +2,7 @@ package com.lvl6.server;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Map;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
@@ -17,6 +18,7 @@ import com.lvl6.proto.EventProto.ReferralCodeUsedResponseProto;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
 import com.notnoop.apns.ApnsServiceBuilder;
@@ -74,25 +76,30 @@ public class APNSWriter extends Wrap {
     } else {
       User user = UserRetrieveUtils.getUserById(playerId);
       if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
+        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
+        if (Globals.IS_SANDBOX) {
+          builder.withSandboxDestination();
+        }
+        ApnsService service = builder.build();
+        if (Math.random() > .95) {
+          Map<String, Date> inactiveDevices = service.getInactiveDevices();
+          UpdateUtils.updateNullifyDeviceTokens(inactiveDevices.keySet());
+        }
         if (BattleResponseEvent.class.isInstance(event)) {
-          handleBattleNotification((BattleResponseEvent)event, user, user.getDeviceToken());
+          handleBattleNotification(service, (BattleResponseEvent)event, user, user.getDeviceToken());
         }
         if (PurchaseFromMarketplaceResponseEvent.class.isInstance(event)) {
-          handlePurchaseFromMarketplaceNotification((PurchaseFromMarketplaceResponseEvent)event, user, user.getDeviceToken());
+          handlePurchaseFromMarketplaceNotification(service, (PurchaseFromMarketplaceResponseEvent)event, user, user.getDeviceToken());
         }
         if (ReferralCodeUsedResponseEvent.class.isInstance(event)) {
-          handleReferralCodeUsedNotification((ReferralCodeUsedResponseEvent)event, user, user.getDeviceToken());
+          handleReferralCodeUsedNotification(service, (ReferralCodeUsedResponseEvent)event, user, user.getDeviceToken());
         }
+        service.stop();
       }
     }
   }
 
-  private void handleReferralCodeUsedNotification(ReferralCodeUsedResponseEvent event, User user, String token) {
-    ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
-    if (Globals.IS_SANDBOX) {
-      builder.withSandboxDestination();
-    }
-    ApnsService service = builder.build();
+  private void handleReferralCodeUsedNotification(ApnsService service, ReferralCodeUsedResponseEvent event, User user, String token) {
     PayloadBuilder pb = APNS.newPayload().actionKey("Use").badge(user.getNumBadges()+1);
 
     ReferralCodeUsedResponseProto resProto = event.getReferralCodeUsedResponseProto();
@@ -106,15 +113,8 @@ public class APNSWriter extends Wrap {
     }
   }
 
-  private void handlePurchaseFromMarketplaceNotification(PurchaseFromMarketplaceResponseEvent event, User user, String token) {
-    ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
-    if (Globals.IS_SANDBOX) {
-      builder.withSandboxDestination();
-    }
-    ApnsService service = builder.build();
+  private void handlePurchaseFromMarketplaceNotification(ApnsService service, PurchaseFromMarketplaceResponseEvent event, User user, String token) {
     PayloadBuilder pb = APNS.newPayload().actionKey("Redeem").badge(user.getNumBadges()+1).alertBody("Someone purchased your equipment in the marketplace. Redeem your earnings!");
-
-    //TODO: trigger button to bring up redeem screen
 
     if (pb.isTooLong()) {
       service.push(token, pb.build());
@@ -124,18 +124,13 @@ public class APNSWriter extends Wrap {
     }
   }
 
-  private void handleBattleNotification(BattleResponseEvent event, User user, String token) {
+  private void handleBattleNotification(ApnsService service, BattleResponseEvent event, User user, String token) {
     Date lastBattleNotificationTime = user.getLastBattleNotificationTime();
     Date now = new Date();
     if ((user.getNumBadges() < SOFT_MAX_NOTIFICATION_BADGES && 
         (lastBattleNotificationTime == null || now.getTime() - lastBattleNotificationTime.getTime() > 60000*MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS)) ||
         (lastBattleNotificationTime != null && lastBattleNotificationTime.getTime() + 60000*MINUTES_BEFORE_IGNORE_BADGE_CAP < now.getTime())) {
 
-      ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
-      if (Globals.IS_SANDBOX) {
-        builder.withSandboxDestination();
-      }
-      ApnsService service = builder.build();
       PayloadBuilder pb = APNS.newPayload().actionKey("Retaliate").badge(user.getNumBadges()+1);
 
       BattleResponseProto battleResponseProto = event.getBattleResponseProto();

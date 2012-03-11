@@ -132,48 +132,6 @@ public class UserRetrieveUtils {
     return convertRSToUsers(rs);
   }
 
-  /*
-  public static List<User> getUsersForSide(boolean generateListOfGoodSide, int numUsers, int playerLevel, int userId, boolean guaranteeNum) {
-    log.info("retrieving list of users for user " + userId);
-
-    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, ControllerConstants.BATTLE__MIN_BATTLE_LEVEL);
-    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
-
-    String query = "select * from " + TABLE_NAME + " where (" + DBConstants.USER__TYPE + 
-        "=? or " + DBConstants.USER__TYPE + "=? or " + DBConstants.USER__TYPE + "=?) and " +
-        DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? order by rand()";
-
-    List <Object> values = new ArrayList<Object>();
-    if (generateListOfGoodSide) {
-      values.add(UserType.GOOD_ARCHER_VALUE);
-      values.add(UserType.GOOD_MAGE_VALUE);
-      values.add(UserType.GOOD_WARRIOR_VALUE);
-    } else {
-      values.add(UserType.BAD_ARCHER_VALUE);
-      values.add(UserType.BAD_MAGE_VALUE);
-      values.add(UserType.BAD_WARRIOR_VALUE);      
-    }
-    values.add(levelMin);
-    values.add(levelMax);
-
-    int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
-    int numDBHits = 1;
-    ResultSet rs = DBConnection.selectDirectQueryNaive(query, values);
-    while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
-      values.remove(values.size()-1);
-      values.remove(values.size()-1);
-      values.add(Math.max(ControllerConstants.BATTLE__MIN_BATTLE_LEVEL, levelMin - rangeIncrease/2));
-      values.add(levelMax + rangeIncrease/2);
-      rs = DBConnection.selectDirectQueryNaive(query, values);
-      numDBHits++;
-      if (!guaranteeNum) {
-        if (numDBHits == MAX_BATTLE_DB_HITS) break;
-      }
-      rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
-    }
-    return convertRSToUsers(rs);
-  }*/
-
   //when you first log in, call this
   //if this returns null, tell user it's the player's first time/launch tutorial
   public static User getUserByUDID(String UDID) {

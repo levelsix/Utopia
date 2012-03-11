@@ -1,9 +1,11 @@
 package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
@@ -17,6 +19,22 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
+
+  public static void updateNullifyDeviceTokens(Set<String> deviceTokens) {
+    if (deviceTokens != null && deviceTokens.size() > 0) {
+      String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__DEVICE_TOKEN 
+          + "=? where ";
+      List<Object> values = new ArrayList<Object>();
+      values.add(null);
+      List<String> condClauses = new ArrayList<String>();
+      for (String deviceToken : deviceTokens) {
+        condClauses.add(DBConstants.USER__DEVICE_TOKEN + "=?");
+        values.add(deviceToken);
+      }
+      query += StringUtils.getListInString(condClauses, "or");
+      DBConnection.updateDirectQueryNaive(query, values);
+    }
+  }
 
   /*
    * used when an expansion is complete

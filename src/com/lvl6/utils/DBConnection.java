@@ -146,7 +146,42 @@ public class DBConnection {
     }
     return rs;
   }
+  
+  /*assumes number of ? in the query = values.size()*/
+  public static int updateDirectQueryNaive(String query, List<Object> values) {
+    Connection conn = null;
 
+    try {
+      conn = availableConnections.take();
+      PreparedStatement stmt = conn.prepareStatement(query);
+      if (values != null && values.size()>0) {
+        int i = 1;
+        for (Object value : values) {
+          stmt.setObject(i, value);
+          i++;
+        }
+      }
+      int numUpdated = stmt.executeUpdate();
+      availableConnections.put(conn);
+      conn = null;
+      return numUpdated;
+    } catch (SQLException e) {
+      log.error("problem with " + query, e);
+    } catch (NullPointerException e) {
+      log.error("problem with " + query, e);
+    } catch (InterruptedException e) {
+      log.error("problem with " + query, e);
+    } finally {
+      if (conn != null) {
+        try {
+          availableConnections.put(conn);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    return 0;
+  }
 
 
   /*
