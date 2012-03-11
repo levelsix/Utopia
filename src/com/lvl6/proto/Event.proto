@@ -616,7 +616,7 @@ message LevelUpResponseProto {
      optional int32 newNextLevel = 3;
      optional int32 experienceRequiredForNewNextLevel = 4;
 	 repeated FullCityProto citiesNewlyAvailableToUser = 5;					//only new ones
-     repeated FullEquipProto newlyEquippableAvailableInArmory = 6;			//only new ones
+     repeated FullEquipProto newlyEquippableEpicsAndLegendaries = 6;			//only new ones
      repeated FullStructureProto newlyAvailableStructs = 7;					//only new ones
      optional bool marketplaceUnlocked = 8;
      optional bool vaultUnlocked = 9;

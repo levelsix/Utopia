@@ -19,6 +19,7 @@ import com.lvl6.proto.EventProto.LevelUpRequestProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto;
 import com.lvl6.proto.EventProto.LevelUpResponseProto.Builder;
 import com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
@@ -88,11 +89,13 @@ public class LevelUpController extends EventController {
           resBuilder.addCitiesNewlyAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
         }
 
-        List<Equipment> availToUserInArmoryEquips = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(MiscMethods.getClassTypeFromUserType(user.getType()));
-        if (availToUserInArmoryEquips != null) {
-          for (Equipment e : availToUserInArmoryEquips) {
-            if (e != null && e.getMinLevel() == newLevel) {
-              resBuilder.addNewlyEquippableAvailableInArmory(CreateInfoProtoUtils.createFullEquipProtoFromEquip(e));
+        Map<Integer, Equipment> equipIdToEquips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+        if (equipIdToEquips != null) {
+          for (Equipment e : equipIdToEquips.values()) {
+            if (e != null && e.getMinLevel() == newLevel && 
+                e.getClassType() == MiscMethods.getClassTypeFromUserType(user.getType()) &&
+                (e.getRarity() == Rarity.EPIC || e.getRarity() == Rarity.LEGENDARY)) {
+              resBuilder.addNewlyEquippableEpicsAndLegendaries(CreateInfoProtoUtils.createFullEquipProtoFromEquip(e));
             }
           }
         }
