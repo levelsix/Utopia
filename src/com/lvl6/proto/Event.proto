@@ -206,7 +206,6 @@ message StartupResponseProto {
 		required int32 diamondCostOfLongMarketplaceLicense = 45;
 		required int32 diamondCostOfShortMarketplaceLicense = 46;
 
-		required int32 minutesForCityExpansion = 3;
 		required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
 		required double percentReturnedToUserForSellingEquipInArmory = 5;
 		    	   	
