@@ -30,6 +30,7 @@ message BattleRequestProto {
     required BattleResult battleResult = 3;
     required int64 clientTime = 4;
     optional int32 neutralCityId = 5;
+    repeated FullUserEquipProto defenderUserEquips = 6;
 }
 
 																						//DONE
@@ -297,6 +298,7 @@ message UserCreateRequestProto {
      required int64 timeOfStructPurchase = 14;
      required int64 timeOfStructBuild = 15;
      required CoordinateProto structCoords = 4;
+     required bool usedDiamondsToBuilt = 16;
 }
 
 message UserCreateResponseProto {

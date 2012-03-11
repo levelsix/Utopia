@@ -95,11 +95,29 @@ public class ExpansionWaitCompleteController extends EventController{
       resBuilder.setStatus(ExpansionWaitCompleteStatus.WAS_NOT_EXPANDING);
       return false;      
     }
-    if (userCityExpansionData.getLastExpandTime().getTime() + 60000*ControllerConstants.EXPANSION_WAIT_COMPLETE__MINUTES_FOR_EXPANSION > clientTime.getTime()) {
+    if (userCityExpansionData.getLastExpandTime().getTime() + 60000*calculateMinutesForCurrentExpansion(userCityExpansionData) > clientTime.getTime()) {
       resBuilder.setStatus(ExpansionWaitCompleteStatus.NOT_DONE_YET);
       return false;      
     }
     resBuilder.setStatus(ExpansionWaitCompleteStatus.SUCCESS);
     return true;  
+  }
+
+  private int calculateMinutesForCurrentExpansion(UserCityExpansionData userCityExpansionData) {
+    int numCompletedExpansionsSoFar = userCityExpansionData.getTotalNumCompletedExpansions();
+    if (numCompletedExpansionsSoFar == 0) {
+      return ControllerConstants.EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION*60;
+    }
+    if (numCompletedExpansionsSoFar == 1) {
+      return ControllerConstants.EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION*60;
+    }
+    if (numCompletedExpansionsSoFar == 2) {
+      return ControllerConstants.EXPANSION_WAIT_COMPLETE__HOURS_FOR_THIRD_EXPANSION*60;
+    }
+    if (numCompletedExpansionsSoFar >= 3) {
+      return ControllerConstants.EXPANSION_WAIT_COMPLETE__HOURS_FOR_FOURTH_EXPANSION + 
+          ControllerConstants.EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS*(numCompletedExpansionsSoFar-3);
+    }
+    return 0;
   }
 }

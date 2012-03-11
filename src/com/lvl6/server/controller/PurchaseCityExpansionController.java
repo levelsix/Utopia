@@ -110,8 +110,7 @@ public class PurchaseCityExpansionController extends EventController {
   }
 
   private int calculateExpansionCost(UserCityExpansionData userCityExpansionData) {
-    int curNumExpansions = userCityExpansionData.getFarLeftExpansions() + userCityExpansionData.getFarRightExpansions()
-        + userCityExpansionData.getNearLeftExpansions();
+    int curNumExpansions = userCityExpansionData.getTotalNumCompletedExpansions();
     return ((curNumExpansions+1)/2) * 200;
   }
 }

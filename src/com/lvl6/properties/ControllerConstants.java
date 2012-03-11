@@ -37,6 +37,17 @@ public class ControllerConstants {
 
   //--------------------------------------------------------------------------------------------------------------------------
   
+  //FORMULA CONSTANTS ALSO SENT TO CLIENT
+  public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_BASE = 1.7;
+  public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_BASE = 1.1;
+  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
+  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
+  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_THIRD_EXPANSION = 24;
+  public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FOURTH_EXPANSION = 30;
+  public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS = 4;
+  
+  //--------------------------------------------------------------------------------------------------------------------------
+
   //TUTORIAL CONSTANTS
   public static final int TUTORIAL__ARCHER_INIT_ATTACK = 10;
   public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 18;
@@ -47,7 +58,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 7;
   public static final int TUTORIAL__INIT_HEALTH = 100;
-  public static final int TUTORIAL__INIT_DIAMONDS = 20;
+  public static final int TUTORIAL__INIT_DIAMONDS = 10;
   public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 10;
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
   public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 1;
@@ -80,22 +91,17 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 20;
   public static final int BATTLE__MIN_EXP_GAIN = 1;
   public static final int BATTLE__MAX_EXP_GAIN = 5;
-  
   public static final double BATTLE__A = .1;
   public static final double BATTLE__B = 80;
-
     
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
-
   
   //POST TO MARKETPLACE
   public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 5;  
-
   
   //PURCHASE FROM MARKETPLACE
   public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .20;
-
   
   //TASK ACTION
   public static final int TASK_ACTION__MAX_CITY_RANK = 6;
@@ -103,21 +109,17 @@ public class ControllerConstants {
   //PURCHASE NORM STRUCTURE
   public static final int PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE = 2;
 
-  //PURCHASE NORM STRUCTURE
+  //UPGRADE NORM STRUCTURE
   public static final int UPGRADE_NORM_STRUCTURE__MAX_STRUCT_LEVEL = 5;
-
   
   //SELL NORM STRUCTURE
   public static final double SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER = .3;
-
   
   //RETRIEVE CURRENT MARKETPLACE POSTS
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP = 100;
 
-  
   //RETRACT MARKETPLACE POST
   public static final double RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .1;
-  
   
   //USE SKILL POINT
   public static final int USE_SKILL_POINT__ATTACK_BASE_GAIN = 1;
@@ -130,30 +132,21 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__ENERGY_BASE_COST = 1;
   public static final int USE_SKILL_POINT__HEALTH_BASE_COST = 1;
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
-
   
   //VAULT
   public static final int VAULT__DEPOSIT_PERCENT_CUT = 10;
   
-  
   //REFILL STAT WITH DIAMONDS
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 10;
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
-  
   
   //PLACE CRIT STRUCT
   public static final double PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY = 3;
   public static final double PLACE_CRITSTRUCT__MIN_LEVEL_VAULT = 4;
   public static final double PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE = 5;
 
-  
   //LOAD PLAYER CITY
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;
-  
-  
-  //EXPANSION WAIT COMPLETE
-  public static final int EXPANSION_WAIT_COMPLETE__MINUTES_FOR_EXPANSION = 720;
-  
   
   //REFILL STAT WAIT COMPLETE
   public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 3;
@@ -163,13 +156,13 @@ public class ControllerConstants {
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE = 3;
   public static final int PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST = 50;
-  public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 30;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 20;
 
   //USER CREATE 
   public static final int USER_CREATE__START_LEVEL = 2;
   public static final int USER_CREATE__MIN_NAME_LENGTH = 3;
   public static final int USER_CREATE__MAX_NAME_LENGTH = 15;
-  public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
+  public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 15;
   public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
   
   //LEVEL UP

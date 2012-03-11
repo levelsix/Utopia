@@ -23,6 +23,7 @@ import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.EventProto.BattleResponseProto.Builder;
 import com.lvl6.proto.InfoProto.BattleResult;
+import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -70,6 +71,8 @@ public class BattleController extends EventController {
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils
         .getEquipmentIdsToEquipment();
 
+    List<FullUserEquipProto> oldDefenderUserEquipsList = reqProto.getDefenderUserEquipsList();
+    
     server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
 
     try {
@@ -98,7 +101,7 @@ public class BattleController extends EventController {
           List<UserEquip> defenderEquips = UserEquipRetrieveUtils
               .getUserEquipsForUser(defender.getId());
           lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
-              defender);
+              defender, oldDefenderUserEquipsList);
           if (lostEquip != null) {
             Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
             resBuilder.setEquipGained(CreateInfoProtoUtils
@@ -313,7 +316,7 @@ public class BattleController extends EventController {
    * items - min level applies for usage, not for holding
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips,
-      Map<Integer, Equipment> equipmentIdsToEquipment, User defender) {
+      Map<Integer, Equipment> equipmentIdsToEquipment, User defender, List<FullUserEquipProto> oldDefenderUserEquipsList) {
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {
@@ -328,8 +331,16 @@ public class BattleController extends EventController {
         }
       }
       if (potentialLosses.size() > 0) {
-        return potentialLosses.get((int) Math.rint(Math.random()
+        UserEquip lostUserEquip = potentialLosses.get((int) Math.rint(Math.random()
             * (potentialLosses.size() - 1)));
+        if (oldDefenderUserEquipsList != null) {
+          for (FullUserEquipProto oldUserEquip : oldDefenderUserEquipsList) {
+            if (oldUserEquip.getEquipId() == lostUserEquip.getEquipId()) {
+              return lostUserEquip;
+            }
+          }
+        }
+        return null;
       }
     }
     return null;

@@ -44,6 +44,11 @@ public class UserCityExpansionData {
   public ExpansionDirection getLastExpandDirection() {
     return lastExpandDirection;
   }
+  
+  public int getTotalNumCompletedExpansions() {
+    return nearLeftExpansions + farLeftExpansions + farRightExpansions;
+  }
+  
   @Override
   public String toString() {
     return "UserCityExpansionData [userId=" + userId + ", nearLeftExpansions="

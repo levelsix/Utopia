@@ -84,8 +84,7 @@ public class UpgradeNormStructureController extends EventController {
 
   private void writeChangesToDB(User user, UserStruct userStruct, Structure struct, Timestamp timeOfUpgrade) {
     // TODO Auto-generated method stub
-    if (user.updateRelativeDiamondsCoinsExperienceNaive(calculateUpgradeDiamondCost(struct.getUpgradeDiamondCostBase(), userStruct.getLevel()), 
-        calculateUpgradeCoinCost(struct.getUpgradeCoinCostBase(), userStruct.getLevel()), 0)) {
+    if (user.updateRelativeDiamondsCoinsExperienceNaive(calculateUpgradeDiamondCost(userStruct.getLevel(), struct), calculateUpgradeCoinCost(userStruct.getLevel(), struct), 0)) {
       log.error("problem in updating user stats after upgrade");
     }
     if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), null, timeOfUpgrade, false)) {
@@ -116,8 +115,8 @@ public class UpgradeNormStructureController extends EventController {
       return false;
     }
 
-    int upgradeCoinCost = calculateUpgradeCoinCost(struct.getUpgradeCoinCostBase(), userStruct.getLevel());
-    int upgradeDiamondCost = calculateUpgradeDiamondCost(struct.getUpgradeDiamondCostBase(), userStruct.getLevel());
+    int upgradeCoinCost = calculateUpgradeCoinCost(userStruct.getLevel(), struct);
+    int upgradeDiamondCost = calculateUpgradeDiamondCost(userStruct.getLevel(), struct);
 
     if (user.getId() != userStruct.getUserId()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_USERS_STRUCT);
@@ -144,14 +143,12 @@ public class UpgradeNormStructureController extends EventController {
     return true;
   }
 
-  private int calculateUpgradeCoinCost(int upgradeCoinCostBase, int oldLevel) {
-    int result = upgradeCoinCostBase*(oldLevel/2);   //TODO: change later
-    return Math.max(0, result);
+  private int calculateUpgradeCoinCost(int oldLevel, Structure struct) {
+    return Math.max(0, (int)(struct.getCoinPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_BASE, oldLevel)));
   }
-
-  private int calculateUpgradeDiamondCost(int upgradeDiamondCostBase, int oldLevel) {
-    int result = upgradeDiamondCostBase*(oldLevel/2);   //TODO: change later
-    return Math.max(0, result);
+  
+  private int calculateUpgradeDiamondCost(int oldLevel, Structure struct) {
+    return Math.max(0, (int)(struct.getDiamondPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_BASE, oldLevel)));
   }
 
 }

@@ -76,15 +76,12 @@ public class StructureRetrieveUtils {
     int minLevel = rs.getInt(i++);
     int xLength = rs.getInt(i++);
     int yLength = rs.getInt(i++);
-    int upgradeCoinCost = rs.getInt(i++);
-    int upgradeDiamondCost = rs.getInt(i++);
     int instaBuildDiamondCost = rs.getInt(i++);
     int instaRetrieveDiamondCost = rs.getInt(i++);
     int instaUpgradeDiamondCost = rs.getInt(i++);
     
     return new Structure(id, name, income, minutesToGain, minutesToBuild, minutesToUpgradeBase, coinPrice, 
-        diamondPrice, minLevel, xLength, yLength, upgradeCoinCost, 
-        upgradeDiamondCost, instaBuildDiamondCost, instaRetrieveDiamondCost, 
+        diamondPrice, minLevel, xLength, yLength, instaBuildDiamondCost, instaRetrieveDiamondCost, 
         instaUpgradeDiamondCost);
   }
 }

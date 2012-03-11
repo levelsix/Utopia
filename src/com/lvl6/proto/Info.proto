@@ -146,8 +146,6 @@ message FullStructureProto {
 	required int32 minLevel = 9;
 	required int32 xLength = 10;
 	required int32 yLength = 11;
-	required int32 upgradeCoinCostBase = 12;
-	required int32 upgradeDiamondCostBase = 13;
 	required int32 instaBuildDiamondCostBase = 14;
 	required int32 instaRetrieveDiamondCostBase = 15;
 	required int32 instaUpgradeDiamondCostBase = 16;	

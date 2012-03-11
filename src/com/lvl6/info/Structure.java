@@ -13,15 +13,12 @@ public class Structure {
   private int minLevel;
   private int xLength;
   private int yLength;
-  private int upgradeCoinCostBase;
-  private int upgradeDiamondCostBase;
   private int instaBuildDiamondCostBase;
   private int instaRetrieveDiamondCostBase;
   private int instaUpgradeDiamondCostBase;
   public Structure(int id, String name, int income, int minutesToGain,
       int minutesToBuild, int minutesToUpgradeBase, int coinPrice, int diamondPrice, 
-      int minLevel, int xLength, int yLength, int upgradeCoinCostBase,
-      int upgradeDiamondCostBase, int instaBuildDiamondCostBase, int instaRetrieveDiamondCostBase,
+      int minLevel, int xLength, int yLength, int instaBuildDiamondCostBase, int instaRetrieveDiamondCostBase,
       int instaUpgradeDiamondCostBase) {
     this.id = id;
     this.name = name;
@@ -34,8 +31,6 @@ public class Structure {
     this.minLevel = minLevel;
     this.xLength = xLength;
     this.yLength = yLength;
-    this.upgradeCoinCostBase = upgradeCoinCostBase;
-    this.upgradeDiamondCostBase = upgradeDiamondCostBase;
     this.instaBuildDiamondCostBase = instaBuildDiamondCostBase;
     this.instaRetrieveDiamondCostBase = instaRetrieveDiamondCostBase;
     this.instaUpgradeDiamondCostBase = instaUpgradeDiamondCostBase;
@@ -73,12 +68,6 @@ public class Structure {
   public int getyLength() {
     return yLength;
   }
-  public int getUpgradeCoinCostBase() {
-    return upgradeCoinCostBase;
-  }
-  public int getUpgradeDiamondCostBase() {
-    return upgradeDiamondCostBase;
-  }
   public int getInstaBuildDiamondCostBase() {
     return instaBuildDiamondCostBase;
   }
@@ -95,9 +84,7 @@ public class Structure {
         + minutesToBuild + ", minutesToUpgradeBase=" + minutesToUpgradeBase
         + ", coinPrice=" + coinPrice + ", diamondPrice=" + diamondPrice
         + ", minLevel=" + minLevel + ", xLength="
-        + xLength + ", yLength=" + yLength + ", upgradeCoinCostBase="
-        + upgradeCoinCostBase + ", upgradeDiamondCostBase="
-        + upgradeDiamondCostBase
+        + xLength + ", yLength=" + yLength
         + ", instaBuildDiamondCostBase="
         + instaBuildDiamondCostBase + ", instaRetrieveDiamondCostBase="
         + instaRetrieveDiamondCostBase + ", instaUpgradeDiamondCostBase="

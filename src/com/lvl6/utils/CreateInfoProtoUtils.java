@@ -294,8 +294,7 @@ public class CreateInfoProtoUtils {
         .setMinutesToGain(s.getMinutesToGain()).setMinutesToBuild(s.getMinutesToBuild())
         .setMinutesToUpgradeBase(s.getMinutesToUpgradeBase()).setCoinPrice(s.getCoinPrice())
         .setDiamondPrice(s.getDiamondPrice()).setMinLevel(s.getMinLevel())
-        .setXLength(s.getxLength()).setYLength(s.getyLength()).setUpgradeCoinCostBase(s.getUpgradeCoinCostBase())
-        .setUpgradeDiamondCostBase(s.getDiamondPrice())
+        .setXLength(s.getxLength()).setYLength(s.getyLength())
         .setInstaBuildDiamondCostBase(s.getInstaBuildDiamondCostBase())
         .setInstaRetrieveDiamondCostBase(s.getInstaRetrieveDiamondCostBase())
         .setInstaUpgradeDiamondCostBase(s.getInstaUpgradeDiamondCostBase()).build();

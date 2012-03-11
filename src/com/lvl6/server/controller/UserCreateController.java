@@ -73,6 +73,8 @@ public class UserCreateController extends EventController {
     int health = reqProto.getHealth();
     int stamina = reqProto.getStamina();
     
+    boolean usedDiamondsToBuild = reqProto.getUsedDiamondsToBuilt();
+    
 
     UserCreateResponseProto.Builder resBuilder = UserCreateResponseProto.newBuilder();
 
@@ -99,7 +101,8 @@ public class UserCreateController extends EventController {
 
       int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS - ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
       if (referrer != null) playerDiamonds += ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED;
-
+      if (usedDiamondsToBuild) playerDiamonds -= ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
+      
       Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
       Integer weaponEquipped = null, armorEquipped = null;
       if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
