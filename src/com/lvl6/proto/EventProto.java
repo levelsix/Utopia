@@ -73247,6 +73247,10 @@ public final class EventProto {
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
+    
+    // required int32 relevantUserId = 2;
+    boolean hasRelevantUserId();
+    int getRelevantUserId();
   }
   public static final class RetrieveUserEquipForUserRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -73290,8 +73294,19 @@ public final class EventProto {
       return sender_;
     }
     
+    // required int32 relevantUserId = 2;
+    public static final int RELEVANTUSERID_FIELD_NUMBER = 2;
+    private int relevantUserId_;
+    public boolean hasRelevantUserId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getRelevantUserId() {
+      return relevantUserId_;
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      relevantUserId_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -73299,6 +73314,10 @@ public final class EventProto {
       if (isInitialized != -1) return isInitialized == 1;
       
       if (!hasSender()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRelevantUserId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -73316,6 +73335,9 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, sender_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, relevantUserId_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -73328,6 +73350,10 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, sender_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, relevantUserId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -73460,6 +73486,8 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        relevantUserId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -73506,6 +73534,10 @@ public final class EventProto {
         } else {
           result.sender_ = senderBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.relevantUserId_ = relevantUserId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -73525,12 +73557,19 @@ public final class EventProto {
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
+        if (other.hasRelevantUserId()) {
+          setRelevantUserId(other.getRelevantUserId());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
       public final boolean isInitialized() {
         if (!hasSender()) {
+          
+          return false;
+        }
+        if (!hasRelevantUserId()) {
           
           return false;
         }
@@ -73571,6 +73610,11 @@ public final class EventProto {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setSender(subBuilder.buildPartial());
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              relevantUserId_ = input.readInt32();
               break;
             }
           }
@@ -73669,6 +73713,27 @@ public final class EventProto {
         return senderBuilder_;
       }
       
+      // required int32 relevantUserId = 2;
+      private int relevantUserId_ ;
+      public boolean hasRelevantUserId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getRelevantUserId() {
+        return relevantUserId_;
+      }
+      public Builder setRelevantUserId(int value) {
+        bitField0_ |= 0x00000002;
+        relevantUserId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearRelevantUserId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        relevantUserId_ = 0;
+        onChanged();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.RetrieveUserEquipForUserRequestProto)
     }
     
@@ -73688,9 +73753,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus status = 2;
-    boolean hasStatus();
-    com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus getStatus();
+    // required int32 relevantUserId = 2;
+    boolean hasRelevantUserId();
+    int getRelevantUserId();
     
     // repeated .com.lvl6.proto.FullUserEquipProto userEquips = 3;
     java.util.List<com.lvl6.proto.InfoProto.FullUserEquipProto> 
@@ -73730,75 +73795,6 @@ public final class EventProto {
       return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_RetrieveUserEquipForUserResponseProto_fieldAccessorTable;
     }
     
-    public enum RetrieveUserEquipForUserStatus
-        implements com.google.protobuf.ProtocolMessageEnum {
-      SUCCESS(0, 0),
-      NOT_A_USER(1, 1),
-      ;
-      
-      public static final int SUCCESS_VALUE = 0;
-      public static final int NOT_A_USER_VALUE = 1;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static RetrieveUserEquipForUserStatus valueOf(int value) {
-        switch (value) {
-          case 0: return SUCCESS;
-          case 1: return NOT_A_USER;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<RetrieveUserEquipForUserStatus>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<RetrieveUserEquipForUserStatus>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<RetrieveUserEquipForUserStatus>() {
-              public RetrieveUserEquipForUserStatus findValueByNumber(int number) {
-                return RetrieveUserEquipForUserStatus.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final RetrieveUserEquipForUserStatus[] VALUES = {
-        SUCCESS, NOT_A_USER, 
-      };
-      
-      public static RetrieveUserEquipForUserStatus valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private RetrieveUserEquipForUserStatus(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus)
-    }
-    
     private int bitField0_;
     // required .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
@@ -73813,14 +73809,14 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus status = 2;
-    public static final int STATUS_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus status_;
-    public boolean hasStatus() {
+    // required int32 relevantUserId = 2;
+    public static final int RELEVANTUSERID_FIELD_NUMBER = 2;
+    private int relevantUserId_;
+    public boolean hasRelevantUserId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus getStatus() {
-      return status_;
+    public int getRelevantUserId() {
+      return relevantUserId_;
     }
     
     // repeated .com.lvl6.proto.FullUserEquipProto userEquips = 3;
@@ -73846,7 +73842,7 @@ public final class EventProto {
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      status_ = com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus.SUCCESS;
+      relevantUserId_ = 0;
       userEquips_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -73858,7 +73854,7 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasStatus()) {
+      if (!hasRelevantUserId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -73883,7 +73879,7 @@ public final class EventProto {
         output.writeMessage(1, sender_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, status_.getNumber());
+        output.writeInt32(2, relevantUserId_);
       }
       for (int i = 0; i < userEquips_.size(); i++) {
         output.writeMessage(3, userEquips_.get(i));
@@ -73903,7 +73899,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, status_.getNumber());
+          .computeInt32Size(2, relevantUserId_);
       }
       for (int i = 0; i < userEquips_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -74041,7 +74037,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus.SUCCESS;
+        relevantUserId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
         if (userEquipsBuilder_ == null) {
           userEquips_ = java.util.Collections.emptyList();
@@ -74098,7 +74094,7 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.status_ = status_;
+        result.relevantUserId_ = relevantUserId_;
         if (userEquipsBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004)) {
             userEquips_ = java.util.Collections.unmodifiableList(userEquips_);
@@ -74127,8 +74123,8 @@ public final class EventProto {
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
-        if (other.hasStatus()) {
-          setStatus(other.getStatus());
+        if (other.hasRelevantUserId()) {
+          setRelevantUserId(other.getRelevantUserId());
         }
         if (userEquipsBuilder_ == null) {
           if (!other.userEquips_.isEmpty()) {
@@ -74165,7 +74161,7 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasStatus()) {
+        if (!hasRelevantUserId()) {
           
           return false;
         }
@@ -74215,14 +74211,8 @@ public final class EventProto {
               break;
             }
             case 16: {
-              int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus value = com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(2, rawValue);
-              } else {
-                bitField0_ |= 0x00000002;
-                status_ = value;
-              }
+              bitField0_ |= 0x00000002;
+              relevantUserId_ = input.readInt32();
               break;
             }
             case 26: {
@@ -74327,26 +74317,23 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus status = 2;
-      private com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus status_ = com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus.SUCCESS;
-      public boolean hasStatus() {
+      // required int32 relevantUserId = 2;
+      private int relevantUserId_ ;
+      public boolean hasRelevantUserId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus getStatus() {
-        return status_;
+      public int getRelevantUserId() {
+        return relevantUserId_;
       }
-      public Builder setStatus(com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
+      public Builder setRelevantUserId(int value) {
         bitField0_ |= 0x00000002;
-        status_ = value;
+        relevantUserId_ = value;
         onChanged();
         return this;
       }
-      public Builder clearStatus() {
+      public Builder clearRelevantUserId() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        status_ = com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.RetrieveUserEquipForUserStatus.SUCCESS;
+        relevantUserId_ = 0;
         onChanged();
         return this;
       }
@@ -75646,17 +75633,14 @@ public final class EventProto {
       "l6.proto.NeutralCityElementProto\022\016\n\006city" +
       "Id\030\006 \002(\005\"P\n\025LoadNeutralCityStatus\022\013\n\007SUC" +
       "CESS\020\000\022\032\n\026NOT_ACCESSIBLE_TO_USER\020\001\022\016\n\nOT" +
-      "HER_FAIL\020\002\"X\n$RetrieveUserEquipForUserRe" +
+      "HER_FAIL\020\002\"p\n$RetrieveUserEquipForUserRe" +
       "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\"\266\002\n%RetrieveUserEqu" +
-      "ipForUserResponseProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022d\n\006stat" +
-      "us\030\002 \002(\0162T.com.lvl6.proto.RetrieveUserEq",
-      "uipForUserResponseProto.RetrieveUserEqui" +
-      "pForUserStatus\0226\n\nuserEquips\030\003 \003(\0132\".com" +
-      ".lvl6.proto.FullUserEquipProto\"=\n\036Retrie" +
-      "veUserEquipForUserStatus\022\013\n\007SUCCESS\020\000\022\016\n" +
-      "\nNOT_A_USER\020\001B\014B\nEventProto"
+      "oto.MinimumUserProto\022\026\n\016relevantUserId\030\002" +
+      " \002(\005\"\251\001\n%RetrieveUserEquipForUserRespons" +
+      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022\026\n\016relevantUserId\030\002 \002(\005",
+      "\0226\n\nuserEquips\030\003 \003(\0132\".com.lvl6.proto.Fu" +
+      "llUserEquipProtoB\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -76380,7 +76364,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_RetrieveUserEquipForUserRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveUserEquipForUserRequestProto_descriptor,
-              new java.lang.String[] { "Sender", },
+              new java.lang.String[] { "Sender", "RelevantUserId", },
               com.lvl6.proto.EventProto.RetrieveUserEquipForUserRequestProto.class,
               com.lvl6.proto.EventProto.RetrieveUserEquipForUserRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveUserEquipForUserResponseProto_descriptor =
@@ -76388,7 +76372,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_RetrieveUserEquipForUserResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveUserEquipForUserResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "UserEquips", },
+              new java.lang.String[] { "Sender", "RelevantUserId", "UserEquips", },
               com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.class,
               com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto.Builder.class);
           return null;

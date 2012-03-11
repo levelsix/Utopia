@@ -1197,17 +1197,15 @@ message LoadNeutralCityResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RetrieveUserEquipForUserRequestProto {
      required MinimumUserProto sender = 1;
+     required int32 relevantUserId = 2;
 }
 
+																						//DONE
 message RetrieveUserEquipForUserResponseProto {
     required MinimumUserProto sender = 1;
-	required RetrieveUserEquipForUserStatus status = 2;
+    required int32 relevantUserId = 2;
 	repeated FullUserEquipProto userEquips = 3;
-	
-	enum RetrieveUserEquipForUserStatus {
-		SUCCESS = 0;
-		NOT_A_USER = 1;	
-	}
 }
