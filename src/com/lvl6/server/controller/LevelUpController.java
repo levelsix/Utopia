@@ -81,12 +81,10 @@ public class LevelUpController extends EventController {
 
 
         List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(newLevel);
-        newlyUnlockedCityIds = new ArrayList<Integer>();
         for (City city : availCities) {
           if (city.getMinLevel() == newLevel) {
-            newlyUnlockedCityIds.add(city.getId());
+            resBuilder.addCitiesNewlyAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
           }
-          resBuilder.addCitiesNewlyAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
         }
 
         Map<Integer, Equipment> equipIdToEquips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
