@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LevelUpRequestEvent;
@@ -11,6 +12,7 @@ import com.lvl6.events.response.LevelUpResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
+import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LevelUpRequestProto;
@@ -22,6 +24,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -58,25 +61,48 @@ public class LevelUpController extends EventController {
       List<Integer> newlyUnlockedCityIds = null;
       if (legitLevelUp) {
         int newNextLevel = user.getLevel() + 2;
-        int expRequiredForNewNextLevel = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 2);
+        int expRequiredForNewNextLevel = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(newNextLevel);
         resBuilder.setNewNextLevel(newNextLevel);
         resBuilder.setExperienceRequiredForNewNextLevel(expRequiredForNewNextLevel);
 
-        List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(user.getLevel() + 1);
+        int newLevel = user.getLevel() + 1;
+        resBuilder.setNewLevel(newLevel);
+
+        if (newLevel == ControllerConstants.MIN_LEVEL_FOR_ARMORY) {
+          resBuilder.setArmoryUnlocked(true);
+        }
+        if (newLevel == ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
+          resBuilder.setMarketplaceUnlocked(true);
+        }
+        if (newLevel == ControllerConstants.MIN_LEVEL_FOR_VAULT) {
+          resBuilder.setVaultUnlocked(true);
+        }
+
+
+        List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(newLevel);
         newlyUnlockedCityIds = new ArrayList<Integer>();
         for (City city : availCities) {
-          if (city.getMinLevel() == user.getLevel() + 1) {
+          if (city.getMinLevel() == newLevel) {
             newlyUnlockedCityIds.add(city.getId());
           }
           resBuilder.addCitiesNewlyAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
         }
-      }
 
-      List<Equipment> availToUserInArmoryEquips = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(MiscMethods.getClassTypeFromUserType(user.getType()));
-      if (availToUserInArmoryEquips != null) {
-        for (Equipment e : availToUserInArmoryEquips) {
-          if (e.getMinLevel() == user.getLevel() + 1) {
-            resBuilder.addNewlyEquippableAvailableInArmory(CreateInfoProtoUtils.createFullEquipProtoFromEquip(e));
+        List<Equipment> availToUserInArmoryEquips = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(MiscMethods.getClassTypeFromUserType(user.getType()));
+        if (availToUserInArmoryEquips != null) {
+          for (Equipment e : availToUserInArmoryEquips) {
+            if (e != null && e.getMinLevel() == newLevel) {
+              resBuilder.addNewlyEquippableAvailableInArmory(CreateInfoProtoUtils.createFullEquipProtoFromEquip(e));
+            }
+          }
+        }
+
+        Map<Integer, Structure> structIdsToStructs = StructureRetrieveUtils.getStructIdsToStructs();
+        if (structIdsToStructs != null) {
+          for (Structure struct : structIdsToStructs.values()) {
+            if (struct != null && struct.getMinLevel() == newLevel) {
+              resBuilder.addNewlyAvailableStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
+            } 
           }
         }
       }
@@ -90,7 +116,7 @@ public class LevelUpController extends EventController {
       if (legitLevelUp) {
         writeChangesToDB(user, newlyUnlockedCityIds);
       }
-      
+
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
