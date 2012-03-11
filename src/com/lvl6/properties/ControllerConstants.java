@@ -91,7 +91,7 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 20;
   public static final int BATTLE__MIN_EXP_GAIN = 1;
   public static final int BATTLE__MAX_EXP_GAIN = 5;
-  public static final double BATTLE__A = .1;
+  public static final double BATTLE__A = .1;		//must be <= 1
   public static final double BATTLE__B = 80;
     
   //GENERATE ATTACK LIST
