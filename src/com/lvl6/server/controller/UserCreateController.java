@@ -64,7 +64,7 @@ public class UserCreateController extends EventController {
     String deviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : null;
 
     Timestamp timeOfStructPurchase = new Timestamp(reqProto.getTimeOfStructPurchase());
-    Timestamp timeOfDiamondInstabuild = new Timestamp(reqProto.getTimeOfStructDiamondInstabuild());
+    Timestamp timeOfStructBuild = new Timestamp(reqProto.getTimeOfStructBuild());
     CoordinatePair structCoords = new CoordinatePair(reqProto.getStructCoords().getX(), reqProto.getStructCoords().getY());
     
     int attack = reqProto.getAttack();
@@ -79,7 +79,7 @@ public class UserCreateController extends EventController {
     Location loc = (locationProto == null) ? MiscMethods.getRandomValidLocation() : new Location(locationProto.getLatitude(), locationProto.getLongitude());
 
     boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, 
-        loc, type, attack, defense, energy, health, stamina, timeOfStructPurchase, timeOfDiamondInstabuild, structCoords);
+        loc, type, attack, defense, energy, health, stamina, timeOfStructPurchase, timeOfStructBuild, structCoords);
 
     User referrer = null;
     User user = null;
@@ -164,7 +164,7 @@ public class UserCreateController extends EventController {
     if (legitUserCreate && userId > 0) {
       server.lockPlayer(userId);
       try {
-        writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfDiamondInstabuild, structCoords);
+        writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfStructBuild, structCoords);
         writeUserCritstructs(user.getId());
         writeUserEquips(user.getId(), equipIds);
         writeTaskCompleted(user.getId(), taskCompleted);
@@ -182,9 +182,8 @@ public class UserCreateController extends EventController {
     }    
   }
 
-  private void writeUserStruct(int userId, int structId, Timestamp timeOfStructPurchase, Timestamp timeOfDiamondInstabuild,
-      CoordinatePair structCoords) {
-    if (InsertUtils.insertUserStructJustBuiltWithDiamonds(userId, structId, timeOfStructPurchase, timeOfDiamondInstabuild, structCoords)) {
+  private void writeUserStruct(int userId, int structId, Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair structCoords) {
+    if (InsertUtils.insertUserStructJustBuilt(userId, structId, timeOfStructPurchase, timeOfStructBuild, structCoords)) {
       log.error("problem in giving user the user struct");
     }
   }

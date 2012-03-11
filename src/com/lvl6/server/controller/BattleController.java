@@ -296,7 +296,7 @@ public class BattleController extends EventController {
   }
 
   private int calculateLostCoins(User loser, Random random, boolean isFlee) {
-    int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * (Math.random() + 1)
+    int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * Math.random()
         / ControllerConstants.BATTLE__A, loser.getLevel()
         * ControllerConstants.BATTLE__B));
     if (isFlee) {

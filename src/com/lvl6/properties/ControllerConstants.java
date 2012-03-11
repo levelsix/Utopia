@@ -73,21 +73,18 @@ public class ControllerConstants {
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   
   //ARMORY
-  public static final double ARMORY__SELL_RATIO = 0.5;
+  public static final double ARMORY__SELL_RATIO = 0.2;
   
   //BATTLE
   public static final int BATTLE__MAX_ITEMS_USED = 4;   //unused right now
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 20;
   public static final int BATTLE__MIN_EXP_GAIN = 1;
   public static final int BATTLE__MAX_EXP_GAIN = 5;
+  
+  public static final double BATTLE__A = .1;
+  public static final double BATTLE__B = 80;
+
     
-  /* FORMULA FOR CALCULATING COIN TRANSFER
-   * (int) Math.rint(Math.min(loser.getCoins() * (Math.random()+1)/A, loser.getLevel()*B)); 
-   */
-  public static final double BATTLE__A = 10;
-  public static final double BATTLE__B = 75000;
-  
-  
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
 

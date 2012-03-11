@@ -25,7 +25,7 @@ public class UserRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER;
 
-  private static final int BATTLE_INITIAL_LEVEL_RANGE = 10;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
+  private static final int BATTLE_INITIAL_LEVEL_RANGE = 6;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
   private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
   private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
   private static final int MAX_BATTLE_DB_HITS = 5;
@@ -55,8 +55,8 @@ public class UserRetrieveUtils {
       Integer latLowerBound, Integer latUpperBound, Integer longLowerBound, Integer longUpperBound, boolean forBattle) {
     log.info("retrieving list of users for user " + userId);
 
-    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, 1);
-    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, 1) + 1;
+    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2 + 1;
 
     List <Object> values = new ArrayList<Object>();
 

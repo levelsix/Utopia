@@ -132,15 +132,15 @@ public class InsertUtils {
   }
 
 
-  public static boolean insertUserStructJustBuiltWithDiamonds(int userId, int structId, Timestamp timeOfStructPurchase,
-      Timestamp timeOfDiamondInstabuild, CoordinatePair structCoords) {
+  public static boolean insertUserStructJustBuilt(int userId, int structId, Timestamp timeOfStructPurchase,
+      Timestamp timeOfStructBuild, CoordinatePair structCoords) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
     insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
     insertParams.put(DBConstants.USER_STRUCTS__X_COORD, structCoords.getX());
     insertParams.put(DBConstants.USER_STRUCTS__Y_COORD, structCoords.getY());
     insertParams.put(DBConstants.USER_STRUCTS__PURCHASE_TIME, timeOfStructPurchase);
-    insertParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, timeOfDiamondInstabuild);
+    insertParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, timeOfStructBuild);
     insertParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, true);
 
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_STRUCTS, insertParams);

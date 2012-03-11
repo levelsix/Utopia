@@ -295,7 +295,7 @@ message UserCreateRequestProto {
      required int32 stamina = 13;
      
      required int64 timeOfStructPurchase = 14;
-     required int64 timeOfStructDiamondInstabuild = 15;
+     required int64 timeOfStructBuild = 15;
      required CoordinateProto structCoords = 4;
 }
 
@@ -1172,11 +1172,13 @@ message ChangeUserLocationResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message LoadNeutralCityRequestProto {
      required MinimumUserProto sender = 1;
      required int32 cityId = 2;    
 }
 
+																						//DONE
 message LoadNeutralCityResponseProto {
      required MinimumUserProto sender = 1;
      required LoadNeutralCityStatus status = 2;
@@ -1191,4 +1193,21 @@ message LoadNeutralCityResponseProto {
      	NOT_ACCESSIBLE_TO_USER = 1;
      	OTHER_FAIL = 2;
      }    
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveUserEquipForUserRequestProto {
+     required MinimumUserProto sender = 1;
+}
+
+message RetrieveUserEquipForUserResponseProto {
+    required MinimumUserProto sender = 1;
+	required RetrieveUserEquipForUserStatus status = 2;
+	repeated FullUserEquipProto userEquips = 3;
+	
+	enum RetrieveUserEquipForUserStatus {
+		SUCCESS = 0;
+		NOT_A_USER = 1;	
+	}
 }
