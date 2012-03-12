@@ -249,6 +249,10 @@ public class User {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
+    if (deviceToken != null && deviceToken.length() == 0) {
+      deviceToken = null;
+    }
+    
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__NUM_BADGES, 0);
     absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);

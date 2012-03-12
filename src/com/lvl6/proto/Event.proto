@@ -183,11 +183,6 @@ message StartupResponseProto {
 		required int32 skillPointsGainedOnLevelup = 27;
 		required int32 cutOfVaultDepositTaken = 28;
 		
-		required int32 minVaultLevel = 29;
-		required int32 minMarketplaceLevel = 30;
-		required int32 minArmoryLevel = 31;
-		
-		required int32 maxRankForCity = 32;
 		required int32 maxLevelForStruct = 33;
 		required int32 maxNumOfSingleStruct = 34;
 		required double percentReturnedToUserForSellingNormStructure = 35;
@@ -916,6 +911,7 @@ message QuestAcceptResponseProto {
 message QuestCompleteResponseProto {
      required MinimumUserProto sender = 1;
      required FullQuestProto quest = 2;
+     optional NeutralCityElementProto neutralCityElement = 3;
 }
 
 //------------------------------------------------------------------------------------------

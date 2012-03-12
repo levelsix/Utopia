@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lvl6.events.response.QuestCompleteResponseEvent;
+import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -17,6 +18,7 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
@@ -140,7 +142,7 @@ public class QuestUtils {
         }
       }
       if (server != null && senderProto != null && sendMessage) {
-        sendQuestCompleteResponse(server, senderProto, quest);      
+        sendQuestCompleteResponse(server, senderProto, quest);
       }
       return true;
     }
@@ -148,9 +150,14 @@ public class QuestUtils {
   }
 
   private static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){
+    QuestCompleteResponseProto.Builder builder = QuestCompleteResponseProto.newBuilder().setSender(senderProto)
+        .setQuest(CreateInfoProtoUtils.createFullQuestProtoFromQuest(senderProto.getUserType(), quest));
+    NeutralCityElement neutralCityElement = NeutralCityElementsRetrieveUtils.getNeutralCityElement(quest.getCityId(), quest.getAssetNumWithinCity());
+    if (neutralCityElement != null) {
+      builder.setNeutralCityElement(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(neutralCityElement, senderProto.getUserType()));
+    }
     QuestCompleteResponseEvent event = new QuestCompleteResponseEvent(senderProto.getUserId());
-    event.setQuestCompleteResponseProto(QuestCompleteResponseProto.newBuilder().setSender(senderProto)
-        .setQuest(CreateInfoProtoUtils.createFullQuestProtoFromQuest(senderProto.getUserType(), quest)).build());
+    event.setQuestCompleteResponseProto(builder.build());
     server.writeEvent(event);
   }
 

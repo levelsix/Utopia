@@ -148,9 +148,9 @@ public class StartupController extends EventController {
   }
 
   private void syncUserDevicetokenAndBadges(StartupRequestProto reqProto, User user) {
-    String newDeviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : "";
+    String newDeviceToken = reqProto.getDeviceToken();
     if (user.getNumBadges() != 0 || user.getDeviceToken() != newDeviceToken) {
-      if (newDeviceToken.length() > 0) { 
+      if (newDeviceToken != null && newDeviceToken.length() > 0) { 
         ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
         if (Globals.IS_SANDBOX) {
           builder.withSandboxDestination();

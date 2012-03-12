@@ -33,6 +33,22 @@ public class NeutralCityElementsRetrieveUtils {
     return cityIdToNeutralCityElements;
   }
   
+  public static NeutralCityElement getNeutralCityElement(int cityId, int assetId) {
+    log.info("retrieving all city id to neutral city elements data");
+    if (cityIdToNeutralCityElements == null) {
+      setStaticCityIdToNeutralCityElements();
+    }
+    List<NeutralCityElement> ncesForCity = cityIdToNeutralCityElements.get(cityId);
+    if (ncesForCity != null) {
+      for (NeutralCityElement nce : ncesForCity) {
+        if (nce.getAssetId() == assetId) {
+          return nce;
+        }
+      }
+    }
+    return null;
+  }
+  
   public static List<NeutralCityElement> getNeutralCityElementsForCity(int cityId) {
     log.info("retrieving all city id to neutral city elements data");
     if (cityIdToNeutralCityElements == null) {

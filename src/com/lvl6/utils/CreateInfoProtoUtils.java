@@ -465,7 +465,7 @@ public class CreateInfoProtoUtils {
           }
           if (quest.getPossessEquipJobsRequired() != null && quest.getPossessEquipJobsRequired().size() > 0) {
             if (equipIdsToUserEquips == null) {
-              equipIdsToUserEquips = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(userQuest.getQuestId());
+              equipIdsToUserEquips = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(userQuest.getUserId());
             }
             for (Integer possessEquipJobId : quest.getPossessEquipJobsRequired()) {
               PossessEquipJob possessEquipJob = PossessEquipJobRetrieveUtils.getPossessEquipJobForPossessEquipJobId(possessEquipJobId);
