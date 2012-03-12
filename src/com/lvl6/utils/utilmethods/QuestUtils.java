@@ -131,7 +131,7 @@ public class QuestUtils {
           if (equipIdsToUserEquips.get(pej.getEquipId()) == null || equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() < pej.getQuantity()) {
             return false;
           } else {
-            if (justObtainedEquipId == pej.getEquipId() && justObtainedEquipQuantity != null && 
+            if (justObtainedEquipQuantity != null && justObtainedEquipId == pej.getEquipId() && 
                 equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() - justObtainedEquipQuantity <  pej.getQuantity()) {
               justCompletedPossessEquipJob = true;
             }
@@ -151,7 +151,7 @@ public class QuestUtils {
 
   private static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){
     QuestCompleteResponseProto.Builder builder = QuestCompleteResponseProto.newBuilder().setSender(senderProto)
-        .setQuest(CreateInfoProtoUtils.createFullQuestProtoFromQuest(senderProto.getUserType(), quest));
+        .setQuestId(quest.getId());
     NeutralCityElement neutralCityElement = NeutralCityElementsRetrieveUtils.getNeutralCityElement(quest.getCityId(), quest.getAssetNumWithinCity());
     if (neutralCityElement != null) {
       builder.setNeutralCityElement(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(neutralCityElement, senderProto.getUserType()));

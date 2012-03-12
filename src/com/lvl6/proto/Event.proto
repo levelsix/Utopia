@@ -910,7 +910,7 @@ message QuestAcceptResponseProto {
 																						//DONE
 message QuestCompleteResponseProto {
      required MinimumUserProto sender = 1;
-     required FullQuestProto quest = 2;
+     required int32 questId = 2;
      optional NeutralCityElementProto neutralCityElement = 3;
 }
 
