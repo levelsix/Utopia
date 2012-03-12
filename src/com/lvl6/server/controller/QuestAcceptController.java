@@ -62,7 +62,21 @@ public class QuestAcceptController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitRedeem) {
-        writeChangesToDB(user, quest);
+        boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
+        boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
+        boolean defeatTypeJobsComplete = true;
+        if (goodSide) {
+          if (quest.getDefeatBadGuysJobsRequired() != null && quest.getDefeatBadGuysJobsRequired().size() > 0) {
+            defeatTypeJobsComplete = false;
+          }
+        } else {
+          if (quest.getDefeatGoodGuysJobsRequired() != null && quest.getDefeatGoodGuysJobsRequired().size() > 0) {
+            defeatTypeJobsComplete = false;
+          }      
+        }
+        UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete);
+        writeChangesToDB(uq);
+        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null);
       }
 
     } catch (Exception e) {
@@ -72,21 +86,8 @@ public class QuestAcceptController extends EventController {
     }
   }
 
-  private void writeChangesToDB(User user, Quest quest) {
-    boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
-    
-    boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
-    boolean defeatTypeJobsComplete = true;
-    if (goodSide) {
-      if (quest.getDefeatBadGuysJobsRequired() != null && quest.getDefeatBadGuysJobsRequired().size() > 0) {
-        defeatTypeJobsComplete = false;
-      }
-    } else {
-      if (quest.getDefeatGoodGuysJobsRequired() != null && quest.getDefeatGoodGuysJobsRequired().size() > 0) {
-        defeatTypeJobsComplete = false;
-      }      
-    }
-    if (!InsertUtils.insertUnredeemedUserQuest(user.getId(), quest.getId(), tasksComplete, defeatTypeJobsComplete)) {
+  private void writeChangesToDB(UserQuest uq) {
+    if (!InsertUtils.insertUnredeemedUserQuest(uq.getUserId(), uq.getQuestId(), uq.isTasksComplete(), uq.isDefeatTypeJobsComplete())) {
       log.error("problem with inserting user quest");
     }
   }

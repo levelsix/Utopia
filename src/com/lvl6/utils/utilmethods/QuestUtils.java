@@ -147,7 +147,7 @@ public class QuestUtils {
     return false;
   }
 
-  public static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){
+  private static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){
     QuestCompleteResponseEvent event = new QuestCompleteResponseEvent(senderProto.getUserId());
     event.setQuestCompleteResponseProto(QuestCompleteResponseProto.newBuilder().setSender(senderProto)
         .setQuest(CreateInfoProtoUtils.createFullQuestProtoFromQuest(senderProto.getUserType(), quest)).build());
