@@ -19,7 +19,7 @@ public class DeleteUtils {
     return true;  
   }
 
-  public static boolean deleteUserQuestInfoInCompletedTasks(int userId, int questId, int numTasks) {
+  public static boolean deleteUserQuestInfoInTaskProgressAndCompletedTasks(int userId, int questId, int numTasks) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__QUEST_ID, questId);
@@ -28,9 +28,18 @@ public class DeleteUtils {
     if (numDeleted != numTasks) {
       return false;
     }
+
+    conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__QUEST_ID, questId);
+
+    numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, conditionParams, "and");
+    if (numDeleted != numTasks) {
+      return false;
+    }
     return true;  
   }
-  
+
   public static boolean deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(int userId, int questId, int numDefeatJobs) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);

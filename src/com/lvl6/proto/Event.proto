@@ -1211,3 +1211,10 @@ message RetrieveUserEquipForUserResponseProto {
     required int32 relevantUserId = 2;
 	repeated FullUserEquipProto userEquips = 3;
 }
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message PurgeClientStaticDataResponseProto {
+     required int32 senderId = 1;
+}

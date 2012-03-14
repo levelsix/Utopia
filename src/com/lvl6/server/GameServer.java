@@ -8,6 +8,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
@@ -320,6 +321,10 @@ public class GameServer extends Thread{
       unlockPlayer(playerId1);
       unlockPlayer(playerId2);
     }
+  }
+  
+  public Enumeration<Integer> getConnectedPlayerIds() {
+    return playersByPlayerId.keys();
   }
 
   public void addPreDbPlayer(String udid, SocketChannel channel) {
