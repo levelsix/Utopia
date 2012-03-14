@@ -59,6 +59,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_STAMINA = 7;
   public static final int TUTORIAL__INIT_HEALTH = 100;
   public static final int TUTORIAL__INIT_DIAMONDS = 10;
+  public static final int TUTORIAL__INIT_COINS = 10;
   public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 10;
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
   public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 1;
@@ -82,6 +83,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 50;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 1;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
+  public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.2;

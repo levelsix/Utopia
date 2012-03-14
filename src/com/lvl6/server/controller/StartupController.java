@@ -15,6 +15,7 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
+import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Referral;
 import com.lvl6.info.Task;
@@ -45,6 +46,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.server.GameServer;
@@ -215,7 +217,7 @@ public class StartupController extends EventController {
       }
     }
   }
-  
+
   private void setUserEquipsAndEquips(Builder resBuilder, User user) {
     List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
     if (userEquips != null) {
@@ -286,14 +288,14 @@ public class StartupController extends EventController {
 
   private void setTutorialConstants(Builder resBuilder) {
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
-    
+
     UserType aGoodType = UserType.GOOD_ARCHER;
     UserType aBadType = UserType.BAD_ARCHER;
-    
+
     Task task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
-    
+
     FullTutorialQuestProto tqbp = FullTutorialQuestProto.newBuilder()
         .setGoodName(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_NAME)
         .setBadName(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_NAME)
@@ -314,7 +316,7 @@ public class StartupController extends EventController {
         (CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID)))
         .build();
 
-    TutorialConstants tc = TutorialConstants.newBuilder()
+    TutorialConstants.Builder builder = TutorialConstants.newBuilder()
         .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY).setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH).setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
         .setDiamondCostToInstabuildFirstStruct(ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT)
@@ -331,9 +333,18 @@ public class StartupController extends EventController {
         .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
         .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
         .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
-        .build();
-    
-    resBuilder.setTutorialConstants(tc);
+        .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
+        .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS);
+
+    List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
+    if (neutralCityElements != null) {
+      for (NeutralCityElement nce : neutralCityElements) {
+        builder.addFirstCityElementsForGood(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce, aGoodType));
+        builder.addFirstCityElementsForBad(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce, aBadType));
+      }
+    }
+
+    resBuilder.setTutorialConstants(builder.build());
   }
 
 
