@@ -333,9 +333,9 @@ public class StartupController extends EventController {
         .setWarriorInitWeapon(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
         .setWarriorInitArmor(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
         .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
-        .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
+        .setTutorialQuest(tqbp).setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
         .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
-        .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
+        .setDiamondRewardForBeingReferred(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
         .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
         .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS);
 
@@ -346,14 +346,14 @@ public class StartupController extends EventController {
         builder.addFirstCityElementsForBad(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce, aBadType));
       }
     }
-    
+
     Map<Integer, Structure> structIdsToStructs = StructureRetrieveUtils.getStructIdsToStructs();
     for (Structure struct : structIdsToStructs.values()) {
       if (struct != null) {
         FullStructureProto fsp = CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct);
         builder.addCarpenterStructs(fsp);
       }
-      }
+    }
 
     resBuilder.setTutorialConstants(builder.build());
   }
