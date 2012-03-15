@@ -240,6 +240,8 @@ message StartupResponseProto {
      	required int32 initCoins = 25;
      	required int32 initDiamonds = 26;
      	
+		repeated FullStructureProto carpenterStructs = 27;
+     	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
 			required string goodName = 1;

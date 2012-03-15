@@ -13,7 +13,7 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.NeutralCityElemType;
+import com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.utils.DBConnection;
 
