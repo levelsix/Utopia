@@ -81,10 +81,20 @@ public class QuestUtils {
 
           boolean justCompletedBuildStructJob = false;
           for (BuildStructJob bsj : bsjs.values()) {
-            if (structIdsToUserStructs.get(bsj.getStructId()) == null || structIdsToUserStructs.get(bsj.getStructId()).size() < bsj.getQuantity()) {
+            
+            int quantityBuilt = 0;
+            if (structIdsToUserStructs.get(bsj.getStructId()) != null) {
+              for (UserStruct us : structIdsToUserStructs.get(bsj.getStructId())) {
+                if (us.getLastRetrieved() != null) {
+                  quantityBuilt++;
+                }
+              }
+            }
+            
+            if (quantityBuilt <  bsj.getQuantity()) {
               return false;
             } else {
-              if (justBuiltStructId == bsj.getStructId() && structIdsToUserStructs.get(bsj.getStructId()).size() == bsj.getQuantity()) {
+              if (justBuiltStructId != null && justBuiltStructId == bsj.getStructId() && quantityBuilt == bsj.getQuantity()) {
                 justCompletedBuildStructJob = true;
               }
             }
@@ -108,7 +118,7 @@ public class QuestUtils {
               if (us.getLevel() >= usj.getLevelReq()) {
                 usjComplete = true;
               }
-              if (usj.getLevelReq() == justUpgradedStructLevel && usj.getStructId() == justUpgradedStructId) numStructsThatJustCompletedThisUpgradeStructJob++;
+              if (justUpgradedStructLevel != null && justUpgradedStructId != null && usj.getLevelReq() == justUpgradedStructLevel && usj.getStructId() == justUpgradedStructId) numStructsThatJustCompletedThisUpgradeStructJob++;
             }
             if (numStructsThatJustCompletedThisUpgradeStructJob == 1) justCompletedUpgradeStructJob = true;
             if (!usjComplete) {

@@ -72,13 +72,20 @@ public class StructureRetrieveUtils {
     int minutesToBuild = rs.getInt(i++);
     int minutesToUpgradeBase = rs.getInt(i++);
     int coinPrice = rs.getInt(i++);
+    boolean coinPriceSet = !rs.wasNull();
     int diamondPrice = rs.getInt(i++);
+    boolean diamondPriceSet = !rs.wasNull();
     int minLevel = rs.getInt(i++);
     int xLength = rs.getInt(i++);
     int yLength = rs.getInt(i++);
     int instaBuildDiamondCost = rs.getInt(i++);
     int instaRetrieveDiamondCost = rs.getInt(i++);
     int instaUpgradeDiamondCost = rs.getInt(i++);
+    
+    if (coinPriceSet && diamondPriceSet) {
+      log.error("struct cannot have coin price and diamond price");
+      return null;
+    }
     
     return new Structure(id, name, income, minutesToGain, minutesToBuild, minutesToUpgradeBase, coinPrice, 
         diamondPrice, minLevel, xLength, yLength, instaBuildDiamondCost, instaRetrieveDiamondCost, 

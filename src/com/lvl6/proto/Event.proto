@@ -235,6 +235,11 @@ message StartupResponseProto {
 		required int32 diamondRewardForReferrer = 21;
 		required int32 diamondRewardForBeingReferred = 22;		
 
+     	repeated NeutralCityElementProto firstCityElementsForGood = 23;
+     	repeated NeutralCityElementProto firstCityElementsForBad = 24;
+     	required int32 initCoins = 25;
+     	required int32 initDiamonds = 26;
+     	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
 			required string goodName = 1;
@@ -1210,4 +1215,11 @@ message RetrieveUserEquipForUserResponseProto {
     required MinimumUserProto sender = 1;
     required int32 relevantUserId = 2;
 	repeated FullUserEquipProto userEquips = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message PurgeClientStaticDataResponseProto {
+     required int32 senderId = 1;
 }

@@ -19,10 +19,11 @@ message AdminChangeRequestProto {
 		LEVELS_REQUIRED_EXPERIENCE = 11;
 		NEUTRAL_CITY_ELEMS = 12;
 	}
+	optional bool purgeStaticDataForConnectedClients = 2;
+
 	
-	optional int32 salePercentOff = 2;
-	
-	optional float multipleOfRecruitsBaseReward = 3;
+	//optional int32 salePercentOff = 2;
+	//optional float multipleOfRecruitsBaseReward = 3;
 }
 
 
