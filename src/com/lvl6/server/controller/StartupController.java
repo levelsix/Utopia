@@ -328,9 +328,9 @@ public class StartupController extends EventController {
         .setWarriorInitWeapon(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
         .setWarriorInitArmor(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
         .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
-        .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
+        .setTutorialQuest(tqbp).setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
         .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
-        .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
+        .setDiamondRewardForBeingReferred(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
         .build();
     
     resBuilder.setTutorialConstants(tc);
