@@ -15,13 +15,9 @@ public final class AdminProto {
     boolean hasStaticDataReloadType();
     com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType getStaticDataReloadType();
     
-    // optional int32 salePercentOff = 2;
-    boolean hasSalePercentOff();
-    int getSalePercentOff();
-    
-    // optional float multipleOfRecruitsBaseReward = 3;
-    boolean hasMultipleOfRecruitsBaseReward();
-    float getMultipleOfRecruitsBaseReward();
+    // optional bool purgeStaticDataForConnectedClients = 2;
+    boolean hasPurgeStaticDataForConnectedClients();
+    boolean getPurgeStaticDataForConnectedClients();
   }
   public static final class AdminChangeRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -164,30 +160,19 @@ public final class AdminProto {
       return staticDataReloadType_;
     }
     
-    // optional int32 salePercentOff = 2;
-    public static final int SALEPERCENTOFF_FIELD_NUMBER = 2;
-    private int salePercentOff_;
-    public boolean hasSalePercentOff() {
+    // optional bool purgeStaticDataForConnectedClients = 2;
+    public static final int PURGESTATICDATAFORCONNECTEDCLIENTS_FIELD_NUMBER = 2;
+    private boolean purgeStaticDataForConnectedClients_;
+    public boolean hasPurgeStaticDataForConnectedClients() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public int getSalePercentOff() {
-      return salePercentOff_;
-    }
-    
-    // optional float multipleOfRecruitsBaseReward = 3;
-    public static final int MULTIPLEOFRECRUITSBASEREWARD_FIELD_NUMBER = 3;
-    private float multipleOfRecruitsBaseReward_;
-    public boolean hasMultipleOfRecruitsBaseReward() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public float getMultipleOfRecruitsBaseReward() {
-      return multipleOfRecruitsBaseReward_;
+    public boolean getPurgeStaticDataForConnectedClients() {
+      return purgeStaticDataForConnectedClients_;
     }
     
     private void initFields() {
       staticDataReloadType_ = com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType.ALL;
-      salePercentOff_ = 0;
-      multipleOfRecruitsBaseReward_ = 0F;
+      purgeStaticDataForConnectedClients_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -205,10 +190,7 @@ public final class AdminProto {
         output.writeEnum(1, staticDataReloadType_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, salePercentOff_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeFloat(3, multipleOfRecruitsBaseReward_);
+        output.writeBool(2, purgeStaticDataForConnectedClients_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -225,11 +207,7 @@ public final class AdminProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, salePercentOff_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, multipleOfRecruitsBaseReward_);
+          .computeBoolSize(2, purgeStaticDataForConnectedClients_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -357,10 +335,8 @@ public final class AdminProto {
         super.clear();
         staticDataReloadType_ = com.lvl6.proto.AdminProto.AdminChangeRequestProto.StaticDataReloadType.ALL;
         bitField0_ = (bitField0_ & ~0x00000001);
-        salePercentOff_ = 0;
+        purgeStaticDataForConnectedClients_ = false;
         bitField0_ = (bitField0_ & ~0x00000002);
-        multipleOfRecruitsBaseReward_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
@@ -406,11 +382,7 @@ public final class AdminProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.salePercentOff_ = salePercentOff_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.multipleOfRecruitsBaseReward_ = multipleOfRecruitsBaseReward_;
+        result.purgeStaticDataForConnectedClients_ = purgeStaticDataForConnectedClients_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -430,11 +402,8 @@ public final class AdminProto {
         if (other.hasStaticDataReloadType()) {
           setStaticDataReloadType(other.getStaticDataReloadType());
         }
-        if (other.hasSalePercentOff()) {
-          setSalePercentOff(other.getSalePercentOff());
-        }
-        if (other.hasMultipleOfRecruitsBaseReward()) {
-          setMultipleOfRecruitsBaseReward(other.getMultipleOfRecruitsBaseReward());
+        if (other.hasPurgeStaticDataForConnectedClients()) {
+          setPurgeStaticDataForConnectedClients(other.getPurgeStaticDataForConnectedClients());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -480,12 +449,7 @@ public final class AdminProto {
             }
             case 16: {
               bitField0_ |= 0x00000002;
-              salePercentOff_ = input.readInt32();
-              break;
-            }
-            case 29: {
-              bitField0_ |= 0x00000004;
-              multipleOfRecruitsBaseReward_ = input.readFloat();
+              purgeStaticDataForConnectedClients_ = input.readBool();
               break;
             }
           }
@@ -518,44 +482,23 @@ public final class AdminProto {
         return this;
       }
       
-      // optional int32 salePercentOff = 2;
-      private int salePercentOff_ ;
-      public boolean hasSalePercentOff() {
+      // optional bool purgeStaticDataForConnectedClients = 2;
+      private boolean purgeStaticDataForConnectedClients_ ;
+      public boolean hasPurgeStaticDataForConnectedClients() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getSalePercentOff() {
-        return salePercentOff_;
+      public boolean getPurgeStaticDataForConnectedClients() {
+        return purgeStaticDataForConnectedClients_;
       }
-      public Builder setSalePercentOff(int value) {
+      public Builder setPurgeStaticDataForConnectedClients(boolean value) {
         bitField0_ |= 0x00000002;
-        salePercentOff_ = value;
+        purgeStaticDataForConnectedClients_ = value;
         onChanged();
         return this;
       }
-      public Builder clearSalePercentOff() {
+      public Builder clearPurgeStaticDataForConnectedClients() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        salePercentOff_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // optional float multipleOfRecruitsBaseReward = 3;
-      private float multipleOfRecruitsBaseReward_ ;
-      public boolean hasMultipleOfRecruitsBaseReward() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public float getMultipleOfRecruitsBaseReward() {
-        return multipleOfRecruitsBaseReward_;
-      }
-      public Builder setMultipleOfRecruitsBaseReward(float value) {
-        bitField0_ |= 0x00000004;
-        multipleOfRecruitsBaseReward_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearMultipleOfRecruitsBaseReward() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        multipleOfRecruitsBaseReward_ = 0F;
+        purgeStaticDataForConnectedClients_ = false;
         onChanged();
         return this;
       }
@@ -585,19 +528,19 @@ public final class AdminProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013Admin.proto\022\016com.lvl6.proto\"\312\003\n\027AdminC" +
+      "\n\013Admin.proto\022\016com.lvl6.proto\"\270\003\n\027AdminC" +
       "hangeRequestProto\022Z\n\024staticDataReloadTyp" +
       "e\030\001 \001(\0162<.com.lvl6.proto.AdminChangeRequ" +
-      "estProto.StaticDataReloadType\022\026\n\016salePer" +
-      "centOff\030\002 \001(\005\022$\n\034multipleOfRecruitsBaseR" +
-      "eward\030\003 \001(\002\"\224\002\n\024StaticDataReloadType\022\007\n\003" +
-      "ALL\020\000\022\025\n\021BUILD_STRUCT_JOBS\020\001\022\n\n\006CITIES\020\002" +
-      "\022\024\n\020DEFEAT_TYPE_JOBS\020\003\022\r\n\tEQUIPMENT\020\004\022\n\n" +
-      "\006QUESTS\020\005\022\033\n\027TASK_EQUIP_REQUIREMENTS\020\006\022\t" +
-      "\n\005TASKS\020\007\022\027\n\023UPGRADE_STRUCT_JOBS\020\010\022\016\n\nST",
-      "RUCTURES\020\t\022\026\n\022POSSESS_EQUIP_JOBS\020\n\022\036\n\032LE" +
-      "VELS_REQUIRED_EXPERIENCE\020\013\022\026\n\022NEUTRAL_CI" +
-      "TY_ELEMS\020\014B\014B\nAdminProto"
+      "estProto.StaticDataReloadType\022*\n\"purgeSt" +
+      "aticDataForConnectedClients\030\002 \001(\010\"\224\002\n\024St" +
+      "aticDataReloadType\022\007\n\003ALL\020\000\022\025\n\021BUILD_STR" +
+      "UCT_JOBS\020\001\022\n\n\006CITIES\020\002\022\024\n\020DEFEAT_TYPE_JO" +
+      "BS\020\003\022\r\n\tEQUIPMENT\020\004\022\n\n\006QUESTS\020\005\022\033\n\027TASK_" +
+      "EQUIP_REQUIREMENTS\020\006\022\t\n\005TASKS\020\007\022\027\n\023UPGRA" +
+      "DE_STRUCT_JOBS\020\010\022\016\n\nSTRUCTURES\020\t\022\026\n\022POSS",
+      "ESS_EQUIP_JOBS\020\n\022\036\n\032LEVELS_REQUIRED_EXPE" +
+      "RIENCE\020\013\022\026\n\022NEUTRAL_CITY_ELEMS\020\014B\014B\nAdmi" +
+      "nProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -609,7 +552,7 @@ public final class AdminProto {
           internal_static_com_lvl6_proto_AdminChangeRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_AdminChangeRequestProto_descriptor,
-              new java.lang.String[] { "StaticDataReloadType", "SalePercentOff", "MultipleOfRecruitsBaseReward", },
+              new java.lang.String[] { "StaticDataReloadType", "PurgeStaticDataForConnectedClients", },
               com.lvl6.proto.AdminProto.AdminChangeRequestProto.class,
               com.lvl6.proto.AdminProto.AdminChangeRequestProto.Builder.class);
           return null;

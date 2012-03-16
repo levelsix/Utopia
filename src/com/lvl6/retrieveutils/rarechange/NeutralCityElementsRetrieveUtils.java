@@ -13,8 +13,8 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType;
+import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.utils.DBConnection;
 
 public class NeutralCityElementsRetrieveUtils {
@@ -31,6 +31,22 @@ public class NeutralCityElementsRetrieveUtils {
       setStaticCityIdToNeutralCityElements();
     }
     return cityIdToNeutralCityElements;
+  }
+  
+  public static NeutralCityElement getNeutralCityElement(int cityId, int assetId) {
+    log.info("retrieving all city id to neutral city elements data");
+    if (cityIdToNeutralCityElements == null) {
+      setStaticCityIdToNeutralCityElements();
+    }
+    List<NeutralCityElement> ncesForCity = cityIdToNeutralCityElements.get(cityId);
+    if (ncesForCity != null) {
+      for (NeutralCityElement nce : ncesForCity) {
+        if (nce.getAssetId() == assetId) {
+          return nce;
+        }
+      }
+    }
+    return null;
   }
   
   public static List<NeutralCityElement> getNeutralCityElementsForCity(int cityId) {

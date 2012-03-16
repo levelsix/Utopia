@@ -84,7 +84,7 @@ public class UpgradeNormStructureController extends EventController {
 
   private void writeChangesToDB(User user, UserStruct userStruct, Structure struct, Timestamp timeOfUpgrade) {
     // TODO Auto-generated method stub
-    if (user.updateRelativeDiamondsCoinsExperienceNaive(calculateUpgradeDiamondCost(userStruct.getLevel(), struct), calculateUpgradeCoinCost(userStruct.getLevel(), struct), 0)) {
+    if (!user.updateRelativeDiamondsCoinsExperienceNaive(-1*calculateUpgradeDiamondCost(userStruct.getLevel(), struct), -1*calculateUpgradeCoinCost(userStruct.getLevel(), struct), 0)) {
       log.error("problem in updating user stats after upgrade");
     }
     if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), null, timeOfUpgrade, false)) {

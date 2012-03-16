@@ -51,9 +51,10 @@ public class UserCritstructRetrieveUtils {
       return;
     }
     int i = 1;
+    i++;
     int armoryXCoord = rs.getInt(i++);
     if (rs.wasNull()) {
-      i++;
+      i += 2;
     } else {
       int armoryYCoord = rs.getInt(i++);
       CoordinatePair coords = new CoordinatePair(armoryXCoord, armoryYCoord);
@@ -63,7 +64,7 @@ public class UserCritstructRetrieveUtils {
     
     int vaultXCoord = rs.getInt(i++);
     if (rs.wasNull()) {
-      i++;
+        i += 2;
     } else {
       int vaultYCoord = rs.getInt(i++);
       CoordinatePair coords = new CoordinatePair(vaultXCoord, vaultYCoord);
@@ -73,7 +74,7 @@ public class UserCritstructRetrieveUtils {
 
     int marketplaceXCoord = rs.getInt(i++);
     if (rs.wasNull()) {
-      i++;
+        i += 2;
     } else {
       int marketplaceYCoord = rs.getInt(i++);
       CoordinatePair coords = new CoordinatePair(marketplaceXCoord, marketplaceYCoord);
@@ -83,7 +84,7 @@ public class UserCritstructRetrieveUtils {
 
     int carpenterXCoord = rs.getInt(i++);
     if (rs.wasNull()) {
-      i++;
+        i += 2;
     } else {
       int carpenterYCoord = rs.getInt(i++);
       CoordinatePair coords = new CoordinatePair(carpenterXCoord, carpenterYCoord);
@@ -93,7 +94,7 @@ public class UserCritstructRetrieveUtils {
 
     int aviaryXCoord = rs.getInt(i++);
     if (rs.wasNull()) {
-      i++;
+        i += 2;
     } else {
       int aviaryYCoord = rs.getInt(i++);
       CoordinatePair coords = new CoordinatePair(aviaryXCoord, aviaryYCoord);

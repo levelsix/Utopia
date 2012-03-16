@@ -15,8 +15,10 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
+import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Referral;
+import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -31,6 +33,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
+import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -45,7 +48,9 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -148,9 +153,9 @@ public class StartupController extends EventController {
   }
 
   private void syncUserDevicetokenAndBadges(StartupRequestProto reqProto, User user) {
-    String newDeviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : "";
+    String newDeviceToken = reqProto.getDeviceToken();
     if (user.getNumBadges() != 0 || user.getDeviceToken() != newDeviceToken) {
-      if (newDeviceToken.length() > 0) { 
+      if (newDeviceToken != null && newDeviceToken.length() > 0) { 
         ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
         if (Globals.IS_SANDBOX) {
           builder.withSandboxDestination();
@@ -215,7 +220,7 @@ public class StartupController extends EventController {
       }
     }
   }
-  
+
   private void setUserEquipsAndEquips(Builder resBuilder, User user) {
     List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
     if (userEquips != null) {
@@ -286,14 +291,14 @@ public class StartupController extends EventController {
 
   private void setTutorialConstants(Builder resBuilder) {
     Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
-    
+
     UserType aGoodType = UserType.GOOD_ARCHER;
     UserType aBadType = UserType.BAD_ARCHER;
-    
+
     Task task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
-    
+
     FullTutorialQuestProto tqbp = FullTutorialQuestProto.newBuilder()
         .setGoodName(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_NAME)
         .setBadName(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_NAME)
@@ -314,7 +319,7 @@ public class StartupController extends EventController {
         (CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID)))
         .build();
 
-    TutorialConstants tc = TutorialConstants.newBuilder()
+    TutorialConstants.Builder builder = TutorialConstants.newBuilder()
         .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY).setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH).setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
         .setDiamondCostToInstabuildFirstStruct(ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT)
@@ -328,12 +333,29 @@ public class StartupController extends EventController {
         .setWarriorInitWeapon(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID)))
         .setWarriorInitArmor(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
         .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
-        .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
+        .setTutorialQuest(tqbp).setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
         .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
-        .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
-        .build();
-    
-    resBuilder.setTutorialConstants(tc);
+        .setDiamondRewardForBeingReferred(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
+        .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
+        .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS);
+
+    List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
+    if (neutralCityElements != null) {
+      for (NeutralCityElement nce : neutralCityElements) {
+        builder.addFirstCityElementsForGood(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce, aGoodType));
+        builder.addFirstCityElementsForBad(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(nce, aBadType));
+      }
+    }
+
+    Map<Integer, Structure> structIdsToStructs = StructureRetrieveUtils.getStructIdsToStructs();
+    for (Structure struct : structIdsToStructs.values()) {
+      if (struct != null) {
+        FullStructureProto fsp = CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct);
+        builder.addCarpenterStructs(fsp);
+      }
+    }
+
+    resBuilder.setTutorialConstants(builder.build());
   }
 
 

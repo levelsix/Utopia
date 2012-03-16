@@ -1,10 +1,25 @@
 package com.lvl6.server.controller;
 
+import java.util.Enumeration;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.AdminChangeRequestEvent;
+import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
 import com.lvl6.proto.AdminProto.AdminChangeRequestProto;
+import com.lvl6.proto.EventProto.PurgeClientStaticDataResponseProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.rarechange.*;
+import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 
 public class AdminController extends EventController {
 
@@ -79,7 +94,21 @@ public class AdminController extends EventController {
         NeutralCityElementsRetrieveUtils.reload();
         break;
       }
-
     }
+    
+    if (reqProto.hasPurgeStaticDataForConnectedClients() && 
+        reqProto.getPurgeStaticDataForConnectedClients()) {
+      PurgeClientStaticDataResponseProto.Builder builder = PurgeClientStaticDataResponseProto.newBuilder();
+      Enumeration<Integer> connectedPlayerIds = server.getConnectedPlayerIds();
+      
+      while (connectedPlayerIds.hasMoreElements()) {
+        int playerId = connectedPlayerIds.nextElement();
+        PurgeClientStaticDataResponseEvent resEvent = new PurgeClientStaticDataResponseEvent(playerId);
+        resEvent.setPurgeClientStaticDataResponseProto(builder.setSenderId(playerId).build());
+        server.writeEvent(resEvent);
+      }
+    }
+    
+    
   }
 }

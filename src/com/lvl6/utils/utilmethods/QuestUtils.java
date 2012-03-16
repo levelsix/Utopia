@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lvl6.events.response.QuestCompleteResponseEvent;
+import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -17,6 +18,7 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
@@ -79,10 +81,20 @@ public class QuestUtils {
 
           boolean justCompletedBuildStructJob = false;
           for (BuildStructJob bsj : bsjs.values()) {
-            if (structIdsToUserStructs.get(bsj.getStructId()) == null || structIdsToUserStructs.get(bsj.getStructId()).size() < bsj.getQuantity()) {
+            
+            int quantityBuilt = 0;
+            if (structIdsToUserStructs.get(bsj.getStructId()) != null) {
+              for (UserStruct us : structIdsToUserStructs.get(bsj.getStructId())) {
+                if (us.getLastRetrieved() != null) {
+                  quantityBuilt++;
+                }
+              }
+            }
+            
+            if (quantityBuilt <  bsj.getQuantity()) {
               return false;
             } else {
-              if (justBuiltStructId == bsj.getStructId() && structIdsToUserStructs.get(bsj.getStructId()).size() == bsj.getQuantity()) {
+              if (justBuiltStructId != null && justBuiltStructId == bsj.getStructId() && quantityBuilt == bsj.getQuantity()) {
                 justCompletedBuildStructJob = true;
               }
             }
@@ -106,7 +118,7 @@ public class QuestUtils {
               if (us.getLevel() >= usj.getLevelReq()) {
                 usjComplete = true;
               }
-              if (usj.getLevelReq() == justUpgradedStructLevel && usj.getStructId() == justUpgradedStructId) numStructsThatJustCompletedThisUpgradeStructJob++;
+              if (justUpgradedStructLevel != null && justUpgradedStructId != null && usj.getLevelReq() == justUpgradedStructLevel && usj.getStructId() == justUpgradedStructId) numStructsThatJustCompletedThisUpgradeStructJob++;
             }
             if (numStructsThatJustCompletedThisUpgradeStructJob == 1) justCompletedUpgradeStructJob = true;
             if (!usjComplete) {
@@ -129,7 +141,7 @@ public class QuestUtils {
           if (equipIdsToUserEquips.get(pej.getEquipId()) == null || equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() < pej.getQuantity()) {
             return false;
           } else {
-            if (justObtainedEquipId == pej.getEquipId() && justObtainedEquipQuantity != null && 
+            if (justObtainedEquipQuantity != null && justObtainedEquipId == pej.getEquipId() && 
                 equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() - justObtainedEquipQuantity <  pej.getQuantity()) {
               justCompletedPossessEquipJob = true;
             }
@@ -140,17 +152,22 @@ public class QuestUtils {
         }
       }
       if (server != null && senderProto != null && sendMessage) {
-        sendQuestCompleteResponse(server, senderProto, quest);      
+        sendQuestCompleteResponse(server, senderProto, quest);
       }
       return true;
     }
     return false;
   }
 
-  public static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){
+  private static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){
+    QuestCompleteResponseProto.Builder builder = QuestCompleteResponseProto.newBuilder().setSender(senderProto)
+        .setQuestId(quest.getId());
+    NeutralCityElement neutralCityElement = NeutralCityElementsRetrieveUtils.getNeutralCityElement(quest.getCityId(), quest.getAssetNumWithinCity());
+    if (neutralCityElement != null) {
+      builder.setNeutralCityElement(CreateInfoProtoUtils.createNeutralCityElementProtoFromNeutralCityElement(neutralCityElement, senderProto.getUserType()));
+    }
     QuestCompleteResponseEvent event = new QuestCompleteResponseEvent(senderProto.getUserId());
-    event.setQuestCompleteResponseProto(QuestCompleteResponseProto.newBuilder().setSender(senderProto)
-        .setQuest(CreateInfoProtoUtils.createFullQuestProtoFromQuest(senderProto.getUserType(), quest)).build());
+    event.setQuestCompleteResponseProto(builder.build());
     server.writeEvent(event);
   }
 

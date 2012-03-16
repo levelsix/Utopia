@@ -1,7 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -116,11 +115,11 @@ public class LevelUpController extends EventController {
 
       if (legitLevelUp) {
         writeChangesToDB(user, newlyUnlockedCityIds);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
       }
 
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-      resEventUpdate.setTag(event.getTag());
-      server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in LevelUpController processEvent", e);
     } finally {

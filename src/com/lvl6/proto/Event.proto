@@ -183,11 +183,6 @@ message StartupResponseProto {
 		required int32 skillPointsGainedOnLevelup = 27;
 		required int32 cutOfVaultDepositTaken = 28;
 		
-		required int32 minVaultLevel = 29;
-		required int32 minMarketplaceLevel = 30;
-		required int32 minArmoryLevel = 31;
-		
-		required int32 maxRankForCity = 32;
 		required int32 maxLevelForStruct = 33;
 		required int32 maxNumOfSingleStruct = 34;
 		required double percentReturnedToUserForSellingNormStructure = 35;
@@ -240,6 +235,13 @@ message StartupResponseProto {
 		required int32 diamondRewardForReferrer = 21;
 		required int32 diamondRewardForBeingReferred = 22;		
 
+     	repeated NeutralCityElementProto firstCityElementsForGood = 23;
+     	repeated NeutralCityElementProto firstCityElementsForBad = 24;
+     	required int32 initCoins = 25;
+     	required int32 initDiamonds = 26;
+     	
+		repeated FullStructureProto carpenterStructs = 27;
+     	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
 			required string goodName = 1;
@@ -915,7 +917,8 @@ message QuestAcceptResponseProto {
 																						//DONE
 message QuestCompleteResponseProto {
      required MinimumUserProto sender = 1;
-     required FullQuestProto quest = 2;
+     required int32 questId = 2;
+     optional NeutralCityElementProto neutralCityElement = 3;
 }
 
 //------------------------------------------------------------------------------------------
@@ -1214,4 +1217,11 @@ message RetrieveUserEquipForUserResponseProto {
     required MinimumUserProto sender = 1;
     required int32 relevantUserId = 2;
 	repeated FullUserEquipProto userEquips = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+																						//DONE
+message PurgeClientStaticDataResponseProto {
+     required int32 senderId = 1;
 }

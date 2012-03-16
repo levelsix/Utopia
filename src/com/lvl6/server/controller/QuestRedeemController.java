@@ -119,10 +119,11 @@ public class QuestRedeemController extends EventController {
 
   private void clearUserQuestData(Quest quest, UserQuest userQuest, UserType userType) {
     if (quest.getTasksRequired() != null && quest.getTasksRequired().size() > 0) {
-      if (!DeleteUtils.deleteUserQuestInfoInCompletedTasks(userQuest.getUserId(), userQuest.getQuestId(), quest.getTasksRequired().size())) {
-        log.error("problem with deleting user quest info in completed tasks");
+      if (!DeleteUtils.deleteUserQuestInfoInTaskProgressAndCompletedTasks(userQuest.getUserId(), userQuest.getQuestId(), quest.getTasksRequired().size())) {
+        log.error("problem with deleting user quest info in user quest task tables");
       }
     }
+    
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
     List<Integer> defeatTypeJobs = null;
     if (goodSide) {
