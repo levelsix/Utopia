@@ -115,11 +115,11 @@ public class LevelUpController extends EventController {
 
       if (legitLevelUp) {
         writeChangesToDB(user, newlyUnlockedCityIds);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        resEventUpdate.setTag(event.getTag());
+        server.writeEvent(resEventUpdate);
       }
 
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-      resEventUpdate.setTag(event.getTag());
-      server.writeEvent(resEventUpdate);
     } catch (Exception e) {
       log.error("exception in LevelUpController processEvent", e);
     } finally {
