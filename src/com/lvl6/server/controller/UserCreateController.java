@@ -82,18 +82,18 @@ public class UserCreateController extends EventController {
 
     Location loc = (locationProto == null) ? MiscMethods.getRandomValidLocation() : new Location(locationProto.getLatitude(), locationProto.getLongitude());
 
-    boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, 
-        loc, type, attack, defense, energy, health, stamina, timeOfStructPurchase, timeOfStructBuild, structCoords);
+    User referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;;
 
-    User referrer = null;
+    boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, 
+        loc, type, attack, defense, energy, health, stamina, timeOfStructPurchase, timeOfStructBuild, structCoords, 
+        referrer, reqProto.hasReferrerCode());
+
     User user = null;
     int userId = ControllerConstants.NOT_SET;
     List<Integer> equipIds = new ArrayList<Integer>();
     Task taskCompleted = null;
     
     if (legitUserCreate) {
-      referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;
-
       String newReferCode = grabNewReferCode();
 
       taskCompleted = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
@@ -253,13 +253,17 @@ public class UserCreateController extends EventController {
 
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
       String name, Location loc, UserType type, int attack, int defense, int energy, int health, int stamina, 
-      Timestamp timeOfStructPurchase, Timestamp timeOfDiamondInstabuild, CoordinatePair coordinatePair) {
+      Timestamp timeOfStructPurchase, Timestamp timeOfDiamondInstabuild, CoordinatePair coordinatePair, User referrer, 
+      boolean hasReferrerCode) {
     
     if (udid == null || name == null || timeOfStructPurchase == null || coordinatePair == null || type == null || timeOfDiamondInstabuild == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
-    
+    if (hasReferrerCode && referrer == null) {
+      resBuilder.setStatus(UserCreateStatus.INVALID_REFER_CODE);
+      return false;
+    }
     int sumStat = attack + defense + energy + health + stamina;
     int correctBaseSumStat = calculateCorrectSumStat(MiscMethods.getClassTypeFromUserType(type));
     if (sumStat < correctBaseSumStat || sumStat > correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED) {

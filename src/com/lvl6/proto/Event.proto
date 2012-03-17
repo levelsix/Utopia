@@ -181,7 +181,7 @@ message StartupResponseProto {
 		required int32 staminaBaseCost = 26;
 		
 		required int32 skillPointsGainedOnLevelup = 27;
-		required int32 cutOfVaultDepositTaken = 28;
+		required double cutOfVaultDepositTaken = 28;
 		
 		required int32 maxLevelForStruct = 33;
 		required int32 maxNumOfSingleStruct = 34;
@@ -319,7 +319,8 @@ message UserCreateResponseProto {
 		USER_WITH_UDID_ALREADY_EXISTS = 3;
      	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
      	INVALID_SKILL_POINT_ALLOCATION = 5;
-		OTHER_FAIL = 6;
+     	INVALID_REFER_CODE = 6;
+		OTHER_FAIL = 7;
 	}  
 }
 

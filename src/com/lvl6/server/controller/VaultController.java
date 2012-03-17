@@ -60,7 +60,7 @@ public class VaultController extends EventController {
             log.error("problem with vault transaction");
           }
         } else if (requestType == VaultRequestType.DEPOSIT) {
-          if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT/100.0)*amount))) {
+          if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount))) {
             log.error("problem with vault transaction");          
           }
         }

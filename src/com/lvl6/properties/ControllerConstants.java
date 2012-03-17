@@ -136,7 +136,7 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
   
   //VAULT
-  public static final int VAULT__DEPOSIT_PERCENT_CUT = 10;
+  public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
   
   //REFILL STAT WITH DIAMONDS
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 10;
