@@ -241,6 +241,12 @@ message StartupResponseProto {
      	required int32 initDiamonds = 26;
      	
 		repeated FullStructureProto carpenterStructs = 27;
+
+		required int32 expRequiredForLevelTwo = 28;
+     	required int32 expRequiredForLevelThree = 29;
+     	repeated FullCityProto citiesNewlyAvailableToUserAfterLevelup = 30;					//only new ones
+     	repeated FullEquipProto newlyEquippableEpicsAndLegendariesForAllClassesAfterLevelup = 31;			//only new ones
+	    repeated FullStructureProto newlyAvailableStructsAfterLevelup = 32;					//only new ones
      	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
@@ -312,7 +318,8 @@ message UserCreateResponseProto {
 		INVALID_LOCATION = 2;
 		USER_WITH_UDID_ALREADY_EXISTS = 3;
      	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
-		OTHER_FAIL = 4;
+     	INVALID_SKILL_POINT_ALLOCATION = 5;
+		OTHER_FAIL = 6;
 	}  
 }
 

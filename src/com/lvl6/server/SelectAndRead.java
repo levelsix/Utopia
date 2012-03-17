@@ -95,23 +95,7 @@ public class SelectAndRead extends Thread{
           long nbytes = channel.read(attachment.readBuff);
           // check for end-of-stream condition
           if (nbytes == -1) {
-            int playerId = server.getPlayerIdOnChannel(channel);
-            if (playerId > 0) {
-              server.lockPlayer(playerId);
-              try {
-                User user = UserRetrieveUtils.getUserById(playerId);
-                if (user != null) {
-                  if (!user.updateLastloginLastlogout(null, new Timestamp(new Date().getTime()))) {
-                    log.error("problem with updating user's last logout time for user " + playerId);
-                  }
-                }
-              } catch (Exception e) {
-                log.error("exception in updating user logout", e);
-              } finally {
-                server.unlockPlayer(playerId); 
-                server.removePlayer(channel);
-              }
-            }
+            removePlayerFromServer(channel);
             channel.close();
             log.info("disconnect: " + channel.socket().getInetAddress() + 
                 ", end-of-stream");
@@ -132,10 +116,12 @@ public class SelectAndRead extends Thread{
         }
         catch (IOException ioe) {
           log.warn("IOException during read(), closing channel:" + channel.socket().getInetAddress());
+          removePlayerFromServer(channel);
           channel.close();
         }
         catch (Exception e) {
           log.warn("Exception: " + e);
+          removePlayerFromServer(channel);
           channel.close();
         }
       }
@@ -146,6 +132,26 @@ public class SelectAndRead extends Thread{
     catch (Exception e) {
       log.error("exception during select()", e);
       e.printStackTrace();
+    }
+  }
+
+  private void removePlayerFromServer(SocketChannel channel) {
+    int playerId = server.getPlayerIdOnChannel(channel);
+    if (playerId > 0) {
+      server.lockPlayer(playerId);
+      try {
+        User user = UserRetrieveUtils.getUserById(playerId);
+        if (user != null) {
+          if (!user.updateLastloginLastlogout(null, new Timestamp(new Date().getTime()))) {
+            log.error("problem with updating user's last logout time for user " + playerId);
+          }
+        }
+      } catch (Exception e) {
+        log.error("exception in updating user logout", e);
+      } finally {
+        server.unlockPlayer(playerId); 
+        server.removePlayer(channel);
+      }
     }
   }
 
