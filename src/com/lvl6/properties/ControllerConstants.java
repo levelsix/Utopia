@@ -62,12 +62,12 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_COINS = 50;
   public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 10;
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
-  public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 1;
-  public static final int TUTORIAL__ARCHER_INIT_ARMOR_ID = 1;
-  public static final int TUTORIAL__MAGE_INIT_WEAPON_ID = 1;
-  public static final int TUTORIAL__MAGE_INIT_ARMOR_ID = 1;
+  public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 120;
+  public static final int TUTORIAL__ARCHER_INIT_ARMOR_ID = 159;
+  public static final int TUTORIAL__MAGE_INIT_WEAPON_ID = 185;
+  public static final int TUTORIAL__MAGE_INIT_ARMOR_ID = 224;
   public static final int TUTORIAL__WARRIOR_INIT_WEAPON_ID = 1;
-  public static final int TUTORIAL__WARRIOR_INIT_ARMOR_ID = 1;
+  public static final int TUTORIAL__WARRIOR_INIT_ARMOR_ID = 41;
   public static final String TUTORIAL__FAKE_QUEST_GOOD_NAME = "Cold Welcome";
   public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Cold Welcome";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Welcome to Kirin Village, stranger. We are in dire times and we need your help. A few moments ago, a strange white light consumed the sky and legion soldiers appeared out of thin air. One seems to have strayed from the pack. Start by killing him!";
