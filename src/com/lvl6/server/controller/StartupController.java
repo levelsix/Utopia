@@ -318,7 +318,7 @@ public class StartupController extends EventController {
         .setFirstDefeatTypeJobBattleLootAmulet
         (CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID)))
         .build();
-
+    
     TutorialConstants.Builder builder = TutorialConstants.newBuilder()
         .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY).setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH).setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
@@ -337,7 +337,8 @@ public class StartupController extends EventController {
         .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
         .setDiamondRewardForBeingReferred(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
         .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
-        .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS);
+        .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
+        .setExpRequiredForLevelTwo(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2));
 
     List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
     if (neutralCityElements != null) {

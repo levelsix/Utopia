@@ -58,7 +58,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 7;
   public static final int TUTORIAL__INIT_HEALTH = 100;
-  public static final int TUTORIAL__INIT_DIAMONDS = 10;
+  public static final int TUTORIAL__INIT_DIAMONDS = 100;
   public static final int TUTORIAL__INIT_COINS = 10;
   public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 10;
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides

@@ -26,7 +26,7 @@ import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
-
+  
   public static int calculateCoinsGainedFromTutorialTask(Task firstTaskToComplete) {
     return ((firstTaskToComplete.getMinCoinsGained() + firstTaskToComplete.getMaxCoinsGained())/2)
         * firstTaskToComplete.getNumForCompletion();

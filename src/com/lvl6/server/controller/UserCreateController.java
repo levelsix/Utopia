@@ -21,12 +21,14 @@ import com.lvl6.proto.EventProto.UserCreateRequestProto;
 import com.lvl6.proto.EventProto.UserCreateResponseProto;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.Builder;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus;
+import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -97,7 +99,9 @@ public class UserCreateController extends EventController {
       taskCompleted = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
 
       int playerExp = taskCompleted.getExpGained() * taskCompleted.getNumForCompletion() + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED;
-      int playerCoins = ControllerConstants.TUTORIAL__INIT_COINS + MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED; 
+      int playerCoins = ControllerConstants.TUTORIAL__INIT_COINS + MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED
+          - EquipmentRetrieveUtils.getEquipmentIdsToEquipment()
+          .get(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD).getCoinPrice(); 
 
       int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS - ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
       if (referrer != null) playerDiamonds += ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED;
@@ -250,10 +254,19 @@ public class UserCreateController extends EventController {
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
       String name, Location loc, UserType type, int attack, int defense, int energy, int health, int stamina, 
       Timestamp timeOfStructPurchase, Timestamp timeOfDiamondInstabuild, CoordinatePair coordinatePair) {
+    
     if (udid == null || name == null || timeOfStructPurchase == null || coordinatePair == null || type == null || timeOfDiamondInstabuild == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
+    
+    int sumStat = attack + defense + energy + health + stamina;
+    int correctBaseSumStat = calculateCorrectSumStat(MiscMethods.getClassTypeFromUserType(type));
+    if (sumStat < correctBaseSumStat || sumStat > correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED) {
+      resBuilder.setStatus(UserCreateStatus.INVALID_SKILL_POINT_ALLOCATION);
+      return false;
+    }
+    
     if (UserRetrieveUtils.getUserByUDID(udid) != null) {
       resBuilder.setStatus(UserCreateStatus.USER_WITH_UDID_ALREADY_EXISTS);
       return false;
@@ -320,6 +333,19 @@ public class UserCreateController extends EventController {
 
     resBuilder.setStatus(UserCreateStatus.SUCCESS);
     return true;
+  }
+
+  private int calculateCorrectSumStat(ClassType classType) {
+    int sumStat = ControllerConstants.TUTORIAL__INIT_HEALTH + ControllerConstants.TUTORIAL__INIT_ENERGY 
+        + ControllerConstants.TUTORIAL__INIT_STAMINA;
+    if (classType == ClassType.WARRIOR) {
+      return sumStat + ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK + ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE;
+    } else if (classType == ClassType.ARCHER) {
+      return sumStat + ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK + ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE;
+    } else if (classType == ClassType.MAGE) {
+      return sumStat + ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK + ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE;
+    }
+    return sumStat;
   }
 
 }
