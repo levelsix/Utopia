@@ -37,6 +37,7 @@ import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
@@ -338,8 +339,9 @@ public class StartupController extends EventController {
         .setDiamondRewardForBeingReferred(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
         .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
         .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
-        .setExpRequiredForLevelTwo(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2));
-
+        .setExpRequiredForLevelTwo(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
+        .setExpRequiredForLevelThree(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3));
+    
     List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
     if (neutralCityElements != null) {
       for (NeutralCityElement nce : neutralCityElements) {
@@ -353,9 +355,27 @@ public class StartupController extends EventController {
       if (struct != null) {
         FullStructureProto fsp = CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct);
         builder.addCarpenterStructs(fsp);
+        if (struct.getMinLevel() == 2) {
+          builder.addNewlyAvailableStructsAfterLevelup(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
+        } 
+      }
+    }
+    
+    List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(2);
+    for (City city : availCities) {
+      if (city.getMinLevel() == 2) {
+        builder.addCitiesNewlyAvailableToUserAfterLevelup(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
       }
     }
 
+    Map<Integer, Equipment> equipIdToEquips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    if (equipIdToEquips != null) {
+      for (Equipment e : equipIdToEquips.values()) {
+        if (e != null && e.getMinLevel() == 2 && (e.getRarity() == Rarity.EPIC || e.getRarity() == Rarity.LEGENDARY)) {
+          builder.addNewlyEquippableEpicsAndLegendariesForAllClassesAfterLevelup(CreateInfoProtoUtils.createFullEquipProtoFromEquip(e));
+        }
+      }
+    }
     resBuilder.setTutorialConstants(builder.build());
   }
 
