@@ -108,7 +108,6 @@ public class CreateInfoProtoUtils {
 
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
-        .setNearLeftExpansions(uced.getNearLeftExpansions())
         .setFarLeftExpansions(uced.getFarLeftExpansions()).setFarRightExpansions(uced.getFarRightExpansions())
         .setIsExpanding(uced.isExpanding());
     if (uced.getLastExpandTime() != null) {
@@ -244,7 +243,7 @@ public class CreateInfoProtoUtils {
 
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
     return FullUserEquipProto.newBuilder().setUserId(ue.getUserId()).setEquipId(ue.getEquipId())
-        .setQuantity(ue.getQuantity()).setIsStolen(ue.isStolen()).build();
+        .setQuantity(ue.getQuantity()).build();
   }
 
   public static FullUserCritstructProto createFullUserCritstructProtoFromUserCritstruct(UserCritstruct uc) {

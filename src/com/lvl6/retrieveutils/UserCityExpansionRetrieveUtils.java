@@ -43,7 +43,6 @@ public class UserCityExpansionRetrieveUtils {
 
   private static UserCityExpansionData getUserCityExpansionDataFromRSRow(ResultSet rs) throws SQLException {
     int userId = rs.getInt(DBConstants.USER_CITY_ELEMS__USER_ID);
-    int nearLeftExpansions = rs.getInt(DBConstants.USER_CITY_ELEMS__NEAR_LEFT_EXPANSIONS);
     int farLeftExpansions = rs.getInt(DBConstants.USER_CITY_ELEMS__FAR_LEFT_EXPANSIONS);
     int farRightExpansions = rs.getInt(DBConstants.USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS);
     boolean isExpanding = rs.getBoolean(DBConstants.USER_CITY_ELEMS__IS_EXPANDING);
@@ -54,6 +53,6 @@ public class UserCityExpansionRetrieveUtils {
     int lastExpandDirectionInt = rs.getInt(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_TIME);
     ExpansionDirection lastExpandDirection = (rs.wasNull()) ? null : ExpansionDirection.valueOf(lastExpandDirectionInt);
 
-    return new UserCityExpansionData(userId, nearLeftExpansions, farLeftExpansions, farRightExpansions, isExpanding, lastExpandTime, lastExpandDirection);
+    return new UserCityExpansionData(userId, farLeftExpansions, farRightExpansions, isExpanding, lastExpandTime, lastExpandDirection);
   }
 }

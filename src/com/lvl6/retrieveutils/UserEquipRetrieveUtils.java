@@ -138,8 +138,7 @@ public class UserEquipRetrieveUtils {
     int userId = rs.getInt(i++);
     int equipId = rs.getInt(i++);
     int quantity = rs.getInt(i++);
-    boolean isStolen = rs.getBoolean(i++);
-    UserEquip userEquip = new UserEquip(userId, equipId, quantity, isStolen);
+    UserEquip userEquip = new UserEquip(userId, equipId, quantity);
     return userEquip;
   }
 
