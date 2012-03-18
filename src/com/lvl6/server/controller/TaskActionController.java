@@ -112,12 +112,8 @@ public class TaskActionController extends EventController {
             cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
             if (cityRankedUp) {
               if (cityRank != ControllerConstants.NOT_SET) {
-                if (cityRank == ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
-                  cityRankedUp = false;
-                }
-                cityRank++;
                 City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
-                int multiplier = cityRank;
+                int multiplier = cityRank+1;
                 coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
                 resBuilder.setCoinBonusIfCityRankup(coinBonus);
                 expBonus = multiplier * city.getExpGainedBaseOnRankup();
