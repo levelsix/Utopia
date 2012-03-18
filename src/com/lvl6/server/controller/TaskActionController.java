@@ -86,6 +86,7 @@ public class TaskActionController extends EventController {
 
       boolean legitAction = checkLegitAction(user, task, clientTime, resBuilder);
       if (legitAction) {
+        resBuilder.setCityId(task.getCityId());
         coinsGained = calculateCoinsGained(task);
         resBuilder.setCoinsGained(coinsGained);
         lootEquipId = chooseLootEquipId(task);
@@ -97,7 +98,11 @@ public class TaskActionController extends EventController {
         if (taskIdToNumTimesActedInRank != null && taskIdToNumTimesActedInRank.get(task.getId()) != null) {
           numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
         }
-        numTimesActedInRank++;
+
+        int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
+        if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
+          numTimesActedInRank++;
+        }
 
         taskIdToNumTimesActedInRank.put(task.getId(), numTimesActedInRank);
 
@@ -109,7 +114,6 @@ public class TaskActionController extends EventController {
           tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(task.getCityId());
           cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
           if (cityRankedUp) {
-            int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
             if (cityRank != ControllerConstants.NOT_SET) {
               if (cityRank == ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
                 cityRankedUp = false;

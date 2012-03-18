@@ -448,23 +448,20 @@ public final class InfoProto {
   
   public enum ExpansionDirection
       implements com.google.protobuf.ProtocolMessageEnum {
-    NEAR_LEFT(0, 0),
-    FAR_LEFT(1, 1),
-    FAR_RIGHT(2, 2),
+    FAR_LEFT(0, 0),
+    FAR_RIGHT(1, 1),
     ;
     
-    public static final int NEAR_LEFT_VALUE = 0;
-    public static final int FAR_LEFT_VALUE = 1;
-    public static final int FAR_RIGHT_VALUE = 2;
+    public static final int FAR_LEFT_VALUE = 0;
+    public static final int FAR_RIGHT_VALUE = 1;
     
     
     public final int getNumber() { return value; }
     
     public static ExpansionDirection valueOf(int value) {
       switch (value) {
-        case 0: return NEAR_LEFT;
-        case 1: return FAR_LEFT;
-        case 2: return FAR_RIGHT;
+        case 0: return FAR_LEFT;
+        case 1: return FAR_RIGHT;
         default: return null;
       }
     }
@@ -495,7 +492,7 @@ public final class InfoProto {
     }
     
     private static final ExpansionDirection[] VALUES = {
-      NEAR_LEFT, FAR_LEFT, FAR_RIGHT, 
+      FAR_LEFT, FAR_RIGHT, 
     };
     
     public static ExpansionDirection valueOf(
@@ -11557,7 +11554,7 @@ public final class InfoProto {
       farRightExpansions_ = 0;
       isExpanding_ = false;
       lastExpandTime_ = 0L;
-      lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+      lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.FAR_LEFT;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -11772,7 +11769,7 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000008);
         lastExpandTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000010);
-        lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+        lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.FAR_LEFT;
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
@@ -12065,7 +12062,7 @@ public final class InfoProto {
       }
       
       // optional .com.lvl6.proto.ExpansionDirection lastExpandDirection = 7;
-      private com.lvl6.proto.InfoProto.ExpansionDirection lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+      private com.lvl6.proto.InfoProto.ExpansionDirection lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.FAR_LEFT;
       public boolean hasLastExpandDirection() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
@@ -12083,7 +12080,7 @@ public final class InfoProto {
       }
       public Builder clearLastExpandDirection() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.NEAR_LEFT;
+        lastExpandDirection_ = com.lvl6.proto.InfoProto.ExpansionDirection.FAR_LEFT;
         onChanged();
         return this;
       }
@@ -25179,9 +25176,8 @@ public final class InfoProto {
       "Type\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT",
       "\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021Struc" +
       "tOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION" +
-      "_2\020\001*@\n\022ExpansionDirection\022\r\n\tNEAR_LEFT\020" +
-      "\000\022\014\n\010FAR_LEFT\020\001\022\r\n\tFAR_RIGHT\020\002B\013B\tInfoPr" +
-      "oto"
+      "_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000" +
+      "\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

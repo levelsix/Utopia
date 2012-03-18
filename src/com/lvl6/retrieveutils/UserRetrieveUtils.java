@@ -61,7 +61,7 @@ public class UserRetrieveUtils {
     List <Object> values = new ArrayList<Object>();
 
     String query = "select * from " + TABLE_NAME + " where ";
-    
+
     if (requestedTypes != null && requestedTypes.size() > 0) {
       query += "(";
       for (int i = 0; i < requestedTypes.size(); i++) {
@@ -91,17 +91,17 @@ public class UserRetrieveUtils {
       query += DBConstants.USER__LONGITUDE + "<=? and ";
       values.add(longUpperBound);
     }
-    
+
     if (forBattle) {
       query += "(" + DBConstants.USER__LAST_TIME_ATTACKED + "<=? or " +  DBConstants.USER__LAST_TIME_ATTACKED + " is ?) and ";
       values.add(new Timestamp(new Date().getTime() - ControllerConstants.NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS*60000));
       values.add(null);
     }
-    
+
     query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? ";
     values.add(levelMin);
     values.add(levelMax);
-    
+
     String firstQuery = query + "and " + DBConstants.USER__IS_FAKE + "=? ";
     values.add(false);
 
@@ -140,14 +140,14 @@ public class UserRetrieveUtils {
     paramsToVals.put(DBConstants.USER__UDID, UDID);
     return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
-  
+
   public static User getUserByReferralCode(String referralCode) {
     log.info("retrieving user with referral code " + referralCode);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
     return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));    
   }
-  
+
   private static User convertRSToUser(ResultSet rs) {
     if (rs != null) {
       try {
@@ -173,7 +173,9 @@ public class UserRetrieveUtils {
         Map<Integer, User> userIdsToUsers = new HashMap<Integer, User>();
         while(rs.next()) {
           User user = convertRSRowToUser(rs);
-          userIdsToUsers.put(user.getId(), user);
+          if (user != null) {
+            userIdsToUsers.put(user.getId(), user);
+          }
         }
         return userIdsToUsers;
       } catch (SQLException e) {
@@ -304,7 +306,7 @@ public class UserRetrieveUtils {
     }
 
     boolean isFake = rs.getBoolean(i++);
-    
+
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,

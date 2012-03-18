@@ -203,8 +203,8 @@ message StartupResponseProto {
 
 		required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
 		required double percentReturnedToUserForSellingEquipInArmory = 5;
-		    	   	
-		//ADD a bunch of other important constants
+		
+		required int32 diamondRewardForReferrer = 47;
 	}
 	
 	message TutorialConstants {
@@ -232,7 +232,7 @@ message StartupResponseProto {
 		
 		required int32 minNameLength = 19;
 		required int32 maxNameLength = 20;
-		required int32 diamondRewardForReferrer = 21;
+
 		required int32 diamondRewardForBeingReferred = 22;		
 
      	repeated NeutralCityElementProto firstCityElementsForGood = 23;
@@ -383,6 +383,7 @@ message TaskActionResponseProto {
 	
 	optional int32 coinBonusIfCityRankup = 7;
 	optional int32 expBonusIfCityRankup = 8;
+	optional int32 cityId = 9;
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 
@@ -1232,4 +1233,16 @@ message RetrieveUserEquipForUserResponseProto {
 																						//DONE
 message PurgeClientStaticDataResponseProto {
      required int32 senderId = 1;
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveUsersForUserIdsRequestProto {
+    required MinimumUserProto sender = 1;
+	repeated int32 requestedUserIds = 2;
+}
+
+message RetrieveUsersForUserIdsResponseProto {
+    required MinimumUserProto sender = 1;
+	repeated FullUserProto requestedUsers = 2;
 }
