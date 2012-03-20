@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -147,7 +146,7 @@ public class BattleController extends EventController {
         if (winner != null && attacker != null && winner == attacker) {
           if (reqProto.hasNeutralCityId() && reqProto.getNeutralCityId() > 0) {
             server.unlockPlayer(defenderProto.getUserId());
-            checkQuestsPostBattle(winner, defenderProto.getUserType(),
+            checkQuestsPostBattle(winner, defender.getType(),
                 attackerProto, reqProto.getNeutralCityId(), lostEquip);
           } else if (lostEquip != null) {
             QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto, null, null, null, lostEquip.getEquipId(), 1);
@@ -223,9 +222,11 @@ public class BattleController extends EventController {
                       questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                     }
                     Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
-                    if (userJobIdToNumDefeated == null) userJobIdToNumDefeated = new HashMap<Integer, Integer>();
-                    if (userJobIdToNumDefeated.get(remainingDTJ.getId()) != null && 
-                        userJobIdToNumDefeated.get(remainingDTJ.getId()) + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
+                    int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
+                        userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
+                    
+                    
+                    if (numDefeatedForJob + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
                       //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                       if (InsertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                         userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());

@@ -37,7 +37,6 @@ public class APNSProperties {
 }
 
 
-
 4) Bottom of EquipmentRetrieveUtils.java explains how equipments are stored
 
 5) Referral code notes when moving to prod:
@@ -57,3 +56,24 @@ MAILTO=conrad@lvl6.com
 Check paths. ie change $path in referral_code_check.sh. 
 Assumes log file, generate php file, and query for count file
 Check variable names, etc. for everything in scripts folder.
+
+
+6) EC2 stuff
+dev: 		50.18.173.214 		ec2-50-18-173-214.us-west-1.compute.amazonaws.com
+prod:		
+
+To move to server:
+a) Build project locally through eclipse
+b) Go to UtopiaServer path (type utopia), and do:
+./movetoec2 50.18.173.214			(moves lib and bin folders)
+c) ssh ubuntu@<elastic ip>
+d) sudo mkdir /vol/Utopia
+e) sudo cp -r bin /vol/Utopia/
+f) sudo cp -r bin /vol/Utopia/
+g) cd bin
+h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c.
+i) nohup java -cp ../lib/*:./ com.lvl6.server.GameServer <public dns name> 8888 &
+
+test apns
+
+output goes to nohup.out- can tail it. create daily / hourly logs. look into log4j instead of nohup
