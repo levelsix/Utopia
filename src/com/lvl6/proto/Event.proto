@@ -206,6 +206,10 @@ message StartupResponseProto {
 		
 		required int32 diamondRewardForReferrer = 47;
 		required int32 maxCityRank = 50;
+		
+		required int32 minLevelForArmory = 51;
+		required int32 minLevelForVault = 52;
+		required int32 minLevelForMarketplace = 53;
 	}
 	
 	message TutorialConstants {
