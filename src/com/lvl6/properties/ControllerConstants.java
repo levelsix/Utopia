@@ -143,9 +143,9 @@ public class ControllerConstants {
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
   
   //PLACE CRIT STRUCT
-  public static final double PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY = 3;
-  public static final double PLACE_CRITSTRUCT__MIN_LEVEL_VAULT = 4;
-  public static final double PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE = 5;
+  public static final int PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY = 3;
+  public static final int PLACE_CRITSTRUCT__MIN_LEVEL_VAULT = 4;
+  public static final int PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE = 5;
 
   //LOAD PLAYER CITY
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;

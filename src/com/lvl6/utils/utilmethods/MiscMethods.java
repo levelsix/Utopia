@@ -161,7 +161,10 @@ public class MiscMethods {
         .setMaxNumbersOfEnemiesToGenerateAtOnce(ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX)
         .setPercentReturnedToUserForSellingEquipInArmory(ControllerConstants.ARMORY__SELL_RATIO)
         .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
-        .setMaxCityRank(ControllerConstants.TASK_ACTION__MAX_CITY_RANK);
+        .setMaxCityRank(ControllerConstants.TASK_ACTION__MAX_CITY_RANK)
+        .setMinLevelForArmory(ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY)
+        .setMinLevelForMarketplace(ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE)
+        .setMinLevelForVault(ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_VAULT);
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
