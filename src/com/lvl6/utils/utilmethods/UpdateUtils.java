@@ -201,7 +201,7 @@ public class UpdateUtils {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_Y_COORD, coordinates.getY());
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
