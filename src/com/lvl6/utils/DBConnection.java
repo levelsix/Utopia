@@ -1,34 +1,29 @@
 package com.lvl6.utils;
 
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.TimeZone;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.DBProperties;
 import com.lvl6.utils.utilmethods.StringUtils;
-import com.mysql.jdbc.Statement;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DBConnection {
   // log4j logger
   protected static Logger log;
 
   private static final TimeZone timeZone = TimeZone.getDefault();
-
-  private static final int NUM_CONNECTIONS = 5;
-  private static BlockingQueue<Connection> availableConnections;
 
   private static String user = DBProperties.USER;
   private static String password = DBProperties.PASSWORD;
@@ -37,87 +32,115 @@ public class DBConnection {
 
   private static final int SELECT_LIMIT_NOT_SET = -1;
 
+  private static ComboPooledDataSource dataSource;
+
+  public static Connection getConnection() {
+    Connection conn = null;
+    try {
+      conn = dataSource.getConnection();
+    } catch (SQLException e) {}
+    return conn;
+  }
+
+  public static void close(ResultSet rs, Statement statement, Connection conn) {
+    try { 
+      if (rs != null) {
+        statement = rs.getStatement();
+        rs.close(); 
+      }
+    } catch (SQLException e) {
+      log.error("The result set cannot be closed.", e);
+    }
+    try { 
+      if (statement != null) statement.close(); 
+    } catch (SQLException e) {
+      log.error("The statement cannot be closed.", e);
+    }
+    try { 
+      if (conn != null) conn.close(); 
+    } catch (SQLException e) {
+      log.error("The data source connection cannot be closed.", e);
+    }
+  }
+
   public static void init() {
     log = Logger.getLogger(DBConnection.class);
-    availableConnections = new LinkedBlockingQueue<Connection>();
+
+    dataSource = new ComboPooledDataSource();
     try {
-      Class.forName("com.mysql.jdbc.Driver");
-      log.info("creating DB connections");
-      for (int i = 0; i < NUM_CONNECTIONS; i++) {
-        Properties connectionProps = new Properties();
-        connectionProps.put("user", user);
-        connectionProps.put("password",password);
-        connectionProps.put("useAffectedRows", "true");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://" + server, connectionProps);
-        conn.createStatement().executeQuery("USE " + database);
-        conn.createStatement().executeQuery("SET time_zone='"+timeZone.getID()+"'");
-        availableConnections.put(conn);
-        log.info("connection added");
-      }
+      dataSource.setDriverClass("com.mysql.jdbc.Driver");
+      dataSource.setJdbcUrl("jdbc:mysql://" + server + "/" + database);
+      dataSource.setUser(user);
+      dataSource.setPassword(password);
+      dataSource.setNumHelperThreads(6);
+      dataSource.setMaxStatements(180);
+      dataSource.setMinPoolSize(25);
+      dataSource.setMaxPoolSize(50);
+      dataSource.setAcquireIncrement(5);
+
+      Connection conn = dataSource.getConnection();
+      Statement stmt = conn.createStatement();
+      stmt.executeQuery("SET time_zone='"+timeZone.getID()+"'");
+      close(null, stmt, conn);
+
+      //TODO: affected rows
+    } catch (PropertyVetoException e) {
+      e.printStackTrace();
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    catch (ClassNotFoundException e) {
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 
-  public static ResultSet selectRowsByUserId(int userId, String tablename) {
-    return selectRowsByIntAttr(null, DBConstants.GENERIC__USER_ID, userId, tablename);
+  public static ResultSet selectRowsByUserId(Connection conn, int userId, String tablename) {
+    return selectRowsByIntAttr(conn, null, DBConstants.GENERIC__USER_ID, userId, tablename);
   }
 
-  public static ResultSet selectRowsById(int id, String tablename) {
-    return selectRowsByIntAttr(null, DBConstants.GENERIC__ID, id, tablename);
+  public static ResultSet selectRowsById(Connection conn, int id, String tablename) {
+    return selectRowsByIntAttr(conn, null, DBConstants.GENERIC__ID, id, tablename);
   }
 
-  public static ResultSet selectWholeTable(String tablename) {
-    return selectRows(null, null, null, null, tablename, null, null, false, SELECT_LIMIT_NOT_SET, false);
+  public static ResultSet selectWholeTable(Connection conn, String tablename) {
+    return selectRows(conn, null, null, null, null, tablename, null, null, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsAbsoluteOr(Map<String, Object> absoluteConditionParams, String tablename) {
-    return selectRows(null, absoluteConditionParams, null, null, tablename, "or", null, false, SELECT_LIMIT_NOT_SET, false);
+  public static ResultSet selectRowsAbsoluteOr(Connection conn, Map<String, Object> absoluteConditionParams, String tablename) {
+    return selectRows(conn, null, absoluteConditionParams, null, null, tablename, "or", null, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAnd(Map<String, Object> absoluteConditionParams, String tablename) {
-    return selectRows(null, absoluteConditionParams, null, null, tablename, "and", null, false, SELECT_LIMIT_NOT_SET, false);
+  public static ResultSet selectRowsAbsoluteAnd(Connection conn, Map<String, Object> absoluteConditionParams, String tablename) {
+    return selectRows(conn, null, absoluteConditionParams, null, null, tablename, "and", null, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAndOrderbydesc(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndOrderbydesc(Connection conn, Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn) {
-    return selectRows(null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
+    return selectRows(conn, null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAndOrderbydescLimit(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndOrderbydescLimit(Connection conn, Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn, int limit) {
-    return selectRows(null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, limit, false);
+    return selectRows(conn, null, absoluteConditionParams, null, null, tablename, "and", orderByColumn, false, limit, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAndOrderbydescLimitLessthan(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndOrderbydescLimitLessthan(Connection conn, Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn, int limit, Map<String, Object> lessThanConditionParams) {
-    return selectRows(null, absoluteConditionParams, null, lessThanConditionParams, tablename, "and", orderByColumn, false, limit, false);
+    return selectRows(conn, null, absoluteConditionParams, null, lessThanConditionParams, tablename, "and", orderByColumn, false, limit, false);
   }
 
-  public static ResultSet selectRowsAbsoluteAndLimitLessthanGreaterthanRand(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndLimitLessthanGreaterthanRand(Connection conn, Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn, int limit, Map<String, Object> lessThanConditionParams, 
       Map<String, Object> greaterThanConditionParams) {
-    return selectRows(null, absoluteConditionParams, greaterThanConditionParams, lessThanConditionParams, tablename, "and", null, false, limit, true);
+    return selectRows(conn, null, absoluteConditionParams, greaterThanConditionParams, lessThanConditionParams, tablename, "and", null, false, limit, true);
   }
 
-  public static ResultSet selectRowsAbsoluteAndOrderbydescGreaterthan(Map<String, Object> absoluteConditionParams, 
+  public static ResultSet selectRowsAbsoluteAndOrderbydescGreaterthan(Connection conn, Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn, Map<String, Object> greaterThanConditionParams) {
-    return selectRows(null, absoluteConditionParams, greaterThanConditionParams, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
+    return selectRows(conn, null, absoluteConditionParams, greaterThanConditionParams, null, tablename, "and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
   }
-
 
   /*assumes number of ? in the query = values.size()*/
-  public static ResultSet selectDirectQueryNaive(String query, List<Object> values) {
+  public static ResultSet selectDirectQueryNaive(Connection conn, String query, List<Object> values) {
     ResultSet rs = null;
-    Connection conn = null;
-
     try {
-      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       if (values != null && values.size()>0) {
         int i = 1;
@@ -127,33 +150,23 @@ public class DBConnection {
         }
       }
       rs = stmt.executeQuery();
-      availableConnections.put(conn);
-      conn = null;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
-    } catch (InterruptedException e) {
-      log.error("problem with " + query, e);
-    } finally {
-      if (conn != null) {
-        try {
-          availableConnections.put(conn);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
     }
     return rs;
   }
-  
+
+
   /*assumes number of ? in the query = values.size()*/
   public static int updateDirectQueryNaive(String query, List<Object> values) {
     Connection conn = null;
+    PreparedStatement stmt = null;
 
     try {
-      conn = availableConnections.take();
-      PreparedStatement stmt = conn.prepareStatement(query);
+      conn = getConnection();
+      stmt = conn.prepareStatement(query);
       if (values != null && values.size()>0) {
         int i = 1;
         for (Object value : values) {
@@ -162,23 +175,13 @@ public class DBConnection {
         }
       }
       int numUpdated = stmt.executeUpdate();
-      availableConnections.put(conn);
-      conn = null;
       return numUpdated;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
-    } catch (InterruptedException e) {
-      log.error("problem with " + query, e);
     } finally {
-      if (conn != null) {
-        try {
-          availableConnections.put(conn);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
+      close(null, stmt, conn);
     }
     return 0;
   }
@@ -191,6 +194,8 @@ public class DBConnection {
       Map<String, Object> absoluteParams, Map<String, Object> conditionParams, String condDelim) {
     String query = "update " + tablename;
     List<Object> values = new LinkedList<Object>();
+
+    int numUpdated = 0;
 
     List<String> relUpClauses = null;
     if ((relativeParams != null && relativeParams.size()>0) || (absoluteParams != null && absoluteParams.size()>0)) {
@@ -216,7 +221,7 @@ public class DBConnection {
         query += StringUtils.getListInString(absUpClauses, ",");
       }
     } else {
-      return 0;
+      return numUpdated;
     }
 
     if (conditionParams != null && conditionParams.size()>0) {
@@ -230,9 +235,10 @@ public class DBConnection {
     }
 
     Connection conn = null;
+    PreparedStatement stmt = null;
     try {
-      conn = availableConnections.take();
-      PreparedStatement stmt = conn.prepareStatement(query);
+      conn = dataSource.getConnection();
+      stmt = conn.prepareStatement(query);
       if (values.size()>0) {
         int i = 1;
         for (Object value : values) {
@@ -240,32 +246,21 @@ public class DBConnection {
           i++;
         }
       }
-      int numUpdated = stmt.executeUpdate();
-      availableConnections.put(conn);
-      conn = null;
-      return numUpdated;
+      numUpdated = stmt.executeUpdate();
     } catch (SQLException e) {
       log.error("problem with " + query, e);
       e.printStackTrace();
-    } catch (InterruptedException e) {
-      log.error("problem with " + query, e);
-      e.printStackTrace();
     } finally {
-      if (conn != null) {
-        try {
-          availableConnections.put(conn);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
+      close(null, stmt, conn);
     }
-    return 0;
+    return numUpdated;
   }
 
   public static int insertIntoTableBasic(String tablename, Map<String, Object> insertParams) {
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
+    int numUpdated = 0;
 
     if (insertParams != null && insertParams.size() > 0) {
       for (String column : insertParams.keySet()) {
@@ -277,9 +272,10 @@ public class DBConnection {
           StringUtils.getListInString(questions, ",") + ")";
 
       Connection conn = null;
+      PreparedStatement stmt = null;
       try {
-        conn = availableConnections.take();
-        PreparedStatement stmt = conn.prepareStatement(query);
+        conn = dataSource.getConnection();
+        stmt = conn.prepareStatement(query);
         if (values.size()>0) {
           int i = 1;
           for (Object value : values) {
@@ -287,27 +283,15 @@ public class DBConnection {
             i++;
           }
         }
-        int numUpdated = stmt.executeUpdate();
-        availableConnections.put(conn);
-        conn = null;
-        return numUpdated;
+        numUpdated = stmt.executeUpdate();
       } catch (SQLException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
-      } catch (InterruptedException e) {
-        log.error("problem with " + query, e);
-        e.printStackTrace();
       } finally {
-        if (conn != null) {
-          try {
-            availableConnections.put(conn);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
+        close(null, stmt, conn);
       }
     }
-    return 0;
+    return numUpdated;
   }
 
   /*
@@ -317,6 +301,8 @@ public class DBConnection {
     List<String> questionsPerRow = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
+
+    int numUpdated = 0;
 
     if (numRows > 0 && insertParams != null && insertParams.size() > 0) {
       boolean firstTime = true;
@@ -345,10 +331,12 @@ public class DBConnection {
       }
       query += StringUtils.getListInString(valuesStrings, ",");
 
+
       Connection conn = null;
+      PreparedStatement stmt = null;
       try {
-        conn = availableConnections.take();
-        PreparedStatement stmt = conn.prepareStatement(query);
+        conn = dataSource.getConnection();
+        stmt = conn.prepareStatement(query);
         if (values.size()>0) {
           int i = 1;
           for (Object value : values) {
@@ -356,27 +344,15 @@ public class DBConnection {
             i++;
           }
         }
-        int numUpdated = stmt.executeUpdate();
-        availableConnections.put(conn);
-        conn = null;
-        return numUpdated;
+        numUpdated = stmt.executeUpdate();
       } catch (SQLException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
-      } catch (InterruptedException e) {
-        log.error("problem with " + query, e);
-        e.printStackTrace();
       } finally {
-        if (conn != null) {
-          try {
-            availableConnections.put(conn);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
+        close(null, stmt, conn);
       }
     }
-    return 0;
+    return numUpdated;
   }
 
   /*returns 0 if error*/
@@ -385,6 +361,7 @@ public class DBConnection {
     List<String> columns = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
 
+    int generatedKey = 0;
     if (insertParams != null && insertParams.size() > 0) {
       for (String column : insertParams.keySet()) {
         questions.add("?");
@@ -394,9 +371,10 @@ public class DBConnection {
       String query = "insert into " + tablename + "(" + StringUtils.getListInString(columns, ",") + ") VALUES (" +
           StringUtils.getListInString(questions, ",") + ")";
       Connection conn = null;
+      PreparedStatement stmt = null;
       try {
-        conn = availableConnections.take();
-        PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        conn = dataSource.getConnection();
+        stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         if (values.size()>0) {
           int i = 1;
           for (Object value : values) {
@@ -405,33 +383,20 @@ public class DBConnection {
           }
         }
         int numUpdated = stmt.executeUpdate();
-        availableConnections.put(conn);
-        conn = null;
-        int generatedKey = 0;
         if (numUpdated == 1) {
           ResultSet rs = stmt.getGeneratedKeys();
           if (rs.next()){
             generatedKey = rs.getInt(1);
           }
         }
-        return generatedKey;
       } catch (SQLException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
-      } catch (InterruptedException e) {
-        log.error("problem with " + query, e);
-        e.printStackTrace();
       } finally {
-        if (conn != null) {
-          try {
-            availableConnections.put(conn);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
+        close(null, stmt, conn);
       }
     }
-    return 0;
+    return generatedKey;
   }
 
   public static int insertOnDuplicateKeyRelativeUpdate(String tablename, Map<String, Object> insertParams,
@@ -440,6 +405,8 @@ public class DBConnection {
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
     List<Object> values = new LinkedList<Object>();
+
+    int numUpdated = 0;
 
     if (insertParams != null && insertParams.size() > 0) {
       for (String column : insertParams.keySet()) {
@@ -452,9 +419,10 @@ public class DBConnection {
           StringUtils.getListInString(questions, ",") + ") on duplicate key update " + columnUpdate + "=" +
           columnUpdate + "+?";
       Connection conn = null;
+      PreparedStatement stmt = null;
       try {
-        conn = availableConnections.take();
-        PreparedStatement stmt = conn.prepareStatement(query);
+        conn = dataSource.getConnection();
+        stmt = conn.prepareStatement(query);
         if (values.size()>0) {
           int i = 1;
           for (Object value : values) {
@@ -462,27 +430,15 @@ public class DBConnection {
             i++;
           }
         }
-        int numUpdated = stmt.executeUpdate();
-        availableConnections.put(conn);
-        conn = null;
-        return numUpdated;
+        numUpdated = stmt.executeUpdate();
       } catch (SQLException e) {
         log.error("problem with " + query, e);
         e.printStackTrace();
-      } catch (InterruptedException e) {
-        log.error("problem with " + query, e);
-        e.printStackTrace();
       } finally {
-        if (conn != null) {
-          try {
-            availableConnections.put(conn);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
+        close(null, stmt, conn);
       }
     }
-    return 0;
+    return numUpdated;
   }
 
   /*
@@ -502,10 +458,12 @@ public class DBConnection {
       query += StringUtils.getListInString(condClauses, condDelim);
     }
 
+    int numDeleted = 0;
     Connection conn = null;
+    PreparedStatement stmt = null;
     try {
-      conn = availableConnections.take();
-      PreparedStatement stmt = conn.prepareStatement(query);
+      conn = dataSource.getConnection();
+      stmt = conn.prepareStatement(query);
       if (values.size()>0) {
         int i = 1;
         for (Object value : values) {
@@ -513,30 +471,18 @@ public class DBConnection {
           i++;
         }
       }
-      int numDeleted = stmt.executeUpdate();
-      availableConnections.put(conn);
-      conn = null;
-      return numDeleted;
+      numDeleted = stmt.executeUpdate();
     } catch (SQLException e) {
       log.error("problem with " + query, e);
       e.printStackTrace();
-    } catch (InterruptedException e) {
-      log.error("problem with " + query, e);
-      e.printStackTrace();
     } finally {
-      if (conn != null) {
-        try {
-          availableConnections.put(conn);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
+      close(null, stmt, conn);
     }
-    return 0;
+    return numDeleted;
   }
 
 
-  private static ResultSet selectRowsByIntAttr(List<String> columns, String attr, int value, 
+  private static ResultSet selectRowsByIntAttr(Connection conn, List<String> columns, String attr, int value, 
       String tablename) {
     String query = "select ";
     if (columns != null) {
@@ -547,33 +493,19 @@ public class DBConnection {
     query += " from " + tablename + " where " + attr + "=?";
 
     ResultSet rs = null;
-    Connection conn = null;
     try {
-      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       stmt.setInt(1, value);
       rs = stmt.executeQuery();
-      availableConnections.put(conn);
-      conn = null;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
-    } catch (InterruptedException e) {
-      log.error("problem with " + query, e);
-    } finally {
-      if (conn != null) {
-        try {
-          availableConnections.put(conn);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
     }
     return rs;
   }
 
-  private static ResultSet selectRows(List<String> columns, Map<String, Object> absoluteConditionParams, 
+  private static ResultSet selectRows(Connection conn, List<String> columns, Map<String, Object> absoluteConditionParams, 
       Map<String, Object> relativeGreaterThanConditionParams, Map<String, Object> relativeLessThanConditionParams, 
       String tablename, String conddelim, String orderByColumn, boolean orderByAsc, int limit, boolean random) {
     String query = "select ";
@@ -653,9 +585,7 @@ public class DBConnection {
     }
 
     ResultSet rs = null;
-    Connection conn = null;
     try {
-      conn = availableConnections.take();
       PreparedStatement stmt = conn.prepareStatement(query);
       if (values.size()>0) {
         int i = 1;
@@ -665,22 +595,10 @@ public class DBConnection {
         }
       }
       rs = stmt.executeQuery();
-      availableConnections.put(conn);
-      conn = null;
     } catch (SQLException e) {
       log.error("problem with " + query, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
-    } catch (InterruptedException e) {
-      log.error("problem with " + query, e);
-    } finally {
-      if (conn != null) {
-        try {
-          availableConnections.put(conn);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
     }
     return rs;
   }

@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils.rarechange;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.utils.DBConnection;
 
 public class EquipmentRetrieveUtils {
-  
+
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static Map<Integer, Equipment> equipIdToEquipment;
-  
+
   private static final String TABLE_NAME = DBConstants.TABLE_EQUIPMENT;
-    
+
   public static Map<Integer, Equipment> getEquipmentIdsToEquipment() {
     log.info("retrieving equipment data");
     if (equipIdToEquipment == null) {
@@ -31,7 +32,7 @@ public class EquipmentRetrieveUtils {
     }
     return equipIdToEquipment;
   }
-  
+
   public static List<Equipment> getAllArmoryEquipmentForClassType(ClassType classtype) {
     log.info("retrieving equipment data");
     if (equipIdToEquipment == null) {
@@ -46,7 +47,7 @@ public class EquipmentRetrieveUtils {
     }
     return equips;
   }
-  
+
   public static Map<Integer, Equipment> getEquipmentIdsToEquipment(List<Integer> equipIds) {
     log.info("retrieving equipment with ids " + equipIds);
     if (equipIdToEquipment == null) {
@@ -55,37 +56,42 @@ public class EquipmentRetrieveUtils {
     log.info("equipIdToEquipment is " + equipIdToEquipment);
     Map<Integer, Equipment> toreturn = new HashMap<Integer, Equipment>();
     for (Integer equipId : equipIds) {
-        toreturn.put(equipId,  equipIdToEquipment.get(equipId));
+      toreturn.put(equipId,  equipIdToEquipment.get(equipId));
     }
     return toreturn;
   }
-  
+
   private static void setStaticEquipIdsToEquipment() {
     log.info("setting static map of equipIds to equipment");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        Map <Integer, Equipment> equipIdToEquipmentTemp = new HashMap<Integer, Equipment>();
-        while(rs.next()) {  //should only be one
-          Equipment equip = convertRSRowToEquipment(rs);
-          if (equip != null)
-            equipIdToEquipmentTemp.put(equip.getId(), equip);
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          Map <Integer, Equipment> equipIdToEquipmentTemp = new HashMap<Integer, Equipment>();
+          while(rs.next()) {  //should only be one
+            Equipment equip = convertRSRowToEquipment(rs);
+            if (equip != null)
+              equipIdToEquipmentTemp.put(equip.getId(), equip);
+          }
+          equipIdToEquipment = equipIdToEquipmentTemp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        equipIdToEquipment = equipIdToEquipmentTemp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }    
+      }    
+    }
+    DBConnection.close(rs, null, conn);
   }
   
   public static void reload() {
     setStaticEquipIdsToEquipment();
   }
-  
-  
+
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
@@ -116,22 +122,22 @@ public class EquipmentRetrieveUtils {
       log.error("equipment should only have coin or diamond price");
       return null;
     } 
-    
+
     //3 types
     //1) sellable in armory, 2) not sellable in armory but sellable in marketplace, 3) never sellable
     //1) normal sword. 2) epics/legendaries. 3) bandanas
-    
+
     //all equips should have either diamondCost or coinCost set to be put in the hashmap.
     //buyable in armory is now determined by flag
-    
-      //bandanas are listed in the table with coinPrice = 0 and diamondPrice = null and not buyable
-      //same with epics and legendaries
-      //bandanas rarity is common
-    
+
+    //bandanas are listed in the table with coinPrice = 0 and diamondPrice = null and not buyable
+    //same with epics and legendaries
+    //bandanas rarity is common
+
     //all non epic, non legendary, need either diamondPrice > 0 or coinPrice > 0 to show up in marketplace
     //this is why bandanas cant be sold in the marketplace, but epic/legendary can be sold for gold
     //epic and legendary items not in armory
-    
+
     //if the item is coinPrice = 0 but diamondPrice = null, the item can be stolen
     //if the other way around, the item cannot be stolen
     return equip;

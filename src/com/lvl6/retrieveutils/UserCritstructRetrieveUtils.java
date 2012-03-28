@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,7 +23,12 @@ public class UserCritstructRetrieveUtils {
 
   public static Map<CritStructType, UserCritstruct> getUserCritstructsForUser(int userId) {
     log.info("retrieving user critstructs for userId " + userId);
-    return convertRSToUserCritstructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Map<CritStructType, UserCritstruct> userCritstructsForUser = convertRSToUserCritstructs(rs);
+    DBConnection.close(rs, null, conn);
+    return userCritstructsForUser;
   }
   
   private static Map<CritStructType, UserCritstruct> convertRSToUserCritstructs(ResultSet rs) {

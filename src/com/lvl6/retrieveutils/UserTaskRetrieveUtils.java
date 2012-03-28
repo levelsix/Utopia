@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -19,7 +20,12 @@ public class UserTaskRetrieveUtils {
   
   public static Map<Integer, Integer> getTaskIdToNumTimesActedInRankForUser(int userId) {
     log.info("retrieving user task info for userId " + userId);
-    return convertRSToTaskIdToNumTimesCompletedMap(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Map<Integer, Integer> taskIdToNumTimesActedInRank = convertRSToTaskIdToNumTimesCompletedMap(rs);
+    DBConnection.close(rs, null, conn);
+    return taskIdToNumTimesActedInRank;
   }
   
   private static Map<Integer, Integer> convertRSToTaskIdToNumTimesCompletedMap(

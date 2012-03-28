@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,7 +23,12 @@ public class UserCityRetrieveUtils {
   
   public static Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
     log.info("retrieving city id to user city rank map for userId " + userId);
-    return convertRSToCityIdToCityRankMap(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Map<Integer, Integer> cityIdToUserCityRankMap = convertRSToCityIdToCityRankMap(rs);
+    DBConnection.close(rs, null, conn);
+    return cityIdToUserCityRankMap;
   }
   
   public static int getCurrentCityRankForUser(int userId, int cityId) {
@@ -30,7 +36,12 @@ public class UserCityRetrieveUtils {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);
-    return convertRSToCityRank(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    int cityRank = convertRSToCityRank(rs);
+    DBConnection.close(rs, null, conn);
+    return cityRank;
   }
   
   private static int convertRSToCityRank(ResultSet rs) {

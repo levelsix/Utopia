@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,14 +24,24 @@ public class MarketplacePostRetrieveUtils {
 
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
     log.info("retrieving specific marketplace posts");
-    return convertRSToSingleMarketplacePost(DBConnection.selectRowsById(marketplacePostId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsById(conn, marketplacePostId, TABLE_NAME);
+    MarketplacePost marketplacePost = convertRSToSingleMarketplacePost(rs);
+    DBConnection.close(rs, null, conn);
+    return marketplacePost;
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostId(int limit, int postId) {
     log.info("retrieving limited marketplace posts before certain id");
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
+    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+    DBConnection.close(rs, null, conn);
+    return marketplacePosts;
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostIdForPoster(int limit, int postId, int posterId) {
@@ -39,19 +50,34 @@ public class MarketplacePostRetrieveUtils {
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
+    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+    DBConnection.close(rs, null, conn);
+    return marketplacePosts;
   }
 
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
     log.info("retrieving limited marketplace posts");
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimit(null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
+    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+    DBConnection.close(rs, null, conn);
+    return marketplacePosts;
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
     log.info("retrieving limited marketplace posts");
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
-    return convertRSToMarketplacePosts(DBConnection.selectRowsAbsoluteAndOrderbydescLimit(absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
+    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+    DBConnection.close(rs, null, conn);
+    return marketplacePosts;
   }
   
   private static List<MarketplacePost> convertRSToMarketplacePosts(ResultSet rs) {

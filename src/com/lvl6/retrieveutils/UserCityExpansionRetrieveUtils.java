@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -22,7 +23,13 @@ public class UserCityExpansionRetrieveUtils {
     log.info("retrieving user city expansion data for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
-    return convertRSToUserCritstructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    UserCityExpansionData userCityExpansionData = convertRSToUserCritstructs(rs);
+    DBConnection.close(rs, null, conn);
+    return userCityExpansionData;
   }
 
   private static UserCityExpansionData convertRSToUserCritstructs(ResultSet rs) {

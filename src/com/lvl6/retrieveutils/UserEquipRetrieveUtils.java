@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,12 +23,22 @@ public class UserEquipRetrieveUtils {
 
   public static List<UserEquip> getUserEquipsForUser(int userId) {
     log.info("retrieving user equips for userId " + userId);
-    return convertRSToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    List<UserEquip> userEquips = convertRSToUserEquips(rs);
+    DBConnection.close(rs, null, conn);
+    return userEquips;
   }
 
   public static Map<Integer, UserEquip> getEquipIdsToUserEquipsForUser(int userId) {
     log.info("retrieving user equips for userId " + userId);
-    return convertRSToEquipIdsToUserEquips(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Map<Integer, UserEquip> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
+    DBConnection.close(rs, null, conn);
+    return equipIdsToUserEquips;
   }
 
   public static UserEquip getSpecificUserEquip(int userId, int equipId) {
@@ -35,7 +46,12 @@ public class UserEquipRetrieveUtils {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-    return convertRSSingleToUserEquips(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    UserEquip userEquip = convertRSSingleToUserEquips(rs);
+    DBConnection.close(rs, null, conn);
+    return userEquip;
   }
 
   /*

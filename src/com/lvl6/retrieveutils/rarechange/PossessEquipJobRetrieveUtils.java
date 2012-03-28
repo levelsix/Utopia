@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils.rarechange;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -13,11 +14,11 @@ import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 public class PossessEquipJobRetrieveUtils {
-  
+
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static Map<Integer, PossessEquipJob> possessEquipJobIdsToPossessEquipJobs;
-  
+
   private static final String TABLE_NAME = DBConstants.TABLE_JOBS_POSSESS_EQUIP;
 
   public static Map<Integer, PossessEquipJob> getPossessEquipJobIdsToPossessEquipJobs() {
@@ -27,7 +28,7 @@ public class PossessEquipJobRetrieveUtils {
     }
     return possessEquipJobIdsToPossessEquipJobs;
   }
-  
+
   public static Map<Integer, PossessEquipJob> getPossessEquipJobsForPossessEquipJobIds(List<Integer> ids) {
     log.info("retrieving possess equip jobs with ids " + ids);
     if (possessEquipJobIdsToPossessEquipJobs == null) {
@@ -35,11 +36,11 @@ public class PossessEquipJobRetrieveUtils {
     }
     Map<Integer, PossessEquipJob> toreturn = new HashMap<Integer, PossessEquipJob>();
     for (Integer id : ids) {
-        toreturn.put(id,  possessEquipJobIdsToPossessEquipJobs.get(id));
+      toreturn.put(id,  possessEquipJobIdsToPossessEquipJobs.get(id));
     }
     return toreturn;
   }
-  
+
   public static PossessEquipJob getPossessEquipJobForPossessEquipJobId(int possessEquipJobId) {
     log.info("retrieving possess equip job data for possess equip job id " + possessEquipJobId);
     if (possessEquipJobIdsToPossessEquipJobs == null) {
@@ -47,33 +48,38 @@ public class PossessEquipJobRetrieveUtils {
     }
     return possessEquipJobIdsToPossessEquipJobs.get(possessEquipJobId);
   }
-  
+
   private static void setStaticPossessEquipJobIdsToPossessEquipJobs() {
     log.info("setting static map of possess equip job id to possess equip job");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        Map <Integer, PossessEquipJob> possessEquipJobIdsToPossessEquipJobsTemp = new HashMap<Integer, PossessEquipJob>();
-        while(rs.next()) {
-          PossessEquipJob usj = convertRSRowToPossessEquipJob(rs);
-          if (usj != null)
-            possessEquipJobIdsToPossessEquipJobsTemp.put(usj.getId(), usj);
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          Map <Integer, PossessEquipJob> possessEquipJobIdsToPossessEquipJobsTemp = new HashMap<Integer, PossessEquipJob>();
+          while(rs.next()) {
+            PossessEquipJob usj = convertRSRowToPossessEquipJob(rs);
+            if (usj != null)
+              possessEquipJobIdsToPossessEquipJobsTemp.put(usj.getId(), usj);
+          }
+          possessEquipJobIdsToPossessEquipJobs = possessEquipJobIdsToPossessEquipJobsTemp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        possessEquipJobIdsToPossessEquipJobs = possessEquipJobIdsToPossessEquipJobsTemp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }    
-    
+      }    
+    }
+    DBConnection.close(rs, null, conn);
   }
-  
+
   public static void reload() {
     setStaticPossessEquipJobIdsToPossessEquipJobs();
   }
-  
+
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */

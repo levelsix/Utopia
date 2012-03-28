@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils.rarechange;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class QuestRetrieveUtils {
     }
     return questIdsToQuests.get(questId);
   }
-  
+
   public static QuestGraph getQuestGraph() {
     log.info("retrieving available quests");
     if (questGraph == null) {
@@ -51,45 +52,58 @@ public class QuestRetrieveUtils {
 
   private static void setStaticQuestIdsToQuests() {
     log.info("setting static map of questIds to quests");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        HashMap<Integer, Quest> tmp = new HashMap<Integer, Quest>();
-        while(rs.next()) {
-          Quest quest = convertRSRowToQuest(rs);
-          if (quest != null)
-            tmp.put(quest.getId(), quest);
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          HashMap<Integer, Quest> tmp = new HashMap<Integer, Quest>();
+          while(rs.next()) {
+            Quest quest = convertRSRowToQuest(rs);
+            if (quest != null)
+              tmp.put(quest.getId(), quest);
+          }
+          questIdsToQuests = tmp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        questIdsToQuests = tmp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
       }
-    }    
+    }
+    DBConnection.close(rs,  null, conn);
   }
 
   private static void setStaticQuestGraph() {
     log.info("setting static quest graph");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        List<Quest> quests = new ArrayList<Quest>();
-        while(rs.next()) {  //should only be one
-          Quest quest = convertRSRowToQuest(rs);
-          if (quest != null)
-            quests.add(quest);
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          List<Quest> quests = new ArrayList<Quest>();
+          while(rs.next()) {  //should only be one
+            Quest quest = convertRSRowToQuest(rs);
+            if (quest != null)
+              quests.add(quest);
+          }
+          QuestGraph tmp = new QuestGraph(quests);
+          questGraph = tmp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        QuestGraph tmp = new QuestGraph(quests);
-        questGraph = tmp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }    
+      }    
+    }
+    DBConnection.close(rs, null, conn);
   }
 
   public static void reload() {
@@ -184,7 +198,7 @@ public class QuestRetrieveUtils {
         possessEquipJobsRequired.add(Integer.parseInt(st.nextToken()));
       }
     }
-    
+
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, assetNumWithinCity, 
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 

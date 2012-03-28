@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -19,8 +20,12 @@ public class UserQuestsDefeatTypeJobProgressRetrieveUtils {
   
   public static Map<Integer, Map<Integer, Integer>> getQuestIdToDefeatTypeJobIdsToNumDefeated(int userId) {
     log.info("retrieving user defeatTypeJobProgress info for userId " + userId);
-
-    return convertRSToQuestIdToDefeatTypeJobIdsToNumDefeatedMap(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = convertRSToQuestIdToDefeatTypeJobIdsToNumDefeatedMap(rs);
+    DBConnection.close(rs, null, conn);
+    return questIdToDefeatTypeJobIdsToNumDefeated;
   }
   
   private static Map<Integer, Map<Integer, Integer>> convertRSToQuestIdToDefeatTypeJobIdsToNumDefeatedMap(ResultSet rs) {

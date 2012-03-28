@@ -71,8 +71,10 @@ d) sudo mkdir /vol/Utopia
 e) sudo cp -r bin /vol/Utopia/
 f) sudo cp -r bin /vol/Utopia/
 g) cd bin
-h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c.
+h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c. rm nohup.out
 i) nohup java -cp ../lib/*:./ com.lvl6.server.GameServer <public dns name> 8888 &
+
+nohup for generic logs, log4j
 
 test apns
 

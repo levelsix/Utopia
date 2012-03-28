@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils.rarechange;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -40,21 +41,27 @@ public class LevelsRequiredExperienceRetrieveUtils {
 
   private static void setStaticLevelsToRequiredExperienceForLevels() {
     log.info("setting static map of levels to required experience for levels");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        Map <Integer, Integer> levelsToRequiredExperienceForLevelsTemp = new HashMap<Integer, Integer>();
-        while(rs.next()) {
-          int i = 1;
-          levelsToRequiredExperienceForLevelsTemp.put(rs.getInt(i++), rs.getInt(i++));
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          Map <Integer, Integer> levelsToRequiredExperienceForLevelsTemp = new HashMap<Integer, Integer>();
+          while(rs.next()) {
+            int i = 1;
+            levelsToRequiredExperienceForLevelsTemp.put(rs.getInt(i++), rs.getInt(i++));
+          }
+          levelsToRequiredExperienceForLevels = levelsToRequiredExperienceForLevelsTemp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        levelsToRequiredExperienceForLevels = levelsToRequiredExperienceForLevelsTemp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
       }
-    }    
+    }
+    DBConnection.close(rs, null, conn);
   }
 }
