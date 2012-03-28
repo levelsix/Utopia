@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.lvl6.properties.DBConstants;
@@ -25,11 +26,22 @@ public class DBConnection {
 
   private static final TimeZone timeZone = TimeZone.getDefault();
 
-  private static String user = DBProperties.USER;
-  private static String password = DBProperties.PASSWORD;
-  private static String server = DBProperties.SERVER;
-  private static String database = DBProperties.DATABASE;
-
+  private static final String user = DBProperties.USER;
+  private static final String password = DBProperties.PASSWORD;
+  private static final String server = DBProperties.SERVER;
+  private static final String database = DBProperties.DATABASE;
+  
+  //http://www.mchange.com/projects/c3p0/index.html#basic_pool_configuration
+  private static final int C3P0_NUM_HELPER_THREADS = 6;
+  private static final int C3P0_MAX_STATEMENTS_PER_CONNECTION = 20;
+  private static final int C3P0_MIN_POOL_SIZE = 10;
+  private static final int C3P0_INITIAL_POOL_SIZE = 25;
+  private static final int C3P0_MAX_POOL_SIZE = 50;
+  private static final int C3P0_ACQUIRE_INCREMENT = 5;
+  private static final int C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS = 60*5;
+  private static final int C3P0_MAX_IDLE_TIME = 60*60*10;
+  private static final int C3P0_IDLE_CONNECTION_TEST_PERIOD = 60*60*2;
+  
   private static final int SELECT_LIMIT_NOT_SET = -1;
 
   private static ComboPooledDataSource dataSource;
@@ -65,6 +77,7 @@ public class DBConnection {
 
   public static void init() {
     log = Logger.getLogger(DBConnection.class);
+    log.setLevel(Level.INFO);
 
     dataSource = new ComboPooledDataSource();
     try {
@@ -72,18 +85,21 @@ public class DBConnection {
       dataSource.setJdbcUrl("jdbc:mysql://" + server + "/" + database);
       dataSource.setUser(user);
       dataSource.setPassword(password);
-      dataSource.setNumHelperThreads(6);
-      dataSource.setMaxStatements(180);
-      dataSource.setMinPoolSize(25);
-      dataSource.setMaxPoolSize(50);
-      dataSource.setAcquireIncrement(5);
-
+      dataSource.setNumHelperThreads(C3P0_NUM_HELPER_THREADS);
+      dataSource.setMaxStatementsPerConnection(C3P0_MAX_STATEMENTS_PER_CONNECTION);
+      dataSource.setMinPoolSize(C3P0_MIN_POOL_SIZE);
+      dataSource.setInitialPoolSize(C3P0_INITIAL_POOL_SIZE);
+      dataSource.setMaxPoolSize(C3P0_MAX_POOL_SIZE);
+      dataSource.setAcquireIncrement(C3P0_ACQUIRE_INCREMENT);
+      dataSource.setMaxIdleTimeExcessConnections(C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS);
+      dataSource.setMaxIdleTime(C3P0_MAX_IDLE_TIME);
+      dataSource.setIdleConnectionTestPeriod(C3P0_IDLE_CONNECTION_TEST_PERIOD);
+      dataSource.setAutomaticTestTable(DBConstants.TABLE_C3P0_TEST);
+            
       Connection conn = dataSource.getConnection();
       Statement stmt = conn.createStatement();
       stmt.executeQuery("SET time_zone='"+timeZone.getID()+"'");
       close(null, stmt, conn);
-
-      //TODO: affected rows
     } catch (PropertyVetoException e) {
       e.printStackTrace();
     } catch (SQLException e) {

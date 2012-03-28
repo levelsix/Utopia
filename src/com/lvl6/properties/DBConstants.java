@@ -33,7 +33,7 @@ public class DBConstants {
   public static final String TABLE_REFERRALS = "referrals";
   public static final String TABLE_AVAILABLE_REFERRAL_CODES = "available_referral_codes";
   public static final String TABLE_NEUTRAL_CITY_ELEMENTS = "neutral_city_elems";
-
+  public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";

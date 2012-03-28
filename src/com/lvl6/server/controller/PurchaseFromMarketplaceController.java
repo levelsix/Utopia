@@ -77,7 +77,7 @@ public class PurchaseFromMarketplaceController extends EventController {
         resEvent2.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
         server.writeAPNSNotificationOrEvent(resEvent2);
         
-        User seller = UserRetrieveUtils.getUserById(sellerId);
+        User seller = UserRetrieveUtils.getUserById(sellerId);        
         writeChangesToDB(buyer, seller, mp);
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) {

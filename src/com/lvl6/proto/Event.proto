@@ -38,6 +38,7 @@ message BattleResponseProto {
     required MinimumUserProto attacker = 1;
     required MinimumUserProto defender = 2;
 	required BattleStatus status = 3;
+	required BattleResult battleResult = 7;
 
 	optional int32 coinsGained = 4;
 	optional FullEquipProto equipGained = 5;
