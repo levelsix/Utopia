@@ -132,13 +132,13 @@ public class PostToMarketplaceController extends EventController {
     if (diamondCost > 0) {
       if (equip.getDiamondPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
-        return true;        
+        return false;        
       }
     }
     if (coinCost > 0) {
       if (equip.getCoinPrice() <= 0 || equip.getRarity() == Rarity.EPIC || equip.getRarity() == Rarity.LEGENDARY) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
-        return true;        
+        return false;        
       }
     }
     resBuilder.setStatus(PostToMarketplaceStatus.SUCCESS);
