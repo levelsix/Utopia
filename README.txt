@@ -73,6 +73,8 @@ f) sudo cp -r bin /vol/Utopia/
 g) cd bin
 h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c. rm nohup.out
 i) nohup java -cp ../lib/*:./ com.lvl6.server.GameServer <public dns name> 8888 &
+nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-50-18-173-214.us-west-1.compute.amazonaws.com 8888 &
+
 
 nohup for generic logs, log4j
 
