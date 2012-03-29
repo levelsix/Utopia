@@ -158,6 +158,10 @@ public class PostToMarketplaceController extends EventController {
       MiscMethods.unequipUserEquip(user, reqProto.getPostedEquipId());
     }
 
+    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(0, 0, 1)) {
+      log.error("problem with updating num posts in marketplace after a post");
+    }
+    
     int posterId = reqProto.getSender().getUserId();
     int postedEquipId = reqProto.getPostedEquipId();
     int diamondCost = reqProto.getDiamondCost();

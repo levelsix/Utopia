@@ -144,7 +144,8 @@ public class StartupController extends EventController {
     NIOUtils.prepBuffer(resEvent, writeBuffer);
 
     SocketChannel sc = server.removePreDbPlayer(udid);
-    NIOUtils.channelWrite(sc, writeBuffer);
+    if (sc != null)
+      NIOUtils.channelWrite(sc, writeBuffer);
 
     if (user != null) {
       if (!user.updateLastloginLastlogout(new Timestamp(new Date().getTime()), null)) {

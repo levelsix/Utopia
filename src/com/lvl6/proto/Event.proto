@@ -764,8 +764,9 @@ message PurchaseFromMarketplaceRequestProto {
 message PurchaseFromMarketplaceResponseProto {
      required MinimumUserProto purchaser = 1;
      required int32 posterId = 2;
+     optional FullMarketplacePostProto marketplacePost = 3;
      
-     required PurchaseFromMarketplaceStatus status = 3;
+     required PurchaseFromMarketplaceStatus status = 4;
 
 	enum PurchaseFromMarketplaceStatus {
 		SUCCESS = 0;

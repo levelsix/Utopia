@@ -82,6 +82,8 @@ public class BattleController extends EventController {
 
       resBuilder.setAttacker(attackerProto);
       resBuilder.setDefender(defenderProto);
+      resBuilder.setBattleResult(result);
+
       BattleResponseEvent resEvent = new BattleResponseEvent(attacker.getId());
       resEvent.setTag(event.getTag());
 
@@ -155,7 +157,7 @@ public class BattleController extends EventController {
 
         if (attacker != null && defender != null){
           server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
-          if (result == BattleResult.ATTACKER_WIN && !defender.isFake()) {
+          if (!defender.isFake()) {
             BattleResponseEvent resEvent2 = new BattleResponseEvent(defender.getId());
             resEvent2.setBattleResponseProto(resProto);
             server.writeAPNSNotificationOrEvent(resEvent2);

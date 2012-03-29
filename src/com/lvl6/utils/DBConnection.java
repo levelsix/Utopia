@@ -97,9 +97,11 @@ public class DBConnection {
       dataSource.setAutomaticTestTable(DBConstants.TABLE_C3P0_TEST);
             
       Connection conn = dataSource.getConnection();
+      
       Statement stmt = conn.createStatement();
       stmt.executeQuery("SET time_zone='"+timeZone.getID()+"'");
       close(null, stmt, conn);
+      
     } catch (PropertyVetoException e) {
       e.printStackTrace();
     } catch (SQLException e) {

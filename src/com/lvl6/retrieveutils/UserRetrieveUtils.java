@@ -113,11 +113,7 @@ public class UserRetrieveUtils {
     values.add(levelMin);
     values.add(levelMax);
 
-    String firstQuery = query + "and " + DBConstants.USER__IS_FAKE + "=? ";
-    values.add(false);
-
-    firstQuery += "order by rand() limit ?";
-    query += "order by rand() limit ?";
+    query += "order by " + DBConstants.USER__IS_FAKE + ", rand() limit ?";
     values.add(numUsers);
 
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
@@ -126,11 +122,8 @@ public class UserRetrieveUtils {
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectDirectQueryNaive(conn, firstQuery, values);
+      rs = DBConnection.selectDirectQueryNaive(conn, query, values);
       while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
-        if (numDBHits == 1) {
-          values.remove(values.size()-1);        
-        }
         values.remove(values.size()-1);
         values.remove(values.size()-1);
         values.remove(values.size()-1);
