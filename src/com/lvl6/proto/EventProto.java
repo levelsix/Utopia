@@ -47505,7 +47505,7 @@ public final class EventProto {
     boolean hasPosterId();
     int getPosterId();
     
-    // required .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 3;
+    // optional .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 3;
     boolean hasMarketplacePost();
     com.lvl6.proto.InfoProto.FullMarketplacePostProto getMarketplacePost();
     com.lvl6.proto.InfoProto.FullMarketplacePostProtoOrBuilder getMarketplacePostOrBuilder();
@@ -47647,7 +47647,7 @@ public final class EventProto {
       return posterId_;
     }
     
-    // required .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 3;
+    // optional .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 3;
     public static final int MARKETPLACEPOST_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.FullMarketplacePostProto marketplacePost_;
     public boolean hasMarketplacePost() {
@@ -47689,10 +47689,6 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasMarketplacePost()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasStatus()) {
         memoizedIsInitialized = 0;
         return false;
@@ -47701,9 +47697,11 @@ public final class EventProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getMarketplacePost().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
+      if (hasMarketplacePost()) {
+        if (!getMarketplacePost().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -47994,10 +47992,6 @@ public final class EventProto {
           
           return false;
         }
-        if (!hasMarketplacePost()) {
-          
-          return false;
-        }
         if (!hasStatus()) {
           
           return false;
@@ -48006,9 +48000,11 @@ public final class EventProto {
           
           return false;
         }
-        if (!getMarketplacePost().isInitialized()) {
-          
-          return false;
+        if (hasMarketplacePost()) {
+          if (!getMarketplacePost().isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -48187,7 +48183,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 3;
+      // optional .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 3;
       private com.lvl6.proto.InfoProto.FullMarketplacePostProto marketplacePost_ = com.lvl6.proto.InfoProto.FullMarketplacePostProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullMarketplacePostProto, com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder, com.lvl6.proto.InfoProto.FullMarketplacePostProtoOrBuilder> marketplacePostBuilder_;
@@ -80469,7 +80465,7 @@ public final class EventProto {
       "sterId\030\003 \002(\005\"\264\003\n$PurchaseFromMarketplace" +
       "ResponseProto\0223\n\tpurchaser\030\001 \002(\0132 .com.l" +
       "vl6.proto.MinimumUserProto\022\020\n\010posterId\030\002" +
-      " \002(\005\022A\n\017marketplacePost\030\003 \002(\0132(.com.lvl6" +
+      " \002(\005\022A\n\017marketplacePost\030\003 \001(\0132(.com.lvl6" +
       ".proto.FullMarketplacePostProto\022b\n\006statu" +
       "s\030\004 \002(\0162R.com.lvl6.proto.PurchaseFromMar" +
       "ketplaceResponseProto.PurchaseFromMarket" +

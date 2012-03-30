@@ -41,6 +41,8 @@ public class DBConnection {
   private static final int C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS = 60*5;
   private static final int C3P0_MAX_IDLE_TIME = 60*60*10;
   private static final int C3P0_IDLE_CONNECTION_TEST_PERIOD = 60*60*2;
+  private static final Level MCHANGE_LOG_LEVEL = Level.INFO;
+//  private static final Level MCHANGE_LOG_LEVEL = Level.WARN;
   
   private static final int SELECT_LIMIT_NOT_SET = -1;
 
@@ -77,7 +79,7 @@ public class DBConnection {
 
   public static void init() {
     log = Logger.getLogger(DBConnection.class);
-    log.setLevel(Level.INFO);
+    Logger.getLogger("com.mchange.v2").setLevel(MCHANGE_LOG_LEVEL);
 
     dataSource = new ComboPooledDataSource();
     try {
