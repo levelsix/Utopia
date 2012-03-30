@@ -95,7 +95,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
       return false;
     }
-    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfRetrieval)) {
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfRetrieval)) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }

@@ -84,7 +84,7 @@ public class ExpansionWaitCompleteController extends EventController{
       resBuilder.setStatus(ExpansionWaitCompleteStatus.OTHER_FAIL);
       return false;
     }
-    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
       resBuilder.setStatus(ExpansionWaitCompleteStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }

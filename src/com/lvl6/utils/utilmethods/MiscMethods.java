@@ -39,8 +39,9 @@ public class MiscMethods {
     return false;
   }
 
-  public static boolean checkClientTimeBeforeApproximateNow(Timestamp clientTime) {
-    if (clientTime.getTime() < new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
+  public static boolean checkClientTimeAroundApproximateNow(Timestamp clientTime) {
+    if (clientTime.getTime() < new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000 && 
+        clientTime.getTime() > new Date().getTime() - Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
       return true;
     }
     return false;

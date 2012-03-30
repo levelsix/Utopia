@@ -357,7 +357,7 @@ public class UpdateUtils {
     insertParams.put(DBConstants.USER_EQUIP__QUANTITY, increment);
     int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_EQUIP, insertParams, 
         DBConstants.USER_EQUIP__QUANTITY, increment);
-    if (numUpdated == 1 || numUpdated == 1*2) {
+    if (numUpdated >= 1) {
       return true;
     }
     return false;
@@ -405,7 +405,7 @@ public class UpdateUtils {
     int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_CITIES, insertParams, 
         DBConstants.USER_CITIES__CURRENT_RANK, increment);
 
-    if (numUpdated == 1 || numUpdated == 1*2) {
+    if (numUpdated >= 1) {
       return true;
     }
     return false;
@@ -424,7 +424,7 @@ public class UpdateUtils {
     int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_TASKS, insertParams, 
         DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
 
-    if (numUpdated == 1 || numUpdated == 1*2) {
+    if (numUpdated >= 1) {
       return true;
     }
     return false;
@@ -442,7 +442,7 @@ public class UpdateUtils {
     int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, insertParams, 
         DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
 
-    if (numUpdated == 1 || numUpdated == 1*2) {
+    if (numUpdated >= 1) {
       return true;
     }
     return false;
@@ -459,7 +459,7 @@ public class UpdateUtils {
     int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, insertParams, 
         DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
 
-    if (numUpdated == 1 || numUpdated == 1*2) {
+    if (numUpdated >= 1) {
       return true;
     }
     return false;

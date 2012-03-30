@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -24,13 +23,11 @@ public class DBConnection {
   // log4j logger
   protected static Logger log;
 
-  private static final TimeZone timeZone = TimeZone.getDefault();
-
   private static final String user = DBProperties.USER;
   private static final String password = DBProperties.PASSWORD;
   private static final String server = DBProperties.SERVER;
   private static final String database = DBProperties.DATABASE;
-  
+
   //http://www.mchange.com/projects/c3p0/index.html#basic_pool_configuration
   private static final int C3P0_NUM_HELPER_THREADS = 6;
   private static final int C3P0_MAX_STATEMENTS_PER_CONNECTION = 20;
@@ -42,8 +39,8 @@ public class DBConnection {
   private static final int C3P0_MAX_IDLE_TIME = 60*60*10;
   private static final int C3P0_IDLE_CONNECTION_TEST_PERIOD = 60*60*2;
   private static final Level MCHANGE_LOG_LEVEL = Level.INFO;
-//  private static final Level MCHANGE_LOG_LEVEL = Level.WARN;
-  
+  //  private static final Level MCHANGE_LOG_LEVEL = Level.WARN;
+
   private static final int SELECT_LIMIT_NOT_SET = -1;
 
   private static ComboPooledDataSource dataSource;
@@ -97,16 +94,8 @@ public class DBConnection {
       dataSource.setMaxIdleTime(C3P0_MAX_IDLE_TIME);
       dataSource.setIdleConnectionTestPeriod(C3P0_IDLE_CONNECTION_TEST_PERIOD);
       dataSource.setAutomaticTestTable(DBConstants.TABLE_C3P0_TEST);
-            
-      Connection conn = dataSource.getConnection();
-      
-      Statement stmt = conn.createStatement();
-      stmt.executeQuery("SET time_zone='"+timeZone.getID()+"'");
-      close(null, stmt, conn);
-      
+
     } catch (PropertyVetoException e) {
-      e.printStackTrace();
-    } catch (SQLException e) {
       e.printStackTrace();
     }
   }

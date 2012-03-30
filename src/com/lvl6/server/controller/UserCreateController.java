@@ -275,7 +275,7 @@ public class UserCreateController extends EventController {
       resBuilder.setStatus(UserCreateStatus.USER_WITH_UDID_ALREADY_EXISTS);
       return false;
     }
-    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfDiamondInstabuild) || !MiscMethods.checkClientTimeBeforeApproximateNow(timeOfStructPurchase)) {
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfDiamondInstabuild) || !MiscMethods.checkClientTimeAroundApproximateNow(timeOfStructPurchase)) {
       resBuilder.setStatus(UserCreateStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }
