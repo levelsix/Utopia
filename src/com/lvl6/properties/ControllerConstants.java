@@ -20,16 +20,16 @@ public class ControllerConstants {
   public static final CoordinatePair CARPENTER_COORDS = new CoordinatePair(10, 5);
   public static final CoordinatePair AVIARY_COORDS = new CoordinatePair(9, 10);
   
-  public static final int ARMORY_XLENGTH = 3;
-  public static final int ARMORY_YLENGTH = 3;
-  public static final int VAULT_XLENGTH = 3;
-  public static final int VAULT_YLENGTH = 3;
-  public static final int MARKETPLACE_XLENGTH = 3;
-  public static final int MARKETPLACE_YLENGTH = 3;
-  public static final int CARPENTER_XLENGTH = 3;
-  public static final int CARPENTER_YLENGTH = 3;
-  public static final int AVIARY_XLENGTH = 3;
-  public static final int AVIARY_YLENGTH = 3;
+  public static final int ARMORY_XLENGTH = 2;
+  public static final int ARMORY_YLENGTH = 2;
+  public static final int VAULT_XLENGTH = 2;
+  public static final int VAULT_YLENGTH = 2;
+  public static final int MARKETPLACE_XLENGTH = 2;
+  public static final int MARKETPLACE_YLENGTH = 2;
+  public static final int CARPENTER_XLENGTH = 2;
+  public static final int CARPENTER_YLENGTH = 2;
+  public static final int AVIARY_XLENGTH = 2;
+  public static final int AVIARY_YLENGTH = 2;
   
   public static final int MIN_LEVEL_FOR_ARMORY = 3;
   public static final int MIN_LEVEL_FOR_VAULT = 4;
@@ -86,11 +86,11 @@ public class ControllerConstants {
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
   
   //ARMORY
-  public static final double ARMORY__SELL_RATIO = 0.2;
+  public static final double ARMORY__SELL_RATIO = 0.15;
   
   //BATTLE
   public static final int BATTLE__MAX_ITEMS_USED = 4;   //unused right now
-  public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 20;
+  public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
   public static final int BATTLE__MIN_EXP_GAIN = 1;
   public static final int BATTLE__MAX_EXP_GAIN = 5;
   public static final double BATTLE__A = .1;		//must be <= 1
@@ -106,7 +106,7 @@ public class ControllerConstants {
   public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .20;
   
   //TASK ACTION
-  public static final int TASK_ACTION__MAX_CITY_RANK = 6;
+  public static final int TASK_ACTION__MAX_CITY_RANK = 5;
   
   //PURCHASE NORM STRUCTURE
   public static final int PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE = 2;
@@ -115,7 +115,7 @@ public class ControllerConstants {
   public static final int UPGRADE_NORM_STRUCTURE__MAX_STRUCT_LEVEL = 5;
   
   //SELL NORM STRUCTURE
-  public static final double SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER = .3;
+  public static final double SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER = .2;
   
   //RETRIEVE CURRENT MARKETPLACE POSTS
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP = 100;
@@ -151,8 +151,8 @@ public class ControllerConstants {
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;
   
   //REFILL STAT WAIT COMPLETE
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 3;
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 4;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 4;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 3;
 
   //PURCHASE MARKETPLACE LICENSE
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
@@ -164,12 +164,12 @@ public class ControllerConstants {
   public static final int USER_CREATE__START_LEVEL = 2;
   public static final int USER_CREATE__MIN_NAME_LENGTH = 3;
   public static final int USER_CREATE__MAX_NAME_LENGTH = 15;
-  public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 15;
-  public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 15;
+  public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
+  public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 10;
   
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
-  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 300;
+  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 35;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
