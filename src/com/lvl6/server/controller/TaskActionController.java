@@ -281,6 +281,9 @@ public class TaskActionController extends EventController {
   }
 
   private int chooseLootEquipId(Task task) {
+    if (task.getPotentialLootEquipIds() == null || task.getPotentialLootEquipIds().size() <= 1) {
+      return ControllerConstants.NOT_SET;
+    }
     if (Math.random() < task.getChanceOfEquipFloat()) {
       int randIndex = (int)(Math.random() * task.getPotentialLootEquipIds().size());
       return task.getPotentialLootEquipIds().get(randIndex);
