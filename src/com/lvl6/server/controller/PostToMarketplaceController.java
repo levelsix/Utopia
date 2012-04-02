@@ -132,13 +132,13 @@ public class PostToMarketplaceController extends EventController {
     if (diamondCost > 0) {
       if (equip.getDiamondPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
-        return true;        
+        return false;        
       }
     }
     if (coinCost > 0) {
       if (equip.getCoinPrice() <= 0 || equip.getRarity() == Rarity.EPIC || equip.getRarity() == Rarity.LEGENDARY) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
-        return true;        
+        return false;        
       }
     }
     resBuilder.setStatus(PostToMarketplaceStatus.SUCCESS);
@@ -158,6 +158,10 @@ public class PostToMarketplaceController extends EventController {
       MiscMethods.unequipUserEquip(user, reqProto.getPostedEquipId());
     }
 
+    if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(0, 0, 1)) {
+      log.error("problem with updating num posts in marketplace after a post");
+    }
+    
     int posterId = reqProto.getSender().getUserId();
     int postedEquipId = reqProto.getPostedEquipId();
     int diamondCost = reqProto.getDiamondCost();

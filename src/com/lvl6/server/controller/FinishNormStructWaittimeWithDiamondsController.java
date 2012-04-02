@@ -81,7 +81,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
         }
         if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, 
-              userStruct.getId(), userStruct.getLevel() + 1, null, null);
+              userStruct.getStructId(), userStruct.getLevel() + 1, null, null);
         }
       }
     } catch (Exception e) {
@@ -126,7 +126,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
       return false;
     }
-    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfPurchase)) {
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }

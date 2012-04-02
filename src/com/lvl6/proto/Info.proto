@@ -129,7 +129,6 @@ message FullUserEquipProto {
 	required int32 userId = 1;
 	required int32 equipId = 2;
 	required int32 quantity = 3;
-	required bool isStolen = 4;
 }
 
 //------------------------------------------------------------------------------------------
@@ -165,8 +164,9 @@ message FullTaskProto {
 	repeated int32 potentialLootEquipIds = 9;
 	required int32 expGained = 10;
 	required int32 assetNumWithinCity = 11;
+	required string processingText = 12;
 	
-	repeated FullTaskEquipReqProto equipReqs = 12;
+	repeated FullTaskEquipReqProto equipReqs = 13;
 	
 	message FullTaskEquipReqProto {
 		required int32 taskId = 1;
@@ -195,7 +195,6 @@ message FullCityProto {
 
 message FullUserCityExpansionDataProto {
 	required int32 userId = 1;
-	required int32 nearLeftExpansions = 2;
 	required int32 farLeftExpansions = 3;
 	required int32 farRightExpansions = 4;
 	required bool isExpanding = 5;
@@ -302,9 +301,8 @@ enum StructOrientation {
 }
 
 enum ExpansionDirection {
-	NEAR_LEFT = 0;
-	FAR_LEFT = 1;
-	FAR_RIGHT = 2;
+	FAR_LEFT = 0;
+	FAR_RIGHT = 1;
 }
 
 //------------------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,7 +21,12 @@ public class UserQuestRetrieveUtils {
   
   public static List<UserQuest> getInProgressAndRedeemedUserQuestsForUser(int userId) {
     log.info("retrieving user quests for userId " + userId);
-    return convertRSToUserQuests(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    List<UserQuest> userQuests = convertRSToUserQuests(rs);
+    DBConnection.close(rs, null, conn);
+    return userQuests;
   }
   
   public static List<UserQuest> getInProgressUserQuestsForUser(int userId) {
@@ -28,12 +34,22 @@ public class UserQuestRetrieveUtils {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
-    return convertRSToUserQuests(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    List<UserQuest> userQuests = convertRSToUserQuests(rs);
+    DBConnection.close(rs, null, conn);
+    return userQuests;
   }
 
   public static List<UserQuest> getUserQuestsForUser(int userId) {
     log.info("retrieving user quests for userId " + userId);
-    return convertRSToUserQuests(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    List<UserQuest> userQuests = convertRSToUserQuests(rs);
+    DBConnection.close(rs, null, conn);
+    return userQuests;
   }
   
   public static UserQuest getSpecificUnredeemedUserQuest(int userId, int questId) {
@@ -42,7 +58,12 @@ public class UserQuestRetrieveUtils {
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
-    return convertRSToSingleUserQuest(DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    UserQuest userQuest = convertRSToSingleUserQuest(rs);
+    DBConnection.close(rs, null, conn);
+    return userQuest;
   }
   
   private static UserQuest convertRSToSingleUserQuest(ResultSet rs) {

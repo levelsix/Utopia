@@ -144,7 +144,8 @@ public class StartupController extends EventController {
     NIOUtils.prepBuffer(resEvent, writeBuffer);
 
     SocketChannel sc = server.removePreDbPlayer(udid);
-    NIOUtils.channelWrite(sc, writeBuffer);
+    if (sc != null)
+      NIOUtils.channelWrite(sc, writeBuffer);
 
     if (user != null) {
       if (!user.updateLastloginLastlogout(new Timestamp(new Date().getTime()), null)) {
@@ -335,7 +336,6 @@ public class StartupController extends EventController {
         .setWarriorInitArmor(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID)))
         .setTutorialQuest(tqbp).setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
         .setTutorialQuest(tqbp).setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
-        .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
         .setDiamondRewardForBeingReferred(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED)
         .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
         .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)

@@ -1,7 +1,9 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.QuestAcceptRequestEvent;
@@ -9,15 +11,19 @@ import com.lvl6.events.response.QuestAcceptResponseEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
 import com.lvl6.info.UserQuest;
+import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.proto.EventProto.QuestAcceptRequestProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.Builder;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -56,6 +62,35 @@ public class QuestAcceptController extends EventController {
 
       boolean legitRedeem = checkLegitRedeem(resBuilder, user, quest);
 
+      boolean defeatTypeJobsComplete = true;
+      if (legitRedeem) {
+        resBuilder.setCityIdOfAcceptedQuest(quest.getCityId());
+        boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
+        List<Integer> defeatTypeJobIds = (goodSide) ? quest.getDefeatBadGuysJobsRequired()
+            : quest.getDefeatGoodGuysJobsRequired();
+        if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) {
+          defeatTypeJobsComplete = false;
+          Map<Integer, DefeatTypeJob> defeatTypeJobIdsToDefeatTypeJobs = DefeatTypeJobRetrieveUtils.getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobIds);
+          if (defeatTypeJobIdsToDefeatTypeJobs != null) {
+            Map<UserType, Integer> numToGenerate = new HashMap<UserType, Integer>();
+            for (DefeatTypeJob dtj : defeatTypeJobIdsToDefeatTypeJobs.values()) {
+              numToGenerate.put(dtj.getEnemyType(), dtj.getNumEnemiesToDefeat());
+            }
+            for (UserType type : numToGenerate.keySet()) {
+              List<UserType> temp = new ArrayList<UserType>();
+              temp.add(type);
+              List<User> users = UserRetrieveUtils.getUsers(temp,
+                  numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true);
+              if (users != null) {
+                for (User u : users) {
+                  resBuilder.addEnemiesIfQuestsHaveDefeatTypeJob(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
+                }
+              }
+            }
+          }
+        }
+      }
+      
       QuestAcceptResponseEvent resEvent = new QuestAcceptResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setQuestAcceptResponseProto(resBuilder.build());  
@@ -63,17 +98,6 @@ public class QuestAcceptController extends EventController {
 
       if (legitRedeem) {
         boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
-        boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
-        boolean defeatTypeJobsComplete = true;
-        if (goodSide) {
-          if (quest.getDefeatBadGuysJobsRequired() != null && quest.getDefeatBadGuysJobsRequired().size() > 0) {
-            defeatTypeJobsComplete = false;
-          }
-        } else {
-          if (quest.getDefeatGoodGuysJobsRequired() != null && quest.getDefeatGoodGuysJobsRequired().size() > 0) {
-            defeatTypeJobsComplete = false;
-          }      
-        }
         UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete);
         writeChangesToDB(uq);
         QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null);

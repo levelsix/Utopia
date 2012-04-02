@@ -38,6 +38,7 @@ message BattleResponseProto {
     required MinimumUserProto attacker = 1;
     required MinimumUserProto defender = 2;
 	required BattleStatus status = 3;
+	required BattleResult battleResult = 7;
 
 	optional int32 coinsGained = 4;
 	optional FullEquipProto equipGained = 5;
@@ -181,7 +182,7 @@ message StartupResponseProto {
 		required int32 staminaBaseCost = 26;
 		
 		required int32 skillPointsGainedOnLevelup = 27;
-		required int32 cutOfVaultDepositTaken = 28;
+		required double cutOfVaultDepositTaken = 28;
 		
 		required int32 maxLevelForStruct = 33;
 		required int32 maxNumOfSingleStruct = 34;
@@ -203,8 +204,13 @@ message StartupResponseProto {
 
 		required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
 		required double percentReturnedToUserForSellingEquipInArmory = 5;
-		    	   	
-		//ADD a bunch of other important constants
+		
+		required int32 diamondRewardForReferrer = 47;
+		required int32 maxCityRank = 50;
+		
+		required int32 minLevelForArmory = 51;
+		required int32 minLevelForVault = 52;
+		required int32 minLevelForMarketplace = 53;
 	}
 	
 	message TutorialConstants {
@@ -232,7 +238,7 @@ message StartupResponseProto {
 		
 		required int32 minNameLength = 19;
 		required int32 maxNameLength = 20;
-		required int32 diamondRewardForReferrer = 21;
+
 		required int32 diamondRewardForBeingReferred = 22;		
 
      	repeated NeutralCityElementProto firstCityElementsForGood = 23;
@@ -319,7 +325,8 @@ message UserCreateResponseProto {
 		USER_WITH_UDID_ALREADY_EXISTS = 3;
      	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
      	INVALID_SKILL_POINT_ALLOCATION = 5;
-		OTHER_FAIL = 6;
+     	INVALID_REFER_CODE = 6;
+		OTHER_FAIL = 7;
 	}  
 }
 
@@ -382,6 +389,7 @@ message TaskActionResponseProto {
 	
 	optional int32 coinBonusIfCityRankup = 7;
 	optional int32 expBonusIfCityRankup = 8;
+	optional int32 cityId = 9;
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 
@@ -756,8 +764,9 @@ message PurchaseFromMarketplaceRequestProto {
 message PurchaseFromMarketplaceResponseProto {
      required MinimumUserProto purchaser = 1;
      required int32 posterId = 2;
+     optional FullMarketplacePostProto marketplacePost = 3;
      
-     required PurchaseFromMarketplaceStatus status = 3;
+     required PurchaseFromMarketplaceStatus status = 4;
 
 	enum PurchaseFromMarketplaceStatus {
 		SUCCESS = 0;
@@ -911,6 +920,8 @@ message QuestAcceptRequestProto {
 message QuestAcceptResponseProto {
      required MinimumUserProto sender = 1;
      required QuestAcceptStatus status = 2;
+     repeated FullUserProto enemiesIfQuestsHaveDefeatTypeJob = 3;
+     optional int32 cityIdOfAcceptedQuest = 4;
 
      enum QuestAcceptStatus {
           SUCCESS = 0;
@@ -1231,4 +1242,16 @@ message RetrieveUserEquipForUserResponseProto {
 																						//DONE
 message PurgeClientStaticDataResponseProto {
      required int32 senderId = 1;
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveUsersForUserIdsRequestProto {
+    required MinimumUserProto sender = 1;
+	repeated int32 requestedUserIds = 2;
+}
+
+message RetrieveUsersForUserIdsResponseProto {
+    required MinimumUserProto sender = 1;
+	repeated FullUserProto requestedUsers = 2;
 }

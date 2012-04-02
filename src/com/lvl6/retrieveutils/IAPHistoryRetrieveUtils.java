@@ -1,4 +1,5 @@
 package com.lvl6.retrieveutils;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.TreeMap;
@@ -13,24 +14,37 @@ public class IAPHistoryRetrieveUtils {
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_IAP_HISTORY;
-  
+
   public static boolean checkIfDuplicateTransaction(long transactionId) {
     log.info("checking if transaction already exists");
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.IAP_HISTORY__TRANSACTION_ID, transactionId);
-    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        while(rs.next()) {
-          return true;
+
+    boolean isDuplicateTransaction = false;
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          while(rs.next()) {
+            isDuplicateTransaction = true;
+          }
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    } 
-    return false;
+      } 
+    }
+    DBConnection.close(rs, null, conn);
+    return isDuplicateTransaction;
   }
+
+
+
+
+
 }

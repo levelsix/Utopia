@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils.rarechange;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -37,25 +38,32 @@ public class StructureRetrieveUtils {
 
   private static void setStaticStructIdsToStructs() {
     log.info("setting static map of structIds to structs");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        HashMap<Integer, Structure> structIdsToStructsTemp = new HashMap<Integer, Structure>();
-        while(rs.next()) {
-          Structure struct = convertRSRowToStruct(rs);
-          if (struct != null)
-            structIdsToStructsTemp.put(struct.getId(), struct);
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          HashMap<Integer, Structure> structIdsToStructsTemp = new HashMap<Integer, Structure>();
+          while(rs.next()) {
+            Structure struct = convertRSRowToStruct(rs);
+            if (struct != null)
+              structIdsToStructsTemp.put(struct.getId(), struct);
+          }
+          structIdsToStructs = structIdsToStructsTemp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        structIdsToStructs = structIdsToStructsTemp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }    
+      }    
+    }
+    DBConnection.close(rs, null, conn);
   }
-  
+
   public static void reload() {
     setStaticStructIdsToStructs();
   }
@@ -81,12 +89,12 @@ public class StructureRetrieveUtils {
     int instaBuildDiamondCost = rs.getInt(i++);
     int instaRetrieveDiamondCost = rs.getInt(i++);
     int instaUpgradeDiamondCost = rs.getInt(i++);
-    
+
     if (coinPriceSet && diamondPriceSet) {
       log.error("struct cannot have coin price and diamond price");
       return null;
     }
-    
+
     return new Structure(id, name, income, minutesToGain, minutesToBuild, minutesToUpgradeBase, coinPrice, 
         diamondPrice, minLevel, xLength, yLength, instaBuildDiamondCost, instaRetrieveDiamondCost, 
         instaUpgradeDiamondCost);

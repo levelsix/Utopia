@@ -108,7 +108,6 @@ public class CreateInfoProtoUtils {
 
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
-        .setNearLeftExpansions(uced.getNearLeftExpansions())
         .setFarLeftExpansions(uced.getFarLeftExpansions()).setFarRightExpansions(uced.getFarRightExpansions())
         .setIsExpanding(uced.isExpanding());
     if (uced.getLastExpandTime() != null) {
@@ -244,7 +243,7 @@ public class CreateInfoProtoUtils {
 
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
     return FullUserEquipProto.newBuilder().setUserId(ue.getUserId()).setEquipId(ue.getEquipId())
-        .setQuantity(ue.getQuantity()).setIsStolen(ue.isStolen()).build();
+        .setQuantity(ue.getQuantity()).build();
   }
 
   public static FullUserCritstructProto createFullUserCritstructProtoFromUserCritstruct(UserCritstruct uc) {
@@ -258,17 +257,21 @@ public class CreateInfoProtoUtils {
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
 
     String name = null;
+    String processingText = null;
 
     if (goodSide) {
       name = task.getGoodName();
+      processingText = task.getGoodProcessingText();
     } else {
       name = task.getBadName();
+      processingText = task.getBadProcessingText();
     }
 
     FullTaskProto.Builder builder = FullTaskProto.newBuilder().setTaskId(task.getId()).setName(name).setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
         .setMaxCoinsGained(task.getMaxCoinsGained()).setChanceOfEquipLoot(task.getChanceOfEquipFloat())
         .setExpGained(task.getExpGained()).setAssetNumWithinCity(task.getAssetNumberWithinCity()).
-        setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds());
+        setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds())
+        .setProcessingText(processingText);
 
     Map<Integer, Integer> equipIdsToQuantity = TaskEquipReqRetrieveUtils.getEquipmentIdsToQuantityForTaskId(task.getId());
     if (equipIdsToQuantity != null && equipIdsToQuantity.size() > 0) {

@@ -24,13 +24,7 @@ import com.lvl6.utils.DBConnection;
 public class InsertUtils {
   
   public static boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity) {
-    if (equipIds != null && equipIds.size() > 0) {
-      
-    }
-    
-//insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
-
-    
+      //insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
     
     Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, new ArrayList<Object>());
@@ -110,7 +104,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID, questId);
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID, dtjId);
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS, insertParams);
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -230,6 +224,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__BUYER_ID, buyerId);
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType.getNumber());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST, mp.getTimeOfPost());
+    insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, new Timestamp(new Date().getTime()));
     
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
     if (mp.getDiamondCost() > 0){
@@ -252,7 +247,8 @@ public class InsertUtils {
 
     insertParams.put(DBConstants.REFERRALS__REFERRER_ID, referrerId);
     insertParams.put(DBConstants.REFERRALS__NEWLY_REFERRED_ID, referredId);
-
+    insertParams.put(DBConstants.REFERRALS__TIME_OF_REFERRAL, new Timestamp(new Date().getTime()));
+    
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_REFERRALS, insertParams);
     if (numInserted == 1) {
       return true;

@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -20,7 +21,11 @@ public class UserQuestsTaskProgressRetrieveUtils {
   public static Map<Integer, Map<Integer, Integer>> getQuestIdToTaskIdsToNumTimesActedInQuest(int userId) {
     log.info("retrieving user taskProgress info for userId " + userId);
 
-    return convertRSToQuestIdToTaskIdsToNumTimesActedForQuestMap(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = convertRSToQuestIdToTaskIdsToNumTimesActedForQuestMap(rs);
+    DBConnection.close(rs, null, conn);
+    return questIdToTaskIdsToNumTimesActedInQuest;
   }
   
   private static Map<Integer, Map<Integer, Integer>> convertRSToQuestIdToTaskIdsToNumTimesActedForQuestMap(ResultSet rs) {

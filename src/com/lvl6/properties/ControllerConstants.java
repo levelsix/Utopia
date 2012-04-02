@@ -81,7 +81,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 3;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 20;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 2;
-  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 1;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 250;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
   
@@ -100,7 +100,7 @@ public class ControllerConstants {
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
   
   //POST TO MARKETPLACE
-  public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 5;  
+  public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 50;  
   
   //PURCHASE FROM MARKETPLACE
   public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .20;
@@ -136,16 +136,16 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
   
   //VAULT
-  public static final int VAULT__DEPOSIT_PERCENT_CUT = 10;
+  public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
   
   //REFILL STAT WITH DIAMONDS
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 10;
   public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
   
   //PLACE CRIT STRUCT
-  public static final double PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY = 3;
-  public static final double PLACE_CRITSTRUCT__MIN_LEVEL_VAULT = 4;
-  public static final double PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE = 5;
+  public static final int PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY = 3;
+  public static final int PLACE_CRITSTRUCT__MIN_LEVEL_VAULT = 4;
+  public static final int PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE = 5;
 
   //LOAD PLAYER CITY
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;

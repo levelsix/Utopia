@@ -286,7 +286,7 @@ public class GameServer extends Thread{
   
   //returns -1 if he's not in there
   public synchronized int getPlayerIdOnChannel(SocketChannel channel) {
-    if (channelToPlayerId.contains(channel)) {
+    if (channelToPlayerId.keySet().contains(channel)) {
       return channelToPlayerId.get(channel);
     }
     return -1;

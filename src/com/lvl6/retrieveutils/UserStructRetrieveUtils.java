@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -26,17 +27,32 @@ public class UserStructRetrieveUtils {
 
   public static List<UserStruct> getUserStructsForUser(int userId) {
     log.info("retrieving user structs for userId " + userId);
-    return convertRSToUserStructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    List<UserStruct> userStructs = convertRSToUserStructs(rs);
+    DBConnection.close(rs, null, conn);
+    return userStructs;
   }
 
   public static Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
     log.info("retrieving user structs for userId " + userId);
-    return convertRSToStructIdsToUserStructs(DBConnection.selectRowsByUserId(userId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Map<Integer, List<UserStruct>> structIdToUserStructs = convertRSToStructIdsToUserStructs(rs);
+    DBConnection.close(rs, null, conn);
+    return structIdToUserStructs;
   }
 
   public static UserStruct getSpecificUserStruct(int userStructId) {
     log.info("retrieving user structs for user struct id " + userStructId);
-    return convertRSSingleToUserStructs(DBConnection.selectRowsById(userStructId, TABLE_NAME));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsById(conn, userStructId, TABLE_NAME);
+    UserStruct userStruct = convertRSSingleToUserStructs(rs);
+    DBConnection.close(rs, null, conn);
+    return userStruct;
   }
 
   public static List<UserStruct> getUserStructs(List<Integer> userStructIds) {
@@ -52,7 +68,12 @@ public class UserStructRetrieveUtils {
       values.add(userStructId);
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
-    return convertRSToUserStructs(DBConnection.selectDirectQueryNaive(query, values));
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectDirectQueryNaive(conn, query, values);
+    List<UserStruct> userStructs = convertRSToUserStructs(rs);
+    DBConnection.close(rs, null, conn);
+    return userStructs;
   }
 
   private static List<UserStruct> convertRSToUserStructs(ResultSet rs) {

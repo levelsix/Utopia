@@ -86,41 +86,39 @@ public class TaskActionController extends EventController {
 
       boolean legitAction = checkLegitAction(user, task, clientTime, resBuilder);
       if (legitAction) {
+        resBuilder.setCityId(task.getCityId());
         coinsGained = calculateCoinsGained(task);
         resBuilder.setCoinsGained(coinsGained);
         lootEquipId = chooseLootEquipId(task);
         if (lootEquipId != ControllerConstants.NOT_SET) {
           resBuilder.setLootEquipId(lootEquipId);
         }
-        Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
-        int numTimesActedInRank = 0;
-        if (taskIdToNumTimesActedInRank != null && taskIdToNumTimesActedInRank.get(task.getId()) != null) {
-          numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
-        }
-        numTimesActedInRank++;
 
-        taskIdToNumTimesActedInRank.put(task.getId(), numTimesActedInRank);
-
-        if (numTimesActedInRank > task.getNumForCompletion()) {
-          changeNumTimesUserActedInDB = false;
-        }
-        if (numTimesActedInRank == task.getNumForCompletion()) {
-          taskCompleted = true;
-          tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(task.getCityId());
-          cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
-          if (cityRankedUp) {
-            int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
-            if (cityRank != ControllerConstants.NOT_SET) {
-              if (cityRank == ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
-                cityRankedUp = false;
+        int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
+        if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
+          Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
+          int numTimesActedInRank = 0;
+          if (taskIdToNumTimesActedInRank != null && taskIdToNumTimesActedInRank.get(task.getId()) != null) {
+            numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
+          }
+          numTimesActedInRank++;
+          taskIdToNumTimesActedInRank.put(task.getId(), numTimesActedInRank);
+          if (numTimesActedInRank > task.getNumForCompletion()) {
+            changeNumTimesUserActedInDB = false;
+          }
+          if (numTimesActedInRank == task.getNumForCompletion()) {
+            taskCompleted = true;
+            tasksInCity = TaskRetrieveUtils.getAllTasksForCityId(task.getCityId());
+            cityRankedUp = checkCityRankup(taskIdToNumTimesActedInRank, task.getCityId(), tasksInCity);
+            if (cityRankedUp) {
+              if (cityRank != ControllerConstants.NOT_SET) {
+                City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
+                int multiplier = cityRank+1;
+                coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
+                resBuilder.setCoinBonusIfCityRankup(coinBonus);
+                expBonus = multiplier * city.getExpGainedBaseOnRankup();
+                resBuilder.setExpBonusIfCityRankup(expBonus);
               }
-              cityRank++;
-              City city = CityRetrieveUtils.getCityForCityId(task.getCityId());
-              int multiplier = cityRank;
-              coinBonus = multiplier * city.getCoinsGainedBaseOnRankup();
-              resBuilder.setCoinBonusIfCityRankup(coinBonus);
-              expBonus = multiplier * city.getExpGainedBaseOnRankup();
-              resBuilder.setExpBonusIfCityRankup(expBonus);
             }
           }
         }
@@ -283,6 +281,9 @@ public class TaskActionController extends EventController {
   }
 
   private int chooseLootEquipId(Task task) {
+    if (task.getPotentialLootEquipIds() == null || task.getPotentialLootEquipIds().size() <= 1) {
+      return ControllerConstants.NOT_SET;
+    }
     if (Math.random() < task.getChanceOfEquipFloat()) {
       int randIndex = (int)(Math.random() * task.getPotentialLootEquipIds().size());
       return task.getPotentialLootEquipIds().get(randIndex);
@@ -300,7 +301,7 @@ public class TaskActionController extends EventController {
       return false;
     } 
 
-    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
       resBuilder.setStatus(TaskActionStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }

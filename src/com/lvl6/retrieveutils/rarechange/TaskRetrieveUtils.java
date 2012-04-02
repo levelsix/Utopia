@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils.rarechange;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class TaskRetrieveUtils {
     }
     Map<Integer, Task> toreturn = new HashMap<Integer, Task>();
     for (Integer id : ids) {
-        toreturn.put(id,  taskIdsToTasks.get(id));
+      toreturn.put(id,  taskIdsToTasks.get(id));
     }
     return toreturn;
   }
@@ -60,51 +61,63 @@ public class TaskRetrieveUtils {
 
   private static void setStaticCityIdsToTasks() {
     log.info("setting static map of cityId to tasks");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
 
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        Map<Integer, List<Task>> cityIdToTasksTemp = new HashMap<Integer, List<Task>>();
-        while(rs.next()) {  //should only be one
-          Task task = convertRSRowToTask(rs);
-          if (task != null) {
-            if (cityIdToTasksTemp.get(task.getCityId()) == null) {
-              cityIdToTasksTemp.put(task.getCityId(), new ArrayList<Task>());
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          Map<Integer, List<Task>> cityIdToTasksTemp = new HashMap<Integer, List<Task>>();
+          while(rs.next()) {  //should only be one
+            Task task = convertRSRowToTask(rs);
+            if (task != null) {
+              if (cityIdToTasksTemp.get(task.getCityId()) == null) {
+                cityIdToTasksTemp.put(task.getCityId(), new ArrayList<Task>());
+              }
+              cityIdToTasksTemp.get(task.getCityId()).add(task);
             }
-            cityIdToTasksTemp.get(task.getCityId()).add(task);
           }
+          cityIdsToTasks = cityIdToTasksTemp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        cityIdsToTasks = cityIdToTasksTemp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }    
+      }    
+    }
+    DBConnection.close(rs, null, conn);
   }
 
   private static void setStaticTaskIdsToTasks() {
     log.info("setting static map of taskIds to tasks");
-    ResultSet rs = DBConnection.selectWholeTable(TABLE_NAME);
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        HashMap<Integer, Task> taskIdsToTasksTemp = new HashMap<Integer, Task>();
-        while(rs.next()) {  //should only be one
-          Task task = convertRSRowToTask(rs);
-          if (task != null)
-            taskIdsToTasksTemp.put(task.getId(), task);
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          HashMap<Integer, Task> taskIdsToTasksTemp = new HashMap<Integer, Task>();
+          while(rs.next()) {  //should only be one
+            Task task = convertRSRowToTask(rs);
+            if (task != null)
+              taskIdsToTasksTemp.put(task.getId(), task);
+          }
+          taskIdsToTasks = taskIdsToTasksTemp;
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
         }
-        taskIdsToTasks = taskIdsToTasksTemp;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }    
+      }    
+    }
+    DBConnection.close(rs, null, conn);
   }
-  
+
   public static void reload() {
     setStaticCityIdsToTasks();
     setStaticTaskIdsToTasks();
@@ -134,9 +147,12 @@ public class TaskRetrieveUtils {
     int expGained = rs.getInt(i++);
     int assetNumWithinCity = rs.getInt(i++);
     int numForCompletion = rs.getInt(i++);
-
+    String goodProcessingText = rs.getString(i++);
+    String badProcessingText = rs.getString(i++);
+    
     Task task = new Task(id, goodName, badName, cityId, energyCost, minCoinsGained, maxCoinsGained, 
-        chanceOfEquipLoot, equipIds, expGained, assetNumWithinCity, numForCompletion);
+        chanceOfEquipLoot, equipIds, expGained, assetNumWithinCity, numForCompletion, goodProcessingText, 
+        badProcessingText);
     return task;
   }
 }

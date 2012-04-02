@@ -33,7 +33,7 @@ public class DBConstants {
   public static final String TABLE_REFERRALS = "referrals";
   public static final String TABLE_AVAILABLE_REFERRAL_CODES = "available_referral_codes";
   public static final String TABLE_NEUTRAL_CITY_ELEMENTS = "neutral_city_elems";
-
+  public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -89,7 +89,6 @@ public class DBConstants {
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;
   public static final String USER_EQUIP__EQUIP_ID = "equip_id";
   public static final String USER_EQUIP__QUANTITY = "quantity";
-  public static final String USER_EQUIP__IS_STOLEN = "is_stolen";
 
   /*EQUIPMENT TABLE*/
   public static final String EQUIPMENT__ID = GENERIC__ID;
@@ -174,7 +173,6 @@ public class DBConstants {
   public static final String USER_CITY_ELEMS__AVIARY_X_COORD = "aviary_xcoord";
   public static final String USER_CITY_ELEMS__AVIARY_Y_COORD = "aviary_ycoord";
   public static final String USER_CITY_ELEMS__AVIARY_ORIENTATION = "aviary_orientation";
-  public static final String USER_CITY_ELEMS__NEAR_LEFT_EXPANSIONS = "near_left_expansions";
   public static final String USER_CITY_ELEMS__FAR_LEFT_EXPANSIONS = "far_left_expansions";
   public static final String USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS = "far_right_expansions";
   public static final String USER_CITY_ELEMS__IS_EXPANDING = "is_expanding";

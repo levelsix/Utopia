@@ -105,7 +105,7 @@ public class PurchaseNormStructureController extends EventController {
       resBuilder.setStatus(PurchaseNormStructureStatus.OTHER_FAIL);
       return false;
     }
-    if (!MiscMethods.checkClientTimeBeforeApproximateNow(timeOfPurchase)) {
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
       resBuilder.setStatus(PurchaseNormStructureStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }

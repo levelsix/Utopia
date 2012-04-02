@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -30,7 +31,11 @@ public class BattleDetailsRetrieveUtils {
     TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
     greaterThanParams.put(DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, lastLogout);
     
-    return convertRSToBattleDetailsList(DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, greaterThanParams));
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, greaterThanParams);
+    List<BattleDetails> battleDetailsList = convertRSToBattleDetailsList(rs);
+    DBConnection.close(rs, null, conn);
+    return battleDetailsList;
   }
   
   private static List<BattleDetails> convertRSToBattleDetailsList(ResultSet rs) {

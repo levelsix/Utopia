@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -28,7 +29,11 @@ public class ReferralsRetrieveUtils {
     TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
     greaterThanParams.put(DBConstants.REFERRALS__TIME_OF_REFERRAL, lastLogout);
     
-    return convertRSToReferralsList(DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(absoluteParams, TABLE_NAME, DBConstants.REFERRALS__TIME_OF_REFERRAL, greaterThanParams));
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.REFERRALS__TIME_OF_REFERRAL, greaterThanParams);
+    List<Referral> referrals = convertRSToReferralsList(rs);
+    DBConnection.close(rs, null, conn);
+    return referrals;
   }
   
   private static List<Referral> convertRSToReferralsList(ResultSet rs) {

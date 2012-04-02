@@ -66,10 +66,7 @@ public class ExpansionWaitCompleteController extends EventController{
   }
 
   private void writeChangesToDB(UserCityExpansionData userCityExpansionData) {
-    int nearLeftExpansionChange = 0, farLeftExpansionChange = 0, farRightExpansionChange = 0;
-    if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.NEAR_LEFT) {
-      nearLeftExpansionChange++;
-    }
+    int farLeftExpansionChange = 0, farRightExpansionChange = 0;
     if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_LEFT) {
       farLeftExpansionChange++;
     }
@@ -77,7 +74,7 @@ public class ExpansionWaitCompleteController extends EventController{
       farRightExpansionChange++;
     }
     if (!UpdateUtils.updateUserExpansionNumexpansionsIsexpanding(userCityExpansionData.getUserId(), 
-        nearLeftExpansionChange, farLeftExpansionChange, farRightExpansionChange, false)) {
+        farLeftExpansionChange, farRightExpansionChange, false)) {
       log.error("problem with resolving expansion");
     }
   }
@@ -87,7 +84,7 @@ public class ExpansionWaitCompleteController extends EventController{
       resBuilder.setStatus(ExpansionWaitCompleteStatus.OTHER_FAIL);
       return false;
     }
-    if (!MiscMethods.checkClientTimeBeforeApproximateNow(clientTime)) {
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
       resBuilder.setStatus(ExpansionWaitCompleteStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
       return false;
     }

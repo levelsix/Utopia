@@ -1,4 +1,5 @@
 package com.lvl6.retrieveutils;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -32,7 +33,12 @@ public class UserRetrieveUtils {
 
   public static User getUserById(int userId) {
     log.info("retrieving user with userId " + userId);
-    return convertRSToUser(DBConnection.selectRowsById(userId, TABLE_NAME));
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsById(conn, userId, TABLE_NAME);
+    User user = convertRSToUser(rs);
+    DBConnection.close(rs, null, conn);
+    return user;
   }
 
   public static Map<Integer, User> getUsersByIds(List<Integer> userIds) {
@@ -48,7 +54,12 @@ public class UserRetrieveUtils {
       values.add(userId);
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
-    return convertRSToUserIdToUsersMap(DBConnection.selectDirectQueryNaive(query, values));
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectDirectQueryNaive(conn, query, values);
+    Map<Integer, User> userIdToUserMap = convertRSToUserIdToUsersMap(rs);
+    DBConnection.close(rs, null, conn);
+    return userIdToUserMap;
   }
 
   public static List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
@@ -61,7 +72,7 @@ public class UserRetrieveUtils {
     List <Object> values = new ArrayList<Object>();
 
     String query = "select * from " + TABLE_NAME + " where ";
-    
+
     if (requestedTypes != null && requestedTypes.size() > 0) {
       query += "(";
       for (int i = 0; i < requestedTypes.size(); i++) {
@@ -91,45 +102,47 @@ public class UserRetrieveUtils {
       query += DBConstants.USER__LONGITUDE + "<=? and ";
       values.add(longUpperBound);
     }
-    
+
     if (forBattle) {
       query += "(" + DBConstants.USER__LAST_TIME_ATTACKED + "<=? or " +  DBConstants.USER__LAST_TIME_ATTACKED + " is ?) and ";
       values.add(new Timestamp(new Date().getTime() - ControllerConstants.NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS*60000));
       values.add(null);
     }
-    
+
     query += DBConstants.USER__LEVEL + ">=? and " + DBConstants.USER__LEVEL + "<=? ";
     values.add(levelMin);
     values.add(levelMax);
-    
-    String firstQuery = query + "and " + DBConstants.USER__IS_FAKE + "=? ";
-    values.add(false);
 
-    firstQuery += "order by rand() limit ?";
-    query += "order by rand() limit ?";
+    query += "order by " + DBConstants.USER__IS_FAKE + ", rand() limit ?";
     values.add(numUsers);
 
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
     int numDBHits = 1;
-    ResultSet rs = DBConnection.selectDirectQueryNaive(firstQuery, values);
-    while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
-      if (numDBHits == 1) {
-        values.remove(values.size()-1);        
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.selectDirectQueryNaive(conn, query, values);
+      while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
+        values.remove(values.size()-1);
+        values.remove(values.size()-1);
+        values.remove(values.size()-1);
+        values.add(Math.max(1, levelMin - rangeIncrease/2));
+        values.add(levelMax + rangeIncrease/2);
+        values.add(numUsers);
+        rs = DBConnection.selectDirectQueryNaive(conn, query, values);
+        numDBHits++;
+        if (!guaranteeNum) {
+          if (numDBHits == MAX_BATTLE_DB_HITS) break;
+        }
+        rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
       }
-      values.remove(values.size()-1);
-      values.remove(values.size()-1);
-      values.remove(values.size()-1);
-      values.add(Math.max(1, levelMin - rangeIncrease/2));
-      values.add(levelMax + rangeIncrease/2);
-      values.add(numUsers);
-      rs = DBConnection.selectDirectQueryNaive(query, values);
-      numDBHits++;
-      if (!guaranteeNum) {
-        if (numDBHits == MAX_BATTLE_DB_HITS) break;
-      }
-      rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
     }
-    return convertRSToUsers(rs);
+    
+    List<User> users = convertRSToUsers(rs);
+    if (users == null) users = new ArrayList<User>();
+    DBConnection.close(rs, null, conn);
+    return users;
   }
 
   //when you first log in, call this
@@ -138,16 +151,26 @@ public class UserRetrieveUtils {
     log.info("retrieving user with udid " + UDID);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
-    return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
+    User user = convertRSToUser(rs);
+    DBConnection.close(rs, null, conn);
+    return user;
   }
-  
+
   public static User getUserByReferralCode(String referralCode) {
     log.info("retrieving user with referral code " + referralCode);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
-    return convertRSToUser(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));    
+
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
+    User user = convertRSToUser(rs);
+    DBConnection.close(rs, null, conn);
+    return user;
   }
-  
+
   private static User convertRSToUser(ResultSet rs) {
     if (rs != null) {
       try {
@@ -164,7 +187,6 @@ public class UserRetrieveUtils {
     return null;
   }
 
-
   private static Map<Integer, User> convertRSToUserIdToUsersMap(ResultSet rs) {
     if (rs != null) {
       try {
@@ -173,7 +195,9 @@ public class UserRetrieveUtils {
         Map<Integer, User> userIdsToUsers = new HashMap<Integer, User>();
         while(rs.next()) {
           User user = convertRSRowToUser(rs);
-          userIdsToUsers.put(user.getId(), user);
+          if (user != null) {
+            userIdsToUsers.put(user.getId(), user);
+          }
         }
         return userIdsToUsers;
       } catch (SQLException e) {
@@ -304,7 +328,7 @@ public class UserRetrieveUtils {
     }
 
     boolean isFake = rs.getBoolean(i++);
-    
+
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,

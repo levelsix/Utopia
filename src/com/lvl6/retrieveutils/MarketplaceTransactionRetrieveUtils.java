@@ -1,5 +1,6 @@
 package com.lvl6.retrieveutils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -31,7 +32,11 @@ public class MarketplaceTransactionRetrieveUtils {
     TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
     greaterThanParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, lastLogout);
     
-    return convertRSToMarketplaceTransactionsList(DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, greaterThanParams));
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, greaterThanParams);
+    List<MarketplaceTransaction> marketplacePostTransactions = convertRSToMarketplaceTransactionsList(rs);
+    DBConnection.close(rs, null, conn);
+    return marketplacePostTransactions;
   }
   
   private static List<MarketplaceTransaction> convertRSToMarketplaceTransactionsList(ResultSet rs) {
