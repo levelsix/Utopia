@@ -257,17 +257,21 @@ public class CreateInfoProtoUtils {
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
 
     String name = null;
+    String processingText = null;
 
     if (goodSide) {
       name = task.getGoodName();
+      processingText = task.getGoodProcessingText();
     } else {
       name = task.getBadName();
+      processingText = task.getBadProcessingText();
     }
 
     FullTaskProto.Builder builder = FullTaskProto.newBuilder().setTaskId(task.getId()).setName(name).setCityId(task.getCityId()).setEnergyCost(task.getEnergyCost()).setMinCoinsGained(task.getMinCoinsGained())
         .setMaxCoinsGained(task.getMaxCoinsGained()).setChanceOfEquipLoot(task.getChanceOfEquipFloat())
         .setExpGained(task.getExpGained()).setAssetNumWithinCity(task.getAssetNumberWithinCity()).
-        setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds());
+        setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds())
+        .setProcessingText(processingText);
 
     Map<Integer, Integer> equipIdsToQuantity = TaskEquipReqRetrieveUtils.getEquipmentIdsToQuantityForTaskId(task.getId());
     if (equipIdsToQuantity != null && equipIdsToQuantity.size() > 0) {

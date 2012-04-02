@@ -164,8 +164,9 @@ message FullTaskProto {
 	repeated int32 potentialLootEquipIds = 9;
 	required int32 expGained = 10;
 	required int32 assetNumWithinCity = 11;
+	required string processingText = 12;
 	
-	repeated FullTaskEquipReqProto equipReqs = 12;
+	repeated FullTaskEquipReqProto equipReqs = 13;
 	
 	message FullTaskEquipReqProto {
 		required int32 taskId = 1;

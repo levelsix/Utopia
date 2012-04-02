@@ -16,11 +16,14 @@ public class Task {
   private int expGained;
   private int assetNumberWithinCity;
   private int numForCompletion;
+  private String goodProcessingText;
+  private String badProcessingText;
+  
   
   public Task(int id, String goodName, String badName, int cityId, int energyCost, int minCoinsGained,
       int maxCoinsGained, float chanceOfEquipFloat,
       List<Integer> potentialLootEquipIds, int expGained,
-      int assetNumberWithinCity, int numForCompletion) {
+      int assetNumberWithinCity, int numForCompletion, String goodProcessingText, String badProcessingText) {
     this.id = id;
     this.goodName = goodName;
     this.badName = badName;
@@ -33,65 +36,93 @@ public class Task {
     this.expGained = expGained;
     this.assetNumberWithinCity = assetNumberWithinCity;
     this.numForCompletion = numForCompletion;
+    this.goodProcessingText = goodProcessingText;
+    this.badProcessingText = badProcessingText;
   }
+
 
   public int getId() {
     return id;
   }
 
+
   public String getGoodName() {
     return goodName;
   }
+
 
   public String getBadName() {
     return badName;
   }
 
+
   public int getCityId() {
     return cityId;
   }
+
 
   public int getEnergyCost() {
     return energyCost;
   }
 
+
   public int getMinCoinsGained() {
     return minCoinsGained;
   }
+
 
   public int getMaxCoinsGained() {
     return maxCoinsGained;
   }
 
+
   public float getChanceOfEquipFloat() {
     return chanceOfEquipFloat;
   }
+
 
   public List<Integer> getPotentialLootEquipIds() {
     return potentialLootEquipIds;
   }
 
+
   public int getExpGained() {
     return expGained;
   }
+
 
   public int getAssetNumberWithinCity() {
     return assetNumberWithinCity;
   }
 
+
   public int getNumForCompletion() {
     return numForCompletion;
   }
 
+
+  public String getGoodProcessingText() {
+    return goodProcessingText;
+  }
+
+
+  public String getBadProcessingText() {
+    return badProcessingText;
+  }
+
+
   @Override
   public String toString() {
     return "Task [id=" + id + ", goodName=" + goodName + ", badName=" + badName
-        + ", cityId=" + cityId + ", energyCost=" + energyCost + ", minCoinsGained="
-        + minCoinsGained + ", maxCoinsGained=" + maxCoinsGained
-        + ", chanceOfEquipFloat=" + chanceOfEquipFloat
+        + ", cityId=" + cityId + ", energyCost=" + energyCost
+        + ", minCoinsGained=" + minCoinsGained + ", maxCoinsGained="
+        + maxCoinsGained + ", chanceOfEquipFloat=" + chanceOfEquipFloat
         + ", potentialLootEquipIds=" + potentialLootEquipIds + ", expGained="
         + expGained + ", assetNumberWithinCity=" + assetNumberWithinCity
-        + ", numForCompletion=" + numForCompletion + "]";
+        + ", numForCompletion=" + numForCompletion + ", goodProcessingText="
+        + goodProcessingText + ", badProcessingText=" + badProcessingText + "]";
   }
+  
+  
 
 }

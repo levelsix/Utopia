@@ -147,9 +147,12 @@ public class TaskRetrieveUtils {
     int expGained = rs.getInt(i++);
     int assetNumWithinCity = rs.getInt(i++);
     int numForCompletion = rs.getInt(i++);
-
+    String goodProcessingText = rs.getString(i++);
+    String badProcessingText = rs.getString(i++);
+    
     Task task = new Task(id, goodName, badName, cityId, energyCost, minCoinsGained, maxCoinsGained, 
-        chanceOfEquipLoot, equipIds, expGained, assetNumWithinCity, numForCompletion);
+        chanceOfEquipLoot, equipIds, expGained, assetNumWithinCity, numForCompletion, goodProcessingText, 
+        badProcessingText);
     return task;
   }
 }
