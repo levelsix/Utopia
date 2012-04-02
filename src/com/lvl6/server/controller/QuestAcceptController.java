@@ -64,6 +64,7 @@ public class QuestAcceptController extends EventController {
 
       boolean defeatTypeJobsComplete = true;
       if (legitRedeem) {
+        resBuilder.setCityIdOfAcceptedQuest(quest.getCityId());
         boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
         List<Integer> defeatTypeJobIds = (goodSide) ? quest.getDefeatBadGuysJobsRequired()
             : quest.getDefeatGoodGuysJobsRequired();

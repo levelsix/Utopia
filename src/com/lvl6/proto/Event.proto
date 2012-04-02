@@ -921,6 +921,7 @@ message QuestAcceptResponseProto {
      required MinimumUserProto sender = 1;
      required QuestAcceptStatus status = 2;
      repeated FullUserProto enemiesIfQuestsHaveDefeatTypeJob = 3;
+     optional int32 cityIdOfAcceptedQuest = 4;
 
      enum QuestAcceptStatus {
           SUCCESS = 0;
