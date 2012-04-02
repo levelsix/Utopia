@@ -38,6 +38,7 @@ public class DBConnection {
   private static final int C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS = 60*5;
   private static final int C3P0_MAX_IDLE_TIME = 60*60*10;
   private static final int C3P0_IDLE_CONNECTION_TEST_PERIOD = 60*60*2;
+  private static final int C3P0_UNRETURNED_CONNECTION_TIMEOUT = 60*60*2;
   private static final Level MCHANGE_LOG_LEVEL = Level.INFO;
   //  private static final Level MCHANGE_LOG_LEVEL = Level.WARN;
 
@@ -94,6 +95,8 @@ public class DBConnection {
       dataSource.setMaxIdleTime(C3P0_MAX_IDLE_TIME);
       dataSource.setIdleConnectionTestPeriod(C3P0_IDLE_CONNECTION_TEST_PERIOD);
       dataSource.setAutomaticTestTable(DBConstants.TABLE_C3P0_TEST);
+      dataSource.setUnreturnedConnectionTimeout(C3P0_UNRETURNED_CONNECTION_TIMEOUT);
+      //dataSource.setDebugUnreturnedConnectionStackTraces(true);
 
     } catch (PropertyVetoException e) {
       e.printStackTrace();
