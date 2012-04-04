@@ -151,15 +151,15 @@ public class LoadNeutralCityController extends EventController {
           }
         }
       }
-      for (UserType type : numToGenerate.keySet()) {
-        List<UserType> temp = new ArrayList<UserType>();
-        temp.add(type);
-        List<User> users = UserRetrieveUtils.getUsers(temp,
-            numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true);
-        if (users != null) {
-          for (User u : users) {
-            resBuilder.addDefeatTypeJobEnemies(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
-          }
+    }
+    for (UserType type : numToGenerate.keySet()) {
+      List<UserType> temp = new ArrayList<UserType>();
+      temp.add(type);
+      List<User> users = UserRetrieveUtils.getUsers(temp,
+          numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true);
+      if (users != null) {
+        for (User u : users) {
+          resBuilder.addDefeatTypeJobEnemies(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
         }
       }
     }
