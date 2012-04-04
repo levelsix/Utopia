@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +84,8 @@ public class LevelUpController extends EventController {
         for (City city : availCities) {
           if (city.getMinLevel() == newLevel) {
             resBuilder.addCitiesNewlyAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
+            if (newlyUnlockedCityIds == null) newlyUnlockedCityIds = new ArrayList<Integer>();
+            newlyUnlockedCityIds.add(city.getId());
           }
         }
 
