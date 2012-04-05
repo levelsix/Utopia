@@ -60,7 +60,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_HEALTH = 30;
   public static final int TUTORIAL__INIT_DIAMONDS = 10;
   public static final int TUTORIAL__INIT_COINS = 50;
-  public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 10;
+  public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 2;
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
   public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 120;
   public static final int TUTORIAL__ARCHER_INIT_ARMOR_ID = 159;
@@ -124,6 +124,7 @@ public class ControllerConstants {
   public static final double RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .1;
   
   //USE SKILL POINT
+  public static final int USE_SKILL_POINT__MAX_STAT_GAIN = 5;   //right now its health
   public static final int USE_SKILL_POINT__ATTACK_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_GAIN = 1;
