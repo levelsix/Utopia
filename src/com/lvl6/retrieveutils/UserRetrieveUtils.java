@@ -66,7 +66,7 @@ public class UserRetrieveUtils {
       Integer latLowerBound, Integer latUpperBound, Integer longLowerBound, Integer longUpperBound, boolean forBattle) {
     log.info("retrieving list of users for user " + userId);
 
-    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, 1) + 1;
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, 2) + 1;
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2 + 1;
 
     List <Object> values = new ArrayList<Object>();
@@ -127,7 +127,7 @@ public class UserRetrieveUtils {
         values.remove(values.size()-1);
         values.remove(values.size()-1);
         values.remove(values.size()-1);
-        values.add(Math.max(1, levelMin - rangeIncrease/2));
+        values.add(Math.max(2, levelMin - rangeIncrease/2));
         values.add(levelMax + rangeIncrease/2);
         values.add(numUsers);
         rs = DBConnection.selectDirectQueryNaive(conn, query, values);
