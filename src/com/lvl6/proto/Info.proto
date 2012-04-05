@@ -247,7 +247,7 @@ message NeutralCityElementProto {
 	optional StructOrientation orientation = 8;
 	
 	enum NeutralCityElemType {
-		PERSON_QUESTGIVIER = 0;
+		PERSON_QUEST_GIVER = 0;
 		BUILDING = 1;
 		DECORATION = 2;
 		PERSON_NEUTRAL_ENEMY = 3;

@@ -13631,13 +13631,13 @@ public final class InfoProto {
     
     public enum NeutralCityElemType
         implements com.google.protobuf.ProtocolMessageEnum {
-      PERSON_QUESTGIVIER(0, 0),
+      PERSON_QUEST_GIVER(0, 0),
       BUILDING(1, 1),
       DECORATION(2, 2),
       PERSON_NEUTRAL_ENEMY(3, 3),
       ;
       
-      public static final int PERSON_QUESTGIVIER_VALUE = 0;
+      public static final int PERSON_QUEST_GIVER_VALUE = 0;
       public static final int BUILDING_VALUE = 1;
       public static final int DECORATION_VALUE = 2;
       public static final int PERSON_NEUTRAL_ENEMY_VALUE = 3;
@@ -13647,7 +13647,7 @@ public final class InfoProto {
       
       public static NeutralCityElemType valueOf(int value) {
         switch (value) {
-          case 0: return PERSON_QUESTGIVIER;
+          case 0: return PERSON_QUEST_GIVER;
           case 1: return BUILDING;
           case 2: return DECORATION;
           case 3: return PERSON_NEUTRAL_ENEMY;
@@ -13681,7 +13681,7 @@ public final class InfoProto {
       }
       
       private static final NeutralCityElemType[] VALUES = {
-        PERSON_QUESTGIVIER, BUILDING, DECORATION, PERSON_NEUTRAL_ENEMY, 
+        PERSON_QUEST_GIVER, BUILDING, DECORATION, PERSON_NEUTRAL_ENEMY, 
       };
       
       public static NeutralCityElemType valueOf(
@@ -13846,7 +13846,7 @@ public final class InfoProto {
       cityId_ = 0;
       assetId_ = 0;
       name_ = "";
-      type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUESTGIVIER;
+      type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUEST_GIVER;
       coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       xLength_ = 0;
       yLength_ = 0;
@@ -14096,7 +14096,7 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUESTGIVIER;
+        type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUEST_GIVER;
         bitField0_ = (bitField0_ & ~0x00000008);
         if (coordsBuilder_ == null) {
           coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
@@ -14438,7 +14438,7 @@ public final class InfoProto {
       }
       
       // required .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
-      private com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUESTGIVIER;
+      private com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUEST_GIVER;
       public boolean hasType() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
@@ -14456,7 +14456,7 @@ public final class InfoProto {
       }
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUESTGIVIER;
+        type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUEST_GIVER;
         onChanged();
         return this;
       }
@@ -25209,7 +25209,7 @@ public final class InfoProto {
       "\007xLength\030\005 \001(\005\022\017\n\007yLength\030\006 \001(\005\022\r\n\005imgId" +
       "\030\007 \002(\t\0226\n\013orientation\030\010 \001(\0162!.com.lvl6.p" +
       "roto.StructOrientation\"e\n\023NeutralCityEle",
-      "mType\022\026\n\022PERSON_QUESTGIVIER\020\000\022\014\n\010BUILDIN" +
+      "mType\022\026\n\022PERSON_QUEST_GIVER\020\000\022\014\n\010BUILDIN" +
       "G\020\001\022\016\n\nDECORATION\020\002\022\030\n\024PERSON_NEUTRAL_EN" +
       "EMY\020\003\"\356\001\n\030FullMarketplacePostProto\022\031\n\021ma" +
       "rketplacePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\022" +
