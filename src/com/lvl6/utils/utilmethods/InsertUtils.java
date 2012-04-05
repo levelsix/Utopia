@@ -174,7 +174,7 @@ public class InsertUtils {
       insertParams.put(DBConstants.IAP_HISTORY__BID, appleReceipt.getString(IAPValues.BID));
       insertParams.put(DBConstants.IAP_HISTORY__BVRS, appleReceipt.getString(IAPValues.BVRS));
 
-      if (appleReceipt.getString(IAPValues.APP_ITEM_ID) != null) {
+      if (appleReceipt.has(IAPValues.APP_ITEM_ID)) {
         insertParams.put(DBConstants.IAP_HISTORY__APP_ITEM_ID, appleReceipt.getString(IAPValues.APP_ITEM_ID));
       }
     } catch (JSONException e) {
