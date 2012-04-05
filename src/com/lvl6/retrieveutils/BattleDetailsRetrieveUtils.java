@@ -71,7 +71,7 @@ public class BattleDetailsRetrieveUtils {
     
     int equipStolen = rs.getInt(i++);
     if (rs.wasNull()) {
-      coinsStolen = ControllerConstants.NOT_SET;
+      equipStolen = ControllerConstants.NOT_SET;
     }
     
     int expGained = rs.getInt(i++);

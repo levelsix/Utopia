@@ -121,6 +121,8 @@ public class TaskActionController extends EventController {
               }
             }
           }
+        } else {
+          changeNumTimesUserActedInDB = false;
         }
       }
 

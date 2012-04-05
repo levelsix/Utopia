@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.lvl6.events.RequestEvent;
@@ -103,7 +104,7 @@ public class UserCreateController extends EventController {
           - EquipmentRetrieveUtils.getEquipmentIdsToEquipment()
           .get(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD).getCoinPrice(); 
 
-      int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS - ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
+      int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
       if (referrer != null) playerDiamonds += ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED;
       if (usedDiamondsToBuild) playerDiamonds -= ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
       
@@ -190,7 +191,7 @@ public class UserCreateController extends EventController {
   }
 
   private void writeUserStruct(int userId, int structId, Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair structCoords) {
-    if (InsertUtils.insertUserStructJustBuilt(userId, structId, timeOfStructPurchase, timeOfStructBuild, structCoords)) {
+    if (!InsertUtils.insertUserStructJustBuilt(userId, structId, timeOfStructPurchase, timeOfStructBuild, structCoords)) {
       log.error("problem in giving user the user struct");
     }
   }
@@ -253,10 +254,10 @@ public class UserCreateController extends EventController {
 
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
       String name, Location loc, UserType type, int attack, int defense, int energy, int health, int stamina, 
-      Timestamp timeOfStructPurchase, Timestamp timeOfDiamondInstabuild, CoordinatePair coordinatePair, User referrer, 
+      Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair coordinatePair, User referrer, 
       boolean hasReferrerCode) {
     
-    if (udid == null || name == null || timeOfStructPurchase == null || coordinatePair == null || type == null || timeOfDiamondInstabuild == null) {
+    if (udid == null || name == null || timeOfStructPurchase == null || coordinatePair == null || type == null || timeOfStructBuild == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       return false;
     }
@@ -266,7 +267,7 @@ public class UserCreateController extends EventController {
     }
     int sumStat = attack + defense + energy + health + stamina;
     int correctBaseSumStat = calculateCorrectSumStat(MiscMethods.getClassTypeFromUserType(type));
-    if (sumStat < correctBaseSumStat || sumStat > correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED) {
+    if (sumStat < correctBaseSumStat || sumStat > correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED*ControllerConstants.USE_SKILL_POINT__MAX_STAT_GAIN) {
       resBuilder.setStatus(UserCreateStatus.INVALID_SKILL_POINT_ALLOCATION);
       return false;
     }
@@ -275,8 +276,10 @@ public class UserCreateController extends EventController {
       resBuilder.setStatus(UserCreateStatus.USER_WITH_UDID_ALREADY_EXISTS);
       return false;
     }
-    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfDiamondInstabuild) || !MiscMethods.checkClientTimeAroundApproximateNow(timeOfStructPurchase)) {
-      resBuilder.setStatus(UserCreateStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+    if (timeOfStructBuild.getTime() <= timeOfStructPurchase.getTime() || 
+        timeOfStructBuild.getTime() > new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000 ||
+        timeOfStructPurchase.getTime() > new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
+      resBuilder.setStatus(UserCreateStatus.TIME_ISSUE);
       return false;
     }
     if (loc.getLatitude() < ControllerConstants.LATITUDE_MIN || loc.getLatitude() > ControllerConstants.LATITUDE_MAX || 
@@ -298,8 +301,7 @@ public class UserCreateController extends EventController {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
         return false;
       }
-    }
-    if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
+    } else if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
       if (attack < ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
         return false;
@@ -308,8 +310,7 @@ public class UserCreateController extends EventController {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
         return false;
       }      
-    }
-    if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
+    } else if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
       if (attack < ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
         return false;
