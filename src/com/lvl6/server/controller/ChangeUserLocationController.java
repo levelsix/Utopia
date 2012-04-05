@@ -84,7 +84,7 @@ public class ChangeUserLocationController extends EventController {
   }
 
   private void writeChangesToDB(User user, LocationProto location) {
-    if (user.updateAbsoluteUserLocation(new Location(location.getLatitude(), location.getLongitude()))) {
+    if (!user.updateAbsoluteUserLocation(new Location(location.getLatitude(), location.getLongitude()))) {
       log.error("problem with updating user location for " + user);
     }
   }

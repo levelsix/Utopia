@@ -32,9 +32,9 @@ public class DBConnection {
   private static final int C3P0_NUM_HELPER_THREADS = 6;
   private static final int C3P0_MAX_STATEMENTS_PER_CONNECTION = 20;
   private static final int C3P0_MIN_POOL_SIZE = 10;
-  private static final int C3P0_INITIAL_POOL_SIZE = 25;
-  private static final int C3P0_MAX_POOL_SIZE = 50;
-  private static final int C3P0_ACQUIRE_INCREMENT = 5;
+  private static final int C3P0_INITIAL_POOL_SIZE = 20;
+  private static final int C3P0_MAX_POOL_SIZE = 60;
+  private static final int C3P0_ACQUIRE_INCREMENT = 10;
   private static final int C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS = 60*5;
   private static final int C3P0_MAX_IDLE_TIME = 60*60*10;
   private static final int C3P0_IDLE_CONNECTION_TEST_PERIOD = 60*60*2;
