@@ -16,11 +16,11 @@ public class Structure {
   private int instaBuildDiamondCostBase;
   private int instaRetrieveDiamondCostBase;
   private int instaUpgradeDiamondCostBase;
-  private int xOffset;
+  private int imgVerticalPixelOffset;
   public Structure(int id, String name, int income, int minutesToGain,
       int minutesToBuild, int minutesToUpgradeBase, int coinPrice, int diamondPrice, 
       int minLevel, int xLength, int yLength, int instaBuildDiamondCostBase, int instaRetrieveDiamondCostBase,
-      int instaUpgradeDiamondCostBase, int xOffset) {
+      int instaUpgradeDiamondCostBase, int imgVerticalPixelOffset) {
     this.id = id;
     this.name = name;
     this.income = income;
@@ -35,7 +35,7 @@ public class Structure {
     this.instaBuildDiamondCostBase = instaBuildDiamondCostBase;
     this.instaRetrieveDiamondCostBase = instaRetrieveDiamondCostBase;
     this.instaUpgradeDiamondCostBase = instaUpgradeDiamondCostBase;
-    this.xOffset = xOffset;
+    this.imgVerticalPixelOffset = imgVerticalPixelOffset;
   }
   public int getId() {
     return id;
@@ -79,8 +79,8 @@ public class Structure {
   public int getInstaUpgradeDiamondCostBase() {
     return instaUpgradeDiamondCostBase;
   }
-  public int getxOffset() {
-    return xOffset;
+  public int getImgVerticalPixelOffset() {
+    return imgVerticalPixelOffset;
   }
   
   @Override
@@ -93,7 +93,7 @@ public class Structure {
         + yLength + ", instaBuildDiamondCostBase=" + instaBuildDiamondCostBase
         + ", instaRetrieveDiamondCostBase=" + instaRetrieveDiamondCostBase
         + ", instaUpgradeDiamondCostBase=" + instaUpgradeDiamondCostBase
-        + ", xOffset=" + xOffset + "]";
+        + ", xOffset=" + imgVerticalPixelOffset + "]";
   }
   
 }
