@@ -300,7 +300,8 @@ public class CreateInfoProtoUtils {
         .setXLength(s.getxLength()).setYLength(s.getyLength())
         .setInstaBuildDiamondCostBase(s.getInstaBuildDiamondCostBase())
         .setInstaRetrieveDiamondCostBase(s.getInstaRetrieveDiamondCostBase())
-        .setInstaUpgradeDiamondCostBase(s.getInstaUpgradeDiamondCostBase()).build();
+        .setInstaUpgradeDiamondCostBase(s.getInstaUpgradeDiamondCostBase())
+        .setXOffset(s.getxOffset()).build();
   }
 
   public static FullCityProto createFullCityProtoFromCity(City c) {

@@ -147,7 +147,8 @@ message FullStructureProto {
 	required int32 yLength = 11;
 	required int32 instaBuildDiamondCostBase = 14;
 	required int32 instaRetrieveDiamondCostBase = 15;
-	required int32 instaUpgradeDiamondCostBase = 16;	
+	required int32 instaUpgradeDiamondCostBase = 16;
+	required int32 xOffset = 17;	
 }
 
 //------------------------------------------------------------------------------------------

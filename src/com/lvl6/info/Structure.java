@@ -16,10 +16,11 @@ public class Structure {
   private int instaBuildDiamondCostBase;
   private int instaRetrieveDiamondCostBase;
   private int instaUpgradeDiamondCostBase;
+  private int xOffset;
   public Structure(int id, String name, int income, int minutesToGain,
       int minutesToBuild, int minutesToUpgradeBase, int coinPrice, int diamondPrice, 
       int minLevel, int xLength, int yLength, int instaBuildDiamondCostBase, int instaRetrieveDiamondCostBase,
-      int instaUpgradeDiamondCostBase) {
+      int instaUpgradeDiamondCostBase, int xOffset) {
     this.id = id;
     this.name = name;
     this.income = income;
@@ -34,6 +35,7 @@ public class Structure {
     this.instaBuildDiamondCostBase = instaBuildDiamondCostBase;
     this.instaRetrieveDiamondCostBase = instaRetrieveDiamondCostBase;
     this.instaUpgradeDiamondCostBase = instaUpgradeDiamondCostBase;
+    this.xOffset = xOffset;
   }
   public int getId() {
     return id;
@@ -77,18 +79,21 @@ public class Structure {
   public int getInstaUpgradeDiamondCostBase() {
     return instaUpgradeDiamondCostBase;
   }
+  public int getxOffset() {
+    return xOffset;
+  }
+  
   @Override
   public String toString() {
     return "Structure [id=" + id + ", name=" + name + ", income=" + income
         + ", minutesToGain=" + minutesToGain + ", minutesToBuild="
         + minutesToBuild + ", minutesToUpgradeBase=" + minutesToUpgradeBase
         + ", coinPrice=" + coinPrice + ", diamondPrice=" + diamondPrice
-        + ", minLevel=" + minLevel + ", xLength="
-        + xLength + ", yLength=" + yLength
-        + ", instaBuildDiamondCostBase="
-        + instaBuildDiamondCostBase + ", instaRetrieveDiamondCostBase="
-        + instaRetrieveDiamondCostBase + ", instaUpgradeDiamondCostBase="
-        + instaUpgradeDiamondCostBase + "]";
+        + ", minLevel=" + minLevel + ", xLength=" + xLength + ", yLength="
+        + yLength + ", instaBuildDiamondCostBase=" + instaBuildDiamondCostBase
+        + ", instaRetrieveDiamondCostBase=" + instaRetrieveDiamondCostBase
+        + ", instaUpgradeDiamondCostBase=" + instaUpgradeDiamondCostBase
+        + ", xOffset=" + xOffset + "]";
   }
   
 }
