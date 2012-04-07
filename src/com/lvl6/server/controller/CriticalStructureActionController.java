@@ -109,7 +109,7 @@ public class CriticalStructureActionController extends EventController {
       }
     }
     if (cStructType == CritStructType.VAULT) {
-      if (user.getLevel() < ControllerConstants._MIN_LEVEL_FOR_VAULT) {
+      if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_VAULT) {
         resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
