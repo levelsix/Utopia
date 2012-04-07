@@ -17,8 +17,8 @@ public class ControllerConstants {
   public static final int NUM_MINUTES_SINCE_LAST_BATTLE_BEFORE_APPEARANCE_IN_ATTACK_LISTS = 10;
   
   //CRIT STRUCTS
-  public static final CoordinatePair CARPENTER_COORDS = new CoordinatePair(10, 5);
-  public static final CoordinatePair AVIARY_COORDS = new CoordinatePair(9, 10);
+  public static final CoordinatePair CARPENTER_COORDS = new CoordinatePair(10, 6);
+  public static final CoordinatePair AVIARY_COORDS = new CoordinatePair(10, 10);
   
   public static final int ARMORY_XLENGTH = 2;
   public static final int ARMORY_YLENGTH = 2;
