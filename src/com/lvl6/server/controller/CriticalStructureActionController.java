@@ -104,17 +104,17 @@ public class CriticalStructureActionController extends EventController {
       }
     }
     if (cStructType == CritStructType.ARMORY) {
-      if (user.getLevel() < ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_ARMORY) {
+      if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_ARMORY) {
         resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
     if (cStructType == CritStructType.VAULT) {
-      if (user.getLevel() < ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_VAULT) {
+      if (user.getLevel() < ControllerConstants._MIN_LEVEL_FOR_VAULT) {
         resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
     if (cStructType == CritStructType.MARKETPLACE) {
-      if (user.getLevel() < ControllerConstants.PLACE_CRITSTRUCT__MIN_LEVEL_MARKETPLACE) {
+      if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
         resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
