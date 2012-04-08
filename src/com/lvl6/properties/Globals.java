@@ -22,4 +22,6 @@ public class Globals {
     public static final boolean IS_SANDBOX = true;
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
+    
+    public static final String appStoreURL = "placeholder";
 }

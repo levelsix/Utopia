@@ -96,6 +96,7 @@ public class StartupController extends EventController {
     }
 
     resBuilder.setUpdateStatus(updateStatus);
+    resBuilder.setAppStoreURL(Globals.appStoreURL);
 
     User user = null;
 

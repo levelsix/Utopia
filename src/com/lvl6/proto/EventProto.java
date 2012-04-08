@@ -11,7 +11,7 @@ public final class EventProto {
   public interface ChatRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -26,7 +26,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getRecipientsOrBuilder(
         int index);
     
-    // required string message = 3;
+    // optional string message = 3;
     boolean hasMessage();
     String getMessage();
   }
@@ -59,7 +59,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -93,7 +93,7 @@ public final class EventProto {
       return recipients_.get(index);
     }
     
-    // required string message = 3;
+    // optional string message = 3;
     public static final int MESSAGE_FIELD_NUMBER = 3;
     private java.lang.Object message_;
     public boolean hasMessage() {
@@ -135,24 +135,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMessage()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getRecipientsCount(); i++) {
-        if (!getRecipients(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -442,24 +424,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasMessage()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getRecipientsCount(); i++) {
-          if (!getRecipients(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -512,7 +476,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -788,7 +752,7 @@ public final class EventProto {
         return recipientsBuilder_;
       }
       
-      // required string message = 3;
+      // optional string message = 3;
       private java.lang.Object message_ = "";
       public boolean hasMessage() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -838,12 +802,12 @@ public final class EventProto {
   public interface ChatResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required string message = 2;
+    // optional string message = 2;
     boolean hasMessage();
     String getMessage();
   }
@@ -876,7 +840,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -889,7 +853,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required string message = 2;
+    // optional string message = 2;
     public static final int MESSAGE_FIELD_NUMBER = 2;
     private java.lang.Object message_;
     public boolean hasMessage() {
@@ -930,18 +894,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMessage()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1182,18 +1134,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasMessage()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -1240,7 +1180,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -1330,7 +1270,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required string message = 2;
+      // optional string message = 2;
       private java.lang.Object message_ = "";
       public boolean hasMessage() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -1380,21 +1320,21 @@ public final class EventProto {
   public interface BattleRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+    // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
     boolean hasAttacker();
     com.lvl6.proto.InfoProto.MinimumUserProto getAttacker();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getAttackerOrBuilder();
     
-    // required .com.lvl6.proto.MinimumUserProto defender = 2;
+    // optional .com.lvl6.proto.MinimumUserProto defender = 2;
     boolean hasDefender();
     com.lvl6.proto.InfoProto.MinimumUserProto getDefender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getDefenderOrBuilder();
     
-    // required .com.lvl6.proto.BattleResult battleResult = 3;
+    // optional .com.lvl6.proto.BattleResult battleResult = 3;
     boolean hasBattleResult();
     com.lvl6.proto.InfoProto.BattleResult getBattleResult();
     
-    // required int64 clientTime = 4;
+    // optional int64 clientTime = 4;
     boolean hasClientTime();
     long getClientTime();
     
@@ -1441,7 +1381,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+    // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
     public static final int ATTACKER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto attacker_;
     public boolean hasAttacker() {
@@ -1454,7 +1394,7 @@ public final class EventProto {
       return attacker_;
     }
     
-    // required .com.lvl6.proto.MinimumUserProto defender = 2;
+    // optional .com.lvl6.proto.MinimumUserProto defender = 2;
     public static final int DEFENDER_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.MinimumUserProto defender_;
     public boolean hasDefender() {
@@ -1467,7 +1407,7 @@ public final class EventProto {
       return defender_;
     }
     
-    // required .com.lvl6.proto.BattleResult battleResult = 3;
+    // optional .com.lvl6.proto.BattleResult battleResult = 3;
     public static final int BATTLERESULT_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.BattleResult battleResult_;
     public boolean hasBattleResult() {
@@ -1477,7 +1417,7 @@ public final class EventProto {
       return battleResult_;
     }
     
-    // required int64 clientTime = 4;
+    // optional int64 clientTime = 4;
     public static final int CLIENTTIME_FIELD_NUMBER = 4;
     private long clientTime_;
     public boolean hasClientTime() {
@@ -1531,36 +1471,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasAttacker()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDefender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasBattleResult()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasClientTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getAttacker().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getDefender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getDefenderUserEquipsCount(); i++) {
-        if (!getDefenderUserEquips(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1907,36 +1817,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasAttacker()) {
-          
-          return false;
-        }
-        if (!hasDefender()) {
-          
-          return false;
-        }
-        if (!hasBattleResult()) {
-          
-          return false;
-        }
-        if (!hasClientTime()) {
-          
-          return false;
-        }
-        if (!getAttacker().isInitialized()) {
-          
-          return false;
-        }
-        if (!getDefender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getDefenderUserEquipsCount(); i++) {
-          if (!getDefenderUserEquips(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -2014,7 +1894,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+      // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto attacker_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> attackerBuilder_;
@@ -2104,7 +1984,7 @@ public final class EventProto {
         return attackerBuilder_;
       }
       
-      // required .com.lvl6.proto.MinimumUserProto defender = 2;
+      // optional .com.lvl6.proto.MinimumUserProto defender = 2;
       private com.lvl6.proto.InfoProto.MinimumUserProto defender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> defenderBuilder_;
@@ -2194,7 +2074,7 @@ public final class EventProto {
         return defenderBuilder_;
       }
       
-      // required .com.lvl6.proto.BattleResult battleResult = 3;
+      // optional .com.lvl6.proto.BattleResult battleResult = 3;
       private com.lvl6.proto.InfoProto.BattleResult battleResult_ = com.lvl6.proto.InfoProto.BattleResult.ATTACKER_WIN;
       public boolean hasBattleResult() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -2218,7 +2098,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 clientTime = 4;
+      // optional int64 clientTime = 4;
       private long clientTime_ ;
       public boolean hasClientTime() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -2460,21 +2340,21 @@ public final class EventProto {
   public interface BattleResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+    // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
     boolean hasAttacker();
     com.lvl6.proto.InfoProto.MinimumUserProto getAttacker();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getAttackerOrBuilder();
     
-    // required .com.lvl6.proto.MinimumUserProto defender = 2;
+    // optional .com.lvl6.proto.MinimumUserProto defender = 2;
     boolean hasDefender();
     com.lvl6.proto.InfoProto.MinimumUserProto getDefender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getDefenderOrBuilder();
     
-    // required .com.lvl6.proto.BattleResponseProto.BattleStatus status = 3;
+    // optional .com.lvl6.proto.BattleResponseProto.BattleStatus status = 3;
     boolean hasStatus();
     com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus getStatus();
     
-    // required .com.lvl6.proto.BattleResult battleResult = 7;
+    // optional .com.lvl6.proto.BattleResult battleResult = 7;
     boolean hasBattleResult();
     com.lvl6.proto.InfoProto.BattleResult getBattleResult();
     
@@ -2589,7 +2469,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+    // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
     public static final int ATTACKER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto attacker_;
     public boolean hasAttacker() {
@@ -2602,7 +2482,7 @@ public final class EventProto {
       return attacker_;
     }
     
-    // required .com.lvl6.proto.MinimumUserProto defender = 2;
+    // optional .com.lvl6.proto.MinimumUserProto defender = 2;
     public static final int DEFENDER_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.MinimumUserProto defender_;
     public boolean hasDefender() {
@@ -2615,7 +2495,7 @@ public final class EventProto {
       return defender_;
     }
     
-    // required .com.lvl6.proto.BattleResponseProto.BattleStatus status = 3;
+    // optional .com.lvl6.proto.BattleResponseProto.BattleStatus status = 3;
     public static final int STATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus status_;
     public boolean hasStatus() {
@@ -2625,7 +2505,7 @@ public final class EventProto {
       return status_;
     }
     
-    // required .com.lvl6.proto.BattleResult battleResult = 7;
+    // optional .com.lvl6.proto.BattleResult battleResult = 7;
     public static final int BATTLERESULT_FIELD_NUMBER = 7;
     private com.lvl6.proto.InfoProto.BattleResult battleResult_;
     public boolean hasBattleResult() {
@@ -2682,36 +2562,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasAttacker()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDefender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasBattleResult()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getAttacker().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getDefender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasEquipGained()) {
-        if (!getEquipGained().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -3050,36 +2900,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasAttacker()) {
-          
-          return false;
-        }
-        if (!hasDefender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!hasBattleResult()) {
-          
-          return false;
-        }
-        if (!getAttacker().isInitialized()) {
-          
-          return false;
-        }
-        if (!getDefender().isInitialized()) {
-          
-          return false;
-        }
-        if (hasEquipGained()) {
-          if (!getEquipGained().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -3171,7 +2991,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+      // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto attacker_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> attackerBuilder_;
@@ -3261,7 +3081,7 @@ public final class EventProto {
         return attackerBuilder_;
       }
       
-      // required .com.lvl6.proto.MinimumUserProto defender = 2;
+      // optional .com.lvl6.proto.MinimumUserProto defender = 2;
       private com.lvl6.proto.InfoProto.MinimumUserProto defender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> defenderBuilder_;
@@ -3351,7 +3171,7 @@ public final class EventProto {
         return defenderBuilder_;
       }
       
-      // required .com.lvl6.proto.BattleResponseProto.BattleStatus status = 3;
+      // optional .com.lvl6.proto.BattleResponseProto.BattleStatus status = 3;
       private com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus status_ = com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -3375,7 +3195,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.BattleResult battleResult = 7;
+      // optional .com.lvl6.proto.BattleResult battleResult = 7;
       private com.lvl6.proto.InfoProto.BattleResult battleResult_ = com.lvl6.proto.InfoProto.BattleResult.ATTACKER_WIN;
       public boolean hasBattleResult() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -3545,7 +3365,7 @@ public final class EventProto {
   public interface VaultRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -3656,7 +3476,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -3699,14 +3519,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -3963,14 +3775,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -4028,7 +3832,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -4177,12 +3981,12 @@ public final class EventProto {
   public interface VaultResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.VaultResponseProto.VaultStatus status = 2;
+    // optional .com.lvl6.proto.VaultResponseProto.VaultStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.VaultResponseProto.VaultStatus getStatus();
     
@@ -4295,7 +4099,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -4308,7 +4112,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.VaultResponseProto.VaultStatus status = 2;
+    // optional .com.lvl6.proto.VaultResponseProto.VaultStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.VaultResponseProto.VaultStatus status_;
     public boolean hasStatus() {
@@ -4349,18 +4153,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -4633,18 +4425,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -4707,7 +4487,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -4797,7 +4577,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.VaultResponseProto.VaultStatus status = 2;
+      // optional .com.lvl6.proto.VaultResponseProto.VaultStatus status = 2;
       private com.lvl6.proto.EventProto.VaultResponseProto.VaultStatus status_ = com.lvl6.proto.EventProto.VaultResponseProto.VaultStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -4877,20 +4657,20 @@ public final class EventProto {
   public interface ArmoryRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.ArmoryRequestProto.ArmoryRequestType requestType = 2;
+    // optional .com.lvl6.proto.ArmoryRequestProto.ArmoryRequestType requestType = 2;
     boolean hasRequestType();
     com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType getRequestType();
     
-    // required int32 quantity = 3;
+    // optional int32 quantity = 3;
     boolean hasQuantity();
     int getQuantity();
     
-    // required int32 equipId = 4;
+    // optional int32 equipId = 4;
     boolean hasEquipId();
     int getEquipId();
   }
@@ -4992,7 +4772,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -5005,7 +4785,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.ArmoryRequestProto.ArmoryRequestType requestType = 2;
+    // optional .com.lvl6.proto.ArmoryRequestProto.ArmoryRequestType requestType = 2;
     public static final int REQUESTTYPE_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType requestType_;
     public boolean hasRequestType() {
@@ -5015,7 +4795,7 @@ public final class EventProto {
       return requestType_;
     }
     
-    // required int32 quantity = 3;
+    // optional int32 quantity = 3;
     public static final int QUANTITY_FIELD_NUMBER = 3;
     private int quantity_;
     public boolean hasQuantity() {
@@ -5025,7 +4805,7 @@ public final class EventProto {
       return quantity_;
     }
     
-    // required int32 equipId = 4;
+    // optional int32 equipId = 4;
     public static final int EQUIPID_FIELD_NUMBER = 4;
     private int equipId_;
     public boolean hasEquipId() {
@@ -5046,26 +4826,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRequestType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuantity()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEquipId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -5338,26 +5098,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasRequestType()) {
-          
-          return false;
-        }
-        if (!hasQuantity()) {
-          
-          return false;
-        }
-        if (!hasEquipId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -5420,7 +5160,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -5510,7 +5250,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.ArmoryRequestProto.ArmoryRequestType requestType = 2;
+      // optional .com.lvl6.proto.ArmoryRequestProto.ArmoryRequestType requestType = 2;
       private com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType requestType_ = com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType.BUY;
       public boolean hasRequestType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -5534,7 +5274,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int32 quantity = 3;
+      // optional int32 quantity = 3;
       private int quantity_ ;
       public boolean hasQuantity() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -5555,7 +5295,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int32 equipId = 4;
+      // optional int32 equipId = 4;
       private int equipId_ ;
       public boolean hasEquipId() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -5590,12 +5330,12 @@ public final class EventProto {
   public interface ArmoryResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.ArmoryResponseProto.ArmoryStatus status = 2;
+    // optional .com.lvl6.proto.ArmoryResponseProto.ArmoryStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus getStatus();
   }
@@ -5709,7 +5449,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -5722,7 +5462,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.ArmoryResponseProto.ArmoryStatus status = 2;
+    // optional .com.lvl6.proto.ArmoryResponseProto.ArmoryStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus status_;
     public boolean hasStatus() {
@@ -5741,18 +5481,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -5993,18 +5721,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -6057,7 +5773,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -6147,7 +5863,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.ArmoryResponseProto.ArmoryStatus status = 2;
+      // optional .com.lvl6.proto.ArmoryResponseProto.ArmoryStatus status = 2;
       private com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus status_ = com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -6185,11 +5901,11 @@ public final class EventProto {
   public interface StartupRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required string udid = 1;
+    // optional string udid = 1;
     boolean hasUdid();
     String getUdid();
     
-    // required float versionNum = 2;
+    // optional float versionNum = 2;
     boolean hasVersionNum();
     float getVersionNum();
     
@@ -6226,7 +5942,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required string udid = 1;
+    // optional string udid = 1;
     public static final int UDID_FIELD_NUMBER = 1;
     private java.lang.Object udid_;
     public boolean hasUdid() {
@@ -6258,7 +5974,7 @@ public final class EventProto {
       }
     }
     
-    // required float versionNum = 2;
+    // optional float versionNum = 2;
     public static final int VERSIONNUM_FIELD_NUMBER = 2;
     private float versionNum_;
     public boolean hasVersionNum() {
@@ -6310,14 +6026,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUdid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasVersionNum()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -6565,14 +6273,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUdid()) {
-          
-          return false;
-        }
-        if (!hasVersionNum()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -6620,7 +6320,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required string udid = 1;
+      // optional string udid = 1;
       private java.lang.Object udid_ = "";
       public boolean hasUdid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -6656,7 +6356,7 @@ public final class EventProto {
         onChanged();
       }
       
-      // required float versionNum = 2;
+      // optional float versionNum = 2;
       private float versionNum_ ;
       public boolean hasVersionNum() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -6732,15 +6432,15 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserProto getSender();
     com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
+    // optional .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
     boolean hasStartupStatus();
     com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus getStartupStatus();
     
-    // required .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
+    // optional .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
     boolean hasUpdateStatus();
     com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus getUpdateStatus();
     
-    // required .com.lvl6.proto.StartupResponseProto.StartupConstants startupConstants = 4;
+    // optional .com.lvl6.proto.StartupResponseProto.StartupConstants startupConstants = 4;
     boolean hasStartupConstants();
     com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants getStartupConstants();
     com.lvl6.proto.EventProto.StartupResponseProto.StartupConstantsOrBuilder getStartupConstantsOrBuilder();
@@ -6847,6 +6547,10 @@ public final class EventProto {
         getReferralNotificationsOrBuilderList();
     com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProtoOrBuilder getReferralNotificationsOrBuilder(
         int index);
+    
+    // optional string appStoreURL = 17;
+    boolean hasAppStoreURL();
+    String getAppStoreURL();
   }
   public static final class StartupResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -7020,17 +6724,17 @@ public final class EventProto {
     public interface MarketplacePostPurchasedNotificationProtoOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 1;
+      // optional .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 1;
       boolean hasMarketplacePost();
       com.lvl6.proto.InfoProto.FullMarketplacePostProto getMarketplacePost();
       com.lvl6.proto.InfoProto.FullMarketplacePostProtoOrBuilder getMarketplacePostOrBuilder();
       
-      // required .com.lvl6.proto.MinimumUserProto buyer = 2;
+      // optional .com.lvl6.proto.MinimumUserProto buyer = 2;
       boolean hasBuyer();
       com.lvl6.proto.InfoProto.MinimumUserProto getBuyer();
       com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getBuyerOrBuilder();
       
-      // required int64 timeOfPurchase = 3;
+      // optional int64 timeOfPurchase = 3;
       boolean hasTimeOfPurchase();
       long getTimeOfPurchase();
     }
@@ -7063,7 +6767,7 @@ public final class EventProto {
       }
       
       private int bitField0_;
-      // required .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 1;
+      // optional .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 1;
       public static final int MARKETPLACEPOST_FIELD_NUMBER = 1;
       private com.lvl6.proto.InfoProto.FullMarketplacePostProto marketplacePost_;
       public boolean hasMarketplacePost() {
@@ -7076,7 +6780,7 @@ public final class EventProto {
         return marketplacePost_;
       }
       
-      // required .com.lvl6.proto.MinimumUserProto buyer = 2;
+      // optional .com.lvl6.proto.MinimumUserProto buyer = 2;
       public static final int BUYER_FIELD_NUMBER = 2;
       private com.lvl6.proto.InfoProto.MinimumUserProto buyer_;
       public boolean hasBuyer() {
@@ -7089,7 +6793,7 @@ public final class EventProto {
         return buyer_;
       }
       
-      // required int64 timeOfPurchase = 3;
+      // optional int64 timeOfPurchase = 3;
       public static final int TIMEOFPURCHASE_FIELD_NUMBER = 3;
       private long timeOfPurchase_;
       public boolean hasTimeOfPurchase() {
@@ -7109,26 +6813,6 @@ public final class EventProto {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasMarketplacePost()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasBuyer()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasTimeOfPurchase()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getMarketplacePost().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getBuyer().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -7394,26 +7078,6 @@ public final class EventProto {
         }
         
         public final boolean isInitialized() {
-          if (!hasMarketplacePost()) {
-            
-            return false;
-          }
-          if (!hasBuyer()) {
-            
-            return false;
-          }
-          if (!hasTimeOfPurchase()) {
-            
-            return false;
-          }
-          if (!getMarketplacePost().isInitialized()) {
-            
-            return false;
-          }
-          if (!getBuyer().isInitialized()) {
-            
-            return false;
-          }
           return true;
         }
         
@@ -7469,7 +7133,7 @@ public final class EventProto {
         
         private int bitField0_;
         
-        // required .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 1;
+        // optional .com.lvl6.proto.FullMarketplacePostProto marketplacePost = 1;
         private com.lvl6.proto.InfoProto.FullMarketplacePostProto marketplacePost_ = com.lvl6.proto.InfoProto.FullMarketplacePostProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.FullMarketplacePostProto, com.lvl6.proto.InfoProto.FullMarketplacePostProto.Builder, com.lvl6.proto.InfoProto.FullMarketplacePostProtoOrBuilder> marketplacePostBuilder_;
@@ -7559,7 +7223,7 @@ public final class EventProto {
           return marketplacePostBuilder_;
         }
         
-        // required .com.lvl6.proto.MinimumUserProto buyer = 2;
+        // optional .com.lvl6.proto.MinimumUserProto buyer = 2;
         private com.lvl6.proto.InfoProto.MinimumUserProto buyer_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> buyerBuilder_;
@@ -7649,7 +7313,7 @@ public final class EventProto {
           return buyerBuilder_;
         }
         
-        // required int64 timeOfPurchase = 3;
+        // optional int64 timeOfPurchase = 3;
         private long timeOfPurchase_ ;
         public boolean hasTimeOfPurchase() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -7684,16 +7348,16 @@ public final class EventProto {
     public interface AttackedNotificationProtoOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+      // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
       boolean hasAttacker();
       com.lvl6.proto.InfoProto.MinimumUserProto getAttacker();
       com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getAttackerOrBuilder();
       
-      // required .com.lvl6.proto.BattleResult battleResult = 2;
+      // optional .com.lvl6.proto.BattleResult battleResult = 2;
       boolean hasBattleResult();
       com.lvl6.proto.InfoProto.BattleResult getBattleResult();
       
-      // required int64 battleCompleteTime = 3;
+      // optional int64 battleCompleteTime = 3;
       boolean hasBattleCompleteTime();
       long getBattleCompleteTime();
       
@@ -7734,7 +7398,7 @@ public final class EventProto {
       }
       
       private int bitField0_;
-      // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+      // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
       public static final int ATTACKER_FIELD_NUMBER = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto attacker_;
       public boolean hasAttacker() {
@@ -7747,7 +7411,7 @@ public final class EventProto {
         return attacker_;
       }
       
-      // required .com.lvl6.proto.BattleResult battleResult = 2;
+      // optional .com.lvl6.proto.BattleResult battleResult = 2;
       public static final int BATTLERESULT_FIELD_NUMBER = 2;
       private com.lvl6.proto.InfoProto.BattleResult battleResult_;
       public boolean hasBattleResult() {
@@ -7757,7 +7421,7 @@ public final class EventProto {
         return battleResult_;
       }
       
-      // required int64 battleCompleteTime = 3;
+      // optional int64 battleCompleteTime = 3;
       public static final int BATTLECOMPLETETIME_FIELD_NUMBER = 3;
       private long battleCompleteTime_;
       public boolean hasBattleCompleteTime() {
@@ -7799,22 +7463,6 @@ public final class EventProto {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasAttacker()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasBattleResult()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasBattleCompleteTime()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getAttacker().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -8103,22 +7751,6 @@ public final class EventProto {
         }
         
         public final boolean isInitialized() {
-          if (!hasAttacker()) {
-            
-            return false;
-          }
-          if (!hasBattleResult()) {
-            
-            return false;
-          }
-          if (!hasBattleCompleteTime()) {
-            
-            return false;
-          }
-          if (!getAttacker().isInitialized()) {
-            
-            return false;
-          }
           return true;
         }
         
@@ -8186,7 +7818,7 @@ public final class EventProto {
         
         private int bitField0_;
         
-        // required .com.lvl6.proto.MinimumUserProto attacker = 1;
+        // optional .com.lvl6.proto.MinimumUserProto attacker = 1;
         private com.lvl6.proto.InfoProto.MinimumUserProto attacker_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> attackerBuilder_;
@@ -8276,7 +7908,7 @@ public final class EventProto {
           return attackerBuilder_;
         }
         
-        // required .com.lvl6.proto.BattleResult battleResult = 2;
+        // optional .com.lvl6.proto.BattleResult battleResult = 2;
         private com.lvl6.proto.InfoProto.BattleResult battleResult_ = com.lvl6.proto.InfoProto.BattleResult.ATTACKER_WIN;
         public boolean hasBattleResult() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -8300,7 +7932,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int64 battleCompleteTime = 3;
+        // optional int64 battleCompleteTime = 3;
         private long battleCompleteTime_ ;
         public boolean hasBattleCompleteTime() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -8377,12 +8009,12 @@ public final class EventProto {
     public interface ReferralNotificationProtoOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required .com.lvl6.proto.MinimumUserProto referred = 1;
+      // optional .com.lvl6.proto.MinimumUserProto referred = 1;
       boolean hasReferred();
       com.lvl6.proto.InfoProto.MinimumUserProto getReferred();
       com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getReferredOrBuilder();
       
-      // required int64 recruitTime = 2;
+      // optional int64 recruitTime = 2;
       boolean hasRecruitTime();
       long getRecruitTime();
     }
@@ -8415,7 +8047,7 @@ public final class EventProto {
       }
       
       private int bitField0_;
-      // required .com.lvl6.proto.MinimumUserProto referred = 1;
+      // optional .com.lvl6.proto.MinimumUserProto referred = 1;
       public static final int REFERRED_FIELD_NUMBER = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto referred_;
       public boolean hasReferred() {
@@ -8428,7 +8060,7 @@ public final class EventProto {
         return referred_;
       }
       
-      // required int64 recruitTime = 2;
+      // optional int64 recruitTime = 2;
       public static final int RECRUITTIME_FIELD_NUMBER = 2;
       private long recruitTime_;
       public boolean hasRecruitTime() {
@@ -8447,18 +8079,6 @@ public final class EventProto {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasReferred()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasRecruitTime()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getReferred().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -8699,18 +8319,6 @@ public final class EventProto {
         }
         
         public final boolean isInitialized() {
-          if (!hasReferred()) {
-            
-            return false;
-          }
-          if (!hasRecruitTime()) {
-            
-            return false;
-          }
-          if (!getReferred().isInitialized()) {
-            
-            return false;
-          }
           return true;
         }
         
@@ -8757,7 +8365,7 @@ public final class EventProto {
         
         private int bitField0_;
         
-        // required .com.lvl6.proto.MinimumUserProto referred = 1;
+        // optional .com.lvl6.proto.MinimumUserProto referred = 1;
         private com.lvl6.proto.InfoProto.MinimumUserProto referred_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> referredBuilder_;
@@ -8847,7 +8455,7 @@ public final class EventProto {
           return referredBuilder_;
         }
         
-        // required int64 recruitTime = 2;
+        // optional int64 recruitTime = 2;
         private long recruitTime_ ;
         public boolean hasRecruitTime() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -8892,179 +8500,179 @@ public final class EventProto {
       int getProductDiamondsGivenCount();
       int getProductDiamondsGiven(int index);
       
-      // required int32 maxLevelDifferenceForBattle = 6;
+      // optional int32 maxLevelDifferenceForBattle = 6;
       boolean hasMaxLevelDifferenceForBattle();
       int getMaxLevelDifferenceForBattle();
       
-      // required int32 armoryXLength = 7;
+      // optional int32 armoryXLength = 7;
       boolean hasArmoryXLength();
       int getArmoryXLength();
       
-      // required int32 armoryYLength = 8;
+      // optional int32 armoryYLength = 8;
       boolean hasArmoryYLength();
       int getArmoryYLength();
       
-      // required int32 vaultXLength = 9;
+      // optional int32 vaultXLength = 9;
       boolean hasVaultXLength();
       int getVaultXLength();
       
-      // required int32 vaultYLength = 10;
+      // optional int32 vaultYLength = 10;
       boolean hasVaultYLength();
       int getVaultYLength();
       
-      // required int32 marketplaceXLength = 11;
+      // optional int32 marketplaceXLength = 11;
       boolean hasMarketplaceXLength();
       int getMarketplaceXLength();
       
-      // required int32 marketplaceYLength = 12;
+      // optional int32 marketplaceYLength = 12;
       boolean hasMarketplaceYLength();
       int getMarketplaceYLength();
       
-      // required int32 carpenterXLength = 13;
+      // optional int32 carpenterXLength = 13;
       boolean hasCarpenterXLength();
       int getCarpenterXLength();
       
-      // required int32 carpenterYLength = 14;
+      // optional int32 carpenterYLength = 14;
       boolean hasCarpenterYLength();
       int getCarpenterYLength();
       
-      // required int32 aviaryXLength = 15;
+      // optional int32 aviaryXLength = 15;
       boolean hasAviaryXLength();
       int getAviaryXLength();
       
-      // required int32 aviaryYLength = 16;
+      // optional int32 aviaryYLength = 16;
       boolean hasAviaryYLength();
       int getAviaryYLength();
       
-      // required int32 attackBaseGain = 17;
+      // optional int32 attackBaseGain = 17;
       boolean hasAttackBaseGain();
       int getAttackBaseGain();
       
-      // required int32 defenseBaseGain = 18;
+      // optional int32 defenseBaseGain = 18;
       boolean hasDefenseBaseGain();
       int getDefenseBaseGain();
       
-      // required int32 energyBaseGain = 19;
+      // optional int32 energyBaseGain = 19;
       boolean hasEnergyBaseGain();
       int getEnergyBaseGain();
       
-      // required int32 healthBaseGain = 20;
+      // optional int32 healthBaseGain = 20;
       boolean hasHealthBaseGain();
       int getHealthBaseGain();
       
-      // required int32 staminaBaseGain = 21;
+      // optional int32 staminaBaseGain = 21;
       boolean hasStaminaBaseGain();
       int getStaminaBaseGain();
       
-      // required int32 attackBaseCost = 22;
+      // optional int32 attackBaseCost = 22;
       boolean hasAttackBaseCost();
       int getAttackBaseCost();
       
-      // required int32 defenseBaseCost = 23;
+      // optional int32 defenseBaseCost = 23;
       boolean hasDefenseBaseCost();
       int getDefenseBaseCost();
       
-      // required int32 energyBaseCost = 24;
+      // optional int32 energyBaseCost = 24;
       boolean hasEnergyBaseCost();
       int getEnergyBaseCost();
       
-      // required int32 healthBaseCost = 25;
+      // optional int32 healthBaseCost = 25;
       boolean hasHealthBaseCost();
       int getHealthBaseCost();
       
-      // required int32 staminaBaseCost = 26;
+      // optional int32 staminaBaseCost = 26;
       boolean hasStaminaBaseCost();
       int getStaminaBaseCost();
       
-      // required int32 skillPointsGainedOnLevelup = 27;
+      // optional int32 skillPointsGainedOnLevelup = 27;
       boolean hasSkillPointsGainedOnLevelup();
       int getSkillPointsGainedOnLevelup();
       
-      // required double cutOfVaultDepositTaken = 28;
+      // optional double cutOfVaultDepositTaken = 28;
       boolean hasCutOfVaultDepositTaken();
       double getCutOfVaultDepositTaken();
       
-      // required int32 maxLevelForStruct = 33;
+      // optional int32 maxLevelForStruct = 33;
       boolean hasMaxLevelForStruct();
       int getMaxLevelForStruct();
       
-      // required int32 maxNumOfSingleStruct = 34;
+      // optional int32 maxNumOfSingleStruct = 34;
       boolean hasMaxNumOfSingleStruct();
       int getMaxNumOfSingleStruct();
       
-      // required double percentReturnedToUserForSellingNormStructure = 35;
+      // optional double percentReturnedToUserForSellingNormStructure = 35;
       boolean hasPercentReturnedToUserForSellingNormStructure();
       double getPercentReturnedToUserForSellingNormStructure();
       
-      // required int32 minutesToRefillAEnergy = 36;
+      // optional int32 minutesToRefillAEnergy = 36;
       boolean hasMinutesToRefillAEnergy();
       int getMinutesToRefillAEnergy();
       
-      // required int32 minutesToRefillAStamina = 37;
+      // optional int32 minutesToRefillAStamina = 37;
       boolean hasMinutesToRefillAStamina();
       int getMinutesToRefillAStamina();
       
-      // required int32 diamondCostForFullStaminaRefill = 48;
+      // optional int32 diamondCostForFullStaminaRefill = 48;
       boolean hasDiamondCostForFullStaminaRefill();
       int getDiamondCostForFullStaminaRefill();
       
-      // required int32 diamondCostForFullEnergyRefill = 49;
+      // optional int32 diamondCostForFullEnergyRefill = 49;
       boolean hasDiamondCostForFullEnergyRefill();
       int getDiamondCostForFullEnergyRefill();
       
-      // required int32 maxNumberOfMarketplacePosts = 40;
+      // optional int32 maxNumberOfMarketplacePosts = 40;
       boolean hasMaxNumberOfMarketplacePosts();
       int getMaxNumberOfMarketplacePosts();
       
-      // required double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
+      // optional double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
       boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase();
       double getPercentOfSellingCostTakenFromSellerOnMarketplacePurchase();
       
-      // required double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
+      // optional double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
       boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract();
       double getPercentOfSellingCostTakenFromSellerOnMarketplaceRetract();
       
-      // required int32 numDaysLongMarketplaceLicenseLastsFor = 43;
+      // optional int32 numDaysLongMarketplaceLicenseLastsFor = 43;
       boolean hasNumDaysLongMarketplaceLicenseLastsFor();
       int getNumDaysLongMarketplaceLicenseLastsFor();
       
-      // required int32 numDaysShortMarketplaceLicenseLastsFor = 44;
+      // optional int32 numDaysShortMarketplaceLicenseLastsFor = 44;
       boolean hasNumDaysShortMarketplaceLicenseLastsFor();
       int getNumDaysShortMarketplaceLicenseLastsFor();
       
-      // required int32 diamondCostOfLongMarketplaceLicense = 45;
+      // optional int32 diamondCostOfLongMarketplaceLicense = 45;
       boolean hasDiamondCostOfLongMarketplaceLicense();
       int getDiamondCostOfLongMarketplaceLicense();
       
-      // required int32 diamondCostOfShortMarketplaceLicense = 46;
+      // optional int32 diamondCostOfShortMarketplaceLicense = 46;
       boolean hasDiamondCostOfShortMarketplaceLicense();
       int getDiamondCostOfShortMarketplaceLicense();
       
-      // required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
+      // optional int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
       boolean hasMaxNumbersOfEnemiesToGenerateAtOnce();
       int getMaxNumbersOfEnemiesToGenerateAtOnce();
       
-      // required double percentReturnedToUserForSellingEquipInArmory = 5;
+      // optional double percentReturnedToUserForSellingEquipInArmory = 5;
       boolean hasPercentReturnedToUserForSellingEquipInArmory();
       double getPercentReturnedToUserForSellingEquipInArmory();
       
-      // required int32 diamondRewardForReferrer = 47;
+      // optional int32 diamondRewardForReferrer = 47;
       boolean hasDiamondRewardForReferrer();
       int getDiamondRewardForReferrer();
       
-      // required int32 maxCityRank = 50;
+      // optional int32 maxCityRank = 50;
       boolean hasMaxCityRank();
       int getMaxCityRank();
       
-      // required int32 minLevelForArmory = 51;
+      // optional int32 minLevelForArmory = 51;
       boolean hasMinLevelForArmory();
       int getMinLevelForArmory();
       
-      // required int32 minLevelForVault = 52;
+      // optional int32 minLevelForVault = 52;
       boolean hasMinLevelForVault();
       int getMinLevelForVault();
       
-      // required int32 minLevelForMarketplace = 53;
+      // optional int32 minLevelForMarketplace = 53;
       boolean hasMinLevelForMarketplace();
       int getMinLevelForMarketplace();
     }
@@ -9126,7 +8734,7 @@ public final class EventProto {
         return productDiamondsGiven_.get(index);
       }
       
-      // required int32 maxLevelDifferenceForBattle = 6;
+      // optional int32 maxLevelDifferenceForBattle = 6;
       public static final int MAXLEVELDIFFERENCEFORBATTLE_FIELD_NUMBER = 6;
       private int maxLevelDifferenceForBattle_;
       public boolean hasMaxLevelDifferenceForBattle() {
@@ -9136,7 +8744,7 @@ public final class EventProto {
         return maxLevelDifferenceForBattle_;
       }
       
-      // required int32 armoryXLength = 7;
+      // optional int32 armoryXLength = 7;
       public static final int ARMORYXLENGTH_FIELD_NUMBER = 7;
       private int armoryXLength_;
       public boolean hasArmoryXLength() {
@@ -9146,7 +8754,7 @@ public final class EventProto {
         return armoryXLength_;
       }
       
-      // required int32 armoryYLength = 8;
+      // optional int32 armoryYLength = 8;
       public static final int ARMORYYLENGTH_FIELD_NUMBER = 8;
       private int armoryYLength_;
       public boolean hasArmoryYLength() {
@@ -9156,7 +8764,7 @@ public final class EventProto {
         return armoryYLength_;
       }
       
-      // required int32 vaultXLength = 9;
+      // optional int32 vaultXLength = 9;
       public static final int VAULTXLENGTH_FIELD_NUMBER = 9;
       private int vaultXLength_;
       public boolean hasVaultXLength() {
@@ -9166,7 +8774,7 @@ public final class EventProto {
         return vaultXLength_;
       }
       
-      // required int32 vaultYLength = 10;
+      // optional int32 vaultYLength = 10;
       public static final int VAULTYLENGTH_FIELD_NUMBER = 10;
       private int vaultYLength_;
       public boolean hasVaultYLength() {
@@ -9176,7 +8784,7 @@ public final class EventProto {
         return vaultYLength_;
       }
       
-      // required int32 marketplaceXLength = 11;
+      // optional int32 marketplaceXLength = 11;
       public static final int MARKETPLACEXLENGTH_FIELD_NUMBER = 11;
       private int marketplaceXLength_;
       public boolean hasMarketplaceXLength() {
@@ -9186,7 +8794,7 @@ public final class EventProto {
         return marketplaceXLength_;
       }
       
-      // required int32 marketplaceYLength = 12;
+      // optional int32 marketplaceYLength = 12;
       public static final int MARKETPLACEYLENGTH_FIELD_NUMBER = 12;
       private int marketplaceYLength_;
       public boolean hasMarketplaceYLength() {
@@ -9196,7 +8804,7 @@ public final class EventProto {
         return marketplaceYLength_;
       }
       
-      // required int32 carpenterXLength = 13;
+      // optional int32 carpenterXLength = 13;
       public static final int CARPENTERXLENGTH_FIELD_NUMBER = 13;
       private int carpenterXLength_;
       public boolean hasCarpenterXLength() {
@@ -9206,7 +8814,7 @@ public final class EventProto {
         return carpenterXLength_;
       }
       
-      // required int32 carpenterYLength = 14;
+      // optional int32 carpenterYLength = 14;
       public static final int CARPENTERYLENGTH_FIELD_NUMBER = 14;
       private int carpenterYLength_;
       public boolean hasCarpenterYLength() {
@@ -9216,7 +8824,7 @@ public final class EventProto {
         return carpenterYLength_;
       }
       
-      // required int32 aviaryXLength = 15;
+      // optional int32 aviaryXLength = 15;
       public static final int AVIARYXLENGTH_FIELD_NUMBER = 15;
       private int aviaryXLength_;
       public boolean hasAviaryXLength() {
@@ -9226,7 +8834,7 @@ public final class EventProto {
         return aviaryXLength_;
       }
       
-      // required int32 aviaryYLength = 16;
+      // optional int32 aviaryYLength = 16;
       public static final int AVIARYYLENGTH_FIELD_NUMBER = 16;
       private int aviaryYLength_;
       public boolean hasAviaryYLength() {
@@ -9236,7 +8844,7 @@ public final class EventProto {
         return aviaryYLength_;
       }
       
-      // required int32 attackBaseGain = 17;
+      // optional int32 attackBaseGain = 17;
       public static final int ATTACKBASEGAIN_FIELD_NUMBER = 17;
       private int attackBaseGain_;
       public boolean hasAttackBaseGain() {
@@ -9246,7 +8854,7 @@ public final class EventProto {
         return attackBaseGain_;
       }
       
-      // required int32 defenseBaseGain = 18;
+      // optional int32 defenseBaseGain = 18;
       public static final int DEFENSEBASEGAIN_FIELD_NUMBER = 18;
       private int defenseBaseGain_;
       public boolean hasDefenseBaseGain() {
@@ -9256,7 +8864,7 @@ public final class EventProto {
         return defenseBaseGain_;
       }
       
-      // required int32 energyBaseGain = 19;
+      // optional int32 energyBaseGain = 19;
       public static final int ENERGYBASEGAIN_FIELD_NUMBER = 19;
       private int energyBaseGain_;
       public boolean hasEnergyBaseGain() {
@@ -9266,7 +8874,7 @@ public final class EventProto {
         return energyBaseGain_;
       }
       
-      // required int32 healthBaseGain = 20;
+      // optional int32 healthBaseGain = 20;
       public static final int HEALTHBASEGAIN_FIELD_NUMBER = 20;
       private int healthBaseGain_;
       public boolean hasHealthBaseGain() {
@@ -9276,7 +8884,7 @@ public final class EventProto {
         return healthBaseGain_;
       }
       
-      // required int32 staminaBaseGain = 21;
+      // optional int32 staminaBaseGain = 21;
       public static final int STAMINABASEGAIN_FIELD_NUMBER = 21;
       private int staminaBaseGain_;
       public boolean hasStaminaBaseGain() {
@@ -9286,7 +8894,7 @@ public final class EventProto {
         return staminaBaseGain_;
       }
       
-      // required int32 attackBaseCost = 22;
+      // optional int32 attackBaseCost = 22;
       public static final int ATTACKBASECOST_FIELD_NUMBER = 22;
       private int attackBaseCost_;
       public boolean hasAttackBaseCost() {
@@ -9296,7 +8904,7 @@ public final class EventProto {
         return attackBaseCost_;
       }
       
-      // required int32 defenseBaseCost = 23;
+      // optional int32 defenseBaseCost = 23;
       public static final int DEFENSEBASECOST_FIELD_NUMBER = 23;
       private int defenseBaseCost_;
       public boolean hasDefenseBaseCost() {
@@ -9306,7 +8914,7 @@ public final class EventProto {
         return defenseBaseCost_;
       }
       
-      // required int32 energyBaseCost = 24;
+      // optional int32 energyBaseCost = 24;
       public static final int ENERGYBASECOST_FIELD_NUMBER = 24;
       private int energyBaseCost_;
       public boolean hasEnergyBaseCost() {
@@ -9316,7 +8924,7 @@ public final class EventProto {
         return energyBaseCost_;
       }
       
-      // required int32 healthBaseCost = 25;
+      // optional int32 healthBaseCost = 25;
       public static final int HEALTHBASECOST_FIELD_NUMBER = 25;
       private int healthBaseCost_;
       public boolean hasHealthBaseCost() {
@@ -9326,7 +8934,7 @@ public final class EventProto {
         return healthBaseCost_;
       }
       
-      // required int32 staminaBaseCost = 26;
+      // optional int32 staminaBaseCost = 26;
       public static final int STAMINABASECOST_FIELD_NUMBER = 26;
       private int staminaBaseCost_;
       public boolean hasStaminaBaseCost() {
@@ -9336,7 +8944,7 @@ public final class EventProto {
         return staminaBaseCost_;
       }
       
-      // required int32 skillPointsGainedOnLevelup = 27;
+      // optional int32 skillPointsGainedOnLevelup = 27;
       public static final int SKILLPOINTSGAINEDONLEVELUP_FIELD_NUMBER = 27;
       private int skillPointsGainedOnLevelup_;
       public boolean hasSkillPointsGainedOnLevelup() {
@@ -9346,7 +8954,7 @@ public final class EventProto {
         return skillPointsGainedOnLevelup_;
       }
       
-      // required double cutOfVaultDepositTaken = 28;
+      // optional double cutOfVaultDepositTaken = 28;
       public static final int CUTOFVAULTDEPOSITTAKEN_FIELD_NUMBER = 28;
       private double cutOfVaultDepositTaken_;
       public boolean hasCutOfVaultDepositTaken() {
@@ -9356,7 +8964,7 @@ public final class EventProto {
         return cutOfVaultDepositTaken_;
       }
       
-      // required int32 maxLevelForStruct = 33;
+      // optional int32 maxLevelForStruct = 33;
       public static final int MAXLEVELFORSTRUCT_FIELD_NUMBER = 33;
       private int maxLevelForStruct_;
       public boolean hasMaxLevelForStruct() {
@@ -9366,7 +8974,7 @@ public final class EventProto {
         return maxLevelForStruct_;
       }
       
-      // required int32 maxNumOfSingleStruct = 34;
+      // optional int32 maxNumOfSingleStruct = 34;
       public static final int MAXNUMOFSINGLESTRUCT_FIELD_NUMBER = 34;
       private int maxNumOfSingleStruct_;
       public boolean hasMaxNumOfSingleStruct() {
@@ -9376,7 +8984,7 @@ public final class EventProto {
         return maxNumOfSingleStruct_;
       }
       
-      // required double percentReturnedToUserForSellingNormStructure = 35;
+      // optional double percentReturnedToUserForSellingNormStructure = 35;
       public static final int PERCENTRETURNEDTOUSERFORSELLINGNORMSTRUCTURE_FIELD_NUMBER = 35;
       private double percentReturnedToUserForSellingNormStructure_;
       public boolean hasPercentReturnedToUserForSellingNormStructure() {
@@ -9386,7 +8994,7 @@ public final class EventProto {
         return percentReturnedToUserForSellingNormStructure_;
       }
       
-      // required int32 minutesToRefillAEnergy = 36;
+      // optional int32 minutesToRefillAEnergy = 36;
       public static final int MINUTESTOREFILLAENERGY_FIELD_NUMBER = 36;
       private int minutesToRefillAEnergy_;
       public boolean hasMinutesToRefillAEnergy() {
@@ -9396,7 +9004,7 @@ public final class EventProto {
         return minutesToRefillAEnergy_;
       }
       
-      // required int32 minutesToRefillAStamina = 37;
+      // optional int32 minutesToRefillAStamina = 37;
       public static final int MINUTESTOREFILLASTAMINA_FIELD_NUMBER = 37;
       private int minutesToRefillAStamina_;
       public boolean hasMinutesToRefillAStamina() {
@@ -9406,7 +9014,7 @@ public final class EventProto {
         return minutesToRefillAStamina_;
       }
       
-      // required int32 diamondCostForFullStaminaRefill = 48;
+      // optional int32 diamondCostForFullStaminaRefill = 48;
       public static final int DIAMONDCOSTFORFULLSTAMINAREFILL_FIELD_NUMBER = 48;
       private int diamondCostForFullStaminaRefill_;
       public boolean hasDiamondCostForFullStaminaRefill() {
@@ -9416,7 +9024,7 @@ public final class EventProto {
         return diamondCostForFullStaminaRefill_;
       }
       
-      // required int32 diamondCostForFullEnergyRefill = 49;
+      // optional int32 diamondCostForFullEnergyRefill = 49;
       public static final int DIAMONDCOSTFORFULLENERGYREFILL_FIELD_NUMBER = 49;
       private int diamondCostForFullEnergyRefill_;
       public boolean hasDiamondCostForFullEnergyRefill() {
@@ -9426,7 +9034,7 @@ public final class EventProto {
         return diamondCostForFullEnergyRefill_;
       }
       
-      // required int32 maxNumberOfMarketplacePosts = 40;
+      // optional int32 maxNumberOfMarketplacePosts = 40;
       public static final int MAXNUMBEROFMARKETPLACEPOSTS_FIELD_NUMBER = 40;
       private int maxNumberOfMarketplacePosts_;
       public boolean hasMaxNumberOfMarketplacePosts() {
@@ -9436,7 +9044,7 @@ public final class EventProto {
         return maxNumberOfMarketplacePosts_;
       }
       
-      // required double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
+      // optional double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
       public static final int PERCENTOFSELLINGCOSTTAKENFROMSELLERONMARKETPLACEPURCHASE_FIELD_NUMBER = 41;
       private double percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
       public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
@@ -9446,7 +9054,7 @@ public final class EventProto {
         return percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
       }
       
-      // required double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
+      // optional double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
       public static final int PERCENTOFSELLINGCOSTTAKENFROMSELLERONMARKETPLACERETRACT_FIELD_NUMBER = 42;
       private double percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
       public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
@@ -9456,7 +9064,7 @@ public final class EventProto {
         return percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
       }
       
-      // required int32 numDaysLongMarketplaceLicenseLastsFor = 43;
+      // optional int32 numDaysLongMarketplaceLicenseLastsFor = 43;
       public static final int NUMDAYSLONGMARKETPLACELICENSELASTSFOR_FIELD_NUMBER = 43;
       private int numDaysLongMarketplaceLicenseLastsFor_;
       public boolean hasNumDaysLongMarketplaceLicenseLastsFor() {
@@ -9466,7 +9074,7 @@ public final class EventProto {
         return numDaysLongMarketplaceLicenseLastsFor_;
       }
       
-      // required int32 numDaysShortMarketplaceLicenseLastsFor = 44;
+      // optional int32 numDaysShortMarketplaceLicenseLastsFor = 44;
       public static final int NUMDAYSSHORTMARKETPLACELICENSELASTSFOR_FIELD_NUMBER = 44;
       private int numDaysShortMarketplaceLicenseLastsFor_;
       public boolean hasNumDaysShortMarketplaceLicenseLastsFor() {
@@ -9476,7 +9084,7 @@ public final class EventProto {
         return numDaysShortMarketplaceLicenseLastsFor_;
       }
       
-      // required int32 diamondCostOfLongMarketplaceLicense = 45;
+      // optional int32 diamondCostOfLongMarketplaceLicense = 45;
       public static final int DIAMONDCOSTOFLONGMARKETPLACELICENSE_FIELD_NUMBER = 45;
       private int diamondCostOfLongMarketplaceLicense_;
       public boolean hasDiamondCostOfLongMarketplaceLicense() {
@@ -9486,7 +9094,7 @@ public final class EventProto {
         return diamondCostOfLongMarketplaceLicense_;
       }
       
-      // required int32 diamondCostOfShortMarketplaceLicense = 46;
+      // optional int32 diamondCostOfShortMarketplaceLicense = 46;
       public static final int DIAMONDCOSTOFSHORTMARKETPLACELICENSE_FIELD_NUMBER = 46;
       private int diamondCostOfShortMarketplaceLicense_;
       public boolean hasDiamondCostOfShortMarketplaceLicense() {
@@ -9496,7 +9104,7 @@ public final class EventProto {
         return diamondCostOfShortMarketplaceLicense_;
       }
       
-      // required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
+      // optional int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
       public static final int MAXNUMBERSOFENEMIESTOGENERATEATONCE_FIELD_NUMBER = 4;
       private int maxNumbersOfEnemiesToGenerateAtOnce_;
       public boolean hasMaxNumbersOfEnemiesToGenerateAtOnce() {
@@ -9506,7 +9114,7 @@ public final class EventProto {
         return maxNumbersOfEnemiesToGenerateAtOnce_;
       }
       
-      // required double percentReturnedToUserForSellingEquipInArmory = 5;
+      // optional double percentReturnedToUserForSellingEquipInArmory = 5;
       public static final int PERCENTRETURNEDTOUSERFORSELLINGEQUIPINARMORY_FIELD_NUMBER = 5;
       private double percentReturnedToUserForSellingEquipInArmory_;
       public boolean hasPercentReturnedToUserForSellingEquipInArmory() {
@@ -9516,7 +9124,7 @@ public final class EventProto {
         return percentReturnedToUserForSellingEquipInArmory_;
       }
       
-      // required int32 diamondRewardForReferrer = 47;
+      // optional int32 diamondRewardForReferrer = 47;
       public static final int DIAMONDREWARDFORREFERRER_FIELD_NUMBER = 47;
       private int diamondRewardForReferrer_;
       public boolean hasDiamondRewardForReferrer() {
@@ -9526,7 +9134,7 @@ public final class EventProto {
         return diamondRewardForReferrer_;
       }
       
-      // required int32 maxCityRank = 50;
+      // optional int32 maxCityRank = 50;
       public static final int MAXCITYRANK_FIELD_NUMBER = 50;
       private int maxCityRank_;
       public boolean hasMaxCityRank() {
@@ -9536,7 +9144,7 @@ public final class EventProto {
         return maxCityRank_;
       }
       
-      // required int32 minLevelForArmory = 51;
+      // optional int32 minLevelForArmory = 51;
       public static final int MINLEVELFORARMORY_FIELD_NUMBER = 51;
       private int minLevelForArmory_;
       public boolean hasMinLevelForArmory() {
@@ -9546,7 +9154,7 @@ public final class EventProto {
         return minLevelForArmory_;
       }
       
-      // required int32 minLevelForVault = 52;
+      // optional int32 minLevelForVault = 52;
       public static final int MINLEVELFORVAULT_FIELD_NUMBER = 52;
       private int minLevelForVault_;
       public boolean hasMinLevelForVault() {
@@ -9556,7 +9164,7 @@ public final class EventProto {
         return minLevelForVault_;
       }
       
-      // required int32 minLevelForMarketplace = 53;
+      // optional int32 minLevelForMarketplace = 53;
       public static final int MINLEVELFORMARKETPLACE_FIELD_NUMBER = 53;
       private int minLevelForMarketplace_;
       public boolean hasMinLevelForMarketplace() {
@@ -9619,182 +9227,6 @@ public final class EventProto {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasMaxLevelDifferenceForBattle()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasArmoryXLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasArmoryYLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasVaultXLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasVaultYLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMarketplaceXLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMarketplaceYLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasCarpenterXLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasCarpenterYLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasAviaryXLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasAviaryYLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasAttackBaseGain()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDefenseBaseGain()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasEnergyBaseGain()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasHealthBaseGain()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasStaminaBaseGain()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasAttackBaseCost()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDefenseBaseCost()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasEnergyBaseCost()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasHealthBaseCost()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasStaminaBaseCost()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasSkillPointsGainedOnLevelup()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasCutOfVaultDepositTaken()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMaxLevelForStruct()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMaxNumOfSingleStruct()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasPercentReturnedToUserForSellingNormStructure()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMinutesToRefillAEnergy()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMinutesToRefillAStamina()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondCostForFullStaminaRefill()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondCostForFullEnergyRefill()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMaxNumberOfMarketplacePosts()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasNumDaysLongMarketplaceLicenseLastsFor()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasNumDaysShortMarketplaceLicenseLastsFor()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondCostOfLongMarketplaceLicense()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondCostOfShortMarketplaceLicense()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMaxNumbersOfEnemiesToGenerateAtOnce()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasPercentReturnedToUserForSellingEquipInArmory()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondRewardForReferrer()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMaxCityRank()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMinLevelForArmory()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMinLevelForVault()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMinLevelForMarketplace()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -10760,182 +10192,6 @@ public final class EventProto {
         }
         
         public final boolean isInitialized() {
-          if (!hasMaxLevelDifferenceForBattle()) {
-            
-            return false;
-          }
-          if (!hasArmoryXLength()) {
-            
-            return false;
-          }
-          if (!hasArmoryYLength()) {
-            
-            return false;
-          }
-          if (!hasVaultXLength()) {
-            
-            return false;
-          }
-          if (!hasVaultYLength()) {
-            
-            return false;
-          }
-          if (!hasMarketplaceXLength()) {
-            
-            return false;
-          }
-          if (!hasMarketplaceYLength()) {
-            
-            return false;
-          }
-          if (!hasCarpenterXLength()) {
-            
-            return false;
-          }
-          if (!hasCarpenterYLength()) {
-            
-            return false;
-          }
-          if (!hasAviaryXLength()) {
-            
-            return false;
-          }
-          if (!hasAviaryYLength()) {
-            
-            return false;
-          }
-          if (!hasAttackBaseGain()) {
-            
-            return false;
-          }
-          if (!hasDefenseBaseGain()) {
-            
-            return false;
-          }
-          if (!hasEnergyBaseGain()) {
-            
-            return false;
-          }
-          if (!hasHealthBaseGain()) {
-            
-            return false;
-          }
-          if (!hasStaminaBaseGain()) {
-            
-            return false;
-          }
-          if (!hasAttackBaseCost()) {
-            
-            return false;
-          }
-          if (!hasDefenseBaseCost()) {
-            
-            return false;
-          }
-          if (!hasEnergyBaseCost()) {
-            
-            return false;
-          }
-          if (!hasHealthBaseCost()) {
-            
-            return false;
-          }
-          if (!hasStaminaBaseCost()) {
-            
-            return false;
-          }
-          if (!hasSkillPointsGainedOnLevelup()) {
-            
-            return false;
-          }
-          if (!hasCutOfVaultDepositTaken()) {
-            
-            return false;
-          }
-          if (!hasMaxLevelForStruct()) {
-            
-            return false;
-          }
-          if (!hasMaxNumOfSingleStruct()) {
-            
-            return false;
-          }
-          if (!hasPercentReturnedToUserForSellingNormStructure()) {
-            
-            return false;
-          }
-          if (!hasMinutesToRefillAEnergy()) {
-            
-            return false;
-          }
-          if (!hasMinutesToRefillAStamina()) {
-            
-            return false;
-          }
-          if (!hasDiamondCostForFullStaminaRefill()) {
-            
-            return false;
-          }
-          if (!hasDiamondCostForFullEnergyRefill()) {
-            
-            return false;
-          }
-          if (!hasMaxNumberOfMarketplacePosts()) {
-            
-            return false;
-          }
-          if (!hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase()) {
-            
-            return false;
-          }
-          if (!hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract()) {
-            
-            return false;
-          }
-          if (!hasNumDaysLongMarketplaceLicenseLastsFor()) {
-            
-            return false;
-          }
-          if (!hasNumDaysShortMarketplaceLicenseLastsFor()) {
-            
-            return false;
-          }
-          if (!hasDiamondCostOfLongMarketplaceLicense()) {
-            
-            return false;
-          }
-          if (!hasDiamondCostOfShortMarketplaceLicense()) {
-            
-            return false;
-          }
-          if (!hasMaxNumbersOfEnemiesToGenerateAtOnce()) {
-            
-            return false;
-          }
-          if (!hasPercentReturnedToUserForSellingEquipInArmory()) {
-            
-            return false;
-          }
-          if (!hasDiamondRewardForReferrer()) {
-            
-            return false;
-          }
-          if (!hasMaxCityRank()) {
-            
-            return false;
-          }
-          if (!hasMinLevelForArmory()) {
-            
-            return false;
-          }
-          if (!hasMinLevelForVault()) {
-            
-            return false;
-          }
-          if (!hasMinLevelForMarketplace()) {
-            
-            return false;
-          }
           return true;
         }
         
@@ -11309,7 +10565,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 maxLevelDifferenceForBattle = 6;
+        // optional int32 maxLevelDifferenceForBattle = 6;
         private int maxLevelDifferenceForBattle_ ;
         public boolean hasMaxLevelDifferenceForBattle() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -11330,7 +10586,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 armoryXLength = 7;
+        // optional int32 armoryXLength = 7;
         private int armoryXLength_ ;
         public boolean hasArmoryXLength() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -11351,7 +10607,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 armoryYLength = 8;
+        // optional int32 armoryYLength = 8;
         private int armoryYLength_ ;
         public boolean hasArmoryYLength() {
           return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -11372,7 +10628,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 vaultXLength = 9;
+        // optional int32 vaultXLength = 9;
         private int vaultXLength_ ;
         public boolean hasVaultXLength() {
           return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -11393,7 +10649,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 vaultYLength = 10;
+        // optional int32 vaultYLength = 10;
         private int vaultYLength_ ;
         public boolean hasVaultYLength() {
           return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -11414,7 +10670,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 marketplaceXLength = 11;
+        // optional int32 marketplaceXLength = 11;
         private int marketplaceXLength_ ;
         public boolean hasMarketplaceXLength() {
           return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -11435,7 +10691,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 marketplaceYLength = 12;
+        // optional int32 marketplaceYLength = 12;
         private int marketplaceYLength_ ;
         public boolean hasMarketplaceYLength() {
           return ((bitField0_ & 0x00000100) == 0x00000100);
@@ -11456,7 +10712,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 carpenterXLength = 13;
+        // optional int32 carpenterXLength = 13;
         private int carpenterXLength_ ;
         public boolean hasCarpenterXLength() {
           return ((bitField0_ & 0x00000200) == 0x00000200);
@@ -11477,7 +10733,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 carpenterYLength = 14;
+        // optional int32 carpenterYLength = 14;
         private int carpenterYLength_ ;
         public boolean hasCarpenterYLength() {
           return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -11498,7 +10754,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 aviaryXLength = 15;
+        // optional int32 aviaryXLength = 15;
         private int aviaryXLength_ ;
         public boolean hasAviaryXLength() {
           return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -11519,7 +10775,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 aviaryYLength = 16;
+        // optional int32 aviaryYLength = 16;
         private int aviaryYLength_ ;
         public boolean hasAviaryYLength() {
           return ((bitField0_ & 0x00001000) == 0x00001000);
@@ -11540,7 +10796,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 attackBaseGain = 17;
+        // optional int32 attackBaseGain = 17;
         private int attackBaseGain_ ;
         public boolean hasAttackBaseGain() {
           return ((bitField0_ & 0x00002000) == 0x00002000);
@@ -11561,7 +10817,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 defenseBaseGain = 18;
+        // optional int32 defenseBaseGain = 18;
         private int defenseBaseGain_ ;
         public boolean hasDefenseBaseGain() {
           return ((bitField0_ & 0x00004000) == 0x00004000);
@@ -11582,7 +10838,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 energyBaseGain = 19;
+        // optional int32 energyBaseGain = 19;
         private int energyBaseGain_ ;
         public boolean hasEnergyBaseGain() {
           return ((bitField0_ & 0x00008000) == 0x00008000);
@@ -11603,7 +10859,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 healthBaseGain = 20;
+        // optional int32 healthBaseGain = 20;
         private int healthBaseGain_ ;
         public boolean hasHealthBaseGain() {
           return ((bitField0_ & 0x00010000) == 0x00010000);
@@ -11624,7 +10880,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 staminaBaseGain = 21;
+        // optional int32 staminaBaseGain = 21;
         private int staminaBaseGain_ ;
         public boolean hasStaminaBaseGain() {
           return ((bitField0_ & 0x00020000) == 0x00020000);
@@ -11645,7 +10901,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 attackBaseCost = 22;
+        // optional int32 attackBaseCost = 22;
         private int attackBaseCost_ ;
         public boolean hasAttackBaseCost() {
           return ((bitField0_ & 0x00040000) == 0x00040000);
@@ -11666,7 +10922,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 defenseBaseCost = 23;
+        // optional int32 defenseBaseCost = 23;
         private int defenseBaseCost_ ;
         public boolean hasDefenseBaseCost() {
           return ((bitField0_ & 0x00080000) == 0x00080000);
@@ -11687,7 +10943,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 energyBaseCost = 24;
+        // optional int32 energyBaseCost = 24;
         private int energyBaseCost_ ;
         public boolean hasEnergyBaseCost() {
           return ((bitField0_ & 0x00100000) == 0x00100000);
@@ -11708,7 +10964,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 healthBaseCost = 25;
+        // optional int32 healthBaseCost = 25;
         private int healthBaseCost_ ;
         public boolean hasHealthBaseCost() {
           return ((bitField0_ & 0x00200000) == 0x00200000);
@@ -11729,7 +10985,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 staminaBaseCost = 26;
+        // optional int32 staminaBaseCost = 26;
         private int staminaBaseCost_ ;
         public boolean hasStaminaBaseCost() {
           return ((bitField0_ & 0x00400000) == 0x00400000);
@@ -11750,7 +11006,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 skillPointsGainedOnLevelup = 27;
+        // optional int32 skillPointsGainedOnLevelup = 27;
         private int skillPointsGainedOnLevelup_ ;
         public boolean hasSkillPointsGainedOnLevelup() {
           return ((bitField0_ & 0x00800000) == 0x00800000);
@@ -11771,7 +11027,7 @@ public final class EventProto {
           return this;
         }
         
-        // required double cutOfVaultDepositTaken = 28;
+        // optional double cutOfVaultDepositTaken = 28;
         private double cutOfVaultDepositTaken_ ;
         public boolean hasCutOfVaultDepositTaken() {
           return ((bitField0_ & 0x01000000) == 0x01000000);
@@ -11792,7 +11048,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 maxLevelForStruct = 33;
+        // optional int32 maxLevelForStruct = 33;
         private int maxLevelForStruct_ ;
         public boolean hasMaxLevelForStruct() {
           return ((bitField0_ & 0x02000000) == 0x02000000);
@@ -11813,7 +11069,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 maxNumOfSingleStruct = 34;
+        // optional int32 maxNumOfSingleStruct = 34;
         private int maxNumOfSingleStruct_ ;
         public boolean hasMaxNumOfSingleStruct() {
           return ((bitField0_ & 0x04000000) == 0x04000000);
@@ -11834,7 +11090,7 @@ public final class EventProto {
           return this;
         }
         
-        // required double percentReturnedToUserForSellingNormStructure = 35;
+        // optional double percentReturnedToUserForSellingNormStructure = 35;
         private double percentReturnedToUserForSellingNormStructure_ ;
         public boolean hasPercentReturnedToUserForSellingNormStructure() {
           return ((bitField0_ & 0x08000000) == 0x08000000);
@@ -11855,7 +11111,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 minutesToRefillAEnergy = 36;
+        // optional int32 minutesToRefillAEnergy = 36;
         private int minutesToRefillAEnergy_ ;
         public boolean hasMinutesToRefillAEnergy() {
           return ((bitField0_ & 0x10000000) == 0x10000000);
@@ -11876,7 +11132,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 minutesToRefillAStamina = 37;
+        // optional int32 minutesToRefillAStamina = 37;
         private int minutesToRefillAStamina_ ;
         public boolean hasMinutesToRefillAStamina() {
           return ((bitField0_ & 0x20000000) == 0x20000000);
@@ -11897,7 +11153,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondCostForFullStaminaRefill = 48;
+        // optional int32 diamondCostForFullStaminaRefill = 48;
         private int diamondCostForFullStaminaRefill_ ;
         public boolean hasDiamondCostForFullStaminaRefill() {
           return ((bitField0_ & 0x40000000) == 0x40000000);
@@ -11918,7 +11174,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondCostForFullEnergyRefill = 49;
+        // optional int32 diamondCostForFullEnergyRefill = 49;
         private int diamondCostForFullEnergyRefill_ ;
         public boolean hasDiamondCostForFullEnergyRefill() {
           return ((bitField0_ & 0x80000000) == 0x80000000);
@@ -11939,7 +11195,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 maxNumberOfMarketplacePosts = 40;
+        // optional int32 maxNumberOfMarketplacePosts = 40;
         private int maxNumberOfMarketplacePosts_ ;
         public boolean hasMaxNumberOfMarketplacePosts() {
           return ((bitField1_ & 0x00000001) == 0x00000001);
@@ -11960,7 +11216,7 @@ public final class EventProto {
           return this;
         }
         
-        // required double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
+        // optional double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
         private double percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ ;
         public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
           return ((bitField1_ & 0x00000002) == 0x00000002);
@@ -11981,7 +11237,7 @@ public final class EventProto {
           return this;
         }
         
-        // required double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
+        // optional double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
         private double percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ ;
         public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
           return ((bitField1_ & 0x00000004) == 0x00000004);
@@ -12002,7 +11258,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 numDaysLongMarketplaceLicenseLastsFor = 43;
+        // optional int32 numDaysLongMarketplaceLicenseLastsFor = 43;
         private int numDaysLongMarketplaceLicenseLastsFor_ ;
         public boolean hasNumDaysLongMarketplaceLicenseLastsFor() {
           return ((bitField1_ & 0x00000008) == 0x00000008);
@@ -12023,7 +11279,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 numDaysShortMarketplaceLicenseLastsFor = 44;
+        // optional int32 numDaysShortMarketplaceLicenseLastsFor = 44;
         private int numDaysShortMarketplaceLicenseLastsFor_ ;
         public boolean hasNumDaysShortMarketplaceLicenseLastsFor() {
           return ((bitField1_ & 0x00000010) == 0x00000010);
@@ -12044,7 +11300,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondCostOfLongMarketplaceLicense = 45;
+        // optional int32 diamondCostOfLongMarketplaceLicense = 45;
         private int diamondCostOfLongMarketplaceLicense_ ;
         public boolean hasDiamondCostOfLongMarketplaceLicense() {
           return ((bitField1_ & 0x00000020) == 0x00000020);
@@ -12065,7 +11321,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondCostOfShortMarketplaceLicense = 46;
+        // optional int32 diamondCostOfShortMarketplaceLicense = 46;
         private int diamondCostOfShortMarketplaceLicense_ ;
         public boolean hasDiamondCostOfShortMarketplaceLicense() {
           return ((bitField1_ & 0x00000040) == 0x00000040);
@@ -12086,7 +11342,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
+        // optional int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
         private int maxNumbersOfEnemiesToGenerateAtOnce_ ;
         public boolean hasMaxNumbersOfEnemiesToGenerateAtOnce() {
           return ((bitField1_ & 0x00000080) == 0x00000080);
@@ -12107,7 +11363,7 @@ public final class EventProto {
           return this;
         }
         
-        // required double percentReturnedToUserForSellingEquipInArmory = 5;
+        // optional double percentReturnedToUserForSellingEquipInArmory = 5;
         private double percentReturnedToUserForSellingEquipInArmory_ ;
         public boolean hasPercentReturnedToUserForSellingEquipInArmory() {
           return ((bitField1_ & 0x00000100) == 0x00000100);
@@ -12128,7 +11384,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondRewardForReferrer = 47;
+        // optional int32 diamondRewardForReferrer = 47;
         private int diamondRewardForReferrer_ ;
         public boolean hasDiamondRewardForReferrer() {
           return ((bitField1_ & 0x00000200) == 0x00000200);
@@ -12149,7 +11405,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 maxCityRank = 50;
+        // optional int32 maxCityRank = 50;
         private int maxCityRank_ ;
         public boolean hasMaxCityRank() {
           return ((bitField1_ & 0x00000400) == 0x00000400);
@@ -12170,7 +11426,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 minLevelForArmory = 51;
+        // optional int32 minLevelForArmory = 51;
         private int minLevelForArmory_ ;
         public boolean hasMinLevelForArmory() {
           return ((bitField1_ & 0x00000800) == 0x00000800);
@@ -12191,7 +11447,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 minLevelForVault = 52;
+        // optional int32 minLevelForVault = 52;
         private int minLevelForVault_ ;
         public boolean hasMinLevelForVault() {
           return ((bitField1_ & 0x00001000) == 0x00001000);
@@ -12212,7 +11468,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 minLevelForMarketplace = 53;
+        // optional int32 minLevelForMarketplace = 53;
         private int minLevelForMarketplace_ ;
         public boolean hasMinLevelForMarketplace() {
           return ((bitField1_ & 0x00002000) == 0x00002000);
@@ -12247,94 +11503,94 @@ public final class EventProto {
     public interface TutorialConstantsOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required int32 initEnergy = 1;
+      // optional int32 initEnergy = 1;
       boolean hasInitEnergy();
       int getInitEnergy();
       
-      // required int32 initStamina = 2;
+      // optional int32 initStamina = 2;
       boolean hasInitStamina();
       int getInitStamina();
       
-      // required int32 initHealth = 3;
+      // optional int32 initHealth = 3;
       boolean hasInitHealth();
       int getInitHealth();
       
-      // required .com.lvl6.proto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest = 4;
+      // optional .com.lvl6.proto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest = 4;
       boolean hasTutorialQuest();
       com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto getTutorialQuest();
       com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProtoOrBuilder getTutorialQuestOrBuilder();
       
-      // required int32 structToBuild = 5;
+      // optional int32 structToBuild = 5;
       boolean hasStructToBuild();
       int getStructToBuild();
       
-      // required int32 diamondCostToInstabuildFirstStruct = 6;
+      // optional int32 diamondCostToInstabuildFirstStruct = 6;
       boolean hasDiamondCostToInstabuildFirstStruct();
       int getDiamondCostToInstabuildFirstStruct();
       
-      // required int32 archerInitAttack = 17;
+      // optional int32 archerInitAttack = 17;
       boolean hasArcherInitAttack();
       int getArcherInitAttack();
       
-      // required int32 archerInitDefense = 18;
+      // optional int32 archerInitDefense = 18;
       boolean hasArcherInitDefense();
       int getArcherInitDefense();
       
-      // required .com.lvl6.proto.FullEquipProto archerInitWeapon = 7;
+      // optional .com.lvl6.proto.FullEquipProto archerInitWeapon = 7;
       boolean hasArcherInitWeapon();
       com.lvl6.proto.InfoProto.FullEquipProto getArcherInitWeapon();
       com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getArcherInitWeaponOrBuilder();
       
-      // required .com.lvl6.proto.FullEquipProto archerInitArmor = 8;
+      // optional .com.lvl6.proto.FullEquipProto archerInitArmor = 8;
       boolean hasArcherInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProto getArcherInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getArcherInitArmorOrBuilder();
       
-      // required int32 mageInitAttack = 9;
+      // optional int32 mageInitAttack = 9;
       boolean hasMageInitAttack();
       int getMageInitAttack();
       
-      // required int32 mageInitDefense = 10;
+      // optional int32 mageInitDefense = 10;
       boolean hasMageInitDefense();
       int getMageInitDefense();
       
-      // required .com.lvl6.proto.FullEquipProto mageInitWeapon = 11;
+      // optional .com.lvl6.proto.FullEquipProto mageInitWeapon = 11;
       boolean hasMageInitWeapon();
       com.lvl6.proto.InfoProto.FullEquipProto getMageInitWeapon();
       com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getMageInitWeaponOrBuilder();
       
-      // required .com.lvl6.proto.FullEquipProto mageInitArmor = 12;
+      // optional .com.lvl6.proto.FullEquipProto mageInitArmor = 12;
       boolean hasMageInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProto getMageInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getMageInitArmorOrBuilder();
       
-      // required int32 warriorInitAttack = 13;
+      // optional int32 warriorInitAttack = 13;
       boolean hasWarriorInitAttack();
       int getWarriorInitAttack();
       
-      // required int32 warriorInitDefense = 14;
+      // optional int32 warriorInitDefense = 14;
       boolean hasWarriorInitDefense();
       int getWarriorInitDefense();
       
-      // required .com.lvl6.proto.FullEquipProto warriorInitWeapon = 15;
+      // optional .com.lvl6.proto.FullEquipProto warriorInitWeapon = 15;
       boolean hasWarriorInitWeapon();
       com.lvl6.proto.InfoProto.FullEquipProto getWarriorInitWeapon();
       com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getWarriorInitWeaponOrBuilder();
       
-      // required .com.lvl6.proto.FullEquipProto warriorInitArmor = 16;
+      // optional .com.lvl6.proto.FullEquipProto warriorInitArmor = 16;
       boolean hasWarriorInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProto getWarriorInitArmor();
       com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getWarriorInitArmorOrBuilder();
       
-      // required int32 minNameLength = 19;
+      // optional int32 minNameLength = 19;
       boolean hasMinNameLength();
       int getMinNameLength();
       
-      // required int32 maxNameLength = 20;
+      // optional int32 maxNameLength = 20;
       boolean hasMaxNameLength();
       int getMaxNameLength();
       
-      // required int32 diamondRewardForBeingReferred = 22;
+      // optional int32 diamondRewardForBeingReferred = 22;
       boolean hasDiamondRewardForBeingReferred();
       int getDiamondRewardForBeingReferred();
       
@@ -12358,11 +11614,11 @@ public final class EventProto {
       com.lvl6.proto.InfoProto.NeutralCityElementProtoOrBuilder getFirstCityElementsForBadOrBuilder(
           int index);
       
-      // required int32 initCoins = 25;
+      // optional int32 initCoins = 25;
       boolean hasInitCoins();
       int getInitCoins();
       
-      // required int32 initDiamonds = 26;
+      // optional int32 initDiamonds = 26;
       boolean hasInitDiamonds();
       int getInitDiamonds();
       
@@ -12376,11 +11632,11 @@ public final class EventProto {
       com.lvl6.proto.InfoProto.FullStructureProtoOrBuilder getCarpenterStructsOrBuilder(
           int index);
       
-      // required int32 expRequiredForLevelTwo = 28;
+      // optional int32 expRequiredForLevelTwo = 28;
       boolean hasExpRequiredForLevelTwo();
       int getExpRequiredForLevelTwo();
       
-      // required int32 expRequiredForLevelThree = 29;
+      // optional int32 expRequiredForLevelThree = 29;
       boolean hasExpRequiredForLevelThree();
       int getExpRequiredForLevelThree();
       
@@ -12445,73 +11701,73 @@ public final class EventProto {
       public interface FullTutorialQuestProtoOrBuilder
           extends com.google.protobuf.MessageOrBuilder {
         
-        // required string goodName = 1;
+        // optional string goodName = 1;
         boolean hasGoodName();
         String getGoodName();
         
-        // required string badName = 2;
+        // optional string badName = 2;
         boolean hasBadName();
         String getBadName();
         
-        // required string goodDescription = 3;
+        // optional string goodDescription = 3;
         boolean hasGoodDescription();
         String getGoodDescription();
         
-        // required string badDescription = 4;
+        // optional string badDescription = 4;
         boolean hasBadDescription();
         String getBadDescription();
         
-        // required string goodDoneResponse = 5;
+        // optional string goodDoneResponse = 5;
         boolean hasGoodDoneResponse();
         String getGoodDoneResponse();
         
-        // required string badDoneResponse = 6;
+        // optional string badDoneResponse = 6;
         boolean hasBadDoneResponse();
         String getBadDoneResponse();
         
-        // required string goodInProgress = 7;
+        // optional string goodInProgress = 7;
         boolean hasGoodInProgress();
         String getGoodInProgress();
         
-        // required string badInProgress = 8;
+        // optional string badInProgress = 8;
         boolean hasBadInProgress();
         String getBadInProgress();
         
-        // required int32 assetNumWithinCity = 9;
+        // optional int32 assetNumWithinCity = 9;
         boolean hasAssetNumWithinCity();
         int getAssetNumWithinCity();
         
-        // required int32 coinsGained = 10;
+        // optional int32 coinsGained = 10;
         boolean hasCoinsGained();
         int getCoinsGained();
         
-        // required int32 expGained = 11;
+        // optional int32 expGained = 11;
         boolean hasExpGained();
         int getExpGained();
         
-        // required .com.lvl6.proto.FullTaskProto firstTaskGood = 12;
+        // optional .com.lvl6.proto.FullTaskProto firstTaskGood = 12;
         boolean hasFirstTaskGood();
         com.lvl6.proto.InfoProto.FullTaskProto getFirstTaskGood();
         com.lvl6.proto.InfoProto.FullTaskProtoOrBuilder getFirstTaskGoodOrBuilder();
         
-        // required .com.lvl6.proto.FullTaskProto firstTaskBad = 13;
+        // optional .com.lvl6.proto.FullTaskProto firstTaskBad = 13;
         boolean hasFirstTaskBad();
         com.lvl6.proto.InfoProto.FullTaskProto getFirstTaskBad();
         com.lvl6.proto.InfoProto.FullTaskProtoOrBuilder getFirstTaskBadOrBuilder();
         
-        // required int32 firstTaskCompleteCoinGain = 14;
+        // optional int32 firstTaskCompleteCoinGain = 14;
         boolean hasFirstTaskCompleteCoinGain();
         int getFirstTaskCompleteCoinGain();
         
-        // required int32 firstDefeatTypeJobBattleCoinGain = 17;
+        // optional int32 firstDefeatTypeJobBattleCoinGain = 17;
         boolean hasFirstDefeatTypeJobBattleCoinGain();
         int getFirstDefeatTypeJobBattleCoinGain();
         
-        // required int32 firstDefeatTypeJobBattleExpGain = 18;
+        // optional int32 firstDefeatTypeJobBattleExpGain = 18;
         boolean hasFirstDefeatTypeJobBattleExpGain();
         int getFirstDefeatTypeJobBattleExpGain();
         
-        // required .com.lvl6.proto.FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
+        // optional .com.lvl6.proto.FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
         boolean hasFirstDefeatTypeJobBattleLootAmulet();
         com.lvl6.proto.InfoProto.FullEquipProto getFirstDefeatTypeJobBattleLootAmulet();
         com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getFirstDefeatTypeJobBattleLootAmuletOrBuilder();
@@ -12545,7 +11801,7 @@ public final class EventProto {
         }
         
         private int bitField0_;
-        // required string goodName = 1;
+        // optional string goodName = 1;
         public static final int GOODNAME_FIELD_NUMBER = 1;
         private java.lang.Object goodName_;
         public boolean hasGoodName() {
@@ -12577,7 +11833,7 @@ public final class EventProto {
           }
         }
         
-        // required string badName = 2;
+        // optional string badName = 2;
         public static final int BADNAME_FIELD_NUMBER = 2;
         private java.lang.Object badName_;
         public boolean hasBadName() {
@@ -12609,7 +11865,7 @@ public final class EventProto {
           }
         }
         
-        // required string goodDescription = 3;
+        // optional string goodDescription = 3;
         public static final int GOODDESCRIPTION_FIELD_NUMBER = 3;
         private java.lang.Object goodDescription_;
         public boolean hasGoodDescription() {
@@ -12641,7 +11897,7 @@ public final class EventProto {
           }
         }
         
-        // required string badDescription = 4;
+        // optional string badDescription = 4;
         public static final int BADDESCRIPTION_FIELD_NUMBER = 4;
         private java.lang.Object badDescription_;
         public boolean hasBadDescription() {
@@ -12673,7 +11929,7 @@ public final class EventProto {
           }
         }
         
-        // required string goodDoneResponse = 5;
+        // optional string goodDoneResponse = 5;
         public static final int GOODDONERESPONSE_FIELD_NUMBER = 5;
         private java.lang.Object goodDoneResponse_;
         public boolean hasGoodDoneResponse() {
@@ -12705,7 +11961,7 @@ public final class EventProto {
           }
         }
         
-        // required string badDoneResponse = 6;
+        // optional string badDoneResponse = 6;
         public static final int BADDONERESPONSE_FIELD_NUMBER = 6;
         private java.lang.Object badDoneResponse_;
         public boolean hasBadDoneResponse() {
@@ -12737,7 +11993,7 @@ public final class EventProto {
           }
         }
         
-        // required string goodInProgress = 7;
+        // optional string goodInProgress = 7;
         public static final int GOODINPROGRESS_FIELD_NUMBER = 7;
         private java.lang.Object goodInProgress_;
         public boolean hasGoodInProgress() {
@@ -12769,7 +12025,7 @@ public final class EventProto {
           }
         }
         
-        // required string badInProgress = 8;
+        // optional string badInProgress = 8;
         public static final int BADINPROGRESS_FIELD_NUMBER = 8;
         private java.lang.Object badInProgress_;
         public boolean hasBadInProgress() {
@@ -12801,7 +12057,7 @@ public final class EventProto {
           }
         }
         
-        // required int32 assetNumWithinCity = 9;
+        // optional int32 assetNumWithinCity = 9;
         public static final int ASSETNUMWITHINCITY_FIELD_NUMBER = 9;
         private int assetNumWithinCity_;
         public boolean hasAssetNumWithinCity() {
@@ -12811,7 +12067,7 @@ public final class EventProto {
           return assetNumWithinCity_;
         }
         
-        // required int32 coinsGained = 10;
+        // optional int32 coinsGained = 10;
         public static final int COINSGAINED_FIELD_NUMBER = 10;
         private int coinsGained_;
         public boolean hasCoinsGained() {
@@ -12821,7 +12077,7 @@ public final class EventProto {
           return coinsGained_;
         }
         
-        // required int32 expGained = 11;
+        // optional int32 expGained = 11;
         public static final int EXPGAINED_FIELD_NUMBER = 11;
         private int expGained_;
         public boolean hasExpGained() {
@@ -12831,7 +12087,7 @@ public final class EventProto {
           return expGained_;
         }
         
-        // required .com.lvl6.proto.FullTaskProto firstTaskGood = 12;
+        // optional .com.lvl6.proto.FullTaskProto firstTaskGood = 12;
         public static final int FIRSTTASKGOOD_FIELD_NUMBER = 12;
         private com.lvl6.proto.InfoProto.FullTaskProto firstTaskGood_;
         public boolean hasFirstTaskGood() {
@@ -12844,7 +12100,7 @@ public final class EventProto {
           return firstTaskGood_;
         }
         
-        // required .com.lvl6.proto.FullTaskProto firstTaskBad = 13;
+        // optional .com.lvl6.proto.FullTaskProto firstTaskBad = 13;
         public static final int FIRSTTASKBAD_FIELD_NUMBER = 13;
         private com.lvl6.proto.InfoProto.FullTaskProto firstTaskBad_;
         public boolean hasFirstTaskBad() {
@@ -12857,7 +12113,7 @@ public final class EventProto {
           return firstTaskBad_;
         }
         
-        // required int32 firstTaskCompleteCoinGain = 14;
+        // optional int32 firstTaskCompleteCoinGain = 14;
         public static final int FIRSTTASKCOMPLETECOINGAIN_FIELD_NUMBER = 14;
         private int firstTaskCompleteCoinGain_;
         public boolean hasFirstTaskCompleteCoinGain() {
@@ -12867,7 +12123,7 @@ public final class EventProto {
           return firstTaskCompleteCoinGain_;
         }
         
-        // required int32 firstDefeatTypeJobBattleCoinGain = 17;
+        // optional int32 firstDefeatTypeJobBattleCoinGain = 17;
         public static final int FIRSTDEFEATTYPEJOBBATTLECOINGAIN_FIELD_NUMBER = 17;
         private int firstDefeatTypeJobBattleCoinGain_;
         public boolean hasFirstDefeatTypeJobBattleCoinGain() {
@@ -12877,7 +12133,7 @@ public final class EventProto {
           return firstDefeatTypeJobBattleCoinGain_;
         }
         
-        // required int32 firstDefeatTypeJobBattleExpGain = 18;
+        // optional int32 firstDefeatTypeJobBattleExpGain = 18;
         public static final int FIRSTDEFEATTYPEJOBBATTLEEXPGAIN_FIELD_NUMBER = 18;
         private int firstDefeatTypeJobBattleExpGain_;
         public boolean hasFirstDefeatTypeJobBattleExpGain() {
@@ -12887,7 +12143,7 @@ public final class EventProto {
           return firstDefeatTypeJobBattleExpGain_;
         }
         
-        // required .com.lvl6.proto.FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
+        // optional .com.lvl6.proto.FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
         public static final int FIRSTDEFEATTYPEJOBBATTLELOOTAMULET_FIELD_NUMBER = 19;
         private com.lvl6.proto.InfoProto.FullEquipProto firstDefeatTypeJobBattleLootAmulet_;
         public boolean hasFirstDefeatTypeJobBattleLootAmulet() {
@@ -12924,86 +12180,6 @@ public final class EventProto {
           byte isInitialized = memoizedIsInitialized;
           if (isInitialized != -1) return isInitialized == 1;
           
-          if (!hasGoodName()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasBadName()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasGoodDescription()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasBadDescription()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasGoodDoneResponse()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasBadDoneResponse()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasGoodInProgress()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasBadInProgress()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasAssetNumWithinCity()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasCoinsGained()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasExpGained()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasFirstTaskGood()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasFirstTaskBad()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasFirstTaskCompleteCoinGain()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasFirstDefeatTypeJobBattleCoinGain()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasFirstDefeatTypeJobBattleExpGain()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasFirstDefeatTypeJobBattleLootAmulet()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!getFirstTaskGood().isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!getFirstTaskBad().isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!getFirstDefeatTypeJobBattleLootAmulet().isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
           memoizedIsInitialized = 1;
           return true;
         }
@@ -13502,86 +12678,6 @@ public final class EventProto {
           }
           
           public final boolean isInitialized() {
-            if (!hasGoodName()) {
-              
-              return false;
-            }
-            if (!hasBadName()) {
-              
-              return false;
-            }
-            if (!hasGoodDescription()) {
-              
-              return false;
-            }
-            if (!hasBadDescription()) {
-              
-              return false;
-            }
-            if (!hasGoodDoneResponse()) {
-              
-              return false;
-            }
-            if (!hasBadDoneResponse()) {
-              
-              return false;
-            }
-            if (!hasGoodInProgress()) {
-              
-              return false;
-            }
-            if (!hasBadInProgress()) {
-              
-              return false;
-            }
-            if (!hasAssetNumWithinCity()) {
-              
-              return false;
-            }
-            if (!hasCoinsGained()) {
-              
-              return false;
-            }
-            if (!hasExpGained()) {
-              
-              return false;
-            }
-            if (!hasFirstTaskGood()) {
-              
-              return false;
-            }
-            if (!hasFirstTaskBad()) {
-              
-              return false;
-            }
-            if (!hasFirstTaskCompleteCoinGain()) {
-              
-              return false;
-            }
-            if (!hasFirstDefeatTypeJobBattleCoinGain()) {
-              
-              return false;
-            }
-            if (!hasFirstDefeatTypeJobBattleExpGain()) {
-              
-              return false;
-            }
-            if (!hasFirstDefeatTypeJobBattleLootAmulet()) {
-              
-              return false;
-            }
-            if (!getFirstTaskGood().isInitialized()) {
-              
-              return false;
-            }
-            if (!getFirstTaskBad().isInitialized()) {
-              
-              return false;
-            }
-            if (!getFirstDefeatTypeJobBattleLootAmulet().isInitialized()) {
-              
-              return false;
-            }
             return true;
           }
           
@@ -13711,7 +12807,7 @@ public final class EventProto {
           
           private int bitField0_;
           
-          // required string goodName = 1;
+          // optional string goodName = 1;
           private java.lang.Object goodName_ = "";
           public boolean hasGoodName() {
             return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -13747,7 +12843,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required string badName = 2;
+          // optional string badName = 2;
           private java.lang.Object badName_ = "";
           public boolean hasBadName() {
             return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -13783,7 +12879,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required string goodDescription = 3;
+          // optional string goodDescription = 3;
           private java.lang.Object goodDescription_ = "";
           public boolean hasGoodDescription() {
             return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -13819,7 +12915,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required string badDescription = 4;
+          // optional string badDescription = 4;
           private java.lang.Object badDescription_ = "";
           public boolean hasBadDescription() {
             return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -13855,7 +12951,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required string goodDoneResponse = 5;
+          // optional string goodDoneResponse = 5;
           private java.lang.Object goodDoneResponse_ = "";
           public boolean hasGoodDoneResponse() {
             return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -13891,7 +12987,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required string badDoneResponse = 6;
+          // optional string badDoneResponse = 6;
           private java.lang.Object badDoneResponse_ = "";
           public boolean hasBadDoneResponse() {
             return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -13927,7 +13023,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required string goodInProgress = 7;
+          // optional string goodInProgress = 7;
           private java.lang.Object goodInProgress_ = "";
           public boolean hasGoodInProgress() {
             return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -13963,7 +13059,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required string badInProgress = 8;
+          // optional string badInProgress = 8;
           private java.lang.Object badInProgress_ = "";
           public boolean hasBadInProgress() {
             return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -13999,7 +13095,7 @@ public final class EventProto {
             onChanged();
           }
           
-          // required int32 assetNumWithinCity = 9;
+          // optional int32 assetNumWithinCity = 9;
           private int assetNumWithinCity_ ;
           public boolean hasAssetNumWithinCity() {
             return ((bitField0_ & 0x00000100) == 0x00000100);
@@ -14020,7 +13116,7 @@ public final class EventProto {
             return this;
           }
           
-          // required int32 coinsGained = 10;
+          // optional int32 coinsGained = 10;
           private int coinsGained_ ;
           public boolean hasCoinsGained() {
             return ((bitField0_ & 0x00000200) == 0x00000200);
@@ -14041,7 +13137,7 @@ public final class EventProto {
             return this;
           }
           
-          // required int32 expGained = 11;
+          // optional int32 expGained = 11;
           private int expGained_ ;
           public boolean hasExpGained() {
             return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -14062,7 +13158,7 @@ public final class EventProto {
             return this;
           }
           
-          // required .com.lvl6.proto.FullTaskProto firstTaskGood = 12;
+          // optional .com.lvl6.proto.FullTaskProto firstTaskGood = 12;
           private com.lvl6.proto.InfoProto.FullTaskProto firstTaskGood_ = com.lvl6.proto.InfoProto.FullTaskProto.getDefaultInstance();
           private com.google.protobuf.SingleFieldBuilder<
               com.lvl6.proto.InfoProto.FullTaskProto, com.lvl6.proto.InfoProto.FullTaskProto.Builder, com.lvl6.proto.InfoProto.FullTaskProtoOrBuilder> firstTaskGoodBuilder_;
@@ -14152,7 +13248,7 @@ public final class EventProto {
             return firstTaskGoodBuilder_;
           }
           
-          // required .com.lvl6.proto.FullTaskProto firstTaskBad = 13;
+          // optional .com.lvl6.proto.FullTaskProto firstTaskBad = 13;
           private com.lvl6.proto.InfoProto.FullTaskProto firstTaskBad_ = com.lvl6.proto.InfoProto.FullTaskProto.getDefaultInstance();
           private com.google.protobuf.SingleFieldBuilder<
               com.lvl6.proto.InfoProto.FullTaskProto, com.lvl6.proto.InfoProto.FullTaskProto.Builder, com.lvl6.proto.InfoProto.FullTaskProtoOrBuilder> firstTaskBadBuilder_;
@@ -14242,7 +13338,7 @@ public final class EventProto {
             return firstTaskBadBuilder_;
           }
           
-          // required int32 firstTaskCompleteCoinGain = 14;
+          // optional int32 firstTaskCompleteCoinGain = 14;
           private int firstTaskCompleteCoinGain_ ;
           public boolean hasFirstTaskCompleteCoinGain() {
             return ((bitField0_ & 0x00002000) == 0x00002000);
@@ -14263,7 +13359,7 @@ public final class EventProto {
             return this;
           }
           
-          // required int32 firstDefeatTypeJobBattleCoinGain = 17;
+          // optional int32 firstDefeatTypeJobBattleCoinGain = 17;
           private int firstDefeatTypeJobBattleCoinGain_ ;
           public boolean hasFirstDefeatTypeJobBattleCoinGain() {
             return ((bitField0_ & 0x00004000) == 0x00004000);
@@ -14284,7 +13380,7 @@ public final class EventProto {
             return this;
           }
           
-          // required int32 firstDefeatTypeJobBattleExpGain = 18;
+          // optional int32 firstDefeatTypeJobBattleExpGain = 18;
           private int firstDefeatTypeJobBattleExpGain_ ;
           public boolean hasFirstDefeatTypeJobBattleExpGain() {
             return ((bitField0_ & 0x00008000) == 0x00008000);
@@ -14305,7 +13401,7 @@ public final class EventProto {
             return this;
           }
           
-          // required .com.lvl6.proto.FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
+          // optional .com.lvl6.proto.FullEquipProto firstDefeatTypeJobBattleLootAmulet = 19;
           private com.lvl6.proto.InfoProto.FullEquipProto firstDefeatTypeJobBattleLootAmulet_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
           private com.google.protobuf.SingleFieldBuilder<
               com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> firstDefeatTypeJobBattleLootAmuletBuilder_;
@@ -14407,7 +13503,7 @@ public final class EventProto {
       }
       
       private int bitField0_;
-      // required int32 initEnergy = 1;
+      // optional int32 initEnergy = 1;
       public static final int INITENERGY_FIELD_NUMBER = 1;
       private int initEnergy_;
       public boolean hasInitEnergy() {
@@ -14417,7 +13513,7 @@ public final class EventProto {
         return initEnergy_;
       }
       
-      // required int32 initStamina = 2;
+      // optional int32 initStamina = 2;
       public static final int INITSTAMINA_FIELD_NUMBER = 2;
       private int initStamina_;
       public boolean hasInitStamina() {
@@ -14427,7 +13523,7 @@ public final class EventProto {
         return initStamina_;
       }
       
-      // required int32 initHealth = 3;
+      // optional int32 initHealth = 3;
       public static final int INITHEALTH_FIELD_NUMBER = 3;
       private int initHealth_;
       public boolean hasInitHealth() {
@@ -14437,7 +13533,7 @@ public final class EventProto {
         return initHealth_;
       }
       
-      // required .com.lvl6.proto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest = 4;
+      // optional .com.lvl6.proto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest = 4;
       public static final int TUTORIALQUEST_FIELD_NUMBER = 4;
       private com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest_;
       public boolean hasTutorialQuest() {
@@ -14450,7 +13546,7 @@ public final class EventProto {
         return tutorialQuest_;
       }
       
-      // required int32 structToBuild = 5;
+      // optional int32 structToBuild = 5;
       public static final int STRUCTTOBUILD_FIELD_NUMBER = 5;
       private int structToBuild_;
       public boolean hasStructToBuild() {
@@ -14460,7 +13556,7 @@ public final class EventProto {
         return structToBuild_;
       }
       
-      // required int32 diamondCostToInstabuildFirstStruct = 6;
+      // optional int32 diamondCostToInstabuildFirstStruct = 6;
       public static final int DIAMONDCOSTTOINSTABUILDFIRSTSTRUCT_FIELD_NUMBER = 6;
       private int diamondCostToInstabuildFirstStruct_;
       public boolean hasDiamondCostToInstabuildFirstStruct() {
@@ -14470,7 +13566,7 @@ public final class EventProto {
         return diamondCostToInstabuildFirstStruct_;
       }
       
-      // required int32 archerInitAttack = 17;
+      // optional int32 archerInitAttack = 17;
       public static final int ARCHERINITATTACK_FIELD_NUMBER = 17;
       private int archerInitAttack_;
       public boolean hasArcherInitAttack() {
@@ -14480,7 +13576,7 @@ public final class EventProto {
         return archerInitAttack_;
       }
       
-      // required int32 archerInitDefense = 18;
+      // optional int32 archerInitDefense = 18;
       public static final int ARCHERINITDEFENSE_FIELD_NUMBER = 18;
       private int archerInitDefense_;
       public boolean hasArcherInitDefense() {
@@ -14490,7 +13586,7 @@ public final class EventProto {
         return archerInitDefense_;
       }
       
-      // required .com.lvl6.proto.FullEquipProto archerInitWeapon = 7;
+      // optional .com.lvl6.proto.FullEquipProto archerInitWeapon = 7;
       public static final int ARCHERINITWEAPON_FIELD_NUMBER = 7;
       private com.lvl6.proto.InfoProto.FullEquipProto archerInitWeapon_;
       public boolean hasArcherInitWeapon() {
@@ -14503,7 +13599,7 @@ public final class EventProto {
         return archerInitWeapon_;
       }
       
-      // required .com.lvl6.proto.FullEquipProto archerInitArmor = 8;
+      // optional .com.lvl6.proto.FullEquipProto archerInitArmor = 8;
       public static final int ARCHERINITARMOR_FIELD_NUMBER = 8;
       private com.lvl6.proto.InfoProto.FullEquipProto archerInitArmor_;
       public boolean hasArcherInitArmor() {
@@ -14516,7 +13612,7 @@ public final class EventProto {
         return archerInitArmor_;
       }
       
-      // required int32 mageInitAttack = 9;
+      // optional int32 mageInitAttack = 9;
       public static final int MAGEINITATTACK_FIELD_NUMBER = 9;
       private int mageInitAttack_;
       public boolean hasMageInitAttack() {
@@ -14526,7 +13622,7 @@ public final class EventProto {
         return mageInitAttack_;
       }
       
-      // required int32 mageInitDefense = 10;
+      // optional int32 mageInitDefense = 10;
       public static final int MAGEINITDEFENSE_FIELD_NUMBER = 10;
       private int mageInitDefense_;
       public boolean hasMageInitDefense() {
@@ -14536,7 +13632,7 @@ public final class EventProto {
         return mageInitDefense_;
       }
       
-      // required .com.lvl6.proto.FullEquipProto mageInitWeapon = 11;
+      // optional .com.lvl6.proto.FullEquipProto mageInitWeapon = 11;
       public static final int MAGEINITWEAPON_FIELD_NUMBER = 11;
       private com.lvl6.proto.InfoProto.FullEquipProto mageInitWeapon_;
       public boolean hasMageInitWeapon() {
@@ -14549,7 +13645,7 @@ public final class EventProto {
         return mageInitWeapon_;
       }
       
-      // required .com.lvl6.proto.FullEquipProto mageInitArmor = 12;
+      // optional .com.lvl6.proto.FullEquipProto mageInitArmor = 12;
       public static final int MAGEINITARMOR_FIELD_NUMBER = 12;
       private com.lvl6.proto.InfoProto.FullEquipProto mageInitArmor_;
       public boolean hasMageInitArmor() {
@@ -14562,7 +13658,7 @@ public final class EventProto {
         return mageInitArmor_;
       }
       
-      // required int32 warriorInitAttack = 13;
+      // optional int32 warriorInitAttack = 13;
       public static final int WARRIORINITATTACK_FIELD_NUMBER = 13;
       private int warriorInitAttack_;
       public boolean hasWarriorInitAttack() {
@@ -14572,7 +13668,7 @@ public final class EventProto {
         return warriorInitAttack_;
       }
       
-      // required int32 warriorInitDefense = 14;
+      // optional int32 warriorInitDefense = 14;
       public static final int WARRIORINITDEFENSE_FIELD_NUMBER = 14;
       private int warriorInitDefense_;
       public boolean hasWarriorInitDefense() {
@@ -14582,7 +13678,7 @@ public final class EventProto {
         return warriorInitDefense_;
       }
       
-      // required .com.lvl6.proto.FullEquipProto warriorInitWeapon = 15;
+      // optional .com.lvl6.proto.FullEquipProto warriorInitWeapon = 15;
       public static final int WARRIORINITWEAPON_FIELD_NUMBER = 15;
       private com.lvl6.proto.InfoProto.FullEquipProto warriorInitWeapon_;
       public boolean hasWarriorInitWeapon() {
@@ -14595,7 +13691,7 @@ public final class EventProto {
         return warriorInitWeapon_;
       }
       
-      // required .com.lvl6.proto.FullEquipProto warriorInitArmor = 16;
+      // optional .com.lvl6.proto.FullEquipProto warriorInitArmor = 16;
       public static final int WARRIORINITARMOR_FIELD_NUMBER = 16;
       private com.lvl6.proto.InfoProto.FullEquipProto warriorInitArmor_;
       public boolean hasWarriorInitArmor() {
@@ -14608,7 +13704,7 @@ public final class EventProto {
         return warriorInitArmor_;
       }
       
-      // required int32 minNameLength = 19;
+      // optional int32 minNameLength = 19;
       public static final int MINNAMELENGTH_FIELD_NUMBER = 19;
       private int minNameLength_;
       public boolean hasMinNameLength() {
@@ -14618,7 +13714,7 @@ public final class EventProto {
         return minNameLength_;
       }
       
-      // required int32 maxNameLength = 20;
+      // optional int32 maxNameLength = 20;
       public static final int MAXNAMELENGTH_FIELD_NUMBER = 20;
       private int maxNameLength_;
       public boolean hasMaxNameLength() {
@@ -14628,7 +13724,7 @@ public final class EventProto {
         return maxNameLength_;
       }
       
-      // required int32 diamondRewardForBeingReferred = 22;
+      // optional int32 diamondRewardForBeingReferred = 22;
       public static final int DIAMONDREWARDFORBEINGREFERRED_FIELD_NUMBER = 22;
       private int diamondRewardForBeingReferred_;
       public boolean hasDiamondRewardForBeingReferred() {
@@ -14680,7 +13776,7 @@ public final class EventProto {
         return firstCityElementsForBad_.get(index);
       }
       
-      // required int32 initCoins = 25;
+      // optional int32 initCoins = 25;
       public static final int INITCOINS_FIELD_NUMBER = 25;
       private int initCoins_;
       public boolean hasInitCoins() {
@@ -14690,7 +13786,7 @@ public final class EventProto {
         return initCoins_;
       }
       
-      // required int32 initDiamonds = 26;
+      // optional int32 initDiamonds = 26;
       public static final int INITDIAMONDS_FIELD_NUMBER = 26;
       private int initDiamonds_;
       public boolean hasInitDiamonds() {
@@ -14721,7 +13817,7 @@ public final class EventProto {
         return carpenterStructs_.get(index);
       }
       
-      // required int32 expRequiredForLevelTwo = 28;
+      // optional int32 expRequiredForLevelTwo = 28;
       public static final int EXPREQUIREDFORLEVELTWO_FIELD_NUMBER = 28;
       private int expRequiredForLevelTwo_;
       public boolean hasExpRequiredForLevelTwo() {
@@ -14731,7 +13827,7 @@ public final class EventProto {
         return expRequiredForLevelTwo_;
       }
       
-      // required int32 expRequiredForLevelThree = 29;
+      // optional int32 expRequiredForLevelThree = 29;
       public static final int EXPREQUIREDFORLEVELTHREE_FIELD_NUMBER = 29;
       private int expRequiredForLevelThree_;
       public boolean hasExpRequiredForLevelThree() {
@@ -14842,170 +13938,6 @@ public final class EventProto {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasInitEnergy()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasInitStamina()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasInitHealth()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasTutorialQuest()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasStructToBuild()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondCostToInstabuildFirstStruct()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasArcherInitAttack()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasArcherInitDefense()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasArcherInitWeapon()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasArcherInitArmor()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMageInitAttack()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMageInitDefense()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMageInitWeapon()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMageInitArmor()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasWarriorInitAttack()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasWarriorInitDefense()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasWarriorInitWeapon()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasWarriorInitArmor()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMinNameLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasMaxNameLength()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDiamondRewardForBeingReferred()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasInitCoins()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasInitDiamonds()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasExpRequiredForLevelTwo()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasExpRequiredForLevelThree()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getTutorialQuest().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getArcherInitWeapon().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getArcherInitArmor().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getMageInitWeapon().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getMageInitArmor().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getWarriorInitWeapon().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getWarriorInitArmor().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        for (int i = 0; i < getFirstCityElementsForGoodCount(); i++) {
-          if (!getFirstCityElementsForGood(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        for (int i = 0; i < getFirstCityElementsForBadCount(); i++) {
-          if (!getFirstCityElementsForBad(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        for (int i = 0; i < getCarpenterStructsCount(); i++) {
-          if (!getCarpenterStructs(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        for (int i = 0; i < getCitiesNewlyAvailableToUserAfterLevelupCount(); i++) {
-          if (!getCitiesNewlyAvailableToUserAfterLevelup(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        for (int i = 0; i < getNewlyEquippableEpicsAndLegendariesForAllClassesAfterLevelupCount(); i++) {
-          if (!getNewlyEquippableEpicsAndLegendariesForAllClassesAfterLevelup(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        for (int i = 0; i < getNewlyAvailableStructsAfterLevelupCount(); i++) {
-          if (!getNewlyAvailableStructsAfterLevelup(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -15962,170 +14894,6 @@ public final class EventProto {
         }
         
         public final boolean isInitialized() {
-          if (!hasInitEnergy()) {
-            
-            return false;
-          }
-          if (!hasInitStamina()) {
-            
-            return false;
-          }
-          if (!hasInitHealth()) {
-            
-            return false;
-          }
-          if (!hasTutorialQuest()) {
-            
-            return false;
-          }
-          if (!hasStructToBuild()) {
-            
-            return false;
-          }
-          if (!hasDiamondCostToInstabuildFirstStruct()) {
-            
-            return false;
-          }
-          if (!hasArcherInitAttack()) {
-            
-            return false;
-          }
-          if (!hasArcherInitDefense()) {
-            
-            return false;
-          }
-          if (!hasArcherInitWeapon()) {
-            
-            return false;
-          }
-          if (!hasArcherInitArmor()) {
-            
-            return false;
-          }
-          if (!hasMageInitAttack()) {
-            
-            return false;
-          }
-          if (!hasMageInitDefense()) {
-            
-            return false;
-          }
-          if (!hasMageInitWeapon()) {
-            
-            return false;
-          }
-          if (!hasMageInitArmor()) {
-            
-            return false;
-          }
-          if (!hasWarriorInitAttack()) {
-            
-            return false;
-          }
-          if (!hasWarriorInitDefense()) {
-            
-            return false;
-          }
-          if (!hasWarriorInitWeapon()) {
-            
-            return false;
-          }
-          if (!hasWarriorInitArmor()) {
-            
-            return false;
-          }
-          if (!hasMinNameLength()) {
-            
-            return false;
-          }
-          if (!hasMaxNameLength()) {
-            
-            return false;
-          }
-          if (!hasDiamondRewardForBeingReferred()) {
-            
-            return false;
-          }
-          if (!hasInitCoins()) {
-            
-            return false;
-          }
-          if (!hasInitDiamonds()) {
-            
-            return false;
-          }
-          if (!hasExpRequiredForLevelTwo()) {
-            
-            return false;
-          }
-          if (!hasExpRequiredForLevelThree()) {
-            
-            return false;
-          }
-          if (!getTutorialQuest().isInitialized()) {
-            
-            return false;
-          }
-          if (!getArcherInitWeapon().isInitialized()) {
-            
-            return false;
-          }
-          if (!getArcherInitArmor().isInitialized()) {
-            
-            return false;
-          }
-          if (!getMageInitWeapon().isInitialized()) {
-            
-            return false;
-          }
-          if (!getMageInitArmor().isInitialized()) {
-            
-            return false;
-          }
-          if (!getWarriorInitWeapon().isInitialized()) {
-            
-            return false;
-          }
-          if (!getWarriorInitArmor().isInitialized()) {
-            
-            return false;
-          }
-          for (int i = 0; i < getFirstCityElementsForGoodCount(); i++) {
-            if (!getFirstCityElementsForGood(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          for (int i = 0; i < getFirstCityElementsForBadCount(); i++) {
-            if (!getFirstCityElementsForBad(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          for (int i = 0; i < getCarpenterStructsCount(); i++) {
-            if (!getCarpenterStructs(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          for (int i = 0; i < getCitiesNewlyAvailableToUserAfterLevelupCount(); i++) {
-            if (!getCitiesNewlyAvailableToUserAfterLevelup(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          for (int i = 0; i < getNewlyEquippableEpicsAndLegendariesForAllClassesAfterLevelupCount(); i++) {
-            if (!getNewlyEquippableEpicsAndLegendariesForAllClassesAfterLevelup(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          for (int i = 0; i < getNewlyAvailableStructsAfterLevelupCount(); i++) {
-            if (!getNewlyAvailableStructsAfterLevelup(i).isInitialized()) {
-              
-              return false;
-            }
-          }
           return true;
         }
         
@@ -16347,7 +15115,7 @@ public final class EventProto {
         
         private int bitField0_;
         
-        // required int32 initEnergy = 1;
+        // optional int32 initEnergy = 1;
         private int initEnergy_ ;
         public boolean hasInitEnergy() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -16368,7 +15136,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 initStamina = 2;
+        // optional int32 initStamina = 2;
         private int initStamina_ ;
         public boolean hasInitStamina() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -16389,7 +15157,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 initHealth = 3;
+        // optional int32 initHealth = 3;
         private int initHealth_ ;
         public boolean hasInitHealth() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -16410,7 +15178,7 @@ public final class EventProto {
           return this;
         }
         
-        // required .com.lvl6.proto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest = 4;
+        // optional .com.lvl6.proto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest = 4;
         private com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto tutorialQuest_ = com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto, com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto.Builder, com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProtoOrBuilder> tutorialQuestBuilder_;
@@ -16500,7 +15268,7 @@ public final class EventProto {
           return tutorialQuestBuilder_;
         }
         
-        // required int32 structToBuild = 5;
+        // optional int32 structToBuild = 5;
         private int structToBuild_ ;
         public boolean hasStructToBuild() {
           return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -16521,7 +15289,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondCostToInstabuildFirstStruct = 6;
+        // optional int32 diamondCostToInstabuildFirstStruct = 6;
         private int diamondCostToInstabuildFirstStruct_ ;
         public boolean hasDiamondCostToInstabuildFirstStruct() {
           return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -16542,7 +15310,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 archerInitAttack = 17;
+        // optional int32 archerInitAttack = 17;
         private int archerInitAttack_ ;
         public boolean hasArcherInitAttack() {
           return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -16563,7 +15331,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 archerInitDefense = 18;
+        // optional int32 archerInitDefense = 18;
         private int archerInitDefense_ ;
         public boolean hasArcherInitDefense() {
           return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -16584,7 +15352,7 @@ public final class EventProto {
           return this;
         }
         
-        // required .com.lvl6.proto.FullEquipProto archerInitWeapon = 7;
+        // optional .com.lvl6.proto.FullEquipProto archerInitWeapon = 7;
         private com.lvl6.proto.InfoProto.FullEquipProto archerInitWeapon_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> archerInitWeaponBuilder_;
@@ -16674,7 +15442,7 @@ public final class EventProto {
           return archerInitWeaponBuilder_;
         }
         
-        // required .com.lvl6.proto.FullEquipProto archerInitArmor = 8;
+        // optional .com.lvl6.proto.FullEquipProto archerInitArmor = 8;
         private com.lvl6.proto.InfoProto.FullEquipProto archerInitArmor_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> archerInitArmorBuilder_;
@@ -16764,7 +15532,7 @@ public final class EventProto {
           return archerInitArmorBuilder_;
         }
         
-        // required int32 mageInitAttack = 9;
+        // optional int32 mageInitAttack = 9;
         private int mageInitAttack_ ;
         public boolean hasMageInitAttack() {
           return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -16785,7 +15553,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 mageInitDefense = 10;
+        // optional int32 mageInitDefense = 10;
         private int mageInitDefense_ ;
         public boolean hasMageInitDefense() {
           return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -16806,7 +15574,7 @@ public final class EventProto {
           return this;
         }
         
-        // required .com.lvl6.proto.FullEquipProto mageInitWeapon = 11;
+        // optional .com.lvl6.proto.FullEquipProto mageInitWeapon = 11;
         private com.lvl6.proto.InfoProto.FullEquipProto mageInitWeapon_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> mageInitWeaponBuilder_;
@@ -16896,7 +15664,7 @@ public final class EventProto {
           return mageInitWeaponBuilder_;
         }
         
-        // required .com.lvl6.proto.FullEquipProto mageInitArmor = 12;
+        // optional .com.lvl6.proto.FullEquipProto mageInitArmor = 12;
         private com.lvl6.proto.InfoProto.FullEquipProto mageInitArmor_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> mageInitArmorBuilder_;
@@ -16986,7 +15754,7 @@ public final class EventProto {
           return mageInitArmorBuilder_;
         }
         
-        // required int32 warriorInitAttack = 13;
+        // optional int32 warriorInitAttack = 13;
         private int warriorInitAttack_ ;
         public boolean hasWarriorInitAttack() {
           return ((bitField0_ & 0x00004000) == 0x00004000);
@@ -17007,7 +15775,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 warriorInitDefense = 14;
+        // optional int32 warriorInitDefense = 14;
         private int warriorInitDefense_ ;
         public boolean hasWarriorInitDefense() {
           return ((bitField0_ & 0x00008000) == 0x00008000);
@@ -17028,7 +15796,7 @@ public final class EventProto {
           return this;
         }
         
-        // required .com.lvl6.proto.FullEquipProto warriorInitWeapon = 15;
+        // optional .com.lvl6.proto.FullEquipProto warriorInitWeapon = 15;
         private com.lvl6.proto.InfoProto.FullEquipProto warriorInitWeapon_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> warriorInitWeaponBuilder_;
@@ -17118,7 +15886,7 @@ public final class EventProto {
           return warriorInitWeaponBuilder_;
         }
         
-        // required .com.lvl6.proto.FullEquipProto warriorInitArmor = 16;
+        // optional .com.lvl6.proto.FullEquipProto warriorInitArmor = 16;
         private com.lvl6.proto.InfoProto.FullEquipProto warriorInitArmor_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> warriorInitArmorBuilder_;
@@ -17208,7 +15976,7 @@ public final class EventProto {
           return warriorInitArmorBuilder_;
         }
         
-        // required int32 minNameLength = 19;
+        // optional int32 minNameLength = 19;
         private int minNameLength_ ;
         public boolean hasMinNameLength() {
           return ((bitField0_ & 0x00040000) == 0x00040000);
@@ -17229,7 +15997,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 maxNameLength = 20;
+        // optional int32 maxNameLength = 20;
         private int maxNameLength_ ;
         public boolean hasMaxNameLength() {
           return ((bitField0_ & 0x00080000) == 0x00080000);
@@ -17250,7 +16018,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 diamondRewardForBeingReferred = 22;
+        // optional int32 diamondRewardForBeingReferred = 22;
         private int diamondRewardForBeingReferred_ ;
         public boolean hasDiamondRewardForBeingReferred() {
           return ((bitField0_ & 0x00100000) == 0x00100000);
@@ -17643,7 +16411,7 @@ public final class EventProto {
           return firstCityElementsForBadBuilder_;
         }
         
-        // required int32 initCoins = 25;
+        // optional int32 initCoins = 25;
         private int initCoins_ ;
         public boolean hasInitCoins() {
           return ((bitField0_ & 0x00800000) == 0x00800000);
@@ -17664,7 +16432,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 initDiamonds = 26;
+        // optional int32 initDiamonds = 26;
         private int initDiamonds_ ;
         public boolean hasInitDiamonds() {
           return ((bitField0_ & 0x01000000) == 0x01000000);
@@ -17871,7 +16639,7 @@ public final class EventProto {
           return carpenterStructsBuilder_;
         }
         
-        // required int32 expRequiredForLevelTwo = 28;
+        // optional int32 expRequiredForLevelTwo = 28;
         private int expRequiredForLevelTwo_ ;
         public boolean hasExpRequiredForLevelTwo() {
           return ((bitField0_ & 0x04000000) == 0x04000000);
@@ -17892,7 +16660,7 @@ public final class EventProto {
           return this;
         }
         
-        // required int32 expRequiredForLevelThree = 29;
+        // optional int32 expRequiredForLevelThree = 29;
         private int expRequiredForLevelThree_ ;
         public boolean hasExpRequiredForLevelThree() {
           return ((bitField0_ & 0x08000000) == 0x08000000);
@@ -18496,7 +17264,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
+    // optional .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
     public static final int STARTUPSTATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus startupStatus_;
     public boolean hasStartupStatus() {
@@ -18506,7 +17274,7 @@ public final class EventProto {
       return startupStatus_;
     }
     
-    // required .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
+    // optional .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
     public static final int UPDATESTATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus updateStatus_;
     public boolean hasUpdateStatus() {
@@ -18516,7 +17284,7 @@ public final class EventProto {
       return updateStatus_;
     }
     
-    // required .com.lvl6.proto.StartupResponseProto.StartupConstants startupConstants = 4;
+    // optional .com.lvl6.proto.StartupResponseProto.StartupConstants startupConstants = 4;
     public static final int STARTUPCONSTANTS_FIELD_NUMBER = 4;
     private com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants startupConstants_;
     public boolean hasStartupConstants() {
@@ -18751,6 +17519,38 @@ public final class EventProto {
       return referralNotifications_.get(index);
     }
     
+    // optional string appStoreURL = 17;
+    public static final int APPSTOREURL_FIELD_NUMBER = 17;
+    private java.lang.Object appStoreURL_;
+    public boolean hasAppStoreURL() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public String getAppStoreURL() {
+      java.lang.Object ref = appStoreURL_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          appStoreURL_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getAppStoreURLBytes() {
+      java.lang.Object ref = appStoreURL_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        appStoreURL_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance();
       startupStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
@@ -18768,94 +17568,13 @@ public final class EventProto {
       marketplacePurchaseNotifications_ = java.util.Collections.emptyList();
       attackNotifications_ = java.util.Collections.emptyList();
       referralNotifications_ = java.util.Collections.emptyList();
+      appStoreURL_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasStartupStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUpdateStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStartupConstants()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasSender()) {
-        if (!getSender().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (!getStartupConstants().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasTutorialConstants()) {
-        if (!getTutorialConstants().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getCitiesAvailableToUserCount(); i++) {
-        if (!getCitiesAvailableToUser(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getUserCityInfosCount(); i++) {
-        if (!getUserCityInfos(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getInProgressQuestsCount(); i++) {
-        if (!getInProgressQuests(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getAvailableQuestsCount(); i++) {
-        if (!getAvailableQuests(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getUserEquipsCount(); i++) {
-        if (!getUserEquips(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getEquipsCount(); i++) {
-        if (!getEquips(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getMarketplacePurchaseNotificationsCount(); i++) {
-        if (!getMarketplacePurchaseNotifications(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getAttackNotificationsCount(); i++) {
-        if (!getAttackNotifications(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getReferralNotificationsCount(); i++) {
-        if (!getReferralNotifications(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -18907,6 +17626,9 @@ public final class EventProto {
       }
       for (int i = 0; i < userCityInfos_.size(); i++) {
         output.writeMessage(16, userCityInfos_.get(i));
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeBytes(17, getAppStoreURLBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeMessage(18, tutorialConstants_);
@@ -18979,6 +17701,10 @@ public final class EventProto {
       for (int i = 0; i < userCityInfos_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(16, userCityInfos_.get(i));
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(17, getAppStoreURLBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
@@ -19200,6 +17926,8 @@ public final class EventProto {
         } else {
           referralNotificationsBuilder_.clear();
         }
+        appStoreURL_ = "";
+        bitField0_ = (bitField0_ & ~0x00010000);
         return this;
       }
       
@@ -19359,6 +18087,10 @@ public final class EventProto {
         } else {
           result.referralNotifications_ = referralNotificationsBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.appStoreURL_ = appStoreURL_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -19630,93 +18362,14 @@ public final class EventProto {
             }
           }
         }
+        if (other.hasAppStoreURL()) {
+          setAppStoreURL(other.getAppStoreURL());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
       public final boolean isInitialized() {
-        if (!hasStartupStatus()) {
-          
-          return false;
-        }
-        if (!hasUpdateStatus()) {
-          
-          return false;
-        }
-        if (!hasStartupConstants()) {
-          
-          return false;
-        }
-        if (hasSender()) {
-          if (!getSender().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (!getStartupConstants().isInitialized()) {
-          
-          return false;
-        }
-        if (hasTutorialConstants()) {
-          if (!getTutorialConstants().isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getCitiesAvailableToUserCount(); i++) {
-          if (!getCitiesAvailableToUser(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getUserCityInfosCount(); i++) {
-          if (!getUserCityInfos(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getInProgressQuestsCount(); i++) {
-          if (!getInProgressQuests(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getAvailableQuestsCount(); i++) {
-          if (!getAvailableQuests(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getUserEquipsCount(); i++) {
-          if (!getUserEquips(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getEquipsCount(); i++) {
-          if (!getEquips(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getMarketplacePurchaseNotificationsCount(); i++) {
-          if (!getMarketplacePurchaseNotifications(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getAttackNotificationsCount(); i++) {
-          if (!getAttackNotifications(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getReferralNotificationsCount(); i++) {
-          if (!getReferralNotifications(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -19847,6 +18500,11 @@ public final class EventProto {
               addUserCityInfos(subBuilder.buildPartial());
               break;
             }
+            case 138: {
+              bitField0_ |= 0x00010000;
+              appStoreURL_ = input.readBytes();
+              break;
+            }
             case 146: {
               com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.Builder subBuilder = com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.newBuilder();
               if (hasTutorialConstants()) {
@@ -19952,7 +18610,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
+      // optional .com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus = 2;
       private com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus startupStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus.USER_IN_DB;
       public boolean hasStartupStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -19976,7 +18634,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
+      // optional .com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus = 3;
       private com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus updateStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.NO_UPDATE;
       public boolean hasUpdateStatus() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -20000,7 +18658,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.StartupResponseProto.StartupConstants startupConstants = 4;
+      // optional .com.lvl6.proto.StartupResponseProto.StartupConstants startupConstants = 4;
       private com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants startupConstants_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.Builder, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstantsOrBuilder> startupConstantsBuilder_;
@@ -21896,6 +20554,42 @@ public final class EventProto {
         return referralNotificationsBuilder_;
       }
       
+      // optional string appStoreURL = 17;
+      private java.lang.Object appStoreURL_ = "";
+      public boolean hasAppStoreURL() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      public String getAppStoreURL() {
+        java.lang.Object ref = appStoreURL_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          appStoreURL_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setAppStoreURL(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00010000;
+        appStoreURL_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAppStoreURL() {
+        bitField0_ = (bitField0_ & ~0x00010000);
+        appStoreURL_ = getDefaultInstance().getAppStoreURL();
+        onChanged();
+        return this;
+      }
+      void setAppStoreURL(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00010000;
+        appStoreURL_ = value;
+        onChanged();
+      }
+      
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.StartupResponseProto)
     }
     
@@ -21910,15 +20604,15 @@ public final class EventProto {
   public interface UserCreateRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required string udid = 1;
+    // optional string udid = 1;
     boolean hasUdid();
     String getUdid();
     
-    // required string name = 2;
+    // optional string name = 2;
     boolean hasName();
     String getName();
     
-    // required .com.lvl6.proto.UserType type = 3;
+    // optional .com.lvl6.proto.UserType type = 3;
     boolean hasType();
     com.lvl6.proto.InfoProto.UserType getType();
     
@@ -21935,40 +20629,40 @@ public final class EventProto {
     boolean hasDeviceToken();
     String getDeviceToken();
     
-    // required int32 attack = 9;
+    // optional int32 attack = 9;
     boolean hasAttack();
     int getAttack();
     
-    // required int32 defense = 10;
+    // optional int32 defense = 10;
     boolean hasDefense();
     int getDefense();
     
-    // required int32 health = 11;
+    // optional int32 health = 11;
     boolean hasHealth();
     int getHealth();
     
-    // required int32 energy = 12;
+    // optional int32 energy = 12;
     boolean hasEnergy();
     int getEnergy();
     
-    // required int32 stamina = 13;
+    // optional int32 stamina = 13;
     boolean hasStamina();
     int getStamina();
     
-    // required int64 timeOfStructPurchase = 14;
+    // optional int64 timeOfStructPurchase = 14;
     boolean hasTimeOfStructPurchase();
     long getTimeOfStructPurchase();
     
-    // required int64 timeOfStructBuild = 15;
+    // optional int64 timeOfStructBuild = 15;
     boolean hasTimeOfStructBuild();
     long getTimeOfStructBuild();
     
-    // required .com.lvl6.proto.CoordinateProto structCoords = 4;
+    // optional .com.lvl6.proto.CoordinateProto structCoords = 4;
     boolean hasStructCoords();
     com.lvl6.proto.InfoProto.CoordinateProto getStructCoords();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getStructCoordsOrBuilder();
     
-    // required bool usedDiamondsToBuilt = 16;
+    // optional bool usedDiamondsToBuilt = 16;
     boolean hasUsedDiamondsToBuilt();
     boolean getUsedDiamondsToBuilt();
   }
@@ -22001,7 +20695,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required string udid = 1;
+    // optional string udid = 1;
     public static final int UDID_FIELD_NUMBER = 1;
     private java.lang.Object udid_;
     public boolean hasUdid() {
@@ -22033,7 +20727,7 @@ public final class EventProto {
       }
     }
     
-    // required string name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -22065,7 +20759,7 @@ public final class EventProto {
       }
     }
     
-    // required .com.lvl6.proto.UserType type = 3;
+    // optional .com.lvl6.proto.UserType type = 3;
     public static final int TYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.UserType type_;
     public boolean hasType() {
@@ -22152,7 +20846,7 @@ public final class EventProto {
       }
     }
     
-    // required int32 attack = 9;
+    // optional int32 attack = 9;
     public static final int ATTACK_FIELD_NUMBER = 9;
     private int attack_;
     public boolean hasAttack() {
@@ -22162,7 +20856,7 @@ public final class EventProto {
       return attack_;
     }
     
-    // required int32 defense = 10;
+    // optional int32 defense = 10;
     public static final int DEFENSE_FIELD_NUMBER = 10;
     private int defense_;
     public boolean hasDefense() {
@@ -22172,7 +20866,7 @@ public final class EventProto {
       return defense_;
     }
     
-    // required int32 health = 11;
+    // optional int32 health = 11;
     public static final int HEALTH_FIELD_NUMBER = 11;
     private int health_;
     public boolean hasHealth() {
@@ -22182,7 +20876,7 @@ public final class EventProto {
       return health_;
     }
     
-    // required int32 energy = 12;
+    // optional int32 energy = 12;
     public static final int ENERGY_FIELD_NUMBER = 12;
     private int energy_;
     public boolean hasEnergy() {
@@ -22192,7 +20886,7 @@ public final class EventProto {
       return energy_;
     }
     
-    // required int32 stamina = 13;
+    // optional int32 stamina = 13;
     public static final int STAMINA_FIELD_NUMBER = 13;
     private int stamina_;
     public boolean hasStamina() {
@@ -22202,7 +20896,7 @@ public final class EventProto {
       return stamina_;
     }
     
-    // required int64 timeOfStructPurchase = 14;
+    // optional int64 timeOfStructPurchase = 14;
     public static final int TIMEOFSTRUCTPURCHASE_FIELD_NUMBER = 14;
     private long timeOfStructPurchase_;
     public boolean hasTimeOfStructPurchase() {
@@ -22212,7 +20906,7 @@ public final class EventProto {
       return timeOfStructPurchase_;
     }
     
-    // required int64 timeOfStructBuild = 15;
+    // optional int64 timeOfStructBuild = 15;
     public static final int TIMEOFSTRUCTBUILD_FIELD_NUMBER = 15;
     private long timeOfStructBuild_;
     public boolean hasTimeOfStructBuild() {
@@ -22222,7 +20916,7 @@ public final class EventProto {
       return timeOfStructBuild_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto structCoords = 4;
+    // optional .com.lvl6.proto.CoordinateProto structCoords = 4;
     public static final int STRUCTCOORDS_FIELD_NUMBER = 4;
     private com.lvl6.proto.InfoProto.CoordinateProto structCoords_;
     public boolean hasStructCoords() {
@@ -22235,7 +20929,7 @@ public final class EventProto {
       return structCoords_;
     }
     
-    // required bool usedDiamondsToBuilt = 16;
+    // optional bool usedDiamondsToBuilt = 16;
     public static final int USEDDIAMONDSTOBUILT_FIELD_NUMBER = 16;
     private boolean usedDiamondsToBuilt_;
     public boolean hasUsedDiamondsToBuilt() {
@@ -22267,64 +20961,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUdid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAttack()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDefense()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasHealth()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEnergy()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStamina()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfStructPurchase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfStructBuild()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStructCoords()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUsedDiamondsToBuilt()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasUserLocation()) {
-        if (!getUserLocation().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (!getStructCoords().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -22782,64 +21418,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUdid()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!hasAttack()) {
-          
-          return false;
-        }
-        if (!hasDefense()) {
-          
-          return false;
-        }
-        if (!hasHealth()) {
-          
-          return false;
-        }
-        if (!hasEnergy()) {
-          
-          return false;
-        }
-        if (!hasStamina()) {
-          
-          return false;
-        }
-        if (!hasTimeOfStructPurchase()) {
-          
-          return false;
-        }
-        if (!hasTimeOfStructBuild()) {
-          
-          return false;
-        }
-        if (!hasStructCoords()) {
-          
-          return false;
-        }
-        if (!hasUsedDiamondsToBuilt()) {
-          
-          return false;
-        }
-        if (hasUserLocation()) {
-          if (!getUserLocation().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (!getStructCoords().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -22961,7 +21539,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required string udid = 1;
+      // optional string udid = 1;
       private java.lang.Object udid_ = "";
       public boolean hasUdid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -22997,7 +21575,7 @@ public final class EventProto {
         onChanged();
       }
       
-      // required string name = 2;
+      // optional string name = 2;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -23033,7 +21611,7 @@ public final class EventProto {
         onChanged();
       }
       
-      // required .com.lvl6.proto.UserType type = 3;
+      // optional .com.lvl6.proto.UserType type = 3;
       private com.lvl6.proto.InfoProto.UserType type_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
       public boolean hasType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -23219,7 +21797,7 @@ public final class EventProto {
         onChanged();
       }
       
-      // required int32 attack = 9;
+      // optional int32 attack = 9;
       private int attack_ ;
       public boolean hasAttack() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -23240,7 +21818,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int32 defense = 10;
+      // optional int32 defense = 10;
       private int defense_ ;
       public boolean hasDefense() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -23261,7 +21839,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int32 health = 11;
+      // optional int32 health = 11;
       private int health_ ;
       public boolean hasHealth() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
@@ -23282,7 +21860,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int32 energy = 12;
+      // optional int32 energy = 12;
       private int energy_ ;
       public boolean hasEnergy() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
@@ -23303,7 +21881,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int32 stamina = 13;
+      // optional int32 stamina = 13;
       private int stamina_ ;
       public boolean hasStamina() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -23324,7 +21902,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 timeOfStructPurchase = 14;
+      // optional int64 timeOfStructPurchase = 14;
       private long timeOfStructPurchase_ ;
       public boolean hasTimeOfStructPurchase() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -23345,7 +21923,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 timeOfStructBuild = 15;
+      // optional int64 timeOfStructBuild = 15;
       private long timeOfStructBuild_ ;
       public boolean hasTimeOfStructBuild() {
         return ((bitField0_ & 0x00001000) == 0x00001000);
@@ -23366,7 +21944,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.CoordinateProto structCoords = 4;
+      // optional .com.lvl6.proto.CoordinateProto structCoords = 4;
       private com.lvl6.proto.InfoProto.CoordinateProto structCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> structCoordsBuilder_;
@@ -23456,7 +22034,7 @@ public final class EventProto {
         return structCoordsBuilder_;
       }
       
-      // required bool usedDiamondsToBuilt = 16;
+      // optional bool usedDiamondsToBuilt = 16;
       private boolean usedDiamondsToBuilt_ ;
       public boolean hasUsedDiamondsToBuilt() {
         return ((bitField0_ & 0x00004000) == 0x00004000);
@@ -23496,7 +22074,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserProto getSender();
     com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.UserCreateResponseProto.UserCreateStatus status = 2;
+    // optional .com.lvl6.proto.UserCreateResponseProto.UserCreateStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus getStatus();
   }
@@ -23629,7 +22207,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.UserCreateResponseProto.UserCreateStatus status = 2;
+    // optional .com.lvl6.proto.UserCreateResponseProto.UserCreateStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus status_;
     public boolean hasStatus() {
@@ -23648,16 +22226,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasSender()) {
-        if (!getSender().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -23898,16 +22466,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (hasSender()) {
-          if (!getSender().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -24050,7 +22608,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.UserCreateResponseProto.UserCreateStatus status = 2;
+      // optional .com.lvl6.proto.UserCreateResponseProto.UserCreateStatus status = 2;
       private com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus status_ = com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -24088,7 +22646,7 @@ public final class EventProto {
   public interface RetrieveTasksForCityRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -24126,7 +22684,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -24158,14 +22716,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -24406,14 +22956,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -24460,7 +23002,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -24585,7 +23127,7 @@ public final class EventProto {
   public interface RetrieveTasksForCityResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -24629,7 +23171,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -24672,20 +23214,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getTasksCount(); i++) {
-        if (!getTasks(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -24959,20 +23487,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getTasksCount(); i++) {
-          if (!getTasks(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -25020,7 +23534,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -25310,12 +23824,12 @@ public final class EventProto {
   public interface RetrieveStaticDataForShopRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type = 2;
+    // optional .com.lvl6.proto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type = 2;
     boolean hasType();
     com.lvl6.proto.EventProto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType getType();
   }
@@ -25417,7 +23931,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -25430,7 +23944,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type = 2;
+    // optional .com.lvl6.proto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type = 2;
     public static final int TYPE_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type_;
     public boolean hasType() {
@@ -25449,18 +23963,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -25701,18 +24203,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -25765,7 +24255,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -25855,7 +24345,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type = 2;
+      // optional .com.lvl6.proto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type = 2;
       private com.lvl6.proto.EventProto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType type_ = com.lvl6.proto.EventProto.RetrieveStaticDataForShopRequestProto.RetrieveForShopType.EQUIPMENT_FOR_ARMORY;
       public boolean hasType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -25893,12 +24383,12 @@ public final class EventProto {
   public interface RetrieveStaticDataForShopResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status = 2;
+    // optional .com.lvl6.proto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus getStatus();
     
@@ -26020,7 +24510,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -26033,7 +24523,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status = 2;
+    // optional .com.lvl6.proto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status_;
     public boolean hasStatus() {
@@ -26096,30 +24586,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getEquipsCount(); i++) {
-        if (!getEquips(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getStructsCount(); i++) {
-        if (!getStructs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -26458,30 +24924,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getEquipsCount(); i++) {
-          if (!getEquips(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getStructsCount(); i++) {
-          if (!getStructs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -26546,7 +24988,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -26636,7 +25078,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status = 2;
+      // optional .com.lvl6.proto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status = 2;
       private com.lvl6.proto.EventProto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus status_ = com.lvl6.proto.EventProto.RetrieveStaticDataForShopResponseProto.RetrieveStaticDataForShopStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -27046,16 +25488,16 @@ public final class EventProto {
   public interface TaskActionRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 taskId = 2;
+    // optional int32 taskId = 2;
     boolean hasTaskId();
     int getTaskId();
     
-    // required int64 curTime = 3;
+    // optional int64 curTime = 3;
     boolean hasCurTime();
     long getCurTime();
   }
@@ -27088,7 +25530,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -27101,7 +25543,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 taskId = 2;
+    // optional int32 taskId = 2;
     public static final int TASKID_FIELD_NUMBER = 2;
     private int taskId_;
     public boolean hasTaskId() {
@@ -27111,7 +25553,7 @@ public final class EventProto {
       return taskId_;
     }
     
-    // required int64 curTime = 3;
+    // optional int64 curTime = 3;
     public static final int CURTIME_FIELD_NUMBER = 3;
     private long curTime_;
     public boolean hasCurTime() {
@@ -27131,22 +25573,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTaskId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCurTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -27403,22 +25829,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasTaskId()) {
-          
-          return false;
-        }
-        if (!hasCurTime()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -27470,7 +25880,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -27560,7 +25970,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 taskId = 2;
+      // optional int32 taskId = 2;
       private int taskId_ ;
       public boolean hasTaskId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -27581,7 +25991,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 curTime = 3;
+      // optional int64 curTime = 3;
       private long curTime_ ;
       public boolean hasCurTime() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -27616,12 +26026,12 @@ public final class EventProto {
   public interface TaskActionResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.TaskActionResponseProto.TaskActionStatus status = 2;
+    // optional .com.lvl6.proto.TaskActionResponseProto.TaskActionStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus getStatus();
     
@@ -27760,7 +26170,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -27773,7 +26183,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.TaskActionResponseProto.TaskActionStatus status = 2;
+    // optional .com.lvl6.proto.TaskActionResponseProto.TaskActionStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus status_;
     public boolean hasStatus() {
@@ -27869,18 +26279,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -28233,18 +26631,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -28332,7 +26718,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -28422,7 +26808,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.TaskActionResponseProto.TaskActionStatus status = 2;
+      // optional .com.lvl6.proto.TaskActionResponseProto.TaskActionStatus status = 2;
       private com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus status_ = com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -28607,21 +26993,21 @@ public final class EventProto {
   public interface PurchaseNormStructureRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.CoordinateProto structCoordinates = 2;
+    // optional .com.lvl6.proto.CoordinateProto structCoordinates = 2;
     boolean hasStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProto getStructCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getStructCoordinatesOrBuilder();
     
-    // required int32 structId = 3;
+    // optional int32 structId = 3;
     boolean hasStructId();
     int getStructId();
     
-    // required int64 timeOfPurchase = 4;
+    // optional int64 timeOfPurchase = 4;
     boolean hasTimeOfPurchase();
     long getTimeOfPurchase();
   }
@@ -28654,7 +27040,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -28667,7 +27053,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto structCoordinates = 2;
+    // optional .com.lvl6.proto.CoordinateProto structCoordinates = 2;
     public static final int STRUCTCOORDINATES_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.CoordinateProto structCoordinates_;
     public boolean hasStructCoordinates() {
@@ -28680,7 +27066,7 @@ public final class EventProto {
       return structCoordinates_;
     }
     
-    // required int32 structId = 3;
+    // optional int32 structId = 3;
     public static final int STRUCTID_FIELD_NUMBER = 3;
     private int structId_;
     public boolean hasStructId() {
@@ -28690,7 +27076,7 @@ public final class EventProto {
       return structId_;
     }
     
-    // required int64 timeOfPurchase = 4;
+    // optional int64 timeOfPurchase = 4;
     public static final int TIMEOFPURCHASE_FIELD_NUMBER = 4;
     private long timeOfPurchase_;
     public boolean hasTimeOfPurchase() {
@@ -28711,30 +27097,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStructCoordinates()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfPurchase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getStructCoordinates().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -29016,30 +27378,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStructCoordinates()) {
-          
-          return false;
-        }
-        if (!hasStructId()) {
-          
-          return false;
-        }
-        if (!hasTimeOfPurchase()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (!getStructCoordinates().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -29100,7 +27438,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -29190,7 +27528,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.CoordinateProto structCoordinates = 2;
+      // optional .com.lvl6.proto.CoordinateProto structCoordinates = 2;
       private com.lvl6.proto.InfoProto.CoordinateProto structCoordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> structCoordinatesBuilder_;
@@ -29280,7 +27618,7 @@ public final class EventProto {
         return structCoordinatesBuilder_;
       }
       
-      // required int32 structId = 3;
+      // optional int32 structId = 3;
       private int structId_ ;
       public boolean hasStructId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -29301,7 +27639,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 timeOfPurchase = 4;
+      // optional int64 timeOfPurchase = 4;
       private long timeOfPurchase_ ;
       public boolean hasTimeOfPurchase() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -29336,12 +27674,12 @@ public final class EventProto {
   public interface PurchaseNormStructureResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus getStatus();
     
@@ -29462,7 +27800,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -29475,7 +27813,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status_;
     public boolean hasStatus() {
@@ -29505,18 +27843,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -29773,18 +28099,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -29842,7 +28156,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -29932,7 +28246,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status = 2;
+      // optional .com.lvl6.proto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status = 2;
       private com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus status_ = com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -29991,16 +28305,16 @@ public final class EventProto {
   public interface MoveOrRotateNormStructureRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     boolean hasUserStructId();
     int getUserStructId();
     
-    // required .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
+    // optional .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
     boolean hasType();
     com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType getType();
     
@@ -30111,7 +28425,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -30124,7 +28438,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     public static final int USERSTRUCTID_FIELD_NUMBER = 2;
     private int userStructId_;
     public boolean hasUserStructId() {
@@ -30134,7 +28448,7 @@ public final class EventProto {
       return userStructId_;
     }
     
-    // required .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
+    // optional .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
     public static final int TYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type_;
     public boolean hasType() {
@@ -30179,28 +28493,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasCurStructCoordinates()) {
-        if (!getCurStructCoordinates().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -30498,28 +28790,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasUserStructId()) {
-          
-          return false;
-        }
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (hasCurStructCoordinates()) {
-          if (!getCurStructCoordinates().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -30597,7 +28867,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -30687,7 +28957,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 userStructId = 2;
+      // optional int32 userStructId = 2;
       private int userStructId_ ;
       public boolean hasUserStructId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -30708,7 +28978,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
+      // optional .com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type = 3;
       private com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType type_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
       public boolean hasType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -30860,12 +29130,12 @@ public final class EventProto {
   public interface MoveOrRotateNormStructureResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus getStatus();
   }
@@ -30967,7 +29237,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -30980,7 +29250,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status_;
     public boolean hasStatus() {
@@ -30999,18 +29269,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -31251,18 +29509,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -31315,7 +29561,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -31405,7 +29651,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
+      // optional .com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status = 2;
       private com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus status_ = com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -31443,12 +29689,12 @@ public final class EventProto {
   public interface SellNormStructureRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     boolean hasUserStructId();
     int getUserStructId();
   }
@@ -31481,7 +29727,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -31494,7 +29740,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     public static final int USERSTRUCTID_FIELD_NUMBER = 2;
     private int userStructId_;
     public boolean hasUserStructId() {
@@ -31513,18 +29759,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -31765,18 +29999,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasUserStructId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -31823,7 +30045,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -31913,7 +30135,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 userStructId = 2;
+      // optional int32 userStructId = 2;
       private int userStructId_ ;
       public boolean hasUserStructId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -31948,12 +30170,12 @@ public final class EventProto {
   public interface SellNormStructureResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.SellNormStructureResponseProto.SellNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.SellNormStructureResponseProto.SellNormStructureStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.SellNormStructureResponseProto.SellNormStructureStatus getStatus();
   }
@@ -32055,7 +30277,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -32068,7 +30290,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.SellNormStructureResponseProto.SellNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.SellNormStructureResponseProto.SellNormStructureStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.SellNormStructureResponseProto.SellNormStructureStatus status_;
     public boolean hasStatus() {
@@ -32087,18 +30309,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -32339,18 +30549,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -32403,7 +30601,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -32493,7 +30691,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.SellNormStructureResponseProto.SellNormStructureStatus status = 2;
+      // optional .com.lvl6.proto.SellNormStructureResponseProto.SellNormStructureStatus status = 2;
       private com.lvl6.proto.EventProto.SellNormStructureResponseProto.SellNormStructureStatus status_ = com.lvl6.proto.EventProto.SellNormStructureResponseProto.SellNormStructureStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -32531,16 +30729,16 @@ public final class EventProto {
   public interface UpgradeNormStructureRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     boolean hasUserStructId();
     int getUserStructId();
     
-    // required int64 timeOfUpgrade = 3;
+    // optional int64 timeOfUpgrade = 3;
     boolean hasTimeOfUpgrade();
     long getTimeOfUpgrade();
   }
@@ -32573,7 +30771,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -32586,7 +30784,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     public static final int USERSTRUCTID_FIELD_NUMBER = 2;
     private int userStructId_;
     public boolean hasUserStructId() {
@@ -32596,7 +30794,7 @@ public final class EventProto {
       return userStructId_;
     }
     
-    // required int64 timeOfUpgrade = 3;
+    // optional int64 timeOfUpgrade = 3;
     public static final int TIMEOFUPGRADE_FIELD_NUMBER = 3;
     private long timeOfUpgrade_;
     public boolean hasTimeOfUpgrade() {
@@ -32616,22 +30814,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfUpgrade()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -32888,22 +31070,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasUserStructId()) {
-          
-          return false;
-        }
-        if (!hasTimeOfUpgrade()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -32955,7 +31121,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -33045,7 +31211,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 userStructId = 2;
+      // optional int32 userStructId = 2;
       private int userStructId_ ;
       public boolean hasUserStructId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -33066,7 +31232,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 timeOfUpgrade = 3;
+      // optional int64 timeOfUpgrade = 3;
       private long timeOfUpgrade_ ;
       public boolean hasTimeOfUpgrade() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -33101,12 +31267,12 @@ public final class EventProto {
   public interface UpgradeNormStructureResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus getStatus();
   }
@@ -33226,7 +31392,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -33239,7 +31405,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status_;
     public boolean hasStatus() {
@@ -33258,18 +31424,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -33510,18 +31664,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -33574,7 +31716,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -33664,7 +31806,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status = 2;
+      // optional .com.lvl6.proto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status = 2;
       private com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus status_ = com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -33702,16 +31844,16 @@ public final class EventProto {
   public interface RetrieveCurrencyFromNormStructureRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     boolean hasUserStructId();
     int getUserStructId();
     
-    // required int64 timeOfRetrieval = 3;
+    // optional int64 timeOfRetrieval = 3;
     boolean hasTimeOfRetrieval();
     long getTimeOfRetrieval();
   }
@@ -33744,7 +31886,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -33757,7 +31899,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     public static final int USERSTRUCTID_FIELD_NUMBER = 2;
     private int userStructId_;
     public boolean hasUserStructId() {
@@ -33767,7 +31909,7 @@ public final class EventProto {
       return userStructId_;
     }
     
-    // required int64 timeOfRetrieval = 3;
+    // optional int64 timeOfRetrieval = 3;
     public static final int TIMEOFRETRIEVAL_FIELD_NUMBER = 3;
     private long timeOfRetrieval_;
     public boolean hasTimeOfRetrieval() {
@@ -33787,22 +31929,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfRetrieval()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -34059,22 +32185,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasUserStructId()) {
-          
-          return false;
-        }
-        if (!hasTimeOfRetrieval()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -34126,7 +32236,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -34216,7 +32326,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 userStructId = 2;
+      // optional int32 userStructId = 2;
       private int userStructId_ ;
       public boolean hasUserStructId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -34237,7 +32347,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 timeOfRetrieval = 3;
+      // optional int64 timeOfRetrieval = 3;
       private long timeOfRetrieval_ ;
       public boolean hasTimeOfRetrieval() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -34272,12 +32382,12 @@ public final class EventProto {
   public interface RetrieveCurrencyFromNormStructureResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus getStatus();
   }
@@ -34388,7 +32498,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -34401,7 +32511,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status = 2;
+    // optional .com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status_;
     public boolean hasStatus() {
@@ -34420,18 +32530,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -34672,18 +32770,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -34736,7 +32822,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -34826,7 +32912,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status = 2;
+      // optional .com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status = 2;
       private com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status_ = com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -34864,16 +32950,16 @@ public final class EventProto {
   public interface CriticalStructureActionRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.CriticalStructureActionRequestProto.CritStructActionType actionType = 2;
+    // optional .com.lvl6.proto.CriticalStructureActionRequestProto.CritStructActionType actionType = 2;
     boolean hasActionType();
     com.lvl6.proto.EventProto.CriticalStructureActionRequestProto.CritStructActionType getActionType();
     
-    // required .com.lvl6.proto.CritStructType critStructType = 3;
+    // optional .com.lvl6.proto.CritStructType critStructType = 3;
     boolean hasCritStructType();
     com.lvl6.proto.InfoProto.CritStructType getCritStructType();
     
@@ -34987,7 +33073,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -35000,7 +33086,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.CriticalStructureActionRequestProto.CritStructActionType actionType = 2;
+    // optional .com.lvl6.proto.CriticalStructureActionRequestProto.CritStructActionType actionType = 2;
     public static final int ACTIONTYPE_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.CriticalStructureActionRequestProto.CritStructActionType actionType_;
     public boolean hasActionType() {
@@ -35010,7 +33096,7 @@ public final class EventProto {
       return actionType_;
     }
     
-    // required .com.lvl6.proto.CritStructType critStructType = 3;
+    // optional .com.lvl6.proto.CritStructType critStructType = 3;
     public static final int CRITSTRUCTTYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.CritStructType critStructType_;
     public boolean hasCritStructType() {
@@ -35055,28 +33141,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasActionType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCritStructType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasCritStructCoordinates()) {
-        if (!getCritStructCoordinates().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -35374,28 +33438,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasActionType()) {
-          
-          return false;
-        }
-        if (!hasCritStructType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (hasCritStructCoordinates()) {
-          if (!getCritStructCoordinates().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -35479,7 +33521,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -35569,7 +33611,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.CriticalStructureActionRequestProto.CritStructActionType actionType = 2;
+      // optional .com.lvl6.proto.CriticalStructureActionRequestProto.CritStructActionType actionType = 2;
       private com.lvl6.proto.EventProto.CriticalStructureActionRequestProto.CritStructActionType actionType_ = com.lvl6.proto.EventProto.CriticalStructureActionRequestProto.CritStructActionType.PLACE;
       public boolean hasActionType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -35593,7 +33635,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.CritStructType critStructType = 3;
+      // optional .com.lvl6.proto.CritStructType critStructType = 3;
       private com.lvl6.proto.InfoProto.CritStructType critStructType_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
       public boolean hasCritStructType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -35745,12 +33787,12 @@ public final class EventProto {
   public interface CriticalStructureActionResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.CriticalStructureActionResponseProto.CritStructActionStatus status = 3;
+    // optional .com.lvl6.proto.CriticalStructureActionResponseProto.CritStructActionStatus status = 3;
     boolean hasStatus();
     com.lvl6.proto.EventProto.CriticalStructureActionResponseProto.CritStructActionStatus getStatus();
   }
@@ -35861,7 +33903,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -35874,7 +33916,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.CriticalStructureActionResponseProto.CritStructActionStatus status = 3;
+    // optional .com.lvl6.proto.CriticalStructureActionResponseProto.CritStructActionStatus status = 3;
     public static final int STATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.CriticalStructureActionResponseProto.CritStructActionStatus status_;
     public boolean hasStatus() {
@@ -35893,18 +33935,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -36145,18 +34175,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -36209,7 +34227,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -36299,7 +34317,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.CriticalStructureActionResponseProto.CritStructActionStatus status = 3;
+      // optional .com.lvl6.proto.CriticalStructureActionResponseProto.CritStructActionStatus status = 3;
       private com.lvl6.proto.EventProto.CriticalStructureActionResponseProto.CritStructActionStatus status_ = com.lvl6.proto.EventProto.CriticalStructureActionResponseProto.CritStructActionStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -36337,20 +34355,20 @@ public final class EventProto {
   public interface FinishNormStructWaittimeWithDiamondsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     boolean hasUserStructId();
     int getUserStructId();
     
-    // required int64 timeOfPurchase = 3;
+    // optional int64 timeOfPurchase = 3;
     boolean hasTimeOfPurchase();
     long getTimeOfPurchase();
     
-    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
+    // optional .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
     boolean hasWaitTimeType();
     com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType getWaitTimeType();
   }
@@ -36455,7 +34473,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -36468,7 +34486,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 userStructId = 2;
+    // optional int32 userStructId = 2;
     public static final int USERSTRUCTID_FIELD_NUMBER = 2;
     private int userStructId_;
     public boolean hasUserStructId() {
@@ -36478,7 +34496,7 @@ public final class EventProto {
       return userStructId_;
     }
     
-    // required int64 timeOfPurchase = 3;
+    // optional int64 timeOfPurchase = 3;
     public static final int TIMEOFPURCHASE_FIELD_NUMBER = 3;
     private long timeOfPurchase_;
     public boolean hasTimeOfPurchase() {
@@ -36488,7 +34506,7 @@ public final class EventProto {
       return timeOfPurchase_;
     }
     
-    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
+    // optional .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
     public static final int WAITTIMETYPE_FIELD_NUMBER = 4;
     private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType_;
     public boolean hasWaitTimeType() {
@@ -36509,26 +34527,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfPurchase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasWaitTimeType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -36801,26 +34799,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasUserStructId()) {
-          
-          return false;
-        }
-        if (!hasTimeOfPurchase()) {
-          
-          return false;
-        }
-        if (!hasWaitTimeType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -36883,7 +34861,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -36973,7 +34951,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 userStructId = 2;
+      // optional int32 userStructId = 2;
       private int userStructId_ ;
       public boolean hasUserStructId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -36994,7 +34972,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 timeOfPurchase = 3;
+      // optional int64 timeOfPurchase = 3;
       private long timeOfPurchase_ ;
       public boolean hasTimeOfPurchase() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -37015,7 +34993,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
+      // optional .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType = 4;
       private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType waitTimeType_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.FINISH_CONSTRUCTION;
       public boolean hasWaitTimeType() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -37053,12 +35031,12 @@ public final class EventProto {
   public interface FinishNormStructWaittimeWithDiamondsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
+    // optional .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus getStatus();
   }
@@ -37166,7 +35144,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -37179,7 +35157,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
+    // optional .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status_;
     public boolean hasStatus() {
@@ -37198,18 +35176,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -37450,18 +35416,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -37514,7 +35468,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -37604,7 +35558,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
+      // optional .com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status = 2;
       private com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus status_ = com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -37642,7 +35596,7 @@ public final class EventProto {
   public interface NormStructWaitCompleteRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -37652,7 +35606,7 @@ public final class EventProto {
     int getUserStructIdCount();
     int getUserStructId(int index);
     
-    // required int64 curTime = 3;
+    // optional int64 curTime = 3;
     boolean hasCurTime();
     long getCurTime();
   }
@@ -37685,7 +35639,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -37712,7 +35666,7 @@ public final class EventProto {
       return userStructId_.get(index);
     }
     
-    // required int64 curTime = 3;
+    // optional int64 curTime = 3;
     public static final int CURTIME_FIELD_NUMBER = 3;
     private long curTime_;
     public boolean hasCurTime() {
@@ -37732,18 +35686,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCurTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -38013,18 +35955,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasCurTime()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -38085,7 +36015,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -38220,7 +36150,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 curTime = 3;
+      // optional int64 curTime = 3;
       private long curTime_ ;
       public boolean hasCurTime() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -38255,12 +36185,12 @@ public final class EventProto {
   public interface NormStructWaitCompleteResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status = 2;
+    // optional .com.lvl6.proto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus getStatus();
     
@@ -38378,7 +36308,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -38391,7 +36321,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status = 2;
+    // optional .com.lvl6.proto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status_;
     public boolean hasStatus() {
@@ -38432,24 +36362,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getUserStructCount(); i++) {
-        if (!getUserStruct(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -38739,24 +36651,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getUserStructCount(); i++) {
-          if (!getUserStruct(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -38815,7 +36709,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -38905,7 +36799,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status = 2;
+      // optional .com.lvl6.proto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status = 2;
       private com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus status_ = com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -39129,7 +37023,7 @@ public final class EventProto {
   public interface LevelUpRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -39163,7 +37057,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -39184,14 +37078,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -39416,14 +37302,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -39465,7 +37343,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -39569,12 +37447,12 @@ public final class EventProto {
   public interface LevelUpResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.LevelUpResponseProto.LevelUpStatus status = 2;
+    // optional .com.lvl6.proto.LevelUpResponseProto.LevelUpStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus getStatus();
     
@@ -39736,7 +37614,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -39749,7 +37627,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.LevelUpResponseProto.LevelUpStatus status = 2;
+    // optional .com.lvl6.proto.LevelUpResponseProto.LevelUpStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus status_;
     public boolean hasStatus() {
@@ -39900,36 +37778,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getCitiesNewlyAvailableToUserCount(); i++) {
-        if (!getCitiesNewlyAvailableToUser(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getNewlyEquippableEpicsAndLegendariesCount(); i++) {
-        if (!getNewlyEquippableEpicsAndLegendaries(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getNewlyAvailableStructsCount(); i++) {
-        if (!getNewlyAvailableStructs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -40413,36 +38261,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getCitiesNewlyAvailableToUserCount(); i++) {
-          if (!getCitiesNewlyAvailableToUser(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getNewlyEquippableEpicsAndLegendariesCount(); i++) {
-          if (!getNewlyEquippableEpicsAndLegendaries(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getNewlyAvailableStructsCount(); i++) {
-          if (!getNewlyAvailableStructs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -40543,7 +38361,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -40633,7 +38451,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.LevelUpResponseProto.LevelUpStatus status = 2;
+      // optional .com.lvl6.proto.LevelUpResponseProto.LevelUpStatus status = 2;
       private com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus status_ = com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -41355,12 +39173,12 @@ public final class EventProto {
   public interface InAppPurchaseRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required string receipt = 2;
+    // optional string receipt = 2;
     boolean hasReceipt();
     String getReceipt();
   }
@@ -41393,7 +39211,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -41406,7 +39224,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required string receipt = 2;
+    // optional string receipt = 2;
     public static final int RECEIPT_FIELD_NUMBER = 2;
     private java.lang.Object receipt_;
     public boolean hasReceipt() {
@@ -41447,18 +39265,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasReceipt()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -41699,18 +39505,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasReceipt()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -41757,7 +39551,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -41847,7 +39641,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required string receipt = 2;
+      // optional string receipt = 2;
       private java.lang.Object receipt_ = "";
       public boolean hasReceipt() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -41897,12 +39691,12 @@ public final class EventProto {
   public interface InAppPurchaseResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.InAppPurchaseResponseProto.InAppPurchaseStatus status = 2;
+    // optional .com.lvl6.proto.InAppPurchaseResponseProto.InAppPurchaseStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus getStatus();
     
@@ -42008,7 +39802,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -42021,7 +39815,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.InAppPurchaseResponseProto.InAppPurchaseStatus status = 2;
+    // optional .com.lvl6.proto.InAppPurchaseResponseProto.InAppPurchaseStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus status_;
     public boolean hasStatus() {
@@ -42051,18 +39845,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -42319,18 +40101,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -42388,7 +40158,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -42478,7 +40248,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.InAppPurchaseResponseProto.InAppPurchaseStatus status = 2;
+      // optional .com.lvl6.proto.InAppPurchaseResponseProto.InAppPurchaseStatus status = 2;
       private com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus status_ = com.lvl6.proto.EventProto.InAppPurchaseResponseProto.InAppPurchaseStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -42537,12 +40307,12 @@ public final class EventProto {
   public interface UpdateClientUserResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.FullUserProto sender = 1;
+    // optional .com.lvl6.proto.FullUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.FullUserProto getSender();
     com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int64 timeOfUserUpdate = 2;
+    // optional int64 timeOfUserUpdate = 2;
     boolean hasTimeOfUserUpdate();
     long getTimeOfUserUpdate();
   }
@@ -42575,7 +40345,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.FullUserProto sender = 1;
+    // optional .com.lvl6.proto.FullUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.FullUserProto sender_;
     public boolean hasSender() {
@@ -42588,7 +40358,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int64 timeOfUserUpdate = 2;
+    // optional int64 timeOfUserUpdate = 2;
     public static final int TIMEOFUSERUPDATE_FIELD_NUMBER = 2;
     private long timeOfUserUpdate_;
     public boolean hasTimeOfUserUpdate() {
@@ -42607,18 +40377,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfUserUpdate()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -42859,18 +40617,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasTimeOfUserUpdate()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -42917,7 +40663,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.FullUserProto sender = 1;
+      // optional .com.lvl6.proto.FullUserProto sender = 1;
       private com.lvl6.proto.InfoProto.FullUserProto sender_ = com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> senderBuilder_;
@@ -43007,7 +40753,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int64 timeOfUserUpdate = 2;
+      // optional int64 timeOfUserUpdate = 2;
       private long timeOfUserUpdate_ ;
       public boolean hasTimeOfUserUpdate() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -43042,7 +40788,7 @@ public final class EventProto {
   public interface RetrieveCurrentMarketplacePostsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -43051,7 +40797,7 @@ public final class EventProto {
     boolean hasBeforeThisPostId();
     int getBeforeThisPostId();
     
-    // required bool fromSender = 3;
+    // optional bool fromSender = 3;
     boolean hasFromSender();
     boolean getFromSender();
   }
@@ -43084,7 +40830,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -43107,7 +40853,7 @@ public final class EventProto {
       return beforeThisPostId_;
     }
     
-    // required bool fromSender = 3;
+    // optional bool fromSender = 3;
     public static final int FROMSENDER_FIELD_NUMBER = 3;
     private boolean fromSender_;
     public boolean hasFromSender() {
@@ -43127,18 +40873,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasFromSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -43395,18 +41129,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasFromSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -43458,7 +41180,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -43569,7 +41291,7 @@ public final class EventProto {
         return this;
       }
       
-      // required bool fromSender = 3;
+      // optional bool fromSender = 3;
       private boolean fromSender_ ;
       public boolean hasFromSender() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -43604,12 +41326,12 @@ public final class EventProto {
   public interface RetrieveCurrentMarketplacePostsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required bool fromSender = 2;
+    // optional bool fromSender = 2;
     boolean hasFromSender();
     boolean getFromSender();
     
@@ -43617,7 +41339,7 @@ public final class EventProto {
     boolean hasBeforeThisPostId();
     int getBeforeThisPostId();
     
-    // required .com.lvl6.proto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status = 4;
+    // optional .com.lvl6.proto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status = 4;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus getStatus();
     
@@ -43732,7 +41454,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -43745,7 +41467,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required bool fromSender = 2;
+    // optional bool fromSender = 2;
     public static final int FROMSENDER_FIELD_NUMBER = 2;
     private boolean fromSender_;
     public boolean hasFromSender() {
@@ -43765,7 +41487,7 @@ public final class EventProto {
       return beforeThisPostId_;
     }
     
-    // required .com.lvl6.proto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status = 4;
+    // optional .com.lvl6.proto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status = 4;
     public static final int STATUS_FIELD_NUMBER = 4;
     private com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status_;
     public boolean hasStatus() {
@@ -43808,28 +41530,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasFromSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getMarketplacePostsCount(); i++) {
-        if (!getMarketplacePosts(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -44151,28 +41851,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasFromSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getMarketplacePostsCount(); i++) {
-          if (!getMarketplacePosts(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -44241,7 +41919,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -44331,7 +42009,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required bool fromSender = 2;
+      // optional bool fromSender = 2;
       private boolean fromSender_ ;
       public boolean hasFromSender() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -44373,7 +42051,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status = 4;
+      // optional .com.lvl6.proto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status = 4;
       private com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus status_ = com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -44597,12 +42275,12 @@ public final class EventProto {
   public interface PostToMarketplaceRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 postedEquipId = 2;
+    // optional int32 postedEquipId = 2;
     boolean hasPostedEquipId();
     int getPostedEquipId();
     
@@ -44643,7 +42321,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -44656,7 +42334,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 postedEquipId = 2;
+    // optional int32 postedEquipId = 2;
     public static final int POSTEDEQUIPID_FIELD_NUMBER = 2;
     private int postedEquipId_;
     public boolean hasPostedEquipId() {
@@ -44697,18 +42375,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPostedEquipId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -44981,18 +42647,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasPostedEquipId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -45049,7 +42703,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -45139,7 +42793,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 postedEquipId = 2;
+      // optional int32 postedEquipId = 2;
       private int postedEquipId_ ;
       public boolean hasPostedEquipId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -45216,12 +42870,12 @@ public final class EventProto {
   public interface PostToMarketplaceResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
+    // optional .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus getStatus();
   }
@@ -45350,7 +43004,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -45363,7 +43017,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
+    // optional .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status_;
     public boolean hasStatus() {
@@ -45382,18 +43036,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -45634,18 +43276,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -45698,7 +43328,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -45788,7 +43418,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
+      // optional .com.lvl6.proto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status = 2;
       private com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus status_ = com.lvl6.proto.EventProto.PostToMarketplaceResponseProto.PostToMarketplaceStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -45826,12 +43456,12 @@ public final class EventProto {
   public interface RetractMarketplacePostRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 marketplacePostId = 2;
+    // optional int32 marketplacePostId = 2;
     boolean hasMarketplacePostId();
     int getMarketplacePostId();
   }
@@ -45864,7 +43494,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -45877,7 +43507,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 marketplacePostId = 2;
+    // optional int32 marketplacePostId = 2;
     public static final int MARKETPLACEPOSTID_FIELD_NUMBER = 2;
     private int marketplacePostId_;
     public boolean hasMarketplacePostId() {
@@ -45896,18 +43526,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMarketplacePostId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -46148,18 +43766,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasMarketplacePostId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -46206,7 +43812,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -46296,7 +43902,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 marketplacePostId = 2;
+      // optional int32 marketplacePostId = 2;
       private int marketplacePostId_ ;
       public boolean hasMarketplacePostId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -46331,12 +43937,12 @@ public final class EventProto {
   public interface RetractMarketplacePostResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status = 2;
+    // optional .com.lvl6.proto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus getStatus();
   }
@@ -46450,7 +44056,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -46463,7 +44069,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status = 2;
+    // optional .com.lvl6.proto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status_;
     public boolean hasStatus() {
@@ -46482,18 +44088,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -46734,18 +44328,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -46798,7 +44380,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -46888,7 +44470,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status = 2;
+      // optional .com.lvl6.proto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status = 2;
       private com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus status_ = com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMarketplacePostStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -46926,16 +44508,16 @@ public final class EventProto {
   public interface PurchaseFromMarketplaceRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 marketplacePostId = 2;
+    // optional int32 marketplacePostId = 2;
     boolean hasMarketplacePostId();
     int getMarketplacePostId();
     
-    // required int32 posterId = 3;
+    // optional int32 posterId = 3;
     boolean hasPosterId();
     int getPosterId();
   }
@@ -46968,7 +44550,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -46981,7 +44563,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 marketplacePostId = 2;
+    // optional int32 marketplacePostId = 2;
     public static final int MARKETPLACEPOSTID_FIELD_NUMBER = 2;
     private int marketplacePostId_;
     public boolean hasMarketplacePostId() {
@@ -46991,7 +44573,7 @@ public final class EventProto {
       return marketplacePostId_;
     }
     
-    // required int32 posterId = 3;
+    // optional int32 posterId = 3;
     public static final int POSTERID_FIELD_NUMBER = 3;
     private int posterId_;
     public boolean hasPosterId() {
@@ -47011,22 +44593,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMarketplacePostId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPosterId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -47283,22 +44849,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasMarketplacePostId()) {
-          
-          return false;
-        }
-        if (!hasPosterId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -47350,7 +44900,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -47440,7 +44990,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 marketplacePostId = 2;
+      // optional int32 marketplacePostId = 2;
       private int marketplacePostId_ ;
       public boolean hasMarketplacePostId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -47461,7 +45011,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int32 posterId = 3;
+      // optional int32 posterId = 3;
       private int posterId_ ;
       public boolean hasPosterId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -47496,12 +45046,12 @@ public final class EventProto {
   public interface PurchaseFromMarketplaceResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto purchaser = 1;
+    // optional .com.lvl6.proto.MinimumUserProto purchaser = 1;
     boolean hasPurchaser();
     com.lvl6.proto.InfoProto.MinimumUserProto getPurchaser();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getPurchaserOrBuilder();
     
-    // required int32 posterId = 2;
+    // optional int32 posterId = 2;
     boolean hasPosterId();
     int getPosterId();
     
@@ -47510,7 +45060,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullMarketplacePostProto getMarketplacePost();
     com.lvl6.proto.InfoProto.FullMarketplacePostProtoOrBuilder getMarketplacePostOrBuilder();
     
-    // required .com.lvl6.proto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status = 4;
+    // optional .com.lvl6.proto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status = 4;
     boolean hasStatus();
     com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus getStatus();
   }
@@ -47624,7 +45174,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto purchaser = 1;
+    // optional .com.lvl6.proto.MinimumUserProto purchaser = 1;
     public static final int PURCHASER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto purchaser_;
     public boolean hasPurchaser() {
@@ -47637,7 +45187,7 @@ public final class EventProto {
       return purchaser_;
     }
     
-    // required int32 posterId = 2;
+    // optional int32 posterId = 2;
     public static final int POSTERID_FIELD_NUMBER = 2;
     private int posterId_;
     public boolean hasPosterId() {
@@ -47660,7 +45210,7 @@ public final class EventProto {
       return marketplacePost_;
     }
     
-    // required .com.lvl6.proto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status = 4;
+    // optional .com.lvl6.proto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status = 4;
     public static final int STATUS_FIELD_NUMBER = 4;
     private com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status_;
     public boolean hasStatus() {
@@ -47681,28 +45231,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasPurchaser()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPosterId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getPurchaser().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasMarketplacePost()) {
-        if (!getMarketplacePost().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -47984,28 +45512,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasPurchaser()) {
-          
-          return false;
-        }
-        if (!hasPosterId()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getPurchaser().isInitialized()) {
-          
-          return false;
-        }
-        if (hasMarketplacePost()) {
-          if (!getMarketplacePost().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -48072,7 +45578,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto purchaser = 1;
+      // optional .com.lvl6.proto.MinimumUserProto purchaser = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto purchaser_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> purchaserBuilder_;
@@ -48162,7 +45668,7 @@ public final class EventProto {
         return purchaserBuilder_;
       }
       
-      // required int32 posterId = 2;
+      // optional int32 posterId = 2;
       private int posterId_ ;
       public boolean hasPosterId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -48273,7 +45779,7 @@ public final class EventProto {
         return marketplacePostBuilder_;
       }
       
-      // required .com.lvl6.proto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status = 4;
+      // optional .com.lvl6.proto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status = 4;
       private com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus status_ = com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -48311,12 +45817,12 @@ public final class EventProto {
   public interface UseSkillPointRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.UseSkillPointRequestProto.BoostType boostType = 2;
+    // optional .com.lvl6.proto.UseSkillPointRequestProto.BoostType boostType = 2;
     boolean hasBoostType();
     com.lvl6.proto.EventProto.UseSkillPointRequestProto.BoostType getBoostType();
   }
@@ -48427,7 +45933,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -48440,7 +45946,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.UseSkillPointRequestProto.BoostType boostType = 2;
+    // optional .com.lvl6.proto.UseSkillPointRequestProto.BoostType boostType = 2;
     public static final int BOOSTTYPE_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.UseSkillPointRequestProto.BoostType boostType_;
     public boolean hasBoostType() {
@@ -48459,18 +45965,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasBoostType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -48711,18 +46205,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasBoostType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -48775,7 +46257,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -48865,7 +46347,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.UseSkillPointRequestProto.BoostType boostType = 2;
+      // optional .com.lvl6.proto.UseSkillPointRequestProto.BoostType boostType = 2;
       private com.lvl6.proto.EventProto.UseSkillPointRequestProto.BoostType boostType_ = com.lvl6.proto.EventProto.UseSkillPointRequestProto.BoostType.ATTACK;
       public boolean hasBoostType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -48903,12 +46385,12 @@ public final class EventProto {
   public interface UseSkillPointResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.UseSkillPointResponseProto.UseSkillPointStatus status = 2;
+    // optional .com.lvl6.proto.UseSkillPointResponseProto.UseSkillPointStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.UseSkillPointResponseProto.UseSkillPointStatus getStatus();
   }
@@ -49013,7 +46495,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -49026,7 +46508,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.UseSkillPointResponseProto.UseSkillPointStatus status = 2;
+    // optional .com.lvl6.proto.UseSkillPointResponseProto.UseSkillPointStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.UseSkillPointResponseProto.UseSkillPointStatus status_;
     public boolean hasStatus() {
@@ -49045,18 +46527,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -49297,18 +46767,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -49361,7 +46819,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -49451,7 +46909,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.UseSkillPointResponseProto.UseSkillPointStatus status = 2;
+      // optional .com.lvl6.proto.UseSkillPointResponseProto.UseSkillPointStatus status = 2;
       private com.lvl6.proto.EventProto.UseSkillPointResponseProto.UseSkillPointStatus status_ = com.lvl6.proto.EventProto.UseSkillPointResponseProto.UseSkillPointStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -49489,12 +46947,12 @@ public final class EventProto {
   public interface GenerateAttackListRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 numEnemies = 2;
+    // optional int32 numEnemies = 2;
     boolean hasNumEnemies();
     int getNumEnemies();
     
@@ -49543,7 +47001,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -49556,7 +47014,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 numEnemies = 2;
+    // optional int32 numEnemies = 2;
     public static final int NUMENEMIES_FIELD_NUMBER = 2;
     private int numEnemies_;
     public boolean hasNumEnemies() {
@@ -49619,18 +47077,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumEnemies()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -49935,18 +47381,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasNumEnemies()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -50013,7 +47447,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -50103,7 +47537,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 numEnemies = 2;
+      // optional int32 numEnemies = 2;
       private int numEnemies_ ;
       public boolean hasNumEnemies() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -50222,7 +47656,7 @@ public final class EventProto {
   public interface GenerateAttackListResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -50237,7 +47671,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getEnemiesOrBuilder(
         int index);
     
-    // required .com.lvl6.proto.GenerateAttackListResponseProto.GenerateAttackListStatus status = 3;
+    // optional .com.lvl6.proto.GenerateAttackListResponseProto.GenerateAttackListStatus status = 3;
     boolean hasStatus();
     com.lvl6.proto.EventProto.GenerateAttackListResponseProto.GenerateAttackListStatus getStatus();
   }
@@ -50345,7 +47779,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -50379,7 +47813,7 @@ public final class EventProto {
       return enemies_.get(index);
     }
     
-    // required .com.lvl6.proto.GenerateAttackListResponseProto.GenerateAttackListStatus status = 3;
+    // optional .com.lvl6.proto.GenerateAttackListResponseProto.GenerateAttackListStatus status = 3;
     public static final int STATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.GenerateAttackListResponseProto.GenerateAttackListStatus status_;
     public boolean hasStatus() {
@@ -50399,24 +47833,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getEnemiesCount(); i++) {
-        if (!getEnemies(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -50706,24 +48122,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getEnemiesCount(); i++) {
-          if (!getEnemies(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -50782,7 +48180,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -51058,7 +48456,7 @@ public final class EventProto {
         return enemiesBuilder_;
       }
       
-      // required .com.lvl6.proto.GenerateAttackListResponseProto.GenerateAttackListStatus status = 3;
+      // optional .com.lvl6.proto.GenerateAttackListResponseProto.GenerateAttackListStatus status = 3;
       private com.lvl6.proto.EventProto.GenerateAttackListResponseProto.GenerateAttackListStatus status_ = com.lvl6.proto.EventProto.GenerateAttackListResponseProto.GenerateAttackListStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -51096,12 +48494,12 @@ public final class EventProto {
   public interface RefillStatWithDiamondsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RefillStatWithDiamondsRequestProto.StatType statType = 2;
+    // optional .com.lvl6.proto.RefillStatWithDiamondsRequestProto.StatType statType = 2;
     boolean hasStatType();
     com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType getStatType();
   }
@@ -51203,7 +48601,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -51216,7 +48614,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RefillStatWithDiamondsRequestProto.StatType statType = 2;
+    // optional .com.lvl6.proto.RefillStatWithDiamondsRequestProto.StatType statType = 2;
     public static final int STATTYPE_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType statType_;
     public boolean hasStatType() {
@@ -51235,18 +48633,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -51487,18 +48873,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -51551,7 +48925,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -51641,7 +49015,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RefillStatWithDiamondsRequestProto.StatType statType = 2;
+      // optional .com.lvl6.proto.RefillStatWithDiamondsRequestProto.StatType statType = 2;
       private com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType statType_ = com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType.ENERGY;
       public boolean hasStatType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -51679,12 +49053,12 @@ public final class EventProto {
   public interface RefillStatWithDiamondsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RefillStatWithDiamondsResponseProto.RefillStatStatus status = 2;
+    // optional .com.lvl6.proto.RefillStatWithDiamondsResponseProto.RefillStatStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatStatus getStatus();
   }
@@ -51792,7 +49166,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -51805,7 +49179,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RefillStatWithDiamondsResponseProto.RefillStatStatus status = 2;
+    // optional .com.lvl6.proto.RefillStatWithDiamondsResponseProto.RefillStatStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatStatus status_;
     public boolean hasStatus() {
@@ -51824,18 +49198,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -52076,18 +49438,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -52140,7 +49490,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -52230,7 +49580,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RefillStatWithDiamondsResponseProto.RefillStatStatus status = 2;
+      // optional .com.lvl6.proto.RefillStatWithDiamondsResponseProto.RefillStatStatus status = 2;
       private com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatStatus status_ = com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -52268,7 +49618,7 @@ public final class EventProto {
   public interface RedeemMarketplaceEarningsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -52302,7 +49652,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -52323,14 +49673,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -52555,14 +49897,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -52604,7 +49938,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -52708,12 +50042,12 @@ public final class EventProto {
   public interface RedeemMarketplaceEarningsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status = 2;
+    // optional .com.lvl6.proto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus getStatus();
   }
@@ -52815,7 +50149,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -52828,7 +50162,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status = 2;
+    // optional .com.lvl6.proto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status_;
     public boolean hasStatus() {
@@ -52847,18 +50181,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -53099,18 +50421,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -53163,7 +50473,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -53253,7 +50563,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status = 2;
+      // optional .com.lvl6.proto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status = 2;
       private com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus status_ = com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.RedeemMarketplaceEarningsStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -53291,12 +50601,12 @@ public final class EventProto {
   public interface LoadPlayerCityRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+    // optional .com.lvl6.proto.MinimumUserProto cityOwner = 2;
     boolean hasCityOwner();
     com.lvl6.proto.InfoProto.MinimumUserProto getCityOwner();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getCityOwnerOrBuilder();
@@ -53330,7 +50640,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -53343,7 +50653,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+    // optional .com.lvl6.proto.MinimumUserProto cityOwner = 2;
     public static final int CITYOWNER_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.MinimumUserProto cityOwner_;
     public boolean hasCityOwner() {
@@ -53365,22 +50675,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityOwner()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getCityOwner().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -53630,22 +50924,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasCityOwner()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (!getCityOwner().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -53696,7 +50974,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -53786,7 +51064,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+      // optional .com.lvl6.proto.MinimumUserProto cityOwner = 2;
       private com.lvl6.proto.InfoProto.MinimumUserProto cityOwner_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> cityOwnerBuilder_;
@@ -53890,17 +51168,17 @@ public final class EventProto {
   public interface LoadPlayerCityResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+    // optional .com.lvl6.proto.MinimumUserProto cityOwner = 2;
     boolean hasCityOwner();
     com.lvl6.proto.InfoProto.MinimumUserProto getCityOwner();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getCityOwnerOrBuilder();
     
-    // required .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 3;
+    // optional .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 3;
     boolean hasStatus();
     com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus getStatus();
     
@@ -53949,12 +51227,12 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserCritstructProto getMarketplace();
     com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getMarketplaceOrBuilder();
     
-    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 10;
+    // optional .com.lvl6.proto.FullUserCritstructProto carpenter = 10;
     boolean hasCarpenter();
     com.lvl6.proto.InfoProto.FullUserCritstructProto getCarpenter();
     com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getCarpenterOrBuilder();
     
-    // required .com.lvl6.proto.FullUserCritstructProto aviary = 11;
+    // optional .com.lvl6.proto.FullUserCritstructProto aviary = 11;
     boolean hasAviary();
     com.lvl6.proto.InfoProto.FullUserCritstructProto getAviary();
     com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder getAviaryOrBuilder();
@@ -54065,7 +51343,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -54078,7 +51356,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+    // optional .com.lvl6.proto.MinimumUserProto cityOwner = 2;
     public static final int CITYOWNER_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.MinimumUserProto cityOwner_;
     public boolean hasCityOwner() {
@@ -54091,7 +51369,7 @@ public final class EventProto {
       return cityOwner_;
     }
     
-    // required .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 3;
+    // optional .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 3;
     public static final int STATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status_;
     public boolean hasStatus() {
@@ -54203,7 +51481,7 @@ public final class EventProto {
       return marketplace_;
     }
     
-    // required .com.lvl6.proto.FullUserCritstructProto carpenter = 10;
+    // optional .com.lvl6.proto.FullUserCritstructProto carpenter = 10;
     public static final int CARPENTER_FIELD_NUMBER = 10;
     private com.lvl6.proto.InfoProto.FullUserCritstructProto carpenter_;
     public boolean hasCarpenter() {
@@ -54216,7 +51494,7 @@ public final class EventProto {
       return carpenter_;
     }
     
-    // required .com.lvl6.proto.FullUserCritstructProto aviary = 11;
+    // optional .com.lvl6.proto.FullUserCritstructProto aviary = 11;
     public static final int AVIARY_FIELD_NUMBER = 11;
     private com.lvl6.proto.InfoProto.FullUserCritstructProto aviary_;
     public boolean hasAviary() {
@@ -54261,84 +51539,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityOwner()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCarpenter()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAviary()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getCityOwner().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getOwnerNormStructsCount(); i++) {
-        if (!getOwnerNormStructs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getOwnerAlliesCount(); i++) {
-        if (!getOwnerAllies(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getOwnerEnemiesCount(); i++) {
-        if (!getOwnerEnemies(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasArmory()) {
-        if (!getArmory().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasVault()) {
-        if (!getVault().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasMarketplace()) {
-        if (!getMarketplace().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (!getCarpenter().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getAviary().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasUserCityExpansionData()) {
-        if (!getUserCityExpansionData().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -54901,84 +52101,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasCityOwner()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!hasCarpenter()) {
-          
-          return false;
-        }
-        if (!hasAviary()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (!getCityOwner().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getOwnerNormStructsCount(); i++) {
-          if (!getOwnerNormStructs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getOwnerAlliesCount(); i++) {
-          if (!getOwnerAllies(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getOwnerEnemiesCount(); i++) {
-          if (!getOwnerEnemies(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasArmory()) {
-          if (!getArmory().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasVault()) {
-          if (!getVault().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasMarketplace()) {
-          if (!getMarketplace().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (!getCarpenter().isInitialized()) {
-          
-          return false;
-        }
-        if (!getAviary().isInitialized()) {
-          
-          return false;
-        }
-        if (hasUserCityExpansionData()) {
-          if (!getUserCityExpansionData().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -55112,7 +52234,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -55202,7 +52324,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.MinimumUserProto cityOwner = 2;
+      // optional .com.lvl6.proto.MinimumUserProto cityOwner = 2;
       private com.lvl6.proto.InfoProto.MinimumUserProto cityOwner_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> cityOwnerBuilder_;
@@ -55292,7 +52414,7 @@ public final class EventProto {
         return cityOwnerBuilder_;
       }
       
-      // required .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 3;
+      // optional .com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status = 3;
       private com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus status_ = com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -56144,7 +53266,7 @@ public final class EventProto {
         return marketplaceBuilder_;
       }
       
-      // required .com.lvl6.proto.FullUserCritstructProto carpenter = 10;
+      // optional .com.lvl6.proto.FullUserCritstructProto carpenter = 10;
       private com.lvl6.proto.InfoProto.FullUserCritstructProto carpenter_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> carpenterBuilder_;
@@ -56234,7 +53356,7 @@ public final class EventProto {
         return carpenterBuilder_;
       }
       
-      // required .com.lvl6.proto.FullUserCritstructProto aviary = 11;
+      // optional .com.lvl6.proto.FullUserCritstructProto aviary = 11;
       private com.lvl6.proto.InfoProto.FullUserCritstructProto aviary_ = com.lvl6.proto.InfoProto.FullUserCritstructProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullUserCritstructProto, com.lvl6.proto.InfoProto.FullUserCritstructProto.Builder, com.lvl6.proto.InfoProto.FullUserCritstructProtoOrBuilder> aviaryBuilder_;
@@ -56428,12 +53550,12 @@ public final class EventProto {
   public interface QuestAcceptRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
   }
@@ -56466,7 +53588,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -56479,7 +53601,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -56498,18 +53620,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -56750,18 +53860,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -56808,7 +53906,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -56898,7 +53996,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -56933,12 +54031,12 @@ public final class EventProto {
   public interface QuestAcceptResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus status = 2;
+    // optional .com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus getStatus();
     
@@ -57057,7 +54155,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -57070,7 +54168,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus status = 2;
+    // optional .com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus status_;
     public boolean hasStatus() {
@@ -57122,24 +54220,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getEnemiesIfQuestsHaveDefeatTypeJobCount(); i++) {
-        if (!getEnemiesIfQuestsHaveDefeatTypeJob(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -57445,24 +54525,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getEnemiesIfQuestsHaveDefeatTypeJobCount(); i++) {
-          if (!getEnemiesIfQuestsHaveDefeatTypeJob(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -57526,7 +54588,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -57616,7 +54678,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus status = 2;
+      // optional .com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus status = 2;
       private com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus status_ = com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -57861,12 +54923,12 @@ public final class EventProto {
   public interface QuestCompleteResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
     
@@ -57904,7 +54966,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -57917,7 +54979,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -57950,24 +55012,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (hasNeutralCityElement()) {
-        if (!getNeutralCityElement().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -58233,24 +55277,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (hasNeutralCityElement()) {
-          if (!getNeutralCityElement().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -58306,7 +55332,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -58396,7 +55422,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -58521,12 +55547,12 @@ public final class EventProto {
   public interface QuestRedeemRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
   }
@@ -58559,7 +55585,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -58572,7 +55598,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -58591,18 +55617,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -58843,18 +55857,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -58901,7 +55903,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -58991,7 +55993,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -59026,7 +56028,7 @@ public final class EventProto {
   public interface QuestRedeemResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -59041,7 +56043,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullQuestProtoOrBuilder getNewlyAvailableQuestsOrBuilder(
         int index);
     
-    // required .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
+    // optional .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
     boolean hasStatus();
     com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus getStatus();
   }
@@ -59146,7 +56148,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -59180,7 +56182,7 @@ public final class EventProto {
       return newlyAvailableQuests_.get(index);
     }
     
-    // required .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
+    // optional .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
     public static final int STATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus status_;
     public boolean hasStatus() {
@@ -59200,24 +56202,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getNewlyAvailableQuestsCount(); i++) {
-        if (!getNewlyAvailableQuests(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -59507,24 +56491,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getNewlyAvailableQuestsCount(); i++) {
-          if (!getNewlyAvailableQuests(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -59583,7 +56549,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -59859,7 +56825,7 @@ public final class EventProto {
         return newlyAvailableQuestsBuilder_;
       }
       
-      // required .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
+      // optional .com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus status = 3;
       private com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus status_ = com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -59897,7 +56863,7 @@ public final class EventProto {
   public interface UserQuestDetailsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -59935,7 +56901,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -59967,14 +56933,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -60215,14 +57173,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -60269,7 +57219,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -60394,7 +57344,7 @@ public final class EventProto {
   public interface UserQuestDetailsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -60409,7 +57359,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder getInProgressUserQuestDataOrBuilder(
         int index);
     
-    // required .com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status = 3;
+    // optional .com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status = 3;
     boolean hasStatus();
     com.lvl6.proto.EventProto.UserQuestDetailsResponseProto.UserQuestDetailsStatus getStatus();
   }
@@ -60514,7 +57464,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -60548,7 +57498,7 @@ public final class EventProto {
       return inProgressUserQuestData_.get(index);
     }
     
-    // required .com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status = 3;
+    // optional .com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status = 3;
     public static final int STATUS_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status_;
     public boolean hasStatus() {
@@ -60568,24 +57518,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getInProgressUserQuestDataCount(); i++) {
-        if (!getInProgressUserQuestData(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -60875,24 +57807,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getInProgressUserQuestDataCount(); i++) {
-          if (!getInProgressUserQuestData(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -60951,7 +57865,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -61227,7 +58141,7 @@ public final class EventProto {
         return inProgressUserQuestDataBuilder_;
       }
       
-      // required .com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status = 3;
+      // optional .com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status = 3;
       private com.lvl6.proto.EventProto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status_ = com.lvl6.proto.EventProto.UserQuestDetailsResponseProto.UserQuestDetailsStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -61265,7 +58179,7 @@ public final class EventProto {
   public interface RetrieveStaticDataRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -61348,7 +58262,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -61515,14 +58429,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -62024,14 +58930,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -62204,7 +59102,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -62734,7 +59632,7 @@ public final class EventProto {
   public interface RetrieveStaticDataResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -62833,7 +59731,7 @@ public final class EventProto {
     boolean hasExpRequiredForRequestedLevel();
     int getExpRequiredForRequestedLevel();
     
-    // required .com.lvl6.proto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status = 12;
+    // optional .com.lvl6.proto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status = 12;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus getStatus();
   }
@@ -62935,7 +59833,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -63147,7 +60045,7 @@ public final class EventProto {
       return expRequiredForRequestedLevel_;
     }
     
-    // required .com.lvl6.proto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status = 12;
+    // optional .com.lvl6.proto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status = 12;
     public static final int STATUS_FIELD_NUMBER = 12;
     private com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status_;
     public boolean hasStatus() {
@@ -63176,72 +60074,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getStructsCount(); i++) {
-        if (!getStructs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getTasksCount(); i++) {
-        if (!getTasks(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getQuestsCount(); i++) {
-        if (!getQuests(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getCitiesCount(); i++) {
-        if (!getCities(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getEquipsCount(); i++) {
-        if (!getEquips(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getBuildStructJobsCount(); i++) {
-        if (!getBuildStructJobs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getDefeatTypeJobsCount(); i++) {
-        if (!getDefeatTypeJobs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getPossessEquipJobsCount(); i++) {
-        if (!getPossessEquipJobs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getUpgradeStructJobsCount(); i++) {
-        if (!getUpgradeStructJobs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -63939,72 +60771,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getStructsCount(); i++) {
-          if (!getStructs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getTasksCount(); i++) {
-          if (!getTasks(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getQuestsCount(); i++) {
-          if (!getQuests(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getCitiesCount(); i++) {
-          if (!getCities(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getEquipsCount(); i++) {
-          if (!getEquips(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getBuildStructJobsCount(); i++) {
-          if (!getBuildStructJobs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getDefeatTypeJobsCount(); i++) {
-          if (!getDefeatTypeJobs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getPossessEquipJobsCount(); i++) {
-          if (!getPossessEquipJobs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getUpgradeStructJobsCount(); i++) {
-          if (!getUpgradeStructJobs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -64116,7 +60882,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -65901,7 +62667,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status = 12;
+      // optional .com.lvl6.proto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status = 12;
       private com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus status_ = com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -65939,16 +62705,16 @@ public final class EventProto {
   public interface PurchaseCityExpansionRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.ExpansionDirection direction = 2;
+    // optional .com.lvl6.proto.ExpansionDirection direction = 2;
     boolean hasDirection();
     com.lvl6.proto.InfoProto.ExpansionDirection getDirection();
     
-    // required int64 timeOfPurchase = 3;
+    // optional int64 timeOfPurchase = 3;
     boolean hasTimeOfPurchase();
     long getTimeOfPurchase();
   }
@@ -65981,7 +62747,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -65994,7 +62760,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.ExpansionDirection direction = 2;
+    // optional .com.lvl6.proto.ExpansionDirection direction = 2;
     public static final int DIRECTION_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.ExpansionDirection direction_;
     public boolean hasDirection() {
@@ -66004,7 +62770,7 @@ public final class EventProto {
       return direction_;
     }
     
-    // required int64 timeOfPurchase = 3;
+    // optional int64 timeOfPurchase = 3;
     public static final int TIMEOFPURCHASE_FIELD_NUMBER = 3;
     private long timeOfPurchase_;
     public boolean hasTimeOfPurchase() {
@@ -66024,22 +62790,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDirection()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfPurchase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -66296,22 +63046,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasDirection()) {
-          
-          return false;
-        }
-        if (!hasTimeOfPurchase()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -66369,7 +63103,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -66459,7 +63193,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.ExpansionDirection direction = 2;
+      // optional .com.lvl6.proto.ExpansionDirection direction = 2;
       private com.lvl6.proto.InfoProto.ExpansionDirection direction_ = com.lvl6.proto.InfoProto.ExpansionDirection.FAR_LEFT;
       public boolean hasDirection() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -66483,7 +63217,7 @@ public final class EventProto {
         return this;
       }
       
-      // required int64 timeOfPurchase = 3;
+      // optional int64 timeOfPurchase = 3;
       private long timeOfPurchase_ ;
       public boolean hasTimeOfPurchase() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -66518,12 +63252,12 @@ public final class EventProto {
   public interface PurchaseCityExpansionResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status = 2;
+    // optional .com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus getStatus();
   }
@@ -66634,7 +63368,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -66647,7 +63381,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status = 2;
+    // optional .com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status_;
     public boolean hasStatus() {
@@ -66666,18 +63400,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -66918,18 +63640,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -66982,7 +63692,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -67072,7 +63782,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status = 2;
+      // optional .com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status = 2;
       private com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus status_ = com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -67110,12 +63820,12 @@ public final class EventProto {
   public interface ExpansionWaitCompleteRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int64 curTime = 2;
+    // optional int64 curTime = 2;
     boolean hasCurTime();
     long getCurTime();
   }
@@ -67148,7 +63858,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -67161,7 +63871,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int64 curTime = 2;
+    // optional int64 curTime = 2;
     public static final int CURTIME_FIELD_NUMBER = 2;
     private long curTime_;
     public boolean hasCurTime() {
@@ -67180,18 +63890,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCurTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -67432,18 +64130,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasCurTime()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -67490,7 +64176,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -67580,7 +64266,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int64 curTime = 2;
+      // optional int64 curTime = 2;
       private long curTime_ ;
       public boolean hasCurTime() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -67615,12 +64301,12 @@ public final class EventProto {
   public interface ExpansionWaitCompleteResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status = 2;
+    // optional .com.lvl6.proto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus getStatus();
   }
@@ -67731,7 +64417,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -67744,7 +64430,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status = 2;
+    // optional .com.lvl6.proto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status_;
     public boolean hasStatus() {
@@ -67763,18 +64449,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -68015,18 +64689,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -68079,7 +64741,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -68169,7 +64831,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status = 2;
+      // optional .com.lvl6.proto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status = 2;
       private com.lvl6.proto.EventProto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus status_ = com.lvl6.proto.EventProto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -68207,16 +64869,16 @@ public final class EventProto {
   public interface RefillStatWaitCompleteRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int64 curTime = 2;
+    // optional int64 curTime = 2;
     boolean hasCurTime();
     long getCurTime();
     
-    // required .com.lvl6.proto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type = 3;
+    // optional .com.lvl6.proto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type = 3;
     boolean hasType();
     com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType getType();
   }
@@ -68318,7 +64980,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -68331,7 +64993,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int64 curTime = 2;
+    // optional int64 curTime = 2;
     public static final int CURTIME_FIELD_NUMBER = 2;
     private long curTime_;
     public boolean hasCurTime() {
@@ -68341,7 +65003,7 @@ public final class EventProto {
       return curTime_;
     }
     
-    // required .com.lvl6.proto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type = 3;
+    // optional .com.lvl6.proto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type = 3;
     public static final int TYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type_;
     public boolean hasType() {
@@ -68361,22 +65023,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCurTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -68633,22 +65279,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasCurTime()) {
-          
-          return false;
-        }
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -68706,7 +65336,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -68796,7 +65426,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int64 curTime = 2;
+      // optional int64 curTime = 2;
       private long curTime_ ;
       public boolean hasCurTime() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -68817,7 +65447,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type = 3;
+      // optional .com.lvl6.proto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type = 3;
       private com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType type_ = com.lvl6.proto.EventProto.RefillStatWaitCompleteRequestProto.RefillStatWaitCompleteType.ENERGY;
       public boolean hasType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -68855,12 +65485,12 @@ public final class EventProto {
   public interface RefillStatWaitCompleteResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status = 2;
+    // optional .com.lvl6.proto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus getStatus();
   }
@@ -68971,7 +65601,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -68984,7 +65614,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status = 2;
+    // optional .com.lvl6.proto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status_;
     public boolean hasStatus() {
@@ -69003,18 +65633,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -69255,18 +65873,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -69319,7 +65925,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -69409,7 +66015,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status = 2;
+      // optional .com.lvl6.proto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status = 2;
       private com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus status_ = com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -69447,12 +66053,12 @@ public final class EventProto {
   public interface EnableAPNSRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required string deviceToken = 2;
+    // optional string deviceToken = 2;
     boolean hasDeviceToken();
     String getDeviceToken();
   }
@@ -69485,7 +66091,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -69498,7 +66104,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required string deviceToken = 2;
+    // optional string deviceToken = 2;
     public static final int DEVICETOKEN_FIELD_NUMBER = 2;
     private java.lang.Object deviceToken_;
     public boolean hasDeviceToken() {
@@ -69539,18 +66145,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDeviceToken()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -69791,18 +66385,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasDeviceToken()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -69849,7 +66431,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -69939,7 +66521,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required string deviceToken = 2;
+      // optional string deviceToken = 2;
       private java.lang.Object deviceToken_ = "";
       public boolean hasDeviceToken() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -69989,12 +66571,12 @@ public final class EventProto {
   public interface EnableAPNSResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
+    // optional .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus getStatus();
   }
@@ -70096,7 +66678,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -70109,7 +66691,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
+    // optional .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus status_;
     public boolean hasStatus() {
@@ -70128,18 +66710,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -70380,18 +66950,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -70444,7 +67002,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -70534,7 +67092,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
+      // optional .com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus status = 2;
       private com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus status_ = com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -70572,16 +67130,16 @@ public final class EventProto {
   public interface PurchaseMarketplaceLicenseRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int64 clientTime = 2;
+    // optional int64 clientTime = 2;
     boolean hasClientTime();
     long getClientTime();
     
-    // required .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
+    // optional .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
     boolean hasLicenseType();
     com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType getLicenseType();
   }
@@ -70683,7 +67241,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -70696,7 +67254,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int64 clientTime = 2;
+    // optional int64 clientTime = 2;
     public static final int CLIENTTIME_FIELD_NUMBER = 2;
     private long clientTime_;
     public boolean hasClientTime() {
@@ -70706,7 +67264,7 @@ public final class EventProto {
       return clientTime_;
     }
     
-    // required .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
+    // optional .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
     public static final int LICENSETYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType_;
     public boolean hasLicenseType() {
@@ -70726,22 +67284,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasClientTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLicenseType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -70998,22 +67540,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasClientTime()) {
-          
-          return false;
-        }
-        if (!hasLicenseType()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -71071,7 +67597,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -71161,7 +67687,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int64 clientTime = 2;
+      // optional int64 clientTime = 2;
       private long clientTime_ ;
       public boolean hasClientTime() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -71182,7 +67708,7 @@ public final class EventProto {
         return this;
       }
       
-      // required .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
+      // optional .com.lvl6.proto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType = 3;
       private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType licenseType_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseRequestProto.LicenseType.SHORT;
       public boolean hasLicenseType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -71220,12 +67746,12 @@ public final class EventProto {
   public interface PurchaseMarketplaceLicenseResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
+    // optional .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus getStatus();
   }
@@ -71336,7 +67862,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -71349,7 +67875,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
+    // optional .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status_;
     public boolean hasStatus() {
@@ -71368,18 +67894,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -71620,18 +68134,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -71684,7 +68186,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -71774,7 +68276,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
+      // optional .com.lvl6.proto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status = 2;
       private com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus status_ = com.lvl6.proto.EventProto.PurchaseMarketplaceLicenseResponseProto.PurchaseMarketplaceLicenseStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -71812,12 +68314,12 @@ public final class EventProto {
   public interface ReferralCodeUsedResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.MinimumUserProto referredPlayer = 2;
+    // optional .com.lvl6.proto.MinimumUserProto referredPlayer = 2;
     boolean hasReferredPlayer();
     com.lvl6.proto.InfoProto.MinimumUserProto getReferredPlayer();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getReferredPlayerOrBuilder();
@@ -71851,7 +68353,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -71864,7 +68366,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.MinimumUserProto referredPlayer = 2;
+    // optional .com.lvl6.proto.MinimumUserProto referredPlayer = 2;
     public static final int REFERREDPLAYER_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.MinimumUserProto referredPlayer_;
     public boolean hasReferredPlayer() {
@@ -71886,22 +68388,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasReferredPlayer()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getReferredPlayer().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -72151,22 +68637,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasReferredPlayer()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (!getReferredPlayer().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -72217,7 +68687,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -72307,7 +68777,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.MinimumUserProto referredPlayer = 2;
+      // optional .com.lvl6.proto.MinimumUserProto referredPlayer = 2;
       private com.lvl6.proto.InfoProto.MinimumUserProto referredPlayer_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> referredPlayerBuilder_;
@@ -72411,12 +68881,12 @@ public final class EventProto {
   public interface EquipEquipmentRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 equipId = 2;
+    // optional int32 equipId = 2;
     boolean hasEquipId();
     int getEquipId();
   }
@@ -72449,7 +68919,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -72462,7 +68932,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 equipId = 2;
+    // optional int32 equipId = 2;
     public static final int EQUIPID_FIELD_NUMBER = 2;
     private int equipId_;
     public boolean hasEquipId() {
@@ -72481,18 +68951,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEquipId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -72733,18 +69191,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasEquipId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -72791,7 +69237,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -72881,7 +69327,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 equipId = 2;
+      // optional int32 equipId = 2;
       private int equipId_ ;
       public boolean hasEquipId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -72916,12 +69362,12 @@ public final class EventProto {
   public interface EquipEquipmentResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.EquipEquipmentResponseProto.EquipEquipmentStatus status = 2;
+    // optional .com.lvl6.proto.EquipEquipmentResponseProto.EquipEquipmentStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatus getStatus();
   }
@@ -73035,7 +69481,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -73048,7 +69494,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.EquipEquipmentResponseProto.EquipEquipmentStatus status = 2;
+    // optional .com.lvl6.proto.EquipEquipmentResponseProto.EquipEquipmentStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatus status_;
     public boolean hasStatus() {
@@ -73067,18 +69513,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -73319,18 +69753,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -73383,7 +69805,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -73473,7 +69895,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.EquipEquipmentResponseProto.EquipEquipmentStatus status = 2;
+      // optional .com.lvl6.proto.EquipEquipmentResponseProto.EquipEquipmentStatus status = 2;
       private com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatus status_ = com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -73511,12 +69933,12 @@ public final class EventProto {
   public interface ChangeUserLocationRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.LocationProto userLocation = 2;
+    // optional .com.lvl6.proto.LocationProto userLocation = 2;
     boolean hasUserLocation();
     com.lvl6.proto.InfoProto.LocationProto getUserLocation();
     com.lvl6.proto.InfoProto.LocationProtoOrBuilder getUserLocationOrBuilder();
@@ -73550,7 +69972,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -73563,7 +69985,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.LocationProto userLocation = 2;
+    // optional .com.lvl6.proto.LocationProto userLocation = 2;
     public static final int USERLOCATION_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.LocationProto userLocation_;
     public boolean hasUserLocation() {
@@ -73585,22 +70007,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserLocation()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getUserLocation().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -73850,22 +70256,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasUserLocation()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        if (!getUserLocation().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -73916,7 +70306,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -74006,7 +70396,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.LocationProto userLocation = 2;
+      // optional .com.lvl6.proto.LocationProto userLocation = 2;
       private com.lvl6.proto.InfoProto.LocationProto userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.LocationProto, com.lvl6.proto.InfoProto.LocationProto.Builder, com.lvl6.proto.InfoProto.LocationProtoOrBuilder> userLocationBuilder_;
@@ -74110,12 +70500,12 @@ public final class EventProto {
   public interface ChangeUserLocationResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status = 2;
+    // optional .com.lvl6.proto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.ChangeUserLocationResponseProto.ChangeUserLocationStatus getStatus();
   }
@@ -74220,7 +70610,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -74233,7 +70623,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status = 2;
+    // optional .com.lvl6.proto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status_;
     public boolean hasStatus() {
@@ -74252,18 +70642,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -74504,18 +70882,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -74568,7 +70934,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -74658,7 +71024,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status = 2;
+      // optional .com.lvl6.proto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status = 2;
       private com.lvl6.proto.EventProto.ChangeUserLocationResponseProto.ChangeUserLocationStatus status_ = com.lvl6.proto.EventProto.ChangeUserLocationResponseProto.ChangeUserLocationStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -74696,12 +71062,12 @@ public final class EventProto {
   public interface LoadNeutralCityRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 cityId = 2;
+    // optional int32 cityId = 2;
     boolean hasCityId();
     int getCityId();
   }
@@ -74734,7 +71100,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -74747,7 +71113,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 cityId = 2;
+    // optional int32 cityId = 2;
     public static final int CITYID_FIELD_NUMBER = 2;
     private int cityId_;
     public boolean hasCityId() {
@@ -74766,18 +71132,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -75018,18 +71372,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasCityId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -75076,7 +71418,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -75166,7 +71508,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 cityId = 2;
+      // optional int32 cityId = 2;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -75201,12 +71543,12 @@ public final class EventProto {
   public interface LoadNeutralCityResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
+    // optional .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus getStatus();
     
@@ -75240,7 +71582,7 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.NeutralCityElementProtoOrBuilder getCityElementsOrBuilder(
         int index);
     
-    // required int32 cityId = 6;
+    // optional int32 cityId = 6;
     boolean hasCityId();
     int getCityId();
   }
@@ -75345,7 +71687,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -75358,7 +71700,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
+    // optional .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status_;
     public boolean hasStatus() {
@@ -75431,7 +71773,7 @@ public final class EventProto {
       return cityElements_.get(index);
     }
     
-    // required int32 cityId = 6;
+    // optional int32 cityId = 6;
     public static final int CITYID_FIELD_NUMBER = 6;
     private int cityId_;
     public boolean hasCityId() {
@@ -75454,40 +71796,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getUserTasksInfoCount(); i++) {
-        if (!getUserTasksInfo(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getDefeatTypeJobEnemiesCount(); i++) {
-        if (!getDefeatTypeJobEnemies(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getCityElementsCount(); i++) {
-        if (!getCityElements(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -75891,40 +72199,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!hasCityId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getUserTasksInfoCount(); i++) {
-          if (!getUserTasksInfo(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getDefeatTypeJobEnemiesCount(); i++) {
-          if (!getDefeatTypeJobEnemies(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getCityElementsCount(); i++) {
-          if (!getCityElements(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -76000,7 +72274,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -76090,7 +72364,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
+      // optional .com.lvl6.proto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status = 2;
       private com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus status_ = com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -76672,7 +72946,7 @@ public final class EventProto {
         return cityElementsBuilder_;
       }
       
-      // required int32 cityId = 6;
+      // optional int32 cityId = 6;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -76707,12 +72981,12 @@ public final class EventProto {
   public interface RetrieveUserEquipForUserRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 relevantUserId = 2;
+    // optional int32 relevantUserId = 2;
     boolean hasRelevantUserId();
     int getRelevantUserId();
   }
@@ -76745,7 +73019,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -76758,7 +73032,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 relevantUserId = 2;
+    // optional int32 relevantUserId = 2;
     public static final int RELEVANTUSERID_FIELD_NUMBER = 2;
     private int relevantUserId_;
     public boolean hasRelevantUserId() {
@@ -76777,18 +73051,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRelevantUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -77029,18 +73291,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasRelevantUserId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -77087,7 +73337,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -77177,7 +73427,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 relevantUserId = 2;
+      // optional int32 relevantUserId = 2;
       private int relevantUserId_ ;
       public boolean hasRelevantUserId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -77212,12 +73462,12 @@ public final class EventProto {
   public interface RetrieveUserEquipForUserResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // required int32 relevantUserId = 2;
+    // optional int32 relevantUserId = 2;
     boolean hasRelevantUserId();
     int getRelevantUserId();
     
@@ -77260,7 +73510,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -77273,7 +73523,7 @@ public final class EventProto {
       return sender_;
     }
     
-    // required int32 relevantUserId = 2;
+    // optional int32 relevantUserId = 2;
     public static final int RELEVANTUSERID_FIELD_NUMBER = 2;
     private int relevantUserId_;
     public boolean hasRelevantUserId() {
@@ -77314,24 +73564,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRelevantUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getUserEquipsCount(); i++) {
-        if (!getUserEquips(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -77621,24 +73853,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!hasRelevantUserId()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getUserEquipsCount(); i++) {
-          if (!getUserEquips(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -77691,7 +73905,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -77781,7 +73995,7 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // required int32 relevantUserId = 2;
+      // optional int32 relevantUserId = 2;
       private int relevantUserId_ ;
       public boolean hasRelevantUserId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -78002,7 +74216,7 @@ public final class EventProto {
   public interface PurgeClientStaticDataResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 senderId = 1;
+    // optional int32 senderId = 1;
     boolean hasSenderId();
     int getSenderId();
   }
@@ -78035,7 +74249,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required int32 senderId = 1;
+    // optional int32 senderId = 1;
     public static final int SENDERID_FIELD_NUMBER = 1;
     private int senderId_;
     public boolean hasSenderId() {
@@ -78053,10 +74267,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSenderId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -78272,10 +74482,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSenderId()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -78313,7 +74519,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required int32 senderId = 1;
+      // optional int32 senderId = 1;
       private int senderId_ ;
       public boolean hasSenderId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -78348,7 +74554,7 @@ public final class EventProto {
   public interface RetrieveUsersForUserIdsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -78387,7 +74593,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -78423,14 +74629,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -78684,14 +74882,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -78747,7 +74937,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -78896,7 +75086,7 @@ public final class EventProto {
   public interface RetrieveUsersForUserIdsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     boolean hasSender();
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
@@ -78940,7 +75130,7 @@ public final class EventProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.MinimumUserProto sender = 1;
+    // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.MinimumUserProto sender_;
     public boolean hasSender() {
@@ -78983,20 +75173,6 @@ public final class EventProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasSender()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSender().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getRequestedUsersCount(); i++) {
-        if (!getRequestedUsers(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -79270,20 +75446,6 @@ public final class EventProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasSender()) {
-          
-          return false;
-        }
-        if (!getSender().isInitialized()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getRequestedUsersCount(); i++) {
-          if (!getRequestedUsers(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -79331,7 +75493,7 @@ public final class EventProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.MinimumUserProto sender = 1;
+      // optional .com.lvl6.proto.MinimumUserProto sender = 1;
       private com.lvl6.proto.InfoProto.MinimumUserProto sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> senderBuilder_;
@@ -80098,61 +76260,61 @@ public final class EventProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\013Event.proto\022\016com.lvl6.proto\032\nInfo.prot" +
-      "o\"\213\001\n\020ChatRequestProto\0220\n\006sender\030\001 \002(\0132 " +
+      "o\"\213\001\n\020ChatRequestProto\0220\n\006sender\030\001 \001(\0132 " +
       ".com.lvl6.proto.MinimumUserProto\0224\n\nreci" +
       "pients\030\002 \003(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\022\017\n\007message\030\003 \002(\t\"V\n\021ChatResponseP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022\017\n\007message\030\002 \002(\t\"\233\002\n\022Batt" +
-      "leRequestProto\0222\n\010attacker\030\001 \002(\0132 .com.l" +
+      "rProto\022\017\n\007message\030\003 \001(\t\"V\n\021ChatResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022\017\n\007message\030\002 \001(\t\"\233\002\n\022Batt" +
+      "leRequestProto\0222\n\010attacker\030\001 \001(\0132 .com.l" +
       "vl6.proto.MinimumUserProto\0222\n\010defender\030\002" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\0222",
-      "\n\014battleResult\030\003 \002(\0162\034.com.lvl6.proto.Ba" +
-      "ttleResult\022\022\n\nclientTime\030\004 \002(\003\022\025\n\rneutra" +
+      " \001(\0132 .com.lvl6.proto.MinimumUserProto\0222",
+      "\n\014battleResult\030\003 \001(\0162\034.com.lvl6.proto.Ba" +
+      "ttleResult\022\022\n\nclientTime\030\004 \001(\003\022\025\n\rneutra" +
       "lCityId\030\005 \001(\005\022>\n\022defenderUserEquips\030\006 \003(" +
       "\0132\".com.lvl6.proto.FullUserEquipProto\"\375\002" +
-      "\n\023BattleResponseProto\0222\n\010attacker\030\001 \002(\0132" +
+      "\n\023BattleResponseProto\0222\n\010attacker\030\001 \001(\0132" +
       " .com.lvl6.proto.MinimumUserProto\0222\n\010def" +
-      "ender\030\002 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022@\n\006status\030\003 \002(\01620.com.lvl6.proto.B" +
+      "ender\030\002 \001(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022@\n\006status\030\003 \001(\01620.com.lvl6.proto.B" +
       "attleResponseProto.BattleStatus\0222\n\014battl" +
-      "eResult\030\007 \002(\0162\034.com.lvl6.proto.BattleRes",
+      "eResult\030\007 \001(\0162\034.com.lvl6.proto.BattleRes",
       "ult\022\023\n\013coinsGained\030\004 \001(\005\0223\n\013equipGained\030" +
       "\005 \001(\0132\036.com.lvl6.proto.FullEquipProto\022\021\n" +
       "\texpGained\030\006 \001(\005\"+\n\014BattleStatus\022\013\n\007SUCC" +
       "ESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\315\001\n\021VaultRequestPr" +
-      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
+      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
       "imumUserProto\022G\n\013requestType\030\002 \001(\01622.com" +
       ".lvl6.proto.VaultRequestProto.VaultReque" +
       "stType\022\016\n\006amount\030\003 \001(\005\"-\n\020VaultRequestTy" +
       "pe\022\013\n\007DEPOSIT\020\000\022\014\n\010WITHDRAW\020\001\"\356\001\n\022VaultR" +
-      "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.",
-      "proto.MinimumUserProto\022>\n\006status\030\002 \002(\0162." +
+      "esponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.",
+      "proto.MinimumUserProto\022>\n\006status\030\002 \001(\0162." +
       ".com.lvl6.proto.VaultResponseProto.Vault" +
       "Status\022\023\n\013vaultAmount\030\003 \001(\005\022\022\n\ncoinAmoun" +
       "t\030\004 \001(\005\"=\n\013VaultStatus\022\013\n\007SUCCESS\020\000\022\021\n\rL" +
       "EVEL_TOO_LOW\020\001\022\016\n\nOTHER_FAIL\020\002\"\334\001\n\022Armor" +
-      "yRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
+      "yRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
       ".proto.MinimumUserProto\022I\n\013requestType\030\002" +
-      " \002(\01624.com.lvl6.proto.ArmoryRequestProto" +
-      ".ArmoryRequestType\022\020\n\010quantity\030\003 \002(\005\022\017\n\007" +
-      "equipId\030\004 \002(\005\"&\n\021ArmoryRequestType\022\007\n\003BU",
+      " \001(\01624.com.lvl6.proto.ArmoryRequestProto" +
+      ".ArmoryRequestType\022\020\n\010quantity\030\003 \001(\005\022\017\n\007" +
+      "equipId\030\004 \001(\005\"&\n\021ArmoryRequestType\022\007\n\003BU",
       "Y\020\000\022\010\n\004SELL\020\001\"\247\002\n\023ArmoryResponseProto\0220\n" +
-      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022@\n\006status\030\002 \002(\01620.com.lvl6.proto" +
+      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\022@\n\006status\030\002 \001(\01620.com.lvl6.proto" +
       ".ArmoryResponseProto.ArmoryStatus\"\233\001\n\014Ar" +
       "moryStatus\022\013\n\007SUCCESS\020\000\022\034\n\030NOT_ENOUGH_EQ" +
       "UIP_TO_SELL\020\001\022\036\n\032NOT_ENOUGH_CURRENCY_TO_" +
       "BUY\020\002\022\035\n\031CANNOT_SELL_DIAMOND_EQUIP\020\003\022\021\n\r" +
       "LEVEL_TOO_LOW\020\004\022\016\n\nOTHER_FAIL\020\005\"L\n\023Start" +
-      "upRequestProto\022\014\n\004udid\030\001 \002(\t\022\022\n\nversionN" +
-      "um\030\002 \002(\002\022\023\n\013deviceToken\030\004 \001(\t\"\361(\n\024Startu",
+      "upRequestProto\022\014\n\004udid\030\001 \001(\t\022\022\n\nversionN" +
+      "um\030\002 \001(\002\022\023\n\013deviceToken\030\004 \001(\t\"\206)\n\024Startu",
       "pResponseProto\022-\n\006sender\030\001 \001(\0132\035.com.lvl" +
       "6.proto.FullUserProto\022I\n\rstartupStatus\030\002" +
-      " \002(\01622.com.lvl6.proto.StartupResponsePro" +
-      "to.StartupStatus\022G\n\014updateStatus\030\003 \002(\01621" +
+      " \001(\01622.com.lvl6.proto.StartupResponsePro" +
+      "to.StartupStatus\022G\n\014updateStatus\030\003 \001(\01621" +
       ".com.lvl6.proto.StartupResponseProto.Upd" +
-      "ateStatus\022O\n\020startupConstants\030\004 \002(\01325.co" +
+      "ateStatus\022O\n\020startupConstants\030\004 \001(\01325.co" +
       "m.lvl6.proto.StartupResponseProto.Startu" +
       "pConstants\022Q\n\021tutorialConstants\030\022 \001(\01326." +
       "com.lvl6.proto.StartupResponseProto.Tuto" +
@@ -80174,607 +76336,608 @@ public final class EventProto {
       "oto.StartupResponseProto.AttackedNotific" +
       "ationProto\022]\n\025referralNotifications\030\016 \003(" +
       "\0132>.com.lvl6.proto.StartupResponseProto." +
-      "ReferralNotificationProto\032\267\001\n)Marketplac" +
-      "ePostPurchasedNotificationProto\022A\n\017marke" +
-      "tplacePost\030\001 \002(\0132(.com.lvl6.proto.FullMa",
-      "rketplacePostProto\022/\n\005buyer\030\002 \002(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022\026\n\016timeOfPur" +
-      "chase\030\003 \002(\003\032\313\001\n\031AttackedNotificationProt" +
-      "o\0222\n\010attacker\030\001 \002(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\0222\n\014battleResult\030\002 \002(\0162\034.co" +
-      "m.lvl6.proto.BattleResult\022\032\n\022battleCompl" +
-      "eteTime\030\003 \002(\003\022\023\n\013coinsStolen\030\004 \001(\005\022\025\n\rst" +
-      "olenEquipId\030\005 \001(\005\032d\n\031ReferralNotificatio" +
-      "nProto\0222\n\010referred\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\023\n\013recruitTime\030\002 \002(\003\032",
-      "\347\013\n\020StartupConstants\022\022\n\nproductIds\030\001 \003(\t" +
-      "\022\034\n\024productDiamondsGiven\030\002 \003(\005\022#\n\033maxLev" +
-      "elDifferenceForBattle\030\006 \002(\005\022\025\n\rarmoryXLe" +
-      "ngth\030\007 \002(\005\022\025\n\rarmoryYLength\030\010 \002(\005\022\024\n\014vau" +
-      "ltXLength\030\t \002(\005\022\024\n\014vaultYLength\030\n \002(\005\022\032\n" +
-      "\022marketplaceXLength\030\013 \002(\005\022\032\n\022marketplace" +
-      "YLength\030\014 \002(\005\022\030\n\020carpenterXLength\030\r \002(\005\022" +
-      "\030\n\020carpenterYLength\030\016 \002(\005\022\025\n\raviaryXLeng" +
-      "th\030\017 \002(\005\022\025\n\raviaryYLength\030\020 \002(\005\022\026\n\016attac" +
-      "kBaseGain\030\021 \002(\005\022\027\n\017defenseBaseGain\030\022 \002(\005",
-      "\022\026\n\016energyBaseGain\030\023 \002(\005\022\026\n\016healthBaseGa" +
-      "in\030\024 \002(\005\022\027\n\017staminaBaseGain\030\025 \002(\005\022\026\n\016att" +
-      "ackBaseCost\030\026 \002(\005\022\027\n\017defenseBaseCost\030\027 \002" +
-      "(\005\022\026\n\016energyBaseCost\030\030 \002(\005\022\026\n\016healthBase" +
-      "Cost\030\031 \002(\005\022\027\n\017staminaBaseCost\030\032 \002(\005\022\"\n\032s" +
-      "killPointsGainedOnLevelup\030\033 \002(\005\022\036\n\026cutOf" +
-      "VaultDepositTaken\030\034 \002(\001\022\031\n\021maxLevelForSt" +
-      "ruct\030! \002(\005\022\034\n\024maxNumOfSingleStruct\030\" \002(\005" +
-      "\0224\n,percentReturnedToUserForSellingNormS" +
-      "tructure\030# \002(\001\022\036\n\026minutesToRefillAEnergy",
-      "\030$ \002(\005\022\037\n\027minutesToRefillAStamina\030% \002(\005\022" +
-      "\'\n\037diamondCostForFullStaminaRefill\0300 \002(\005" +
-      "\022&\n\036diamondCostForFullEnergyRefill\0301 \002(\005" +
-      "\022#\n\033maxNumberOfMarketplacePosts\030( \002(\005\022@\n" +
-      "8percentOfSellingCostTakenFromSellerOnMa" +
-      "rketplacePurchase\030) \002(\001\022?\n7percentOfSell" +
-      "ingCostTakenFromSellerOnMarketplaceRetra" +
-      "ct\030* \002(\001\022-\n%numDaysLongMarketplaceLicens" +
-      "eLastsFor\030+ \002(\005\022.\n&numDaysShortMarketpla" +
-      "ceLicenseLastsFor\030, \002(\005\022+\n#diamondCostOf",
-      "LongMarketplaceLicense\030- \002(\005\022,\n$diamondC" +
-      "ostOfShortMarketplaceLicense\030. \002(\005\022+\n#ma" +
-      "xNumbersOfEnemiesToGenerateAtOnce\030\004 \002(\005\022" +
-      "4\n,percentReturnedToUserForSellingEquipI" +
-      "nArmory\030\005 \002(\001\022 \n\030diamondRewardForReferre" +
-      "r\030/ \002(\005\022\023\n\013maxCityRank\0302 \002(\005\022\031\n\021minLevel" +
-      "ForArmory\0303 \002(\005\022\030\n\020minLevelForVault\0304 \002(" +
-      "\005\022\036\n\026minLevelForMarketplace\0305 \002(\005\032\305\017\n\021Tu" +
-      "torialConstants\022\022\n\ninitEnergy\030\001 \002(\005\022\023\n\013i" +
-      "nitStamina\030\002 \002(\005\022\022\n\ninitHealth\030\003 \002(\005\022d\n\r",
-      "tutorialQuest\030\004 \002(\0132M.com.lvl6.proto.Sta" +
-      "rtupResponseProto.TutorialConstants.Full" +
-      "TutorialQuestProto\022\025\n\rstructToBuild\030\005 \002(" +
-      "\005\022*\n\"diamondCostToInstabuildFirstStruct\030" +
-      "\006 \002(\005\022\030\n\020archerInitAttack\030\021 \002(\005\022\031\n\021arche" +
-      "rInitDefense\030\022 \002(\005\0228\n\020archerInitWeapon\030\007" +
-      " \002(\0132\036.com.lvl6.proto.FullEquipProto\0227\n\017" +
-      "archerInitArmor\030\010 \002(\0132\036.com.lvl6.proto.F" +
-      "ullEquipProto\022\026\n\016mageInitAttack\030\t \002(\005\022\027\n" +
-      "\017mageInitDefense\030\n \002(\005\0226\n\016mageInitWeapon",
-      "\030\013 \002(\0132\036.com.lvl6.proto.FullEquipProto\0225" +
-      "\n\rmageInitArmor\030\014 \002(\0132\036.com.lvl6.proto.F" +
-      "ullEquipProto\022\031\n\021warriorInitAttack\030\r \002(\005" +
-      "\022\032\n\022warriorInitDefense\030\016 \002(\005\0229\n\021warriorI" +
-      "nitWeapon\030\017 \002(\0132\036.com.lvl6.proto.FullEqu" +
-      "ipProto\0228\n\020warriorInitArmor\030\020 \002(\0132\036.com." +
-      "lvl6.proto.FullEquipProto\022\025\n\rminNameLeng" +
-      "th\030\023 \002(\005\022\025\n\rmaxNameLength\030\024 \002(\005\022%\n\035diamo" +
-      "ndRewardForBeingReferred\030\026 \002(\005\022I\n\030firstC" +
-      "ityElementsForGood\030\027 \003(\0132\'.com.lvl6.prot",
-      "o.NeutralCityElementProto\022H\n\027firstCityEl" +
-      "ementsForBad\030\030 \003(\0132\'.com.lvl6.proto.Neut" +
-      "ralCityElementProto\022\021\n\tinitCoins\030\031 \002(\005\022\024" +
-      "\n\014initDiamonds\030\032 \002(\005\022<\n\020carpenterStructs" +
-      "\030\033 \003(\0132\".com.lvl6.proto.FullStructurePro" +
-      "to\022\036\n\026expRequiredForLevelTwo\030\034 \002(\005\022 \n\030ex" +
-      "pRequiredForLevelThree\030\035 \002(\005\022M\n&citiesNe" +
-      "wlyAvailableToUserAfterLevelup\030\036 \003(\0132\035.c" +
-      "om.lvl6.proto.FullCityProto\022c\n;newlyEqui" +
-      "ppableEpicsAndLegendariesForAllClassesAf",
-      "terLevelup\030\037 \003(\0132\036.com.lvl6.proto.FullEq" +
-      "uipProto\022M\n!newlyAvailableStructsAfterLe" +
-      "velup\030  \003(\0132\".com.lvl6.proto.FullStructu" +
-      "reProto\032\277\004\n\026FullTutorialQuestProto\022\020\n\010go" +
-      "odName\030\001 \002(\t\022\017\n\007badName\030\002 \002(\t\022\027\n\017goodDes" +
-      "cription\030\003 \002(\t\022\026\n\016badDescription\030\004 \002(\t\022\030" +
-      "\n\020goodDoneResponse\030\005 \002(\t\022\027\n\017badDoneRespo" +
-      "nse\030\006 \002(\t\022\026\n\016goodInProgress\030\007 \002(\t\022\025\n\rbad" +
-      "InProgress\030\010 \002(\t\022\032\n\022assetNumWithinCity\030\t" +
-      " \002(\005\022\023\n\013coinsGained\030\n \002(\005\022\021\n\texpGained\030\013",
-      " \002(\005\0224\n\rfirstTaskGood\030\014 \002(\0132\035.com.lvl6.p" +
-      "roto.FullTaskProto\0223\n\014firstTaskBad\030\r \002(\013" +
-      "2\035.com.lvl6.proto.FullTaskProto\022!\n\031first" +
-      "TaskCompleteCoinGain\030\016 \002(\005\022(\n firstDefea" +
-      "tTypeJobBattleCoinGain\030\021 \002(\005\022\'\n\037firstDef" +
-      "eatTypeJobBattleExpGain\030\022 \002(\005\022J\n\"firstDe" +
-      "featTypeJobBattleLootAmulet\030\023 \002(\0132\036.com." +
-      "lvl6.proto.FullEquipProto\"A\n\014UpdateStatu" +
-      "s\022\r\n\tNO_UPDATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020\n\014MA" +
-      "JOR_UPDATE\020\002\"3\n\rStartupStatus\022\016\n\nUSER_IN",
-      "_DB\020\000\022\022\n\016USER_NOT_IN_DB\020\001\"\233\003\n\026UserCreate" +
-      "RequestProto\022\014\n\004udid\030\001 \002(\t\022\014\n\004name\030\002 \002(\t" +
-      "\022&\n\004type\030\003 \002(\0162\030.com.lvl6.proto.UserType" +
-      "\0223\n\014userLocation\030\006 \001(\0132\035.com.lvl6.proto." +
-      "LocationProto\022\024\n\014referrerCode\030\007 \001(\t\022\023\n\013d" +
-      "eviceToken\030\010 \001(\t\022\016\n\006attack\030\t \002(\005\022\017\n\007defe" +
-      "nse\030\n \002(\005\022\016\n\006health\030\013 \002(\005\022\016\n\006energy\030\014 \002(" +
-      "\005\022\017\n\007stamina\030\r \002(\005\022\034\n\024timeOfStructPurcha" +
-      "se\030\016 \002(\003\022\031\n\021timeOfStructBuild\030\017 \002(\003\0225\n\014s" +
-      "tructCoords\030\004 \002(\0132\037.com.lvl6.proto.Coord",
-      "inateProto\022\033\n\023usedDiamondsToBuilt\030\020 \002(\010\"" +
-      "\333\002\n\027UserCreateResponseProto\022-\n\006sender\030\001 " +
-      "\001(\0132\035.com.lvl6.proto.FullUserProto\022H\n\006st" +
-      "atus\030\002 \002(\01628.com.lvl6.proto.UserCreateRe" +
-      "sponseProto.UserCreateStatus\"\306\001\n\020UserCre" +
-      "ateStatus\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001" +
-      "\022\024\n\020INVALID_LOCATION\020\002\022!\n\035USER_WITH_UDID" +
-      "_ALREADY_EXISTS\020\003\022\016\n\nTIME_ISSUE\020\004\022\"\n\036INV" +
-      "ALID_SKILL_POINT_ALLOCATION\020\005\022\026\n\022INVALID" +
-      "_REFER_CODE\020\006\022\016\n\nOTHER_FAIL\020\007\"d\n Retriev",
-      "eTasksForCityRequestProto\0220\n\006sender\030\001 \002(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022\016\n\006c" +
-      "ityId\030\002 \001(\005\"\203\001\n!RetrieveTasksForCityResp" +
-      "onseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022,\n\005tasks\030\002 \003(\0132\035.com" +
-      ".lvl6.proto.FullTaskProto\"\367\001\n%RetrieveSt" +
-      "aticDataForShopRequestProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022W\n" +
-      "\004type\030\002 \002(\0162I.com.lvl6.proto.RetrieveSta" +
-      "ticDataForShopRequestProto.RetrieveForSh",
-      "opType\"C\n\023RetrieveForShopType\022\030\n\024EQUIPME" +
-      "NT_FOR_ARMORY\020\000\022\022\n\016ALL_STRUCTURES\020\001\"\346\002\n&" +
-      "RetrieveStaticDataForShopResponseProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022f\n\006status\030\002 \002(\0162V.com.lvl6.prot" +
-      "o.RetrieveStaticDataForShopResponseProto" +
-      ".RetrieveStaticDataForShopStatus\022.\n\006equi" +
-      "ps\030\003 \003(\0132\036.com.lvl6.proto.FullEquipProto" +
-      "\0223\n\007structs\030\004 \003(\0132\".com.lvl6.proto.FullS" +
-      "tructureProto\"=\n\037RetrieveStaticDataForSh",
-      "opStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"k\n\026" +
-      "TaskActionRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\016\n\006task" +
-      "Id\030\002 \002(\005\022\017\n\007curTime\030\003 \002(\003\"\315\003\n\027TaskAction" +
-      "ResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022H\n\006status\030\002 \002(\0162" +
-      "8.com.lvl6.proto.TaskActionResponseProto" +
-      ".TaskActionStatus\022\025\n\rtaskCompleted\030\003 \001(\010" +
-      "\022\024\n\014cityRankedUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 " +
-      "\001(\005\022\023\n\013coinsGained\030\006 \001(\005\022\035\n\025coinBonusIfC",
-      "ityRankup\030\007 \001(\005\022\034\n\024expBonusIfCityRankup\030" +
-      "\010 \001(\005\022\016\n\006cityId\030\t \001(\005\"\221\001\n\020TaskActionStat" +
-      "us\022\013\n\007SUCCESS\020\000\022\032\n\026USER_NOT_ENOUGH_ENERG" +
-      "Y\020\001\022\037\n\033USER_NOT_ALL_REQUIRED_ITEMS\020\002\022\016\n\n" +
-      "OTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERV" +
-      "ER_TIME\020\004\"\273\001\n!PurchaseNormStructureReque" +
-      "stProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022:\n\021structCoordinates\030\002" +
-      " \002(\0132\037.com.lvl6.proto.CoordinateProto\022\020\n" +
-      "\010structId\030\003 \002(\005\022\026\n\016timeOfPurchase\030\004 \002(\003\"",
-      "\243\003\n\"PurchaseNormStructureResponseProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022^\n\006status\030\002 \002(\0162N.com.lvl6.prot" +
-      "o.PurchaseNormStructureResponseProto.Pur" +
-      "chaseNormStructureStatus\022\024\n\014userStructId" +
-      "\030\003 \001(\005\"\324\001\n\033PurchaseNormStructureStatus\022\013" +
-      "\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n" +
-      "\rLEVEL_TOO_LOW\020\002\022!\n\035ANOTHER_STRUCT_STILL" +
-      "_BUILDING\020\003\022#\n\037ALREADY_HAVE_MAX_OF_THIS_" +
-      "STRUCT\020\004\022\016\n\nOTHER_FAIL\020\005\022#\n\037CLIENT_TOO_A",
-      "HEAD_OF_SERVER_TIME\020\006\"\375\002\n%MoveOrRotateNo" +
-      "rmStructureRequestProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\024\n\014use" +
-      "rStructId\030\002 \002(\005\022^\n\004type\030\003 \002(\0162P.com.lvl6" +
-      ".proto.MoveOrRotateNormStructureRequestP" +
-      "roto.MoveOrRotateNormStructType\022=\n\024curSt" +
-      "ructCoordinates\030\004 \001(\0132\037.com.lvl6.proto.C" +
-      "oordinateProto\0229\n\016newOrientation\030\005 \001(\0162!" +
-      ".com.lvl6.proto.StructOrientation\"2\n\032Mov" +
-      "eOrRotateNormStructType\022\010\n\004MOVE\020\000\022\n\n\006ROT",
-      "ATE\020\001\"\202\002\n&MoveOrRotateNormStructureRespo" +
-      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022f\n\006status\030\002 \002(\0162V.com" +
-      ".lvl6.proto.MoveOrRotateNormStructureRes" +
-      "ponseProto.MoveOrRotateNormStructureStat" +
-      "us\">\n\037MoveOrRotateNormStructureStatus\022\013\n" +
-      "\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\002\"g\n\035SellNormSt" +
-      "ructureRequestProto\0220\n\006sender\030\001 \002(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022\024\n\014userStr" +
-      "uctId\030\002 \002(\005\"\334\001\n\036SellNormStructureRespons",
-      "eProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022V\n\006status\030\002 \002(\0162F.com.l" +
-      "vl6.proto.SellNormStructureResponseProto" +
-      ".SellNormStructureStatus\"0\n\027SellNormStru" +
-      "ctureStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"\201\001\n U" +
-      "pgradeNormStructureRequestProto\0220\n\006sende" +
-      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022\024\n\014userStructId\030\002 \002(\005\022\025\n\rtimeOfUpgrade" +
-      "\030\003 \002(\003\"\225\003\n!UpgradeNormStructureResponseP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi",
-      "nimumUserProto\022\\\n\006status\030\002 \002(\0162L.com.lvl" +
-      "6.proto.UpgradeNormStructureResponseProt" +
-      "o.UpgradeNormStructureStatus\"\337\001\n\032Upgrade" +
+      "ReferralNotificationProto\022\023\n\013appStoreURL" +
+      "\030\021 \001(\t\032\267\001\n)MarketplacePostPurchasedNotif" +
+      "icationProto\022A\n\017marketplacePost\030\001 \001(\0132(.",
+      "com.lvl6.proto.FullMarketplacePostProto\022" +
+      "/\n\005buyer\030\002 \001(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\026\n\016timeOfPurchase\030\003 \001(\003\032\313\001\n\031Att" +
+      "ackedNotificationProto\0222\n\010attacker\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\0222\n\014ba" +
+      "ttleResult\030\002 \001(\0162\034.com.lvl6.proto.Battle" +
+      "Result\022\032\n\022battleCompleteTime\030\003 \001(\003\022\023\n\013co" +
+      "insStolen\030\004 \001(\005\022\025\n\rstolenEquipId\030\005 \001(\005\032d" +
+      "\n\031ReferralNotificationProto\0222\n\010referred\030" +
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022",
+      "\023\n\013recruitTime\030\002 \001(\003\032\347\013\n\020StartupConstant" +
+      "s\022\022\n\nproductIds\030\001 \003(\t\022\034\n\024productDiamonds" +
+      "Given\030\002 \003(\005\022#\n\033maxLevelDifferenceForBatt" +
+      "le\030\006 \001(\005\022\025\n\rarmoryXLength\030\007 \001(\005\022\025\n\rarmor" +
+      "yYLength\030\010 \001(\005\022\024\n\014vaultXLength\030\t \001(\005\022\024\n\014" +
+      "vaultYLength\030\n \001(\005\022\032\n\022marketplaceXLength" +
+      "\030\013 \001(\005\022\032\n\022marketplaceYLength\030\014 \001(\005\022\030\n\020ca" +
+      "rpenterXLength\030\r \001(\005\022\030\n\020carpenterYLength" +
+      "\030\016 \001(\005\022\025\n\raviaryXLength\030\017 \001(\005\022\025\n\raviaryY" +
+      "Length\030\020 \001(\005\022\026\n\016attackBaseGain\030\021 \001(\005\022\027\n\017",
+      "defenseBaseGain\030\022 \001(\005\022\026\n\016energyBaseGain\030" +
+      "\023 \001(\005\022\026\n\016healthBaseGain\030\024 \001(\005\022\027\n\017stamina" +
+      "BaseGain\030\025 \001(\005\022\026\n\016attackBaseCost\030\026 \001(\005\022\027" +
+      "\n\017defenseBaseCost\030\027 \001(\005\022\026\n\016energyBaseCos" +
+      "t\030\030 \001(\005\022\026\n\016healthBaseCost\030\031 \001(\005\022\027\n\017stami" +
+      "naBaseCost\030\032 \001(\005\022\"\n\032skillPointsGainedOnL" +
+      "evelup\030\033 \001(\005\022\036\n\026cutOfVaultDepositTaken\030\034" +
+      " \001(\001\022\031\n\021maxLevelForStruct\030! \001(\005\022\034\n\024maxNu" +
+      "mOfSingleStruct\030\" \001(\005\0224\n,percentReturned" +
+      "ToUserForSellingNormStructure\030# \001(\001\022\036\n\026m",
+      "inutesToRefillAEnergy\030$ \001(\005\022\037\n\027minutesTo" +
+      "RefillAStamina\030% \001(\005\022\'\n\037diamondCostForFu" +
+      "llStaminaRefill\0300 \001(\005\022&\n\036diamondCostForF" +
+      "ullEnergyRefill\0301 \001(\005\022#\n\033maxNumberOfMark" +
+      "etplacePosts\030( \001(\005\022@\n8percentOfSellingCo" +
+      "stTakenFromSellerOnMarketplacePurchase\030)" +
+      " \001(\001\022?\n7percentOfSellingCostTakenFromSel" +
+      "lerOnMarketplaceRetract\030* \001(\001\022-\n%numDays" +
+      "LongMarketplaceLicenseLastsFor\030+ \001(\005\022.\n&" +
+      "numDaysShortMarketplaceLicenseLastsFor\030,",
+      " \001(\005\022+\n#diamondCostOfLongMarketplaceLice" +
+      "nse\030- \001(\005\022,\n$diamondCostOfShortMarketpla" +
+      "ceLicense\030. \001(\005\022+\n#maxNumbersOfEnemiesTo" +
+      "GenerateAtOnce\030\004 \001(\005\0224\n,percentReturnedT" +
+      "oUserForSellingEquipInArmory\030\005 \001(\001\022 \n\030di" +
+      "amondRewardForReferrer\030/ \001(\005\022\023\n\013maxCityR" +
+      "ank\0302 \001(\005\022\031\n\021minLevelForArmory\0303 \001(\005\022\030\n\020" +
+      "minLevelForVault\0304 \001(\005\022\036\n\026minLevelForMar" +
+      "ketplace\0305 \001(\005\032\305\017\n\021TutorialConstants\022\022\n\n" +
+      "initEnergy\030\001 \001(\005\022\023\n\013initStamina\030\002 \001(\005\022\022\n",
+      "\ninitHealth\030\003 \001(\005\022d\n\rtutorialQuest\030\004 \001(\013" +
+      "2M.com.lvl6.proto.StartupResponseProto.T" +
+      "utorialConstants.FullTutorialQuestProto\022" +
+      "\025\n\rstructToBuild\030\005 \001(\005\022*\n\"diamondCostToI" +
+      "nstabuildFirstStruct\030\006 \001(\005\022\030\n\020archerInit" +
+      "Attack\030\021 \001(\005\022\031\n\021archerInitDefense\030\022 \001(\005\022" +
+      "8\n\020archerInitWeapon\030\007 \001(\0132\036.com.lvl6.pro" +
+      "to.FullEquipProto\0227\n\017archerInitArmor\030\010 \001" +
+      "(\0132\036.com.lvl6.proto.FullEquipProto\022\026\n\016ma" +
+      "geInitAttack\030\t \001(\005\022\027\n\017mageInitDefense\030\n ",
+      "\001(\005\0226\n\016mageInitWeapon\030\013 \001(\0132\036.com.lvl6.p" +
+      "roto.FullEquipProto\0225\n\rmageInitArmor\030\014 \001" +
+      "(\0132\036.com.lvl6.proto.FullEquipProto\022\031\n\021wa" +
+      "rriorInitAttack\030\r \001(\005\022\032\n\022warriorInitDefe" +
+      "nse\030\016 \001(\005\0229\n\021warriorInitWeapon\030\017 \001(\0132\036.c" +
+      "om.lvl6.proto.FullEquipProto\0228\n\020warriorI" +
+      "nitArmor\030\020 \001(\0132\036.com.lvl6.proto.FullEqui" +
+      "pProto\022\025\n\rminNameLength\030\023 \001(\005\022\025\n\rmaxName" +
+      "Length\030\024 \001(\005\022%\n\035diamondRewardForBeingRef" +
+      "erred\030\026 \001(\005\022I\n\030firstCityElementsForGood\030",
+      "\027 \003(\0132\'.com.lvl6.proto.NeutralCityElemen" +
+      "tProto\022H\n\027firstCityElementsForBad\030\030 \003(\0132" +
+      "\'.com.lvl6.proto.NeutralCityElementProto" +
+      "\022\021\n\tinitCoins\030\031 \001(\005\022\024\n\014initDiamonds\030\032 \001(" +
+      "\005\022<\n\020carpenterStructs\030\033 \003(\0132\".com.lvl6.p" +
+      "roto.FullStructureProto\022\036\n\026expRequiredFo" +
+      "rLevelTwo\030\034 \001(\005\022 \n\030expRequiredForLevelTh" +
+      "ree\030\035 \001(\005\022M\n&citiesNewlyAvailableToUserA" +
+      "fterLevelup\030\036 \003(\0132\035.com.lvl6.proto.FullC" +
+      "ityProto\022c\n;newlyEquippableEpicsAndLegen",
+      "dariesForAllClassesAfterLevelup\030\037 \003(\0132\036." +
+      "com.lvl6.proto.FullEquipProto\022M\n!newlyAv" +
+      "ailableStructsAfterLevelup\030  \003(\0132\".com.l" +
+      "vl6.proto.FullStructureProto\032\277\004\n\026FullTut" +
+      "orialQuestProto\022\020\n\010goodName\030\001 \001(\t\022\017\n\007bad" +
+      "Name\030\002 \001(\t\022\027\n\017goodDescription\030\003 \001(\t\022\026\n\016b" +
+      "adDescription\030\004 \001(\t\022\030\n\020goodDoneResponse\030" +
+      "\005 \001(\t\022\027\n\017badDoneResponse\030\006 \001(\t\022\026\n\016goodIn" +
+      "Progress\030\007 \001(\t\022\025\n\rbadInProgress\030\010 \001(\t\022\032\n" +
+      "\022assetNumWithinCity\030\t \001(\005\022\023\n\013coinsGained",
+      "\030\n \001(\005\022\021\n\texpGained\030\013 \001(\005\0224\n\rfirstTaskGo" +
+      "od\030\014 \001(\0132\035.com.lvl6.proto.FullTaskProto\022" +
+      "3\n\014firstTaskBad\030\r \001(\0132\035.com.lvl6.proto.F" +
+      "ullTaskProto\022!\n\031firstTaskCompleteCoinGai" +
+      "n\030\016 \001(\005\022(\n firstDefeatTypeJobBattleCoinG" +
+      "ain\030\021 \001(\005\022\'\n\037firstDefeatTypeJobBattleExp" +
+      "Gain\030\022 \001(\005\022J\n\"firstDefeatTypeJobBattleLo" +
+      "otAmulet\030\023 \001(\0132\036.com.lvl6.proto.FullEqui" +
+      "pProto\"A\n\014UpdateStatus\022\r\n\tNO_UPDATE\020\000\022\020\n" +
+      "\014MINOR_UPDATE\020\001\022\020\n\014MAJOR_UPDATE\020\002\"3\n\rSta",
+      "rtupStatus\022\016\n\nUSER_IN_DB\020\000\022\022\n\016USER_NOT_I" +
+      "N_DB\020\001\"\233\003\n\026UserCreateRequestProto\022\014\n\004udi" +
+      "d\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022&\n\004type\030\003 \001(\0162\030.co" +
+      "m.lvl6.proto.UserType\0223\n\014userLocation\030\006 " +
+      "\001(\0132\035.com.lvl6.proto.LocationProto\022\024\n\014re" +
+      "ferrerCode\030\007 \001(\t\022\023\n\013deviceToken\030\010 \001(\t\022\016\n" +
+      "\006attack\030\t \001(\005\022\017\n\007defense\030\n \001(\005\022\016\n\006health" +
+      "\030\013 \001(\005\022\016\n\006energy\030\014 \001(\005\022\017\n\007stamina\030\r \001(\005\022" +
+      "\034\n\024timeOfStructPurchase\030\016 \001(\003\022\031\n\021timeOfS" +
+      "tructBuild\030\017 \001(\003\0225\n\014structCoords\030\004 \001(\0132\037",
+      ".com.lvl6.proto.CoordinateProto\022\033\n\023usedD" +
+      "iamondsToBuilt\030\020 \001(\010\"\333\002\n\027UserCreateRespo" +
+      "nseProto\022-\n\006sender\030\001 \001(\0132\035.com.lvl6.prot" +
+      "o.FullUserProto\022H\n\006status\030\002 \001(\01628.com.lv" +
+      "l6.proto.UserCreateResponseProto.UserCre" +
+      "ateStatus\"\306\001\n\020UserCreateStatus\022\013\n\007SUCCES" +
+      "S\020\000\022\020\n\014INVALID_NAME\020\001\022\024\n\020INVALID_LOCATIO" +
+      "N\020\002\022!\n\035USER_WITH_UDID_ALREADY_EXISTS\020\003\022\016" +
+      "\n\nTIME_ISSUE\020\004\022\"\n\036INVALID_SKILL_POINT_AL" +
+      "LOCATION\020\005\022\026\n\022INVALID_REFER_CODE\020\006\022\016\n\nOT",
+      "HER_FAIL\020\007\"d\n RetrieveTasksForCityReques" +
+      "tProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!Ret" +
+      "rieveTasksForCityResponseProto\0220\n\006sender" +
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022,\n\005tasks\030\002 \003(\0132\035.com.lvl6.proto.FullTas" +
+      "kProto\"\367\001\n%RetrieveStaticDataForShopRequ" +
+      "estProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022W\n\004type\030\002 \001(\0162I.com.l" +
+      "vl6.proto.RetrieveStaticDataForShopReque",
+      "stProto.RetrieveForShopType\"C\n\023RetrieveF" +
+      "orShopType\022\030\n\024EQUIPMENT_FOR_ARMORY\020\000\022\022\n\016" +
+      "ALL_STRUCTURES\020\001\"\346\002\n&RetrieveStaticDataF" +
+      "orShopResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022f\n\006status\030" +
+      "\002 \001(\0162V.com.lvl6.proto.RetrieveStaticDat" +
+      "aForShopResponseProto.RetrieveStaticData" +
+      "ForShopStatus\022.\n\006equips\030\003 \003(\0132\036.com.lvl6" +
+      ".proto.FullEquipProto\0223\n\007structs\030\004 \003(\0132\"" +
+      ".com.lvl6.proto.FullStructureProto\"=\n\037Re",
+      "trieveStaticDataForShopStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\r\n\tSOME_FAIL\020\001\"k\n\026TaskActionRequestPr" +
+      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022\016\n\006taskId\030\002 \001(\005\022\017\n\007curTime" +
+      "\030\003 \001(\003\"\315\003\n\027TaskActionResponseProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022H\n\006status\030\002 \001(\01628.com.lvl6.proto.Ta" +
+      "skActionResponseProto.TaskActionStatus\022\025" +
+      "\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRankedUp\030\004 " +
+      "\001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coinsGained\030",
+      "\006 \001(\005\022\035\n\025coinBonusIfCityRankup\030\007 \001(\005\022\034\n\024" +
+      "expBonusIfCityRankup\030\010 \001(\005\022\016\n\006cityId\030\t \001" +
+      "(\005\"\221\001\n\020TaskActionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026" +
+      "USER_NOT_ENOUGH_ENERGY\020\001\022\037\n\033USER_NOT_ALL" +
+      "_REQUIRED_ITEMS\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLI" +
+      "ENT_TOO_AHEAD_OF_SERVER_TIME\020\004\"\273\001\n!Purch" +
+      "aseNormStructureRequestProto\0220\n\006sender\030\001" +
+      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022:" +
+      "\n\021structCoordinates\030\002 \001(\0132\037.com.lvl6.pro" +
+      "to.CoordinateProto\022\020\n\010structId\030\003 \001(\005\022\026\n\016",
+      "timeOfPurchase\030\004 \001(\003\"\243\003\n\"PurchaseNormStr" +
+      "uctureResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022^\n\006status\030" +
+      "\002 \001(\0162N.com.lvl6.proto.PurchaseNormStruc" +
+      "tureResponseProto.PurchaseNormStructureS" +
+      "tatus\022\024\n\014userStructId\030\003 \001(\005\"\324\001\n\033Purchase" +
       "NormStructureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_" +
-      "ENOUGH_MATERIALS\020\001\022\021\n\rNOT_BUILT_YET\020\002\022\024\n" +
-      "\020NOT_USERS_STRUCT\020\003\022\"\n\036ANOTHER_STRUCT_ST" +
-      "ILL_UPGRADING\020\004\022\016\n\nOTHER_FAIL\020\005\022#\n\037CLIEN" +
-      "T_TOO_AHEAD_OF_SERVER_TIME\020\006\022\030\n\024AT_MAX_L" +
-      "EVEL_ALREADY\020\007\"\220\001\n-RetrieveCurrencyFromN" +
-      "ormStructureRequestProto\0220\n\006sender\030\001 \002(\013",
-      "2 .com.lvl6.proto.MinimumUserProto\022\024\n\014us" +
-      "erStructId\030\002 \002(\005\022\027\n\017timeOfRetrieval\030\003 \002(" +
-      "\003\"\360\002\n.RetrieveCurrencyFromNormStructureR" +
-      "esponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022v\n\006status\030\002 \002(\0162f" +
-      ".com.lvl6.proto.RetrieveCurrencyFromNorm" +
-      "StructureResponseProto.RetrieveCurrencyF" +
-      "romNormStructureStatus\"\223\001\n\'RetrieveCurre" +
-      "ncyFromNormStructureStatus\022\013\n\007SUCCESS\020\000\022" +
-      "\023\n\017NOT_LONG_ENOUGH\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037",
-      "CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\003\022\021\n\rLEV" +
-      "EL_TOO_LOW\020\004\"\236\003\n#CriticalStructureAction" +
-      "RequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022\\\n\nactionType\030\002 \002" +
-      "(\0162H.com.lvl6.proto.CriticalStructureAct" +
-      "ionRequestProto.CritStructActionType\0226\n\016" +
-      "critStructType\030\003 \002(\0162\036.com.lvl6.proto.Cr" +
-      "itStructType\022>\n\025critStructCoordinates\030\004 " +
-      "\001(\0132\037.com.lvl6.proto.CoordinateProto\0226\n\013" +
-      "orientation\030\005 \001(\0162!.com.lvl6.proto.Struc",
-      "tOrientation\"7\n\024CritStructActionType\022\t\n\005" +
-      "PLACE\020\000\022\010\n\004MOVE\020\001\022\n\n\006ROTATE\020\002\"\324\002\n$Critic" +
-      "alStructureActionResponseProto\0220\n\006sender" +
-      "\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022[\n\006status\030\003 \002(\0162K.com.lvl6.proto.Critic" +
-      "alStructureActionResponseProto.CritStruc" +
-      "tActionStatus\"\234\001\n\026CritStructActionStatus" +
-      "\022\013\n\007SUCCESS\020\000\022*\n&CANNOT_PLACE_NON_PLACEA" +
-      "BLE_CRIT_STRUCT\020\001\022!\n\035NOT_ACCESSIBLE_TO_U" +
-      "SERS_LEVEL\020\002\022\026\n\022CANNOT_MOVE_AVIARY\020\003\022\016\n\n",
-      "OTHER_FAIL\020\004\"\344\002\n0FinishNormStructWaittim" +
-      "eWithDiamondsRequestProto\0220\n\006sender\030\001 \002(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022\024\n\014u" +
-      "serStructId\030\002 \002(\005\022\026\n\016timeOfPurchase\030\003 \002(" +
-      "\003\022m\n\014waitTimeType\030\004 \002(\0162W.com.lvl6.proto" +
-      ".FinishNormStructWaittimeWithDiamondsReq" +
-      "uestProto.NormStructWaitTimeType\"a\n\026Norm" +
-      "StructWaitTimeType\022\027\n\023FINISH_CONSTRUCTIO" +
-      "N\020\000\022\032\n\026FINISH_INCOME_WAITTIME\020\001\022\022\n\016FINIS" +
-      "H_UPGRADE\020\002\"\324\002\n1FinishNormStructWaittime",
-      "WithDiamondsResponseProto\0220\n\006sender\030\001 \002(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022p\n\006s" +
-      "tatus\030\002 \002(\0162`.com.lvl6.proto.FinishNormS" +
-      "tructWaittimeWithDiamondsResponseProto.F" +
-      "inishNormStructWaittimeStatus\"{\n\036FinishN" +
-      "ormStructWaittimeStatus\022\013\n\007SUCCESS\020\000\022\027\n\023" +
-      "NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n" +
-      "\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\003\"}\n\"No" +
-      "rmStructWaitCompleteRequestProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro",
-      "to\022\024\n\014userStructId\030\002 \003(\005\022\017\n\007curTime\030\003 \002(" +
-      "\003\"\351\002\n#NormStructWaitCompleteResponseProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022`\n\006status\030\002 \002(\0162P.com.lvl6.p" +
-      "roto.NormStructWaitCompleteResponseProto" +
-      ".NormStructWaitCompleteStatus\022:\n\nuserStr" +
-      "uct\030\003 \003(\0132&.com.lvl6.proto.FullUserStruc" +
-      "tureProto\"r\n\034NormStructWaitCompleteStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016\n\nOTHE" +
-      "R_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_T",
-      "IME\020\003\"G\n\023LevelUpRequestProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\"\347" +
-      "\004\n\024LevelUpResponseProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022B\n\006sta" +
-      "tus\030\002 \002(\01622.com.lvl6.proto.LevelUpRespon" +
-      "seProto.LevelUpStatus\022\020\n\010newLevel\030\013 \001(\005\022" +
-      "\024\n\014newNextLevel\030\003 \001(\005\022)\n!experienceRequi" +
-      "redForNewNextLevel\030\004 \001(\005\022A\n\032citiesNewlyA" +
-      "vailableToUser\030\005 \003(\0132\035.com.lvl6.proto.Fu" +
-      "llCityProto\022J\n\"newlyEquippableEpicsAndLe",
-      "gendaries\030\006 \003(\0132\036.com.lvl6.proto.FullEqu" +
-      "ipProto\022A\n\025newlyAvailableStructs\030\007 \003(\0132\"" +
-      ".com.lvl6.proto.FullStructureProto\022\033\n\023ma" +
-      "rketplaceUnlocked\030\010 \001(\010\022\025\n\rvaultUnlocked" +
-      "\030\t \001(\010\022\026\n\016armoryUnlocked\030\n \001(\010\"h\n\rLevelU" +
-      "pStatus\022\013\n\007SUCCESS\020\000\022 \n\034NOT_ENOUGH_EXP_T" +
-      "O_NEXT_LEVEL\020\001\022\030\n\024ALREADY_AT_MAX_LEVEL\020\002" +
-      "\022\016\n\nOTHER_FAIL\020\003\"^\n\031InAppPurchaseRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022\017\n\007receipt\030\002 \002(\t\"\344\001\n\032InA",
-      "ppPurchaseResponseProto\0220\n\006sender\030\001 \002(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022N\n\006sta" +
-      "tus\030\002 \002(\0162>.com.lvl6.proto.InAppPurchase" +
-      "ResponseProto.InAppPurchaseStatus\022\026\n\016dia" +
-      "mondsGained\030\003 \001(\005\",\n\023InAppPurchaseStatus" +
-      "\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035UpdateClientU" +
-      "serResponseProto\022-\n\006sender\030\001 \002(\0132\035.com.l" +
-      "vl6.proto.FullUserProto\022\030\n\020timeOfUserUpd" +
-      "ate\030\002 \002(\003\"\215\001\n+RetrieveCurrentMarketplace" +
-      "PostsRequestProto\0220\n\006sender\030\001 \002(\0132 .com.",
-      "lvl6.proto.MinimumUserProto\022\030\n\020beforeThi" +
-      "sPostId\030\002 \001(\005\022\022\n\nfromSender\030\003 \002(\010\"\237\003\n,Re" +
-      "trieveCurrentMarketplacePostsResponsePro" +
-      "to\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022\022\n\nfromSender\030\002 \002(\010\022\030\n\020befo" +
-      "reThisPostId\030\003 \001(\005\022r\n\006status\030\004 \002(\0162b.com" +
-      ".lvl6.proto.RetrieveCurrentMarketplacePo" +
-      "stsResponseProto.RetrieveCurrentMarketpl" +
-      "acePostsStatus\022B\n\020marketplacePosts\030\005 \003(\013" +
-      "2(.com.lvl6.proto.FullMarketplacePostPro",
-      "to\"W\n%RetrieveCurrentMarketplacePostsSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022\021\n\rLEVEL_TOO_LOW\020\001\022\016\n\nO" +
-      "THER_FAIL\020\002\"\217\001\n\035PostToMarketplaceRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022\025\n\rpostedEquipId\030\002 \002(\005\022\023" +
-      "\n\013diamondCost\030\003 \001(\005\022\020\n\010coinCost\030\004 \001(\005\"\255\003" +
-      "\n\036PostToMarketplaceResponseProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022V\n\006status\030\002 \002(\0162F.com.lvl6.proto.Post" +
-      "ToMarketplaceResponseProto.PostToMarketp",
-      "laceStatus\"\200\002\n\027PostToMarketplaceStatus\022\013" +
-      "\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020NOT_EN" +
-      "OUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COST\020\003\022\013\n\007NO_CO" +
-      "ST\020\004\022&\n\"USER_ALREADY_MAX_MARKETPLACE_POS" +
-      "TS\020\005\022\024\n\020CANT_DEMAND_BOTH\020\006\022\036\n\032INVALID_CO" +
-      "ST_TYPE_FOR_POST\020\007\022\016\n\nNO_LICENSE\020\010\022\021\n\rLE" +
-      "VEL_TOO_LOW\020\t\022\016\n\nOTHER_FAIL\020\n\"q\n\"Retract" +
-      "MarketplacePostRequestProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022\031\n" +
-      "\021marketplacePostId\030\002 \002(\005\"\335\002\n#RetractMark",
-      "etplacePostResponseProto\0220\n\006sender\030\001 \002(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022`\n\006st" +
-      "atus\030\002 \002(\0162P.com.lvl6.proto.RetractMarke" +
-      "tplacePostResponseProto.RetractMarketpla" +
-      "cePostStatus\"\241\001\n\034RetractMarketplacePostS" +
-      "tatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_REQUESTERS_POS" +
-      "T\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023NOT_EN" +
-      "OUGH_DIAMONDS\020\003\022\024\n\020NOT_ENOUGH_COINS\020\004\022\021\n" +
-      "\rLEVEL_TOO_LOW\020\005\"\204\001\n#PurchaseFromMarketp" +
-      "laceRequestProto\0220\n\006sender\030\001 \002(\0132 .com.l",
-      "vl6.proto.MinimumUserProto\022\031\n\021marketplac" +
-      "ePostId\030\002 \002(\005\022\020\n\010posterId\030\003 \002(\005\"\264\003\n$Purc" +
-      "haseFromMarketplaceResponseProto\0223\n\tpurc" +
-      "haser\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\020\n\010posterId\030\002 \002(\005\022A\n\017marketplacePo" +
-      "st\030\003 \001(\0132(.com.lvl6.proto.FullMarketplac" +
-      "ePostProto\022b\n\006status\030\004 \002(\0162R.com.lvl6.pr" +
-      "oto.PurchaseFromMarketplaceResponseProto" +
-      ".PurchaseFromMarketplaceStatus\"\235\001\n\035Purch" +
-      "aseFromMarketplaceStatus\022\013\n\007SUCCESS\020\000\022\030\n",
-      "\024NOT_ENOUGH_MATERIALS\020\001\022\031\n\025POST_NO_LONGE" +
-      "R_EXISTS\020\002\022\027\n\023PURCHASER_IS_SELLER\020\003\022\021\n\rL" +
-      "EVEL_TOO_LOW\020\004\022\016\n\nOTHER_FAIL\020\005\"\340\001\n\031UseSk" +
-      "illPointRequestProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022F\n\tboostT" +
-      "ype\030\002 \002(\01623.com.lvl6.proto.UseSkillPoint" +
-      "RequestProto.BoostType\"I\n\tBoostType\022\n\n\006A" +
-      "TTACK\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY\020\002\022\n\n\006HEAL" +
-      "TH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkillPointRespo" +
-      "nseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.prot",
-      "o.MinimumUserProto\022N\n\006status\030\002 \002(\0162>.com" +
-      ".lvl6.proto.UseSkillPointResponseProto.U" +
-      "seSkillPointStatus\"O\n\023UseSkillPointStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_SKILL_POINT" +
-      "S\020\001\022\016\n\nOTHER_FAIL\020\002\"\304\001\n\036GenerateAttackLi" +
-      "stRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022\022\n\nnumEnemies\030\002" +
-      " \002(\005\022\025\n\rlatLowerBound\030\003 \001(\005\022\025\n\rlatUpperB" +
-      "ound\030\004 \001(\005\022\026\n\016longLowerBound\030\005 \001(\005\022\026\n\016lo" +
-      "ngUpperBound\030\006 \001(\005\"\307\002\n\037GenerateAttackLis",
-      "tResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022.\n\007enemies\030\002 \003(" +
-      "\0132\035.com.lvl6.proto.FullUserProto\022X\n\006stat" +
-      "us\030\003 \002(\0162H.com.lvl6.proto.GenerateAttack" +
-      "ListResponseProto.GenerateAttackListStat" +
-      "us\"h\n\030GenerateAttackListStatus\022\013\n\007SUCCES" +
-      "S\020\000\022\r\n\tSOME_FAIL\020\001\022\035\n\031INVALID_NUM_ENEMIE" +
-      "S_COUNT\020\002\022\021\n\rINVALID_BOUND\020\003\"\312\001\n\"RefillS" +
-      "tatWithDiamondsRequestProto\0220\n\006sender\030\001 " +
-      "\002(\0132 .com.lvl6.proto.MinimumUserProto\022M\n",
-      "\010statType\030\002 \002(\0162;.com.lvl6.proto.RefillS" +
-      "tatWithDiamondsRequestProto.StatType\"#\n\010" +
-      "StatType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\210\002\n#Re" +
-      "fillStatWithDiamondsResponseProto\0220\n\006sen" +
-      "der\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022T\n\006status\030\002 \002(\0162D.com.lvl6.proto.Ref" +
-      "illStatWithDiamondsResponseProto.RefillS" +
-      "tatStatus\"Y\n\020RefillStatStatus\022\013\n\007SUCCESS" +
-      "\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\017\n\013ALREADY_M" +
-      "AX\020\002\022\016\n\nOTHER_FAIL\020\003\"Y\n%RedeemMarketplac",
-      "eEarningsRequestProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\"\202\002\n&Rede" +
-      "emMarketplaceEarningsResponseProto\0220\n\006se" +
-      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022f\n\006status\030\002 \002(\0162V.com.lvl6.proto.Re" +
-      "deemMarketplaceEarningsResponseProto.Red" +
-      "eemMarketplaceEarningsStatus\">\n\037RedeemMa" +
-      "rketplaceEarningsStatus\022\013\n\007SUCCESS\020\000\022\016\n\n" +
-      "OTHER_FAIL\020\001\"\203\001\n\032LoadPlayerCityRequestPr" +
-      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min",
-      "imumUserProto\0223\n\tcityOwner\030\002 \002(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\"\275\006\n\033LoadPlaye" +
-      "rCityResponseProto\0220\n\006sender\030\001 \002(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\0223\n\tcityOwne" +
-      "r\030\002 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022P\n\006status\030\003 \002(\0162@.com.lvl6.proto.LoadP" +
-      "layerCityResponseProto.LoadPlayerCitySta" +
-      "tus\022@\n\020ownerNormStructs\030\004 \003(\0132&.com.lvl6" +
-      ".proto.FullUserStructureProto\0222\n\013ownerAl" +
-      "lies\030\005 \003(\0132\035.com.lvl6.proto.FullUserProt",
-      "o\0223\n\014ownerEnemies\030\006 \003(\0132\035.com.lvl6.proto" +
-      ".FullUserProto\0227\n\006armory\030\007 \001(\0132\'.com.lvl" +
-      "6.proto.FullUserCritstructProto\0226\n\005vault" +
-      "\030\010 \001(\0132\'.com.lvl6.proto.FullUserCritstru" +
-      "ctProto\022<\n\013marketplace\030\t \001(\0132\'.com.lvl6." +
-      "proto.FullUserCritstructProto\022:\n\tcarpent" +
-      "er\030\n \002(\0132\'.com.lvl6.proto.FullUserCritst" +
-      "ructProto\0227\n\006aviary\030\013 \002(\0132\'.com.lvl6.pro" +
-      "to.FullUserCritstructProto\022M\n\025userCityEx" +
-      "pansionData\030\014 \001(\0132..com.lvl6.proto.FullU",
-      "serCityExpansionDataProto\"G\n\024LoadPlayerC" +
-      "ityStatus\022\013\n\007SUCCESS\020\000\022\022\n\016NO_SUCH_PLAYER" +
-      "\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027QuestAcceptRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022\017\n\007questId\030\002 \002(\005\"\311\002\n\030Que" +
-      "stAcceptResponseProto\0220\n\006sender\030\001 \002(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022J\n\006statu" +
-      "s\030\002 \002(\0162:.com.lvl6.proto.QuestAcceptResp" +
-      "onseProto.QuestAcceptStatus\022G\n enemiesIf" +
-      "QuestsHaveDefeatTypeJob\030\003 \003(\0132\035.com.lvl6",
-      ".proto.FullUserProto\022\035\n\025cityIdOfAccepted" +
-      "Quest\030\004 \001(\005\"G\n\021QuestAcceptStatus\022\013\n\007SUCC" +
-      "ESS\020\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOTHER_FA" +
-      "IL\020\002\"\244\001\n\032QuestCompleteResponseProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\017\n\007questId\030\002 \002(\005\022C\n\022neutralCityEle" +
-      "ment\030\003 \001(\0132\'.com.lvl6.proto.NeutralCityE" +
-      "lementProto\"\\\n\027QuestRedeemRequestProto\0220" +
-      "\n\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022\017\n\007questId\030\002 \002(\005\"\232\002\n\030QuestRedee",
-      "mResponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022<\n\024newlyAvailab" +
-      "leQuests\030\002 \003(\0132\036.com.lvl6.proto.FullQues" +
-      "tProto\022J\n\006status\030\003 \002(\0162:.com.lvl6.proto." +
-      "QuestRedeemResponseProto.QuestRedeemStat" +
-      "us\"B\n\021QuestRedeemStatus\022\013\n\007SUCCESS\020\000\022\020\n\014" +
-      "NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"a\n\034UserQu" +
-      "estDetailsRequestProto\0220\n\006sender\030\001 \002(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\017\n\007ques" +
-      "tId\030\002 \001(\005\"\333\002\n\035UserQuestDetailsResponsePr",
-      "oto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022L\n\027inProgressUserQuestData" +
-      "\030\002 \003(\0132+.com.lvl6.proto.FullUserQuestDat" +
-      "aLargeProto\022T\n\006status\030\003 \002(\0162D.com.lvl6.p" +
-      "roto.UserQuestDetailsResponseProto.UserQ" +
-      "uestDetailsStatus\"d\n\026UserQuestDetailsSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022.\n*SUPPLIED_QUESTID_CUR" +
-      "RENTLY_NOT_IN_PROGRESS\020\001\022\r\n\tSOME_FAIL\020\002\"" +
-      "\275\002\n\036RetrieveStaticDataRequestProto\0220\n\006se" +
-      "nder\030\001 \002(\0132 .com.lvl6.proto.MinimumUserP",
-      "roto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds\030\003 \003(\005" +
-      "\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020\n\010e" +
-      "quipIds\030\006 \003(\005\022\031\n\021buildStructJobIds\030\007 \003(\005" +
-      "\022\030\n\020defeatTypeJobIds\030\010 \003(\005\022\032\n\022possessEqu" +
-      "ipJobIds\030\t \003(\005\022\033\n\023upgradeStructJobIds\030\n " +
-      "\003(\005\022\"\n\032levelForExpRequiredRequest\030\013 \001(\005\"" +
-      "\371\005\n\037RetrieveStaticDataResponseProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\0223\n\007structs\030\002 \003(\0132\".com.lvl6.proto." +
-      "FullStructureProto\022,\n\005tasks\030\003 \003(\0132\035.com.",
-      "lvl6.proto.FullTaskProto\022.\n\006quests\030\004 \003(\013" +
-      "2\036.com.lvl6.proto.FullQuestProto\022-\n\006citi" +
-      "es\030\005 \003(\0132\035.com.lvl6.proto.FullCityProto\022" +
-      ".\n\006equips\030\006 \003(\0132\036.com.lvl6.proto.FullEqu" +
-      "ipProto\022<\n\017buildStructJobs\030\007 \003(\0132#.com.l" +
-      "vl6.proto.BuildStructJobProto\022:\n\016defeatT" +
-      "ypeJobs\030\010 \003(\0132\".com.lvl6.proto.DefeatTyp" +
-      "eJobProto\022>\n\020possessEquipJobs\030\t \003(\0132$.co" +
-      "m.lvl6.proto.PossessEquipJobProto\022@\n\021upg" +
-      "radeStructJobs\030\n \003(\0132%.com.lvl6.proto.Up",
-      "gradeStructJobProto\022$\n\034expRequiredForReq" +
-      "uestedLevel\030\013 \001(\005\022X\n\006status\030\014 \002(\0162H.com." +
-      "lvl6.proto.RetrieveStaticDataResponsePro" +
-      "to.RetrieveStaticDataStatus\"6\n\030RetrieveS" +
-      "taticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAI" +
-      "L\020\001\"\244\001\n!PurchaseCityExpansionRequestProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\0225\n\tdirection\030\002 \002(\0162\".com.lvl" +
-      "6.proto.ExpansionDirection\022\026\n\016timeOfPurc" +
-      "hase\030\003 \002(\003\"\305\002\n\"PurchaseCityExpansionResp",
-      "onseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022^\n\006status\030\002 \002(\0162N.co" +
-      "m.lvl6.proto.PurchaseCityExpansionRespon" +
-      "seProto.PurchaseCityExpansionStatus\"\214\001\n\033" +
-      "PurchaseCityExpansionStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREADY_EXPAND" +
-      "ING\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEA" +
-      "D_OF_SERVER_TIME\020\004\"f\n!ExpansionWaitCompl" +
-      "eteRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lv" +
-      "l6.proto.MinimumUserProto\022\017\n\007curTime\030\002 \002",
-      "(\003\"\301\002\n\"ExpansionWaitCompleteResponseProt" +
-      "o\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022^\n\006status\030\002 \002(\0162N.com.lvl6.p" +
-      "roto.ExpansionWaitCompleteResponseProto." +
-      "ExpansionWaitCompleteStatus\"\210\001\n\033Expansio" +
-      "nWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\025\n\021WAS_" +
-      "NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YET\020\002\022\016\n\nOTH" +
-      "ER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_" +
-      "TIME\020\004\"\373\001\n\"RefillStatWaitCompleteRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M",
-      "inimumUserProto\022\017\n\007curTime\030\002 \002(\003\022[\n\004type" +
-      "\030\003 \002(\0162M.com.lvl6.proto.RefillStatWaitCo" +
-      "mpleteRequestProto.RefillStatWaitComplet" +
-      "eType\"5\n\032RefillStatWaitCompleteType\022\n\n\006E" +
-      "NERGY\020\000\022\013\n\007STAMINA\020\001\"\300\002\n#RefillStatWaitC" +
-      "ompleteResponseProto\0220\n\006sender\030\001 \002(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022`\n\006status" +
-      "\030\002 \002(\0162P.com.lvl6.proto.RefillStatWaitCo" +
-      "mpleteResponseProto.RefillStatWaitComple" +
-      "teStatus\"\204\001\n\034RefillStatWaitCompleteStatu",
-      "s\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READY_YET\020\001\022\017\n\013ALR" +
-      "EADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO" +
-      "_AHEAD_OF_SERVER_TIME\020\004\"_\n\026EnableAPNSReq" +
-      "uestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\023\n\013deviceToken\030\002 \002(\t" +
-      "\"\307\001\n\027EnableAPNSResponseProto\0220\n\006sender\030\001" +
-      " \002(\0132 .com.lvl6.proto.MinimumUserProto\022H" +
-      "\n\006status\030\002 \002(\01628.com.lvl6.proto.EnableAP" +
-      "NSResponseProto.EnableAPNSStatus\"0\n\020Enab" +
-      "leAPNSStatus\022\013\n\007SUCCESS\020\000\022\017\n\013NOT_ENABLED",
-      "\020\001\"\353\001\n&PurchaseMarketplaceLicenseRequest" +
-      "Proto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022\022\n\nclientTime\030\002 \002(\003\022W\n\013l" +
-      "icenseType\030\003 \002(\0162B.com.lvl6.proto.Purcha" +
-      "seMarketplaceLicenseRequestProto.License" +
-      "Type\"\"\n\013LicenseType\022\t\n\005SHORT\020\000\022\010\n\004LONG\020\001" +
-      "\"\343\002\n\'PurchaseMarketplaceLicenseResponseP" +
-      "roto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022h\n\006status\030\002 \002(\0162X.com.lvl" +
-      "6.proto.PurchaseMarketplaceLicenseRespon",
-      "seProto.PurchaseMarketplaceLicenseStatus" +
-      "\"\233\001\n PurchaseMarketplaceLicenseStatus\022\013\n" +
-      "\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\034\n\030A" +
-      "LREADY_HAVE_LICENSE_NOW\020\002\022\016\n\nOTHER_FAIL\020" +
-      "\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\004\"\213" +
-      "\001\n\035ReferralCodeUsedResponseProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\0228\n\016referredPlayer\030\002 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\"_\n\032EquipEquipmentRe" +
-      "questProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr",
-      "oto.MinimumUserProto\022\017\n\007equipId\030\002 \002(\005\"\274\002" +
-      "\n\033EquipEquipmentResponseProto\0220\n\006sender\030" +
-      "\001 \002(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "P\n\006status\030\002 \002(\0162@.com.lvl6.proto.EquipEq" +
-      "uipmentResponseProto.EquipEquipmentStatu" +
-      "s\"\230\001\n\024EquipEquipmentStatus\022\013\n\007SUCCESS\020\000\022" +
-      "\031\n\025NOT_HIGH_ENOUGH_LEVEL\020\001\022\034\n\030DOES_NOT_H" +
-      "AVE_THIS_EQUIP\020\002\022\020\n\014NOT_AN_EQUIP\020\003\022\030\n\024IN" +
-      "CORRECT_CLASS_TYPE\020\004\022\016\n\nOTHER_FAIL\020\005\"\207\001\n" +
-      "\036ChangeUserLocationRequestProto\0220\n\006sende",
-      "r\030\001 \002(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\0223\n\014userLocation\030\002 \002(\0132\035.com.lvl6.proto" +
-      ".LocationProto\"\372\001\n\037ChangeUserLocationRes" +
-      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022X\n\006status\030\002 \002(\0162H.c" +
-      "om.lvl6.proto.ChangeUserLocationResponse" +
-      "Proto.ChangeUserLocationStatus\"K\n\030Change" +
-      "UserLocationStatus\022\013\n\007SUCCESS\020\000\022\022\n\016INVAL" +
-      "ID_BOUNDS\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\033LoadNeutr" +
-      "alCityRequestProto\0220\n\006sender\030\001 \002(\0132 .com",
-      ".lvl6.proto.MinimumUserProto\022\016\n\006cityId\030\002" +
-      " \002(\005\"\277\003\n\034LoadNeutralCityResponseProto\0220\n" +
-      "\006sender\030\001 \002(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022R\n\006status\030\002 \002(\0162B.com.lvl6.proto" +
-      ".LoadNeutralCityResponseProto.LoadNeutra" +
-      "lCityStatus\022;\n\ruserTasksInfo\030\003 \003(\0132$.com" +
-      ".lvl6.proto.MinimumUserTaskProto\022;\n\024defe" +
-      "atTypeJobEnemies\030\004 \003(\0132\035.com.lvl6.proto." +
-      "FullUserProto\022=\n\014cityElements\030\005 \003(\0132\'.co" +
-      "m.lvl6.proto.NeutralCityElementProto\022\016\n\006",
-      "cityId\030\006 \002(\005\"P\n\025LoadNeutralCityStatus\022\013\n" +
-      "\007SUCCESS\020\000\022\032\n\026NOT_ACCESSIBLE_TO_USER\020\001\022\016" +
-      "\n\nOTHER_FAIL\020\002\"p\n$RetrieveUserEquipForUs" +
-      "erRequestProto\0220\n\006sender\030\001 \002(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022\026\n\016relevantUser" +
-      "Id\030\002 \002(\005\"\251\001\n%RetrieveUserEquipForUserRes" +
-      "ponseProto\0220\n\006sender\030\001 \002(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022\026\n\016relevantUserId\030\002" +
-      " \002(\005\0226\n\nuserEquips\030\003 \003(\0132\".com.lvl6.prot" +
-      "o.FullUserEquipProto\"6\n\"PurgeClientStati",
-      "cDataResponseProto\022\020\n\010senderId\030\001 \002(\005\"q\n#" +
-      "RetrieveUsersForUserIdsRequestProto\0220\n\006s" +
-      "ender\030\001 \002(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\030\n\020requestedUserIds\030\002 \003(\005\"\217\001\n$Retr" +
-      "ieveUsersForUserIdsResponseProto\0220\n\006send" +
-      "er\030\001 \002(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\0225\n\016requestedUsers\030\002 \003(\0132\035.com.lvl6.pr" +
-      "oto.FullUserProtoB\014B\nEventProto"
+      "ENOUGH_MATERIALS\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022!\n" +
+      "\035ANOTHER_STRUCT_STILL_BUILDING\020\003\022#\n\037ALRE" +
+      "ADY_HAVE_MAX_OF_THIS_STRUCT\020\004\022\016\n\nOTHER_F",
+      "AIL\020\005\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME" +
+      "\020\006\"\375\002\n%MoveOrRotateNormStructureRequestP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022\024\n\014userStructId\030\002 \001(\005\022^\n\004" +
+      "type\030\003 \001(\0162P.com.lvl6.proto.MoveOrRotate" +
+      "NormStructureRequestProto.MoveOrRotateNo" +
+      "rmStructType\022=\n\024curStructCoordinates\030\004 \001" +
+      "(\0132\037.com.lvl6.proto.CoordinateProto\0229\n\016n" +
+      "ewOrientation\030\005 \001(\0162!.com.lvl6.proto.Str" +
+      "uctOrientation\"2\n\032MoveOrRotateNormStruct",
+      "Type\022\010\n\004MOVE\020\000\022\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRot" +
+      "ateNormStructureResponseProto\0220\n\006sender\030" +
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "f\n\006status\030\002 \001(\0162V.com.lvl6.proto.MoveOrR" +
+      "otateNormStructureResponseProto.MoveOrRo" +
+      "tateNormStructureStatus\">\n\037MoveOrRotateN" +
+      "ormStructureStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER" +
+      "_FAIL\020\002\"g\n\035SellNormStructureRequestProto" +
+      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\024\n\014userStructId\030\002 \001(\005\"\334\001\n\036Sel",
+      "lNormStructureResponseProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022V\n" +
+      "\006status\030\002 \001(\0162F.com.lvl6.proto.SellNormS" +
+      "tructureResponseProto.SellNormStructureS" +
+      "tatus\"0\n\027SellNormStructureStatus\022\013\n\007SUCC" +
+      "ESS\020\000\022\010\n\004FAIL\020\001\"\201\001\n UpgradeNormStructure" +
+      "RequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022\024\n\014userStructId\030\002" +
+      " \001(\005\022\025\n\rtimeOfUpgrade\030\003 \001(\003\"\225\003\n!UpgradeN" +
+      "ormStructureResponseProto\0220\n\006sender\030\001 \001(",
+      "\0132 .com.lvl6.proto.MinimumUserProto\022\\\n\006s" +
+      "tatus\030\002 \001(\0162L.com.lvl6.proto.UpgradeNorm" +
+      "StructureResponseProto.UpgradeNormStruct" +
+      "ureStatus\"\337\001\n\032UpgradeNormStructureStatus" +
+      "\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022" +
+      "\021\n\rNOT_BUILT_YET\020\002\022\024\n\020NOT_USERS_STRUCT\020\003" +
+      "\022\"\n\036ANOTHER_STRUCT_STILL_UPGRADING\020\004\022\016\n\n" +
+      "OTHER_FAIL\020\005\022#\n\037CLIENT_TOO_AHEAD_OF_SERV" +
+      "ER_TIME\020\006\022\030\n\024AT_MAX_LEVEL_ALREADY\020\007\"\220\001\n-" +
+      "RetrieveCurrencyFromNormStructureRequest",
+      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022\024\n\014userStructId\030\002 \001(\005\022\027\n" +
+      "\017timeOfRetrieval\030\003 \001(\003\"\360\002\n.RetrieveCurre" +
+      "ncyFromNormStructureResponseProto\0220\n\006sen" +
+      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\022v\n\006status\030\002 \001(\0162f.com.lvl6.proto.Ret" +
+      "rieveCurrencyFromNormStructureResponsePr" +
+      "oto.RetrieveCurrencyFromNormStructureSta" +
+      "tus\"\223\001\n\'RetrieveCurrencyFromNormStructur" +
+      "eStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NOT_LONG_ENOUGH\020",
+      "\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_OF" +
+      "_SERVER_TIME\020\003\022\021\n\rLEVEL_TOO_LOW\020\004\"\236\003\n#Cr" +
+      "iticalStructureActionRequestProto\0220\n\006sen" +
+      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\022\\\n\nactionType\030\002 \001(\0162H.com.lvl6.proto" +
+      ".CriticalStructureActionRequestProto.Cri" +
+      "tStructActionType\0226\n\016critStructType\030\003 \001(" +
+      "\0162\036.com.lvl6.proto.CritStructType\022>\n\025cri" +
+      "tStructCoordinates\030\004 \001(\0132\037.com.lvl6.prot" +
+      "o.CoordinateProto\0226\n\013orientation\030\005 \001(\0162!",
+      ".com.lvl6.proto.StructOrientation\"7\n\024Cri" +
+      "tStructActionType\022\t\n\005PLACE\020\000\022\010\n\004MOVE\020\001\022\n" +
+      "\n\006ROTATE\020\002\"\324\002\n$CriticalStructureActionRe" +
+      "sponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022[\n\006status\030\003 \001(\0162K." +
+      "com.lvl6.proto.CriticalStructureActionRe" +
+      "sponseProto.CritStructActionStatus\"\234\001\n\026C" +
+      "ritStructActionStatus\022\013\n\007SUCCESS\020\000\022*\n&CA" +
+      "NNOT_PLACE_NON_PLACEABLE_CRIT_STRUCT\020\001\022!" +
+      "\n\035NOT_ACCESSIBLE_TO_USERS_LEVEL\020\002\022\026\n\022CAN",
+      "NOT_MOVE_AVIARY\020\003\022\016\n\nOTHER_FAIL\020\004\"\344\002\n0Fi" +
+      "nishNormStructWaittimeWithDiamondsReques" +
+      "tProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022\024\n\014userStructId\030\002 \001(\005\022\026" +
+      "\n\016timeOfPurchase\030\003 \001(\003\022m\n\014waitTimeType\030\004" +
+      " \001(\0162W.com.lvl6.proto.FinishNormStructWa" +
+      "ittimeWithDiamondsRequestProto.NormStruc" +
+      "tWaitTimeType\"a\n\026NormStructWaitTimeType\022" +
+      "\027\n\023FINISH_CONSTRUCTION\020\000\022\032\n\026FINISH_INCOM" +
+      "E_WAITTIME\020\001\022\022\n\016FINISH_UPGRADE\020\002\"\324\002\n1Fin",
+      "ishNormStructWaittimeWithDiamondsRespons" +
+      "eProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022p\n\006status\030\002 \001(\0162`.com.l" +
+      "vl6.proto.FinishNormStructWaittimeWithDi" +
+      "amondsResponseProto.FinishNormStructWait" +
+      "timeStatus\"{\n\036FinishNormStructWaittimeSt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS" +
+      "\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_O" +
+      "F_SERVER_TIME\020\003\"}\n\"NormStructWaitComplet" +
+      "eRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6",
+      ".proto.MinimumUserProto\022\024\n\014userStructId\030" +
+      "\002 \003(\005\022\017\n\007curTime\030\003 \001(\003\"\351\002\n#NormStructWai" +
+      "tCompleteResponseProto\0220\n\006sender\030\001 \001(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022`\n\006stat" +
+      "us\030\002 \001(\0162P.com.lvl6.proto.NormStructWait" +
+      "CompleteResponseProto.NormStructWaitComp" +
+      "leteStatus\022:\n\nuserStruct\030\003 \003(\0132&.com.lvl" +
+      "6.proto.FullUserStructureProto\"r\n\034NormSt" +
+      "ructWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\020\n\014N" +
+      "OT_DONE_YET\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_",
+      "TOO_AHEAD_OF_SERVER_TIME\020\003\"G\n\023LevelUpReq" +
+      "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\"\347\004\n\024LevelUpResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022B\n\006status\030\002 \001(\01622.com.lvl" +
+      "6.proto.LevelUpResponseProto.LevelUpStat" +
+      "us\022\020\n\010newLevel\030\013 \001(\005\022\024\n\014newNextLevel\030\003 \001" +
+      "(\005\022)\n!experienceRequiredForNewNextLevel\030" +
+      "\004 \001(\005\022A\n\032citiesNewlyAvailableToUser\030\005 \003(" +
+      "\0132\035.com.lvl6.proto.FullCityProto\022J\n\"newl",
+      "yEquippableEpicsAndLegendaries\030\006 \003(\0132\036.c" +
+      "om.lvl6.proto.FullEquipProto\022A\n\025newlyAva" +
+      "ilableStructs\030\007 \003(\0132\".com.lvl6.proto.Ful" +
+      "lStructureProto\022\033\n\023marketplaceUnlocked\030\010" +
+      " \001(\010\022\025\n\rvaultUnlocked\030\t \001(\010\022\026\n\016armoryUnl" +
+      "ocked\030\n \001(\010\"h\n\rLevelUpStatus\022\013\n\007SUCCESS\020" +
+      "\000\022 \n\034NOT_ENOUGH_EXP_TO_NEXT_LEVEL\020\001\022\030\n\024A" +
+      "LREADY_AT_MAX_LEVEL\020\002\022\016\n\nOTHER_FAIL\020\003\"^\n" +
+      "\031InAppPurchaseRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\017\n\007",
+      "receipt\030\002 \001(\t\"\344\001\n\032InAppPurchaseResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022N\n\006status\030\002 \001(\0162>.com.lvl" +
+      "6.proto.InAppPurchaseResponseProto.InApp" +
+      "PurchaseStatus\022\026\n\016diamondsGained\030\003 \001(\005\"," +
+      "\n\023InAppPurchaseStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FA" +
+      "IL\020\001\"h\n\035UpdateClientUserResponseProto\022-\n" +
+      "\006sender\030\001 \001(\0132\035.com.lvl6.proto.FullUserP" +
+      "roto\022\030\n\020timeOfUserUpdate\030\002 \001(\003\"\215\001\n+Retri" +
+      "eveCurrentMarketplacePostsRequestProto\0220",
+      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\030\n\020beforeThisPostId\030\002 \001(\005\022\022\n\nfr" +
+      "omSender\030\003 \001(\010\"\237\003\n,RetrieveCurrentMarket" +
+      "placePostsResponseProto\0220\n\006sender\030\001 \001(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022\022\n\nfro" +
+      "mSender\030\002 \001(\010\022\030\n\020beforeThisPostId\030\003 \001(\005\022" +
+      "r\n\006status\030\004 \001(\0162b.com.lvl6.proto.Retriev" +
+      "eCurrentMarketplacePostsResponseProto.Re" +
+      "trieveCurrentMarketplacePostsStatus\022B\n\020m" +
+      "arketplacePosts\030\005 \003(\0132(.com.lvl6.proto.F",
+      "ullMarketplacePostProto\"W\n%RetrieveCurre" +
+      "ntMarketplacePostsStatus\022\013\n\007SUCCESS\020\000\022\021\n" +
+      "\rLEVEL_TOO_LOW\020\001\022\016\n\nOTHER_FAIL\020\002\"\217\001\n\035Pos" +
+      "tToMarketplaceRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\025\n\r" +
+      "postedEquipId\030\002 \001(\005\022\023\n\013diamondCost\030\003 \001(\005" +
+      "\022\020\n\010coinCost\030\004 \001(\005\"\255\003\n\036PostToMarketplace" +
+      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\022V\n\006status\030\002 \001(\0162" +
+      "F.com.lvl6.proto.PostToMarketplaceRespon",
+      "seProto.PostToMarketplaceStatus\"\200\002\n\027Post" +
+      "ToMarketplaceStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGA" +
+      "TIVE_POST\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEG" +
+      "ATIVE_COST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREAD" +
+      "Y_MAX_MARKETPLACE_POSTS\020\005\022\024\n\020CANT_DEMAND" +
+      "_BOTH\020\006\022\036\n\032INVALID_COST_TYPE_FOR_POST\020\007\022" +
+      "\016\n\nNO_LICENSE\020\010\022\021\n\rLEVEL_TOO_LOW\020\t\022\016\n\nOT" +
+      "HER_FAIL\020\n\"q\n\"RetractMarketplacePostRequ" +
+      "estProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\031\n\021marketplacePostId\030",
+      "\002 \001(\005\"\335\002\n#RetractMarketplacePostResponse" +
+      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022`\n\006status\030\002 \001(\0162P.com.lv" +
+      "l6.proto.RetractMarketplacePostResponseP" +
+      "roto.RetractMarketplacePostStatus\"\241\001\n\034Re" +
+      "tractMarketplacePostStatus\022\013\n\007SUCCESS\020\000\022" +
+      "\027\n\023NOT_REQUESTERS_POST\020\001\022\031\n\025POST_NO_LONG" +
+      "ER_EXISTS\020\002\022\027\n\023NOT_ENOUGH_DIAMONDS\020\003\022\024\n\020" +
+      "NOT_ENOUGH_COINS\020\004\022\021\n\rLEVEL_TOO_LOW\020\005\"\204\001" +
+      "\n#PurchaseFromMarketplaceRequestProto\0220\n",
+      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\022\031\n\021marketplacePostId\030\002 \001(\005\022\020\n\010po" +
+      "sterId\030\003 \001(\005\"\264\003\n$PurchaseFromMarketplace" +
+      "ResponseProto\0223\n\tpurchaser\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\020\n\010posterId\030\002" +
+      " \001(\005\022A\n\017marketplacePost\030\003 \001(\0132(.com.lvl6" +
+      ".proto.FullMarketplacePostProto\022b\n\006statu" +
+      "s\030\004 \001(\0162R.com.lvl6.proto.PurchaseFromMar" +
+      "ketplaceResponseProto.PurchaseFromMarket" +
+      "placeStatus\"\235\001\n\035PurchaseFromMarketplaceS",
+      "tatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIA" +
+      "LS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023PURCH" +
+      "ASER_IS_SELLER\020\003\022\021\n\rLEVEL_TOO_LOW\020\004\022\016\n\nO" +
+      "THER_FAIL\020\005\"\340\001\n\031UseSkillPointRequestProt" +
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022F\n\tboostType\030\002 \001(\01623.com.lvl" +
+      "6.proto.UseSkillPointRequestProto.BoostT" +
+      "ype\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020" +
+      "\001\022\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357" +
+      "\001\n\032UseSkillPointResponseProto\0220\n\006sender\030",
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "N\n\006status\030\002 \001(\0162>.com.lvl6.proto.UseSkil" +
+      "lPointResponseProto.UseSkillPointStatus\"" +
+      "O\n\023UseSkillPointStatus\022\013\n\007SUCCESS\020\000\022\033\n\027N" +
+      "OT_ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002" +
+      "\"\304\001\n\036GenerateAttackListRequestProto\0220\n\006s" +
+      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022\022\n\nnumEnemies\030\002 \001(\005\022\025\n\rlatLowerBou" +
+      "nd\030\003 \001(\005\022\025\n\rlatUpperBound\030\004 \001(\005\022\026\n\016longL" +
+      "owerBound\030\005 \001(\005\022\026\n\016longUpperBound\030\006 \001(\005\"",
+      "\307\002\n\037GenerateAttackListResponseProto\0220\n\006s" +
+      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022.\n\007enemies\030\002 \003(\0132\035.com.lvl6.proto." +
+      "FullUserProto\022X\n\006status\030\003 \001(\0162H.com.lvl6" +
+      ".proto.GenerateAttackListResponseProto.G" +
+      "enerateAttackListStatus\"h\n\030GenerateAttac" +
+      "kListStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\022" +
+      "\035\n\031INVALID_NUM_ENEMIES_COUNT\020\002\022\021\n\rINVALI" +
+      "D_BOUND\020\003\"\312\001\n\"RefillStatWithDiamondsRequ" +
+      "estProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot",
+      "o.MinimumUserProto\022M\n\010statType\030\002 \001(\0162;.c" +
+      "om.lvl6.proto.RefillStatWithDiamondsRequ" +
+      "estProto.StatType\"#\n\010StatType\022\n\n\006ENERGY\020" +
+      "\000\022\013\n\007STAMINA\020\001\"\210\002\n#RefillStatWithDiamond" +
+      "sResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022T\n\006status\030\002 \001(\016" +
+      "2D.com.lvl6.proto.RefillStatWithDiamonds" +
+      "ResponseProto.RefillStatStatus\"Y\n\020Refill" +
+      "StatStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DI" +
+      "AMONDS\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020",
+      "\003\"Y\n%RedeemMarketplaceEarningsRequestPro" +
+      "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
+      "mumUserProto\"\202\002\n&RedeemMarketplaceEarnin" +
+      "gsResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022f\n\006status\030\002 \001(" +
+      "\0162V.com.lvl6.proto.RedeemMarketplaceEarn" +
+      "ingsResponseProto.RedeemMarketplaceEarni" +
+      "ngsStatus\">\n\037RedeemMarketplaceEarningsSt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n\032Lo" +
+      "adPlayerCityRequestProto\0220\n\006sender\030\001 \001(\013",
+      "2 .com.lvl6.proto.MinimumUserProto\0223\n\tci" +
+      "tyOwner\030\002 \001(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\"\275\006\n\033LoadPlayerCityResponseProto\022" +
+      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
+      "UserProto\0223\n\tcityOwner\030\002 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022P\n\006status\030\003 \001(\0162@" +
+      ".com.lvl6.proto.LoadPlayerCityResponsePr" +
+      "oto.LoadPlayerCityStatus\022@\n\020ownerNormStr" +
+      "ucts\030\004 \003(\0132&.com.lvl6.proto.FullUserStru" +
+      "ctureProto\0222\n\013ownerAllies\030\005 \003(\0132\035.com.lv",
+      "l6.proto.FullUserProto\0223\n\014ownerEnemies\030\006" +
+      " \003(\0132\035.com.lvl6.proto.FullUserProto\0227\n\006a" +
+      "rmory\030\007 \001(\0132\'.com.lvl6.proto.FullUserCri" +
+      "tstructProto\0226\n\005vault\030\010 \001(\0132\'.com.lvl6.p" +
+      "roto.FullUserCritstructProto\022<\n\013marketpl" +
+      "ace\030\t \001(\0132\'.com.lvl6.proto.FullUserCrits" +
+      "tructProto\022:\n\tcarpenter\030\n \001(\0132\'.com.lvl6" +
+      ".proto.FullUserCritstructProto\0227\n\006aviary" +
+      "\030\013 \001(\0132\'.com.lvl6.proto.FullUserCritstru" +
+      "ctProto\022M\n\025userCityExpansionData\030\014 \001(\0132.",
+      ".com.lvl6.proto.FullUserCityExpansionDat" +
+      "aProto\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCES" +
+      "S\020\000\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"" +
+      "\\\n\027QuestAcceptRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\017\n\007" +
+      "questId\030\002 \001(\005\"\311\002\n\030QuestAcceptResponsePro" +
+      "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
+      "mumUserProto\022J\n\006status\030\002 \001(\0162:.com.lvl6." +
+      "proto.QuestAcceptResponseProto.QuestAcce" +
+      "ptStatus\022G\n enemiesIfQuestsHaveDefeatTyp",
+      "eJob\030\003 \003(\0132\035.com.lvl6.proto.FullUserProt" +
+      "o\022\035\n\025cityIdOfAcceptedQuest\030\004 \001(\005\"G\n\021Ques" +
+      "tAcceptStatus\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_" +
+      "TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"\244\001\n\032QuestCompl" +
+      "eteResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\017\n\007questId\030\002 " +
+      "\001(\005\022C\n\022neutralCityElement\030\003 \001(\0132\'.com.lv" +
+      "l6.proto.NeutralCityElementProto\"\\\n\027Ques" +
+      "tRedeemRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022\017\n\007questId",
+      "\030\002 \001(\005\"\232\002\n\030QuestRedeemResponseProto\0220\n\006s" +
+      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022<\n\024newlyAvailableQuests\030\002 \003(\0132\036.co" +
+      "m.lvl6.proto.FullQuestProto\022J\n\006status\030\003 " +
+      "\001(\0162:.com.lvl6.proto.QuestRedeemResponse" +
+      "Proto.QuestRedeemStatus\"B\n\021QuestRedeemSt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nO" +
+      "THER_FAIL\020\002\"a\n\034UserQuestDetailsRequestPr" +
+      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022\017\n\007questId\030\002 \001(\005\"\333\002\n\035UserQ",
+      "uestDetailsResponseProto\0220\n\006sender\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022L\n\027in" +
+      "ProgressUserQuestData\030\002 \003(\0132+.com.lvl6.p" +
+      "roto.FullUserQuestDataLargeProto\022T\n\006stat" +
+      "us\030\003 \001(\0162D.com.lvl6.proto.UserQuestDetai" +
+      "lsResponseProto.UserQuestDetailsStatus\"d" +
+      "\n\026UserQuestDetailsStatus\022\013\n\007SUCCESS\020\000\022.\n" +
+      "*SUPPLIED_QUESTID_CURRENTLY_NOT_IN_PROGR" +
+      "ESS\020\001\022\r\n\tSOME_FAIL\020\002\"\275\002\n\036RetrieveStaticD" +
+      "ataRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lv",
+      "l6.proto.MinimumUserProto\022\021\n\tstructIds\030\002" +
+      " \003(\005\022\017\n\007taskIds\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022" +
+      "\017\n\007cityIds\030\005 \003(\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021bu" +
+      "ildStructJobIds\030\007 \003(\005\022\030\n\020defeatTypeJobId" +
+      "s\030\010 \003(\005\022\032\n\022possessEquipJobIds\030\t \003(\005\022\033\n\023u" +
+      "pgradeStructJobIds\030\n \003(\005\022\"\n\032levelForExpR" +
+      "equiredRequest\030\013 \001(\005\"\371\005\n\037RetrieveStaticD" +
+      "ataResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\0223\n\007structs\030\002 " +
+      "\003(\0132\".com.lvl6.proto.FullStructureProto\022",
+      ",\n\005tasks\030\003 \003(\0132\035.com.lvl6.proto.FullTask" +
+      "Proto\022.\n\006quests\030\004 \003(\0132\036.com.lvl6.proto.F" +
+      "ullQuestProto\022-\n\006cities\030\005 \003(\0132\035.com.lvl6" +
+      ".proto.FullCityProto\022.\n\006equips\030\006 \003(\0132\036.c" +
+      "om.lvl6.proto.FullEquipProto\022<\n\017buildStr" +
+      "uctJobs\030\007 \003(\0132#.com.lvl6.proto.BuildStru" +
+      "ctJobProto\022:\n\016defeatTypeJobs\030\010 \003(\0132\".com" +
+      ".lvl6.proto.DefeatTypeJobProto\022>\n\020posses" +
+      "sEquipJobs\030\t \003(\0132$.com.lvl6.proto.Posses" +
+      "sEquipJobProto\022@\n\021upgradeStructJobs\030\n \003(",
+      "\0132%.com.lvl6.proto.UpgradeStructJobProto" +
+      "\022$\n\034expRequiredForRequestedLevel\030\013 \001(\005\022X" +
+      "\n\006status\030\014 \001(\0162H.com.lvl6.proto.Retrieve" +
+      "StaticDataResponseProto.RetrieveStaticDa" +
+      "taStatus\"6\n\030RetrieveStaticDataStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"\244\001\n!PurchaseCit" +
+      "yExpansionRequestProto\0220\n\006sender\030\001 \001(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\0225\n\tdire" +
+      "ction\030\002 \001(\0162\".com.lvl6.proto.ExpansionDi" +
+      "rection\022\026\n\016timeOfPurchase\030\003 \001(\003\"\305\002\n\"Purc",
+      "haseCityExpansionResponseProto\0220\n\006sender" +
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022^\n\006status\030\002 \001(\0162N.com.lvl6.proto.Purcha" +
+      "seCityExpansionResponseProto.PurchaseCit" +
+      "yExpansionStatus\"\214\001\n\033PurchaseCityExpansi" +
+      "onStatus\022\013\n\007SUCCESS\020\000\022\024\n\020NOT_ENOUGH_COIN" +
+      "S\020\001\022\025\n\021ALREADY_EXPANDING\020\002\022\016\n\nOTHER_FAIL" +
+      "\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\004\"" +
+      "f\n!ExpansionWaitCompleteRequestProto\0220\n\006" +
+      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse",
+      "rProto\022\017\n\007curTime\030\002 \001(\003\"\301\002\n\"ExpansionWai" +
+      "tCompleteResponseProto\0220\n\006sender\030\001 \001(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022^\n\006stat" +
+      "us\030\002 \001(\0162N.com.lvl6.proto.ExpansionWaitC" +
+      "ompleteResponseProto.ExpansionWaitComple" +
+      "teStatus\"\210\001\n\033ExpansionWaitCompleteStatus" +
+      "\022\013\n\007SUCCESS\020\000\022\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014" +
+      "NOT_DONE_YET\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT" +
+      "_TOO_AHEAD_OF_SERVER_TIME\020\004\"\373\001\n\"RefillSt" +
+      "atWaitCompleteRequestProto\0220\n\006sender\030\001 \001",
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\017\n\007" +
+      "curTime\030\002 \001(\003\022[\n\004type\030\003 \001(\0162M.com.lvl6.p" +
+      "roto.RefillStatWaitCompleteRequestProto." +
+      "RefillStatWaitCompleteType\"5\n\032RefillStat" +
+      "WaitCompleteType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020" +
+      "\001\"\300\002\n#RefillStatWaitCompleteResponseProt" +
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022`\n\006status\030\002 \001(\0162P.com.lvl6.p" +
+      "roto.RefillStatWaitCompleteResponseProto" +
+      ".RefillStatWaitCompleteStatus\"\204\001\n\034Refill",
+      "StatWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\021\n\rN" +
+      "OT_READY_YET\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER" +
+      "_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TI" +
+      "ME\020\004\"_\n\026EnableAPNSRequestProto\0220\n\006sender" +
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\023\n\013deviceToken\030\002 \001(\t\"\307\001\n\027EnableAPNSResp" +
+      "onseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022H\n\006status\030\002 \001(\01628.co" +
+      "m.lvl6.proto.EnableAPNSResponseProto.Ena" +
+      "bleAPNSStatus\"0\n\020EnableAPNSStatus\022\013\n\007SUC",
+      "CESS\020\000\022\017\n\013NOT_ENABLED\020\001\"\353\001\n&PurchaseMark" +
+      "etplaceLicenseRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\022\n\n" +
+      "clientTime\030\002 \001(\003\022W\n\013licenseType\030\003 \001(\0162B." +
+      "com.lvl6.proto.PurchaseMarketplaceLicens" +
+      "eRequestProto.LicenseType\"\"\n\013LicenseType" +
+      "\022\t\n\005SHORT\020\000\022\010\n\004LONG\020\001\"\343\002\n\'PurchaseMarket" +
+      "placeLicenseResponseProto\0220\n\006sender\030\001 \001(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022h\n\006s" +
+      "tatus\030\002 \001(\0162X.com.lvl6.proto.PurchaseMar",
+      "ketplaceLicenseResponseProto.PurchaseMar" +
+      "ketplaceLicenseStatus\"\233\001\n PurchaseMarket" +
+      "placeLicenseStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_E" +
+      "NOUGH_DIAMONDS\020\001\022\034\n\030ALREADY_HAVE_LICENSE" +
+      "_NOW\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHE" +
+      "AD_OF_SERVER_TIME\020\004\"\213\001\n\035ReferralCodeUsed" +
+      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\0228\n\016referredPlaye" +
+      "r\030\002 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\"_\n\032EquipEquipmentRequestProto\0220\n\006sende",
+      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022\017\n\007equipId\030\002 \001(\005\"\274\002\n\033EquipEquipmentRes" +
+      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022P\n\006status\030\002 \001(\0162@.c" +
+      "om.lvl6.proto.EquipEquipmentResponseProt" +
+      "o.EquipEquipmentStatus\"\230\001\n\024EquipEquipmen" +
+      "tStatus\022\013\n\007SUCCESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_" +
+      "LEVEL\020\001\022\034\n\030DOES_NOT_HAVE_THIS_EQUIP\020\002\022\020\n" +
+      "\014NOT_AN_EQUIP\020\003\022\030\n\024INCORRECT_CLASS_TYPE\020" +
+      "\004\022\016\n\nOTHER_FAIL\020\005\"\207\001\n\036ChangeUserLocation",
+      "RequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\0223\n\014userLocation\030\002" +
+      " \001(\0132\035.com.lvl6.proto.LocationProto\"\372\001\n\037" +
+      "ChangeUserLocationResponseProto\0220\n\006sende" +
+      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022X\n\006status\030\002 \001(\0162H.com.lvl6.proto.Chang" +
+      "eUserLocationResponseProto.ChangeUserLoc" +
+      "ationStatus\"K\n\030ChangeUserLocationStatus\022" +
+      "\013\n\007SUCCESS\020\000\022\022\n\016INVALID_BOUNDS\020\001\022\016\n\nOTHE" +
+      "R_FAIL\020\002\"_\n\033LoadNeutralCityRequestProto\022",
+      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
+      "UserProto\022\016\n\006cityId\030\002 \001(\005\"\277\003\n\034LoadNeutra" +
+      "lCityResponseProto\0220\n\006sender\030\001 \001(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022R\n\006status\030\002" +
+      " \001(\0162B.com.lvl6.proto.LoadNeutralCityRes" +
+      "ponseProto.LoadNeutralCityStatus\022;\n\ruser" +
+      "TasksInfo\030\003 \003(\0132$.com.lvl6.proto.Minimum" +
+      "UserTaskProto\022;\n\024defeatTypeJobEnemies\030\004 " +
+      "\003(\0132\035.com.lvl6.proto.FullUserProto\022=\n\014ci" +
+      "tyElements\030\005 \003(\0132\'.com.lvl6.proto.Neutra",
+      "lCityElementProto\022\016\n\006cityId\030\006 \001(\005\"P\n\025Loa" +
+      "dNeutralCityStatus\022\013\n\007SUCCESS\020\000\022\032\n\026NOT_A" +
+      "CCESSIBLE_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"p\n$R" +
+      "etrieveUserEquipForUserRequestProto\0220\n\006s" +
+      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022\026\n\016relevantUserId\030\002 \001(\005\"\251\001\n%Retrie" +
+      "veUserEquipForUserResponseProto\0220\n\006sende" +
+      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022\026\n\016relevantUserId\030\002 \001(\005\0226\n\nuserEquips\030" +
+      "\003 \003(\0132\".com.lvl6.proto.FullUserEquipProt",
+      "o\"6\n\"PurgeClientStaticDataResponseProto\022" +
+      "\020\n\010senderId\030\001 \001(\005\"q\n#RetrieveUsersForUse" +
+      "rIdsRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\030\n\020requestedU" +
+      "serIds\030\002 \003(\005\"\217\001\n$RetrieveUsersForUserIds" +
+      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\0225\n\016requestedUser" +
+      "s\030\002 \003(\0132\035.com.lvl6.proto.FullUserProtoB\014" +
+      "B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -80858,7 +77021,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "StartupStatus", "UpdateStatus", "StartupConstants", "TutorialConstants", "CitiesAvailableToUser", "UserCityInfos", "InProgressQuests", "AvailableQuests", "UserEquips", "Equips", "ExperienceRequiredForNextLevel", "ExperienceRequiredForCurrentLevel", "MarketplacePurchaseNotifications", "AttackNotifications", "ReferralNotifications", },
+              new java.lang.String[] { "Sender", "StartupStatus", "UpdateStatus", "StartupConstants", "TutorialConstants", "CitiesAvailableToUser", "UserCityInfos", "InProgressQuests", "AvailableQuests", "UserEquips", "Equips", "ExperienceRequiredForNextLevel", "ExperienceRequiredForCurrentLevel", "MarketplacePurchaseNotifications", "AttackNotifications", "ReferralNotifications", "AppStoreURL", },
               com.lvl6.proto.EventProto.StartupResponseProto.class,
               com.lvl6.proto.EventProto.StartupResponseProto.Builder.class);
           internal_static_com_lvl6_proto_StartupResponseProto_MarketplacePostPurchasedNotificationProto_descriptor =

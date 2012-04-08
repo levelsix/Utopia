@@ -164,7 +164,7 @@ public class UpdateUtils {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_ORIENTATION, orientation.getNumber());
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -220,7 +220,7 @@ public class UpdateUtils {
       if (structure == null) {
         return false;
       }
-      Timestamp lastRetrievedTime = new Timestamp(userStruct.getLastUpgradeTime().getTime() + 60000*structure.getMinutesToGain());
+      Timestamp lastRetrievedTime = new Timestamp(userStruct.getLastUpgradeTime().getTime() + 60000*MiscMethods.calculateMinutesToUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), userStruct.getLevel()));
       if (!UpdateUtils.updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), lastRetrievedTime, true, levelChange)) {
         return false;
       }
@@ -263,7 +263,7 @@ public class UpdateUtils {
       if (structure == null) {
         return false;
       }
-      Timestamp lastRetrievedTime = new Timestamp(userStruct.getPurchaseTime().getTime() + 60000*structure.getMinutesToGain());
+      Timestamp lastRetrievedTime = new Timestamp(userStruct.getPurchaseTime().getTime() + 60000*structure.getMinutesToBuild());
       if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), lastRetrievedTime, null, true)) {
         return false;
       }

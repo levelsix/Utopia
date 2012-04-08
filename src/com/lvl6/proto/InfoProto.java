@@ -518,7 +518,7 @@ public final class InfoProto {
   public interface MinimumUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
@@ -559,7 +559,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -621,10 +621,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -872,10 +868,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -929,7 +921,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -1024,31 +1016,31 @@ public final class InfoProto {
   public interface FullUserProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required string name = 2;
+    // optional string name = 2;
     boolean hasName();
     String getName();
     
-    // required int32 level = 3;
+    // optional int32 level = 3;
     boolean hasLevel();
     int getLevel();
     
-    // required .com.lvl6.proto.UserType userType = 4;
+    // optional .com.lvl6.proto.UserType userType = 4;
     boolean hasUserType();
     com.lvl6.proto.InfoProto.UserType getUserType();
     
-    // required int32 attack = 5;
+    // optional int32 attack = 5;
     boolean hasAttack();
     int getAttack();
     
-    // required int32 defense = 6;
+    // optional int32 defense = 6;
     boolean hasDefense();
     int getDefense();
     
-    // required int32 stamina = 7;
+    // optional int32 stamina = 7;
     boolean hasStamina();
     int getStamina();
     
@@ -1056,7 +1048,7 @@ public final class InfoProto {
     boolean hasLastStaminaRefillTime();
     long getLastStaminaRefillTime();
     
-    // required int32 energy = 10;
+    // optional int32 energy = 10;
     boolean hasEnergy();
     int getEnergy();
     
@@ -1064,84 +1056,84 @@ public final class InfoProto {
     boolean hasLastEnergyRefillTime();
     long getLastEnergyRefillTime();
     
-    // required int32 skillPoints = 13;
+    // optional int32 skillPoints = 13;
     boolean hasSkillPoints();
     int getSkillPoints();
     
-    // required int32 healthMax = 14;
+    // optional int32 healthMax = 14;
     boolean hasHealthMax();
     int getHealthMax();
     
-    // required int32 energyMax = 15;
+    // optional int32 energyMax = 15;
     boolean hasEnergyMax();
     int getEnergyMax();
     
-    // required int32 staminaMax = 16;
+    // optional int32 staminaMax = 16;
     boolean hasStaminaMax();
     int getStaminaMax();
     
-    // required int32 diamonds = 17;
+    // optional int32 diamonds = 17;
     boolean hasDiamonds();
     int getDiamonds();
     
-    // required int32 coins = 18;
+    // optional int32 coins = 18;
     boolean hasCoins();
     int getCoins();
     
-    // required int32 marketplaceDiamondsEarnings = 19;
+    // optional int32 marketplaceDiamondsEarnings = 19;
     boolean hasMarketplaceDiamondsEarnings();
     int getMarketplaceDiamondsEarnings();
     
-    // required int32 marketplaceCoinsEarnings = 20;
+    // optional int32 marketplaceCoinsEarnings = 20;
     boolean hasMarketplaceCoinsEarnings();
     int getMarketplaceCoinsEarnings();
     
-    // required int32 vaultBalance = 21;
+    // optional int32 vaultBalance = 21;
     boolean hasVaultBalance();
     int getVaultBalance();
     
-    // required int32 experience = 22;
+    // optional int32 experience = 22;
     boolean hasExperience();
     int getExperience();
     
-    // required int32 tasksCompleted = 23;
+    // optional int32 tasksCompleted = 23;
     boolean hasTasksCompleted();
     int getTasksCompleted();
     
-    // required int32 battlesWon = 24;
+    // optional int32 battlesWon = 24;
     boolean hasBattlesWon();
     int getBattlesWon();
     
-    // required int32 battlesLost = 25;
+    // optional int32 battlesLost = 25;
     boolean hasBattlesLost();
     int getBattlesLost();
     
-    // required int32 flees = 45;
+    // optional int32 flees = 45;
     boolean hasFlees();
     int getFlees();
     
-    // required string referralCode = 27;
+    // optional string referralCode = 27;
     boolean hasReferralCode();
     String getReferralCode();
     
-    // required int32 numReferrals = 28;
+    // optional int32 numReferrals = 28;
     boolean hasNumReferrals();
     int getNumReferrals();
     
-    // required string udid = 29;
+    // optional string udid = 29;
     boolean hasUdid();
     String getUdid();
     
-    // required .com.lvl6.proto.LocationProto userLocation = 30;
+    // optional .com.lvl6.proto.LocationProto userLocation = 30;
     boolean hasUserLocation();
     com.lvl6.proto.InfoProto.LocationProto getUserLocation();
     com.lvl6.proto.InfoProto.LocationProtoOrBuilder getUserLocationOrBuilder();
     
-    // required int32 numPostsInMarketplace = 31;
+    // optional int32 numPostsInMarketplace = 31;
     boolean hasNumPostsInMarketplace();
     int getNumPostsInMarketplace();
     
-    // required int32 numMarketplaceSalesUnredeemed = 32;
+    // optional int32 numMarketplaceSalesUnredeemed = 32;
     boolean hasNumMarketplaceSalesUnredeemed();
     int getNumMarketplaceSalesUnredeemed();
     
@@ -1157,7 +1149,7 @@ public final class InfoProto {
     boolean hasAmuletEquipped();
     int getAmuletEquipped();
     
-    // required int64 lastLoginTime = 36;
+    // optional int64 lastLoginTime = 36;
     boolean hasLastLoginTime();
     long getLastLoginTime();
     
@@ -1189,7 +1181,7 @@ public final class InfoProto {
     boolean hasLastLongLicensePurchaseTime();
     long getLastLongLicensePurchaseTime();
     
-    // required bool isFake = 46;
+    // optional bool isFake = 46;
     boolean hasIsFake();
     boolean getIsFake();
   }
@@ -1223,7 +1215,7 @@ public final class InfoProto {
     
     private int bitField0_;
     private int bitField1_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -1233,7 +1225,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required string name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -1265,7 +1257,7 @@ public final class InfoProto {
       }
     }
     
-    // required int32 level = 3;
+    // optional int32 level = 3;
     public static final int LEVEL_FIELD_NUMBER = 3;
     private int level_;
     public boolean hasLevel() {
@@ -1275,7 +1267,7 @@ public final class InfoProto {
       return level_;
     }
     
-    // required .com.lvl6.proto.UserType userType = 4;
+    // optional .com.lvl6.proto.UserType userType = 4;
     public static final int USERTYPE_FIELD_NUMBER = 4;
     private com.lvl6.proto.InfoProto.UserType userType_;
     public boolean hasUserType() {
@@ -1285,7 +1277,7 @@ public final class InfoProto {
       return userType_;
     }
     
-    // required int32 attack = 5;
+    // optional int32 attack = 5;
     public static final int ATTACK_FIELD_NUMBER = 5;
     private int attack_;
     public boolean hasAttack() {
@@ -1295,7 +1287,7 @@ public final class InfoProto {
       return attack_;
     }
     
-    // required int32 defense = 6;
+    // optional int32 defense = 6;
     public static final int DEFENSE_FIELD_NUMBER = 6;
     private int defense_;
     public boolean hasDefense() {
@@ -1305,7 +1297,7 @@ public final class InfoProto {
       return defense_;
     }
     
-    // required int32 stamina = 7;
+    // optional int32 stamina = 7;
     public static final int STAMINA_FIELD_NUMBER = 7;
     private int stamina_;
     public boolean hasStamina() {
@@ -1325,7 +1317,7 @@ public final class InfoProto {
       return lastStaminaRefillTime_;
     }
     
-    // required int32 energy = 10;
+    // optional int32 energy = 10;
     public static final int ENERGY_FIELD_NUMBER = 10;
     private int energy_;
     public boolean hasEnergy() {
@@ -1345,7 +1337,7 @@ public final class InfoProto {
       return lastEnergyRefillTime_;
     }
     
-    // required int32 skillPoints = 13;
+    // optional int32 skillPoints = 13;
     public static final int SKILLPOINTS_FIELD_NUMBER = 13;
     private int skillPoints_;
     public boolean hasSkillPoints() {
@@ -1355,7 +1347,7 @@ public final class InfoProto {
       return skillPoints_;
     }
     
-    // required int32 healthMax = 14;
+    // optional int32 healthMax = 14;
     public static final int HEALTHMAX_FIELD_NUMBER = 14;
     private int healthMax_;
     public boolean hasHealthMax() {
@@ -1365,7 +1357,7 @@ public final class InfoProto {
       return healthMax_;
     }
     
-    // required int32 energyMax = 15;
+    // optional int32 energyMax = 15;
     public static final int ENERGYMAX_FIELD_NUMBER = 15;
     private int energyMax_;
     public boolean hasEnergyMax() {
@@ -1375,7 +1367,7 @@ public final class InfoProto {
       return energyMax_;
     }
     
-    // required int32 staminaMax = 16;
+    // optional int32 staminaMax = 16;
     public static final int STAMINAMAX_FIELD_NUMBER = 16;
     private int staminaMax_;
     public boolean hasStaminaMax() {
@@ -1385,7 +1377,7 @@ public final class InfoProto {
       return staminaMax_;
     }
     
-    // required int32 diamonds = 17;
+    // optional int32 diamonds = 17;
     public static final int DIAMONDS_FIELD_NUMBER = 17;
     private int diamonds_;
     public boolean hasDiamonds() {
@@ -1395,7 +1387,7 @@ public final class InfoProto {
       return diamonds_;
     }
     
-    // required int32 coins = 18;
+    // optional int32 coins = 18;
     public static final int COINS_FIELD_NUMBER = 18;
     private int coins_;
     public boolean hasCoins() {
@@ -1405,7 +1397,7 @@ public final class InfoProto {
       return coins_;
     }
     
-    // required int32 marketplaceDiamondsEarnings = 19;
+    // optional int32 marketplaceDiamondsEarnings = 19;
     public static final int MARKETPLACEDIAMONDSEARNINGS_FIELD_NUMBER = 19;
     private int marketplaceDiamondsEarnings_;
     public boolean hasMarketplaceDiamondsEarnings() {
@@ -1415,7 +1407,7 @@ public final class InfoProto {
       return marketplaceDiamondsEarnings_;
     }
     
-    // required int32 marketplaceCoinsEarnings = 20;
+    // optional int32 marketplaceCoinsEarnings = 20;
     public static final int MARKETPLACECOINSEARNINGS_FIELD_NUMBER = 20;
     private int marketplaceCoinsEarnings_;
     public boolean hasMarketplaceCoinsEarnings() {
@@ -1425,7 +1417,7 @@ public final class InfoProto {
       return marketplaceCoinsEarnings_;
     }
     
-    // required int32 vaultBalance = 21;
+    // optional int32 vaultBalance = 21;
     public static final int VAULTBALANCE_FIELD_NUMBER = 21;
     private int vaultBalance_;
     public boolean hasVaultBalance() {
@@ -1435,7 +1427,7 @@ public final class InfoProto {
       return vaultBalance_;
     }
     
-    // required int32 experience = 22;
+    // optional int32 experience = 22;
     public static final int EXPERIENCE_FIELD_NUMBER = 22;
     private int experience_;
     public boolean hasExperience() {
@@ -1445,7 +1437,7 @@ public final class InfoProto {
       return experience_;
     }
     
-    // required int32 tasksCompleted = 23;
+    // optional int32 tasksCompleted = 23;
     public static final int TASKSCOMPLETED_FIELD_NUMBER = 23;
     private int tasksCompleted_;
     public boolean hasTasksCompleted() {
@@ -1455,7 +1447,7 @@ public final class InfoProto {
       return tasksCompleted_;
     }
     
-    // required int32 battlesWon = 24;
+    // optional int32 battlesWon = 24;
     public static final int BATTLESWON_FIELD_NUMBER = 24;
     private int battlesWon_;
     public boolean hasBattlesWon() {
@@ -1465,7 +1457,7 @@ public final class InfoProto {
       return battlesWon_;
     }
     
-    // required int32 battlesLost = 25;
+    // optional int32 battlesLost = 25;
     public static final int BATTLESLOST_FIELD_NUMBER = 25;
     private int battlesLost_;
     public boolean hasBattlesLost() {
@@ -1475,7 +1467,7 @@ public final class InfoProto {
       return battlesLost_;
     }
     
-    // required int32 flees = 45;
+    // optional int32 flees = 45;
     public static final int FLEES_FIELD_NUMBER = 45;
     private int flees_;
     public boolean hasFlees() {
@@ -1485,7 +1477,7 @@ public final class InfoProto {
       return flees_;
     }
     
-    // required string referralCode = 27;
+    // optional string referralCode = 27;
     public static final int REFERRALCODE_FIELD_NUMBER = 27;
     private java.lang.Object referralCode_;
     public boolean hasReferralCode() {
@@ -1517,7 +1509,7 @@ public final class InfoProto {
       }
     }
     
-    // required int32 numReferrals = 28;
+    // optional int32 numReferrals = 28;
     public static final int NUMREFERRALS_FIELD_NUMBER = 28;
     private int numReferrals_;
     public boolean hasNumReferrals() {
@@ -1527,7 +1519,7 @@ public final class InfoProto {
       return numReferrals_;
     }
     
-    // required string udid = 29;
+    // optional string udid = 29;
     public static final int UDID_FIELD_NUMBER = 29;
     private java.lang.Object udid_;
     public boolean hasUdid() {
@@ -1559,7 +1551,7 @@ public final class InfoProto {
       }
     }
     
-    // required .com.lvl6.proto.LocationProto userLocation = 30;
+    // optional .com.lvl6.proto.LocationProto userLocation = 30;
     public static final int USERLOCATION_FIELD_NUMBER = 30;
     private com.lvl6.proto.InfoProto.LocationProto userLocation_;
     public boolean hasUserLocation() {
@@ -1572,7 +1564,7 @@ public final class InfoProto {
       return userLocation_;
     }
     
-    // required int32 numPostsInMarketplace = 31;
+    // optional int32 numPostsInMarketplace = 31;
     public static final int NUMPOSTSINMARKETPLACE_FIELD_NUMBER = 31;
     private int numPostsInMarketplace_;
     public boolean hasNumPostsInMarketplace() {
@@ -1582,7 +1574,7 @@ public final class InfoProto {
       return numPostsInMarketplace_;
     }
     
-    // required int32 numMarketplaceSalesUnredeemed = 32;
+    // optional int32 numMarketplaceSalesUnredeemed = 32;
     public static final int NUMMARKETPLACESALESUNREDEEMED_FIELD_NUMBER = 32;
     private int numMarketplaceSalesUnredeemed_;
     public boolean hasNumMarketplaceSalesUnredeemed() {
@@ -1622,7 +1614,7 @@ public final class InfoProto {
       return amuletEquipped_;
     }
     
-    // required int64 lastLoginTime = 36;
+    // optional int64 lastLoginTime = 36;
     public static final int LASTLOGINTIME_FIELD_NUMBER = 36;
     private long lastLoginTime_;
     public boolean hasLastLoginTime() {
@@ -1724,7 +1716,7 @@ public final class InfoProto {
       return lastLongLicensePurchaseTime_;
     }
     
-    // required bool isFake = 46;
+    // optional bool isFake = 46;
     public static final int ISFAKE_FIELD_NUMBER = 46;
     private boolean isFake_;
     public boolean hasIsFake() {
@@ -1783,130 +1775,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLevel()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAttack()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDefense()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStamina()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEnergy()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasSkillPoints()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasHealthMax()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEnergyMax()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStaminaMax()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDiamonds()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCoins()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMarketplaceDiamondsEarnings()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMarketplaceCoinsEarnings()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasVaultBalance()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasExperience()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTasksCompleted()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasBattlesWon()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasBattlesLost()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasFlees()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasReferralCode()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumReferrals()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUdid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserLocation()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumPostsInMarketplace()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumMarketplaceSalesUnredeemed()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLastLoginTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIsFake()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getUserLocation().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2790,130 +2658,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasLevel()) {
-          
-          return false;
-        }
-        if (!hasUserType()) {
-          
-          return false;
-        }
-        if (!hasAttack()) {
-          
-          return false;
-        }
-        if (!hasDefense()) {
-          
-          return false;
-        }
-        if (!hasStamina()) {
-          
-          return false;
-        }
-        if (!hasEnergy()) {
-          
-          return false;
-        }
-        if (!hasSkillPoints()) {
-          
-          return false;
-        }
-        if (!hasHealthMax()) {
-          
-          return false;
-        }
-        if (!hasEnergyMax()) {
-          
-          return false;
-        }
-        if (!hasStaminaMax()) {
-          
-          return false;
-        }
-        if (!hasDiamonds()) {
-          
-          return false;
-        }
-        if (!hasCoins()) {
-          
-          return false;
-        }
-        if (!hasMarketplaceDiamondsEarnings()) {
-          
-          return false;
-        }
-        if (!hasMarketplaceCoinsEarnings()) {
-          
-          return false;
-        }
-        if (!hasVaultBalance()) {
-          
-          return false;
-        }
-        if (!hasExperience()) {
-          
-          return false;
-        }
-        if (!hasTasksCompleted()) {
-          
-          return false;
-        }
-        if (!hasBattlesWon()) {
-          
-          return false;
-        }
-        if (!hasBattlesLost()) {
-          
-          return false;
-        }
-        if (!hasFlees()) {
-          
-          return false;
-        }
-        if (!hasReferralCode()) {
-          
-          return false;
-        }
-        if (!hasNumReferrals()) {
-          
-          return false;
-        }
-        if (!hasUdid()) {
-          
-          return false;
-        }
-        if (!hasUserLocation()) {
-          
-          return false;
-        }
-        if (!hasNumPostsInMarketplace()) {
-          
-          return false;
-        }
-        if (!hasNumMarketplaceSalesUnredeemed()) {
-          
-          return false;
-        }
-        if (!hasLastLoginTime()) {
-          
-          return false;
-        }
-        if (!hasIsFake()) {
-          
-          return false;
-        }
-        if (!getUserLocation().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -3167,7 +2911,7 @@ public final class InfoProto {
       private int bitField0_;
       private int bitField1_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -3188,7 +2932,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 2;
+      // optional string name = 2;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -3224,7 +2968,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required int32 level = 3;
+      // optional int32 level = 3;
       private int level_ ;
       public boolean hasLevel() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -3245,7 +2989,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.UserType userType = 4;
+      // optional .com.lvl6.proto.UserType userType = 4;
       private com.lvl6.proto.InfoProto.UserType userType_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
       public boolean hasUserType() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -3269,7 +3013,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 attack = 5;
+      // optional int32 attack = 5;
       private int attack_ ;
       public boolean hasAttack() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -3290,7 +3034,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 defense = 6;
+      // optional int32 defense = 6;
       private int defense_ ;
       public boolean hasDefense() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -3311,7 +3055,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 stamina = 7;
+      // optional int32 stamina = 7;
       private int stamina_ ;
       public boolean hasStamina() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -3353,7 +3097,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 energy = 10;
+      // optional int32 energy = 10;
       private int energy_ ;
       public boolean hasEnergy() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
@@ -3395,7 +3139,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 skillPoints = 13;
+      // optional int32 skillPoints = 13;
       private int skillPoints_ ;
       public boolean hasSkillPoints() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -3416,7 +3160,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 healthMax = 14;
+      // optional int32 healthMax = 14;
       private int healthMax_ ;
       public boolean hasHealthMax() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -3437,7 +3181,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 energyMax = 15;
+      // optional int32 energyMax = 15;
       private int energyMax_ ;
       public boolean hasEnergyMax() {
         return ((bitField0_ & 0x00001000) == 0x00001000);
@@ -3458,7 +3202,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 staminaMax = 16;
+      // optional int32 staminaMax = 16;
       private int staminaMax_ ;
       public boolean hasStaminaMax() {
         return ((bitField0_ & 0x00002000) == 0x00002000);
@@ -3479,7 +3223,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 diamonds = 17;
+      // optional int32 diamonds = 17;
       private int diamonds_ ;
       public boolean hasDiamonds() {
         return ((bitField0_ & 0x00004000) == 0x00004000);
@@ -3500,7 +3244,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 coins = 18;
+      // optional int32 coins = 18;
       private int coins_ ;
       public boolean hasCoins() {
         return ((bitField0_ & 0x00008000) == 0x00008000);
@@ -3521,7 +3265,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 marketplaceDiamondsEarnings = 19;
+      // optional int32 marketplaceDiamondsEarnings = 19;
       private int marketplaceDiamondsEarnings_ ;
       public boolean hasMarketplaceDiamondsEarnings() {
         return ((bitField0_ & 0x00010000) == 0x00010000);
@@ -3542,7 +3286,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 marketplaceCoinsEarnings = 20;
+      // optional int32 marketplaceCoinsEarnings = 20;
       private int marketplaceCoinsEarnings_ ;
       public boolean hasMarketplaceCoinsEarnings() {
         return ((bitField0_ & 0x00020000) == 0x00020000);
@@ -3563,7 +3307,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 vaultBalance = 21;
+      // optional int32 vaultBalance = 21;
       private int vaultBalance_ ;
       public boolean hasVaultBalance() {
         return ((bitField0_ & 0x00040000) == 0x00040000);
@@ -3584,7 +3328,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 experience = 22;
+      // optional int32 experience = 22;
       private int experience_ ;
       public boolean hasExperience() {
         return ((bitField0_ & 0x00080000) == 0x00080000);
@@ -3605,7 +3349,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 tasksCompleted = 23;
+      // optional int32 tasksCompleted = 23;
       private int tasksCompleted_ ;
       public boolean hasTasksCompleted() {
         return ((bitField0_ & 0x00100000) == 0x00100000);
@@ -3626,7 +3370,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 battlesWon = 24;
+      // optional int32 battlesWon = 24;
       private int battlesWon_ ;
       public boolean hasBattlesWon() {
         return ((bitField0_ & 0x00200000) == 0x00200000);
@@ -3647,7 +3391,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 battlesLost = 25;
+      // optional int32 battlesLost = 25;
       private int battlesLost_ ;
       public boolean hasBattlesLost() {
         return ((bitField0_ & 0x00400000) == 0x00400000);
@@ -3668,7 +3412,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 flees = 45;
+      // optional int32 flees = 45;
       private int flees_ ;
       public boolean hasFlees() {
         return ((bitField0_ & 0x00800000) == 0x00800000);
@@ -3689,7 +3433,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string referralCode = 27;
+      // optional string referralCode = 27;
       private java.lang.Object referralCode_ = "";
       public boolean hasReferralCode() {
         return ((bitField0_ & 0x01000000) == 0x01000000);
@@ -3725,7 +3469,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required int32 numReferrals = 28;
+      // optional int32 numReferrals = 28;
       private int numReferrals_ ;
       public boolean hasNumReferrals() {
         return ((bitField0_ & 0x02000000) == 0x02000000);
@@ -3746,7 +3490,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string udid = 29;
+      // optional string udid = 29;
       private java.lang.Object udid_ = "";
       public boolean hasUdid() {
         return ((bitField0_ & 0x04000000) == 0x04000000);
@@ -3782,7 +3526,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required .com.lvl6.proto.LocationProto userLocation = 30;
+      // optional .com.lvl6.proto.LocationProto userLocation = 30;
       private com.lvl6.proto.InfoProto.LocationProto userLocation_ = com.lvl6.proto.InfoProto.LocationProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.LocationProto, com.lvl6.proto.InfoProto.LocationProto.Builder, com.lvl6.proto.InfoProto.LocationProtoOrBuilder> userLocationBuilder_;
@@ -3872,7 +3616,7 @@ public final class InfoProto {
         return userLocationBuilder_;
       }
       
-      // required int32 numPostsInMarketplace = 31;
+      // optional int32 numPostsInMarketplace = 31;
       private int numPostsInMarketplace_ ;
       public boolean hasNumPostsInMarketplace() {
         return ((bitField0_ & 0x10000000) == 0x10000000);
@@ -3893,7 +3637,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numMarketplaceSalesUnredeemed = 32;
+      // optional int32 numMarketplaceSalesUnredeemed = 32;
       private int numMarketplaceSalesUnredeemed_ ;
       public boolean hasNumMarketplaceSalesUnredeemed() {
         return ((bitField0_ & 0x20000000) == 0x20000000);
@@ -3977,7 +3721,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int64 lastLoginTime = 36;
+      // optional int64 lastLoginTime = 36;
       private long lastLoginTime_ ;
       public boolean hasLastLoginTime() {
         return ((bitField1_ & 0x00000002) == 0x00000002);
@@ -4160,7 +3904,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isFake = 46;
+      // optional bool isFake = 46;
       private boolean isFake_ ;
       public boolean hasIsFake() {
         return ((bitField1_ & 0x00000200) == 0x00000200);
@@ -4195,31 +3939,31 @@ public final class InfoProto {
   public interface FullEquipProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 equipId = 1;
+    // optional int32 equipId = 1;
     boolean hasEquipId();
     int getEquipId();
     
-    // required string name = 2;
+    // optional string name = 2;
     boolean hasName();
     String getName();
     
-    // required .com.lvl6.proto.FullEquipProto.EquipType equipType = 3;
+    // optional .com.lvl6.proto.FullEquipProto.EquipType equipType = 3;
     boolean hasEquipType();
     com.lvl6.proto.InfoProto.FullEquipProto.EquipType getEquipType();
     
-    // required string description = 4;
+    // optional string description = 4;
     boolean hasDescription();
     String getDescription();
     
-    // required int32 attackBoost = 5;
+    // optional int32 attackBoost = 5;
     boolean hasAttackBoost();
     int getAttackBoost();
     
-    // required int32 defenseBoost = 6;
+    // optional int32 defenseBoost = 6;
     boolean hasDefenseBoost();
     int getDefenseBoost();
     
-    // required int32 minLevel = 7;
+    // optional int32 minLevel = 7;
     boolean hasMinLevel();
     int getMinLevel();
     
@@ -4231,19 +3975,19 @@ public final class InfoProto {
     boolean hasDiamondPrice();
     int getDiamondPrice();
     
-    // required float chanceOfLoss = 10;
+    // optional float chanceOfLoss = 10;
     boolean hasChanceOfLoss();
     float getChanceOfLoss();
     
-    // required .com.lvl6.proto.FullEquipProto.ClassType classType = 11;
+    // optional .com.lvl6.proto.FullEquipProto.ClassType classType = 11;
     boolean hasClassType();
     com.lvl6.proto.InfoProto.FullEquipProto.ClassType getClassType();
     
-    // required .com.lvl6.proto.FullEquipProto.Rarity rarity = 12;
+    // optional .com.lvl6.proto.FullEquipProto.Rarity rarity = 12;
     boolean hasRarity();
     com.lvl6.proto.InfoProto.FullEquipProto.Rarity getRarity();
     
-    // required bool isBuyableInArmory = 13;
+    // optional bool isBuyableInArmory = 13;
     boolean hasIsBuyableInArmory();
     boolean getIsBuyableInArmory();
   }
@@ -4501,7 +4245,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 equipId = 1;
+    // optional int32 equipId = 1;
     public static final int EQUIPID_FIELD_NUMBER = 1;
     private int equipId_;
     public boolean hasEquipId() {
@@ -4511,7 +4255,7 @@ public final class InfoProto {
       return equipId_;
     }
     
-    // required string name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -4543,7 +4287,7 @@ public final class InfoProto {
       }
     }
     
-    // required .com.lvl6.proto.FullEquipProto.EquipType equipType = 3;
+    // optional .com.lvl6.proto.FullEquipProto.EquipType equipType = 3;
     public static final int EQUIPTYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.FullEquipProto.EquipType equipType_;
     public boolean hasEquipType() {
@@ -4553,7 +4297,7 @@ public final class InfoProto {
       return equipType_;
     }
     
-    // required string description = 4;
+    // optional string description = 4;
     public static final int DESCRIPTION_FIELD_NUMBER = 4;
     private java.lang.Object description_;
     public boolean hasDescription() {
@@ -4585,7 +4329,7 @@ public final class InfoProto {
       }
     }
     
-    // required int32 attackBoost = 5;
+    // optional int32 attackBoost = 5;
     public static final int ATTACKBOOST_FIELD_NUMBER = 5;
     private int attackBoost_;
     public boolean hasAttackBoost() {
@@ -4595,7 +4339,7 @@ public final class InfoProto {
       return attackBoost_;
     }
     
-    // required int32 defenseBoost = 6;
+    // optional int32 defenseBoost = 6;
     public static final int DEFENSEBOOST_FIELD_NUMBER = 6;
     private int defenseBoost_;
     public boolean hasDefenseBoost() {
@@ -4605,7 +4349,7 @@ public final class InfoProto {
       return defenseBoost_;
     }
     
-    // required int32 minLevel = 7;
+    // optional int32 minLevel = 7;
     public static final int MINLEVEL_FIELD_NUMBER = 7;
     private int minLevel_;
     public boolean hasMinLevel() {
@@ -4635,7 +4379,7 @@ public final class InfoProto {
       return diamondPrice_;
     }
     
-    // required float chanceOfLoss = 10;
+    // optional float chanceOfLoss = 10;
     public static final int CHANCEOFLOSS_FIELD_NUMBER = 10;
     private float chanceOfLoss_;
     public boolean hasChanceOfLoss() {
@@ -4645,7 +4389,7 @@ public final class InfoProto {
       return chanceOfLoss_;
     }
     
-    // required .com.lvl6.proto.FullEquipProto.ClassType classType = 11;
+    // optional .com.lvl6.proto.FullEquipProto.ClassType classType = 11;
     public static final int CLASSTYPE_FIELD_NUMBER = 11;
     private com.lvl6.proto.InfoProto.FullEquipProto.ClassType classType_;
     public boolean hasClassType() {
@@ -4655,7 +4399,7 @@ public final class InfoProto {
       return classType_;
     }
     
-    // required .com.lvl6.proto.FullEquipProto.Rarity rarity = 12;
+    // optional .com.lvl6.proto.FullEquipProto.Rarity rarity = 12;
     public static final int RARITY_FIELD_NUMBER = 12;
     private com.lvl6.proto.InfoProto.FullEquipProto.Rarity rarity_;
     public boolean hasRarity() {
@@ -4665,7 +4409,7 @@ public final class InfoProto {
       return rarity_;
     }
     
-    // required bool isBuyableInArmory = 13;
+    // optional bool isBuyableInArmory = 13;
     public static final int ISBUYABLEINARMORY_FIELD_NUMBER = 13;
     private boolean isBuyableInArmory_;
     public boolean hasIsBuyableInArmory() {
@@ -4695,50 +4439,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasEquipId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEquipType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDescription()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAttackBoost()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDefenseBoost()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMinLevel()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasChanceOfLoss()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasClassType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRarity()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIsBuyableInArmory()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -5146,50 +4846,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasEquipId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasEquipType()) {
-          
-          return false;
-        }
-        if (!hasDescription()) {
-          
-          return false;
-        }
-        if (!hasAttackBoost()) {
-          
-          return false;
-        }
-        if (!hasDefenseBoost()) {
-          
-          return false;
-        }
-        if (!hasMinLevel()) {
-          
-          return false;
-        }
-        if (!hasChanceOfLoss()) {
-          
-          return false;
-        }
-        if (!hasClassType()) {
-          
-          return false;
-        }
-        if (!hasRarity()) {
-          
-          return false;
-        }
-        if (!hasIsBuyableInArmory()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -5305,7 +4961,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 equipId = 1;
+      // optional int32 equipId = 1;
       private int equipId_ ;
       public boolean hasEquipId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -5326,7 +4982,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 2;
+      // optional string name = 2;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -5362,7 +5018,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required .com.lvl6.proto.FullEquipProto.EquipType equipType = 3;
+      // optional .com.lvl6.proto.FullEquipProto.EquipType equipType = 3;
       private com.lvl6.proto.InfoProto.FullEquipProto.EquipType equipType_ = com.lvl6.proto.InfoProto.FullEquipProto.EquipType.WEAPON;
       public boolean hasEquipType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -5386,7 +5042,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string description = 4;
+      // optional string description = 4;
       private java.lang.Object description_ = "";
       public boolean hasDescription() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -5422,7 +5078,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required int32 attackBoost = 5;
+      // optional int32 attackBoost = 5;
       private int attackBoost_ ;
       public boolean hasAttackBoost() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -5443,7 +5099,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 defenseBoost = 6;
+      // optional int32 defenseBoost = 6;
       private int defenseBoost_ ;
       public boolean hasDefenseBoost() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -5464,7 +5120,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 minLevel = 7;
+      // optional int32 minLevel = 7;
       private int minLevel_ ;
       public boolean hasMinLevel() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -5527,7 +5183,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required float chanceOfLoss = 10;
+      // optional float chanceOfLoss = 10;
       private float chanceOfLoss_ ;
       public boolean hasChanceOfLoss() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
@@ -5548,7 +5204,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.FullEquipProto.ClassType classType = 11;
+      // optional .com.lvl6.proto.FullEquipProto.ClassType classType = 11;
       private com.lvl6.proto.InfoProto.FullEquipProto.ClassType classType_ = com.lvl6.proto.InfoProto.FullEquipProto.ClassType.WARRIOR;
       public boolean hasClassType() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -5572,7 +5228,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.FullEquipProto.Rarity rarity = 12;
+      // optional .com.lvl6.proto.FullEquipProto.Rarity rarity = 12;
       private com.lvl6.proto.InfoProto.FullEquipProto.Rarity rarity_ = com.lvl6.proto.InfoProto.FullEquipProto.Rarity.COMMON;
       public boolean hasRarity() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -5596,7 +5252,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isBuyableInArmory = 13;
+      // optional bool isBuyableInArmory = 13;
       private boolean isBuyableInArmory_ ;
       public boolean hasIsBuyableInArmory() {
         return ((bitField0_ & 0x00001000) == 0x00001000);
@@ -5631,15 +5287,15 @@ public final class InfoProto {
   public interface FullUserStructureProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userStructId = 1;
+    // optional int32 userStructId = 1;
     boolean hasUserStructId();
     int getUserStructId();
     
-    // required int32 userId = 2;
+    // optional int32 userId = 2;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 structId = 3;
+    // optional int32 structId = 3;
     boolean hasStructId();
     int getStructId();
     
@@ -5647,16 +5303,16 @@ public final class InfoProto {
     boolean hasLastRetrieved();
     long getLastRetrieved();
     
-    // required .com.lvl6.proto.CoordinateProto coordinates = 5;
+    // optional .com.lvl6.proto.CoordinateProto coordinates = 5;
     boolean hasCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProto getCoordinates();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordinatesOrBuilder();
     
-    // required int32 level = 6;
+    // optional int32 level = 6;
     boolean hasLevel();
     int getLevel();
     
-    // required int64 purchaseTime = 7;
+    // optional int64 purchaseTime = 7;
     boolean hasPurchaseTime();
     long getPurchaseTime();
     
@@ -5664,11 +5320,11 @@ public final class InfoProto {
     boolean hasLastUpgradeTime();
     long getLastUpgradeTime();
     
-    // required bool isComplete = 9;
+    // optional bool isComplete = 9;
     boolean hasIsComplete();
     boolean getIsComplete();
     
-    // required .com.lvl6.proto.StructOrientation orientation = 10;
+    // optional .com.lvl6.proto.StructOrientation orientation = 10;
     boolean hasOrientation();
     com.lvl6.proto.InfoProto.StructOrientation getOrientation();
   }
@@ -5701,7 +5357,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userStructId = 1;
+    // optional int32 userStructId = 1;
     public static final int USERSTRUCTID_FIELD_NUMBER = 1;
     private int userStructId_;
     public boolean hasUserStructId() {
@@ -5711,7 +5367,7 @@ public final class InfoProto {
       return userStructId_;
     }
     
-    // required int32 userId = 2;
+    // optional int32 userId = 2;
     public static final int USERID_FIELD_NUMBER = 2;
     private int userId_;
     public boolean hasUserId() {
@@ -5721,7 +5377,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 structId = 3;
+    // optional int32 structId = 3;
     public static final int STRUCTID_FIELD_NUMBER = 3;
     private int structId_;
     public boolean hasStructId() {
@@ -5741,7 +5397,7 @@ public final class InfoProto {
       return lastRetrieved_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto coordinates = 5;
+    // optional .com.lvl6.proto.CoordinateProto coordinates = 5;
     public static final int COORDINATES_FIELD_NUMBER = 5;
     private com.lvl6.proto.InfoProto.CoordinateProto coordinates_;
     public boolean hasCoordinates() {
@@ -5754,7 +5410,7 @@ public final class InfoProto {
       return coordinates_;
     }
     
-    // required int32 level = 6;
+    // optional int32 level = 6;
     public static final int LEVEL_FIELD_NUMBER = 6;
     private int level_;
     public boolean hasLevel() {
@@ -5764,7 +5420,7 @@ public final class InfoProto {
       return level_;
     }
     
-    // required int64 purchaseTime = 7;
+    // optional int64 purchaseTime = 7;
     public static final int PURCHASETIME_FIELD_NUMBER = 7;
     private long purchaseTime_;
     public boolean hasPurchaseTime() {
@@ -5784,7 +5440,7 @@ public final class InfoProto {
       return lastUpgradeTime_;
     }
     
-    // required bool isComplete = 9;
+    // optional bool isComplete = 9;
     public static final int ISCOMPLETE_FIELD_NUMBER = 9;
     private boolean isComplete_;
     public boolean hasIsComplete() {
@@ -5794,7 +5450,7 @@ public final class InfoProto {
       return isComplete_;
     }
     
-    // required .com.lvl6.proto.StructOrientation orientation = 10;
+    // optional .com.lvl6.proto.StructOrientation orientation = 10;
     public static final int ORIENTATION_FIELD_NUMBER = 10;
     private com.lvl6.proto.InfoProto.StructOrientation orientation_;
     public boolean hasOrientation() {
@@ -5821,42 +5477,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCoordinates()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLevel()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPurchaseTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIsComplete()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasOrientation()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getCoordinates().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -6225,42 +5845,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserStructId()) {
-          
-          return false;
-        }
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasStructId()) {
-          
-          return false;
-        }
-        if (!hasCoordinates()) {
-          
-          return false;
-        }
-        if (!hasLevel()) {
-          
-          return false;
-        }
-        if (!hasPurchaseTime()) {
-          
-          return false;
-        }
-        if (!hasIsComplete()) {
-          
-          return false;
-        }
-        if (!hasOrientation()) {
-          
-          return false;
-        }
-        if (!getCoordinates().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -6353,7 +5937,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userStructId = 1;
+      // optional int32 userStructId = 1;
       private int userStructId_ ;
       public boolean hasUserStructId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -6374,7 +5958,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 userId = 2;
+      // optional int32 userId = 2;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -6395,7 +5979,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 structId = 3;
+      // optional int32 structId = 3;
       private int structId_ ;
       public boolean hasStructId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -6437,7 +6021,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.CoordinateProto coordinates = 5;
+      // optional .com.lvl6.proto.CoordinateProto coordinates = 5;
       private com.lvl6.proto.InfoProto.CoordinateProto coordinates_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> coordinatesBuilder_;
@@ -6527,7 +6111,7 @@ public final class InfoProto {
         return coordinatesBuilder_;
       }
       
-      // required int32 level = 6;
+      // optional int32 level = 6;
       private int level_ ;
       public boolean hasLevel() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -6548,7 +6132,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int64 purchaseTime = 7;
+      // optional int64 purchaseTime = 7;
       private long purchaseTime_ ;
       public boolean hasPurchaseTime() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -6590,7 +6174,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isComplete = 9;
+      // optional bool isComplete = 9;
       private boolean isComplete_ ;
       public boolean hasIsComplete() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
@@ -6611,7 +6195,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.StructOrientation orientation = 10;
+      // optional .com.lvl6.proto.StructOrientation orientation = 10;
       private com.lvl6.proto.InfoProto.StructOrientation orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
       public boolean hasOrientation() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
@@ -6649,15 +6233,15 @@ public final class InfoProto {
   public interface FullUserEquipProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 equipId = 2;
+    // optional int32 equipId = 2;
     boolean hasEquipId();
     int getEquipId();
     
-    // required int32 quantity = 3;
+    // optional int32 quantity = 3;
     boolean hasQuantity();
     int getQuantity();
   }
@@ -6690,7 +6274,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -6700,7 +6284,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 equipId = 2;
+    // optional int32 equipId = 2;
     public static final int EQUIPID_FIELD_NUMBER = 2;
     private int equipId_;
     public boolean hasEquipId() {
@@ -6710,7 +6294,7 @@ public final class InfoProto {
       return equipId_;
     }
     
-    // required int32 quantity = 3;
+    // optional int32 quantity = 3;
     public static final int QUANTITY_FIELD_NUMBER = 3;
     private int quantity_;
     public boolean hasQuantity() {
@@ -6730,18 +6314,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEquipId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuantity()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -6989,18 +6561,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasEquipId()) {
-          
-          return false;
-        }
-        if (!hasQuantity()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -7048,7 +6608,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -7069,7 +6629,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 equipId = 2;
+      // optional int32 equipId = 2;
       private int equipId_ ;
       public boolean hasEquipId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -7090,7 +6650,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 quantity = 3;
+      // optional int32 quantity = 3;
       private int quantity_ ;
       public boolean hasQuantity() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -7125,63 +6685,63 @@ public final class InfoProto {
   public interface FullStructureProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 structId = 1;
+    // optional int32 structId = 1;
     boolean hasStructId();
     int getStructId();
     
-    // required string name = 2;
+    // optional string name = 2;
     boolean hasName();
     String getName();
     
-    // required int32 income = 3;
+    // optional int32 income = 3;
     boolean hasIncome();
     int getIncome();
     
-    // required int32 minutesToGain = 4;
+    // optional int32 minutesToGain = 4;
     boolean hasMinutesToGain();
     int getMinutesToGain();
     
-    // required int32 minutesToBuild = 5;
+    // optional int32 minutesToBuild = 5;
     boolean hasMinutesToBuild();
     int getMinutesToBuild();
     
-    // required int32 minutesToUpgradeBase = 6;
+    // optional int32 minutesToUpgradeBase = 6;
     boolean hasMinutesToUpgradeBase();
     int getMinutesToUpgradeBase();
     
-    // required int32 coinPrice = 7;
+    // optional int32 coinPrice = 7;
     boolean hasCoinPrice();
     int getCoinPrice();
     
-    // required int32 diamondPrice = 8;
+    // optional int32 diamondPrice = 8;
     boolean hasDiamondPrice();
     int getDiamondPrice();
     
-    // required int32 minLevel = 9;
+    // optional int32 minLevel = 9;
     boolean hasMinLevel();
     int getMinLevel();
     
-    // required int32 xLength = 10;
+    // optional int32 xLength = 10;
     boolean hasXLength();
     int getXLength();
     
-    // required int32 yLength = 11;
+    // optional int32 yLength = 11;
     boolean hasYLength();
     int getYLength();
     
-    // required int32 instaBuildDiamondCostBase = 14;
+    // optional int32 instaBuildDiamondCostBase = 14;
     boolean hasInstaBuildDiamondCostBase();
     int getInstaBuildDiamondCostBase();
     
-    // required int32 instaRetrieveDiamondCostBase = 15;
+    // optional int32 instaRetrieveDiamondCostBase = 15;
     boolean hasInstaRetrieveDiamondCostBase();
     int getInstaRetrieveDiamondCostBase();
     
-    // required int32 instaUpgradeDiamondCostBase = 16;
+    // optional int32 instaUpgradeDiamondCostBase = 16;
     boolean hasInstaUpgradeDiamondCostBase();
     int getInstaUpgradeDiamondCostBase();
     
-    // required int32 imgVerticalPixelOffeset = 17;
+    // optional int32 imgVerticalPixelOffeset = 17;
     boolean hasImgVerticalPixelOffeset();
     int getImgVerticalPixelOffeset();
   }
@@ -7214,7 +6774,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 structId = 1;
+    // optional int32 structId = 1;
     public static final int STRUCTID_FIELD_NUMBER = 1;
     private int structId_;
     public boolean hasStructId() {
@@ -7224,7 +6784,7 @@ public final class InfoProto {
       return structId_;
     }
     
-    // required string name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -7256,7 +6816,7 @@ public final class InfoProto {
       }
     }
     
-    // required int32 income = 3;
+    // optional int32 income = 3;
     public static final int INCOME_FIELD_NUMBER = 3;
     private int income_;
     public boolean hasIncome() {
@@ -7266,7 +6826,7 @@ public final class InfoProto {
       return income_;
     }
     
-    // required int32 minutesToGain = 4;
+    // optional int32 minutesToGain = 4;
     public static final int MINUTESTOGAIN_FIELD_NUMBER = 4;
     private int minutesToGain_;
     public boolean hasMinutesToGain() {
@@ -7276,7 +6836,7 @@ public final class InfoProto {
       return minutesToGain_;
     }
     
-    // required int32 minutesToBuild = 5;
+    // optional int32 minutesToBuild = 5;
     public static final int MINUTESTOBUILD_FIELD_NUMBER = 5;
     private int minutesToBuild_;
     public boolean hasMinutesToBuild() {
@@ -7286,7 +6846,7 @@ public final class InfoProto {
       return minutesToBuild_;
     }
     
-    // required int32 minutesToUpgradeBase = 6;
+    // optional int32 minutesToUpgradeBase = 6;
     public static final int MINUTESTOUPGRADEBASE_FIELD_NUMBER = 6;
     private int minutesToUpgradeBase_;
     public boolean hasMinutesToUpgradeBase() {
@@ -7296,7 +6856,7 @@ public final class InfoProto {
       return minutesToUpgradeBase_;
     }
     
-    // required int32 coinPrice = 7;
+    // optional int32 coinPrice = 7;
     public static final int COINPRICE_FIELD_NUMBER = 7;
     private int coinPrice_;
     public boolean hasCoinPrice() {
@@ -7306,7 +6866,7 @@ public final class InfoProto {
       return coinPrice_;
     }
     
-    // required int32 diamondPrice = 8;
+    // optional int32 diamondPrice = 8;
     public static final int DIAMONDPRICE_FIELD_NUMBER = 8;
     private int diamondPrice_;
     public boolean hasDiamondPrice() {
@@ -7316,7 +6876,7 @@ public final class InfoProto {
       return diamondPrice_;
     }
     
-    // required int32 minLevel = 9;
+    // optional int32 minLevel = 9;
     public static final int MINLEVEL_FIELD_NUMBER = 9;
     private int minLevel_;
     public boolean hasMinLevel() {
@@ -7326,7 +6886,7 @@ public final class InfoProto {
       return minLevel_;
     }
     
-    // required int32 xLength = 10;
+    // optional int32 xLength = 10;
     public static final int XLENGTH_FIELD_NUMBER = 10;
     private int xLength_;
     public boolean hasXLength() {
@@ -7336,7 +6896,7 @@ public final class InfoProto {
       return xLength_;
     }
     
-    // required int32 yLength = 11;
+    // optional int32 yLength = 11;
     public static final int YLENGTH_FIELD_NUMBER = 11;
     private int yLength_;
     public boolean hasYLength() {
@@ -7346,7 +6906,7 @@ public final class InfoProto {
       return yLength_;
     }
     
-    // required int32 instaBuildDiamondCostBase = 14;
+    // optional int32 instaBuildDiamondCostBase = 14;
     public static final int INSTABUILDDIAMONDCOSTBASE_FIELD_NUMBER = 14;
     private int instaBuildDiamondCostBase_;
     public boolean hasInstaBuildDiamondCostBase() {
@@ -7356,7 +6916,7 @@ public final class InfoProto {
       return instaBuildDiamondCostBase_;
     }
     
-    // required int32 instaRetrieveDiamondCostBase = 15;
+    // optional int32 instaRetrieveDiamondCostBase = 15;
     public static final int INSTARETRIEVEDIAMONDCOSTBASE_FIELD_NUMBER = 15;
     private int instaRetrieveDiamondCostBase_;
     public boolean hasInstaRetrieveDiamondCostBase() {
@@ -7366,7 +6926,7 @@ public final class InfoProto {
       return instaRetrieveDiamondCostBase_;
     }
     
-    // required int32 instaUpgradeDiamondCostBase = 16;
+    // optional int32 instaUpgradeDiamondCostBase = 16;
     public static final int INSTAUPGRADEDIAMONDCOSTBASE_FIELD_NUMBER = 16;
     private int instaUpgradeDiamondCostBase_;
     public boolean hasInstaUpgradeDiamondCostBase() {
@@ -7376,7 +6936,7 @@ public final class InfoProto {
       return instaUpgradeDiamondCostBase_;
     }
     
-    // required int32 imgVerticalPixelOffeset = 17;
+    // optional int32 imgVerticalPixelOffeset = 17;
     public static final int IMGVERTICALPIXELOFFESET_FIELD_NUMBER = 17;
     private int imgVerticalPixelOffeset_;
     public boolean hasImgVerticalPixelOffeset() {
@@ -7408,66 +6968,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIncome()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMinutesToGain()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMinutesToBuild()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMinutesToUpgradeBase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCoinPrice()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDiamondPrice()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMinLevel()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasXLength()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasYLength()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasInstaBuildDiamondCostBase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasInstaRetrieveDiamondCostBase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasInstaUpgradeDiamondCostBase()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasImgVerticalPixelOffeset()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -7907,66 +7407,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasStructId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasIncome()) {
-          
-          return false;
-        }
-        if (!hasMinutesToGain()) {
-          
-          return false;
-        }
-        if (!hasMinutesToBuild()) {
-          
-          return false;
-        }
-        if (!hasMinutesToUpgradeBase()) {
-          
-          return false;
-        }
-        if (!hasCoinPrice()) {
-          
-          return false;
-        }
-        if (!hasDiamondPrice()) {
-          
-          return false;
-        }
-        if (!hasMinLevel()) {
-          
-          return false;
-        }
-        if (!hasXLength()) {
-          
-          return false;
-        }
-        if (!hasYLength()) {
-          
-          return false;
-        }
-        if (!hasInstaBuildDiamondCostBase()) {
-          
-          return false;
-        }
-        if (!hasInstaRetrieveDiamondCostBase()) {
-          
-          return false;
-        }
-        if (!hasInstaUpgradeDiamondCostBase()) {
-          
-          return false;
-        }
-        if (!hasImgVerticalPixelOffeset()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -8074,7 +7514,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 structId = 1;
+      // optional int32 structId = 1;
       private int structId_ ;
       public boolean hasStructId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -8095,7 +7535,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 2;
+      // optional string name = 2;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -8131,7 +7571,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required int32 income = 3;
+      // optional int32 income = 3;
       private int income_ ;
       public boolean hasIncome() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -8152,7 +7592,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 minutesToGain = 4;
+      // optional int32 minutesToGain = 4;
       private int minutesToGain_ ;
       public boolean hasMinutesToGain() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -8173,7 +7613,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 minutesToBuild = 5;
+      // optional int32 minutesToBuild = 5;
       private int minutesToBuild_ ;
       public boolean hasMinutesToBuild() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -8194,7 +7634,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 minutesToUpgradeBase = 6;
+      // optional int32 minutesToUpgradeBase = 6;
       private int minutesToUpgradeBase_ ;
       public boolean hasMinutesToUpgradeBase() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -8215,7 +7655,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 coinPrice = 7;
+      // optional int32 coinPrice = 7;
       private int coinPrice_ ;
       public boolean hasCoinPrice() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -8236,7 +7676,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 diamondPrice = 8;
+      // optional int32 diamondPrice = 8;
       private int diamondPrice_ ;
       public boolean hasDiamondPrice() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -8257,7 +7697,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 minLevel = 9;
+      // optional int32 minLevel = 9;
       private int minLevel_ ;
       public boolean hasMinLevel() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
@@ -8278,7 +7718,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 xLength = 10;
+      // optional int32 xLength = 10;
       private int xLength_ ;
       public boolean hasXLength() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
@@ -8299,7 +7739,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 yLength = 11;
+      // optional int32 yLength = 11;
       private int yLength_ ;
       public boolean hasYLength() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -8320,7 +7760,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 instaBuildDiamondCostBase = 14;
+      // optional int32 instaBuildDiamondCostBase = 14;
       private int instaBuildDiamondCostBase_ ;
       public boolean hasInstaBuildDiamondCostBase() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -8341,7 +7781,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 instaRetrieveDiamondCostBase = 15;
+      // optional int32 instaRetrieveDiamondCostBase = 15;
       private int instaRetrieveDiamondCostBase_ ;
       public boolean hasInstaRetrieveDiamondCostBase() {
         return ((bitField0_ & 0x00001000) == 0x00001000);
@@ -8362,7 +7802,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 instaUpgradeDiamondCostBase = 16;
+      // optional int32 instaUpgradeDiamondCostBase = 16;
       private int instaUpgradeDiamondCostBase_ ;
       public boolean hasInstaUpgradeDiamondCostBase() {
         return ((bitField0_ & 0x00002000) == 0x00002000);
@@ -8383,7 +7823,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 imgVerticalPixelOffeset = 17;
+      // optional int32 imgVerticalPixelOffeset = 17;
       private int imgVerticalPixelOffeset_ ;
       public boolean hasImgVerticalPixelOffeset() {
         return ((bitField0_ & 0x00004000) == 0x00004000);
@@ -8418,35 +7858,35 @@ public final class InfoProto {
   public interface FullTaskProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 taskId = 1;
+    // optional int32 taskId = 1;
     boolean hasTaskId();
     int getTaskId();
     
-    // required string name = 2;
+    // optional string name = 2;
     boolean hasName();
     String getName();
     
-    // required int32 cityId = 3;
+    // optional int32 cityId = 3;
     boolean hasCityId();
     int getCityId();
     
-    // required int32 numRequiredForCompletion = 4;
+    // optional int32 numRequiredForCompletion = 4;
     boolean hasNumRequiredForCompletion();
     int getNumRequiredForCompletion();
     
-    // required int32 energyCost = 5;
+    // optional int32 energyCost = 5;
     boolean hasEnergyCost();
     int getEnergyCost();
     
-    // required int32 minCoinsGained = 6;
+    // optional int32 minCoinsGained = 6;
     boolean hasMinCoinsGained();
     int getMinCoinsGained();
     
-    // required int32 maxCoinsGained = 7;
+    // optional int32 maxCoinsGained = 7;
     boolean hasMaxCoinsGained();
     int getMaxCoinsGained();
     
-    // required float chanceOfEquipLoot = 8;
+    // optional float chanceOfEquipLoot = 8;
     boolean hasChanceOfEquipLoot();
     float getChanceOfEquipLoot();
     
@@ -8455,15 +7895,15 @@ public final class InfoProto {
     int getPotentialLootEquipIdsCount();
     int getPotentialLootEquipIds(int index);
     
-    // required int32 expGained = 10;
+    // optional int32 expGained = 10;
     boolean hasExpGained();
     int getExpGained();
     
-    // required int32 assetNumWithinCity = 11;
+    // optional int32 assetNumWithinCity = 11;
     boolean hasAssetNumWithinCity();
     int getAssetNumWithinCity();
     
-    // required string processingText = 12;
+    // optional string processingText = 12;
     boolean hasProcessingText();
     String getProcessingText();
     
@@ -8508,15 +7948,15 @@ public final class InfoProto {
     public interface FullTaskEquipReqProtoOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required int32 taskId = 1;
+      // optional int32 taskId = 1;
       boolean hasTaskId();
       int getTaskId();
       
-      // required int32 equipId = 2;
+      // optional int32 equipId = 2;
       boolean hasEquipId();
       int getEquipId();
       
-      // required int32 quantity = 3;
+      // optional int32 quantity = 3;
       boolean hasQuantity();
       int getQuantity();
     }
@@ -8549,7 +7989,7 @@ public final class InfoProto {
       }
       
       private int bitField0_;
-      // required int32 taskId = 1;
+      // optional int32 taskId = 1;
       public static final int TASKID_FIELD_NUMBER = 1;
       private int taskId_;
       public boolean hasTaskId() {
@@ -8559,7 +7999,7 @@ public final class InfoProto {
         return taskId_;
       }
       
-      // required int32 equipId = 2;
+      // optional int32 equipId = 2;
       public static final int EQUIPID_FIELD_NUMBER = 2;
       private int equipId_;
       public boolean hasEquipId() {
@@ -8569,7 +8009,7 @@ public final class InfoProto {
         return equipId_;
       }
       
-      // required int32 quantity = 3;
+      // optional int32 quantity = 3;
       public static final int QUANTITY_FIELD_NUMBER = 3;
       private int quantity_;
       public boolean hasQuantity() {
@@ -8589,18 +8029,6 @@ public final class InfoProto {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasTaskId()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasEquipId()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasQuantity()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -8848,18 +8276,6 @@ public final class InfoProto {
         }
         
         public final boolean isInitialized() {
-          if (!hasTaskId()) {
-            
-            return false;
-          }
-          if (!hasEquipId()) {
-            
-            return false;
-          }
-          if (!hasQuantity()) {
-            
-            return false;
-          }
           return true;
         }
         
@@ -8907,7 +8323,7 @@ public final class InfoProto {
         
         private int bitField0_;
         
-        // required int32 taskId = 1;
+        // optional int32 taskId = 1;
         private int taskId_ ;
         public boolean hasTaskId() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -8928,7 +8344,7 @@ public final class InfoProto {
           return this;
         }
         
-        // required int32 equipId = 2;
+        // optional int32 equipId = 2;
         private int equipId_ ;
         public boolean hasEquipId() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -8949,7 +8365,7 @@ public final class InfoProto {
           return this;
         }
         
-        // required int32 quantity = 3;
+        // optional int32 quantity = 3;
         private int quantity_ ;
         public boolean hasQuantity() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -8982,7 +8398,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 taskId = 1;
+    // optional int32 taskId = 1;
     public static final int TASKID_FIELD_NUMBER = 1;
     private int taskId_;
     public boolean hasTaskId() {
@@ -8992,7 +8408,7 @@ public final class InfoProto {
       return taskId_;
     }
     
-    // required string name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -9024,7 +8440,7 @@ public final class InfoProto {
       }
     }
     
-    // required int32 cityId = 3;
+    // optional int32 cityId = 3;
     public static final int CITYID_FIELD_NUMBER = 3;
     private int cityId_;
     public boolean hasCityId() {
@@ -9034,7 +8450,7 @@ public final class InfoProto {
       return cityId_;
     }
     
-    // required int32 numRequiredForCompletion = 4;
+    // optional int32 numRequiredForCompletion = 4;
     public static final int NUMREQUIREDFORCOMPLETION_FIELD_NUMBER = 4;
     private int numRequiredForCompletion_;
     public boolean hasNumRequiredForCompletion() {
@@ -9044,7 +8460,7 @@ public final class InfoProto {
       return numRequiredForCompletion_;
     }
     
-    // required int32 energyCost = 5;
+    // optional int32 energyCost = 5;
     public static final int ENERGYCOST_FIELD_NUMBER = 5;
     private int energyCost_;
     public boolean hasEnergyCost() {
@@ -9054,7 +8470,7 @@ public final class InfoProto {
       return energyCost_;
     }
     
-    // required int32 minCoinsGained = 6;
+    // optional int32 minCoinsGained = 6;
     public static final int MINCOINSGAINED_FIELD_NUMBER = 6;
     private int minCoinsGained_;
     public boolean hasMinCoinsGained() {
@@ -9064,7 +8480,7 @@ public final class InfoProto {
       return minCoinsGained_;
     }
     
-    // required int32 maxCoinsGained = 7;
+    // optional int32 maxCoinsGained = 7;
     public static final int MAXCOINSGAINED_FIELD_NUMBER = 7;
     private int maxCoinsGained_;
     public boolean hasMaxCoinsGained() {
@@ -9074,7 +8490,7 @@ public final class InfoProto {
       return maxCoinsGained_;
     }
     
-    // required float chanceOfEquipLoot = 8;
+    // optional float chanceOfEquipLoot = 8;
     public static final int CHANCEOFEQUIPLOOT_FIELD_NUMBER = 8;
     private float chanceOfEquipLoot_;
     public boolean hasChanceOfEquipLoot() {
@@ -9098,7 +8514,7 @@ public final class InfoProto {
       return potentialLootEquipIds_.get(index);
     }
     
-    // required int32 expGained = 10;
+    // optional int32 expGained = 10;
     public static final int EXPGAINED_FIELD_NUMBER = 10;
     private int expGained_;
     public boolean hasExpGained() {
@@ -9108,7 +8524,7 @@ public final class InfoProto {
       return expGained_;
     }
     
-    // required int32 assetNumWithinCity = 11;
+    // optional int32 assetNumWithinCity = 11;
     public static final int ASSETNUMWITHINCITY_FIELD_NUMBER = 11;
     private int assetNumWithinCity_;
     public boolean hasAssetNumWithinCity() {
@@ -9118,7 +8534,7 @@ public final class InfoProto {
       return assetNumWithinCity_;
     }
     
-    // required string processingText = 12;
+    // optional string processingText = 12;
     public static final int PROCESSINGTEXT_FIELD_NUMBER = 12;
     private java.lang.Object processingText_;
     public boolean hasProcessingText() {
@@ -9191,56 +8607,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasTaskId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumRequiredForCompletion()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEnergyCost()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMinCoinsGained()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMaxCoinsGained()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasChanceOfEquipLoot()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasExpGained()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAssetNumWithinCity()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasProcessingText()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getEquipReqsCount(); i++) {
-        if (!getEquipReqs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -9694,56 +9060,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasTaskId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasCityId()) {
-          
-          return false;
-        }
-        if (!hasNumRequiredForCompletion()) {
-          
-          return false;
-        }
-        if (!hasEnergyCost()) {
-          
-          return false;
-        }
-        if (!hasMinCoinsGained()) {
-          
-          return false;
-        }
-        if (!hasMaxCoinsGained()) {
-          
-          return false;
-        }
-        if (!hasChanceOfEquipLoot()) {
-          
-          return false;
-        }
-        if (!hasExpGained()) {
-          
-          return false;
-        }
-        if (!hasAssetNumWithinCity()) {
-          
-          return false;
-        }
-        if (!hasProcessingText()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getEquipReqsCount(); i++) {
-          if (!getEquipReqs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -9851,7 +9167,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 taskId = 1;
+      // optional int32 taskId = 1;
       private int taskId_ ;
       public boolean hasTaskId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -9872,7 +9188,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 2;
+      // optional string name = 2;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -9908,7 +9224,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required int32 cityId = 3;
+      // optional int32 cityId = 3;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -9929,7 +9245,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numRequiredForCompletion = 4;
+      // optional int32 numRequiredForCompletion = 4;
       private int numRequiredForCompletion_ ;
       public boolean hasNumRequiredForCompletion() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -9950,7 +9266,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 energyCost = 5;
+      // optional int32 energyCost = 5;
       private int energyCost_ ;
       public boolean hasEnergyCost() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -9971,7 +9287,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 minCoinsGained = 6;
+      // optional int32 minCoinsGained = 6;
       private int minCoinsGained_ ;
       public boolean hasMinCoinsGained() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -9992,7 +9308,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 maxCoinsGained = 7;
+      // optional int32 maxCoinsGained = 7;
       private int maxCoinsGained_ ;
       public boolean hasMaxCoinsGained() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -10013,7 +9329,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required float chanceOfEquipLoot = 8;
+      // optional float chanceOfEquipLoot = 8;
       private float chanceOfEquipLoot_ ;
       public boolean hasChanceOfEquipLoot() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -10079,7 +9395,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 expGained = 10;
+      // optional int32 expGained = 10;
       private int expGained_ ;
       public boolean hasExpGained() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
@@ -10100,7 +9416,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 assetNumWithinCity = 11;
+      // optional int32 assetNumWithinCity = 11;
       private int assetNumWithinCity_ ;
       public boolean hasAssetNumWithinCity() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
@@ -10121,7 +9437,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string processingText = 12;
+      // optional string processingText = 12;
       private java.lang.Object processingText_ = "";
       public boolean hasProcessingText() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
@@ -10357,41 +9673,41 @@ public final class InfoProto {
   public interface FullCityProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 cityId = 1;
+    // optional int32 cityId = 1;
     boolean hasCityId();
     int getCityId();
     
-    // required string name = 2;
+    // optional string name = 2;
     boolean hasName();
     String getName();
     
-    // required int32 minLevel = 3;
+    // optional int32 minLevel = 3;
     boolean hasMinLevel();
     int getMinLevel();
     
-    // required int32 expGainedBaseOnRankup = 4;
+    // optional int32 expGainedBaseOnRankup = 4;
     boolean hasExpGainedBaseOnRankup();
     int getExpGainedBaseOnRankup();
     
-    // required int32 coinsGainedBaseOnRankup = 5;
+    // optional int32 coinsGainedBaseOnRankup = 5;
     boolean hasCoinsGainedBaseOnRankup();
     int getCoinsGainedBaseOnRankup();
     
-    // required string mapImgName = 6;
+    // optional string mapImgName = 6;
     boolean hasMapImgName();
     String getMapImgName();
     
-    // required .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
+    // optional .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
     boolean hasAviaryCoords();
     com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder();
     
-    // required .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
+    // optional .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
     boolean hasSpriteAviaryLandingCoords();
     com.lvl6.proto.InfoProto.CoordinateProto getSpriteAviaryLandingCoords();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getSpriteAviaryLandingCoordsOrBuilder();
     
-    // required .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
+    // optional .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
     boolean hasAviaryOrientation();
     com.lvl6.proto.InfoProto.StructOrientation getAviaryOrientation();
     
@@ -10429,7 +9745,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 cityId = 1;
+    // optional int32 cityId = 1;
     public static final int CITYID_FIELD_NUMBER = 1;
     private int cityId_;
     public boolean hasCityId() {
@@ -10439,7 +9755,7 @@ public final class InfoProto {
       return cityId_;
     }
     
-    // required string name = 2;
+    // optional string name = 2;
     public static final int NAME_FIELD_NUMBER = 2;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -10471,7 +9787,7 @@ public final class InfoProto {
       }
     }
     
-    // required int32 minLevel = 3;
+    // optional int32 minLevel = 3;
     public static final int MINLEVEL_FIELD_NUMBER = 3;
     private int minLevel_;
     public boolean hasMinLevel() {
@@ -10481,7 +9797,7 @@ public final class InfoProto {
       return minLevel_;
     }
     
-    // required int32 expGainedBaseOnRankup = 4;
+    // optional int32 expGainedBaseOnRankup = 4;
     public static final int EXPGAINEDBASEONRANKUP_FIELD_NUMBER = 4;
     private int expGainedBaseOnRankup_;
     public boolean hasExpGainedBaseOnRankup() {
@@ -10491,7 +9807,7 @@ public final class InfoProto {
       return expGainedBaseOnRankup_;
     }
     
-    // required int32 coinsGainedBaseOnRankup = 5;
+    // optional int32 coinsGainedBaseOnRankup = 5;
     public static final int COINSGAINEDBASEONRANKUP_FIELD_NUMBER = 5;
     private int coinsGainedBaseOnRankup_;
     public boolean hasCoinsGainedBaseOnRankup() {
@@ -10501,7 +9817,7 @@ public final class InfoProto {
       return coinsGainedBaseOnRankup_;
     }
     
-    // required string mapImgName = 6;
+    // optional string mapImgName = 6;
     public static final int MAPIMGNAME_FIELD_NUMBER = 6;
     private java.lang.Object mapImgName_;
     public boolean hasMapImgName() {
@@ -10533,7 +9849,7 @@ public final class InfoProto {
       }
     }
     
-    // required .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
+    // optional .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
     public static final int AVIARYCOORDS_FIELD_NUMBER = 7;
     private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_;
     public boolean hasAviaryCoords() {
@@ -10546,7 +9862,7 @@ public final class InfoProto {
       return aviaryCoords_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
+    // optional .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
     public static final int SPRITEAVIARYLANDINGCOORDS_FIELD_NUMBER = 8;
     private com.lvl6.proto.InfoProto.CoordinateProto spriteAviaryLandingCoords_;
     public boolean hasSpriteAviaryLandingCoords() {
@@ -10559,7 +9875,7 @@ public final class InfoProto {
       return spriteAviaryLandingCoords_;
     }
     
-    // required .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
+    // optional .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
     public static final int AVIARYORIENTATION_FIELD_NUMBER = 9;
     private com.lvl6.proto.InfoProto.StructOrientation aviaryOrientation_;
     public boolean hasAviaryOrientation() {
@@ -10600,50 +9916,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMinLevel()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasExpGainedBaseOnRankup()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCoinsGainedBaseOnRankup()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMapImgName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAviaryCoords()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasSpriteAviaryLandingCoords()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAviaryOrientation()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getAviaryCoords().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSpriteAviaryLandingCoords().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -11034,50 +10306,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasCityId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasMinLevel()) {
-          
-          return false;
-        }
-        if (!hasExpGainedBaseOnRankup()) {
-          
-          return false;
-        }
-        if (!hasCoinsGainedBaseOnRankup()) {
-          
-          return false;
-        }
-        if (!hasMapImgName()) {
-          
-          return false;
-        }
-        if (!hasAviaryCoords()) {
-          
-          return false;
-        }
-        if (!hasSpriteAviaryLandingCoords()) {
-          
-          return false;
-        }
-        if (!hasAviaryOrientation()) {
-          
-          return false;
-        }
-        if (!getAviaryCoords().isInitialized()) {
-          
-          return false;
-        }
-        if (!getSpriteAviaryLandingCoords().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -11183,7 +10411,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 cityId = 1;
+      // optional int32 cityId = 1;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -11204,7 +10432,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 2;
+      // optional string name = 2;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -11240,7 +10468,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required int32 minLevel = 3;
+      // optional int32 minLevel = 3;
       private int minLevel_ ;
       public boolean hasMinLevel() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -11261,7 +10489,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 expGainedBaseOnRankup = 4;
+      // optional int32 expGainedBaseOnRankup = 4;
       private int expGainedBaseOnRankup_ ;
       public boolean hasExpGainedBaseOnRankup() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -11282,7 +10510,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 coinsGainedBaseOnRankup = 5;
+      // optional int32 coinsGainedBaseOnRankup = 5;
       private int coinsGainedBaseOnRankup_ ;
       public boolean hasCoinsGainedBaseOnRankup() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -11303,7 +10531,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string mapImgName = 6;
+      // optional string mapImgName = 6;
       private java.lang.Object mapImgName_ = "";
       public boolean hasMapImgName() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -11339,7 +10567,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
+      // optional .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
       private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> aviaryCoordsBuilder_;
@@ -11429,7 +10657,7 @@ public final class InfoProto {
         return aviaryCoordsBuilder_;
       }
       
-      // required .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
+      // optional .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
       private com.lvl6.proto.InfoProto.CoordinateProto spriteAviaryLandingCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> spriteAviaryLandingCoordsBuilder_;
@@ -11519,7 +10747,7 @@ public final class InfoProto {
         return spriteAviaryLandingCoordsBuilder_;
       }
       
-      // required .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
+      // optional .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
       private com.lvl6.proto.InfoProto.StructOrientation aviaryOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
       public boolean hasAviaryOrientation() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
@@ -11602,19 +10830,19 @@ public final class InfoProto {
   public interface FullUserCityExpansionDataProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 farLeftExpansions = 3;
+    // optional int32 farLeftExpansions = 3;
     boolean hasFarLeftExpansions();
     int getFarLeftExpansions();
     
-    // required int32 farRightExpansions = 4;
+    // optional int32 farRightExpansions = 4;
     boolean hasFarRightExpansions();
     int getFarRightExpansions();
     
-    // required bool isExpanding = 5;
+    // optional bool isExpanding = 5;
     boolean hasIsExpanding();
     boolean getIsExpanding();
     
@@ -11655,7 +10883,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -11665,7 +10893,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 farLeftExpansions = 3;
+    // optional int32 farLeftExpansions = 3;
     public static final int FARLEFTEXPANSIONS_FIELD_NUMBER = 3;
     private int farLeftExpansions_;
     public boolean hasFarLeftExpansions() {
@@ -11675,7 +10903,7 @@ public final class InfoProto {
       return farLeftExpansions_;
     }
     
-    // required int32 farRightExpansions = 4;
+    // optional int32 farRightExpansions = 4;
     public static final int FARRIGHTEXPANSIONS_FIELD_NUMBER = 4;
     private int farRightExpansions_;
     public boolean hasFarRightExpansions() {
@@ -11685,7 +10913,7 @@ public final class InfoProto {
       return farRightExpansions_;
     }
     
-    // required bool isExpanding = 5;
+    // optional bool isExpanding = 5;
     public static final int ISEXPANDING_FIELD_NUMBER = 5;
     private boolean isExpanding_;
     public boolean hasIsExpanding() {
@@ -11728,22 +10956,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasFarLeftExpansions()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasFarRightExpansions()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIsExpanding()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -12039,22 +11251,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasFarLeftExpansions()) {
-          
-          return false;
-        }
-        if (!hasFarRightExpansions()) {
-          
-          return false;
-        }
-        if (!hasIsExpanding()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -12123,7 +11319,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -12144,7 +11340,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 farLeftExpansions = 3;
+      // optional int32 farLeftExpansions = 3;
       private int farLeftExpansions_ ;
       public boolean hasFarLeftExpansions() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -12165,7 +11361,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 farRightExpansions = 4;
+      // optional int32 farRightExpansions = 4;
       private int farRightExpansions_ ;
       public boolean hasFarRightExpansions() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -12186,7 +11382,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isExpanding = 5;
+      // optional bool isExpanding = 5;
       private boolean isExpanding_ ;
       public boolean hasIsExpanding() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -12266,19 +11462,19 @@ public final class InfoProto {
   public interface FullUserCityProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 cityId = 2;
+    // optional int32 cityId = 2;
     boolean hasCityId();
     int getCityId();
     
-    // required int32 currentRank = 3;
+    // optional int32 currentRank = 3;
     boolean hasCurrentRank();
     int getCurrentRank();
     
-    // required int32 numTasksCurrentlyCompleteInRank = 4;
+    // optional int32 numTasksCurrentlyCompleteInRank = 4;
     boolean hasNumTasksCurrentlyCompleteInRank();
     int getNumTasksCurrentlyCompleteInRank();
   }
@@ -12311,7 +11507,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -12321,7 +11517,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 cityId = 2;
+    // optional int32 cityId = 2;
     public static final int CITYID_FIELD_NUMBER = 2;
     private int cityId_;
     public boolean hasCityId() {
@@ -12331,7 +11527,7 @@ public final class InfoProto {
       return cityId_;
     }
     
-    // required int32 currentRank = 3;
+    // optional int32 currentRank = 3;
     public static final int CURRENTRANK_FIELD_NUMBER = 3;
     private int currentRank_;
     public boolean hasCurrentRank() {
@@ -12341,7 +11537,7 @@ public final class InfoProto {
       return currentRank_;
     }
     
-    // required int32 numTasksCurrentlyCompleteInRank = 4;
+    // optional int32 numTasksCurrentlyCompleteInRank = 4;
     public static final int NUMTASKSCURRENTLYCOMPLETEINRANK_FIELD_NUMBER = 4;
     private int numTasksCurrentlyCompleteInRank_;
     public boolean hasNumTasksCurrentlyCompleteInRank() {
@@ -12362,22 +11558,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCurrentRank()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumTasksCurrentlyCompleteInRank()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -12641,22 +11821,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasCityId()) {
-          
-          return false;
-        }
-        if (!hasCurrentRank()) {
-          
-          return false;
-        }
-        if (!hasNumTasksCurrentlyCompleteInRank()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -12709,7 +11873,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -12730,7 +11894,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 cityId = 2;
+      // optional int32 cityId = 2;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -12751,7 +11915,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 currentRank = 3;
+      // optional int32 currentRank = 3;
       private int currentRank_ ;
       public boolean hasCurrentRank() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -12772,7 +11936,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numTasksCurrentlyCompleteInRank = 4;
+      // optional int32 numTasksCurrentlyCompleteInRank = 4;
       private int numTasksCurrentlyCompleteInRank_ ;
       public boolean hasNumTasksCurrentlyCompleteInRank() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -12807,11 +11971,11 @@ public final class InfoProto {
   public interface CoordinateProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required float x = 1;
+    // optional float x = 1;
     boolean hasX();
     float getX();
     
-    // required float y = 2;
+    // optional float y = 2;
     boolean hasY();
     float getY();
   }
@@ -12844,7 +12008,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required float x = 1;
+    // optional float x = 1;
     public static final int X_FIELD_NUMBER = 1;
     private float x_;
     public boolean hasX() {
@@ -12854,7 +12018,7 @@ public final class InfoProto {
       return x_;
     }
     
-    // required float y = 2;
+    // optional float y = 2;
     public static final int Y_FIELD_NUMBER = 2;
     private float y_;
     public boolean hasY() {
@@ -12873,14 +12037,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasX()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasY()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -13112,14 +12268,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasX()) {
-          
-          return false;
-        }
-        if (!hasY()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -13162,7 +12310,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required float x = 1;
+      // optional float x = 1;
       private float x_ ;
       public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -13183,7 +12331,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required float y = 2;
+      // optional float y = 2;
       private float y_ ;
       public boolean hasY() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -13218,11 +12366,11 @@ public final class InfoProto {
   public interface LocationProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required double latitude = 1;
+    // optional double latitude = 1;
     boolean hasLatitude();
     double getLatitude();
     
-    // required double longitude = 2;
+    // optional double longitude = 2;
     boolean hasLongitude();
     double getLongitude();
   }
@@ -13255,7 +12403,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required double latitude = 1;
+    // optional double latitude = 1;
     public static final int LATITUDE_FIELD_NUMBER = 1;
     private double latitude_;
     public boolean hasLatitude() {
@@ -13265,7 +12413,7 @@ public final class InfoProto {
       return latitude_;
     }
     
-    // required double longitude = 2;
+    // optional double longitude = 2;
     public static final int LONGITUDE_FIELD_NUMBER = 2;
     private double longitude_;
     public boolean hasLongitude() {
@@ -13284,14 +12432,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasLatitude()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLongitude()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -13523,14 +12663,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasLatitude()) {
-          
-          return false;
-        }
-        if (!hasLongitude()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -13573,7 +12705,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required double latitude = 1;
+      // optional double latitude = 1;
       private double latitude_ ;
       public boolean hasLatitude() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -13594,7 +12726,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required double longitude = 2;
+      // optional double longitude = 2;
       private double longitude_ ;
       public boolean hasLongitude() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -13629,23 +12761,23 @@ public final class InfoProto {
   public interface NeutralCityElementProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 cityId = 1;
+    // optional int32 cityId = 1;
     boolean hasCityId();
     int getCityId();
     
-    // required int32 assetId = 2;
+    // optional int32 assetId = 2;
     boolean hasAssetId();
     int getAssetId();
     
-    // required string name = 9;
+    // optional string name = 9;
     boolean hasName();
     String getName();
     
-    // required .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
+    // optional .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
     boolean hasType();
     com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType getType();
     
-    // required .com.lvl6.proto.CoordinateProto coords = 4;
+    // optional .com.lvl6.proto.CoordinateProto coords = 4;
     boolean hasCoords();
     com.lvl6.proto.InfoProto.CoordinateProto getCoords();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordsOrBuilder();
@@ -13658,7 +12790,7 @@ public final class InfoProto {
     boolean hasYLength();
     int getYLength();
     
-    // required string imgId = 7;
+    // optional string imgId = 7;
     boolean hasImgId();
     String getImgId();
     
@@ -13770,7 +12902,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 cityId = 1;
+    // optional int32 cityId = 1;
     public static final int CITYID_FIELD_NUMBER = 1;
     private int cityId_;
     public boolean hasCityId() {
@@ -13780,7 +12912,7 @@ public final class InfoProto {
       return cityId_;
     }
     
-    // required int32 assetId = 2;
+    // optional int32 assetId = 2;
     public static final int ASSETID_FIELD_NUMBER = 2;
     private int assetId_;
     public boolean hasAssetId() {
@@ -13790,7 +12922,7 @@ public final class InfoProto {
       return assetId_;
     }
     
-    // required string name = 9;
+    // optional string name = 9;
     public static final int NAME_FIELD_NUMBER = 9;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -13822,7 +12954,7 @@ public final class InfoProto {
       }
     }
     
-    // required .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
+    // optional .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
     public static final int TYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType type_;
     public boolean hasType() {
@@ -13832,7 +12964,7 @@ public final class InfoProto {
       return type_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto coords = 4;
+    // optional .com.lvl6.proto.CoordinateProto coords = 4;
     public static final int COORDS_FIELD_NUMBER = 4;
     private com.lvl6.proto.InfoProto.CoordinateProto coords_;
     public boolean hasCoords() {
@@ -13865,7 +12997,7 @@ public final class InfoProto {
       return yLength_;
     }
     
-    // required string imgId = 7;
+    // optional string imgId = 7;
     public static final int IMGID_FIELD_NUMBER = 7;
     private java.lang.Object imgId_;
     public boolean hasImgId() {
@@ -13923,34 +13055,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAssetId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCoords()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasImgId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getCoords().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -14303,34 +13407,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasCityId()) {
-          
-          return false;
-        }
-        if (!hasAssetId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!hasCoords()) {
-          
-          return false;
-        }
-        if (!hasImgId()) {
-          
-          return false;
-        }
-        if (!getCoords().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -14424,7 +13500,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 cityId = 1;
+      // optional int32 cityId = 1;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -14445,7 +13521,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 assetId = 2;
+      // optional int32 assetId = 2;
       private int assetId_ ;
       public boolean hasAssetId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -14466,7 +13542,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 9;
+      // optional string name = 9;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -14502,7 +13578,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
+      // optional .com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType type = 3;
       private com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType type_ = com.lvl6.proto.InfoProto.NeutralCityElementProto.NeutralCityElemType.PERSON_QUEST_GIVER;
       public boolean hasType() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -14526,7 +13602,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.CoordinateProto coords = 4;
+      // optional .com.lvl6.proto.CoordinateProto coords = 4;
       private com.lvl6.proto.InfoProto.CoordinateProto coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> coordsBuilder_;
@@ -14658,7 +13734,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string imgId = 7;
+      // optional string imgId = 7;
       private java.lang.Object imgId_ = "";
       public boolean hasImgId() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
@@ -14732,23 +13808,23 @@ public final class InfoProto {
   public interface FullMarketplacePostProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 marketplacePostId = 1;
+    // optional int32 marketplacePostId = 1;
     boolean hasMarketplacePostId();
     int getMarketplacePostId();
     
-    // required int32 posterId = 2;
+    // optional int32 posterId = 2;
     boolean hasPosterId();
     int getPosterId();
     
-    // required .com.lvl6.proto.MarketplacePostType postType = 3;
+    // optional .com.lvl6.proto.MarketplacePostType postType = 3;
     boolean hasPostType();
     com.lvl6.proto.InfoProto.MarketplacePostType getPostType();
     
-    // required int64 timeOfPost = 4;
+    // optional int64 timeOfPost = 4;
     boolean hasTimeOfPost();
     long getTimeOfPost();
     
-    // required .com.lvl6.proto.FullEquipProto postedEquip = 5;
+    // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
     boolean hasPostedEquip();
     com.lvl6.proto.InfoProto.FullEquipProto getPostedEquip();
     com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder getPostedEquipOrBuilder();
@@ -14790,7 +13866,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 marketplacePostId = 1;
+    // optional int32 marketplacePostId = 1;
     public static final int MARKETPLACEPOSTID_FIELD_NUMBER = 1;
     private int marketplacePostId_;
     public boolean hasMarketplacePostId() {
@@ -14800,7 +13876,7 @@ public final class InfoProto {
       return marketplacePostId_;
     }
     
-    // required int32 posterId = 2;
+    // optional int32 posterId = 2;
     public static final int POSTERID_FIELD_NUMBER = 2;
     private int posterId_;
     public boolean hasPosterId() {
@@ -14810,7 +13886,7 @@ public final class InfoProto {
       return posterId_;
     }
     
-    // required .com.lvl6.proto.MarketplacePostType postType = 3;
+    // optional .com.lvl6.proto.MarketplacePostType postType = 3;
     public static final int POSTTYPE_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.MarketplacePostType postType_;
     public boolean hasPostType() {
@@ -14820,7 +13896,7 @@ public final class InfoProto {
       return postType_;
     }
     
-    // required int64 timeOfPost = 4;
+    // optional int64 timeOfPost = 4;
     public static final int TIMEOFPOST_FIELD_NUMBER = 4;
     private long timeOfPost_;
     public boolean hasTimeOfPost() {
@@ -14830,7 +13906,7 @@ public final class InfoProto {
       return timeOfPost_;
     }
     
-    // required .com.lvl6.proto.FullEquipProto postedEquip = 5;
+    // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
     public static final int POSTEDEQUIP_FIELD_NUMBER = 5;
     private com.lvl6.proto.InfoProto.FullEquipProto postedEquip_;
     public boolean hasPostedEquip() {
@@ -14877,30 +13953,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasMarketplacePostId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPosterId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPostType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimeOfPost()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPostedEquip()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getPostedEquip().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -15221,30 +14273,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasMarketplacePostId()) {
-          
-          return false;
-        }
-        if (!hasPosterId()) {
-          
-          return false;
-        }
-        if (!hasPostType()) {
-          
-          return false;
-        }
-        if (!hasTimeOfPost()) {
-          
-          return false;
-        }
-        if (!hasPostedEquip()) {
-          
-          return false;
-        }
-        if (!getPostedEquip().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -15322,7 +14350,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 marketplacePostId = 1;
+      // optional int32 marketplacePostId = 1;
       private int marketplacePostId_ ;
       public boolean hasMarketplacePostId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -15343,7 +14371,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 posterId = 2;
+      // optional int32 posterId = 2;
       private int posterId_ ;
       public boolean hasPosterId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -15364,7 +14392,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.MarketplacePostType postType = 3;
+      // optional .com.lvl6.proto.MarketplacePostType postType = 3;
       private com.lvl6.proto.InfoProto.MarketplacePostType postType_ = com.lvl6.proto.InfoProto.MarketplacePostType.PREMIUM_EQUIP_POST;
       public boolean hasPostType() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -15388,7 +14416,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int64 timeOfPost = 4;
+      // optional int64 timeOfPost = 4;
       private long timeOfPost_ ;
       public boolean hasTimeOfPost() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -15409,7 +14437,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.FullEquipProto postedEquip = 5;
+      // optional .com.lvl6.proto.FullEquipProto postedEquip = 5;
       private com.lvl6.proto.InfoProto.FullEquipProto postedEquip_ = com.lvl6.proto.InfoProto.FullEquipProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.FullEquipProto, com.lvl6.proto.InfoProto.FullEquipProto.Builder, com.lvl6.proto.InfoProto.FullEquipProtoOrBuilder> postedEquipBuilder_;
@@ -15555,16 +14583,16 @@ public final class InfoProto {
   public interface FullUserCritstructProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required .com.lvl6.proto.CritStructType type = 1;
+    // optional .com.lvl6.proto.CritStructType type = 1;
     boolean hasType();
     com.lvl6.proto.InfoProto.CritStructType getType();
     
-    // required .com.lvl6.proto.CoordinateProto coords = 2;
+    // optional .com.lvl6.proto.CoordinateProto coords = 2;
     boolean hasCoords();
     com.lvl6.proto.InfoProto.CoordinateProto getCoords();
     com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCoordsOrBuilder();
     
-    // required .com.lvl6.proto.StructOrientation orientation = 3;
+    // optional .com.lvl6.proto.StructOrientation orientation = 3;
     boolean hasOrientation();
     com.lvl6.proto.InfoProto.StructOrientation getOrientation();
   }
@@ -15597,7 +14625,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required .com.lvl6.proto.CritStructType type = 1;
+    // optional .com.lvl6.proto.CritStructType type = 1;
     public static final int TYPE_FIELD_NUMBER = 1;
     private com.lvl6.proto.InfoProto.CritStructType type_;
     public boolean hasType() {
@@ -15607,7 +14635,7 @@ public final class InfoProto {
       return type_;
     }
     
-    // required .com.lvl6.proto.CoordinateProto coords = 2;
+    // optional .com.lvl6.proto.CoordinateProto coords = 2;
     public static final int COORDS_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.CoordinateProto coords_;
     public boolean hasCoords() {
@@ -15620,7 +14648,7 @@ public final class InfoProto {
       return coords_;
     }
     
-    // required .com.lvl6.proto.StructOrientation orientation = 3;
+    // optional .com.lvl6.proto.StructOrientation orientation = 3;
     public static final int ORIENTATION_FIELD_NUMBER = 3;
     private com.lvl6.proto.InfoProto.StructOrientation orientation_;
     public boolean hasOrientation() {
@@ -15640,22 +14668,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCoords()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasOrientation()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getCoords().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -15912,22 +14924,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!hasCoords()) {
-          
-          return false;
-        }
-        if (!hasOrientation()) {
-          
-          return false;
-        }
-        if (!getCoords().isInitialized()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -15991,7 +14987,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required .com.lvl6.proto.CritStructType type = 1;
+      // optional .com.lvl6.proto.CritStructType type = 1;
       private com.lvl6.proto.InfoProto.CritStructType type_ = com.lvl6.proto.InfoProto.CritStructType.AVIARY;
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -16015,7 +15011,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.CoordinateProto coords = 2;
+      // optional .com.lvl6.proto.CoordinateProto coords = 2;
       private com.lvl6.proto.InfoProto.CoordinateProto coords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> coordsBuilder_;
@@ -16105,7 +15101,7 @@ public final class InfoProto {
         return coordsBuilder_;
       }
       
-      // required .com.lvl6.proto.StructOrientation orientation = 3;
+      // optional .com.lvl6.proto.StructOrientation orientation = 3;
       private com.lvl6.proto.InfoProto.StructOrientation orientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
       public boolean hasOrientation() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -16143,15 +15139,15 @@ public final class InfoProto {
   public interface MinimumUserTaskProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 taskId = 2;
+    // optional int32 taskId = 2;
     boolean hasTaskId();
     int getTaskId();
     
-    // required int32 numTimesActed = 3;
+    // optional int32 numTimesActed = 3;
     boolean hasNumTimesActed();
     int getNumTimesActed();
   }
@@ -16184,7 +15180,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -16194,7 +15190,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 taskId = 2;
+    // optional int32 taskId = 2;
     public static final int TASKID_FIELD_NUMBER = 2;
     private int taskId_;
     public boolean hasTaskId() {
@@ -16204,7 +15200,7 @@ public final class InfoProto {
       return taskId_;
     }
     
-    // required int32 numTimesActed = 3;
+    // optional int32 numTimesActed = 3;
     public static final int NUMTIMESACTED_FIELD_NUMBER = 3;
     private int numTimesActed_;
     public boolean hasNumTimesActed() {
@@ -16224,18 +15220,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTaskId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumTimesActed()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -16483,18 +15467,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasTaskId()) {
-          
-          return false;
-        }
-        if (!hasNumTimesActed()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -16542,7 +15514,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -16563,7 +15535,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 taskId = 2;
+      // optional int32 taskId = 2;
       private int taskId_ ;
       public boolean hasTaskId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -16584,7 +15556,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numTimesActed = 3;
+      // optional int32 numTimesActed = 3;
       private int numTimesActed_ ;
       public boolean hasNumTimesActed() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -16619,19 +15591,19 @@ public final class InfoProto {
   public interface FullUserQuestDataLargeProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
     
-    // required bool isRedeemed = 3;
+    // optional bool isRedeemed = 3;
     boolean hasIsRedeemed();
     boolean getIsRedeemed();
     
-    // required bool isComplete = 4;
+    // optional bool isComplete = 4;
     boolean hasIsComplete();
     boolean getIsComplete();
     
@@ -16714,7 +15686,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -16724,7 +15696,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -16734,7 +15706,7 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required bool isRedeemed = 3;
+    // optional bool isRedeemed = 3;
     public static final int ISREDEEMED_FIELD_NUMBER = 3;
     private boolean isRedeemed_;
     public boolean hasIsRedeemed() {
@@ -16744,7 +15716,7 @@ public final class InfoProto {
       return isRedeemed_;
     }
     
-    // required bool isComplete = 4;
+    // optional bool isComplete = 4;
     public static final int ISCOMPLETE_FIELD_NUMBER = 4;
     private boolean isComplete_;
     public boolean hasIsComplete() {
@@ -16875,52 +15847,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIsRedeemed()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasIsComplete()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getRequiredDefeatTypeJobProgressCount(); i++) {
-        if (!getRequiredDefeatTypeJobProgress(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getRequiredBuildStructJobProgressCount(); i++) {
-        if (!getRequiredBuildStructJobProgress(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getRequiredUpgradeStructJobProgressCount(); i++) {
-        if (!getRequiredUpgradeStructJobProgress(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getRequiredPossessEquipJobProgressCount(); i++) {
-        if (!getRequiredPossessEquipJobProgress(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
-        if (!getRequiredTasksProgress(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -17429,52 +16355,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!hasIsRedeemed()) {
-          
-          return false;
-        }
-        if (!hasIsComplete()) {
-          
-          return false;
-        }
-        for (int i = 0; i < getRequiredDefeatTypeJobProgressCount(); i++) {
-          if (!getRequiredDefeatTypeJobProgress(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getRequiredBuildStructJobProgressCount(); i++) {
-          if (!getRequiredBuildStructJobProgress(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getRequiredUpgradeStructJobProgressCount(); i++) {
-          if (!getRequiredUpgradeStructJobProgress(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getRequiredPossessEquipJobProgressCount(); i++) {
-          if (!getRequiredPossessEquipJobProgress(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getRequiredTasksProgressCount(); i++) {
-          if (!getRequiredTasksProgress(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -17557,7 +16437,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -17578,7 +16458,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -17599,7 +16479,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isRedeemed = 3;
+      // optional bool isRedeemed = 3;
       private boolean isRedeemed_ ;
       public boolean hasIsRedeemed() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -17620,7 +16500,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required bool isComplete = 4;
+      // optional bool isComplete = 4;
       private boolean isComplete_ ;
       public boolean hasIsComplete() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -18585,19 +17465,19 @@ public final class InfoProto {
   public interface MinimumUserQuestTaskProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
     
-    // required int32 taskId = 3;
+    // optional int32 taskId = 3;
     boolean hasTaskId();
     int getTaskId();
     
-    // required int32 numTimesActed = 4;
+    // optional int32 numTimesActed = 4;
     boolean hasNumTimesActed();
     int getNumTimesActed();
   }
@@ -18630,7 +17510,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -18640,7 +17520,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -18650,7 +17530,7 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required int32 taskId = 3;
+    // optional int32 taskId = 3;
     public static final int TASKID_FIELD_NUMBER = 3;
     private int taskId_;
     public boolean hasTaskId() {
@@ -18660,7 +17540,7 @@ public final class InfoProto {
       return taskId_;
     }
     
-    // required int32 numTimesActed = 4;
+    // optional int32 numTimesActed = 4;
     public static final int NUMTIMESACTED_FIELD_NUMBER = 4;
     private int numTimesActed_;
     public boolean hasNumTimesActed() {
@@ -18681,22 +17561,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTaskId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumTimesActed()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -18960,22 +17824,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!hasTaskId()) {
-          
-          return false;
-        }
-        if (!hasNumTimesActed()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -19028,7 +17876,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -19049,7 +17897,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -19070,7 +17918,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 taskId = 3;
+      // optional int32 taskId = 3;
       private int taskId_ ;
       public boolean hasTaskId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -19091,7 +17939,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numTimesActed = 4;
+      // optional int32 numTimesActed = 4;
       private int numTimesActed_ ;
       public boolean hasNumTimesActed() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -19126,19 +17974,19 @@ public final class InfoProto {
   public interface MinimumUserDefeatTypeJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
     
-    // required int32 defeatTypeJobId = 3;
+    // optional int32 defeatTypeJobId = 3;
     boolean hasDefeatTypeJobId();
     int getDefeatTypeJobId();
     
-    // required int32 numDefeated = 4;
+    // optional int32 numDefeated = 4;
     boolean hasNumDefeated();
     int getNumDefeated();
   }
@@ -19171,7 +18019,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -19181,7 +18029,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -19191,7 +18039,7 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required int32 defeatTypeJobId = 3;
+    // optional int32 defeatTypeJobId = 3;
     public static final int DEFEATTYPEJOBID_FIELD_NUMBER = 3;
     private int defeatTypeJobId_;
     public boolean hasDefeatTypeJobId() {
@@ -19201,7 +18049,7 @@ public final class InfoProto {
       return defeatTypeJobId_;
     }
     
-    // required int32 numDefeated = 4;
+    // optional int32 numDefeated = 4;
     public static final int NUMDEFEATED_FIELD_NUMBER = 4;
     private int numDefeated_;
     public boolean hasNumDefeated() {
@@ -19222,22 +18070,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDefeatTypeJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumDefeated()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -19501,22 +18333,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!hasDefeatTypeJobId()) {
-          
-          return false;
-        }
-        if (!hasNumDefeated()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -19569,7 +18385,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -19590,7 +18406,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -19611,7 +18427,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 defeatTypeJobId = 3;
+      // optional int32 defeatTypeJobId = 3;
       private int defeatTypeJobId_ ;
       public boolean hasDefeatTypeJobId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -19632,7 +18448,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numDefeated = 4;
+      // optional int32 numDefeated = 4;
       private int numDefeated_ ;
       public boolean hasNumDefeated() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -19667,19 +18483,19 @@ public final class InfoProto {
   public interface DefeatTypeJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 defeatTypeJobId = 1;
+    // optional int32 defeatTypeJobId = 1;
     boolean hasDefeatTypeJobId();
     int getDefeatTypeJobId();
     
-    // required .com.lvl6.proto.UserType typeOfEnemy = 2;
+    // optional .com.lvl6.proto.UserType typeOfEnemy = 2;
     boolean hasTypeOfEnemy();
     com.lvl6.proto.InfoProto.UserType getTypeOfEnemy();
     
-    // required int32 numEnemiesToDefeat = 3;
+    // optional int32 numEnemiesToDefeat = 3;
     boolean hasNumEnemiesToDefeat();
     int getNumEnemiesToDefeat();
     
-    // required int32 cityId = 4;
+    // optional int32 cityId = 4;
     boolean hasCityId();
     int getCityId();
   }
@@ -19712,7 +18528,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 defeatTypeJobId = 1;
+    // optional int32 defeatTypeJobId = 1;
     public static final int DEFEATTYPEJOBID_FIELD_NUMBER = 1;
     private int defeatTypeJobId_;
     public boolean hasDefeatTypeJobId() {
@@ -19722,7 +18538,7 @@ public final class InfoProto {
       return defeatTypeJobId_;
     }
     
-    // required .com.lvl6.proto.UserType typeOfEnemy = 2;
+    // optional .com.lvl6.proto.UserType typeOfEnemy = 2;
     public static final int TYPEOFENEMY_FIELD_NUMBER = 2;
     private com.lvl6.proto.InfoProto.UserType typeOfEnemy_;
     public boolean hasTypeOfEnemy() {
@@ -19732,7 +18548,7 @@ public final class InfoProto {
       return typeOfEnemy_;
     }
     
-    // required int32 numEnemiesToDefeat = 3;
+    // optional int32 numEnemiesToDefeat = 3;
     public static final int NUMENEMIESTODEFEAT_FIELD_NUMBER = 3;
     private int numEnemiesToDefeat_;
     public boolean hasNumEnemiesToDefeat() {
@@ -19742,7 +18558,7 @@ public final class InfoProto {
       return numEnemiesToDefeat_;
     }
     
-    // required int32 cityId = 4;
+    // optional int32 cityId = 4;
     public static final int CITYID_FIELD_NUMBER = 4;
     private int cityId_;
     public boolean hasCityId() {
@@ -19763,22 +18579,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasDefeatTypeJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTypeOfEnemy()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumEnemiesToDefeat()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -20042,22 +18842,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasDefeatTypeJobId()) {
-          
-          return false;
-        }
-        if (!hasTypeOfEnemy()) {
-          
-          return false;
-        }
-        if (!hasNumEnemiesToDefeat()) {
-          
-          return false;
-        }
-        if (!hasCityId()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -20116,7 +18900,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 defeatTypeJobId = 1;
+      // optional int32 defeatTypeJobId = 1;
       private int defeatTypeJobId_ ;
       public boolean hasDefeatTypeJobId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -20137,7 +18921,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required .com.lvl6.proto.UserType typeOfEnemy = 2;
+      // optional .com.lvl6.proto.UserType typeOfEnemy = 2;
       private com.lvl6.proto.InfoProto.UserType typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
       public boolean hasTypeOfEnemy() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -20161,7 +18945,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numEnemiesToDefeat = 3;
+      // optional int32 numEnemiesToDefeat = 3;
       private int numEnemiesToDefeat_ ;
       public boolean hasNumEnemiesToDefeat() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -20182,7 +18966,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 cityId = 4;
+      // optional int32 cityId = 4;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -20217,19 +19001,19 @@ public final class InfoProto {
   public interface MinimumUserBuildStructJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
     
-    // required int32 buildStructJobId = 3;
+    // optional int32 buildStructJobId = 3;
     boolean hasBuildStructJobId();
     int getBuildStructJobId();
     
-    // required int32 numOfStructUserHas = 4;
+    // optional int32 numOfStructUserHas = 4;
     boolean hasNumOfStructUserHas();
     int getNumOfStructUserHas();
   }
@@ -20262,7 +19046,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -20272,7 +19056,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -20282,7 +19066,7 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required int32 buildStructJobId = 3;
+    // optional int32 buildStructJobId = 3;
     public static final int BUILDSTRUCTJOBID_FIELD_NUMBER = 3;
     private int buildStructJobId_;
     public boolean hasBuildStructJobId() {
@@ -20292,7 +19076,7 @@ public final class InfoProto {
       return buildStructJobId_;
     }
     
-    // required int32 numOfStructUserHas = 4;
+    // optional int32 numOfStructUserHas = 4;
     public static final int NUMOFSTRUCTUSERHAS_FIELD_NUMBER = 4;
     private int numOfStructUserHas_;
     public boolean hasNumOfStructUserHas() {
@@ -20313,22 +19097,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasBuildStructJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumOfStructUserHas()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -20592,22 +19360,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!hasBuildStructJobId()) {
-          
-          return false;
-        }
-        if (!hasNumOfStructUserHas()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -20660,7 +19412,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -20681,7 +19433,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -20702,7 +19454,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 buildStructJobId = 3;
+      // optional int32 buildStructJobId = 3;
       private int buildStructJobId_ ;
       public boolean hasBuildStructJobId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -20723,7 +19475,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numOfStructUserHas = 4;
+      // optional int32 numOfStructUserHas = 4;
       private int numOfStructUserHas_ ;
       public boolean hasNumOfStructUserHas() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -20758,15 +19510,15 @@ public final class InfoProto {
   public interface BuildStructJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 buildStructJobId = 1;
+    // optional int32 buildStructJobId = 1;
     boolean hasBuildStructJobId();
     int getBuildStructJobId();
     
-    // required int32 structId = 2;
+    // optional int32 structId = 2;
     boolean hasStructId();
     int getStructId();
     
-    // required int32 quantityRequired = 3;
+    // optional int32 quantityRequired = 3;
     boolean hasQuantityRequired();
     int getQuantityRequired();
   }
@@ -20799,7 +19551,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 buildStructJobId = 1;
+    // optional int32 buildStructJobId = 1;
     public static final int BUILDSTRUCTJOBID_FIELD_NUMBER = 1;
     private int buildStructJobId_;
     public boolean hasBuildStructJobId() {
@@ -20809,7 +19561,7 @@ public final class InfoProto {
       return buildStructJobId_;
     }
     
-    // required int32 structId = 2;
+    // optional int32 structId = 2;
     public static final int STRUCTID_FIELD_NUMBER = 2;
     private int structId_;
     public boolean hasStructId() {
@@ -20819,7 +19571,7 @@ public final class InfoProto {
       return structId_;
     }
     
-    // required int32 quantityRequired = 3;
+    // optional int32 quantityRequired = 3;
     public static final int QUANTITYREQUIRED_FIELD_NUMBER = 3;
     private int quantityRequired_;
     public boolean hasQuantityRequired() {
@@ -20839,18 +19591,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasBuildStructJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuantityRequired()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -21098,18 +19838,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasBuildStructJobId()) {
-          
-          return false;
-        }
-        if (!hasStructId()) {
-          
-          return false;
-        }
-        if (!hasQuantityRequired()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -21157,7 +19885,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 buildStructJobId = 1;
+      // optional int32 buildStructJobId = 1;
       private int buildStructJobId_ ;
       public boolean hasBuildStructJobId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -21178,7 +19906,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 structId = 2;
+      // optional int32 structId = 2;
       private int structId_ ;
       public boolean hasStructId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -21199,7 +19927,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 quantityRequired = 3;
+      // optional int32 quantityRequired = 3;
       private int quantityRequired_ ;
       public boolean hasQuantityRequired() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -21234,19 +19962,19 @@ public final class InfoProto {
   public interface MinimumUserUpgradeStructJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
     
-    // required int32 upgradeStructJobId = 3;
+    // optional int32 upgradeStructJobId = 3;
     boolean hasUpgradeStructJobId();
     int getUpgradeStructJobId();
     
-    // required int32 currentLevel = 4;
+    // optional int32 currentLevel = 4;
     boolean hasCurrentLevel();
     int getCurrentLevel();
   }
@@ -21279,7 +20007,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -21289,7 +20017,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -21299,7 +20027,7 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required int32 upgradeStructJobId = 3;
+    // optional int32 upgradeStructJobId = 3;
     public static final int UPGRADESTRUCTJOBID_FIELD_NUMBER = 3;
     private int upgradeStructJobId_;
     public boolean hasUpgradeStructJobId() {
@@ -21309,7 +20037,7 @@ public final class InfoProto {
       return upgradeStructJobId_;
     }
     
-    // required int32 currentLevel = 4;
+    // optional int32 currentLevel = 4;
     public static final int CURRENTLEVEL_FIELD_NUMBER = 4;
     private int currentLevel_;
     public boolean hasCurrentLevel() {
@@ -21330,22 +20058,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUpgradeStructJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCurrentLevel()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -21609,22 +20321,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!hasUpgradeStructJobId()) {
-          
-          return false;
-        }
-        if (!hasCurrentLevel()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -21677,7 +20373,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -21698,7 +20394,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -21719,7 +20415,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 upgradeStructJobId = 3;
+      // optional int32 upgradeStructJobId = 3;
       private int upgradeStructJobId_ ;
       public boolean hasUpgradeStructJobId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -21740,7 +20436,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 currentLevel = 4;
+      // optional int32 currentLevel = 4;
       private int currentLevel_ ;
       public boolean hasCurrentLevel() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -21775,15 +20471,15 @@ public final class InfoProto {
   public interface UpgradeStructJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 upgradeStructJobId = 1;
+    // optional int32 upgradeStructJobId = 1;
     boolean hasUpgradeStructJobId();
     int getUpgradeStructJobId();
     
-    // required int32 structId = 2;
+    // optional int32 structId = 2;
     boolean hasStructId();
     int getStructId();
     
-    // required int32 levelReq = 3;
+    // optional int32 levelReq = 3;
     boolean hasLevelReq();
     int getLevelReq();
   }
@@ -21816,7 +20512,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 upgradeStructJobId = 1;
+    // optional int32 upgradeStructJobId = 1;
     public static final int UPGRADESTRUCTJOBID_FIELD_NUMBER = 1;
     private int upgradeStructJobId_;
     public boolean hasUpgradeStructJobId() {
@@ -21826,7 +20522,7 @@ public final class InfoProto {
       return upgradeStructJobId_;
     }
     
-    // required int32 structId = 2;
+    // optional int32 structId = 2;
     public static final int STRUCTID_FIELD_NUMBER = 2;
     private int structId_;
     public boolean hasStructId() {
@@ -21836,7 +20532,7 @@ public final class InfoProto {
       return structId_;
     }
     
-    // required int32 levelReq = 3;
+    // optional int32 levelReq = 3;
     public static final int LEVELREQ_FIELD_NUMBER = 3;
     private int levelReq_;
     public boolean hasLevelReq() {
@@ -21856,18 +20552,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUpgradeStructJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStructId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLevelReq()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -22115,18 +20799,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUpgradeStructJobId()) {
-          
-          return false;
-        }
-        if (!hasStructId()) {
-          
-          return false;
-        }
-        if (!hasLevelReq()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -22174,7 +20846,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 upgradeStructJobId = 1;
+      // optional int32 upgradeStructJobId = 1;
       private int upgradeStructJobId_ ;
       public boolean hasUpgradeStructJobId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -22195,7 +20867,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 structId = 2;
+      // optional int32 structId = 2;
       private int structId_ ;
       public boolean hasStructId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -22216,7 +20888,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 levelReq = 3;
+      // optional int32 levelReq = 3;
       private int levelReq_ ;
       public boolean hasLevelReq() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -22251,19 +20923,19 @@ public final class InfoProto {
   public interface MinimumUserPossessEquipJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     boolean hasUserId();
     int getUserId();
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     boolean hasQuestId();
     int getQuestId();
     
-    // required int32 possessEquipJobId = 3;
+    // optional int32 possessEquipJobId = 3;
     boolean hasPossessEquipJobId();
     int getPossessEquipJobId();
     
-    // required int32 numEquipUserHas = 4;
+    // optional int32 numEquipUserHas = 4;
     boolean hasNumEquipUserHas();
     int getNumEquipUserHas();
   }
@@ -22296,7 +20968,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 userId = 1;
+    // optional int32 userId = 1;
     public static final int USERID_FIELD_NUMBER = 1;
     private int userId_;
     public boolean hasUserId() {
@@ -22306,7 +20978,7 @@ public final class InfoProto {
       return userId_;
     }
     
-    // required int32 questId = 2;
+    // optional int32 questId = 2;
     public static final int QUESTID_FIELD_NUMBER = 2;
     private int questId_;
     public boolean hasQuestId() {
@@ -22316,7 +20988,7 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required int32 possessEquipJobId = 3;
+    // optional int32 possessEquipJobId = 3;
     public static final int POSSESSEQUIPJOBID_FIELD_NUMBER = 3;
     private int possessEquipJobId_;
     public boolean hasPossessEquipJobId() {
@@ -22326,7 +20998,7 @@ public final class InfoProto {
       return possessEquipJobId_;
     }
     
-    // required int32 numEquipUserHas = 4;
+    // optional int32 numEquipUserHas = 4;
     public static final int NUMEQUIPUSERHAS_FIELD_NUMBER = 4;
     private int numEquipUserHas_;
     public boolean hasNumEquipUserHas() {
@@ -22347,22 +21019,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasUserId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPossessEquipJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNumEquipUserHas()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -22626,22 +21282,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasUserId()) {
-          
-          return false;
-        }
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!hasPossessEquipJobId()) {
-          
-          return false;
-        }
-        if (!hasNumEquipUserHas()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -22694,7 +21334,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 userId = 1;
+      // optional int32 userId = 1;
       private int userId_ ;
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -22715,7 +21355,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 questId = 2;
+      // optional int32 questId = 2;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -22736,7 +21376,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 possessEquipJobId = 3;
+      // optional int32 possessEquipJobId = 3;
       private int possessEquipJobId_ ;
       public boolean hasPossessEquipJobId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -22757,7 +21397,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 numEquipUserHas = 4;
+      // optional int32 numEquipUserHas = 4;
       private int numEquipUserHas_ ;
       public boolean hasNumEquipUserHas() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -22792,15 +21432,15 @@ public final class InfoProto {
   public interface PossessEquipJobProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 possessEquipJobId = 1;
+    // optional int32 possessEquipJobId = 1;
     boolean hasPossessEquipJobId();
     int getPossessEquipJobId();
     
-    // required int32 equipId = 2;
+    // optional int32 equipId = 2;
     boolean hasEquipId();
     int getEquipId();
     
-    // required int32 quantityReq = 3;
+    // optional int32 quantityReq = 3;
     boolean hasQuantityReq();
     int getQuantityReq();
   }
@@ -22833,7 +21473,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 possessEquipJobId = 1;
+    // optional int32 possessEquipJobId = 1;
     public static final int POSSESSEQUIPJOBID_FIELD_NUMBER = 1;
     private int possessEquipJobId_;
     public boolean hasPossessEquipJobId() {
@@ -22843,7 +21483,7 @@ public final class InfoProto {
       return possessEquipJobId_;
     }
     
-    // required int32 equipId = 2;
+    // optional int32 equipId = 2;
     public static final int EQUIPID_FIELD_NUMBER = 2;
     private int equipId_;
     public boolean hasEquipId() {
@@ -22853,7 +21493,7 @@ public final class InfoProto {
       return equipId_;
     }
     
-    // required int32 quantityReq = 3;
+    // optional int32 quantityReq = 3;
     public static final int QUANTITYREQ_FIELD_NUMBER = 3;
     private int quantityReq_;
     public boolean hasQuantityReq() {
@@ -22873,18 +21513,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasPossessEquipJobId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasEquipId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasQuantityReq()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -23132,18 +21760,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasPossessEquipJobId()) {
-          
-          return false;
-        }
-        if (!hasEquipId()) {
-          
-          return false;
-        }
-        if (!hasQuantityReq()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -23191,7 +21807,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 possessEquipJobId = 1;
+      // optional int32 possessEquipJobId = 1;
       private int possessEquipJobId_ ;
       public boolean hasPossessEquipJobId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -23212,7 +21828,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 equipId = 2;
+      // optional int32 equipId = 2;
       private int equipId_ ;
       public boolean hasEquipId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -23233,7 +21849,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 quantityReq = 3;
+      // optional int32 quantityReq = 3;
       private int quantityReq_ ;
       public boolean hasQuantityReq() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -23268,31 +21884,31 @@ public final class InfoProto {
   public interface FullQuestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required int32 questId = 1;
+    // optional int32 questId = 1;
     boolean hasQuestId();
     int getQuestId();
     
-    // required int32 cityId = 2;
+    // optional int32 cityId = 2;
     boolean hasCityId();
     int getCityId();
     
-    // required string name = 3;
+    // optional string name = 3;
     boolean hasName();
     String getName();
     
-    // required string description = 4;
+    // optional string description = 4;
     boolean hasDescription();
     String getDescription();
     
-    // required string doneResponse = 5;
+    // optional string doneResponse = 5;
     boolean hasDoneResponse();
     String getDoneResponse();
     
-    // required string inProgress = 6;
+    // optional string inProgress = 6;
     boolean hasInProgress();
     String getInProgress();
     
-    // required int32 assetNumWithinCity = 7;
+    // optional int32 assetNumWithinCity = 7;
     boolean hasAssetNumWithinCity();
     int getAssetNumWithinCity();
     
@@ -23371,7 +21987,7 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // required int32 questId = 1;
+    // optional int32 questId = 1;
     public static final int QUESTID_FIELD_NUMBER = 1;
     private int questId_;
     public boolean hasQuestId() {
@@ -23381,7 +21997,7 @@ public final class InfoProto {
       return questId_;
     }
     
-    // required int32 cityId = 2;
+    // optional int32 cityId = 2;
     public static final int CITYID_FIELD_NUMBER = 2;
     private int cityId_;
     public boolean hasCityId() {
@@ -23391,7 +22007,7 @@ public final class InfoProto {
       return cityId_;
     }
     
-    // required string name = 3;
+    // optional string name = 3;
     public static final int NAME_FIELD_NUMBER = 3;
     private java.lang.Object name_;
     public boolean hasName() {
@@ -23423,7 +22039,7 @@ public final class InfoProto {
       }
     }
     
-    // required string description = 4;
+    // optional string description = 4;
     public static final int DESCRIPTION_FIELD_NUMBER = 4;
     private java.lang.Object description_;
     public boolean hasDescription() {
@@ -23455,7 +22071,7 @@ public final class InfoProto {
       }
     }
     
-    // required string doneResponse = 5;
+    // optional string doneResponse = 5;
     public static final int DONERESPONSE_FIELD_NUMBER = 5;
     private java.lang.Object doneResponse_;
     public boolean hasDoneResponse() {
@@ -23487,7 +22103,7 @@ public final class InfoProto {
       }
     }
     
-    // required string inProgress = 6;
+    // optional string inProgress = 6;
     public static final int INPROGRESS_FIELD_NUMBER = 6;
     private java.lang.Object inProgress_;
     public boolean hasInProgress() {
@@ -23519,7 +22135,7 @@ public final class InfoProto {
       }
     }
     
-    // required int32 assetNumWithinCity = 7;
+    // optional int32 assetNumWithinCity = 7;
     public static final int ASSETNUMWITHINCITY_FIELD_NUMBER = 7;
     private int assetNumWithinCity_;
     public boolean hasAssetNumWithinCity() {
@@ -23677,34 +22293,6 @@ public final class InfoProto {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasQuestId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCityId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDescription()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasDoneResponse()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasInProgress()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAssetNumWithinCity()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -24254,34 +22842,6 @@ public final class InfoProto {
       }
       
       public final boolean isInitialized() {
-        if (!hasQuestId()) {
-          
-          return false;
-        }
-        if (!hasCityId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasDescription()) {
-          
-          return false;
-        }
-        if (!hasDoneResponse()) {
-          
-          return false;
-        }
-        if (!hasInProgress()) {
-          
-          return false;
-        }
-        if (!hasAssetNumWithinCity()) {
-          
-          return false;
-        }
         return true;
       }
       
@@ -24453,7 +23013,7 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // required int32 questId = 1;
+      // optional int32 questId = 1;
       private int questId_ ;
       public boolean hasQuestId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -24474,7 +23034,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required int32 cityId = 2;
+      // optional int32 cityId = 2;
       private int cityId_ ;
       public boolean hasCityId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -24495,7 +23055,7 @@ public final class InfoProto {
         return this;
       }
       
-      // required string name = 3;
+      // optional string name = 3;
       private java.lang.Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -24531,7 +23091,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required string description = 4;
+      // optional string description = 4;
       private java.lang.Object description_ = "";
       public boolean hasDescription() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -24567,7 +23127,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required string doneResponse = 5;
+      // optional string doneResponse = 5;
       private java.lang.Object doneResponse_ = "";
       public boolean hasDoneResponse() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -24603,7 +23163,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required string inProgress = 6;
+      // optional string inProgress = 6;
       private java.lang.Object inProgress_ = "";
       public boolean hasInProgress() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
@@ -24639,7 +23199,7 @@ public final class InfoProto {
         onChanged();
       }
       
-      // required int32 assetNumWithinCity = 7;
+      // optional int32 assetNumWithinCity = 7;
       private int assetNumWithinCity_ ;
       public boolean hasAssetNumWithinCity() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
@@ -25175,123 +23735,123 @@ public final class InfoProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nInfo.proto\022\016com.lvl6.proto\"\\\n\020MinimumU" +
-      "serProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004name\030\002 \001(\t\022*" +
+      "serProto\022\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022*" +
       "\n\010userType\030\003 \001(\0162\030.com.lvl6.proto.UserTy" +
-      "pe\"\204\010\n\rFullUserProto\022\016\n\006userId\030\001 \002(\005\022\014\n\004" +
-      "name\030\002 \002(\t\022\r\n\005level\030\003 \002(\005\022*\n\010userType\030\004 " +
-      "\002(\0162\030.com.lvl6.proto.UserType\022\016\n\006attack\030" +
-      "\005 \002(\005\022\017\n\007defense\030\006 \002(\005\022\017\n\007stamina\030\007 \002(\005\022" +
+      "pe\"\204\010\n\rFullUserProto\022\016\n\006userId\030\001 \001(\005\022\014\n\004" +
+      "name\030\002 \001(\t\022\r\n\005level\030\003 \001(\005\022*\n\010userType\030\004 " +
+      "\001(\0162\030.com.lvl6.proto.UserType\022\016\n\006attack\030" +
+      "\005 \001(\005\022\017\n\007defense\030\006 \001(\005\022\017\n\007stamina\030\007 \001(\005\022" +
       "\035\n\025lastStaminaRefillTime\030\010 \001(\003\022\016\n\006energy" +
-      "\030\n \002(\005\022\034\n\024lastEnergyRefillTime\030\013 \001(\003\022\023\n\013" +
-      "skillPoints\030\r \002(\005\022\021\n\thealthMax\030\016 \002(\005\022\021\n\t",
-      "energyMax\030\017 \002(\005\022\022\n\nstaminaMax\030\020 \002(\005\022\020\n\010d" +
-      "iamonds\030\021 \002(\005\022\r\n\005coins\030\022 \002(\005\022#\n\033marketpl" +
-      "aceDiamondsEarnings\030\023 \002(\005\022 \n\030marketplace" +
-      "CoinsEarnings\030\024 \002(\005\022\024\n\014vaultBalance\030\025 \002(" +
-      "\005\022\022\n\nexperience\030\026 \002(\005\022\026\n\016tasksCompleted\030" +
-      "\027 \002(\005\022\022\n\nbattlesWon\030\030 \002(\005\022\023\n\013battlesLost" +
-      "\030\031 \002(\005\022\r\n\005flees\030- \002(\005\022\024\n\014referralCode\030\033 " +
-      "\002(\t\022\024\n\014numReferrals\030\034 \002(\005\022\014\n\004udid\030\035 \002(\t\022" +
-      "3\n\014userLocation\030\036 \002(\0132\035.com.lvl6.proto.L" +
+      "\030\n \001(\005\022\034\n\024lastEnergyRefillTime\030\013 \001(\003\022\023\n\013" +
+      "skillPoints\030\r \001(\005\022\021\n\thealthMax\030\016 \001(\005\022\021\n\t",
+      "energyMax\030\017 \001(\005\022\022\n\nstaminaMax\030\020 \001(\005\022\020\n\010d" +
+      "iamonds\030\021 \001(\005\022\r\n\005coins\030\022 \001(\005\022#\n\033marketpl" +
+      "aceDiamondsEarnings\030\023 \001(\005\022 \n\030marketplace" +
+      "CoinsEarnings\030\024 \001(\005\022\024\n\014vaultBalance\030\025 \001(" +
+      "\005\022\022\n\nexperience\030\026 \001(\005\022\026\n\016tasksCompleted\030" +
+      "\027 \001(\005\022\022\n\nbattlesWon\030\030 \001(\005\022\023\n\013battlesLost" +
+      "\030\031 \001(\005\022\r\n\005flees\030- \001(\005\022\024\n\014referralCode\030\033 " +
+      "\001(\t\022\024\n\014numReferrals\030\034 \001(\005\022\014\n\004udid\030\035 \001(\t\022" +
+      "3\n\014userLocation\030\036 \001(\0132\035.com.lvl6.proto.L" +
       "ocationProto\022\035\n\025numPostsInMarketplace\030\037 ",
-      "\002(\005\022%\n\035numMarketplaceSalesUnredeemed\030  \002" +
+      "\001(\005\022%\n\035numMarketplaceSalesUnredeemed\030  \001" +
       "(\005\022\026\n\016weaponEquipped\030! \001(\005\022\025\n\rarmorEquip" +
       "ped\030\" \001(\005\022\026\n\016amuletEquipped\030# \001(\005\022\025\n\rlas" +
-      "tLoginTime\030$ \002(\003\022\026\n\016lastLogoutTime\030% \001(\003" +
+      "tLoginTime\030$ \001(\003\022\026\n\016lastLogoutTime\030% \001(\003" +
       "\022\023\n\013deviceToken\030& \001(\t\022\"\n\032lastBattleNotif" +
       "icationTime\030\' \001(\003\022\030\n\020lastTimeAttacked\030( " +
       "\001(\003\022\021\n\tnumBadges\030* \001(\005\022$\n\034lastShortLicen" +
       "sePurchaseTime\030+ \001(\003\022#\n\033lastLongLicenseP" +
-      "urchaseTime\030, \001(\003\022\016\n\006isFake\030. \002(\010\"\303\004\n\016Fu" +
-      "llEquipProto\022\017\n\007equipId\030\001 \002(\005\022\014\n\004name\030\002 ",
-      "\002(\t\022;\n\tequipType\030\003 \002(\0162(.com.lvl6.proto." +
+      "urchaseTime\030, \001(\003\022\016\n\006isFake\030. \001(\010\"\303\004\n\016Fu" +
+      "llEquipProto\022\017\n\007equipId\030\001 \001(\005\022\014\n\004name\030\002 ",
+      "\001(\t\022;\n\tequipType\030\003 \001(\0162(.com.lvl6.proto." +
       "FullEquipProto.EquipType\022\023\n\013description\030" +
-      "\004 \002(\t\022\023\n\013attackBoost\030\005 \002(\005\022\024\n\014defenseBoo" +
-      "st\030\006 \002(\005\022\020\n\010minLevel\030\007 \002(\005\022\021\n\tcoinPrice\030" +
+      "\004 \001(\t\022\023\n\013attackBoost\030\005 \001(\005\022\024\n\014defenseBoo" +
+      "st\030\006 \001(\005\022\020\n\010minLevel\030\007 \001(\005\022\021\n\tcoinPrice\030" +
       "\010 \001(\005\022\024\n\014diamondPrice\030\t \001(\005\022\024\n\014chanceOfL" +
-      "oss\030\n \002(\002\022;\n\tclassType\030\013 \002(\0162(.com.lvl6." +
+      "oss\030\n \001(\002\022;\n\tclassType\030\013 \001(\0162(.com.lvl6." +
       "proto.FullEquipProto.ClassType\0225\n\006rarity" +
-      "\030\014 \002(\0162%.com.lvl6.proto.FullEquipProto.R" +
-      "arity\022\031\n\021isBuyableInArmory\030\r \002(\010\"E\n\006Rari" +
+      "\030\014 \001(\0162%.com.lvl6.proto.FullEquipProto.R" +
+      "arity\022\031\n\021isBuyableInArmory\030\r \001(\010\"E\n\006Rari" +
       "ty\022\n\n\006COMMON\020\000\022\014\n\010UNCOMMON\020\001\022\010\n\004RARE\020\002\022\010",
       "\n\004EPIC\020\003\022\r\n\tLEGENDARY\020\004\".\n\tEquipType\022\n\n\006" +
       "WEAPON\020\000\022\t\n\005ARMOR\020\001\022\n\n\006AMULET\020\002\">\n\tClass" +
       "Type\022\013\n\007WARRIOR\020\000\022\n\n\006ARCHER\020\001\022\010\n\004MAGE\020\002\022" +
       "\016\n\nALL_AMULET\020\003\"\247\002\n\026FullUserStructurePro" +
-      "to\022\024\n\014userStructId\030\001 \002(\005\022\016\n\006userId\030\002 \002(\005" +
-      "\022\020\n\010structId\030\003 \002(\005\022\025\n\rlastRetrieved\030\004 \001(" +
-      "\003\0224\n\013coordinates\030\005 \002(\0132\037.com.lvl6.proto." +
-      "CoordinateProto\022\r\n\005level\030\006 \002(\005\022\024\n\014purcha" +
-      "seTime\030\007 \002(\003\022\027\n\017lastUpgradeTime\030\010 \001(\003\022\022\n" +
-      "\nisComplete\030\t \002(\010\0226\n\013orientation\030\n \002(\0162!",
+      "to\022\024\n\014userStructId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005" +
+      "\022\020\n\010structId\030\003 \001(\005\022\025\n\rlastRetrieved\030\004 \001(" +
+      "\003\0224\n\013coordinates\030\005 \001(\0132\037.com.lvl6.proto." +
+      "CoordinateProto\022\r\n\005level\030\006 \001(\005\022\024\n\014purcha" +
+      "seTime\030\007 \001(\003\022\027\n\017lastUpgradeTime\030\010 \001(\003\022\022\n" +
+      "\nisComplete\030\t \001(\010\0226\n\013orientation\030\n \001(\0162!",
       ".com.lvl6.proto.StructOrientation\"G\n\022Ful" +
-      "lUserEquipProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007equip" +
-      "Id\030\002 \002(\005\022\020\n\010quantity\030\003 \002(\005\"\375\002\n\022FullStruc" +
-      "tureProto\022\020\n\010structId\030\001 \002(\005\022\014\n\004name\030\002 \002(" +
-      "\t\022\016\n\006income\030\003 \002(\005\022\025\n\rminutesToGain\030\004 \002(\005" +
-      "\022\026\n\016minutesToBuild\030\005 \002(\005\022\034\n\024minutesToUpg" +
-      "radeBase\030\006 \002(\005\022\021\n\tcoinPrice\030\007 \002(\005\022\024\n\014dia" +
-      "mondPrice\030\010 \002(\005\022\020\n\010minLevel\030\t \002(\005\022\017\n\007xLe" +
-      "ngth\030\n \002(\005\022\017\n\007yLength\030\013 \002(\005\022!\n\031instaBuil" +
-      "dDiamondCostBase\030\016 \002(\005\022$\n\034instaRetrieveD",
-      "iamondCostBase\030\017 \002(\005\022#\n\033instaUpgradeDiam" +
-      "ondCostBase\030\020 \002(\005\022\037\n\027imgVerticalPixelOff" +
-      "eset\030\021 \002(\005\"\270\003\n\rFullTaskProto\022\016\n\006taskId\030\001" +
-      " \002(\005\022\014\n\004name\030\002 \002(\t\022\016\n\006cityId\030\003 \002(\005\022 \n\030nu" +
-      "mRequiredForCompletion\030\004 \002(\005\022\022\n\nenergyCo" +
-      "st\030\005 \002(\005\022\026\n\016minCoinsGained\030\006 \002(\005\022\026\n\016maxC" +
-      "oinsGained\030\007 \002(\005\022\031\n\021chanceOfEquipLoot\030\010 " +
-      "\002(\002\022\035\n\025potentialLootEquipIds\030\t \003(\005\022\021\n\tex" +
-      "pGained\030\n \002(\005\022\032\n\022assetNumWithinCity\030\013 \002(" +
-      "\005\022\026\n\016processingText\030\014 \002(\t\022F\n\tequipReqs\030\r",
+      "lUserEquipProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007equip" +
+      "Id\030\002 \001(\005\022\020\n\010quantity\030\003 \001(\005\"\375\002\n\022FullStruc" +
+      "tureProto\022\020\n\010structId\030\001 \001(\005\022\014\n\004name\030\002 \001(" +
+      "\t\022\016\n\006income\030\003 \001(\005\022\025\n\rminutesToGain\030\004 \001(\005" +
+      "\022\026\n\016minutesToBuild\030\005 \001(\005\022\034\n\024minutesToUpg" +
+      "radeBase\030\006 \001(\005\022\021\n\tcoinPrice\030\007 \001(\005\022\024\n\014dia" +
+      "mondPrice\030\010 \001(\005\022\020\n\010minLevel\030\t \001(\005\022\017\n\007xLe" +
+      "ngth\030\n \001(\005\022\017\n\007yLength\030\013 \001(\005\022!\n\031instaBuil" +
+      "dDiamondCostBase\030\016 \001(\005\022$\n\034instaRetrieveD",
+      "iamondCostBase\030\017 \001(\005\022#\n\033instaUpgradeDiam" +
+      "ondCostBase\030\020 \001(\005\022\037\n\027imgVerticalPixelOff" +
+      "eset\030\021 \001(\005\"\270\003\n\rFullTaskProto\022\016\n\006taskId\030\001" +
+      " \001(\005\022\014\n\004name\030\002 \001(\t\022\016\n\006cityId\030\003 \001(\005\022 \n\030nu" +
+      "mRequiredForCompletion\030\004 \001(\005\022\022\n\nenergyCo" +
+      "st\030\005 \001(\005\022\026\n\016minCoinsGained\030\006 \001(\005\022\026\n\016maxC" +
+      "oinsGained\030\007 \001(\005\022\031\n\021chanceOfEquipLoot\030\010 " +
+      "\001(\002\022\035\n\025potentialLootEquipIds\030\t \003(\005\022\021\n\tex" +
+      "pGained\030\n \001(\005\022\032\n\022assetNumWithinCity\030\013 \001(" +
+      "\005\022\026\n\016processingText\030\014 \001(\t\022F\n\tequipReqs\030\r",
       " \003(\01323.com.lvl6.proto.FullTaskProto.Full" +
       "TaskEquipReqProto\032J\n\025FullTaskEquipReqPro" +
-      "to\022\016\n\006taskId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\020\n\010q" +
-      "uantity\030\003 \002(\005\"\335\002\n\rFullCityProto\022\016\n\006cityI" +
-      "d\030\001 \002(\005\022\014\n\004name\030\002 \002(\t\022\020\n\010minLevel\030\003 \002(\005\022" +
-      "\035\n\025expGainedBaseOnRankup\030\004 \002(\005\022\037\n\027coinsG" +
-      "ainedBaseOnRankup\030\005 \002(\005\022\022\n\nmapImgName\030\006 " +
-      "\002(\t\0225\n\014aviaryCoords\030\007 \002(\0132\037.com.lvl6.pro" +
+      "to\022\016\n\006taskId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005\022\020\n\010q" +
+      "uantity\030\003 \001(\005\"\335\002\n\rFullCityProto\022\016\n\006cityI" +
+      "d\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010minLevel\030\003 \001(\005\022" +
+      "\035\n\025expGainedBaseOnRankup\030\004 \001(\005\022\037\n\027coinsG" +
+      "ainedBaseOnRankup\030\005 \001(\005\022\022\n\nmapImgName\030\006 " +
+      "\001(\t\0225\n\014aviaryCoords\030\007 \001(\0132\037.com.lvl6.pro" +
       "to.CoordinateProto\022B\n\031spriteAviaryLandin" +
-      "gCoords\030\010 \002(\0132\037.com.lvl6.proto.Coordinat",
-      "eProto\022<\n\021aviaryOrientation\030\t \002(\0162!.com." +
+      "gCoords\030\010 \001(\0132\037.com.lvl6.proto.Coordinat",
+      "eProto\022<\n\021aviaryOrientation\030\t \001(\0162!.com." +
       "lvl6.proto.StructOrientation\022\017\n\007taskIds\030" +
       "\n \003(\005\"\325\001\n\036FullUserCityExpansionDataProto" +
-      "\022\016\n\006userId\030\001 \002(\005\022\031\n\021farLeftExpansions\030\003 " +
-      "\002(\005\022\032\n\022farRightExpansions\030\004 \002(\005\022\023\n\013isExp" +
-      "anding\030\005 \002(\010\022\026\n\016lastExpandTime\030\006 \001(\003\022?\n\023" +
+      "\022\016\n\006userId\030\001 \001(\005\022\031\n\021farLeftExpansions\030\003 " +
+      "\001(\005\022\032\n\022farRightExpansions\030\004 \001(\005\022\023\n\013isExp" +
+      "anding\030\005 \001(\010\022\026\n\016lastExpandTime\030\006 \001(\003\022?\n\023" +
       "lastExpandDirection\030\007 \001(\0162\".com.lvl6.pro" +
       "to.ExpansionDirection\"q\n\021FullUserCityPro" +
-      "to\022\016\n\006userId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\023\n\013cu" +
-      "rrentRank\030\003 \002(\005\022\'\n\037numTasksCurrentlyComp",
-      "leteInRank\030\004 \002(\005\"\'\n\017CoordinateProto\022\t\n\001x" +
-      "\030\001 \002(\002\022\t\n\001y\030\002 \002(\002\"4\n\rLocationProto\022\020\n\010la" +
-      "titude\030\001 \002(\001\022\021\n\tlongitude\030\002 \002(\001\"\224\003\n\027Neut" +
-      "ralCityElementProto\022\016\n\006cityId\030\001 \002(\005\022\017\n\007a" +
-      "ssetId\030\002 \002(\005\022\014\n\004name\030\t \002(\t\022I\n\004type\030\003 \002(\016" +
+      "to\022\016\n\006userId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\023\n\013cu" +
+      "rrentRank\030\003 \001(\005\022\'\n\037numTasksCurrentlyComp",
+      "leteInRank\030\004 \001(\005\"\'\n\017CoordinateProto\022\t\n\001x" +
+      "\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\"4\n\rLocationProto\022\020\n\010la" +
+      "titude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001\"\224\003\n\027Neut" +
+      "ralCityElementProto\022\016\n\006cityId\030\001 \001(\005\022\017\n\007a" +
+      "ssetId\030\002 \001(\005\022\014\n\004name\030\t \001(\t\022I\n\004type\030\003 \001(\016" +
       "2;.com.lvl6.proto.NeutralCityElementProt" +
-      "o.NeutralCityElemType\022/\n\006coords\030\004 \002(\0132\037." +
+      "o.NeutralCityElemType\022/\n\006coords\030\004 \001(\0132\037." +
       "com.lvl6.proto.CoordinateProto\022\017\n\007xLengt" +
-      "h\030\005 \001(\005\022\017\n\007yLength\030\006 \001(\005\022\r\n\005imgId\030\007 \002(\t\022" +
+      "h\030\005 \001(\005\022\017\n\007yLength\030\006 \001(\005\022\r\n\005imgId\030\007 \001(\t\022" +
       "6\n\013orientation\030\010 \001(\0162!.com.lvl6.proto.St",
       "ructOrientation\"e\n\023NeutralCityElemType\022\026" +
       "\n\022PERSON_QUEST_GIVER\020\000\022\014\n\010BUILDING\020\001\022\016\n\n" +
       "DECORATION\020\002\022\030\n\024PERSON_NEUTRAL_ENEMY\020\003\"\356" +
       "\001\n\030FullMarketplacePostProto\022\031\n\021marketpla" +
-      "cePostId\030\001 \002(\005\022\020\n\010posterId\030\002 \002(\005\0225\n\010post" +
-      "Type\030\003 \002(\0162#.com.lvl6.proto.MarketplaceP" +
-      "ostType\022\022\n\ntimeOfPost\030\004 \002(\003\0223\n\013postedEqu" +
-      "ip\030\005 \002(\0132\036.com.lvl6.proto.FullEquipProto" +
+      "cePostId\030\001 \001(\005\022\020\n\010posterId\030\002 \001(\005\0225\n\010post" +
+      "Type\030\003 \001(\0162#.com.lvl6.proto.MarketplaceP" +
+      "ostType\022\022\n\ntimeOfPost\030\004 \001(\003\0223\n\013postedEqu" +
+      "ip\030\005 \001(\0132\036.com.lvl6.proto.FullEquipProto" +
       "\022\023\n\013diamondCost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\"" +
-      "\260\001\n\027FullUserCritstructProto\022,\n\004type\030\001 \002(",
+      "\260\001\n\027FullUserCritstructProto\022,\n\004type\030\001 \001(",
       "\0162\036.com.lvl6.proto.CritStructType\022/\n\006coo" +
-      "rds\030\002 \002(\0132\037.com.lvl6.proto.CoordinatePro" +
-      "to\0226\n\013orientation\030\003 \002(\0162!.com.lvl6.proto" +
+      "rds\030\002 \001(\0132\037.com.lvl6.proto.CoordinatePro" +
+      "to\0226\n\013orientation\030\003 \001(\0162!.com.lvl6.proto" +
       ".StructOrientation\"M\n\024MinimumUserTaskPro" +
-      "to\022\016\n\006userId\030\001 \002(\005\022\016\n\006taskId\030\002 \002(\005\022\025\n\rnu" +
-      "mTimesActed\030\003 \002(\005\"\224\004\n\033FullUserQuestDataL" +
-      "argeProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002" +
-      "(\005\022\022\n\nisRedeemed\030\003 \002(\010\022\022\n\nisComplete\030\004 \002" +
+      "to\022\016\n\006userId\030\001 \001(\005\022\016\n\006taskId\030\002 \001(\005\022\025\n\rnu" +
+      "mTimesActed\030\003 \001(\005\"\224\004\n\033FullUserQuestDataL" +
+      "argeProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001" +
+      "(\005\022\022\n\nisRedeemed\030\003 \001(\010\022\022\n\nisComplete\030\004 \001" +
       "(\010\022T\n\035requiredDefeatTypeJobProgress\030\005 \003(" +
       "\0132-.com.lvl6.proto.MinimumUserDefeatType",
       "JobProto\022V\n\036requiredBuildStructJobProgre" +
@@ -25303,35 +23863,35 @@ public final class InfoProto {
       ".proto.MinimumUserPossessEquipJobProto\022H" +
       "\n\025requiredTasksProgress\030\t \003(\0132).com.lvl6" +
       ".proto.MinimumUserQuestTaskProto\"c\n\031Mini" +
-      "mumUserQuestTaskProto\022\016\n\006userId\030\001 \002(\005\022\017\n",
-      "\007questId\030\002 \002(\005\022\016\n\006taskId\030\003 \002(\005\022\025\n\rnumTim" +
-      "esActed\030\004 \002(\005\"n\n\035MinimumUserDefeatTypeJo" +
-      "bProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022" +
-      "\027\n\017defeatTypeJobId\030\003 \002(\005\022\023\n\013numDefeated\030" +
-      "\004 \002(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017defeatTy" +
-      "peJobId\030\001 \002(\005\022-\n\013typeOfEnemy\030\002 \002(\0162\030.com" +
+      "mumUserQuestTaskProto\022\016\n\006userId\030\001 \001(\005\022\017\n",
+      "\007questId\030\002 \001(\005\022\016\n\006taskId\030\003 \001(\005\022\025\n\rnumTim" +
+      "esActed\030\004 \001(\005\"n\n\035MinimumUserDefeatTypeJo" +
+      "bProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022" +
+      "\027\n\017defeatTypeJobId\030\003 \001(\005\022\023\n\013numDefeated\030" +
+      "\004 \001(\005\"\210\001\n\022DefeatTypeJobProto\022\027\n\017defeatTy" +
+      "peJobId\030\001 \001(\005\022-\n\013typeOfEnemy\030\002 \001(\0162\030.com" +
       ".lvl6.proto.UserType\022\032\n\022numEnemiesToDefe" +
-      "at\030\003 \002(\005\022\016\n\006cityId\030\004 \002(\005\"w\n\036MinimumUserB" +
-      "uildStructJobProto\022\016\n\006userId\030\001 \002(\005\022\017\n\007qu" +
-      "estId\030\002 \002(\005\022\030\n\020buildStructJobId\030\003 \002(\005\022\032\n",
-      "\022numOfStructUserHas\030\004 \002(\005\"[\n\023BuildStruct" +
-      "JobProto\022\030\n\020buildStructJobId\030\001 \002(\005\022\020\n\010st" +
-      "ructId\030\002 \002(\005\022\030\n\020quantityRequired\030\003 \002(\005\"u" +
+      "at\030\003 \001(\005\022\016\n\006cityId\030\004 \001(\005\"w\n\036MinimumUserB" +
+      "uildStructJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007qu" +
+      "estId\030\002 \001(\005\022\030\n\020buildStructJobId\030\003 \001(\005\022\032\n",
+      "\022numOfStructUserHas\030\004 \001(\005\"[\n\023BuildStruct" +
+      "JobProto\022\030\n\020buildStructJobId\030\001 \001(\005\022\020\n\010st" +
+      "ructId\030\002 \001(\005\022\030\n\020quantityRequired\030\003 \001(\005\"u" +
       "\n MinimumUserUpgradeStructJobProto\022\016\n\006us" +
-      "erId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\032\n\022upgradeSt" +
-      "ructJobId\030\003 \002(\005\022\024\n\014currentLevel\030\004 \002(\005\"W\n" +
+      "erId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\032\n\022upgradeSt" +
+      "ructJobId\030\003 \001(\005\022\024\n\014currentLevel\030\004 \001(\005\"W\n" +
       "\025UpgradeStructJobProto\022\032\n\022upgradeStructJ" +
-      "obId\030\001 \002(\005\022\020\n\010structId\030\002 \002(\005\022\020\n\010levelReq" +
-      "\030\003 \002(\005\"v\n\037MinimumUserPossessEquipJobProt" +
-      "o\022\016\n\006userId\030\001 \002(\005\022\017\n\007questId\030\002 \002(\005\022\031\n\021po",
-      "ssessEquipJobId\030\003 \002(\005\022\027\n\017numEquipUserHas" +
-      "\030\004 \002(\005\"W\n\024PossessEquipJobProto\022\031\n\021posses" +
-      "sEquipJobId\030\001 \002(\005\022\017\n\007equipId\030\002 \002(\005\022\023\n\013qu" +
-      "antityReq\030\003 \002(\005\"\223\003\n\016FullQuestProto\022\017\n\007qu" +
-      "estId\030\001 \002(\005\022\016\n\006cityId\030\002 \002(\005\022\014\n\004name\030\003 \002(" +
-      "\t\022\023\n\013description\030\004 \002(\t\022\024\n\014doneResponse\030\005" +
-      " \002(\t\022\022\n\ninProgress\030\006 \002(\t\022\032\n\022assetNumWith" +
-      "inCity\030\007 \002(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016dia" +
+      "obId\030\001 \001(\005\022\020\n\010structId\030\002 \001(\005\022\020\n\010levelReq" +
+      "\030\003 \001(\005\"v\n\037MinimumUserPossessEquipJobProt" +
+      "o\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\031\n\021po",
+      "ssessEquipJobId\030\003 \001(\005\022\027\n\017numEquipUserHas" +
+      "\030\004 \001(\005\"W\n\024PossessEquipJobProto\022\031\n\021posses" +
+      "sEquipJobId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005\022\023\n\013qu" +
+      "antityReq\030\003 \001(\005\"\223\003\n\016FullQuestProto\022\017\n\007qu" +
+      "estId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\014\n\004name\030\003 \001(" +
+      "\t\022\023\n\013description\030\004 \001(\t\022\024\n\014doneResponse\030\005" +
+      " \001(\t\022\022\n\ninProgress\030\006 \001(\t\022\032\n\022assetNumWith" +
+      "inCity\030\007 \001(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016dia" +
       "mondsGained\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\r" +
       "equipIdGained\030\013 \001(\005\022\035\n\025questsRequiredFor",
       "This\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeS" +
