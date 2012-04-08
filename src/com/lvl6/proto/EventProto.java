@@ -6450,14 +6450,14 @@ public final class EventProto {
     com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants getTutorialConstants();
     com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstantsOrBuilder getTutorialConstantsOrBuilder();
     
-    // repeated .com.lvl6.proto.FullCityProto citiesAvailableToUser = 5;
+    // repeated .com.lvl6.proto.FullCityProto allCities = 5;
     java.util.List<com.lvl6.proto.InfoProto.FullCityProto> 
-        getCitiesAvailableToUserList();
-    com.lvl6.proto.InfoProto.FullCityProto getCitiesAvailableToUser(int index);
-    int getCitiesAvailableToUserCount();
+        getAllCitiesList();
+    com.lvl6.proto.InfoProto.FullCityProto getAllCities(int index);
+    int getAllCitiesCount();
     java.util.List<? extends com.lvl6.proto.InfoProto.FullCityProtoOrBuilder> 
-        getCitiesAvailableToUserOrBuilderList();
-    com.lvl6.proto.InfoProto.FullCityProtoOrBuilder getCitiesAvailableToUserOrBuilder(
+        getAllCitiesOrBuilderList();
+    com.lvl6.proto.InfoProto.FullCityProtoOrBuilder getAllCitiesOrBuilder(
         int index);
     
     // repeated .com.lvl6.proto.FullUserCityProto userCityInfos = 16;
@@ -17595,25 +17595,25 @@ public final class EventProto {
       return tutorialConstants_;
     }
     
-    // repeated .com.lvl6.proto.FullCityProto citiesAvailableToUser = 5;
-    public static final int CITIESAVAILABLETOUSER_FIELD_NUMBER = 5;
-    private java.util.List<com.lvl6.proto.InfoProto.FullCityProto> citiesAvailableToUser_;
-    public java.util.List<com.lvl6.proto.InfoProto.FullCityProto> getCitiesAvailableToUserList() {
-      return citiesAvailableToUser_;
+    // repeated .com.lvl6.proto.FullCityProto allCities = 5;
+    public static final int ALLCITIES_FIELD_NUMBER = 5;
+    private java.util.List<com.lvl6.proto.InfoProto.FullCityProto> allCities_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullCityProto> getAllCitiesList() {
+      return allCities_;
     }
     public java.util.List<? extends com.lvl6.proto.InfoProto.FullCityProtoOrBuilder> 
-        getCitiesAvailableToUserOrBuilderList() {
-      return citiesAvailableToUser_;
+        getAllCitiesOrBuilderList() {
+      return allCities_;
     }
-    public int getCitiesAvailableToUserCount() {
-      return citiesAvailableToUser_.size();
+    public int getAllCitiesCount() {
+      return allCities_.size();
     }
-    public com.lvl6.proto.InfoProto.FullCityProto getCitiesAvailableToUser(int index) {
-      return citiesAvailableToUser_.get(index);
+    public com.lvl6.proto.InfoProto.FullCityProto getAllCities(int index) {
+      return allCities_.get(index);
     }
-    public com.lvl6.proto.InfoProto.FullCityProtoOrBuilder getCitiesAvailableToUserOrBuilder(
+    public com.lvl6.proto.InfoProto.FullCityProtoOrBuilder getAllCitiesOrBuilder(
         int index) {
-      return citiesAvailableToUser_.get(index);
+      return allCities_.get(index);
     }
     
     // repeated .com.lvl6.proto.FullUserCityProto userCityInfos = 16;
@@ -17842,7 +17842,7 @@ public final class EventProto {
       updateStatus_ = com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus.NO_UPDATE;
       startupConstants_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.getDefaultInstance();
       tutorialConstants_ = com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.getDefaultInstance();
-      citiesAvailableToUser_ = java.util.Collections.emptyList();
+      allCities_ = java.util.Collections.emptyList();
       userCityInfos_ = java.util.Collections.emptyList();
       inProgressQuests_ = java.util.Collections.emptyList();
       availableQuests_ = java.util.Collections.emptyList();
@@ -17879,8 +17879,8 @@ public final class EventProto {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeMessage(4, startupConstants_);
       }
-      for (int i = 0; i < citiesAvailableToUser_.size(); i++) {
-        output.writeMessage(5, citiesAvailableToUser_.get(i));
+      for (int i = 0; i < allCities_.size(); i++) {
+        output.writeMessage(5, allCities_.get(i));
       }
       for (int i = 0; i < inProgressQuests_.size(); i++) {
         output.writeMessage(6, inProgressQuests_.get(i));
@@ -17943,9 +17943,9 @@ public final class EventProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, startupConstants_);
       }
-      for (int i = 0; i < citiesAvailableToUser_.size(); i++) {
+      for (int i = 0; i < allCities_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, citiesAvailableToUser_.get(i));
+          .computeMessageSize(5, allCities_.get(i));
       }
       for (int i = 0; i < inProgressQuests_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -18114,7 +18114,7 @@ public final class EventProto {
           getSenderFieldBuilder();
           getStartupConstantsFieldBuilder();
           getTutorialConstantsFieldBuilder();
-          getCitiesAvailableToUserFieldBuilder();
+          getAllCitiesFieldBuilder();
           getUserCityInfosFieldBuilder();
           getInProgressQuestsFieldBuilder();
           getAvailableQuestsFieldBuilder();
@@ -18153,11 +18153,11 @@ public final class EventProto {
           tutorialConstantsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
-        if (citiesAvailableToUserBuilder_ == null) {
-          citiesAvailableToUser_ = java.util.Collections.emptyList();
+        if (allCitiesBuilder_ == null) {
+          allCities_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000020);
         } else {
-          citiesAvailableToUserBuilder_.clear();
+          allCitiesBuilder_.clear();
         }
         if (userCityInfosBuilder_ == null) {
           userCityInfos_ = java.util.Collections.emptyList();
@@ -18283,14 +18283,14 @@ public final class EventProto {
         } else {
           result.tutorialConstants_ = tutorialConstantsBuilder_.build();
         }
-        if (citiesAvailableToUserBuilder_ == null) {
+        if (allCitiesBuilder_ == null) {
           if (((bitField0_ & 0x00000020) == 0x00000020)) {
-            citiesAvailableToUser_ = java.util.Collections.unmodifiableList(citiesAvailableToUser_);
+            allCities_ = java.util.Collections.unmodifiableList(allCities_);
             bitField0_ = (bitField0_ & ~0x00000020);
           }
-          result.citiesAvailableToUser_ = citiesAvailableToUser_;
+          result.allCities_ = allCities_;
         } else {
-          result.citiesAvailableToUser_ = citiesAvailableToUserBuilder_.build();
+          result.allCities_ = allCitiesBuilder_.build();
         }
         if (userCityInfosBuilder_ == null) {
           if (((bitField0_ & 0x00000040) == 0x00000040)) {
@@ -18407,29 +18407,29 @@ public final class EventProto {
         if (other.hasTutorialConstants()) {
           mergeTutorialConstants(other.getTutorialConstants());
         }
-        if (citiesAvailableToUserBuilder_ == null) {
-          if (!other.citiesAvailableToUser_.isEmpty()) {
-            if (citiesAvailableToUser_.isEmpty()) {
-              citiesAvailableToUser_ = other.citiesAvailableToUser_;
+        if (allCitiesBuilder_ == null) {
+          if (!other.allCities_.isEmpty()) {
+            if (allCities_.isEmpty()) {
+              allCities_ = other.allCities_;
               bitField0_ = (bitField0_ & ~0x00000020);
             } else {
-              ensureCitiesAvailableToUserIsMutable();
-              citiesAvailableToUser_.addAll(other.citiesAvailableToUser_);
+              ensureAllCitiesIsMutable();
+              allCities_.addAll(other.allCities_);
             }
             onChanged();
           }
         } else {
-          if (!other.citiesAvailableToUser_.isEmpty()) {
-            if (citiesAvailableToUserBuilder_.isEmpty()) {
-              citiesAvailableToUserBuilder_.dispose();
-              citiesAvailableToUserBuilder_ = null;
-              citiesAvailableToUser_ = other.citiesAvailableToUser_;
+          if (!other.allCities_.isEmpty()) {
+            if (allCitiesBuilder_.isEmpty()) {
+              allCitiesBuilder_.dispose();
+              allCitiesBuilder_ = null;
+              allCities_ = other.allCities_;
               bitField0_ = (bitField0_ & ~0x00000020);
-              citiesAvailableToUserBuilder_ = 
+              allCitiesBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getCitiesAvailableToUserFieldBuilder() : null;
+                   getAllCitiesFieldBuilder() : null;
             } else {
-              citiesAvailableToUserBuilder_.addAllMessages(other.citiesAvailableToUser_);
+              allCitiesBuilder_.addAllMessages(other.allCities_);
             }
           }
         }
@@ -18724,7 +18724,7 @@ public final class EventProto {
             case 42: {
               com.lvl6.proto.InfoProto.FullCityProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullCityProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
-              addCitiesAvailableToUser(subBuilder.buildPartial());
+              addAllCities(subBuilder.buildPartial());
               break;
             }
             case 50: {
@@ -19123,190 +19123,190 @@ public final class EventProto {
         return tutorialConstantsBuilder_;
       }
       
-      // repeated .com.lvl6.proto.FullCityProto citiesAvailableToUser = 5;
-      private java.util.List<com.lvl6.proto.InfoProto.FullCityProto> citiesAvailableToUser_ =
+      // repeated .com.lvl6.proto.FullCityProto allCities = 5;
+      private java.util.List<com.lvl6.proto.InfoProto.FullCityProto> allCities_ =
         java.util.Collections.emptyList();
-      private void ensureCitiesAvailableToUserIsMutable() {
+      private void ensureAllCitiesIsMutable() {
         if (!((bitField0_ & 0x00000020) == 0x00000020)) {
-          citiesAvailableToUser_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullCityProto>(citiesAvailableToUser_);
+          allCities_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullCityProto>(allCities_);
           bitField0_ |= 0x00000020;
          }
       }
       
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullCityProto, com.lvl6.proto.InfoProto.FullCityProto.Builder, com.lvl6.proto.InfoProto.FullCityProtoOrBuilder> citiesAvailableToUserBuilder_;
+          com.lvl6.proto.InfoProto.FullCityProto, com.lvl6.proto.InfoProto.FullCityProto.Builder, com.lvl6.proto.InfoProto.FullCityProtoOrBuilder> allCitiesBuilder_;
       
-      public java.util.List<com.lvl6.proto.InfoProto.FullCityProto> getCitiesAvailableToUserList() {
-        if (citiesAvailableToUserBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(citiesAvailableToUser_);
+      public java.util.List<com.lvl6.proto.InfoProto.FullCityProto> getAllCitiesList() {
+        if (allCitiesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(allCities_);
         } else {
-          return citiesAvailableToUserBuilder_.getMessageList();
+          return allCitiesBuilder_.getMessageList();
         }
       }
-      public int getCitiesAvailableToUserCount() {
-        if (citiesAvailableToUserBuilder_ == null) {
-          return citiesAvailableToUser_.size();
+      public int getAllCitiesCount() {
+        if (allCitiesBuilder_ == null) {
+          return allCities_.size();
         } else {
-          return citiesAvailableToUserBuilder_.getCount();
+          return allCitiesBuilder_.getCount();
         }
       }
-      public com.lvl6.proto.InfoProto.FullCityProto getCitiesAvailableToUser(int index) {
-        if (citiesAvailableToUserBuilder_ == null) {
-          return citiesAvailableToUser_.get(index);
+      public com.lvl6.proto.InfoProto.FullCityProto getAllCities(int index) {
+        if (allCitiesBuilder_ == null) {
+          return allCities_.get(index);
         } else {
-          return citiesAvailableToUserBuilder_.getMessage(index);
+          return allCitiesBuilder_.getMessage(index);
         }
       }
-      public Builder setCitiesAvailableToUser(
+      public Builder setAllCities(
           int index, com.lvl6.proto.InfoProto.FullCityProto value) {
-        if (citiesAvailableToUserBuilder_ == null) {
+        if (allCitiesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureCitiesAvailableToUserIsMutable();
-          citiesAvailableToUser_.set(index, value);
+          ensureAllCitiesIsMutable();
+          allCities_.set(index, value);
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.setMessage(index, value);
+          allCitiesBuilder_.setMessage(index, value);
         }
         return this;
       }
-      public Builder setCitiesAvailableToUser(
+      public Builder setAllCities(
           int index, com.lvl6.proto.InfoProto.FullCityProto.Builder builderForValue) {
-        if (citiesAvailableToUserBuilder_ == null) {
-          ensureCitiesAvailableToUserIsMutable();
-          citiesAvailableToUser_.set(index, builderForValue.build());
+        if (allCitiesBuilder_ == null) {
+          ensureAllCitiesIsMutable();
+          allCities_.set(index, builderForValue.build());
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.setMessage(index, builderForValue.build());
+          allCitiesBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
-      public Builder addCitiesAvailableToUser(com.lvl6.proto.InfoProto.FullCityProto value) {
-        if (citiesAvailableToUserBuilder_ == null) {
+      public Builder addAllCities(com.lvl6.proto.InfoProto.FullCityProto value) {
+        if (allCitiesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureCitiesAvailableToUserIsMutable();
-          citiesAvailableToUser_.add(value);
+          ensureAllCitiesIsMutable();
+          allCities_.add(value);
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.addMessage(value);
+          allCitiesBuilder_.addMessage(value);
         }
         return this;
       }
-      public Builder addCitiesAvailableToUser(
+      public Builder addAllCities(
           int index, com.lvl6.proto.InfoProto.FullCityProto value) {
-        if (citiesAvailableToUserBuilder_ == null) {
+        if (allCitiesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureCitiesAvailableToUserIsMutable();
-          citiesAvailableToUser_.add(index, value);
+          ensureAllCitiesIsMutable();
+          allCities_.add(index, value);
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.addMessage(index, value);
+          allCitiesBuilder_.addMessage(index, value);
         }
         return this;
       }
-      public Builder addCitiesAvailableToUser(
+      public Builder addAllCities(
           com.lvl6.proto.InfoProto.FullCityProto.Builder builderForValue) {
-        if (citiesAvailableToUserBuilder_ == null) {
-          ensureCitiesAvailableToUserIsMutable();
-          citiesAvailableToUser_.add(builderForValue.build());
+        if (allCitiesBuilder_ == null) {
+          ensureAllCitiesIsMutable();
+          allCities_.add(builderForValue.build());
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.addMessage(builderForValue.build());
+          allCitiesBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
-      public Builder addCitiesAvailableToUser(
+      public Builder addAllCities(
           int index, com.lvl6.proto.InfoProto.FullCityProto.Builder builderForValue) {
-        if (citiesAvailableToUserBuilder_ == null) {
-          ensureCitiesAvailableToUserIsMutable();
-          citiesAvailableToUser_.add(index, builderForValue.build());
+        if (allCitiesBuilder_ == null) {
+          ensureAllCitiesIsMutable();
+          allCities_.add(index, builderForValue.build());
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.addMessage(index, builderForValue.build());
+          allCitiesBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
-      public Builder addAllCitiesAvailableToUser(
+      public Builder addAllAllCities(
           java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullCityProto> values) {
-        if (citiesAvailableToUserBuilder_ == null) {
-          ensureCitiesAvailableToUserIsMutable();
-          super.addAll(values, citiesAvailableToUser_);
+        if (allCitiesBuilder_ == null) {
+          ensureAllCitiesIsMutable();
+          super.addAll(values, allCities_);
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.addAllMessages(values);
+          allCitiesBuilder_.addAllMessages(values);
         }
         return this;
       }
-      public Builder clearCitiesAvailableToUser() {
-        if (citiesAvailableToUserBuilder_ == null) {
-          citiesAvailableToUser_ = java.util.Collections.emptyList();
+      public Builder clearAllCities() {
+        if (allCitiesBuilder_ == null) {
+          allCities_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.clear();
+          allCitiesBuilder_.clear();
         }
         return this;
       }
-      public Builder removeCitiesAvailableToUser(int index) {
-        if (citiesAvailableToUserBuilder_ == null) {
-          ensureCitiesAvailableToUserIsMutable();
-          citiesAvailableToUser_.remove(index);
+      public Builder removeAllCities(int index) {
+        if (allCitiesBuilder_ == null) {
+          ensureAllCitiesIsMutable();
+          allCities_.remove(index);
           onChanged();
         } else {
-          citiesAvailableToUserBuilder_.remove(index);
+          allCitiesBuilder_.remove(index);
         }
         return this;
       }
-      public com.lvl6.proto.InfoProto.FullCityProto.Builder getCitiesAvailableToUserBuilder(
+      public com.lvl6.proto.InfoProto.FullCityProto.Builder getAllCitiesBuilder(
           int index) {
-        return getCitiesAvailableToUserFieldBuilder().getBuilder(index);
+        return getAllCitiesFieldBuilder().getBuilder(index);
       }
-      public com.lvl6.proto.InfoProto.FullCityProtoOrBuilder getCitiesAvailableToUserOrBuilder(
+      public com.lvl6.proto.InfoProto.FullCityProtoOrBuilder getAllCitiesOrBuilder(
           int index) {
-        if (citiesAvailableToUserBuilder_ == null) {
-          return citiesAvailableToUser_.get(index);  } else {
-          return citiesAvailableToUserBuilder_.getMessageOrBuilder(index);
+        if (allCitiesBuilder_ == null) {
+          return allCities_.get(index);  } else {
+          return allCitiesBuilder_.getMessageOrBuilder(index);
         }
       }
       public java.util.List<? extends com.lvl6.proto.InfoProto.FullCityProtoOrBuilder> 
-           getCitiesAvailableToUserOrBuilderList() {
-        if (citiesAvailableToUserBuilder_ != null) {
-          return citiesAvailableToUserBuilder_.getMessageOrBuilderList();
+           getAllCitiesOrBuilderList() {
+        if (allCitiesBuilder_ != null) {
+          return allCitiesBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(citiesAvailableToUser_);
+          return java.util.Collections.unmodifiableList(allCities_);
         }
       }
-      public com.lvl6.proto.InfoProto.FullCityProto.Builder addCitiesAvailableToUserBuilder() {
-        return getCitiesAvailableToUserFieldBuilder().addBuilder(
+      public com.lvl6.proto.InfoProto.FullCityProto.Builder addAllCitiesBuilder() {
+        return getAllCitiesFieldBuilder().addBuilder(
             com.lvl6.proto.InfoProto.FullCityProto.getDefaultInstance());
       }
-      public com.lvl6.proto.InfoProto.FullCityProto.Builder addCitiesAvailableToUserBuilder(
+      public com.lvl6.proto.InfoProto.FullCityProto.Builder addAllCitiesBuilder(
           int index) {
-        return getCitiesAvailableToUserFieldBuilder().addBuilder(
+        return getAllCitiesFieldBuilder().addBuilder(
             index, com.lvl6.proto.InfoProto.FullCityProto.getDefaultInstance());
       }
       public java.util.List<com.lvl6.proto.InfoProto.FullCityProto.Builder> 
-           getCitiesAvailableToUserBuilderList() {
-        return getCitiesAvailableToUserFieldBuilder().getBuilderList();
+           getAllCitiesBuilderList() {
+        return getAllCitiesFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
           com.lvl6.proto.InfoProto.FullCityProto, com.lvl6.proto.InfoProto.FullCityProto.Builder, com.lvl6.proto.InfoProto.FullCityProtoOrBuilder> 
-          getCitiesAvailableToUserFieldBuilder() {
-        if (citiesAvailableToUserBuilder_ == null) {
-          citiesAvailableToUserBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          getAllCitiesFieldBuilder() {
+        if (allCitiesBuilder_ == null) {
+          allCitiesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.lvl6.proto.InfoProto.FullCityProto, com.lvl6.proto.InfoProto.FullCityProto.Builder, com.lvl6.proto.InfoProto.FullCityProtoOrBuilder>(
-                  citiesAvailableToUser_,
+                  allCities_,
                   ((bitField0_ & 0x00000020) == 0x00000020),
                   getParentForChildren(),
                   isClean());
-          citiesAvailableToUser_ = null;
+          allCities_ = null;
         }
-        return citiesAvailableToUserBuilder_;
+        return allCitiesBuilder_;
       }
       
       // repeated .com.lvl6.proto.FullUserCityProto userCityInfos = 16;
@@ -76593,7 +76593,7 @@ public final class EventProto {
       "BUY\020\002\022\035\n\031CANNOT_SELL_DIAMOND_EQUIP\020\003\022\021\n\r" +
       "LEVEL_TOO_LOW\020\004\022\016\n\nOTHER_FAIL\020\005\"L\n\023Start" +
       "upRequestProto\022\014\n\004udid\030\001 \001(\t\022\022\n\nversionN" +
-      "um\030\002 \001(\002\022\023\n\013deviceToken\030\004 \001(\t\"\313*\n\024Startu",
+      "um\030\002 \001(\002\022\023\n\013deviceToken\030\004 \001(\t\"\277*\n\024Startu",
       "pResponseProto\022-\n\006sender\030\001 \001(\0132\035.com.lvl" +
       "6.proto.FullUserProto\022I\n\rstartupStatus\030\002" +
       " \001(\01622.com.lvl6.proto.StartupResponsePro" +
@@ -76603,631 +76603,630 @@ public final class EventProto {
       "m.lvl6.proto.StartupResponseProto.Startu" +
       "pConstants\022Q\n\021tutorialConstants\030\022 \001(\01326." +
       "com.lvl6.proto.StartupResponseProto.Tuto" +
-      "rialConstants\022<\n\025citiesAvailableToUser\030\005",
-      " \003(\0132\035.com.lvl6.proto.FullCityProto\0228\n\ru" +
-      "serCityInfos\030\020 \003(\0132!.com.lvl6.proto.Full" +
-      "UserCityProto\0228\n\020inProgressQuests\030\006 \003(\0132" +
-      "\036.com.lvl6.proto.FullQuestProto\0227\n\017avail" +
-      "ableQuests\030\007 \003(\0132\036.com.lvl6.proto.FullQu" +
-      "estProto\0226\n\nuserEquips\030\010 \003(\0132\".com.lvl6." +
-      "proto.FullUserEquipProto\022.\n\006equips\030\t \003(\013" +
-      "2\036.com.lvl6.proto.FullEquipProto\022&\n\036expe" +
-      "rienceRequiredForNextLevel\030\n \001(\005\022)\n!expe" +
-      "rienceRequiredForCurrentLevel\030\017 \001(\005\022x\n m",
-      "arketplacePurchaseNotifications\030\014 \003(\0132N." +
-      "com.lvl6.proto.StartupResponseProto.Mark" +
-      "etplacePostPurchasedNotificationProto\022[\n" +
-      "\023attackNotifications\030\r \003(\0132>.com.lvl6.pr" +
-      "oto.StartupResponseProto.AttackedNotific" +
-      "ationProto\022]\n\025referralNotifications\030\016 \003(" +
-      "\0132>.com.lvl6.proto.StartupResponseProto." +
-      "ReferralNotificationProto\022\023\n\013appStoreURL" +
-      "\030\021 \001(\t\032\267\001\n)MarketplacePostPurchasedNotif" +
-      "icationProto\022A\n\017marketplacePost\030\001 \001(\0132(.",
-      "com.lvl6.proto.FullMarketplacePostProto\022" +
-      "/\n\005buyer\030\002 \001(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022\026\n\016timeOfPurchase\030\003 \001(\003\032\313\001\n\031Att" +
-      "ackedNotificationProto\0222\n\010attacker\030\001 \001(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\0222\n\014ba" +
-      "ttleResult\030\002 \001(\0162\034.com.lvl6.proto.Battle" +
-      "Result\022\032\n\022battleCompleteTime\030\003 \001(\003\022\023\n\013co" +
-      "insStolen\030\004 \001(\005\022\025\n\rstolenEquipId\030\005 \001(\005\032d" +
-      "\n\031ReferralNotificationProto\0222\n\010referred\030" +
-      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022",
-      "\023\n\013recruitTime\030\002 \001(\003\032\254\r\n\020StartupConstant" +
-      "s\022\022\n\nproductIds\030\001 \003(\t\022\034\n\024productDiamonds" +
-      "Given\030\002 \003(\005\022#\n\033maxLevelDifferenceForBatt" +
-      "le\030\006 \001(\005\022\025\n\rarmoryXLength\030\007 \001(\005\022\025\n\rarmor" +
-      "yYLength\030\010 \001(\005\022\024\n\014vaultXLength\030\t \001(\005\022\024\n\014" +
-      "vaultYLength\030\n \001(\005\022\032\n\022marketplaceXLength" +
-      "\030\013 \001(\005\022\032\n\022marketplaceYLength\030\014 \001(\005\022\030\n\020ca" +
-      "rpenterXLength\030\r \001(\005\022\030\n\020carpenterYLength" +
-      "\030\016 \001(\005\022\025\n\raviaryXLength\030\017 \001(\005\022\025\n\raviaryY" +
-      "Length\030\020 \001(\005\022\026\n\016attackBaseGain\030\021 \001(\005\022\027\n\017",
-      "defenseBaseGain\030\022 \001(\005\022\026\n\016energyBaseGain\030" +
-      "\023 \001(\005\022\026\n\016healthBaseGain\030\024 \001(\005\022\027\n\017stamina" +
-      "BaseGain\030\025 \001(\005\022\026\n\016attackBaseCost\030\026 \001(\005\022\027" +
-      "\n\017defenseBaseCost\030\027 \001(\005\022\026\n\016energyBaseCos" +
-      "t\030\030 \001(\005\022\026\n\016healthBaseCost\030\031 \001(\005\022\027\n\017stami" +
-      "naBaseCost\030\032 \001(\005\022\"\n\032skillPointsGainedOnL" +
-      "evelup\030\033 \001(\005\022\036\n\026cutOfVaultDepositTaken\030\034" +
-      " \001(\001\022\031\n\021maxLevelForStruct\030! \001(\005\022\034\n\024maxNu" +
-      "mOfSingleStruct\030\" \001(\005\0224\n,percentReturned" +
-      "ToUserForSellingNormStructure\030# \001(\001\022\036\n\026m",
-      "inutesToRefillAEnergy\030$ \001(\005\022\037\n\027minutesTo" +
-      "RefillAStamina\030% \001(\005\022\'\n\037diamondCostForFu" +
-      "llStaminaRefill\0300 \001(\005\022&\n\036diamondCostForF" +
-      "ullEnergyRefill\0301 \001(\005\022#\n\033maxNumberOfMark" +
-      "etplacePosts\030( \001(\005\022@\n8percentOfSellingCo" +
-      "stTakenFromSellerOnMarketplacePurchase\030)" +
-      " \001(\001\022?\n7percentOfSellingCostTakenFromSel" +
-      "lerOnMarketplaceRetract\030* \001(\001\022-\n%numDays" +
-      "LongMarketplaceLicenseLastsFor\030+ \001(\005\022.\n&" +
-      "numDaysShortMarketplaceLicenseLastsFor\030,",
-      " \001(\005\022+\n#diamondCostOfLongMarketplaceLice" +
-      "nse\030- \001(\005\022,\n$diamondCostOfShortMarketpla" +
-      "ceLicense\030. \001(\005\022+\n#maxNumbersOfEnemiesTo" +
-      "GenerateAtOnce\030\004 \001(\005\0224\n,percentReturnedT" +
-      "oUserForSellingEquipInArmory\030\005 \001(\001\022 \n\030di" +
-      "amondRewardForReferrer\030/ \001(\005\022\023\n\013maxCityR" +
-      "ank\0302 \001(\005\022\031\n\021minLevelForArmory\0303 \001(\005\022\030\n\020" +
-      "minLevelForVault\0304 \001(\005\022\036\n\026minLevelForMar" +
-      "ketplace\0305 \001(\005\022$\n\034armoryImgVerticalPixel" +
-      "Offset\0306 \001(\005\022#\n\033vaultImgVerticalPixelOff",
-      "set\0307 \001(\005\022)\n!marketplaceImgVerticalPixel" +
-      "Offset\0308 \001(\005\022\'\n\037carpenterImgVerticalPixe" +
-      "lOffset\0309 \001(\005\022$\n\034aviaryImgVerticalPixelO" +
-      "ffset\030: \001(\005\032\305\017\n\021TutorialConstants\022\022\n\nini" +
-      "tEnergy\030\001 \001(\005\022\023\n\013initStamina\030\002 \001(\005\022\022\n\nin" +
-      "itHealth\030\003 \001(\005\022d\n\rtutorialQuest\030\004 \001(\0132M." +
-      "com.lvl6.proto.StartupResponseProto.Tuto" +
-      "rialConstants.FullTutorialQuestProto\022\025\n\r" +
-      "structToBuild\030\005 \001(\005\022*\n\"diamondCostToInst" +
-      "abuildFirstStruct\030\006 \001(\005\022\030\n\020archerInitAtt",
-      "ack\030\021 \001(\005\022\031\n\021archerInitDefense\030\022 \001(\005\0228\n\020" +
-      "archerInitWeapon\030\007 \001(\0132\036.com.lvl6.proto." +
-      "FullEquipProto\0227\n\017archerInitArmor\030\010 \001(\0132" +
-      "\036.com.lvl6.proto.FullEquipProto\022\026\n\016mageI" +
-      "nitAttack\030\t \001(\005\022\027\n\017mageInitDefense\030\n \001(\005" +
-      "\0226\n\016mageInitWeapon\030\013 \001(\0132\036.com.lvl6.prot" +
-      "o.FullEquipProto\0225\n\rmageInitArmor\030\014 \001(\0132" +
-      "\036.com.lvl6.proto.FullEquipProto\022\031\n\021warri" +
-      "orInitAttack\030\r \001(\005\022\032\n\022warriorInitDefense" +
-      "\030\016 \001(\005\0229\n\021warriorInitWeapon\030\017 \001(\0132\036.com.",
-      "lvl6.proto.FullEquipProto\0228\n\020warriorInit" +
-      "Armor\030\020 \001(\0132\036.com.lvl6.proto.FullEquipPr" +
-      "oto\022\025\n\rminNameLength\030\023 \001(\005\022\025\n\rmaxNameLen" +
-      "gth\030\024 \001(\005\022%\n\035diamondRewardForBeingReferr" +
-      "ed\030\026 \001(\005\022I\n\030firstCityElementsForGood\030\027 \003" +
-      "(\0132\'.com.lvl6.proto.NeutralCityElementPr" +
-      "oto\022H\n\027firstCityElementsForBad\030\030 \003(\0132\'.c" +
-      "om.lvl6.proto.NeutralCityElementProto\022\021\n" +
-      "\tinitCoins\030\031 \001(\005\022\024\n\014initDiamonds\030\032 \001(\005\022<" +
-      "\n\020carpenterStructs\030\033 \003(\0132\".com.lvl6.prot",
-      "o.FullStructureProto\022\036\n\026expRequiredForLe" +
-      "velTwo\030\034 \001(\005\022 \n\030expRequiredForLevelThree" +
-      "\030\035 \001(\005\022M\n&citiesNewlyAvailableToUserAfte" +
-      "rLevelup\030\036 \003(\0132\035.com.lvl6.proto.FullCity" +
-      "Proto\022c\n;newlyEquippableEpicsAndLegendar" +
-      "iesForAllClassesAfterLevelup\030\037 \003(\0132\036.com" +
-      ".lvl6.proto.FullEquipProto\022M\n!newlyAvail" +
-      "ableStructsAfterLevelup\030  \003(\0132\".com.lvl6" +
-      ".proto.FullStructureProto\032\277\004\n\026FullTutori" +
-      "alQuestProto\022\020\n\010goodName\030\001 \001(\t\022\017\n\007badNam",
-      "e\030\002 \001(\t\022\027\n\017goodDescription\030\003 \001(\t\022\026\n\016badD" +
-      "escription\030\004 \001(\t\022\030\n\020goodDoneResponse\030\005 \001" +
-      "(\t\022\027\n\017badDoneResponse\030\006 \001(\t\022\026\n\016goodInPro" +
-      "gress\030\007 \001(\t\022\025\n\rbadInProgress\030\010 \001(\t\022\032\n\022as" +
-      "setNumWithinCity\030\t \001(\005\022\023\n\013coinsGained\030\n " +
-      "\001(\005\022\021\n\texpGained\030\013 \001(\005\0224\n\rfirstTaskGood\030" +
-      "\014 \001(\0132\035.com.lvl6.proto.FullTaskProto\0223\n\014" +
-      "firstTaskBad\030\r \001(\0132\035.com.lvl6.proto.Full" +
-      "TaskProto\022!\n\031firstTaskCompleteCoinGain\030\016" +
-      " \001(\005\022(\n firstDefeatTypeJobBattleCoinGain",
-      "\030\021 \001(\005\022\'\n\037firstDefeatTypeJobBattleExpGai" +
-      "n\030\022 \001(\005\022J\n\"firstDefeatTypeJobBattleLootA" +
-      "mulet\030\023 \001(\0132\036.com.lvl6.proto.FullEquipPr" +
-      "oto\"A\n\014UpdateStatus\022\r\n\tNO_UPDATE\020\000\022\020\n\014MI" +
-      "NOR_UPDATE\020\001\022\020\n\014MAJOR_UPDATE\020\002\"3\n\rStartu" +
-      "pStatus\022\016\n\nUSER_IN_DB\020\000\022\022\n\016USER_NOT_IN_D" +
-      "B\020\001\"\233\003\n\026UserCreateRequestProto\022\014\n\004udid\030\001" +
-      " \001(\t\022\014\n\004name\030\002 \001(\t\022&\n\004type\030\003 \001(\0162\030.com.l" +
-      "vl6.proto.UserType\0223\n\014userLocation\030\006 \001(\013" +
-      "2\035.com.lvl6.proto.LocationProto\022\024\n\014refer",
-      "rerCode\030\007 \001(\t\022\023\n\013deviceToken\030\010 \001(\t\022\016\n\006at" +
-      "tack\030\t \001(\005\022\017\n\007defense\030\n \001(\005\022\016\n\006health\030\013 " +
-      "\001(\005\022\016\n\006energy\030\014 \001(\005\022\017\n\007stamina\030\r \001(\005\022\034\n\024" +
-      "timeOfStructPurchase\030\016 \001(\003\022\031\n\021timeOfStru" +
-      "ctBuild\030\017 \001(\003\0225\n\014structCoords\030\004 \001(\0132\037.co" +
-      "m.lvl6.proto.CoordinateProto\022\033\n\023usedDiam" +
-      "ondsToBuilt\030\020 \001(\010\"\333\002\n\027UserCreateResponse" +
-      "Proto\022-\n\006sender\030\001 \001(\0132\035.com.lvl6.proto.F" +
-      "ullUserProto\022H\n\006status\030\002 \001(\01628.com.lvl6." +
-      "proto.UserCreateResponseProto.UserCreate",
-      "Status\"\306\001\n\020UserCreateStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\020\n\014INVALID_NAME\020\001\022\024\n\020INVALID_LOCATION\020\002" +
-      "\022!\n\035USER_WITH_UDID_ALREADY_EXISTS\020\003\022\016\n\nT" +
-      "IME_ISSUE\020\004\022\"\n\036INVALID_SKILL_POINT_ALLOC" +
-      "ATION\020\005\022\026\n\022INVALID_REFER_CODE\020\006\022\016\n\nOTHER" +
-      "_FAIL\020\007\"d\n RetrieveTasksForCityRequestPr" +
-      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!Retrie" +
-      "veTasksForCityResponseProto\0220\n\006sender\030\001 " +
-      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022,\n",
-      "\005tasks\030\002 \003(\0132\035.com.lvl6.proto.FullTaskPr" +
-      "oto\"\367\001\n%RetrieveStaticDataForShopRequest" +
-      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022W\n\004type\030\002 \001(\0162I.com.lvl6" +
-      ".proto.RetrieveStaticDataForShopRequestP" +
-      "roto.RetrieveForShopType\"C\n\023RetrieveForS" +
-      "hopType\022\030\n\024EQUIPMENT_FOR_ARMORY\020\000\022\022\n\016ALL" +
-      "_STRUCTURES\020\001\"\346\002\n&RetrieveStaticDataForS" +
-      "hopResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022f\n\006status\030\002 \001",
-      "(\0162V.com.lvl6.proto.RetrieveStaticDataFo" +
-      "rShopResponseProto.RetrieveStaticDataFor" +
-      "ShopStatus\022.\n\006equips\030\003 \003(\0132\036.com.lvl6.pr" +
-      "oto.FullEquipProto\0223\n\007structs\030\004 \003(\0132\".co" +
-      "m.lvl6.proto.FullStructureProto\"=\n\037Retri" +
-      "eveStaticDataForShopStatus\022\013\n\007SUCCESS\020\000\022" +
-      "\r\n\tSOME_FAIL\020\001\"k\n\026TaskActionRequestProto" +
-      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\016\n\006taskId\030\002 \001(\005\022\017\n\007curTime\030\003 " +
-      "\001(\003\"\315\003\n\027TaskActionResponseProto\0220\n\006sende",
+      "rialConstants\0220\n\tallCities\030\005 \003(\0132\035.com.l",
+      "vl6.proto.FullCityProto\0228\n\ruserCityInfos" +
+      "\030\020 \003(\0132!.com.lvl6.proto.FullUserCityProt" +
+      "o\0228\n\020inProgressQuests\030\006 \003(\0132\036.com.lvl6.p" +
+      "roto.FullQuestProto\0227\n\017availableQuests\030\007" +
+      " \003(\0132\036.com.lvl6.proto.FullQuestProto\0226\n\n" +
+      "userEquips\030\010 \003(\0132\".com.lvl6.proto.FullUs" +
+      "erEquipProto\022.\n\006equips\030\t \003(\0132\036.com.lvl6." +
+      "proto.FullEquipProto\022&\n\036experienceRequir" +
+      "edForNextLevel\030\n \001(\005\022)\n!experienceRequir" +
+      "edForCurrentLevel\030\017 \001(\005\022x\n marketplacePu",
+      "rchaseNotifications\030\014 \003(\0132N.com.lvl6.pro" +
+      "to.StartupResponseProto.MarketplacePostP" +
+      "urchasedNotificationProto\022[\n\023attackNotif" +
+      "ications\030\r \003(\0132>.com.lvl6.proto.StartupR" +
+      "esponseProto.AttackedNotificationProto\022]" +
+      "\n\025referralNotifications\030\016 \003(\0132>.com.lvl6" +
+      ".proto.StartupResponseProto.ReferralNoti" +
+      "ficationProto\022\023\n\013appStoreURL\030\021 \001(\t\032\267\001\n)M" +
+      "arketplacePostPurchasedNotificationProto" +
+      "\022A\n\017marketplacePost\030\001 \001(\0132(.com.lvl6.pro",
+      "to.FullMarketplacePostProto\022/\n\005buyer\030\002 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\026\n\016" +
+      "timeOfPurchase\030\003 \001(\003\032\313\001\n\031AttackedNotific" +
+      "ationProto\0222\n\010attacker\030\001 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\0222\n\014battleResult\030\002" +
+      " \001(\0162\034.com.lvl6.proto.BattleResult\022\032\n\022ba" +
+      "ttleCompleteTime\030\003 \001(\003\022\023\n\013coinsStolen\030\004 " +
+      "\001(\005\022\025\n\rstolenEquipId\030\005 \001(\005\032d\n\031ReferralNo" +
+      "tificationProto\0222\n\010referred\030\001 \001(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\022\023\n\013recruitTi",
+      "me\030\002 \001(\003\032\254\r\n\020StartupConstants\022\022\n\nproduct" +
+      "Ids\030\001 \003(\t\022\034\n\024productDiamondsGiven\030\002 \003(\005\022" +
+      "#\n\033maxLevelDifferenceForBattle\030\006 \001(\005\022\025\n\r" +
+      "armoryXLength\030\007 \001(\005\022\025\n\rarmoryYLength\030\010 \001" +
+      "(\005\022\024\n\014vaultXLength\030\t \001(\005\022\024\n\014vaultYLength" +
+      "\030\n \001(\005\022\032\n\022marketplaceXLength\030\013 \001(\005\022\032\n\022ma" +
+      "rketplaceYLength\030\014 \001(\005\022\030\n\020carpenterXLeng" +
+      "th\030\r \001(\005\022\030\n\020carpenterYLength\030\016 \001(\005\022\025\n\rav" +
+      "iaryXLength\030\017 \001(\005\022\025\n\raviaryYLength\030\020 \001(\005" +
+      "\022\026\n\016attackBaseGain\030\021 \001(\005\022\027\n\017defenseBaseG",
+      "ain\030\022 \001(\005\022\026\n\016energyBaseGain\030\023 \001(\005\022\026\n\016hea" +
+      "lthBaseGain\030\024 \001(\005\022\027\n\017staminaBaseGain\030\025 \001" +
+      "(\005\022\026\n\016attackBaseCost\030\026 \001(\005\022\027\n\017defenseBas" +
+      "eCost\030\027 \001(\005\022\026\n\016energyBaseCost\030\030 \001(\005\022\026\n\016h" +
+      "ealthBaseCost\030\031 \001(\005\022\027\n\017staminaBaseCost\030\032" +
+      " \001(\005\022\"\n\032skillPointsGainedOnLevelup\030\033 \001(\005" +
+      "\022\036\n\026cutOfVaultDepositTaken\030\034 \001(\001\022\031\n\021maxL" +
+      "evelForStruct\030! \001(\005\022\034\n\024maxNumOfSingleStr" +
+      "uct\030\" \001(\005\0224\n,percentReturnedToUserForSel" +
+      "lingNormStructure\030# \001(\001\022\036\n\026minutesToRefi",
+      "llAEnergy\030$ \001(\005\022\037\n\027minutesToRefillAStami" +
+      "na\030% \001(\005\022\'\n\037diamondCostForFullStaminaRef" +
+      "ill\0300 \001(\005\022&\n\036diamondCostForFullEnergyRef" +
+      "ill\0301 \001(\005\022#\n\033maxNumberOfMarketplacePosts" +
+      "\030( \001(\005\022@\n8percentOfSellingCostTakenFromS" +
+      "ellerOnMarketplacePurchase\030) \001(\001\022?\n7perc" +
+      "entOfSellingCostTakenFromSellerOnMarketp" +
+      "laceRetract\030* \001(\001\022-\n%numDaysLongMarketpl" +
+      "aceLicenseLastsFor\030+ \001(\005\022.\n&numDaysShort" +
+      "MarketplaceLicenseLastsFor\030, \001(\005\022+\n#diam",
+      "ondCostOfLongMarketplaceLicense\030- \001(\005\022,\n" +
+      "$diamondCostOfShortMarketplaceLicense\030. " +
+      "\001(\005\022+\n#maxNumbersOfEnemiesToGenerateAtOn" +
+      "ce\030\004 \001(\005\0224\n,percentReturnedToUserForSell" +
+      "ingEquipInArmory\030\005 \001(\001\022 \n\030diamondRewardF" +
+      "orReferrer\030/ \001(\005\022\023\n\013maxCityRank\0302 \001(\005\022\031\n" +
+      "\021minLevelForArmory\0303 \001(\005\022\030\n\020minLevelForV" +
+      "ault\0304 \001(\005\022\036\n\026minLevelForMarketplace\0305 \001" +
+      "(\005\022$\n\034armoryImgVerticalPixelOffset\0306 \001(\005" +
+      "\022#\n\033vaultImgVerticalPixelOffset\0307 \001(\005\022)\n",
+      "!marketplaceImgVerticalPixelOffset\0308 \001(\005" +
+      "\022\'\n\037carpenterImgVerticalPixelOffset\0309 \001(" +
+      "\005\022$\n\034aviaryImgVerticalPixelOffset\030: \001(\005\032" +
+      "\305\017\n\021TutorialConstants\022\022\n\ninitEnergy\030\001 \001(" +
+      "\005\022\023\n\013initStamina\030\002 \001(\005\022\022\n\ninitHealth\030\003 \001" +
+      "(\005\022d\n\rtutorialQuest\030\004 \001(\0132M.com.lvl6.pro" +
+      "to.StartupResponseProto.TutorialConstant" +
+      "s.FullTutorialQuestProto\022\025\n\rstructToBuil" +
+      "d\030\005 \001(\005\022*\n\"diamondCostToInstabuildFirstS" +
+      "truct\030\006 \001(\005\022\030\n\020archerInitAttack\030\021 \001(\005\022\031\n",
+      "\021archerInitDefense\030\022 \001(\005\0228\n\020archerInitWe" +
+      "apon\030\007 \001(\0132\036.com.lvl6.proto.FullEquipPro" +
+      "to\0227\n\017archerInitArmor\030\010 \001(\0132\036.com.lvl6.p" +
+      "roto.FullEquipProto\022\026\n\016mageInitAttack\030\t " +
+      "\001(\005\022\027\n\017mageInitDefense\030\n \001(\005\0226\n\016mageInit" +
+      "Weapon\030\013 \001(\0132\036.com.lvl6.proto.FullEquipP" +
+      "roto\0225\n\rmageInitArmor\030\014 \001(\0132\036.com.lvl6.p" +
+      "roto.FullEquipProto\022\031\n\021warriorInitAttack" +
+      "\030\r \001(\005\022\032\n\022warriorInitDefense\030\016 \001(\005\0229\n\021wa" +
+      "rriorInitWeapon\030\017 \001(\0132\036.com.lvl6.proto.F",
+      "ullEquipProto\0228\n\020warriorInitArmor\030\020 \001(\0132" +
+      "\036.com.lvl6.proto.FullEquipProto\022\025\n\rminNa" +
+      "meLength\030\023 \001(\005\022\025\n\rmaxNameLength\030\024 \001(\005\022%\n" +
+      "\035diamondRewardForBeingReferred\030\026 \001(\005\022I\n\030" +
+      "firstCityElementsForGood\030\027 \003(\0132\'.com.lvl" +
+      "6.proto.NeutralCityElementProto\022H\n\027first" +
+      "CityElementsForBad\030\030 \003(\0132\'.com.lvl6.prot" +
+      "o.NeutralCityElementProto\022\021\n\tinitCoins\030\031" +
+      " \001(\005\022\024\n\014initDiamonds\030\032 \001(\005\022<\n\020carpenterS" +
+      "tructs\030\033 \003(\0132\".com.lvl6.proto.FullStruct",
+      "ureProto\022\036\n\026expRequiredForLevelTwo\030\034 \001(\005" +
+      "\022 \n\030expRequiredForLevelThree\030\035 \001(\005\022M\n&ci" +
+      "tiesNewlyAvailableToUserAfterLevelup\030\036 \003" +
+      "(\0132\035.com.lvl6.proto.FullCityProto\022c\n;new" +
+      "lyEquippableEpicsAndLegendariesForAllCla" +
+      "ssesAfterLevelup\030\037 \003(\0132\036.com.lvl6.proto." +
+      "FullEquipProto\022M\n!newlyAvailableStructsA" +
+      "fterLevelup\030  \003(\0132\".com.lvl6.proto.FullS" +
+      "tructureProto\032\277\004\n\026FullTutorialQuestProto" +
+      "\022\020\n\010goodName\030\001 \001(\t\022\017\n\007badName\030\002 \001(\t\022\027\n\017g",
+      "oodDescription\030\003 \001(\t\022\026\n\016badDescription\030\004" +
+      " \001(\t\022\030\n\020goodDoneResponse\030\005 \001(\t\022\027\n\017badDon" +
+      "eResponse\030\006 \001(\t\022\026\n\016goodInProgress\030\007 \001(\t\022" +
+      "\025\n\rbadInProgress\030\010 \001(\t\022\032\n\022assetNumWithin" +
+      "City\030\t \001(\005\022\023\n\013coinsGained\030\n \001(\005\022\021\n\texpGa" +
+      "ined\030\013 \001(\005\0224\n\rfirstTaskGood\030\014 \001(\0132\035.com." +
+      "lvl6.proto.FullTaskProto\0223\n\014firstTaskBad" +
+      "\030\r \001(\0132\035.com.lvl6.proto.FullTaskProto\022!\n" +
+      "\031firstTaskCompleteCoinGain\030\016 \001(\005\022(\n firs" +
+      "tDefeatTypeJobBattleCoinGain\030\021 \001(\005\022\'\n\037fi",
+      "rstDefeatTypeJobBattleExpGain\030\022 \001(\005\022J\n\"f" +
+      "irstDefeatTypeJobBattleLootAmulet\030\023 \001(\0132" +
+      "\036.com.lvl6.proto.FullEquipProto\"A\n\014Updat" +
+      "eStatus\022\r\n\tNO_UPDATE\020\000\022\020\n\014MINOR_UPDATE\020\001" +
+      "\022\020\n\014MAJOR_UPDATE\020\002\"3\n\rStartupStatus\022\016\n\nU" +
+      "SER_IN_DB\020\000\022\022\n\016USER_NOT_IN_DB\020\001\"\233\003\n\026User" +
+      "CreateRequestProto\022\014\n\004udid\030\001 \001(\t\022\014\n\004name" +
+      "\030\002 \001(\t\022&\n\004type\030\003 \001(\0162\030.com.lvl6.proto.Us" +
+      "erType\0223\n\014userLocation\030\006 \001(\0132\035.com.lvl6." +
+      "proto.LocationProto\022\024\n\014referrerCode\030\007 \001(",
+      "\t\022\023\n\013deviceToken\030\010 \001(\t\022\016\n\006attack\030\t \001(\005\022\017" +
+      "\n\007defense\030\n \001(\005\022\016\n\006health\030\013 \001(\005\022\016\n\006energ" +
+      "y\030\014 \001(\005\022\017\n\007stamina\030\r \001(\005\022\034\n\024timeOfStruct" +
+      "Purchase\030\016 \001(\003\022\031\n\021timeOfStructBuild\030\017 \001(" +
+      "\003\0225\n\014structCoords\030\004 \001(\0132\037.com.lvl6.proto" +
+      ".CoordinateProto\022\033\n\023usedDiamondsToBuilt\030" +
+      "\020 \001(\010\"\333\002\n\027UserCreateResponseProto\022-\n\006sen" +
+      "der\030\001 \001(\0132\035.com.lvl6.proto.FullUserProto" +
+      "\022H\n\006status\030\002 \001(\01628.com.lvl6.proto.UserCr" +
+      "eateResponseProto.UserCreateStatus\"\306\001\n\020U",
+      "serCreateStatus\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_" +
+      "NAME\020\001\022\024\n\020INVALID_LOCATION\020\002\022!\n\035USER_WIT" +
+      "H_UDID_ALREADY_EXISTS\020\003\022\016\n\nTIME_ISSUE\020\004\022" +
+      "\"\n\036INVALID_SKILL_POINT_ALLOCATION\020\005\022\026\n\022I" +
+      "NVALID_REFER_CODE\020\006\022\016\n\nOTHER_FAIL\020\007\"d\n R" +
+      "etrieveTasksForCityRequestProto\0220\n\006sende" +
       "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022H\n\006status\030\002 \001(\01628.com.lvl6.proto.TaskA" +
-      "ctionResponseProto.TaskActionStatus\022\025\n\rt" +
-      "askCompleted\030\003 \001(\010\022\024\n\014cityRankedUp\030\004 \001(\010" +
-      "\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coinsGained\030\006 \001" +
-      "(\005\022\035\n\025coinBonusIfCityRankup\030\007 \001(\005\022\034\n\024exp" +
-      "BonusIfCityRankup\030\010 \001(\005\022\016\n\006cityId\030\t \001(\005\"" +
-      "\221\001\n\020TaskActionStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USE" +
-      "R_NOT_ENOUGH_ENERGY\020\001\022\037\n\033USER_NOT_ALL_RE" +
-      "QUIRED_ITEMS\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT",
-      "_TOO_AHEAD_OF_SERVER_TIME\020\004\"\273\001\n!Purchase" +
-      "NormStructureRequestProto\0220\n\006sender\030\001 \001(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022:\n\021s" +
-      "tructCoordinates\030\002 \001(\0132\037.com.lvl6.proto." +
-      "CoordinateProto\022\020\n\010structId\030\003 \001(\005\022\026\n\016tim" +
-      "eOfPurchase\030\004 \001(\003\"\243\003\n\"PurchaseNormStruct" +
-      "ureResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022^\n\006status\030\002 \001" +
-      "(\0162N.com.lvl6.proto.PurchaseNormStructur" +
-      "eResponseProto.PurchaseNormStructureStat",
-      "us\022\024\n\014userStructId\030\003 \001(\005\"\324\001\n\033PurchaseNor" +
-      "mStructureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENO" +
-      "UGH_MATERIALS\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022!\n\035AN" +
-      "OTHER_STRUCT_STILL_BUILDING\020\003\022#\n\037ALREADY" +
-      "_HAVE_MAX_OF_THIS_STRUCT\020\004\022\016\n\nOTHER_FAIL" +
-      "\020\005\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\006\"" +
-      "\375\002\n%MoveOrRotateNormStructureRequestProt" +
-      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\024\n\014userStructId\030\002 \001(\005\022^\n\004typ" +
-      "e\030\003 \001(\0162P.com.lvl6.proto.MoveOrRotateNor",
-      "mStructureRequestProto.MoveOrRotateNormS" +
-      "tructType\022=\n\024curStructCoordinates\030\004 \001(\0132" +
-      "\037.com.lvl6.proto.CoordinateProto\0229\n\016newO" +
-      "rientation\030\005 \001(\0162!.com.lvl6.proto.Struct" +
-      "Orientation\"2\n\032MoveOrRotateNormStructTyp" +
-      "e\022\010\n\004MOVE\020\000\022\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRotate" +
-      "NormStructureResponseProto\0220\n\006sender\030\001 \001" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022f\n\006" +
-      "status\030\002 \001(\0162V.com.lvl6.proto.MoveOrRota" +
-      "teNormStructureResponseProto.MoveOrRotat",
-      "eNormStructureStatus\">\n\037MoveOrRotateNorm" +
-      "StructureStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FA" +
-      "IL\020\002\"g\n\035SellNormStructureRequestProto\0220\n" +
-      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022\024\n\014userStructId\030\002 \001(\005\"\334\001\n\036SellNo" +
-      "rmStructureResponseProto\0220\n\006sender\030\001 \001(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022V\n\006st" +
-      "atus\030\002 \001(\0162F.com.lvl6.proto.SellNormStru" +
-      "ctureResponseProto.SellNormStructureStat" +
-      "us\"0\n\027SellNormStructureStatus\022\013\n\007SUCCESS",
-      "\020\000\022\010\n\004FAIL\020\001\"\201\001\n UpgradeNormStructureReq" +
-      "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\024\n\014userStructId\030\002 \001(" +
-      "\005\022\025\n\rtimeOfUpgrade\030\003 \001(\003\"\225\003\n!UpgradeNorm" +
-      "StructureResponseProto\0220\n\006sender\030\001 \001(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\\\n\006stat" +
-      "us\030\002 \001(\0162L.com.lvl6.proto.UpgradeNormStr" +
-      "uctureResponseProto.UpgradeNormStructure" +
-      "Status\"\337\001\n\032UpgradeNormStructureStatus\022\013\n" +
-      "\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\r",
-      "NOT_BUILT_YET\020\002\022\024\n\020NOT_USERS_STRUCT\020\003\022\"\n" +
-      "\036ANOTHER_STRUCT_STILL_UPGRADING\020\004\022\016\n\nOTH" +
-      "ER_FAIL\020\005\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_" +
-      "TIME\020\006\022\030\n\024AT_MAX_LEVEL_ALREADY\020\007\"\220\001\n-Ret" +
-      "rieveCurrencyFromNormStructureRequestPro" +
-      "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022\024\n\014userStructId\030\002 \001(\005\022\027\n\017ti" +
-      "meOfRetrieval\030\003 \001(\003\"\360\002\n.RetrieveCurrency" +
-      "FromNormStructureResponseProto\0220\n\006sender" +
-      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto",
-      "\022v\n\006status\030\002 \001(\0162f.com.lvl6.proto.Retrie" +
-      "veCurrencyFromNormStructureResponseProto" +
-      ".RetrieveCurrencyFromNormStructureStatus" +
-      "\"\223\001\n\'RetrieveCurrencyFromNormStructureSt" +
-      "atus\022\013\n\007SUCCESS\020\000\022\023\n\017NOT_LONG_ENOUGH\020\001\022\016" +
-      "\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SE" +
-      "RVER_TIME\020\003\022\021\n\rLEVEL_TOO_LOW\020\004\"\236\003\n#Criti" +
-      "calStructureActionRequestProto\0220\n\006sender" +
-      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022\\\n\nactionType\030\002 \001(\0162H.com.lvl6.proto.Cr",
-      "iticalStructureActionRequestProto.CritSt" +
-      "ructActionType\0226\n\016critStructType\030\003 \001(\0162\036" +
-      ".com.lvl6.proto.CritStructType\022>\n\025critSt" +
-      "ructCoordinates\030\004 \001(\0132\037.com.lvl6.proto.C" +
-      "oordinateProto\0226\n\013orientation\030\005 \001(\0162!.co" +
-      "m.lvl6.proto.StructOrientation\"7\n\024CritSt" +
-      "ructActionType\022\t\n\005PLACE\020\000\022\010\n\004MOVE\020\001\022\n\n\006R" +
-      "OTATE\020\002\"\324\002\n$CriticalStructureActionRespo" +
-      "nseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022[\n\006status\030\003 \001(\0162K.com",
-      ".lvl6.proto.CriticalStructureActionRespo" +
-      "nseProto.CritStructActionStatus\"\234\001\n\026Crit" +
-      "StructActionStatus\022\013\n\007SUCCESS\020\000\022*\n&CANNO" +
-      "T_PLACE_NON_PLACEABLE_CRIT_STRUCT\020\001\022!\n\035N" +
-      "OT_ACCESSIBLE_TO_USERS_LEVEL\020\002\022\026\n\022CANNOT" +
-      "_MOVE_AVIARY\020\003\022\016\n\nOTHER_FAIL\020\004\"\344\002\n0Finis" +
-      "hNormStructWaittimeWithDiamondsRequestPr" +
-      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022\024\n\014userStructId\030\002 \001(\005\022\026\n\016t" +
-      "imeOfPurchase\030\003 \001(\003\022m\n\014waitTimeType\030\004 \001(",
-      "\0162W.com.lvl6.proto.FinishNormStructWaitt" +
-      "imeWithDiamondsRequestProto.NormStructWa" +
-      "itTimeType\"a\n\026NormStructWaitTimeType\022\027\n\023" +
-      "FINISH_CONSTRUCTION\020\000\022\032\n\026FINISH_INCOME_W" +
-      "AITTIME\020\001\022\022\n\016FINISH_UPGRADE\020\002\"\324\002\n1Finish" +
-      "NormStructWaittimeWithDiamondsResponsePr" +
-      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022p\n\006status\030\002 \001(\0162`.com.lvl6" +
-      ".proto.FinishNormStructWaittimeWithDiamo" +
-      "ndsResponseProto.FinishNormStructWaittim",
-      "eStatus\"{\n\036FinishNormStructWaittimeStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022" +
-      "\016\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_S" +
-      "ERVER_TIME\020\003\"}\n\"NormStructWaitCompleteRe" +
-      "questProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022\024\n\014userStructId\030\002 \003" +
-      "(\005\022\017\n\007curTime\030\003 \001(\003\"\351\002\n#NormStructWaitCo" +
-      "mpleteResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022`\n\006status\030" +
-      "\002 \001(\0162P.com.lvl6.proto.NormStructWaitCom",
-      "pleteResponseProto.NormStructWaitComplet" +
-      "eStatus\022:\n\nuserStruct\030\003 \003(\0132&.com.lvl6.p" +
-      "roto.FullUserStructureProto\"r\n\034NormStruc" +
-      "tWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_" +
-      "DONE_YET\020\001\022\016\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO" +
-      "_AHEAD_OF_SERVER_TIME\020\003\"G\n\023LevelUpReques" +
-      "tProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\"\347\004\n\024LevelUpResponseProt" +
-      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022B\n\006status\030\002 \001(\01622.com.lvl6.p",
-      "roto.LevelUpResponseProto.LevelUpStatus\022" +
-      "\020\n\010newLevel\030\013 \001(\005\022\024\n\014newNextLevel\030\003 \001(\005\022" +
-      ")\n!experienceRequiredForNewNextLevel\030\004 \001" +
-      "(\005\022A\n\032citiesNewlyAvailableToUser\030\005 \003(\0132\035" +
-      ".com.lvl6.proto.FullCityProto\022J\n\"newlyEq" +
-      "uippableEpicsAndLegendaries\030\006 \003(\0132\036.com." +
-      "lvl6.proto.FullEquipProto\022A\n\025newlyAvaila" +
-      "bleStructs\030\007 \003(\0132\".com.lvl6.proto.FullSt" +
-      "ructureProto\022\033\n\023marketplaceUnlocked\030\010 \001(" +
-      "\010\022\025\n\rvaultUnlocked\030\t \001(\010\022\026\n\016armoryUnlock",
-      "ed\030\n \001(\010\"h\n\rLevelUpStatus\022\013\n\007SUCCESS\020\000\022 " +
-      "\n\034NOT_ENOUGH_EXP_TO_NEXT_LEVEL\020\001\022\030\n\024ALRE" +
-      "ADY_AT_MAX_LEVEL\020\002\022\016\n\nOTHER_FAIL\020\003\"^\n\031In" +
-      "AppPurchaseRequestProto\0220\n\006sender\030\001 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\017\n\007rec" +
-      "eipt\030\002 \001(\t\"\344\001\n\032InAppPurchaseResponseProt" +
-      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022N\n\006status\030\002 \001(\0162>.com.lvl6.p" +
-      "roto.InAppPurchaseResponseProto.InAppPur" +
-      "chaseStatus\022\026\n\016diamondsGained\030\003 \001(\005\",\n\023I",
-      "nAppPurchaseStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020" +
-      "\001\"h\n\035UpdateClientUserResponseProto\022-\n\006se" +
-      "nder\030\001 \001(\0132\035.com.lvl6.proto.FullUserProt" +
-      "o\022\030\n\020timeOfUserUpdate\030\002 \001(\003\"\215\001\n+Retrieve" +
-      "CurrentMarketplacePostsRequestProto\0220\n\006s" +
-      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\030\n\020beforeThisPostId\030\002 \001(\005\022\022\n\nfromS" +
-      "ender\030\003 \001(\010\"\237\003\n,RetrieveCurrentMarketpla" +
-      "cePostsResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022\022\n\nfromSe",
-      "nder\030\002 \001(\010\022\030\n\020beforeThisPostId\030\003 \001(\005\022r\n\006" +
-      "status\030\004 \001(\0162b.com.lvl6.proto.RetrieveCu" +
-      "rrentMarketplacePostsResponseProto.Retri" +
-      "eveCurrentMarketplacePostsStatus\022B\n\020mark" +
-      "etplacePosts\030\005 \003(\0132(.com.lvl6.proto.Full" +
-      "MarketplacePostProto\"W\n%RetrieveCurrentM" +
-      "arketplacePostsStatus\022\013\n\007SUCCESS\020\000\022\021\n\rLE" +
-      "VEL_TOO_LOW\020\001\022\016\n\nOTHER_FAIL\020\002\"\217\001\n\035PostTo" +
-      "MarketplaceRequestProto\0220\n\006sender\030\001 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\025\n\rpos",
-      "tedEquipId\030\002 \001(\005\022\023\n\013diamondCost\030\003 \001(\005\022\020\n" +
-      "\010coinCost\030\004 \001(\005\"\255\003\n\036PostToMarketplaceRes" +
-      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022V\n\006status\030\002 \001(\0162F.c" +
-      "om.lvl6.proto.PostToMarketplaceResponseP" +
-      "roto.PostToMarketplaceStatus\"\200\002\n\027PostToM" +
-      "arketplaceStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIV" +
-      "E_POST\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATI" +
-      "VE_COST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USER_ALREADY_M" +
-      "AX_MARKETPLACE_POSTS\020\005\022\024\n\020CANT_DEMAND_BO",
-      "TH\020\006\022\036\n\032INVALID_COST_TYPE_FOR_POST\020\007\022\016\n\n" +
-      "NO_LICENSE\020\010\022\021\n\rLEVEL_TOO_LOW\020\t\022\016\n\nOTHER" +
-      "_FAIL\020\n\"q\n\"RetractMarketplacePostRequest" +
-      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022\031\n\021marketplacePostId\030\002 \001" +
-      "(\005\"\335\002\n#RetractMarketplacePostResponsePro" +
-      "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022`\n\006status\030\002 \001(\0162P.com.lvl6." +
-      "proto.RetractMarketplacePostResponseProt" +
-      "o.RetractMarketplacePostStatus\"\241\001\n\034Retra",
-      "ctMarketplacePostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023" +
-      "NOT_REQUESTERS_POST\020\001\022\031\n\025POST_NO_LONGER_" +
-      "EXISTS\020\002\022\027\n\023NOT_ENOUGH_DIAMONDS\020\003\022\024\n\020NOT" +
-      "_ENOUGH_COINS\020\004\022\021\n\rLEVEL_TOO_LOW\020\005\"\204\001\n#P" +
-      "urchaseFromMarketplaceRequestProto\0220\n\006se" +
-      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022\031\n\021marketplacePostId\030\002 \001(\005\022\020\n\010poste" +
-      "rId\030\003 \001(\005\"\264\003\n$PurchaseFromMarketplaceRes" +
-      "ponseProto\0223\n\tpurchaser\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022\020\n\010posterId\030\002 \001(",
-      "\005\022A\n\017marketplacePost\030\003 \001(\0132(.com.lvl6.pr" +
-      "oto.FullMarketplacePostProto\022b\n\006status\030\004" +
-      " \001(\0162R.com.lvl6.proto.PurchaseFromMarket" +
-      "placeResponseProto.PurchaseFromMarketpla" +
-      "ceStatus\"\235\001\n\035PurchaseFromMarketplaceStat" +
-      "us\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020" +
-      "\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023PURCHASE" +
-      "R_IS_SELLER\020\003\022\021\n\rLEVEL_TOO_LOW\020\004\022\016\n\nOTHE" +
-      "R_FAIL\020\005\"\340\001\n\031UseSkillPointRequestProto\0220" +
-      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU",
-      "serProto\022F\n\tboostType\030\002 \001(\01623.com.lvl6.p" +
-      "roto.UseSkillPointRequestProto.BoostType" +
-      "\"I\n\tBoostType\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n" +
-      "\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032" +
-      "UseSkillPointResponseProto\0220\n\006sender\030\001 \001" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022N\n\006" +
-      "status\030\002 \001(\0162>.com.lvl6.proto.UseSkillPo" +
-      "intResponseProto.UseSkillPointStatus\"O\n\023" +
-      "UseSkillPointStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_" +
-      "ENOUGH_SKILL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\304\001",
-      "\n\036GenerateAttackListRequestProto\0220\n\006send" +
-      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022\022\n\nnumEnemies\030\002 \001(\005\022\025\n\rlatLowerBound\030" +
-      "\003 \001(\005\022\025\n\rlatUpperBound\030\004 \001(\005\022\026\n\016longLowe" +
-      "rBound\030\005 \001(\005\022\026\n\016longUpperBound\030\006 \001(\005\"\307\002\n" +
-      "\037GenerateAttackListResponseProto\0220\n\006send" +
-      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022.\n\007enemies\030\002 \003(\0132\035.com.lvl6.proto.Ful" +
-      "lUserProto\022X\n\006status\030\003 \001(\0162H.com.lvl6.pr" +
-      "oto.GenerateAttackListResponseProto.Gene",
-      "rateAttackListStatus\"h\n\030GenerateAttackLi" +
-      "stStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\022\035\n\031" +
-      "INVALID_NUM_ENEMIES_COUNT\020\002\022\021\n\rINVALID_B" +
-      "OUND\020\003\"\312\001\n\"RefillStatWithDiamondsRequest" +
-      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022M\n\010statType\030\002 \001(\0162;.com." +
-      "lvl6.proto.RefillStatWithDiamondsRequest" +
-      "Proto.StatType\"#\n\010StatType\022\n\n\006ENERGY\020\000\022\013" +
-      "\n\007STAMINA\020\001\"\210\002\n#RefillStatWithDiamondsRe" +
-      "sponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p",
-      "roto.MinimumUserProto\022T\n\006status\030\002 \001(\0162D." +
-      "com.lvl6.proto.RefillStatWithDiamondsRes" +
-      "ponseProto.RefillStatStatus\"Y\n\020RefillSta" +
-      "tStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMO" +
-      "NDS\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\"Y" +
-      "\n%RedeemMarketplaceEarningsRequestProto\022" +
-      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\"\202\002\n&RedeemMarketplaceEarningsR" +
-      "esponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022f\n\006status\030\002 \001(\0162V",
-      ".com.lvl6.proto.RedeemMarketplaceEarning" +
-      "sResponseProto.RedeemMarketplaceEarnings" +
-      "Status\">\n\037RedeemMarketplaceEarningsStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n\032LoadP" +
-      "layerCityRequestProto\0220\n\006sender\030\001 \001(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\0223\n\tcityO" +
-      "wner\030\002 \001(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\"\275\006\n\033LoadPlayerCityResponseProto\0220\n\006" +
-      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\0223\n\tcityOwner\030\002 \001(\0132 .com.lvl6.pro",
-      "to.MinimumUserProto\022P\n\006status\030\003 \001(\0162@.co" +
-      "m.lvl6.proto.LoadPlayerCityResponseProto" +
-      ".LoadPlayerCityStatus\022@\n\020ownerNormStruct" +
-      "s\030\004 \003(\0132&.com.lvl6.proto.FullUserStructu" +
-      "reProto\0222\n\013ownerAllies\030\005 \003(\0132\035.com.lvl6." +
-      "proto.FullUserProto\0223\n\014ownerEnemies\030\006 \003(" +
-      "\0132\035.com.lvl6.proto.FullUserProto\0227\n\006armo" +
-      "ry\030\007 \001(\0132\'.com.lvl6.proto.FullUserCritst" +
-      "ructProto\0226\n\005vault\030\010 \001(\0132\'.com.lvl6.prot" +
-      "o.FullUserCritstructProto\022<\n\013marketplace",
-      "\030\t \001(\0132\'.com.lvl6.proto.FullUserCritstru" +
-      "ctProto\022:\n\tcarpenter\030\n \001(\0132\'.com.lvl6.pr" +
-      "oto.FullUserCritstructProto\0227\n\006aviary\030\013 " +
-      "\001(\0132\'.com.lvl6.proto.FullUserCritstructP" +
-      "roto\022M\n\025userCityExpansionData\030\014 \001(\0132..co" +
-      "m.lvl6.proto.FullUserCityExpansionDataPr" +
-      "oto\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027" +
-      "QuestAcceptRequestProto\0220\n\006sender\030\001 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\017\n\007que",
-      "stId\030\002 \001(\005\"\311\002\n\030QuestAcceptResponseProto\022" +
-      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022J\n\006status\030\002 \001(\0162:.com.lvl6.pro" +
-      "to.QuestAcceptResponseProto.QuestAcceptS" +
-      "tatus\022G\n enemiesIfQuestsHaveDefeatTypeJo" +
-      "b\030\003 \003(\0132\035.com.lvl6.proto.FullUserProto\022\035" +
-      "\n\025cityIdOfAcceptedQuest\030\004 \001(\005\"G\n\021QuestAc" +
-      "ceptStatus\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_TO_" +
-      "USER\020\001\022\016\n\nOTHER_FAIL\020\002\"\244\001\n\032QuestComplete" +
-      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6",
-      ".proto.MinimumUserProto\022\017\n\007questId\030\002 \001(\005" +
-      "\022C\n\022neutralCityElement\030\003 \001(\0132\'.com.lvl6." +
-      "proto.NeutralCityElementProto\"\\\n\027QuestRe" +
-      "deemRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\017\n\007questId\030\002 " +
-      "\001(\005\"\232\002\n\030QuestRedeemResponseProto\0220\n\006send" +
-      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022<\n\024newlyAvailableQuests\030\002 \003(\0132\036.com.l" +
-      "vl6.proto.FullQuestProto\022J\n\006status\030\003 \001(\016" +
-      "2:.com.lvl6.proto.QuestRedeemResponsePro",
-      "to.QuestRedeemStatus\"B\n\021QuestRedeemStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHE" +
-      "R_FAIL\020\002\"a\n\034UserQuestDetailsRequestProto" +
-      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\017\n\007questId\030\002 \001(\005\"\333\002\n\035UserQues" +
-      "tDetailsResponseProto\0220\n\006sender\030\001 \001(\0132 ." +
-      "com.lvl6.proto.MinimumUserProto\022L\n\027inPro" +
-      "gressUserQuestData\030\002 \003(\0132+.com.lvl6.prot" +
-      "o.FullUserQuestDataLargeProto\022T\n\006status\030" +
-      "\003 \001(\0162D.com.lvl6.proto.UserQuestDetailsR",
-      "esponseProto.UserQuestDetailsStatus\"d\n\026U" +
-      "serQuestDetailsStatus\022\013\n\007SUCCESS\020\000\022.\n*SU" +
-      "PPLIED_QUESTID_CURRENTLY_NOT_IN_PROGRESS" +
-      "\020\001\022\r\n\tSOME_FAIL\020\002\"\275\002\n\036RetrieveStaticData" +
-      "RequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022\021\n\tstructIds\030\002 \003(" +
-      "\005\022\017\n\007taskIds\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007" +
-      "cityIds\030\005 \003(\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021build" +
-      "StructJobIds\030\007 \003(\005\022\030\n\020defeatTypeJobIds\030\010" +
-      " \003(\005\022\032\n\022possessEquipJobIds\030\t \003(\005\022\033\n\023upgr",
-      "adeStructJobIds\030\n \003(\005\022\"\n\032levelForExpRequ" +
-      "iredRequest\030\013 \001(\005\"\371\005\n\037RetrieveStaticData" +
-      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\0223\n\007structs\030\002 \003(\013" +
-      "2\".com.lvl6.proto.FullStructureProto\022,\n\005" +
-      "tasks\030\003 \003(\0132\035.com.lvl6.proto.FullTaskPro" +
-      "to\022.\n\006quests\030\004 \003(\0132\036.com.lvl6.proto.Full" +
-      "QuestProto\022-\n\006cities\030\005 \003(\0132\035.com.lvl6.pr" +
-      "oto.FullCityProto\022.\n\006equips\030\006 \003(\0132\036.com." +
-      "lvl6.proto.FullEquipProto\022<\n\017buildStruct",
-      "Jobs\030\007 \003(\0132#.com.lvl6.proto.BuildStructJ" +
-      "obProto\022:\n\016defeatTypeJobs\030\010 \003(\0132\".com.lv" +
-      "l6.proto.DefeatTypeJobProto\022>\n\020possessEq" +
-      "uipJobs\030\t \003(\0132$.com.lvl6.proto.PossessEq" +
-      "uipJobProto\022@\n\021upgradeStructJobs\030\n \003(\0132%" +
-      ".com.lvl6.proto.UpgradeStructJobProto\022$\n" +
-      "\034expRequiredForRequestedLevel\030\013 \001(\005\022X\n\006s" +
-      "tatus\030\014 \001(\0162H.com.lvl6.proto.RetrieveSta" +
-      "ticDataResponseProto.RetrieveStaticDataS" +
-      "tatus\"6\n\030RetrieveStaticDataStatus\022\013\n\007SUC",
-      "CESS\020\000\022\r\n\tSOME_FAIL\020\001\"\244\001\n!PurchaseCityEx" +
-      "pansionRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\0225\n\tdirecti" +
-      "on\030\002 \001(\0162\".com.lvl6.proto.ExpansionDirec" +
-      "tion\022\026\n\016timeOfPurchase\030\003 \001(\003\"\305\002\n\"Purchas" +
-      "eCityExpansionResponseProto\0220\n\006sender\030\001 " +
-      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022^\n" +
-      "\006status\030\002 \001(\0162N.com.lvl6.proto.PurchaseC" +
-      "ityExpansionResponseProto.PurchaseCityEx" +
-      "pansionStatus\"\214\001\n\033PurchaseCityExpansionS",
-      "tatus\022\013\n\007SUCCESS\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001" +
-      "\022\025\n\021ALREADY_EXPANDING\020\002\022\016\n\nOTHER_FAIL\020\003\022" +
-      "#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\004\"f\n!" +
-      "ExpansionWaitCompleteRequestProto\0220\n\006sen" +
-      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022\017\n\007curTime\030\002 \001(\003\"\301\002\n\"ExpansionWaitCo" +
-      "mpleteResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022^\n\006status\030" +
-      "\002 \001(\0162N.com.lvl6.proto.ExpansionWaitComp" +
-      "leteResponseProto.ExpansionWaitCompleteS",
-      "tatus\"\210\001\n\033ExpansionWaitCompleteStatus\022\013\n" +
-      "\007SUCCESS\020\000\022\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT" +
-      "_DONE_YET\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TO" +
-      "O_AHEAD_OF_SERVER_TIME\020\004\"\373\001\n\"RefillStatW" +
-      "aitCompleteRequestProto\0220\n\006sender\030\001 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\017\n\007cur" +
-      "Time\030\002 \001(\003\022[\n\004type\030\003 \001(\0162M.com.lvl6.prot" +
-      "o.RefillStatWaitCompleteRequestProto.Ref" +
-      "illStatWaitCompleteType\"5\n\032RefillStatWai" +
-      "tCompleteType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\300",
-      "\002\n#RefillStatWaitCompleteResponseProto\0220" +
-      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022`\n\006status\030\002 \001(\0162P.com.lvl6.prot" +
-      "o.RefillStatWaitCompleteResponseProto.Re" +
-      "fillStatWaitCompleteStatus\"\204\001\n\034RefillSta" +
-      "tWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_" +
-      "READY_YET\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FA" +
-      "IL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020" +
-      "\004\"_\n\026EnableAPNSRequestProto\0220\n\006sender\030\001 " +
-      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022\023\n",
-      "\013deviceToken\030\002 \001(\t\"\307\001\n\027EnableAPNSRespons" +
-      "eProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022H\n\006status\030\002 \001(\01628.com.l" +
-      "vl6.proto.EnableAPNSResponseProto.Enable" +
-      "APNSStatus\"0\n\020EnableAPNSStatus\022\013\n\007SUCCES" +
-      "S\020\000\022\017\n\013NOT_ENABLED\020\001\"\353\001\n&PurchaseMarketp" +
-      "laceLicenseRequestProto\0220\n\006sender\030\001 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\022\n\ncli" +
-      "entTime\030\002 \001(\003\022W\n\013licenseType\030\003 \001(\0162B.com" +
-      ".lvl6.proto.PurchaseMarketplaceLicenseRe",
-      "questProto.LicenseType\"\"\n\013LicenseType\022\t\n" +
-      "\005SHORT\020\000\022\010\n\004LONG\020\001\"\343\002\n\'PurchaseMarketpla" +
-      "ceLicenseResponseProto\0220\n\006sender\030\001 \001(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022h\n\006stat" +
-      "us\030\002 \001(\0162X.com.lvl6.proto.PurchaseMarket" +
-      "placeLicenseResponseProto.PurchaseMarket" +
-      "placeLicenseStatus\"\233\001\n PurchaseMarketpla" +
-      "ceLicenseStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOU" +
-      "GH_DIAMONDS\020\001\022\034\n\030ALREADY_HAVE_LICENSE_NO" +
-      "W\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_",
-      "OF_SERVER_TIME\020\004\"\213\001\n\035ReferralCodeUsedRes" +
-      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\0228\n\016referredPlayer\030\002" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\"_" +
-      "\n\032EquipEquipmentRequestProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022\017" +
-      "\n\007equipId\030\002 \001(\005\"\274\002\n\033EquipEquipmentRespon" +
-      "seProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022P\n\006status\030\002 \001(\0162@.com." +
-      "lvl6.proto.EquipEquipmentResponseProto.E",
-      "quipEquipmentStatus\"\230\001\n\024EquipEquipmentSt" +
-      "atus\022\013\n\007SUCCESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_LEV" +
-      "EL\020\001\022\034\n\030DOES_NOT_HAVE_THIS_EQUIP\020\002\022\020\n\014NO" +
-      "T_AN_EQUIP\020\003\022\030\n\024INCORRECT_CLASS_TYPE\020\004\022\016" +
-      "\n\nOTHER_FAIL\020\005\"\207\001\n\036ChangeUserLocationReq" +
-      "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\0223\n\014userLocation\030\002 \001(" +
-      "\0132\035.com.lvl6.proto.LocationProto\"\372\001\n\037Cha" +
-      "ngeUserLocationResponseProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022X",
-      "\n\006status\030\002 \001(\0162H.com.lvl6.proto.ChangeUs" +
-      "erLocationResponseProto.ChangeUserLocati" +
-      "onStatus\"K\n\030ChangeUserLocationStatus\022\013\n\007" +
-      "SUCCESS\020\000\022\022\n\016INVALID_BOUNDS\020\001\022\016\n\nOTHER_F" +
-      "AIL\020\002\"_\n\033LoadNeutralCityRequestProto\0220\n\006" +
-      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\022\016\n\006cityId\030\002 \001(\005\"\277\003\n\034LoadNeutralCi" +
+      "o\022\016\n\006cityId\030\002 \001(\005\"\203\001\n!RetrieveTasksForCi" +
       "tyResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lv" +
-      "l6.proto.MinimumUserProto\022R\n\006status\030\002 \001(" +
-      "\0162B.com.lvl6.proto.LoadNeutralCityRespon",
-      "seProto.LoadNeutralCityStatus\022;\n\ruserTas" +
-      "ksInfo\030\003 \003(\0132$.com.lvl6.proto.MinimumUse" +
-      "rTaskProto\022;\n\024defeatTypeJobEnemies\030\004 \003(\013" +
-      "2\035.com.lvl6.proto.FullUserProto\022=\n\014cityE" +
-      "lements\030\005 \003(\0132\'.com.lvl6.proto.NeutralCi" +
-      "tyElementProto\022\016\n\006cityId\030\006 \001(\005\"P\n\025LoadNe" +
-      "utralCityStatus\022\013\n\007SUCCESS\020\000\022\032\n\026NOT_ACCE" +
-      "SSIBLE_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"p\n$Retr" +
-      "ieveUserEquipForUserRequestProto\0220\n\006send" +
-      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro",
-      "to\022\026\n\016relevantUserId\030\002 \001(\005\"\251\001\n%RetrieveU" +
-      "serEquipForUserResponseProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022\026" +
-      "\n\016relevantUserId\030\002 \001(\005\0226\n\nuserEquips\030\003 \003" +
-      "(\0132\".com.lvl6.proto.FullUserEquipProto\"6" +
-      "\n\"PurgeClientStaticDataResponseProto\022\020\n\010" +
-      "senderId\030\001 \001(\005\"q\n#RetrieveUsersForUserId" +
-      "sRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022\030\n\020requestedUser" +
-      "Ids\030\002 \003(\005\"\217\001\n$RetrieveUsersForUserIdsRes",
+      "l6.proto.MinimumUserProto\022,\n\005tasks\030\002 \003(\013",
+      "2\035.com.lvl6.proto.FullTaskProto\"\367\001\n%Retr" +
+      "ieveStaticDataForShopRequestProto\0220\n\006sen" +
+      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\022W\n\004type\030\002 \001(\0162I.com.lvl6.proto.Retri" +
+      "eveStaticDataForShopRequestProto.Retriev" +
+      "eForShopType\"C\n\023RetrieveForShopType\022\030\n\024E" +
+      "QUIPMENT_FOR_ARMORY\020\000\022\022\n\016ALL_STRUCTURES\020" +
+      "\001\"\346\002\n&RetrieveStaticDataForShopResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022f\n\006status\030\002 \001(\0162V.com.lvl",
+      "6.proto.RetrieveStaticDataForShopRespons" +
+      "eProto.RetrieveStaticDataForShopStatus\022." +
+      "\n\006equips\030\003 \003(\0132\036.com.lvl6.proto.FullEqui" +
+      "pProto\0223\n\007structs\030\004 \003(\0132\".com.lvl6.proto" +
+      ".FullStructureProto\"=\n\037RetrieveStaticDat" +
+      "aForShopStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL" +
+      "\020\001\"k\n\026TaskActionRequestProto\0220\n\006sender\030\001" +
+      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022\016" +
+      "\n\006taskId\030\002 \001(\005\022\017\n\007curTime\030\003 \001(\003\"\315\003\n\027Task" +
+      "ActionResponseProto\0220\n\006sender\030\001 \001(\0132 .co",
+      "m.lvl6.proto.MinimumUserProto\022H\n\006status\030" +
+      "\002 \001(\01628.com.lvl6.proto.TaskActionRespons" +
+      "eProto.TaskActionStatus\022\025\n\rtaskCompleted" +
+      "\030\003 \001(\010\022\024\n\014cityRankedUp\030\004 \001(\010\022\023\n\013lootEqui" +
+      "pId\030\005 \001(\005\022\023\n\013coinsGained\030\006 \001(\005\022\035\n\025coinBo" +
+      "nusIfCityRankup\030\007 \001(\005\022\034\n\024expBonusIfCityR" +
+      "ankup\030\010 \001(\005\022\016\n\006cityId\030\t \001(\005\"\221\001\n\020TaskActi" +
+      "onStatus\022\013\n\007SUCCESS\020\000\022\032\n\026USER_NOT_ENOUGH" +
+      "_ENERGY\020\001\022\037\n\033USER_NOT_ALL_REQUIRED_ITEMS" +
+      "\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_O",
+      "F_SERVER_TIME\020\004\"\273\001\n!PurchaseNormStructur" +
+      "eRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\022:\n\021structCoordin" +
+      "ates\030\002 \001(\0132\037.com.lvl6.proto.CoordinatePr" +
+      "oto\022\020\n\010structId\030\003 \001(\005\022\026\n\016timeOfPurchase\030" +
+      "\004 \001(\003\"\243\003\n\"PurchaseNormStructureResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022^\n\006status\030\002 \001(\0162N.com.lvl" +
+      "6.proto.PurchaseNormStructureResponsePro" +
+      "to.PurchaseNormStructureStatus\022\024\n\014userSt",
+      "ructId\030\003 \001(\005\"\324\001\n\033PurchaseNormStructureSt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIAL" +
+      "S\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022!\n\035ANOTHER_STRUCT" +
+      "_STILL_BUILDING\020\003\022#\n\037ALREADY_HAVE_MAX_OF" +
+      "_THIS_STRUCT\020\004\022\016\n\nOTHER_FAIL\020\005\022#\n\037CLIENT" +
+      "_TOO_AHEAD_OF_SERVER_TIME\020\006\"\375\002\n%MoveOrRo" +
+      "tateNormStructureRequestProto\0220\n\006sender\030" +
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "\024\n\014userStructId\030\002 \001(\005\022^\n\004type\030\003 \001(\0162P.co" +
+      "m.lvl6.proto.MoveOrRotateNormStructureRe",
+      "questProto.MoveOrRotateNormStructType\022=\n" +
+      "\024curStructCoordinates\030\004 \001(\0132\037.com.lvl6.p" +
+      "roto.CoordinateProto\0229\n\016newOrientation\030\005" +
+      " \001(\0162!.com.lvl6.proto.StructOrientation\"" +
+      "2\n\032MoveOrRotateNormStructType\022\010\n\004MOVE\020\000\022" +
+      "\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRotateNormStructur" +
+      "eResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022f\n\006status\030\002 \001(\016" +
+      "2V.com.lvl6.proto.MoveOrRotateNormStruct" +
+      "ureResponseProto.MoveOrRotateNormStructu",
+      "reStatus\">\n\037MoveOrRotateNormStructureSta" +
+      "tus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\002\"g\n\035Sell" +
+      "NormStructureRequestProto\0220\n\006sender\030\001 \001(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022\024\n\014u" +
+      "serStructId\030\002 \001(\005\"\334\001\n\036SellNormStructureR" +
+      "esponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022V\n\006status\030\002 \001(\0162F" +
+      ".com.lvl6.proto.SellNormStructureRespons" +
+      "eProto.SellNormStructureStatus\"0\n\027SellNo" +
+      "rmStructureStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001",
+      "\"\201\001\n UpgradeNormStructureRequestProto\0220\n" +
+      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\022\024\n\014userStructId\030\002 \001(\005\022\025\n\rtimeOfU" +
+      "pgrade\030\003 \001(\003\"\225\003\n!UpgradeNormStructureRes" +
       "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\0225\n\016requestedUsers\030\002" +
-      " \003(\0132\035.com.lvl6.proto.FullUserProtoB\014B\nE" +
-      "ventProto"
+      "oto.MinimumUserProto\022\\\n\006status\030\002 \001(\0162L.c" +
+      "om.lvl6.proto.UpgradeNormStructureRespon" +
+      "seProto.UpgradeNormStructureStatus\"\337\001\n\032U" +
+      "pgradeNormStructureStatus\022\013\n\007SUCCESS\020\000\022\030" +
+      "\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\rNOT_BUILT_YE",
+      "T\020\002\022\024\n\020NOT_USERS_STRUCT\020\003\022\"\n\036ANOTHER_STR" +
+      "UCT_STILL_UPGRADING\020\004\022\016\n\nOTHER_FAIL\020\005\022#\n" +
+      "\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\006\022\030\n\024AT" +
+      "_MAX_LEVEL_ALREADY\020\007\"\220\001\n-RetrieveCurrenc" +
+      "yFromNormStructureRequestProto\0220\n\006sender" +
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\024\n\014userStructId\030\002 \001(\005\022\027\n\017timeOfRetrieva" +
+      "l\030\003 \001(\003\"\360\002\n.RetrieveCurrencyFromNormStru" +
+      "ctureResponseProto\0220\n\006sender\030\001 \001(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022v\n\006status\030\002",
+      " \001(\0162f.com.lvl6.proto.RetrieveCurrencyFr" +
+      "omNormStructureResponseProto.RetrieveCur" +
+      "rencyFromNormStructureStatus\"\223\001\n\'Retriev" +
+      "eCurrencyFromNormStructureStatus\022\013\n\007SUCC" +
+      "ESS\020\000\022\023\n\017NOT_LONG_ENOUGH\020\001\022\016\n\nOTHER_FAIL" +
+      "\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\003\022" +
+      "\021\n\rLEVEL_TOO_LOW\020\004\"\236\003\n#CriticalStructure" +
+      "ActionRequestProto\0220\n\006sender\030\001 \001(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022\\\n\nactionTy" +
+      "pe\030\002 \001(\0162H.com.lvl6.proto.CriticalStruct",
+      "ureActionRequestProto.CritStructActionTy" +
+      "pe\0226\n\016critStructType\030\003 \001(\0162\036.com.lvl6.pr" +
+      "oto.CritStructType\022>\n\025critStructCoordina" +
+      "tes\030\004 \001(\0132\037.com.lvl6.proto.CoordinatePro" +
+      "to\0226\n\013orientation\030\005 \001(\0162!.com.lvl6.proto" +
+      ".StructOrientation\"7\n\024CritStructActionTy" +
+      "pe\022\t\n\005PLACE\020\000\022\010\n\004MOVE\020\001\022\n\n\006ROTATE\020\002\"\324\002\n$" +
+      "CriticalStructureActionResponseProto\0220\n\006" +
+      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022[\n\006status\030\003 \001(\0162K.com.lvl6.proto.",
+      "CriticalStructureActionResponseProto.Cri" +
+      "tStructActionStatus\"\234\001\n\026CritStructAction" +
+      "Status\022\013\n\007SUCCESS\020\000\022*\n&CANNOT_PLACE_NON_" +
+      "PLACEABLE_CRIT_STRUCT\020\001\022!\n\035NOT_ACCESSIBL" +
+      "E_TO_USERS_LEVEL\020\002\022\026\n\022CANNOT_MOVE_AVIARY" +
+      "\020\003\022\016\n\nOTHER_FAIL\020\004\"\344\002\n0FinishNormStructW" +
+      "aittimeWithDiamondsRequestProto\0220\n\006sende" +
+      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022\024\n\014userStructId\030\002 \001(\005\022\026\n\016timeOfPurchas" +
+      "e\030\003 \001(\003\022m\n\014waitTimeType\030\004 \001(\0162W.com.lvl6",
+      ".proto.FinishNormStructWaittimeWithDiamo" +
+      "ndsRequestProto.NormStructWaitTimeType\"a" +
+      "\n\026NormStructWaitTimeType\022\027\n\023FINISH_CONST" +
+      "RUCTION\020\000\022\032\n\026FINISH_INCOME_WAITTIME\020\001\022\022\n" +
+      "\016FINISH_UPGRADE\020\002\"\324\002\n1FinishNormStructWa" +
+      "ittimeWithDiamondsResponseProto\0220\n\006sende" +
+      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022p\n\006status\030\002 \001(\0162`.com.lvl6.proto.Finis" +
+      "hNormStructWaittimeWithDiamondsResponseP" +
+      "roto.FinishNormStructWaittimeStatus\"{\n\036F",
+      "inishNormStructWaittimeStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAI" +
+      "L\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TIME\020\003" +
+      "\"}\n\"NormStructWaitCompleteRequestProto\0220" +
+      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\024\n\014userStructId\030\002 \003(\005\022\017\n\007curTim" +
+      "e\030\003 \001(\003\"\351\002\n#NormStructWaitCompleteRespon" +
+      "seProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022`\n\006status\030\002 \001(\0162P.com." +
+      "lvl6.proto.NormStructWaitCompleteRespons",
+      "eProto.NormStructWaitCompleteStatus\022:\n\nu" +
+      "serStruct\030\003 \003(\0132&.com.lvl6.proto.FullUse" +
+      "rStructureProto\"r\n\034NormStructWaitComplet" +
+      "eStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016" +
+      "\n\nOTHER_FAIL\020\002\022#\n\037CLIENT_TOO_AHEAD_OF_SE" +
+      "RVER_TIME\020\003\"G\n\023LevelUpRequestProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\"\347\004\n\024LevelUpResponseProto\0220\n\006sender\030" +
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "B\n\006status\030\002 \001(\01622.com.lvl6.proto.LevelUp",
+      "ResponseProto.LevelUpStatus\022\020\n\010newLevel\030" +
+      "\013 \001(\005\022\024\n\014newNextLevel\030\003 \001(\005\022)\n!experienc" +
+      "eRequiredForNewNextLevel\030\004 \001(\005\022A\n\032cities" +
+      "NewlyAvailableToUser\030\005 \003(\0132\035.com.lvl6.pr" +
+      "oto.FullCityProto\022J\n\"newlyEquippableEpic" +
+      "sAndLegendaries\030\006 \003(\0132\036.com.lvl6.proto.F" +
+      "ullEquipProto\022A\n\025newlyAvailableStructs\030\007" +
+      " \003(\0132\".com.lvl6.proto.FullStructureProto" +
+      "\022\033\n\023marketplaceUnlocked\030\010 \001(\010\022\025\n\rvaultUn" +
+      "locked\030\t \001(\010\022\026\n\016armoryUnlocked\030\n \001(\010\"h\n\r",
+      "LevelUpStatus\022\013\n\007SUCCESS\020\000\022 \n\034NOT_ENOUGH" +
+      "_EXP_TO_NEXT_LEVEL\020\001\022\030\n\024ALREADY_AT_MAX_L" +
+      "EVEL\020\002\022\016\n\nOTHER_FAIL\020\003\"^\n\031InAppPurchaseR" +
+      "equestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\017\n\007receipt\030\002 \001(\t\"\344" +
+      "\001\n\032InAppPurchaseResponseProto\0220\n\006sender\030" +
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "N\n\006status\030\002 \001(\0162>.com.lvl6.proto.InAppPu" +
+      "rchaseResponseProto.InAppPurchaseStatus\022" +
+      "\026\n\016diamondsGained\030\003 \001(\005\",\n\023InAppPurchase",
+      "Status\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035UpdateC" +
+      "lientUserResponseProto\022-\n\006sender\030\001 \001(\0132\035" +
+      ".com.lvl6.proto.FullUserProto\022\030\n\020timeOfU" +
+      "serUpdate\030\002 \001(\003\"\215\001\n+RetrieveCurrentMarke" +
+      "tplacePostsRequestProto\0220\n\006sender\030\001 \001(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022\030\n\020bef" +
+      "oreThisPostId\030\002 \001(\005\022\022\n\nfromSender\030\003 \001(\010\"" +
+      "\237\003\n,RetrieveCurrentMarketplacePostsRespo" +
+      "nseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\022\n\nfromSender\030\002 \001(\010\022\030",
+      "\n\020beforeThisPostId\030\003 \001(\005\022r\n\006status\030\004 \001(\016" +
+      "2b.com.lvl6.proto.RetrieveCurrentMarketp" +
+      "lacePostsResponseProto.RetrieveCurrentMa" +
+      "rketplacePostsStatus\022B\n\020marketplacePosts" +
+      "\030\005 \003(\0132(.com.lvl6.proto.FullMarketplaceP" +
+      "ostProto\"W\n%RetrieveCurrentMarketplacePo" +
+      "stsStatus\022\013\n\007SUCCESS\020\000\022\021\n\rLEVEL_TOO_LOW\020" +
+      "\001\022\016\n\nOTHER_FAIL\020\002\"\217\001\n\035PostToMarketplaceR" +
+      "equestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\025\n\rpostedEquipId\030\002",
+      " \001(\005\022\023\n\013diamondCost\030\003 \001(\005\022\020\n\010coinCost\030\004 " +
+      "\001(\005\"\255\003\n\036PostToMarketplaceResponseProto\0220" +
+      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022V\n\006status\030\002 \001(\0162F.com.lvl6.prot" +
+      "o.PostToMarketplaceResponseProto.PostToM" +
+      "arketplaceStatus\"\200\002\n\027PostToMarketplaceSt" +
+      "atus\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020" +
+      "NOT_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COST\020\003\022\013\n" +
+      "\007NO_COST\020\004\022&\n\"USER_ALREADY_MAX_MARKETPLA" +
+      "CE_POSTS\020\005\022\024\n\020CANT_DEMAND_BOTH\020\006\022\036\n\032INVA",
+      "LID_COST_TYPE_FOR_POST\020\007\022\016\n\nNO_LICENSE\020\010" +
+      "\022\021\n\rLEVEL_TOO_LOW\020\t\022\016\n\nOTHER_FAIL\020\n\"q\n\"R" +
+      "etractMarketplacePostRequestProto\0220\n\006sen" +
+      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\022\031\n\021marketplacePostId\030\002 \001(\005\"\335\002\n#Retra" +
+      "ctMarketplacePostResponseProto\0220\n\006sender" +
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022`\n\006status\030\002 \001(\0162P.com.lvl6.proto.Retrac" +
+      "tMarketplacePostResponseProto.RetractMar" +
+      "ketplacePostStatus\"\241\001\n\034RetractMarketplac",
+      "ePostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_REQUESTE" +
+      "RS_POST\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023" +
+      "NOT_ENOUGH_DIAMONDS\020\003\022\024\n\020NOT_ENOUGH_COIN" +
+      "S\020\004\022\021\n\rLEVEL_TOO_LOW\020\005\"\204\001\n#PurchaseFromM" +
+      "arketplaceRequestProto\0220\n\006sender\030\001 \001(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022\031\n\021mark" +
+      "etplacePostId\030\002 \001(\005\022\020\n\010posterId\030\003 \001(\005\"\264\003" +
+      "\n$PurchaseFromMarketplaceResponseProto\0223" +
+      "\n\tpurchaser\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\020\n\010posterId\030\002 \001(\005\022A\n\017marketp",
+      "lacePost\030\003 \001(\0132(.com.lvl6.proto.FullMark" +
+      "etplacePostProto\022b\n\006status\030\004 \001(\0162R.com.l" +
+      "vl6.proto.PurchaseFromMarketplaceRespons" +
+      "eProto.PurchaseFromMarketplaceStatus\"\235\001\n" +
+      "\035PurchaseFromMarketplaceStatus\022\013\n\007SUCCES" +
+      "S\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\031\n\025POST_NO" +
+      "_LONGER_EXISTS\020\002\022\027\n\023PURCHASER_IS_SELLER\020" +
+      "\003\022\021\n\rLEVEL_TOO_LOW\020\004\022\016\n\nOTHER_FAIL\020\005\"\340\001\n" +
+      "\031UseSkillPointRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022F\n\t",
+      "boostType\030\002 \001(\01623.com.lvl6.proto.UseSkil" +
+      "lPointRequestProto.BoostType\"I\n\tBoostTyp" +
+      "e\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY\020\002\022\n" +
+      "\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkillPoin" +
+      "tResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022N\n\006status\030\002 \001(\016" +
+      "2>.com.lvl6.proto.UseSkillPointResponseP" +
+      "roto.UseSkillPointStatus\"O\n\023UseSkillPoin" +
+      "tStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_SKILL" +
+      "_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\304\001\n\036GenerateAt",
+      "tackListRequestProto\0220\n\006sender\030\001 \001(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022\022\n\nnumEne" +
+      "mies\030\002 \001(\005\022\025\n\rlatLowerBound\030\003 \001(\005\022\025\n\rlat" +
+      "UpperBound\030\004 \001(\005\022\026\n\016longLowerBound\030\005 \001(\005" +
+      "\022\026\n\016longUpperBound\030\006 \001(\005\"\307\002\n\037GenerateAtt" +
+      "ackListResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022.\n\007enemie" +
+      "s\030\002 \003(\0132\035.com.lvl6.proto.FullUserProto\022X" +
+      "\n\006status\030\003 \001(\0162H.com.lvl6.proto.Generate" +
+      "AttackListResponseProto.GenerateAttackLi",
+      "stStatus\"h\n\030GenerateAttackListStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\022\035\n\031INVALID_NUM_" +
+      "ENEMIES_COUNT\020\002\022\021\n\rINVALID_BOUND\020\003\"\312\001\n\"R" +
+      "efillStatWithDiamondsRequestProto\0220\n\006sen" +
+      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\022M\n\010statType\030\002 \001(\0162;.com.lvl6.proto.R" +
+      "efillStatWithDiamondsRequestProto.StatTy" +
+      "pe\"#\n\010StatType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"" +
+      "\210\002\n#RefillStatWithDiamondsResponseProto\022" +
+      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum",
+      "UserProto\022T\n\006status\030\002 \001(\0162D.com.lvl6.pro" +
+      "to.RefillStatWithDiamondsResponseProto.R" +
+      "efillStatStatus\"Y\n\020RefillStatStatus\022\013\n\007S" +
+      "UCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\017\n\013ALR" +
+      "EADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\"Y\n%RedeemMark" +
+      "etplaceEarningsRequestProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\"\202\002" +
+      "\n&RedeemMarketplaceEarningsResponseProto" +
+      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022f\n\006status\030\002 \001(\0162V.com.lvl6.pr",
+      "oto.RedeemMarketplaceEarningsResponsePro" +
+      "to.RedeemMarketplaceEarningsStatus\">\n\037Re" +
+      "deemMarketplaceEarningsStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\016\n\nOTHER_FAIL\020\001\"\203\001\n\032LoadPlayerCityReq" +
+      "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\0223\n\tcityOwner\030\002 \001(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\"\275\006\n\033Loa" +
+      "dPlayerCityResponseProto\0220\n\006sender\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\0223\n\tci" +
+      "tyOwner\030\002 \001(\0132 .com.lvl6.proto.MinimumUs",
+      "erProto\022P\n\006status\030\003 \001(\0162@.com.lvl6.proto" +
+      ".LoadPlayerCityResponseProto.LoadPlayerC" +
+      "ityStatus\022@\n\020ownerNormStructs\030\004 \003(\0132&.co" +
+      "m.lvl6.proto.FullUserStructureProto\0222\n\013o" +
+      "wnerAllies\030\005 \003(\0132\035.com.lvl6.proto.FullUs" +
+      "erProto\0223\n\014ownerEnemies\030\006 \003(\0132\035.com.lvl6" +
+      ".proto.FullUserProto\0227\n\006armory\030\007 \001(\0132\'.c" +
+      "om.lvl6.proto.FullUserCritstructProto\0226\n" +
+      "\005vault\030\010 \001(\0132\'.com.lvl6.proto.FullUserCr" +
+      "itstructProto\022<\n\013marketplace\030\t \001(\0132\'.com",
+      ".lvl6.proto.FullUserCritstructProto\022:\n\tc" +
+      "arpenter\030\n \001(\0132\'.com.lvl6.proto.FullUser" +
+      "CritstructProto\0227\n\006aviary\030\013 \001(\0132\'.com.lv" +
+      "l6.proto.FullUserCritstructProto\022M\n\025user" +
+      "CityExpansionData\030\014 \001(\0132..com.lvl6.proto" +
+      ".FullUserCityExpansionDataProto\"G\n\024LoadP" +
+      "layerCityStatus\022\013\n\007SUCCESS\020\000\022\022\n\016NO_SUCH_" +
+      "PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027QuestAcceptR" +
+      "equestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\017\n\007questId\030\002 \001(\005\"\311",
+      "\002\n\030QuestAcceptResponseProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022J\n" +
+      "\006status\030\002 \001(\0162:.com.lvl6.proto.QuestAcce" +
+      "ptResponseProto.QuestAcceptStatus\022G\n ene" +
+      "miesIfQuestsHaveDefeatTypeJob\030\003 \003(\0132\035.co" +
+      "m.lvl6.proto.FullUserProto\022\035\n\025cityIdOfAc" +
+      "ceptedQuest\030\004 \001(\005\"G\n\021QuestAcceptStatus\022\013" +
+      "\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016\n\nOT" +
+      "HER_FAIL\020\002\"\244\001\n\032QuestCompleteResponseProt" +
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim",
+      "umUserProto\022\017\n\007questId\030\002 \001(\005\022C\n\022neutralC" +
+      "ityElement\030\003 \001(\0132\'.com.lvl6.proto.Neutra" +
+      "lCityElementProto\"\\\n\027QuestRedeemRequestP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022\017\n\007questId\030\002 \001(\005\"\232\002\n\030Ques" +
+      "tRedeemResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022<\n\024newlyA" +
+      "vailableQuests\030\002 \003(\0132\036.com.lvl6.proto.Fu" +
+      "llQuestProto\022J\n\006status\030\003 \001(\0162:.com.lvl6." +
+      "proto.QuestRedeemResponseProto.QuestRede",
+      "emStatus\"B\n\021QuestRedeemStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002\"a\n\034" +
+      "UserQuestDetailsRequestProto\0220\n\006sender\030\001" +
+      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022\017" +
+      "\n\007questId\030\002 \001(\005\"\333\002\n\035UserQuestDetailsResp" +
+      "onseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\022L\n\027inProgressUserQue" +
+      "stData\030\002 \003(\0132+.com.lvl6.proto.FullUserQu" +
+      "estDataLargeProto\022T\n\006status\030\003 \001(\0162D.com." +
+      "lvl6.proto.UserQuestDetailsResponseProto",
+      ".UserQuestDetailsStatus\"d\n\026UserQuestDeta" +
+      "ilsStatus\022\013\n\007SUCCESS\020\000\022.\n*SUPPLIED_QUEST" +
+      "ID_CURRENTLY_NOT_IN_PROGRESS\020\001\022\r\n\tSOME_F" +
+      "AIL\020\002\"\275\002\n\036RetrieveStaticDataRequestProto" +
+      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007taskIds" +
+      "\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030\005 \003(" +
+      "\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021buildStructJobIds" +
+      "\030\007 \003(\005\022\030\n\020defeatTypeJobIds\030\010 \003(\005\022\032\n\022poss" +
+      "essEquipJobIds\030\t \003(\005\022\033\n\023upgradeStructJob",
+      "Ids\030\n \003(\005\022\"\n\032levelForExpRequiredRequest\030" +
+      "\013 \001(\005\"\371\005\n\037RetrieveStaticDataResponseProt" +
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\0223\n\007structs\030\002 \003(\0132\".com.lvl6." +
+      "proto.FullStructureProto\022,\n\005tasks\030\003 \003(\0132" +
+      "\035.com.lvl6.proto.FullTaskProto\022.\n\006quests" +
+      "\030\004 \003(\0132\036.com.lvl6.proto.FullQuestProto\022-" +
+      "\n\006cities\030\005 \003(\0132\035.com.lvl6.proto.FullCity" +
+      "Proto\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.proto.F" +
+      "ullEquipProto\022<\n\017buildStructJobs\030\007 \003(\0132#",
+      ".com.lvl6.proto.BuildStructJobProto\022:\n\016d" +
+      "efeatTypeJobs\030\010 \003(\0132\".com.lvl6.proto.Def" +
+      "eatTypeJobProto\022>\n\020possessEquipJobs\030\t \003(" +
+      "\0132$.com.lvl6.proto.PossessEquipJobProto\022" +
+      "@\n\021upgradeStructJobs\030\n \003(\0132%.com.lvl6.pr" +
+      "oto.UpgradeStructJobProto\022$\n\034expRequired" +
+      "ForRequestedLevel\030\013 \001(\005\022X\n\006status\030\014 \001(\0162" +
+      "H.com.lvl6.proto.RetrieveStaticDataRespo" +
+      "nseProto.RetrieveStaticDataStatus\"6\n\030Ret" +
+      "rieveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSO",
+      "ME_FAIL\020\001\"\244\001\n!PurchaseCityExpansionReque" +
+      "stProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\0225\n\tdirection\030\002 \001(\0162\".c" +
+      "om.lvl6.proto.ExpansionDirection\022\026\n\016time" +
+      "OfPurchase\030\003 \001(\003\"\305\002\n\"PurchaseCityExpansi" +
+      "onResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022^\n\006status\030\002 \001(" +
+      "\0162N.com.lvl6.proto.PurchaseCityExpansion" +
+      "ResponseProto.PurchaseCityExpansionStatu" +
+      "s\"\214\001\n\033PurchaseCityExpansionStatus\022\013\n\007SUC",
+      "CESS\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALREADY_" +
+      "EXPANDING\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TO" +
+      "O_AHEAD_OF_SERVER_TIME\020\004\"f\n!ExpansionWai" +
+      "tCompleteRequestProto\0220\n\006sender\030\001 \001(\0132 ." +
+      "com.lvl6.proto.MinimumUserProto\022\017\n\007curTi" +
+      "me\030\002 \001(\003\"\301\002\n\"ExpansionWaitCompleteRespon" +
+      "seProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022^\n\006status\030\002 \001(\0162N.com." +
+      "lvl6.proto.ExpansionWaitCompleteResponse" +
+      "Proto.ExpansionWaitCompleteStatus\"\210\001\n\033Ex",
+      "pansionWaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\025" +
+      "\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_YET\020\002\022" +
+      "\016\n\nOTHER_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_S" +
+      "ERVER_TIME\020\004\"\373\001\n\"RefillStatWaitCompleteR" +
+      "equestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\017\n\007curTime\030\002 \001(\003\022[" +
+      "\n\004type\030\003 \001(\0162M.com.lvl6.proto.RefillStat" +
+      "WaitCompleteRequestProto.RefillStatWaitC" +
+      "ompleteType\"5\n\032RefillStatWaitCompleteTyp" +
+      "e\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\300\002\n#RefillSta",
+      "tWaitCompleteResponseProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022`\n\006" +
+      "status\030\002 \001(\0162P.com.lvl6.proto.RefillStat" +
+      "WaitCompleteResponseProto.RefillStatWait" +
+      "CompleteStatus\"\204\001\n\034RefillStatWaitComplet" +
+      "eStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READY_YET\020\001\022" +
+      "\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\022#\n\037CLIE" +
+      "NT_TOO_AHEAD_OF_SERVER_TIME\020\004\"_\n\026EnableA" +
+      "PNSRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lv" +
+      "l6.proto.MinimumUserProto\022\023\n\013deviceToken",
+      "\030\002 \001(\t\"\307\001\n\027EnableAPNSResponseProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022H\n\006status\030\002 \001(\01628.com.lvl6.proto.En" +
+      "ableAPNSResponseProto.EnableAPNSStatus\"0" +
+      "\n\020EnableAPNSStatus\022\013\n\007SUCCESS\020\000\022\017\n\013NOT_E" +
+      "NABLED\020\001\"\353\001\n&PurchaseMarketplaceLicenseR" +
+      "equestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\022\n\nclientTime\030\002 \001(" +
+      "\003\022W\n\013licenseType\030\003 \001(\0162B.com.lvl6.proto." +
+      "PurchaseMarketplaceLicenseRequestProto.L",
+      "icenseType\"\"\n\013LicenseType\022\t\n\005SHORT\020\000\022\010\n\004" +
+      "LONG\020\001\"\343\002\n\'PurchaseMarketplaceLicenseRes" +
+      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022h\n\006status\030\002 \001(\0162X.c" +
+      "om.lvl6.proto.PurchaseMarketplaceLicense" +
+      "ResponseProto.PurchaseMarketplaceLicense" +
+      "Status\"\233\001\n PurchaseMarketplaceLicenseSta" +
+      "tus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020" +
+      "\001\022\034\n\030ALREADY_HAVE_LICENSE_NOW\020\002\022\016\n\nOTHER" +
+      "_FAIL\020\003\022#\n\037CLIENT_TOO_AHEAD_OF_SERVER_TI",
+      "ME\020\004\"\213\001\n\035ReferralCodeUsedResponseProto\0220" +
+      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\0228\n\016referredPlayer\030\002 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\"_\n\032EquipEquip" +
+      "mentRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\017\n\007equipId\030\002 " +
+      "\001(\005\"\274\002\n\033EquipEquipmentResponseProto\0220\n\006s" +
+      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
+      "Proto\022P\n\006status\030\002 \001(\0162@.com.lvl6.proto.E" +
+      "quipEquipmentResponseProto.EquipEquipmen",
+      "tStatus\"\230\001\n\024EquipEquipmentStatus\022\013\n\007SUCC" +
+      "ESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_LEVEL\020\001\022\034\n\030DOES" +
+      "_NOT_HAVE_THIS_EQUIP\020\002\022\020\n\014NOT_AN_EQUIP\020\003" +
+      "\022\030\n\024INCORRECT_CLASS_TYPE\020\004\022\016\n\nOTHER_FAIL" +
+      "\020\005\"\207\001\n\036ChangeUserLocationRequestProto\0220\n" +
+      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\0223\n\014userLocation\030\002 \001(\0132\035.com.lvl6" +
+      ".proto.LocationProto\"\372\001\n\037ChangeUserLocat" +
+      "ionResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022X\n\006status\030\002 \001",
+      "(\0162H.com.lvl6.proto.ChangeUserLocationRe" +
+      "sponseProto.ChangeUserLocationStatus\"K\n\030" +
+      "ChangeUserLocationStatus\022\013\n\007SUCCESS\020\000\022\022\n" +
+      "\016INVALID_BOUNDS\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\033Loa" +
+      "dNeutralCityRequestProto\0220\n\006sender\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022\016\n\006ci" +
+      "tyId\030\002 \001(\005\"\277\003\n\034LoadNeutralCityResponsePr" +
+      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022R\n\006status\030\002 \001(\0162B.com.lvl6" +
+      ".proto.LoadNeutralCityResponseProto.Load",
+      "NeutralCityStatus\022;\n\ruserTasksInfo\030\003 \003(\013" +
+      "2$.com.lvl6.proto.MinimumUserTaskProto\022;" +
+      "\n\024defeatTypeJobEnemies\030\004 \003(\0132\035.com.lvl6." +
+      "proto.FullUserProto\022=\n\014cityElements\030\005 \003(" +
+      "\0132\'.com.lvl6.proto.NeutralCityElementPro" +
+      "to\022\016\n\006cityId\030\006 \001(\005\"P\n\025LoadNeutralCitySta" +
+      "tus\022\013\n\007SUCCESS\020\000\022\032\n\026NOT_ACCESSIBLE_TO_US" +
+      "ER\020\001\022\016\n\nOTHER_FAIL\020\002\"p\n$RetrieveUserEqui" +
+      "pForUserRequestProto\0220\n\006sender\030\001 \001(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022\026\n\016releva",
+      "ntUserId\030\002 \001(\005\"\251\001\n%RetrieveUserEquipForU" +
+      "serResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\026\n\016relevantUs" +
+      "erId\030\002 \001(\005\0226\n\nuserEquips\030\003 \003(\0132\".com.lvl" +
+      "6.proto.FullUserEquipProto\"6\n\"PurgeClien" +
+      "tStaticDataResponseProto\022\020\n\010senderId\030\001 \001" +
+      "(\005\"q\n#RetrieveUsersForUserIdsRequestProt" +
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\030\n\020requestedUserIds\030\002 \003(\005\"\217\001" +
+      "\n$RetrieveUsersForUserIdsResponseProto\0220",
+      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\0225\n\016requestedUsers\030\002 \003(\0132\035.com.l" +
+      "vl6.proto.FullUserProtoB\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -77311,7 +77310,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "StartupStatus", "UpdateStatus", "StartupConstants", "TutorialConstants", "CitiesAvailableToUser", "UserCityInfos", "InProgressQuests", "AvailableQuests", "UserEquips", "Equips", "ExperienceRequiredForNextLevel", "ExperienceRequiredForCurrentLevel", "MarketplacePurchaseNotifications", "AttackNotifications", "ReferralNotifications", "AppStoreURL", },
+              new java.lang.String[] { "Sender", "StartupStatus", "UpdateStatus", "StartupConstants", "TutorialConstants", "AllCities", "UserCityInfos", "InProgressQuests", "AvailableQuests", "UserEquips", "Equips", "ExperienceRequiredForNextLevel", "ExperienceRequiredForCurrentLevel", "MarketplacePurchaseNotifications", "AttackNotifications", "ReferralNotifications", "AppStoreURL", },
               com.lvl6.proto.EventProto.StartupResponseProto.class,
               com.lvl6.proto.EventProto.StartupResponseProto.Builder.class);
           internal_static_com_lvl6_proto_StartupResponseProto_MarketplacePostPurchasedNotificationProto_descriptor =

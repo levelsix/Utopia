@@ -121,7 +121,7 @@ message StartupResponseProto {
     optional UpdateStatus updateStatus= 3;
     optional StartupConstants startupConstants = 4;
     optional TutorialConstants tutorialConstants = 18;
-    repeated FullCityProto citiesAvailableToUser = 5;
+    repeated FullCityProto allCities = 5;
     repeated FullUserCityProto userCityInfos = 16;
     
     repeated FullQuestProto inProgressQuests = 6;

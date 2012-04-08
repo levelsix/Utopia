@@ -23,7 +23,6 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
-import com.lvl6.properties.APNSProperties;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.StartupRequestProto;
@@ -47,6 +46,7 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
@@ -58,9 +58,6 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
-import com.notnoop.apns.APNS;
-import com.notnoop.apns.ApnsService;
-import com.notnoop.apns.ApnsServiceBuilder;
 
 public class StartupController extends EventController {
 
@@ -110,7 +107,7 @@ public class StartupController extends EventController {
         try {
           startupStatus = StartupStatus.USER_IN_DB;
           syncUserDevicetokenAndBadges(reqProto, user);
-          setCitiesAvailableToUserAndUserCityInfos(resBuilder, user);
+          setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -159,13 +156,13 @@ public class StartupController extends EventController {
     String newDeviceToken = reqProto.getDeviceToken();
     if (user.getNumBadges() != 0 || user.getDeviceToken() != newDeviceToken) {
       if (newDeviceToken != null && newDeviceToken.length() > 0) { 
-//        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
-//        if (Globals.IS_SANDBOX) {
-//          builder.withSandboxDestination();
-//        }
-//        ApnsService service = builder.build();
-//        service.push(newDeviceToken, APNS.newPayload().badge(0).build());
-//        service.stop();
+        //        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
+        //        if (Globals.IS_SANDBOX) {
+        //          builder.withSandboxDestination();
+        //        }
+        //        ApnsService service = builder.build();
+        //        service.push(newDeviceToken, APNS.newPayload().badge(0).build());
+        //        service.stop();
       }
       if (!user.updateResetNumbadgesSetdevicetoken(newDeviceToken)) {
         log.error("problem in resetting num badges and syncing device token");
@@ -258,15 +255,16 @@ public class StartupController extends EventController {
     }
   }
 
-  private void setCitiesAvailableToUserAndUserCityInfos(Builder resBuilder, User user) {
+  private void setCitiesAndUserCityInfos(Builder resBuilder, User user) {
     Map<Integer, Integer> cityIdsToUserCityRanks = UserCityRetrieveUtils.getCityIdToUserCityRank(user.getId());
     Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(user.getId());
 
-    List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(user.getLevel());
-    for (City city : availCities) {
-      if (cityIdsToUserCityRanks.containsKey(city.getId())) {   //should always be true, except for fake users.
-        resBuilder.addCitiesAvailableToUser(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
 
+    Map<Integer, City> cities = CityRetrieveUtils.getCityIdsToCities();
+    for (Integer cityId : cities.keySet()) {
+      City city = cities.get(cityId);
+      resBuilder.addAllCities(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
+      if (user.getLevel() >= city.getMinLevel() && cityIdsToUserCityRanks.containsKey(city.getId())) {
         int numTasksComplete = getNumTasksCompleteForUserCity(user, city, taskIdToNumTimesActedInRank);
 
         resBuilder.addUserCityInfos(CreateInfoProtoUtils.createFullUserCityProto(user.getId(), city.getId(), 
@@ -321,7 +319,7 @@ public class StartupController extends EventController {
         .setFirstDefeatTypeJobBattleLootAmulet
         (CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID)))
         .build();
-    
+
     TutorialConstants.Builder builder = TutorialConstants.newBuilder()
         .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY).setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH).setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
@@ -342,7 +340,7 @@ public class StartupController extends EventController {
         .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
         .setExpRequiredForLevelTwo(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
         .setExpRequiredForLevelThree(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3));
-    
+
     List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
     if (neutralCityElements != null) {
       for (NeutralCityElement nce : neutralCityElements) {
@@ -361,7 +359,7 @@ public class StartupController extends EventController {
         } 
       }
     }
-    
+
     List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(2);
     for (City city : availCities) {
       if (city.getMinLevel() == 2) {
