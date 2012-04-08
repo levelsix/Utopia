@@ -22,14 +22,19 @@ public class ControllerConstants {
   
   public static final int ARMORY_XLENGTH = 2;
   public static final int ARMORY_YLENGTH = 2;
+  public static final int ARMORY_IMG_VERTICAL_PIXEL_OFFSET = 0;
   public static final int VAULT_XLENGTH = 2;
   public static final int VAULT_YLENGTH = 2;
+  public static final int VAULT_IMG_VERTICAL_PIXEL_OFFSET = 0;
   public static final int MARKETPLACE_XLENGTH = 2;
   public static final int MARKETPLACE_YLENGTH = 2;
+  public static final int MARKETPLACE_IMG_VERTICAL_PIXEL_OFFSET = 0;
   public static final int CARPENTER_XLENGTH = 2;
   public static final int CARPENTER_YLENGTH = 2;
+  public static final int CARPENTER_IMG_VERTICAL_PIXEL_OFFSET = 0;
   public static final int AVIARY_XLENGTH = 2;
   public static final int AVIARY_YLENGTH = 2;
+  public static final int AVIARY_IMG_VERTICAL_PIXEL_OFFSET = 0;
   
   public static final int MIN_LEVEL_FOR_ARMORY = 3;
   public static final int MIN_LEVEL_FOR_VAULT = 4;

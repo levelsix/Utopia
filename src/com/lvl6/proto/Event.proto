@@ -213,6 +213,13 @@ message StartupResponseProto {
 		optional int32 minLevelForArmory = 51;
 		optional int32 minLevelForVault = 52;
 		optional int32 minLevelForMarketplace = 53;
+		
+		optional int32 armoryImgVerticalPixelOffset = 54;
+		optional int32 vaultImgVerticalPixelOffset = 55;
+		optional int32 marketplaceImgVerticalPixelOffset = 56;
+		optional int32 carpenterImgVerticalPixelOffset = 57;
+		optional int32 aviaryImgVerticalPixelOffset = 58;
+
 	}
 	
 	message TutorialConstants {

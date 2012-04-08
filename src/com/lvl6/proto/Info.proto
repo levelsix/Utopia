@@ -148,7 +148,7 @@ message FullStructureProto {
 	optional int32 instaBuildDiamondCostBase = 14;
 	optional int32 instaRetrieveDiamondCostBase = 15;
 	optional int32 instaUpgradeDiamondCostBase = 16;
-	optional int32 imgVerticalPixelOffeset = 17;	
+	optional int32 imgVerticalPixelOffset = 17;	
 }
 
 //------------------------------------------------------------------------------------------

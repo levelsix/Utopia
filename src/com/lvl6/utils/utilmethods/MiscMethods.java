@@ -165,7 +165,12 @@ public class MiscMethods {
         .setMaxCityRank(ControllerConstants.TASK_ACTION__MAX_CITY_RANK)
         .setMinLevelForArmory(ControllerConstants.MIN_LEVEL_FOR_ARMORY)
         .setMinLevelForMarketplace(ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE)
-        .setMinLevelForVault(ControllerConstants.MIN_LEVEL_FOR_VAULT);
+        .setMinLevelForVault(ControllerConstants.MIN_LEVEL_FOR_VAULT)
+        .setArmoryImgVerticalPixelOffset(ControllerConstants.ARMORY_IMG_VERTICAL_PIXEL_OFFSET)
+        .setVaultImgVerticalPixelOffset(ControllerConstants.VAULT_IMG_VERTICAL_PIXEL_OFFSET)
+        .setMarketplaceImgVerticalPixelOffset(ControllerConstants.MARKETPLACE_IMG_VERTICAL_PIXEL_OFFSET)
+        .setAviaryImgVerticalPixelOffset(ControllerConstants.AVIARY_IMG_VERTICAL_PIXEL_OFFSET)
+        .setCarpenterImgVerticalPixelOffset(ControllerConstants.CARPENTER_IMG_VERTICAL_PIXEL_OFFSET);
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
