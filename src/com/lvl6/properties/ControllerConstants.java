@@ -43,8 +43,13 @@ public class ControllerConstants {
   //--------------------------------------------------------------------------------------------------------------------------
   
   //FORMULA CONSTANTS ALSO SENT TO CLIENT
-  public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_BASE = 1.7;
-  public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_BASE = 1.1;
+  public static final double MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER = .5;
+  public static final double INCOME_FROM_NORM_STRUCT_MULTIPLIER = 1;
+  public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_EXPONENT_BASE = 1.7;
+  public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE = 1.1;
+  public static final double FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS__DIAMOND_COST_FOR_INSTANT_UPGRADE_MULTIPLIER = 1;
+
+  
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_THIRD_EXPANSION = 24;

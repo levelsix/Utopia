@@ -144,11 +144,11 @@ public class UpgradeNormStructureController extends EventController {
   }
 
   private int calculateUpgradeCoinCost(int oldLevel, Structure struct) {
-    return Math.max(0, (int)(struct.getCoinPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_BASE, oldLevel)));
+    return Math.max(0, (int)(struct.getCoinPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_EXPONENT_BASE, oldLevel)));
   }
   
   private int calculateUpgradeDiamondCost(int oldLevel, Structure struct) {
-    return Math.max(0, (int)(struct.getDiamondPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_BASE, oldLevel)));
+    return Math.max(0, (int)(struct.getDiamondPrice() * Math.pow(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE, oldLevel)));
   }
 
 }

@@ -219,6 +219,16 @@ message StartupResponseProto {
 		optional int32 marketplaceImgVerticalPixelOffset = 56;
 		optional int32 carpenterImgVerticalPixelOffset = 57;
 		optional int32 aviaryImgVerticalPixelOffset = 58;
+		
+		optional FormulaConstants formulaConstants = 59;
+		
+		message FormulaConstants {
+			optional double minutesToUpgradeForNormStructMultiplier = 1;
+			optional double incomeFromNormStructMultiplier = 2;
+			optional double upgradeStructCoinCostExponentBase = 3;
+			optional double upgradeStructDiamondCostExponentBase = 4;
+			optional double diamondCostForInstantUpgradeMultiplier = 5;
+		}
 
 	}
 	

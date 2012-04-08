@@ -87,8 +87,8 @@ public class StructureRetrieveUtils {
     int xLength = rs.getInt(i++);
     int yLength = rs.getInt(i++);
     int instaBuildDiamondCost = rs.getInt(i++);
-    int instaRetrieveDiamondCost = rs.getInt(i++);
-    int instaUpgradeDiamondCost = rs.getInt(i++);
+    int instaRetrieveDiamondCostBase = rs.getInt(i++);
+    int instaUpgradeDiamondCostBase = rs.getInt(i++);
     int imgVerticalPixelOffset = rs.getInt(i++);
     
     if (coinPriceSet && diamondPriceSet) {
@@ -97,7 +97,7 @@ public class StructureRetrieveUtils {
     }
 
     return new Structure(id, name, income, minutesToGain, minutesToBuild, minutesToUpgradeBase, coinPrice, 
-        diamondPrice, minLevel, xLength, yLength, instaBuildDiamondCost, instaRetrieveDiamondCost, 
-        instaUpgradeDiamondCost, imgVerticalPixelOffset);
+        diamondPrice, minLevel, xLength, yLength, instaBuildDiamondCost, instaRetrieveDiamondCostBase, 
+        instaUpgradeDiamondCostBase, imgVerticalPixelOffset);
   }
 }

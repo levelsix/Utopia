@@ -4,6 +4,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.MoveOrRotateNormStructureRequestEvent;
 import com.lvl6.events.response.MoveOrRotateNormStructureResponseEvent;
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.UserStruct;
 import com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto;
 import com.lvl6.proto.EventProto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType;
 import com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto;
@@ -11,6 +12,7 @@ import com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRo
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class MoveOrRotateNormStructureController extends EventController {
@@ -55,6 +57,13 @@ public class MoveOrRotateNormStructureController extends EventController {
     try {
       boolean legit = true;
       resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);
+      
+      UserStruct userStruct = UserStructRetrieveUtils.getSpecificUserStruct(userStructId);
+      if (userStruct == null) {
+        legit = false;
+        resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);
+      }
+      
       if (type == MoveOrRotateNormStructType.MOVE && newCoords == null) {
         legit = false;
         resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);

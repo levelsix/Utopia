@@ -19,6 +19,7 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.UserType;
@@ -60,11 +61,11 @@ public class MiscMethods {
   }
 
   public static int calculateMinutesToUpgradeForUserStruct(int minutesToUpgradeBase, int userStructLevel) {
-    return Math.max(1, (minutesToUpgradeBase * userStructLevel)/2);
+    return Math.max(1, (int)(minutesToUpgradeBase * userStructLevel * ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER));
   }
 
   public static int calculateIncomeGainedFromUserStruct(int structIncomeBase, int userStructLevel) {
-    return userStructLevel * structIncomeBase;
+    return Math.max(1, (int)(userStructLevel * structIncomeBase * ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER));
   }
 
   public static UpdateClientUserResponseEvent createUpdateClientUserResponseEvent(User user) {
@@ -171,6 +172,18 @@ public class MiscMethods {
         .setMarketplaceImgVerticalPixelOffset(ControllerConstants.MARKETPLACE_IMG_VERTICAL_PIXEL_OFFSET)
         .setAviaryImgVerticalPixelOffset(ControllerConstants.AVIARY_IMG_VERTICAL_PIXEL_OFFSET)
         .setCarpenterImgVerticalPixelOffset(ControllerConstants.CARPENTER_IMG_VERTICAL_PIXEL_OFFSET);
+    
+    
+    FormulaConstants formulaConstants = FormulaConstants.newBuilder()
+        .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
+        .setIncomeFromNormStructMultiplier(ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER)
+        .setUpgradeStructCoinCostExponentBase(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_EXPONENT_BASE)
+        .setUpgradeStructDiamondCostExponentBase(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE)
+        .setDiamondCostForInstantUpgradeMultiplier(ControllerConstants.FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS__DIAMOND_COST_FOR_INSTANT_UPGRADE_MULTIPLIER)
+        .build();
+
+    cb = cb.setFormulaConstants(formulaConstants);
+    
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));

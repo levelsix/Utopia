@@ -13,13 +13,13 @@ public class Structure {
   private int minLevel;
   private int xLength;
   private int yLength;
-  private int instaBuildDiamondCostBase;
+  private int instaBuildDiamondCost;
   private int instaRetrieveDiamondCostBase;
   private int instaUpgradeDiamondCostBase;
   private int imgVerticalPixelOffset;
   public Structure(int id, String name, int income, int minutesToGain,
       int minutesToBuild, int minutesToUpgradeBase, int coinPrice, int diamondPrice, 
-      int minLevel, int xLength, int yLength, int instaBuildDiamondCostBase, int instaRetrieveDiamondCostBase,
+      int minLevel, int xLength, int yLength, int instaBuildDiamondCost, int instaRetrieveDiamondCostBase,
       int instaUpgradeDiamondCostBase, int imgVerticalPixelOffset) {
     this.id = id;
     this.name = name;
@@ -32,7 +32,7 @@ public class Structure {
     this.minLevel = minLevel;
     this.xLength = xLength;
     this.yLength = yLength;
-    this.instaBuildDiamondCostBase = instaBuildDiamondCostBase;
+    this.instaBuildDiamondCost = instaBuildDiamondCost;
     this.instaRetrieveDiamondCostBase = instaRetrieveDiamondCostBase;
     this.instaUpgradeDiamondCostBase = instaUpgradeDiamondCostBase;
     this.imgVerticalPixelOffset = imgVerticalPixelOffset;
@@ -70,8 +70,8 @@ public class Structure {
   public int getyLength() {
     return yLength;
   }
-  public int getInstaBuildDiamondCostBase() {
-    return instaBuildDiamondCostBase;
+  public int getInstaBuildDiamondCost() {
+    return instaBuildDiamondCost;
   }
   public int getInstaRetrieveDiamondCostBase() {
     return instaRetrieveDiamondCostBase;
@@ -90,7 +90,7 @@ public class Structure {
         + minutesToBuild + ", minutesToUpgradeBase=" + minutesToUpgradeBase
         + ", coinPrice=" + coinPrice + ", diamondPrice=" + diamondPrice
         + ", minLevel=" + minLevel + ", xLength=" + xLength + ", yLength="
-        + yLength + ", instaBuildDiamondCostBase=" + instaBuildDiamondCostBase
+        + yLength + ", instaBuildDiamondCost=" + instaBuildDiamondCost
         + ", instaRetrieveDiamondCostBase=" + instaRetrieveDiamondCostBase
         + ", instaUpgradeDiamondCostBase=" + instaUpgradeDiamondCostBase
         + ", xOffset=" + imgVerticalPixelOffset + "]";
