@@ -159,13 +159,13 @@ public class StartupController extends EventController {
     String newDeviceToken = reqProto.getDeviceToken();
     if (user.getNumBadges() != 0 || user.getDeviceToken() != newDeviceToken) {
       if (newDeviceToken != null && newDeviceToken.length() > 0) { 
-        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
-        if (Globals.IS_SANDBOX) {
-          builder.withSandboxDestination();
-        }
-        ApnsService service = builder.build();
-        service.push(newDeviceToken, APNS.newPayload().badge(0).build());
-        service.stop();
+//        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
+//        if (Globals.IS_SANDBOX) {
+//          builder.withSandboxDestination();
+//        }
+//        ApnsService service = builder.build();
+//        service.push(newDeviceToken, APNS.newPayload().badge(0).build());
+//        service.stop();
       }
       if (!user.updateResetNumbadgesSetdevicetoken(newDeviceToken)) {
         log.error("problem in resetting num badges and syncing device token");
