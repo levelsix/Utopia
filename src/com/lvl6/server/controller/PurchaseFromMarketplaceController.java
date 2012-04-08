@@ -70,6 +70,8 @@ public class PurchaseFromMarketplaceController extends EventController {
 
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
       resEvent.setTag(event.getTag());
+      if (legitPurchase)
+        resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp));
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
