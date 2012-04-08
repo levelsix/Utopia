@@ -106,10 +106,11 @@ public class PostToMarketplaceController extends EventController {
       resBuilder.setStatus(PostToMarketplaceStatus.LEVEL_TOO_LOW);
       return false;
     }
+    
     if ((user.getLastShortLicensePurchaseTime() == null || user.getLastShortLicensePurchaseTime().getTime() + 
-        86400000*ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE < timeOfPost.getTime()) && 
+        86400000*(long)ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE < timeOfPost.getTime()) && 
         (user.getLastLongLicensePurchaseTime() == null || user.getLastLongLicensePurchaseTime().getTime() + 
-        86400000*ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE < timeOfPost.getTime())){
+        86400000*(long)ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE < timeOfPost.getTime())){
       resBuilder.setStatus(PostToMarketplaceStatus.NO_LICENSE);
       return false;
     }
