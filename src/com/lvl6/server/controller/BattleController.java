@@ -118,9 +118,7 @@ public class BattleController extends EventController {
         resBuilder.setCoinsGained(lostCoins);
 
         if (result == BattleResult.ATTACKER_WIN) {
-          expGained = ControllerConstants.BATTLE__MIN_EXP_GAIN
-              + random.nextInt(ControllerConstants.BATTLE__MAX_EXP_GAIN
-                  - ControllerConstants.BATTLE__MIN_EXP_GAIN + 1);
+          expGained = calculateExpGain(loser);
           resBuilder.setExpGained(expGained);
         }
         resBuilder.setStatus(BattleStatus.SUCCESS);
@@ -174,6 +172,13 @@ public class BattleController extends EventController {
       server
       .unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
+  }
+
+  private int calculateExpGain(User loser) {
+    int expGain = (int)((ControllerConstants.BATTLE__EXP_GAIN_LOWER_BOUND + 
+        (ControllerConstants.BATTLE__EXP_GAIN_UPPER_BOUND-ControllerConstants.BATTLE__EXP_GAIN_LOWER_BOUND)
+        *Math.random()) * loser.getLevel() * ControllerConstants.BATTLE__EXP_GAIN_MULTIPLIER);
+    return Math.max(1, expGain);
   }
 
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {

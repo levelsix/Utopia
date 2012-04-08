@@ -42,13 +42,16 @@ public class ControllerConstants {
 
   //--------------------------------------------------------------------------------------------------------------------------
   
-  //FORMULA CONSTANTS ALSO SENT TO CLIENT
+  //FORMULA CONSTANTS (ALSO) SENT TO CLIENT
   public static final double MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER = .5;
   public static final double INCOME_FROM_NORM_STRUCT_MULTIPLIER = 1;
   public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_EXPONENT_BASE = 1.7;
   public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE = 1.1;
   public static final double FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS__DIAMOND_COST_FOR_INSTANT_UPGRADE_MULTIPLIER = 1;
-
+  public static final double BATTLE_WEIGHT_GIVEN_TO_ATTACK_STAT = 1;
+  public static final double BATTLE_WEIGHT_GIVEN_TO_ATTACK_EQUIP_SUM = .5;
+  public static final double BATTLE_WEIGHT_GIVEN_TO_DEFENSE_STAT = 1;
+  public static final double BATTLE_WEIGHT_GIVEN_TO_DEFENSE_EQUIP_SUM = .5;
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
@@ -88,9 +91,9 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_IN_PROGRESS = "Back already? Don't tell me you couldn't even complete these measy tasks!";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 1;
   public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 30;
-  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 3;
+  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 4;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 20;
-  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 2;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 4;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 250;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
@@ -101,10 +104,11 @@ public class ControllerConstants {
   //BATTLE
   public static final int BATTLE__MAX_ITEMS_USED = 4;   //unused right now
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
-  public static final int BATTLE__MIN_EXP_GAIN = 1;
-  public static final int BATTLE__MAX_EXP_GAIN = 5;
   public static final double BATTLE__A = .1;		//must be <= 1
   public static final double BATTLE__B = 80;
+  public static final double BATTLE__EXP_GAIN_LOWER_BOUND = .8;
+  public static final double BATTLE__EXP_GAIN_UPPER_BOUND = 1.2;
+  public static final double BATTLE__EXP_GAIN_MULTIPLIER = 1.8;
     
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;

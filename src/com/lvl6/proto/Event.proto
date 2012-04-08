@@ -228,6 +228,11 @@ message StartupResponseProto {
 			optional double upgradeStructCoinCostExponentBase = 3;
 			optional double upgradeStructDiamondCostExponentBase = 4;
 			optional double diamondCostForInstantUpgradeMultiplier = 5;
+			
+			optional double battleWeightGivenToAttackStat = 6;
+			optional double battleWeightGivenToAttackEquipSum = 7;
+			optional double battleWeightGivenToDefenseStat = 8;
+			optional double battleWeightGivenToDefenseEquipSum = 9;
 		}
 
 	}
