@@ -66,6 +66,7 @@ To move to server:
 a) Build project locally through eclipse
 b) Go to UtopiaServer path (type utopia), and do:
 ./movetoec2 50.18.106.161			(moves lib and bin folders)
+./movetoec2 50.18.106.161 binonly (for bin only)
 c) ssh ubuntu@<elastic ip>				//make a script for inside the shell.
 d) sudo mkdir /vol/Utopia
 e) sudo mv bin /vol/Utopia/

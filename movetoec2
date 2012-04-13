@@ -1,13 +1,15 @@
 #!/bin/bash
-echo $1
 if [ "$1" = "" ]
 then
   echo "Need to pass in a parameter (elastic ip of ec2 instance)"
   exit
 fi
 serverip=$1
+if [ "$2" != "binonly" ]
+then
+  sudo scp -r lib/ ubuntu@$serverip:~/
+fi
 sudo scp -r bin/ ubuntu@$serverip:~/
-sudo scp -r lib/ ubuntu@$serverip:~/
 ssh ubuntu@$serverip
 sudo mkdir /vol/Utopia
 sudo cp -r ~/bin /vol/Utopia/
