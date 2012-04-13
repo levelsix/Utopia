@@ -21,7 +21,7 @@ public class StructureRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_STRUCTURES;
 
   public static Map<Integer, Structure> getStructIdsToStructs() {
-    log.info("retrieving all-structs data");
+    log.debug("retrieving all-structs data");
     if (structIdsToStructs == null) {
       setStaticStructIdsToStructs();
     }
@@ -29,7 +29,7 @@ public class StructureRetrieveUtils {
   }
 
   public static Structure getStructForStructId(int structId) {
-    log.info("retrieve struct data");
+    log.debug("retrieve struct data");
     if (structIdsToStructs == null) {
       setStaticStructIdsToStructs();      
     }
@@ -37,7 +37,7 @@ public class StructureRetrieveUtils {
   }
 
   private static void setStaticStructIdsToStructs() {
-    log.info("setting static map of structIds to structs");
+    log.debug("setting static map of structIds to structs");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

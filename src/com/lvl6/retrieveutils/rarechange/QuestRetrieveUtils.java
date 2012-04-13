@@ -27,7 +27,7 @@ public class QuestRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_QUESTS;
 
   public static Map<Integer, Quest> getQuestIdsToQuests() {
-    log.info("retrieving all-quest data");
+    log.debug("retrieving all-quest data");
     if (questIdsToQuests == null) {
       setStaticQuestIdsToQuests();
     }
@@ -35,7 +35,7 @@ public class QuestRetrieveUtils {
   }
 
   public static Quest getQuestForQuestId(int questId) {
-    log.info("retrieve task data");
+    log.debug("retrieve task data");
     if (questIdsToQuests == null) {
       setStaticQuestIdsToQuests();
     }
@@ -43,7 +43,7 @@ public class QuestRetrieveUtils {
   }
 
   public static QuestGraph getQuestGraph() {
-    log.info("retrieving available quests");
+    log.debug("retrieving available quests");
     if (questGraph == null) {
       setStaticQuestGraph();
     }
@@ -51,7 +51,7 @@ public class QuestRetrieveUtils {
   }
 
   private static void setStaticQuestIdsToQuests() {
-    log.info("setting static map of questIds to quests");
+    log.debug("setting static map of questIds to quests");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;
@@ -78,7 +78,7 @@ public class QuestRetrieveUtils {
   }
 
   private static void setStaticQuestGraph() {
-    log.info("setting static quest graph");
+    log.debug("setting static quest graph");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

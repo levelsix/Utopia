@@ -60,10 +60,10 @@ public class QuestAcceptController extends EventController {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       Quest quest = QuestRetrieveUtils.getQuestForQuestId(questId);
 
-      boolean legitRedeem = checkLegitRedeem(resBuilder, user, quest);
+      boolean legitAccept = checkLegitAccept(resBuilder, user, quest);
 
       boolean defeatTypeJobsComplete = true;
-      if (legitRedeem) {
+      if (legitAccept) {
         resBuilder.setCityIdOfAcceptedQuest(quest.getCityId());
         boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
         List<Integer> defeatTypeJobIds = (goodSide) ? quest.getDefeatBadGuysJobsRequired()
@@ -96,7 +96,7 @@ public class QuestAcceptController extends EventController {
       resEvent.setQuestAcceptResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
-      if (legitRedeem) {
+      if (legitAccept) {
         boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
         UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete);
         writeChangesToDB(uq);
@@ -116,7 +116,7 @@ public class QuestAcceptController extends EventController {
     }
   }
 
-  private boolean checkLegitRedeem(Builder resBuilder, User user, Quest quest) {
+  private boolean checkLegitAccept(Builder resBuilder, User user, Quest quest) {
     if (user == null || quest == null) {
       resBuilder.setStatus(QuestAcceptStatus.OTHER_FAIL);
       return false;

@@ -22,7 +22,7 @@ public class TaskEquipReqRetrieveUtils {
 
 
   public static Map<Integer, Integer> getEquipmentIdsToQuantityForTaskId(int taskId) {
-    log.info("retrieving equipment reqs for task with id " + taskId);
+    log.debug("retrieving equipment reqs for task with id " + taskId);
 
     if (taskIdToEquipmentIdQuantityMap == null) {
       setStaticTaskIdToEquipmentIdQuantityMap();
@@ -32,7 +32,7 @@ public class TaskEquipReqRetrieveUtils {
 
 
   private static void setStaticTaskIdToEquipmentIdQuantityMap() {
-    log.info("setting static map of taskId to equipment/quantity map");
+    log.debug("setting static map of taskId to equipment/quantity map");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

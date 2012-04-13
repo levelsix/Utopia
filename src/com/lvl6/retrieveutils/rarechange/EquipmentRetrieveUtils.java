@@ -26,7 +26,7 @@ public class EquipmentRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_EQUIPMENT;
 
   public static Map<Integer, Equipment> getEquipmentIdsToEquipment() {
-    log.info("retrieving equipment data");
+    log.debug("retrieving equipment data");
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
     }
@@ -34,7 +34,7 @@ public class EquipmentRetrieveUtils {
   }
 
   public static List<Equipment> getAllArmoryEquipmentForClassType(ClassType classtype) {
-    log.info("retrieving equipment data");
+    log.debug("retrieving equipment data");
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
     }
@@ -49,11 +49,11 @@ public class EquipmentRetrieveUtils {
   }
 
   public static Map<Integer, Equipment> getEquipmentIdsToEquipment(List<Integer> equipIds) {
-    log.info("retrieving equipment with ids " + equipIds);
+    log.debug("retrieving equipment with ids " + equipIds);
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
     }
-    log.info("equipIdToEquipment is " + equipIdToEquipment);
+    log.debug("equipIdToEquipment is " + equipIdToEquipment);
     Map<Integer, Equipment> toreturn = new HashMap<Integer, Equipment>();
     for (Integer equipId : equipIds) {
       toreturn.put(equipId,  equipIdToEquipment.get(equipId));
@@ -62,7 +62,7 @@ public class EquipmentRetrieveUtils {
   }
 
   private static void setStaticEquipIdsToEquipment() {
-    log.info("setting static map of equipIds to equipment");
+    log.debug("setting static map of equipIds to equipment");
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

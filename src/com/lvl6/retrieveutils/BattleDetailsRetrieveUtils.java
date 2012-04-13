@@ -24,7 +24,7 @@ public class BattleDetailsRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_BATTLE_HISTORY;
 
   public static List<BattleDetails> getAllBattleDetailsAfterLastlogoutForDefender(Timestamp lastLogout, int defenderId) {
-    log.info("retrieving all battle details for " + defenderId + " after " + lastLogout);
+    log.debug("retrieving all battle details for " + defenderId + " after " + lastLogout);
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.BATTLE_HISTORY__DEFENDER_ID, defenderId);
 

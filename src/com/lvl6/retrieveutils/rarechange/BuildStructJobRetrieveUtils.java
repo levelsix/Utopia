@@ -22,7 +22,7 @@ public class BuildStructJobRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_JOBS_BUILD_STRUCT;
 
   public static Map<Integer, BuildStructJob> getBuildStructJobIdsToBuildStructJobs() {
-    log.info("retrieving all build struct job data");
+    log.debug("retrieving all build struct job data");
     if (buildStructJobIdsToBuildStructJobs == null) {
       setStaticBuildStructJobIdsToBuildStructJobs();
     }
@@ -30,7 +30,7 @@ public class BuildStructJobRetrieveUtils {
   }
 
   public static Map<Integer, BuildStructJob> getBuildStructJobsForBuildStructJobIds(List<Integer> ids) {
-    log.info("retrieving build struct jobs with ids " + ids);
+    log.debug("retrieving build struct jobs with ids " + ids);
     if (buildStructJobIdsToBuildStructJobs == null) {
       setStaticBuildStructJobIdsToBuildStructJobs();
     }
@@ -42,7 +42,7 @@ public class BuildStructJobRetrieveUtils {
   }
 
   public static BuildStructJob getBuildStructJobForBuildStructJobId(int buildStructJobId) {
-    log.info("retrieving build struct job data for build struct job id " + buildStructJobId);
+    log.debug("retrieving build struct job data for build struct job id " + buildStructJobId);
     if (buildStructJobIdsToBuildStructJobs == null) {
       setStaticBuildStructJobIdsToBuildStructJobs();
     }
@@ -50,7 +50,7 @@ public class BuildStructJobRetrieveUtils {
   }
 
   private static void setStaticBuildStructJobIdsToBuildStructJobs() {
-    log.info("setting static map of build struct job id to build struct job");
+    log.debug("setting static map of build struct job id to build struct job");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

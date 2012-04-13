@@ -5,7 +5,7 @@ then
   echo "Need to pass in a parameter (elastic ip of ec2 instance)"
   exit
 fi
-serverip="50.18.173.214"
+serverip=$1
 sudo scp -r bin/ ubuntu@$serverip:~/
 sudo scp -r lib/ ubuntu@$serverip:~/
 ssh ubuntu@$serverip

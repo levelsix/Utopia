@@ -22,7 +22,7 @@ public class UserCritstructRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_CITY_ELEMS;
 
   public static Map<CritStructType, UserCritstruct> getUserCritstructsForUser(int userId) {
-    log.info("retrieving user critstructs for userId " + userId);
+    log.debug("retrieving user critstructs for userId " + userId);
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);

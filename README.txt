@@ -59,21 +59,21 @@ Check variable names, etc. for everything in scripts folder.
 
 
 6) EC2 stuff
-dev: 		50.18.173.214 		ec2-50-18-173-214.us-west-1.compute.amazonaws.com
-prod:		
+dev: 		50.18.106.161		ec2-50-18-173-214.us-west-1.compute.amazonaws.com
+prod:		184.169.148.243		ec2-184-169-148-243.us-west-1.compute.amazonaws.com
 
 To move to server:
 a) Build project locally through eclipse
 b) Go to UtopiaServer path (type utopia), and do:
-./movetoec2 50.18.173.214			(moves lib and bin folders)
-c) ssh ubuntu@<elastic ip>
+./movetoec2 50.18.106.161			(moves lib and bin folders)
+c) ssh ubuntu@<elastic ip>				//make a script for inside the shell.
 d) sudo mkdir /vol/Utopia
-e) sudo cp -r bin /vol/Utopia/
-f) sudo cp -r bin /vol/Utopia/
-g) cd bin
+e) sudo mv bin /vol/Utopia/
+f) sudo mv lib /vol/Utopia/
+g) 	
 h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c. rm nohup.out
 i) nohup java -cp ../lib/*:./ com.lvl6.server.GameServer <public dns name> 8888 &
-nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-50-18-173-214.us-west-1.compute.amazonaws.com 8888 &
+nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-184-169-148-243.us-west-1.compute.amazonaws.com 8888 &
 
 
 nohup for generic logs, log4j

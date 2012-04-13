@@ -16,9 +16,14 @@ public class AvailableReferralCodeRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_AVAILABLE_REFERRAL_CODES;
 
   public static String getAvailableReferralCode() {
-    log.info("getting available referral code");
+    log.debug("getting available referral code");
+    
     String query = "select " + DBConstants.AVAILABLE_REFERRAL_CODES__CODE + " from " + TABLE_NAME + 
-        " limit 0, 1";
+        " where " + DBConstants.AVAILABLE_REFERRAL_CODES__ID + " >= (select floor( max(" + 
+        DBConstants.AVAILABLE_REFERRAL_CODES__ID + ") * rand()) from " + DBConstants.TABLE_AVAILABLE_REFERRAL_CODES
+        + ") order by " + DBConstants.AVAILABLE_REFERRAL_CODES__CODE + " limit 1";
+    
+    
 
     String availableReferralCode = null;
     

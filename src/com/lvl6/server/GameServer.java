@@ -65,6 +65,7 @@ public class GameServer extends Thread{
       BasicConfigurator.configure();
       GameServer server = new GameServer(args[0], Integer.parseInt(args[1]));
       DBConnection.init();
+      Logger.getLogger("com").setLevel(Globals.LOG_LEVEL);
       server.start();
     } else {
       System.out.println("Error in input- two arguments required: <serverip> <portnum>");
@@ -293,10 +294,17 @@ public class GameServer extends Thread{
   }
 
   public void lockPlayer(int playerId) {
+    log.info("\n\nThread that locked player " + playerId + " is " + Thread.currentThread() + "\n");
+    //can i print name of method that calls this?
+
     playersInAction.addPlayer(playerId);
   }
   
   public void lockPlayers(int playerId1, int playerId2) {
+    if (playerId1 == playerId2) {
+      lockPlayer(playerId1);
+      return;
+    }
     if (playerId1 > playerId2) {
       lockPlayer(playerId2);
       lockPlayer(playerId1);
@@ -308,6 +316,9 @@ public class GameServer extends Thread{
   }
 
   public void unlockPlayer(int playerId) {
+    log.info("\n\nThread that unlocked player " + playerId + " is " + Thread.currentThread() + "\n");
+    //can i print name of method that calls this?
+
     if (playersInAction.containsPlayer(playerId))
       playersInAction.removePlayer(playerId);
   }

@@ -19,7 +19,7 @@ public class UserTaskRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_TASKS;
   
   public static Map<Integer, Integer> getTaskIdToNumTimesActedInRankForUser(int userId) {
-    log.info("retrieving user task info for userId " + userId);
+    log.debug("retrieving user task info for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);

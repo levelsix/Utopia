@@ -22,7 +22,7 @@ public class UpgradeStructJobRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_JOBS_UPGRADE_STRUCT;
 
   public static Map<Integer, UpgradeStructJob> getUpgradeStructJobIdsToUpgradeStructJobs() {
-    log.info("retrieving all upgrade struct job data");
+    log.debug("retrieving all upgrade struct job data");
     if (upgradeStructJobIdsToUpgradeStructJobs == null) {
       setStaticUpgradeStructJobIdsToUpgradeStructJobs();
     }
@@ -30,7 +30,7 @@ public class UpgradeStructJobRetrieveUtils {
   }
 
   public static Map<Integer, UpgradeStructJob> getUpgradeStructJobsForUpgradeStructJobIds(List<Integer> ids) {
-    log.info("retrieving upgrade struct jobs with ids " + ids);
+    log.debug("retrieving upgrade struct jobs with ids " + ids);
     if (upgradeStructJobIdsToUpgradeStructJobs == null) {
       setStaticUpgradeStructJobIdsToUpgradeStructJobs();
     }
@@ -42,7 +42,7 @@ public class UpgradeStructJobRetrieveUtils {
   }
 
   public static UpgradeStructJob getUpgradeStructJobForUpgradeStructJobId(int upgradeStructJobId) {
-    log.info("retrieving upgrade struct job data for upgrade struct job id " + upgradeStructJobId);
+    log.debug("retrieving upgrade struct job data for upgrade struct job id " + upgradeStructJobId);
     if (upgradeStructJobIdsToUpgradeStructJobs == null) {
       setStaticUpgradeStructJobIdsToUpgradeStructJobs();
     }
@@ -50,7 +50,7 @@ public class UpgradeStructJobRetrieveUtils {
   }
 
   private static void setStaticUpgradeStructJobIdsToUpgradeStructJobs() {
-    log.info("setting static map of upgrade struct job id to upgrade struct job");
+    log.debug("setting static map of upgrade struct job id to upgrade struct job");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

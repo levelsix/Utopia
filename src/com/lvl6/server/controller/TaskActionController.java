@@ -98,7 +98,11 @@ public class TaskActionController extends EventController {
         if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
           Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
           int numTimesActedInRank = 0;
-          if (taskIdToNumTimesActedInRank != null && taskIdToNumTimesActedInRank.get(task.getId()) != null) {
+
+          //this should never happen
+          if (taskIdToNumTimesActedInRank == null) taskIdToNumTimesActedInRank = new HashMap<Integer, Integer>();
+          
+          if (taskIdToNumTimesActedInRank.get(task.getId()) != null) {
             numTimesActedInRank = taskIdToNumTimesActedInRank.get(task.getId());
           }
           numTimesActedInRank++;

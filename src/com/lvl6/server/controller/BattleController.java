@@ -169,8 +169,7 @@ public class BattleController extends EventController {
     } catch (Exception e) {
       log.error("exception in BattleController processEvent", e);
     } finally {
-      server
-      .unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
+      server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
   }
 

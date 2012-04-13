@@ -20,7 +20,7 @@ public class UserCityExpansionRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_CITY_ELEMS;
 
   public static UserCityExpansionData getUserCityExpansionDataForUser(int userId) {
-    log.info("retrieving user city expansion data for userId " + userId);
+    log.debug("retrieving user city expansion data for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
     

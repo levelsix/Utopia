@@ -23,7 +23,7 @@ public class MarketplacePostRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_MARKETPLACE;
 
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
-    log.info("retrieving specific marketplace posts");
+    log.debug("retrieving specific marketplace posts");
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsById(conn, marketplacePostId, TABLE_NAME);
@@ -33,7 +33,7 @@ public class MarketplacePostRetrieveUtils {
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostId(int limit, int postId) {
-    log.info("retrieving limited marketplace posts before certain id");
+    log.debug("retrieving limited marketplace posts before certain id");
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     
@@ -45,7 +45,7 @@ public class MarketplacePostRetrieveUtils {
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostIdForPoster(int limit, int postId, int posterId) {
-    log.info("retrieving limited marketplace posts before certain id");
+    log.debug("retrieving limited marketplace posts before certain id");
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
@@ -59,7 +59,7 @@ public class MarketplacePostRetrieveUtils {
   }
 
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
-    log.info("retrieving limited marketplace posts");
+    log.debug("retrieving limited marketplace posts");
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
@@ -69,7 +69,7 @@ public class MarketplacePostRetrieveUtils {
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
-    log.info("retrieving limited marketplace posts");
+    log.debug("retrieving limited marketplace posts");
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     

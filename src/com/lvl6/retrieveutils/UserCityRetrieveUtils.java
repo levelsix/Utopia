@@ -22,7 +22,7 @@ public class UserCityRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_CITIES;
   
   public static Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
-    log.info("retrieving city id to user city rank map for userId " + userId);
+    log.debug("retrieving city id to user city rank map for userId " + userId);
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -32,7 +32,7 @@ public class UserCityRetrieveUtils {
   }
   
   public static int getCurrentCityRankForUser(int userId, int cityId) {
-    log.info("retrieving user city info for userId " + userId);
+    log.debug("retrieving user city info for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);

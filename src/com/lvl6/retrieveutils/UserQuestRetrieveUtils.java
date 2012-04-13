@@ -20,7 +20,7 @@ public class UserQuestRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS;
   
   public static List<UserQuest> getInProgressAndRedeemedUserQuestsForUser(int userId) {
-    log.info("retrieving user quests for userId " + userId);
+    log.debug("retrieving user quests for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -30,7 +30,7 @@ public class UserQuestRetrieveUtils {
   }
   
   public static List<UserQuest> getInProgressUserQuestsForUser(int userId) {
-    log.info("retrieving user quests for userId " + userId);
+    log.debug("retrieving user quests for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
@@ -43,7 +43,7 @@ public class UserQuestRetrieveUtils {
   }
 
   public static List<UserQuest> getUserQuestsForUser(int userId) {
-    log.info("retrieving user quests for userId " + userId);
+    log.debug("retrieving user quests for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -53,7 +53,7 @@ public class UserQuestRetrieveUtils {
   }
   
   public static UserQuest getSpecificUnredeemedUserQuest(int userId, int questId) {
-    log.info("retrieving specific user quest for userid " + userId + " and questId " + questId);
+    log.debug("retrieving specific user quest for userid " + userId + " and questId " + questId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__QUEST_ID, questId);

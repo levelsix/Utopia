@@ -23,7 +23,7 @@ public class DefeatTypeJobRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_JOBS_DEFEAT_TYPE;
 
   public static Map<Integer, DefeatTypeJob> getDefeatTypeJobIdsToDefeatTypeJobs() {
-    log.info("retrieving all build defeat type job data");
+    log.debug("retrieving all build defeat type job data");
     if (defeatTypeJobIdsToDefeatTypeJobs == null) {
       setStaticDefeatTypeJobIdsToDefeatTypeJobs();
     }
@@ -31,7 +31,7 @@ public class DefeatTypeJobRetrieveUtils {
   }
 
   public static Map<Integer, DefeatTypeJob> getDefeatTypeJobsForDefeatTypeJobIds(List<Integer> ids) {
-    log.info("retrieving build defeat type jobs with ids " + ids);
+    log.debug("retrieving build defeat type jobs with ids " + ids);
     if (defeatTypeJobIdsToDefeatTypeJobs == null) {
       setStaticDefeatTypeJobIdsToDefeatTypeJobs();
     }
@@ -43,7 +43,7 @@ public class DefeatTypeJobRetrieveUtils {
   }
 
   public static DefeatTypeJob getDefeatTypeJobForDefeatTypeJobId(int defeatTypeJobId) {
-    log.info("retrieving build defeat type job data for defeat type job id " + defeatTypeJobId);
+    log.debug("retrieving build defeat type job data for defeat type job id " + defeatTypeJobId);
     if (defeatTypeJobIdsToDefeatTypeJobs == null) {
       setStaticDefeatTypeJobIdsToDefeatTypeJobs();
     }
@@ -51,7 +51,7 @@ public class DefeatTypeJobRetrieveUtils {
   }
 
   private static void setStaticDefeatTypeJobIdsToDefeatTypeJobs() {
-    log.info("setting static map of defeat type job id to defeat type job");
+    log.debug("setting static map of defeat type job id to defeat type job");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

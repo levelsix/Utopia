@@ -20,7 +20,7 @@ public class UserQuestsCompletedDefeatTypeJobsRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS;
 
   public static Map<Integer, List<Integer>> getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(int userId) {
-    log.info("getting user defeatTypeJobs done for user " + userId);
+    log.debug("getting user defeatTypeJobs done for user " + userId);
     Map <Integer, List<Integer>> questIdToUserDefeatTypeJobsCompleted = new HashMap<Integer, List<Integer>>();
 
     Connection conn = DBConnection.getConnection();

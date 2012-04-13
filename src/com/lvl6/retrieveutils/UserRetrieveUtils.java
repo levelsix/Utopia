@@ -26,13 +26,14 @@ public class UserRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_USER;
 
-  private static final int BATTLE_INITIAL_LEVEL_RANGE = 6;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
+  private static final int BATTLE_INITIAL_LEVEL_RANGE = 2;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
   private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
   private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
   private static final int MAX_BATTLE_DB_HITS = 5;
-
+  private static final int EXTREME_MAX_BATTLE_DB_HITS = 30;
+  
   public static User getUserById(int userId) {
-    log.info("retrieving user with userId " + userId);
+    log.debug("retrieving user with userId " + userId);
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsById(conn, userId, TABLE_NAME);
@@ -64,10 +65,10 @@ public class UserRetrieveUtils {
 
   public static List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Integer latLowerBound, Integer latUpperBound, Integer longLowerBound, Integer longUpperBound, boolean forBattle) {
-    log.info("retrieving list of users for user " + userId);
+    log.debug("retrieving list of users for user " + userId);
 
-    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2, 2) + 1;
-    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2 + 1;
+    int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2 - 1, 2);
+    int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
 
     List <Object> values = new ArrayList<Object>();
 
@@ -135,6 +136,7 @@ public class UserRetrieveUtils {
         if (!guaranteeNum) {
           if (numDBHits == MAX_BATTLE_DB_HITS) break;
         }
+        if (numDBHits == EXTREME_MAX_BATTLE_DB_HITS) break;
         rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
       }
     }
@@ -148,7 +150,7 @@ public class UserRetrieveUtils {
   //when you first log in, call this
   //if this returns null, tell user it's the player's first time/launch tutorial
   public static User getUserByUDID(String UDID) {
-    log.info("retrieving user with udid " + UDID);
+    log.debug("retrieving user with udid " + UDID);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
 
@@ -160,7 +162,7 @@ public class UserRetrieveUtils {
   }
 
   public static User getUserByReferralCode(String referralCode) {
-    log.info("retrieving user with referral code " + referralCode);
+    log.debug("retrieving user with referral code " + referralCode);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
 

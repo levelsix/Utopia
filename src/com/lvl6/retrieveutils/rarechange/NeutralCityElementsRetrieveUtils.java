@@ -27,7 +27,7 @@ public class NeutralCityElementsRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_NEUTRAL_CITY_ELEMENTS;
 
   public static Map<Integer, List<NeutralCityElement>> getCityIdToNeutralCityElements() {
-    log.info("retrieving all city id to neutral city elements data");
+    log.debug("retrieving all city id to neutral city elements data");
     if (cityIdToNeutralCityElements == null) {
       setStaticCityIdToNeutralCityElements();
     }
@@ -35,7 +35,7 @@ public class NeutralCityElementsRetrieveUtils {
   }
 
   public static NeutralCityElement getNeutralCityElement(int cityId, int assetId) {
-    log.info("retrieving all city id to neutral city elements data");
+    log.debug("retrieving all city id to neutral city elements data");
     if (cityIdToNeutralCityElements == null) {
       setStaticCityIdToNeutralCityElements();
     }
@@ -51,7 +51,7 @@ public class NeutralCityElementsRetrieveUtils {
   }
 
   public static List<NeutralCityElement> getNeutralCityElementsForCity(int cityId) {
-    log.info("retrieving all city id to neutral city elements data");
+    log.debug("retrieving all city id to neutral city elements data");
     if (cityIdToNeutralCityElements == null) {
       setStaticCityIdToNeutralCityElements();
     }
@@ -63,7 +63,7 @@ public class NeutralCityElementsRetrieveUtils {
   }
 
   private static void setStaticCityIdToNeutralCityElements() {
-    log.info("setting static map of city id to neutral city elements for city");
+    log.debug("setting static map of city id to neutral city elements for city");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

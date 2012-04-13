@@ -25,7 +25,7 @@ public class TaskRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_TASKS;
 
   public static Map<Integer, Task> getTaskIdsToTasks() {
-    log.info("retrieving all-tasks data");
+    log.debug("retrieving all-tasks data");
     if (taskIdsToTasks == null) {
       setStaticTaskIdsToTasks();
     }
@@ -33,7 +33,7 @@ public class TaskRetrieveUtils {
   }
 
   public static Task getTaskForTaskId(int taskId) {
-    log.info("retrieve task data");
+    log.debug("retrieve task data");
     if (taskIdsToTasks == null) {
       setStaticTaskIdsToTasks();      
     }
@@ -41,7 +41,7 @@ public class TaskRetrieveUtils {
   }
 
   public static Map<Integer, Task> getTasksForTaskIds(List<Integer> ids) {
-    log.info("retrieve task data");
+    log.debug("retrieve task data");
     if (taskIdsToTasks == null) {
       setStaticTaskIdsToTasks();      
     }
@@ -60,7 +60,7 @@ public class TaskRetrieveUtils {
   }
 
   private static void setStaticCityIdsToTasks() {
-    log.info("setting static map of cityId to tasks");
+    log.debug("setting static map of cityId to tasks");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;
@@ -91,7 +91,7 @@ public class TaskRetrieveUtils {
   }
 
   private static void setStaticTaskIdsToTasks() {
-    log.info("setting static map of taskIds to tasks");
+    log.debug("setting static map of taskIds to tasks");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

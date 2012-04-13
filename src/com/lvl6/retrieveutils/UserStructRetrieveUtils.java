@@ -26,7 +26,7 @@ public class UserStructRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_STRUCTS;
 
   public static List<UserStruct> getUserStructsForUser(int userId) {
-    log.info("retrieving user structs for userId " + userId);
+    log.debug("retrieving user structs for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -36,7 +36,7 @@ public class UserStructRetrieveUtils {
   }
 
   public static Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
-    log.info("retrieving user structs for userId " + userId);
+    log.debug("retrieving user structs for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -46,7 +46,7 @@ public class UserStructRetrieveUtils {
   }
 
   public static UserStruct getSpecificUserStruct(int userStructId) {
-    log.info("retrieving user structs for user struct id " + userStructId);
+    log.debug("retrieving user structs for user struct id " + userStructId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsById(conn, userStructId, TABLE_NAME);

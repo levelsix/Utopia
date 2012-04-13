@@ -1,5 +1,8 @@
 package com.lvl6.properties;
 
+import org.apache.log4j.Level;
+
+
 public class Globals {
     /** size of ByteBuffer for reading/writing from channels */
     public static final int NET_BUFFER_SIZE=16384*4;
@@ -19,9 +22,11 @@ public class Globals {
     /** default number of workers for GameControllers */
     public static final int DEFAULT_CONTROLLER_WORKERS = 2;
 
-    public static final boolean IS_SANDBOX = true;
+    public static final boolean IS_SANDBOX = false;
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
-    public static final String appStoreURL = "placeholder";
+    public static final String APP_STORE_URL = "placeholder";
+    
+    public static final Level LOG_LEVEL = Level.INFO;
 }

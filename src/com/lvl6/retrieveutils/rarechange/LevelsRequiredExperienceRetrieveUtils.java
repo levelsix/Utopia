@@ -20,7 +20,7 @@ public class LevelsRequiredExperienceRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_LEVELS_REQUIRED_EXPERIENCE;
 
   public static Map<Integer, Integer> getLevelsToRequiredExperienceForLevels() {
-    log.info("retrieving all exp-requirements-for-level data");
+    log.debug("retrieving all exp-requirements-for-level data");
     if (levelsToRequiredExperienceForLevels == null) {
       setStaticLevelsToRequiredExperienceForLevels();
     }
@@ -28,7 +28,7 @@ public class LevelsRequiredExperienceRetrieveUtils {
   }
 
   public static int getRequiredExperienceForLevel(int level) {
-    log.info("retrieving exp-requirements-for-level " + level);
+    log.debug("retrieving exp-requirements-for-level " + level);
     if (levelsToRequiredExperienceForLevels == null) {
       setStaticLevelsToRequiredExperienceForLevels();
     }
@@ -40,7 +40,7 @@ public class LevelsRequiredExperienceRetrieveUtils {
   }
 
   private static void setStaticLevelsToRequiredExperienceForLevels() {
-    log.info("setting static map of levels to required experience for levels");
+    log.debug("setting static map of levels to required experience for levels");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

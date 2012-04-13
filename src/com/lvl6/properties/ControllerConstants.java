@@ -104,7 +104,7 @@ public class ControllerConstants {
   //BATTLE
   public static final int BATTLE__MAX_ITEMS_USED = 4;   //unused right now
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
-  public static final double BATTLE__A = .1;		//must be <= 1
+  public static final double BATTLE__A = .15;		//must be <= 1
   public static final double BATTLE__B = 80;
   public static final double BATTLE__EXP_GAIN_LOWER_BOUND = .8;
   public static final double BATTLE__EXP_GAIN_UPPER_BOUND = 1.2;

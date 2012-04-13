@@ -223,6 +223,7 @@ public class DBConstants {
   public static final String REFERRALS__TIME_OF_REFERRAL = "time_of_referral";
   
   /*AVAILABLE REFERRAL CODES*/
+  public static final String AVAILABLE_REFERRAL_CODES__ID = "id";
   public static final String AVAILABLE_REFERRAL_CODES__CODE = "code";
   
 }

@@ -25,7 +25,7 @@ public class MarketplaceTransactionRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY;
 
   public static List<MarketplaceTransaction> getAllMarketplaceTransactionsAfterLastlogoutForDefender(Timestamp lastLogout, int posterId) {
-    log.info("retrieving all marketplace transactions for " + posterId + " after " + lastLogout);
+    log.debug("retrieving all marketplace transactions for " + posterId + " after " + lastLogout);
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, posterId);
 

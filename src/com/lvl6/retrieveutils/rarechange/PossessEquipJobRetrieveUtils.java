@@ -22,7 +22,7 @@ public class PossessEquipJobRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_JOBS_POSSESS_EQUIP;
 
   public static Map<Integer, PossessEquipJob> getPossessEquipJobIdsToPossessEquipJobs() {
-    log.info("retrieving all possess equip job data");
+    log.debug("retrieving all possess equip job data");
     if (possessEquipJobIdsToPossessEquipJobs == null) {
       setStaticPossessEquipJobIdsToPossessEquipJobs();
     }
@@ -30,7 +30,7 @@ public class PossessEquipJobRetrieveUtils {
   }
 
   public static Map<Integer, PossessEquipJob> getPossessEquipJobsForPossessEquipJobIds(List<Integer> ids) {
-    log.info("retrieving possess equip jobs with ids " + ids);
+    log.debug("retrieving possess equip jobs with ids " + ids);
     if (possessEquipJobIdsToPossessEquipJobs == null) {
       setStaticPossessEquipJobIdsToPossessEquipJobs();
     }
@@ -42,7 +42,7 @@ public class PossessEquipJobRetrieveUtils {
   }
 
   public static PossessEquipJob getPossessEquipJobForPossessEquipJobId(int possessEquipJobId) {
-    log.info("retrieving possess equip job data for possess equip job id " + possessEquipJobId);
+    log.debug("retrieving possess equip job data for possess equip job id " + possessEquipJobId);
     if (possessEquipJobIdsToPossessEquipJobs == null) {
       setStaticPossessEquipJobIdsToPossessEquipJobs();
     }
@@ -50,7 +50,7 @@ public class PossessEquipJobRetrieveUtils {
   }
 
   private static void setStaticPossessEquipJobIdsToPossessEquipJobs() {
-    log.info("setting static map of possess equip job id to possess equip job");
+    log.debug("setting static map of possess equip job id to possess equip job");
 
     Connection conn = DBConnection.getConnection();
     ResultSet rs = null;

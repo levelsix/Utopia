@@ -22,7 +22,7 @@ public class UserEquipRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
 
   public static List<UserEquip> getUserEquipsForUser(int userId) {
-    log.info("retrieving user equips for userId " + userId);
+    log.debug("retrieving user equips for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -32,7 +32,7 @@ public class UserEquipRetrieveUtils {
   }
 
   public static Map<Integer, UserEquip> getEquipIdsToUserEquipsForUser(int userId) {
-    log.info("retrieving user equips for userId " + userId);
+    log.debug("retrieving user equips for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -42,7 +42,7 @@ public class UserEquipRetrieveUtils {
   }
 
   public static UserEquip getSpecificUserEquip(int userId, int equipId) {
-    log.info("retrieving user equip for userId " + userId + " and equipId " + equipId);
+    log.debug("retrieving user equip for userId " + userId + " and equipId " + equipId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
@@ -57,7 +57,7 @@ public class UserEquipRetrieveUtils {
   /*
   //returns map from userId to his equipments
   public static Map<Integer, List<UserEquip>> getUserEquipsForUserIds(List<Integer> userIds) {
-    log.info("retrieving user equips for userIds " + userIds);
+    log.debug("retrieving user equips for userIds " + userIds);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : userIds) {
       paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, i); BUG BUG IT OVERWRITES

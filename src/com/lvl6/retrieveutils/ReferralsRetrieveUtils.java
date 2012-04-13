@@ -22,7 +22,7 @@ public class ReferralsRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_REFERRALS;
 
   public static List<Referral> getAllReferralsAfterLastlogoutForReferrer(Timestamp lastLogout, int referrerId) {
-    log.info("retrieving all referrals for referrer " + referrerId + " after " + lastLogout);
+    log.debug("retrieving all referrals for referrer " + referrerId + " after " + lastLogout);
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.REFERRALS__REFERRER_ID, referrerId);
 
