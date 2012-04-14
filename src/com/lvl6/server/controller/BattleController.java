@@ -114,7 +114,7 @@ public class BattleController extends EventController {
         }
 
         Random random = new Random();
-        lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
+        lostCoins = calculateLostCoins(winner, loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
 
         if (result == BattleResult.ATTACKER_WIN) {
@@ -285,29 +285,32 @@ public class BattleController extends EventController {
     }
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
+
     if (winner == attacker) {
       attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
           expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime);
       defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-          0, lostCoins * -1, 0, 1, 0, false, true, battleTime);
+          0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime);
     } else if (winner == defender) {
       if (isFlee) {
         attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
             0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime);
         defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, lostCoins, 1, 0, 0, false, false, battleTime);
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime);
       } else {
         attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
             0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime);
         defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, lostCoins, 1, 0, 0, false, true, battleTime);        
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime);        
       }
     }
   }
 
-  private int calculateLostCoins(User loser, Random random, boolean isFlee) {
-    int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * Math.random()
-        * ControllerConstants.BATTLE__A, loser.getLevel()
+  private int calculateLostCoins(User winner, User loser, Random random, boolean isFlee) {
+    User player = (loser.isFake() && !winner.isFake()) ? winner : loser;
+    
+    int lostCoins = (int) Math.rint(Math.min(player.getCoins() * Math.random()
+        * ControllerConstants.BATTLE__A, player.getLevel()
         * ControllerConstants.BATTLE__B));
     if (isFlee) {
       return lostCoins/2;
