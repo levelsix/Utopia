@@ -28,6 +28,12 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
   
+  public static int calculateCoinsGivenToReferrer(User referrer) {
+    return Math.min(ControllerConstants.USER_CREATE__MIN_COIN_REWARD_FOR_REFERRER, (int)(Math.ceil(
+        (referrer.getVaultBalance() + referrer.getCoins()) * 
+        ControllerConstants.USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER)));
+  }
+  
   public static int calculateCoinsGainedFromTutorialTask(Task firstTaskToComplete) {
     return ((firstTaskToComplete.getMinCoinsGained() + firstTaskToComplete.getMaxCoinsGained())/2)
         * firstTaskToComplete.getNumForCompletion();
@@ -162,7 +168,6 @@ public class MiscMethods {
         .setDiamondCostOfShortMarketplaceLicense(ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST)
         .setMaxNumbersOfEnemiesToGenerateAtOnce(ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX)
         .setPercentReturnedToUserForSellingEquipInArmory(ControllerConstants.ARMORY__SELL_RATIO)
-        .setDiamondRewardForReferrer(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER)
         .setMaxCityRank(ControllerConstants.TASK_ACTION__MAX_CITY_RANK)
         .setMinLevelForArmory(ControllerConstants.MIN_LEVEL_FOR_ARMORY)
         .setMinLevelForMarketplace(ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE)

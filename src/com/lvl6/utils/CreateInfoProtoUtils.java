@@ -80,7 +80,7 @@ public class CreateInfoProtoUtils {
   public static ReferralNotificationProto createReferralNotificationProtoFromReferral(
       Referral r, User newlyReferred) {
     return ReferralNotificationProto.newBuilder().setReferred(createMinimumUserProtoFromUser(newlyReferred))
-        .setRecruitTime(r.getTimeOfReferral().getTime()).build();
+        .setRecruitTime(r.getTimeOfReferral().getTime()).setCoinsGivenToReferrer(r.getCoinsGivenToReferrer()).build();
   }
 
   public static MarketplacePostPurchasedNotificationProto createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(MarketplaceTransaction mt, User buyer) {

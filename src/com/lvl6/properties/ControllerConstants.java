@@ -104,7 +104,7 @@ public class ControllerConstants {
   //BATTLE
   public static final int BATTLE__MAX_ITEMS_USED = 4;   //unused right now
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
-  public static final double BATTLE__A = .15;		//must be <= 1
+  public static final double BATTLE__A = .3;		//must be <= 1
   public static final double BATTLE__B = 80;
   public static final double BATTLE__EXP_GAIN_LOWER_BOUND = .8;
   public static final double BATTLE__EXP_GAIN_UPPER_BOUND = 1.2;
@@ -174,8 +174,9 @@ public class ControllerConstants {
   public static final int USER_CREATE__START_LEVEL = 2;
   public static final int USER_CREATE__MIN_NAME_LENGTH = 3;
   public static final int USER_CREATE__MAX_NAME_LENGTH = 15;
-  public static final int USER_CREATE__DIAMOND_REWARD_FOR_REFERRER = 20;
-  public static final int USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED = 10;
+  public static final int USER_CREATE__MIN_COIN_REWARD_FOR_REFERRER = 100;
+  public static final int USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED = 50;
+  public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
   
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;

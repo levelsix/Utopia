@@ -154,6 +154,7 @@ message StartupResponseProto {
 	message ReferralNotificationProto {
 		optional MinimumUserProto referred = 1;
 		optional int64 recruitTime = 2;
+		optional int32 coinsGivenToReferrer = 3;
 	}
 	  
 	message StartupConstants {
@@ -207,7 +208,6 @@ message StartupResponseProto {
 		optional int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
 		optional double percentReturnedToUserForSellingEquipInArmory = 5;
 		
-		optional int32 diamondRewardForReferrer = 47;
 		optional int32 maxCityRank = 50;
 		
 		optional int32 minLevelForArmory = 51;
@@ -263,7 +263,7 @@ message StartupResponseProto {
 		optional int32 minNameLength = 19;
 		optional int32 maxNameLength = 20;
 
-		optional int32 diamondRewardForBeingReferred = 22;		
+		optional int32 coinRewardForBeingReferred = 22;		
 
      	repeated NeutralCityElementProto firstCityElementsForGood = 23;
      	repeated NeutralCityElementProto firstCityElementsForBad = 24;
@@ -1176,6 +1176,7 @@ message PurchaseMarketplaceLicenseResponseProto {
 message ReferralCodeUsedResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional MinimumUserProto referredPlayer = 2;
+	optional int32 coinsGivenToReferrer = 3;
 }
 
 //------------------------------------------------------------------------------------------

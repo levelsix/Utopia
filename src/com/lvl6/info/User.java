@@ -673,14 +673,14 @@ public class User {
     return false;
   }
 
-  public boolean updateRelativeDiamondsNumreferrals (int diamondChange, int numReferralsChange) {
+  public boolean updateRelativeCoinsNumreferrals (int coinChange, int numReferralsChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
 
-    if (diamondChange != 0) {
-      relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    if (coinChange != 0) {
+      relativeParams.put(DBConstants.USER__COINS, coinChange);
     }
     if (numReferralsChange != 0) {
       relativeParams.put(DBConstants.USER__NUM_REFERRALS, numReferralsChange); 
@@ -689,7 +689,7 @@ public class User {
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
-      this.diamonds += diamondChange;
+      this.coins += coinChange;
       this.numReferrals += numReferralsChange;
       return true;
     }

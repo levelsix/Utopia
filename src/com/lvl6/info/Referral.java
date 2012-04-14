@@ -6,10 +6,12 @@ public class Referral {
   private int referrerId;
   private int newlyReferredId;
   private Date timeOfReferral;
-  public Referral(int referrerId, int newlyReferredId, Date timeOfReferral) {
+  private int coinsGivenToReferrer;
+  public Referral(int referrerId, int newlyReferredId, Date timeOfReferral, int coinsGivenToReferrer) {
     this.referrerId = referrerId;
     this.newlyReferredId = newlyReferredId;
     this.timeOfReferral = timeOfReferral;
+    this.coinsGivenToReferrer = coinsGivenToReferrer;
   }
   public int getReferrerId() {
     return referrerId;
@@ -20,9 +22,13 @@ public class Referral {
   public Date getTimeOfReferral() {
     return timeOfReferral;
   }
+  public int getCoinsGivenToReferrer() {
+    return coinsGivenToReferrer;
+  }
   @Override
   public String toString() {
     return "Referral [referrerId=" + referrerId + ", newlyReferredId="
-        + newlyReferredId + ", timeOfReferral=" + timeOfReferral + "]";
+        + newlyReferredId + ", timeOfReferral=" + timeOfReferral
+        + ", coinsGivenToReferrer=" + coinsGivenToReferrer + "]";
   }
 }

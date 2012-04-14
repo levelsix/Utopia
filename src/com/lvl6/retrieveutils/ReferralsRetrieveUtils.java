@@ -60,6 +60,7 @@ public class ReferralsRetrieveUtils {
     int referrerId = rs.getInt(i++);
     int newlyReferredId = rs.getInt(i++);
     Date timeOfReferral = new Date(rs.getTimestamp(i++).getTime());
-    return new Referral(referrerId, newlyReferredId, timeOfReferral);
+    int coinsGivenToReferrer = rs.getInt(i++);
+    return new Referral(referrerId, newlyReferredId, timeOfReferral, coinsGivenToReferrer);
   }
 }

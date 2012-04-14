@@ -103,9 +103,9 @@ public class UserCreateController extends EventController {
       int playerCoins = ControllerConstants.TUTORIAL__INIT_COINS + MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED
           - EquipmentRetrieveUtils.getEquipmentIdsToEquipment()
           .get(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD).getCoinPrice(); 
+      if (referrer != null) playerCoins += ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED;
 
       int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
-      if (referrer != null) playerDiamonds += ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_BEING_REFERRED;
       if (usedDiamondsToBuild) playerDiamonds -= ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
       
       Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
@@ -232,15 +232,17 @@ public class UserCreateController extends EventController {
     if (!referrer.isFake()) {
       server.lockPlayer(referrer.getId());
       try {
-        if (!referrer.updateRelativeDiamondsNumreferrals(ControllerConstants.USER_CREATE__DIAMOND_REWARD_FOR_REFERRER, 1)) {
+        int coinsGivenToReferrer = MiscMethods.calculateCoinsGivenToReferrer(referrer);
+        if (!referrer.updateRelativeCoinsNumreferrals(coinsGivenToReferrer, 1)) {
           log.error("problem with rewarding the referrer");
         } else {
-          InsertUtils.insertReferral(referrer.getId(), user.getId());
+          InsertUtils.insertReferral(referrer.getId(), user.getId(), coinsGivenToReferrer);
 
           ReferralCodeUsedResponseEvent resEvent = new ReferralCodeUsedResponseEvent(referrer.getId());
           ReferralCodeUsedResponseProto resProto = ReferralCodeUsedResponseProto.newBuilder()
               .setSender(CreateInfoProtoUtils.createMinimumUserProtoFromUser(referrer))
-              .setReferredPlayer(CreateInfoProtoUtils.createMinimumUserProtoFromUser(user)).build();
+              .setReferredPlayer(CreateInfoProtoUtils.createMinimumUserProtoFromUser(user))
+              .setCoinsGivenToReferrer(coinsGivenToReferrer).build();
           resEvent.setReferralCodeUsedResponseProto(resProto);
           server.writeAPNSNotificationOrEvent(resEvent);
         }

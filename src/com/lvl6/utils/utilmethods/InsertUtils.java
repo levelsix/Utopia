@@ -242,12 +242,13 @@ public class InsertUtils {
     return false;
   }
 
-  public static boolean insertReferral(int referrerId, int referredId) {
+  public static boolean insertReferral(int referrerId, int referredId, int coinsGivenToReferrer) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.REFERRALS__REFERRER_ID, referrerId);
     insertParams.put(DBConstants.REFERRALS__NEWLY_REFERRED_ID, referredId);
     insertParams.put(DBConstants.REFERRALS__TIME_OF_REFERRAL, new Timestamp(new Date().getTime()));
+    insertParams.put(DBConstants.REFERRALS__COINS_GIVEN_TO_REFERRER, new Timestamp(new Date().getTime()));
     
     int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_REFERRALS, insertParams);
     if (numInserted == 1) {

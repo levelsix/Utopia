@@ -221,6 +221,7 @@ public class DBConstants {
   public static final String REFERRALS__REFERRER_ID = "referrer_id";
   public static final String REFERRALS__NEWLY_REFERRED_ID = "newly_referred_id";
   public static final String REFERRALS__TIME_OF_REFERRAL = "time_of_referral";
+  public static final String REFERRALS__COINS_GIVEN_TO_REFERRER = "coins_given_to_referrer";
   
   /*AVAILABLE REFERRAL CODES*/
   public static final String AVAILABLE_REFERRAL_CODES__ID = "id";
