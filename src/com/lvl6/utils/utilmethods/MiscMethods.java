@@ -19,6 +19,7 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
@@ -192,6 +193,19 @@ public class MiscMethods {
         .build();
     
     cb = cb.setFormulaConstants(formulaConstants);
+    
+    BattleConstants battleConstants = BattleConstants.newBuilder()
+        .setAttackSkillPointToEquipAttackRatio(ControllerConstants.BATTLE__ATTACK_SKILL_POINT_TO_EQUIP_ATTACK_RATIO)
+        .setDefenseSkillPointToEquipDefenseRatio(ControllerConstants.BATTLE__DEFENSE_SKILL_POINT_TO_EQUIP_ATTACK_RATIO)
+        .setLocationBarMax(ControllerConstants.BATTLE__LOCATION_BAR_MAX)
+        .setMaxAttackMultiplier(ControllerConstants.BATTLE__MAX_ATTACK_MULTIPLIER)
+        .setMinPercentOfEnemyHealth(ControllerConstants.BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH)
+        .setMaxPercentOfEnemyHealth(ControllerConstants.BATTLE__MAX_PERCENT_OF_ENEMY_HEALTH)
+        .setBattleDifferenceMultiplier(ControllerConstants.BATTLE__BATTLE_DIFFERENCE_MULTIPLIER)
+        .setBattleDifferenceTuner(ControllerConstants.BATTLE__BATTLE_DIFFERENCE_TUNER)
+        .build();
+    
+    cb = cb.setBattleConstants(battleConstants);
     
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));

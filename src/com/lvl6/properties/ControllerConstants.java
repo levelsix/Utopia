@@ -104,12 +104,21 @@ public class ControllerConstants {
   //BATTLE
   public static final int BATTLE__MAX_ITEMS_USED = 4;   //unused right now
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
-  public static final double BATTLE__A = .3;		//must be <= 1
+  public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
   public static final double BATTLE__EXP_GAIN_LOWER_BOUND = .8;
   public static final double BATTLE__EXP_GAIN_UPPER_BOUND = 1.2;
   public static final double BATTLE__EXP_GAIN_MULTIPLIER = 1.8;
-    
+  
+  public static final float BATTLE__ATTACK_SKILL_POINT_TO_EQUIP_ATTACK_RATIO = 2;
+  public static final float BATTLE__DEFENSE_SKILL_POINT_TO_EQUIP_ATTACK_RATIO = 2;
+  public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
+  public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
+  public static final double BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH = .1;
+  public static final double BATTLE__MAX_PERCENT_OF_ENEMY_HEALTH = .6;
+  public static final double BATTLE__BATTLE_DIFFERENCE_MULTIPLIER = 1;
+  public static final double BATTLE__BATTLE_DIFFERENCE_TUNER = 0;
+  
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
   

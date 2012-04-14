@@ -136,7 +136,7 @@ message StartupResponseProto {
 	repeated ReferralNotificationProto referralNotifications = 14;
 	
 	optional string appStoreURL = 17;
-	
+
 	message MarketplacePostPurchasedNotificationProto {
 		optional FullMarketplacePostProto marketplacePost = 1;
 		optional MinimumUserProto buyer = 2;
@@ -221,6 +221,7 @@ message StartupResponseProto {
 		optional int32 aviaryImgVerticalPixelOffset = 58;
 		
 		optional FormulaConstants formulaConstants = 59;
+		optional BattleConstants battleConstants = 60;
 		
 		message FormulaConstants {
 			optional double minutesToUpgradeForNormStructMultiplier = 1;
@@ -233,6 +234,17 @@ message StartupResponseProto {
 			optional double battleWeightGivenToAttackEquipSum = 7;
 			optional double battleWeightGivenToDefenseStat = 8;
 			optional double battleWeightGivenToDefenseEquipSum = 9;
+		}
+		
+		message BattleConstants {
+			optional float attackSkillPointToEquipAttackRatio = 1;
+			optional float defenseSkillPointToEquipDefenseRatio = 2;
+			optional float locationBarMax = 3;
+			optional double maxAttackMultiplier = 4;
+			optional double minPercentOfEnemyHealth = 5;
+			optional double maxPercentOfEnemyHealth = 6;
+			optional double battleDifferenceMultiplier = 7;
+			optional double battleDifferenceTuner = 8;			
 		}
 
 	}
