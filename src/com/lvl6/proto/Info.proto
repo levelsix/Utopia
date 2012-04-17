@@ -62,11 +62,11 @@ message FullUserProto {
 	optional int64 lastBattleNotificationTime = 39;
 	optional int64 lastTimeAttacked = 40;
 	optional int32 numBadges = 42;
+	optional int64 createTime = 47;
 	
 	optional int64 lastShortLicensePurchaseTime = 43;
 	optional int64 lastLongLicensePurchaseTime = 44;
 	optional bool isFake = 46;
-	
 }
 
 //------------------------------------------------------------------------------------------

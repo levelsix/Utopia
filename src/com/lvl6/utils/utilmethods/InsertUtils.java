@@ -261,6 +261,8 @@ public class InsertUtils {
   public static int insertUser(String udid, String name, UserType type, Location location, String deviceToken, String newReferCode, int level, 
       int attack, int defense, int energy, int health, int stamina, int experience, int coins, int diamonds, 
       Integer weaponEquipped, Integer armorEquipped, Integer amuletEquipped, boolean isFake) {
+    
+    Timestamp now = new Timestamp(new Date().getTime());
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER__UDID, udid);
     insertParams.put(DBConstants.USER__NAME, name);
@@ -279,12 +281,13 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER__REFERRAL_CODE, newReferCode);
     insertParams.put(DBConstants.USER__LATITUDE, location.getLatitude());
     insertParams.put(DBConstants.USER__LONGITUDE, location.getLongitude());
-    insertParams.put(DBConstants.USER__LAST_LOGIN, new Timestamp(new Date().getTime()));
+    insertParams.put(DBConstants.USER__LAST_LOGIN, now);
     insertParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
     insertParams.put(DBConstants.USER__IS_FAKE, isFake);
     insertParams.put(DBConstants.USER__WEAPON_EQUIPPED, weaponEquipped);
     insertParams.put(DBConstants.USER__ARMOR_EQUIPPED, armorEquipped);
     insertParams.put(DBConstants.USER__AMULET_EQUIPPED, amuletEquipped);
+    insertParams.put(DBConstants.USER__CREATE_TIME, now);
     
     
     int userId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER, insertParams);
