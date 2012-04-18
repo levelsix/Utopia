@@ -62,6 +62,10 @@ Check variable names, etc. for everything in scripts folder.
 dev: 		50.18.106.161		ec2-50-18-173-214.us-west-1.compute.amazonaws.com
 prod:		184.169.148.243		ec2-184-169-148-243.us-west-1.compute.amazonaws.com
 
+ALL EC2 INSTANCES SHOULD HAVE THIS TIME ZONE
+us pacific pdt America/Los Angeles
+dpkg-reconfigure tzdata on ubuntu box
+
 To move to server:
 a) Build project locally through eclipse
 b) Go to UtopiaServer path (type utopia), and do:
