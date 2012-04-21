@@ -126,6 +126,20 @@ public class Quest {
   public List<Integer> getPossessEquipJobsRequired() {
     return possessEquipJobsRequired;
   }
+  public int getNumComponents(boolean isGoodSide) {
+    int numComponents = 0;
+    if (tasksRequired != null) numComponents += tasksRequired.size();
+    if (upgradeStructJobsRequired != null) numComponents += upgradeStructJobsRequired.size();
+    if (buildStructJobsRequired != null) numComponents += buildStructJobsRequired.size();
+    if (isGoodSide) {
+      if (defeatBadGuysJobsRequired != null) numComponents += defeatBadGuysJobsRequired.size();
+    } else {
+      if (defeatGoodGuysJobsRequired != null) numComponents += defeatGoodGuysJobsRequired.size();
+    }
+    if (possessEquipJobsRequired != null) numComponents += possessEquipJobsRequired.size();
+    return numComponents;
+  }
+  
   @Override
   public String toString() {
     return "Quest [id=" + id + ", cityId=" + cityId + ", goodName=" + goodName
