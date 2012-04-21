@@ -327,6 +327,7 @@ message FullUserQuestDataLargeProto {
      repeated MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 7;
      repeated MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 8;
      repeated MinimumUserQuestTaskProto requiredTasksProgress = 9;
+     optional int32 numComponentsComplete = 10;
 }
 
 message MinimumUserQuestTaskProto {
@@ -409,4 +410,6 @@ message FullQuestProto {
      repeated int32 buildStructJobsReqs = 15;
      repeated int32 defeatTypeReqs = 16;
      repeated int32 possessEquipJobReqs = 17;
+     optional int32 numComponentsForGood = 18;
+     optional int32 numComponentsForBad = 19;
 }
