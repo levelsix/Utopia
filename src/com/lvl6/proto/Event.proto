@@ -237,8 +237,6 @@ message StartupResponseProto {
 		}
 		
 		message BattleConstants {
-			optional float attackSkillPointToEquipAttackRatio = 1;
-			optional float defenseSkillPointToEquipDefenseRatio = 2;
 			optional float locationBarMax = 3;
 			optional double maxAttackMultiplier = 4;
 			optional double minPercentOfEnemyHealth = 5;

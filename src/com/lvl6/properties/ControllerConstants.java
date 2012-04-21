@@ -110,8 +110,6 @@ public class ControllerConstants {
   public static final double BATTLE__EXP_GAIN_UPPER_BOUND = 1.2;
   public static final double BATTLE__EXP_GAIN_MULTIPLIER = 1.8;
   
-  public static final float BATTLE__ATTACK_SKILL_POINT_TO_EQUIP_ATTACK_RATIO = 2;
-  public static final float BATTLE__DEFENSE_SKILL_POINT_TO_EQUIP_ATTACK_RATIO = 2;
   public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
   public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
   public static final double BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH = .25;
@@ -176,8 +174,8 @@ public class ControllerConstants {
   //PURCHASE MARKETPLACE LICENSE
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE = 3;
-  public static final int PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST = 50;
-  public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 20;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__LONG_DIAMOND_COST = 40;
+  public static final int PURCHASE_MARKETPLACE_LICENSE__SHORT_DIAMOND_COST = 5;
 
   //USER CREATE 
   public static final int USER_CREATE__START_LEVEL = 2;

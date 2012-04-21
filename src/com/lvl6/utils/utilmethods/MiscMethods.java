@@ -195,8 +195,6 @@ public class MiscMethods {
     cb = cb.setFormulaConstants(formulaConstants);
     
     BattleConstants battleConstants = BattleConstants.newBuilder()
-        .setAttackSkillPointToEquipAttackRatio(ControllerConstants.BATTLE__ATTACK_SKILL_POINT_TO_EQUIP_ATTACK_RATIO)
-        .setDefenseSkillPointToEquipDefenseRatio(ControllerConstants.BATTLE__DEFENSE_SKILL_POINT_TO_EQUIP_ATTACK_RATIO)
         .setLocationBarMax(ControllerConstants.BATTLE__LOCATION_BAR_MAX)
         .setMaxAttackMultiplier(ControllerConstants.BATTLE__MAX_ATTACK_MULTIPLIER)
         .setMinPercentOfEnemyHealth(ControllerConstants.BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH)
