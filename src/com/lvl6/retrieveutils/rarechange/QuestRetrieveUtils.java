@@ -11,8 +11,10 @@ import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.info.Dialogue;
 import com.lvl6.info.Quest;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.QuestGraph;
 
@@ -112,6 +114,30 @@ public class QuestRetrieveUtils {
     setStaticQuestIdsToQuests();
   }
 
+  private static Dialogue createDialogue(String dialogueBlob) {
+    if (dialogueBlob != null && dialogueBlob.length() > 0) { 
+      StringTokenizer st = new StringTokenizer(dialogueBlob, "~");
+
+      List<DialogueSpeaker> speakers = new ArrayList<DialogueSpeaker>();
+      List<String> speakerTexts = new ArrayList<String>();
+
+      try {
+        while (st.hasMoreTokens()) {
+          DialogueSpeaker speaker = DialogueSpeaker.valueOf(Integer.parseInt(st.nextToken()));
+          String speakerText = st.nextToken();
+          if (speakerText != null) {
+            speakers.add(speaker);
+            speakerTexts.add(speakerText);
+          }
+        }
+      } catch (Exception e) {
+        log.error("Problem with creating Quest objects ");
+        e.printStackTrace();
+      }
+      return new Dialogue(speakers, speakerTexts);
+    }
+    return null;
+  }
 
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
@@ -130,6 +156,12 @@ public class QuestRetrieveUtils {
     String badDoneResponse = rs.getString(i++);
     String goodInProgress = rs.getString(i++);
     String badInProgress = rs.getString(i++);
+
+    String goodAcceptDialogueBlob = rs.getString(i++);
+    Dialogue goodAcceptDialogue = createDialogue(goodAcceptDialogueBlob);
+    String badAcceptDialogueBlob = rs.getString(i++);
+    Dialogue badAcceptDialogue = createDialogue(badAcceptDialogueBlob);
+
     int assetNumWithinCity = rs.getInt(i++);
     int coinsGained = rs.getInt(i++);
     int diamondsGained = rs.getInt(i++);
@@ -200,11 +232,13 @@ public class QuestRetrieveUtils {
     }
 
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
-        goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, assetNumWithinCity, 
+        goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, 
+        goodAcceptDialogue, badAcceptDialogue, assetNumWithinCity, 
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, defeatGoodGuysRequired, 
         defeatBadGuysRequired, possessEquipJobsRequired);
     return quest;
   }
+
 }

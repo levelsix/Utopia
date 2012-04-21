@@ -22079,6 +22079,11 @@ public final class InfoProto {
     // optional int32 numComponentsForBad = 19;
     boolean hasNumComponentsForBad();
     int getNumComponentsForBad();
+    
+    // optional .com.lvl6.proto.DialogueProto acceptDialogue = 20;
+    boolean hasAcceptDialogue();
+    com.lvl6.proto.InfoProto.DialogueProto getAcceptDialogue();
+    com.lvl6.proto.InfoProto.DialogueProtoOrBuilder getAcceptDialogueOrBuilder();
   }
   public static final class FullQuestProto extends
       com.google.protobuf.GeneratedMessage
@@ -22411,6 +22416,19 @@ public final class InfoProto {
       return numComponentsForBad_;
     }
     
+    // optional .com.lvl6.proto.DialogueProto acceptDialogue = 20;
+    public static final int ACCEPTDIALOGUE_FIELD_NUMBER = 20;
+    private com.lvl6.proto.InfoProto.DialogueProto acceptDialogue_;
+    public boolean hasAcceptDialogue() {
+      return ((bitField0_ & 0x00002000) == 0x00002000);
+    }
+    public com.lvl6.proto.InfoProto.DialogueProto getAcceptDialogue() {
+      return acceptDialogue_;
+    }
+    public com.lvl6.proto.InfoProto.DialogueProtoOrBuilder getAcceptDialogueOrBuilder() {
+      return acceptDialogue_;
+    }
+    
     private void initFields() {
       questId_ = 0;
       cityId_ = 0;
@@ -22431,6 +22449,7 @@ public final class InfoProto {
       possessEquipJobReqs_ = java.util.Collections.emptyList();;
       numComponentsForGood_ = 0;
       numComponentsForBad_ = 0;
+      acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -22500,6 +22519,9 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         output.writeInt32(19, numComponentsForBad_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        output.writeMessage(20, acceptDialogue_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -22615,6 +22637,10 @@ public final class InfoProto {
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(19, numComponentsForBad_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(20, acceptDialogue_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -22732,6 +22758,7 @@ public final class InfoProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getAcceptDialogueFieldBuilder();
         }
       }
       private static Builder create() {
@@ -22778,6 +22805,12 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00020000);
         numComponentsForBad_ = 0;
         bitField0_ = (bitField0_ & ~0x00040000);
+        if (acceptDialogueBuilder_ == null) {
+          acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
+        } else {
+          acceptDialogueBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00080000);
         return this;
       }
       
@@ -22898,6 +22931,14 @@ public final class InfoProto {
           to_bitField0_ |= 0x00001000;
         }
         result.numComponentsForBad_ = numComponentsForBad_;
+        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
+          to_bitField0_ |= 0x00002000;
+        }
+        if (acceptDialogueBuilder_ == null) {
+          result.acceptDialogue_ = acceptDialogue_;
+        } else {
+          result.acceptDialogue_ = acceptDialogueBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -23012,6 +23053,9 @@ public final class InfoProto {
         }
         if (other.hasNumComponentsForBad()) {
           setNumComponentsForBad(other.getNumComponentsForBad());
+        }
+        if (other.hasAcceptDialogue()) {
+          mergeAcceptDialogue(other.getAcceptDialogue());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -23191,6 +23235,15 @@ public final class InfoProto {
             case 152: {
               bitField0_ |= 0x00040000;
               numComponentsForBad_ = input.readInt32();
+              break;
+            }
+            case 162: {
+              com.lvl6.proto.InfoProto.DialogueProto.Builder subBuilder = com.lvl6.proto.InfoProto.DialogueProto.newBuilder();
+              if (hasAcceptDialogue()) {
+                subBuilder.mergeFrom(getAcceptDialogue());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setAcceptDialogue(subBuilder.buildPartial());
               break;
             }
           }
@@ -23802,6 +23855,96 @@ public final class InfoProto {
         return this;
       }
       
+      // optional .com.lvl6.proto.DialogueProto acceptDialogue = 20;
+      private com.lvl6.proto.InfoProto.DialogueProto acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.DialogueProto, com.lvl6.proto.InfoProto.DialogueProto.Builder, com.lvl6.proto.InfoProto.DialogueProtoOrBuilder> acceptDialogueBuilder_;
+      public boolean hasAcceptDialogue() {
+        return ((bitField0_ & 0x00080000) == 0x00080000);
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto getAcceptDialogue() {
+        if (acceptDialogueBuilder_ == null) {
+          return acceptDialogue_;
+        } else {
+          return acceptDialogueBuilder_.getMessage();
+        }
+      }
+      public Builder setAcceptDialogue(com.lvl6.proto.InfoProto.DialogueProto value) {
+        if (acceptDialogueBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          acceptDialogue_ = value;
+          onChanged();
+        } else {
+          acceptDialogueBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00080000;
+        return this;
+      }
+      public Builder setAcceptDialogue(
+          com.lvl6.proto.InfoProto.DialogueProto.Builder builderForValue) {
+        if (acceptDialogueBuilder_ == null) {
+          acceptDialogue_ = builderForValue.build();
+          onChanged();
+        } else {
+          acceptDialogueBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00080000;
+        return this;
+      }
+      public Builder mergeAcceptDialogue(com.lvl6.proto.InfoProto.DialogueProto value) {
+        if (acceptDialogueBuilder_ == null) {
+          if (((bitField0_ & 0x00080000) == 0x00080000) &&
+              acceptDialogue_ != com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance()) {
+            acceptDialogue_ =
+              com.lvl6.proto.InfoProto.DialogueProto.newBuilder(acceptDialogue_).mergeFrom(value).buildPartial();
+          } else {
+            acceptDialogue_ = value;
+          }
+          onChanged();
+        } else {
+          acceptDialogueBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00080000;
+        return this;
+      }
+      public Builder clearAcceptDialogue() {
+        if (acceptDialogueBuilder_ == null) {
+          acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
+          onChanged();
+        } else {
+          acceptDialogueBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00080000);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto.Builder getAcceptDialogueBuilder() {
+        bitField0_ |= 0x00080000;
+        onChanged();
+        return getAcceptDialogueFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.DialogueProtoOrBuilder getAcceptDialogueOrBuilder() {
+        if (acceptDialogueBuilder_ != null) {
+          return acceptDialogueBuilder_.getMessageOrBuilder();
+        } else {
+          return acceptDialogue_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.DialogueProto, com.lvl6.proto.InfoProto.DialogueProto.Builder, com.lvl6.proto.InfoProto.DialogueProtoOrBuilder> 
+          getAcceptDialogueFieldBuilder() {
+        if (acceptDialogueBuilder_ == null) {
+          acceptDialogueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.DialogueProto, com.lvl6.proto.InfoProto.DialogueProto.Builder, com.lvl6.proto.InfoProto.DialogueProtoOrBuilder>(
+                  acceptDialogue_,
+                  getParentForChildren(),
+                  isClean());
+          acceptDialogue_ = null;
+        }
+        return acceptDialogueBuilder_;
+      }
+      
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullQuestProto)
     }
     
@@ -23811,6 +23954,1100 @@ public final class InfoProto {
     }
     
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.FullQuestProto)
+  }
+  
+  public interface DialogueProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // repeated .com.lvl6.proto.DialogueProto.SpeechSegmentProto speechSegment = 1;
+    java.util.List<com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto> 
+        getSpeechSegmentList();
+    com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto getSpeechSegment(int index);
+    int getSpeechSegmentCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder> 
+        getSpeechSegmentOrBuilderList();
+    com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder getSpeechSegmentOrBuilder(
+        int index);
+  }
+  public static final class DialogueProto extends
+      com.google.protobuf.GeneratedMessage
+      implements DialogueProtoOrBuilder {
+    // Use DialogueProto.newBuilder() to construct.
+    private DialogueProto(Builder builder) {
+      super(builder);
+    }
+    private DialogueProto(boolean noInit) {}
+    
+    private static final DialogueProto defaultInstance;
+    public static DialogueProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public DialogueProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_fieldAccessorTable;
+    }
+    
+    public interface SpeechSegmentProtoOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+      
+      // optional .com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker speaker = 1;
+      boolean hasSpeaker();
+      com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker getSpeaker();
+      
+      // optional string speakerText = 2;
+      boolean hasSpeakerText();
+      String getSpeakerText();
+    }
+    public static final class SpeechSegmentProto extends
+        com.google.protobuf.GeneratedMessage
+        implements SpeechSegmentProtoOrBuilder {
+      // Use SpeechSegmentProto.newBuilder() to construct.
+      private SpeechSegmentProto(Builder builder) {
+        super(builder);
+      }
+      private SpeechSegmentProto(boolean noInit) {}
+      
+      private static final SpeechSegmentProto defaultInstance;
+      public static SpeechSegmentProto getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public SpeechSegmentProto getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_fieldAccessorTable;
+      }
+      
+      public enum DialogueSpeaker
+          implements com.google.protobuf.ProtocolMessageEnum {
+        PLAYER_TYPE(0, 1),
+        GOOD_WARRIOR(1, 2),
+        GOOD_ARCHER(2, 3),
+        GOOD_MAGE(3, 4),
+        BAD_WARRIOR(4, 5),
+        BAD_ARCHER(5, 6),
+        BAD_MAGE(6, 7),
+        GOOD_TUTORIAL_GIRL(7, 8),
+        BAD_TUTORIAL_GIRL(8, 9),
+        QUESTGIVER_1(9, 10),
+        QUESTGIVER_2(10, 11),
+        QUESTGIVER_3(11, 12),
+        QUESTGIVER_4(12, 13),
+        ;
+        
+        public static final int PLAYER_TYPE_VALUE = 1;
+        public static final int GOOD_WARRIOR_VALUE = 2;
+        public static final int GOOD_ARCHER_VALUE = 3;
+        public static final int GOOD_MAGE_VALUE = 4;
+        public static final int BAD_WARRIOR_VALUE = 5;
+        public static final int BAD_ARCHER_VALUE = 6;
+        public static final int BAD_MAGE_VALUE = 7;
+        public static final int GOOD_TUTORIAL_GIRL_VALUE = 8;
+        public static final int BAD_TUTORIAL_GIRL_VALUE = 9;
+        public static final int QUESTGIVER_1_VALUE = 10;
+        public static final int QUESTGIVER_2_VALUE = 11;
+        public static final int QUESTGIVER_3_VALUE = 12;
+        public static final int QUESTGIVER_4_VALUE = 13;
+        
+        
+        public final int getNumber() { return value; }
+        
+        public static DialogueSpeaker valueOf(int value) {
+          switch (value) {
+            case 1: return PLAYER_TYPE;
+            case 2: return GOOD_WARRIOR;
+            case 3: return GOOD_ARCHER;
+            case 4: return GOOD_MAGE;
+            case 5: return BAD_WARRIOR;
+            case 6: return BAD_ARCHER;
+            case 7: return BAD_MAGE;
+            case 8: return GOOD_TUTORIAL_GIRL;
+            case 9: return BAD_TUTORIAL_GIRL;
+            case 10: return QUESTGIVER_1;
+            case 11: return QUESTGIVER_2;
+            case 12: return QUESTGIVER_3;
+            case 13: return QUESTGIVER_4;
+            default: return null;
+          }
+        }
+        
+        public static com.google.protobuf.Internal.EnumLiteMap<DialogueSpeaker>
+            internalGetValueMap() {
+          return internalValueMap;
+        }
+        private static com.google.protobuf.Internal.EnumLiteMap<DialogueSpeaker>
+            internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<DialogueSpeaker>() {
+                public DialogueSpeaker findValueByNumber(int number) {
+                  return DialogueSpeaker.valueOf(number);
+                }
+              };
+        
+        public final com.google.protobuf.Descriptors.EnumValueDescriptor
+            getValueDescriptor() {
+          return getDescriptor().getValues().get(index);
+        }
+        public final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        public static final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptor() {
+          return com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.getDescriptor().getEnumTypes().get(0);
+        }
+        
+        private static final DialogueSpeaker[] VALUES = {
+          PLAYER_TYPE, GOOD_WARRIOR, GOOD_ARCHER, GOOD_MAGE, BAD_WARRIOR, BAD_ARCHER, BAD_MAGE, GOOD_TUTORIAL_GIRL, BAD_TUTORIAL_GIRL, QUESTGIVER_1, QUESTGIVER_2, QUESTGIVER_3, QUESTGIVER_4, 
+        };
+        
+        public static DialogueSpeaker valueOf(
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+          if (desc.getType() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "EnumValueDescriptor is not for this type.");
+          }
+          return VALUES[desc.getIndex()];
+        }
+        
+        private final int index;
+        private final int value;
+        
+        private DialogueSpeaker(int index, int value) {
+          this.index = index;
+          this.value = value;
+        }
+        
+        // @@protoc_insertion_point(enum_scope:com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker)
+      }
+      
+      private int bitField0_;
+      // optional .com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker speaker = 1;
+      public static final int SPEAKER_FIELD_NUMBER = 1;
+      private com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker speaker_;
+      public boolean hasSpeaker() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker getSpeaker() {
+        return speaker_;
+      }
+      
+      // optional string speakerText = 2;
+      public static final int SPEAKERTEXT_FIELD_NUMBER = 2;
+      private java.lang.Object speakerText_;
+      public boolean hasSpeakerText() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public String getSpeakerText() {
+        java.lang.Object ref = speakerText_;
+        if (ref instanceof String) {
+          return (String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+            speakerText_ = s;
+          }
+          return s;
+        }
+      }
+      private com.google.protobuf.ByteString getSpeakerTextBytes() {
+        java.lang.Object ref = speakerText_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+          speakerText_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      
+      private void initFields() {
+        speaker_ = com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker.PLAYER_TYPE;
+        speakerText_ = "";
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+        
+        memoizedIsInitialized = 1;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeEnum(1, speaker_.getNumber());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeBytes(2, getSpeakerTextBytes());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(1, speaker_.getNumber());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(2, getSpeakerTextBytes());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+      
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_descriptor;
+        }
+        
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_fieldAccessorTable;
+        }
+        
+        // Construct using com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+        
+        private Builder(BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+        
+        public Builder clear() {
+          super.clear();
+          speaker_ = com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker.PLAYER_TYPE;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          speakerText_ = "";
+          bitField0_ = (bitField0_ & ~0x00000002);
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.getDescriptor();
+        }
+        
+        public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto getDefaultInstanceForType() {
+          return com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.getDefaultInstance();
+        }
+        
+        public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto build() {
+          com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+        
+        private com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return result;
+        }
+        
+        public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto buildPartial() {
+          com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto result = new com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.speaker_ = speaker_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.speakerText_ = speakerText_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto) {
+            return mergeFrom((com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto other) {
+          if (other == com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.getDefaultInstance()) return this;
+          if (other.hasSpeaker()) {
+            setSpeaker(other.getSpeaker());
+          }
+          if (other.hasSpeakerText()) {
+            setSpeakerText(other.getSpeakerText());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public final boolean isInitialized() {
+          return true;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  onChanged();
+                  return this;
+                }
+                break;
+              }
+              case 8: {
+                int rawValue = input.readEnum();
+                com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker value = com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker.valueOf(rawValue);
+                if (value == null) {
+                  unknownFields.mergeVarintField(1, rawValue);
+                } else {
+                  bitField0_ |= 0x00000001;
+                  speaker_ = value;
+                }
+                break;
+              }
+              case 18: {
+                bitField0_ |= 0x00000002;
+                speakerText_ = input.readBytes();
+                break;
+              }
+            }
+          }
+        }
+        
+        private int bitField0_;
+        
+        // optional .com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker speaker = 1;
+        private com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker speaker_ = com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker.PLAYER_TYPE;
+        public boolean hasSpeaker() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker getSpeaker() {
+          return speaker_;
+        }
+        public Builder setSpeaker(com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          bitField0_ |= 0x00000001;
+          speaker_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearSpeaker() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          speaker_ = com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker.PLAYER_TYPE;
+          onChanged();
+          return this;
+        }
+        
+        // optional string speakerText = 2;
+        private java.lang.Object speakerText_ = "";
+        public boolean hasSpeakerText() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        public String getSpeakerText() {
+          java.lang.Object ref = speakerText_;
+          if (!(ref instanceof String)) {
+            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+            speakerText_ = s;
+            return s;
+          } else {
+            return (String) ref;
+          }
+        }
+        public Builder setSpeakerText(String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          speakerText_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearSpeakerText() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          speakerText_ = getDefaultInstance().getSpeakerText();
+          onChanged();
+          return this;
+        }
+        void setSpeakerText(com.google.protobuf.ByteString value) {
+          bitField0_ |= 0x00000002;
+          speakerText_ = value;
+          onChanged();
+        }
+        
+        // @@protoc_insertion_point(builder_scope:com.lvl6.proto.DialogueProto.SpeechSegmentProto)
+      }
+      
+      static {
+        defaultInstance = new SpeechSegmentProto(true);
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:com.lvl6.proto.DialogueProto.SpeechSegmentProto)
+    }
+    
+    // repeated .com.lvl6.proto.DialogueProto.SpeechSegmentProto speechSegment = 1;
+    public static final int SPEECHSEGMENT_FIELD_NUMBER = 1;
+    private java.util.List<com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto> speechSegment_;
+    public java.util.List<com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto> getSpeechSegmentList() {
+      return speechSegment_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder> 
+        getSpeechSegmentOrBuilderList() {
+      return speechSegment_;
+    }
+    public int getSpeechSegmentCount() {
+      return speechSegment_.size();
+    }
+    public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto getSpeechSegment(int index) {
+      return speechSegment_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder getSpeechSegmentOrBuilder(
+        int index) {
+      return speechSegment_.get(index);
+    }
+    
+    private void initFields() {
+      speechSegment_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < speechSegment_.size(); i++) {
+        output.writeMessage(1, speechSegment_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      for (int i = 0; i < speechSegment_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, speechSegment_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.DialogueProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.DialogueProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.DialogueProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DialogueProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.DialogueProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSpeechSegmentFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        if (speechSegmentBuilder_ == null) {
+          speechSegment_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          speechSegmentBuilder_.clear();
+        }
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.DialogueProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.DialogueProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.DialogueProto build() {
+        com.lvl6.proto.InfoProto.DialogueProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.DialogueProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.DialogueProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.DialogueProto buildPartial() {
+        com.lvl6.proto.InfoProto.DialogueProto result = new com.lvl6.proto.InfoProto.DialogueProto(this);
+        int from_bitField0_ = bitField0_;
+        if (speechSegmentBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            speechSegment_ = java.util.Collections.unmodifiableList(speechSegment_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.speechSegment_ = speechSegment_;
+        } else {
+          result.speechSegment_ = speechSegmentBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.DialogueProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.DialogueProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.DialogueProto other) {
+        if (other == com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance()) return this;
+        if (speechSegmentBuilder_ == null) {
+          if (!other.speechSegment_.isEmpty()) {
+            if (speechSegment_.isEmpty()) {
+              speechSegment_ = other.speechSegment_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSpeechSegmentIsMutable();
+              speechSegment_.addAll(other.speechSegment_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.speechSegment_.isEmpty()) {
+            if (speechSegmentBuilder_.isEmpty()) {
+              speechSegmentBuilder_.dispose();
+              speechSegmentBuilder_ = null;
+              speechSegment_ = other.speechSegment_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              speechSegmentBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getSpeechSegmentFieldBuilder() : null;
+            } else {
+              speechSegmentBuilder_.addAllMessages(other.speechSegment_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder subBuilder = com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addSpeechSegment(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // repeated .com.lvl6.proto.DialogueProto.SpeechSegmentProto speechSegment = 1;
+      private java.util.List<com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto> speechSegment_ =
+        java.util.Collections.emptyList();
+      private void ensureSpeechSegmentIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          speechSegment_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto>(speechSegment_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder> speechSegmentBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto> getSpeechSegmentList() {
+        if (speechSegmentBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(speechSegment_);
+        } else {
+          return speechSegmentBuilder_.getMessageList();
+        }
+      }
+      public int getSpeechSegmentCount() {
+        if (speechSegmentBuilder_ == null) {
+          return speechSegment_.size();
+        } else {
+          return speechSegmentBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto getSpeechSegment(int index) {
+        if (speechSegmentBuilder_ == null) {
+          return speechSegment_.get(index);
+        } else {
+          return speechSegmentBuilder_.getMessage(index);
+        }
+      }
+      public Builder setSpeechSegment(
+          int index, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto value) {
+        if (speechSegmentBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSpeechSegmentIsMutable();
+          speechSegment_.set(index, value);
+          onChanged();
+        } else {
+          speechSegmentBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setSpeechSegment(
+          int index, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder builderForValue) {
+        if (speechSegmentBuilder_ == null) {
+          ensureSpeechSegmentIsMutable();
+          speechSegment_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          speechSegmentBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addSpeechSegment(com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto value) {
+        if (speechSegmentBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSpeechSegmentIsMutable();
+          speechSegment_.add(value);
+          onChanged();
+        } else {
+          speechSegmentBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addSpeechSegment(
+          int index, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto value) {
+        if (speechSegmentBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSpeechSegmentIsMutable();
+          speechSegment_.add(index, value);
+          onChanged();
+        } else {
+          speechSegmentBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addSpeechSegment(
+          com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder builderForValue) {
+        if (speechSegmentBuilder_ == null) {
+          ensureSpeechSegmentIsMutable();
+          speechSegment_.add(builderForValue.build());
+          onChanged();
+        } else {
+          speechSegmentBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addSpeechSegment(
+          int index, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder builderForValue) {
+        if (speechSegmentBuilder_ == null) {
+          ensureSpeechSegmentIsMutable();
+          speechSegment_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          speechSegmentBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllSpeechSegment(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto> values) {
+        if (speechSegmentBuilder_ == null) {
+          ensureSpeechSegmentIsMutable();
+          super.addAll(values, speechSegment_);
+          onChanged();
+        } else {
+          speechSegmentBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearSpeechSegment() {
+        if (speechSegmentBuilder_ == null) {
+          speechSegment_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          speechSegmentBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeSpeechSegment(int index) {
+        if (speechSegmentBuilder_ == null) {
+          ensureSpeechSegmentIsMutable();
+          speechSegment_.remove(index);
+          onChanged();
+        } else {
+          speechSegmentBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder getSpeechSegmentBuilder(
+          int index) {
+        return getSpeechSegmentFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder getSpeechSegmentOrBuilder(
+          int index) {
+        if (speechSegmentBuilder_ == null) {
+          return speechSegment_.get(index);  } else {
+          return speechSegmentBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder> 
+           getSpeechSegmentOrBuilderList() {
+        if (speechSegmentBuilder_ != null) {
+          return speechSegmentBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(speechSegment_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder addSpeechSegmentBuilder() {
+        return getSpeechSegmentFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder addSpeechSegmentBuilder(
+          int index) {
+        return getSpeechSegmentFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder> 
+           getSpeechSegmentBuilderList() {
+        return getSpeechSegmentFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder> 
+          getSpeechSegmentFieldBuilder() {
+        if (speechSegmentBuilder_ == null) {
+          speechSegmentBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder, com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProtoOrBuilder>(
+                  speechSegment_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          speechSegment_ = null;
+        }
+        return speechSegmentBuilder_;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.DialogueProto)
+    }
+    
+    static {
+      defaultInstance = new DialogueProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.DialogueProto)
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
@@ -23953,6 +25190,16 @@ public final class InfoProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_DialogueProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_DialogueProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -24116,7 +25363,7 @@ public final class InfoProto {
       "\022\031\n\021possessEquipJobId\030\003 \001(\005\022\027\n\017numEquipU" +
       "serHas\030\004 \001(\005\"W\n\024PossessEquipJobProto\022\031\n\021" +
       "possessEquipJobId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005" +
-      "\022\023\n\013quantityReq\030\003 \001(\005\"\316\003\n\016FullQuestProto" +
+      "\022\023\n\013quantityReq\030\003 \001(\005\"\205\004\n\016FullQuestProto" +
       "\022\017\n\007questId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\014\n\004nam" +
       "e\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\024\n\014doneResp" +
       "onse\030\005 \001(\t\022\022\n\ninProgress\030\006 \001(\t\022\032\n\022assetN" +
@@ -24128,19 +25375,32 @@ public final class InfoProto {
       "JobsReqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033" +
       "\n\023possessEquipJobReqs\030\021 \003(\005\022\034\n\024numCompon" +
       "entsForGood\030\022 \001(\005\022\033\n\023numComponentsForBad" +
-      "\030\023 \001(\005*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013" +
-      "GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARR" +
-      "IOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014B" +
-      "attleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDE",
-      "R_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marketplac" +
-      "ePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NOR" +
-      "M_EQUIP_POST\020\002*2\n\035MarketplaceJobRequirem" +
-      "entType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStruct" +
-      "Type\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT" +
-      "\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021Struc" +
-      "tOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION" +
-      "_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000" +
-      "\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
+      "\030\023 \001(\005\0225\n\016acceptDialogue\030\024 \001(\0132\035.com.lvl" +
+      "6.proto.DialogueProto\"\324\003\n\rDialogueProto\022" +
+      "G\n\rspeechSegment\030\001 \003(\01320.com.lvl6.proto." +
+      "DialogueProto.SpeechSegmentProto\032\371\002\n\022Spe",
+      "echSegmentProto\022Q\n\007speaker\030\001 \001(\0162@.com.l" +
+      "vl6.proto.DialogueProto.SpeechSegmentPro" +
+      "to.DialogueSpeaker\022\023\n\013speakerText\030\002 \001(\t\"" +
+      "\372\001\n\017DialogueSpeaker\022\017\n\013PLAYER_TYPE\020\001\022\020\n\014" +
+      "GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020\003\022\r\n\tGOOD_" +
+      "MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD_ARCHER\020\006\022" +
+      "\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025\n" +
+      "\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020" +
+      "\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QU" +
+      "ESTGIVER_4\020\r*k\n\010UserType\022\020\n\014GOOD_WARRIOR",
+      "\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BA" +
+      "D_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020" +
+      "\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014D" +
+      "EFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Mark" +
+      "etplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022" +
+      "\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobRe" +
+      "quirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016Crit" +
+      "StructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n" +
+      "\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n" +
+      "\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPO",
+      "SITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_" +
+      "LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -24368,9 +25628,25 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullQuestProto_descriptor,
-              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "InProgress", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "NumComponentsForGood", "NumComponentsForBad", },
+              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "InProgress", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "NumComponentsForGood", "NumComponentsForBad", "AcceptDialogue", },
               com.lvl6.proto.InfoProto.FullQuestProto.class,
               com.lvl6.proto.InfoProto.FullQuestProto.Builder.class);
+          internal_static_com_lvl6_proto_DialogueProto_descriptor =
+            getDescriptor().getMessageTypes().get(27);
+          internal_static_com_lvl6_proto_DialogueProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_DialogueProto_descriptor,
+              new java.lang.String[] { "SpeechSegment", },
+              com.lvl6.proto.InfoProto.DialogueProto.class,
+              com.lvl6.proto.InfoProto.DialogueProto.Builder.class);
+          internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_descriptor =
+            internal_static_com_lvl6_proto_DialogueProto_descriptor.getNestedTypes().get(0);
+          internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_descriptor,
+              new java.lang.String[] { "Speaker", "SpeakerText", },
+              com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.class,
+              com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder.class);
           return null;
         }
       };

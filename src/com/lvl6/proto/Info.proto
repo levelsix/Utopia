@@ -412,4 +412,33 @@ message FullQuestProto {
      repeated int32 possessEquipJobReqs = 17;
      optional int32 numComponentsForGood = 18;
      optional int32 numComponentsForBad = 19;
+     optional DialogueProto acceptDialogue = 20;
+}
+
+//------------------------------------------------------------------------------------------
+
+message DialogueProto { 
+	repeated SpeechSegmentProto speechSegment = 1;
+
+	message SpeechSegmentProto {
+		optional DialogueSpeaker speaker = 1;
+		optional string speakerText = 2;
+		
+		enum DialogueSpeaker {
+			PLAYER_TYPE = 1;
+			GOOD_WARRIOR = 2;
+			GOOD_ARCHER = 3;
+			GOOD_MAGE = 4;
+			BAD_WARRIOR = 5;
+			BAD_ARCHER = 6;
+			BAD_MAGE = 7;
+			GOOD_TUTORIAL_GIRL = 8;
+			BAD_TUTORIAL_GIRL = 9;
+			QUESTGIVER_1 = 10;
+			QUESTGIVER_2 = 11;
+			QUESTGIVER_3 = 12;
+			QUESTGIVER_4 = 13;			
+		}
+	}
+	
 }

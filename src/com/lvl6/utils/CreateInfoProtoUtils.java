@@ -7,6 +7,7 @@ import java.util.Map;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
@@ -33,6 +34,9 @@ import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
+import com.lvl6.proto.InfoProto.DialogueProto;
+import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto;
+import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.FullCityProto;
 import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.FullMarketplacePostProto;
@@ -127,6 +131,7 @@ public class CreateInfoProtoUtils {
     String doneResponse = null;
     String inProgress = null;
     List<Integer> defeatTypeReqs = null;
+    Dialogue acceptDialogue = null;
 
     if (goodSide) {
       name = quest.getGoodName();
@@ -134,23 +139,43 @@ public class CreateInfoProtoUtils {
       doneResponse = quest.getGoodDoneResponse();
       inProgress = quest.getGoodInProgress();
       defeatTypeReqs = quest.getDefeatBadGuysJobsRequired();
+      acceptDialogue = quest.getGoodAcceptDialogue();
     } else {
       name = quest.getBadName();
       description = quest.getBadDescription();
       doneResponse = quest.getBadDoneResponse();
       inProgress = quest.getBadInProgress();
       defeatTypeReqs = quest.getDefeatGoodGuysJobsRequired();
+      acceptDialogue = quest.getBadAcceptDialogue();
     }
 
-    return FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
+    FullQuestProto.Builder builder = FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
         .setDescription(description).setDoneResponse(doneResponse).setInProgress(inProgress).setAssetNumWithinCity(quest.getAssetNumWithinCity())
         .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained())
         .setExpGained(quest.getExpGained()).setEquipIdGained(quest.getEquipIdGained()).addAllQuestsRequiredForThis(quest.getQuestsRequiredForThis())
         .addAllTaskReqs(quest.getTasksRequired()).addAllUpgradeStructJobsReqs(quest.getUpgradeStructJobsRequired())
         .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired())
         .addAllDefeatTypeReqs(defeatTypeReqs).addAllPossessEquipJobReqs(quest.getPossessEquipJobsRequired())
-        .setNumComponentsForGood(quest.getNumComponents(true)).setNumComponentsForBad(quest.getNumComponents(false))
-        .build();
+        .setNumComponentsForGood(quest.getNumComponents(true)).setNumComponentsForBad(quest.getNumComponents(false));
+    if (acceptDialogue != null) {
+      builder.setAcceptDialogue(createDialogueProtoFromDialogue(acceptDialogue));
+    }
+    return builder.build();
+  }
+  
+  private static DialogueProto createDialogueProtoFromDialogue(Dialogue d) {
+    if (d == null) return null;
+
+    DialogueProto.Builder dp = DialogueProto.newBuilder();
+    
+    List<String> speakerTexts = d.getSpeakerTexts();
+    int i = 0;
+    for (DialogueSpeaker speaker : d.getSpeakers()) {
+      dp.addSpeechSegment(SpeechSegmentProto.newBuilder().setSpeaker(speaker).
+          setSpeakerText(speakerTexts.get(i)).build());
+      i++;
+    }
+    return dp.build();
   }
 
   public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp) {

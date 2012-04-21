@@ -14,6 +14,8 @@ public class Quest {
   private String badDoneResponse;
   private String goodInProgress;
   private String badInProgress;
+  private Dialogue goodAcceptDialogue;
+  private Dialogue badAcceptDialogue;
   private int assetNumWithinCity;
   private int coinsGained;
   private int diamondsGained;
@@ -29,6 +31,7 @@ public class Quest {
   public Quest(int id, int cityId, String goodName, String badName,
       String goodDescription, String badDescription, String goodDoneResponse,
       String badDoneResponse, String goodInProgress, String badInProgress,
+      Dialogue goodAcceptDialogue, Dialogue badAcceptDialogue,
       int assetNumWithinCity, int coinsGained, int diamondsGained,
       int expGained, int equipIdGained,
       List<Integer> questsRequiredForThis, List<Integer> tasksRequired,
@@ -47,6 +50,8 @@ public class Quest {
     this.badDoneResponse = badDoneResponse;
     this.goodInProgress = goodInProgress;
     this.badInProgress = badInProgress;
+    this.goodAcceptDialogue = goodAcceptDialogue;
+    this.badAcceptDialogue = badAcceptDialogue;
     this.assetNumWithinCity = assetNumWithinCity;
     this.coinsGained = coinsGained;
     this.diamondsGained = diamondsGained;
@@ -126,6 +131,13 @@ public class Quest {
   public List<Integer> getPossessEquipJobsRequired() {
     return possessEquipJobsRequired;
   }
+  public Dialogue getGoodAcceptDialogue() {
+    return goodAcceptDialogue;
+  }
+  public Dialogue getBadAcceptDialogue() {
+    return badAcceptDialogue;
+  }
+
   public int getNumComponents(boolean isGoodSide) {
     int numComponents = 0;
     if (tasksRequired != null) numComponents += tasksRequired.size();
@@ -147,9 +159,10 @@ public class Quest {
         + ", badDescription=" + badDescription + ", goodDoneResponse="
         + goodDoneResponse + ", badDoneResponse=" + badDoneResponse
         + ", goodInProgress=" + goodInProgress + ", badInProgress="
-        + badInProgress + ", assetNumWithinCity=" + assetNumWithinCity
-        + ", coinsGained=" + coinsGained + ", diamondsGained=" + diamondsGained
-        + ", expGained=" + expGained
+        + badInProgress + ", goodAcceptDialogue=" + goodAcceptDialogue
+        + ", badAcceptDialogue=" + badAcceptDialogue + ", assetNumWithinCity="
+        + assetNumWithinCity + ", coinsGained=" + coinsGained
+        + ", diamondsGained=" + diamondsGained + ", expGained=" + expGained
         + ", equipIdGained=" + equipIdGained + ", questsRequiredForThis="
         + questsRequiredForThis + ", tasksRequired=" + tasksRequired
         + ", upgradeStructJobsRequired=" + upgradeStructJobsRequired
@@ -158,6 +171,4 @@ public class Quest {
         + ", defeatBadGuysJobsRequired=" + defeatBadGuysJobsRequired
         + ", possessEquipJobsRequired=" + possessEquipJobsRequired + "]";
   }
-
-  
 }
