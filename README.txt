@@ -59,7 +59,7 @@ Check variable names, etc. for everything in scripts folder.
 
 
 6) EC2 stuff
-dev: 		50.18.106.161		ec2-50-18-173-214.us-west-1.compute.amazonaws.com
+dev: 		50.18.106.161		ec2-50-18-106-161.us-west-1.compute.amazonaws.com
 prod:		184.169.148.243		ec2-184-169-148-243.us-west-1.compute.amazonaws.com
 
 ALL EC2 INSTANCES SHOULD HAVE THIS TIME ZONE
@@ -72,12 +72,13 @@ b) Go to UtopiaServer path (type utopia), and do:
 ./movetoec2 50.18.106.161			(moves lib and bin folders)
 ./movetoec2 50.18.106.161 binonly (for bin only)
 c) ssh ubuntu@<elastic ip>				//make a script for inside the shell.
-d) sudo mkdir /vol/Utopia
-e) sudo mv bin /vol/Utopia/
-f) sudo mv lib /vol/Utopia/
+d) sudo mkdir /vol/LostNations
+e) sudo mv bin /vol/LostNations/
+f) sudo mv lib /vol/LostNations/
 g) 	
 h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c. rm nohup.out
 i) nohup java -cp ../lib/*:./ com.lvl6.server.GameServer <public dns name> 8888 &
+nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-50-18-106-161.us-west-1.compute.amazonaws.com 8888 &
 nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-184-169-148-243.us-west-1.compute.amazonaws.com 8888 &
 
 
