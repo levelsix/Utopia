@@ -271,11 +271,10 @@ public class BattleController extends EventController {
       User winner, User loser, User attacker, User defender, int expGained,
       int lostCoins, Timestamp battleTime, boolean isFlee) {
     if (lostEquip != null) {
-      if (!UpdateUtils.decrementUserEquip(loser.getId(),
+      if (!loser.isFake() && !UpdateUtils.decrementUserEquip(loser.getId(),
           lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
         log.error("problem with decrementUserEquip in battle");
-      }
-      if (lostEquip.getQuantity() == 1) {
+      } else if (lostEquip.getQuantity() == 1) {
         MiscMethods.unequipUserEquip(loser, lostEquip.getEquipId());
       }
       if (!UpdateUtils.incrementUserEquip(winner.getId(),
