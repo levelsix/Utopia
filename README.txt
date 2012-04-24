@@ -78,6 +78,7 @@ f) sudo mv lib /vol/LostNations/
 g) 	
 h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c. rm nohup.out
 i) nohup java -cp ../lib/*:./ com.lvl6.server.GameServer <public dns name> 8888 &
+RUN THIS FROM /bin
 nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-50-18-106-161.us-west-1.compute.amazonaws.com 8888 &
 nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-184-169-148-243.us-west-1.compute.amazonaws.com 8888 &
 

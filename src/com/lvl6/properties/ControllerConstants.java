@@ -188,6 +188,9 @@ public class ControllerConstants {
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
   public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 35;
+
+  //POST_ON_PLAYER_WALL
+  public static final int POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH = 1000;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

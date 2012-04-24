@@ -33,6 +33,7 @@ public class DBConstants {
   public static final String TABLE_REFERRALS = "referrals";
   public static final String TABLE_AVAILABLE_REFERRAL_CODES = "available_referral_codes";
   public static final String TABLE_NEUTRAL_CITY_ELEMENTS = "neutral_city_elems";
+  public static final String TABLE_PLAYER_WALL_POSTS = "player_wall_posts";
   public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   
   /*COLUMNNAMES*/
@@ -224,7 +225,13 @@ public class DBConstants {
   public static final String REFERRALS__COINS_GIVEN_TO_REFERRER = "coins_given_to_referrer";
   
   /*AVAILABLE REFERRAL CODES*/
-  public static final String AVAILABLE_REFERRAL_CODES__ID = "id";
+  public static final String AVAILABLE_REFERRAL_CODES__ID = GENERIC__ID;
   public static final String AVAILABLE_REFERRAL_CODES__CODE = "code";
-  
+
+  /*PLAYER_WALL_POSTS*/
+  public static final String PLAYER_WALL_POSTS__ID = GENERIC__ID;
+  public static final String PLAYER_WALL_POSTS__POSTER_ID = "poster_id";
+  public static final String PLAYER_WALL_POSTS__WALL_OWNER_ID = "wall_owner_id";
+  public static final String PLAYER_WALL_POSTS__TIME_OF_POST = "time_of_post";
+  public static final String PLAYER_WALL_POSTS__CONTENT = "content";
 }
