@@ -24759,7 +24759,6 @@ public final class InfoProto {
       
       public com.lvl6.proto.InfoProto.DialogueProto buildPartial() {
         com.lvl6.proto.InfoProto.DialogueProto result = new com.lvl6.proto.InfoProto.DialogueProto(this);
-        int from_bitField0_ = bitField0_;
         if (speechSegmentBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
             speechSegment_ = java.util.Collections.unmodifiableList(speechSegment_);
@@ -25050,6 +25049,609 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.DialogueProto)
   }
   
+  public interface PlayerWallPostProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // optional int32 id = 1;
+    boolean hasId();
+    int getId();
+    
+    // optional int32 posterId = 2;
+    boolean hasPosterId();
+    int getPosterId();
+    
+    // optional int32 wallOwnerId = 3;
+    boolean hasWallOwnerId();
+    int getWallOwnerId();
+    
+    // optional int64 timeOfPost = 4;
+    boolean hasTimeOfPost();
+    long getTimeOfPost();
+    
+    // optional string content = 5;
+    boolean hasContent();
+    String getContent();
+  }
+  public static final class PlayerWallPostProto extends
+      com.google.protobuf.GeneratedMessage
+      implements PlayerWallPostProtoOrBuilder {
+    // Use PlayerWallPostProto.newBuilder() to construct.
+    private PlayerWallPostProto(Builder builder) {
+      super(builder);
+    }
+    private PlayerWallPostProto(boolean noInit) {}
+    
+    private static final PlayerWallPostProto defaultInstance;
+    public static PlayerWallPostProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public PlayerWallPostProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // optional int32 id = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getId() {
+      return id_;
+    }
+    
+    // optional int32 posterId = 2;
+    public static final int POSTERID_FIELD_NUMBER = 2;
+    private int posterId_;
+    public boolean hasPosterId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getPosterId() {
+      return posterId_;
+    }
+    
+    // optional int32 wallOwnerId = 3;
+    public static final int WALLOWNERID_FIELD_NUMBER = 3;
+    private int wallOwnerId_;
+    public boolean hasWallOwnerId() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getWallOwnerId() {
+      return wallOwnerId_;
+    }
+    
+    // optional int64 timeOfPost = 4;
+    public static final int TIMEOFPOST_FIELD_NUMBER = 4;
+    private long timeOfPost_;
+    public boolean hasTimeOfPost() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public long getTimeOfPost() {
+      return timeOfPost_;
+    }
+    
+    // optional string content = 5;
+    public static final int CONTENT_FIELD_NUMBER = 5;
+    private java.lang.Object content_;
+    public boolean hasContent() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public String getContent() {
+      java.lang.Object ref = content_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          content_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getContentBytes() {
+      java.lang.Object ref = content_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        content_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    private void initFields() {
+      id_ = 0;
+      posterId_ = 0;
+      wallOwnerId_ = 0;
+      timeOfPost_ = 0L;
+      content_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, posterId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, wallOwnerId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt64(4, timeOfPost_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getContentBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, posterId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, wallOwnerId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, timeOfPost_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getContentBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.PlayerWallPostProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.PlayerWallPostProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.PlayerWallPostProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.PlayerWallPostProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        posterId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        wallOwnerId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        timeOfPost_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        content_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.PlayerWallPostProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.PlayerWallPostProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.PlayerWallPostProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.PlayerWallPostProto build() {
+        com.lvl6.proto.InfoProto.PlayerWallPostProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.PlayerWallPostProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.PlayerWallPostProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.PlayerWallPostProto buildPartial() {
+        com.lvl6.proto.InfoProto.PlayerWallPostProto result = new com.lvl6.proto.InfoProto.PlayerWallPostProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.posterId_ = posterId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.wallOwnerId_ = wallOwnerId_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.timeOfPost_ = timeOfPost_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.content_ = content_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.PlayerWallPostProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.PlayerWallPostProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.PlayerWallPostProto other) {
+        if (other == com.lvl6.proto.InfoProto.PlayerWallPostProto.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasPosterId()) {
+          setPosterId(other.getPosterId());
+        }
+        if (other.hasWallOwnerId()) {
+          setWallOwnerId(other.getWallOwnerId());
+        }
+        if (other.hasTimeOfPost()) {
+          setTimeOfPost(other.getTimeOfPost());
+        }
+        if (other.hasContent()) {
+          setContent(other.getContent());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              posterId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              wallOwnerId_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              timeOfPost_ = input.readInt64();
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              content_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional int32 id = 1;
+      private int id_ ;
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getId() {
+        return id_;
+      }
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 posterId = 2;
+      private int posterId_ ;
+      public boolean hasPosterId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getPosterId() {
+        return posterId_;
+      }
+      public Builder setPosterId(int value) {
+        bitField0_ |= 0x00000002;
+        posterId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearPosterId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        posterId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 wallOwnerId = 3;
+      private int wallOwnerId_ ;
+      public boolean hasWallOwnerId() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getWallOwnerId() {
+        return wallOwnerId_;
+      }
+      public Builder setWallOwnerId(int value) {
+        bitField0_ |= 0x00000004;
+        wallOwnerId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearWallOwnerId() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        wallOwnerId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int64 timeOfPost = 4;
+      private long timeOfPost_ ;
+      public boolean hasTimeOfPost() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public long getTimeOfPost() {
+        return timeOfPost_;
+      }
+      public Builder setTimeOfPost(long value) {
+        bitField0_ |= 0x00000008;
+        timeOfPost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTimeOfPost() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        timeOfPost_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional string content = 5;
+      private java.lang.Object content_ = "";
+      public boolean hasContent() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public String getContent() {
+        java.lang.Object ref = content_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          content_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setContent(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        content_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearContent() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        content_ = getDefaultInstance().getContent();
+        onChanged();
+        return this;
+      }
+      void setContent(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000010;
+        content_ = value;
+        onChanged();
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.PlayerWallPostProto)
+    }
+    
+    static {
+      defaultInstance = new PlayerWallPostProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.PlayerWallPostProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_MinimumUserProto_descriptor;
   private static
@@ -25200,6 +25802,11 @@ public final class InfoProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_DialogueProto_SpeechSegmentProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -25388,19 +25995,22 @@ public final class InfoProto {
       "\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025\n" +
       "\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020" +
       "\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QU" +
-      "ESTGIVER_4\020\r*k\n\010UserType\022\020\n\014GOOD_WARRIOR",
-      "\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BA" +
-      "D_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020" +
-      "\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014D" +
-      "EFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Mark" +
-      "etplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022" +
-      "\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobRe" +
-      "quirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016Crit" +
-      "StructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n" +
-      "\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n" +
-      "\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPO",
-      "SITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_" +
-      "LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
+      "ESTGIVER_4\020\r\"m\n\023PlayerWallPostProto\022\n\n\002i",
+      "d\030\001 \001(\005\022\020\n\010posterId\030\002 \001(\005\022\023\n\013wallOwnerId" +
+      "\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 " +
+      "\001(\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOO" +
+      "D_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR" +
+      "\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014Batt" +
+      "leResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_W" +
+      "IN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023MarketplacePo" +
+      "stType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_E" +
+      "QUIP_POST\020\002*2\n\035MarketplaceJobRequirement" +
+      "Type\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStructTyp",
+      "e\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022" +
+      "\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOr" +
+      "ientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020" +
+      "\001*1\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n" +
+      "\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -25647,6 +26257,14 @@ public final class InfoProto {
               new java.lang.String[] { "Speaker", "SpeakerText", },
               com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.class,
               com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.Builder.class);
+          internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor =
+            getDescriptor().getMessageTypes().get(28);
+          internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor,
+              new java.lang.String[] { "Id", "PosterId", "WallOwnerId", "TimeOfPost", "Content", },
+              com.lvl6.proto.InfoProto.PlayerWallPostProto.class,
+              com.lvl6.proto.InfoProto.PlayerWallPostProto.Builder.class);
           return null;
         }
       };

@@ -294,4 +294,20 @@ public class InsertUtils {
     return userId;
   }
 
+  
+  /*
+   * returns the id of the post, -1 if none
+   */
+  public static int insertPlayerWallPost(int posterId, int wallOwnerId, String content, Timestamp timeOfPost) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.PLAYER_WALL_POSTS__POSTER_ID, posterId);
+    insertParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
+    insertParams.put(DBConstants.PLAYER_WALL_POSTS__TIME_OF_POST, timeOfPost);
+    insertParams.put(DBConstants.PLAYER_WALL_POSTS__CONTENT, content);
+
+    int wallPostId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_PLAYER_WALL_POSTS, insertParams);
+    return wallPostId;
+  }
+
+  
 }

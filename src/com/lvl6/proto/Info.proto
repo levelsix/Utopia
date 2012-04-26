@@ -432,8 +432,6 @@ message DialogueProto {
 			BAD_WARRIOR = 5;
 			BAD_ARCHER = 6;
 			BAD_MAGE = 7;
-			
-			
 			GOOD_TUTORIAL_GIRL = 8;
 			BAD_TUTORIAL_GIRL = 9;
 			QUESTGIVER_1 = 10;
@@ -442,5 +440,14 @@ message DialogueProto {
 			QUESTGIVER_4 = 13;			
 		}
 	}
-	
+}
+
+//------------------------------------------------------------------------------------------
+
+message PlayerWallPostProto {
+	optional int32 id = 1;
+	optional int32 posterId = 2;
+	optional int32 wallOwnerId = 3;
+	optional int64 timeOfPost = 4;
+	optional string content = 5;
 }

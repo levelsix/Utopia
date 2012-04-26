@@ -13,6 +13,7 @@ import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.NeutralCityElement;
+import com.lvl6.info.PlayerWallPost;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
@@ -60,6 +61,7 @@ import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto;
+import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -588,6 +590,12 @@ public class CreateInfoProtoUtils {
     Task task = TaskRetrieveUtils.getTaskForTaskId(requiredTaskId);
     int numTimesCompleted = (taskCompletedForQuest) ? task.getNumForCompletion() : numTimesUserActed;
     return MinimumUserQuestTaskProto.newBuilder().setUserId(userQuest.getUserId()).setTaskId(requiredTaskId).setNumTimesActed(numTimesCompleted).setQuestId(userQuest.getQuestId()).build();
+  }
+
+  public static PlayerWallPostProto createPlayerWallPostProtoFromPlayerWallPost(
+      PlayerWallPost p) {
+    return PlayerWallPostProto.newBuilder().setId(p.getId()).setPosterId(p.getPosterId()).setWallOwnerId(p.getWallOwnerId())
+        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 
 }
