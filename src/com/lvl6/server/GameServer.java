@@ -294,7 +294,7 @@ public class GameServer extends Thread{
   }
 
   public void lockPlayer(int playerId) {
-    log.info("\n\nThread that locked player " + playerId + " is " + Thread.currentThread() + "\n");
+    log.debug("\n\nThread that locked player " + playerId + " is " + Thread.currentThread() + "\n");
     //can i print name of method that calls this?
 
     playersInAction.addPlayer(playerId);
@@ -316,7 +316,7 @@ public class GameServer extends Thread{
   }
 
   public void unlockPlayer(int playerId) {
-    log.info("\n\nThread that unlocked player " + playerId + " is " + Thread.currentThread() + "\n");
+    log.debug("\n\nThread that unlocked player " + playerId + " is " + Thread.currentThread() + "\n");
     //can i print name of method that calls this?
 
     if (playersInAction.containsPlayer(playerId))

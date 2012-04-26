@@ -111,7 +111,7 @@ public class ControllerConstants {
   public static final double BATTLE__EXP_GAIN_MULTIPLIER = .6;
   
   public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
-  public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
+  public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 2;
   public static final double BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH = .25;
   public static final double BATTLE__MAX_PERCENT_OF_ENEMY_HEALTH = .6;
   public static final double BATTLE__BATTLE_DIFFERENCE_MULTIPLIER = 1;
