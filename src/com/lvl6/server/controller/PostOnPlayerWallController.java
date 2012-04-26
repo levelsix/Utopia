@@ -10,6 +10,7 @@ import java.util.Map;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PostOnPlayerWallRequestEvent;
 import com.lvl6.events.response.PostOnPlayerWallResponseEvent;
+import com.lvl6.info.PlayerWallPost;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PostOnPlayerWallRequestProto;
@@ -20,6 +21,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 
 public class PostOnPlayerWallController extends EventController {
@@ -62,10 +64,9 @@ public class PostOnPlayerWallController extends EventController {
         legitPost = false;
         resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
       } else {
-        PlayerWallPostProto pwp = PlayerWallPostProto.newBuilder().setId(wallPostId)
-            .setPosterId(posterId).setWallOwnerId(wallOwnerId).setTimeOfPost(timeOfPost.getTime())
-            .setContent(content).build();
-        resBuilder.setPost(pwp);
+        PlayerWallPost pwp =  new PlayerWallPost(wallPostId, posterId, wallOwnerId, timeOfPost, content);
+        PlayerWallPostProto pwpp = CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp);
+        resBuilder.setPost(pwpp);
 
         PostOnPlayerWallResponseEvent resEvent2 = new PostOnPlayerWallResponseEvent(posterId);
         resEvent2.setPostOnPlayerWallResponseProto(resBuilder.build());

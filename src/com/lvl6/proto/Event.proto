@@ -1297,12 +1297,14 @@ message RetrieveUsersForUserIdsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message PostOnPlayerWallRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 wallOwnerId = 2;
 	optional string content = 3;
 }
 
+																						//DONE
 message PostOnPlayerWallResponseProto {
 	 optional MinimumUserProto sender = 1;
      optional PostOnPlayerWallStatus status = 2;
@@ -1314,4 +1316,26 @@ message PostOnPlayerWallResponseProto {
      	POST_TOO_LARGE = 2;
      	OTHER_FAIL = 3;
 	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrievePlayerWallPostsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 relevantUserId = 2;
+	optional int32 beforeThisPostId = 3;
+}
+
+message RetrievePlayerWallPostsResponseProto {
+     optional MinimumUserProto sender = 1;
+     optional int32 relevantUserId = 2;
+     optional int32 beforeThisPostId = 3;
+	 optional RetrievePlayerWallPostsStatus status = 4;
+     
+     repeated PlayerWallPostProto playerWallPosts = 5;
+     
+     enum RetrievePlayerWallPostsStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     }
 }

@@ -432,8 +432,6 @@ message DialogueProto {
 			BAD_WARRIOR = 5;
 			BAD_ARCHER = 6;
 			BAD_MAGE = 7;
-			
-			
 			GOOD_TUTORIAL_GIRL = 8;
 			BAD_TUTORIAL_GIRL = 9;
 			QUESTGIVER_1 = 10;
