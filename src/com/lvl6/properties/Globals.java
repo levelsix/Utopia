@@ -26,7 +26,7 @@ public class Globals {
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
-    public static final String APP_STORE_URL = "placeholder";
+    public static final String APP_STORE_URL = "http://itunes.apple.com/gb/app/lost-nations/id517585291?ls=1&mt=8";
     
     public static final Level LOG_LEVEL = Level.INFO;
 }
