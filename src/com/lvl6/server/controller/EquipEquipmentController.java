@@ -73,7 +73,7 @@ public class EquipEquipmentController extends EventController {
   }
 
   private void writeChangesToDB(User user, Equipment equip) {
-    if (user.updateEquipped(equip)) {
+    if (!user.updateEquipped(equip)) {
       log.error("problem with equipping " + equip + " for user " + user);
     }
   }
