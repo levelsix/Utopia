@@ -445,7 +445,7 @@ message DialogueProto {
 //------------------------------------------------------------------------------------------
 
 message PlayerWallPostProto {
-	optional int32 id = 1;
+	optional int32 playerWallPostId = 1;
 	optional MinimumUserProto poster = 2;
 	optional int32 wallOwnerId = 3;
 	optional int64 timeOfPost = 4;

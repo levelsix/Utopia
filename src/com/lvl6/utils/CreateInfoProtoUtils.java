@@ -594,7 +594,7 @@ public class CreateInfoProtoUtils {
 
   public static PlayerWallPostProto createPlayerWallPostProtoFromPlayerWallPost(
       PlayerWallPost p, User poster) {
-    return PlayerWallPostProto.newBuilder().setId(p.getId()).setPoster(createMinimumUserProtoFromUser(poster)).setWallOwnerId(p.getWallOwnerId())
+    return PlayerWallPostProto.newBuilder().setPlayerWallPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(poster)).setWallOwnerId(p.getWallOwnerId())
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 }

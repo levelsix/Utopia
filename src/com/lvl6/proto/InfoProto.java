@@ -25053,9 +25053,9 @@ public final class InfoProto {
   public interface PlayerWallPostProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // optional int32 id = 1;
-    boolean hasId();
-    int getId();
+    // optional int32 playerWallPostId = 1;
+    boolean hasPlayerWallPostId();
+    int getPlayerWallPostId();
     
     // optional .com.lvl6.proto.MinimumUserProto poster = 2;
     boolean hasPoster();
@@ -25103,14 +25103,14 @@ public final class InfoProto {
     }
     
     private int bitField0_;
-    // optional int32 id = 1;
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
-    public boolean hasId() {
+    // optional int32 playerWallPostId = 1;
+    public static final int PLAYERWALLPOSTID_FIELD_NUMBER = 1;
+    private int playerWallPostId_;
+    public boolean hasPlayerWallPostId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public int getId() {
-      return id_;
+    public int getPlayerWallPostId() {
+      return playerWallPostId_;
     }
     
     // optional .com.lvl6.proto.MinimumUserProto poster = 2;
@@ -25179,7 +25179,7 @@ public final class InfoProto {
     }
     
     private void initFields() {
-      id_ = 0;
+      playerWallPostId_ = 0;
       poster_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       wallOwnerId_ = 0;
       timeOfPost_ = 0L;
@@ -25198,7 +25198,7 @@ public final class InfoProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, id_);
+        output.writeInt32(1, playerWallPostId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, poster_);
@@ -25223,7 +25223,7 @@ public final class InfoProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
+          .computeInt32Size(1, playerWallPostId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -25366,7 +25366,7 @@ public final class InfoProto {
       
       public Builder clear() {
         super.clear();
-        id_ = 0;
+        playerWallPostId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (posterBuilder_ == null) {
           poster_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
@@ -25421,7 +25421,7 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.id_ = id_;
+        result.playerWallPostId_ = playerWallPostId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -25458,8 +25458,8 @@ public final class InfoProto {
       
       public Builder mergeFrom(com.lvl6.proto.InfoProto.PlayerWallPostProto other) {
         if (other == com.lvl6.proto.InfoProto.PlayerWallPostProto.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          setId(other.getId());
+        if (other.hasPlayerWallPostId()) {
+          setPlayerWallPostId(other.getPlayerWallPostId());
         }
         if (other.hasPoster()) {
           mergePoster(other.getPoster());
@@ -25506,7 +25506,7 @@ public final class InfoProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              id_ = input.readInt32();
+              playerWallPostId_ = input.readInt32();
               break;
             }
             case 18: {
@@ -25539,23 +25539,23 @@ public final class InfoProto {
       
       private int bitField0_;
       
-      // optional int32 id = 1;
-      private int id_ ;
-      public boolean hasId() {
+      // optional int32 playerWallPostId = 1;
+      private int playerWallPostId_ ;
+      public boolean hasPlayerWallPostId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getId() {
-        return id_;
+      public int getPlayerWallPostId() {
+        return playerWallPostId_;
       }
-      public Builder setId(int value) {
+      public Builder setPlayerWallPostId(int value) {
         bitField0_ |= 0x00000001;
-        id_ = value;
+        playerWallPostId_ = value;
         onChanged();
         return this;
       }
-      public Builder clearId() {
+      public Builder clearPlayerWallPostId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
+        playerWallPostId_ = 0;
         onChanged();
         return this;
       }
@@ -26082,23 +26082,23 @@ public final class InfoProto {
       "\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025\n" +
       "\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020" +
       "\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QU" +
-      "ESTGIVER_4\020\r\"\215\001\n\023PlayerWallPostProto\022\n\n\002",
-      "id\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022" +
-      "\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t*k\n\010" +
-      "UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHE" +
-      "R\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nB" +
-      "AD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResul" +
-      "t\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n" +
-      "\rATTACKER_FLEE\020\002*B\n\023MarketplacePostType\022" +
-      "\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_PO" +
-      "ST\020\002*2\n\035MarketplaceJobRequirementType\022\007\n",
-      "\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStructType\022\n\n\006AV" +
-      "IARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMO" +
-      "RY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrientati" +
-      "on\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022Ex" +
-      "pansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RI" +
-      "GHT\020\001B\013B\tInfoProto"
+      "ESTGIVER_4\020\r\"\233\001\n\023PlayerWallPostProto\022\030\n\020",
+      "playerWallPostId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022\023\n\013wall" +
+      "OwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007con" +
+      "tent\030\005 \001(\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000" +
+      "\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_" +
+      "WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*" +
+      "E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEF" +
+      "ENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Market" +
+      "placePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n" +
+      "\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobRequ",
+      "irementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritSt" +
+      "ructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005V" +
+      "AULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021S" +
+      "tructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSI" +
+      "TION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_LE" +
+      "FT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -26350,7 +26350,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor,
-              new java.lang.String[] { "Id", "Poster", "WallOwnerId", "TimeOfPost", "Content", },
+              new java.lang.String[] { "PlayerWallPostId", "Poster", "WallOwnerId", "TimeOfPost", "Content", },
               com.lvl6.proto.InfoProto.PlayerWallPostProto.class,
               com.lvl6.proto.InfoProto.PlayerWallPostProto.Builder.class);
           return null;
