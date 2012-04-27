@@ -45,6 +45,7 @@ public class RetrievePlayerWallPostsController extends EventController{
 
     RetrievePlayerWallPostsResponseProto.Builder resBuilder = RetrievePlayerWallPostsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setRelevantUserId(relevantUserId);
     if (reqProto.hasBeforeThisPostId()) resBuilder.setBeforeThisPostId(beforeThisPostId);
 
     server.lockPlayer(relevantUserId);
