@@ -199,6 +199,8 @@ public class SelectAndRead extends Thread{
       if (p.getChannel() != channel) {
         log.warn("player is on a new channel, must be reconnect.");
         p.setChannel(channel);
+        server.removePlayer(p.getChannel());
+        server.addPlayer(p);
       }
     }
     else {
