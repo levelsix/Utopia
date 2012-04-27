@@ -16,6 +16,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.NeutralCityElement;
+import com.lvl6.info.PlayerWallPost;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
@@ -32,14 +33,15 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.UpdateStatus;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.UserType;
-import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
+import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.ReferralsRetrieveUtils;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
@@ -197,7 +199,14 @@ public class StartupController extends EventController {
           userIds.add(r.getNewlyReferredId());
         }
       }
-
+      
+      List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getAllPlayerWallPostsAfterLastlogoutForWallOwner(lastLogout, user.getId());
+      if (wallPosts != null && wallPosts.size() > 0) {
+        for (PlayerWallPost p : wallPosts) {
+          userIds.add(p.getPosterId());
+        }
+      }
+      
       Map<Integer, User> usersByIds = null;
       if (userIds.size() > 0) {
         usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
@@ -218,6 +227,12 @@ public class StartupController extends EventController {
           resBuilder.addReferralNotifications(CreateInfoProtoUtils.createReferralNotificationProtoFromReferral(r, usersByIds.get(r.getNewlyReferredId())));
         }
       }
+      if (wallPosts != null && wallPosts.size() > 0) {
+        for (PlayerWallPost p : wallPosts) {
+          resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
+        }
+      }
+      
     }
   }
 

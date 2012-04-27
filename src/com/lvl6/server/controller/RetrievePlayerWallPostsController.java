@@ -1,6 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrievePlayerWallPostsRequestEvent;
@@ -60,9 +62,26 @@ public class RetrievePlayerWallPostsController extends EventController{
           activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPosts(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP);
         }
         if (activePlayerWallPosts != null) {
-          for (PlayerWallPost pwp : activePlayerWallPosts) {
-            resBuilder.addPlayerWallPosts(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp));
+          if (activePlayerWallPosts != null && activePlayerWallPosts.size() > 0) {
+            List <Integer> userIds = new ArrayList<Integer>();
+            for (PlayerWallPost p : activePlayerWallPosts) {
+              userIds.add(p.getPosterId());
+            }
+            Map<Integer, User> usersByIds = null;
+            if (userIds.size() > 0) {
+              usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
+              for (PlayerWallPost pwp : activePlayerWallPosts) {
+                resBuilder.addPlayerWallPosts(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, usersByIds.get(pwp.getPosterId())));
+              }
+            }
+            
+            
           }
+          
+          
+          
+          
+
         }
       }
       RetrievePlayerWallPostsResponseProto resProto = resBuilder.build();

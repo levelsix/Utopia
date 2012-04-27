@@ -152,6 +152,8 @@ public class SelectAndRead extends Thread{
         server.unlockPlayer(playerId); 
         server.removePlayer(channel);
       }
+    } else {
+      log.error("player " + playerId + " was never in server, cannot update last logout");
     }
   }
 

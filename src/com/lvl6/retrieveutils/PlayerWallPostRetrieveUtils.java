@@ -3,6 +3,7 @@ package com.lvl6.retrieveutils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,21 @@ public class PlayerWallPostRetrieveUtils {
     return playerWallPost;
   }
 
+  public static List<PlayerWallPost> getAllPlayerWallPostsAfterLastlogoutForWallOwner(Timestamp lastLogout, int wallOwnerId) {
+    log.debug("retrieving all wall posts for " + wallOwnerId + " after " + lastLogout);
+    TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
+    absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
+
+    TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
+    greaterThanParams.put(DBConstants.PLAYER_WALL_POSTS__TIME_OF_POST, lastLogout);
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__TIME_OF_POST, greaterThanParams);
+    List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
+    DBConnection.close(rs, null, conn);
+    return playerWallPosts;
+  }
+  
   public static List<PlayerWallPost> getMostRecentActivePlayerWallPostsBeforePostId(int limit, int postId) {
     log.debug("retrieving limited player wall posts before certain id");
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();

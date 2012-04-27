@@ -24759,6 +24759,7 @@ public final class InfoProto {
       
       public com.lvl6.proto.InfoProto.DialogueProto buildPartial() {
         com.lvl6.proto.InfoProto.DialogueProto result = new com.lvl6.proto.InfoProto.DialogueProto(this);
+        int from_bitField0_ = bitField0_;
         if (speechSegmentBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
             speechSegment_ = java.util.Collections.unmodifiableList(speechSegment_);
@@ -25056,9 +25057,10 @@ public final class InfoProto {
     boolean hasId();
     int getId();
     
-    // optional int32 posterId = 2;
-    boolean hasPosterId();
-    int getPosterId();
+    // optional .com.lvl6.proto.MinimumUserProto poster = 2;
+    boolean hasPoster();
+    com.lvl6.proto.InfoProto.MinimumUserProto getPoster();
+    com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getPosterOrBuilder();
     
     // optional int32 wallOwnerId = 3;
     boolean hasWallOwnerId();
@@ -25111,14 +25113,17 @@ public final class InfoProto {
       return id_;
     }
     
-    // optional int32 posterId = 2;
-    public static final int POSTERID_FIELD_NUMBER = 2;
-    private int posterId_;
-    public boolean hasPosterId() {
+    // optional .com.lvl6.proto.MinimumUserProto poster = 2;
+    public static final int POSTER_FIELD_NUMBER = 2;
+    private com.lvl6.proto.InfoProto.MinimumUserProto poster_;
+    public boolean hasPoster() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public int getPosterId() {
-      return posterId_;
+    public com.lvl6.proto.InfoProto.MinimumUserProto getPoster() {
+      return poster_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getPosterOrBuilder() {
+      return poster_;
     }
     
     // optional int32 wallOwnerId = 3;
@@ -25175,7 +25180,7 @@ public final class InfoProto {
     
     private void initFields() {
       id_ = 0;
-      posterId_ = 0;
+      poster_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       wallOwnerId_ = 0;
       timeOfPost_ = 0L;
       content_ = "";
@@ -25196,7 +25201,7 @@ public final class InfoProto {
         output.writeInt32(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, posterId_);
+        output.writeMessage(2, poster_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, wallOwnerId_);
@@ -25222,7 +25227,7 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, posterId_);
+          .computeMessageSize(2, poster_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
@@ -25352,6 +25357,7 @@ public final class InfoProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPosterFieldBuilder();
         }
       }
       private static Builder create() {
@@ -25362,7 +25368,11 @@ public final class InfoProto {
         super.clear();
         id_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        posterId_ = 0;
+        if (posterBuilder_ == null) {
+          poster_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+        } else {
+          posterBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000002);
         wallOwnerId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -25415,7 +25425,11 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.posterId_ = posterId_;
+        if (posterBuilder_ == null) {
+          result.poster_ = poster_;
+        } else {
+          result.poster_ = posterBuilder_.build();
+        }
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -25447,8 +25461,8 @@ public final class InfoProto {
         if (other.hasId()) {
           setId(other.getId());
         }
-        if (other.hasPosterId()) {
-          setPosterId(other.getPosterId());
+        if (other.hasPoster()) {
+          mergePoster(other.getPoster());
         }
         if (other.hasWallOwnerId()) {
           setWallOwnerId(other.getWallOwnerId());
@@ -25495,9 +25509,13 @@ public final class InfoProto {
               id_ = input.readInt32();
               break;
             }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              posterId_ = input.readInt32();
+            case 18: {
+              com.lvl6.proto.InfoProto.MinimumUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder();
+              if (hasPoster()) {
+                subBuilder.mergeFrom(getPoster());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setPoster(subBuilder.buildPartial());
               break;
             }
             case 24: {
@@ -25542,25 +25560,94 @@ public final class InfoProto {
         return this;
       }
       
-      // optional int32 posterId = 2;
-      private int posterId_ ;
-      public boolean hasPosterId() {
+      // optional .com.lvl6.proto.MinimumUserProto poster = 2;
+      private com.lvl6.proto.InfoProto.MinimumUserProto poster_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> posterBuilder_;
+      public boolean hasPoster() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getPosterId() {
-        return posterId_;
+      public com.lvl6.proto.InfoProto.MinimumUserProto getPoster() {
+        if (posterBuilder_ == null) {
+          return poster_;
+        } else {
+          return posterBuilder_.getMessage();
+        }
       }
-      public Builder setPosterId(int value) {
+      public Builder setPoster(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (posterBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          poster_ = value;
+          onChanged();
+        } else {
+          posterBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000002;
-        posterId_ = value;
-        onChanged();
         return this;
       }
-      public Builder clearPosterId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        posterId_ = 0;
-        onChanged();
+      public Builder setPoster(
+          com.lvl6.proto.InfoProto.MinimumUserProto.Builder builderForValue) {
+        if (posterBuilder_ == null) {
+          poster_ = builderForValue.build();
+          onChanged();
+        } else {
+          posterBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
         return this;
+      }
+      public Builder mergePoster(com.lvl6.proto.InfoProto.MinimumUserProto value) {
+        if (posterBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              poster_ != com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance()) {
+            poster_ =
+              com.lvl6.proto.InfoProto.MinimumUserProto.newBuilder(poster_).mergeFrom(value).buildPartial();
+          } else {
+            poster_ = value;
+          }
+          onChanged();
+        } else {
+          posterBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      public Builder clearPoster() {
+        if (posterBuilder_ == null) {
+          poster_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
+          onChanged();
+        } else {
+          posterBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProto.Builder getPosterBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getPosterFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getPosterOrBuilder() {
+        if (posterBuilder_ != null) {
+          return posterBuilder_.getMessageOrBuilder();
+        } else {
+          return poster_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder> 
+          getPosterFieldBuilder() {
+        if (posterBuilder_ == null) {
+          posterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProto, com.lvl6.proto.InfoProto.MinimumUserProto.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder>(
+                  poster_,
+                  getParentForChildren(),
+                  isClean());
+          poster_ = null;
+        }
+        return posterBuilder_;
       }
       
       // optional int32 wallOwnerId = 3;
@@ -25995,22 +26082,23 @@ public final class InfoProto {
       "\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025\n" +
       "\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020" +
       "\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QU" +
-      "ESTGIVER_4\020\r\"m\n\023PlayerWallPostProto\022\n\n\002i",
-      "d\030\001 \001(\005\022\020\n\010posterId\030\002 \001(\005\022\023\n\013wallOwnerId" +
-      "\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 " +
-      "\001(\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOO" +
-      "D_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR" +
-      "\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014Batt" +
-      "leResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_W" +
-      "IN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023MarketplacePo" +
-      "stType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_E" +
-      "QUIP_POST\020\002*2\n\035MarketplaceJobRequirement" +
-      "Type\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStructTyp",
-      "e\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022" +
-      "\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOr" +
-      "ientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020" +
-      "\001*1\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n" +
-      "\tFAR_RIGHT\020\001B\013B\tInfoProto"
+      "ESTGIVER_4\020\r\"\215\001\n\023PlayerWallPostProto\022\n\n\002",
+      "id\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022" +
+      "\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t*k\n\010" +
+      "UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHE" +
+      "R\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nB" +
+      "AD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResul" +
+      "t\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n" +
+      "\rATTACKER_FLEE\020\002*B\n\023MarketplacePostType\022" +
+      "\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_PO" +
+      "ST\020\002*2\n\035MarketplaceJobRequirementType\022\007\n",
+      "\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStructType\022\n\n\006AV" +
+      "IARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMO" +
+      "RY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrientati" +
+      "on\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022Ex" +
+      "pansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RI" +
+      "GHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -26262,7 +26350,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_PlayerWallPostProto_descriptor,
-              new java.lang.String[] { "Id", "PosterId", "WallOwnerId", "TimeOfPost", "Content", },
+              new java.lang.String[] { "Id", "Poster", "WallOwnerId", "TimeOfPost", "Content", },
               com.lvl6.proto.InfoProto.PlayerWallPostProto.class,
               com.lvl6.proto.InfoProto.PlayerWallPostProto.Builder.class);
           return null;

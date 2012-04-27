@@ -52,7 +52,11 @@ public class PostOnPlayerWallController extends EventController {
     PostOnPlayerWallResponseProto.Builder resBuilder = PostOnPlayerWallResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    boolean legitPost = checkLegitPost(resBuilder, posterId, wallOwnerId, content);
+    List<Integer> userIds = new ArrayList<Integer>();
+    userIds.add(posterId);
+    userIds.add(wallOwnerId);
+    Map<Integer, User> users = UserRetrieveUtils.getUsersByIds(userIds);
+    boolean legitPost = checkLegitPost(resBuilder, posterId, wallOwnerId, content, users);
 
     PostOnPlayerWallResponseEvent resEvent = new PostOnPlayerWallResponseEvent(posterId);
     resEvent.setTag(event.getTag());
@@ -65,7 +69,7 @@ public class PostOnPlayerWallController extends EventController {
         resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
       } else {
         PlayerWallPost pwp =  new PlayerWallPost(wallPostId, posterId, wallOwnerId, timeOfPost, content);
-        PlayerWallPostProto pwpp = CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp);
+        PlayerWallPostProto pwpp = CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, users.get(posterId));
         resBuilder.setPost(pwpp);
 
         PostOnPlayerWallResponseEvent resEvent2 = new PostOnPlayerWallResponseEvent(posterId);
@@ -78,12 +82,12 @@ public class PostOnPlayerWallController extends EventController {
   }
 
 
-  private boolean checkLegitPost(Builder resBuilder, int posterId, int wallOwnerId, String content) {
+  private boolean checkLegitPost(Builder resBuilder, int posterId, int wallOwnerId, String content, Map<Integer, User> users) {
     // TODO Auto-generated method stub
-    List<Integer> userIds = new ArrayList<Integer>();
-    userIds.add(posterId);
-    userIds.add(wallOwnerId);
-    Map<Integer, User> users = UserRetrieveUtils.getUsersByIds(userIds);
+    if (users == null) {
+      resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
+      return false;
+    }
     if (users.size() != 2 && posterId != wallOwnerId) {
       resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
       return false;

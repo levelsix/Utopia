@@ -11,6 +11,6 @@ then
 fi
 sudo scp -r bin/ ubuntu@$serverip:~/
 ssh ubuntu@$serverip
-sudo mkdir /vol/Utopia
-sudo cp -r ~/bin /vol/Utopia/
-sudo cp -r ~/lib /vol/Utopia/
+#sudo mkdir /vol/Utopia
+#sudo cp -r ~/bin /vol/Utopia/
+#sudo cp -r ~/lib /vol/Utopia/

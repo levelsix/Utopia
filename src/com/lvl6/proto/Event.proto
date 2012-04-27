@@ -134,6 +134,7 @@ message StartupResponseProto {
 	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
 	repeated AttackedNotificationProto attackNotifications = 13;
 	repeated ReferralNotificationProto referralNotifications = 14;
+	repeated PlayerWallPostProto playerWallPostNotifications = 19;
 	
 	optional string appStoreURL = 17;
 
@@ -156,7 +157,7 @@ message StartupResponseProto {
 		optional int64 recruitTime = 2;
 		optional int32 coinsGivenToReferrer = 3;
 	}
-	  
+		  
 	message StartupConstants {
 	  	repeated string productIds = 1;
 	  	repeated int32 productDiamondsGiven = 2;
