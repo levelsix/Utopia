@@ -74,14 +74,7 @@ public class RetrievePlayerWallPostsController extends EventController{
                 resBuilder.addPlayerWallPosts(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, usersByIds.get(pwp.getPosterId())));
               }
             }
-            
-            
           }
-          
-          
-          
-          
-
         }
       }
       RetrievePlayerWallPostsResponseProto resProto = resBuilder.build();
