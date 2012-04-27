@@ -168,7 +168,7 @@ public class ControllerConstants {
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;
   
   //REFILL STAT WAIT COMPLETE
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 4;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 10;
   public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 3;
 
   //PURCHASE MARKETPLACE LICENSE

@@ -45,23 +45,29 @@ public class PlayerWallPostRetrieveUtils {
 //    return playerWallPosts;
 //  }
   
-  public static List<PlayerWallPost> getMostRecentActivePlayerWallPostsBeforePostId(int limit, int postId) {
+  public static List<PlayerWallPost> getMostRecentActivePlayerWallPostsForPlayerBeforePostId(int limit, int postId, int wallOwnerId) {
     log.debug("retrieving limited player wall posts before certain id");
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.PLAYER_WALL_POSTS__ID, postId);
     
+    TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
+    absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
+    
     Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit, lessThanParamsToVals);
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit, lessThanParamsToVals);
     List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
     DBConnection.close(rs, null, conn);
     return playerWallPosts;
   }
   
-  public static List<PlayerWallPost> getMostRecentActivePlayerWallPosts(int limit) {
+  public static List<PlayerWallPost> getMostRecentActivePlayerWallPostsForPlayer(int limit, int wallOwnerId) {
     log.debug("retrieving limited player wall posts posts");
     
+    TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
+    absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
+    
     Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit);
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit);
     List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
     DBConnection.close(rs, null, conn);
     return playerWallPosts;

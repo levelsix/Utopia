@@ -200,7 +200,7 @@ public class StartupController extends EventController {
         }
       }
       
-      List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPosts(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP);
+      List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPostsForPlayer(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getId());
       if (wallPosts != null && wallPosts.size() > 0) {
         for (PlayerWallPost p : wallPosts) {
           userIds.add(p.getPosterId());
