@@ -82,7 +82,6 @@ RUN THIS FROM /bin
 nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-50-18-106-161.us-west-1.compute.amazonaws.com 8888 &
 nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-184-169-148-243.us-west-1.compute.amazonaws.com 8888 &
 
-
 nohup for generic logs, log4j
 
 test apns

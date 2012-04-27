@@ -23,11 +23,19 @@ public class IAPValues {
   private static final String PACKAGE4 = "com.lvl6.lostnations.package4";
   private static final String PACKAGE5 = "com.lvl6.lostnations.package5";
   
+  /*
+   * 1- $1 for 10 diamonds
+   * 2- $1 for 12 diamonds
+   * 3- $1 for 12.5 diamonds
+   * 4- $1 for 13 diamonds
+   * 5- $1 for 15 diamonds
+   */
+  
   private static final int PACKAGE_1_DIAMONDS = 50;
-  private static final int PACKAGE_2_DIAMONDS = 100;
-  private static final int PACKAGE_3_DIAMONDS = 200;
-  private static final int PACKAGE_4_DIAMONDS = 500;
-  private static final int PACKAGE_5_DIAMONDS = 1000;
+  private static final int PACKAGE_2_DIAMONDS = 120;
+  private static final int PACKAGE_3_DIAMONDS = 250;
+  private static final int PACKAGE_4_DIAMONDS = 650;
+  private static final int PACKAGE_5_DIAMONDS = 1500;
   
   private static final double PACKAGE_1_PRICE = 4.99;
   private static final double PACKAGE_2_PRICE = 9.99;
