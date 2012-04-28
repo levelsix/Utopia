@@ -74,8 +74,10 @@ public class GenerateAttackListController extends EventController {
           latLowerBound, latUpperBound, longLowerBound, longUpperBound, true);
       if (enemies != null) {
         for (User enemy : enemies) {
-          FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);
-          resBuilder.addEnemies(fup);
+          if (Math.abs(enemy.getLevel() - user.getLevel()) <= ControllerConstants.BATTLE__MAX_LEVEL_DIFFERENCE) {
+            FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(enemy);
+            resBuilder.addEnemies(fup);
+          }
         }
       } else {
         resBuilder.setStatus(GenerateAttackListStatus.SOME_FAIL);

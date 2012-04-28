@@ -225,6 +225,7 @@ message StartupResponseProto {
 		optional BattleConstants battleConstants = 60;
 
 		optional int32 maxCharLengthForWallPost = 61;
+		optional int32 playerWallPostsRetrieveCap = 62;
 		
 		message FormulaConstants {
 			optional double minutesToUpgradeForNormStructMultiplier = 1;
