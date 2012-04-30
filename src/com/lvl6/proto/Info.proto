@@ -67,6 +67,7 @@ message FullUserProto {
 	optional int64 lastShortLicensePurchaseTime = 43;
 	optional int64 lastLongLicensePurchaseTime = 44;
 	optional bool isFake = 46;
+	optional bool isAdmin = 48;
 }
 
 //------------------------------------------------------------------------------------------

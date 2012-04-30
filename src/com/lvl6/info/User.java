@@ -57,6 +57,7 @@ public class User {
   private Date lastLongLicensePurchaseTime;
   private boolean isFake;
   private Date createTime;
+  private boolean isAdmin;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime,
@@ -71,7 +72,8 @@ public class User {
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
       Date lastBattleNotificationTime, Date lastTimeAttacked,
       int numBadges, Date lastShortLicensePurchaseTime,
-      Date lastLongLicensePurchaseTime, boolean isFake, Date createTime) {
+      Date lastLongLicensePurchaseTime, boolean isFake, Date createTime, 
+      boolean isAdmin) {
     this.id = id;
     this.name = name;
     this.level = level;
@@ -115,6 +117,7 @@ public class User {
     this.lastLongLicensePurchaseTime = lastLongLicensePurchaseTime;
     this.isFake = isFake;
     this.createTime = createTime;
+    this.isAdmin = isAdmin;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -979,6 +982,10 @@ public class User {
   public Date getCreateTime() {
     return createTime;
   }
+  
+  public boolean isAdmin() {
+    return isAdmin;
+  }
 
   @Override
   public String toString() {
@@ -1006,7 +1013,8 @@ public class User {
         + ", lastTimeAttacked=" + lastTimeAttacked + ", numBadges=" + numBadges
         + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
         + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime
-        + ", isFake=" + isFake + ", createTime=" + createTime + "]";
+        + ", isFake=" + isFake + ", createTime=" + createTime + ", isAdmin="
+        + isAdmin + "]";
   }
 
 }

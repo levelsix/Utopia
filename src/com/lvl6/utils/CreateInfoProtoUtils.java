@@ -229,7 +229,8 @@ public class CreateInfoProtoUtils {
         .setUserLocation(createLocationProtoFromLocation(u.getUserLocation()))
         .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed())
         .setLastLoginTime(u.getLastLogin().getTime()).setIsFake(u.isFake())
-        .setCreateTime(u.getCreateTime().getTime());
+        .setCreateTime(u.getCreateTime().getTime())
+        .setIsAdmin(u.isAdmin());
     if (u.getWeaponEquipped() != ControllerConstants.NOT_SET) {
       builder.setWeaponEquipped(u.getWeaponEquipped());
     }
