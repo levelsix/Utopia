@@ -8,6 +8,7 @@ serverip=$1
 if [ "$2" != "binonly" ]
 then
   sudo scp -r lib/ ubuntu@$serverip:~/
+  sudo scp -r res/ ubuntu@$serverip:~/
 fi
 sudo scp -r bin/ ubuntu@$serverip:~/
 ssh ubuntu@$serverip

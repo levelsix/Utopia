@@ -26,7 +26,7 @@ import com.lvl6.utils.PlayerSet;
 public class GameServer extends Thread{
 
   // Logger
-  private Logger log = Logger.getLogger(this.getClass().getSimpleName());
+  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   // ServerSocketChannel for accepting client connections
   private ServerSocketChannel sSockChan;
@@ -62,10 +62,10 @@ public class GameServer extends Thread{
 
   public static void main(String args[]) {
     if (args.length == 2) {
-      BasicConfigurator.configure();
       GameServer server = new GameServer(args[0], Integer.parseInt(args[1]));
       DBConnection.init();
-      Logger.getLogger("com").setLevel(Globals.LOG_LEVEL);
+//      PropertyConfigurator.configure("log4j.properties");
+//      Logger.getRootLogger().setLevel(Globals.LOG_LEVEL);
       server.start();
     } else {
       System.out.println("Error in input- two arguments required: <serverip> <portnum>");

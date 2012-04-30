@@ -21,7 +21,7 @@ public class Attachment {
   public static final int HEADER_SIZE = 5; 
 
   /** log4j logger */
-  private static Logger log = Logger.getLogger("Attachment");
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
   /** event type for this message */
   public EventProtocolRequest eventType;

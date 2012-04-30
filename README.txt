@@ -69,7 +69,7 @@ dpkg-reconfigure tzdata on ubuntu box
 To move to server:
 a) Build project locally through eclipse
 b) Go to UtopiaServer path (type utopia), and do:
-./movetoec2 50.18.106.161			(moves lib and bin folders)
+./movetoec2 50.18.106.161			(moves lib, res and bin folders)
 ./movetoec2 50.18.106.161 binonly (for bin only)
 c) ssh ubuntu@<elastic ip>				//make a script for inside the shell.
 d) sudo mkdir /vol/LostNations
@@ -79,8 +79,8 @@ g)
 h) to kill existing server- type jobs to check. ps aux, kill <id>. or fg, ctrl c. rm nohup.out
 i) nohup java -cp ../lib/*:./ com.lvl6.server.GameServer <public dns name> 8888 &
 RUN THIS FROM /bin
-nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-50-18-106-161.us-west-1.compute.amazonaws.com 8888 &
-nohup java -cp ../lib/*:./ com.lvl6.server.GameServer ec2-184-169-148-243.us-west-1.compute.amazonaws.com 8888 &
+nohup java -cp ../lib/*:./:../res com.lvl6.server.GameServer ec2-50-18-106-161.us-west-1.compute.amazonaws.com 8888 &
+nohup java -cp ../lib/*:./:../res com.lvl6.server.GameServer ec2-184-169-148-243.us-west-1.compute.amazonaws.com 8888 &
 
 nohup for generic logs, log4j
 

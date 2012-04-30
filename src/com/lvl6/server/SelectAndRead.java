@@ -26,7 +26,7 @@ import com.lvl6.utils.ConnectedPlayer;
 
 public class SelectAndRead extends Thread{
   //Logger
-  private Logger log = Logger.getLogger(this.getClass().getName());
+  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   //Tracks pending SocketChannel connections
   private LinkedList<SocketChannel> newClients;

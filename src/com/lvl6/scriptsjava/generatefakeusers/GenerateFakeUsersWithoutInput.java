@@ -3,6 +3,8 @@ package com.lvl6.scriptsjava.generatefakeusers;
 import java.io.IOException;
 import java.util.Random;
 
+import org.apache.log4j.BasicConfigurator;
+
 import com.lvl6.info.Location;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.UserType;
@@ -23,6 +25,7 @@ public class GenerateFakeUsersWithoutInput {
 
 
   public static void main(String[] args) {
+    BasicConfigurator.configure();
     NameGenerator nameGenerator = null;
     Random random = new Random();
     try {

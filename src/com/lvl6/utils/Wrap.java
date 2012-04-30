@@ -25,7 +25,7 @@ public abstract class Wrap implements Runnable{
    */
   public final void initWrap(int numWorkers) {
     //setup the log4j Logger
-    log = Logger.getLogger(getClass().getSimpleName());
+    log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
     eventQueue = new EventQueue();
 
