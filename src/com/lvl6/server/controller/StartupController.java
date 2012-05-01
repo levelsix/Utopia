@@ -214,7 +214,7 @@ public class StartupController extends EventController {
 
       if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
         for (MarketplaceTransaction mt : marketplaceTransactions) {
-          resBuilder.addMarketplacePurchaseNotifications(CreateInfoProtoUtils.createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(mt, usersByIds.get(mt.getBuyerId())));
+          resBuilder.addMarketplacePurchaseNotifications(CreateInfoProtoUtils.createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(mt, usersByIds.get(mt.getBuyerId()), user));
         }
       }
       if (battleDetails != null && battleDetails.size() > 0) {

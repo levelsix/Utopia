@@ -66,22 +66,23 @@ public class PurchaseFromMarketplaceController extends EventController {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       User buyer = UserRetrieveUtils.getUserById(buyerId);
 
-      boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, sellerId);
+      User seller = UserRetrieveUtils.getUserById(sellerId);        
+      boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, seller);
 
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
       resEvent.setTag(event.getTag());
+
       if (legitPurchase)
-        resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp));
+        resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp, seller));
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
       if (legitPurchase) {
         PurchaseFromMarketplaceResponseEvent resEvent2 = new PurchaseFromMarketplaceResponseEvent(sellerId);
-        resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp));
+        resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp, seller));
         resEvent2.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
         server.writeAPNSNotificationOrEvent(resEvent2);
         
-        User seller = UserRetrieveUtils.getUserById(sellerId);        
         writeChangesToDB(buyer, seller, mp);
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) {
@@ -146,12 +147,12 @@ public class PurchaseFromMarketplaceController extends EventController {
     }
   }
 
-  private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, int sellerId) {
+  private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, User seller) {
     if (mp == null) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.POST_NO_LONGER_EXISTS);
       return false;
     }
-    if (buyer == null || sellerId != mp.getPosterId()) {
+    if (buyer == null || seller == null || seller.getId() != mp.getPosterId()) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
       return false;      
     }

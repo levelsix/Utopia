@@ -1,6 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent;
@@ -73,8 +75,19 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
           }
         }
         if (activeMarketplacePosts != null) {
+          List <Integer> userIds = new ArrayList<Integer>();
+          
+          for (MarketplacePost amp : activeMarketplacePosts) {
+            userIds.add(amp.getPosterId());
+          }
+
+          Map<Integer, User> usersByIds = null;
+          if (userIds.size() > 0) {
+            usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
+          }
+          
           for (MarketplacePost mp : activeMarketplacePosts) {
-            resBuilder.addMarketplacePosts(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp));
+            resBuilder.addMarketplacePosts(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp, usersByIds.get(mp.getPosterId())));
           }
         }
       }

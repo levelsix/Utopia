@@ -89,8 +89,8 @@ public class CreateInfoProtoUtils {
         .setRecruitTime(r.getTimeOfReferral().getTime()).setCoinsGivenToReferrer(r.getCoinsGivenToReferrer()).build();
   }
 
-  public static MarketplacePostPurchasedNotificationProto createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(MarketplaceTransaction mt, User buyer) {
-    FullMarketplacePostProto fmpp = createFullMarketplacePostProtoFromMarketplacePost(mt.getPost());
+  public static MarketplacePostPurchasedNotificationProto createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(MarketplaceTransaction mt, User buyer, User seller) {
+    FullMarketplacePostProto fmpp = createFullMarketplacePostProtoFromMarketplacePost(mt.getPost(), seller);
     return MarketplacePostPurchasedNotificationProto.newBuilder().setMarketplacePost(fmpp)
         .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime()).build();
   }
@@ -180,9 +180,9 @@ public class CreateInfoProtoUtils {
     return dp.build();
   }
 
-  public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp) {
+  public static FullMarketplacePostProto createFullMarketplacePostProtoFromMarketplacePost(MarketplacePost mp, User poster) {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
-        .setPosterId(mp.getPosterId()).setPostType(mp.getPostType())
+        .setPoster(createMinimumUserProtoFromUser(poster)).setPostType(mp.getPostType())
         .setTimeOfPost(mp.getTimeOfPost().getTime()).setPostedEquip(createFullEquipProtoFromEquip(
             EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
     if (mp.getDiamondCost() != ControllerConstants.NOT_SET) {

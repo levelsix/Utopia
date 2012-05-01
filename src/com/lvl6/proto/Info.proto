@@ -265,7 +265,7 @@ enum MarketplacePostType {
 
 message FullMarketplacePostProto {
 	optional int32 marketplacePostId = 1;
-	optional int32 posterId = 2;
+	optional MinimumUserProto poster = 2;
 	optional MarketplacePostType postType = 3;
 	optional int64 timeOfPost = 4;
 	optional FullEquipProto postedEquip = 5;
