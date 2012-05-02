@@ -280,8 +280,8 @@ public class GameServer extends Thread{
       channelToPlayerId.remove(channel);
     }
     catch (Exception e) {
-      System.out.println("PlayersByPlayerId: "+playersByPlayerId);
-      System.out.println("ChannelToPlayerId: "+channelToPlayerId);
+      log.info("PlayersByPlayerId: "+playersByPlayerId);
+      log.info("ChannelToPlayerId: "+channelToPlayerId);
     }
   }
   

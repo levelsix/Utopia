@@ -165,7 +165,7 @@ public class TaskActionController extends EventController {
   }
 
   private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto, int lootEquipId) {
-    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(user.getId());
+    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(user.getId());
 
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;
@@ -207,7 +207,7 @@ public class TaskActionController extends EventController {
                           if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                             userQuest.setTasksComplete(true);
                             questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
-                                null, null, null, null, null);
+                                null, null, null, null, null, log);
                           } else {
                             log.error("problem with marking tasks completed for a user quest");
                           }
@@ -226,7 +226,7 @@ public class TaskActionController extends EventController {
             }
             if (lootEquipId > ControllerConstants.NOT_SET && !questCompletedAndSent) {
               QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
-                  null, null, null, lootEquipId, 1);
+                  null, null, null, lootEquipId, 1, log);
             }
           }
         }

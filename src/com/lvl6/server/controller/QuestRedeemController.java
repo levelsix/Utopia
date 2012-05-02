@@ -71,7 +71,7 @@ public class QuestRedeemController extends EventController {
 
       List<UserQuest> inProgressAndRedeemedUserQuests = null;
       if (legitRedeem) {
-        inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getInProgressAndRedeemedUserQuestsForUser(senderProto.getUserId());
+        inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedAndRedeemedUserQuestsForUser(senderProto.getUserId());
         List<Integer> inProgressQuestIds = new ArrayList<Integer>();
         List<Integer> redeemedQuestIds = new ArrayList<Integer>();
 
@@ -170,7 +170,7 @@ public class QuestRedeemController extends EventController {
       if (!UpdateUtils.incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
         log.error("problem with giving user reward equip after completing the quest");
       } else {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, quest.getEquipIdGained(), 1);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, quest.getEquipIdGained(), 1, log);
       }
     }
 
@@ -187,7 +187,7 @@ public class QuestRedeemController extends EventController {
       resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
       return false;
     }
-    if (!QuestUtils.checkQuestCompleteAndMaybeSend(null, quest, userQuest, null, false, null, null, null, null, null)) {
+    if (!userQuest.isComplete()) {
       resBuilder.setStatus(QuestRedeemStatus.NOT_COMPLETE);
       return false;
     }

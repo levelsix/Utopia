@@ -85,7 +85,7 @@ public class LoadNeutralCityController extends EventController {
         if (tasks != null && tasks.size() > 0) {
           setResponseUserTaskInfos(resBuilder, tasks, user.getId(), senderProto.getUserType());
         }
-        List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(senderProto.getUserId());
+        List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(senderProto.getUserId());
         if (inProgressUserQuests != null && inProgressUserQuests.size() > 0) {
           setResponseDefeatTypeJobEnemies(resBuilder, inProgressUserQuests, user, cityId);
         }

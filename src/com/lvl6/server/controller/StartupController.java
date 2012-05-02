@@ -248,7 +248,7 @@ public class StartupController extends EventController {
   }
 
   private void setInProgressAndAvailableQuests(Builder resBuilder, User user) {
-    List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getInProgressAndRedeemedUserQuestsForUser(user.getId());
+    List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedAndRedeemedUserQuestsForUser(user.getId());
     List<Integer> inProgressQuestIds = new ArrayList<Integer>();
     List<Integer> redeemedQuestIds = new ArrayList<Integer>();
 

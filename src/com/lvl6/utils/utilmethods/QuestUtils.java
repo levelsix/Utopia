@@ -3,6 +3,8 @@ package com.lvl6.utils.utilmethods;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.response.QuestCompleteResponseEvent;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
@@ -30,15 +32,17 @@ public class QuestUtils {
 
   public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto, 
       Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
-      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
-    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(userId);
+      Integer justObtainedEquipId, Integer justObtainedEquipQuantity, Logger log) {
+    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(userId);
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
-        Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
-        if (quest != null) {
-          QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
-              justBuiltStructId, justUpgradedStructId, justUpgradedStructLevel, justObtainedEquipId, 
-              justObtainedEquipQuantity);
+        if (!userQuest.isComplete()) {
+          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
+          if (quest != null) {
+            QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
+                justBuiltStructId, justUpgradedStructId, justUpgradedStructLevel, justObtainedEquipId, 
+                justObtainedEquipQuantity, log);
+          }
         }
       }
     }
@@ -47,7 +51,7 @@ public class QuestUtils {
   public static boolean checkQuestCompleteAndMaybeSend(GameServer server, Quest quest, UserQuest userQuest,
       MinimumUserProto senderProto, boolean sendCompleteMessageIfJustCompleted, 
       Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
-      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
+      Integer justObtainedEquipId, Integer justObtainedEquipQuantity, Logger log) {
 
     boolean sendMessage = false;
 
@@ -81,7 +85,7 @@ public class QuestUtils {
 
           boolean justCompletedBuildStructJob = false;
           for (BuildStructJob bsj : bsjs.values()) {
-            
+
             int quantityBuilt = 0;
             if (structIdsToUserStructs.get(bsj.getStructId()) != null) {
               for (UserStruct us : structIdsToUserStructs.get(bsj.getStructId())) {
@@ -90,7 +94,7 @@ public class QuestUtils {
                 }
               }
             }
-            
+
             if (quantityBuilt <  bsj.getQuantity()) {
               return false;
             } else {
@@ -106,7 +110,7 @@ public class QuestUtils {
 
         if (upgradeStructJobsRequired != null && upgradeStructJobsRequired.size()>0) {
           Map<Integer, UpgradeStructJob> usjs = UpgradeStructJobRetrieveUtils.getUpgradeStructJobsForUpgradeStructJobIds(upgradeStructJobsRequired);
-          
+
           boolean justCompletedUpgradeStructJob = false;
           for (UpgradeStructJob usj : usjs.values()) {
             if (structIdsToUserStructs.get(usj.getStructId()) == null) {
@@ -153,6 +157,9 @@ public class QuestUtils {
       }
       if (server != null && senderProto != null && sendMessage) {
         sendQuestCompleteResponse(server, senderProto, quest);
+      }
+      if (!userQuest.isComplete() && !UpdateUtils.updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
+        log.error("problem with marking user quest as complete");
       }
       return true;
     }

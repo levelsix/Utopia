@@ -19,7 +19,20 @@ public class UserQuestRetrieveUtils {
   
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS;
   
-  public static List<UserQuest> getInProgressAndRedeemedUserQuestsForUser(int userId) {
+  //temporary, only used in script
+  public static List<UserQuest> getUnredeemedAndIncompleteUserQuests() {
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
+    paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    List<UserQuest> userQuests = convertRSToUserQuests(rs);
+    DBConnection.close(rs, null, conn);
+    return userQuests;
+  }
+  
+  public static List<UserQuest> getUnredeemedAndRedeemedUserQuestsForUser(int userId) {
     log.debug("retrieving user quests for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
@@ -29,7 +42,7 @@ public class UserQuestRetrieveUtils {
     return userQuests;
   }
   
-  public static List<UserQuest> getInProgressUserQuestsForUser(int userId) {
+  public static List<UserQuest> getUnredeemedUserQuestsForUser(int userId) {
     log.debug("retrieving user quests for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -110,9 +123,10 @@ public class UserQuestRetrieveUtils {
     boolean isRedeemed = rs.getBoolean(i++);
     boolean tasksComplete = rs.getBoolean(i++);
     boolean defeatTypeJobsComplete = rs.getBoolean(i++);
+    boolean isComplete = rs.getBoolean(i++);
 
     UserQuest userQuest = new UserQuest(userId, questId, isRedeemed, tasksComplete, 
-        defeatTypeJobsComplete);
+        defeatTypeJobsComplete, isComplete);
     return userQuest;
   }
   

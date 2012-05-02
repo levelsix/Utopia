@@ -98,9 +98,9 @@ public class QuestAcceptController extends EventController {
 
       if (legitAccept) {
         boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
-        UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete);
+        UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete, false);
         writeChangesToDB(uq);
-        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null);
+        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null, log);
       }
 
     } catch (Exception e) {
@@ -121,7 +121,7 @@ public class QuestAcceptController extends EventController {
       resBuilder.setStatus(QuestAcceptStatus.OTHER_FAIL);
       return false;
     }
-    List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getInProgressAndRedeemedUserQuestsForUser(user.getId());
+    List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedAndRedeemedUserQuestsForUser(user.getId());
     List<Integer> inProgressQuestIds = new ArrayList<Integer>();
     List<Integer> redeemedQuestIds = new ArrayList<Integer>();
 

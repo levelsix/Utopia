@@ -6,14 +6,16 @@ public class UserQuest {
   private boolean isRedeemed;
   private boolean tasksComplete;
   private boolean defeatTypeJobsComplete;
+  private boolean isComplete;
   
   public UserQuest(int userId, int questId, boolean isRedeemed,
-      boolean tasksComplete, boolean defeatTypeJobsComplete) {
+      boolean tasksComplete, boolean defeatTypeJobsComplete, boolean isComplete) {
     this.userId = userId;
     this.questId = questId;
     this.isRedeemed = isRedeemed;
     this.tasksComplete = tasksComplete;
     this.defeatTypeJobsComplete = defeatTypeJobsComplete;
+    this.isComplete = isComplete;
   }
 
   public int getUserId() {
@@ -43,12 +45,17 @@ public class UserQuest {
   public void setDefeatTypeJobsComplete(boolean defeatTypeJobsComplete) {
     this.defeatTypeJobsComplete = defeatTypeJobsComplete;
   }
+  
+  public boolean isComplete() {
+    return isComplete;
+  }
 
   @Override
   public String toString() {
     return "UserQuest [userId=" + userId + ", questId=" + questId
         + ", isRedeemed=" + isRedeemed + ", tasksComplete=" + tasksComplete
-        + ", defeatTypeJobsComplete=" + defeatTypeJobsComplete + "]";
+        + ", defeatTypeJobsComplete=" + defeatTypeJobsComplete
+        + ", isComplete=" + isComplete + "]";
   }
 
 }

@@ -1,0 +1,949 @@
+2012-05-01 20:46:09,431 [main] INFO  com.mchange.v2.log.MLog - MLog clients using log4j logging.
+2012-05-01 20:46:09,609 [main] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:05:05; debug? true; trace: 10]
+2012-05-01 20:46:09,656 [Thread-1] INFO  com.lvl6.server.GameServer - init : Server initializing
+2012-05-01 20:46:09,656 [Thread-1] INFO  com.lvl6.server.GameServer - loadEventControllers : Loading event controllers
+2012-05-01 20:46:09,659 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: AdminController
+2012-05-01 20:46:09,673 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: A_ADMIN_UPDATE
+2012-05-01 20:46:09,673 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ArmoryController
+2012-05-01 20:46:09,679 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ARMORY_EVENT
+2012-05-01 20:46:09,679 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: BattleController
+2012-05-01 20:46:09,692 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_BATTLE_EVENT
+2012-05-01 20:46:09,692 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChangeUserLocationController
+2012-05-01 20:46:09,697 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHANGE_USER_LOCATION_EVENT
+2012-05-01 20:46:09,697 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChatController
+2012-05-01 20:46:09,705 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHAT_EVENT
+2012-05-01 20:46:09,705 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: CriticalStructureActionController
+2012-05-01 20:46:09,711 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CRIT_STRUCTURE_ACTION_EVENT
+2012-05-01 20:46:09,711 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EnableAPNSController
+2012-05-01 20:46:09,715 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ENABLE_APNS_EVENT
+2012-05-01 20:46:09,716 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EquipEquipmentController
+2012-05-01 20:46:09,719 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EQUIP_EQUIPMENT_EVENT
+2012-05-01 20:46:09,720 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ExpansionWaitCompleteController
+2012-05-01 20:46:09,724 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EXPANSION_WAIT_COMPLETE_EVENT
+2012-05-01 20:46:09,724 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: FinishNormStructWaittimeWithDiamondsController
+2012-05-01 20:46:09,731 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT
+2012-05-01 20:46:09,731 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: GenerateAttackListController
+2012-05-01 20:46:09,743 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_GENERATE_ATTACK_LIST_EVENT
+2012-05-01 20:46:09,743 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: InAppPurchaseController
+2012-05-01 20:46:09,751 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_IN_APP_PURCHASE_EVENT
+2012-05-01 20:46:09,752 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LevelUpController
+2012-05-01 20:46:09,758 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LEVEL_UP_EVENT
+2012-05-01 20:46:09,758 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadNeutralCityController
+2012-05-01 20:46:09,762 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_NEUTRAL_CITY_EVENT
+2012-05-01 20:46:09,762 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadPlayerCityController
+2012-05-01 20:46:09,777 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_PLAYER_CITY_EVENT
+2012-05-01 20:46:09,778 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: MoveOrRotateNormStructureController
+2012-05-01 20:46:09,788 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT
+2012-05-01 20:46:09,788 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: NormStructWaitCompleteController
+2012-05-01 20:46:09,793 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_NORM_STRUCT_WAIT_COMPLETE_EVENT
+2012-05-01 20:46:09,793 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostOnPlayerWallController
+2012-05-01 20:46:09,800 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_ON_PLAYER_WALL
+2012-05-01 20:46:09,800 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostToMarketplaceController
+2012-05-01 20:46:09,807 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_TO_MARKETPLACE_EVENT
+2012-05-01 20:46:09,807 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseCityExpansionController
+2012-05-01 20:46:09,812 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_CITY_EXPANSION_EVENT
+2012-05-01 20:46:09,812 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseFromMarketplaceController
+2012-05-01 20:46:09,828 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_FROM_MARKETPLACE_EVENT
+2012-05-01 20:46:09,828 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseMarketplaceLicenseController
+2012-05-01 20:46:09,835 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_MARKETPLACE_LICENSE_EVENT
+2012-05-01 20:46:09,835 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseNormStructureController
+2012-05-01 20:46:09,852 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_NORM_STRUCTURE_EVENT
+2012-05-01 20:46:09,853 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestAcceptController
+2012-05-01 20:46:09,860 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_ACCEPT_EVENT
+2012-05-01 20:46:09,860 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestRedeemController
+2012-05-01 20:46:09,866 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_REDEEM_EVENT
+2012-05-01 20:46:09,866 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RedeemMarketplaceEarningsController
+2012-05-01 20:46:09,874 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REDEEM_MARKETPLACE_EARNINGS_EVENT
+2012-05-01 20:46:09,874 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWaitCompleteController
+2012-05-01 20:46:09,880 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WAIT_COMPLETE_EVENT
+2012-05-01 20:46:09,880 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWithDiamondsController
+2012-05-01 20:46:09,886 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WITH_DIAMONDS_EVENT
+2012-05-01 20:46:09,886 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetractMarketplacePostController
+2012-05-01 20:46:09,890 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRACT_POST_FROM_MARKETPLACE_EVENT
+2012-05-01 20:46:09,890 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrencyFromNormStructureController
+2012-05-01 20:46:09,915 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT
+2012-05-01 20:46:09,915 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrentMarketplacePostsController
+2012-05-01 20:46:09,924 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT
+2012-05-01 20:46:09,924 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrievePlayerWallPostsController
+2012-05-01 20:46:09,938 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_PLAYER_WALL_POSTS
+2012-05-01 20:46:09,939 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataController
+2012-05-01 20:46:09,951 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_EVENT
+2012-05-01 20:46:09,951 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataForShopController
+2012-05-01 20:46:09,969 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT
+2012-05-01 20:46:09,969 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUserEquipForUserController
+2012-05-01 20:46:09,980 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USER_EQUIP_FOR_USER
+2012-05-01 20:46:09,980 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUsersForUserIdsController
+2012-05-01 20:46:09,994 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USERS_FOR_USER_IDS_EVENT
+2012-05-01 20:46:09,996 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: SellNormStructureController
+2012-05-01 20:46:10,018 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_SELL_NORM_STRUCTURE_EVENT
+2012-05-01 20:46:10,019 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: StartupController
+2012-05-01 20:46:10,030 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_STARTUP_EVENT
+2012-05-01 20:46:10,030 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: TaskActionController
+2012-05-01 20:46:10,045 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_TASK_ACTION_EVENT
+2012-05-01 20:46:10,045 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UpgradeNormStructureController
+2012-05-01 20:46:10,052 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_UPGRADE_NORM_STRUCTURE_EVENT
+2012-05-01 20:46:10,053 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserCreateController
+2012-05-01 20:46:10,085 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_CREATE_EVENT
+2012-05-01 20:46:10,085 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserQuestDetailsController
+2012-05-01 20:46:10,094 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_QUEST_DETAILS_EVENT
+2012-05-01 20:46:10,094 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UseSkillPointController
+2012-05-01 20:46:10,111 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USE_SKILL_POINT_EVENT
+2012-05-01 20:46:10,112 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: VaultController
+2012-05-01 20:46:10,118 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_VAULT_EVENT
+2012-05-01 20:46:10,119 [Thread-1] INFO  com.lvl6.server.GameServer - initServerSocket : Initializing server socket
+2012-05-01 20:46:10,138 [Thread-1] INFO  com.lvl6.server.GameServer - binding to address: 10.1.10.23
+2012-05-01 20:46:10,177 [Thread-1] INFO  com.lvl6.server.GameServer - ******** GameServer running ********
+2012-05-01 20:47:12,524 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 20:47:13,358 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 20:47:13,403 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@45f8acdc
+2012-05-01 20:47:14,917 [StartupController] INFO  com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 10, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> c3p0_test_table, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 2rxedz8n38f3zw1q8rz3n|59556d12, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rxedz8n38f3zw1q8rz3n|59556d12, idleConnectionTestPeriod -> 7200, initialPoolSize -> 20, jdbcUrl -> jdbc:mysql://utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com/lostnations, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 36000, maxIdleTimeExcessConnections -> 300, maxPoolSize -> 60, maxStatements -> 0, maxStatementsPerConnection -> 20, minPoolSize -> 10, numHelperThreads -> 6, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 7200, usesTraditionalReflectiveProxies -> false ]
+2012-05-01 20:47:17,230 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@455b4492
+2012-05-01 20:47:17,728 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 20:47:17,735 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@1e8809ce
+2012-05-01 20:47:17,742 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 89
+2012-05-01 20:47:17,753 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@12e14ebc
+2012-05-01 20:47:18,041 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 20:47:18,044 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:47:18,392 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 95
+2012-05-01 20:47:18,392 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@4599d5b
+2012-05-01 20:47:18,440 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:47:18,540 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 158
+2012-05-01 20:47:18,541 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@4ad61301
+2012-05-01 20:47:18,543 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:47:18,652 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 152
+2012-05-01 20:47:18,653 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@2c79cd09
+2012-05-01 20:47:18,656 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:47:21,922 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 20:47:21,930 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@22e38fca
+2012-05-01 20:47:22,003 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 20:47:22,010 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:47:43,530 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT and size: 28
+2012-05-01 20:47:43,536 [RetrieveCurrencyFromNormStructureController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveCurrencyFromNormStructureRequestEvent@14df33ae
+2012-05-01 20:47:43,669 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, id=1
+2012-05-01 20:47:43,669 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:47:44,540 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT and size: 29
+2012-05-01 20:47:44,540 [RetrieveCurrencyFromNormStructureController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveCurrencyFromNormStructureRequestEvent@7570b819
+2012-05-01 20:47:44,670 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, id=1
+2012-05-01 20:47:44,670 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:47:46,192 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT and size: 29
+2012-05-01 20:47:46,192 [RetrieveCurrencyFromNormStructureController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveCurrencyFromNormStructureRequestEvent@39bde3d2
+2012-05-01 20:47:46,309 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, id=1
+2012-05-01 20:47:46,309 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:47:50,440 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 20:47:50,446 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@7371b4ca
+2012-05-01 20:47:50,561 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 20:48:00,647 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_NEUTRAL_CITY_EVENT and size: 21
+2012-05-01 20:48:00,652 [LoadNeutralCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadNeutralCityRequestEvent@1f561437
+2012-05-01 20:48:00,698 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 43
+2012-05-01 20:48:00,699 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@251c135c
+2012-05-01 20:48:00,700 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:48:01,046 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_NEUTRAL_CITY_EVENT, id=1
+2012-05-01 20:48:01,122 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_GENERATE_ATTACK_LIST_EVENT and size: 47
+2012-05-01 20:48:01,128 [GenerateAttackListController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.GenerateAttackListRequestEvent@4553f141
+2012-05-01 20:48:01,217 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_GENERATE_ATTACK_LIST_EVENT, id=1
+2012-05-01 20:48:01,426 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 71
+2012-05-01 20:48:01,426 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@61efb003
+2012-05-01 20:48:01,428 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:48:01,858 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 71
+2012-05-01 20:48:01,858 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@3f0cc730
+2012-05-01 20:48:01,860 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:48:01,963 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 92
+2012-05-01 20:48:01,963 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 40
+2012-05-01 20:48:01,963 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@5fe940a6
+2012-05-01 20:48:01,963 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@4a93837b
+2012-05-01 20:48:01,964 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:48:01,964 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:48:02,780 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 40
+2012-05-01 20:48:02,780 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@28a7bd7a
+2012-05-01 20:48:02,781 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:50:16,214 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_USER_EQUIP_FOR_USER and size: 22
+2012-05-01 20:50:16,221 [RetrieveUserEquipForUserController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveUserEquipForUserRequestEvent@69ed2bbd
+2012-05-01 20:50:16,255 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_USER_EQUIP_FOR_USER, id=1
+2012-05-01 20:50:16,276 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 21
+2012-05-01 20:50:16,276 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@5330cb4b
+2012-05-01 20:50:16,276 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:50:16,279 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 21
+2012-05-01 20:50:16,280 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@2872d398
+2012-05-01 20:50:16,280 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 20:50:40,653 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_BATTLE_EVENT and size: 44
+2012-05-01 20:50:40,662 [BattleController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.BattleRequestEvent@862fb35
+2012-05-01 20:50:40,738 [BattleController] INFO  com.lvl6.utils.Wrap - com.lvl6.events.response.BattleResponseEvent@5f8f127c is resevent
+2012-05-01 20:50:40,739 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_BATTLE_EVENT, id=1
+2012-05-01 20:50:40,822 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:50:40,822 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=2596
+2012-05-01 20:51:11,408 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_TASK_ACTION_EVENT and size: 28
+2012-05-01 20:51:11,415 [TaskActionController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.TaskActionRequestEvent@1f52f43b
+2012-05-01 20:51:11,562 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_TASK_ACTION_EVENT, id=1
+2012-05-01 20:51:11,634 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:51:16,042 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_USER_EQUIP_FOR_USER and size: 22
+2012-05-01 20:51:16,043 [RetrieveUserEquipForUserController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveUserEquipForUserRequestEvent@13d86a73
+2012-05-01 20:51:16,072 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_USER_EQUIP_FOR_USER, id=1
+2012-05-01 20:51:39,669 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_BATTLE_EVENT and size: 84
+2012-05-01 20:51:39,669 [BattleController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.BattleRequestEvent@62c37f31
+2012-05-01 20:51:39,772 [BattleController] INFO  com.lvl6.utils.Wrap - com.lvl6.events.response.BattleResponseEvent@461979eb is resevent
+2012-05-01 20:51:39,772 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_BATTLE_EVENT, id=1
+2012-05-01 20:51:39,840 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=2596
+2012-05-01 20:51:39,840 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:51:40,007 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_QUEST_COMPLETE_EVENT, id=1
+2012-05-01 20:52:01,077 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 20:52:01,077 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@1bdb52c8
+2012-05-01 20:52:01,106 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 20:54:10,816 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 20:54:10,816 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@525dc268
+2012-05-01 20:54:10,882 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 20:54:10,882 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 20:54:39,453 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:01:00,737 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:01:02,168 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:01:02,168 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@43fd360b
+2012-05-01 21:01:02,549 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@1e4218cb
+2012-05-01 21:01:04,189 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:01:04,189 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@70e8eeca
+2012-05-01 21:01:04,204 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 89
+2012-05-01 21:01:04,205 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@7d98d9cf
+2012-05-01 21:01:04,206 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:01:04,397 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:01:04,429 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 152
+2012-05-01 21:01:04,429 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@13ad9b0f
+2012-05-01 21:01:04,431 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:01:04,540 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 158
+2012-05-01 21:01:04,540 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6a9effe0
+2012-05-01 21:01:04,542 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:01:04,598 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 25
+2012-05-01 21:01:04,598 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6cb101cf
+2012-05-01 21:01:04,598 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:01:06,469 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:01:06,469 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@58edf4c8
+2012-05-01 21:01:06,554 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:01:06,554 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:01:06,574 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:01:06,575 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@63e5a5dc
+2012-05-01 21:01:06,636 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:01:06,636 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:01:16,299 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:01:16,300 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@40930120
+2012-05-01 21:01:16,342 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:01:20,479 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_GENERATE_ATTACK_LIST_EVENT and size: 47
+2012-05-01 21:01:20,479 [GenerateAttackListController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.GenerateAttackListRequestEvent@36b1be82
+2012-05-01 21:01:20,958 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_GENERATE_ATTACK_LIST_EVENT, id=1
+2012-05-01 21:01:22,162 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 37
+2012-05-01 21:01:22,163 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@1f4649ed
+2012-05-01 21:01:22,163 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:01:31,804 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_NEUTRAL_CITY_EVENT and size: 21
+2012-05-01 21:01:31,805 [LoadNeutralCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadNeutralCityRequestEvent@3f9f76a5
+2012-05-01 21:01:31,810 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 43
+2012-05-01 21:01:31,811 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@71e852be
+2012-05-01 21:01:31,812 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:01:31,857 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 71
+2012-05-01 21:01:31,857 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@4b90725e
+2012-05-01 21:01:31,858 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:01:32,162 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_NEUTRAL_CITY_EVENT, id=1
+2012-05-01 21:01:35,654 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 21
+2012-05-01 21:01:35,655 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@477baf4
+2012-05-01 21:01:35,695 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:01:39,954 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 21
+2012-05-01 21:01:39,954 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@174da86b
+2012-05-01 21:01:40,019 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:01:44,870 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_TASK_ACTION_EVENT and size: 28
+2012-05-01 21:01:44,870 [TaskActionController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.TaskActionRequestEvent@1b2ede8
+2012-05-01 21:01:45,003 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_TASK_ACTION_EVENT, id=1
+2012-05-01 21:01:45,042 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:01:47,636 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 21
+2012-05-01 21:01:47,636 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@7be758ca
+2012-05-01 21:01:47,664 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:01:59,670 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_GENERATE_ATTACK_LIST_EVENT and size: 47
+2012-05-01 21:01:59,671 [GenerateAttackListController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.GenerateAttackListRequestEvent@2e7857a5
+2012-05-01 21:01:59,771 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_GENERATE_ATTACK_LIST_EVENT, id=1
+2012-05-01 21:01:59,905 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 22
+2012-05-01 21:01:59,905 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@34f34071
+2012-05-01 21:01:59,906 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:02:07,911 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_GENERATE_ATTACK_LIST_EVENT and size: 47
+2012-05-01 21:02:07,911 [GenerateAttackListController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.GenerateAttackListRequestEvent@4e0bd5df
+2012-05-01 21:02:08,068 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_GENERATE_ATTACK_LIST_EVENT, id=1
+2012-05-01 21:02:11,597 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_GENERATE_ATTACK_LIST_EVENT and size: 47
+2012-05-01 21:02:11,597 [GenerateAttackListController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.GenerateAttackListRequestEvent@4c6030f9
+2012-05-01 21:02:11,695 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_GENERATE_ATTACK_LIST_EVENT, id=1
+2012-05-01 21:02:14,708 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_NEUTRAL_CITY_EVENT and size: 21
+2012-05-01 21:02:14,709 [LoadNeutralCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadNeutralCityRequestEvent@71e13a2c
+2012-05-01 21:02:14,865 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_NEUTRAL_CITY_EVENT, id=1
+2012-05-01 21:02:20,199 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 21
+2012-05-01 21:02:20,199 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@4de514a9
+2012-05-01 21:02:20,226 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:02:46,455 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:03:10,778 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:05:28,352 [main] INFO  com.mchange.v2.log.MLog - MLog clients using log4j logging.
+2012-05-01 21:05:28,532 [main] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:05:05; debug? true; trace: 10]
+2012-05-01 21:05:28,575 [Thread-1] INFO  com.lvl6.server.GameServer - init : Server initializing
+2012-05-01 21:05:28,575 [Thread-1] INFO  com.lvl6.server.GameServer - loadEventControllers : Loading event controllers
+2012-05-01 21:05:28,578 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: AdminController
+2012-05-01 21:05:28,592 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: A_ADMIN_UPDATE
+2012-05-01 21:05:28,592 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ArmoryController
+2012-05-01 21:05:28,598 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ARMORY_EVENT
+2012-05-01 21:05:28,598 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: BattleController
+2012-05-01 21:05:28,606 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_BATTLE_EVENT
+2012-05-01 21:05:28,606 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChangeUserLocationController
+2012-05-01 21:05:28,614 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHANGE_USER_LOCATION_EVENT
+2012-05-01 21:05:28,614 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChatController
+2012-05-01 21:05:28,624 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHAT_EVENT
+2012-05-01 21:05:28,624 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: CriticalStructureActionController
+2012-05-01 21:05:28,630 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CRIT_STRUCTURE_ACTION_EVENT
+2012-05-01 21:05:28,630 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EnableAPNSController
+2012-05-01 21:05:28,634 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ENABLE_APNS_EVENT
+2012-05-01 21:05:28,634 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EquipEquipmentController
+2012-05-01 21:05:28,638 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EQUIP_EQUIPMENT_EVENT
+2012-05-01 21:05:28,638 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ExpansionWaitCompleteController
+2012-05-01 21:05:28,643 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EXPANSION_WAIT_COMPLETE_EVENT
+2012-05-01 21:05:28,643 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: FinishNormStructWaittimeWithDiamondsController
+2012-05-01 21:05:28,647 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT
+2012-05-01 21:05:28,647 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: GenerateAttackListController
+2012-05-01 21:05:28,660 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_GENERATE_ATTACK_LIST_EVENT
+2012-05-01 21:05:28,660 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: InAppPurchaseController
+2012-05-01 21:05:28,668 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_IN_APP_PURCHASE_EVENT
+2012-05-01 21:05:28,668 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LevelUpController
+2012-05-01 21:05:28,675 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LEVEL_UP_EVENT
+2012-05-01 21:05:28,675 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadNeutralCityController
+2012-05-01 21:05:28,680 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_NEUTRAL_CITY_EVENT
+2012-05-01 21:05:28,680 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadPlayerCityController
+2012-05-01 21:05:28,688 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_PLAYER_CITY_EVENT
+2012-05-01 21:05:28,688 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: MoveOrRotateNormStructureController
+2012-05-01 21:05:28,694 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT
+2012-05-01 21:05:28,694 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: NormStructWaitCompleteController
+2012-05-01 21:05:28,702 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_NORM_STRUCT_WAIT_COMPLETE_EVENT
+2012-05-01 21:05:28,703 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostOnPlayerWallController
+2012-05-01 21:05:28,708 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_ON_PLAYER_WALL
+2012-05-01 21:05:28,708 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostToMarketplaceController
+2012-05-01 21:05:28,712 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_TO_MARKETPLACE_EVENT
+2012-05-01 21:05:28,713 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseCityExpansionController
+2012-05-01 21:05:28,717 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_CITY_EXPANSION_EVENT
+2012-05-01 21:05:28,717 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseFromMarketplaceController
+2012-05-01 21:05:28,722 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_FROM_MARKETPLACE_EVENT
+2012-05-01 21:05:28,722 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseMarketplaceLicenseController
+2012-05-01 21:05:28,726 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_MARKETPLACE_LICENSE_EVENT
+2012-05-01 21:05:28,726 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseNormStructureController
+2012-05-01 21:05:28,731 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_NORM_STRUCTURE_EVENT
+2012-05-01 21:05:28,731 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestAcceptController
+2012-05-01 21:05:28,736 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_ACCEPT_EVENT
+2012-05-01 21:05:28,736 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestRedeemController
+2012-05-01 21:05:28,742 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_REDEEM_EVENT
+2012-05-01 21:05:28,742 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RedeemMarketplaceEarningsController
+2012-05-01 21:05:28,752 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REDEEM_MARKETPLACE_EARNINGS_EVENT
+2012-05-01 21:05:28,752 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWaitCompleteController
+2012-05-01 21:05:28,757 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WAIT_COMPLETE_EVENT
+2012-05-01 21:05:28,757 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWithDiamondsController
+2012-05-01 21:05:28,762 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WITH_DIAMONDS_EVENT
+2012-05-01 21:05:28,762 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetractMarketplacePostController
+2012-05-01 21:05:28,766 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRACT_POST_FROM_MARKETPLACE_EVENT
+2012-05-01 21:05:28,766 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrencyFromNormStructureController
+2012-05-01 21:05:28,775 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT
+2012-05-01 21:05:28,775 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrentMarketplacePostsController
+2012-05-01 21:05:28,783 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT
+2012-05-01 21:05:28,783 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrievePlayerWallPostsController
+2012-05-01 21:05:28,789 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_PLAYER_WALL_POSTS
+2012-05-01 21:05:28,790 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataController
+2012-05-01 21:05:28,800 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_EVENT
+2012-05-01 21:05:28,800 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataForShopController
+2012-05-01 21:05:28,809 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT
+2012-05-01 21:05:28,809 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUserEquipForUserController
+2012-05-01 21:05:28,814 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USER_EQUIP_FOR_USER
+2012-05-01 21:05:28,814 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUsersForUserIdsController
+2012-05-01 21:05:28,821 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USERS_FOR_USER_IDS_EVENT
+2012-05-01 21:05:28,821 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: SellNormStructureController
+2012-05-01 21:05:28,825 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_SELL_NORM_STRUCTURE_EVENT
+2012-05-01 21:05:28,825 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: StartupController
+2012-05-01 21:05:28,834 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_STARTUP_EVENT
+2012-05-01 21:05:28,835 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: TaskActionController
+2012-05-01 21:05:28,846 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_TASK_ACTION_EVENT
+2012-05-01 21:05:28,846 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UpgradeNormStructureController
+2012-05-01 21:05:28,852 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_UPGRADE_NORM_STRUCTURE_EVENT
+2012-05-01 21:05:28,852 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserCreateController
+2012-05-01 21:05:28,865 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_CREATE_EVENT
+2012-05-01 21:05:28,866 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserQuestDetailsController
+2012-05-01 21:05:28,880 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_QUEST_DETAILS_EVENT
+2012-05-01 21:05:28,880 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UseSkillPointController
+2012-05-01 21:05:28,888 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USE_SKILL_POINT_EVENT
+2012-05-01 21:05:28,889 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: VaultController
+2012-05-01 21:05:28,897 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_VAULT_EVENT
+2012-05-01 21:05:28,897 [Thread-1] INFO  com.lvl6.server.GameServer - initServerSocket : Initializing server socket
+2012-05-01 21:05:28,909 [Thread-1] INFO  com.lvl6.server.GameServer - binding to address: 10.1.10.23
+2012-05-01 21:05:28,950 [Thread-1] INFO  com.lvl6.server.GameServer - ******** GameServer running ********
+2012-05-01 21:05:35,416 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:05:36,200 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:05:36,224 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@5918cb3a
+2012-05-01 21:05:37,572 [StartupController] INFO  com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 10, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> c3p0_test_table, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 2rxedz8n393y8116eupnz|3d3cdaa, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rxedz8n393y8116eupnz|3d3cdaa, idleConnectionTestPeriod -> 7200, initialPoolSize -> 20, jdbcUrl -> jdbc:mysql://utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com/lostnations, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 36000, maxIdleTimeExcessConnections -> 300, maxPoolSize -> 60, maxStatements -> 0, maxStatementsPerConnection -> 20, minPoolSize -> 10, numHelperThreads -> 6, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 7200, usesTraditionalReflectiveProxies -> false ]
+2012-05-01 21:05:40,042 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@7548c02f
+2012-05-01 21:05:40,324 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:05:40,332 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@1aa632be
+2012-05-01 21:05:40,332 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 97
+2012-05-01 21:05:40,557 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:06:00,487 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 103
+2012-05-01 21:06:00,488 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@24442c76
+2012-05-01 21:06:00,837 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:06:01,431 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:06:01,431 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@67a5fb5a
+2012-05-01 21:06:01,483 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:06:02,464 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@c0fe89a
+2012-05-01 21:06:02,464 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 169
+2012-05-01 21:06:02,549 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:06:02,555 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:06:03,367 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 163
+2012-05-01 21:06:03,367 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@11eea7f0
+2012-05-01 21:06:03,370 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:06:04,048 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6913108b
+2012-05-01 21:06:04,052 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:06:09,991 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 33
+2012-05-01 21:06:18,882 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@43eeba19
+2012-05-01 21:06:18,882 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:06:18,882 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@6dfbe226
+2012-05-01 21:06:18,882 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:06:18,953 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:06:18,953 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:06:31,969 [main] INFO  com.mchange.v2.log.MLog - MLog clients using log4j logging.
+2012-05-01 21:06:32,149 [main] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:05:05; debug? true; trace: 10]
+2012-05-01 21:06:32,196 [Thread-1] INFO  com.lvl6.server.GameServer - init : Server initializing
+2012-05-01 21:06:32,196 [Thread-1] INFO  com.lvl6.server.GameServer - loadEventControllers : Loading event controllers
+2012-05-01 21:06:32,197 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: AdminController
+2012-05-01 21:06:32,206 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: A_ADMIN_UPDATE
+2012-05-01 21:06:32,206 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ArmoryController
+2012-05-01 21:06:32,210 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ARMORY_EVENT
+2012-05-01 21:06:32,210 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: BattleController
+2012-05-01 21:06:32,217 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_BATTLE_EVENT
+2012-05-01 21:06:32,217 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChangeUserLocationController
+2012-05-01 21:06:32,221 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHANGE_USER_LOCATION_EVENT
+2012-05-01 21:06:32,221 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChatController
+2012-05-01 21:06:32,230 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHAT_EVENT
+2012-05-01 21:06:32,230 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: CriticalStructureActionController
+2012-05-01 21:06:32,241 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CRIT_STRUCTURE_ACTION_EVENT
+2012-05-01 21:06:32,241 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EnableAPNSController
+2012-05-01 21:06:32,244 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ENABLE_APNS_EVENT
+2012-05-01 21:06:32,244 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EquipEquipmentController
+2012-05-01 21:06:32,248 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EQUIP_EQUIPMENT_EVENT
+2012-05-01 21:06:32,248 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ExpansionWaitCompleteController
+2012-05-01 21:06:32,253 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EXPANSION_WAIT_COMPLETE_EVENT
+2012-05-01 21:06:32,253 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: FinishNormStructWaittimeWithDiamondsController
+2012-05-01 21:06:32,257 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT
+2012-05-01 21:06:32,257 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: GenerateAttackListController
+2012-05-01 21:06:32,271 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_GENERATE_ATTACK_LIST_EVENT
+2012-05-01 21:06:32,271 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: InAppPurchaseController
+2012-05-01 21:06:32,274 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_IN_APP_PURCHASE_EVENT
+2012-05-01 21:06:32,274 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LevelUpController
+2012-05-01 21:06:32,278 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LEVEL_UP_EVENT
+2012-05-01 21:06:32,278 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadNeutralCityController
+2012-05-01 21:06:32,289 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_NEUTRAL_CITY_EVENT
+2012-05-01 21:06:32,289 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadPlayerCityController
+2012-05-01 21:06:32,296 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_PLAYER_CITY_EVENT
+2012-05-01 21:06:32,296 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: MoveOrRotateNormStructureController
+2012-05-01 21:06:32,300 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT
+2012-05-01 21:06:32,300 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: NormStructWaitCompleteController
+2012-05-01 21:06:32,305 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_NORM_STRUCT_WAIT_COMPLETE_EVENT
+2012-05-01 21:06:32,305 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostOnPlayerWallController
+2012-05-01 21:06:32,308 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_ON_PLAYER_WALL
+2012-05-01 21:06:32,308 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostToMarketplaceController
+2012-05-01 21:06:32,311 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_TO_MARKETPLACE_EVENT
+2012-05-01 21:06:32,311 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseCityExpansionController
+2012-05-01 21:06:32,313 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_CITY_EXPANSION_EVENT
+2012-05-01 21:06:32,313 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseFromMarketplaceController
+2012-05-01 21:06:32,317 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_FROM_MARKETPLACE_EVENT
+2012-05-01 21:06:32,317 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseMarketplaceLicenseController
+2012-05-01 21:06:32,326 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_MARKETPLACE_LICENSE_EVENT
+2012-05-01 21:06:32,333 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseNormStructureController
+2012-05-01 21:06:32,337 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_NORM_STRUCTURE_EVENT
+2012-05-01 21:06:32,337 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestAcceptController
+2012-05-01 21:06:32,341 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_ACCEPT_EVENT
+2012-05-01 21:06:32,341 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestRedeemController
+2012-05-01 21:06:32,345 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_REDEEM_EVENT
+2012-05-01 21:06:32,345 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RedeemMarketplaceEarningsController
+2012-05-01 21:06:32,349 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REDEEM_MARKETPLACE_EARNINGS_EVENT
+2012-05-01 21:06:32,349 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWaitCompleteController
+2012-05-01 21:06:32,353 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WAIT_COMPLETE_EVENT
+2012-05-01 21:06:32,353 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWithDiamondsController
+2012-05-01 21:06:32,356 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WITH_DIAMONDS_EVENT
+2012-05-01 21:06:32,357 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetractMarketplacePostController
+2012-05-01 21:06:32,359 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRACT_POST_FROM_MARKETPLACE_EVENT
+2012-05-01 21:06:32,360 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrencyFromNormStructureController
+2012-05-01 21:06:32,366 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT
+2012-05-01 21:06:32,367 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrentMarketplacePostsController
+2012-05-01 21:06:32,373 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT
+2012-05-01 21:06:32,373 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrievePlayerWallPostsController
+2012-05-01 21:06:32,382 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_PLAYER_WALL_POSTS
+2012-05-01 21:06:32,383 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataController
+2012-05-01 21:06:32,392 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_EVENT
+2012-05-01 21:06:32,392 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataForShopController
+2012-05-01 21:06:32,396 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT
+2012-05-01 21:06:32,396 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUserEquipForUserController
+2012-05-01 21:06:32,402 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USER_EQUIP_FOR_USER
+2012-05-01 21:06:32,402 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUsersForUserIdsController
+2012-05-01 21:06:32,406 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USERS_FOR_USER_IDS_EVENT
+2012-05-01 21:06:32,406 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: SellNormStructureController
+2012-05-01 21:06:32,410 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_SELL_NORM_STRUCTURE_EVENT
+2012-05-01 21:06:32,410 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: StartupController
+2012-05-01 21:06:32,423 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_STARTUP_EVENT
+2012-05-01 21:06:32,423 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: TaskActionController
+2012-05-01 21:06:32,436 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_TASK_ACTION_EVENT
+2012-05-01 21:06:32,436 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UpgradeNormStructureController
+2012-05-01 21:06:32,440 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_UPGRADE_NORM_STRUCTURE_EVENT
+2012-05-01 21:06:32,441 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserCreateController
+2012-05-01 21:06:32,450 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_CREATE_EVENT
+2012-05-01 21:06:32,451 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserQuestDetailsController
+2012-05-01 21:06:32,458 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_QUEST_DETAILS_EVENT
+2012-05-01 21:06:32,458 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UseSkillPointController
+2012-05-01 21:06:32,471 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USE_SKILL_POINT_EVENT
+2012-05-01 21:06:32,471 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: VaultController
+2012-05-01 21:06:32,476 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_VAULT_EVENT
+2012-05-01 21:06:32,476 [Thread-1] INFO  com.lvl6.server.GameServer - initServerSocket : Initializing server socket
+2012-05-01 21:06:32,493 [Thread-1] INFO  com.lvl6.server.GameServer - binding to address: 10.1.10.23
+2012-05-01 21:06:32,520 [Thread-1] INFO  com.lvl6.server.GameServer - ******** GameServer running ********
+2012-05-01 21:06:36,419 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:06:40,347 [Thread-3] ERROR com.lvl6.server.SelectAndRead - player -1 was never in server, cannot update last logout
+2012-05-01 21:06:40,348 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:12:13,672 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:12:14,870 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:12:14,976 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@7857ae58
+2012-05-01 21:12:16,456 [StartupController] INFO  com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 10, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> c3p0_test_table, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 2rxedz8n395bay8se17j|1a0fced4, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rxedz8n395bay8se17j|1a0fced4, idleConnectionTestPeriod -> 7200, initialPoolSize -> 20, jdbcUrl -> jdbc:mysql://utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com/lostnations, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 36000, maxIdleTimeExcessConnections -> 300, maxPoolSize -> 60, maxStatements -> 0, maxStatementsPerConnection -> 20, minPoolSize -> 10, numHelperThreads -> 6, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 7200, usesTraditionalReflectiveProxies -> false ]
+2012-05-01 21:12:19,036 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@215200be
+2012-05-01 21:12:19,563 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:12:19,573 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@6ef36e59
+2012-05-01 21:12:19,573 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 97
+2012-05-01 21:12:19,587 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@74455aa8
+2012-05-01 21:12:19,851 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:12:19,901 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:12:20,012 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 103
+2012-05-01 21:12:20,013 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@35a271f5
+2012-05-01 21:12:20,038 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 169
+2012-05-01 21:12:20,039 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@7a6dd8e1
+2012-05-01 21:12:20,054 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:12:20,086 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:12:20,182 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 163
+2012-05-01 21:12:20,183 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@83ba4f1
+2012-05-01 21:12:20,187 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:12:21,099 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:12:21,109 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:12:21,110 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@6e9b86ea
+2012-05-01 21:12:21,110 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@5323961b
+2012-05-01 21:12:21,184 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:12:21,191 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:12:21,256 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:12:21,256 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:12:28,472 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:12:28,480 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@6e2c5444
+2012-05-01 21:12:28,640 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:13:04,525 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:13:04,528 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT and size: 30
+2012-05-01 21:13:04,539 [Thread-3] WARN  com.lvl6.server.SelectAndRead - player is on a new channel, must be reconnect.
+2012-05-01 21:13:04,539 [FinishNormStructWaittimeWithDiamondsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.FinishNormStructWaittimeWithDiamondsRequestEvent@5106def2
+2012-05-01 21:13:04,621 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, id=1
+2012-05-01 21:13:17,391 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:13:21,346 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:13:21,379 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:13:21,380 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@580c5da6
+2012-05-01 21:13:21,776 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@5a10c276
+2012-05-01 21:13:22,883 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:13:22,883 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@2d2ce574
+2012-05-01 21:13:22,888 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 97
+2012-05-01 21:13:22,888 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@1d46ee9c
+2012-05-01 21:13:22,891 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:13:22,969 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 165
+2012-05-01 21:13:22,970 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@5e917cb0
+2012-05-01 21:13:22,972 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:13:23,096 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:13:23,175 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 23
+2012-05-01 21:13:23,176 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@172b29ed
+2012-05-01 21:13:23,176 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:14:45,871 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:19:01,403 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:19:02,313 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:19:02,315 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@6399f443
+2012-05-01 21:19:02,665 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@614a616
+2012-05-01 21:19:06,921 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:19:06,922 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 97
+2012-05-01 21:19:06,922 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@4c9549af
+2012-05-01 21:19:06,922 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@3e03e574
+2012-05-01 21:19:06,926 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:19:07,008 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 165
+2012-05-01 21:19:07,008 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@264d8d50
+2012-05-01 21:19:07,010 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:19:07,150 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:19:07,296 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 23
+2012-05-01 21:19:07,296 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@763861e6
+2012-05-01 21:19:07,296 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:19:09,123 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:19:09,124 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@6fa37fac
+2012-05-01 21:19:09,191 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:19:09,191 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:19:15,216 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT and size: 35
+2012-05-01 21:19:15,229 [MoveOrRotateNormStructureController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.MoveOrRotateNormStructureRequestEvent@5d0e2c9
+2012-05-01 21:19:15,302 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT, id=1
+2012-05-01 21:19:43,606 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:19:50,238 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:19:50,238 [Thread-3] WARN  com.lvl6.server.SelectAndRead - player is on a new channel, must be reconnect.
+2012-05-01 21:19:50,238 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@390b755d
+2012-05-01 21:19:50,326 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:20:52,005 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:20:57,619 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:20:58,438 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:20:58,438 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@5092eb76
+2012-05-01 21:20:58,833 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@388eed76
+2012-05-01 21:20:59,729 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:20:59,730 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@6a46f764
+2012-05-01 21:20:59,858 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 97
+2012-05-01 21:20:59,858 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@468034b6
+2012-05-01 21:20:59,861 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:20:59,894 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:20:59,903 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 165
+2012-05-01 21:20:59,903 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@3484fdbc
+2012-05-01 21:20:59,905 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:21:00,044 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 169
+2012-05-01 21:21:00,044 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@72e5c94
+2012-05-01 21:21:00,047 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:21:00,588 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 23
+2012-05-01 21:21:00,589 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@74bffc3a
+2012-05-01 21:21:00,589 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:21:11,038 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:21:11,039 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@68487fb7
+2012-05-01 21:21:11,100 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:21:11,100 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:22:02,506 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:22:11,863 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:22:12,475 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:22:12,476 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@1adbbe8b
+2012-05-01 21:22:12,885 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@3a252a17
+2012-05-01 21:22:13,812 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:22:13,812 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@be389b8
+2012-05-01 21:22:13,814 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 97
+2012-05-01 21:22:13,815 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@738bf6bf
+2012-05-01 21:22:13,817 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:22:13,863 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 165
+2012-05-01 21:22:13,864 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@3b3e3940
+2012-05-01 21:22:13,866 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:22:13,999 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:22:14,147 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 23
+2012-05-01 21:22:14,147 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@7371b246
+2012-05-01 21:22:14,147 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:22:40,124 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_UPGRADE_NORM_STRUCTURE_EVENT and size: 28
+2012-05-01 21:22:40,133 [UpgradeNormStructureController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UpgradeNormStructureRequestEvent@1d9d96b1
+2012-05-01 21:22:40,236 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPGRADE_NORM_STRUCTURE_EVENT, id=1
+2012-05-01 21:22:40,305 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:22:48,175 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT and size: 30
+2012-05-01 21:22:48,177 [FinishNormStructWaittimeWithDiamondsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.FinishNormStructWaittimeWithDiamondsRequestEvent@506dd108
+2012-05-01 21:22:53,948 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:22:53,948 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@31438dbe
+2012-05-01 21:23:07,686 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, id=1
+2012-05-01 21:23:07,754 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:23:07,911 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_QUEST_COMPLETE_EVENT, id=1
+2012-05-01 21:23:07,968 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:24:11,057 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:24:11,058 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@476e46f5
+2012-05-01 21:24:11,137 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:24:11,138 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:25:25,375 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:26:51,819 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:26:51,845 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:26:51,845 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@dc737be
+2012-05-01 21:26:52,332 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@5e28df48
+2012-05-01 21:26:52,544 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:26:52,545 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@175023d2
+2012-05-01 21:26:52,548 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 89
+2012-05-01 21:26:52,548 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@7bb03ee
+2012-05-01 21:26:52,551 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:26:52,584 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 152
+2012-05-01 21:26:52,585 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6cb910c6
+2012-05-01 21:26:52,589 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:26:52,730 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:26:52,780 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 25
+2012-05-01 21:26:52,780 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@540a6997
+2012-05-01 21:26:52,780 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:27:02,298 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:27:04,336 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:27:04,358 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:27:04,358 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@15117cc0
+2012-05-01 21:27:04,702 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@55641ee0
+2012-05-01 21:27:05,018 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:27:05,019 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@54828e7
+2012-05-01 21:27:05,022 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 97
+2012-05-01 21:27:05,022 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@56c492c8
+2012-05-01 21:27:05,025 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:27:05,056 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 165
+2012-05-01 21:27:05,056 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@1240a1e1
+2012-05-01 21:27:05,059 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:27:05,222 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:27:05,361 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 23
+2012-05-01 21:27:05,362 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6602e879
+2012-05-01 21:27:05,362 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:27:11,696 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:27:11,696 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@48ec9441
+2012-05-01 21:27:11,782 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:27:11,782 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:27:22,498 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:27:22,499 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@465f3bad
+2012-05-01 21:27:22,590 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:27:49,399 [main] INFO  com.mchange.v2.log.MLog - MLog clients using log4j logging.
+2012-05-01 21:27:49,566 [main] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:05:05; debug? true; trace: 10]
+2012-05-01 21:27:49,608 [Thread-1] INFO  com.lvl6.server.GameServer - init : Server initializing
+2012-05-01 21:27:49,608 [Thread-1] INFO  com.lvl6.server.GameServer - loadEventControllers : Loading event controllers
+2012-05-01 21:27:49,610 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: AdminController
+2012-05-01 21:27:49,625 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: A_ADMIN_UPDATE
+2012-05-01 21:27:49,625 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ArmoryController
+2012-05-01 21:27:49,630 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ARMORY_EVENT
+2012-05-01 21:27:49,630 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: BattleController
+2012-05-01 21:27:49,638 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_BATTLE_EVENT
+2012-05-01 21:27:49,638 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChangeUserLocationController
+2012-05-01 21:27:49,644 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHANGE_USER_LOCATION_EVENT
+2012-05-01 21:27:49,645 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChatController
+2012-05-01 21:27:49,653 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHAT_EVENT
+2012-05-01 21:27:49,653 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: CriticalStructureActionController
+2012-05-01 21:27:49,658 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CRIT_STRUCTURE_ACTION_EVENT
+2012-05-01 21:27:49,658 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EnableAPNSController
+2012-05-01 21:27:49,663 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ENABLE_APNS_EVENT
+2012-05-01 21:27:49,663 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EquipEquipmentController
+2012-05-01 21:27:49,667 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EQUIP_EQUIPMENT_EVENT
+2012-05-01 21:27:49,667 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ExpansionWaitCompleteController
+2012-05-01 21:27:49,671 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EXPANSION_WAIT_COMPLETE_EVENT
+2012-05-01 21:27:49,671 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: FinishNormStructWaittimeWithDiamondsController
+2012-05-01 21:27:49,681 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT
+2012-05-01 21:27:49,681 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: GenerateAttackListController
+2012-05-01 21:27:49,690 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_GENERATE_ATTACK_LIST_EVENT
+2012-05-01 21:27:49,691 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: InAppPurchaseController
+2012-05-01 21:27:49,696 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_IN_APP_PURCHASE_EVENT
+2012-05-01 21:27:49,697 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LevelUpController
+2012-05-01 21:27:49,703 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LEVEL_UP_EVENT
+2012-05-01 21:27:49,703 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadNeutralCityController
+2012-05-01 21:27:49,708 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_NEUTRAL_CITY_EVENT
+2012-05-01 21:27:49,708 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadPlayerCityController
+2012-05-01 21:27:49,716 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_PLAYER_CITY_EVENT
+2012-05-01 21:27:49,716 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: MoveOrRotateNormStructureController
+2012-05-01 21:27:49,721 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT
+2012-05-01 21:27:49,722 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: NormStructWaitCompleteController
+2012-05-01 21:27:49,727 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_NORM_STRUCT_WAIT_COMPLETE_EVENT
+2012-05-01 21:27:49,727 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostOnPlayerWallController
+2012-05-01 21:27:49,736 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_ON_PLAYER_WALL
+2012-05-01 21:27:49,737 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostToMarketplaceController
+2012-05-01 21:27:49,741 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_TO_MARKETPLACE_EVENT
+2012-05-01 21:27:49,741 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseCityExpansionController
+2012-05-01 21:27:49,745 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_CITY_EXPANSION_EVENT
+2012-05-01 21:27:49,745 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseFromMarketplaceController
+2012-05-01 21:27:49,750 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_FROM_MARKETPLACE_EVENT
+2012-05-01 21:27:49,750 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseMarketplaceLicenseController
+2012-05-01 21:27:49,755 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_MARKETPLACE_LICENSE_EVENT
+2012-05-01 21:27:49,755 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseNormStructureController
+2012-05-01 21:27:49,760 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_NORM_STRUCTURE_EVENT
+2012-05-01 21:27:49,760 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestAcceptController
+2012-05-01 21:27:49,764 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_ACCEPT_EVENT
+2012-05-01 21:27:49,764 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestRedeemController
+2012-05-01 21:27:49,772 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_REDEEM_EVENT
+2012-05-01 21:27:49,772 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RedeemMarketplaceEarningsController
+2012-05-01 21:27:49,778 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REDEEM_MARKETPLACE_EARNINGS_EVENT
+2012-05-01 21:27:49,778 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWaitCompleteController
+2012-05-01 21:27:49,783 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WAIT_COMPLETE_EVENT
+2012-05-01 21:27:49,783 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWithDiamondsController
+2012-05-01 21:27:49,788 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WITH_DIAMONDS_EVENT
+2012-05-01 21:27:49,788 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetractMarketplacePostController
+2012-05-01 21:27:49,793 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRACT_POST_FROM_MARKETPLACE_EVENT
+2012-05-01 21:27:49,793 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrencyFromNormStructureController
+2012-05-01 21:27:49,800 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT
+2012-05-01 21:27:49,800 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrentMarketplacePostsController
+2012-05-01 21:27:49,808 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT
+2012-05-01 21:27:49,808 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrievePlayerWallPostsController
+2012-05-01 21:27:49,815 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_PLAYER_WALL_POSTS
+2012-05-01 21:27:49,815 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataController
+2012-05-01 21:27:49,824 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_EVENT
+2012-05-01 21:27:49,824 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataForShopController
+2012-05-01 21:27:49,830 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT
+2012-05-01 21:27:49,831 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUserEquipForUserController
+2012-05-01 21:27:49,835 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USER_EQUIP_FOR_USER
+2012-05-01 21:27:49,835 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUsersForUserIdsController
+2012-05-01 21:27:49,840 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USERS_FOR_USER_IDS_EVENT
+2012-05-01 21:27:49,840 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: SellNormStructureController
+2012-05-01 21:27:49,844 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_SELL_NORM_STRUCTURE_EVENT
+2012-05-01 21:27:49,844 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: StartupController
+2012-05-01 21:27:49,849 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_STARTUP_EVENT
+2012-05-01 21:27:49,850 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: TaskActionController
+2012-05-01 21:27:49,861 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_TASK_ACTION_EVENT
+2012-05-01 21:27:49,861 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UpgradeNormStructureController
+2012-05-01 21:27:49,869 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_UPGRADE_NORM_STRUCTURE_EVENT
+2012-05-01 21:27:49,870 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserCreateController
+2012-05-01 21:27:49,879 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_CREATE_EVENT
+2012-05-01 21:27:49,879 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserQuestDetailsController
+2012-05-01 21:27:49,885 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_QUEST_DETAILS_EVENT
+2012-05-01 21:27:49,885 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UseSkillPointController
+2012-05-01 21:27:49,892 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USE_SKILL_POINT_EVENT
+2012-05-01 21:27:49,892 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: VaultController
+2012-05-01 21:27:49,899 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_VAULT_EVENT
+2012-05-01 21:27:49,899 [Thread-1] INFO  com.lvl6.server.GameServer - initServerSocket : Initializing server socket
+2012-05-01 21:27:49,919 [Thread-1] INFO  com.lvl6.server.GameServer - binding to address: 10.1.10.23
+2012-05-01 21:27:49,953 [Thread-1] INFO  com.lvl6.server.GameServer - ******** GameServer running ********
+2012-05-01 21:27:53,589 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:27:57,474 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:27:57,511 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@674c5b37
+2012-05-01 21:27:58,696 [UserQuestDetailsController] INFO  com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 10, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> c3p0_test_table, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 2rxedz8n39woz7d1g30s|4cedf389, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rxedz8n39woz7d1g30s|4cedf389, idleConnectionTestPeriod -> 7200, initialPoolSize -> 20, jdbcUrl -> jdbc:mysql://utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com/lostnations, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 36000, maxIdleTimeExcessConnections -> 300, maxPoolSize -> 60, maxStatements -> 0, maxStatementsPerConnection -> 20, minPoolSize -> 10, numHelperThreads -> 6, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 7200, usesTraditionalReflectiveProxies -> false ]
+2012-05-01 21:28:00,402 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:28:14,771 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:28:16,250 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:28:16,639 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:28:16,648 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@7846a55e
+2012-05-01 21:28:17,536 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@14b03ea
+2012-05-01 21:28:19,282 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:28:19,290 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 95
+2012-05-01 21:28:19,290 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@4c61a7e6
+2012-05-01 21:28:19,300 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@66bb1ead
+2012-05-01 21:28:19,413 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:28:19,516 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:28:19,532 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 165
+2012-05-01 21:28:19,532 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@1875a340
+2012-05-01 21:28:19,535 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:28:19,579 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 171
+2012-05-01 21:28:19,580 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@2872d398
+2012-05-01 21:28:19,627 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:28:19,765 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 25
+2012-05-01 21:28:19,766 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@2507e9a8
+2012-05-01 21:28:19,766 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:28:26,655 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:28:26,655 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@2a7d2796
+2012-05-01 21:28:26,755 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:29:04,803 [main] INFO  com.mchange.v2.log.MLog - MLog clients using log4j logging.
+2012-05-01 21:29:04,960 [main] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:05:05; debug? true; trace: 10]
+2012-05-01 21:29:05,008 [Thread-1] INFO  com.lvl6.server.GameServer - init : Server initializing
+2012-05-01 21:29:05,008 [Thread-1] INFO  com.lvl6.server.GameServer - loadEventControllers : Loading event controllers
+2012-05-01 21:29:05,009 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: AdminController
+2012-05-01 21:29:05,019 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: A_ADMIN_UPDATE
+2012-05-01 21:29:05,019 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ArmoryController
+2012-05-01 21:29:05,022 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ARMORY_EVENT
+2012-05-01 21:29:05,022 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: BattleController
+2012-05-01 21:29:05,030 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_BATTLE_EVENT
+2012-05-01 21:29:05,030 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChangeUserLocationController
+2012-05-01 21:29:05,034 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHANGE_USER_LOCATION_EVENT
+2012-05-01 21:29:05,035 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ChatController
+2012-05-01 21:29:05,041 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CHAT_EVENT
+2012-05-01 21:29:05,041 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: CriticalStructureActionController
+2012-05-01 21:29:05,046 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_CRIT_STRUCTURE_ACTION_EVENT
+2012-05-01 21:29:05,046 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EnableAPNSController
+2012-05-01 21:29:05,048 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_ENABLE_APNS_EVENT
+2012-05-01 21:29:05,048 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: EquipEquipmentController
+2012-05-01 21:29:05,052 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EQUIP_EQUIPMENT_EVENT
+2012-05-01 21:29:05,052 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: ExpansionWaitCompleteController
+2012-05-01 21:29:05,055 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_EXPANSION_WAIT_COMPLETE_EVENT
+2012-05-01 21:29:05,056 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: FinishNormStructWaittimeWithDiamondsController
+2012-05-01 21:29:05,066 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT
+2012-05-01 21:29:05,066 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: GenerateAttackListController
+2012-05-01 21:29:05,072 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_GENERATE_ATTACK_LIST_EVENT
+2012-05-01 21:29:05,072 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: InAppPurchaseController
+2012-05-01 21:29:05,075 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_IN_APP_PURCHASE_EVENT
+2012-05-01 21:29:05,075 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LevelUpController
+2012-05-01 21:29:05,079 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LEVEL_UP_EVENT
+2012-05-01 21:29:05,079 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadNeutralCityController
+2012-05-01 21:29:05,083 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_NEUTRAL_CITY_EVENT
+2012-05-01 21:29:05,083 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: LoadPlayerCityController
+2012-05-01 21:29:05,092 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_LOAD_PLAYER_CITY_EVENT
+2012-05-01 21:29:05,093 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: MoveOrRotateNormStructureController
+2012-05-01 21:29:05,097 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT
+2012-05-01 21:29:05,097 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: NormStructWaitCompleteController
+2012-05-01 21:29:05,102 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_NORM_STRUCT_WAIT_COMPLETE_EVENT
+2012-05-01 21:29:05,102 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostOnPlayerWallController
+2012-05-01 21:29:05,105 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_ON_PLAYER_WALL
+2012-05-01 21:29:05,105 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PostToMarketplaceController
+2012-05-01 21:29:05,108 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_POST_TO_MARKETPLACE_EVENT
+2012-05-01 21:29:05,109 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseCityExpansionController
+2012-05-01 21:29:05,112 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_CITY_EXPANSION_EVENT
+2012-05-01 21:29:05,112 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseFromMarketplaceController
+2012-05-01 21:29:05,115 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_FROM_MARKETPLACE_EVENT
+2012-05-01 21:29:05,115 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseMarketplaceLicenseController
+2012-05-01 21:29:05,119 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_MARKETPLACE_LICENSE_EVENT
+2012-05-01 21:29:05,119 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: PurchaseNormStructureController
+2012-05-01 21:29:05,121 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_PURCHASE_NORM_STRUCTURE_EVENT
+2012-05-01 21:29:05,122 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestAcceptController
+2012-05-01 21:29:05,125 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_ACCEPT_EVENT
+2012-05-01 21:29:05,125 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: QuestRedeemController
+2012-05-01 21:29:05,129 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_QUEST_REDEEM_EVENT
+2012-05-01 21:29:05,129 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RedeemMarketplaceEarningsController
+2012-05-01 21:29:05,134 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REDEEM_MARKETPLACE_EARNINGS_EVENT
+2012-05-01 21:29:05,135 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWaitCompleteController
+2012-05-01 21:29:05,140 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WAIT_COMPLETE_EVENT
+2012-05-01 21:29:05,140 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RefillStatWithDiamondsController
+2012-05-01 21:29:05,143 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_REFILL_STAT_WITH_DIAMONDS_EVENT
+2012-05-01 21:29:05,143 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetractMarketplacePostController
+2012-05-01 21:29:05,146 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRACT_POST_FROM_MARKETPLACE_EVENT
+2012-05-01 21:29:05,146 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrencyFromNormStructureController
+2012-05-01 21:29:05,152 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT
+2012-05-01 21:29:05,152 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveCurrentMarketplacePostsController
+2012-05-01 21:29:05,157 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT
+2012-05-01 21:29:05,157 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrievePlayerWallPostsController
+2012-05-01 21:29:05,161 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_PLAYER_WALL_POSTS
+2012-05-01 21:29:05,162 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataController
+2012-05-01 21:29:05,169 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_EVENT
+2012-05-01 21:29:05,169 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveStaticDataForShopController
+2012-05-01 21:29:05,173 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT
+2012-05-01 21:29:05,173 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUserEquipForUserController
+2012-05-01 21:29:05,183 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USER_EQUIP_FOR_USER
+2012-05-01 21:29:05,183 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: RetrieveUsersForUserIdsController
+2012-05-01 21:29:05,186 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_RETRIEVE_USERS_FOR_USER_IDS_EVENT
+2012-05-01 21:29:05,186 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: SellNormStructureController
+2012-05-01 21:29:05,190 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_SELL_NORM_STRUCTURE_EVENT
+2012-05-01 21:29:05,190 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: StartupController
+2012-05-01 21:29:05,195 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_STARTUP_EVENT
+2012-05-01 21:29:05,196 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: TaskActionController
+2012-05-01 21:29:05,202 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_TASK_ACTION_EVENT
+2012-05-01 21:29:05,203 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UpgradeNormStructureController
+2012-05-01 21:29:05,206 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_UPGRADE_NORM_STRUCTURE_EVENT
+2012-05-01 21:29:05,206 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserCreateController
+2012-05-01 21:29:05,210 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_CREATE_EVENT
+2012-05-01 21:29:05,210 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UserQuestDetailsController
+2012-05-01 21:29:05,215 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USER_QUEST_DETAILS_EVENT
+2012-05-01 21:29:05,215 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: UseSkillPointController
+2012-05-01 21:29:05,225 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_USE_SKILL_POINT_EVENT
+2012-05-01 21:29:05,225 [Thread-1] INFO  com.lvl6.server.GameServer - loading class: VaultController
+2012-05-01 21:29:05,228 [Thread-1] INFO  com.lvl6.server.GameServer - loaded controller for event: C_VAULT_EVENT
+2012-05-01 21:29:05,229 [Thread-1] INFO  com.lvl6.server.GameServer - initServerSocket : Initializing server socket
+2012-05-01 21:29:05,242 [Thread-1] INFO  com.lvl6.server.GameServer - binding to address: 10.1.10.23
+2012-05-01 21:29:05,283 [Thread-1] INFO  com.lvl6.server.GameServer - ******** GameServer running ********
+2012-05-01 21:29:38,985 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:29:41,311 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:29:41,332 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@c96ad7c
+2012-05-01 21:29:42,632 [StartupController] INFO  com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 10, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> c3p0_test_table, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 2rxedz8n39yb5kiutvy0|3d3cdaa, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rxedz8n39yb5kiutvy0|3d3cdaa, idleConnectionTestPeriod -> 7200, initialPoolSize -> 20, jdbcUrl -> jdbc:mysql://utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com/lostnations, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 36000, maxIdleTimeExcessConnections -> 300, maxPoolSize -> 60, maxStatements -> 0, maxStatementsPerConnection -> 20, minPoolSize -> 10, numHelperThreads -> 6, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 7200, usesTraditionalReflectiveProxies -> false ]
+2012-05-01 21:29:44,879 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@575738e0
+2012-05-01 21:29:45,916 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:29:45,921 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@56d99277
+2012-05-01 21:29:46,021 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 99
+2012-05-01 21:29:46,025 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@7182c2d9
+2012-05-01 21:29:46,123 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:29:46,295 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 105
+2012-05-01 21:29:46,296 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@3b46ad8b
+2012-05-01 21:29:46,339 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:29:46,376 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:29:46,539 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 171
+2012-05-01 21:29:46,539 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@147ae747
+2012-05-01 21:29:46,545 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:29:46,645 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 165
+2012-05-01 21:29:46,645 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@10e5f0d2
+2012-05-01 21:29:46,650 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:30:08,341 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:30:08,345 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@6e7d3050
+2012-05-01 21:30:08,507 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:30:13,257 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-01 21:30:13,267 [RefillStatWaitCompleteController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@1ee99d0f
+2012-05-01 21:30:13,347 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_REFILL_STAT_WAIT_COMPLETE_EVENT, id=1
+2012-05-01 21:30:13,355 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_UPDATE_CLIENT_USER_EVENT, id=1
+2012-05-01 21:32:01,377 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT and size: 21
+2012-05-01 21:32:01,389 [RetrieveStaticDataForShopController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataForShopRequestEvent@41b9da92
+2012-05-01 21:32:01,401 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT, id=1
+2012-05-01 21:32:10,676 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream
+2012-05-01 21:32:12,458 [Thread-1] INFO  com.lvl6.server.GameServer - got connection from: /10.1.10.14
+2012-05-01 21:32:13,375 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_STARTUP_EVENT and size: 39
+2012-05-01 21:32:13,375 [StartupController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.StartupRequestEvent@4178feba
+2012-05-01 21:32:13,791 [StartupController] INFO  com.lvl6.utils.Wrap - Writing event: com.lvl6.events.response.StartupResponseEvent@31734b48
+2012-05-01 21:32:14,911 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-01 21:32:14,912 [LoadPlayerCityController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@57c501f7
+2012-05-01 21:32:15,019 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 99
+2012-05-01 21:32:15,019 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6088b858
+2012-05-01 21:32:15,022 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:32:15,112 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_LOAD_PLAYER_CITY_EVENT, id=1
+2012-05-01 21:32:15,141 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 167
+2012-05-01 21:32:15,142 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@53371566
+2012-05-01 21:32:15,146 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:32:15,207 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 171
+2012-05-01 21:32:15,207 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@56dc64a2
+2012-05-01 21:32:15,210 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:32:15,344 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 23
+2012-05-01 21:32:15,344 [RetrieveStaticDataController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@7f205d8d
+2012-05-01 21:32:15,345 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_RETRIEVE_STATIC_DATA_EVENT, id=1
+2012-05-01 21:32:18,290 [Thread-3] INFO  com.lvl6.utils.Attachment - Read event type: C_USER_QUEST_DETAILS_EVENT and size: 19
+2012-05-01 21:32:18,290 [UserQuestDetailsController] INFO  com.lvl6.utils.Wrap - Received event: com.lvl6.events.request.UserQuestDetailsRequestEvent@25de152f
+2012-05-01 21:32:19,254 [EventWriter] INFO  com.lvl6.utils.Wrap - writeEvent: type=S_USER_QUEST_DETAILS_EVENT, id=1
+2012-05-01 21:32:58,098 [Thread-3] INFO  com.lvl6.server.SelectAndRead - disconnect: /10.1.10.14, end-of-stream

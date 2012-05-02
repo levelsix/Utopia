@@ -59,7 +59,7 @@ public class UserQuestDetailsController extends EventController {
           resBuilder.setStatus(UserQuestDetailsStatus.SUPPLIED_QUESTID_CURRENTLY_NOT_IN_PROGRESS);
         }
       } else {
-        questsToCheck = UserQuestRetrieveUtils.getInProgressUserQuestsForUser(senderProto.getUserId());
+        questsToCheck = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(senderProto.getUserId());
       }
       if (questsToCheck != null && questsToCheck.size() > 0) {
         addFullUserQuestDataLarges(resBuilder, questsToCheck, senderProto.getUserType());

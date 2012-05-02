@@ -186,6 +186,7 @@ public class DBConstants {
   public static final String USER_QUESTS__IS_REDEEMED = "is_redeemed"; 
   public static final String USER_QUESTS__TASKS_COMPLETE = "tasks_complete"; 
   public static final String USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE = "defeat_type_jobs_complete"; 
+  public static final String USER_QUESTS__IS_COMPLETE = "is_complete";
 
   /*USER QUESTS COMPLETED TASKS TABLE*/
   public static final String USER_QUESTS_COMPLETED_TASKS__USER_ID = GENERIC__USER_ID;

@@ -24902,7 +24902,6 @@ public final class InfoProto {
       
       public com.lvl6.proto.InfoProto.DialogueProto buildPartial() {
         com.lvl6.proto.InfoProto.DialogueProto result = new com.lvl6.proto.InfoProto.DialogueProto(this);
-        int from_bitField0_ = bitField0_;
         if (speechSegmentBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
             speechSegment_ = java.util.Collections.unmodifiableList(speechSegment_);

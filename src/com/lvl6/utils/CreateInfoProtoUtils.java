@@ -394,8 +394,9 @@ public class CreateInfoProtoUtils {
         builder.setUserId(userQuest.getUserId());
         builder.setQuestId(quest.getId());
         builder.setIsRedeemed(userQuest.isRedeemed());
-        boolean isComplete = true;
-        if (!userQuest.isRedeemed()) {
+        builder.setIsComplete(userQuest.isComplete());
+        
+        if (!userQuest.isRedeemed() && !userQuest.isComplete()) {
           List<Integer> tasksRequired = quest.getTasksRequired(); 
           if (tasksRequired != null && tasksRequired.size() > 0) {
             
@@ -411,7 +412,6 @@ public class CreateInfoProtoUtils {
                 taskCompletedForQuest = true;
                 numComponentsComplete++;
               } else {
-                isComplete = false;
                 if (questIdToTaskIdsToNumTimesActedInQuest == null) {
                   questIdToTaskIdsToNumTimesActedInQuest = UserQuestsTaskProgressRetrieveUtils.getQuestIdToTaskIdsToNumTimesActedInQuest(userQuest.getUserId());
                 }
@@ -447,7 +447,6 @@ public class CreateInfoProtoUtils {
                 defeatJobCompletedForQuest = true;
                 numComponentsComplete++;
               } else {
-                isComplete = false;
                 if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
                   questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                 }
@@ -479,9 +478,7 @@ public class CreateInfoProtoUtils {
                   }
                 }
               }
-              if (quantityBuilt < buildStructJob.getQuantity()) {
-                isComplete = false;
-              } else {
+              if (quantityBuilt >= buildStructJob.getQuantity()) {
                 numComponentsComplete++;
               }
               builder.addRequiredBuildStructJobProgress(createMinimumUserBuildStructJobProto(userQuest, buildStructJob, quantityBuilt));
@@ -502,9 +499,7 @@ public class CreateInfoProtoUtils {
                   }
                 }
               }
-              if (currentLevel < upgradeStructJob.getLevelReq()) {
-                isComplete = false;
-              } else {
+              if (currentLevel >= upgradeStructJob.getLevelReq()) {
                 numComponentsComplete++;
               }
               builder.addRequiredUpgradeStructJobProgress(createMinimumUserUpgradeStructJobProto(userQuest, upgradeStructJob, currentLevel));
@@ -518,9 +513,7 @@ public class CreateInfoProtoUtils {
               PossessEquipJob possessEquipJob = PossessEquipJobRetrieveUtils.getPossessEquipJobForPossessEquipJobId(possessEquipJobId);
               UserEquip userEquip = equipIdsToUserEquips.get(possessEquipJob.getEquipId());
               int quantityOwned = (userEquip != null) ? userEquip.getQuantity() : 0;
-              if (quantityOwned < possessEquipJob.getQuantity()) {
-                isComplete = false;
-              } else {
+              if (quantityOwned >= possessEquipJob.getQuantity()) {
                 numComponentsComplete++;
               }
               builder.addRequiredPossessEquipJobProgress(createMinimumUserPossessEquipJobProto(userQuest, possessEquipJob, quantityOwned));
@@ -529,8 +522,8 @@ public class CreateInfoProtoUtils {
         } else {
           numComponentsComplete = quest.getNumComponents(goodSide);
         }
-        fullUserQuestDataLargeProtos.add(builder.setIsComplete(isComplete).setNumComponentsComplete(numComponentsComplete).build());
-      }      
+        fullUserQuestDataLargeProtos.add(builder.setNumComponentsComplete(numComponentsComplete).build());
+      }
     }
     return fullUserQuestDataLargeProtos;
   }
