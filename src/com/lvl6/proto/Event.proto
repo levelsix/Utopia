@@ -124,7 +124,8 @@ message StartupResponseProto {
     repeated FullCityProto allCities = 5;
     repeated FullUserCityProto userCityInfos = 16;
     
-    repeated FullQuestProto inProgressQuests = 6;
+    repeated FullQuestProto inProgressIncompleteQuests = 6;
+    repeated FullQuestProto inProgressCompleteQuests = 20;
 	repeated FullQuestProto availableQuests = 7;   
 	repeated FullUserEquipProto userEquips = 8;
     repeated FullEquipProto equips = 9;

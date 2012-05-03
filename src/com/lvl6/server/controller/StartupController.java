@@ -258,7 +258,11 @@ public class StartupController extends EventController {
         redeemedQuestIds.add(uq.getQuestId());
       } else {
         inProgressQuestIds.add(uq.getQuestId());  
-        resBuilder.addInProgressQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(uq.getQuestId())));
+        if (uq.isComplete()) {
+          resBuilder.addInProgressCompleteQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(uq.getQuestId())));
+        } else {
+          resBuilder.addInProgressIncompleteQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(uq.getQuestId())));          
+        }
       }
     }
 

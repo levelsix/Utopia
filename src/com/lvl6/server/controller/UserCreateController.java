@@ -172,6 +172,7 @@ public class UserCreateController extends EventController {
     if (legitUserCreate && userId > 0) {
       server.lockPlayer(userId);
       try {
+        writeFirstWallPost(userId);
         writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfStructBuild, structCoords);
         writeUserCritstructs(user.getId());
         writeUserEquips(user.getId(), equipIds);
@@ -188,6 +189,14 @@ public class UserCreateController extends EventController {
         server.unlockPlayer(userId); 
       }
     }    
+  }
+
+  private void writeFirstWallPost(int newPlayerId) {
+    Timestamp timeOfPost = new Timestamp(new Date().getTime());
+    if (InsertUtils.insertPlayerWallPost(ControllerConstants.USER_CREATE__ID_OF_POSTER, 
+        newPlayerId, ControllerConstants.USER_CREATE__FIRST_WALL_POST_TEXT, timeOfPost) < 0) {
+        log.error("problem with writing wall post");
+    }
   }
 
   private void writeUserStruct(int userId, int structId, Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair structCoords) {
