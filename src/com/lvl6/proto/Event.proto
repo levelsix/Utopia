@@ -61,7 +61,6 @@ message VaultRequestProto {
 		DEPOSIT = 0; 
 		WITHDRAW = 1;
 	} 
-	
 }
 
 																						//DONE

@@ -143,29 +143,6 @@ public class QuestRedeemController extends EventController {
       log.error("problem with logging user quest as redeemed");
     }
 
-    //take away equips
-    List<Integer> possessEquipJobsIds = quest.getPossessEquipJobsRequired();
-    if (possessEquipJobsIds != null && possessEquipJobsIds.size() > 0) {
-      Map<Integer, PossessEquipJob> possessEquipJobsForPossessEquipJobIds = PossessEquipJobRetrieveUtils.getPossessEquipJobsForPossessEquipJobIds(possessEquipJobsIds);
-      Map<Integer, Integer> equipIdToQuantityLost = new HashMap<Integer, Integer>();
-      for (Integer possessEquipJobId : possessEquipJobsIds) {
-        PossessEquipJob pej = possessEquipJobsForPossessEquipJobIds.get(possessEquipJobId);
-        if (equipIdToQuantityLost.containsKey(pej.getEquipId())) {
-          equipIdToQuantityLost.put(pej.getEquipId(), equipIdToQuantityLost.get(pej.getEquipId()) + pej.getQuantity());
-        } else {
-          equipIdToQuantityLost.put(pej.getEquipId(), pej.getQuantity());
-        }
-      }
-      if (equipIdToQuantityLost.size() > 0) {
-        Map<Integer, UserEquip> equipIdToUserEquip = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(userQuest.getUserId());
-        for (Integer equipIdLost : equipIdToQuantityLost.keySet()) {
-          if (UpdateUtils.decrementUserEquip(userQuest.getUserId(), equipIdLost, equipIdToUserEquip.get(equipIdLost).getQuantity(), equipIdToQuantityLost.get(equipIdLost))) {
-            log.error("problem with taking away user equip for quest req");
-          }
-        }
-      }
-    }
-
     if (quest.getEquipIdGained() > 0) {
       if (!UpdateUtils.incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
         log.error("problem with giving user reward equip after completing the quest");
