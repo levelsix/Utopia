@@ -82,6 +82,7 @@ public class StartupController extends EventController {
     StartupRequestProto reqProto = ((StartupRequestEvent)event).getStartupRequestProto();
     UpdateStatus updateStatus;
     String udid = reqProto.getUdid();
+    String apsalarId = reqProto.getApsalarId();
 
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
 

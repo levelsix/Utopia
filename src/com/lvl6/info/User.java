@@ -58,22 +58,24 @@ public class User {
   private boolean isFake;
   private Date createTime;
   private boolean isAdmin;
+  private String apsalarId;
+  private int numCoinsRetrievedFromStructs;
 
   public User(int id, String name, int level, UserType type, int attack,
-      int defense, int stamina, Date lastStaminaRefillTime,
-      int energy, Date lastEnergyRefillTime,
-      int skillPoints, int healthMax,
-      int energyMax, int staminaMax, int diamonds, int coins,
-      int marketplaceDiamondsEarnings, int marketplaceCoinsEarnings,
-      int vaultBalance, int experience, int tasksCompleted, int battlesWon,
-      int battlesLost, int flees, String referralCode, int numReferrals,
-      String udid, Location userLocation, int numPostsInMarketplace,
+      int defense, int stamina, Date lastStaminaRefillTime, int energy,
+      Date lastEnergyRefillTime, int skillPoints, int healthMax, int energyMax,
+      int staminaMax, int diamonds, int coins, int marketplaceDiamondsEarnings,
+      int marketplaceCoinsEarnings, int vaultBalance, int experience,
+      int tasksCompleted, int battlesWon, int battlesLost, int flees,
+      String referralCode, int numReferrals, String udid,
+      Location userLocation, int numPostsInMarketplace,
       int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
       int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
-      Date lastBattleNotificationTime, Date lastTimeAttacked,
-      int numBadges, Date lastShortLicensePurchaseTime,
-      Date lastLongLicensePurchaseTime, boolean isFake, Date createTime, 
-      boolean isAdmin) {
+      Date lastBattleNotificationTime, Date lastTimeAttacked, int numBadges,
+      Date lastShortLicensePurchaseTime, Date lastLongLicensePurchaseTime,
+      boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
+      int numCoinsRetrievedFromStructs) {
+    super();
     this.id = id;
     this.name = name;
     this.level = level;
@@ -118,6 +120,8 @@ public class User {
     this.isFake = isFake;
     this.createTime = createTime;
     this.isAdmin = isAdmin;
+    this.apsalarId = apsalarId;
+    this.numCoinsRetrievedFromStructs = numCoinsRetrievedFromStructs;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -987,6 +991,14 @@ public class User {
     return isAdmin;
   }
 
+  public String getApsalarId() {
+    return apsalarId;
+  }
+
+  public int getNumCoinsRetrievedFromStructs() {
+    return numCoinsRetrievedFromStructs;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -1014,7 +1026,9 @@ public class User {
         + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
         + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime
         + ", isFake=" + isFake + ", createTime=" + createTime + ", isAdmin="
-        + isAdmin + "]";
+        + isAdmin + ", apsalarId=" + apsalarId
+        + ", numCoinsRetrievedFromStructs=" + numCoinsRetrievedFromStructs
+        + "]";
   }
 
 }

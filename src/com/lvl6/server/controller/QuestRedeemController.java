@@ -1,7 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +10,7 @@ import com.lvl6.events.response.QuestRedeemResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
-import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
-import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.proto.EventProto.QuestRedeemRequestProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto.Builder;
@@ -21,10 +18,8 @@ import com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
