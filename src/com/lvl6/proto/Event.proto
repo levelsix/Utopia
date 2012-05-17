@@ -750,8 +750,7 @@ message PostToMarketplaceResponseProto {
 		USER_ALREADY_MAX_MARKETPLACE_POSTS = 5;
 		CANT_DEMAND_BOTH = 6;
 		INVALID_COST_TYPE_FOR_POST = 7;
-		NO_LICENSE = 8;
-		OTHER_FAIL = 10;
+		OTHER_FAIL = 8;
 	}
 }
 
