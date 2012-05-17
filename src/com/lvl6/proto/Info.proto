@@ -46,7 +46,6 @@ message FullUserProto {
 	optional int32 flees = 45;
 	optional string referralCode = 27;
 	optional int32 numReferrals = 28;
-	optional string udid = 29;
 	optional LocationProto userLocation = 30;
 	optional int32 numPostsInMarketplace = 31;
 	optional int32 numMarketplaceSalesUnredeemed = 32;
@@ -55,21 +54,21 @@ message FullUserProto {
 	optional int32 amuletEquipped = 35;
 	optional int64 lastLoginTime = 36;
 	optional int64 lastLogoutTime = 37;
+	optional int64 lastShortLicensePurchaseTime = 43;
+	optional int64 lastLongLicensePurchaseTime = 44;
+	optional bool isFake = 46;
+	optional bool isAdmin = 48;
+	optional int32 numCoinsRetrievedFromStructs = 50;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this
+	optional string udid = 29;
 	optional string deviceToken = 38;
 	optional int64 lastBattleNotificationTime = 39;
 	optional int64 lastTimeAttacked = 40;
 	optional int32 numBadges = 42;
 	optional int64 createTime = 47;
 	optional int32 apsalarId = 49;
-	
-	optional int64 lastShortLicensePurchaseTime = 43;
-	optional int64 lastLongLicensePurchaseTime = 44;
-	optional bool isFake = 46;
-	optional bool isAdmin = 48;
-	optional int32 numCoinsRetrievedFromStructs = 50;
 }
 
 //------------------------------------------------------------------------------------------

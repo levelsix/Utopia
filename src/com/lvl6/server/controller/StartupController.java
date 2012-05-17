@@ -82,7 +82,8 @@ public class StartupController extends EventController {
     StartupRequestProto reqProto = ((StartupRequestEvent)event).getStartupRequestProto();
     UpdateStatus updateStatus;
     String udid = reqProto.getUdid();
-    String apsalarId = reqProto.getApsalarId();
+    String apsalarId = reqProto.hasApsalarId() ? reqProto.getApsalarId() : null;
+    String newDeviceToken = reqProto.hasDeviceToken() ? reqProto.getDeviceToken() : null;
 
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
 
@@ -109,7 +110,6 @@ public class StartupController extends EventController {
         server.lockPlayer(user.getId());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
-          syncUserDevicetokenAndBadges(reqProto, user);
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
@@ -149,15 +149,18 @@ public class StartupController extends EventController {
       NIOUtils.channelWrite(sc, writeBuffer);
 
     if (user != null) {
-      if (!user.updateLastloginLastlogout(new Timestamp(new Date().getTime()), null)) {
-        log.error("problem with updating user's last login time");
-      }
+      syncDevicetokenApsalaridLastloginResetBadges(user, newDeviceToken, apsalarId, new Timestamp(new Date().getTime()));
     }    
   }
 
-  private void syncUserDevicetokenAndBadges(StartupRequestProto reqProto, User user) {
-    String newDeviceToken = reqProto.getDeviceToken();
-    if (user.getNumBadges() != 0 || user.getDeviceToken() != newDeviceToken) {
+  private void syncDevicetokenApsalaridLastloginResetBadges(User user, String newDeviceToken, String apsalarId, Timestamp loginTime) {
+    // TODO Auto-generated method stub
+
+    if (!user.updateAbsoluteDevicetokenApsalaridLastloginBadges(newDeviceToken, apsalarId, loginTime, 0)) {
+      log.error("problem with updating device token, apsalar id, last login, and badge count for " + user);
+    }
+
+    if (user.getNumBadges() != 0) {
       if (newDeviceToken != null && newDeviceToken.length() > 0) { 
         //        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
         //        if (Globals.IS_SANDBOX) {
@@ -166,9 +169,6 @@ public class StartupController extends EventController {
         //        ApnsService service = builder.build();
         //        service.push(newDeviceToken, APNS.newPayload().badge(0).build());
         //        service.stop();
-      }
-      if (!user.updateResetNumbadgesSetdevicetoken(newDeviceToken)) {
-        log.error("problem in resetting num badges and syncing device token");
       }
     }
   }
@@ -200,14 +200,14 @@ public class StartupController extends EventController {
           userIds.add(r.getNewlyReferredId());
         }
       }
-      
+
       List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPostsForPlayer(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getId());
       if (wallPosts != null && wallPosts.size() > 0) {
         for (PlayerWallPost p : wallPosts) {
           userIds.add(p.getPosterId());
         }
       }
-      
+
       Map<Integer, User> usersByIds = null;
       if (userIds.size() > 0) {
         usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
@@ -233,7 +233,7 @@ public class StartupController extends EventController {
           resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
         }
       }
-      
+
     }
   }
 

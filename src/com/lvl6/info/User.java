@@ -140,11 +140,11 @@ public class User {
     }
     return false;
   }
-  
+
   public boolean updateEquipped(Equipment equipment) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
-    
+
     int equipId = equipment.getId();
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
@@ -261,7 +261,7 @@ public class User {
     if (deviceToken != null && deviceToken.length() == 0) {
       deviceToken = null;
     }
-    
+
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__NUM_BADGES, 0);
     absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
@@ -312,33 +312,46 @@ public class User {
     return false;
   }
 
-  public boolean updateLastloginLastlogout(Timestamp lastLogin, Timestamp lastLogout) {
+  public boolean updateAbsoluteDevicetokenApsalaridLastloginBadges(
+      String newDeviceToken, String newApsalarId, Timestamp loginTime, int newBadges) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    if (lastLogin == null && lastLogout == null) {
-      return false;
-    }
-    if (lastLogin != null) {
-      absoluteParams.put(DBConstants.USER__LAST_LOGIN, lastLogin);
-    }
-    if (lastLogout != null) {
-      absoluteParams.put(DBConstants.USER__LAST_LOGOUT, lastLogout);
-    }
+    absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, newDeviceToken);
+    absoluteParams.put(DBConstants.USER__APSALAR_ID, newApsalarId);
+    absoluteParams.put(DBConstants.USER__LAST_LOGIN, loginTime);
+    absoluteParams.put(DBConstants.USER__NUM_BADGES, newBadges);
+    
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
-      if (lastLogin != null) {
-        this.lastLogin = lastLogin;
-      }
-      if (lastLogout != null) {
-        this.lastLogout = lastLogout;
-      }
+      this.deviceToken = newDeviceToken;
+      this.apsalarId = newApsalarId;
+      this.lastLogin = loginTime;
+      this.numBadges = newBadges;
       return true;
     }
     return false;
   }
+
+  public boolean updateLastlogout(Timestamp lastLogout) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (lastLogout == null) {
+      return false;
+    }
+    absoluteParams.put(DBConstants.USER__LAST_LOGOUT, lastLogout);
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.lastLogout = lastLogout;
+      return true;
+    }
+    return false;
+  }
+
 
   public boolean updateLevel(int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -453,7 +466,7 @@ public class User {
       relativeParams = new HashMap<String, Object>();
       relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
     }
-    
+
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__ENERGY, energyMax);
     absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
@@ -472,8 +485,8 @@ public class User {
     }
     return false;
   }
-  
-  
+
+
   /*
    * used for using skill points
    */
@@ -982,11 +995,11 @@ public class User {
   public boolean isFake() {
     return isFake;
   }
-  
+
   public Date getCreateTime() {
     return createTime;
   }
-  
+
   public boolean isAdmin() {
     return isAdmin;
   }

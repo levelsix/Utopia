@@ -124,7 +124,7 @@ public class ControllerConstants {
   public static final int POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER = 50;  
   
   //PURCHASE FROM MARKETPLACE
-  public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .10;
+  public static final double PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .30;
   
   //TASK ACTION
   public static final int TASK_ACTION__MAX_CITY_RANK = 5;

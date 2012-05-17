@@ -85,6 +85,7 @@ public class DBConstants {
   public static final String USER__AMULET_EQUIPPED = "amulet_equipped";
   public static final String USER__IS_FAKE = "is_fake";
   public static final String USER__CREATE_TIME = "create_time";
+  public static final String USER__APSALAR_ID = "apsalar_id";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;

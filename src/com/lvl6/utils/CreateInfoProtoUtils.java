@@ -225,7 +225,6 @@ public class CreateInfoProtoUtils {
         .setTasksCompleted(u.getTasksCompleted()).setBattlesWon(u.getBattlesWon())
         .setBattlesLost(u.getBattlesLost()).setFlees(u.getFlees())
         .setReferralCode(u.getReferralCode()).setNumReferrals(u.getNumReferrals())
-        .setUdid(u.getUdid())
         .setUserLocation(createLocationProtoFromLocation(u.getUserLocation()))
         .setNumPostsInMarketplace(u.getNumPostsInMarketplace()).setNumMarketplaceSalesUnredeemed(u.getNumMarketplaceSalesUnredeemed())
         .setLastLoginTime(u.getLastLogin().getTime()).setIsFake(u.isFake())
