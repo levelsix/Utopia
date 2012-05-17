@@ -142,7 +142,7 @@ public class SelectAndRead extends Thread{
       try {
         User user = UserRetrieveUtils.getUserById(playerId);
         if (user != null) {
-          if (!user.updateLastloginLastlogout(null, new Timestamp(new Date().getTime()))) {
+          if (!user.updateLastlogout(new Timestamp(new Date().getTime()))) {
             log.error("problem with updating user's last logout time for user " + playerId);
           }
         }

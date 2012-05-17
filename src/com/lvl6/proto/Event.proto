@@ -72,7 +72,6 @@ message VaultResponseProto {
 	
 	enum VaultStatus {
 		SUCCESS = 0;
-		LEVEL_TOO_LOW = 1;
 		OTHER_FAIL = 2;
 	}
 }
@@ -101,7 +100,6 @@ message ArmoryResponseProto {
 		NOT_ENOUGH_EQUIP_TO_SELL = 1;
 		NOT_ENOUGH_CURRENCY_TO_BUY = 2;
 		CANNOT_SELL_DIAMOND_EQUIP = 3;
-		LEVEL_TOO_LOW = 4;
 		OTHER_FAIL = 5;
 	} 
 }
@@ -212,10 +210,6 @@ message StartupResponseProto {
 		
 		optional int32 maxCityRank = 50;
 		
-		optional int32 minLevelForArmory = 51;
-		optional int32 minLevelForVault = 52;
-		optional int32 minLevelForMarketplace = 53;
-		
 		optional int32 armoryImgVerticalPixelOffset = 54;
 		optional int32 vaultImgVerticalPixelOffset = 55;
 		optional int32 marketplaceImgVerticalPixelOffset = 56;
@@ -223,10 +217,10 @@ message StartupResponseProto {
 		optional int32 aviaryImgVerticalPixelOffset = 58;
 		
 		optional FormulaConstants formulaConstants = 59;
-		optional BattleConstants battleConstants = 60;
+		optional BattleConstants battleConstants = 51;
 
-		optional int32 maxCharLengthForWallPost = 61;
-		optional int32 playerWallPostsRetrieveCap = 62;
+		optional int32 maxCharLengthForWallPost = 52;
+		optional int32 playerWallPostsRetrieveCap = 53;
 		
 		message FormulaConstants {
 			optional double minutesToUpgradeForNormStructMultiplier = 1;
@@ -586,7 +580,6 @@ message CriticalStructureActionResponseProto {
 	enum CritStructActionStatus {
 		SUCCESS = 0;
 		CANNOT_PLACE_NON_PLACEABLE_CRIT_STRUCT = 1;	//we only place armory/vault/marketplace 
-		NOT_ACCESSIBLE_TO_USERS_LEVEL = 2;
 		CANNOT_MOVE_AVIARY = 3;
 		OTHER_FAIL = 4;	
 	}
@@ -673,10 +666,7 @@ message LevelUpResponseProto {
 	 repeated FullCityProto citiesNewlyAvailableToUser = 5;					//only new ones
      repeated FullEquipProto newlyEquippableEpicsAndLegendaries = 6;			//only new ones
      repeated FullStructureProto newlyAvailableStructs = 7;					//only new ones
-     optional bool marketplaceUnlocked = 8;
-     optional bool vaultUnlocked = 9;
-     optional bool armoryUnlocked = 10;
-     
+
 	enum LevelUpStatus {
      	SUCCESS = 0;
      	NOT_ENOUGH_EXP_TO_NEXT_LEVEL = 1;
@@ -732,7 +722,6 @@ message RetrieveCurrentMarketplacePostsResponseProto {
      
      enum RetrieveCurrentMarketplacePostsStatus {
      	SUCCESS = 0;
-     	LEVEL_TOO_LOW = 1;
      	OTHER_FAIL = 2;
      }
 }
@@ -762,7 +751,6 @@ message PostToMarketplaceResponseProto {
 		CANT_DEMAND_BOTH = 6;
 		INVALID_COST_TYPE_FOR_POST = 7;
 		NO_LICENSE = 8;
-		LEVEL_TOO_LOW = 9;
 		OTHER_FAIL = 10;
 	}
 }
@@ -786,7 +774,6 @@ message RetractMarketplacePostResponseProto {
 		POST_NO_LONGER_EXISTS = 2;
 		NOT_ENOUGH_DIAMONDS = 3;
 		NOT_ENOUGH_COINS = 4;
-		LEVEL_TOO_LOW = 5;
 	}
 }
 
@@ -812,7 +799,6 @@ message PurchaseFromMarketplaceResponseProto {
 		NOT_ENOUGH_MATERIALS = 1;
 		POST_NO_LONGER_EXISTS = 2;
 		PURCHASER_IS_SELLER = 3;
-		LEVEL_TOO_LOW = 4;
 		OTHER_FAIL = 5;
 	}
 }

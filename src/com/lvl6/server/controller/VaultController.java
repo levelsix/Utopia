@@ -92,10 +92,6 @@ public class VaultController extends EventController {
       resBuilder.setStatus(VaultStatus.OTHER_FAIL);
       return false;
     }
-    if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_VAULT) {
-      resBuilder.setStatus(VaultStatus.LEVEL_TOO_LOW);
-      return false;
-    }
     if (requestType == VaultRequestType.WITHDRAW) {
       if (amount > user.getVaultBalance()) {
         resBuilder.setStatus(VaultStatus.OTHER_FAIL);

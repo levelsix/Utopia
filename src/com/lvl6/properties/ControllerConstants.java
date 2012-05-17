@@ -36,10 +36,6 @@ public class ControllerConstants {
   public static final int AVIARY_YLENGTH = 2;
   public static final int AVIARY_IMG_VERTICAL_PIXEL_OFFSET = 0;
   
-  public static final int MIN_LEVEL_FOR_ARMORY = 3;
-  public static final int MIN_LEVEL_FOR_VAULT = 4;
-  public static final int MIN_LEVEL_FOR_MARKETPLACE = 5;
-
   //--------------------------------------------------------------------------------------------------------------------------
   
   //FORMULA CONSTANTS (ALSO) SENT TO CLIENT

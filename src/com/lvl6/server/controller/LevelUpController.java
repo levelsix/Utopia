@@ -69,17 +69,6 @@ public class LevelUpController extends EventController {
         int newLevel = user.getLevel() + 1;
         resBuilder.setNewLevel(newLevel);
 
-        if (newLevel == ControllerConstants.MIN_LEVEL_FOR_ARMORY) {
-          resBuilder.setArmoryUnlocked(true);
-        }
-        if (newLevel == ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
-          resBuilder.setMarketplaceUnlocked(true);
-        }
-        if (newLevel == ControllerConstants.MIN_LEVEL_FOR_VAULT) {
-          resBuilder.setVaultUnlocked(true);
-        }
-
-
         List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(newLevel);
         for (City city : availCities) {
           if (city.getMinLevel() == newLevel) {

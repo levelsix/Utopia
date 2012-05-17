@@ -55,8 +55,6 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       if (user == null) {
         resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.OTHER_FAIL);
-      } else if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
-        resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.LEVEL_TOO_LOW);
       } else {
         resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.SUCCESS);
         List <MarketplacePost> activeMarketplacePosts;

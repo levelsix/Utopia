@@ -5,7 +5,6 @@ import com.lvl6.events.request.CriticalStructureActionRequestEvent;
 import com.lvl6.events.response.CriticalStructureActionResponseEvent;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.User;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CriticalStructureActionRequestProto;
 import com.lvl6.proto.EventProto.CriticalStructureActionRequestProto.CritStructActionType;
 import com.lvl6.proto.EventProto.CriticalStructureActionResponseProto;
@@ -101,21 +100,6 @@ public class CriticalStructureActionController extends EventController {
           && cStructType != CritStructType.MARKETPLACE) {
         resBuilder.setStatus(CritStructActionStatus.CANNOT_PLACE_NON_PLACEABLE_CRIT_STRUCT);
         return false;
-      }
-    }
-    if (cStructType == CritStructType.ARMORY) {
-      if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_ARMORY) {
-        resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
-      }
-    }
-    if (cStructType == CritStructType.VAULT) {
-      if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_VAULT) {
-        resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
-      }
-    }
-    if (cStructType == CritStructType.MARKETPLACE) {
-      if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
-        resBuilder.setStatus(CritStructActionStatus.NOT_ACCESSIBLE_TO_USERS_LEVEL);
       }
     }
     if (action != CritStructActionType.ROTATE && cStructType == CritStructType.AVIARY) {

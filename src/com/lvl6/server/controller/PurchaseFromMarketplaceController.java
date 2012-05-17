@@ -156,10 +156,6 @@ public class PurchaseFromMarketplaceController extends EventController {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
       return false;      
     }
-    if (buyer.getLevel() < ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
-      resBuilder.setStatus(PurchaseFromMarketplaceStatus.LEVEL_TOO_LOW);
-      return false;
-    }
     if (mp.getDiamondCost() > 0) {
       if (buyer.getDiamonds() < mp.getDiamondCost()) {
         resBuilder.setStatus(PurchaseFromMarketplaceStatus.NOT_ENOUGH_MATERIALS);

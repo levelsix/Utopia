@@ -101,12 +101,7 @@ public class PostToMarketplaceController extends EventController {
     if (userEquip == null || userEquip.getQuantity() < 1) {
       resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_EQUIP);
       return false;
-    }
-    if (user.getLevel() < ControllerConstants.MIN_LEVEL_FOR_MARKETPLACE) {
-      resBuilder.setStatus(PostToMarketplaceStatus.LEVEL_TOO_LOW);
-      return false;
-    }
-    
+    }    
     if ((user.getLastShortLicensePurchaseTime() == null || user.getLastShortLicensePurchaseTime().getTime() + 
         86400000*(long)ControllerConstants.PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_SHORT_LICENSE < timeOfPost.getTime()) && 
         (user.getLastLongLicensePurchaseTime() == null || user.getLastLongLicensePurchaseTime().getTime() + 
