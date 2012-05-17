@@ -740,6 +740,28 @@ public class User {
     return false;
   }
 
+  public boolean updateRelativeCoinsCoinsretrievedfromstructs (int coinChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (coinChange != 0) {
+      relativeParams.put(DBConstants.USER__COINS, coinChange);
+      relativeParams.put(DBConstants.USER__NUM_COINS_RETRIEVED_FROM_STRUCTS, coinChange);
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinChange;
+      this.numCoinsRetrievedFromStructs += coinChange;
+      return true;
+    }
+    return false;
+  }
+
+  
   public boolean updateRelativeCoinsNaive (int coinChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);

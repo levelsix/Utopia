@@ -61,7 +61,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
       boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, userStruct, struct, timeOfRetrieval);
       
       if (legitRetrieval) {
-        if (!user.updateRelativeCoinsNaive(MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()))) {
+        if (!user.updateRelativeCoinsCoinsretrievedfromstructs(MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()))) {
           log.error("problem with updating user stats after retrieving currency");
           legitRetrieval = false;
         }
