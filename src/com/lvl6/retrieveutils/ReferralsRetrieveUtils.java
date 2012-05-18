@@ -21,6 +21,7 @@ public class ReferralsRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_REFERRALS;
 
+  //TODO: when we actually impl referrals, dont base it on last logout. get the most recent ones. like BattleDetails
   public static List<Referral> getAllReferralsAfterLastlogoutForReferrer(Timestamp lastLogout, int referrerId) {
     log.debug("retrieving all referrals for referrer " + referrerId + " after " + lastLogout);
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();

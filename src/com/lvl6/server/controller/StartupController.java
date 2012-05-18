@@ -18,7 +18,6 @@ import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.PlayerWallPost;
 import com.lvl6.info.Quest;
-import com.lvl6.info.Referral;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
@@ -42,7 +41,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
-import com.lvl6.retrieveutils.ReferralsRetrieveUtils;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
@@ -177,31 +175,22 @@ public class StartupController extends EventController {
     if (user.getLastLogout() != null) {
       List <Integer> userIds = new ArrayList<Integer>();
 
-      Timestamp lastLogout = new Timestamp(user.getLastLogout().getTime());
-
       List<MarketplaceTransaction> marketplaceTransactions = 
-          MarketplaceTransactionRetrieveUtils.getAllMarketplaceTransactionsAfterLastlogoutForDefender(lastLogout, user.getId());
+          MarketplaceTransactionRetrieveUtils.getMostRecentMarketplaceTransactionsForPoster(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND);
       if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
         for (MarketplaceTransaction mt : marketplaceTransactions) {
           userIds.add(mt.getBuyerId());
         }
       }
 
-      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getAllBattleDetailsAfterLastlogoutForDefender(lastLogout, user.getId());
+      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getMostRecentBattleDetailsForDefender(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND);
       if (battleDetails != null && battleDetails.size() > 0) {
         for (BattleDetails bd : battleDetails) {
           userIds.add(bd.getAttackerId());
         }        
       }
 
-      List<Referral> referrals = ReferralsRetrieveUtils.getAllReferralsAfterLastlogoutForReferrer(lastLogout, user.getId());
-      if (referrals != null && referrals.size() > 0) {
-        for (Referral r : referrals) {
-          userIds.add(r.getNewlyReferredId());
-        }
-      }
-
-      List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPostsForPlayer(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getId());
+      List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getMostRecentPlayerWallPostsForWallOwner(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getId());
       if (wallPosts != null && wallPosts.size() > 0) {
         for (PlayerWallPost p : wallPosts) {
           userIds.add(p.getPosterId());
@@ -223,11 +212,6 @@ public class StartupController extends EventController {
           resBuilder.addAttackNotifications(CreateInfoProtoUtils.createAttackedNotificationProtoFromBattleHistory(bd, usersByIds.get(bd.getAttackerId())));
         }        
       } 
-      if (referrals != null && referrals.size() > 0) {
-        for (Referral r : referrals) {
-          resBuilder.addReferralNotifications(CreateInfoProtoUtils.createReferralNotificationProtoFromReferral(r, usersByIds.get(r.getNewlyReferredId())));
-        }
-      }
       if (wallPosts != null && wallPosts.size() > 0) {
         for (PlayerWallPost p : wallPosts) {
           resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));

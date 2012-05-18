@@ -94,6 +94,9 @@ public class ControllerConstants {
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
   
+  //STARTUP
+  public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 10;
+  
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
   

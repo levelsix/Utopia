@@ -60,7 +60,7 @@ public class PlayerWallPostRetrieveUtils {
     return playerWallPosts;
   }
   
-  public static List<PlayerWallPost> getMostRecentActivePlayerWallPostsForPlayer(int limit, int wallOwnerId) {
+  public static List<PlayerWallPost> getMostRecentPlayerWallPostsForWallOwner(int limit, int wallOwnerId) {
     log.debug("retrieving limited player wall posts posts");
     
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();

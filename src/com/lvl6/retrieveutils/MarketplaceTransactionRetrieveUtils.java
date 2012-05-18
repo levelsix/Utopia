@@ -3,7 +3,6 @@ package com.lvl6.retrieveutils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,20 +23,19 @@ public class MarketplaceTransactionRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY;
 
-  public static List<MarketplaceTransaction> getAllMarketplaceTransactionsAfterLastlogoutForDefender(Timestamp lastLogout, int posterId) {
-    log.debug("retrieving all marketplace transactions for " + posterId + " after " + lastLogout);
+  public static List<MarketplaceTransaction> getMostRecentMarketplaceTransactionsForPoster(int posterId, int limit) {
+    log.debug("retrieving most recent marketplace transactions posts for " + posterId);
+    
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, posterId);
-
-    TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
-    greaterThanParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, lastLogout);
     
     Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, greaterThanParams);
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, limit);
     List<MarketplaceTransaction> marketplacePostTransactions = convertRSToMarketplaceTransactionsList(rs);
     DBConnection.close(rs, null, conn);
     return marketplacePostTransactions;
   }
+  
   
   private static List<MarketplaceTransaction> convertRSToMarketplaceTransactionsList(ResultSet rs) {
     if (rs != null) {

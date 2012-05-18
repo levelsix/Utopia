@@ -60,7 +60,7 @@ public class RetrievePlayerWallPostsController extends EventController{
         if (beforeThisPostId > 0) {
           activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPostsForPlayerBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, relevantUserId);        
         } else {
-          activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentActivePlayerWallPostsForPlayer(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, relevantUserId);
+          activePlayerWallPosts = PlayerWallPostRetrieveUtils.getMostRecentPlayerWallPostsForWallOwner(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, relevantUserId);
         }
         if (activePlayerWallPosts != null) {
           if (activePlayerWallPosts != null && activePlayerWallPosts.size() > 0) {
