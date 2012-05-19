@@ -165,7 +165,7 @@ public class TaskActionController extends EventController {
   }
 
   private void checkQuestsPostTaskAction(User user, Task task, MinimumUserProto senderProto, int lootEquipId) {
-    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(user.getId());
+    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getIncompleteUserQuestsForUser(user.getId());
 
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserTasksCompletedForQuestForUser = null;

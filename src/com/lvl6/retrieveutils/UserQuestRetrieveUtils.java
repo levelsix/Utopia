@@ -19,10 +19,23 @@ public class UserQuestRetrieveUtils {
   
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS;
   
-  //temporary, only used in script
-  public static List<UserQuest> getUnredeemedAndIncompleteUserQuests() {
+  //only used in script
+  public static List<UserQuest> getUnredeemedIncompleteUserQuests() {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
+    paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
+    
+    Connection conn = DBConnection.getConnection();
+    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    List<UserQuest> userQuests = convertRSToUserQuests(rs);
+    DBConnection.close(rs, null, conn);
+    return userQuests;
+  }
+  
+  public static List<UserQuest> getIncompleteUserQuestsForUser(int userId) {
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
+    paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
     
     Connection conn = DBConnection.getConnection();
@@ -54,7 +67,7 @@ public class UserQuestRetrieveUtils {
     DBConnection.close(rs, null, conn);
     return userQuests;
   }
-
+  
   public static List<UserQuest> getUserQuestsForUser(int userId) {
     log.debug("retrieving user quests for userId " + userId);
     

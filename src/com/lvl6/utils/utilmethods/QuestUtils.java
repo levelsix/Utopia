@@ -33,7 +33,7 @@ public class QuestUtils {
   public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto, 
       Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
       Integer justObtainedEquipId, Integer justObtainedEquipQuantity, Logger log) {
-    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(userId);
+    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getIncompleteUserQuestsForUser(userId);
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
         if (!userQuest.isComplete()) {

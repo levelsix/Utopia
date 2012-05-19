@@ -194,7 +194,7 @@ public class BattleController extends EventController {
     boolean goodSide = MiscMethods.checkIfGoodSide(attacker.getType());
 
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils
-        .getUnredeemedUserQuestsForUser(attacker.getId());
+        .getIncompleteUserQuestsForUser(attacker.getId());
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
       Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = null;
