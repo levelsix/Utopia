@@ -482,17 +482,17 @@ public class UpdateUtils {
   }
 
   public static boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_TASK__USER_ID, userId);
+    String query = "update " + DBConstants.TABLE_USER_TASKS + " set " + DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK 
+        + "=? where ";
+    List<Object> values = new ArrayList<Object>();
+    values.add(0);
+    List<String> condClauses = new ArrayList<String>();
     for (Task task : tasksInCity) {
-      conditionParams.put(DBConstants.USER_TASK__TASK_ID, task.getId());
+      condClauses.add(DBConstants.USER_TASK__TASK_ID + "=?");
+      values.add(task.getId());
     }
-
-    Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, 0);
-
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_TASKS, null, absoluteParams, 
-        conditionParams, "or");
+    query += StringUtils.getListInString(condClauses, "or");
+    int numUpdated = DBConnection.updateDirectQueryNaive(query, values);
     if (numUpdated == tasksInCity.size()) {
       return true;
     }
