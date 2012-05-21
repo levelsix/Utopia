@@ -39,7 +39,6 @@ public class UserQuestsCompletedTasksRetrieveUtils {
             }
             questIdToUserTasksCompleted.get(questId).add(completedTaskId);
           }
-          return questIdToUserTasksCompleted;
         } catch (SQLException e) {
           log.error("problem with database call.");
           log.error(e);

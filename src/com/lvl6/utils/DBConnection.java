@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.DBProperties;
+import com.lvl6.properties.Globals;
 import com.lvl6.utils.utilmethods.StringUtils;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -28,18 +29,7 @@ public class DBConnection {
   private static final String server = DBProperties.SERVER;
   private static final String database = DBProperties.DATABASE;
 
-  //http://www.mchange.com/projects/c3p0/index.html#basic_pool_configuration
-  private static final int C3P0_NUM_HELPER_THREADS = 6;
-  private static final int C3P0_MAX_STATEMENTS_PER_CONNECTION = 20;
-  private static final int C3P0_MIN_POOL_SIZE = 10;
-  private static final int C3P0_INITIAL_POOL_SIZE = 20;
-  private static final int C3P0_MAX_POOL_SIZE = 60;
-  private static final int C3P0_ACQUIRE_INCREMENT = 10;
-  private static final int C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS = 60*5;
-  private static final int C3P0_MAX_IDLE_TIME = 60*60*10;
-  private static final int C3P0_IDLE_CONNECTION_TEST_PERIOD = 60*60*2;
-  private static final int C3P0_UNRETURNED_CONNECTION_TIMEOUT = 60*60*2;
-//  private static final Level MCHANGE_LOG_LEVEL = Level.DEBUG;
+  //  private static final Level MCHANGE_LOG_LEVEL = Level.DEBUG;
   private static final Level MCHANGE_LOG_LEVEL = Level.INFO;
 
   private static final int SELECT_LIMIT_NOT_SET = -1;
@@ -47,11 +37,31 @@ public class DBConnection {
   private static ComboPooledDataSource dataSource;
 
   public static Connection getConnection() {
+    
+    log.debug("before pool grab");
+    printConnectionInfoInDebug();
+    
     Connection conn = null;
     try {
       conn = dataSource.getConnection();
     } catch (SQLException e) {}
+    
+    log.debug("after pool grab");
+    printConnectionInfoInDebug();
+
     return conn;
+  }
+
+  public static void printConnectionInfoInDebug() {
+    try {
+      log.debug("\n");
+      log.debug("num_connections: "      + dataSource.getNumConnectionsDefaultUser());
+      log.debug("num_busy_connections: " + dataSource.getNumBusyConnectionsDefaultUser());
+      log.debug("num_idle_connections: " + dataSource.getNumIdleConnectionsDefaultUser());
+      log.debug("\n");
+    } catch (Exception e) {
+      log.error(e);
+    }    
   }
 
   public static void close(ResultSet rs, Statement statement, Connection conn) {
@@ -79,28 +89,20 @@ public class DBConnection {
     log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
     Logger.getLogger("com.mchange.v2").setLevel(MCHANGE_LOG_LEVEL);
 
-    dataSource = new ComboPooledDataSource();
+    if (Globals.IS_SANDBOX) {
+      dataSource = new ComboPooledDataSource();
+    } else {
+      dataSource = new ComboPooledDataSource("production");
+    }
     try {
       dataSource.setDriverClass("com.mysql.jdbc.Driver");
       dataSource.setJdbcUrl("jdbc:mysql://" + server + "/" + database);
       dataSource.setUser(user);
       dataSource.setPassword(password);
-      dataSource.setNumHelperThreads(C3P0_NUM_HELPER_THREADS);
-      dataSource.setMaxStatementsPerConnection(C3P0_MAX_STATEMENTS_PER_CONNECTION);
-      dataSource.setMinPoolSize(C3P0_MIN_POOL_SIZE);
-      dataSource.setInitialPoolSize(C3P0_INITIAL_POOL_SIZE);
-      dataSource.setMaxPoolSize(C3P0_MAX_POOL_SIZE);
-      dataSource.setAcquireIncrement(C3P0_ACQUIRE_INCREMENT);
-      dataSource.setMaxIdleTimeExcessConnections(C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS);
-      dataSource.setMaxIdleTime(C3P0_MAX_IDLE_TIME);
-      dataSource.setIdleConnectionTestPeriod(C3P0_IDLE_CONNECTION_TEST_PERIOD);
-      dataSource.setAutomaticTestTable(DBConstants.TABLE_C3P0_TEST);
-      dataSource.setUnreturnedConnectionTimeout(C3P0_UNRETURNED_CONNECTION_TIMEOUT);
-      //dataSource.setDebugUnreturnedConnectionStackTraces(true);
-
     } catch (PropertyVetoException e) {
       e.printStackTrace();
     }
+    printConnectionInfoInDebug();
   }
 
   public static ResultSet selectRowsByUserId(Connection conn, int userId, String tablename) {

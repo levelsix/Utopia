@@ -39,7 +39,6 @@ public class UserQuestsCompletedDefeatTypeJobsRetrieveUtils {
             }
             questIdToUserDefeatTypeJobsCompleted.get(questId).add(completedDefeatTypeJobId);
           }
-          return questIdToUserDefeatTypeJobsCompleted;
         } catch (SQLException e) {
           log.error("problem with database call.");
           log.error(e);
