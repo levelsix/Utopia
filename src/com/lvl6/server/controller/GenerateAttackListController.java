@@ -41,10 +41,10 @@ public class GenerateAttackListController extends EventController {
 
     MinimumUserProto senderProto = reqProto.getSender();
     int numEnemies = reqProto.getNumEnemies();
-    Integer latLowerBound = (reqProto.hasLatLowerBound()) ? reqProto.getLatLowerBound() : null;
-    Integer latUpperBound = (reqProto.hasLatUpperBound()) ? reqProto.getLatUpperBound() : null;
-    Integer longLowerBound = (reqProto.hasLongLowerBound()) ? reqProto.getLongLowerBound() : null;
-    Integer longUpperBound = (reqProto.hasLongUpperBound()) ? reqProto.getLongUpperBound() : null;
+    Double latLowerBound = (reqProto.hasLatLowerBound()) ? reqProto.getLatLowerBound() : null;
+    Double latUpperBound = (reqProto.hasLatUpperBound()) ? reqProto.getLatUpperBound() : null;
+    Double longLowerBound = (reqProto.hasLongLowerBound()) ? reqProto.getLongLowerBound() : null;
+    Double longUpperBound = (reqProto.hasLongUpperBound()) ? reqProto.getLongUpperBound() : null;
     
     GenerateAttackListResponseProto.Builder resBuilder = GenerateAttackListResponseProto.newBuilder();
     resBuilder.setSender(senderProto);

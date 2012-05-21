@@ -49332,21 +49332,21 @@ public final class EventProto {
     boolean hasNumEnemies();
     int getNumEnemies();
     
-    // optional int32 latLowerBound = 3;
+    // optional double latLowerBound = 3;
     boolean hasLatLowerBound();
-    int getLatLowerBound();
+    double getLatLowerBound();
     
-    // optional int32 latUpperBound = 4;
+    // optional double latUpperBound = 4;
     boolean hasLatUpperBound();
-    int getLatUpperBound();
+    double getLatUpperBound();
     
-    // optional int32 longLowerBound = 5;
+    // optional double longLowerBound = 5;
     boolean hasLongLowerBound();
-    int getLongLowerBound();
+    double getLongLowerBound();
     
-    // optional int32 longUpperBound = 6;
+    // optional double longUpperBound = 6;
     boolean hasLongUpperBound();
-    int getLongUpperBound();
+    double getLongUpperBound();
   }
   public static final class GenerateAttackListRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -49400,53 +49400,53 @@ public final class EventProto {
       return numEnemies_;
     }
     
-    // optional int32 latLowerBound = 3;
+    // optional double latLowerBound = 3;
     public static final int LATLOWERBOUND_FIELD_NUMBER = 3;
-    private int latLowerBound_;
+    private double latLowerBound_;
     public boolean hasLatLowerBound() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public int getLatLowerBound() {
+    public double getLatLowerBound() {
       return latLowerBound_;
     }
     
-    // optional int32 latUpperBound = 4;
+    // optional double latUpperBound = 4;
     public static final int LATUPPERBOUND_FIELD_NUMBER = 4;
-    private int latUpperBound_;
+    private double latUpperBound_;
     public boolean hasLatUpperBound() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public int getLatUpperBound() {
+    public double getLatUpperBound() {
       return latUpperBound_;
     }
     
-    // optional int32 longLowerBound = 5;
+    // optional double longLowerBound = 5;
     public static final int LONGLOWERBOUND_FIELD_NUMBER = 5;
-    private int longLowerBound_;
+    private double longLowerBound_;
     public boolean hasLongLowerBound() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
-    public int getLongLowerBound() {
+    public double getLongLowerBound() {
       return longLowerBound_;
     }
     
-    // optional int32 longUpperBound = 6;
+    // optional double longUpperBound = 6;
     public static final int LONGUPPERBOUND_FIELD_NUMBER = 6;
-    private int longUpperBound_;
+    private double longUpperBound_;
     public boolean hasLongUpperBound() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
-    public int getLongUpperBound() {
+    public double getLongUpperBound() {
       return longUpperBound_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       numEnemies_ = 0;
-      latLowerBound_ = 0;
-      latUpperBound_ = 0;
-      longLowerBound_ = 0;
-      longUpperBound_ = 0;
+      latLowerBound_ = 0D;
+      latUpperBound_ = 0D;
+      longLowerBound_ = 0D;
+      longUpperBound_ = 0D;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -49467,16 +49467,16 @@ public final class EventProto {
         output.writeInt32(2, numEnemies_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, latLowerBound_);
+        output.writeDouble(3, latLowerBound_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, latUpperBound_);
+        output.writeDouble(4, latUpperBound_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, longLowerBound_);
+        output.writeDouble(5, longLowerBound_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, longUpperBound_);
+        output.writeDouble(6, longUpperBound_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -49497,19 +49497,19 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, latLowerBound_);
+          .computeDoubleSize(3, latLowerBound_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, latUpperBound_);
+          .computeDoubleSize(4, latUpperBound_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, longLowerBound_);
+          .computeDoubleSize(5, longLowerBound_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, longUpperBound_);
+          .computeDoubleSize(6, longUpperBound_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -49644,13 +49644,13 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         numEnemies_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        latLowerBound_ = 0;
+        latLowerBound_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000004);
-        latUpperBound_ = 0;
+        latUpperBound_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000008);
-        longLowerBound_ = 0;
+        longLowerBound_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000010);
-        longUpperBound_ = 0;
+        longUpperBound_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
@@ -49797,24 +49797,24 @@ public final class EventProto {
               numEnemies_ = input.readInt32();
               break;
             }
-            case 24: {
+            case 25: {
               bitField0_ |= 0x00000004;
-              latLowerBound_ = input.readInt32();
+              latLowerBound_ = input.readDouble();
               break;
             }
-            case 32: {
+            case 33: {
               bitField0_ |= 0x00000008;
-              latUpperBound_ = input.readInt32();
+              latUpperBound_ = input.readDouble();
               break;
             }
-            case 40: {
+            case 41: {
               bitField0_ |= 0x00000010;
-              longLowerBound_ = input.readInt32();
+              longLowerBound_ = input.readDouble();
               break;
             }
-            case 48: {
+            case 49: {
               bitField0_ |= 0x00000020;
-              longUpperBound_ = input.readInt32();
+              longUpperBound_ = input.readDouble();
               break;
             }
           }
@@ -49934,15 +49934,15 @@ public final class EventProto {
         return this;
       }
       
-      // optional int32 latLowerBound = 3;
-      private int latLowerBound_ ;
+      // optional double latLowerBound = 3;
+      private double latLowerBound_ ;
       public boolean hasLatLowerBound() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getLatLowerBound() {
+      public double getLatLowerBound() {
         return latLowerBound_;
       }
-      public Builder setLatLowerBound(int value) {
+      public Builder setLatLowerBound(double value) {
         bitField0_ |= 0x00000004;
         latLowerBound_ = value;
         onChanged();
@@ -49950,20 +49950,20 @@ public final class EventProto {
       }
       public Builder clearLatLowerBound() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        latLowerBound_ = 0;
+        latLowerBound_ = 0D;
         onChanged();
         return this;
       }
       
-      // optional int32 latUpperBound = 4;
-      private int latUpperBound_ ;
+      // optional double latUpperBound = 4;
+      private double latUpperBound_ ;
       public boolean hasLatUpperBound() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public int getLatUpperBound() {
+      public double getLatUpperBound() {
         return latUpperBound_;
       }
-      public Builder setLatUpperBound(int value) {
+      public Builder setLatUpperBound(double value) {
         bitField0_ |= 0x00000008;
         latUpperBound_ = value;
         onChanged();
@@ -49971,20 +49971,20 @@ public final class EventProto {
       }
       public Builder clearLatUpperBound() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        latUpperBound_ = 0;
+        latUpperBound_ = 0D;
         onChanged();
         return this;
       }
       
-      // optional int32 longLowerBound = 5;
-      private int longLowerBound_ ;
+      // optional double longLowerBound = 5;
+      private double longLowerBound_ ;
       public boolean hasLongLowerBound() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public int getLongLowerBound() {
+      public double getLongLowerBound() {
         return longLowerBound_;
       }
-      public Builder setLongLowerBound(int value) {
+      public Builder setLongLowerBound(double value) {
         bitField0_ |= 0x00000010;
         longLowerBound_ = value;
         onChanged();
@@ -49992,20 +49992,20 @@ public final class EventProto {
       }
       public Builder clearLongLowerBound() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        longLowerBound_ = 0;
+        longLowerBound_ = 0D;
         onChanged();
         return this;
       }
       
-      // optional int32 longUpperBound = 6;
-      private int longUpperBound_ ;
+      // optional double longUpperBound = 6;
+      private double longUpperBound_ ;
       public boolean hasLongUpperBound() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
-      public int getLongUpperBound() {
+      public double getLongUpperBound() {
         return longUpperBound_;
       }
-      public Builder setLongUpperBound(int value) {
+      public Builder setLongUpperBound(double value) {
         bitField0_ |= 0x00000020;
         longUpperBound_ = value;
         onChanged();
@@ -50013,7 +50013,7 @@ public final class EventProto {
       }
       public Builder clearLongUpperBound() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        longUpperBound_ = 0;
+        longUpperBound_ = 0D;
         onChanged();
         return this;
       }
@@ -81959,9 +81959,9 @@ public final class EventProto {
       "POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\304\001\n\036GenerateAtt" +
       "ackListRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
       "m.lvl6.proto.MinimumUserProto\022\022\n\nnumEnem",
-      "ies\030\002 \001(\005\022\025\n\rlatLowerBound\030\003 \001(\005\022\025\n\rlatU" +
-      "pperBound\030\004 \001(\005\022\026\n\016longLowerBound\030\005 \001(\005\022" +
-      "\026\n\016longUpperBound\030\006 \001(\005\"\307\002\n\037GenerateAtta" +
+      "ies\030\002 \001(\005\022\025\n\rlatLowerBound\030\003 \001(\001\022\025\n\rlatU" +
+      "pperBound\030\004 \001(\001\022\026\n\016longLowerBound\030\005 \001(\001\022" +
+      "\026\n\016longUpperBound\030\006 \001(\001\"\307\002\n\037GenerateAtta" +
       "ckListResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
       "m.lvl6.proto.MinimumUserProto\022.\n\007enemies" +
       "\030\002 \003(\0132\035.com.lvl6.proto.FullUserProto\022X\n" +

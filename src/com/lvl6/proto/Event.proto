@@ -836,10 +836,10 @@ message UseSkillPointResponseProto {
 message GenerateAttackListRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 numEnemies = 2;
-	optional int32 latLowerBound = 3;
-	optional int32 latUpperBound = 4;
-	optional int32 longLowerBound = 5;
-	optional int32 longUpperBound = 6;
+	optional double latLowerBound = 3;
+	optional double latUpperBound = 4;
+	optional double longLowerBound = 5;
+	optional double longUpperBound = 6;
 }
 
 																						//DONE

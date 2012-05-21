@@ -64,7 +64,7 @@ public class UserRetrieveUtils {
   }
 
   public static List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
-      Integer latLowerBound, Integer latUpperBound, Integer longLowerBound, Integer longUpperBound, boolean forBattle) {
+      Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle) {
     log.debug("retrieving list of users for user " + userId);
 
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2 - 1, 2);
