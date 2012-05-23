@@ -42,7 +42,7 @@ public class PossessEquipJobRetrieveUtils {
   }
 
   public static PossessEquipJob getPossessEquipJobForPossessEquipJobId(int possessEquipJobId) {
-    log.debug("retrieving possess equip job data for possess equip job id " + possessEquipJobId);
+    log.debug("retrieving possess equip job for id " + possessEquipJobId);
     if (possessEquipJobIdsToPossessEquipJobs == null) {
       setStaticPossessEquipJobIdsToPossessEquipJobs();
     }

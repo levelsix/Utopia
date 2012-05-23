@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.VaultRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -17,6 +19,8 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class VaultController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public VaultController() {
     numAllocatedThreads = 3;
@@ -48,7 +52,7 @@ public class VaultController extends EventController {
     resBuilder.setSender(senderProto);
     // Lock this player's ID
     server.lockPlayer(senderProto.getUserId());
-
+    
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 

@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetractMarketplacePostRequestEvent;
 import com.lvl6.events.response.RetractMarketplacePostResponseEvent;
@@ -21,6 +23,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class RetractMarketplacePostController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RetractMarketplacePostController() {
     numAllocatedThreads = 3;
@@ -73,7 +77,7 @@ public class RetractMarketplacePostController extends EventController{
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, mp.getPostedEquipId(), 1, log);
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, mp.getPostedEquipId(), 1);
         }
       }
     } catch (Exception e) {

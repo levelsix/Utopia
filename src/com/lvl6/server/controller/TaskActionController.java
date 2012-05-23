@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.TaskActionRequestEvent;
 import com.lvl6.events.response.TaskActionResponseEvent;
@@ -40,6 +42,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class TaskActionController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public TaskActionController() {
     numAllocatedThreads = 20;
@@ -207,7 +211,7 @@ public class TaskActionController extends EventController {
                           if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                             userQuest.setTasksComplete(true);
                             questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
-                                null, null, null, null, null, log);
+                                null, null, null, null, null);
                           } else {
                             log.error("problem with marking tasks completed for a user quest");
                           }
@@ -226,7 +230,7 @@ public class TaskActionController extends EventController {
             }
             if (lootEquipId > ControllerConstants.NOT_SET && !questCompletedAndSent) {
               QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
-                  null, null, null, lootEquipId, 1, log);
+                  null, null, null, lootEquipId, 1);
             }
           }
         }

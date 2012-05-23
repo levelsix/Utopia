@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CriticalStructureActionRequestEvent;
 import com.lvl6.events.response.CriticalStructureActionResponseEvent;
@@ -19,8 +21,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class CriticalStructureActionController extends EventController {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
   public CriticalStructureActionController() {
-    numAllocatedThreads = 3;
+    numAllocatedThreads = 1;
   }
   
   @Override

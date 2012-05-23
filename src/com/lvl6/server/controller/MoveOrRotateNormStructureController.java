@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.MoveOrRotateNormStructureRequestEvent;
 import com.lvl6.events.response.MoveOrRotateNormStructureResponseEvent;
@@ -16,6 +18,8 @@ import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class MoveOrRotateNormStructureController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public MoveOrRotateNormStructureController() {
     numAllocatedThreads = 3;

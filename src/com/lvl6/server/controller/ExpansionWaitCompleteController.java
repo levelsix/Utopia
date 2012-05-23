@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ExpansionWaitCompleteRequestEvent;
 import com.lvl6.events.response.ExpansionWaitCompleteResponseEvent;
@@ -20,8 +22,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ExpansionWaitCompleteController extends EventController{
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
   public ExpansionWaitCompleteController() {
-    numAllocatedThreads = 3;
+    numAllocatedThreads = 1;
   }
   
   @Override

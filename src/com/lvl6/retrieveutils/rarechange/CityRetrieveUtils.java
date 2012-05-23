@@ -23,7 +23,7 @@ public class CityRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_CITIES;
 
   public static City getCityForCityId(int cityId) {
-    log.debug("retrieving city data");
+    log.debug("retrieving data for city with city id " + cityId);
     if (cityIdToCity == null) {
       setStaticCityIdsToCity();
     }
@@ -31,7 +31,7 @@ public class CityRetrieveUtils {
   }
 
   public static Map<Integer, City> getCityIdsToCities() {
-    log.debug("retrieving all-cities data");
+    log.debug("retrieving all cities data");
     if (cityIdToCity == null) {
       setStaticCityIdsToCity();
     }

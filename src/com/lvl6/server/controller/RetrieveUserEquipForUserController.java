@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveUserEquipForUserRequestEvent;
 import com.lvl6.events.response.RetrieveUserEquipForUserResponseEvent;
@@ -14,6 +16,8 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveUserEquipForUserController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RetrieveUserEquipForUserController() {
     numAllocatedThreads = 8;

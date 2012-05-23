@@ -19,7 +19,7 @@ public class UserQuestsDefeatTypeJobProgressRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS;
   
   public static Map<Integer, Map<Integer, Integer>> getQuestIdToDefeatTypeJobIdsToNumDefeated(int userId) {
-    log.debug("retrieving user defeatTypeJobProgress info for userId " + userId);
+    log.debug("retrieving user's quest id to (defeat type job progress map) map for user " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);

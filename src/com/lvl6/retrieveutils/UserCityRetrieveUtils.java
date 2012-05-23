@@ -32,7 +32,7 @@ public class UserCityRetrieveUtils {
   }
   
   public static int getCurrentCityRankForUser(int userId, int cityId) {
-    log.debug("retrieving user city info for userId " + userId);
+    log.debug("retrieving user city info for userId " + userId + " and cityId " + cityId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);
@@ -80,7 +80,5 @@ public class UserCityRetrieveUtils {
     }
     return cityIdToCityRankMap;
   }
-
-  
   
 }

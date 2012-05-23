@@ -26,7 +26,7 @@ public class EquipmentRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_EQUIPMENT;
 
   public static Map<Integer, Equipment> getEquipmentIdsToEquipment() {
-    log.debug("retrieving equipment data");
+    log.debug("retrieving all equipment data");
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
     }
@@ -34,7 +34,7 @@ public class EquipmentRetrieveUtils {
   }
 
   public static List<Equipment> getAllArmoryEquipmentForClassType(ClassType classtype) {
-    log.debug("retrieving equipment data");
+    log.debug("retrieving all armory equipment for class type " + classtype);
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
     }
@@ -119,7 +119,7 @@ public class EquipmentRetrieveUtils {
     } else if (diamondPriceSet && !coinPriceSet){
       equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, diamondPrice, chanceOfLoss, classType, rarity, isBuyableInArmory);      
     } else if (diamondPriceSet && coinPriceSet){
-      log.error("equipment should only have coin or diamond price");
+      log.error("equipment should only have coin or diamond price, and this one doesnt: equip with id " + id);
       return null;
     } 
 

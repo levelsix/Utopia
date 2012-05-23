@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
@@ -42,6 +44,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class BattleController extends EventController {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
   public BattleController() {
     numAllocatedThreads = 10;
   }
@@ -149,7 +153,7 @@ public class BattleController extends EventController {
             checkQuestsPostBattle(winner, defender.getType(),
                 attackerProto, reqProto.getNeutralCityId(), lostEquip);
           } else if (lostEquip != null) {
-            QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto, null, null, null, lostEquip.getEquipId(), 1, log);
+            QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto, null, null, null, lostEquip.getEquipId(), 1);
           }
         }
 
@@ -239,7 +243,7 @@ public class BattleController extends EventController {
                         if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
                           if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
                             userQuest.setDefeatTypeJobsComplete(true);
-                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true, null, null, null, null, null, log);
+                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true, null, null, null, null, null);
                           } else {
                             log.error("problem with marking defeat type jobs completed for a user quest");
                           }
@@ -258,7 +262,7 @@ public class BattleController extends EventController {
             }
             if (lostEquip != null && !questCompletedAndSent) {
               QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true,
-                  null, null, null, lostEquip.getEquipId(), 1, log);
+                  null, null, null, lostEquip.getEquipId(), 1);
             }
           }
         }

@@ -3,6 +3,7 @@ protoc -I=src/com/lvl6/proto/ --java_out=src/ src/com/lvl6/proto/*.proto
 
 2) Useful commands if you know what they do
 git ls-files --deleted -z | xargs -0 git rm
+lsof -w -n -i tcp:8080
 
 3) Make sure you include this file (but don't push it to repo (it's already in .gitignore, if right path)):
 DBProperties.java

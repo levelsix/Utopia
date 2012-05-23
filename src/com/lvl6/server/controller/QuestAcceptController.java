@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.QuestAcceptRequestEvent;
 import com.lvl6.events.response.QuestAcceptResponseEvent;
@@ -29,6 +31,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class QuestAcceptController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public QuestAcceptController() {
     numAllocatedThreads = 5;
@@ -100,7 +104,7 @@ public class QuestAcceptController extends EventController {
         boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
         UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete, false);
         writeChangesToDB(uq);
-        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null, log);
+        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null);
       }
 
     } catch (Exception e) {

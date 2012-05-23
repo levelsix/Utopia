@@ -21,7 +21,7 @@ public class PlayerWallPostRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_PLAYER_WALL_POSTS;
 
   public static PlayerWallPost getSpecificActivePlayerWallPost(int wallPostId) {
-    log.debug("retrieving specific player wall post");
+    log.debug("retrieving wall post with id " + wallPostId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsById(conn, wallPostId, TABLE_NAME);
@@ -46,7 +46,7 @@ public class PlayerWallPostRetrieveUtils {
 //  }
   
   public static List<PlayerWallPost> getMostRecentActivePlayerWallPostsForPlayerBeforePostId(int limit, int postId, int wallOwnerId) {
-    log.debug("retrieving limited player wall posts before certain id");
+    log.debug("retrieving " + limit + " player wall posts before certain postId " + postId + " for wallOwner " + wallOwnerId);
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.PLAYER_WALL_POSTS__ID, postId);
     
@@ -61,7 +61,7 @@ public class PlayerWallPostRetrieveUtils {
   }
   
   public static List<PlayerWallPost> getMostRecentPlayerWallPostsForWallOwner(int limit, int wallOwnerId) {
-    log.debug("retrieving limited player wall posts posts");
+    log.debug("retrieving " + limit + " player wall posts for wallOwner " + wallOwnerId);
     
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);

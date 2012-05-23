@@ -35,7 +35,7 @@ public class NeutralCityElementsRetrieveUtils {
   }
 
   public static NeutralCityElement getNeutralCityElement(int cityId, int assetId) {
-    log.debug("retrieving all city id to neutral city elements data");
+    log.debug("retrieving neutral city element with assetId " + assetId + " in cityId " + cityId);
     if (cityIdToNeutralCityElements == null) {
       setStaticCityIdToNeutralCityElements();
     }
@@ -51,7 +51,7 @@ public class NeutralCityElementsRetrieveUtils {
   }
 
   public static List<NeutralCityElement> getNeutralCityElementsForCity(int cityId) {
-    log.debug("retrieving all city id to neutral city elements data");
+    log.debug("retrieving neutral city elements for city " + cityId);
     if (cityIdToNeutralCityElements == null) {
       setStaticCityIdToNeutralCityElements();
     }

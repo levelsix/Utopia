@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ChatRequestEvent;
 import com.lvl6.events.response.ChatResponseEvent;
@@ -12,8 +14,10 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 
 public class ChatController extends EventController {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
   public ChatController() {
-    numAllocatedThreads = 10;
+    numAllocatedThreads = 1;
   }
   /** 
    * do ChatController specific initialization here 

@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RefillStatWithDiamondsRequestEvent;
 import com.lvl6.events.response.RefillStatWithDiamondsResponseEvent;
@@ -17,6 +19,8 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RefillStatWithDiamondsController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RefillStatWithDiamondsController() {
     numAllocatedThreads = 3;

@@ -30,7 +30,7 @@ public class BuildStructJobRetrieveUtils {
   }
 
   public static Map<Integer, BuildStructJob> getBuildStructJobsForBuildStructJobIds(List<Integer> ids) {
-    log.debug("retrieving build struct jobs with ids " + ids);
+    log.debug("retrieving map of build struct jobs with ids " + ids);
     if (buildStructJobIdsToBuildStructJobs == null) {
       setStaticBuildStructJobIdsToBuildStructJobs();
     }

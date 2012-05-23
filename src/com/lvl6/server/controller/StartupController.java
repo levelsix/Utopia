@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.StartupResponseEvent;
@@ -61,6 +63,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class StartupController extends EventController {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
   public StartupController() {
     numAllocatedThreads = 3;
   }
@@ -84,7 +88,9 @@ public class StartupController extends EventController {
     String newDeviceToken = reqProto.hasDeviceToken() ? reqProto.getDeviceToken() : null;
 
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
-
+    
+    MiscMethods.setMDCProperties(udid, null, MiscMethods.getIPOfPlayer(server, null, udid));
+    
     // Check version number
     if ((int)reqProto.getVersionNum() < (int)GameServer.clientVersionNumber) {
       updateStatus = UpdateStatus.MAJOR_UPDATE;
@@ -108,6 +114,7 @@ public class StartupController extends EventController {
         server.lockPlayer(user.getId());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
+          
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);

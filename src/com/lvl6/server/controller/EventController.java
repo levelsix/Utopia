@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.ResponseEvent;
@@ -7,12 +9,15 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public abstract class EventController extends Wrap{
 
   /** reference to the GameServer */
   protected GameServer server;
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
   /**
    * GameServer will call this init method immediately after construction.
    * It is final so that this initialization does not got overridden by subclasses.
@@ -53,9 +58,12 @@ public abstract class EventController extends Wrap{
    * subclasses must implement to do their processing
    */
   protected void processEvent(GameEvent event) {
+    RequestEvent reqEvent = (RequestEvent) event;
+    MiscMethods.setMDCProperties(null, reqEvent.getPlayerId(), MiscMethods.getIPOfPlayer(server, reqEvent.getPlayerId(), null));
     log.info("Received event: " + event.toString());
-    processRequestEvent((RequestEvent) event);
-  }
+    processRequestEvent(reqEvent);
+    MiscMethods.purgeMDCProperties();
+  }    
 
   /**
    * subclasses must implement to provide their Event type

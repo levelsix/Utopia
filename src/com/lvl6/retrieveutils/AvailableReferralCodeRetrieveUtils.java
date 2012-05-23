@@ -16,7 +16,7 @@ public class AvailableReferralCodeRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_AVAILABLE_REFERRAL_CODES;
 
   public static String getAvailableReferralCode() {
-    log.debug("getting available referral code");
+    log.debug("generating available referral code");
     String availableReferralCode = null;
     
     String query = "select floor(rand()*count(*)) from " + TABLE_NAME;

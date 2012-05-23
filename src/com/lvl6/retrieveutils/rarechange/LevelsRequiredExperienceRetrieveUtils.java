@@ -28,7 +28,7 @@ public class LevelsRequiredExperienceRetrieveUtils {
   }
 
   public static int getRequiredExperienceForLevel(int level) {
-    log.debug("retrieving exp-requirements-for-level " + level);
+    log.debug("retrieving exp-requirement for level " + level);
     if (levelsToRequiredExperienceForLevels == null) {
       setStaticLevelsToRequiredExperienceForLevels();
     }

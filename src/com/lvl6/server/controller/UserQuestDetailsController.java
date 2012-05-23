@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UserQuestDetailsRequestEvent;
 import com.lvl6.events.response.UserQuestDetailsResponseEvent;
@@ -21,6 +23,8 @@ import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class UserQuestDetailsController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public UserQuestDetailsController() {
     numAllocatedThreads = 8;

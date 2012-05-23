@@ -21,6 +21,8 @@ public class UserQuestRetrieveUtils {
   
   //only used in script
   public static List<UserQuest> getUnredeemedIncompleteUserQuests() {
+    log.debug("retrieving unredeemed and incomplete user quests");
+    
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
@@ -33,6 +35,8 @@ public class UserQuestRetrieveUtils {
   }
   
   public static List<UserQuest> getIncompleteUserQuestsForUser(int userId) {
+    log.debug("retrieving incomplete user quests for userId " + userId);
+    
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -46,7 +50,7 @@ public class UserQuestRetrieveUtils {
   }
   
   public static List<UserQuest> getUnredeemedAndRedeemedUserQuestsForUser(int userId) {
-    log.debug("retrieving user quests for userId " + userId);
+    log.debug("retrieving unredeemed and redeemed user quests for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -56,7 +60,7 @@ public class UserQuestRetrieveUtils {
   }
   
   public static List<UserQuest> getUnredeemedUserQuestsForUser(int userId) {
-    log.debug("retrieving user quests for userId " + userId);
+    log.debug("retrieving unredeemed user quests for userId " + userId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
@@ -79,7 +83,7 @@ public class UserQuestRetrieveUtils {
   }
   
   public static UserQuest getSpecificUnredeemedUserQuest(int userId, int questId) {
-    log.debug("retrieving specific user quest for userid " + userId + " and questId " + questId);
+    log.debug("retrieving specific unredeemed user quest for userid " + userId + " and questId " + questId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__QUEST_ID, questId);

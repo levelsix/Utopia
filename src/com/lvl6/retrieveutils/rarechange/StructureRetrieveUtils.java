@@ -21,7 +21,7 @@ public class StructureRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_STRUCTURES;
 
   public static Map<Integer, Structure> getStructIdsToStructs() {
-    log.debug("retrieving all-structs data");
+    log.debug("retrieving all structs data");
     if (structIdsToStructs == null) {
       setStaticStructIdsToStructs();
     }
@@ -29,7 +29,7 @@ public class StructureRetrieveUtils {
   }
 
   public static Structure getStructForStructId(int structId) {
-    log.debug("retrieve struct data");
+    log.debug("retrieve struct data for structId " + structId);
     if (structIdsToStructs == null) {
       setStaticStructIdsToStructs();      
     }
@@ -92,7 +92,7 @@ public class StructureRetrieveUtils {
     int imgVerticalPixelOffset = rs.getInt(i++);
     
     if (coinPriceSet && diamondPriceSet) {
-      log.error("struct cannot have coin price and diamond price");
+      log.error("struct cannot have coin price and diamond price, and this structId violates it: " + id);
       return null;
     }
 

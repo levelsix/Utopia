@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
@@ -20,6 +22,8 @@ import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
   public static void updateNullifyDeviceTokens(Set<String> deviceTokens) {
     if (deviceTokens != null && deviceTokens.size() > 0) {
       String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__DEVICE_TOKEN 

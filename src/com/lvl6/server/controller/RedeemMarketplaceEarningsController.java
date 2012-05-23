@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent;
 import com.lvl6.events.response.RedeemMarketplaceEarningsResponseEvent;
@@ -15,6 +17,8 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RedeemMarketplaceEarningsController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RedeemMarketplaceEarningsController() {
     numAllocatedThreads = 4;

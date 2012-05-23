@@ -3,6 +3,8 @@ package com.lvl6.server.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveUsersForUserIdsRequestEvent;
 import com.lvl6.events.response.RetrieveUsersForUserIdsResponseEvent;
@@ -15,6 +17,8 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrieveUsersForUserIdsController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RetrieveUsersForUserIdsController() {
     numAllocatedThreads = 4;

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadNeutralCityRequestEvent;
 import com.lvl6.events.response.LoadNeutralCityResponseEvent;
@@ -37,6 +39,8 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class LoadNeutralCityController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public LoadNeutralCityController() {
     numAllocatedThreads = 3;

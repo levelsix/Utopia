@@ -3,6 +3,8 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UpgradeNormStructureRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -24,6 +26,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class UpgradeNormStructureController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public UpgradeNormStructureController() {
     numAllocatedThreads = 4;

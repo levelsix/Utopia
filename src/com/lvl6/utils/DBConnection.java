@@ -21,8 +21,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DBConnection {
-  // log4j logger
-  protected static Logger log;
+
+  protected static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String user = DBProperties.USER;
   private static final String password = DBProperties.PASSWORD;
@@ -38,27 +38,34 @@ public class DBConnection {
 
   public static Connection getConnection() {
     
-    log.debug("before pool grab");
-    printConnectionInfoInDebug();
-    
+//    log.debug("before pool grab");
+//    printConnectionInfoInDebug();
+//    
     Connection conn = null;
     try {
       conn = dataSource.getConnection();
-    } catch (SQLException e) {}
+    } catch (SQLException e) {
+      log.error("Problem with grabbing a db connection.");
+      try {
+        log.error("num_connections: "      + dataSource.getNumConnectionsDefaultUser());
+        log.error("num_busy_connections: " + dataSource.getNumBusyConnectionsDefaultUser());
+        log.error("num_idle_connections: " + dataSource.getNumIdleConnectionsDefaultUser());
+      } catch (SQLException e1) {
+        log.error("Problem with printing out db connection info");
+      }
+    }
     
-    log.debug("after pool grab");
-    printConnectionInfoInDebug();
+//    log.debug("after pool grab");
+//    printConnectionInfoInDebug();
 
     return conn;
   }
 
-  public static void printConnectionInfoInDebug() {
+  private static void printConnectionInfoInDebug() {
     try {
-      log.debug("\n");
       log.debug("num_connections: "      + dataSource.getNumConnectionsDefaultUser());
       log.debug("num_busy_connections: " + dataSource.getNumBusyConnectionsDefaultUser());
       log.debug("num_idle_connections: " + dataSource.getNumIdleConnectionsDefaultUser());
-      log.debug("\n");
     } catch (Exception e) {
       log.error(e);
     }    
@@ -86,7 +93,6 @@ public class DBConnection {
   }
 
   public static void init() {
-    log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
     Logger.getLogger("com.mchange.v2").setLevel(MCHANGE_LOG_LEVEL);
 
     if (Globals.IS_SANDBOX) {

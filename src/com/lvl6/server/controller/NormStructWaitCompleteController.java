@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.NormStructWaitCompleteRequestEvent;
 import com.lvl6.events.response.NormStructWaitCompleteResponseEvent;
@@ -24,7 +26,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class NormStructWaitCompleteController extends EventController{
- 
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
   public NormStructWaitCompleteController() {
     numAllocatedThreads = 5;
   }
@@ -87,11 +91,11 @@ public class NormStructWaitCompleteController extends EventController{
       if (legitWaitComplete) {
         for (UserStruct upgradeDone : upgradesDone) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto, 
-              null, upgradeDone.getStructId(), upgradeDone.getLevel()+1, null, null, log);          
+              null, upgradeDone.getStructId(), upgradeDone.getLevel()+1, null, null);          
         }
         for (UserStruct buildDone : buildsDone) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto, 
-              buildDone.getStructId(), null, null, null, null, log);          
+              buildDone.getStructId(), null, null, null, null);          
         }
       }
     } catch (Exception e) {

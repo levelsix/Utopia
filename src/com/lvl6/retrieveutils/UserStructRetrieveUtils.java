@@ -36,7 +36,7 @@ public class UserStructRetrieveUtils {
   }
 
   public static Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
-    log.debug("retrieving user structs for userId " + userId);
+    log.debug("retrieving map of struct id to userstructs for userId " + userId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
@@ -46,7 +46,7 @@ public class UserStructRetrieveUtils {
   }
 
   public static UserStruct getSpecificUserStruct(int userStructId) {
-    log.debug("retrieving user structs for user struct id " + userStructId);
+    log.debug("retrieving user struct with id " + userStructId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsById(conn, userStructId, TABLE_NAME);
@@ -56,6 +56,8 @@ public class UserStructRetrieveUtils {
   }
 
   public static List<UserStruct> getUserStructs(List<Integer> userStructIds) {
+    log.debug("retrieving userStructs with ids " + userStructIds);
+    
     if (userStructIds == null || userStructIds.size() <= 0 ) {
       return new ArrayList<UserStruct>();
     }

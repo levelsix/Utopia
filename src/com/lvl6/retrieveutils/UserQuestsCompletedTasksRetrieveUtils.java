@@ -20,7 +20,7 @@ public class UserQuestsCompletedTasksRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS;
 
   public static Map<Integer, List<Integer>> getQuestIdToUserTasksCompletedForQuestForUser(int userId) {
-    log.debug("getting user tasks done for user " + userId);
+    log.debug("retrieving user's quest id to completed tasks map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserTasksCompleted = new HashMap<Integer, List<Integer>>();
 
     Connection conn = DBConnection.getConnection();

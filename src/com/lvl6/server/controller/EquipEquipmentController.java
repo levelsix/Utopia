@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.EquipEquipmentRequestEvent;
 import com.lvl6.events.response.EquipEquipmentResponseEvent;
@@ -20,6 +22,8 @@ import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class EquipEquipmentController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public EquipEquipmentController() {
     numAllocatedThreads = 3;

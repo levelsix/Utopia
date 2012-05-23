@@ -1,6 +1,8 @@
 package com.lvl6.server.controller;
 
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
@@ -8,10 +10,10 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.proto.EventProto.PurchaseFromMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus;
-import com.lvl6.proto.EventProto.PurchaseFromMarketplaceRequestProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
@@ -24,6 +26,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class PurchaseFromMarketplaceController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public PurchaseFromMarketplaceController() {
     numAllocatedThreads = 4;
@@ -93,7 +97,7 @@ public class PurchaseFromMarketplaceController extends EventController {
           server.writeEvent(resEventUpdate);
           
           QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, 
-              null, null, null, mp.getPostedEquipId(), 1, log);
+              null, null, null, mp.getPostedEquipId(), 1);
         }
       }
     } catch (Exception e) {

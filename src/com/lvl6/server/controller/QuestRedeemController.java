@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.QuestRedeemRequestEvent;
 import com.lvl6.events.response.QuestRedeemResponseEvent;
@@ -28,6 +30,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class QuestRedeemController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public QuestRedeemController() {
     numAllocatedThreads = 4;
@@ -142,7 +146,7 @@ public class QuestRedeemController extends EventController {
       if (!UpdateUtils.incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
         log.error("problem with giving user reward equip after completing the quest");
       } else {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, quest.getEquipIdGained(), 1, log);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, quest.getEquipIdGained(), 1);
       }
     }
 

@@ -26,7 +26,7 @@ import com.lvl6.utils.ConnectedPlayer;
 
 public class SelectAndRead extends Thread{
   //Logger
-  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   //Tracks pending SocketChannel connections
   private LinkedList<SocketChannel> newClients;
@@ -153,7 +153,7 @@ public class SelectAndRead extends Thread{
         server.removePlayer(channel);
       }
     } else {
-      log.error("player " + playerId + " was never in server, cannot update last logout");
+      log.error("cannot update last logout because there is no player on channel " + channel);
     }
   }
 
@@ -197,7 +197,7 @@ public class SelectAndRead extends Thread{
     ConnectedPlayer p = server.getPlayerById(event.getPlayerId());
     if (p != null) {
       if (p.getChannel() != channel) {
-        log.warn("player is on a new channel, must be reconnect.");
+        log.warn("player " + p.getPlayerId() + " is on a new channel, must be reconnected.");
         p.setChannel(channel);
         server.removePlayer(p.getChannel());
         server.addPlayer(p);

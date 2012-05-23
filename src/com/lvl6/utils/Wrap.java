@@ -6,7 +6,9 @@ import com.lvl6.events.GameEvent;
 
 public abstract class Wrap implements Runnable{
   // log4j logger
-  protected Logger log;
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
 
   // ms to sleep between processing runs
   protected static final long WORKER_SLEEP_MILLIS = 10;
@@ -24,15 +26,12 @@ public abstract class Wrap implements Runnable{
    * @param numWorkers number of worker threads to spawn
    */
   public final void initWrap(int numWorkers) {
-    //setup the log4j Logger
-    log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-
     eventQueue = new EventQueue();
 
     // spawn worker threads
     workers = new Thread[numWorkers];
     for (int i=0; i<numWorkers; i++) {
-      workers[i] = new Thread(this, getClass().getSimpleName());
+      workers[i] = new Thread(this, getClass().getSimpleName() + i);
       workers[i].setDaemon(true);
       workers[i].start();
     }

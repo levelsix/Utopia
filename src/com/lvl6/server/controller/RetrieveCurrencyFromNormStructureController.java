@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveCurrencyFromNormStructureRequestEvent;
 import com.lvl6.events.response.RetrieveCurrencyFromNormStructureResponseEvent;
@@ -22,6 +24,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class RetrieveCurrencyFromNormStructureController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RetrieveCurrencyFromNormStructureController() {
     numAllocatedThreads = 14;

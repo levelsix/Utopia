@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UseSkillPointRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -17,6 +19,8 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class UseSkillPointController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public UseSkillPointController() {
     numAllocatedThreads = 4;

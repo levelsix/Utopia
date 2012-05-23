@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RefillStatWaitCompleteRequestEvent;
 import com.lvl6.events.response.RefillStatWaitCompleteResponseEvent;
@@ -19,6 +21,8 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class RefillStatWaitCompleteController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RefillStatWaitCompleteController() {
     numAllocatedThreads = 5;

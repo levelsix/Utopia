@@ -1,5 +1,7 @@
 package com.lvl6.server;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
@@ -14,6 +16,8 @@ public class APNSWriter extends Wrap {
   //  private static final int MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS = 180;
   //  private static final int MINUTES_BEFORE_IGNORE_BADGE_CAP = 10080;
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
   /** 
    * constructor.
    */
@@ -53,8 +57,10 @@ public class APNSWriter extends Wrap {
     int playerId = event.getPlayerId();
     ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
     if (connectedPlayer != null) {
+      log.info("wrote a response event to connected player with id " + playerId);
       server.writeEvent(event);
     } else {
+      log.info("sending APNS notification to player with id " + playerId);
       //      User user = UserRetrieveUtils.getUserById(playerId);
       //      if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
       //        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);

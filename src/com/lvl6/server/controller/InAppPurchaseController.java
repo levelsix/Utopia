@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.lvl6.events.RequestEvent;
@@ -26,6 +27,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class InAppPurchaseController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
   private static final String PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt";  
@@ -101,6 +104,8 @@ public class InAppPurchaseController extends EventController {
               log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
             }
             resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
+          } else {
+            log.error("duplicate receipt");
           }
         }
         wr.close();

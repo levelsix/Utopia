@@ -19,8 +19,8 @@ public class UserQuestsTaskProgressRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS;
   
   public static Map<Integer, Map<Integer, Integer>> getQuestIdToTaskIdsToNumTimesActedInQuest(int userId) {
-    log.debug("retrieving user taskProgress info for userId " + userId);
-
+    log.debug("retrieving user's quest id to (task progress map) map for user " + userId);
+    
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Map<Integer, Integer>> questIdToTaskIdsToNumTimesActedInQuest = convertRSToQuestIdToTaskIdsToNumTimesActedForQuestMap(rs);

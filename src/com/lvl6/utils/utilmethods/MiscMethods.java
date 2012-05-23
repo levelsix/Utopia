@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.log4j.MDC;
+
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
 import com.lvl6.info.Location;
@@ -18,23 +20,63 @@ import com.lvl6.info.ValidLocationBox;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
+import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
+import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
+
+  public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
+    if (playerId != null && playerId > 0) {
+      if (server.getPlayerById(playerId) != null) {
+        return server.getPlayerById(playerId).getChannel().socket().getInetAddress().toString();
+      }
+    }
+    if (udid != null) {
+      if (server.getChannelForUdid(udid) != null) {
+        return server.getChannelForUdid(udid).socket().getInetAddress().toString();
+      }
+    }
+    return null;
+  }
   
+  public static void purgeMDCProperties(){
+    MDC.remove(MDCKeys.UDID);
+    MDC.remove(MDCKeys.PLAYER_ID);
+    MDC.remove(MDCKeys.IP);
+  }
+  
+  public static void setMDCProperties(String udid, Integer playerId, String ip) {
+    purgeMDCProperties();
+    if (udid != null) MDC.put(MDCKeys.UDID, udid);
+    if (ip != null) MDC.put(MDCKeys.IP, ip);
+    if (playerId != null && playerId > 0) MDC.put(MDCKeys.PLAYER_ID, playerId);
+  }
+
   public static int calculateCoinsGivenToReferrer(User referrer) {
     return Math.min(ControllerConstants.USER_CREATE__MIN_COIN_REWARD_FOR_REFERRER, (int)(Math.ceil(
         (referrer.getVaultBalance() + referrer.getCoins()) * 
         ControllerConstants.USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER)));
   }
-  
+
   public static int calculateCoinsGainedFromTutorialTask(Task firstTaskToComplete) {
     return ((firstTaskToComplete.getMinCoinsGained() + firstTaskToComplete.getMaxCoinsGained())/2)
         * firstTaskToComplete.getNumForCompletion();
@@ -177,8 +219,8 @@ public class MiscMethods {
         .setCarpenterImgVerticalPixelOffset(ControllerConstants.CARPENTER_IMG_VERTICAL_PIXEL_OFFSET)
         .setMaxCharLengthForWallPost(ControllerConstants.POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH)
         .setPlayerWallPostsRetrieveCap(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP);
-    
-    
+
+
     FormulaConstants formulaConstants = FormulaConstants.newBuilder()
         .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
         .setIncomeFromNormStructMultiplier(ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER)
@@ -190,9 +232,9 @@ public class MiscMethods {
         .setBattleWeightGivenToDefenseStat(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_DEFENSE_STAT)
         .setBattleWeightGivenToDefenseEquipSum(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_DEFENSE_EQUIP_SUM)
         .build();
-    
+
     cb = cb.setFormulaConstants(formulaConstants);
-    
+
     BattleConstants battleConstants = BattleConstants.newBuilder()
         .setLocationBarMax(ControllerConstants.BATTLE__LOCATION_BAR_MAX)
         .setMaxAttackMultiplier(ControllerConstants.BATTLE__MAX_ATTACK_MULTIPLIER)
@@ -201,13 +243,28 @@ public class MiscMethods {
         .setBattleDifferenceMultiplier(ControllerConstants.BATTLE__BATTLE_DIFFERENCE_MULTIPLIER)
         .setBattleDifferenceTuner(ControllerConstants.BATTLE__BATTLE_DIFFERENCE_TUNER)
         .build();
-    
+
     cb = cb.setBattleConstants(battleConstants);
-    
+
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
     }
     return cb.build();  
+  }
+
+  public static void reloadAllRareChangeStaticData() {
+    BuildStructJobRetrieveUtils.reload();
+    CityRetrieveUtils.reload();
+    DefeatTypeJobRetrieveUtils.reload();
+    EquipmentRetrieveUtils.reload();
+    QuestRetrieveUtils.reload();
+    TaskEquipReqRetrieveUtils.reload();
+    TaskRetrieveUtils.reload();
+    UpgradeStructJobRetrieveUtils.reload();
+    StructureRetrieveUtils.reload();
+    PossessEquipJobRetrieveUtils.reload();
+    LevelsRequiredExperienceRetrieveUtils.reload();
+    NeutralCityElementsRetrieveUtils.reload();    
   }
 }

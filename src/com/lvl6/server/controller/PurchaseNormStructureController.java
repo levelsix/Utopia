@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseNormStructureRequestEvent;
 import com.lvl6.events.response.PurchaseNormStructureResponseEvent;
@@ -26,6 +28,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class PurchaseNormStructureController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public PurchaseNormStructureController() {
     numAllocatedThreads = 3;

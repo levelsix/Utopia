@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrievePlayerWallPostsRequestEvent;
 import com.lvl6.events.response.RetrievePlayerWallPostsResponseEvent;
@@ -20,6 +22,8 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class RetrievePlayerWallPostsController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public RetrievePlayerWallPostsController() {
     numAllocatedThreads = 5;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadPlayerCityRequestEvent;
 import com.lvl6.events.response.LoadPlayerCityResponseEvent;
@@ -28,6 +30,8 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class LoadPlayerCityController extends EventController {
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public LoadPlayerCityController() {
     numAllocatedThreads = 10;

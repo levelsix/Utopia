@@ -22,11 +22,12 @@ import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.PlayerSet;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GameServer extends Thread{
 
   // Logger
-  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   // ServerSocketChannel for accepting client connections
   private ServerSocketChannel sSockChan;
@@ -64,9 +65,8 @@ public class GameServer extends Thread{
     if (args.length == 2) {
       GameServer server = new GameServer(args[0], Integer.parseInt(args[1]));
       DBConnection.init();
-//      PropertyConfigurator.configure("log4j.properties");
-//      Logger.getRootLogger().setLevel(Globals.LOG_LEVEL);
       server.start();
+      MiscMethods.reloadAllRareChangeStaticData();
     } else {
       System.out.println("Error in input- two arguments required: <serverip> <portnum>");
     }
@@ -146,7 +146,7 @@ public class GameServer extends Thread{
 
           // add to the list in SelectAndRead for processing
           selectAndRead.addNewClient(clientChannel);
-          log.info("got connection from: " + clientChannel.socket().getInetAddress());
+          log.info("received connection from: " + clientChannel.socket().getInetAddress());
         }   
       }
       catch (IOException ioe) {
@@ -263,6 +263,10 @@ public class GameServer extends Thread{
     return playersByPlayerId.get(id);
   }
   
+  public synchronized SocketChannel getChannelForUdid(String udid) {
+    return udidToChannel.get(udid);
+  }
+  
   /** 
    * add a player to our lists
    */
@@ -280,8 +284,7 @@ public class GameServer extends Thread{
       channelToPlayerId.remove(channel);
     }
     catch (Exception e) {
-      log.info("PlayersByPlayerId: "+playersByPlayerId);
-      log.info("ChannelToPlayerId: "+channelToPlayerId);
+      log.error("problem with removing player from game on channel " + channel + ". ", e);
     }
   }
   
@@ -290,13 +293,11 @@ public class GameServer extends Thread{
     if (channelToPlayerId.keySet().contains(channel)) {
       return channelToPlayerId.get(channel);
     }
+    log.error("no player on channel " + channel);
     return -1;
   }
 
   public void lockPlayer(int playerId) {
-//    log.debug("\n\nThread that locked player " + playerId + " is " + Thread.currentThread() + "\n");
-    //can i print name of method that calls this?
-
     playersInAction.addPlayer(playerId);
   }
   
@@ -316,8 +317,6 @@ public class GameServer extends Thread{
   }
 
   public void unlockPlayer(int playerId) {
-    //log.debug("\n\nThread that unlocked player " + playerId + " is " + Thread.currentThread() + "\n");
-
     if (playersInAction.containsPlayer(playerId))
       playersInAction.removePlayer(playerId);
   }

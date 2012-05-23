@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ArmoryRequestEvent;
 import com.lvl6.events.response.ArmoryResponseEvent;
@@ -23,6 +25,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class ArmoryController extends EventController {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
   public ArmoryController() {
     numAllocatedThreads = 4;
   }
@@ -67,6 +71,8 @@ public class ArmoryController extends EventController {
               legitBuy = true;
             } else {
               resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_CURRENCY_TO_BUY);
+              log.error("player needs " + equipment.getCoinPrice() + " coins to buy equip with id "
+                  + equipId + ", but only has " + user.getCoins());
             }
           }
           if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
@@ -74,36 +80,53 @@ public class ArmoryController extends EventController {
               legitBuy = true;
             } else {
               resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_CURRENCY_TO_BUY);
+              log.error("player needs " + equipment.getDiamondPrice() + " diamonds to buy equip with id "
+                  + equipId + ", but only has " + user.getDiamonds());
             }
           }
         } else if (requestType == ArmoryRequestType.SELL) {
           userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equipId);
           if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
             resBuilder.setStatus(ArmoryStatus.CANNOT_SELL_DIAMOND_EQUIP);
+            log.error("player tried to sell a diamond equip (equip with id " + equipId + ")");
           } else {
             if (userEquip != null && userEquip.getQuantity() >= quantity) {
               legitSell = true;
             } else {
               resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_EQUIP_TO_SELL);
+              log.error("player tried to sell " + quantity + " equips with id " + equipId + " but only has " + userEquip.getQuantity() 
+                  + " of them");
             }
           }
         }
       }
       if (legitBuy) {
-        UpdateUtils.incrementUserEquip(user.getId(), equipId, quantity);
+        if (!UpdateUtils.incrementUserEquip(user.getId(), equipId, quantity)) {
+          log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
+        }
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {
-          user.updateRelativeCoinsNaive(equipment.getCoinPrice() * -1);
+          if (!user.updateRelativeCoinsNaive(equipment.getCoinPrice() * -1)) {
+            log.error("problem with taking away " + equipment.getCoinPrice() + " coins from user");
+          }
         } else if (equipment.getDiamondPrice() != Equipment.NOT_SET)  {
-          user.updateRelativeDiamondsNaive(equipment.getDiamondPrice() * -1);
+          if (!user.updateRelativeDiamondsNaive(equipment.getDiamondPrice() * -1)) {
+            log.error("problem with taking away " + equipment.getDiamondPrice() + " diamonds from user");
+          }
         }
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
       if (legitSell) {
-        UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity);
-        if (quantity >= userEquip.getQuantity()) {
-          MiscMethods.unequipUserEquip(user, equipId);
+        if (!UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity)) {
+          log.error("problem with taking away " + quantity + " of equip id " + equipId + " from player");
         }
-        user.updateRelativeCoinsNaive((int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
+        if (quantity >= userEquip.getQuantity()) {
+          if (!MiscMethods.unequipUserEquip(user, equipId)) {
+            log.error("problem with unequipping " + equipId);
+          }
+        }
+        if (!user.updateRelativeCoinsNaive((int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()))) {
+          log.error("problem with changing coin count by " + (int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
+        }
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
 
@@ -120,7 +143,7 @@ public class ArmoryController extends EventController {
       }
 
       if (legitBuy) {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, equipId, quantity, log);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, equipId, quantity);
       }
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);

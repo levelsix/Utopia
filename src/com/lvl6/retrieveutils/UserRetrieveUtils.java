@@ -28,7 +28,7 @@ public class UserRetrieveUtils {
 
   private static final int BATTLE_INITIAL_LEVEL_RANGE = 2;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
   private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
-  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 3;
+  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
   private static final int MAX_BATTLE_DB_HITS = 5;
   private static final int EXTREME_MAX_BATTLE_DB_HITS = 30;
   
@@ -43,6 +43,8 @@ public class UserRetrieveUtils {
   }
 
   public static Map<Integer, User> getUsersByIds(List<Integer> userIds) {
+    log.debug("retrieving users with userIds " + userIds);
+    
     if (userIds == null || userIds.size() <= 0 ) {
       return new HashMap<Integer, User>();
     }
@@ -65,7 +67,10 @@ public class UserRetrieveUtils {
 
   public static List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle) {
-    log.debug("retrieving list of users for user " + userId);
+    log.debug("retrieving list of users for user " + userId + " with requested types " + requestedTypes + 
+        " , " + numUsers + " users " + " around player level " + playerLevel + ", guaranteeNum="+guaranteeNum + 
+        ", latLowerBound=" + latLowerBound + ", latUpperBound=" + latUpperBound + 
+        ", longLowerBound=" + longLowerBound + ", longUpperBound=" + longUpperBound + ", forBattle=" + forBattle);
 
     int levelMin = Math.max(playerLevel - BATTLE_INITIAL_LEVEL_RANGE/2 - 1, 2);
     int levelMax = playerLevel + BATTLE_INITIAL_LEVEL_RANGE/2;
@@ -128,8 +133,10 @@ public class UserRetrieveUtils {
         values.remove(values.size()-1);
         values.remove(values.size()-1);
         values.remove(values.size()-1);
-        values.add(Math.max(2, levelMin - rangeIncrease/2));
-        values.add(levelMax + rangeIncrease/2);
+        levelMin = Math.max(2, levelMin - rangeIncrease/4);
+        values.add(levelMin);
+        levelMax = levelMax + rangeIncrease*3/4;
+        values.add(levelMax);
         values.add(numUsers);
         rs = DBConnection.selectDirectQueryNaive(conn, query, values);
         numDBHits++;
@@ -143,6 +150,11 @@ public class UserRetrieveUtils {
     
     List<User> users = convertRSToUsers(rs);
     if (users == null) users = new ArrayList<User>();
+    
+    log.debug("retrieved " + users.size() + " users in level range " + levelMin+"-"+levelMax + 
+        " when " + numUsers + " around " + playerLevel + " were requested");
+
+    
     DBConnection.close(rs, null, conn);
     return users;
   }

@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.FinishNormStructWaittimeWithDiamondsRequestEvent;
 import com.lvl6.events.response.FinishNormStructWaittimeWithDiamondsResponseEvent;
@@ -25,6 +27,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class FinishNormStructWaittimeWithDiamondsController extends EventController{
+
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public FinishNormStructWaittimeWithDiamondsController() {
     numAllocatedThreads = 2;
@@ -78,11 +82,11 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
         
         if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, userStruct.getStructId(), 
-              null, null, null, null, log);
+              null, null, null, null);
         }
         if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, 
-              userStruct.getStructId(), userStruct.getLevel() + 1, null, null, log);
+              userStruct.getStructId(), userStruct.getLevel() + 1, null, null);
         }
       }
     } catch (Exception e) {

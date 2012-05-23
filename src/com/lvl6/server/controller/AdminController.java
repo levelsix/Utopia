@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 import java.util.Enumeration;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.AdminChangeRequestEvent;
 import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
@@ -20,9 +22,12 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class AdminController extends EventController {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
   public AdminController() {
     numAllocatedThreads = 1;
   }
@@ -44,18 +49,7 @@ public class AdminController extends EventController {
     if (reqProto.hasStaticDataReloadType()) {
       switch (reqProto.getStaticDataReloadType()) {
       case ALL:
-        BuildStructJobRetrieveUtils.reload();
-        CityRetrieveUtils.reload();
-        DefeatTypeJobRetrieveUtils.reload();
-        EquipmentRetrieveUtils.reload();
-        QuestRetrieveUtils.reload();
-        TaskEquipReqRetrieveUtils.reload();
-        TaskRetrieveUtils.reload();
-        UpgradeStructJobRetrieveUtils.reload();
-        StructureRetrieveUtils.reload();
-        PossessEquipJobRetrieveUtils.reload();
-        LevelsRequiredExperienceRetrieveUtils.reload();
-        NeutralCityElementsRetrieveUtils.reload();
+        MiscMethods.reloadAllRareChangeStaticData();
         break;
       case BUILD_STRUCT_JOBS:
         BuildStructJobRetrieveUtils.reload();
@@ -94,6 +88,7 @@ public class AdminController extends EventController {
         NeutralCityElementsRetrieveUtils.reload();
         break;
       }
+      log.info("reloaded all static rarechange data tables from db");
     }
     
     if (reqProto.hasPurgeStaticDataForConnectedClients() && 
@@ -107,6 +102,7 @@ public class AdminController extends EventController {
         resEvent.setPurgeClientStaticDataResponseProto(builder.setSenderId(playerId).build());
         server.writeEvent(resEvent);
       }
+      log.info("finished telling all clients to purge their static data");
     }
     
     

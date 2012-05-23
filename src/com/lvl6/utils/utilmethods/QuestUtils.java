@@ -29,10 +29,12 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.QuestGraph;
 
 public class QuestUtils {
+  
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto, 
       Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
-      Integer justObtainedEquipId, Integer justObtainedEquipQuantity, Logger log) {
+      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getIncompleteUserQuestsForUser(userId);
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
@@ -41,7 +43,7 @@ public class QuestUtils {
           if (quest != null) {
             QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
                 justBuiltStructId, justUpgradedStructId, justUpgradedStructLevel, justObtainedEquipId, 
-                justObtainedEquipQuantity, log);
+                justObtainedEquipQuantity);
           }
         }
       }
@@ -51,7 +53,7 @@ public class QuestUtils {
   public static boolean checkQuestCompleteAndMaybeSend(GameServer server, Quest quest, UserQuest userQuest,
       MinimumUserProto senderProto, boolean sendCompleteMessageIfJustCompleted, 
       Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
-      Integer justObtainedEquipId, Integer justObtainedEquipQuantity, Logger log) {
+      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
 
     boolean sendMessage = false;
 

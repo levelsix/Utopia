@@ -23,7 +23,7 @@ public class MarketplacePostRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_MARKETPLACE;
 
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
-    log.debug("retrieving specific marketplace posts");
+    log.debug("retrieving specific marketplace post with id " + marketplacePostId);
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsById(conn, marketplacePostId, TABLE_NAME);
@@ -33,7 +33,7 @@ public class MarketplacePostRetrieveUtils {
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostId(int limit, int postId) {
-    log.debug("retrieving limited marketplace posts before certain id");
+    log.debug("retrieving up to " + limit + " marketplace posts before marketplace post id " + postId);
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     
@@ -45,7 +45,7 @@ public class MarketplacePostRetrieveUtils {
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostIdForPoster(int limit, int postId, int posterId) {
-    log.debug("retrieving limited marketplace posts before certain id");
+    log.debug("retrieving up to " + limit + " marketplace posts before marketplace post id " + postId + " for posterId " + posterId);
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
@@ -59,7 +59,7 @@ public class MarketplacePostRetrieveUtils {
   }
 
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
-    log.debug("retrieving limited marketplace posts");
+    log.debug("retrieving up to " + limit + " most recent marketplace posts");
     
     Connection conn = DBConnection.getConnection();
     ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
@@ -69,7 +69,7 @@ public class MarketplacePostRetrieveUtils {
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
-    log.debug("retrieving limited marketplace posts");
+    log.debug("retrieving up to " + limit + " marketplace posts for posterId " + posterId);
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     

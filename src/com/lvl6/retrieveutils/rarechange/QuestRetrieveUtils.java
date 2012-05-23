@@ -29,7 +29,7 @@ public class QuestRetrieveUtils {
   private static final String TABLE_NAME = DBConstants.TABLE_QUESTS;
 
   public static Map<Integer, Quest> getQuestIdsToQuests() {
-    log.debug("retrieving all-quest data");
+    log.debug("retrieving all quest data");
     if (questIdsToQuests == null) {
       setStaticQuestIdsToQuests();
     }
@@ -37,7 +37,7 @@ public class QuestRetrieveUtils {
   }
 
   public static Quest getQuestForQuestId(int questId) {
-    log.debug("retrieve task data");
+    log.debug("retrieving quest with questId " + questId);
     if (questIdsToQuests == null) {
       setStaticQuestIdsToQuests();
     }
@@ -45,7 +45,7 @@ public class QuestRetrieveUtils {
   }
 
   public static QuestGraph getQuestGraph() {
-    log.debug("retrieving available quests");
+    log.debug("retrieving quest graph");
     if (questGraph == null) {
       setStaticQuestGraph();
     }
@@ -131,8 +131,8 @@ public class QuestRetrieveUtils {
           }
         }
       } catch (Exception e) {
-        log.error("Problem with creating Quest objects ");
-        e.printStackTrace();
+        log.error("problem with creating dialogue object for this dialogueblob: " + dialogueBlob);
+        log.error(e);
       }
       return new Dialogue(speakers, speakerTexts);
     }

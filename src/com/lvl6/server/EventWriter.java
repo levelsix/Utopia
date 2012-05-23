@@ -2,6 +2,8 @@ package com.lvl6.server;
 import java.nio.*;
 import java.nio.channels.*;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.BroadcastResponseEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
@@ -15,6 +17,8 @@ public class EventWriter extends Wrap {
   //reference to game server
   private GameServer server;
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
   /** 
    * constructor.
    */
@@ -60,7 +64,7 @@ public class EventWriter extends Wrap {
       
       for (int i = 0; i < recipients.length; i++) {
         if (recipients[i] > 0) {
-          log.info("writeEvent(): type=" + event.getEventType() + ", id=" + 
+          log.info("writing broadcast event with type=" + event.getEventType() + " to players with ids " +
               recipients[i]);
           write(recipients[i], writeBuffer);
         }
@@ -70,7 +74,7 @@ public class EventWriter extends Wrap {
     else
     {
       int playerId = ((NormalResponseEvent)event).getPlayerId();
-      log.info("writeEvent: type=" + event.getEventType() + ", id=" + playerId);
+      log.info("writing normal event with type=" + event.getEventType() + " to player with id " + playerId);
       write(playerId, writeBuffer);
     }
   }
@@ -85,7 +89,7 @@ public class EventWriter extends Wrap {
       SocketChannel channel = connectedPlayer.getChannel();
   
       if (channel == null || !channel.isConnected()) {
-        log.error("writeEvent: client channel null or not connected");
+        log.error("writeEvent: client channel is null or disconnected for playerId " + playerId);
         return;
       }
   
