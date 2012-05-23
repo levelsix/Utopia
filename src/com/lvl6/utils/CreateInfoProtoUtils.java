@@ -74,6 +74,7 @@ import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
@@ -135,6 +136,8 @@ public class CreateInfoProtoUtils {
     List<Integer> defeatTypeReqs = null;
     Dialogue acceptDialogue = null;
 
+    String questGiverName = null;
+    NeutralCityElement nce = NeutralCityElementsRetrieveUtils.getNeutralCityElement(quest.getCityId(), quest.getAssetNumWithinCity());
     if (goodSide) {
       name = quest.getGoodName();
       description = quest.getGoodDescription();
@@ -142,6 +145,9 @@ public class CreateInfoProtoUtils {
       inProgress = quest.getGoodInProgress();
       defeatTypeReqs = quest.getDefeatBadGuysJobsRequired();
       acceptDialogue = quest.getGoodAcceptDialogue();
+      if (nce != null) {
+        questGiverName = nce.getGoodName();
+      }
     } else {
       name = quest.getBadName();
       description = quest.getBadDescription();
@@ -149,8 +155,11 @@ public class CreateInfoProtoUtils {
       inProgress = quest.getBadInProgress();
       defeatTypeReqs = quest.getDefeatGoodGuysJobsRequired();
       acceptDialogue = quest.getBadAcceptDialogue();
+      if (nce != null) {
+        questGiverName = nce.getBadName();
+      }
     }
-
+    
     FullQuestProto.Builder builder = FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
         .setDescription(description).setDoneResponse(doneResponse).setInProgress(inProgress).setAssetNumWithinCity(quest.getAssetNumWithinCity())
         .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained())
@@ -161,6 +170,9 @@ public class CreateInfoProtoUtils {
         .setNumComponentsForGood(quest.getNumComponents(true)).setNumComponentsForBad(quest.getNumComponents(false));
     if (acceptDialogue != null) {
       builder.setAcceptDialogue(createDialogueProtoFromDialogue(acceptDialogue));
+    }
+    if (questGiverName != null) {
+      builder.setQuestGiverName(questGiverName);
     }
     return builder.build();
   }

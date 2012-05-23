@@ -131,7 +131,6 @@ public class BattleController extends EventController {
 
       resEvent.setBattleResponseProto(resProto);
 
-      log.info(resEvent + " is resevent");
       server.writeEvent(resEvent);
 
       if (legitBattle) {
@@ -166,7 +165,8 @@ public class BattleController extends EventController {
           }
           int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
           if (!InsertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained)) {
-            log.error("problem with adding battle history into the db");
+            log.error("problem with adding battle history into the db for attacker " + attacker.getId() + " and defender " + defender.getId() 
+                + " at " + battleTime);
           }
         }
       }
@@ -187,6 +187,7 @@ public class BattleController extends EventController {
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
     if (attacker == null || defender == null) {
       resBuilder.setStatus(BattleStatus.OTHER_FAIL);
+      log.error("problem with battle- attacker or defender is null. attacker is " + attacker + " and defender is " + defender);
       return false;
     }
     resBuilder.setStatus(BattleStatus.SUCCESS);
@@ -245,15 +246,19 @@ public class BattleController extends EventController {
                             userQuest.setDefeatTypeJobsComplete(true);
                             questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true, null, null, null, null, null);
                           } else {
-                            log.error("problem with marking defeat type jobs completed for a user quest");
+                            log.error("problem with marking all defeat type jobs in quest " 
+                                + quest.getId() + " completed for a user " + attacker.getId() + " after completing defeat type job with id "
+                                + remainingDTJ.getId());
                           }
                         }
                       } else {
-                        log.error("problem with adding defeat type jobs to user's completed tasks for quest");
+                        log.error("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
+                            + " and quest " + quest.getId());
                       }
                     } else {
                       if (!UpdateUtils.incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
-                        log.error("problem with updating user quest defeat type job progress");
+                        log.error("problem with incrementing user quest defeat type job progress for user "
+                            + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
                       }
                     }
                   }
@@ -277,34 +282,55 @@ public class BattleController extends EventController {
     if (lostEquip != null) {
       if (!loser.isFake() && !UpdateUtils.decrementUserEquip(loser.getId(),
           lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
-        log.error("problem with decrementUserEquip in battle");
+        log.error("problem with decreasing 1 of equip " + lostEquip.getEquipId() + " from user " + loser.getId()
+            + " who currently has " + lostEquip.getQuantity() + " of them");
       } else if (lostEquip.getQuantity() == 1) {
-        MiscMethods.unequipUserEquip(loser, lostEquip.getEquipId());
+        if (!MiscMethods.unequipUserEquip(loser, lostEquip.getEquipId())) {
+          log.error("problem with unequipping " + lostEquip.getEquipId() + " from " + loser);
+        }
       }
       if (!UpdateUtils.incrementUserEquip(winner.getId(),
           lostEquip.getEquipId(), 1)) {
-        log.error("problem with incrementUserEquip in battle");
+        log.error("problem with giving user " + winner + " one of " + lostEquip.getEquipId());
       }
     }
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
 
     if (winner == attacker) {
-      attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime);
-      defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-          0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime);
+      if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
+          expGained, lostCoins, 1, 0, 0, simulateStaminaRefill, false, battleTime)) {
+        log.error("problem with updating info for winner/attacker " + attacker.getId() + " in battle at " 
+            + battleTime + " vs " + loser.getId());
+      }
+      if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
+          0, (defender.isFake()) ? 0 : lostCoins * -1, 0, 1, 0, false, true, battleTime)) {
+        log.error("problem with updating info for defender/loser " + defender.getId() + " in battle at " 
+            + battleTime + " vs " + winner.getId());
+      }
     } else if (winner == defender) {
       if (isFlee) {
-        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime);
-        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime);
+        if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
+            0, lostCoins * -1, 0, 1, 1, simulateStaminaRefill, false, battleTime)) {
+          log.error("problem with updating info for loser/attacker/flee-er " + attacker.getId() + " in battle at " 
+              + battleTime + " vs " + winner.getId());
+        }
+        if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, false, battleTime)) {
+          log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
+              + battleTime + " vs " + loser.getId() + " who fled");
+        }
       } else {
-        attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
-            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime);
-        defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
-            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime);        
+        if (!attacker.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(-1,
+            0, lostCoins * -1, 0, 1, 0, simulateStaminaRefill, false, battleTime)) {
+          log.error("problem with updating info for loser/attacker " + attacker.getId() + " in battle at " 
+              + battleTime + " vs " + winner.getId());
+        }
+        if (!defender.updateRelativeStaminaExperienceCoinsBattleswonBattleslostFleesSimulatestaminarefill(0,
+            0, (defender.isFake()) ? 0 : lostCoins, 1, 0, 0, false, true, battleTime)) {
+          log.error("problem with updating info for winner/defender " + defender.getId() + " in battle at " 
+              + battleTime + " vs " + loser.getId());
+        }
       }
     }
   }

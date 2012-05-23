@@ -76,11 +76,13 @@ public class ChangeUserLocationController extends EventController {
   private boolean checkLegitLocationChange(Builder resBuilder, User user, LocationProto location) {
     if (user == null || location == null) {
       resBuilder.setStatus(ChangeUserLocationStatus.OTHER_FAIL);
+      log.error("user or location is null. user="+user+", location="+location);
       return false;
     }
     if (location.getLatitude() < ControllerConstants.LATITUDE_MIN || location.getLatitude() > ControllerConstants.LATITUDE_MAX || 
         location.getLongitude() < ControllerConstants.LONGITUDE_MIN || location.getLongitude() > ControllerConstants.LONGITUDE_MAX) {
       resBuilder.setStatus(ChangeUserLocationStatus.INVALID_BOUNDS);
+      log.error("location is out of bounds. location="+location);
       return false;
     }
     resBuilder.setStatus(ChangeUserLocationStatus.SUCCESS);
@@ -89,7 +91,7 @@ public class ChangeUserLocationController extends EventController {
 
   private void writeChangesToDB(User user, LocationProto location) {
     if (!user.updateAbsoluteUserLocation(new Location(location.getLatitude(), location.getLongitude()))) {
-      log.error("problem with updating user location for " + user);
+      log.error("problem with updating user location for " + user + ", location " + location);
     }
   }
 }

@@ -22341,6 +22341,10 @@ public final class InfoProto {
     boolean hasAcceptDialogue();
     com.lvl6.proto.InfoProto.DialogueProto getAcceptDialogue();
     com.lvl6.proto.InfoProto.DialogueProtoOrBuilder getAcceptDialogueOrBuilder();
+    
+    // optional string questGiverName = 21;
+    boolean hasQuestGiverName();
+    String getQuestGiverName();
   }
   public static final class FullQuestProto extends
       com.google.protobuf.GeneratedMessage
@@ -22686,6 +22690,38 @@ public final class InfoProto {
       return acceptDialogue_;
     }
     
+    // optional string questGiverName = 21;
+    public static final int QUESTGIVERNAME_FIELD_NUMBER = 21;
+    private java.lang.Object questGiverName_;
+    public boolean hasQuestGiverName() {
+      return ((bitField0_ & 0x00004000) == 0x00004000);
+    }
+    public String getQuestGiverName() {
+      java.lang.Object ref = questGiverName_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          questGiverName_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getQuestGiverNameBytes() {
+      java.lang.Object ref = questGiverName_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        questGiverName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
     private void initFields() {
       questId_ = 0;
       cityId_ = 0;
@@ -22707,6 +22743,7 @@ public final class InfoProto {
       numComponentsForGood_ = 0;
       numComponentsForBad_ = 0;
       acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
+      questGiverName_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -22779,6 +22816,9 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         output.writeMessage(20, acceptDialogue_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        output.writeBytes(21, getQuestGiverNameBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -22898,6 +22938,10 @@ public final class InfoProto {
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(20, acceptDialogue_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(21, getQuestGiverNameBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -23068,6 +23112,8 @@ public final class InfoProto {
           acceptDialogueBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00080000);
+        questGiverName_ = "";
+        bitField0_ = (bitField0_ & ~0x00100000);
         return this;
       }
       
@@ -23196,6 +23242,10 @@ public final class InfoProto {
         } else {
           result.acceptDialogue_ = acceptDialogueBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
+          to_bitField0_ |= 0x00004000;
+        }
+        result.questGiverName_ = questGiverName_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -23313,6 +23363,9 @@ public final class InfoProto {
         }
         if (other.hasAcceptDialogue()) {
           mergeAcceptDialogue(other.getAcceptDialogue());
+        }
+        if (other.hasQuestGiverName()) {
+          setQuestGiverName(other.getQuestGiverName());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -23501,6 +23554,11 @@ public final class InfoProto {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setAcceptDialogue(subBuilder.buildPartial());
+              break;
+            }
+            case 170: {
+              bitField0_ |= 0x00100000;
+              questGiverName_ = input.readBytes();
               break;
             }
           }
@@ -24200,6 +24258,42 @@ public final class InfoProto {
           acceptDialogue_ = null;
         }
         return acceptDialogueBuilder_;
+      }
+      
+      // optional string questGiverName = 21;
+      private java.lang.Object questGiverName_ = "";
+      public boolean hasQuestGiverName() {
+        return ((bitField0_ & 0x00100000) == 0x00100000);
+      }
+      public String getQuestGiverName() {
+        java.lang.Object ref = questGiverName_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          questGiverName_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setQuestGiverName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00100000;
+        questGiverName_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearQuestGiverName() {
+        bitField0_ = (bitField0_ & ~0x00100000);
+        questGiverName_ = getDefaultInstance().getQuestGiverName();
+        onChanged();
+        return this;
+      }
+      void setQuestGiverName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00100000;
+        questGiverName_ = value;
+        onChanged();
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullQuestProto)
@@ -26317,7 +26411,7 @@ public final class InfoProto {
       "ipJobId\030\003 \001(\005\022\027\n\017numEquipUserHas\030\004 \001(\005\"W" +
       "\n\024PossessEquipJobProto\022\031\n\021possessEquipJo" +
       "bId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005\022\023\n\013quantityRe" +
-      "q\030\003 \001(\005\"\205\004\n\016FullQuestProto\022\017\n\007questId\030\001 " +
+      "q\030\003 \001(\005\"\235\004\n\016FullQuestProto\022\017\n\007questId\030\001 " +
       "\001(\005\022\016\n\006cityId\030\002 \001(\005\022\014\n\004name\030\003 \001(\t\022\023\n\013des" +
       "cription\030\004 \001(\t\022\024\n\014doneResponse\030\005 \001(\t\022\022\n\n",
       "inProgress\030\006 \001(\t\022\032\n\022assetNumWithinCity\030\007" +
@@ -26330,35 +26424,36 @@ public final class InfoProto {
       "JobReqs\030\021 \003(\005\022\034\n\024numComponentsForGood\030\022 " +
       "\001(\005\022\033\n\023numComponentsForBad\030\023 \001(\005\0225\n\016acce" +
       "ptDialogue\030\024 \001(\0132\035.com.lvl6.proto.Dialog",
-      "ueProto\"\324\003\n\rDialogueProto\022G\n\rspeechSegme" +
-      "nt\030\001 \003(\01320.com.lvl6.proto.DialogueProto." +
-      "SpeechSegmentProto\032\371\002\n\022SpeechSegmentProt" +
-      "o\022Q\n\007speaker\030\001 \001(\0162@.com.lvl6.proto.Dial" +
-      "ogueProto.SpeechSegmentProto.DialogueSpe" +
-      "aker\022\023\n\013speakerText\030\002 \001(\t\"\372\001\n\017DialogueSp" +
-      "eaker\022\017\n\013PLAYER_TYPE\020\001\022\020\n\014GOOD_WARRIOR\020\002" +
-      "\022\017\n\013GOOD_ARCHER\020\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_" +
-      "WARRIOR\020\005\022\016\n\nBAD_ARCHER\020\006\022\014\n\010BAD_MAGE\020\007\022" +
-      "\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025\n\021BAD_TUTORIAL_",
-      "GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020\n\014QUESTGIVER_2" +
-      "\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QUESTGIVER_4\020\r\"\233" +
-      "\001\n\023PlayerWallPostProto\022\030\n\020playerWallPost" +
-      "Id\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022" +
-      "\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t*k\n\010" +
-      "UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHE" +
-      "R\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nB" +
-      "AD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResul" +
-      "t\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n",
-      "\rATTACKER_FLEE\020\002*B\n\023MarketplacePostType\022" +
-      "\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_PO" +
-      "ST\020\002*2\n\035MarketplaceJobRequirementType\022\007\n" +
-      "\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStructType\022\n\n\006AV" +
-      "IARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMO" +
-      "RY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrientati" +
-      "on\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022Ex" +
-      "pansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RI" +
-      "GHT\020\001B\013B\tInfoProto"
+      "ueProto\022\026\n\016questGiverName\030\025 \001(\t\"\324\003\n\rDial" +
+      "ogueProto\022G\n\rspeechSegment\030\001 \003(\01320.com.l" +
+      "vl6.proto.DialogueProto.SpeechSegmentPro" +
+      "to\032\371\002\n\022SpeechSegmentProto\022Q\n\007speaker\030\001 \001" +
+      "(\0162@.com.lvl6.proto.DialogueProto.Speech" +
+      "SegmentProto.DialogueSpeaker\022\023\n\013speakerT" +
+      "ext\030\002 \001(\t\"\372\001\n\017DialogueSpeaker\022\017\n\013PLAYER_" +
+      "TYPE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020" +
+      "\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD" +
+      "_ARCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL",
+      "_GIRL\020\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTG" +
+      "IVER_1\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER" +
+      "_3\020\014\022\020\n\014QUESTGIVER_4\020\r\"\233\001\n\023PlayerWallPos" +
+      "tProto\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006post" +
+      "er\030\002 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
+      "to\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 " +
+      "\001(\003\022\017\n\007content\030\005 \001(\t*k\n\010UserType\022\020\n\014GOOD" +
+      "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE" +
+      "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +
+      "AD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WI",
+      "N\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002" +
+      "*B\n\023MarketplacePostType\022\026\n\022PREMIUM_EQUIP" +
+      "_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Marketpl" +
+      "aceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001" +
+      "*S\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPEN" +
+      "TER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPL" +
+      "ACE\020\005*3\n\021StructOrientation\022\016\n\nPOSITION_1" +
+      "\020\000\022\016\n\nPOSITION_2\020\001*1\n\022ExpansionDirection" +
+      "\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoPro" +
+      "to"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -26586,7 +26681,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullQuestProto_descriptor,
-              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "InProgress", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "NumComponentsForGood", "NumComponentsForBad", "AcceptDialogue", },
+              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "InProgress", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "NumComponentsForGood", "NumComponentsForBad", "AcceptDialogue", "QuestGiverName", },
               com.lvl6.proto.InfoProto.FullQuestProto.class,
               com.lvl6.proto.InfoProto.FullQuestProto.Builder.class);
           internal_static_com_lvl6_proto_DialogueProto_descriptor =
