@@ -312,7 +312,7 @@ public class TaskActionController extends EventController {
     } 
 
     if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
-      resBuilder.setStatus(TaskActionStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(TaskActionStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
 

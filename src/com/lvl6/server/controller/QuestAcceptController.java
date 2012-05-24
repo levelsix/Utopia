@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 
@@ -18,6 +19,7 @@ import com.lvl6.proto.EventProto.QuestAcceptRequestProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.Builder;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus;
+import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -66,34 +68,7 @@ public class QuestAcceptController extends EventController {
 
       boolean legitAccept = checkLegitAccept(resBuilder, user, quest);
 
-      boolean defeatTypeJobsComplete = true;
-      if (legitAccept) {
-        resBuilder.setCityIdOfAcceptedQuest(quest.getCityId());
-        boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
-        List<Integer> defeatTypeJobIds = (goodSide) ? quest.getDefeatBadGuysJobsRequired()
-            : quest.getDefeatGoodGuysJobsRequired();
-        if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) {
-          defeatTypeJobsComplete = false;
-          Map<Integer, DefeatTypeJob> defeatTypeJobIdsToDefeatTypeJobs = DefeatTypeJobRetrieveUtils.getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobIds);
-          if (defeatTypeJobIdsToDefeatTypeJobs != null) {
-            Map<UserType, Integer> numToGenerate = new HashMap<UserType, Integer>();
-            for (DefeatTypeJob dtj : defeatTypeJobIdsToDefeatTypeJobs.values()) {
-              numToGenerate.put(dtj.getEnemyType(), dtj.getNumEnemiesToDefeat());
-            }
-            for (UserType type : numToGenerate.keySet()) {
-              List<UserType> temp = new ArrayList<UserType>();
-              temp.add(type);
-              List<User> users = UserRetrieveUtils.getUsers(temp,
-                  numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true);
-              if (users != null) {
-                for (User u : users) {
-                  resBuilder.addEnemiesIfQuestsHaveDefeatTypeJob(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
-                }
-              }
-            }
-          }
-        }
-      }
+      if (legitAccept) resBuilder.setCityIdOfAcceptedQuest(quest.getCityId());
       
       QuestAcceptResponseEvent resEvent = new QuestAcceptResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -102,6 +77,13 @@ public class QuestAcceptController extends EventController {
 
       if (legitAccept) {
         boolean tasksComplete = (quest.getTasksRequired() == null || quest.getTasksRequired().size() == 0);
+        
+        boolean defeatTypeJobsComplete = true;
+        boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
+        List<Integer> defeatTypeJobIds = (goodSide) ? quest.getDefeatBadGuysJobsRequired()
+            : quest.getDefeatGoodGuysJobsRequired();
+        if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) defeatTypeJobsComplete = false;
+        
         UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete, false);
         writeChangesToDB(uq);
         QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null);

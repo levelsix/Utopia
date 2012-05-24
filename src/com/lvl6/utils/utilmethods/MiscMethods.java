@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
@@ -25,6 +26,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
+import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
@@ -43,6 +45,8 @@ import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
+  
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
     if (playerId != null && playerId > 0) {
@@ -266,5 +270,26 @@ public class MiscMethods {
     PossessEquipJobRetrieveUtils.reload();
     LevelsRequiredExperienceRetrieveUtils.reload();
     NeutralCityElementsRetrieveUtils.reload();    
+  }
+
+  public static UserType getUserTypeFromDefeatTypeJobUserType(
+      DefeatTypeJobEnemyType enemyType) {
+    switch (enemyType) {
+    case BAD_ARCHER:
+      return UserType.BAD_ARCHER;
+    case BAD_WARRIOR:
+      return UserType.BAD_WARRIOR;
+    case BAD_MAGE:
+      return UserType.BAD_MAGE;
+    case GOOD_ARCHER:
+      return UserType.GOOD_ARCHER;
+    case GOOD_WARRIOR:
+      return UserType.GOOD_WARRIOR;
+    case GOOD_MAGE:
+      return UserType.GOOD_MAGE;
+      default:
+        log.error("no usertype for this defeat type job enemy type: " + enemyType);
+        return null;
+    }
   }
 }

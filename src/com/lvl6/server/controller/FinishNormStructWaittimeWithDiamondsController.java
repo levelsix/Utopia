@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -51,7 +52,7 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
 
     MinimumUserProto senderProto = reqProto.getSender();
     int userStructId = reqProto.getUserStructId();
-    Timestamp timeOfPurchase = new Timestamp(reqProto.getTimeOfPurchase());
+    Timestamp timeOfSpeedup = new Timestamp(reqProto.getTimeOfSpeedup());
     NormStructWaitTimeType waitTimeType = reqProto.getWaitTimeType();
 
     FinishNormStructWaittimeWithDiamondsResponseProto.Builder resBuilder = FinishNormStructWaittimeWithDiamondsResponseProto.newBuilder();
@@ -67,15 +68,15 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
         struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
       }
 
-      boolean legitBuild = checkLegitBuild(resBuilder, user, userStruct, timeOfPurchase, waitTimeType, struct);
+      boolean legitSpeedup = checkLegitSpeedup(resBuilder, user, userStruct, timeOfSpeedup, waitTimeType, struct);
 
       FinishNormStructWaittimeWithDiamondsResponseEvent resEvent = new FinishNormStructWaittimeWithDiamondsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setFinishNormStructWaittimeWithDiamondsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
-      if (legitBuild) {
-        writeChangesToDB(user, userStruct, timeOfPurchase, waitTimeType, struct);
+      if (legitSpeedup) {
+        writeChangesToDB(user, userStruct, timeOfSpeedup, waitTimeType, struct);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -127,19 +128,29 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
     }
   }
 
-  private boolean checkLegitBuild(Builder resBuilder, User user, UserStruct userStruct, Timestamp timeOfPurchase, NormStructWaitTimeType waitTimeType, Structure struct) {
+  private boolean checkLegitSpeedup(Builder resBuilder, User user, UserStruct userStruct, Timestamp timeOfSpeedup, NormStructWaitTimeType waitTimeType, Structure struct) {
     if (user == null || userStruct == null || waitTimeType == null || struct == null || userStruct.getUserId() != user.getId() || userStruct.isComplete()) {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
+      log.error("something passed in is null. user=" + user + ", userStruct=" + userStruct + ", waitTimeType="
+          + waitTimeType + ", struct=" + struct + ", struct owner's id=" + userStruct.getUserId());
       return false;
     }
-    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
-      resBuilder.setStatus(FinishNormStructWaittimeStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfSpeedup)) {
+      resBuilder.setStatus(FinishNormStructWaittimeStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + timeOfSpeedup + ", servertime~="
+          + new Date());
       return false;
     }
-    if (timeOfPurchase.getTime() < userStruct.getPurchaseTime().getTime()) {
+
+    //TODO:
+    if (timeOfSpeedup.getTime() < userStruct.getPurchaseTime().getTime()) {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
+      log.error("time passed in is before time user struct was purchased. timeOfSpeedup=" + timeOfSpeedup
+          + ", struct was purchased=" + userStruct.getPurchaseTime());
       return false;
     }
+    
+    
     int diamondCost;
     if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
       diamondCost = struct.getInstaBuildDiamondCost();
@@ -149,10 +160,12 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
       diamondCost = calculateDiamondCostForInstaUpgrade(userStruct, struct);
     } else {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.OTHER_FAIL);
+      log.error("norm struct wait time type is unknown: " + waitTimeType);
       return false;
     }
     if (user.getDiamonds() < diamondCost) {
       resBuilder.setStatus(FinishNormStructWaittimeStatus.NOT_ENOUGH_DIAMONDS);
+      log.error("user doesn't have enough diamonds. has " + user.getDiamonds() +", needs " + diamondCost);
       return false;
     }
     resBuilder.setStatus(FinishNormStructWaittimeStatus.SUCCESS);

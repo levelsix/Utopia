@@ -121,7 +121,7 @@ public class NormStructWaitCompleteController extends EventController{
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
-      resBuilder.setStatus(NormStructWaitCompleteStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(NormStructWaitCompleteStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
     

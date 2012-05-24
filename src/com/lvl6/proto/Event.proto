@@ -429,7 +429,7 @@ message TaskActionResponseProto {
 		USER_NOT_ENOUGH_ENERGY = 1;
 		USER_NOT_ALL_REQUIRED_ITEMS = 2;
 		OTHER_FAIL = 3;
-		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
 	} 
 }
 
@@ -456,7 +456,7 @@ message PurchaseNormStructureResponseProto {
 		ANOTHER_STRUCT_STILL_BUILDING = 3;
 		ALREADY_HAVE_MAX_OF_THIS_STRUCT = 4;
 		OTHER_FAIL = 5;
-		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 6;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 6;
 	}
 }
 
@@ -527,7 +527,7 @@ message UpgradeNormStructureResponseProto {
 		NOT_USERS_STRUCT = 3;
 		ANOTHER_STRUCT_STILL_UPGRADING = 4;
 		OTHER_FAIL = 5;
-		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 6;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 6;
 		AT_MAX_LEVEL_ALREADY = 7;
 	}
 }
@@ -550,7 +550,7 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 		SUCCESS = 0;
 		NOT_LONG_ENOUGH = 1;
 		OTHER_FAIL = 2;
-		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
 		LEVEL_TOO_LOW = 4;
 	}
 }
@@ -587,12 +587,11 @@ message CriticalStructureActionResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-//done for both finishing a struct's building and instantly gettin income
 																						//DONE
 message FinishNormStructWaittimeWithDiamondsRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 userStructId = 2;
-	optional int64 timeOfPurchase = 3;			//lastRetrieved will start with this date
+	optional int64 timeOfSpeedup = 3;			//lastRetrieved will start with this date
 	optional NormStructWaitTimeType waitTimeType = 4;
 
 	enum NormStructWaitTimeType {
@@ -611,7 +610,7 @@ message FinishNormStructWaittimeWithDiamondsResponseProto {
      	SUCCESS = 0;
      	NOT_ENOUGH_DIAMONDS = 1;
      	OTHER_FAIL = 2;
-     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 3;
+     	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
      }
 }
 
@@ -641,7 +640,7 @@ message NormStructWaitCompleteResponseProto {
      	SUCCESS = 0;
      	NOT_DONE_YET = 1;
      	OTHER_FAIL = 2;
-     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 3;
+     	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
      }
 }
 
@@ -944,7 +943,6 @@ message QuestAcceptRequestProto {
 message QuestAcceptResponseProto {
      optional MinimumUserProto sender = 1;
      optional QuestAcceptStatus status = 2;
-     repeated FullUserProto enemiesIfQuestsHaveDefeatTypeJob = 3;
      optional int32 cityIdOfAcceptedQuest = 4;
 
      enum QuestAcceptStatus {
@@ -1069,7 +1067,7 @@ message PurchaseCityExpansionResponseProto {
     	NOT_ENOUGH_COINS = 1;
     	ALREADY_EXPANDING = 2;
     	OTHER_FAIL = 3;
-    	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
+    	CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
     }
 }
 
@@ -1091,7 +1089,7 @@ message ExpansionWaitCompleteResponseProto {
      	WAS_NOT_EXPANDING = 1;
      	NOT_DONE_YET = 2;
      	OTHER_FAIL = 3;
-     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
+     	CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
      }
 }
 
@@ -1119,7 +1117,7 @@ message RefillStatWaitCompleteResponseProto {
      	NOT_READY_YET = 1;
      	ALREADY_MAX = 2;
      	OTHER_FAIL = 3;
-     	CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
+     	CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
      }
 }
 
@@ -1166,7 +1164,7 @@ message PurchaseMarketplaceLicenseResponseProto {
 		NOT_ENOUGH_DIAMONDS = 1;
 		ALREADY_HAVE_LICENSE_NOW = 2;
 		OTHER_FAIL = 3;
-		CLIENT_TOO_AHEAD_OF_SERVER_TIME = 4;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
 	}
 }
 

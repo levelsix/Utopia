@@ -348,9 +348,19 @@ message MinimumUserDefeatTypeJobProto {
 
 message DefeatTypeJobProto {
      optional int32 defeatTypeJobId = 1;
-     optional UserType typeOfEnemy = 2;
+     optional DefeatTypeJobEnemyType typeOfEnemy = 2;
      optional int32 numEnemiesToDefeat = 3;
      optional int32 cityId = 4;
+     
+     enum DefeatTypeJobEnemyType {
+     	GOOD_WARRIOR = 0;
+		GOOD_ARCHER = 1;
+		GOOD_MAGE = 2;
+		BAD_WARRIOR = 3;
+		BAD_ARCHER = 4;
+		BAD_MAGE = 5;
+		ALL_TYPES_FROM_OPPOSING_SIDE = 6;
+     }
 }
 
 message MinimumUserBuildStructJobProto {

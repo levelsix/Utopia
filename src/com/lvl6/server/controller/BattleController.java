@@ -228,7 +228,7 @@ public class BattleController extends EventController {
                   .getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobsRemaining);
               if (remainingDTJMap != null && remainingDTJMap.size() > 0) {
                 for (DefeatTypeJob remainingDTJ : remainingDTJMap.values()) {
-                  if (remainingDTJ.getCityId() == cityId && enemyType == remainingDTJ.getEnemyType()) {
+                  if (remainingDTJ.getCityId() == cityId && enemyType == MiscMethods.getUserTypeFromDefeatTypeJobUserType(remainingDTJ.getEnemyType())) {
                     if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
                       questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                     }

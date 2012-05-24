@@ -19,6 +19,10 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
+/*
+ * NOT READY/BEING USED YET
+ */
+
 public class CriticalStructureActionController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());

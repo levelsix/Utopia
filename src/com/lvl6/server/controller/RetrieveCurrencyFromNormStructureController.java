@@ -100,7 +100,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfRetrieval)) {
-      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
     if ((timeOfRetrieval.getTime() - userStruct.getLastRetrieved().getTime())  < 60000*struct.getMinutesToGain()) {

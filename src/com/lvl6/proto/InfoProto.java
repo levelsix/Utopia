@@ -18858,9 +18858,9 @@ public final class InfoProto {
     boolean hasDefeatTypeJobId();
     int getDefeatTypeJobId();
     
-    // optional .com.lvl6.proto.UserType typeOfEnemy = 2;
+    // optional .com.lvl6.proto.DefeatTypeJobProto.DefeatTypeJobEnemyType typeOfEnemy = 2;
     boolean hasTypeOfEnemy();
-    com.lvl6.proto.InfoProto.UserType getTypeOfEnemy();
+    com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType getTypeOfEnemy();
     
     // optional int32 numEnemiesToDefeat = 3;
     boolean hasNumEnemiesToDefeat();
@@ -18898,6 +18898,90 @@ public final class InfoProto {
       return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_DefeatTypeJobProto_fieldAccessorTable;
     }
     
+    public enum DefeatTypeJobEnemyType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      GOOD_WARRIOR(0, 0),
+      GOOD_ARCHER(1, 1),
+      GOOD_MAGE(2, 2),
+      BAD_WARRIOR(3, 3),
+      BAD_ARCHER(4, 4),
+      BAD_MAGE(5, 5),
+      ALL_TYPES_FROM_OPPOSING_SIDE(6, 6),
+      ;
+      
+      public static final int GOOD_WARRIOR_VALUE = 0;
+      public static final int GOOD_ARCHER_VALUE = 1;
+      public static final int GOOD_MAGE_VALUE = 2;
+      public static final int BAD_WARRIOR_VALUE = 3;
+      public static final int BAD_ARCHER_VALUE = 4;
+      public static final int BAD_MAGE_VALUE = 5;
+      public static final int ALL_TYPES_FROM_OPPOSING_SIDE_VALUE = 6;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static DefeatTypeJobEnemyType valueOf(int value) {
+        switch (value) {
+          case 0: return GOOD_WARRIOR;
+          case 1: return GOOD_ARCHER;
+          case 2: return GOOD_MAGE;
+          case 3: return BAD_WARRIOR;
+          case 4: return BAD_ARCHER;
+          case 5: return BAD_MAGE;
+          case 6: return ALL_TYPES_FROM_OPPOSING_SIDE;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<DefeatTypeJobEnemyType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<DefeatTypeJobEnemyType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<DefeatTypeJobEnemyType>() {
+              public DefeatTypeJobEnemyType findValueByNumber(int number) {
+                return DefeatTypeJobEnemyType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.DefeatTypeJobProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final DefeatTypeJobEnemyType[] VALUES = {
+        GOOD_WARRIOR, GOOD_ARCHER, GOOD_MAGE, BAD_WARRIOR, BAD_ARCHER, BAD_MAGE, ALL_TYPES_FROM_OPPOSING_SIDE, 
+      };
+      
+      public static DefeatTypeJobEnemyType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private DefeatTypeJobEnemyType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.DefeatTypeJobProto.DefeatTypeJobEnemyType)
+    }
+    
     private int bitField0_;
     // optional int32 defeatTypeJobId = 1;
     public static final int DEFEATTYPEJOBID_FIELD_NUMBER = 1;
@@ -18909,13 +18993,13 @@ public final class InfoProto {
       return defeatTypeJobId_;
     }
     
-    // optional .com.lvl6.proto.UserType typeOfEnemy = 2;
+    // optional .com.lvl6.proto.DefeatTypeJobProto.DefeatTypeJobEnemyType typeOfEnemy = 2;
     public static final int TYPEOFENEMY_FIELD_NUMBER = 2;
-    private com.lvl6.proto.InfoProto.UserType typeOfEnemy_;
+    private com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType typeOfEnemy_;
     public boolean hasTypeOfEnemy() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.InfoProto.UserType getTypeOfEnemy() {
+    public com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType getTypeOfEnemy() {
       return typeOfEnemy_;
     }
     
@@ -18941,7 +19025,7 @@ public final class InfoProto {
     
     private void initFields() {
       defeatTypeJobId_ = 0;
-      typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+      typeOfEnemy_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType.GOOD_WARRIOR;
       numEnemiesToDefeat_ = 0;
       cityId_ = 0;
     }
@@ -19120,7 +19204,7 @@ public final class InfoProto {
         super.clear();
         defeatTypeJobId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+        typeOfEnemy_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType.GOOD_WARRIOR;
         bitField0_ = (bitField0_ & ~0x00000002);
         numEnemiesToDefeat_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -19246,7 +19330,7 @@ public final class InfoProto {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.InfoProto.UserType value = com.lvl6.proto.InfoProto.UserType.valueOf(rawValue);
+              com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType value = com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
@@ -19292,15 +19376,15 @@ public final class InfoProto {
         return this;
       }
       
-      // optional .com.lvl6.proto.UserType typeOfEnemy = 2;
-      private com.lvl6.proto.InfoProto.UserType typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+      // optional .com.lvl6.proto.DefeatTypeJobProto.DefeatTypeJobEnemyType typeOfEnemy = 2;
+      private com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType typeOfEnemy_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType.GOOD_WARRIOR;
       public boolean hasTypeOfEnemy() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.InfoProto.UserType getTypeOfEnemy() {
+      public com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType getTypeOfEnemy() {
         return typeOfEnemy_;
       }
-      public Builder setTypeOfEnemy(com.lvl6.proto.InfoProto.UserType value) {
+      public Builder setTypeOfEnemy(com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -19311,7 +19395,7 @@ public final class InfoProto {
       }
       public Builder clearTypeOfEnemy() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        typeOfEnemy_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+        typeOfEnemy_ = com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType.GOOD_WARRIOR;
         onChanged();
         return this;
       }
@@ -26391,69 +26475,73 @@ public final class InfoProto {
       "\030\002 \001(\005\022\016\n\006taskId\030\003 \001(\005\022\025\n\rnumTimesActed\030" +
       "\004 \001(\005\"n\n\035MinimumUserDefeatTypeJobProto\022\016" +
       "\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\027\n\017defea" +
-      "tTypeJobId\030\003 \001(\005\022\023\n\013numDefeated\030\004 \001(\005\"\210\001" +
+      "tTypeJobId\030\003 \001(\005\022\023\n\013numDefeated\030\004 \001(\005\"\307\002" +
       "\n\022DefeatTypeJobProto\022\027\n\017defeatTypeJobId\030" +
-      "\001 \001(\005\022-\n\013typeOfEnemy\030\002 \001(\0162\030.com.lvl6.pr",
-      "oto.UserType\022\032\n\022numEnemiesToDefeat\030\003 \001(\005" +
-      "\022\016\n\006cityId\030\004 \001(\005\"w\n\036MinimumUserBuildStru" +
-      "ctJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 " +
-      "\001(\005\022\030\n\020buildStructJobId\030\003 \001(\005\022\032\n\022numOfSt" +
-      "ructUserHas\030\004 \001(\005\"[\n\023BuildStructJobProto" +
-      "\022\030\n\020buildStructJobId\030\001 \001(\005\022\020\n\010structId\030\002" +
-      " \001(\005\022\030\n\020quantityRequired\030\003 \001(\005\"u\n Minimu" +
-      "mUserUpgradeStructJobProto\022\016\n\006userId\030\001 \001" +
-      "(\005\022\017\n\007questId\030\002 \001(\005\022\032\n\022upgradeStructJobI" +
-      "d\030\003 \001(\005\022\024\n\014currentLevel\030\004 \001(\005\"W\n\025Upgrade",
-      "StructJobProto\022\032\n\022upgradeStructJobId\030\001 \001" +
-      "(\005\022\020\n\010structId\030\002 \001(\005\022\020\n\010levelReq\030\003 \001(\005\"v" +
-      "\n\037MinimumUserPossessEquipJobProto\022\016\n\006use" +
-      "rId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\031\n\021possessEqu" +
-      "ipJobId\030\003 \001(\005\022\027\n\017numEquipUserHas\030\004 \001(\005\"W" +
-      "\n\024PossessEquipJobProto\022\031\n\021possessEquipJo" +
-      "bId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005\022\023\n\013quantityRe" +
-      "q\030\003 \001(\005\"\235\004\n\016FullQuestProto\022\017\n\007questId\030\001 " +
-      "\001(\005\022\016\n\006cityId\030\002 \001(\005\022\014\n\004name\030\003 \001(\t\022\023\n\013des" +
-      "cription\030\004 \001(\t\022\024\n\014doneResponse\030\005 \001(\t\022\022\n\n",
-      "inProgress\030\006 \001(\t\022\032\n\022assetNumWithinCity\030\007" +
-      " \001(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamondsGai" +
-      "ned\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\requipIdG" +
-      "ained\030\013 \001(\005\022\035\n\025questsRequiredForThis\030\014 \003" +
-      "(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeStructJob" +
-      "sReqs\030\016 \003(\005\022\033\n\023buildStructJobsReqs\030\017 \003(\005" +
-      "\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023possessEquip" +
-      "JobReqs\030\021 \003(\005\022\034\n\024numComponentsForGood\030\022 " +
-      "\001(\005\022\033\n\023numComponentsForBad\030\023 \001(\005\0225\n\016acce" +
-      "ptDialogue\030\024 \001(\0132\035.com.lvl6.proto.Dialog",
-      "ueProto\022\026\n\016questGiverName\030\025 \001(\t\"\324\003\n\rDial" +
-      "ogueProto\022G\n\rspeechSegment\030\001 \003(\01320.com.l" +
-      "vl6.proto.DialogueProto.SpeechSegmentPro" +
-      "to\032\371\002\n\022SpeechSegmentProto\022Q\n\007speaker\030\001 \001" +
-      "(\0162@.com.lvl6.proto.DialogueProto.Speech" +
-      "SegmentProto.DialogueSpeaker\022\023\n\013speakerT" +
-      "ext\030\002 \001(\t\"\372\001\n\017DialogueSpeaker\022\017\n\013PLAYER_" +
-      "TYPE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020" +
-      "\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD" +
-      "_ARCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL",
-      "_GIRL\020\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTG" +
-      "IVER_1\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER" +
-      "_3\020\014\022\020\n\014QUESTGIVER_4\020\r\"\233\001\n\023PlayerWallPos" +
-      "tProto\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006post" +
-      "er\030\002 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 " +
-      "\001(\003\022\017\n\007content\030\005 \001(\t*k\n\010UserType\022\020\n\014GOOD" +
-      "_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE" +
-      "\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010B" +
-      "AD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WI",
-      "N\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002" +
-      "*B\n\023MarketplacePostType\022\026\n\022PREMIUM_EQUIP" +
-      "_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Marketpl" +
-      "aceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001" +
-      "*S\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPEN" +
-      "TER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPL" +
-      "ACE\020\005*3\n\021StructOrientation\022\016\n\nPOSITION_1" +
-      "\020\000\022\016\n\nPOSITION_2\020\001*1\n\022ExpansionDirection" +
-      "\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoPro" +
-      "to"
+      "\001 \001(\005\022N\n\013typeOfEnemy\030\002 \001(\01629.com.lvl6.pr",
+      "oto.DefeatTypeJobProto.DefeatTypeJobEnem" +
+      "yType\022\032\n\022numEnemiesToDefeat\030\003 \001(\005\022\016\n\006cit" +
+      "yId\030\004 \001(\005\"\233\001\n\026DefeatTypeJobEnemyType\022\020\n\014" +
+      "GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_" +
+      "MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022" +
+      "\014\n\010BAD_MAGE\020\005\022 \n\034ALL_TYPES_FROM_OPPOSING" +
+      "_SIDE\020\006\"w\n\036MinimumUserBuildStructJobProt" +
+      "o\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\030\n\020bu" +
+      "ildStructJobId\030\003 \001(\005\022\032\n\022numOfStructUserH" +
+      "as\030\004 \001(\005\"[\n\023BuildStructJobProto\022\030\n\020build",
+      "StructJobId\030\001 \001(\005\022\020\n\010structId\030\002 \001(\005\022\030\n\020q" +
+      "uantityRequired\030\003 \001(\005\"u\n MinimumUserUpgr" +
+      "adeStructJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007que" +
+      "stId\030\002 \001(\005\022\032\n\022upgradeStructJobId\030\003 \001(\005\022\024" +
+      "\n\014currentLevel\030\004 \001(\005\"W\n\025UpgradeStructJob" +
+      "Proto\022\032\n\022upgradeStructJobId\030\001 \001(\005\022\020\n\010str" +
+      "uctId\030\002 \001(\005\022\020\n\010levelReq\030\003 \001(\005\"v\n\037Minimum" +
+      "UserPossessEquipJobProto\022\016\n\006userId\030\001 \001(\005" +
+      "\022\017\n\007questId\030\002 \001(\005\022\031\n\021possessEquipJobId\030\003" +
+      " \001(\005\022\027\n\017numEquipUserHas\030\004 \001(\005\"W\n\024Possess",
+      "EquipJobProto\022\031\n\021possessEquipJobId\030\001 \001(\005" +
+      "\022\017\n\007equipId\030\002 \001(\005\022\023\n\013quantityReq\030\003 \001(\005\"\235" +
+      "\004\n\016FullQuestProto\022\017\n\007questId\030\001 \001(\005\022\016\n\006ci" +
+      "tyId\030\002 \001(\005\022\014\n\004name\030\003 \001(\t\022\023\n\013description\030" +
+      "\004 \001(\t\022\024\n\014doneResponse\030\005 \001(\t\022\022\n\ninProgres" +
+      "s\030\006 \001(\t\022\032\n\022assetNumWithinCity\030\007 \001(\005\022\023\n\013c" +
+      "oinsGained\030\010 \001(\005\022\026\n\016diamondsGained\030\t \001(\005" +
+      "\022\021\n\texpGained\030\n \001(\005\022\025\n\requipIdGained\030\013 \001" +
+      "(\005\022\035\n\025questsRequiredForThis\030\014 \003(\005\022\020\n\010tas" +
+      "kReqs\030\r \003(\005\022\035\n\025upgradeStructJobsReqs\030\016 \003",
+      "(\005\022\033\n\023buildStructJobsReqs\030\017 \003(\005\022\026\n\016defea" +
+      "tTypeReqs\030\020 \003(\005\022\033\n\023possessEquipJobReqs\030\021" +
+      " \003(\005\022\034\n\024numComponentsForGood\030\022 \001(\005\022\033\n\023nu" +
+      "mComponentsForBad\030\023 \001(\005\0225\n\016acceptDialogu" +
+      "e\030\024 \001(\0132\035.com.lvl6.proto.DialogueProto\022\026" +
+      "\n\016questGiverName\030\025 \001(\t\"\324\003\n\rDialogueProto" +
+      "\022G\n\rspeechSegment\030\001 \003(\01320.com.lvl6.proto" +
+      ".DialogueProto.SpeechSegmentProto\032\371\002\n\022Sp" +
+      "eechSegmentProto\022Q\n\007speaker\030\001 \001(\0162@.com." +
+      "lvl6.proto.DialogueProto.SpeechSegmentPr",
+      "oto.DialogueSpeaker\022\023\n\013speakerText\030\002 \001(\t" +
+      "\"\372\001\n\017DialogueSpeaker\022\017\n\013PLAYER_TYPE\020\001\022\020\n" +
+      "\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020\003\022\r\n\tGOOD" +
+      "_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD_ARCHER\020\006" +
+      "\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020\010\022\025" +
+      "\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1\020\n\022" +
+      "\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014Q" +
+      "UESTGIVER_4\020\r\"\233\001\n\023PlayerWallPostProto\022\030\n" +
+      "\020playerWallPostId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022\023\n\013wal",
+      "lOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007co" +
+      "ntent\030\005 \001(\t*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020" +
+      "\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD" +
+      "_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005" +
+      "*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DE" +
+      "FENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marke" +
+      "tplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023" +
+      "\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobReq" +
+      "uirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritS" +
+      "tructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005",
+      "VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021" +
+      "StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOS" +
+      "ITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_L" +
+      "EFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

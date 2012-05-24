@@ -110,7 +110,7 @@ public class PurchaseNormStructureController extends EventController {
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
-      resBuilder.setStatus(PurchaseNormStructureStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(PurchaseNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
     if (user.getLevel() < struct.getMinLevel()) {

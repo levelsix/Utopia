@@ -56,7 +56,7 @@ public class EquipEquipmentController extends EventController {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       UserEquip userEquip = (equip == null) ? null : UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equip.getId());
       
-      boolean legitEquip = checkEquip(resBuilder, user, userEquip, equip);
+      boolean legitEquip = checkEquip(resBuilder, user, userEquip, equip, equipId);
 
       EquipEquipmentResponseEvent resEvent = new EquipEquipmentResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -82,26 +82,33 @@ public class EquipEquipmentController extends EventController {
     }
   }
 
-  private boolean checkEquip(Builder resBuilder, User user, UserEquip userEquip, Equipment equip) {
+  private boolean checkEquip(Builder resBuilder, User user, UserEquip userEquip, Equipment equip, int equipId) {
     if (user == null) {
       resBuilder.setStatus(EquipEquipmentStatus.OTHER_FAIL);
+      log.error("problem with equipping equip" + equip.getId() + ": user is null");
       return false;
     }
     if (equip == null) {
       resBuilder.setStatus(EquipEquipmentStatus.NOT_AN_EQUIP);
+      log.error("problem with equipping equip- equipId passed in is not an equip, equip id was " + equipId);
       return false;
     }
     if (userEquip == null || userEquip.getQuantity() < 1) {
       resBuilder.setStatus(EquipEquipmentStatus.DOES_NOT_HAVE_THIS_EQUIP);
+      log.error("problem with equipping equip" + equip.getId() + ": user doesnt have it");
       return false;      
     }
     if (equip.getMinLevel() > user.getLevel()) {
       resBuilder.setStatus(EquipEquipmentStatus.NOT_HIGH_ENOUGH_LEVEL);
+      log.error("problem with equipping equip" + equip.getId() + ": user too low level to equip it. user level is "
+          + user.getLevel() + ", equip minimum level is " + equip.getMinLevel());
       return false;
     }
     ClassType userClass = MiscMethods.getClassTypeFromUserType(user.getType());
     if (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET) {
       resBuilder.setStatus(EquipEquipmentStatus.INCORRECT_CLASS_TYPE);
+      log.error("problem with equipping equip" + equip.getId() + ": user not write class. user type is "
+          + user.getType() + ", equip class is " + equip.getClassType());
       return false;      
     }
     resBuilder.setStatus(EquipEquipmentStatus.SUCCESS);

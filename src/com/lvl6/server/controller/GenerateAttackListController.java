@@ -62,6 +62,8 @@ public class GenerateAttackListController extends EventController {
         (longLowerBound != null && (longLowerBound < ControllerConstants.LONGITUDE_MIN || longLowerBound > ControllerConstants.LONGITUDE_MAX)) ||
         (longUpperBound != null && (longUpperBound < ControllerConstants.LONGITUDE_MIN || longUpperBound > ControllerConstants.LONGITUDE_MAX))) {
       resBuilder.setStatus(GenerateAttackListStatus.INVALID_BOUND);
+      log.error("invalid bounds passed in. lat lower bound=" + latLowerBound + ", lat upper bound=" + latUpperBound
+          + ", long lower bound=" + longLowerBound + ", long upper bound=" + longUpperBound);
     } else if (user != null) {
       List<UserType> userTypes = new ArrayList<UserType>();
       if (MiscMethods.checkIfGoodSide(user.getType())) {
@@ -88,6 +90,7 @@ public class GenerateAttackListController extends EventController {
       }
     } else {
       resBuilder.setStatus(GenerateAttackListStatus.SOME_FAIL);
+      log.error("no user in db with id " + senderProto.getUserId());
     }
 
     GenerateAttackListResponseProto resProto = resBuilder.build();

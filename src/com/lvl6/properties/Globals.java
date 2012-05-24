@@ -29,4 +29,6 @@ public class Globals {
     public static final String APP_STORE_URL = "itms://itunes.apple.com/gb/app/lost-nations/id517585291";
     
     public static final Level LOG_LEVEL = Level.INFO;
+    
+    public static final int NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING = 1;
 }

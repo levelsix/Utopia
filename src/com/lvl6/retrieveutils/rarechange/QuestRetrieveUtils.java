@@ -35,6 +35,21 @@ public class QuestRetrieveUtils {
     }
     return questIdsToQuests;
   }
+  
+  public static List<Quest> getQuestsInCity(int cityId) {
+    log.debug("retrieving all quest data");
+    if (questIdsToQuests == null) {
+      setStaticQuestIdsToQuests();
+    }
+    List <Quest> questsInCity = new ArrayList<Quest>();
+    for (Integer questId : questIdsToQuests.keySet()) {
+      Quest q = questIdsToQuests.get(questId);
+      if (q.getCityId() == cityId) {
+        questsInCity.add(q);
+      }
+    }
+    return questsInCity;
+  }
 
   public static Quest getQuestForQuestId(int questId) {
     log.debug("retrieving quest with questId " + questId);

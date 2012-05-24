@@ -91,7 +91,7 @@ public class PurchaseMarketplaceLicenseController extends EventController {
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
-      resBuilder.setStatus(PurchaseMarketplaceLicenseStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(PurchaseMarketplaceLicenseStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
 

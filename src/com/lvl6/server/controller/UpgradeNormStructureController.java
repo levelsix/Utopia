@@ -103,7 +103,7 @@ public class UpgradeNormStructureController extends EventController {
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfUpgrade)) {
-      resBuilder.setStatus(UpgradeNormStructureStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(UpgradeNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
     if (!userStruct.isComplete()) {

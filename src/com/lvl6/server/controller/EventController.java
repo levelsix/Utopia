@@ -4,10 +4,9 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
-import com.lvl6.events.ResponseEvent;
+import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.GameServer;
-import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.Wrap;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -36,12 +35,13 @@ public abstract class EventController extends Wrap{
     }
   }
 
-  /**
-   * utility method for sending events
-   */
-  protected void sendEvent(ResponseEvent e, ConnectedPlayer p) {
-    server.writeEvent(e);
-  }
+//  we have the controllers call server.writeEvent manually already
+//  /**
+//   * utility method for sending events
+//   */
+//  protected void sendEvent(ResponseEvent e, ConnectedPlayer p) {
+//    server.writeEvent(e);
+//  }
 
   /** 
    * GameController subclasses should implement initController 
@@ -61,7 +61,22 @@ public abstract class EventController extends Wrap{
     RequestEvent reqEvent = (RequestEvent) event;
     MiscMethods.setMDCProperties(null, reqEvent.getPlayerId(), MiscMethods.getIPOfPlayer(server, reqEvent.getPlayerId(), null));
     log.info("Received event: " + event.toString());
-    processRequestEvent(reqEvent);
+    
+    final long startTime = System.nanoTime();
+    final long endTime;
+    try {
+      processRequestEvent(reqEvent);
+    } finally {
+      endTime = System.nanoTime();
+    }
+    double numSeconds = (endTime-startTime) / 1000000000;
+    
+    log.info("Finished processing event: " + event.toString() + ", took ~" + numSeconds + " seconds");
+    
+    if (numSeconds > Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING) {
+      log.warn("event: " + event.toString() + " took over " + Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING+ " seconds");
+    }
+    
     MiscMethods.purgeMDCProperties();
   }    
 

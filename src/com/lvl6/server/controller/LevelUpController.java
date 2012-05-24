@@ -142,19 +142,23 @@ public class LevelUpController extends EventController {
   private boolean checkLegitLevelUp(Builder resBuilder, User user) {
     if (user == null) {
       resBuilder.setStatus(LevelUpStatus.OTHER_FAIL);
+      log.error("user is null");
       return false;
     }
     if (user.getLevel() == ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER) {
       resBuilder.setStatus(LevelUpStatus.ALREADY_AT_MAX_LEVEL);
+      log.error("user is already at server's allowed max level: " + ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER);
       return false;
     }
     Integer expRequiredForNextLevel = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1);
     if (expRequiredForNextLevel == null) {
       resBuilder.setStatus(LevelUpStatus.OTHER_FAIL);
+      log.error("no experience required inputted for level: " + user.getLevel() + 1);
       return false;      
     }
     if (user.getExperience() < expRequiredForNextLevel) {
       resBuilder.setStatus(LevelUpStatus.NOT_ENOUGH_EXP_TO_NEXT_LEVEL);
+      log.error("user only has " + user.getExperience() + " and needs " + expRequiredForNextLevel + " for next level");
       return false;            
     }
     resBuilder.setStatus(LevelUpStatus.SUCCESS);

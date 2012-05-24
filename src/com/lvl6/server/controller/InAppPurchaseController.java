@@ -36,7 +36,7 @@ public class InAppPurchaseController extends EventController {
   public InAppPurchaseController() {
     numAllocatedThreads = 2;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new InAppPurchaseRequestEvent();
@@ -65,12 +65,12 @@ public class InAppPurchaseController extends EventController {
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-  
+
       JSONObject response;
       try {
         JSONObject jsonReceipt = new JSONObject();
         jsonReceipt.put(IAPValues.RECEIPT_DATA, receipt);
-  
+
         // Send data
         URL url;
         if (Globals.IS_SANDBOX) {
@@ -83,46 +83,51 @@ public class InAppPurchaseController extends EventController {
         OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
         wr.write(jsonReceipt.toString());
         wr.flush();
-  
+
         // Get the response
         BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-  
+
         String responseString = "";
         String line;
         while ((line = rd.readLine()) != null) {
-            responseString += line;
+          responseString += line;
         }
-  
+
         response = new JSONObject(responseString);
         if (response.getInt(IAPValues.STATUS) == 0) {
           JSONObject receiptFromApple = response.getJSONObject(IAPValues.RECEIPT);
           if (!IAPHistoryRetrieveUtils.checkIfDuplicateTransaction(Long.parseLong(receiptFromApple.getString(IAPValues.TRANSACTION_ID)))) {
-            int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
-            double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
-            user.updateRelativeDiamondsNaive(diamondChange);
-            if (!InsertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
-              log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
+            try {
+              int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
+              double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
+              user.updateRelativeDiamondsNaive(diamondChange);
+              if (!InsertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
+                log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
+              }
+              resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
+              log.info("successful in-app purchase from user " + user.getId() + " for package " + receiptFromApple.getString(IAPValues.PRODUCT_ID));
+            } catch (Exception e) {
+              log.error("problem with in app purchase flow", e);
             }
-            resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
           } else {
-            log.error("duplicate receipt");
+            log.error("duplicate receipt from user " + user);
           }
         }
         wr.close();
         rd.close();
       } catch (Exception e) { e.printStackTrace();}
-      
+
       if (!resBuilder.hasStatus()) {
         resBuilder.setStatus(InAppPurchaseStatus.FAIL);
       }
-  
+
       InAppPurchaseResponseProto resProto = resBuilder.build();
-  
+
       InAppPurchaseResponseEvent resEvent = new InAppPurchaseResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setInAppPurchaseResponseProto(resProto);
       server.writeEvent(resEvent);
-  
+
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);

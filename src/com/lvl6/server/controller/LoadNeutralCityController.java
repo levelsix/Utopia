@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 
@@ -15,7 +16,6 @@ import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
-import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.proto.EventProto.LoadNeutralCityRequestProto;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto;
@@ -23,11 +23,9 @@ import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.Builder;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
-import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
-import com.lvl6.retrieveutils.UserQuestsCompletedDefeatTypeJobsRetrieveUtils;
-import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -89,9 +87,10 @@ public class LoadNeutralCityController extends EventController {
         if (tasks != null && tasks.size() > 0) {
           setResponseUserTaskInfos(resBuilder, tasks, user.getId(), senderProto.getUserType());
         }
-        List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(senderProto.getUserId());
-        if (inProgressUserQuests != null && inProgressUserQuests.size() > 0) {
-          setResponseDefeatTypeJobEnemies(resBuilder, inProgressUserQuests, user, cityId);
+
+        List<Quest> questsInCity = QuestRetrieveUtils.getQuestsInCity(cityId);
+        if (questsInCity != null && questsInCity.size() > 0) {
+          setResponseDefeatTypeJobEnemies(resBuilder, questsInCity, user, cityId);
         }
       }
 
@@ -107,50 +106,61 @@ public class LoadNeutralCityController extends EventController {
     }
   }
 
-  private void setResponseDefeatTypeJobEnemies(Builder resBuilder, List<UserQuest> inProgressUserQuests, User user, int cityId) {
-
-    Map<Integer, List<Integer>>  questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
-    Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = null;
-
-    Map<Integer, Quest> questIdsToQuests = QuestRetrieveUtils.getQuestIdsToQuests();
-
+  private void setResponseDefeatTypeJobEnemies(Builder resBuilder, List<Quest> questsInCity, User user, int cityId) {
+    boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
     Map<UserType, Integer> numToGenerate = new HashMap<UserType, Integer>();
 
-    for (UserQuest userQuest : inProgressUserQuests) {
-      Quest quest = questIdsToQuests.get(userQuest.getQuestId());
-
-      boolean goodSide = MiscMethods.checkIfGoodSide(user.getType());
-
-      List<Integer> defeatTypeJobsRequired = (goodSide) ? quest.getDefeatBadGuysJobsRequired() : quest.getDefeatGoodGuysJobsRequired();
-
-      if (defeatTypeJobsRequired != null && defeatTypeJobsRequired.size() > 0) {
-        if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
-          questIdToUserDefeatTypeJobsCompletedForQuestForUser = UserQuestsCompletedDefeatTypeJobsRetrieveUtils.getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(userQuest.getUserId());
-        }
-        List<Integer> userDefeatTypeJobsCompletedForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(userQuest.getQuestId());
-        for (Integer requiredDefeatTypeJobId : defeatTypeJobsRequired) {
-          DefeatTypeJob dtj = DefeatTypeJobRetrieveUtils.getDefeatTypeJobForDefeatTypeJobId(requiredDefeatTypeJobId);
-          if (dtj.getCityId() == cityId) {
-            Integer numTimesUserDidJob = null;
-            if (userDefeatTypeJobsCompletedForQuest == null || !userDefeatTypeJobsCompletedForQuest.contains(requiredDefeatTypeJobId)) {
-              if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
-                questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
-              }
-              Map<Integer, Integer> defeatTypeJobIdsToNumDefeatedForUserQuest = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId());
-              if (defeatTypeJobIdsToNumDefeatedForUserQuest != null) {
-                numTimesUserDidJob = defeatTypeJobIdsToNumDefeatedForUserQuest.get(requiredDefeatTypeJobId);
-                if (numTimesUserDidJob == null) {
-                  numTimesUserDidJob = 0;
+    for (Quest quest : questsInCity) {
+      List<Integer> defeatTypeJobIds = (goodSide) ? quest.getDefeatBadGuysJobsRequired()
+          : quest.getDefeatGoodGuysJobsRequired();
+      if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) {
+        Map<Integer, DefeatTypeJob> defeatTypeJobIdsToDefeatTypeJobs = DefeatTypeJobRetrieveUtils.getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobIds);
+        if (defeatTypeJobIdsToDefeatTypeJobs != null) {
+          for (DefeatTypeJob dtj : defeatTypeJobIdsToDefeatTypeJobs.values()) {
+            if (dtj.getEnemyType() == DefeatTypeJobEnemyType.ALL_TYPES_FROM_OPPOSING_SIDE) {
+              Random r = new Random();
+              for (int i = 0; i < dtj.getNumEnemiesToDefeat(); i++) {
+                int rand = r.nextInt(UserType.values().length / 2);
+                if (MiscMethods.checkIfGoodSide(user.getType())) {
+                  switch (rand) {
+                  case 0:
+                    numToGenerate.put(UserType.BAD_ARCHER, 
+                        1 + ((numToGenerate.containsKey(UserType.BAD_ARCHER)) ? numToGenerate.get(UserType.BAD_ARCHER): 0));
+                    break;
+                  case 1:
+                    numToGenerate.put(UserType.BAD_MAGE, 
+                        1 + ((numToGenerate.containsKey(UserType.BAD_MAGE)) ? numToGenerate.get(UserType.BAD_MAGE): 0));
+                    break;
+                  case 2:
+                    numToGenerate.put(UserType.BAD_WARRIOR, 
+                        1 + ((numToGenerate.containsKey(UserType.BAD_WARRIOR)) ? numToGenerate.get(UserType.BAD_WARRIOR): 0));
+                    break;
+                  default:
+                    log.error("invalid random int chosen for generating enemies, chose " + rand);
+                  }
+                } else {
+                  switch (rand) {
+                  case 0:
+                    numToGenerate.put(UserType.GOOD_ARCHER, 
+                        1 + ((numToGenerate.containsKey(UserType.GOOD_ARCHER)) ? numToGenerate.get(UserType.GOOD_ARCHER): 0));
+                    break;
+                  case 1:
+                    numToGenerate.put(UserType.GOOD_MAGE, 
+                        1 + ((numToGenerate.containsKey(UserType.GOOD_MAGE)) ? numToGenerate.get(UserType.GOOD_MAGE): 0));
+                    break;
+                  case 2:
+                    numToGenerate.put(UserType.GOOD_WARRIOR, 
+                        1 + ((numToGenerate.containsKey(UserType.GOOD_WARRIOR)) ? numToGenerate.get(UserType.GOOD_WARRIOR): 0));
+                    break;
+                  default:
+                    log.error("invalid random int chosen for generating enemies, chose " + rand);
+                  }
                 }
-              } else {
-                numTimesUserDidJob = 0;
               }
-              int numRemaining = dtj.getNumEnemiesToDefeat() - numTimesUserDidJob;
-              if (numRemaining > 0) {
-                if (!numToGenerate.containsKey(dtj.getEnemyType()) || numToGenerate.get(dtj.getEnemyType()) < numRemaining) {
-                  numToGenerate.put(dtj.getEnemyType(), numRemaining);
-                }
-              }
+            } else {
+              UserType userType = MiscMethods.getUserTypeFromDefeatTypeJobUserType(dtj.getEnemyType());
+              numToGenerate.put(userType, dtj.getNumEnemiesToDefeat()
+                  + ((numToGenerate.containsKey(userType)) ? numToGenerate.get(userType): 0));
             }
           }
         }
@@ -167,7 +177,6 @@ public class LoadNeutralCityController extends EventController {
         }
       }
     }
-
   }
 
   private void setResponseUserTaskInfos(Builder resBuilder, List<Task> tasks, int userId, UserType userType) {
@@ -181,10 +190,12 @@ public class LoadNeutralCityController extends EventController {
   private boolean checkLegitCityLoad(Builder resBuilder, User user, City city, int currentCityRankForUser) {
     if (city == null || user == null) {
       resBuilder.setStatus(LoadNeutralCityStatus.OTHER_FAIL);
+      log.error("city or user is null. city=" + city + ", user=" + user);
       return false;
     }
     if (currentCityRankForUser < 1) {
       resBuilder.setStatus(LoadNeutralCityStatus.NOT_ACCESSIBLE_TO_USER);
+      log.error("city " + city + "is not unlocked for user");
       return false;
     }
     resBuilder.setStatus(LoadNeutralCityStatus.SUCCESS);

@@ -20,6 +20,10 @@ import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
+/*
+ * NOT READY/BEING USED YET
+ */
+
 public class ExpansionWaitCompleteController extends EventController{
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
@@ -89,7 +93,7 @@ public class ExpansionWaitCompleteController extends EventController{
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
-      resBuilder.setStatus(ExpansionWaitCompleteStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(ExpansionWaitCompleteStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
     if (!userCityExpansionData.isExpanding()) {

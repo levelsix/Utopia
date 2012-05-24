@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.utils.DBConnection;
 
 public class DefeatTypeJobRetrieveUtils {
@@ -87,7 +87,7 @@ public class DefeatTypeJobRetrieveUtils {
   private static DefeatTypeJob convertRSRowToDefeatTypeJob(ResultSet rs) throws SQLException {
     int i = 1;
     int id = rs.getInt(i++);
-    UserType enemyType = UserType.valueOf(rs.getInt(i++));
+    DefeatTypeJobEnemyType enemyType = DefeatTypeJobEnemyType.valueOf(rs.getInt(i++));
     int numEnemiesToDefeat = rs.getInt(i++);
     int cityId = rs.getInt(i++);
     return new DefeatTypeJob(id, enemyType, numEnemiesToDefeat, cityId);

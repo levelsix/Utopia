@@ -50,6 +50,7 @@ public class EnableAPNSController extends EventController {
       } else {
         legitEnable = false;
         resBuilder.setStatus(EnableAPNSStatus.NOT_ENABLED);
+        log.error("problem with setting device token. user is " + user + ", device token is " + deviceToken);
       }
       EnableAPNSResponseProto resProto = resBuilder.build();
       EnableAPNSResponseEvent resEvent = new EnableAPNSResponseEvent(senderProto.getUserId());
@@ -58,7 +59,7 @@ public class EnableAPNSController extends EventController {
       if (legitEnable) {
         if (user.getDeviceToken() == null || !deviceToken.equals(user.getDeviceToken())) {
           if (!user.updateSetdevicetoken(deviceToken)) {
-            log.error("problem with setting user's device token");
+            log.error("problem with setting user's device token to " + deviceToken);
           }
         }
       }

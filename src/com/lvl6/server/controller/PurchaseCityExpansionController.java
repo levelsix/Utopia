@@ -93,7 +93,7 @@ public class PurchaseCityExpansionController extends EventController {
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
-      resBuilder.setStatus(PurchaseCityExpansionStatus.CLIENT_TOO_AHEAD_OF_SERVER_TIME);
+      resBuilder.setStatus(PurchaseCityExpansionStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
     }
     if (direction != ExpansionDirection.FAR_LEFT || direction != ExpansionDirection.FAR_RIGHT) {
