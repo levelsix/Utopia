@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -10,20 +9,15 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LoadPlayerCityRequestEvent;
 import com.lvl6.events.response.LoadPlayerCityResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.info.UserCityExpansionData;
-import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LoadPlayerCityRequestProto;
 import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto;
 import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.Builder;
 import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatus;
-import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
-import com.lvl6.retrieveutils.UserCritstructRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -64,16 +58,16 @@ public class LoadPlayerCityController extends EventController {
     try {
       User owner = UserRetrieveUtils.getUserById(cityOwnerProto.getUserId());
 
-      Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
-      setResponseCritstructs(resBuilder, userCritStructs);
-
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerProto.getUserId());
       setResponseUserStructs(resBuilder, userStructs);
 
-      UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(cityOwnerProto.getUserId());
-      if (userCityExpansionData != null) {
-        resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
-      }
+//      Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
+//      setResponseCritstructs(resBuilder, userCritStructs);
+      
+//      UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(cityOwnerProto.getUserId());
+//      if (userCityExpansionData != null) {
+//        resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
+//      }
 
       boolean ownerIsGood = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
       boolean senderIsGood = MiscMethods.checkIfGoodSide(senderProto.getUserType());
@@ -137,34 +131,34 @@ public class LoadPlayerCityController extends EventController {
       resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
     }
   }
-
-  private void setResponseCritstructs(Builder resBuilder, Map<CritStructType, UserCritstruct> userCritStructs) {
-    if (userCritStructs != null) {
-      for (CritStructType cst : userCritStructs.keySet()) {
-        UserCritstruct uc = userCritStructs.get(cst);
-        if (uc != null) {
-          if (cst == CritStructType.ARMORY) {
-            resBuilder.setArmory(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-          }
-          if (cst == CritStructType.AVIARY) {
-            resBuilder.setAviary(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-          }
-          if (cst == CritStructType.CARPENTER) {
-            resBuilder.setCarpenter(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-          }
-          if (cst == CritStructType.MARKETPLACE) {
-            resBuilder.setMarketplace(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-          }
-          if (cst == CritStructType.VAULT) {
-            resBuilder.setVault(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
-          }
-        } else {
-          resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
-        }
-      }
-    } else {
-      resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
-    }
-  }
+//
+//  private void setResponseCritstructs(Builder resBuilder, Map<CritStructType, UserCritstruct> userCritStructs) {
+//    if (userCritStructs != null) {
+//      for (CritStructType cst : userCritStructs.keySet()) {
+//        UserCritstruct uc = userCritStructs.get(cst);
+//        if (uc != null) {
+//          if (cst == CritStructType.ARMORY) {
+//            resBuilder.setArmory(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
+//          }
+//          if (cst == CritStructType.AVIARY) {
+//            resBuilder.setAviary(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
+//          }
+//          if (cst == CritStructType.CARPENTER) {
+//            resBuilder.setCarpenter(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
+//          }
+//          if (cst == CritStructType.MARKETPLACE) {
+//            resBuilder.setMarketplace(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
+//          }
+//          if (cst == CritStructType.VAULT) {
+//            resBuilder.setVault(CreateInfoProtoUtils.createFullUserCritstructProtoFromUserCritstruct(uc));
+//          }
+//        } else {
+//          resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
+//        }
+//      }
+//    } else {
+//      resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
+//    }
+//  }
 
 }

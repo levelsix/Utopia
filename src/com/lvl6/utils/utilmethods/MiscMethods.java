@@ -1,5 +1,7 @@
 package com.lvl6.utils.utilmethods;
 
+import java.net.Socket;
+import java.nio.channels.SocketChannel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -55,8 +57,12 @@ public class MiscMethods {
       }
     }
     if (udid != null) {
-      if (server.getChannelForUdid(udid) != null) {
-        return server.getChannelForUdid(udid).socket().getInetAddress().toString();
+      SocketChannel channel = server.getChannelForUdid(udid);
+      if (channel != null) {
+        Socket socket = channel.socket();
+        if (socket != null) {
+          return socket.getInetAddress().toString();
+        }
       }
     }
     return null;

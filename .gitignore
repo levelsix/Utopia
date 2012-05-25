@@ -4,7 +4,6 @@ src/com/lvl6/properties/APNSProperties.java
 scripts/DBProperties.php
 scripts/referral_code_checks/referral_code_logs
 
-
 #java specific
 *.class
 
