@@ -71,21 +71,25 @@ public class MoveOrRotateNormStructureController extends EventController {
       if (type == MoveOrRotateNormStructType.MOVE && newCoords == null) {
         legit = false;
         resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);
+        log.error("asked to move, but the coordinates supplied in are null. reqProto's newStructCoordinates=" + reqProto.getCurStructCoordinates());
       } else if (type == MoveOrRotateNormStructType.ROTATE && orientation == null) {
         legit = false;
         resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);
+        log.error("asked to move, but the orientation supplied in is null. reqProto's orientation=" + reqProto.getNewOrientation());
       }
 
       if (legit) {
         if (type == MoveOrRotateNormStructType.MOVE) {
           if (!UpdateUtils.updateUserStructCoord(userStructId, newCoords)) {
             resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);
+            log.error("problem with updating coordinates to " + newCoords + " for user struct " + userStructId);
           } else {
             resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);
           }
         } else {
           if (!UpdateUtils.updateUserStructOrientation(userStructId, orientation)) {
             resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);
+            log.error("problem with updating orientation to " + orientation + " for user struct " + userStructId);
           } else {
             resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);
           }

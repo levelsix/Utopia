@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -107,10 +108,10 @@ public class NormStructWaitCompleteController extends EventController{
 
   private void writeChangesToDB(List<UserStruct> upgradesDone, List<UserStruct> buildsDone) {
     if (!UpdateUtils.updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(upgradesDone, 1)) {
-      log.error("problem with marking norm struct upgrade as complete");
+      log.error("problem with marking norm struct upgrade as complete for one of these structs: " + upgradesDone);
     }    
     if (!UpdateUtils.updateUserStructsLastretrievedpostbuildIscomplete(buildsDone)) {
-      log.error("problem with marking norm struct build as complete");
+      log.error("problem with marking norm struct builds as complete for one of these structs: " + upgradesDone);
     }
   }
 
@@ -118,10 +119,14 @@ public class NormStructWaitCompleteController extends EventController{
       List<UserStruct> userStructs, List<Integer> userStructIds, int userId, Timestamp clientTime) {
     if (userStructs == null || userStructIds == null || clientTime == null || userStructIds.size() != userStructs.size()) {
       resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
+      log.error("userStructs is null, userStructIds is null, clientTime is null, or array lengths different. userStructs="
+          + userStructs + ", userStructIds=" + userStructIds + ", clientTime=" + clientTime);
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
       resBuilder.setStatus(NormStructWaitCompleteStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + clientTime + ", servertime~="
+          + new Date());
       return false;
     }
     
@@ -129,25 +134,33 @@ public class NormStructWaitCompleteController extends EventController{
     for (UserStruct us : userStructs) {
       if (us.getUserId() != userId) {
         resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
+        log.error("user struct's owner's id is " + us.getUserId() + ", and user id is " + userId);
         return false;
       }
       Structure struct = structures.get(us.getStructId());
       if (struct == null) {
         resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
+        log.error("no struct in db exists with id " + us.getStructId());
         return false;        
       }
       if (us.getLastUpgradeTime() != null) {
         if (us.getLastUpgradeTime().getTime() + 60000*MiscMethods.calculateMinutesToUpgradeForUserStruct(struct.getMinutesToUpgradeBase(), us.getLevel()) > clientTime.getTime()) {
           resBuilder.setStatus(NormStructWaitCompleteStatus.NOT_DONE_YET);
+          log.error("the upgrading is not done yet. userstruct=" + us + ", and minutes to upgrade user struct is "
+              + MiscMethods.calculateMinutesToUpgradeForUserStruct(struct.getMinutesToUpgradeBase(), us.getLevel())
+              + ", client time is " + clientTime + ", upgrade time was " + us.getLastUpgradeTime());
           return false;
         }
       } else if (us.getPurchaseTime() != null) {
         if (us.getPurchaseTime().getTime() + 60000*struct.getMinutesToBuild() > clientTime.getTime()) {
           resBuilder.setStatus(NormStructWaitCompleteStatus.NOT_DONE_YET);
+          log.error("the building is not done yet. userstruct="
+              + ", client time is " + clientTime + ", purchase time was " + us.getPurchaseTime());
           return false;
         }        
       } else {
         resBuilder.setStatus(NormStructWaitCompleteStatus.OTHER_FAIL);
+        log.error("user struct has never been bought or purchased according to db. " + us);
         return false;                
       }
     }

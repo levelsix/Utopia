@@ -190,7 +190,8 @@ public class StartupController extends EventController {
         }
       }
 
-      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getMostRecentBattleDetailsForDefender(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND);
+      Timestamp earliestBattleNotificationTimeToRetrieve = new Timestamp(new Date().getTime() - ControllerConstants.STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND*3600000);
+      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getMostRecentBattleDetailsForDefenderAfterTime(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND, earliestBattleNotificationTimeToRetrieve);
       if (battleDetails != null && battleDetails.size() > 0) {
         for (BattleDetails bd : battleDetails) {
           userIds.add(bd.getAttackerId());

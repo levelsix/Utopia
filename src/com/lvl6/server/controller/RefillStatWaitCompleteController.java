@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -101,32 +102,42 @@ public class RefillStatWaitCompleteController extends EventController{
       User user, Timestamp clientTime, RefillStatWaitCompleteType type) {
     if (user == null || clientTime == null || type == null ) {
       resBuilder.setStatus(RefillStatWaitCompleteStatus.OTHER_FAIL);
+      log.error("a parameter is null. user=" + user + ", clientTime=" + clientTime + ", type=" + null);
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
       resBuilder.setStatus(RefillStatWaitCompleteStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + clientTime + ", servertime~="
+          + new Date());
       return false;
     }
     if (type == RefillStatWaitCompleteType.ENERGY) {
       if (user.getLastEnergyRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY > clientTime.getTime()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
+        log.error("energy is not ready for refill yet. client time=" + clientTime.getTime() + ", struct last refilled energy at "
+            + user.getLastEnergyRefillTime() + ", num minutes for energy refill =" + ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY);
         return false;
       }
       if (user.getEnergy() == user.getEnergyMax()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.ALREADY_MAX);
+        log.error("user is already at max energy- " + user.getEnergy());
         return false;        
       }
     } else if (type == RefillStatWaitCompleteType.STAMINA) { 
       if (user.getLastStaminaRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA > clientTime.getTime()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
+        log.error("stamina is not ready for refill yet. client time=" + clientTime.getTime() + ", struct last refilled stamina at "
+            + user.getLastStaminaRefillTime() + ", num minutes for stamina refill =" + ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA);
         return false;
       }    
       if (user.getStamina() == user.getStaminaMax()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.ALREADY_MAX);
+        log.error("user is already at max stamina- " + user.getStamina());
         return false;        
       }
     } else {
       resBuilder.setStatus(RefillStatWaitCompleteStatus.OTHER_FAIL);
+      log.error("unknow refill stat wait type. refillstatwaitcompletetype=" + type);
       return false;      
     }
     resBuilder.setStatus(RefillStatWaitCompleteStatus.SUCCESS);

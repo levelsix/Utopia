@@ -146,6 +146,11 @@ public class DBConnection {
     return selectRows(conn, null, absoluteConditionParams, null, lessThanConditionParams, tablename, "and", orderByColumn, false, limit, false);
   }
 
+  public static ResultSet selectRowsAbsoluteAndOrderbydescLimitGreaterthan(Connection conn, Map<String, Object> absoluteConditionParams, 
+      String tablename, String orderByColumn, int limit, Map<String, Object> greaterThanConditionParams) {
+    return selectRows(conn, null, absoluteConditionParams, greaterThanConditionParams, null, tablename, "and", orderByColumn, false, limit, false);
+  }
+  
   public static ResultSet selectRowsAbsoluteAndLimitLessthanGreaterthanRand(Connection conn, Map<String, Object> absoluteConditionParams, 
       String tablename, String orderByColumn, int limit, Map<String, Object> lessThanConditionParams, 
       Map<String, Object> greaterThanConditionParams) {

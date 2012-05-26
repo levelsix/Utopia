@@ -3,6 +3,7 @@ package com.lvl6.retrieveutils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,14 +23,16 @@ public class BattleDetailsRetrieveUtils {
 
   private static final String TABLE_NAME = DBConstants.TABLE_BATTLE_HISTORY;
 
-  public static List<BattleDetails> getMostRecentBattleDetailsForDefender(int defenderId, int limit) {
+  public static List<BattleDetails> getMostRecentBattleDetailsForDefenderAfterTime(int defenderId, int limit, Timestamp earliestBattleNotificationTimeToRetrieve) {
     log.debug("retrieving most recent battle details posts for " + defenderId);
     
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.BATTLE_HISTORY__DEFENDER_ID, defenderId);
+    TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
+    greaterThanParams.put(DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, earliestBattleNotificationTimeToRetrieve);
     
     Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__DEFENDER_ID, limit);
+    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__DEFENDER_ID, limit, greaterThanParams);
     List<BattleDetails> battleDetailsList = convertRSToBattleDetailsList(rs);
     DBConnection.close(rs, null, conn);
     return battleDetailsList;

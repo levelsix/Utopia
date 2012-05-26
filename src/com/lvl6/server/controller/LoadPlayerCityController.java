@@ -103,8 +103,6 @@ public class LoadPlayerCityController extends EventController {
     } finally {
       server.unlockPlayer(senderProto.getUserId());      
     }
-
-
   }
 
   private void setResponseOwnerAlliesOrEnemies(Builder resBuilder, List<User> users, boolean ownerAllies) {
@@ -118,6 +116,7 @@ public class LoadPlayerCityController extends EventController {
       }
     } else {
       resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
+      log.error("no users found when loading city owner's allies/enemies, ownerAllies="+ownerAllies);
     }    
   }
 
@@ -129,9 +128,10 @@ public class LoadPlayerCityController extends EventController {
       }
     } else {
       resBuilder.setStatus(LoadPlayerCityStatus.OTHER_FAIL);
+      log.error("user structs found for user is null");
     }
   }
-//
+
 //  private void setResponseCritstructs(Builder resBuilder, Map<CritStructType, UserCritstruct> userCritStructs) {
 //    if (userCritStructs != null) {
 //      for (CritStructType cst : userCritStructs.keySet()) {

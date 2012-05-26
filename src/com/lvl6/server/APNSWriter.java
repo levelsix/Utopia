@@ -17,6 +17,7 @@ import com.lvl6.properties.APNSProperties;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto;
+import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
@@ -37,14 +38,14 @@ public class APNSWriter extends Wrap {
 
   //3 hours
   private static final int MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS = 180;
-  
+
   //1 week
   private static final int MINUTES_BEFORE_IGNORE_BADGE_CAP = 10080;
 
   //3 days
   private static final long MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH = 60*24*3;
   private static Date LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = new Date();
-  
+
   /** 
    * constructor.
    */
@@ -97,6 +98,7 @@ public class APNSWriter extends Wrap {
         }
 
         ApnsService service = builder.build();
+
         Date now = new Date();
         if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime() + 60000*MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH
             < now.getTime()) {
@@ -189,14 +191,21 @@ public class APNSWriter extends Wrap {
         equipStolen = true;
       }
       String attacker = (battleResponseProto.getAttacker().hasName()) ? battleResponseProto.getAttacker().getName() : "";
-      if (attacker.length() == 0) {
-        attacker = "An enemy";
-      }
-      String alertBody = attacker + " has just humiliated you";
-      if (equipStolen) {
-        alertBody += " and stole equipment from you. Show justice to this thief!";        
+      BattleResult battleResult = battleResponseProto.getBattleResult();
+
+      String alertBody = null;
+
+      if (battleResult == BattleResult.ATTACKER_WIN) {
+        alertBody = attacker + " has just humiliated you";
+        if (equipStolen) {
+          alertBody += " and stole equipment from you. Show justice to this thief!";        
+        } else {
+          alertBody += ". Fight back and defend your honor!";
+        }
+      } else if (battleResult == BattleResult.ATTACKER_FLEE){
+        alertBody = attacker + " has just fled from you after initiating battle. Chase the coward down!";
       } else {
-        alertBody += ". Fight back and defend your honor!";
+        alertBody = attacker + " attacked you, but you won the fight. Come back and train before your skills get rusty!";
       }
 
       pb.alertBody(alertBody);

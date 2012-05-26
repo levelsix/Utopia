@@ -159,8 +159,10 @@ public class LoadNeutralCityController extends EventController {
               }
             } else {
               UserType userType = MiscMethods.getUserTypeFromDefeatTypeJobUserType(dtj.getEnemyType());
-              numToGenerate.put(userType, dtj.getNumEnemiesToDefeat()
+              if (userType != null) {
+                numToGenerate.put(userType, dtj.getNumEnemiesToDefeat()
                   + ((numToGenerate.containsKey(userType)) ? numToGenerate.get(userType): 0));
+              }
             }
           }
         }
