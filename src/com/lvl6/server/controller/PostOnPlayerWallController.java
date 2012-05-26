@@ -71,6 +71,8 @@ public class PostOnPlayerWallController extends EventController {
       if (wallPostId <= 0) {
         legitPost = false;
         resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
+        log.error("problem with inserting wall post into db. posterId=" + posterId + ", wallOwnerId="
+            + wallOwnerId + ", content=" + content + ", timeOfPost=" + timeOfPost);
       } else {
         PlayerWallPost pwp =  new PlayerWallPost(wallPostId, posterId, wallOwnerId, timeOfPost, content);
         PlayerWallPostProto pwpp = CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, users.get(posterId));
@@ -90,22 +92,29 @@ public class PostOnPlayerWallController extends EventController {
     // TODO Auto-generated method stub
     if (users == null) {
       resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
+      log.error("users are null- posterId=" + posterId + ", wallOwnerId=" + wallOwnerId);
       return false;
     }
     if (users.size() != 2 && posterId != wallOwnerId) {
       resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
+      log.error("error retrieving one of the users. posterId=" + posterId + ", wallOwnerId=" + wallOwnerId);
       return false;
     }
     if (users.size() != 1 && posterId == wallOwnerId) {
       resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);
+      log.error("error retrieving one of the users. posterId=" + posterId + ", wallOwnerId=" + wallOwnerId);
       return false;
     }
     if (content == null || content.length() == 0) {
       resBuilder.setStatus(PostOnPlayerWallStatus.NO_CONTENT_SENT);
+      log.error("no content when posterId " + posterId + " tries to post on wall with owner " + wallOwnerId);
       return false;
     }
     if (content.length() >= ControllerConstants.POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH) {
       resBuilder.setStatus(PostOnPlayerWallStatus.POST_TOO_LARGE);
+      log.error("wall post is too long. content length is " + content.length() 
+          +", max post length=" + ControllerConstants.POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH 
+          + ", posterId " + posterId + " tries to post on wall with owner " + wallOwnerId);
       return false;
     }
     resBuilder.setStatus(PostOnPlayerWallStatus.SUCCESS);
