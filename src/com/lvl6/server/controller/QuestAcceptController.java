@@ -1,10 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import org.apache.log4j.Logger;
 
@@ -14,20 +11,15 @@ import com.lvl6.events.response.QuestAcceptResponseEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
 import com.lvl6.info.UserQuest;
-import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.proto.EventProto.QuestAcceptRequestProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.Builder;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus;
-import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
-import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -98,13 +90,14 @@ public class QuestAcceptController extends EventController {
 
   private void writeChangesToDB(UserQuest uq) {
     if (!InsertUtils.insertUnredeemedUserQuest(uq.getUserId(), uq.getQuestId(), uq.isTasksComplete(), uq.isDefeatTypeJobsComplete())) {
-      log.error("problem with inserting user quest");
+      log.error("problem with inserting unredeemd user quest: " + uq);
     }
   }
 
   private boolean checkLegitAccept(Builder resBuilder, User user, Quest quest) {
     if (user == null || quest == null) {
       resBuilder.setStatus(QuestAcceptStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. user=" + user + ", quest=" + quest);
       return false;
     }
     List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedAndRedeemedUserQuestsForUser(user.getId());
@@ -125,6 +118,7 @@ public class QuestAcceptController extends EventController {
         return true;
       } else {
         resBuilder.setStatus(QuestAcceptStatus.NOT_AVAIL_TO_USER);
+        log.error("quest with id " + quest.getId() + " is not available to user");
         return false;
       }
     }

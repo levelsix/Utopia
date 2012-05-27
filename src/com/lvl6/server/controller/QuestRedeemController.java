@@ -119,10 +119,10 @@ public class QuestRedeemController extends EventController {
   private void clearUserQuestData(Quest quest, UserQuest userQuest, UserType userType) {
     if (quest.getTasksRequired() != null && quest.getTasksRequired().size() > 0) {
       if (!DeleteUtils.deleteUserQuestInfoInTaskProgressAndCompletedTasks(userQuest.getUserId(), userQuest.getQuestId(), quest.getTasksRequired().size())) {
-        log.error("problem with deleting user quest info in user quest task tables");
+        log.error("problem with deleting user quest info in user quest task tables. questid=" + userQuest.getQuestId() 
+            + ", num tasks it has is " + quest.getTasksRequired().size());
       }
     }
-    
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
     List<Integer> defeatTypeJobs = null;
     if (goodSide) {
@@ -132,19 +132,21 @@ public class QuestRedeemController extends EventController {
     }
     if (defeatTypeJobs != null && defeatTypeJobs.size() > 0) {
       if (!DeleteUtils.deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(userQuest.getUserId(), userQuest.getQuestId(), defeatTypeJobs.size())) {
-        log.error("problem with deleting user quest info for defeat type job tables");
+        log.error("problem with deleting user quest info for defeat type job tables. questid=" + userQuest.getQuestId() 
+            + ", num defeat type jobs it has is " + defeatTypeJobs.size());
       }
     }    
   }
 
   private void writeChangesToDB(UserQuest userQuest, Quest quest, User user, MinimumUserProto senderProto) {
     if (!UpdateUtils.updateRedeemUserQuest(userQuest.getUserId(), userQuest.getQuestId())) {
-      log.error("problem with logging user quest as redeemed");
+      log.error("problem with marking user quest as redeemed. questId=" + userQuest.getQuestId());
     }
 
     if (quest.getEquipIdGained() > 0) {
       if (!UpdateUtils.incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
-        log.error("problem with giving user reward equip after completing the quest");
+        log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
+            + quest.getEquipIdGained());
       } else {
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, quest.getEquipIdGained(), 1);
       }
@@ -154,17 +156,20 @@ public class QuestRedeemController extends EventController {
     int diamondsGained = Math.max(0, quest.getDiamondsGained());
     int expGained = Math.max(0,  quest.getExpGained());
     if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondsGained, coinsGained, expGained)) {
-      log.error("problem with giving user currency rewards after completing the quest");
+      log.error("problem with giving user " + diamondsGained + " diamonds, " + coinsGained
+          + " coins, " + expGained + " exp");
     }
   }
 
   private boolean checkLegitRedeem(Builder resBuilder, UserQuest userQuest, Quest quest) {
     if (userQuest == null || userQuest.isRedeemed()) {
       resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
+      log.error("user quest is null or redeemed already. userQuest=" + userQuest);
       return false;
     }
     if (!userQuest.isComplete()) {
       resBuilder.setStatus(QuestRedeemStatus.NOT_COMPLETE);
+      log.error("user quest is not complete");
       return false;
     }
     resBuilder.setStatus(QuestRedeemStatus.SUCCESS);

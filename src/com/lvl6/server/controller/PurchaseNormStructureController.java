@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class PurchaseNormStructureController extends EventController {
   public PurchaseNormStructureController() {
     numAllocatedThreads = 3;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new PurchaseNormStructureRequestEvent();
@@ -53,7 +54,7 @@ public class PurchaseNormStructureController extends EventController {
     int structId = reqProto.getStructId();
     CoordinatePair cp = new CoordinatePair(reqProto.getStructCoordinates().getX(), reqProto.getStructCoordinates().getY());
     Timestamp timeOfPurchase = new Timestamp(reqProto.getTimeOfPurchase());
-    
+
     PurchaseNormStructureResponseProto.Builder resBuilder = PurchaseNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -70,6 +71,7 @@ public class PurchaseNormStructureController extends EventController {
         if (userStructId <= 0) {
           legitPurchaseNorm = false;
           resBuilder.setStatus(PurchaseNormStructureStatus.OTHER_FAIL);
+          log.error("problem with giving struct " + struct.getId() + " at " + timeOfPurchase + " on " + cp);
         } else {
           resBuilder.setUserStructId(userStructId);
         }
@@ -99,7 +101,7 @@ public class PurchaseNormStructureController extends EventController {
     int coinChange = Math.max(0, struct.getCoinPrice());
 
     if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange*-1, coinChange*-1, 0)) {
-      log.error("problem with changing user stats after purchasing a structure");
+      log.error("problem with taking away " + diamondChange + " diamonds, " + coinChange + " coins.");
     }
   }
 
@@ -107,25 +109,33 @@ public class PurchaseNormStructureController extends EventController {
       User user, Timestamp timeOfPurchase) {
     if (user == null || struct == null || timeOfPurchase == null) {
       resBuilder.setStatus(PurchaseNormStructureStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. user=" + user + ", struct=" + struct 
+          + ", timeOfPurchase=" + timeOfPurchase);
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
       resBuilder.setStatus(PurchaseNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + timeOfPurchase + ", servertime~="
+          + new Date());
       return false;
     }
     if (user.getLevel() < struct.getMinLevel()) {
       resBuilder.setStatus(PurchaseNormStructureStatus.LEVEL_TOO_LOW);
+      log.error("user is too low level to purchase struct. user level=" + user.getLevel() + 
+          ", struct's min level is " + struct.getMinLevel());
       return false;
     }
     if (user.getCoins() < struct.getCoinPrice()) {
       resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
+      log.error("user only has " + user.getCoins() + " coins and needs " + struct.getCoinPrice());
       return false;
     }
     if (user.getDiamonds() < struct.getDiamondPrice()) {
       resBuilder.setStatus(PurchaseNormStructureStatus.NOT_ENOUGH_MATERIALS);
+      log.error("user only has " + user.getDiamonds() + " diamonds and needs " + struct.getDiamondPrice());
       return false;
     }
-    
+
     Map<Integer, List<UserStruct>> structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(user.getId());
     if (structIdsToUserStructs != null) {
       for (Integer structId : structIdsToUserStructs.keySet()) {
@@ -133,14 +143,19 @@ public class PurchaseNormStructureController extends EventController {
         if (userStructsOfSameStructId != null) {
           if (structId == struct.getId() && userStructsOfSameStructId.size() >= ControllerConstants.PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE) {
             resBuilder.setStatus(PurchaseNormStructureStatus.ALREADY_HAVE_MAX_OF_THIS_STRUCT);
+            log.error("user already has max of this struct, which is " 
+                + ControllerConstants.PURCHASE_NORM_STRUCTURE__MAX_NUM_OF_CERTAIN_STRUCTURE);
             return false;
           }
           for (UserStruct us : userStructsOfSameStructId) {
             if (!us.isComplete() && us.getLastRetrieved() == null) {
               resBuilder.setStatus(PurchaseNormStructureStatus.ANOTHER_STRUCT_STILL_BUILDING);
+              log.error("another struct still building: " + us); 
               return false;
             }
           }
+        } else {
+          log.error("user has no structs? for structid " + structId);
         }
       }
     }
