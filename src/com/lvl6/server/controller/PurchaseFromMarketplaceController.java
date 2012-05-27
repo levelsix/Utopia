@@ -159,7 +159,7 @@ public class PurchaseFromMarketplaceController extends EventController {
   private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, User seller, int postId) {
     if (mp == null) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.POST_NO_LONGER_EXISTS);
-      log.error("post that user tried to buy no longer exists. post id is " + postId);
+      log.warn("post that user tried to buy no longer exists. post id is " + postId);
       return false;
     }
     if (buyer == null || seller == null || seller.getId() != mp.getPosterId()) {

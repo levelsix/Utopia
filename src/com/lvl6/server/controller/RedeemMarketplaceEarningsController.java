@@ -71,17 +71,19 @@ public class RedeemMarketplaceEarningsController extends EventController {
 
   private void writeChangesToDB(User user) {
     if (!user.updateMoveMarketplaceEarningsToRealStatResetNummarketplacesalesunredeemed()) {
-      log.error("problem with moving earnings to real stat for user in mktplace");
+      log.error("problem with moving earnings to real stat for user in mktplace. user=" + user);
     }
   }
 
   private boolean checkLegitRedeem(Builder resBuilder, User user) {
     if (user == null) {
       resBuilder.setStatus(RedeemMarketplaceEarningsStatus.OTHER_FAIL);
+      log.error("no user with this id? user=null");
       return false;
     }
     if (user.getMarketplaceCoinsEarnings() <= 0 && user.getMarketplaceDiamondsEarnings() <= 0) {
       resBuilder.setStatus(RedeemMarketplaceEarningsStatus.OTHER_FAIL);
+      log.error("user has no marketplace earnings now.");
       return false;      
     }
     resBuilder.setStatus(RedeemMarketplaceEarningsStatus.SUCCESS);

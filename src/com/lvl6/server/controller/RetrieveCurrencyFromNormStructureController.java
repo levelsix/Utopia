@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -95,16 +96,28 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
 
   private boolean checkLegitRetrieval(Builder resBuilder, User user, UserStruct userStruct, Structure struct, Timestamp timeOfRetrieval) {
     // TODO Auto-generated method stub
-    if (user == null || userStruct == null || timeOfRetrieval == null || user.getId() != userStruct.getUserId() || !userStruct.isComplete() || userStruct.getLastRetrieved() == null) {
+    if (user == null || userStruct == null || timeOfRetrieval == null || userStruct.getLastRetrieved() == null) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. user=" + user + ", userStruct= " + userStruct
+          + ", timeOfRetrieval=" + timeOfRetrieval + ", userStruct's last retrieved time=" 
+          + userStruct.getLastRetrieved());
+      return false;
+    }
+    if (user.getId() != userStruct.getUserId() || !userStruct.isComplete()) {
+      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
+      log.error("struct owner is not user, or struct is not complete yet. userStruct=" + userStruct);
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfRetrieval)) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + timeOfRetrieval + ", servertime~="
+          + new Date());
       return false;
     }
     if ((timeOfRetrieval.getTime() - userStruct.getLastRetrieved().getTime())  < 60000*struct.getMinutesToGain()) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.NOT_LONG_ENOUGH);
+      log.error("struct not ready for retrieval yet. time of retrieval=" + timeOfRetrieval
+          + ", userStruct=" + userStruct + ", takes this many minutes to gain:" + struct.getMinutesToGain()); 
       return false;
     }
     resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.SUCCESS);

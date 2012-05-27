@@ -85,6 +85,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving struct with id " + structId);
         }
       }
     }
@@ -98,6 +99,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addTasks(CreateInfoProtoUtils.createFullTaskProtoFromTask(reqProto.getSender().getUserType(), task));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving task with id " + taskId);
         }
       }
     }
@@ -111,6 +113,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(reqProto.getSender().getUserType(), quest));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving quest with id " + quest);
         }
       }
     }
@@ -124,6 +127,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addCities(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving city with id " + cityId);
         }
       }
     }
@@ -137,6 +141,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving equip with id " + equipId);
         }
       }
     }
@@ -150,6 +155,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addBuildStructJobs(CreateInfoProtoUtils.createFullBuildStructJobProtoFromBuildStructJob(buildStructJob));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving build struct job with id " + buildStructJobId);
         }
       }
     }
@@ -163,6 +169,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addDefeatTypeJobs(CreateInfoProtoUtils.createFullDefeatTypeJobProtoFromDefeatTypeJob(defeatTypeJob));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving defeat type job with id " + defeatTypeJobId);
         }
       }
     }
@@ -176,6 +183,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addPossessEquipJobs(CreateInfoProtoUtils.createFullPossessEquipJobProtoFromPossessEquipJob(possessEquipJob));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving possess equip job with id " + possessEquipJobId);
         }
       }
     }
@@ -189,6 +197,7 @@ public class RetrieveStaticDataController extends EventController{
           resBuilder.addUpgradeStructJobs(CreateInfoProtoUtils.createFullUpgradeStructJobProtoFromUpgradeStructJob(upgradeStructJob));
         } else {
           resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+          log.error("problem with retrieving upgrade struct job with id " + upgradeStructJob);
         }
       }
     }
@@ -197,9 +206,13 @@ public class RetrieveStaticDataController extends EventController{
       int level = reqProto.getLevelForExpRequiredRequest();
       if (level > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER || level < 2) {
         resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+        log.error("no exp data stored for levels < 2 and levels > " + ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER);
       } else {
         int expRequired = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(level);
-        resBuilder.setExpRequiredForRequestedLevel(expRequired);
+        if (expRequired > 0)
+          resBuilder.setExpRequiredForRequestedLevel(expRequired);
+        else
+          log.error("problem with retrieving exp required for level " + level);
       }
     }
 

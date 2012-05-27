@@ -64,7 +64,7 @@ public class RetractMarketplacePostController extends EventController{
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 
       boolean legitRetract = checkLegitRetract(user, mp, resBuilder, 
-          diamondCut, coinCut);
+          diamondCut, coinCut, postId);
 
       RetractMarketplacePostResponseEvent resEvent = new RetractMarketplacePostResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -90,40 +90,45 @@ public class RetractMarketplacePostController extends EventController{
 
   private void writeChangesToDB(User user, MarketplacePost mp, int diamondCut, int coinCut) {
     if (user == null || mp == null) {
-      log.error("problem with retracting marketplace post");
+      log.error("parameter passed in is null. user=" + user + ", marketplace post=" + mp);
     }
 
     int diamondChange = diamondCut * -1;
     int coinChange = coinCut * -1;
     
     if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
-      log.error("problem with giving user back equip");
+      log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());
     }
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, -1)) {
-      log.error("problem with giving user back stuff after retract");
+      log.error("problem with decrementing user's num posts in marketplace by 1 and changing diamonds by "
+          + diamondChange + " and changing coins by " + coinChange);
     }
 
     if (!DeleteUtils.deleteMarketplacePost(mp.getId())) {
-      log.error("problem with deleting marketplace post");      
+      log.error("problem with deleting marketplace post with id " + mp.getId());      
     }
   }
 
   private boolean checkLegitRetract(User user, MarketplacePost mp, Builder resBuilder, 
-      int diamondCut, int coinCut) {
+      int diamondCut, int coinCut, int postId) {
     if (mp == null) {
       resBuilder.setStatus(RetractMarketplacePostStatus.POST_NO_LONGER_EXISTS);
+      log.warn("problem with retracting marketplace post with id " + postId + " b/c no longer exists");      
       return false;
     }
     if (user.getId() != mp.getPosterId()) {
       resBuilder.setStatus(RetractMarketplacePostStatus.NOT_REQUESTERS_POST);
+      log.error("trying to retract a post that does not belong to the user. poster's id is " + mp.getPosterId());
       return false;      
     }
     if (user.getDiamonds() < diamondCut) {
       resBuilder.setStatus(RetractMarketplacePostStatus.NOT_ENOUGH_DIAMONDS);
+      log.error("user doesn't have enough diamonds. has " + user.getDiamonds() + ", needs " + diamondCut);
       return false;
     }
     if (user.getCoins() < coinCut) {
       resBuilder.setStatus(RetractMarketplacePostStatus.NOT_ENOUGH_COINS);
+      log.error("user doesn't have enough coins. has " + user.getCoins() + ", needs " + coinCut);
       return false;
     }
     resBuilder.setStatus(RetractMarketplacePostStatus.SUCCESS);

@@ -49,6 +49,8 @@ public class RetrieveUsersForUserIdsController extends EventController{
       for (User user : usersByIds.values()) {
         resBuilder.addRequestedUsers(CreateInfoProtoUtils.createFullUserProtoFromUser(user));
       }
+    } else {
+      log.error("no users with the ids " + requestedUserIds);
     }
     RetrieveUsersForUserIdsResponseProto resProto = resBuilder.build();
     RetrieveUsersForUserIdsResponseEvent resEvent = new RetrieveUsersForUserIdsResponseEvent(senderProto.getUserId());

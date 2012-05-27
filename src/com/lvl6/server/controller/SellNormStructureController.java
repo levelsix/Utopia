@@ -68,21 +68,24 @@ public class SellNormStructureController extends EventController {
           int coinChange = Math.max(0,  (int)Math.ceil(struct.getCoinPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
           
           if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange, coinChange, 0)) {
-            log.error("problem with giving user stats back after selling struct");
             resBuilder.setStatus(SellNormStructureStatus.FAIL);
+            log.error("problem with giving user " + diamondChange + " diamonds and " + coinChange + " coins");
           } else {
             if (!DeleteUtils.deleteUserStruct(userStructId)) {
-              log.error("problem with deleting user struct");
               resBuilder.setStatus(SellNormStructureStatus.FAIL);
+              log.error("problem with deleting user struct with user struct id " + userStructId);
             } else {
               resBuilder.setStatus(SellNormStructureStatus.SUCCESS);                      
             }
           }
         } else {
-          resBuilder.setStatus(SellNormStructureStatus.FAIL);        
+          resBuilder.setStatus(SellNormStructureStatus.FAIL);
+          log.error("parameter null, struct doesn't belong to user, or struct is not complete. user="
+              + user + ", struct=" + struct + ", userStruct=" + userStruct);
         }
       } else {
-        resBuilder.setStatus(SellNormStructureStatus.FAIL);        
+        resBuilder.setStatus(SellNormStructureStatus.FAIL);       
+        log.error("no user struct with id " + userStructId);
       }
 
       SellNormStructureResponseEvent resEvent = new SellNormStructureResponseEvent(senderProto.getUserId());

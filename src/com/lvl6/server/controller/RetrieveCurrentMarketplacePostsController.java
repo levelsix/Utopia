@@ -59,6 +59,7 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       if (user == null) {
         resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.OTHER_FAIL);
+        log.error("no user with given id");
       } else {
         resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.SUCCESS);
         List <MarketplacePost> activeMarketplacePosts;

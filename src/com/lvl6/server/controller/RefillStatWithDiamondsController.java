@@ -80,35 +80,46 @@ public class RefillStatWithDiamondsController extends EventController{
       diamondChange = ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL;
     }
     if (!user.updateRelativeDiamondsRestoreStat(diamondChange*-1, statType)) {
-      log.error("problem with using diamonds to restore stats");
+      log.error("problem with using diamonds to restore stat. diamondChange=" + diamondChange
+          + ", statType=" + statType);
     }
   }
 
   private boolean checkLegitRefill(Builder resBuilder, User user, StatType statType) {
     if (user == null || statType == null) {
       resBuilder.setStatus(RefillStatStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. user=" + user + ", statType=" + statType);
       return false;
     }
     if (statType == StatType.ENERGY) {
       if (user.getEnergy() >= user.getEnergyMax()) {
         resBuilder.setStatus(RefillStatStatus.ALREADY_MAX);
+        log.error("user energy already at his max. user's energy=" + user.getEnergy()
+            + ", user's energyMax=" + user.getEnergyMax());
         return false;
       }
       if (user.getDiamonds() < ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL) {
         resBuilder.setStatus(RefillStatStatus.NOT_ENOUGH_DIAMONDS);
+        log.error("user doesn't have enough diamonds to refill energy. has "
+            + user.getDiamonds() + ", needs " + ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL);
         return false;
       }
     } else if (statType == StatType.STAMINA) {
       if (user.getStamina() >= user.getStaminaMax()) {
         resBuilder.setStatus(RefillStatStatus.ALREADY_MAX);
+        log.error("user stamina already at his max. user's stamina=" + user.getStamina()
+            + ", user's staminaMax=" + user.getStaminaMax());
         return false;
       }
       if (user.getDiamonds() < ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL) {
         resBuilder.setStatus(RefillStatStatus.NOT_ENOUGH_DIAMONDS);
+        log.error("user doesn't have enough diamonds to refill stamina. has "
+            + user.getDiamonds() + ", needs " + ControllerConstants.REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL);
         return false;
       }      
     } else {
       resBuilder.setStatus(RefillStatStatus.OTHER_FAIL);
+      log.error("unknown stattype. stattype=" + statType);
       return false;      
     }
     resBuilder.setStatus(RefillStatStatus.SUCCESS);

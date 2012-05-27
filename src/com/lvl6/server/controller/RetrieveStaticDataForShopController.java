@@ -61,6 +61,7 @@ public class RetrieveStaticDataForShopController extends EventController{
         }
       } else {
         resBuilder.setStatus(RetrieveStaticDataForShopStatus.SOME_FAIL);
+        log.error("no equips available in the armory for classtype=" + MiscMethods.getClassTypeFromUserType(senderProto.getUserType()));
       }
     } else if (type == RetrieveForShopType.ALL_STRUCTURES) {
       Map<Integer, Structure> structIdsToStructs = StructureRetrieveUtils.getStructIdsToStructs();
@@ -70,10 +71,12 @@ public class RetrieveStaticDataForShopController extends EventController{
           resBuilder.addStructs(fsp);
         } else {
           resBuilder.setStatus(RetrieveStaticDataForShopStatus.SOME_FAIL);
+          log.error("error with retrieving structs");
         }
       }
     } else {
       resBuilder.setStatus(RetrieveStaticDataForShopStatus.SOME_FAIL);
+      log.error("unkown retrievestaticdataforshop type. type=" + type);
     }
     
     RetrieveStaticDataForShopResponseProto resProto = resBuilder.build();

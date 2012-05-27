@@ -57,6 +57,7 @@ public class RetrievePlayerWallPostsController extends EventController{
       User user = UserRetrieveUtils.getUserById(relevantUserId);
       if (user == null) {
         resBuilder.setStatus(RetrievePlayerWallPostsStatus.OTHER_FAIL);
+        log.error("no user with id " + relevantUserId);
       } else {
         resBuilder.setStatus(RetrievePlayerWallPostsStatus.SUCCESS);
         

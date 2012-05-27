@@ -94,6 +94,7 @@ public class StartupController extends EventController {
     // Check version number
     if ((int)reqProto.getVersionNum() < (int)GameServer.clientVersionNumber) {
       updateStatus = UpdateStatus.MAJOR_UPDATE;
+      log.info("player has been notified of forced update");
     } else if (reqProto.getVersionNum() < GameServer.clientVersionNumber) {
       updateStatus = UpdateStatus.MINOR_UPDATE;
     } else {
@@ -113,8 +114,7 @@ public class StartupController extends EventController {
       if (user != null) {
         server.lockPlayer(user.getId());
         try {
-          startupStatus = StartupStatus.USER_IN_DB;
-          
+          startupStatus = StartupStatus.USER_IN_DB;          
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
@@ -130,13 +130,11 @@ public class StartupController extends EventController {
         } finally {
           server.unlockPlayer(user.getId()); 
         }
+      } else {
+        log.info("new player with udid " + udid);
       }
-    }
-    resBuilder.setStartupStatus(startupStatus);
-    setConstants(resBuilder);
-
-    if (startupStatus == StartupStatus.USER_NOT_IN_DB) {
-      setTutorialConstants(resBuilder);
+      resBuilder.setStartupStatus(startupStatus);
+      setConstants(resBuilder, startupStatus);      
     }
 
     StartupResponseProto resProto = resBuilder.build();
@@ -159,14 +157,16 @@ public class StartupController extends EventController {
   }
 
   private void syncDevicetokenApsalaridLastloginResetBadges(User user, String newDeviceToken, String apsalarId, Timestamp loginTime) {
-    // TODO Auto-generated method stub
-
     if (!user.updateAbsoluteDevicetokenApsalaridLastloginBadges(newDeviceToken, apsalarId, loginTime, 0)) {
-      log.error("problem with updating device token, apsalar id, last login, and badge count for " + user);
+      log.error("problem with updating device token to " + newDeviceToken + ", apsalar id to " + 
+          apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user);
     }
 
     if (user.getNumBadges() != 0) {
       if (newDeviceToken != null && newDeviceToken.length() > 0) { 
+        /*
+         * handled locally?
+         */
         //        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
         //        if (Globals.IS_SANDBOX) {
         //          builder.withSandboxDestination();
@@ -298,8 +298,11 @@ public class StartupController extends EventController {
     return numCompletedTasks;
   }
 
-  private void setConstants(Builder startupBuilder) {
+  private void setConstants(Builder startupBuilder, StartupStatus startupStatus) {
     startupBuilder.setStartupConstants(MiscMethods.createStartupConstantsProto());
+    if (startupStatus == StartupStatus.USER_NOT_IN_DB) {
+      setTutorialConstants(startupBuilder);
+    }
   }
 
   private void setTutorialConstants(Builder resBuilder) {
@@ -372,9 +375,9 @@ public class StartupController extends EventController {
       }
     }
 
-    List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(2);
+    List<City> availCities = MiscMethods.getCitiesAvailableForUserLevel(ControllerConstants.USER_CREATE__START_LEVEL);
     for (City city : availCities) {
-      if (city.getMinLevel() == 2) {
+      if (city.getMinLevel() == ControllerConstants.USER_CREATE__START_LEVEL) {
         builder.addCitiesNewlyAvailableToUserAfterLevelup(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
       }
     }
@@ -382,15 +385,11 @@ public class StartupController extends EventController {
     Map<Integer, Equipment> equipIdToEquips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
     if (equipIdToEquips != null) {
       for (Equipment e : equipIdToEquips.values()) {
-        if (e != null && e.getMinLevel() == 2 && (e.getRarity() == Rarity.EPIC || e.getRarity() == Rarity.LEGENDARY)) {
+        if (e != null && e.getMinLevel() == ControllerConstants.USER_CREATE__START_LEVEL && (e.getRarity() == Rarity.EPIC || e.getRarity() == Rarity.LEGENDARY)) {
           builder.addNewlyEquippableEpicsAndLegendariesForAllClassesAfterLevelup(CreateInfoProtoUtils.createFullEquipProtoFromEquip(e));
         }
       }
     }
     resBuilder.setTutorialConstants(builder.build());
   }
-
-
-
-
 }
