@@ -71,7 +71,7 @@ public class PurchaseFromMarketplaceController extends EventController {
       User buyer = UserRetrieveUtils.getUserById(buyerId);
 
       User seller = UserRetrieveUtils.getUserById(sellerId);        
-      boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, seller);
+      boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, seller, postId);
 
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
       resEvent.setTag(event.getTag());
@@ -110,7 +110,7 @@ public class PurchaseFromMarketplaceController extends EventController {
 
   private void writeChangesToDB(User buyer, User seller, MarketplacePost mp) {
     if (seller == null || buyer == null || mp == null) {
-      log.error("problem with retracting marketplace post");
+      log.error("parameter passed in is null. seller=" + seller + ", buyer=" + buyer + ", post=" + mp);
     }
     int totalSellerDiamondChange = 0;
     int totalSellerCoinChange = 0;
@@ -120,55 +120,65 @@ public class PurchaseFromMarketplaceController extends EventController {
     if (mp.getDiamondCost() > 0) {
       totalSellerDiamondChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getDiamondCost());
       totalBuyerDiamondChange -= mp.getDiamondCost();
-    }
-    if (mp.getCoinCost() > 0) {
+    } else if (mp.getCoinCost() > 0) {
       totalSellerCoinChange += (int)Math.floor((1-ControllerConstants.PURCHASE_FROM_MARKETPLACE__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)*mp.getCoinCost());
       totalBuyerCoinChange -= mp.getCoinCost();      
+    } else {
+      log.error("marketplace post has no cost. mp=" + mp);
+      return;
     }
 
     if (totalSellerDiamondChange != 0 || totalSellerCoinChange != 0) {
       if (!seller.updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive(totalSellerDiamondChange, totalSellerCoinChange, -1, 1)) {
-        log.error("problem with giving seller postmarketplace results");
+        log.error("problem with updating seller info. diamondChange=" + totalSellerDiamondChange
+            + ", coinChange=" + totalSellerCoinChange + ", num posts in marketplace decremented by 1, " +
+            		"num marketplace sales unredeemed increased by 1");
       }
     }
     if (totalBuyerDiamondChange != 0 || totalBuyerCoinChange != 0)
     {
       if (!buyer.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(totalBuyerDiamondChange, totalBuyerCoinChange, 0)) {
-        log.error("problem with giving buyer postmarketplace results");
+        log.error("problem with updating buyer info. diamondChange=" + totalBuyerDiamondChange
+            + ", coinChange=" + totalBuyerCoinChange);
       }
     }
 
     if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
-      log.error("problem with giving buyer marketplace equip");
+      log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
     }
 
     if (!InsertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
-      log.error("problem with adding to marketplace history");            
+      log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }
 
     if (!DeleteUtils.deleteMarketplacePost(mp.getId())) {
-      log.error("problem with deleting marketplace post");      
+      log.error("problem with deleting marketplace post with id " + mp.getId());      
     }
   }
 
-  private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, User seller) {
+  private boolean checkLegitPurchase(Builder resBuilder, MarketplacePost mp, User buyer, User seller, int postId) {
     if (mp == null) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.POST_NO_LONGER_EXISTS);
+      log.error("post that user tried to buy no longer exists. post id is " + postId);
       return false;
     }
     if (buyer == null || seller == null || seller.getId() != mp.getPosterId()) {
       resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
+      log.error("parameter passed in is null, or seller is not the right poster. buyer=" + buyer + ", seller=" + seller
+          + ", posterId=" + mp.getPosterId());
       return false;      
     }
     if (mp.getDiamondCost() > 0) {
       if (buyer.getDiamonds() < mp.getDiamondCost()) {
         resBuilder.setStatus(PurchaseFromMarketplaceStatus.NOT_ENOUGH_MATERIALS);
+        log.error("buyer doesnt have enough diamonds. has " + buyer.getDiamonds() + ", needs " + mp.getDiamondCost());
         return false;
       }
     }
     if (mp.getCoinCost() > 0) {
       if (buyer.getCoins() < mp.getCoinCost()) {
         resBuilder.setStatus(PurchaseFromMarketplaceStatus.NOT_ENOUGH_MATERIALS);
+        log.error("buyer doesnt have enough coins. has " + buyer.getCoins() + ", needs " + mp.getCoinCost());
         return false;
       }
     }

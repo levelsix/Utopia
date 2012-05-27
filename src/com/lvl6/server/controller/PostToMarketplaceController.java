@@ -100,37 +100,45 @@ public class PostToMarketplaceController extends EventController {
       PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip, Timestamp timeOfPost) {
     if (user == null || equip == null || timeOfPost == null) {
       resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
+      log.error("a passed in parameter was null. user=" + user + ", equip=" + equip + ", timeOfPost=" + timeOfPost);
       return false;
     }
     if (userEquip == null || userEquip.getQuantity() < 1) {
       resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_EQUIP);
+      log.error("user does not have enough of equip with id " + equip.getId() + ", userEquip=" + userEquip);
       return false;
     }    
     if (user.getNumPostsInMarketplace() == ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER) {
       resBuilder.setStatus(PostToMarketplaceStatus.USER_ALREADY_MAX_MARKETPLACE_POSTS);
+      log.error("user already has max num of marketplace posts, which is " + ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER);
       return false;      
     }
     if (diamondCost < 0 || coinCost < 0) {
       resBuilder.setStatus(PostToMarketplaceStatus.NEGATIVE_COST);
+      log.error("item listed for a negative cost, diamondCost=" + diamondCost + ", coinCost=" + coinCost);
       return false;
     }
     if (diamondCost > 0 && coinCost > 0) {
       resBuilder.setStatus(PostToMarketplaceStatus.CANT_DEMAND_BOTH);
+      log.error("item asks for both diamonds and coins, diamondCost=" + diamondCost + ", coinCost=" + coinCost);
       return false;
     }
     if (diamondCost == 0 && coinCost == 0) {
       resBuilder.setStatus(PostToMarketplaceStatus.NO_COST);
+      log.error("item listed for no currency");
       return false;
     }
     if (diamondCost > 0) {
       if (equip.getDiamondPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
+        log.error("can't list diamond price for this equip: " + equip + ". must have a diamond price or be legendary/epic");
         return false;        
       }
     }
     if (coinCost > 0) {
       if (equip.getCoinPrice() <= 0 || equip.getRarity() == Rarity.EPIC || equip.getRarity() == Rarity.LEGENDARY) {
         resBuilder.setStatus(PostToMarketplaceStatus.INVALID_COST_TYPE_FOR_POST);
+        log.error("can't list coin price for this equip: " + equip + ". must have a coin price and cannot be rare or legenday");
         return false;        
       }
     }
@@ -144,15 +152,22 @@ public class PostToMarketplaceController extends EventController {
     if (ue != null) {
       if (!UpdateUtils.decrementUserEquip(user.getId(), reqProto.getPostedEquipId(), 
           ue.getQuantity(), 1)) {
-        log.error("problem with updating user equips post-marketplace-post");
+        log.error("problem with decrementing a user equip from user for marketplace post. user is "
+            + user.getId() + ", posted equip id is " + reqProto.getPostedEquipId()
+            + ", and user has this many of it: " + ue.getQuantity());
+        return;
       }
     }
     if (ue.getQuantity() == 1) {
-      MiscMethods.unequipUserEquip(user, reqProto.getPostedEquipId());
+      if (!MiscMethods.unequipUserEquip(user, reqProto.getPostedEquipId())) {
+        log.error("problem with unequipping " + reqProto.getPostedEquipId());
+        return;
+      }
     }
 
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(0, 0, 1)) {
-      log.error("problem with updating num posts in marketplace after a post");
+      log.error("problem with increasing user's num marketplace posts by 1");
+      return;
     }
     
     int posterId = reqProto.getSender().getUserId();
@@ -161,7 +176,10 @@ public class PostToMarketplaceController extends EventController {
     int coinCost = reqProto.getCoinCost();
     if (!InsertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
         diamondCost, coinCost, timeOfPost)) {
-      log.error("problem with inserting into marketplace");      
+      log.error("problem with inserting post into marketplace. posterId=" + posterId
+          + ", postType=" + postType + ", postedEquipId=" + postedEquipId
+          + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost
+          + ", timeOfPost=" + timeOfPost);      
     }
   } 
 
