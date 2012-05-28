@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -89,10 +90,11 @@ public class UpgradeNormStructureController extends EventController {
   private void writeChangesToDB(User user, UserStruct userStruct, Structure struct, Timestamp timeOfUpgrade) {
     // TODO Auto-generated method stub
     if (!user.updateRelativeDiamondsCoinsExperienceNaive(-1*calculateUpgradeDiamondCost(userStruct.getLevel(), struct), -1*calculateUpgradeCoinCost(userStruct.getLevel(), struct), 0)) {
-      log.error("problem in updating user stats after upgrade");
+      log.error("problem with updating user stats: diamondChange=" + -1*calculateUpgradeDiamondCost(userStruct.getLevel(), struct)
+          + ", coinChange=" + -1*calculateUpgradeCoinCost(userStruct.getLevel(), struct) + ", user is " + user);
     }
     if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), null, timeOfUpgrade, false)) {
-      log.error("problem in upgrading user struct lastupgradetime and complete");
+      log.error("problem with changing time of upgrade to " + timeOfUpgrade + " and marking as incomplete, the user struct " + userStruct);
     }
   }
 
@@ -100,38 +102,48 @@ public class UpgradeNormStructureController extends EventController {
       Structure struct, Timestamp timeOfUpgrade) {
     if (user == null || userStruct == null || struct == null || userStruct.getLastRetrieved() == null) {
       resBuilder.setStatus(UpgradeNormStructureStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. user=" + user + ", user struct=" + userStruct + ", struct="
+          + struct + ", userStruct's last retrieve time=" + userStruct.getLastRetrieved());
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfUpgrade)) {
       resBuilder.setStatus(UpgradeNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + timeOfUpgrade + ", servertime~="
+          + new Date());
       return false;
     }
     if (!userStruct.isComplete()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
+      log.error("user struct is not complete yet");
       return false;
     }
     if (timeOfUpgrade.getTime() < userStruct.getLastRetrieved().getTime()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_BUILT_YET);
+      log.error("the upgrade time " + timeOfUpgrade + " is before the last time the building was retrieved:"
+          + userStruct.getLastRetrieved());
       return false;
     }
     if (userStruct.getLevel() == ControllerConstants.UPGRADE_NORM_STRUCTURE__MAX_STRUCT_LEVEL) {
       resBuilder.setStatus(UpgradeNormStructureStatus.AT_MAX_LEVEL_ALREADY);
+      log.error("user struct at max level already, which is " + ControllerConstants.UPGRADE_NORM_STRUCTURE__MAX_STRUCT_LEVEL);
       return false;
     }
-
     int upgradeCoinCost = calculateUpgradeCoinCost(userStruct.getLevel(), struct);
     int upgradeDiamondCost = calculateUpgradeDiamondCost(userStruct.getLevel(), struct);
 
     if (user.getId() != userStruct.getUserId()) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_USERS_STRUCT);
+      log.error("user struct belongs to someone else with id " + userStruct.getUserId());
       return false;
     }
     if (user.getCoins() < upgradeCoinCost) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
+      log.error("user doesn't have enough coins, has " + user.getCoins() + ", needs " + upgradeCoinCost);
       return false;
     }
     if (user.getDiamonds() < upgradeDiamondCost) {
       resBuilder.setStatus(UpgradeNormStructureStatus.NOT_ENOUGH_MATERIALS);
+      log.error("user doesn't have enough diamonds, has " + user.getDiamonds() + ", needs " + upgradeDiamondCost);
       return false;
     }
     List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
@@ -139,6 +151,7 @@ public class UpgradeNormStructureController extends EventController {
       for (UserStruct us : userStructs) {
         if (!us.isComplete() && us.getLastRetrieved() != null && us.getLastUpgradeTime() != null) {
           resBuilder.setStatus(UpgradeNormStructureStatus.ANOTHER_STRUCT_STILL_UPGRADING);
+          log.error("another struct is still upgrading: user struct=" + us);
           return false;
         }
       }
