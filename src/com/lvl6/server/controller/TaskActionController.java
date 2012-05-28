@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -308,25 +309,30 @@ public class TaskActionController extends EventController {
   private boolean checkLegitAction(User user, Task task, Timestamp clientTime, Builder resBuilder) {
     if (task == null || clientTime == null) {
       resBuilder.setStatus(TaskActionStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. task=" + task + ", clientTime=" + clientTime);
       return false;
     } 
 
     if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
       resBuilder.setStatus(TaskActionStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + clientTime + ", servertime~="
+          + new Date());
       return false;
     }
 
     if (user.getEnergy() < task.getEnergyCost()) {
       resBuilder.setStatus(TaskActionStatus.USER_NOT_ENOUGH_ENERGY);
+      log.error("user does not have enough energy. user's energy=" + user.getEnergy() + ", task action requires"
+          + task.getEnergyCost());
       return false;
     }
 
     int numReqEquipsWithoutQuantityReqFulfilled = getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(user, task);
     if (numReqEquipsWithoutQuantityReqFulfilled != 0) {
       resBuilder.setStatus(TaskActionStatus.USER_NOT_ALL_REQUIRED_ITEMS);
+      log.error("user does not have all equips required for tasks. missing x types of equips, x=" + numReqEquipsWithoutQuantityReqFulfilled);
       return false;
     }
-
     resBuilder.setStatus(TaskActionStatus.SUCCESS);
     return true;
   }
@@ -346,10 +352,11 @@ public class TaskActionController extends EventController {
         if (quantityReq != null && quantityReq <= ue.getQuantity()) {
           numReqEquipsWithoutQuantityReqFulfilled--;
           if (numReqEquipsWithoutQuantityReqFulfilled == 0) break;
+        } else {
+          log.error("user is missing ");
         }
       }
     }
-
     return numReqEquipsWithoutQuantityReqFulfilled;
   }
 
