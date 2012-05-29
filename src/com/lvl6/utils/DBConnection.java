@@ -176,9 +176,9 @@ public class DBConnection {
       }
       rs = stmt.executeQuery();
     } catch (SQLException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
     } catch (NullPointerException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
     }
     return rs;
   }
@@ -202,9 +202,9 @@ public class DBConnection {
       int numUpdated = stmt.executeUpdate();
       return numUpdated;
     } catch (SQLException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
     } catch (NullPointerException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
     } finally {
       close(null, stmt, conn);
     }
@@ -273,7 +273,7 @@ public class DBConnection {
       }
       numUpdated = stmt.executeUpdate();
     } catch (SQLException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
       e.printStackTrace();
     } finally {
       close(null, stmt, conn);
@@ -310,7 +310,7 @@ public class DBConnection {
         }
         numUpdated = stmt.executeUpdate();
       } catch (SQLException e) {
-        log.error("problem with " + query, e);
+        log.error("problem with " + query + ", values are " + values, e);
         e.printStackTrace();
       } finally {
         close(null, stmt, conn);
@@ -371,7 +371,7 @@ public class DBConnection {
         }
         numUpdated = stmt.executeUpdate();
       } catch (SQLException e) {
-        log.error("problem with " + query, e);
+        log.error("problem with " + query + ", values are " + values, e);
         e.printStackTrace();
       } finally {
         close(null, stmt, conn);
@@ -415,7 +415,7 @@ public class DBConnection {
           }
         }
       } catch (SQLException e) {
-        log.error("problem with " + query, e);
+        log.error("problem with " + query + ", values are " + values, e);
         e.printStackTrace();
       } finally {
         close(null, stmt, conn);
@@ -457,7 +457,7 @@ public class DBConnection {
         }
         numUpdated = stmt.executeUpdate();
       } catch (SQLException e) {
-        log.error("problem with " + query, e);
+        log.error("problem with " + query + ", values are " + values, e);
         e.printStackTrace();
       } finally {
         close(null, stmt, conn);
@@ -498,7 +498,7 @@ public class DBConnection {
       }
       numDeleted = stmt.executeUpdate();
     } catch (SQLException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
       e.printStackTrace();
     } finally {
       close(null, stmt, conn);
@@ -523,7 +523,7 @@ public class DBConnection {
       stmt.setInt(1, value);
       rs = stmt.executeQuery();
     } catch (SQLException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", int is " + value, e);
     } catch (NullPointerException e) {
       log.error("problem with " + query, e);
     }
@@ -621,9 +621,9 @@ public class DBConnection {
       }
       rs = stmt.executeQuery();
     } catch (SQLException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
     } catch (NullPointerException e) {
-      log.error("problem with " + query, e);
+      log.error("problem with " + query + ", values are " + values, e);
     }
     return rs;
   }

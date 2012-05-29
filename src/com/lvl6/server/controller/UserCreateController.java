@@ -338,44 +338,54 @@ public class UserCreateController extends EventController {
     if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
       if (attack < ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        log.error("archer attack too low. attack is " + attack + ", init attack is " + ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK);
         return false;
       }
       if (defense < ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        log.error("archer defense too low. defense is " + defense + ", init defense is " + ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE);
         return false;
       }
     } else if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
       if (attack < ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        log.error("warrior attack too low. attack is " + attack + ", init attack is " + ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK);
         return false;
       }
       if (defense < ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        log.error("warrior defense too low. defense is " + defense + ", init defense is " + ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE);
         return false;
       }      
     } else if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
       if (attack < ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        log.error("mage attack too low. attack is " + attack + ", init attack is " + ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK);
         return false;
       }
       if (defense < ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE) {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        log.error("mage defense too low. defense is " + defense + ", init defense is " + ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE);
         return false;
       }            
     } else {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      log.error("unkown user type. type=" + type);
       return false;
     }
     if (energy < ControllerConstants.TUTORIAL__INIT_ENERGY) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      log.error("energy too low. energy is " + energy + ", init energy is " + ControllerConstants.TUTORIAL__INIT_ENERGY);
       return false;      
     }
     if (health < ControllerConstants.TUTORIAL__INIT_HEALTH) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      log.error("health too low. health is " + health + ", init health is " + ControllerConstants.TUTORIAL__INIT_HEALTH);
       return false;
     }
     if (stamina < ControllerConstants.TUTORIAL__INIT_STAMINA) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      log.error("stamina too low. stamina is " + stamina + ", init stamina is " + ControllerConstants.TUTORIAL__INIT_STAMINA);
       return false;
     }
 

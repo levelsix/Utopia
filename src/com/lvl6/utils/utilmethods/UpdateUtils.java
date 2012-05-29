@@ -22,7 +22,7 @@ import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+//  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
   public static void updateNullifyDeviceTokens(Set<String> deviceTokens) {
     if (deviceTokens != null && deviceTokens.size() > 0) {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
@@ -83,6 +85,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class CreateInfoProtoUtils {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public static ReferralNotificationProto createReferralNotificationProtoFromReferral(
       Referral r, User newlyReferred) {
@@ -535,6 +538,8 @@ public class CreateInfoProtoUtils {
           numComponentsComplete = quest.getNumComponents(goodSide);
         }
         fullUserQuestDataLargeProtos.add(builder.setNumComponentsComplete(numComponentsComplete).build());
+      } else {
+        log.error("no quest with id " + userQuest.getQuestId() + ", userQuest=" + userQuest);
       }
     }
     return fullUserQuestDataLargeProtos;

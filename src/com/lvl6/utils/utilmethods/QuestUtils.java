@@ -44,6 +44,8 @@ public class QuestUtils {
             QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
                 justBuiltStructId, justUpgradedStructId, justUpgradedStructLevel, justObtainedEquipId, 
                 justObtainedEquipQuantity);
+          } else {
+            log.error("quest for userQuest does not exist. user quest's quest is " + userQuest.getQuestId());
           }
         }
       }
@@ -161,7 +163,7 @@ public class QuestUtils {
         sendQuestCompleteResponse(server, senderProto, quest);
       }
       if (!userQuest.isComplete() && !UpdateUtils.updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
-        log.error("problem with marking user quest as complete");
+        log.error("problem with marking user quest as complete. userquest=" + userQuest);
       }
       return true;
     }
