@@ -138,12 +138,13 @@ public class UserQuestRetrieveUtils {
     int userId = rs.getInt(i++);
     int questId = rs.getInt(i++);
     boolean isRedeemed = rs.getBoolean(i++);
+    boolean isComplete = rs.getBoolean(i++);
     boolean tasksComplete = rs.getBoolean(i++);
     boolean defeatTypeJobsComplete = rs.getBoolean(i++);
-    boolean isComplete = rs.getBoolean(i++);
-
-    UserQuest userQuest = new UserQuest(userId, questId, isRedeemed, tasksComplete, 
-        defeatTypeJobsComplete, isComplete);
+    int coinsRetrievedForReq = rs.getInt(i++);
+    
+    UserQuest userQuest = new UserQuest(userId, questId, isRedeemed, isComplete, tasksComplete, 
+        defeatTypeJobsComplete, coinsRetrievedForReq);
     return userQuest;
   }
   

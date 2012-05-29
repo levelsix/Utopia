@@ -32,18 +32,14 @@ public class QuestUtils {
   
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto, 
-      Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
-      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
+  public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getIncompleteUserQuestsForUser(userId);
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
         if (!userQuest.isComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
           if (quest != null) {
-            QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
-                justBuiltStructId, justUpgradedStructId, justUpgradedStructLevel, justObtainedEquipId, 
-                justObtainedEquipQuantity);
+            QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true);
           } else {
             log.error("quest for userQuest does not exist. user quest's quest is " + userQuest.getQuestId());
           }
@@ -53,26 +49,12 @@ public class QuestUtils {
   }
 
   public static boolean checkQuestCompleteAndMaybeSend(GameServer server, Quest quest, UserQuest userQuest,
-      MinimumUserProto senderProto, boolean sendCompleteMessageIfJustCompleted, 
-      Integer justBuiltStructId, Integer justUpgradedStructId, Integer justUpgradedStructLevel, 
-      Integer justObtainedEquipId, Integer justObtainedEquipQuantity) {
-
-    boolean sendMessage = false;
-
-    if (sendCompleteMessageIfJustCompleted && 
-        justBuiltStructId == null && justUpgradedStructId == null && justUpgradedStructLevel == null && 
-        justObtainedEquipId == null) {    //came from task or defeat job type
-      sendMessage = true;
-    }
-
-    /* for tasks and defeattypejobs, doing those triggers this. 
-     * if justBuiltStructId isnt null and it didnt cause the quest completion, sendMessage = false
-     * if justObtainedEquip isnt null and it didnt cause the quest completion, sendMessage = false
-     * if justUpgradedStructId isnt null and it didnt cause the quest completion, sendMessage = false
-     *    and level
-     */
-
+      MinimumUserProto senderProto, boolean sendCompleteMessageIfJustCompleted) {
+    if (userQuest.isComplete()) return true;                        //already completed
+      
     if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
+      if (userQuest.getCoinsRetrievedForReq() < quest.getCoinRetrievalReq()) return false;
+      
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();
       List<Integer> upgradeStructJobsRequired = quest.getUpgradeStructJobsRequired();
       List<Integer> possessEquipJobsRequired = quest.getPossessEquipJobsRequired();
@@ -87,9 +69,7 @@ public class QuestUtils {
         if (buildStructJobsRequired != null && buildStructJobsRequired.size()>0) {
           Map<Integer, BuildStructJob> bsjs = BuildStructJobRetrieveUtils.getBuildStructJobsForBuildStructJobIds(buildStructJobsRequired);
 
-          boolean justCompletedBuildStructJob = false;
           for (BuildStructJob bsj : bsjs.values()) {
-
             int quantityBuilt = 0;
             if (structIdsToUserStructs.get(bsj.getStructId()) != null) {
               for (UserStruct us : structIdsToUserStructs.get(bsj.getStructId())) {
@@ -98,43 +78,27 @@ public class QuestUtils {
                 }
               }
             }
-
             if (quantityBuilt <  bsj.getQuantity()) {
               return false;
-            } else {
-              if (justBuiltStructId != null && justBuiltStructId == bsj.getStructId() && quantityBuilt == bsj.getQuantity()) {
-                justCompletedBuildStructJob = true;
-              }
             }
-          }
-          if (justCompletedBuildStructJob && sendCompleteMessageIfJustCompleted) {
-            sendMessage = true;
           }
         }
 
         if (upgradeStructJobsRequired != null && upgradeStructJobsRequired.size()>0) {
           Map<Integer, UpgradeStructJob> usjs = UpgradeStructJobRetrieveUtils.getUpgradeStructJobsForUpgradeStructJobIds(upgradeStructJobsRequired);
-
-          boolean justCompletedUpgradeStructJob = false;
           for (UpgradeStructJob usj : usjs.values()) {
             if (structIdsToUserStructs.get(usj.getStructId()) == null) {
               return false;
             }
             boolean usjComplete = false;
-            int numStructsThatJustCompletedThisUpgradeStructJob = 0;
             for (UserStruct us : structIdsToUserStructs.get(usj.getStructId())) {
               if (us.getLevel() >= usj.getLevelReq()) {
                 usjComplete = true;
               }
-              if (justUpgradedStructLevel != null && justUpgradedStructId != null && usj.getLevelReq() == justUpgradedStructLevel && usj.getStructId() == justUpgradedStructId) numStructsThatJustCompletedThisUpgradeStructJob++;
             }
-            if (numStructsThatJustCompletedThisUpgradeStructJob == 1) justCompletedUpgradeStructJob = true;
             if (!usjComplete) {
               return false;
             }
-          }
-          if (justCompletedUpgradeStructJob && sendCompleteMessageIfJustCompleted) {
-            sendMessage = true;
           }
         }
       }
@@ -144,22 +108,13 @@ public class QuestUtils {
           return false;
         }
         Map<Integer, PossessEquipJob> pejs = PossessEquipJobRetrieveUtils.getPossessEquipJobsForPossessEquipJobIds(possessEquipJobsRequired);
-        boolean justCompletedPossessEquipJob = false;
         for (PossessEquipJob pej : pejs.values()) {
           if (equipIdsToUserEquips.get(pej.getEquipId()) == null || equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() < pej.getQuantity()) {
             return false;
-          } else {
-            if (justObtainedEquipQuantity != null && justObtainedEquipId == pej.getEquipId() && 
-                equipIdsToUserEquips.get(pej.getEquipId()).getQuantity() - justObtainedEquipQuantity <  pej.getQuantity()) {
-              justCompletedPossessEquipJob = true;
-            }
-          }
-        }
-        if (justCompletedPossessEquipJob && sendCompleteMessageIfJustCompleted) {
-          sendMessage = true;
+          } 
         }
       }
-      if (server != null && senderProto != null && sendMessage) {
+      if (server != null && senderProto != null && sendCompleteMessageIfJustCompleted) {
         sendQuestCompleteResponse(server, senderProto, quest);
       }
       if (!userQuest.isComplete() && !UpdateUtils.updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {

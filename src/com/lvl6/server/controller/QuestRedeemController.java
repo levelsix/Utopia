@@ -148,7 +148,7 @@ public class QuestRedeemController extends EventController {
         log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
             + quest.getEquipIdGained());
       } else {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, null, null, quest.getEquipIdGained(), 1);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
       }
     }
 

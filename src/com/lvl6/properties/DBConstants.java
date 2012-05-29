@@ -186,9 +186,10 @@ public class DBConstants {
   public static final String USER_QUESTS__USER_ID = GENERIC__USER_ID;
   public static final String USER_QUESTS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS__IS_REDEEMED = "is_redeemed"; 
+  public static final String USER_QUESTS__IS_COMPLETE = "is_complete";
   public static final String USER_QUESTS__TASKS_COMPLETE = "tasks_complete"; 
   public static final String USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE = "defeat_type_jobs_complete"; 
-  public static final String USER_QUESTS__IS_COMPLETE = "is_complete";
+  public static final String USER_QUESTS__COINS_RETRIEVED_FOR_REQ = "coins_retrieved_for_req";
 
   /*USER QUESTS COMPLETED TASKS TABLE*/
   public static final String USER_QUESTS_COMPLETED_TASKS__USER_ID = GENERIC__USER_ID;
@@ -211,7 +212,7 @@ public class DBConstants {
   public static final String USER_QUESTS_TASK_PROGRESS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS_TASK_PROGRESS__TASK_ID = "task_id";
   public static final String USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED = "num_times_acted";
-  
+
   /*BATTLE HISTORY*/
   public static final String BATTLE_HISTORY__ATTACKER_ID = "attacker_id";
   public static final String BATTLE_HISTORY__DEFENDER_ID = "defender_id";

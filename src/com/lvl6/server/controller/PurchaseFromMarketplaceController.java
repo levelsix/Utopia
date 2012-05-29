@@ -96,8 +96,7 @@ public class PurchaseFromMarketplaceController extends EventController {
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(seller);
           server.writeEvent(resEventUpdate);
           
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, 
-              null, null, null, mp.getPostedEquipId(), 1);
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto);
         }
       }
     } catch (Exception e) {

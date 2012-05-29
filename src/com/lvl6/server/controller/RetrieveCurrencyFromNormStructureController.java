@@ -1,7 +1,9 @@
 package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -9,8 +11,10 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveCurrencyFromNormStructureRequestEvent;
 import com.lvl6.events.response.RetrieveCurrencyFromNormStructureResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
+import com.lvl6.info.UserQuest;
 import com.lvl6.info.UserStruct;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureRequestProto;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto;
@@ -18,10 +22,14 @@ import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.server.GameServer;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 public class RetrieveCurrencyFromNormStructureController extends EventController{
@@ -63,15 +71,17 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       
-      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, userStruct, struct, timeOfRetrieval);
+      int coinGain = MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel());
+      
+      boolean legitRetrieval = checkLegitRetrieval(resBuilder, user, userStruct, struct, timeOfRetrieval, coinGain);
       
       if (legitRetrieval) {
-        if (!user.updateRelativeCoinsCoinsretrievedfromstructs(MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()))) {
-          log.error("problem with updating user stats after retrieving currency");
+        if (!user.updateRelativeCoinsCoinsretrievedfromstructs(coinGain)) {
+          log.error("problem with updating user stats after retrieving " + coinGain + " silver");
           legitRetrieval = false;
         }
         if (!UpdateUtils.updateUserStructLastretrieved(userStructId, timeOfRetrieval)) {
-          log.error("problem with updating user stats");
+          log.error("problem with updating user struct last retrieved for userStructId " + userStructId + " to " + timeOfRetrieval);
           legitRetrieval = false;
         }
       }
@@ -85,6 +95,8 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        
+        updateAndCheckUserQuests(server, coinGain, senderProto);        
       }
 
     } catch (Exception e) {
@@ -94,7 +106,32 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
     }
   }
 
-  private boolean checkLegitRetrieval(Builder resBuilder, User user, UserStruct userStruct, Structure struct, Timestamp timeOfRetrieval) {
+  private void updateAndCheckUserQuests(GameServer server, int coinGain, MinimumUserProto senderProto) {
+    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getIncompleteUserQuestsForUser(senderProto.getUserId());
+    if (inProgressUserQuests != null) {
+      List<Integer> relevantQuests = new ArrayList<Integer>();
+      for (UserQuest userQuest : inProgressUserQuests) {
+        if (!userQuest.isComplete()) {
+          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
+          if (quest != null) {
+            if (quest.getCoinRetrievalReq() > 0) {
+              userQuest.setCoinsRetrievedForReq(userQuest.getCoinsRetrievedForReq() + coinGain);
+              QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true);
+              relevantQuests.add(quest.getId());
+            }
+          } else {
+            log.error("quest for userQuest does not exist. user quest's quest is " + userQuest.getQuestId());
+          }
+        }
+      }
+      if (!UpdateUtils.updateUserQuestsCoinsretrievedforreq(senderProto.getUserId(), relevantQuests, coinGain)) {
+        log.error("problem with incrementing coins retrieved by " + coinGain + " in user quest info for these quests:" + relevantQuests);
+      }
+    }
+  }
+
+  private boolean checkLegitRetrieval(Builder resBuilder, User user, UserStruct userStruct, Structure struct, Timestamp timeOfRetrieval,
+      int coinGain) {
     // TODO Auto-generated method stub
     if (user == null || userStruct == null || timeOfRetrieval == null || userStruct.getLastRetrieved() == null) {
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
@@ -118,6 +155,11 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
       resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.NOT_LONG_ENOUGH);
       log.error("struct not ready for retrieval yet. time of retrieval=" + timeOfRetrieval
           + ", userStruct=" + userStruct + ", takes this many minutes to gain:" + struct.getMinutesToGain()); 
+      return false;
+    }
+    if (coinGain <= 0) {
+      resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL);
+      log.error("coinGain <= 0. coinGain is " + coinGain);
       return false;
     }
     resBuilder.setStatus(RetrieveCurrencyFromNormStructureStatus.SUCCESS);

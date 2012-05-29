@@ -245,6 +245,8 @@ public class QuestRetrieveUtils {
         possessEquipJobsRequired.add(Integer.parseInt(st.nextToken()));
       }
     }
+    
+    int coinRetrievalReq = rs.getInt(i++);
 
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, 
@@ -252,7 +254,7 @@ public class QuestRetrieveUtils {
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, defeatGoodGuysRequired, 
-        defeatBadGuysRequired, possessEquipJobsRequired);
+        defeatBadGuysRequired, possessEquipJobsRequired, coinRetrievalReq);
     return quest;
   }
 

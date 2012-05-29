@@ -22,6 +22,27 @@ public class UpdateUtils {
 
 //  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
+  public static boolean updateUserQuestsCoinsretrievedforreq(int userId, List <Integer> questIds, int coinGain) {
+    String query = "update " + DBConstants.TABLE_USER_QUESTS + " set " + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ
+        + "=" + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ + "+? where " 
+        + DBConstants.USER_QUESTS__USER_ID + "=? and (";
+    List<Object> values = new ArrayList<Object>();
+    values.add(coinGain);
+    values.add(userId);
+    List<String> condClauses = new ArrayList<String>();
+    for (Integer questId : questIds) {
+      condClauses.add(DBConstants.USER_QUESTS__QUEST_ID + "=?");
+      values.add(questId);
+    }
+    query += StringUtils.getListInString(condClauses, "or") + ")";
+    int numUpdated = DBConnection.updateDirectQueryNaive(query, values);
+    if (numUpdated == questIds.size()) {
+      return true;
+    }
+    return false;
+  }
+
+  
   public static void updateNullifyDeviceTokens(Set<String> deviceTokens) {
     if (deviceTokens != null && deviceTokens.size() > 0) {
       String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__DEVICE_TOKEN 

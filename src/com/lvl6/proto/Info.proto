@@ -329,6 +329,7 @@ message FullUserQuestDataLargeProto {
      repeated MinimumUserUpgradeStructJobProto requiredUpgradeStructJobProgress = 7;
      repeated MinimumUserPossessEquipJobProto requiredPossessEquipJobProgress = 8;
      repeated MinimumUserQuestTaskProto requiredTasksProgress = 9;
+     optional int32 coinsRetrievedForReq = 11;
      optional int32 numComponentsComplete = 10;
 }
 
@@ -427,6 +428,7 @@ message FullQuestProto {
      optional DialogueProto acceptDialogue = 20;
      
      optional string questGiverName = 21;
+     optional int32 coinRetrievalReq = 22;
 }
 
 //------------------------------------------------------------------------------------------

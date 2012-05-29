@@ -152,7 +152,7 @@ public class BattleController extends EventController {
             checkQuestsPostBattle(winner, defender.getType(),
                 attackerProto, reqProto.getNeutralCityId(), lostEquip);
           } else if (lostEquip != null) {
-            QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto, null, null, null, lostEquip.getEquipId(), 1);
+            QuestUtils.checkAndSendQuestsCompleteBasic(server, attacker.getId(), attackerProto);
           }
         }
 
@@ -244,7 +244,7 @@ public class BattleController extends EventController {
                         if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
                           if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
                             userQuest.setDefeatTypeJobsComplete(true);
-                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true, null, null, null, null, null);
+                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true);
                           } else {
                             log.error("problem with marking all defeat type jobs in quest " 
                                 + quest.getId() + " completed for a user " + attacker.getId() + " after completing defeat type job with id "
@@ -266,8 +266,7 @@ public class BattleController extends EventController {
               }
             }
             if (lostEquip != null && !questCompletedAndSent) {
-              QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true,
-                  null, null, null, lostEquip.getEquipId(), 1);
+              QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, attackerProto, true);
             }
           }
         }

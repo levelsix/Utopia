@@ -91,12 +91,10 @@ public class NormStructWaitCompleteController extends EventController{
       
       if (legitWaitComplete) {
         for (UserStruct upgradeDone : upgradesDone) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto, 
-              null, upgradeDone.getStructId(), upgradeDone.getLevel()+1, null, null);          
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);          
         }
         for (UserStruct buildDone : buildsDone) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto, 
-              buildDone.getStructId(), null, null, null, null);          
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);          
         }
       }
     } catch (Exception e) {

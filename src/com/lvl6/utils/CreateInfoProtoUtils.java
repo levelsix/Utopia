@@ -170,7 +170,8 @@ public class CreateInfoProtoUtils {
         .addAllTaskReqs(quest.getTasksRequired()).addAllUpgradeStructJobsReqs(quest.getUpgradeStructJobsRequired())
         .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired())
         .addAllDefeatTypeReqs(defeatTypeReqs).addAllPossessEquipJobReqs(quest.getPossessEquipJobsRequired())
-        .setNumComponentsForGood(quest.getNumComponents(true)).setNumComponentsForBad(quest.getNumComponents(false));
+        .setNumComponentsForGood(quest.getNumComponents(true)).setNumComponentsForBad(quest.getNumComponents(false))
+        .setCoinRetrievalReq(quest.getCoinRetrievalReq());
     if (acceptDialogue != null) {
       builder.setAcceptDialogue(createDialogueProtoFromDialogue(acceptDialogue));
     }
@@ -410,6 +411,7 @@ public class CreateInfoProtoUtils {
         builder.setQuestId(quest.getId());
         builder.setIsRedeemed(userQuest.isRedeemed());
         builder.setIsComplete(userQuest.isComplete());
+        builder.setCoinsRetrievedForReq(userQuest.getCoinsRetrievedForReq());
         
         if (!userQuest.isRedeemed() && !userQuest.isComplete()) {
           List<Integer> tasksRequired = quest.getTasksRequired(); 
@@ -532,6 +534,11 @@ public class CreateInfoProtoUtils {
                 numComponentsComplete++;
               }
               builder.addRequiredPossessEquipJobProgress(createMinimumUserPossessEquipJobProto(userQuest, possessEquipJob, quantityOwned));
+            }
+          }
+          if (quest.getCoinRetrievalReq() > 0) {
+            if (userQuest.getCoinsRetrievedForReq() >= quest.getCoinRetrievalReq()) {
+              numComponentsComplete++;
             }
           }
         } else {

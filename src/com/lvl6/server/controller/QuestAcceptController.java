@@ -76,9 +76,9 @@ public class QuestAcceptController extends EventController {
             : quest.getDefeatGoodGuysJobsRequired();
         if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) defeatTypeJobsComplete = false;
         
-        UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete, false);
+        UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete, false, 0);
         writeChangesToDB(uq);
-        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true, null, null, null, null, null);
+        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true);
       }
 
     } catch (Exception e) {
