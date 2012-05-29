@@ -1237,6 +1237,7 @@ message LoadNeutralCityResponseProto {
      repeated FullUserProto defeatTypeJobEnemies = 4;
      repeated NeutralCityElementProto cityElements = 5;
      optional int32 cityId = 6;
+     repeated FullUserQuestDataLargeProto inProgressUserQuestDataInCity = 7;
      
      enum LoadNeutralCityStatus {
      	SUCCESS = 0;

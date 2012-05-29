@@ -16,6 +16,7 @@ import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.proto.EventProto.LoadNeutralCityRequestProto;
 import com.lvl6.proto.EventProto.LoadNeutralCityResponseProto;
@@ -26,6 +27,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -92,6 +94,18 @@ public class LoadNeutralCityController extends EventController {
         if (questsInCity != null && questsInCity.size() > 0) {
           setResponseDefeatTypeJobEnemies(resBuilder, questsInCity, user, cityId);
         }
+        
+        List<UserQuest> allUnredeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(senderProto.getUserId());
+        List<UserQuest> userQuestsInCity = new ArrayList<UserQuest>();
+        if (allUnredeemedUserQuests != null && allUnredeemedUserQuests.size() > 0) {
+          for (UserQuest uq : allUnredeemedUserQuests) {
+            Quest q = QuestRetrieveUtils.getQuestForQuestId(uq.getQuestId());
+            if (q.getCityId() == cityId) {
+              userQuestsInCity.add(uq);
+            }
+          }
+          addFullUserQuestDataLarges(resBuilder, userQuestsInCity, senderProto.getUserType());
+        }
       }
 
       LoadNeutralCityResponseEvent resEvent = new LoadNeutralCityResponseEvent(senderProto.getUserId());
@@ -104,6 +118,11 @@ public class LoadNeutralCityController extends EventController {
     } finally {
       server.unlockPlayer(senderProto.getUserId());      
     }
+  }
+  
+  private void addFullUserQuestDataLarges(Builder resBuilder, List<UserQuest> inProgressUserQuests, UserType userType) {
+    Map<Integer, Quest> questIdsToQuests = QuestRetrieveUtils.getQuestIdsToQuests();
+    resBuilder.addAllInProgressUserQuestDataInCity(CreateInfoProtoUtils.createFullUserQuestDataLarges(inProgressUserQuests, questIdsToQuests, userType));
   }
 
   private void setResponseDefeatTypeJobEnemies(Builder resBuilder, List<Quest> questsInCity, User user, int cityId) {

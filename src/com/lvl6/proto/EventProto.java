@@ -73745,6 +73745,16 @@ public final class EventProto {
     // optional int32 cityId = 6;
     boolean hasCityId();
     int getCityId();
+    
+    // repeated .com.lvl6.proto.FullUserQuestDataLargeProto inProgressUserQuestDataInCity = 7;
+    java.util.List<com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto> 
+        getInProgressUserQuestDataInCityList();
+    com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto getInProgressUserQuestDataInCity(int index);
+    int getInProgressUserQuestDataInCityCount();
+    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder> 
+        getInProgressUserQuestDataInCityOrBuilderList();
+    com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder getInProgressUserQuestDataInCityOrBuilder(
+        int index);
   }
   public static final class LoadNeutralCityResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -73943,6 +73953,27 @@ public final class EventProto {
       return cityId_;
     }
     
+    // repeated .com.lvl6.proto.FullUserQuestDataLargeProto inProgressUserQuestDataInCity = 7;
+    public static final int INPROGRESSUSERQUESTDATAINCITY_FIELD_NUMBER = 7;
+    private java.util.List<com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto> inProgressUserQuestDataInCity_;
+    public java.util.List<com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto> getInProgressUserQuestDataInCityList() {
+      return inProgressUserQuestDataInCity_;
+    }
+    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder> 
+        getInProgressUserQuestDataInCityOrBuilderList() {
+      return inProgressUserQuestDataInCity_;
+    }
+    public int getInProgressUserQuestDataInCityCount() {
+      return inProgressUserQuestDataInCity_.size();
+    }
+    public com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto getInProgressUserQuestDataInCity(int index) {
+      return inProgressUserQuestDataInCity_.get(index);
+    }
+    public com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder getInProgressUserQuestDataInCityOrBuilder(
+        int index) {
+      return inProgressUserQuestDataInCity_.get(index);
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       status_ = com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.LoadNeutralCityStatus.SUCCESS;
@@ -73950,6 +73981,7 @@ public final class EventProto {
       defeatTypeJobEnemies_ = java.util.Collections.emptyList();
       cityElements_ = java.util.Collections.emptyList();
       cityId_ = 0;
+      inProgressUserQuestDataInCity_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -73980,6 +74012,9 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(6, cityId_);
+      }
+      for (int i = 0; i < inProgressUserQuestDataInCity_.size(); i++) {
+        output.writeMessage(7, inProgressUserQuestDataInCity_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -74013,6 +74048,10 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, cityId_);
+      }
+      for (int i = 0; i < inProgressUserQuestDataInCity_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, inProgressUserQuestDataInCity_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -74134,6 +74173,7 @@ public final class EventProto {
           getUserTasksInfoFieldBuilder();
           getDefeatTypeJobEnemiesFieldBuilder();
           getCityElementsFieldBuilder();
+          getInProgressUserQuestDataInCityFieldBuilder();
         }
       }
       private static Builder create() {
@@ -74170,6 +74210,12 @@ public final class EventProto {
         }
         cityId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          inProgressUserQuestDataInCity_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+        } else {
+          inProgressUserQuestDataInCityBuilder_.clear();
+        }
         return this;
       }
       
@@ -74251,6 +74297,15 @@ public final class EventProto {
           to_bitField0_ |= 0x00000004;
         }
         result.cityId_ = cityId_;
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+            inProgressUserQuestDataInCity_ = java.util.Collections.unmodifiableList(inProgressUserQuestDataInCity_);
+            bitField0_ = (bitField0_ & ~0x00000040);
+          }
+          result.inProgressUserQuestDataInCity_ = inProgressUserQuestDataInCity_;
+        } else {
+          result.inProgressUserQuestDataInCity_ = inProgressUserQuestDataInCityBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -74354,6 +74409,32 @@ public final class EventProto {
         if (other.hasCityId()) {
           setCityId(other.getCityId());
         }
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          if (!other.inProgressUserQuestDataInCity_.isEmpty()) {
+            if (inProgressUserQuestDataInCity_.isEmpty()) {
+              inProgressUserQuestDataInCity_ = other.inProgressUserQuestDataInCity_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+            } else {
+              ensureInProgressUserQuestDataInCityIsMutable();
+              inProgressUserQuestDataInCity_.addAll(other.inProgressUserQuestDataInCity_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.inProgressUserQuestDataInCity_.isEmpty()) {
+            if (inProgressUserQuestDataInCityBuilder_.isEmpty()) {
+              inProgressUserQuestDataInCityBuilder_.dispose();
+              inProgressUserQuestDataInCityBuilder_ = null;
+              inProgressUserQuestDataInCity_ = other.inProgressUserQuestDataInCity_;
+              bitField0_ = (bitField0_ & ~0x00000040);
+              inProgressUserQuestDataInCityBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getInProgressUserQuestDataInCityFieldBuilder() : null;
+            } else {
+              inProgressUserQuestDataInCityBuilder_.addAllMessages(other.inProgressUserQuestDataInCity_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -74426,6 +74507,12 @@ public final class EventProto {
             case 48: {
               bitField0_ |= 0x00000020;
               cityId_ = input.readInt32();
+              break;
+            }
+            case 58: {
+              com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addInProgressUserQuestDataInCity(subBuilder.buildPartial());
               break;
             }
           }
@@ -75125,6 +75212,192 @@ public final class EventProto {
         cityId_ = 0;
         onChanged();
         return this;
+      }
+      
+      // repeated .com.lvl6.proto.FullUserQuestDataLargeProto inProgressUserQuestDataInCity = 7;
+      private java.util.List<com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto> inProgressUserQuestDataInCity_ =
+        java.util.Collections.emptyList();
+      private void ensureInProgressUserQuestDataInCityIsMutable() {
+        if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+          inProgressUserQuestDataInCity_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto>(inProgressUserQuestDataInCity_);
+          bitField0_ |= 0x00000040;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder> inProgressUserQuestDataInCityBuilder_;
+      
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto> getInProgressUserQuestDataInCityList() {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(inProgressUserQuestDataInCity_);
+        } else {
+          return inProgressUserQuestDataInCityBuilder_.getMessageList();
+        }
+      }
+      public int getInProgressUserQuestDataInCityCount() {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          return inProgressUserQuestDataInCity_.size();
+        } else {
+          return inProgressUserQuestDataInCityBuilder_.getCount();
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto getInProgressUserQuestDataInCity(int index) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          return inProgressUserQuestDataInCity_.get(index);
+        } else {
+          return inProgressUserQuestDataInCityBuilder_.getMessage(index);
+        }
+      }
+      public Builder setInProgressUserQuestDataInCity(
+          int index, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto value) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInProgressUserQuestDataInCityIsMutable();
+          inProgressUserQuestDataInCity_.set(index, value);
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setInProgressUserQuestDataInCity(
+          int index, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder builderForValue) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          ensureInProgressUserQuestDataInCityIsMutable();
+          inProgressUserQuestDataInCity_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addInProgressUserQuestDataInCity(com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto value) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInProgressUserQuestDataInCityIsMutable();
+          inProgressUserQuestDataInCity_.add(value);
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addInProgressUserQuestDataInCity(
+          int index, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto value) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInProgressUserQuestDataInCityIsMutable();
+          inProgressUserQuestDataInCity_.add(index, value);
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addInProgressUserQuestDataInCity(
+          com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder builderForValue) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          ensureInProgressUserQuestDataInCityIsMutable();
+          inProgressUserQuestDataInCity_.add(builderForValue.build());
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addInProgressUserQuestDataInCity(
+          int index, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder builderForValue) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          ensureInProgressUserQuestDataInCityIsMutable();
+          inProgressUserQuestDataInCity_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllInProgressUserQuestDataInCity(
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto> values) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          ensureInProgressUserQuestDataInCityIsMutable();
+          super.addAll(values, inProgressUserQuestDataInCity_);
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearInProgressUserQuestDataInCity() {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          inProgressUserQuestDataInCity_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeInProgressUserQuestDataInCity(int index) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          ensureInProgressUserQuestDataInCityIsMutable();
+          inProgressUserQuestDataInCity_.remove(index);
+          onChanged();
+        } else {
+          inProgressUserQuestDataInCityBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder getInProgressUserQuestDataInCityBuilder(
+          int index) {
+        return getInProgressUserQuestDataInCityFieldBuilder().getBuilder(index);
+      }
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder getInProgressUserQuestDataInCityOrBuilder(
+          int index) {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          return inProgressUserQuestDataInCity_.get(index);  } else {
+          return inProgressUserQuestDataInCityBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder> 
+           getInProgressUserQuestDataInCityOrBuilderList() {
+        if (inProgressUserQuestDataInCityBuilder_ != null) {
+          return inProgressUserQuestDataInCityBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(inProgressUserQuestDataInCity_);
+        }
+      }
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder addInProgressUserQuestDataInCityBuilder() {
+        return getInProgressUserQuestDataInCityFieldBuilder().addBuilder(
+            com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.getDefaultInstance());
+      }
+      public com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder addInProgressUserQuestDataInCityBuilder(
+          int index) {
+        return getInProgressUserQuestDataInCityFieldBuilder().addBuilder(
+            index, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.getDefaultInstance());
+      }
+      public java.util.List<com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder> 
+           getInProgressUserQuestDataInCityBuilderList() {
+        return getInProgressUserQuestDataInCityFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder> 
+          getInProgressUserQuestDataInCityFieldBuilder() {
+        if (inProgressUserQuestDataInCityBuilder_ == null) {
+          inProgressUserQuestDataInCityBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto.Builder, com.lvl6.proto.InfoProto.FullUserQuestDataLargeProtoOrBuilder>(
+                  inProgressUserQuestDataInCity_,
+                  ((bitField0_ & 0x00000040) == 0x00000040),
+                  getParentForChildren(),
+                  isClean());
+          inProgressUserQuestDataInCity_ = null;
+        }
+        return inProgressUserQuestDataInCityBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LoadNeutralCityResponseProto)
@@ -81889,7 +82162,7 @@ public final class EventProto {
       "\013\n\007SUCCESS\020\000\022\022\n\016INVALID_BOUNDS\020\001\022\016\n\nOTHE" +
       "R_FAIL\020\002\"_\n\033LoadNeutralCityRequestProto\022" +
       "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022\016\n\006cityId\030\002 \001(\005\"\277\003\n\034LoadNeutra" +
+      "UserProto\022\016\n\006cityId\030\002 \001(\005\"\223\004\n\034LoadNeutra" +
       "lCityResponseProto\0220\n\006sender\030\001 \001(\0132 .com" +
       ".lvl6.proto.MinimumUserProto\022R\n\006status\030\002" +
       " \001(\0162B.com.lvl6.proto.LoadNeutralCityRes" +
@@ -81898,48 +82171,50 @@ public final class EventProto {
       "UserTaskProto\022;\n\024defeatTypeJobEnemies\030\004 ",
       "\003(\0132\035.com.lvl6.proto.FullUserProto\022=\n\014ci" +
       "tyElements\030\005 \003(\0132\'.com.lvl6.proto.Neutra" +
-      "lCityElementProto\022\016\n\006cityId\030\006 \001(\005\"P\n\025Loa" +
-      "dNeutralCityStatus\022\013\n\007SUCCESS\020\000\022\032\n\026NOT_A" +
-      "CCESSIBLE_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"p\n$R" +
-      "etrieveUserEquipForUserRequestProto\0220\n\006s" +
+      "lCityElementProto\022\016\n\006cityId\030\006 \001(\005\022R\n\035inP" +
+      "rogressUserQuestDataInCity\030\007 \003(\0132+.com.l" +
+      "vl6.proto.FullUserQuestDataLargeProto\"P\n" +
+      "\025LoadNeutralCityStatus\022\013\n\007SUCCESS\020\000\022\032\n\026N" +
+      "OT_ACCESSIBLE_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"" +
+      "p\n$RetrieveUserEquipForUserRequestProto\022" +
+      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
+      "UserProto\022\026\n\016relevantUserId\030\002 \001(\005\"\251\001\n%Re",
+      "trieveUserEquipForUserResponseProto\0220\n\006s" +
       "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\026\n\016relevantUserId\030\002 \001(\005\"\251\001\n%Retrie" +
-      "veUserEquipForUserResponseProto\0220\n\006sende" +
-      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt",
-      "o\022\026\n\016relevantUserId\030\002 \001(\005\0226\n\nuserEquips\030" +
-      "\003 \003(\0132\".com.lvl6.proto.FullUserEquipProt" +
-      "o\"6\n\"PurgeClientStaticDataResponseProto\022" +
-      "\020\n\010senderId\030\001 \001(\005\"q\n#RetrieveUsersForUse" +
-      "rIdsRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\030\n\020requestedU" +
-      "serIds\030\002 \003(\005\"\217\001\n$RetrieveUsersForUserIds" +
-      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\0225\n\016requestedUser" +
-      "s\030\002 \003(\0132\035.com.lvl6.proto.FullUserProto\"v",
-      "\n\034PostOnPlayerWallRequestProto\0220\n\006sender" +
-      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022\023\n\013wallOwnerId\030\002 \001(\005\022\017\n\007content\030\003 \001(\t\"\272" +
-      "\002\n\035PostOnPlayerWallResponseProto\0220\n\006send" +
-      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022T\n\006status\030\002 \001(\0162D.com.lvl6.proto.Post" +
-      "OnPlayerWallResponseProto.PostOnPlayerWa" +
-      "llStatus\0221\n\004post\030\003 \001(\0132#.com.lvl6.proto." +
-      "PlayerWallPostProto\"^\n\026PostOnPlayerWallS" +
-      "tatus\022\013\n\007SUCCESS\020\000\022\023\n\017NO_CONTENT_SENT\020\001\022",
-      "\022\n\016POST_TOO_LARGE\020\002\022\016\n\nOTHER_FAIL\020\003\"\211\001\n#" +
-      "RetrievePlayerWallPostsRequestProto\0220\n\006s" +
-      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022\026\n\016relevantUserId\030\002 \001(\005\022\030\n\020beforeT" +
-      "hisPostId\030\003 \001(\005\"\352\002\n$RetrievePlayerWallPo" +
-      "stsResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\026\n\016relevantUs" +
-      "erId\030\002 \001(\005\022\030\n\020beforeThisPostId\030\003 \001(\005\022b\n\006" +
-      "status\030\004 \001(\0162R.com.lvl6.proto.RetrievePl" +
-      "ayerWallPostsResponseProto.RetrievePlaye",
-      "rWallPostsStatus\022<\n\017playerWallPosts\030\005 \003(" +
-      "\0132#.com.lvl6.proto.PlayerWallPostProto\"<" +
-      "\n\035RetrievePlayerWallPostsStatus\022\013\n\007SUCCE" +
-      "SS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
+      "Proto\022\026\n\016relevantUserId\030\002 \001(\005\0226\n\nuserEqu" +
+      "ips\030\003 \003(\0132\".com.lvl6.proto.FullUserEquip" +
+      "Proto\"6\n\"PurgeClientStaticDataResponsePr" +
+      "oto\022\020\n\010senderId\030\001 \001(\005\"q\n#RetrieveUsersFo" +
+      "rUserIdsRequestProto\0220\n\006sender\030\001 \001(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022\030\n\020reques" +
+      "tedUserIds\030\002 \003(\005\"\217\001\n$RetrieveUsersForUse" +
+      "rIdsResponseProto\0220\n\006sender\030\001 \001(\0132 .com.",
+      "lvl6.proto.MinimumUserProto\0225\n\016requested" +
+      "Users\030\002 \003(\0132\035.com.lvl6.proto.FullUserPro" +
+      "to\"v\n\034PostOnPlayerWallRequestProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022\023\n\013wallOwnerId\030\002 \001(\005\022\017\n\007content\030\003 \001" +
+      "(\t\"\272\002\n\035PostOnPlayerWallResponseProto\0220\n\006" +
+      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse" +
+      "rProto\022T\n\006status\030\002 \001(\0162D.com.lvl6.proto." +
+      "PostOnPlayerWallResponseProto.PostOnPlay" +
+      "erWallStatus\0221\n\004post\030\003 \001(\0132#.com.lvl6.pr",
+      "oto.PlayerWallPostProto\"^\n\026PostOnPlayerW" +
+      "allStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NO_CONTENT_SEN" +
+      "T\020\001\022\022\n\016POST_TOO_LARGE\020\002\022\016\n\nOTHER_FAIL\020\003\"" +
+      "\211\001\n#RetrievePlayerWallPostsRequestProto\022" +
+      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
+      "UserProto\022\026\n\016relevantUserId\030\002 \001(\005\022\030\n\020bef" +
+      "oreThisPostId\030\003 \001(\005\"\352\002\n$RetrievePlayerWa" +
+      "llPostsResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022\026\n\016releva" +
+      "ntUserId\030\002 \001(\005\022\030\n\020beforeThisPostId\030\003 \001(\005",
+      "\022b\n\006status\030\004 \001(\0162R.com.lvl6.proto.Retrie" +
+      "vePlayerWallPostsResponseProto.RetrieveP" +
+      "layerWallPostsStatus\022<\n\017playerWallPosts\030" +
+      "\005 \003(\0132#.com.lvl6.proto.PlayerWallPostPro" +
+      "to\"<\n\035RetrievePlayerWallPostsStatus\022\013\n\007S" +
+      "UCCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -82671,7 +82946,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_LoadNeutralCityResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "UserTasksInfo", "DefeatTypeJobEnemies", "CityElements", "CityId", },
+              new java.lang.String[] { "Sender", "Status", "UserTasksInfo", "DefeatTypeJobEnemies", "CityElements", "CityId", "InProgressUserQuestDataInCity", },
               com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.class,
               com.lvl6.proto.EventProto.LoadNeutralCityResponseProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveUserEquipForUserRequestProto_descriptor =
