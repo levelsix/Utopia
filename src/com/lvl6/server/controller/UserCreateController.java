@@ -288,37 +288,51 @@ public class UserCreateController extends EventController {
     
     if (udid == null || name == null || timeOfStructPurchase == null || coordinatePair == null || type == null || timeOfStructBuild == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. udid=" + udid + ", name=" + name + ", timeOfStructPurchase=" + timeOfStructPurchase
+          + ", coordinatePair=" + coordinatePair + ", type=" + type + ", timeOfStructBuild=" + timeOfStructBuild);
       return false;
     }
     if (hasReferrerCode && referrer == null) {
       resBuilder.setStatus(UserCreateStatus.INVALID_REFER_CODE);
+      log.info("refer code passed in is invalid.");
       return false;
     }
     int sumStat = attack + defense + energy + health + stamina;
     int correctBaseSumStat = calculateCorrectSumStat(MiscMethods.getClassTypeFromUserType(type));
     if (sumStat < correctBaseSumStat || sumStat > correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED*ControllerConstants.USE_SKILL_POINT__MAX_STAT_GAIN) {
       resBuilder.setStatus(UserCreateStatus.INVALID_SKILL_POINT_ALLOCATION);
+      log.error("invalid skill point allocation. sum stat range should be between " + correctBaseSumStat
+          + " and " + (correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED*ControllerConstants.USE_SKILL_POINT__MAX_STAT_GAIN)
+          + ", but it's at " + sumStat + ". attack=" + attack + ", defense=" + defense + ", energy=" + energy
+          + ", health=" + health + ", stamina=" + stamina + ", type=" + type);
       return false;
     }
-    
     if (UserRetrieveUtils.getUserByUDID(udid) != null) {
       resBuilder.setStatus(UserCreateStatus.USER_WITH_UDID_ALREADY_EXISTS);
+      log.error("user with udid " + udid + " already exists");
       return false;
     }
     if (timeOfStructBuild.getTime() <= timeOfStructPurchase.getTime() || 
         timeOfStructBuild.getTime() > new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000 ||
         timeOfStructPurchase.getTime() > new Date().getTime() + Globals.NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME*60000) {
       resBuilder.setStatus(UserCreateStatus.TIME_ISSUE);
+      log.error("time issue. time now is " + new Date() + ". timeOfStructBuild=" + timeOfStructBuild 
+          + ", timeOfStructPurchase=" + timeOfStructPurchase);
       return false;
     }
     if (loc.getLatitude() < ControllerConstants.LATITUDE_MIN || loc.getLatitude() > ControllerConstants.LATITUDE_MAX || 
         loc.getLongitude() < ControllerConstants.LONGITUDE_MIN || loc.getLongitude() > ControllerConstants.LONGITUDE_MAX) {
       resBuilder.setStatus(UserCreateStatus.INVALID_LOCATION);
+      log.error("location is out of bounds. location=" + loc + ". latitude is between " + ControllerConstants.LATITUDE_MIN
+          + " and " + ControllerConstants.LATITUDE_MAX + ". longitude is between " + ControllerConstants.LONGITUDE_MIN
+          + " and " + ControllerConstants.LONGITUDE_MAX);
       return false;
     }
     if (name.length() < ControllerConstants.USER_CREATE__MIN_NAME_LENGTH || 
         name.length() > ControllerConstants.USER_CREATE__MAX_NAME_LENGTH) {
       resBuilder.setStatus(UserCreateStatus.INVALID_NAME);
+      log.error("name length is off. length is " + name.length() + ", should be in between " + ControllerConstants.USER_CREATE__MIN_NAME_LENGTH
+          + " and " + ControllerConstants.USER_CREATE__MAX_NAME_LENGTH);
       return false;
     }
     if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
