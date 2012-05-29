@@ -61,6 +61,7 @@ public class UserQuestDetailsController extends EventController {
           questsToCheck.add(questToCheck);
         } else {
           resBuilder.setStatus(UserQuestDetailsStatus.SUPPLIED_QUESTID_CURRENTLY_NOT_IN_PROGRESS);
+          log.error("questId " + questId + "wasn't in progress for user before redeem attempt");
         }
       } else {
         questsToCheck = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(senderProto.getUserId());

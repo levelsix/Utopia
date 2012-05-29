@@ -99,34 +99,36 @@ public class UseSkillPointController extends EventController {
       int cost) {
     if (boostType == BoostType.ATTACK) {
       if (!user.updateRelativeAttackDefenseSkillPoints(gain, 0, cost*-1)) {
-        log.error("error in changing attack stats");
+        log.error("error in taking away " + cost + " skill points and giving " + gain + " attack");
       }
     } else if (boostType == BoostType.DEFENSE) {
       if (!user.updateRelativeAttackDefenseSkillPoints(0, gain, cost*-1)) {
-        log.error("error in changing defense stats");
+        log.error("error in taking away " + cost + " skill points and giving " + gain + " defense");
       }
     } else if (boostType == BoostType.ENERGY) {
       if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, 0, cost*-1)){
-        log.error("error in changing energy stats");
+        log.error("error in taking away " + cost + " skill points and giving " + gain + " energy/energymax");
       }
     } else if (boostType == BoostType.HEALTH) {
       if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(0, 0, gain, 0, 0, cost*-1)){
-        log.error("error in changing health stats");
+        log.error("error in taking away " + cost + " skill points and giving " + gain + " health max");
       }
     } else if (boostType == BoostType.STAMINA) {
       if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(0, 0, 0, gain, gain, cost*-1)){
-        log.error("error in changing stamina stats");
+        log.error("error in taking away " + cost + " skill points and giving " + gain + " stamina/staminamax");
       }
     } 
   }
 
   private boolean checkLegitBoost(Builder resBuilder, int gain, int cost, User user) {
-    if (gain == 0 && cost == 0) {
+    if (gain == 0 || cost == 0) {
       resBuilder.setStatus(UseSkillPointStatus.OTHER_FAIL);
+      log.error("no gain or no cost in using skill point");
       return false;
     }
     if (cost > user.getSkillPoints()) {
-      resBuilder.setStatus(UseSkillPointStatus.NOT_ENOUGH_SKILL_POINTS);      
+      resBuilder.setStatus(UseSkillPointStatus.NOT_ENOUGH_SKILL_POINTS);  
+      log.error("user does not have enough skill points. has " + user.getSkillPoints() + ", needs " + cost);
       return false;
     }
     resBuilder.setStatus(UseSkillPointStatus.SUCCESS);

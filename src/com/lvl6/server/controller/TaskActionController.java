@@ -179,9 +179,7 @@ public class TaskActionController extends EventController {
       for (UserQuest userQuest : inProgressUserQuests) {
         boolean questCompletedAndSent = false;
         if (!userQuest.isTasksComplete()) {
-          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest
-              .getQuestId());
-
+          Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
           if (quest != null) {
             List<Integer> tasksRequired = quest.getTasksRequired();
             if (tasksRequired != null) {
@@ -214,15 +212,17 @@ public class TaskActionController extends EventController {
                             questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true, 
                                 null, null, null, null, null);
                           } else {
-                            log.error("problem with marking tasks completed for a user quest");
+                            log.error("problem with marking tasks completed for a user quest, questId=" + quest.getId());
                           }
                         }
                       } else {
-                        log.error("problem with adding tasks to user's completed tasks for quest");
+                        log.error("problem with adding tasks to user's completed tasks for quest. taskId="
+                            + remainingTask.getId() + ", questId=" + quest.getId());
                       }
                     } else {
                       if (!UpdateUtils.incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
-                        log.error("problem with updating user quest task progress");
+                        log.error("problem with incrementing user quest task progress by 1 for quest id " + quest.getId()
+                            + ", task id=" + remainingTask.getId());
                       }
                     }
                   }
@@ -246,7 +246,7 @@ public class TaskActionController extends EventController {
     if (legitAction) {
       if (cityRankedUp) {
         if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), task.getCityId(), 1)) {
-          log.error("problem with updating user city rank post-task");
+          log.error("problem with incrementing user city rank post-task by " + task.getCityId());
         }
         if (tasksInCity != null) {
           if (!UpdateUtils.resetTimesCompletedInRankForUserTasksInCity(user.getId(), tasksInCity)) {
@@ -256,20 +256,22 @@ public class TaskActionController extends EventController {
       } else {
         if (changeNumTimesUserActedInDB) {
           if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(user.getId(), task.getId(), 1)) {
-            log.error("problem with incrementing user times completed in rank post-task");
+            log.error("problem with incrementing user times completed in rank post-task for task " + task.getId());
           }
         }
       }
 
       if (lootEquipId != ControllerConstants.NOT_SET) {
         if (!UpdateUtils.incrementUserEquip(user.getId(), lootEquipId, 1)) {
-          log.error("problem with incrementing user equip post-task");
+          log.error("problem with giving user 1 of equip " + lootEquipId);
         }
       }
 
       boolean simulateEnergyRefill = (user.getEnergy() == user.getEnergyMax());
       if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1, simulateEnergyRefill, clientTime)) {
-        log.error("problem with updating user stats post-task");
+        log.error("problem with updating user stats post-task. coinChange=" + totalCoinGain + ", expGain="
+            + totalExpGain + ", increased tasks completed by 1, energyChange=" + task.getEnergyCost()*-1 + 
+            ", clientTime=" + clientTime + ", simulateEnergyRefill=" + simulateEnergyRefill + ", user=" + user);
       }
     }
   }
@@ -281,7 +283,6 @@ public class TaskActionController extends EventController {
     if (tasksInCity == null) {
       return false;
     }
-
     for (Task task : tasksInCity) {
       if (!taskIdToNumTimesActedInRank.containsKey(task.getId()) ||
           taskIdToNumTimesActedInRank.get(task.getId()) < task.getNumForCompletion()) {
@@ -353,7 +354,8 @@ public class TaskActionController extends EventController {
           numReqEquipsWithoutQuantityReqFulfilled--;
           if (numReqEquipsWithoutQuantityReqFulfilled == 0) break;
         } else {
-          log.error("user is missing ");
+          if (quantityReq != null && quantityReq > 0)
+            log.error("user is missing equips of id " + ue.getEquipId() + ". has " + ue.getQuantity() + ", need " + quantityReq);
         }
       }
     }

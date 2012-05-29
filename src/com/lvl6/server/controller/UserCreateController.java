@@ -147,6 +147,12 @@ public class UserCreateController extends EventController {
         }
       } else {
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
+        log.error("problem with trying to create user. udid=" + udid + ", name=" + name + ", type=" + type
+            + ", loc=" + loc + ", deviceToken=" + deviceToken + ", newReferCode=" + newReferCode + ", attack="
+            + attack + ", defense=" + defense + ", energy=" + energy + ", health=" + health + ", stamina=" + stamina
+            + ", playerExp=" + playerExp + ", playerCoins=" + playerCoins + ", playerDiamonds=" + playerDiamonds
+            + ", weaponEquipped=" + weaponEquipped + ", armorEquipped=" + armorEquipped + ", amuletEquipped=" 
+            + amuletEquipped); 
       }
     }
 
@@ -178,11 +184,11 @@ public class UserCreateController extends EventController {
       try {
         writeFirstWallPost(userId);
         writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfStructBuild, structCoords);
-        writeUserCritstructs(user.getId());
+//        writeUserCritstructs(user.getId());
         writeUserEquips(user.getId(), equipIds);
         writeTaskCompleted(user.getId(), taskCompleted);
         if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
-          log.error("problem with giving user access to first city");
+          log.error("problem with giving user access to first city (city with id 1)");
         }
         if (referrer != null && user != null) {
           rewardReferrer(referrer, user);        
@@ -197,22 +203,26 @@ public class UserCreateController extends EventController {
 
   private void writeFirstWallPost(int newPlayerId) {
     Timestamp timeOfPost = new Timestamp(new Date().getTime());
-    if (InsertUtils.insertPlayerWallPost(ControllerConstants.USER_CREATE__ID_OF_POSTER, 
+    if (InsertUtils.insertPlayerWallPost(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, 
         newPlayerId, ControllerConstants.USER_CREATE__FIRST_WALL_POST_TEXT, timeOfPost) < 0) {
-        log.error("problem with writing wall post");
+        log.error("problem with writing wall post from user " + ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL
+            + " for player " + newPlayerId + " at " + timeOfPost);
     }
   }
 
   private void writeUserStruct(int userId, int structId, Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair structCoords) {
     if (!InsertUtils.insertUserStructJustBuilt(userId, structId, timeOfStructPurchase, timeOfStructBuild, structCoords)) {
-      log.error("problem in giving user the user struct");
+      log.error("problem in giving user the user struct with these properties: userId="
+          + userId + ", structId=" + structId + ", timeOfStructPurchase=" + timeOfStructPurchase
+          + ", timeOfStructBuild=" + timeOfStructBuild + ", structCoords");
     }
   }
 
   private void writeTaskCompleted(int userId, Task taskCompleted) {
     if (taskCompleted != null) {
       if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(userId, taskCompleted.getId(), taskCompleted.getNumForCompletion())) {
-        log.error("problem with incrementing user times completed in rank in tutorial");
+        log.error("problem with incrementing number of times user completed task in current rank for task " + taskCompleted.getId()
+            + " for player " + userId + " by " + taskCompleted.getNumForCompletion());
       }
     }
   }
@@ -220,16 +230,16 @@ public class UserCreateController extends EventController {
   private void writeUserEquips(int userId, List<Integer> equipIds) {
     if (equipIds.size() > 0) {
       if (!InsertUtils.insertUserEquips(userId, equipIds, 1)) {
-        log.error("problem with giving user initial user equips for user " + userId);
+        log.error("problem with giving user initial 1 of each user equips for user " + userId + ", equipIds are " + equipIds);
       }
     }
   }
-
-  private void writeUserCritstructs(int userId) {
-    if (!InsertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
-      log.error("problem with giving user his critical structs");
-    }
-  }
+//
+//  private void writeUserCritstructs(int userId) {
+//    if (!InsertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
+//      log.error("problem with giving user his critical structs");
+//    }
+//  }
 
   private String grabNewReferCode() {
     String newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
@@ -237,6 +247,8 @@ public class UserCreateController extends EventController {
       while (!DeleteUtils.deleteAvailableReferralCode(newReferCode)) {
         newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
       }
+    } else {
+      log.fatal("no refer codes left");
     }
     return newReferCode;
   }
@@ -247,10 +259,12 @@ public class UserCreateController extends EventController {
       try {
         int coinsGivenToReferrer = MiscMethods.calculateCoinsGivenToReferrer(referrer);
         if (!referrer.updateRelativeCoinsNumreferrals(coinsGivenToReferrer, 1)) {
-          log.error("problem with rewarding the referrer");
+          log.error("problem with rewarding the referrer " + referrer + " with this many coins: " + coinsGivenToReferrer);
         } else {
-          InsertUtils.insertReferral(referrer.getId(), user.getId(), coinsGivenToReferrer);
-
+          if (!InsertUtils.insertReferral(referrer.getId(), user.getId(), coinsGivenToReferrer)) {
+            log.error("problem with inserting referral into db. referrer is " + referrer.getId() + ", user=" + user.getId()
+                + ", coins given to referrer=" + coinsGivenToReferrer);
+          }
           ReferralCodeUsedResponseEvent resEvent = new ReferralCodeUsedResponseEvent(referrer.getId());
           ReferralCodeUsedResponseProto resProto = ReferralCodeUsedResponseProto.newBuilder()
               .setSender(CreateInfoProtoUtils.createMinimumUserProtoFromUser(referrer))

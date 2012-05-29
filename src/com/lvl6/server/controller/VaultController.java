@@ -61,11 +61,12 @@ public class VaultController extends EventController {
       if (legitTransaction) {
         if (requestType == VaultRequestType.WITHDRAW) {
           if (!user.updateRelativeCoinsVault(amount, -1*amount)) {
-            log.error("problem with vault transaction");
+            log.error("problem with vault transaction. coinChange=" + amount + ", vaultChange=" + amount*-1);
           }
         } else if (requestType == VaultRequestType.DEPOSIT) {
           if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount))) {
-            log.error("problem with vault transaction");          
+            log.error("problem with vault transaction. coinChange=" + -1*amount + ", vaultChange="
+                + (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount));
           }
         }
         resBuilder.setCoinAmount(user.getCoins());
@@ -94,17 +95,20 @@ public class VaultController extends EventController {
   private boolean checkLegitTransaction(Builder resBuilder, User user, int amount, VaultRequestType requestType) {
     if (amount <= 0 || user == null) {
       resBuilder.setStatus(VaultStatus.OTHER_FAIL);
+      log.error("amount <= 0 or user=null. user=" + user + ", amount=" + amount + ", request type=" +  requestType);
       return false;
     }
     if (requestType == VaultRequestType.WITHDRAW) {
       if (amount > user.getVaultBalance()) {
         resBuilder.setStatus(VaultStatus.OTHER_FAIL);
+        log.error("user tried to withdraw " + amount + " coins but only has (in vault) " + user.getVaultBalance());
         return false;
       }
     }
     if (requestType == VaultRequestType.DEPOSIT) {
       if (amount > user.getCoins()) {
         resBuilder.setStatus(VaultStatus.OTHER_FAIL);
+        log.error("user tried to deposit " + amount + " coins but only has " + user.getCoins());
         return false;
       }
     }    
