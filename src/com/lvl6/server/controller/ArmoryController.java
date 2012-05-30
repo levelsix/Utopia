@@ -60,7 +60,7 @@ public class ArmoryController extends EventController {
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-      UserEquip userEquip = null;
+      UserEquip userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equipId);;
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
 
       if (quantity < 1 || equipment == null) {
@@ -86,7 +86,6 @@ public class ArmoryController extends EventController {
             }
           }
         } else if (requestType == ArmoryRequestType.SELL) {
-          userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equipId);
           if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
             resBuilder.setStatus(ArmoryStatus.CANNOT_SELL_DIAMOND_EQUIP);
             log.error("player tried to sell a diamond equip (equip with id " + equipId + ")");
@@ -102,6 +101,11 @@ public class ArmoryController extends EventController {
         }
       }
       if (legitBuy) {
+        if (userEquip == null || userEquip.getQuantity() < 1) {
+          if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, user) && !user.updateEquipped(equipment)) {
+            log.error("problem with equipping " + equipment + " for user " + user);
+          }
+        }
         if (!UpdateUtils.incrementUserEquip(user.getId(), equipId, quantity)) {
           log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
         }

@@ -7,8 +7,10 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
@@ -17,7 +19,9 @@ import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFr
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
+import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
@@ -142,6 +146,16 @@ public class PurchaseFromMarketplaceController extends EventController {
       }
     }
 
+    UserEquip userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(buyer.getId(), mp.getPostedEquipId());
+    Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId()); 
+    if (equipment == null) {
+      log.error("equipment with " + mp.getPostedEquipId() + " does not exist");
+    } else if ((userEquip == null || userEquip.getQuantity() < 1) && equipment != null) {
+      if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, buyer) && !buyer.updateEquipped(equipment)) {
+        log.error("problem with equipping " + equipment + " for user " + buyer);
+      }
+    }
+    
     if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
       log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
     }

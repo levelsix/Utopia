@@ -107,7 +107,7 @@ public class EquipEquipmentController extends EventController {
     ClassType userClass = MiscMethods.getClassTypeFromUserType(user.getType());
     if (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET) {
       resBuilder.setStatus(EquipEquipmentStatus.INCORRECT_CLASS_TYPE);
-      log.error("problem with equipping equip" + equip.getId() + ": user not write class. user type is "
+      log.error("problem with equipping equip" + equip.getId() + ": user not right class. user type is "
           + user.getType() + ", equip class is " + equip.getClassType());
       return false;      
     }

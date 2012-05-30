@@ -16,6 +16,7 @@ import org.apache.log4j.MDC;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
@@ -50,6 +51,19 @@ public class MiscMethods {
   
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  /*
+   * doesn't check if the user has the equip or not
+   */
+  public static boolean checkIfEquipIsEquippableOnUser(Equipment equip, User user) {
+    if (equip == null || user == null) return false;
+    ClassType userClass = MiscMethods.getClassTypeFromUserType(user.getType());
+    if (user.getLevel() >= equip.getMinLevel() && 
+        (userClass == equip.getClassType() || equip.getClassType() == ClassType.ALL_AMULET)) {
+      return true;
+    }
+    return false;
+  }
+  
   public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
     if (playerId != null && playerId > 0) {
       if (server.getPlayerById(playerId) != null) {
