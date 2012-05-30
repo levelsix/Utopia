@@ -199,9 +199,7 @@ message FullCityProto {
 	optional int32 expGainedBaseOnRankup = 4;
 	optional int32 coinsGainedBaseOnRankup = 5;
 	optional string mapImgName = 6;
-	optional CoordinateProto aviaryCoords = 7;
-	optional CoordinateProto spriteAviaryLandingCoords = 8;
-	optional StructOrientation aviaryOrientation = 9;
+	optional CoordinateProto center = 7;
 	
 	repeated int32 taskIds = 10;
 }

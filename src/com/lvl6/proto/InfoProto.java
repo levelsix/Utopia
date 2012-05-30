@@ -10009,19 +10009,10 @@ public final class InfoProto {
     boolean hasMapImgName();
     String getMapImgName();
     
-    // optional .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
-    boolean hasAviaryCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder();
-    
-    // optional .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
-    boolean hasSpriteAviaryLandingCoords();
-    com.lvl6.proto.InfoProto.CoordinateProto getSpriteAviaryLandingCoords();
-    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getSpriteAviaryLandingCoordsOrBuilder();
-    
-    // optional .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
-    boolean hasAviaryOrientation();
-    com.lvl6.proto.InfoProto.StructOrientation getAviaryOrientation();
+    // optional .com.lvl6.proto.CoordinateProto center = 7;
+    boolean hasCenter();
+    com.lvl6.proto.InfoProto.CoordinateProto getCenter();
+    com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCenterOrBuilder();
     
     // repeated int32 taskIds = 10;
     java.util.List<java.lang.Integer> getTaskIdsList();
@@ -10161,40 +10152,17 @@ public final class InfoProto {
       }
     }
     
-    // optional .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
-    public static final int AVIARYCOORDS_FIELD_NUMBER = 7;
-    private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_;
-    public boolean hasAviaryCoords() {
+    // optional .com.lvl6.proto.CoordinateProto center = 7;
+    public static final int CENTER_FIELD_NUMBER = 7;
+    private com.lvl6.proto.InfoProto.CoordinateProto center_;
+    public boolean hasCenter() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
-    public com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords() {
-      return aviaryCoords_;
+    public com.lvl6.proto.InfoProto.CoordinateProto getCenter() {
+      return center_;
     }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder() {
-      return aviaryCoords_;
-    }
-    
-    // optional .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
-    public static final int SPRITEAVIARYLANDINGCOORDS_FIELD_NUMBER = 8;
-    private com.lvl6.proto.InfoProto.CoordinateProto spriteAviaryLandingCoords_;
-    public boolean hasSpriteAviaryLandingCoords() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
-    }
-    public com.lvl6.proto.InfoProto.CoordinateProto getSpriteAviaryLandingCoords() {
-      return spriteAviaryLandingCoords_;
-    }
-    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getSpriteAviaryLandingCoordsOrBuilder() {
-      return spriteAviaryLandingCoords_;
-    }
-    
-    // optional .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
-    public static final int AVIARYORIENTATION_FIELD_NUMBER = 9;
-    private com.lvl6.proto.InfoProto.StructOrientation aviaryOrientation_;
-    public boolean hasAviaryOrientation() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
-    public com.lvl6.proto.InfoProto.StructOrientation getAviaryOrientation() {
-      return aviaryOrientation_;
+    public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCenterOrBuilder() {
+      return center_;
     }
     
     // repeated int32 taskIds = 10;
@@ -10218,9 +10186,7 @@ public final class InfoProto {
       expGainedBaseOnRankup_ = 0;
       coinsGainedBaseOnRankup_ = 0;
       mapImgName_ = "";
-      aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      spriteAviaryLandingCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      aviaryOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
+      center_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       taskIds_ = java.util.Collections.emptyList();;
     }
     private byte memoizedIsInitialized = -1;
@@ -10254,13 +10220,7 @@ public final class InfoProto {
         output.writeBytes(6, getMapImgNameBytes());
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeMessage(7, aviaryCoords_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeMessage(8, spriteAviaryLandingCoords_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeEnum(9, aviaryOrientation_.getNumber());
+        output.writeMessage(7, center_);
       }
       for (int i = 0; i < taskIds_.size(); i++) {
         output.writeInt32(10, taskIds_.get(i));
@@ -10300,15 +10260,7 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, aviaryCoords_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, spriteAviaryLandingCoords_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(9, aviaryOrientation_.getNumber());
+          .computeMessageSize(7, center_);
       }
       {
         int dataSize = 0;
@@ -10435,8 +10387,7 @@ public final class InfoProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getAviaryCoordsFieldBuilder();
-          getSpriteAviaryLandingCoordsFieldBuilder();
+          getCenterFieldBuilder();
         }
       }
       private static Builder create() {
@@ -10457,22 +10408,14 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000010);
         mapImgName_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+        if (centerBuilder_ == null) {
+          center_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
         } else {
-          aviaryCoordsBuilder_.clear();
+          centerBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000040);
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          spriteAviaryLandingCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-        } else {
-          spriteAviaryLandingCoordsBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000080);
-        aviaryOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
-        bitField0_ = (bitField0_ & ~0x00000100);
         taskIds_ = java.util.Collections.emptyList();;
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       
@@ -10538,26 +10481,14 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        if (aviaryCoordsBuilder_ == null) {
-          result.aviaryCoords_ = aviaryCoords_;
+        if (centerBuilder_ == null) {
+          result.center_ = center_;
         } else {
-          result.aviaryCoords_ = aviaryCoordsBuilder_.build();
+          result.center_ = centerBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          result.spriteAviaryLandingCoords_ = spriteAviaryLandingCoords_;
-        } else {
-          result.spriteAviaryLandingCoords_ = spriteAviaryLandingCoordsBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
-        }
-        result.aviaryOrientation_ = aviaryOrientation_;
-        if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
           taskIds_ = java.util.Collections.unmodifiableList(taskIds_);
-          bitField0_ = (bitField0_ & ~0x00000200);
+          bitField0_ = (bitField0_ & ~0x00000080);
         }
         result.taskIds_ = taskIds_;
         result.bitField0_ = to_bitField0_;
@@ -10594,19 +10525,13 @@ public final class InfoProto {
         if (other.hasMapImgName()) {
           setMapImgName(other.getMapImgName());
         }
-        if (other.hasAviaryCoords()) {
-          mergeAviaryCoords(other.getAviaryCoords());
-        }
-        if (other.hasSpriteAviaryLandingCoords()) {
-          mergeSpriteAviaryLandingCoords(other.getSpriteAviaryLandingCoords());
-        }
-        if (other.hasAviaryOrientation()) {
-          setAviaryOrientation(other.getAviaryOrientation());
+        if (other.hasCenter()) {
+          mergeCenter(other.getCenter());
         }
         if (!other.taskIds_.isEmpty()) {
           if (taskIds_.isEmpty()) {
             taskIds_ = other.taskIds_;
-            bitField0_ = (bitField0_ & ~0x00000200);
+            bitField0_ = (bitField0_ & ~0x00000080);
           } else {
             ensureTaskIdsIsMutable();
             taskIds_.addAll(other.taskIds_);
@@ -10676,31 +10601,11 @@ public final class InfoProto {
             }
             case 58: {
               com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasAviaryCoords()) {
-                subBuilder.mergeFrom(getAviaryCoords());
+              if (hasCenter()) {
+                subBuilder.mergeFrom(getCenter());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setAviaryCoords(subBuilder.buildPartial());
-              break;
-            }
-            case 66: {
-              com.lvl6.proto.InfoProto.CoordinateProto.Builder subBuilder = com.lvl6.proto.InfoProto.CoordinateProto.newBuilder();
-              if (hasSpriteAviaryLandingCoords()) {
-                subBuilder.mergeFrom(getSpriteAviaryLandingCoords());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setSpriteAviaryLandingCoords(subBuilder.buildPartial());
-              break;
-            }
-            case 72: {
-              int rawValue = input.readEnum();
-              com.lvl6.proto.InfoProto.StructOrientation value = com.lvl6.proto.InfoProto.StructOrientation.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(9, rawValue);
-              } else {
-                bitField0_ |= 0x00000100;
-                aviaryOrientation_ = value;
-              }
+              setCenter(subBuilder.buildPartial());
               break;
             }
             case 80: {
@@ -10879,216 +10784,102 @@ public final class InfoProto {
         onChanged();
       }
       
-      // optional .com.lvl6.proto.CoordinateProto aviaryCoords = 7;
-      private com.lvl6.proto.InfoProto.CoordinateProto aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      // optional .com.lvl6.proto.CoordinateProto center = 7;
+      private com.lvl6.proto.InfoProto.CoordinateProto center_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> aviaryCoordsBuilder_;
-      public boolean hasAviaryCoords() {
+          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> centerBuilder_;
+      public boolean hasCenter() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto getAviaryCoords() {
-        if (aviaryCoordsBuilder_ == null) {
-          return aviaryCoords_;
+      public com.lvl6.proto.InfoProto.CoordinateProto getCenter() {
+        if (centerBuilder_ == null) {
+          return center_;
         } else {
-          return aviaryCoordsBuilder_.getMessage();
+          return centerBuilder_.getMessage();
         }
       }
-      public Builder setAviaryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (aviaryCoordsBuilder_ == null) {
+      public Builder setCenter(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (centerBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          aviaryCoords_ = value;
+          center_ = value;
           onChanged();
         } else {
-          aviaryCoordsBuilder_.setMessage(value);
+          centerBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000040;
         return this;
       }
-      public Builder setAviaryCoords(
+      public Builder setCenter(
           com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoords_ = builderForValue.build();
+        if (centerBuilder_ == null) {
+          center_ = builderForValue.build();
           onChanged();
         } else {
-          aviaryCoordsBuilder_.setMessage(builderForValue.build());
+          centerBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000040;
         return this;
       }
-      public Builder mergeAviaryCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (aviaryCoordsBuilder_ == null) {
+      public Builder mergeCenter(com.lvl6.proto.InfoProto.CoordinateProto value) {
+        if (centerBuilder_ == null) {
           if (((bitField0_ & 0x00000040) == 0x00000040) &&
-              aviaryCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            aviaryCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(aviaryCoords_).mergeFrom(value).buildPartial();
+              center_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
+            center_ =
+              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(center_).mergeFrom(value).buildPartial();
           } else {
-            aviaryCoords_ = value;
+            center_ = value;
           }
           onChanged();
         } else {
-          aviaryCoordsBuilder_.mergeFrom(value);
+          centerBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000040;
         return this;
       }
-      public Builder clearAviaryCoords() {
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
+      public Builder clearCenter() {
+        if (centerBuilder_ == null) {
+          center_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
           onChanged();
         } else {
-          aviaryCoordsBuilder_.clear();
+          centerBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getAviaryCoordsBuilder() {
+      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getCenterBuilder() {
         bitField0_ |= 0x00000040;
         onChanged();
-        return getAviaryCoordsFieldBuilder().getBuilder();
+        return getCenterFieldBuilder().getBuilder();
       }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getAviaryCoordsOrBuilder() {
-        if (aviaryCoordsBuilder_ != null) {
-          return aviaryCoordsBuilder_.getMessageOrBuilder();
+      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getCenterOrBuilder() {
+        if (centerBuilder_ != null) {
+          return centerBuilder_.getMessageOrBuilder();
         } else {
-          return aviaryCoords_;
+          return center_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getAviaryCoordsFieldBuilder() {
-        if (aviaryCoordsBuilder_ == null) {
-          aviaryCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          getCenterFieldBuilder() {
+        if (centerBuilder_ == null) {
+          centerBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  aviaryCoords_,
+                  center_,
                   getParentForChildren(),
                   isClean());
-          aviaryCoords_ = null;
+          center_ = null;
         }
-        return aviaryCoordsBuilder_;
-      }
-      
-      // optional .com.lvl6.proto.CoordinateProto spriteAviaryLandingCoords = 8;
-      private com.lvl6.proto.InfoProto.CoordinateProto spriteAviaryLandingCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> spriteAviaryLandingCoordsBuilder_;
-      public boolean hasSpriteAviaryLandingCoords() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
-      }
-      public com.lvl6.proto.InfoProto.CoordinateProto getSpriteAviaryLandingCoords() {
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          return spriteAviaryLandingCoords_;
-        } else {
-          return spriteAviaryLandingCoordsBuilder_.getMessage();
-        }
-      }
-      public Builder setSpriteAviaryLandingCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          spriteAviaryLandingCoords_ = value;
-          onChanged();
-        } else {
-          spriteAviaryLandingCoordsBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000080;
-        return this;
-      }
-      public Builder setSpriteAviaryLandingCoords(
-          com.lvl6.proto.InfoProto.CoordinateProto.Builder builderForValue) {
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          spriteAviaryLandingCoords_ = builderForValue.build();
-          onChanged();
-        } else {
-          spriteAviaryLandingCoordsBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000080;
-        return this;
-      }
-      public Builder mergeSpriteAviaryLandingCoords(com.lvl6.proto.InfoProto.CoordinateProto value) {
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          if (((bitField0_ & 0x00000080) == 0x00000080) &&
-              spriteAviaryLandingCoords_ != com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance()) {
-            spriteAviaryLandingCoords_ =
-              com.lvl6.proto.InfoProto.CoordinateProto.newBuilder(spriteAviaryLandingCoords_).mergeFrom(value).buildPartial();
-          } else {
-            spriteAviaryLandingCoords_ = value;
-          }
-          onChanged();
-        } else {
-          spriteAviaryLandingCoordsBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000080;
-        return this;
-      }
-      public Builder clearSpriteAviaryLandingCoords() {
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          spriteAviaryLandingCoords_ = com.lvl6.proto.InfoProto.CoordinateProto.getDefaultInstance();
-          onChanged();
-        } else {
-          spriteAviaryLandingCoordsBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000080);
-        return this;
-      }
-      public com.lvl6.proto.InfoProto.CoordinateProto.Builder getSpriteAviaryLandingCoordsBuilder() {
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return getSpriteAviaryLandingCoordsFieldBuilder().getBuilder();
-      }
-      public com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder getSpriteAviaryLandingCoordsOrBuilder() {
-        if (spriteAviaryLandingCoordsBuilder_ != null) {
-          return spriteAviaryLandingCoordsBuilder_.getMessageOrBuilder();
-        } else {
-          return spriteAviaryLandingCoords_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder> 
-          getSpriteAviaryLandingCoordsFieldBuilder() {
-        if (spriteAviaryLandingCoordsBuilder_ == null) {
-          spriteAviaryLandingCoordsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.lvl6.proto.InfoProto.CoordinateProto, com.lvl6.proto.InfoProto.CoordinateProto.Builder, com.lvl6.proto.InfoProto.CoordinateProtoOrBuilder>(
-                  spriteAviaryLandingCoords_,
-                  getParentForChildren(),
-                  isClean());
-          spriteAviaryLandingCoords_ = null;
-        }
-        return spriteAviaryLandingCoordsBuilder_;
-      }
-      
-      // optional .com.lvl6.proto.StructOrientation aviaryOrientation = 9;
-      private com.lvl6.proto.InfoProto.StructOrientation aviaryOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
-      public boolean hasAviaryOrientation() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
-      }
-      public com.lvl6.proto.InfoProto.StructOrientation getAviaryOrientation() {
-        return aviaryOrientation_;
-      }
-      public Builder setAviaryOrientation(com.lvl6.proto.InfoProto.StructOrientation value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        bitField0_ |= 0x00000100;
-        aviaryOrientation_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearAviaryOrientation() {
-        bitField0_ = (bitField0_ & ~0x00000100);
-        aviaryOrientation_ = com.lvl6.proto.InfoProto.StructOrientation.POSITION_1;
-        onChanged();
-        return this;
+        return centerBuilder_;
       }
       
       // repeated int32 taskIds = 10;
       private java.util.List<java.lang.Integer> taskIds_ = java.util.Collections.emptyList();;
       private void ensureTaskIdsIsMutable() {
-        if (!((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
           taskIds_ = new java.util.ArrayList<java.lang.Integer>(taskIds_);
-          bitField0_ |= 0x00000200;
+          bitField0_ |= 0x00000080;
          }
       }
       public java.util.List<java.lang.Integer>
@@ -11123,7 +10914,7 @@ public final class InfoProto {
       }
       public Builder clearTaskIds() {
         taskIds_ = java.util.Collections.emptyList();;
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000080);
         onChanged();
         return this;
       }
@@ -26583,143 +26374,139 @@ public final class InfoProto {
       "uipReqs\030\r \003(\01323.com.lvl6.proto.FullTaskP" +
       "roto.FullTaskEquipReqProto\032J\n\025FullTaskEq" +
       "uipReqProto\022\016\n\006taskId\030\001 \001(\005\022\017\n\007equipId\030\002" +
-      " \001(\005\022\020\n\010quantity\030\003 \001(\005\"\335\002\n\rFullCityProto" +
+      " \001(\005\022\020\n\010quantity\030\003 \001(\005\"\325\001\n\rFullCityProto" +
       "\022\016\n\006cityId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010minLev" +
       "el\030\003 \001(\005\022\035\n\025expGainedBaseOnRankup\030\004 \001(\005\022" +
       "\037\n\027coinsGainedBaseOnRankup\030\005 \001(\005\022\022\n\nmapI" +
-      "mgName\030\006 \001(\t\0225\n\014aviaryCoords\030\007 \001(\0132\037.com",
-      ".lvl6.proto.CoordinateProto\022B\n\031spriteAvi" +
-      "aryLandingCoords\030\010 \001(\0132\037.com.lvl6.proto." +
-      "CoordinateProto\022<\n\021aviaryOrientation\030\t \001" +
-      "(\0162!.com.lvl6.proto.StructOrientation\022\017\n" +
-      "\007taskIds\030\n \003(\005\"\325\001\n\036FullUserCityExpansion" +
-      "DataProto\022\016\n\006userId\030\001 \001(\005\022\031\n\021farLeftExpa" +
-      "nsions\030\003 \001(\005\022\032\n\022farRightExpansions\030\004 \001(\005" +
-      "\022\023\n\013isExpanding\030\005 \001(\010\022\026\n\016lastExpandTime\030" +
-      "\006 \001(\003\022?\n\023lastExpandDirection\030\007 \001(\0162\".com" +
-      ".lvl6.proto.ExpansionDirection\"q\n\021FullUs",
-      "erCityProto\022\016\n\006userId\030\001 \001(\005\022\016\n\006cityId\030\002 " +
-      "\001(\005\022\023\n\013currentRank\030\003 \001(\005\022\'\n\037numTasksCurr" +
-      "entlyCompleteInRank\030\004 \001(\005\"\'\n\017CoordinateP" +
-      "roto\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\"4\n\rLocationPr" +
-      "oto\022\020\n\010latitude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001" +
-      "\"\224\003\n\027NeutralCityElementProto\022\016\n\006cityId\030\001" +
-      " \001(\005\022\017\n\007assetId\030\002 \001(\005\022\014\n\004name\030\t \001(\t\022I\n\004t" +
-      "ype\030\003 \001(\0162;.com.lvl6.proto.NeutralCityEl" +
-      "ementProto.NeutralCityElemType\022/\n\006coords" +
-      "\030\004 \001(\0132\037.com.lvl6.proto.CoordinateProto\022",
-      "\017\n\007xLength\030\005 \001(\005\022\017\n\007yLength\030\006 \001(\005\022\r\n\005img" +
-      "Id\030\007 \001(\t\0226\n\013orientation\030\010 \001(\0162!.com.lvl6" +
-      ".proto.StructOrientation\"e\n\023NeutralCityE" +
-      "lemType\022\026\n\022PERSON_QUEST_GIVER\020\000\022\014\n\010BUILD" +
-      "ING\020\001\022\016\n\nDECORATION\020\002\022\030\n\024PERSON_NEUTRAL_" +
-      "ENEMY\020\003\"\216\002\n\030FullMarketplacePostProto\022\031\n\021" +
-      "marketplacePostId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\0225\n\010pos" +
-      "tType\030\003 \001(\0162#.com.lvl6.proto.Marketplace" +
-      "PostType\022\022\n\ntimeOfPost\030\004 \001(\003\0223\n\013postedEq",
-      "uip\030\005 \001(\0132\036.com.lvl6.proto.FullEquipProt" +
-      "o\022\023\n\013diamondCost\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005" +
-      "\"\260\001\n\027FullUserCritstructProto\022,\n\004type\030\001 \001" +
-      "(\0162\036.com.lvl6.proto.CritStructType\022/\n\006co" +
-      "ords\030\002 \001(\0132\037.com.lvl6.proto.CoordinatePr" +
-      "oto\0226\n\013orientation\030\003 \001(\0162!.com.lvl6.prot" +
-      "o.StructOrientation\"M\n\024MinimumUserTaskPr" +
-      "oto\022\016\n\006userId\030\001 \001(\005\022\016\n\006taskId\030\002 \001(\005\022\025\n\rn" +
-      "umTimesActed\030\003 \001(\005\"\321\004\n\033FullUserQuestData" +
-      "LargeProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 ",
-      "\001(\005\022\022\n\nisRedeemed\030\003 \001(\010\022\022\n\nisComplete\030\004 " +
-      "\001(\010\022T\n\035requiredDefeatTypeJobProgress\030\005 \003" +
-      "(\0132-.com.lvl6.proto.MinimumUserDefeatTyp" +
-      "eJobProto\022V\n\036requiredBuildStructJobProgr" +
-      "ess\030\006 \003(\0132..com.lvl6.proto.MinimumUserBu" +
-      "ildStructJobProto\022Z\n requiredUpgradeStru" +
-      "ctJobProgress\030\007 \003(\01320.com.lvl6.proto.Min" +
-      "imumUserUpgradeStructJobProto\022X\n\037require" +
-      "dPossessEquipJobProgress\030\010 \003(\0132/.com.lvl" +
-      "6.proto.MinimumUserPossessEquipJobProto\022",
-      "H\n\025requiredTasksProgress\030\t \003(\0132).com.lvl" +
-      "6.proto.MinimumUserQuestTaskProto\022\034\n\024coi" +
-      "nsRetrievedForReq\030\013 \001(\005\022\035\n\025numComponents" +
-      "Complete\030\n \001(\005\"c\n\031MinimumUserQuestTaskPr" +
-      "oto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\016\n\006" +
-      "taskId\030\003 \001(\005\022\025\n\rnumTimesActed\030\004 \001(\005\"n\n\035M" +
-      "inimumUserDefeatTypeJobProto\022\016\n\006userId\030\001" +
-      " \001(\005\022\017\n\007questId\030\002 \001(\005\022\027\n\017defeatTypeJobId" +
-      "\030\003 \001(\005\022\023\n\013numDefeated\030\004 \001(\005\"\307\002\n\022DefeatTy" +
-      "peJobProto\022\027\n\017defeatTypeJobId\030\001 \001(\005\022N\n\013t",
-      "ypeOfEnemy\030\002 \001(\01629.com.lvl6.proto.Defeat" +
-      "TypeJobProto.DefeatTypeJobEnemyType\022\032\n\022n" +
-      "umEnemiesToDefeat\030\003 \001(\005\022\016\n\006cityId\030\004 \001(\005\"" +
-      "\233\001\n\026DefeatTypeJobEnemyType\022\020\n\014GOOD_WARRI" +
-      "OR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013" +
-      "BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAG" +
-      "E\020\005\022 \n\034ALL_TYPES_FROM_OPPOSING_SIDE\020\006\"w\n" +
-      "\036MinimumUserBuildStructJobProto\022\016\n\006userI" +
-      "d\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\030\n\020buildStructJ" +
-      "obId\030\003 \001(\005\022\032\n\022numOfStructUserHas\030\004 \001(\005\"[",
-      "\n\023BuildStructJobProto\022\030\n\020buildStructJobI" +
-      "d\030\001 \001(\005\022\020\n\010structId\030\002 \001(\005\022\030\n\020quantityReq" +
-      "uired\030\003 \001(\005\"u\n MinimumUserUpgradeStructJ" +
-      "obProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005" +
-      "\022\032\n\022upgradeStructJobId\030\003 \001(\005\022\024\n\014currentL" +
-      "evel\030\004 \001(\005\"W\n\025UpgradeStructJobProto\022\032\n\022u" +
-      "pgradeStructJobId\030\001 \001(\005\022\020\n\010structId\030\002 \001(" +
-      "\005\022\020\n\010levelReq\030\003 \001(\005\"v\n\037MinimumUserPosses" +
-      "sEquipJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questI" +
-      "d\030\002 \001(\005\022\031\n\021possessEquipJobId\030\003 \001(\005\022\027\n\017nu",
-      "mEquipUserHas\030\004 \001(\005\"W\n\024PossessEquipJobPr" +
-      "oto\022\031\n\021possessEquipJobId\030\001 \001(\005\022\017\n\007equipI" +
-      "d\030\002 \001(\005\022\023\n\013quantityReq\030\003 \001(\005\"\346\004\n\016FullQue" +
-      "stProto\022\017\n\007questId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005" +
-      "\022\014\n\004name\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\024\n\014d" +
-      "oneResponse\030\005 \001(\t\022\032\n\022assetNumWithinCity\030" +
-      "\007 \001(\005\022\023\n\013coinsGained\030\010 \001(\005\022\026\n\016diamondsGa" +
-      "ined\030\t \001(\005\022\021\n\texpGained\030\n \001(\005\022\025\n\requipId" +
-      "Gained\030\013 \001(\005\022\035\n\025questsRequiredForThis\030\014 " +
-      "\003(\005\022\020\n\010taskReqs\030\r \003(\005\022\035\n\025upgradeStructJo",
-      "bsReqs\030\016 \003(\005\022\033\n\023buildStructJobsReqs\030\017 \003(" +
-      "\005\022\026\n\016defeatTypeReqs\030\020 \003(\005\022\033\n\023possessEqui" +
-      "pJobReqs\030\021 \003(\005\022\030\n\020coinRetrievalReq\030\026 \001(\005" +
-      "\022A\n\025specialQuestActionReq\030\006 \001(\0162\".com.lv" +
-      "l6.proto.SpecialQuestAction\022\034\n\024numCompon" +
-      "entsForGood\030\022 \001(\005\022\033\n\023numComponentsForBad" +
-      "\030\023 \001(\005\0225\n\016acceptDialogue\030\024 \001(\0132\035.com.lvl" +
-      "6.proto.DialogueProto\022\026\n\016questGiverName\030" +
-      "\025 \001(\t\"\324\003\n\rDialogueProto\022G\n\rspeechSegment" +
-      "\030\001 \003(\01320.com.lvl6.proto.DialogueProto.Sp",
-      "eechSegmentProto\032\371\002\n\022SpeechSegmentProto\022" +
-      "Q\n\007speaker\030\001 \001(\0162@.com.lvl6.proto.Dialog" +
-      "ueProto.SpeechSegmentProto.DialogueSpeak" +
-      "er\022\023\n\013speakerText\030\002 \001(\t\"\372\001\n\017DialogueSpea" +
-      "ker\022\017\n\013PLAYER_TYPE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017" +
-      "\n\013GOOD_ARCHER\020\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WA" +
-      "RRIOR\020\005\022\016\n\nBAD_ARCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n" +
-      "\022GOOD_TUTORIAL_GIRL\020\010\022\025\n\021BAD_TUTORIAL_GI" +
-      "RL\020\t\022\020\n\014QUESTGIVER_1\020\n\022\020\n\014QUESTGIVER_2\020\013" +
-      "\022\020\n\014QUESTGIVER_3\020\014\022\020\n\014QUESTGIVER_4\020\r\"\233\001\n",
-      "\023PlayerWallPostProto\022\030\n\020playerWallPostId" +
-      "\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n" +
-      "\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t*\302\001\n\022S" +
-      "pecialQuestAction\022\030\n\024PURCHASE_FROM_ARMOR" +
-      "Y\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016SE" +
-      "LL_TO_ARMORY\020\003\022\027\n\023SELL_TO_MARKETPLACE\020\004\022" +
-      "\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_V" +
-      "AULT\020\006\022\027\n\023WRITE_ON_OTHER_WALL\020\007*k\n\010UserT" +
-      "ype\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r",
-      "\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_AR" +
-      "CHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014" +
-      "ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTA" +
-      "CKER_FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PR" +
-      "EMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*" +
-      "2\n\035MarketplaceJobRequirementType\022\007\n\003BUY\020" +
-      "\000\022\010\n\004SELL\020\001*S\n\016CritStructType\022\n\n\006AVIARY\020" +
-      "\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022" +
-      "\017\n\013MARKETPLACE\020\005*3\n\021StructOrientation\022\016\n" +
-      "\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022Expansi",
-      "onDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001" +
-      "B\013B\tInfoProto"
+      "mgName\030\006 \001(\t\022/\n\006center\030\007 \001(\0132\037.com.lvl6.",
+      "proto.CoordinateProto\022\017\n\007taskIds\030\n \003(\005\"\325" +
+      "\001\n\036FullUserCityExpansionDataProto\022\016\n\006use" +
+      "rId\030\001 \001(\005\022\031\n\021farLeftExpansions\030\003 \001(\005\022\032\n\022" +
+      "farRightExpansions\030\004 \001(\005\022\023\n\013isExpanding\030" +
+      "\005 \001(\010\022\026\n\016lastExpandTime\030\006 \001(\003\022?\n\023lastExp" +
+      "andDirection\030\007 \001(\0162\".com.lvl6.proto.Expa" +
+      "nsionDirection\"q\n\021FullUserCityProto\022\016\n\006u" +
+      "serId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\023\n\013currentRa" +
+      "nk\030\003 \001(\005\022\'\n\037numTasksCurrentlyCompleteInR" +
+      "ank\030\004 \001(\005\"\'\n\017CoordinateProto\022\t\n\001x\030\001 \001(\002\022",
+      "\t\n\001y\030\002 \001(\002\"4\n\rLocationProto\022\020\n\010latitude\030" +
+      "\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001\"\224\003\n\027NeutralCity" +
+      "ElementProto\022\016\n\006cityId\030\001 \001(\005\022\017\n\007assetId\030" +
+      "\002 \001(\005\022\014\n\004name\030\t \001(\t\022I\n\004type\030\003 \001(\0162;.com." +
+      "lvl6.proto.NeutralCityElementProto.Neutr" +
+      "alCityElemType\022/\n\006coords\030\004 \001(\0132\037.com.lvl" +
+      "6.proto.CoordinateProto\022\017\n\007xLength\030\005 \001(\005" +
+      "\022\017\n\007yLength\030\006 \001(\005\022\r\n\005imgId\030\007 \001(\t\0226\n\013orie" +
+      "ntation\030\010 \001(\0162!.com.lvl6.proto.StructOri" +
+      "entation\"e\n\023NeutralCityElemType\022\026\n\022PERSO",
+      "N_QUEST_GIVER\020\000\022\014\n\010BUILDING\020\001\022\016\n\nDECORAT" +
+      "ION\020\002\022\030\n\024PERSON_NEUTRAL_ENEMY\020\003\"\216\002\n\030Full" +
+      "MarketplacePostProto\022\031\n\021marketplacePostI" +
+      "d\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\0225\n\010postType\030\003 \001(\0162#.co" +
+      "m.lvl6.proto.MarketplacePostType\022\022\n\ntime" +
+      "OfPost\030\004 \001(\003\0223\n\013postedEquip\030\005 \001(\0132\036.com." +
+      "lvl6.proto.FullEquipProto\022\023\n\013diamondCost" +
+      "\030\006 \001(\005\022\020\n\010coinCost\030\007 \001(\005\"\260\001\n\027FullUserCri" +
+      "tstructProto\022,\n\004type\030\001 \001(\0162\036.com.lvl6.pr",
+      "oto.CritStructType\022/\n\006coords\030\002 \001(\0132\037.com" +
+      ".lvl6.proto.CoordinateProto\0226\n\013orientati" +
+      "on\030\003 \001(\0162!.com.lvl6.proto.StructOrientat" +
+      "ion\"M\n\024MinimumUserTaskProto\022\016\n\006userId\030\001 " +
+      "\001(\005\022\016\n\006taskId\030\002 \001(\005\022\025\n\rnumTimesActed\030\003 \001" +
+      "(\005\"\321\004\n\033FullUserQuestDataLargeProto\022\016\n\006us" +
+      "erId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\022\n\nisRedeeme" +
+      "d\030\003 \001(\010\022\022\n\nisComplete\030\004 \001(\010\022T\n\035requiredD" +
+      "efeatTypeJobProgress\030\005 \003(\0132-.com.lvl6.pr" +
+      "oto.MinimumUserDefeatTypeJobProto\022V\n\036req",
+      "uiredBuildStructJobProgress\030\006 \003(\0132..com." +
+      "lvl6.proto.MinimumUserBuildStructJobProt" +
+      "o\022Z\n requiredUpgradeStructJobProgress\030\007 " +
+      "\003(\01320.com.lvl6.proto.MinimumUserUpgradeS" +
+      "tructJobProto\022X\n\037requiredPossessEquipJob" +
+      "Progress\030\010 \003(\0132/.com.lvl6.proto.MinimumU" +
+      "serPossessEquipJobProto\022H\n\025requiredTasks" +
+      "Progress\030\t \003(\0132).com.lvl6.proto.MinimumU" +
+      "serQuestTaskProto\022\034\n\024coinsRetrievedForRe" +
+      "q\030\013 \001(\005\022\035\n\025numComponentsComplete\030\n \001(\005\"c",
+      "\n\031MinimumUserQuestTaskProto\022\016\n\006userId\030\001 " +
+      "\001(\005\022\017\n\007questId\030\002 \001(\005\022\016\n\006taskId\030\003 \001(\005\022\025\n\r" +
+      "numTimesActed\030\004 \001(\005\"n\n\035MinimumUserDefeat" +
+      "TypeJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007questId\030" +
+      "\002 \001(\005\022\027\n\017defeatTypeJobId\030\003 \001(\005\022\023\n\013numDef" +
+      "eated\030\004 \001(\005\"\307\002\n\022DefeatTypeJobProto\022\027\n\017de" +
+      "featTypeJobId\030\001 \001(\005\022N\n\013typeOfEnemy\030\002 \001(\016" +
+      "29.com.lvl6.proto.DefeatTypeJobProto.Def" +
+      "eatTypeJobEnemyType\022\032\n\022numEnemiesToDefea" +
+      "t\030\003 \001(\005\022\016\n\006cityId\030\004 \001(\005\"\233\001\n\026DefeatTypeJo",
+      "bEnemyType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARC" +
+      "HER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n" +
+      "\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005\022 \n\034ALL_TYPES" +
+      "_FROM_OPPOSING_SIDE\020\006\"w\n\036MinimumUserBuil" +
+      "dStructJobProto\022\016\n\006userId\030\001 \001(\005\022\017\n\007quest" +
+      "Id\030\002 \001(\005\022\030\n\020buildStructJobId\030\003 \001(\005\022\032\n\022nu" +
+      "mOfStructUserHas\030\004 \001(\005\"[\n\023BuildStructJob" +
+      "Proto\022\030\n\020buildStructJobId\030\001 \001(\005\022\020\n\010struc" +
+      "tId\030\002 \001(\005\022\030\n\020quantityRequired\030\003 \001(\005\"u\n M" +
+      "inimumUserUpgradeStructJobProto\022\016\n\006userI",
+      "d\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\032\n\022upgradeStruc" +
+      "tJobId\030\003 \001(\005\022\024\n\014currentLevel\030\004 \001(\005\"W\n\025Up" +
+      "gradeStructJobProto\022\032\n\022upgradeStructJobI" +
+      "d\030\001 \001(\005\022\020\n\010structId\030\002 \001(\005\022\020\n\010levelReq\030\003 " +
+      "\001(\005\"v\n\037MinimumUserPossessEquipJobProto\022\016" +
+      "\n\006userId\030\001 \001(\005\022\017\n\007questId\030\002 \001(\005\022\031\n\021posse" +
+      "ssEquipJobId\030\003 \001(\005\022\027\n\017numEquipUserHas\030\004 " +
+      "\001(\005\"W\n\024PossessEquipJobProto\022\031\n\021possessEq" +
+      "uipJobId\030\001 \001(\005\022\017\n\007equipId\030\002 \001(\005\022\023\n\013quant" +
+      "ityReq\030\003 \001(\005\"\346\004\n\016FullQuestProto\022\017\n\007quest",
+      "Id\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005\022\014\n\004name\030\003 \001(\t\022\023" +
+      "\n\013description\030\004 \001(\t\022\024\n\014doneResponse\030\005 \001(" +
+      "\t\022\032\n\022assetNumWithinCity\030\007 \001(\005\022\023\n\013coinsGa" +
+      "ined\030\010 \001(\005\022\026\n\016diamondsGained\030\t \001(\005\022\021\n\tex" +
+      "pGained\030\n \001(\005\022\025\n\requipIdGained\030\013 \001(\005\022\035\n\025" +
+      "questsRequiredForThis\030\014 \003(\005\022\020\n\010taskReqs\030" +
+      "\r \003(\005\022\035\n\025upgradeStructJobsReqs\030\016 \003(\005\022\033\n\023" +
+      "buildStructJobsReqs\030\017 \003(\005\022\026\n\016defeatTypeR" +
+      "eqs\030\020 \003(\005\022\033\n\023possessEquipJobReqs\030\021 \003(\005\022\030" +
+      "\n\020coinRetrievalReq\030\026 \001(\005\022A\n\025specialQuest",
+      "ActionReq\030\006 \001(\0162\".com.lvl6.proto.Special" +
+      "QuestAction\022\034\n\024numComponentsForGood\030\022 \001(" +
+      "\005\022\033\n\023numComponentsForBad\030\023 \001(\005\0225\n\016accept" +
+      "Dialogue\030\024 \001(\0132\035.com.lvl6.proto.Dialogue" +
+      "Proto\022\026\n\016questGiverName\030\025 \001(\t\"\324\003\n\rDialog" +
+      "ueProto\022G\n\rspeechSegment\030\001 \003(\01320.com.lvl" +
+      "6.proto.DialogueProto.SpeechSegmentProto" +
+      "\032\371\002\n\022SpeechSegmentProto\022Q\n\007speaker\030\001 \001(\016" +
+      "2@.com.lvl6.proto.DialogueProto.SpeechSe" +
+      "gmentProto.DialogueSpeaker\022\023\n\013speakerTex",
+      "t\030\002 \001(\t\"\372\001\n\017DialogueSpeaker\022\017\n\013PLAYER_TY" +
+      "PE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020\003\022" +
+      "\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD_A" +
+      "RCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_G" +
+      "IRL\020\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIV" +
+      "ER_1\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3" +
+      "\020\014\022\020\n\014QUESTGIVER_4\020\r\"\233\001\n\023PlayerWallPostP" +
+      "roto\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006poster" +
+      "\030\002 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(",
+      "\003\022\017\n\007content\030\005 \001(\t*\302\001\n\022SpecialQuestActio" +
+      "n\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_" +
+      "FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027" +
+      "\n\023SELL_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VA" +
+      "ULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_" +
+      "ON_OTHER_WALL\020\007*k\n\010UserType\022\020\n\014GOOD_WARR" +
+      "IOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n" +
+      "\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MA" +
+      "GE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020" +
+      "\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023M",
+      "arketplacePostType\022\026\n\022PREMIUM_EQUIP_POST" +
+      "\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJo" +
+      "bRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016C" +
+      "ritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002" +
+      "\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005" +
+      "*3\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n" +
+      "\nPOSITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010F" +
+      "AR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -26795,7 +26582,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullCityProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullCityProto_descriptor,
-              new java.lang.String[] { "CityId", "Name", "MinLevel", "ExpGainedBaseOnRankup", "CoinsGainedBaseOnRankup", "MapImgName", "AviaryCoords", "SpriteAviaryLandingCoords", "AviaryOrientation", "TaskIds", },
+              new java.lang.String[] { "CityId", "Name", "MinLevel", "ExpGainedBaseOnRankup", "CoinsGainedBaseOnRankup", "MapImgName", "Center", "TaskIds", },
               com.lvl6.proto.InfoProto.FullCityProto.class,
               com.lvl6.proto.InfoProto.FullCityProto.Builder.class);
           internal_static_com_lvl6_proto_FullUserCityExpansionDataProto_descriptor =
