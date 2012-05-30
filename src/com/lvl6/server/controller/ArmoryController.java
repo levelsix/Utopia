@@ -15,6 +15,7 @@ import com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType;
 import com.lvl6.proto.EventProto.ArmoryResponseProto;
 import com.lvl6.proto.EventProto.ArmoryResponseProto.ArmoryStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
@@ -148,7 +149,10 @@ public class ArmoryController extends EventController {
       }
 
       if (legitBuy) {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.PURCHASE_FROM_ARMORY, false);
+      }
+      if (legitSell) {
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.SELL_TO_ARMORY, true);
       }
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);

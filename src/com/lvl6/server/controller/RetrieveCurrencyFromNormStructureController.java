@@ -116,7 +116,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
           if (quest != null) {
             if (quest.getCoinRetrievalAmountRequired() > 0) {
               userQuest.setCoinsRetrievedForReq(userQuest.getCoinsRetrievedForReq() + coinGain);
-              QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true);
+              QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
               relevantQuests.add(quest.getId());
             }
           } else {

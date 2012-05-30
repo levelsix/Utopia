@@ -16,6 +16,7 @@ import com.lvl6.info.jobs.PossessEquipJob;
 import com.lvl6.info.jobs.UpgradeStructJob;
 import com.lvl6.proto.EventProto.QuestCompleteResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
@@ -29,17 +30,26 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.QuestGraph;
 
 public class QuestUtils {
-  
+
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto) {
+  public static void checkAndSendQuestsCompleteBasic(GameServer server, int userId, MinimumUserProto senderProto, 
+      SpecialQuestAction justCompletedSpecialQuestAction, boolean checkOnlySpecialQuests) {
     List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getIncompleteUserQuestsForUser(userId);
     if (inProgressUserQuests != null) {
       for (UserQuest userQuest : inProgressUserQuests) {
         if (!userQuest.isComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
           if (quest != null) {
-            QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true);
+            //if it's a special quest but didnt just do one, skip
+            if (quest.getSpecialQuestActionRequired() != null && justCompletedSpecialQuestAction == null) {
+              continue;
+            }
+            //if you just did a special quest only and this quest doesnt have a special quest
+            if (checkOnlySpecialQuests && quest.getSpecialQuestActionRequired() == null) {
+              continue;
+            }
+            QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
           } else {
             log.error("quest for userQuest does not exist. user quest's quest is " + userQuest.getQuestId());
           }
@@ -48,12 +58,20 @@ public class QuestUtils {
     }
   }
 
-  public static boolean checkQuestCompleteAndMaybeSend(GameServer server, Quest quest, UserQuest userQuest,
-      MinimumUserProto senderProto, boolean sendCompleteMessageIfJustCompleted) {
+  public static boolean checkQuestCompleteAndMaybeSendIfJustCompleted(GameServer server, Quest quest, UserQuest userQuest,
+      MinimumUserProto senderProto, boolean sendCompleteMessageIfJustCompleted, SpecialQuestAction justCompletedSpecialQuestAction) {
     if (userQuest.isComplete()) return true;                        //already completed
-      
+
     if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
       if (userQuest.getCoinsRetrievedForReq() < quest.getCoinRetrievalAmountRequired()) return false;
+      
+      if (quest.getSpecialQuestActionRequired() != null && justCompletedSpecialQuestAction != null
+          && justCompletedSpecialQuestAction == quest.getSpecialQuestActionRequired()) {
+        sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(server, quest, userQuest, senderProto,
+            sendCompleteMessageIfJustCompleted);
+        return true;
+      }
+      
       
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();
       List<Integer> upgradeStructJobsRequired = quest.getUpgradeStructJobsRequired();
@@ -114,15 +132,23 @@ public class QuestUtils {
           } 
         }
       }
-      if (server != null && senderProto != null && sendCompleteMessageIfJustCompleted) {
-        sendQuestCompleteResponse(server, senderProto, quest);
-      }
-      if (!userQuest.isComplete() && !UpdateUtils.updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
-        log.error("problem with marking user quest as complete. userquest=" + userQuest);
-      }
+      sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(server, quest, userQuest, senderProto,
+          sendCompleteMessageIfJustCompleted);
       return true;
     }
     return false;
+  }
+  
+
+  private static void sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(GameServer server, Quest quest,
+      UserQuest userQuest, MinimumUserProto senderProto,
+      boolean sendCompleteMessageIfJustCompleted) {
+    if (server != null && senderProto != null && sendCompleteMessageIfJustCompleted) {
+      sendQuestCompleteResponse(server, senderProto, quest);
+    }
+    if (!userQuest.isComplete() && !UpdateUtils.updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
+      log.error("problem with marking user quest as complete. userquest=" + userQuest);
+    }
   }
 
   private static void sendQuestCompleteResponse (GameServer server, MinimumUserProto senderProto, Quest quest){

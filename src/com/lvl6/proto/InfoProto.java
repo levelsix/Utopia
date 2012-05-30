@@ -13,7 +13,7 @@ public final class InfoProto {
     PURCHASE_FROM_ARMORY(0, 1),
     PURCHASE_FROM_MARKETPLACE(1, 2),
     SELL_TO_ARMORY(2, 3),
-    SELL_TO_MARKETPLACE(3, 4),
+    POST_TO_MARKETPLACE(3, 4),
     DEPOSIT_IN_VAULT(4, 5),
     WITHDRAW_FROM_VAULT(5, 6),
     WRITE_ON_OTHER_WALL(6, 7),
@@ -22,7 +22,7 @@ public final class InfoProto {
     public static final int PURCHASE_FROM_ARMORY_VALUE = 1;
     public static final int PURCHASE_FROM_MARKETPLACE_VALUE = 2;
     public static final int SELL_TO_ARMORY_VALUE = 3;
-    public static final int SELL_TO_MARKETPLACE_VALUE = 4;
+    public static final int POST_TO_MARKETPLACE_VALUE = 4;
     public static final int DEPOSIT_IN_VAULT_VALUE = 5;
     public static final int WITHDRAW_FROM_VAULT_VALUE = 6;
     public static final int WRITE_ON_OTHER_WALL_VALUE = 7;
@@ -35,7 +35,7 @@ public final class InfoProto {
         case 1: return PURCHASE_FROM_ARMORY;
         case 2: return PURCHASE_FROM_MARKETPLACE;
         case 3: return SELL_TO_ARMORY;
-        case 4: return SELL_TO_MARKETPLACE;
+        case 4: return POST_TO_MARKETPLACE;
         case 5: return DEPOSIT_IN_VAULT;
         case 6: return WITHDRAW_FROM_VAULT;
         case 7: return WRITE_ON_OTHER_WALL;
@@ -69,7 +69,7 @@ public final class InfoProto {
     }
     
     private static final SpecialQuestAction[] VALUES = {
-      PURCHASE_FROM_ARMORY, PURCHASE_FROM_MARKETPLACE, SELL_TO_ARMORY, SELL_TO_MARKETPLACE, DEPOSIT_IN_VAULT, WITHDRAW_FROM_VAULT, WRITE_ON_OTHER_WALL, 
+      PURCHASE_FROM_ARMORY, PURCHASE_FROM_MARKETPLACE, SELL_TO_ARMORY, POST_TO_MARKETPLACE, DEPOSIT_IN_VAULT, WITHDRAW_FROM_VAULT, WRITE_ON_OTHER_WALL, 
     };
     
     public static SpecialQuestAction valueOf(
@@ -26492,7 +26492,7 @@ public final class InfoProto {
       "\003\022\017\n\007content\030\005 \001(\t*\302\001\n\022SpecialQuestActio" +
       "n\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_" +
       "FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027" +
-      "\n\023SELL_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VA" +
+      "\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VA" +
       "ULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_" +
       "ON_OTHER_WALL\020\007*k\n\010UserType\022\020\n\014GOOD_WARR" +
       "IOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n" +

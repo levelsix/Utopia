@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,10 +20,12 @@ import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto.Builder;
 import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto.PostOnPlayerWallStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class PostOnPlayerWallController extends EventController {
 
@@ -85,6 +86,10 @@ public class PostOnPlayerWallController extends EventController {
     }
     resEvent.setPostOnPlayerWallResponseProto(resBuilder.build());
     server.writeEvent(resEvent);
+    
+    if (legitPost && wallOwnerId != posterId) {
+      QuestUtils.checkAndSendQuestsCompleteBasic(server, posterId, senderProto, SpecialQuestAction.WRITE_ON_OTHER_WALL, true);
+    }
   }
 
 

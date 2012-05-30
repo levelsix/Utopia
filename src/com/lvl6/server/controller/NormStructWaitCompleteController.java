@@ -89,7 +89,7 @@ public class NormStructWaitCompleteController extends EventController{
       server.writeEvent(resEvent);
 
       if (legitWaitComplete) {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);          
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto, null, false);          
       }
     } catch (Exception e) {
       log.error("exception in NormStructWaitCompleteController processEvent", e);

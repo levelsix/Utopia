@@ -78,7 +78,7 @@ public class QuestAcceptController extends EventController {
         
         UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete, false, 0);
         writeChangesToDB(uq);
-        QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, uq, senderProto, true);
+        QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, uq, senderProto, true, null);
       }
 
     } catch (Exception e) {

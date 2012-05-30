@@ -82,10 +82,10 @@ public class FinishNormStructWaittimeWithDiamondsController extends EventControl
         server.writeEvent(resEventUpdate);
         
         if (waitTimeType == NormStructWaitTimeType.FINISH_CONSTRUCTION) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
         if (waitTimeType == NormStructWaitTimeType.FINISH_UPGRADE) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
       }
     } catch (Exception e) {

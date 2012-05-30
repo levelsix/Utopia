@@ -1,0 +1,303 @@
+2012-05-30 12:41:55,235 | INFO  |  |  | main | MLog - MLog clients using log4j logging.
+2012-05-30 12:41:55,581 | INFO  |  |  | main | C3P0Registry - Initializing c3p0-0.9.2-pre2 [built 18-May-2012 10:14:10 -0400; debug? true; trace: 10]
+2012-05-30 12:41:55,694 | INFO  |  |  | main | AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 10, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> c3p0_test_table, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 2rxedw8n186w31yaehpju|28bb494b, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2rxedw8n186w31yaehpju|28bb494b, idleConnectionTestPeriod -> 7200, initialPoolSize -> 10, jdbcUrl -> jdbc:mysql://utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com/lostnations, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 360000, maxIdleTimeExcessConnections -> 300, maxPoolSize -> 60, maxStatements -> 0, maxStatementsPerConnection -> 5, minPoolSize -> 10, numHelperThreads -> 6, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 7200, usesTraditionalReflectiveProxies -> false ]
+2012-05-30 12:41:57,009 | INFO  |  |  | Thread-2 | GameServer - init : Server initializing
+2012-05-30 12:41:57,009 | INFO  |  |  | Thread-2 | GameServer - loadEventControllers : Loading event controllers
+2012-05-30 12:41:57,026 | INFO  |  |  | Thread-2 | GameServer - loading class: AdminController$1
+2012-05-30 12:41:57,125 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: AdminController$1.class
+2012-05-30 12:41:57,125 | INFO  |  |  | Thread-2 | GameServer - loading class: AdminController
+2012-05-30 12:41:57,218 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: A_ADMIN_UPDATE
+2012-05-30 12:41:57,218 | INFO  |  |  | Thread-2 | GameServer - loading class: ArmoryController$1
+2012-05-30 12:41:57,224 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: ArmoryController$1.class
+2012-05-30 12:41:57,225 | INFO  |  |  | Thread-2 | GameServer - loading class: ArmoryController
+2012-05-30 12:41:57,308 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_ARMORY_EVENT
+2012-05-30 12:41:57,308 | INFO  |  |  | Thread-2 | GameServer - loading class: BattleController$1
+2012-05-30 12:41:57,312 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: BattleController$1.class
+2012-05-30 12:41:57,313 | INFO  |  |  | Thread-2 | GameServer - loading class: BattleController
+2012-05-30 12:41:57,384 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_BATTLE_EVENT
+2012-05-30 12:41:57,384 | INFO  |  |  | Thread-2 | GameServer - loading class: ChangeUserLocationController$1
+2012-05-30 12:41:57,398 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: ChangeUserLocationController$1.class
+2012-05-30 12:41:57,398 | INFO  |  |  | Thread-2 | GameServer - loading class: ChangeUserLocationController
+2012-05-30 12:41:57,458 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_CHANGE_USER_LOCATION_EVENT
+2012-05-30 12:41:57,458 | INFO  |  |  | Thread-2 | GameServer - loading class: ChatController$1
+2012-05-30 12:41:57,469 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: ChatController$1.class
+2012-05-30 12:41:57,470 | INFO  |  |  | Thread-2 | GameServer - loading class: ChatController
+2012-05-30 12:41:57,501 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_CHAT_EVENT
+2012-05-30 12:41:57,501 | INFO  |  |  | Thread-2 | GameServer - loading class: CriticalStructureActionController$1
+2012-05-30 12:41:57,507 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: CriticalStructureActionController$1.class
+2012-05-30 12:41:57,507 | INFO  |  |  | Thread-2 | GameServer - loading class: CriticalStructureActionController
+2012-05-30 12:41:57,574 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_CRIT_STRUCTURE_ACTION_EVENT
+2012-05-30 12:41:57,575 | INFO  |  |  | Thread-2 | GameServer - loading class: EnableAPNSController$1
+2012-05-30 12:41:57,582 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: EnableAPNSController$1.class
+2012-05-30 12:41:57,582 | INFO  |  |  | Thread-2 | GameServer - loading class: EnableAPNSController
+2012-05-30 12:41:57,640 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_ENABLE_APNS_EVENT
+2012-05-30 12:41:57,640 | INFO  |  |  | Thread-2 | GameServer - loading class: EquipEquipmentController$1
+2012-05-30 12:41:57,659 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: EquipEquipmentController$1.class
+2012-05-30 12:41:57,659 | INFO  |  |  | Thread-2 | GameServer - loading class: EquipEquipmentController
+2012-05-30 12:41:57,727 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_EQUIP_EQUIPMENT_EVENT
+2012-05-30 12:41:57,727 | INFO  |  |  | Thread-2 | GameServer - loading class: EventController$1
+2012-05-30 12:41:57,727 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: EventController$1.class
+2012-05-30 12:41:57,727 | INFO  |  |  | Thread-2 | GameServer - loading class: ExpansionWaitCompleteController$1
+2012-05-30 12:41:57,733 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: ExpansionWaitCompleteController$1.class
+2012-05-30 12:41:57,733 | INFO  |  |  | Thread-2 | GameServer - loading class: ExpansionWaitCompleteController
+2012-05-30 12:41:57,780 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_EXPANSION_WAIT_COMPLETE_EVENT
+2012-05-30 12:41:57,780 | INFO  |  |  | Thread-2 | GameServer - loading class: FinishNormStructWaittimeWithDiamondsController$1
+2012-05-30 12:41:57,790 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: FinishNormStructWaittimeWithDiamondsController$1.class
+2012-05-30 12:41:57,791 | INFO  |  |  | Thread-2 | GameServer - loading class: FinishNormStructWaittimeWithDiamondsController
+2012-05-30 12:41:57,866 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT
+2012-05-30 12:41:57,867 | INFO  |  |  | Thread-2 | GameServer - loading class: GenerateAttackListController$1
+2012-05-30 12:41:57,872 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: GenerateAttackListController$1.class
+2012-05-30 12:41:57,872 | INFO  |  |  | Thread-2 | GameServer - loading class: GenerateAttackListController
+2012-05-30 12:41:57,920 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_GENERATE_ATTACK_LIST_EVENT
+2012-05-30 12:41:57,920 | INFO  |  |  | Thread-2 | GameServer - loading class: InAppPurchaseController$1
+2012-05-30 12:41:57,925 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: InAppPurchaseController$1.class
+2012-05-30 12:41:57,925 | INFO  |  |  | Thread-2 | GameServer - loading class: InAppPurchaseController
+2012-05-30 12:41:57,970 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_IN_APP_PURCHASE_EVENT
+2012-05-30 12:41:57,970 | INFO  |  |  | Thread-2 | GameServer - loading class: LevelUpController$1
+2012-05-30 12:41:57,975 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: LevelUpController$1.class
+2012-05-30 12:41:57,975 | INFO  |  |  | Thread-2 | GameServer - loading class: LevelUpController
+2012-05-30 12:41:58,036 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_LEVEL_UP_EVENT
+2012-05-30 12:41:58,037 | INFO  |  |  | Thread-2 | GameServer - loading class: LoadNeutralCityController$1
+2012-05-30 12:41:58,055 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: LoadNeutralCityController$1.class
+2012-05-30 12:41:58,055 | INFO  |  |  | Thread-2 | GameServer - loading class: LoadNeutralCityController
+2012-05-30 12:41:58,148 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_LOAD_NEUTRAL_CITY_EVENT
+2012-05-30 12:41:58,148 | INFO  |  |  | Thread-2 | GameServer - loading class: LoadPlayerCityController$1
+2012-05-30 12:41:58,154 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: LoadPlayerCityController$1.class
+2012-05-30 12:41:58,154 | INFO  |  |  | Thread-2 | GameServer - loading class: LoadPlayerCityController
+2012-05-30 12:41:58,240 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_LOAD_PLAYER_CITY_EVENT
+2012-05-30 12:41:58,240 | INFO  |  |  | Thread-2 | GameServer - loading class: MoveOrRotateNormStructureController$1
+2012-05-30 12:41:58,244 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: MoveOrRotateNormStructureController$1.class
+2012-05-30 12:41:58,244 | INFO  |  |  | Thread-2 | GameServer - loading class: MoveOrRotateNormStructureController
+2012-05-30 12:41:58,284 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT
+2012-05-30 12:41:58,284 | INFO  |  |  | Thread-2 | GameServer - loading class: NormStructWaitCompleteController$1
+2012-05-30 12:41:58,302 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: NormStructWaitCompleteController$1.class
+2012-05-30 12:41:58,303 | INFO  |  |  | Thread-2 | GameServer - loading class: NormStructWaitCompleteController
+2012-05-30 12:41:58,356 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_NORM_STRUCT_WAIT_COMPLETE_EVENT
+2012-05-30 12:41:58,356 | INFO  |  |  | Thread-2 | GameServer - loading class: PostOnPlayerWallController$1
+2012-05-30 12:41:58,367 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: PostOnPlayerWallController$1.class
+2012-05-30 12:41:58,367 | INFO  |  |  | Thread-2 | GameServer - loading class: PostOnPlayerWallController
+2012-05-30 12:41:58,446 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_POST_ON_PLAYER_WALL
+2012-05-30 12:41:58,446 | INFO  |  |  | Thread-2 | GameServer - loading class: PostToMarketplaceController$1
+2012-05-30 12:41:58,458 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: PostToMarketplaceController$1.class
+2012-05-30 12:41:58,459 | INFO  |  |  | Thread-2 | GameServer - loading class: PostToMarketplaceController
+2012-05-30 12:41:58,506 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_POST_TO_MARKETPLACE_EVENT
+2012-05-30 12:41:58,506 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseCityExpansionController$1
+2012-05-30 12:41:58,511 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: PurchaseCityExpansionController$1.class
+2012-05-30 12:41:58,512 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseCityExpansionController
+2012-05-30 12:41:58,566 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_PURCHASE_CITY_EXPANSION_EVENT
+2012-05-30 12:41:58,566 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseFromMarketplaceController$1
+2012-05-30 12:41:58,571 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: PurchaseFromMarketplaceController$1.class
+2012-05-30 12:41:58,571 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseFromMarketplaceController
+2012-05-30 12:41:58,638 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_PURCHASE_FROM_MARKETPLACE_EVENT
+2012-05-30 12:41:58,638 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseMarketplaceLicenseController$1
+2012-05-30 12:41:58,645 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: PurchaseMarketplaceLicenseController$1.class
+2012-05-30 12:41:58,645 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseMarketplaceLicenseController
+2012-05-30 12:41:58,694 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_PURCHASE_MARKETPLACE_LICENSE_EVENT
+2012-05-30 12:41:58,694 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseNormStructureController$1
+2012-05-30 12:41:58,698 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: PurchaseNormStructureController$1.class
+2012-05-30 12:41:58,698 | INFO  |  |  | Thread-2 | GameServer - loading class: PurchaseNormStructureController
+2012-05-30 12:41:58,764 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_PURCHASE_NORM_STRUCTURE_EVENT
+2012-05-30 12:41:58,764 | INFO  |  |  | Thread-2 | GameServer - loading class: QuestAcceptController$1
+2012-05-30 12:41:58,767 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: QuestAcceptController$1.class
+2012-05-30 12:41:58,768 | INFO  |  |  | Thread-2 | GameServer - loading class: QuestAcceptController
+2012-05-30 12:41:58,826 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_QUEST_ACCEPT_EVENT
+2012-05-30 12:41:58,826 | INFO  |  |  | Thread-2 | GameServer - loading class: QuestRedeemController$1
+2012-05-30 12:41:58,833 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: QuestRedeemController$1.class
+2012-05-30 12:41:58,833 | INFO  |  |  | Thread-2 | GameServer - loading class: QuestRedeemController
+2012-05-30 12:41:58,912 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_QUEST_REDEEM_EVENT
+2012-05-30 12:41:58,912 | INFO  |  |  | Thread-2 | GameServer - loading class: RedeemMarketplaceEarningsController$1
+2012-05-30 12:41:58,916 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RedeemMarketplaceEarningsController$1.class
+2012-05-30 12:41:58,916 | INFO  |  |  | Thread-2 | GameServer - loading class: RedeemMarketplaceEarningsController
+2012-05-30 12:41:58,965 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_REDEEM_MARKETPLACE_EARNINGS_EVENT
+2012-05-30 12:41:58,965 | INFO  |  |  | Thread-2 | GameServer - loading class: RefillStatWaitCompleteController$1
+2012-05-30 12:41:58,973 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RefillStatWaitCompleteController$1.class
+2012-05-30 12:41:58,973 | INFO  |  |  | Thread-2 | GameServer - loading class: RefillStatWaitCompleteController
+2012-05-30 12:41:59,037 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_REFILL_STAT_WAIT_COMPLETE_EVENT
+2012-05-30 12:41:59,037 | INFO  |  |  | Thread-2 | GameServer - loading class: RefillStatWithDiamondsController$1
+2012-05-30 12:41:59,046 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RefillStatWithDiamondsController$1.class
+2012-05-30 12:41:59,046 | INFO  |  |  | Thread-2 | GameServer - loading class: RefillStatWithDiamondsController
+2012-05-30 12:41:59,106 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_REFILL_STAT_WITH_DIAMONDS_EVENT
+2012-05-30 12:41:59,107 | INFO  |  |  | Thread-2 | GameServer - loading class: RetractMarketplacePostController$1
+2012-05-30 12:41:59,128 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetractMarketplacePostController$1.class
+2012-05-30 12:41:59,128 | INFO  |  |  | Thread-2 | GameServer - loading class: RetractMarketplacePostController
+2012-05-30 12:41:59,186 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRACT_POST_FROM_MARKETPLACE_EVENT
+2012-05-30 12:41:59,186 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveCurrencyFromNormStructureController$1
+2012-05-30 12:41:59,192 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetrieveCurrencyFromNormStructureController$1.class
+2012-05-30 12:41:59,192 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveCurrencyFromNormStructureController
+2012-05-30 12:41:59,240 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT
+2012-05-30 12:41:59,240 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveCurrentMarketplacePostsController$1
+2012-05-30 12:41:59,245 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetrieveCurrentMarketplacePostsController$1.class
+2012-05-30 12:41:59,246 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveCurrentMarketplacePostsController
+2012-05-30 12:41:59,291 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT
+2012-05-30 12:41:59,291 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrievePlayerWallPostsController$1
+2012-05-30 12:41:59,296 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetrievePlayerWallPostsController$1.class
+2012-05-30 12:41:59,296 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrievePlayerWallPostsController
+2012-05-30 12:41:59,336 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRIEVE_PLAYER_WALL_POSTS
+2012-05-30 12:41:59,336 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveStaticDataController$1
+2012-05-30 12:41:59,343 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetrieveStaticDataController$1.class
+2012-05-30 12:41:59,343 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveStaticDataController
+2012-05-30 12:41:59,407 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_EVENT
+2012-05-30 12:41:59,407 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveStaticDataForShopController$1
+2012-05-30 12:41:59,420 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetrieveStaticDataForShopController$1.class
+2012-05-30 12:41:59,420 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveStaticDataForShopController
+2012-05-30 12:41:59,462 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT
+2012-05-30 12:41:59,462 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveUserEquipForUserController$1
+2012-05-30 12:41:59,465 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetrieveUserEquipForUserController$1.class
+2012-05-30 12:41:59,465 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveUserEquipForUserController
+2012-05-30 12:41:59,500 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRIEVE_USER_EQUIP_FOR_USER
+2012-05-30 12:41:59,500 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveUsersForUserIdsController$1
+2012-05-30 12:41:59,504 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: RetrieveUsersForUserIdsController$1.class
+2012-05-30 12:41:59,505 | INFO  |  |  | Thread-2 | GameServer - loading class: RetrieveUsersForUserIdsController
+2012-05-30 12:41:59,538 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_RETRIEVE_USERS_FOR_USER_IDS_EVENT
+2012-05-30 12:41:59,538 | INFO  |  |  | Thread-2 | GameServer - loading class: SellNormStructureController$1
+2012-05-30 12:41:59,542 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: SellNormStructureController$1.class
+2012-05-30 12:41:59,542 | INFO  |  |  | Thread-2 | GameServer - loading class: SellNormStructureController
+2012-05-30 12:41:59,581 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_SELL_NORM_STRUCTURE_EVENT
+2012-05-30 12:41:59,581 | INFO  |  |  | Thread-2 | GameServer - loading class: StartupController$1
+2012-05-30 12:41:59,586 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: StartupController$1.class
+2012-05-30 12:41:59,586 | INFO  |  |  | Thread-2 | GameServer - loading class: StartupController
+2012-05-30 12:41:59,688 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_STARTUP_EVENT
+2012-05-30 12:41:59,689 | INFO  |  |  | Thread-2 | GameServer - loading class: TaskActionController$1
+2012-05-30 12:41:59,695 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: TaskActionController$1.class
+2012-05-30 12:41:59,695 | INFO  |  |  | Thread-2 | GameServer - loading class: TaskActionController
+2012-05-30 12:41:59,774 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_TASK_ACTION_EVENT
+2012-05-30 12:41:59,774 | INFO  |  |  | Thread-2 | GameServer - loading class: UpgradeNormStructureController$1
+2012-05-30 12:41:59,779 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: UpgradeNormStructureController$1.class
+2012-05-30 12:41:59,779 | INFO  |  |  | Thread-2 | GameServer - loading class: UpgradeNormStructureController
+2012-05-30 12:41:59,825 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_UPGRADE_NORM_STRUCTURE_EVENT
+2012-05-30 12:41:59,826 | INFO  |  |  | Thread-2 | GameServer - loading class: UserCreateController$1
+2012-05-30 12:41:59,831 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: UserCreateController$1.class
+2012-05-30 12:41:59,831 | INFO  |  |  | Thread-2 | GameServer - loading class: UserCreateController
+2012-05-30 12:41:59,901 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_USER_CREATE_EVENT
+2012-05-30 12:41:59,901 | INFO  |  |  | Thread-2 | GameServer - loading class: UserQuestDetailsController$1
+2012-05-30 12:41:59,905 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: UserQuestDetailsController$1.class
+2012-05-30 12:41:59,905 | INFO  |  |  | Thread-2 | GameServer - loading class: UserQuestDetailsController
+2012-05-30 12:41:59,946 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_USER_QUEST_DETAILS_EVENT
+2012-05-30 12:41:59,946 | INFO  |  |  | Thread-2 | GameServer - loading class: UseSkillPointController$1
+2012-05-30 12:41:59,955 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: UseSkillPointController$1.class
+2012-05-30 12:41:59,955 | INFO  |  |  | Thread-2 | GameServer - loading class: UseSkillPointController
+2012-05-30 12:41:59,994 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_USE_SKILL_POINT_EVENT
+2012-05-30 12:41:59,994 | INFO  |  |  | Thread-2 | GameServer - loading class: VaultController$1
+2012-05-30 12:42:00,001 | WARN  |  |  | Thread-2 | GameServer - class file does not extend EventController: VaultController$1.class
+2012-05-30 12:42:00,001 | INFO  |  |  | Thread-2 | GameServer - loading class: VaultController
+2012-05-30 12:42:00,038 | INFO  |  |  | Thread-2 | GameServer - loaded controller for event: C_VAULT_EVENT
+2012-05-30 12:42:00,038 | INFO  |  |  | Thread-2 | GameServer - initServerSocket : Initializing server socket
+2012-05-30 12:42:00,061 | INFO  |  |  | Thread-2 | GameServer - binding to address: 10.1.10.20
+2012-05-30 12:42:00,189 | INFO  |  |  | Thread-2 | GameServer - ******** GameServer running ********
+2012-05-30 12:43:11,629 | INFO  |  |  | Thread-2 | GameServer - received connection from: /10.1.10.19
+2012-05-30 12:43:18,044 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_STARTUP_EVENT and size: 41
+2012-05-30 12:43:18,126 | INFO  |  |  | StartupController2 | EventController - Received event: com.lvl6.events.request.StartupRequestEvent@779d9c0d
+2012-05-30 12:43:20,755 | INFO  | 06ae829e31a8a313473809a4ee901e53 | /10.1.10.19 | StartupController2 | StartupController - Writing event: com.lvl6.events.response.StartupResponseEvent@76086988
+2012-05-30 12:43:20,813 | INFO  | 06ae829e31a8a313473809a4ee901e53 | /10.1.10.19 | StartupController2 | EventController - Finished processing event: com.lvl6.events.request.StartupRequestEvent@779d9c0d, took ~2.0 seconds
+2012-05-30 12:43:20,813 | WARN  | 06ae829e31a8a313473809a4ee901e53 | /10.1.10.19 | StartupController2 | EventController - event: com.lvl6.events.request.StartupRequestEvent@779d9c0d took over 1 seconds
+2012-05-30 12:43:22,649 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_LOAD_PLAYER_CITY_EVENT and size: 23
+2012-05-30 12:43:22,708 | INFO  | 1 | /10.1.10.19 | LoadPlayerCityController9 | EventController - Received event: com.lvl6.events.request.LoadPlayerCityRequestEvent@1a6cffbb
+2012-05-30 12:43:22,759 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 23
+2012-05-30 12:43:22,911 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController11 | EventController - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@87b7b11
+2012-05-30 12:43:23,378 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController11 | EventController - Finished processing event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@87b7b11, took ~0.0 seconds
+2012-05-30 12:43:23,378 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_RETRIEVE_STATIC_DATA_EVENT to player with id 1
+2012-05-30 12:43:23,546 | INFO  | 1 | /10.1.10.19 | LoadPlayerCityController9 | EventController - Finished processing event: com.lvl6.events.request.LoadPlayerCityRequestEvent@1a6cffbb, took ~0.0 seconds
+2012-05-30 12:43:23,547 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_LOAD_PLAYER_CITY_EVENT to player with id 1
+2012-05-30 12:43:28,180 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 27
+2012-05-30 12:43:28,182 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController11 | EventController - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@dd0feea
+2012-05-30 12:43:28,183 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController11 | EventController - Finished processing event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@dd0feea, took ~0.0 seconds
+2012-05-30 12:43:28,183 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_RETRIEVE_STATIC_DATA_EVENT to player with id 1
+2012-05-30 12:43:28,281 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 27
+2012-05-30 12:43:28,282 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController14 | EventController - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@140fbbbc
+2012-05-30 12:43:28,282 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController14 | EventController - Finished processing event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@140fbbbc, took ~0.0 seconds
+2012-05-30 12:43:28,282 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_RETRIEVE_STATIC_DATA_EVENT to player with id 1
+2012-05-30 12:43:46,611 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_REFILL_STAT_WAIT_COMPLETE_EVENT and size: 28
+2012-05-30 12:43:46,695 | INFO  | 1 | /10.1.10.19 | RefillStatWaitCompleteController4 | EventController - Received event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@4ab4faeb
+2012-05-30 12:43:47,235 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_REFILL_STAT_WAIT_COMPLETE_EVENT to player with id 1
+2012-05-30 12:43:47,290 | INFO  | 1 | /10.1.10.19 | RefillStatWaitCompleteController4 | EventController - Finished processing event: com.lvl6.events.request.RefillStatWaitCompleteRequestEvent@4ab4faeb, took ~0.0 seconds
+2012-05-30 12:43:47,291 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 1
+2012-05-30 12:44:13,338 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_EQUIP_EQUIPMENT_EVENT and size: 22
+2012-05-30 12:44:13,401 | INFO  | 1 | /10.1.10.19 | EquipEquipmentController2 | EventController - Received event: com.lvl6.events.request.EquipEquipmentRequestEvent@132cd8d4
+2012-05-30 12:44:13,839 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_EQUIP_EQUIPMENT_EVENT to player with id 1
+2012-05-30 12:44:13,872 | INFO  | 1 | /10.1.10.19 | EquipEquipmentController2 | EventController - Finished processing event: com.lvl6.events.request.EquipEquipmentRequestEvent@132cd8d4, took ~0.0 seconds
+2012-05-30 12:44:13,872 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 1
+2012-05-30 12:44:29,625 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_POST_TO_MARKETPLACE_EVENT and size: 26
+2012-05-30 12:44:29,687 | INFO  | 1 | /10.1.10.19 | PostToMarketplaceController2 | EventController - Received event: com.lvl6.events.request.PostToMarketplaceRequestEvent@326cbecf
+2012-05-30 12:44:29,834 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_POST_TO_MARKETPLACE_EVENT to player with id 1
+2012-05-30 12:44:30,050 | INFO  | 1 | /10.1.10.19 | PostToMarketplaceController2 | EventController - Finished processing event: com.lvl6.events.request.PostToMarketplaceRequestEvent@326cbecf, took ~0.0 seconds
+2012-05-30 12:44:30,050 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 1
+2012-05-30 12:44:39,553 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_GENERATE_ATTACK_LIST_EVENT and size: 57
+2012-05-30 12:44:39,656 | INFO  | 1 | /10.1.10.19 | GenerateAttackListController18 | EventController - Received event: com.lvl6.events.request.GenerateAttackListRequestEvent@54edd9de
+2012-05-30 12:44:39,828 | INFO  | 1 | /10.1.10.19 | GenerateAttackListController18 | EventController - Finished processing event: com.lvl6.events.request.GenerateAttackListRequestEvent@54edd9de, took ~0.0 seconds
+2012-05-30 12:44:39,829 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_GENERATE_ATTACK_LIST_EVENT to player with id 1
+2012-05-30 12:44:40,680 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_STATIC_DATA_EVENT and size: 28
+2012-05-30 12:44:40,680 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController14 | EventController - Received event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6534ae32
+2012-05-30 12:44:40,680 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataController14 | EventController - Finished processing event: com.lvl6.events.request.RetrieveStaticDataRequestEvent@6534ae32, took ~0.0 seconds
+2012-05-30 12:44:40,681 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_RETRIEVE_STATIC_DATA_EVENT to player with id 1
+2012-05-30 12:44:41,908 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT and size: 21
+2012-05-30 12:44:41,990 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataForShopController2 | EventController - Received event: com.lvl6.events.request.RetrieveStaticDataForShopRequestEvent@fd12614
+2012-05-30 12:44:42,104 | INFO  | 1 | /10.1.10.19 | RetrieveStaticDataForShopController2 | EventController - Finished processing event: com.lvl6.events.request.RetrieveStaticDataForShopRequestEvent@fd12614, took ~0.0 seconds
+2012-05-30 12:44:42,107 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT to player with id 1
+2012-05-30 12:44:49,896 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_ARMORY_EVENT and size: 26
+2012-05-30 12:44:49,971 | INFO  | 1 | /10.1.10.19 | ArmoryController3 | EventController - Received event: com.lvl6.events.request.ArmoryRequestEvent@4f980c26
+2012-05-30 12:44:50,217 | INFO  |  |  | EventWriter0 | EventWriter - writing normal event with type=S_ARMORY_EVENT to player with id 1
+2012-05-30 12:44:50,217 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 1
+2012-05-30 12:44:50,251 | INFO  | 1 | /10.1.10.19 | ArmoryController3 | EventController - Finished processing event: com.lvl6.events.request.ArmoryRequestEvent@4f980c26, took ~0.0 seconds
+2012-05-30 12:45:22,460 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 21
+2012-05-30 12:45:22,521 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@74ac576f
+2012-05-30 12:45:22,789 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@74ac576f, took ~0.0 seconds
+2012-05-30 12:45:22,791 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:45:24,918 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_REDEEM_MARKETPLACE_EARNINGS_EVENT and size: 19
+2012-05-30 12:45:24,973 | INFO  | 1 | /10.1.10.19 | RedeemMarketplaceEarningsController3 | EventController - Received event: com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent@74d175ff
+2012-05-30 12:45:25,086 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_REDEEM_MARKETPLACE_EARNINGS_EVENT to player with id 1
+2012-05-30 12:45:25,125 | INFO  | 1 | /10.1.10.19 | RedeemMarketplaceEarningsController3 | EventController - Finished processing event: com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent@74d175ff, took ~0.0 seconds
+2012-05-30 12:45:25,125 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 1
+2012-05-30 12:45:26,146 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 23
+2012-05-30 12:45:26,147 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@5f5fc606
+2012-05-30 12:45:26,206 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@5f5fc606, took ~0.0 seconds
+2012-05-30 12:45:26,206 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:45:42,124 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_POST_TO_MARKETPLACE_EVENT and size: 26
+2012-05-30 12:45:42,125 | INFO  | 1 | /10.1.10.19 | PostToMarketplaceController2 | EventController - Received event: com.lvl6.events.request.PostToMarketplaceRequestEvent@1824c22b
+2012-05-30 12:45:42,186 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_POST_TO_MARKETPLACE_EVENT to player with id 1
+2012-05-30 12:45:42,331 | INFO  | 1 | /10.1.10.19 | PostToMarketplaceController2 | EventController - Finished processing event: com.lvl6.events.request.PostToMarketplaceRequestEvent@1824c22b, took ~0.0 seconds
+2012-05-30 12:45:42,331 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 1
+2012-05-30 12:45:45,193 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 21
+2012-05-30 12:45:45,194 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@4c9549af
+2012-05-30 12:45:45,495 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@4c9549af, took ~0.0 seconds
+2012-05-30 12:45:45,497 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:45:49,801 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 23
+2012-05-30 12:45:49,802 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@60328c40
+2012-05-30 12:45:49,872 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@60328c40, took ~0.0 seconds
+2012-05-30 12:45:49,872 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:45:56,867 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_PURCHASE_FROM_MARKETPLACE_EVENT and size: 24
+2012-05-30 12:45:56,930 | INFO  | 1 | /10.1.10.19 | PurchaseFromMarketplaceController3 | EventController - Received event: com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent@6c7a3a30
+2012-05-30 12:45:57,126 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_PURCHASE_FROM_MARKETPLACE_EVENT to player with id 1
+2012-05-30 12:45:57,126 | INFO  |  |  | APNSWriter4 | APNSWriter - received APNS notification to send to player with id 2596
+2012-05-30 12:45:57,172 | INFO  |  |  | APNSWriter4 | APNSWriter - could not send push notification because user User [id=2596, name=Meepert, level=19, type=BAD_ARCHER, attack=30, defense=12, stamina=2, lastStaminaRefillTime=Wed May 30 00:46:07 PDT 2012, energy=9, lastEnergyRefillTime=Wed May 30 00:54:46 PDT 2012, skillPoints=0, healthMax=100, energyMax=45, staminaMax=4, diamonds=889, coins=890, marketplaceDiamondsEarnings=0, marketplaceCoinsEarnings=0, vaultBalance=18536, experience=3794, tasksCompleted=517, battlesWon=171, battlesLost=121, flees=24, referralCode=11U78K, numReferrals=0, udid=42d1cadaa64dbf3c3e8133e652a2df06, userLocation=Location [latitude=37.4501152038574, longitude=-122.155532836914], numPostsInMarketplace=34, numMarketplaceSalesUnredeemed=0, weaponEquipped=129, armorEquipped=159, amuletEquipped=252, lastLogin=Wed May 30 00:49:12 PDT 2012, lastLogout=Wed May 30 00:55:03 PDT 2012, deviceToken=null, lastBattleNotificationTime=null, lastTimeAttacked=Sun May 27 12:55:02 PDT 2012, numBadges=0, lastShortLicensePurchaseTime=Fri Apr 27 04:26:02 PDT 2012, lastLongLicensePurchaseTime=Tue May 01 17:00:14 PDT 2012, isFake=false, createTime=Mon Apr 09 22:42:01 PDT 2012, isAdmin=false, apsalarId=, numCoinsRetrievedFromStructs=2540] has no device token
+2012-05-30 12:45:57,942 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 1
+2012-05-30 12:45:57,943 | INFO  |  |  | EventWriter3 | EventWriter - writing normal event with type=S_UPDATE_CLIENT_USER_EVENT to player with id 2596
+2012-05-30 12:45:58,081 | INFO  | 1 | /10.1.10.19 | PurchaseFromMarketplaceController3 | EventController - Finished processing event: com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent@6c7a3a30, took ~1.0 seconds
+2012-05-30 12:46:26,052 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 21
+2012-05-30 12:46:26,052 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@d6d46d7
+2012-05-30 12:46:26,263 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@d6d46d7, took ~0.0 seconds
+2012-05-30 12:46:26,265 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:46:27,911 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 21
+2012-05-30 12:46:27,912 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@4dc4e792
+2012-05-30 12:46:28,141 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@4dc4e792, took ~0.0 seconds
+2012-05-30 12:46:28,142 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:46:29,739 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 23
+2012-05-30 12:46:29,739 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@5fb45ddc
+2012-05-30 12:46:29,799 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@5fb45ddc, took ~0.0 seconds
+2012-05-30 12:46:29,799 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:47:08,447 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 21
+2012-05-30 12:47:08,447 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@49b9a538
+2012-05-30 12:47:08,572 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@49b9a538, took ~0.0 seconds
+2012-05-30 12:47:08,574 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:47:11,826 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 23
+2012-05-30 12:47:11,827 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@468034b6
+2012-05-30 12:47:11,889 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@468034b6, took ~0.0 seconds
+2012-05-30 12:47:11,889 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:48:42,453 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 21
+2012-05-30 12:48:42,453 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@4e850e8c
+2012-05-30 12:48:42,586 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@4e850e8c, took ~0.0 seconds
+2012-05-30 12:48:42,587 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:48:47,061 | INFO  |  |  | Thread-11 | Attachment - Read event type: C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT and size: 23
+2012-05-30 12:48:47,061 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Received event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@7794566d
+2012-05-30 12:48:47,139 | INFO  | 1 | /10.1.10.19 | RetrieveCurrentMarketplacePostsController3 | EventController - Finished processing event: com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent@7794566d, took ~0.0 seconds
+2012-05-30 12:48:47,139 | INFO  |  |  | EventWriter1 | EventWriter - writing normal event with type=S_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT to player with id 1
+2012-05-30 12:55:32,719 | INFO  |  |  | Thread-11 | SelectAndRead - disconnect: /10.1.10.19, end-of-stream

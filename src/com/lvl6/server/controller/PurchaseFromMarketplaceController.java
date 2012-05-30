@@ -17,6 +17,7 @@ import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
@@ -100,7 +101,7 @@ public class PurchaseFromMarketplaceController extends EventController {
           resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(seller);
           server.writeEvent(resEventUpdate);
           
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto);
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, SpecialQuestAction.PURCHASE_FROM_MARKETPLACE, false);
         }
       }
     } catch (Exception e) {

@@ -209,7 +209,7 @@ public class TaskActionController extends EventController {
                         if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
                           if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                             userQuest.setTasksComplete(true);
-                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true);
+                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
                           } else {
                             log.error("problem with marking tasks completed for a user quest, questId=" + quest.getId());
                           }
@@ -229,7 +229,7 @@ public class TaskActionController extends EventController {
               }
             }
             if (lootEquipId > ControllerConstants.NOT_SET && !questCompletedAndSent) {
-              QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true);
+              QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
             }
           }
         }

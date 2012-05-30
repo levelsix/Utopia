@@ -14,9 +14,11 @@ import com.lvl6.proto.EventProto.VaultResponseProto;
 import com.lvl6.proto.EventProto.VaultResponseProto.Builder;
 import com.lvl6.proto.EventProto.VaultResponseProto.VaultStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.QuestUtils;
 
 public class VaultController extends EventController {
 
@@ -62,13 +64,17 @@ public class VaultController extends EventController {
         if (requestType == VaultRequestType.WITHDRAW) {
           if (!user.updateRelativeCoinsVault(amount, -1*amount)) {
             log.error("problem with vault transaction. coinChange=" + amount + ", vaultChange=" + amount*-1);
+            legitTransaction = false;
           }
         } else if (requestType == VaultRequestType.DEPOSIT) {
           if (!user.updateRelativeCoinsVault(-1*amount, (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount))) {
             log.error("problem with vault transaction. coinChange=" + -1*amount + ", vaultChange="
                 + (int)Math.floor((1-ControllerConstants.VAULT__DEPOSIT_PERCENT_CUT)*amount));
+            legitTransaction = false;
           }
         }
+      }
+      if (legitTransaction) {
         resBuilder.setCoinAmount(user.getCoins());
         resBuilder.setVaultAmount(user.getVaultBalance());
       }
@@ -84,6 +90,14 @@ public class VaultController extends EventController {
       resEventUpdate.setTag(event.getTag());
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
+      
+      if (legitTransaction) {
+        if (requestType == VaultRequestType.WITHDRAW) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.WITHDRAW_FROM_VAULT, true);
+        } else if (requestType == VaultRequestType.DEPOSIT) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.DEPOSIT_IN_VAULT, true);
+        }
+      }
     } catch (Exception e) {
       log.error("exception in VaultController processEvent", e);
     } finally {

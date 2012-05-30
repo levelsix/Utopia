@@ -77,7 +77,7 @@ public class RetractMarketplacePostController extends EventController{
           UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto);
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
       }
     } catch (Exception e) {
