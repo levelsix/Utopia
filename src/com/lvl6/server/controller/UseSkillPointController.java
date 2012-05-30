@@ -41,7 +41,7 @@ public class UseSkillPointController extends EventController {
    * on it immediately anyways
    */
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     UseSkillPointRequestProto reqProto = ((UseSkillPointRequestEvent)event).getUseSkillPointRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

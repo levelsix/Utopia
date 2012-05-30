@@ -34,7 +34,7 @@ public class RetrieveUserEquipForUserController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetrieveUserEquipForUserRequestProto reqProto = ((RetrieveUserEquipForUserRequestEvent)event).getRetrieveUserEquipForUserRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

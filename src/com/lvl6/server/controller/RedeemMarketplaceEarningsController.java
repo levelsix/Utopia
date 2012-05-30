@@ -35,7 +35,7 @@ public class RedeemMarketplaceEarningsController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RedeemMarketplaceEarningsRequestProto reqProto = ((RedeemMarketplaceEarningsRequestEvent)event).getRedeemMarketplaceEarningsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

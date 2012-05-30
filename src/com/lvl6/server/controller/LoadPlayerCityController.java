@@ -42,7 +42,7 @@ public class LoadPlayerCityController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     LoadPlayerCityRequestProto reqProto = ((LoadPlayerCityRequestEvent)event).getLoadPlayerCityRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

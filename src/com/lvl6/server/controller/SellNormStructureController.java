@@ -39,9 +39,8 @@ public class SellNormStructureController extends EventController {
     return EventProtocolRequest.C_SELL_NORM_STRUCTURE_EVENT;
   }
 
-
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     SellNormStructureRequestProto reqProto = ((SellNormStructureRequestEvent)event).getSellNormStructureRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

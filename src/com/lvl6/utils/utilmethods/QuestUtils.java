@@ -53,7 +53,7 @@ public class QuestUtils {
     if (userQuest.isComplete()) return true;                        //already completed
       
     if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
-      if (userQuest.getCoinsRetrievedForReq() < quest.getCoinRetrievalReq()) return false;
+      if (userQuest.getCoinsRetrievedForReq() < quest.getCoinRetrievalAmountRequired()) return false;
       
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();
       List<Integer> upgradeStructJobsRequired = quest.getUpgradeStructJobsRequired();

@@ -40,8 +40,7 @@ public class RefillStatWaitCompleteController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
-
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RefillStatWaitCompleteRequestProto reqProto = ((RefillStatWaitCompleteRequestEvent)event).getRefillStatWaitCompleteRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

@@ -42,7 +42,8 @@ public class ArmoryController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     ArmoryRequestProto reqProto = ((ArmoryRequestEvent)event).getArmoryRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

@@ -42,7 +42,7 @@ public class CriticalStructureActionController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     CriticalStructureActionRequestProto reqProto = ((CriticalStructureActionRequestEvent)event).getCriticalStructureActionRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

@@ -40,7 +40,7 @@ public class RetrievePlayerWallPostsController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetrievePlayerWallPostsRequestProto reqProto = ((RetrievePlayerWallPostsRequestEvent)event).getRetrievePlayerWallPostsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

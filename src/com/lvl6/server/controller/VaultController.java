@@ -41,7 +41,7 @@ public class VaultController extends EventController {
    * on it immediately anyways
    */
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     VaultRequestProto reqProto = ((VaultRequestEvent)event).getVaultRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

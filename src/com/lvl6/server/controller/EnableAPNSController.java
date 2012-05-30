@@ -32,7 +32,7 @@ public class EnableAPNSController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     EnableAPNSRequestProto reqProto = ((EnableAPNSRequestEvent)event).getEnableAPNSRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

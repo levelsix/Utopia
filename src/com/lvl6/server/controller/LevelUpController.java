@@ -51,7 +51,7 @@ public class LevelUpController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     LevelUpRequestProto reqProto = ((LevelUpRequestEvent)event).getLevelUpRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

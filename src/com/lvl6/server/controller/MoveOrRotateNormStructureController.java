@@ -37,7 +37,7 @@ public class MoveOrRotateNormStructureController extends EventController {
 
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     MoveOrRotateNormStructureRequestProto reqProto = ((MoveOrRotateNormStructureRequestEvent)event).getMoveOrRotateNormStructureRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

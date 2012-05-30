@@ -35,7 +35,7 @@ public class RetrieveUsersForUserIdsController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetrieveUsersForUserIdsRequestProto reqProto = ((RetrieveUsersForUserIdsRequestEvent)event).getRetrieveUsersForUserIdsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

@@ -40,7 +40,7 @@ public class RetrieveCurrentMarketplacePostsController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetrieveCurrentMarketplacePostsRequestProto reqProto = ((RetrieveCurrentMarketplacePostsRequestEvent)event).getRetrieveCurrentMarketplacePostsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

@@ -57,7 +57,7 @@ public class LoadNeutralCityController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     LoadNeutralCityRequestProto reqProto = ((LoadNeutralCityRequestEvent)event).getLoadNeutralCityRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

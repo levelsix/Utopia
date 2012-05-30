@@ -41,7 +41,7 @@ public class RetractMarketplacePostController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetractMarketplacePostRequestProto reqProto = ((RetractMarketplacePostRequestEvent)event).getRetractMarketplacePostRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

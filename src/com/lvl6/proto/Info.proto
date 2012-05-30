@@ -4,6 +4,18 @@ option java_outer_classname = "InfoProto";
 
 //------------------------------------------------------------------------------------------
 
+enum SpecialQuestAction {
+	PURCHASE_FROM_ARMORY = 1;
+	PURCHASE_FROM_MARKETPLACE = 2;
+	SELL_TO_ARMORY = 3;
+	SELL_TO_MARKETPLACE = 4;
+	DEPOSIT_IN_VAULT = 5;
+	WITHDRAW_FROM_VAULT = 6;
+	WRITE_ON_OTHER_WALL = 7;	
+}
+
+//------------------------------------------------------------------------------------------
+
 enum UserType {
 	GOOD_WARRIOR = 0;
 	GOOD_ARCHER = 1;
@@ -423,12 +435,13 @@ message FullQuestProto {
      repeated int32 buildStructJobsReqs = 15;
      repeated int32 defeatTypeReqs = 16;
      repeated int32 possessEquipJobReqs = 17;
+     optional int32 coinRetrievalReq = 22;
+     optional SpecialQuestAction specialQuestActionReq = 23; 
      optional int32 numComponentsForGood = 18;
      optional int32 numComponentsForBad = 19;
      optional DialogueProto acceptDialogue = 20;
      
      optional string questGiverName = 21;
-     optional int32 coinRetrievalReq = 22;
 }
 
 //------------------------------------------------------------------------------------------

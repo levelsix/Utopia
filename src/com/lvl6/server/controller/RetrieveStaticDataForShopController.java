@@ -42,7 +42,7 @@ public class RetrieveStaticDataForShopController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetrieveStaticDataForShopRequestProto reqProto = ((RetrieveStaticDataForShopRequestEvent)event).getRetrieveStaticDataForShopRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

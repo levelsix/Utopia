@@ -48,7 +48,7 @@ public class QuestRedeemController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     QuestRedeemRequestProto reqProto = ((QuestRedeemRequestEvent)event).getQuestRedeemRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

@@ -41,7 +41,7 @@ public class UserQuestDetailsController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     UserQuestDetailsRequestProto reqProto = ((UserQuestDetailsRequestEvent)event).getUserQuestDetailsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

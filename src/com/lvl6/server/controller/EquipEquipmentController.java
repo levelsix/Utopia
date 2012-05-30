@@ -40,7 +40,7 @@ public class EquipEquipmentController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     EquipEquipmentRequestProto reqProto = ((EquipEquipmentRequestEvent)event).getEquipEquipmentRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

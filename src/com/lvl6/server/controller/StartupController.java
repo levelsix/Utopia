@@ -80,8 +80,9 @@ public class StartupController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     StartupRequestProto reqProto = ((StartupRequestEvent)event).getStartupRequestProto();
+        
     UpdateStatus updateStatus;
     String udid = reqProto.getUdid();
     String apsalarId = reqProto.hasApsalarId() ? reqProto.getApsalarId() : null;

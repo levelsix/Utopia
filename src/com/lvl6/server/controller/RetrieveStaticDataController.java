@@ -55,7 +55,7 @@ public class RetrieveStaticDataController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetrieveStaticDataRequestProto reqProto = ((RetrieveStaticDataRequestEvent)event).getRetrieveStaticDataRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

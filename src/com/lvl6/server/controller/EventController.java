@@ -66,6 +66,8 @@ public abstract class EventController extends Wrap{
     final long endTime;
     try {
       processRequestEvent(reqEvent);
+    } catch (Exception e) {
+      log.error("error with processing event.", e);
     } finally {
       endTime = System.nanoTime();
     }
@@ -85,7 +87,7 @@ public abstract class EventController extends Wrap{
    */
   public abstract EventProtocolRequest getEventType();
 
-  protected abstract void processRequestEvent(RequestEvent event);
+  protected abstract void processRequestEvent(RequestEvent event) throws Exception;
 
   protected int numAllocatedThreads = 0;
 

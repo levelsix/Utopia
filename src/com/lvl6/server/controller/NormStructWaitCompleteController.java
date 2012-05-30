@@ -33,7 +33,7 @@ public class NormStructWaitCompleteController extends EventController{
   public NormStructWaitCompleteController() {
     numAllocatedThreads = 5;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new NormStructWaitCompleteRequestEvent();
@@ -45,8 +45,7 @@ public class NormStructWaitCompleteController extends EventController{
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
-    
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     NormStructWaitCompleteRequestProto reqProto = ((NormStructWaitCompleteRequestEvent)event).getNormStructWaitCompleteRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
@@ -60,7 +59,7 @@ public class NormStructWaitCompleteController extends EventController{
 
     try {
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
-      
+
       boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, userStructs, userStructIds, senderProto.getUserId(), clientTime);
 
       NormStructWaitCompleteResponseEvent resEvent = new NormStructWaitCompleteResponseEvent(senderProto.getUserId());
@@ -80,7 +79,7 @@ public class NormStructWaitCompleteController extends EventController{
 
         writeChangesToDB(upgradesDone, buildsDone);
       }
-      
+
       List<UserStruct> newUserStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
       for (UserStruct userStruct : newUserStructs) {
         resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(userStruct));
@@ -88,14 +87,9 @@ public class NormStructWaitCompleteController extends EventController{
       resEvent.setNormStructWaitCompleteResponseProto(resBuilder.build());  
 
       server.writeEvent(resEvent);
-      
+
       if (legitWaitComplete) {
-        for (UserStruct upgradeDone : upgradesDone) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);          
-        }
-        for (UserStruct buildDone : buildsDone) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);          
-        }
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, senderProto.getUserId(), senderProto);          
       }
     } catch (Exception e) {
       log.error("exception in NormStructWaitCompleteController processEvent", e);
@@ -127,7 +121,7 @@ public class NormStructWaitCompleteController extends EventController{
           + new Date());
       return false;
     }
-    
+
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
     for (UserStruct us : userStructs) {
       if (us.getUserId() != userId) {

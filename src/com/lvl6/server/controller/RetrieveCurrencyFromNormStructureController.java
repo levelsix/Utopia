@@ -51,7 +51,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     RetrieveCurrencyFromNormStructureRequestProto reqProto = ((RetrieveCurrencyFromNormStructureRequestEvent)event).getRetrieveCurrencyFromNormStructureRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
@@ -114,7 +114,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
         if (!userQuest.isComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest.getQuestId());
           if (quest != null) {
-            if (quest.getCoinRetrievalReq() > 0) {
+            if (quest.getCoinRetrievalAmountRequired() > 0) {
               userQuest.setCoinsRetrievedForReq(userQuest.getCoinsRetrievedForReq() + coinGain);
               QuestUtils.checkQuestCompleteAndMaybeSend(server, quest, userQuest, senderProto, true);
               relevantQuests.add(quest.getId());
@@ -124,7 +124,7 @@ public class RetrieveCurrencyFromNormStructureController extends EventController
           }
         }
       }
-      if (!UpdateUtils.updateUserQuestsCoinsretrievedforreq(senderProto.getUserId(), relevantQuests, coinGain)) {
+      if (relevantQuests.size() > 0 && !UpdateUtils.updateUserQuestsCoinsretrievedforreq(senderProto.getUserId(), relevantQuests, coinGain)) {
         log.error("problem with incrementing coins retrieved by " + coinGain + " in user quest info for these quests:" + relevantQuests);
       }
     }

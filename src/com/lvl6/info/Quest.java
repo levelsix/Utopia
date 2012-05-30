@@ -2,6 +2,8 @@ package com.lvl6.info;
 
 import java.util.List;
 
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
+
 public class Quest {
   
   private int id;
@@ -28,8 +30,9 @@ public class Quest {
   private List<Integer> defeatGoodGuysJobsRequired;
   private List<Integer> defeatBadGuysJobsRequired;
   private List<Integer> possessEquipJobsRequired;
-  private int coinRetrievalReq;
-  
+  private int coinRetrievalAmountRequired;
+  private SpecialQuestAction specialQuestActionRequired;
+
   public Quest(int id, int cityId, String goodName, String badName,
       String goodDescription, String badDescription, String goodDoneResponse,
       String badDoneResponse, String goodInProgress, String badInProgress,
@@ -40,7 +43,8 @@ public class Quest {
       List<Integer> buildStructJobsRequired,
       List<Integer> defeatGoodGuysJobsRequired,
       List<Integer> defeatBadGuysJobsRequired,
-      List<Integer> possessEquipJobsRequired, int coinRetrievalReq) {
+      List<Integer> possessEquipJobsRequired, int coinRetrievalAmountRequired,
+      SpecialQuestAction specialQuestActionRequired) {
     super();
     this.id = id;
     this.cityId = cityId;
@@ -66,9 +70,10 @@ public class Quest {
     this.defeatGoodGuysJobsRequired = defeatGoodGuysJobsRequired;
     this.defeatBadGuysJobsRequired = defeatBadGuysJobsRequired;
     this.possessEquipJobsRequired = possessEquipJobsRequired;
-    this.coinRetrievalReq = coinRetrievalReq;
+    this.coinRetrievalAmountRequired = coinRetrievalAmountRequired;
+    this.specialQuestActionRequired = specialQuestActionRequired;
   }
-  
+
   public int getId() {
     return id;
   }
@@ -262,12 +267,21 @@ public class Quest {
     this.possessEquipJobsRequired = possessEquipJobsRequired;
   }
 
-  public int getCoinRetrievalReq() {
-    return coinRetrievalReq;
+  public int getCoinRetrievalAmountRequired() {
+    return coinRetrievalAmountRequired;
   }
 
-  public void setCoinRetrievalReq(int coinRetrievalReq) {
-    this.coinRetrievalReq = coinRetrievalReq;
+  public void setCoinRetrievalAmountRequired(int coinRetrievalAmountRequired) {
+    this.coinRetrievalAmountRequired = coinRetrievalAmountRequired;
+  }
+
+  public SpecialQuestAction getSpecialQuestActionRequired() {
+    return specialQuestActionRequired;
+  }
+
+  public void setSpecialQuestActionRequired(
+      SpecialQuestAction specialQuestActionRequired) {
+    this.specialQuestActionRequired = specialQuestActionRequired;
   }
 
   public int getNumComponents(boolean isGoodSide) {
@@ -281,7 +295,7 @@ public class Quest {
       if (defeatGoodGuysJobsRequired != null) numComponents += defeatGoodGuysJobsRequired.size();
     }
     if (possessEquipJobsRequired != null) numComponents += possessEquipJobsRequired.size();
-    if (coinRetrievalReq > 0) numComponents++;
+    if (coinRetrievalAmountRequired > 0) numComponents++;
     return numComponents;
   }
 
@@ -303,7 +317,8 @@ public class Quest {
         + ", defeatGoodGuysJobsRequired=" + defeatGoodGuysJobsRequired
         + ", defeatBadGuysJobsRequired=" + defeatBadGuysJobsRequired
         + ", possessEquipJobsRequired=" + possessEquipJobsRequired
-        + ", coinRetrievalReq=" + coinRetrievalReq + "]";
+        + ", coinRetrievalAmountRequired=" + coinRetrievalAmountRequired
+        + ", specialQuestActionRequired=" + specialQuestActionRequired + "]";
   }
   
 }

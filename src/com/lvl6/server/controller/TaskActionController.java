@@ -65,7 +65,7 @@ public class TaskActionController extends EventController {
    * on it immediately anyways
    */
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     TaskActionRequestProto reqProto = ((TaskActionRequestEvent)event).getTaskActionRequestProto();
     MinimumUserProto senderProto = reqProto.getSender();
     int taskId = reqProto.getTaskId();

@@ -8,6 +8,90 @@ public final class InfoProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  public enum SpecialQuestAction
+      implements com.google.protobuf.ProtocolMessageEnum {
+    PURCHASE_FROM_ARMORY(0, 1),
+    PURCHASE_FROM_MARKETPLACE(1, 2),
+    SELL_TO_ARMORY(2, 3),
+    SELL_TO_MARKETPLACE(3, 4),
+    DEPOSIT_IN_VAULT(4, 5),
+    WITHDRAW_FROM_VAULT(5, 6),
+    WRITE_ON_OTHER_WALL(6, 7),
+    ;
+    
+    public static final int PURCHASE_FROM_ARMORY_VALUE = 1;
+    public static final int PURCHASE_FROM_MARKETPLACE_VALUE = 2;
+    public static final int SELL_TO_ARMORY_VALUE = 3;
+    public static final int SELL_TO_MARKETPLACE_VALUE = 4;
+    public static final int DEPOSIT_IN_VAULT_VALUE = 5;
+    public static final int WITHDRAW_FROM_VAULT_VALUE = 6;
+    public static final int WRITE_ON_OTHER_WALL_VALUE = 7;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static SpecialQuestAction valueOf(int value) {
+      switch (value) {
+        case 1: return PURCHASE_FROM_ARMORY;
+        case 2: return PURCHASE_FROM_MARKETPLACE;
+        case 3: return SELL_TO_ARMORY;
+        case 4: return SELL_TO_MARKETPLACE;
+        case 5: return DEPOSIT_IN_VAULT;
+        case 6: return WITHDRAW_FROM_VAULT;
+        case 7: return WRITE_ON_OTHER_WALL;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<SpecialQuestAction>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<SpecialQuestAction>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<SpecialQuestAction>() {
+            public SpecialQuestAction findValueByNumber(int number) {
+              return SpecialQuestAction.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(0);
+    }
+    
+    private static final SpecialQuestAction[] VALUES = {
+      PURCHASE_FROM_ARMORY, PURCHASE_FROM_MARKETPLACE, SELL_TO_ARMORY, SELL_TO_MARKETPLACE, DEPOSIT_IN_VAULT, WITHDRAW_FROM_VAULT, WRITE_ON_OTHER_WALL, 
+    };
+    
+    public static SpecialQuestAction valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private SpecialQuestAction(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:com.lvl6.proto.SpecialQuestAction)
+  }
+  
   public enum UserType
       implements com.google.protobuf.ProtocolMessageEnum {
     GOOD_WARRIOR(0, 0),
@@ -62,7 +146,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(0);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(1);
     }
     
     private static final UserType[] VALUES = {
@@ -134,7 +218,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(1);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(2);
     }
     
     private static final BattleResult[] VALUES = {
@@ -203,7 +287,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(2);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(3);
     }
     
     private static final MarketplacePostType[] VALUES = {
@@ -272,7 +356,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(3);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(4);
     }
     
     private static final MarketplaceJobRequirementType[] VALUES = {
@@ -350,7 +434,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(4);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(5);
     }
     
     private static final CritStructType[] VALUES = {
@@ -419,7 +503,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(5);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(6);
     }
     
     private static final StructOrientation[] VALUES = {
@@ -488,7 +572,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(6);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(7);
     }
     
     private static final ExpansionDirection[] VALUES = {
@@ -22470,6 +22554,14 @@ public final class InfoProto {
     int getPossessEquipJobReqsCount();
     int getPossessEquipJobReqs(int index);
     
+    // optional int32 coinRetrievalReq = 22;
+    boolean hasCoinRetrievalReq();
+    int getCoinRetrievalReq();
+    
+    // optional .com.lvl6.proto.SpecialQuestAction specialQuestActionReq = 23;
+    boolean hasSpecialQuestActionReq();
+    com.lvl6.proto.InfoProto.SpecialQuestAction getSpecialQuestActionReq();
+    
     // optional int32 numComponentsForGood = 18;
     boolean hasNumComponentsForGood();
     int getNumComponentsForGood();
@@ -22486,10 +22578,6 @@ public final class InfoProto {
     // optional string questGiverName = 21;
     boolean hasQuestGiverName();
     String getQuestGiverName();
-    
-    // optional int32 coinRetrievalReq = 22;
-    boolean hasCoinRetrievalReq();
-    int getCoinRetrievalReq();
   }
   public static final class FullQuestProto extends
       com.google.protobuf.GeneratedMessage
@@ -22802,11 +22890,31 @@ public final class InfoProto {
       return possessEquipJobReqs_.get(index);
     }
     
+    // optional int32 coinRetrievalReq = 22;
+    public static final int COINRETRIEVALREQ_FIELD_NUMBER = 22;
+    private int coinRetrievalReq_;
+    public boolean hasCoinRetrievalReq() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    public int getCoinRetrievalReq() {
+      return coinRetrievalReq_;
+    }
+    
+    // optional .com.lvl6.proto.SpecialQuestAction specialQuestActionReq = 23;
+    public static final int SPECIALQUESTACTIONREQ_FIELD_NUMBER = 23;
+    private com.lvl6.proto.InfoProto.SpecialQuestAction specialQuestActionReq_;
+    public boolean hasSpecialQuestActionReq() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    public com.lvl6.proto.InfoProto.SpecialQuestAction getSpecialQuestActionReq() {
+      return specialQuestActionReq_;
+    }
+    
     // optional int32 numComponentsForGood = 18;
     public static final int NUMCOMPONENTSFORGOOD_FIELD_NUMBER = 18;
     private int numComponentsForGood_;
     public boolean hasNumComponentsForGood() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
+      return ((bitField0_ & 0x00002000) == 0x00002000);
     }
     public int getNumComponentsForGood() {
       return numComponentsForGood_;
@@ -22816,7 +22924,7 @@ public final class InfoProto {
     public static final int NUMCOMPONENTSFORBAD_FIELD_NUMBER = 19;
     private int numComponentsForBad_;
     public boolean hasNumComponentsForBad() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
+      return ((bitField0_ & 0x00004000) == 0x00004000);
     }
     public int getNumComponentsForBad() {
       return numComponentsForBad_;
@@ -22826,7 +22934,7 @@ public final class InfoProto {
     public static final int ACCEPTDIALOGUE_FIELD_NUMBER = 20;
     private com.lvl6.proto.InfoProto.DialogueProto acceptDialogue_;
     public boolean hasAcceptDialogue() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
+      return ((bitField0_ & 0x00008000) == 0x00008000);
     }
     public com.lvl6.proto.InfoProto.DialogueProto getAcceptDialogue() {
       return acceptDialogue_;
@@ -22839,7 +22947,7 @@ public final class InfoProto {
     public static final int QUESTGIVERNAME_FIELD_NUMBER = 21;
     private java.lang.Object questGiverName_;
     public boolean hasQuestGiverName() {
-      return ((bitField0_ & 0x00004000) == 0x00004000);
+      return ((bitField0_ & 0x00010000) == 0x00010000);
     }
     public String getQuestGiverName() {
       java.lang.Object ref = questGiverName_;
@@ -22867,16 +22975,6 @@ public final class InfoProto {
       }
     }
     
-    // optional int32 coinRetrievalReq = 22;
-    public static final int COINRETRIEVALREQ_FIELD_NUMBER = 22;
-    private int coinRetrievalReq_;
-    public boolean hasCoinRetrievalReq() {
-      return ((bitField0_ & 0x00008000) == 0x00008000);
-    }
-    public int getCoinRetrievalReq() {
-      return coinRetrievalReq_;
-    }
-    
     private void initFields() {
       questId_ = 0;
       cityId_ = 0;
@@ -22895,11 +22993,12 @@ public final class InfoProto {
       buildStructJobsReqs_ = java.util.Collections.emptyList();;
       defeatTypeReqs_ = java.util.Collections.emptyList();;
       possessEquipJobReqs_ = java.util.Collections.emptyList();;
+      coinRetrievalReq_ = 0;
+      specialQuestActionReq_ = com.lvl6.proto.InfoProto.SpecialQuestAction.PURCHASE_FROM_ARMORY;
       numComponentsForGood_ = 0;
       numComponentsForBad_ = 0;
       acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
       questGiverName_ = "";
-      coinRetrievalReq_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -22964,20 +23063,23 @@ public final class InfoProto {
       for (int i = 0; i < possessEquipJobReqs_.size(); i++) {
         output.writeInt32(17, possessEquipJobReqs_.get(i));
       }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
         output.writeInt32(18, numComponentsForGood_);
       }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
         output.writeInt32(19, numComponentsForBad_);
       }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
         output.writeMessage(20, acceptDialogue_);
       }
-      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
         output.writeBytes(21, getQuestGiverNameBytes());
       }
-      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
         output.writeInt32(22, coinRetrievalReq_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeEnum(23, specialQuestActionReq_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -23086,25 +23188,29 @@ public final class InfoProto {
         size += dataSize;
         size += 2 * getPossessEquipJobReqsList().size();
       }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(18, numComponentsForGood_);
       }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(19, numComponentsForBad_);
       }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(20, acceptDialogue_);
       }
-      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(21, getQuestGiverNameBytes());
       }
-      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(22, coinRetrievalReq_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(23, specialQuestActionReq_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -23265,20 +23371,22 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00008000);
         possessEquipJobReqs_ = java.util.Collections.emptyList();;
         bitField0_ = (bitField0_ & ~0x00010000);
-        numComponentsForGood_ = 0;
+        coinRetrievalReq_ = 0;
         bitField0_ = (bitField0_ & ~0x00020000);
-        numComponentsForBad_ = 0;
+        specialQuestActionReq_ = com.lvl6.proto.InfoProto.SpecialQuestAction.PURCHASE_FROM_ARMORY;
         bitField0_ = (bitField0_ & ~0x00040000);
+        numComponentsForGood_ = 0;
+        bitField0_ = (bitField0_ & ~0x00080000);
+        numComponentsForBad_ = 0;
+        bitField0_ = (bitField0_ & ~0x00100000);
         if (acceptDialogueBuilder_ == null) {
           acceptDialogue_ = com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance();
         } else {
           acceptDialogueBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00080000);
-        questGiverName_ = "";
-        bitField0_ = (bitField0_ & ~0x00100000);
-        coinRetrievalReq_ = 0;
         bitField0_ = (bitField0_ & ~0x00200000);
+        questGiverName_ = "";
+        bitField0_ = (bitField0_ & ~0x00400000);
         return this;
       }
       
@@ -23394,27 +23502,31 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
           to_bitField0_ |= 0x00000800;
         }
-        result.numComponentsForGood_ = numComponentsForGood_;
+        result.coinRetrievalReq_ = coinRetrievalReq_;
         if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
           to_bitField0_ |= 0x00001000;
         }
-        result.numComponentsForBad_ = numComponentsForBad_;
+        result.specialQuestActionReq_ = specialQuestActionReq_;
         if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
           to_bitField0_ |= 0x00002000;
+        }
+        result.numComponentsForGood_ = numComponentsForGood_;
+        if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
+          to_bitField0_ |= 0x00004000;
+        }
+        result.numComponentsForBad_ = numComponentsForBad_;
+        if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
+          to_bitField0_ |= 0x00008000;
         }
         if (acceptDialogueBuilder_ == null) {
           result.acceptDialogue_ = acceptDialogue_;
         } else {
           result.acceptDialogue_ = acceptDialogueBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
-          to_bitField0_ |= 0x00004000;
+        if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
+          to_bitField0_ |= 0x00010000;
         }
         result.questGiverName_ = questGiverName_;
-        if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
-          to_bitField0_ |= 0x00008000;
-        }
-        result.coinRetrievalReq_ = coinRetrievalReq_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -23524,6 +23636,12 @@ public final class InfoProto {
           }
           onChanged();
         }
+        if (other.hasCoinRetrievalReq()) {
+          setCoinRetrievalReq(other.getCoinRetrievalReq());
+        }
+        if (other.hasSpecialQuestActionReq()) {
+          setSpecialQuestActionReq(other.getSpecialQuestActionReq());
+        }
         if (other.hasNumComponentsForGood()) {
           setNumComponentsForGood(other.getNumComponentsForGood());
         }
@@ -23535,9 +23653,6 @@ public final class InfoProto {
         }
         if (other.hasQuestGiverName()) {
           setQuestGiverName(other.getQuestGiverName());
-        }
-        if (other.hasCoinRetrievalReq()) {
-          setCoinRetrievalReq(other.getCoinRetrievalReq());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -23710,12 +23825,12 @@ public final class InfoProto {
               break;
             }
             case 144: {
-              bitField0_ |= 0x00020000;
+              bitField0_ |= 0x00080000;
               numComponentsForGood_ = input.readInt32();
               break;
             }
             case 152: {
-              bitField0_ |= 0x00040000;
+              bitField0_ |= 0x00100000;
               numComponentsForBad_ = input.readInt32();
               break;
             }
@@ -23729,13 +23844,24 @@ public final class InfoProto {
               break;
             }
             case 170: {
-              bitField0_ |= 0x00100000;
+              bitField0_ |= 0x00400000;
               questGiverName_ = input.readBytes();
               break;
             }
             case 176: {
-              bitField0_ |= 0x00200000;
+              bitField0_ |= 0x00020000;
               coinRetrievalReq_ = input.readInt32();
+              break;
+            }
+            case 184: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.SpecialQuestAction value = com.lvl6.proto.InfoProto.SpecialQuestAction.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(23, rawValue);
+              } else {
+                bitField0_ |= 0x00040000;
+                specialQuestActionReq_ = value;
+              }
               break;
             }
           }
@@ -24305,22 +24431,67 @@ public final class InfoProto {
         return this;
       }
       
+      // optional int32 coinRetrievalReq = 22;
+      private int coinRetrievalReq_ ;
+      public boolean hasCoinRetrievalReq() {
+        return ((bitField0_ & 0x00020000) == 0x00020000);
+      }
+      public int getCoinRetrievalReq() {
+        return coinRetrievalReq_;
+      }
+      public Builder setCoinRetrievalReq(int value) {
+        bitField0_ |= 0x00020000;
+        coinRetrievalReq_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCoinRetrievalReq() {
+        bitField0_ = (bitField0_ & ~0x00020000);
+        coinRetrievalReq_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional .com.lvl6.proto.SpecialQuestAction specialQuestActionReq = 23;
+      private com.lvl6.proto.InfoProto.SpecialQuestAction specialQuestActionReq_ = com.lvl6.proto.InfoProto.SpecialQuestAction.PURCHASE_FROM_ARMORY;
+      public boolean hasSpecialQuestActionReq() {
+        return ((bitField0_ & 0x00040000) == 0x00040000);
+      }
+      public com.lvl6.proto.InfoProto.SpecialQuestAction getSpecialQuestActionReq() {
+        return specialQuestActionReq_;
+      }
+      public Builder setSpecialQuestActionReq(com.lvl6.proto.InfoProto.SpecialQuestAction value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00040000;
+        specialQuestActionReq_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearSpecialQuestActionReq() {
+        bitField0_ = (bitField0_ & ~0x00040000);
+        specialQuestActionReq_ = com.lvl6.proto.InfoProto.SpecialQuestAction.PURCHASE_FROM_ARMORY;
+        onChanged();
+        return this;
+      }
+      
       // optional int32 numComponentsForGood = 18;
       private int numComponentsForGood_ ;
       public boolean hasNumComponentsForGood() {
-        return ((bitField0_ & 0x00020000) == 0x00020000);
+        return ((bitField0_ & 0x00080000) == 0x00080000);
       }
       public int getNumComponentsForGood() {
         return numComponentsForGood_;
       }
       public Builder setNumComponentsForGood(int value) {
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00080000;
         numComponentsForGood_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumComponentsForGood() {
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00080000);
         numComponentsForGood_ = 0;
         onChanged();
         return this;
@@ -24329,19 +24500,19 @@ public final class InfoProto {
       // optional int32 numComponentsForBad = 19;
       private int numComponentsForBad_ ;
       public boolean hasNumComponentsForBad() {
-        return ((bitField0_ & 0x00040000) == 0x00040000);
+        return ((bitField0_ & 0x00100000) == 0x00100000);
       }
       public int getNumComponentsForBad() {
         return numComponentsForBad_;
       }
       public Builder setNumComponentsForBad(int value) {
-        bitField0_ |= 0x00040000;
+        bitField0_ |= 0x00100000;
         numComponentsForBad_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumComponentsForBad() {
-        bitField0_ = (bitField0_ & ~0x00040000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         numComponentsForBad_ = 0;
         onChanged();
         return this;
@@ -24352,7 +24523,7 @@ public final class InfoProto {
       private com.google.protobuf.SingleFieldBuilder<
           com.lvl6.proto.InfoProto.DialogueProto, com.lvl6.proto.InfoProto.DialogueProto.Builder, com.lvl6.proto.InfoProto.DialogueProtoOrBuilder> acceptDialogueBuilder_;
       public boolean hasAcceptDialogue() {
-        return ((bitField0_ & 0x00080000) == 0x00080000);
+        return ((bitField0_ & 0x00200000) == 0x00200000);
       }
       public com.lvl6.proto.InfoProto.DialogueProto getAcceptDialogue() {
         if (acceptDialogueBuilder_ == null) {
@@ -24371,7 +24542,7 @@ public final class InfoProto {
         } else {
           acceptDialogueBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00200000;
         return this;
       }
       public Builder setAcceptDialogue(
@@ -24382,12 +24553,12 @@ public final class InfoProto {
         } else {
           acceptDialogueBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00200000;
         return this;
       }
       public Builder mergeAcceptDialogue(com.lvl6.proto.InfoProto.DialogueProto value) {
         if (acceptDialogueBuilder_ == null) {
-          if (((bitField0_ & 0x00080000) == 0x00080000) &&
+          if (((bitField0_ & 0x00200000) == 0x00200000) &&
               acceptDialogue_ != com.lvl6.proto.InfoProto.DialogueProto.getDefaultInstance()) {
             acceptDialogue_ =
               com.lvl6.proto.InfoProto.DialogueProto.newBuilder(acceptDialogue_).mergeFrom(value).buildPartial();
@@ -24398,7 +24569,7 @@ public final class InfoProto {
         } else {
           acceptDialogueBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00200000;
         return this;
       }
       public Builder clearAcceptDialogue() {
@@ -24408,11 +24579,11 @@ public final class InfoProto {
         } else {
           acceptDialogueBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00080000);
+        bitField0_ = (bitField0_ & ~0x00200000);
         return this;
       }
       public com.lvl6.proto.InfoProto.DialogueProto.Builder getAcceptDialogueBuilder() {
-        bitField0_ |= 0x00080000;
+        bitField0_ |= 0x00200000;
         onChanged();
         return getAcceptDialogueFieldBuilder().getBuilder();
       }
@@ -24440,7 +24611,7 @@ public final class InfoProto {
       // optional string questGiverName = 21;
       private java.lang.Object questGiverName_ = "";
       public boolean hasQuestGiverName() {
-        return ((bitField0_ & 0x00100000) == 0x00100000);
+        return ((bitField0_ & 0x00400000) == 0x00400000);
       }
       public String getQuestGiverName() {
         java.lang.Object ref = questGiverName_;
@@ -24456,42 +24627,21 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00100000;
+  bitField0_ |= 0x00400000;
         questGiverName_ = value;
         onChanged();
         return this;
       }
       public Builder clearQuestGiverName() {
-        bitField0_ = (bitField0_ & ~0x00100000);
+        bitField0_ = (bitField0_ & ~0x00400000);
         questGiverName_ = getDefaultInstance().getQuestGiverName();
         onChanged();
         return this;
       }
       void setQuestGiverName(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00100000;
+        bitField0_ |= 0x00400000;
         questGiverName_ = value;
         onChanged();
-      }
-      
-      // optional int32 coinRetrievalReq = 22;
-      private int coinRetrievalReq_ ;
-      public boolean hasCoinRetrievalReq() {
-        return ((bitField0_ & 0x00200000) == 0x00200000);
-      }
-      public int getCoinRetrievalReq() {
-        return coinRetrievalReq_;
-      }
-      public Builder setCoinRetrievalReq(int value) {
-        bitField0_ |= 0x00200000;
-        coinRetrievalReq_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearCoinRetrievalReq() {
-        bitField0_ = (bitField0_ & ~0x00200000);
-        coinRetrievalReq_ = 0;
-        onChanged();
-        return this;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.FullQuestProto)
@@ -26614,7 +26764,7 @@ public final class InfoProto {
       "d\030\002 \001(\005\022\031\n\021possessEquipJobId\030\003 \001(\005\022\027\n\017nu",
       "mEquipUserHas\030\004 \001(\005\"W\n\024PossessEquipJobPr" +
       "oto\022\031\n\021possessEquipJobId\030\001 \001(\005\022\017\n\007equipI" +
-      "d\030\002 \001(\005\022\023\n\013quantityReq\030\003 \001(\005\"\267\004\n\016FullQue" +
+      "d\030\002 \001(\005\022\023\n\013quantityReq\030\003 \001(\005\"\372\004\n\016FullQue" +
       "stProto\022\017\n\007questId\030\001 \001(\005\022\016\n\006cityId\030\002 \001(\005" +
       "\022\014\n\004name\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\024\n\014d" +
       "oneResponse\030\005 \001(\t\022\022\n\ninProgress\030\006 \001(\t\022\032\n" +
@@ -26624,40 +26774,46 @@ public final class InfoProto {
       "tsRequiredForThis\030\014 \003(\005\022\020\n\010taskReqs\030\r \003(",
       "\005\022\035\n\025upgradeStructJobsReqs\030\016 \003(\005\022\033\n\023buil" +
       "dStructJobsReqs\030\017 \003(\005\022\026\n\016defeatTypeReqs\030" +
-      "\020 \003(\005\022\033\n\023possessEquipJobReqs\030\021 \003(\005\022\034\n\024nu" +
-      "mComponentsForGood\030\022 \001(\005\022\033\n\023numComponent" +
-      "sForBad\030\023 \001(\005\0225\n\016acceptDialogue\030\024 \001(\0132\035." +
-      "com.lvl6.proto.DialogueProto\022\026\n\016questGiv" +
-      "erName\030\025 \001(\t\022\030\n\020coinRetrievalReq\030\026 \001(\005\"\324" +
-      "\003\n\rDialogueProto\022G\n\rspeechSegment\030\001 \003(\0132" +
-      "0.com.lvl6.proto.DialogueProto.SpeechSeg" +
-      "mentProto\032\371\002\n\022SpeechSegmentProto\022Q\n\007spea",
-      "ker\030\001 \001(\0162@.com.lvl6.proto.DialogueProto" +
-      ".SpeechSegmentProto.DialogueSpeaker\022\023\n\013s" +
-      "peakerText\030\002 \001(\t\"\372\001\n\017DialogueSpeaker\022\017\n\013" +
-      "PLAYER_TYPE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_" +
-      "ARCHER\020\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005" +
-      "\022\016\n\nBAD_ARCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_T" +
-      "UTORIAL_GIRL\020\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n" +
-      "\014QUESTGIVER_1\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUE" +
-      "STGIVER_3\020\014\022\020\n\014QUESTGIVER_4\020\r\"\233\001\n\023Player" +
-      "WallPostProto\022\030\n\020playerWallPostId\030\001 \001(\005\022",
-      "0\n\006poster\030\002 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOf" +
-      "Post\030\004 \001(\003\022\017\n\007content\030\005 \001(\t*k\n\010UserType\022" +
-      "\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGO" +
-      "OD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER" +
-      "\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTA" +
-      "CKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER" +
-      "_FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIU" +
-      "M_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035M" +
-      "arketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n",
-      "\004SELL\020\001*S\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n" +
-      "\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013M" +
-      "ARKETPLACE\020\005*3\n\021StructOrientation\022\016\n\nPOS" +
-      "ITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022ExpansionDi" +
-      "rection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\t" +
-      "InfoProto"
+      "\020 \003(\005\022\033\n\023possessEquipJobReqs\030\021 \003(\005\022\030\n\020co" +
+      "inRetrievalReq\030\026 \001(\005\022A\n\025specialQuestActi" +
+      "onReq\030\027 \001(\0162\".com.lvl6.proto.SpecialQues" +
+      "tAction\022\034\n\024numComponentsForGood\030\022 \001(\005\022\033\n" +
+      "\023numComponentsForBad\030\023 \001(\005\0225\n\016acceptDial" +
+      "ogue\030\024 \001(\0132\035.com.lvl6.proto.DialogueProt" +
+      "o\022\026\n\016questGiverName\030\025 \001(\t\"\324\003\n\rDialoguePr" +
+      "oto\022G\n\rspeechSegment\030\001 \003(\01320.com.lvl6.pr",
+      "oto.DialogueProto.SpeechSegmentProto\032\371\002\n" +
+      "\022SpeechSegmentProto\022Q\n\007speaker\030\001 \001(\0162@.c" +
+      "om.lvl6.proto.DialogueProto.SpeechSegmen" +
+      "tProto.DialogueSpeaker\022\023\n\013speakerText\030\002 " +
+      "\001(\t\"\372\001\n\017DialogueSpeaker\022\017\n\013PLAYER_TYPE\020\001" +
+      "\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020\003\022\r\n\tG" +
+      "OOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD_ARCHE" +
+      "R\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_GIRL\020" +
+      "\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIVER_1" +
+      "\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3\020\014\022\020",
+      "\n\014QUESTGIVER_4\020\r\"\233\001\n\023PlayerWallPostProto" +
+      "\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006poster\030\002 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\023\n\013" +
+      "wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n" +
+      "\007content\030\005 \001(\t*\302\001\n\022SpecialQuestAction\022\030\n" +
+      "\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM" +
+      "_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023SE" +
+      "LL_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020" +
+      "\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_O" +
+      "THER_WALL\020\007*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020",
+      "\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD" +
+      "_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005" +
+      "*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DE" +
+      "FENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marke" +
+      "tplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023" +
+      "\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobReq" +
+      "uirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritS" +
+      "tructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005" +
+      "VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021" +
+      "StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOS",
+      "ITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_L" +
+      "EFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -26885,7 +27041,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullQuestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullQuestProto_descriptor,
-              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "InProgress", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "NumComponentsForGood", "NumComponentsForBad", "AcceptDialogue", "QuestGiverName", "CoinRetrievalReq", },
+              new java.lang.String[] { "QuestId", "CityId", "Name", "Description", "DoneResponse", "InProgress", "AssetNumWithinCity", "CoinsGained", "DiamondsGained", "ExpGained", "EquipIdGained", "QuestsRequiredForThis", "TaskReqs", "UpgradeStructJobsReqs", "BuildStructJobsReqs", "DefeatTypeReqs", "PossessEquipJobReqs", "CoinRetrievalReq", "SpecialQuestActionReq", "NumComponentsForGood", "NumComponentsForBad", "AcceptDialogue", "QuestGiverName", },
               com.lvl6.proto.InfoProto.FullQuestProto.class,
               com.lvl6.proto.InfoProto.FullQuestProto.Builder.class);
           internal_static_com_lvl6_proto_DialogueProto_descriptor =

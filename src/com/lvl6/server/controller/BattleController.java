@@ -61,7 +61,7 @@ public class BattleController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     BattleRequestProto reqProto = ((BattleRequestEvent) event)
         .getBattleRequestProto();
 

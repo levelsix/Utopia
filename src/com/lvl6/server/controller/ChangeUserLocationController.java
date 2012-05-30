@@ -39,7 +39,7 @@ public class ChangeUserLocationController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     ChangeUserLocationRequestProto reqProto = ((ChangeUserLocationRequestEvent)event).getChangeUserLocationRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

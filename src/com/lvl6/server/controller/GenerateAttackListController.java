@@ -40,7 +40,7 @@ public class GenerateAttackListController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     GenerateAttackListRequestProto reqProto = ((GenerateAttackListRequestEvent)event).getGenerateAttackListRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

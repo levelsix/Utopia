@@ -45,7 +45,7 @@ public class PostOnPlayerWallController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     PostOnPlayerWallRequestProto reqProto = ((PostOnPlayerWallRequestEvent)event).getPostOnPlayerWallRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();

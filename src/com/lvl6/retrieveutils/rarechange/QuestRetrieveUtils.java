@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Quest;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.QuestGraph;
@@ -35,7 +36,7 @@ public class QuestRetrieveUtils {
     }
     return questIdsToQuests;
   }
-  
+
   public static List<Quest> getQuestsInCity(int cityId) {
     log.debug("retrieving all quest data");
     if (questIdsToQuests == null) {
@@ -81,8 +82,13 @@ public class QuestRetrieveUtils {
           HashMap<Integer, Quest> tmp = new HashMap<Integer, Quest>();
           while(rs.next()) {
             Quest quest = convertRSRowToQuest(rs);
-            if (quest != null)
-              tmp.put(quest.getId(), quest);
+            if (quest != null) {
+              if (quest.getNumComponents(true) > 1 && quest.getSpecialQuestActionRequired() != null) {
+                log.error("problem with quest in the db- has a special quest, as well as other components. quest=" + quest);
+              } else {
+                tmp.put(quest.getId(), quest);
+              }
+            }
           }
           questIdsToQuests = tmp;
         } catch (SQLException e) {
@@ -109,8 +115,13 @@ public class QuestRetrieveUtils {
           List<Quest> quests = new ArrayList<Quest>();
           while(rs.next()) {  //should only be one
             Quest quest = convertRSRowToQuest(rs);
-            if (quest != null)
-              quests.add(quest);
+            if (quest != null) {
+              if (quest.getNumComponents(true) > 1 && quest.getSpecialQuestActionRequired() != null) {
+                log.error("problem with quest in the db- has a special quest, as well as other components. quest=" + quest);
+              } else {
+                quests.add(quest);
+              }
+            }
           }
           QuestGraph tmp = new QuestGraph(quests);
           questGraph = tmp;
@@ -245,8 +256,14 @@ public class QuestRetrieveUtils {
         possessEquipJobsRequired.add(Integer.parseInt(st.nextToken()));
       }
     }
-    
+
     int coinRetrievalReq = rs.getInt(i++);
+
+    SpecialQuestAction sqaReq = null;
+    int specialQuestActionInt = rs.getInt(i++);
+    if (!rs.wasNull()) {
+      sqaReq = SpecialQuestAction.valueOf(specialQuestActionInt);
+    }
 
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, 
@@ -254,7 +271,7 @@ public class QuestRetrieveUtils {
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, defeatGoodGuysRequired, 
-        defeatBadGuysRequired, possessEquipJobsRequired, coinRetrievalReq);
+        defeatBadGuysRequired, possessEquipJobsRequired, coinRetrievalReq, sqaReq);
     return quest;
   }
 

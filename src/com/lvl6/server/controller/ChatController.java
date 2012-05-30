@@ -39,7 +39,7 @@ public class ChatController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     ChatRequestProto reqProto = ((ChatRequestEvent)event).getChatRequestProto();
     
     MinimumUserProto senderProto = reqProto.getSender();

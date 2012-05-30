@@ -44,7 +44,7 @@ public class PurchaseFromMarketplaceController extends EventController {
   }
 
   @Override
-  protected void processRequestEvent(RequestEvent event) {
+  protected void processRequestEvent(RequestEvent event) throws Exception {
     PurchaseFromMarketplaceRequestProto reqProto = ((PurchaseFromMarketplaceRequestEvent)event).getPurchaseFromMarketplaceRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
