@@ -56,8 +56,9 @@ public abstract class EventController extends Wrap{
 
   /**
    * subclasses must implement to do their processing
+   * @throws Exception 
    */
-  protected void processEvent(GameEvent event) {
+  protected void processEvent(GameEvent event) throws Exception {
     RequestEvent reqEvent = (RequestEvent) event;
     MiscMethods.setMDCProperties(null, reqEvent.getPlayerId(), MiscMethods.getIPOfPlayer(server, reqEvent.getPlayerId(), null));
     log.info("Received event: " + event.toString());
@@ -67,7 +68,7 @@ public abstract class EventController extends Wrap{
     try {
       processRequestEvent(reqEvent);
     } catch (Exception e) {
-      log.error("error with processing event.", e);
+      throw e;
     } finally {
       endTime = System.nanoTime();
     }

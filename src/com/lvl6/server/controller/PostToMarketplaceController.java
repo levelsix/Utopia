@@ -159,7 +159,7 @@ public class PostToMarketplaceController extends EventController {
       }
     }
     if (ue.getQuantity() == 1) {
-      if (!MiscMethods.unequipUserEquip(user, reqProto.getPostedEquipId())) {
+      if (!MiscMethods.unequipUserEquipIfEquipped(user, reqProto.getPostedEquipId())) {
         log.error("problem with unequipping " + reqProto.getPostedEquipId());
         return;
       }

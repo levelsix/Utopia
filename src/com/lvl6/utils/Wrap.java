@@ -92,6 +92,7 @@ public abstract class Wrap implements Runnable{
 
   /**
    * subclasses must implement to do their processing
+   * @throws Exception 
    */
-  protected abstract void processEvent(GameEvent event);
+  protected abstract void processEvent(GameEvent event) throws Exception;
 }

@@ -121,7 +121,7 @@ public class ArmoryController extends EventController {
           log.error("problem with taking away " + quantity + " of equip id " + equipId + " from player");
         }
         if (quantity >= userEquip.getQuantity()) {
-          if (!MiscMethods.unequipUserEquip(user, equipId)) {
+          if (!MiscMethods.unequipUserEquipIfEquipped(user, equipId)) {
             log.error("problem with unequipping " + equipId);
           }
         }

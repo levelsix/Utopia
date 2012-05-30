@@ -92,11 +92,11 @@ public class MiscMethods {
         * firstTaskToComplete.getNumForCompletion();
   }
 
-  public static boolean unequipUserEquip(User user, int equipId) {
+  public static boolean unequipUserEquipIfEquipped(User user, int equipId) {
     if (user.getWeaponEquipped() == equipId || user.getArmorEquipped() == equipId || user.getAmuletEquipped() == equipId) {
       return user.updateUnequip(equipId, user.getWeaponEquipped() == equipId, user.getArmorEquipped() == equipId, user.getAmuletEquipped() == equipId);
-    }
-    return false;
+    } 
+    return true;
   }
 
   public static boolean checkClientTimeAroundApproximateNow(Timestamp clientTime) {

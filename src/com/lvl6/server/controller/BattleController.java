@@ -284,7 +284,7 @@ public class BattleController extends EventController {
         log.error("problem with decreasing 1 of equip " + lostEquip.getEquipId() + " from user " + loser.getId()
             + " who currently has " + lostEquip.getQuantity() + " of them");
       } else if (lostEquip.getQuantity() == 1) {
-        if (!MiscMethods.unequipUserEquip(loser, lostEquip.getEquipId())) {
+        if (!MiscMethods.unequipUserEquipIfEquipped(loser, lostEquip.getEquipId())) {
           log.error("problem with unequipping " + lostEquip.getEquipId() + " from " + loser);
         }
       }
