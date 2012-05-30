@@ -135,7 +135,6 @@ public class CreateInfoProtoUtils {
     String name = null;
     String description = null;
     String doneResponse = null;
-    String inProgress = null;
     List<Integer> defeatTypeReqs = null;
     Dialogue acceptDialogue = null;
 
@@ -145,7 +144,6 @@ public class CreateInfoProtoUtils {
       name = quest.getGoodName();
       description = quest.getGoodDescription();
       doneResponse = quest.getGoodDoneResponse();
-      inProgress = quest.getGoodInProgress();
       defeatTypeReqs = quest.getDefeatBadGuysJobsRequired();
       acceptDialogue = quest.getGoodAcceptDialogue();
       if (nce != null) {
@@ -155,7 +153,6 @@ public class CreateInfoProtoUtils {
       name = quest.getBadName();
       description = quest.getBadDescription();
       doneResponse = quest.getBadDoneResponse();
-      inProgress = quest.getBadInProgress();
       defeatTypeReqs = quest.getDefeatGoodGuysJobsRequired();
       acceptDialogue = quest.getBadAcceptDialogue();
       if (nce != null) {
@@ -164,7 +161,7 @@ public class CreateInfoProtoUtils {
     }
     
     FullQuestProto.Builder builder = FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
-        .setDescription(description).setDoneResponse(doneResponse).setInProgress(inProgress).setAssetNumWithinCity(quest.getAssetNumWithinCity())
+        .setDescription(description).setDoneResponse(doneResponse).setAssetNumWithinCity(quest.getAssetNumWithinCity())
         .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained())
         .setExpGained(quest.getExpGained()).setEquipIdGained(quest.getEquipIdGained()).addAllQuestsRequiredForThis(quest.getQuestsRequiredForThis())
         .addAllTaskReqs(quest.getTasksRequired()).addAllUpgradeStructJobsReqs(quest.getUpgradeStructJobsRequired())

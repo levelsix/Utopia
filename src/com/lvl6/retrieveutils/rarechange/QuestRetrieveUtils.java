@@ -180,8 +180,6 @@ public class QuestRetrieveUtils {
     String badDescription = rs.getString(i++);
     String goodDoneResponse = rs.getString(i++);
     String badDoneResponse = rs.getString(i++);
-    String goodInProgress = rs.getString(i++);
-    String badInProgress = rs.getString(i++);
 
     String goodAcceptDialogueBlob = rs.getString(i++);
     Dialogue goodAcceptDialogue = createDialogue(goodAcceptDialogueBlob);
@@ -266,7 +264,7 @@ public class QuestRetrieveUtils {
     }
 
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
-        goodDoneResponse, badDoneResponse, goodInProgress, badInProgress, 
+        goodDoneResponse, badDoneResponse,
         goodAcceptDialogue, badAcceptDialogue, assetNumWithinCity, 
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 

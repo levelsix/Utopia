@@ -423,7 +423,6 @@ message FullQuestProto {
      optional string name = 3;
      optional string description = 4;
      optional string doneResponse = 5;
-     optional string inProgress = 6;
      optional int32 assetNumWithinCity = 7;
      optional int32 coinsGained = 8;
      optional int32 diamondsGained = 9;
@@ -436,7 +435,7 @@ message FullQuestProto {
      repeated int32 defeatTypeReqs = 16;
      repeated int32 possessEquipJobReqs = 17;
      optional int32 coinRetrievalReq = 22;
-     optional SpecialQuestAction specialQuestActionReq = 23; 
+     optional SpecialQuestAction specialQuestActionReq = 6; 
      optional int32 numComponentsForGood = 18;
      optional int32 numComponentsForBad = 19;
      optional DialogueProto acceptDialogue = 20;

@@ -14,8 +14,6 @@ public class Quest {
   private String badDescription;
   private String goodDoneResponse;
   private String badDoneResponse;
-  private String goodInProgress;
-  private String badInProgress;
   private Dialogue goodAcceptDialogue;
   private Dialogue badAcceptDialogue;
   private int assetNumWithinCity;
@@ -35,11 +33,11 @@ public class Quest {
 
   public Quest(int id, int cityId, String goodName, String badName,
       String goodDescription, String badDescription, String goodDoneResponse,
-      String badDoneResponse, String goodInProgress, String badInProgress,
-      Dialogue goodAcceptDialogue, Dialogue badAcceptDialogue,
-      int assetNumWithinCity, int coinsGained, int diamondsGained,
-      int expGained, int equipIdGained, List<Integer> questsRequiredForThis,
-      List<Integer> tasksRequired, List<Integer> upgradeStructJobsRequired,
+      String badDoneResponse, Dialogue goodAcceptDialogue,
+      Dialogue badAcceptDialogue, int assetNumWithinCity, int coinsGained,
+      int diamondsGained, int expGained, int equipIdGained,
+      List<Integer> questsRequiredForThis, List<Integer> tasksRequired,
+      List<Integer> upgradeStructJobsRequired,
       List<Integer> buildStructJobsRequired,
       List<Integer> defeatGoodGuysJobsRequired,
       List<Integer> defeatBadGuysJobsRequired,
@@ -54,8 +52,6 @@ public class Quest {
     this.badDescription = badDescription;
     this.goodDoneResponse = goodDoneResponse;
     this.badDoneResponse = badDoneResponse;
-    this.goodInProgress = goodInProgress;
-    this.badInProgress = badInProgress;
     this.goodAcceptDialogue = goodAcceptDialogue;
     this.badAcceptDialogue = badAcceptDialogue;
     this.assetNumWithinCity = assetNumWithinCity;
@@ -136,22 +132,6 @@ public class Quest {
 
   public void setBadDoneResponse(String badDoneResponse) {
     this.badDoneResponse = badDoneResponse;
-  }
-
-  public String getGoodInProgress() {
-    return goodInProgress;
-  }
-
-  public void setGoodInProgress(String goodInProgress) {
-    this.goodInProgress = goodInProgress;
-  }
-
-  public String getBadInProgress() {
-    return badInProgress;
-  }
-
-  public void setBadInProgress(String badInProgress) {
-    this.badInProgress = badInProgress;
   }
 
   public Dialogue getGoodAcceptDialogue() {
@@ -305,20 +285,19 @@ public class Quest {
         + ", badName=" + badName + ", goodDescription=" + goodDescription
         + ", badDescription=" + badDescription + ", goodDoneResponse="
         + goodDoneResponse + ", badDoneResponse=" + badDoneResponse
-        + ", goodInProgress=" + goodInProgress + ", badInProgress="
-        + badInProgress + ", goodAcceptDialogue=" + goodAcceptDialogue
-        + ", badAcceptDialogue=" + badAcceptDialogue + ", assetNumWithinCity="
-        + assetNumWithinCity + ", coinsGained=" + coinsGained
-        + ", diamondsGained=" + diamondsGained + ", expGained=" + expGained
-        + ", equipIdGained=" + equipIdGained + ", questsRequiredForThis="
-        + questsRequiredForThis + ", tasksRequired=" + tasksRequired
-        + ", upgradeStructJobsRequired=" + upgradeStructJobsRequired
-        + ", buildStructJobsRequired=" + buildStructJobsRequired
-        + ", defeatGoodGuysJobsRequired=" + defeatGoodGuysJobsRequired
-        + ", defeatBadGuysJobsRequired=" + defeatBadGuysJobsRequired
-        + ", possessEquipJobsRequired=" + possessEquipJobsRequired
-        + ", coinRetrievalAmountRequired=" + coinRetrievalAmountRequired
-        + ", specialQuestActionRequired=" + specialQuestActionRequired + "]";
+        + ", goodAcceptDialogue=" + goodAcceptDialogue + ", badAcceptDialogue="
+        + badAcceptDialogue + ", assetNumWithinCity=" + assetNumWithinCity
+        + ", coinsGained=" + coinsGained + ", diamondsGained=" + diamondsGained
+        + ", expGained=" + expGained + ", equipIdGained=" + equipIdGained
+        + ", questsRequiredForThis=" + questsRequiredForThis
+        + ", tasksRequired=" + tasksRequired + ", upgradeStructJobsRequired="
+        + upgradeStructJobsRequired + ", buildStructJobsRequired="
+        + buildStructJobsRequired + ", defeatGoodGuysJobsRequired="
+        + defeatGoodGuysJobsRequired + ", defeatBadGuysJobsRequired="
+        + defeatBadGuysJobsRequired + ", possessEquipJobsRequired="
+        + possessEquipJobsRequired + ", coinRetrievalAmountRequired="
+        + coinRetrievalAmountRequired + ", specialQuestActionRequired="
+        + specialQuestActionRequired + "]";
   }
   
 }
