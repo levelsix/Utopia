@@ -57,6 +57,8 @@ public class EventWriter extends Wrap {
    * the additional parameter of the writeBuffer 
    */
   protected void processResponseEvent(ResponseEvent event, ByteBuffer writeBuffer) {
+    log.info("writer received event=" + event);
+    
     NIOUtils.prepBuffer(event, writeBuffer);
 
     if (BroadcastResponseEvent.class.isInstance(event)) {
@@ -74,9 +76,10 @@ public class EventWriter extends Wrap {
     else
     {
       int playerId = ((NormalResponseEvent)event).getPlayerId();
-      log.info("writing normal event with type=" + event.getEventType() + " to player with id " + playerId);
+      log.info("writing normal event with type=" + event.getEventType() + " to player with id " + playerId + ", event=" + event);
       write(playerId, writeBuffer);
     }
+    
   }
 
   /**
@@ -93,7 +96,9 @@ public class EventWriter extends Wrap {
         return;
       }
   
-      NIOUtils.channelWrite(channel, writeBuffer);
+      NIOUtils.channelWrite(channel, writeBuffer, playerId);
+    } else {
+      log.info("playerId " + playerId + " is no longer in server"); 
     }
   }
 

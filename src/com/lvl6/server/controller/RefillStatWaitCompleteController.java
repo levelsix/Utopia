@@ -113,7 +113,7 @@ public class RefillStatWaitCompleteController extends EventController{
     if (type == RefillStatWaitCompleteType.ENERGY) {
       if (user.getLastEnergyRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY > clientTime.getTime()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
-        log.error("energy is not ready for refill yet. client time=" + clientTime.getTime() + ", struct last refilled energy at "
+        log.error("energy is not ready for refill yet. client time=" + clientTime + ", struct last refilled energy at "
             + user.getLastEnergyRefillTime() + ", num minutes for energy refill =" + ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY);
         return false;
       }
@@ -125,7 +125,7 @@ public class RefillStatWaitCompleteController extends EventController{
     } else if (type == RefillStatWaitCompleteType.STAMINA) { 
       if (user.getLastStaminaRefillTime().getTime() + 60000*ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA > clientTime.getTime()) {
         resBuilder.setStatus(RefillStatWaitCompleteStatus.NOT_READY_YET);
-        log.error("stamina is not ready for refill yet. client time=" + clientTime.getTime() + ", struct last refilled stamina at "
+        log.error("stamina is not ready for refill yet. client time=" + clientTime + ", struct last refilled stamina at "
             + user.getLastStaminaRefillTime() + ", num minutes for stamina refill =" + ControllerConstants.REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA);
         return false;
       }    

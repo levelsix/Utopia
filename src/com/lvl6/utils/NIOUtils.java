@@ -3,6 +3,8 @@ package com.lvl6.utils;
 import java.nio.*;
 import java.nio.channels.*;
 
+import org.apache.log4j.Logger;
+
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 
@@ -13,6 +15,8 @@ import com.lvl6.properties.Globals;
  */
 public class NIOUtils {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
 	/** 
 	 * first, writes the header, then the 
 	 * event into the given ByteBuffer
@@ -51,7 +55,7 @@ public class NIOUtils {
 	/** 
 	 * write the contents of a ByteBuffer to the given SocketChannel
 	 */
-	public static void channelWrite(SocketChannel channel, ByteBuffer writeBuffer) {
+	public static void channelWrite(SocketChannel channel, ByteBuffer writeBuffer, int playerId) {
 		long nbytes = 0;
 		long toWrite = writeBuffer.remaining();
 
@@ -64,12 +68,16 @@ public class NIOUtils {
 				try {
 					Thread.sleep(Globals.CHANNEL_WRITE_SLEEP);
 				}
-				catch (InterruptedException e) {}
+				catch (InterruptedException e) {
+		      log.error("error in writing to channel " + channel + " for player " + playerId, e);
+				}
 			}
 		}
 		catch (ClosedChannelException cce) {
+		  log.info("tried to write back to a closed channel " + channel + " for player " + playerId, cce);
 		}
 		catch (Exception e) {
+      log.error("error in writing to channel " + channel + " for player " + playerId, e);
 		} 
 
 		// get ready for another write if needed
