@@ -1,0 +1,29 @@
+package com.lvl6.proto;
+
+option java_outer_classname = "AdminProto";
+
+message AdminChangeRequestProto {
+	optional StaticDataReloadType staticDataReloadType = 1;
+	enum StaticDataReloadType {
+		ALL = 0;
+		BUILD_STRUCT_JOBS = 1;
+		CITIES = 2;
+		DEFEAT_TYPE_JOBS = 3;
+		EQUIPMENT = 4;
+		QUESTS = 5;
+		TASK_EQUIP_REQUIREMENTS = 6;
+		TASKS = 7;
+		UPGRADE_STRUCT_JOBS = 8;	
+		STRUCTURES = 9;		
+		POSSESS_EQUIP_JOBS = 10;
+		LEVELS_REQUIRED_EXPERIENCE = 11;
+		NEUTRAL_CITY_ELEMS = 12;
+	}
+	optional bool purgeStaticDataForConnectedClients = 2;
+
+	
+	//optional int32 salePercentOff = 2;
+	//optional float multipleOfRecruitsBaseReward = 3;
+}
+
+

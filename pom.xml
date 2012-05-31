@@ -33,6 +33,14 @@
 		<url>https://github.com/levelsix/Utopia.git</url>
 	</scm>
 
+	<properties>
+		<jdbc.url></jdbc.url>
+		<jdbc.username></jdbc.username>
+		<jdbc.password></jdbc.password>
+		<apns.path.to.cert></apns.path.to.cert>
+		<apns.cert.password></apns.cert.password>
+	</properties>
+
 
 	<repositories>
 		<repository>
@@ -144,6 +152,11 @@
 				<artifactId>apns</artifactId>
 				<version>0.1.6</version>
 			</dependency>
+			<dependency>
+				<groupId>json-java</groupId>
+				<artifactId>json-java</artifactId>
+				<version>1.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -176,6 +189,10 @@
 		<dependency>
 			<groupId>com.notnoop.apns</groupId>
 			<artifactId>apns</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>json-java</groupId>
+			<artifactId>json-java</artifactId>
 		</dependency>
 	</dependencies>
 
