@@ -15,6 +15,7 @@ scripts/referral_code_checks/referral_code_logs
 #generated files
 bin/
 gen/
+target/
 
 ## generic files to ignore
 *~
