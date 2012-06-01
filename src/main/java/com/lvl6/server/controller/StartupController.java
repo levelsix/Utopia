@@ -149,9 +149,13 @@ public class StartupController extends EventController {
     NIOUtils.prepBuffer(resEvent, writeBuffer);
 
     SocketChannel sc = server.removePreDbPlayer(udid);
-    if (sc != null)
-      NIOUtils.channelWrite(sc, writeBuffer);
-
+    if (sc != null) {
+      if (user != null) 
+        NIOUtils.channelWrite(sc, writeBuffer, user.getId());
+      else
+        NIOUtils.channelWrite(sc, writeBuffer, ControllerConstants.NOT_SET);
+    }
+    
     if (user != null) {
       syncDevicetokenApsalaridLastloginResetBadges(user, newDeviceToken, apsalarId, new Timestamp(new Date().getTime()));
     }    
