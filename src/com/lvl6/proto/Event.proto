@@ -295,8 +295,8 @@ message StartupResponseProto {
 			optional string badDescription = 4;
 			optional string goodDoneResponse = 5;
 			optional string badDoneResponse = 6;
-			optional string goodInProgress = 7;
-			optional string badInProgress = 8;
+			optional DialogueProto goodAcceptDialogue = 7;
+			optional DialogueProto badAcceptDialogue = 8;
 			optional int32 assetNumWithinCity = 9; 
 			optional int32 coinsGained = 10;
 			optional int32 expGained = 11;

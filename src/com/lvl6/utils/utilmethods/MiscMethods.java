@@ -10,12 +10,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.Task;
@@ -30,6 +32,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleCon
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
+import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
@@ -51,6 +54,31 @@ public class MiscMethods {
   
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  public static Dialogue createDialogue(String dialogueBlob) {
+    if (dialogueBlob != null && dialogueBlob.length() > 0) { 
+      StringTokenizer st = new StringTokenizer(dialogueBlob, "~");
+
+      List<DialogueSpeaker> speakers = new ArrayList<DialogueSpeaker>();
+      List<String> speakerTexts = new ArrayList<String>();
+
+      try {
+        while (st.hasMoreTokens()) {
+          DialogueSpeaker speaker = DialogueSpeaker.valueOf(Integer.parseInt(st.nextToken()));
+          String speakerText = st.nextToken();
+          if (speakerText != null) {
+            speakers.add(speaker);
+            speakerTexts.add(speakerText);
+          }
+        }
+      } catch (Exception e) {
+        log.error("problem with creating dialogue object for this dialogueblob: " + dialogueBlob);
+        log.error(e);
+      }
+      return new Dialogue(speakers, speakerTexts);
+    }
+    return null;
+  }
+  
   /*
    * doesn't check if the user has the equip or not
    */

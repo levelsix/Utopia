@@ -463,7 +463,8 @@ message DialogueProto {
 			QUESTGIVER_1 = 10;
 			QUESTGIVER_2 = 11;
 			QUESTGIVER_3 = 12;
-			QUESTGIVER_4 = 13;			
+			QUESTGIVER_4 = 13;	
+			BAZAAR = 25;		
 		}
 	}
 }

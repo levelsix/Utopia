@@ -24447,6 +24447,7 @@ public final class InfoProto {
         QUESTGIVER_2(10, 11),
         QUESTGIVER_3(11, 12),
         QUESTGIVER_4(12, 13),
+        BAZAAR(13, 25),
         ;
         
         public static final int PLAYER_TYPE_VALUE = 1;
@@ -24462,6 +24463,7 @@ public final class InfoProto {
         public static final int QUESTGIVER_2_VALUE = 11;
         public static final int QUESTGIVER_3_VALUE = 12;
         public static final int QUESTGIVER_4_VALUE = 13;
+        public static final int BAZAAR_VALUE = 25;
         
         
         public final int getNumber() { return value; }
@@ -24481,6 +24483,7 @@ public final class InfoProto {
             case 11: return QUESTGIVER_2;
             case 12: return QUESTGIVER_3;
             case 13: return QUESTGIVER_4;
+            case 25: return BAZAAR;
             default: return null;
           }
         }
@@ -24511,7 +24514,7 @@ public final class InfoProto {
         }
         
         private static final DialogueSpeaker[] VALUES = {
-          PLAYER_TYPE, GOOD_WARRIOR, GOOD_ARCHER, GOOD_MAGE, BAD_WARRIOR, BAD_ARCHER, BAD_MAGE, GOOD_TUTORIAL_GIRL, BAD_TUTORIAL_GIRL, QUESTGIVER_1, QUESTGIVER_2, QUESTGIVER_3, QUESTGIVER_4, 
+          PLAYER_TYPE, GOOD_WARRIOR, GOOD_ARCHER, GOOD_MAGE, BAD_WARRIOR, BAD_ARCHER, BAD_MAGE, GOOD_TUTORIAL_GIRL, BAD_TUTORIAL_GIRL, QUESTGIVER_1, QUESTGIVER_2, QUESTGIVER_3, QUESTGIVER_4, BAZAAR, 
         };
         
         public static DialogueSpeaker valueOf(
@@ -26473,40 +26476,41 @@ public final class InfoProto {
       "QuestAction\022\034\n\024numComponentsForGood\030\022 \001(" +
       "\005\022\033\n\023numComponentsForBad\030\023 \001(\005\0225\n\016accept" +
       "Dialogue\030\024 \001(\0132\035.com.lvl6.proto.Dialogue" +
-      "Proto\022\026\n\016questGiverName\030\025 \001(\t\"\324\003\n\rDialog" +
+      "Proto\022\026\n\016questGiverName\030\025 \001(\t\"\340\003\n\rDialog" +
       "ueProto\022G\n\rspeechSegment\030\001 \003(\01320.com.lvl" +
       "6.proto.DialogueProto.SpeechSegmentProto" +
-      "\032\371\002\n\022SpeechSegmentProto\022Q\n\007speaker\030\001 \001(\016" +
+      "\032\205\003\n\022SpeechSegmentProto\022Q\n\007speaker\030\001 \001(\016" +
       "2@.com.lvl6.proto.DialogueProto.SpeechSe" +
       "gmentProto.DialogueSpeaker\022\023\n\013speakerTex",
-      "t\030\002 \001(\t\"\372\001\n\017DialogueSpeaker\022\017\n\013PLAYER_TY" +
+      "t\030\002 \001(\t\"\206\002\n\017DialogueSpeaker\022\017\n\013PLAYER_TY" +
       "PE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_ARCHER\020\003\022" +
       "\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022\016\n\nBAD_A" +
       "RCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TUTORIAL_G" +
       "IRL\020\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014QUESTGIV" +
       "ER_1\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUESTGIVER_3" +
-      "\020\014\022\020\n\014QUESTGIVER_4\020\r\"\233\001\n\023PlayerWallPostP" +
-      "roto\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006poster" +
-      "\030\002 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
-      "\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(",
-      "\003\022\017\n\007content\030\005 \001(\t*\302\001\n\022SpecialQuestActio" +
-      "n\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_" +
-      "FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027" +
-      "\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VA" +
-      "ULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_" +
-      "ON_OTHER_WALL\020\007*k\n\010UserType\022\020\n\014GOOD_WARR" +
-      "IOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n" +
-      "\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MA" +
-      "GE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020" +
-      "\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023M",
-      "arketplacePostType\022\026\n\022PREMIUM_EQUIP_POST" +
-      "\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJo" +
-      "bRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016C" +
-      "ritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002" +
-      "\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005" +
-      "*3\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n" +
-      "\nPOSITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010F" +
-      "AR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
+      "\020\014\022\020\n\014QUESTGIVER_4\020\r\022\n\n\006BAZAAR\020\031\"\233\001\n\023Pla" +
+      "yerWallPostProto\022\030\n\020playerWallPostId\030\001 \001" +
+      "(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.proto.Mini" +
+      "mumUserProto\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntim",
+      "eOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t*\302\001\n\022Speci" +
+      "alQuestAction\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022" +
+      "\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_T" +
+      "O_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020D" +
+      "EPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT" +
+      "\020\006\022\027\n\023WRITE_ON_OTHER_WALL\020\007*k\n\010UserType\022" +
+      "\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGO" +
+      "OD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER" +
+      "\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTA" +
+      "CKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER",
+      "_FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIU" +
+      "M_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035M" +
+      "arketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n" +
+      "\004SELL\020\001*S\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n" +
+      "\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013M" +
+      "ARKETPLACE\020\005*3\n\021StructOrientation\022\016\n\nPOS" +
+      "ITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022ExpansionDi" +
+      "rection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\t" +
+      "InfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

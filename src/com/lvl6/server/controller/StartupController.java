@@ -15,6 +15,7 @@ import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
+import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.NeutralCityElement;
@@ -320,6 +321,9 @@ public class StartupController extends EventController {
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
 
+    Dialogue goodAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE);
+    Dialogue badAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE);
+    
     FullTutorialQuestProto tqbp = FullTutorialQuestProto.newBuilder()
         .setGoodName(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_NAME)
         .setBadName(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_NAME)
@@ -327,8 +331,8 @@ public class StartupController extends EventController {
         .setBadDescription(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION)
         .setGoodDoneResponse(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE)
         .setBadDoneResponse(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE)
-        .setGoodInProgress(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_IN_PROGRESS)
-        .setBadInProgress(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_IN_PROGRESS)
+        .setGoodAcceptDialogue(CreateInfoProtoUtils.createDialogueProtoFromDialogue(goodAcceptDialogue))
+        .setBadAcceptDialogue(CreateInfoProtoUtils.createDialogueProtoFromDialogue(badAcceptDialogue))
         .setAssetNumWithinCity(ControllerConstants.TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY)
         .setCoinsGained(ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED)
         .setExpGained(ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED)
