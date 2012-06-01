@@ -16,7 +16,7 @@ public final class InfoProto {
     POST_TO_MARKETPLACE(3, 4),
     DEPOSIT_IN_VAULT(4, 5),
     WITHDRAW_FROM_VAULT(5, 6),
-    WRITE_ON_OTHER_WALL(6, 7),
+    WRITE_ON_ENEMY_WALL(6, 7),
     ;
     
     public static final int PURCHASE_FROM_ARMORY_VALUE = 1;
@@ -25,7 +25,7 @@ public final class InfoProto {
     public static final int POST_TO_MARKETPLACE_VALUE = 4;
     public static final int DEPOSIT_IN_VAULT_VALUE = 5;
     public static final int WITHDRAW_FROM_VAULT_VALUE = 6;
-    public static final int WRITE_ON_OTHER_WALL_VALUE = 7;
+    public static final int WRITE_ON_ENEMY_WALL_VALUE = 7;
     
     
     public final int getNumber() { return value; }
@@ -38,7 +38,7 @@ public final class InfoProto {
         case 4: return POST_TO_MARKETPLACE;
         case 5: return DEPOSIT_IN_VAULT;
         case 6: return WITHDRAW_FROM_VAULT;
-        case 7: return WRITE_ON_OTHER_WALL;
+        case 7: return WRITE_ON_ENEMY_WALL;
         default: return null;
       }
     }
@@ -69,7 +69,7 @@ public final class InfoProto {
     }
     
     private static final SpecialQuestAction[] VALUES = {
-      PURCHASE_FROM_ARMORY, PURCHASE_FROM_MARKETPLACE, SELL_TO_ARMORY, POST_TO_MARKETPLACE, DEPOSIT_IN_VAULT, WITHDRAW_FROM_VAULT, WRITE_ON_OTHER_WALL, 
+      PURCHASE_FROM_ARMORY, PURCHASE_FROM_MARKETPLACE, SELL_TO_ARMORY, POST_TO_MARKETPLACE, DEPOSIT_IN_VAULT, WITHDRAW_FROM_VAULT, WRITE_ON_ENEMY_WALL, 
     };
     
     public static SpecialQuestAction valueOf(
@@ -26497,7 +26497,7 @@ public final class InfoProto {
       "\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_T" +
       "O_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020D" +
       "EPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT" +
-      "\020\006\022\027\n\023WRITE_ON_OTHER_WALL\020\007*k\n\010UserType\022" +
+      "\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007*k\n\010UserType\022" +
       "\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGO" +
       "OD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER" +
       "\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTA" +

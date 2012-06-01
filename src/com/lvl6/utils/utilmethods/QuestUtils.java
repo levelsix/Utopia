@@ -49,7 +49,7 @@ public class QuestUtils {
             if (checkOnlySpecialQuests && quest.getSpecialQuestActionRequired() == null) {
               continue;
             }
-            QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
+            QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, justCompletedSpecialQuestAction);
           } else {
             log.error("quest for userQuest does not exist. user quest's quest is " + userQuest.getQuestId());
           }
@@ -64,15 +64,17 @@ public class QuestUtils {
 
     if (userQuest != null && userQuest.isTasksComplete() && userQuest.isDefeatTypeJobsComplete()) {
       if (userQuest.getCoinsRetrievedForReq() < quest.getCoinRetrievalAmountRequired()) return false;
-      
-      if (quest.getSpecialQuestActionRequired() != null && justCompletedSpecialQuestAction != null
-          && justCompletedSpecialQuestAction == quest.getSpecialQuestActionRequired()) {
-        sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(server, quest, userQuest, senderProto,
-            sendCompleteMessageIfJustCompleted);
-        return true;
+
+      if (quest.getSpecialQuestActionRequired() != null) {
+        if (justCompletedSpecialQuestAction != null && justCompletedSpecialQuestAction == quest.getSpecialQuestActionRequired()) {
+          sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(server, quest, userQuest, senderProto,
+              sendCompleteMessageIfJustCompleted);
+          return true;
+        }
+        return false;
       }
-      
-      
+
+
       List<Integer> buildStructJobsRequired = quest.getBuildStructJobsRequired();
       List<Integer> upgradeStructJobsRequired = quest.getUpgradeStructJobsRequired();
       List<Integer> possessEquipJobsRequired = quest.getPossessEquipJobsRequired();
@@ -138,7 +140,7 @@ public class QuestUtils {
     }
     return false;
   }
-  
+
 
   private static void sendQuestCompleteResponseIfRequestedAndUpdateUserQuest(GameServer server, Quest quest,
       UserQuest userQuest, MinimumUserProto senderProto,

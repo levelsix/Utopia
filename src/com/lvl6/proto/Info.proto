@@ -11,7 +11,7 @@ enum SpecialQuestAction {
 	POST_TO_MARKETPLACE = 4;
 	DEPOSIT_IN_VAULT = 5;
 	WITHDRAW_FROM_VAULT = 6;
-	WRITE_ON_OTHER_WALL = 7;	
+	WRITE_ON_ENEMY_WALL = 7;	
 }
 
 //------------------------------------------------------------------------------------------
