@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.hazelcast.com/schema/spring
+        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
+		">
+	
+	<hz:hazelcast id="hazel" >
+		<hz:config>
+			<hz:network port="5701" port-auto-increment="false">
+			<hz:join>
+				<hz:aws access-key="" secret-key="" region="" security-group-name=""/>
+			</hz:join>
+			</hz:network>
+		</hz:config>
+	</hz:hazelcast>
+	
+	<hz:atomicNumber name="connectedPlayerCount" instance-ref="hazel" />
+	
+	<hz:set name="connectedPlayers" instance-ref="hazel"/>
+	
+	
+	
+</beans>

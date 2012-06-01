@@ -6,11 +6,11 @@ import org.apache.catalina.websocket.WebSocketServlet;
 public class GameWebSocketServlet extends WebSocketServlet{
 
 	private static final long serialVersionUID = 1L;
-
+	
+		
 	@Override
 	protected StreamInbound createWebSocketInbound(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return new GameMessageInbound();
 	}
 
 	

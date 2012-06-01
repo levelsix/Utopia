@@ -17,19 +17,11 @@
 		http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		">
 
-	<import resource="classpath:spring-datasource.xml" />
-	<import resource="classpath:spring-hades.xml" />
-	<import resource="classpath:spring-redis.xml" />
-	<import resource="classpath:spring-messaging.xml" />
-	<import resource="classpath:spring-elastic-search.xml" />
-	<import resource="classpath:spring-functional.xml" />
-	<import resource="classpath:spring-functional-scheduled-tasks.xml" />
-	<import resource="classpath:spring-admin-messaging.xml" />
-	<import resource="classpath:security-applicationContext.xml" />
-	<import resource="classpath:mail-applicationContext.xml" />
 
-	<bean id="contextApplicationContextProvider" class="com.dekayd.spring.ApplicationContextProvider" />
+	<import resource="classpath:spring-hazelcast.xml" />
+
+	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 	
-	<bean id="ensureAdmin" class="com.rssident.SetupAdmin" />
+	<!-- <bean id="setup" class="com.lvl6.Setup" />-->
 	
 </beans>
