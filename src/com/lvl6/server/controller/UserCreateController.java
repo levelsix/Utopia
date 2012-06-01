@@ -177,7 +177,10 @@ public class UserCreateController extends EventController {
           p.getPlayerId() + ", channel: " + sc);
     }
 
-    NIOUtils.channelWrite(sc, writeBuffer);
+    if (user != null) 
+      NIOUtils.channelWrite(sc, writeBuffer, user.getId());
+    else
+      NIOUtils.channelWrite(sc, writeBuffer, ControllerConstants.NOT_SET);
 
     if (legitUserCreate && userId > 0) {
       server.lockPlayer(userId);
