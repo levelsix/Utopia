@@ -35,10 +35,10 @@ public class UserRetrieveUtils {
   public static User getUserById(int userId) {
     log.debug("retrieving user with userId " + userId);
 
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsById(conn, userId, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsById(conn, userId, TABLE_NAME);
     User user = convertRSToUser(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return user;
   }
 
@@ -58,10 +58,10 @@ public class UserRetrieveUtils {
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
 
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectDirectQueryNaive(conn, query, values);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
     Map<Integer, User> userIdToUserMap = convertRSToUserIdToUsersMap(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return userIdToUserMap;
   }
 
@@ -125,10 +125,10 @@ public class UserRetrieveUtils {
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
     int numDBHits = 1;
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectDirectQueryNaive(conn, query, values);
+      rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
       while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
         values.remove(values.size()-1);
         values.remove(values.size()-1);
@@ -138,7 +138,7 @@ public class UserRetrieveUtils {
         levelMax = levelMax + rangeIncrease*3/4;
         values.add(levelMax);
         values.add(numUsers);
-        rs = DBConnection.selectDirectQueryNaive(conn, query, values);
+        rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
         numDBHits++;
         if (!guaranteeNum) {
           if (numDBHits == MAX_BATTLE_DB_HITS) break;
@@ -155,7 +155,7 @@ public class UserRetrieveUtils {
         " when " + numUsers + " around " + playerLevel + " were requested");
 
     
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return users;
   }
 
@@ -166,10 +166,10 @@ public class UserRetrieveUtils {
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
 
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
     User user = convertRSToUser(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return user;
   }
 
@@ -178,10 +178,10 @@ public class UserRetrieveUtils {
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
 
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
     User user = convertRSToUser(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return user;
   }
 

@@ -12,7 +12,7 @@ public class DeleteUtils {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.AVAILABLE_REFERRAL_CODES__CODE, referralCode);
 
-    int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_AVAILABLE_REFERRAL_CODES, conditionParams, "and");
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_AVAILABLE_REFERRAL_CODES, conditionParams, "and");
     if (numDeleted != 1) {
       return false;
     }
@@ -24,7 +24,7 @@ public class DeleteUtils {
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__QUEST_ID, questId);
 
-    int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS, conditionParams, "and");
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS, conditionParams, "and");
     if (numDeleted != numTasks) {
       return false;
     }
@@ -33,7 +33,7 @@ public class DeleteUtils {
     conditionParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__QUEST_ID, questId);
 
-    numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, conditionParams, "and");
+    numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, conditionParams, "and");
     if (numDeleted != numTasks) {
       return false;
     }
@@ -46,13 +46,13 @@ public class DeleteUtils {
     conditionParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID, questId);
 
     //trust?
-    DBConnection.deleteRows(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, conditionParams, "and");
+    DBConnection.get().deleteRows(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, conditionParams, "and");
     
     conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID, questId);
 
-    int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS, conditionParams, "and");
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS, conditionParams, "and");
     if (numDeleted != numDefeatJobs) {
       return false;
     }
@@ -63,7 +63,7 @@ public class DeleteUtils {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.MARKETPLACE__ID, mpId);
 
-    int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_MARKETPLACE, conditionParams, "and");
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_MARKETPLACE, conditionParams, "and");
     if (numDeleted == 1) {
       return true;
     }
@@ -75,7 +75,7 @@ public class DeleteUtils {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 
-    int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_STRUCTS, conditionParams, "and");
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_STRUCTS, conditionParams, "and");
     if (numDeleted == 1) {
       return true;
     }

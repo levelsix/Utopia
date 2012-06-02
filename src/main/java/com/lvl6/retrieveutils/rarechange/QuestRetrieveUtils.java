@@ -71,10 +71,10 @@ public class QuestRetrieveUtils {
   private static void setStaticQuestIdsToQuests() {
     log.debug("setting static map of questIds to quests");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -97,16 +97,16 @@ public class QuestRetrieveUtils {
         }
       }
     }
-    DBConnection.close(rs,  null, conn);
+    DBConnection.get().close(rs,  null, conn);
   }
 
   private static void setStaticQuestGraph() {
     log.debug("setting static quest graph");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
 
       if (rs != null) {
         try {
@@ -131,7 +131,7 @@ public class QuestRetrieveUtils {
         }
       }    
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
 
   public static void reload() {

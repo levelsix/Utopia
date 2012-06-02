@@ -23,10 +23,10 @@ public class UserQuestsCompletedTasksRetrieveUtils {
     log.debug("retrieving user's quest id to completed tasks map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserTasksCompleted = new HashMap<Integer, List<Integer>>();
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+      rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -45,7 +45,7 @@ public class UserQuestsCompletedTasksRetrieveUtils {
         }
       } 
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     
     return questIdToUserTasksCompleted;
   }

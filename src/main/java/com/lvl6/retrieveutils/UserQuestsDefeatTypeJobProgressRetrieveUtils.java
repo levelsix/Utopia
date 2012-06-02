@@ -21,10 +21,10 @@ public class UserQuestsDefeatTypeJobProgressRetrieveUtils {
   public static Map<Integer, Map<Integer, Integer>> getQuestIdToDefeatTypeJobIdsToNumDefeated(int userId) {
     log.debug("retrieving user's quest id to (defeat type job progress map) map for user " + userId);
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = convertRSToQuestIdToDefeatTypeJobIdsToNumDefeatedMap(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return questIdToDefeatTypeJobIdsToNumDefeated;
   }
   

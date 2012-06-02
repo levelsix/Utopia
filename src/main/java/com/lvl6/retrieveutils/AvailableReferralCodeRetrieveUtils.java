@@ -23,10 +23,10 @@ public class AvailableReferralCodeRetrieveUtils {
 
     Integer offset = null;
     
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectDirectQueryNaive(conn, query, null);
+      rs = DBConnection.get().selectDirectQueryNaive(conn, query, null);
       if (rs != null) {
         try {
           rs.last();
@@ -41,12 +41,12 @@ public class AvailableReferralCodeRetrieveUtils {
         }
       } 
     }
-    DBConnection.close(rs, null, null);
+    DBConnection.get().close(rs, null, null);
     
     ResultSet rs2 = null;
     if (conn != null) {
       query = "SELECT " + DBConstants.AVAILABLE_REFERRAL_CODES__CODE+ " FROM " + TABLE_NAME + " LIMIT " + offset + ", 1"; 
-      rs2 = DBConnection.selectDirectQueryNaive(conn, query, null);
+      rs2 = DBConnection.get().selectDirectQueryNaive(conn, query, null);
       if (rs2 != null) {
         try {
           rs2.last();
@@ -61,7 +61,7 @@ public class AvailableReferralCodeRetrieveUtils {
         }
       } 
     }
-    DBConnection.close(rs2, null, conn);
+    DBConnection.get().close(rs2, null, conn);
 
     return availableReferralCode;
   }

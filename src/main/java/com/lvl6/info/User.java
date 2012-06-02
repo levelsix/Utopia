@@ -132,7 +132,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__LATITUDE, location.getLatitude());
     absoluteParams.put(DBConstants.USER__LONGITUDE, location.getLongitude());
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.userLocation = location;
@@ -158,7 +158,7 @@ public class User {
       absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED, equipId);
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       if (equipment.getType() == EquipType.WEAPON) {
@@ -190,7 +190,7 @@ public class User {
       absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED, null);
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       if (isWeapon) {
@@ -223,7 +223,7 @@ public class User {
       absoluteParams.put(DBConstants.USER__LAST_LONG_LICENSE_PURCHASE_TIME, lastLongLicensePurchaseTime);
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
@@ -245,7 +245,7 @@ public class User {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.deviceToken = deviceToken;
@@ -266,7 +266,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__NUM_BADGES, 0);
     absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.numBadges = 0;
@@ -283,7 +283,7 @@ public class User {
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.numBadges += badgeChange;
@@ -302,7 +302,7 @@ public class User {
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__NUM_BADGES, badgeChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.numBadges += badgeChange;
@@ -323,7 +323,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__LAST_LOGIN, loginTime);
     absoluteParams.put(DBConstants.USER__NUM_BADGES, newBadges);
     
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.deviceToken = newDeviceToken;
@@ -343,7 +343,7 @@ public class User {
       return false;
     }
     absoluteParams.put(DBConstants.USER__LAST_LOGOUT, lastLogout);
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.lastLogout = lastLogout;
@@ -360,7 +360,7 @@ public class User {
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__LEVEL, levelChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.level += levelChange;
@@ -386,7 +386,7 @@ public class User {
       absoluteParams = null;
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.lastStaminaRefillTime = lastStaminaRefillTime;
@@ -413,7 +413,7 @@ public class User {
       absoluteParams = null;
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.lastEnergyRefillTime = lastEnergyRefillTime;
@@ -440,7 +440,7 @@ public class User {
       absoluteParams.put(DBConstants.USER__STAMINA, staminaMax);
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, 
         absoluteParams, conditionParams, "and");
     if (numUpdated == 1) {
       if (statType == StatType.ENERGY) {
@@ -473,7 +473,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__LAST_ENERGY_REFILL_TIME, levelUpTime);
     absoluteParams.put(DBConstants.USER__LAST_STAMINA_REFILL_TIME, levelUpTime);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.energy = energyMax;
@@ -506,7 +506,7 @@ public class User {
 
     relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.energy += energyChange;
@@ -534,7 +534,7 @@ public class User {
     if (defenseChange > 0) relativeParams.put(DBConstants.USER__DEFENSE, defenseChange);
     relativeParams.put(DBConstants.USER__SKILL_POINTS, skillPointsChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.attack += attackChange;
@@ -559,7 +559,7 @@ public class User {
     relativeParams.put(DBConstants.USER__COINS, coinChange);
     relativeParams.put(DBConstants.USER__EXPERIENCE, experienceChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
@@ -589,7 +589,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__MARKETPLACE_COINS_EARNINGS, 0);
     absoluteParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, 0);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += marketplaceDiamondsEarnings;
@@ -617,7 +617,7 @@ public class User {
     relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
     relativeParams.put(DBConstants.USER__NUM_MARKETPLACE_SALES_UNREDEEMED, numMarketplaceSalesUnredeemedChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.marketplaceDiamondsEarnings += diamondEarningsChange;
@@ -644,7 +644,7 @@ public class User {
     relativeParams.put(DBConstants.USER__COINS, coinChange);
     relativeParams.put(DBConstants.USER__NUM_POSTS_IN_MARKETPLACE, numPostsInMarketplaceChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.coins += coinChange;
@@ -680,7 +680,7 @@ public class User {
       absoluteParams = null;
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       if (simulateEnergyRefill) {
@@ -708,7 +708,7 @@ public class User {
       relativeParams.put(DBConstants.USER__NUM_REFERRALS, numReferralsChange); 
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.coins += coinChange;
@@ -731,7 +731,7 @@ public class User {
       relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
@@ -751,7 +751,7 @@ public class User {
       relativeParams.put(DBConstants.USER__NUM_COINS_RETRIEVED_FROM_STRUCTS, coinChange);
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.coins += coinChange;
@@ -772,7 +772,7 @@ public class User {
       relativeParams.put(DBConstants.USER__COINS, coinChange);
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.coins += coinChange;
@@ -793,7 +793,7 @@ public class User {
     if (coinsChange != 0) relativeParams.put(DBConstants.USER__COINS, coinsChange);
     if (vaultChange != 0) relativeParams.put(DBConstants.USER__VAULT_BALANCE, vaultChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.coins += coinsChange;
@@ -830,7 +830,7 @@ public class User {
       absoluteParams = null;
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       if (simulateStaminaRefill) {

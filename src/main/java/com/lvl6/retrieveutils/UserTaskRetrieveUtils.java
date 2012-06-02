@@ -21,10 +21,10 @@ public class UserTaskRetrieveUtils {
   public static Map<Integer, Integer> getTaskIdToNumTimesActedInRankForUser(int userId) {
     log.debug("retrieving task id to num times acted in rank map for userId " + userId);
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Integer> taskIdToNumTimesActedInRank = convertRSToTaskIdToNumTimesCompletedMap(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return taskIdToNumTimesActedInRank;
   }
   

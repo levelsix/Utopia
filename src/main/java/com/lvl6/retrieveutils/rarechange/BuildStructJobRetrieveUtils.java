@@ -52,10 +52,10 @@ public class BuildStructJobRetrieveUtils {
   private static void setStaticBuildStructJobIdsToBuildStructJobs() {
     log.debug("setting static map of build struct job id to build struct job");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
 
       if (rs != null) {
         try {
@@ -74,7 +74,7 @@ public class BuildStructJobRetrieveUtils {
         }
       }  
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
 
   public static void reload() {

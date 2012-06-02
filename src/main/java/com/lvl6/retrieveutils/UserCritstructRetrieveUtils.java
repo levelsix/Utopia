@@ -24,10 +24,10 @@ public class UserCritstructRetrieveUtils {
   public static Map<CritStructType, UserCritstruct> getUserCritstructsForUser(int userId) {
     log.debug("retrieving user critstructs for userId " + userId);
 
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<CritStructType, UserCritstruct> userCritstructsForUser = convertRSToUserCritstructs(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return userCritstructsForUser;
   }
   

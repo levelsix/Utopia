@@ -25,10 +25,10 @@ public class MarketplacePostRetrieveUtils {
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
     log.debug("retrieving specific marketplace post with id " + marketplacePostId);
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsById(conn, marketplacePostId, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsById(conn, marketplacePostId, TABLE_NAME);
     MarketplacePost marketplacePost = convertRSToSingleMarketplacePost(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return marketplacePost;
   }
   
@@ -37,10 +37,10 @@ public class MarketplacePostRetrieveUtils {
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return marketplacePosts;
   }
   
@@ -51,20 +51,20 @@ public class MarketplacePostRetrieveUtils {
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return marketplacePosts;
   }
 
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
     log.debug("retrieving up to " + limit + " most recent marketplace posts");
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return marketplacePosts;
   }
   
@@ -73,10 +73,10 @@ public class MarketplacePostRetrieveUtils {
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return marketplacePosts;
   }
   

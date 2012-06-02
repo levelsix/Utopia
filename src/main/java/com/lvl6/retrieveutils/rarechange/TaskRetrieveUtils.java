@@ -63,10 +63,10 @@ public class TaskRetrieveUtils {
   private static void setStaticCityIdsToTasks() {
     log.debug("setting static map of cityId to tasks");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -88,16 +88,16 @@ public class TaskRetrieveUtils {
         }
       }    
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
 
   private static void setStaticTaskIdsToTasks() {
     log.debug("setting static map of taskIds to tasks");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
 
       if (rs != null) {
         try {
@@ -116,7 +116,7 @@ public class TaskRetrieveUtils {
         }
       }    
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
 
   public static void reload() {

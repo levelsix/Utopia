@@ -22,10 +22,10 @@ public class IAPHistoryRetrieveUtils {
 
     boolean isDuplicateTransaction = false;
     
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+      rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -39,7 +39,7 @@ public class IAPHistoryRetrieveUtils {
         }
       } 
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return isDuplicateTransaction;
   }
 

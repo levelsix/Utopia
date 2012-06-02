@@ -65,10 +65,10 @@ public class NeutralCityElementsRetrieveUtils {
   private static void setStaticCityIdToNeutralCityElements() {
     log.debug("setting static map of city id to neutral city elements for city");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -90,7 +90,7 @@ public class NeutralCityElementsRetrieveUtils {
         }
       }   
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
 
   private static NeutralCityElement convertRSRowToNeutralCityElement(ResultSet rs) throws SQLException {

@@ -52,10 +52,10 @@ public class PossessEquipJobRetrieveUtils {
   private static void setStaticPossessEquipJobIdsToPossessEquipJobs() {
     log.debug("setting static map of possess equip job id to possess equip job");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -73,7 +73,7 @@ public class PossessEquipJobRetrieveUtils {
         }
       }    
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
 
   public static void reload() {

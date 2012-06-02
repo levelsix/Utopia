@@ -25,10 +25,10 @@ public class UserCityExpansionRetrieveUtils {
     paramsToVals.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
     
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     UserCityExpansionData userCityExpansionData = convertRSToUserCritstructs(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return userCityExpansionData;
   }
 

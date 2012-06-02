@@ -36,7 +36,7 @@ public class InsertUtils {
       insertParams.get(DBConstants.USER_EQUIP__QUANTITY).add(quantity);
     }
     
-    int numInserted = DBConnection.insertIntoTableMultipleRows(DBConstants.TABLE_USER_EQUIP, insertParams, equipIds.size());
+    int numInserted = DBConnection.get().insertIntoTableMultipleRows(DBConstants.TABLE_USER_EQUIP, insertParams, equipIds.size());
     if (numInserted == equipIds.size()) {
       return true;
     }
@@ -51,7 +51,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_X_COORD, carpenter.getX());
     insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_Y_COORD, carpenter.getY());
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_CITY_ELEMS, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_USER_CITY_ELEMS, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -75,7 +75,7 @@ public class InsertUtils {
       insertParams.put(DBConstants.BATTLE_HISTORY__EXP_GAINED, expGained);
     }
     
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_BATTLE_HISTORY, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_BATTLE_HISTORY, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -90,7 +90,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_QUESTS__TASKS_COMPLETE, hasNoRequiredTasks);
     insertParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, hasNoRequiredDefeatTypeJobs);
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -104,7 +104,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID, questId);
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID, dtjId);
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -118,7 +118,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__QUEST_ID, questId);
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__COMPLETED_TASK_ID, taskId);
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_USER_QUESTS_COMPLETED_TASKS, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -137,7 +137,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, timeOfStructBuild);
     insertParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, true);
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_USER_STRUCTS, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_USER_STRUCTS, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -156,7 +156,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
     insertParams.put(DBConstants.USER_STRUCTS__PURCHASE_TIME, timeOfPurchase);
 
-    int userStructId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER_STRUCTS, insertParams);
+    int userStructId = DBConnection.get().insertIntoTableBasicReturnId(DBConstants.TABLE_USER_STRUCTS, insertParams);
     return userStructId;
   }
 
@@ -181,7 +181,7 @@ public class InsertUtils {
       e.printStackTrace();
       return false;
     }
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_IAP_HISTORY, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_IAP_HISTORY, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -204,7 +204,7 @@ public class InsertUtils {
       insertParams.put(DBConstants.MARKETPLACE__COIN_COST, coinCost);
     }
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -234,7 +234,7 @@ public class InsertUtils {
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__COIN_COST, mp.getCoinCost());
     }
 
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_MARKETPLACE_TRANSACTION_HISTORY, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -250,7 +250,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.REFERRALS__TIME_OF_REFERRAL, new Timestamp(new Date().getTime()));
     insertParams.put(DBConstants.REFERRALS__COINS_GIVEN_TO_REFERRER, new Timestamp(new Date().getTime()));
     
-    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_REFERRALS, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_REFERRALS, insertParams);
     if (numInserted == 1) {
       return true;
     }
@@ -290,7 +290,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.USER__CREATE_TIME, now);
     
     
-    int userId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER, insertParams);
+    int userId = DBConnection.get().insertIntoTableBasicReturnId(DBConstants.TABLE_USER, insertParams);
     return userId;
   }
 
@@ -305,7 +305,7 @@ public class InsertUtils {
     insertParams.put(DBConstants.PLAYER_WALL_POSTS__TIME_OF_POST, timeOfPost);
     insertParams.put(DBConstants.PLAYER_WALL_POSTS__CONTENT, content);
 
-    int wallPostId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_PLAYER_WALL_POSTS, insertParams);
+    int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(DBConstants.TABLE_PLAYER_WALL_POSTS, insertParams);
     return wallPostId;
   }
 

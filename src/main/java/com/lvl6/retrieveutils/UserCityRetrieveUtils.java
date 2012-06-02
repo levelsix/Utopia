@@ -24,10 +24,10 @@ public class UserCityRetrieveUtils {
   public static Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
     log.debug("retrieving city id to user city rank map for userId " + userId);
 
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsByUserId(conn, userId, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, Integer> cityIdToUserCityRankMap = convertRSToCityIdToCityRankMap(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return cityIdToUserCityRankMap;
   }
   
@@ -37,10 +37,10 @@ public class UserCityRetrieveUtils {
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);
 
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     int cityRank = convertRSToCityRank(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return cityRank;
   }
   

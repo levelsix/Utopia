@@ -42,10 +42,10 @@ public class LevelsRequiredExperienceRetrieveUtils {
   private static void setStaticLevelsToRequiredExperienceForLevels() {
     log.debug("setting static map of levels to required experience for levels");
 
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -62,6 +62,6 @@ public class LevelsRequiredExperienceRetrieveUtils {
         }
       }
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
 }

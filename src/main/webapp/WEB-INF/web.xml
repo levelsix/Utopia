@@ -17,13 +17,6 @@
 	</servlet-mapping>
 
 
-
-
-
-
-
-
-
 	<!-- Spring Security -->
 	<!-- <filter> -->
 	<!-- <filter-name>springSecurityFilterChain</filter-name> -->
@@ -38,23 +31,14 @@
 
 
 
-	<!-- <context-param> -->
-	<!-- <param-name>contextConfigLocation</param-name> -->
-	<!-- <param-value>/WEB-INF/applicationContext.xml</param-value> -->
-	<!-- </context-param> -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring-application-context.xml</param-value>
+	</context-param>
 
-	<!-- <listener> -->
-	<!-- <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
-	<!-- </listener> -->
-
-	<!-- <listener> -->
-	<!-- <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class> -->
-	<!-- </listener> -->
-
-	<welcome-file-list>
-		<welcome-file>/</welcome-file>
-	</welcome-file-list>
-
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 
 </web-app>

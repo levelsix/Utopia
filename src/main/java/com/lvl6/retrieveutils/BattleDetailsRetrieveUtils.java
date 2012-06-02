@@ -31,10 +31,10 @@ public class BattleDetailsRetrieveUtils {
     TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
     greaterThanParams.put(DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, earliestBattleNotificationTimeToRetrieve);
     
-    Connection conn = DBConnection.getConnection();
-    ResultSet rs = DBConnection.selectRowsAbsoluteAndOrderbydescLimitGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__DEFENDER_ID, limit, greaterThanParams);
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__DEFENDER_ID, limit, greaterThanParams);
     List<BattleDetails> battleDetailsList = convertRSToBattleDetailsList(rs);
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
     return battleDetailsList;
   }
   

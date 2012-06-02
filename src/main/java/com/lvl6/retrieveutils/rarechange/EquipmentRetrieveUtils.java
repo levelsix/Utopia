@@ -64,10 +64,10 @@ public class EquipmentRetrieveUtils {
   private static void setStaticEquipIdsToEquipment() {
     log.debug("setting static map of equipIds to equipment");
     
-    Connection conn = DBConnection.getConnection();
+    Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -85,7 +85,7 @@ public class EquipmentRetrieveUtils {
         }
       }    
     }
-    DBConnection.close(rs, null, conn);
+    DBConnection.get().close(rs, null, conn);
   }
   
   public static void reload() {

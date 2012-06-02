@@ -34,11 +34,19 @@
 	</scm>
 
 	<properties>
-		<jdbc.url></jdbc.url>
-		<jdbc.username></jdbc.username>
-		<jdbc.password></jdbc.password>
+		<jdbc.url>utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com</jdbc.url>
+		<jdbc.username>lvl6admin</jdbc.username>
+		<jdbc.password>robashen123</jdbc.password>
+		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<apns.path.to.cert></apns.path.to.cert>
 		<apns.cert.password></apns.cert.password>
+		<hazelcast.ec2.security.group></hazelcast.ec2.security.group>
+		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
+		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
+		<server.ip>localhost</server.ip>
+		<server.port>10001</server.port>
+		<lvl6.server.log.appender>R</lvl6.server.log.appender>
+		<lvl6.server.log.location>/var/log/tomcat7/utopia.log</lvl6.server.log.location>
 	</properties>
 
 
@@ -209,6 +217,16 @@
 				<artifactId>spring-context</artifactId>
 				<version>3.1.1.RELEASE</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>3.1.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.1.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -281,6 +299,14 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
 		</dependency>
 	</dependencies>
 

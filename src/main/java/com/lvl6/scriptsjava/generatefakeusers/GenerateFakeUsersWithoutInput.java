@@ -32,7 +32,7 @@ public class GenerateFakeUsersWithoutInput {
       e.printStackTrace();
     }
     if (nameGenerator != null) {
-      DBConnection.init();
+      DBConnection.get().init();
       for (int i = minLevel; i <= maxLevel; i++){
         for (int j = 0; j < numEnemiesToCreatePerLevel; j++) {
           createUser(random, nameGenerator, i);

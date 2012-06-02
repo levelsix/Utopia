@@ -13,6 +13,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 
+
 import org.apache.log4j.*;
 
 import com.lvl6.events.ResponseEvent;
@@ -24,11 +25,12 @@ import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.PlayerSet;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class GameServer extends Thread{
+public class GameServer {
 
   // Logger
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  
   // ServerSocketChannel for accepting client connections
   private ServerSocketChannel sSockChan;
 
@@ -64,8 +66,7 @@ public class GameServer extends Thread{
   public static void main(String args[]) {
     if (args.length == 2) {
       GameServer server = new GameServer(args[0], Integer.parseInt(args[1]));
-      DBConnection.init();
-      server.start();
+      DBConnection.get().init();
       MiscMethods.reloadAllRareChangeStaticData();
     } else {
       System.out.println("Error in input- two arguments required: <serverip> <portnum>");

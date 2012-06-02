@@ -26,7 +26,7 @@ public class MarkUserQuestsAsCompleteIfComplete {
 
   public static void main(String[] args) {
     BasicConfigurator.configure();
-    DBConnection.init();
+    DBConnection.get().init();
     List<UserQuest> userQuests = UserQuestRetrieveUtils.getUnredeemedIncompleteUserQuests();
     for (UserQuest userQuest : userQuests) {
       if (!userQuest.isComplete()) {

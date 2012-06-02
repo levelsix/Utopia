@@ -35,7 +35,7 @@ public class UpdateUtils {
       values.add(questId);
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
-    int numUpdated = DBConnection.updateDirectQueryNaive(query, values);
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
     if (numUpdated == questIds.size()) {
       return true;
     }
@@ -55,7 +55,7 @@ public class UpdateUtils {
         values.add(deviceToken);
       }
       query += StringUtils.getListInString(condClauses, "or");
-      DBConnection.updateDirectQueryNaive(query, values);
+      DBConnection.get().updateDirectQueryNaive(query, values);
     }
   }
 
@@ -73,7 +73,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS, farRightExpansionsChange);
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       return true;
@@ -94,7 +94,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_DIRECTION, lastExpansionDirection.getNumber());
     absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       return true;
@@ -112,7 +112,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_QUESTS__IS_COMPLETE, true);
     absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       return true;
@@ -131,7 +131,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_QUESTS__IS_COMPLETE, true);
     absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       return true;
@@ -150,7 +150,7 @@ public class UpdateUtils {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER_STRUCTS__ORIENTATION, orientation.getNumber());
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -174,7 +174,7 @@ public class UpdateUtils {
       absoluteParams.put(DBConstants.USER_QUESTS__DEFEAT_TYPE_JOBS_COMPLETE, true); 
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_QUESTS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       return true;
@@ -203,7 +203,7 @@ public class UpdateUtils {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_ORIENTATION, orientation.getNumber());
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -240,7 +240,7 @@ public class UpdateUtils {
       absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_Y_COORD, coordinates.getY());
     }
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -283,7 +283,7 @@ public class UpdateUtils {
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER_STRUCTS__LEVEL, levelChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -326,7 +326,7 @@ public class UpdateUtils {
 
     absoluteParams.put(DBConstants.USER_STRUCTS__IS_COMPLETE, isComplete);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -344,7 +344,7 @@ public class UpdateUtils {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER_STRUCTS__LAST_RETRIEVED, lastRetrievedTime);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -362,7 +362,7 @@ public class UpdateUtils {
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER_STRUCTS__LEVEL, levelChange);
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_STRUCTS, relativeParams, null, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -381,7 +381,7 @@ public class UpdateUtils {
     absoluteParams.put(DBConstants.USER_STRUCTS__X_COORD, coordinates.getX());
     absoluteParams.put(DBConstants.USER_STRUCTS__Y_COORD, coordinates.getY());
 
-    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_STRUCTS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {
       return true;
@@ -394,7 +394,7 @@ public class UpdateUtils {
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
     insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
     insertParams.put(DBConstants.USER_EQUIP__QUANTITY, increment);
-    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_EQUIP, insertParams, 
+    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_EQUIP, insertParams, 
         DBConstants.USER_EQUIP__QUANTITY, increment);
     if (numUpdated >= 1) {
       return true;
@@ -415,14 +415,14 @@ public class UpdateUtils {
       return false;
     }
     if (currentQuantity - decrement <= 0) {
-      int numDeleted = DBConnection.deleteRows(DBConstants.TABLE_USER_EQUIP, conditionParams, "and");
+      int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_EQUIP, conditionParams, "and");
       if (numDeleted == 1) {
         return true;
       }
     } else {
       Map <String, Object> relativeParams = new HashMap<String, Object>();
       relativeParams.put(DBConstants.USER_EQUIP__QUANTITY, -1*decrement);      
-      int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER_EQUIP, relativeParams, null, 
+      int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, relativeParams, null, 
           conditionParams, "and");
       if (numUpdated == 1) {
         return true;
@@ -441,7 +441,7 @@ public class UpdateUtils {
     insertParams.put(DBConstants.USER_CITIES__CITY_ID, cityId);
     insertParams.put(DBConstants.USER_CITIES__CURRENT_RANK, increment);
 
-    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_CITIES, insertParams, 
+    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_CITIES, insertParams, 
         DBConstants.USER_CITIES__CURRENT_RANK, increment);
 
     if (numUpdated >= 1) {
@@ -460,7 +460,7 @@ public class UpdateUtils {
     insertParams.put(DBConstants.USER_TASK__TASK_ID, taskId);
     insertParams.put(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
 
-    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_TASKS, insertParams, 
+    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_TASKS, insertParams, 
         DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
 
     if (numUpdated >= 1) {
@@ -478,7 +478,7 @@ public class UpdateUtils {
     insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID, defeatTypeJobId);
     insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
 
-    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, insertParams, 
+    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, insertParams, 
         DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
 
     if (numUpdated >= 1) {
@@ -495,7 +495,7 @@ public class UpdateUtils {
     insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__TASK_ID, taskId);
     insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
 
-    int numUpdated = DBConnection.insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, insertParams, 
+    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, insertParams, 
         DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
 
     if (numUpdated >= 1) {
@@ -515,7 +515,7 @@ public class UpdateUtils {
       values.add(task.getId());
     }
     query += StringUtils.getListInString(condClauses, "or");
-    int numUpdated = DBConnection.updateDirectQueryNaive(query, values);
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
     if (numUpdated == tasksInCity.size()) {
       return true;
     }
