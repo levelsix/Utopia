@@ -88,3 +88,38 @@ nohup for generic logs, log4j
 test apns
 
 output goes to nohup.out- can tail it. create daily / hourly logs. look into log4j instead of nohup
+
+
+
+
+
+7) Building with Maven
+
+Install Maven and m2eclipse
+
+http://maven.apache.org/download.html
+
+http://eclipse.org/m2e/
+
+cd to root of project and run:
+
+./installJavaJsonToLocalMaven.sh 
+mvn clean
+mvn install
+
+
+
+8) Building with Maven in Eclipse
+
+After installing m2eclipse
+
+Import Project > Maven > Existing Maven project
+
+Choose Utopia folder root
+
+Select the project in the tree and OK
+
+
+
+
+
