@@ -120,6 +120,20 @@ Choose Utopia folder root
 Select the project in the tree and OK
 
 
+9) Tomcat
+
+Install tomcat7
+
+Stop tomcat
+
+remove all files from tomcatroot/webapps/
+
+copy utopia/target/utopia-server-1.0-SNAPSHOT.war to tomcatroot/webapps/ROOT.war
+
+Start tomcat
+
+
+
 
 
 
