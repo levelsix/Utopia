@@ -6,9 +6,13 @@ import java.nio.CharBuffer;
 
 import org.apache.catalina.websocket.MessageInbound;
 import org.apache.catalina.websocket.WsOutbound;
+import org.apache.commons.logging.Log;
+import org.apache.log4j.Logger;
 
 public class GameMessageInbound extends MessageInbound {
 
+	protected static Logger log = Logger.getLogger(GameMessageInbound.class);
+	
 	@Override
 	protected void onBinaryMessage(ByteBuffer message) throws IOException {
 		// TODO Auto-generated method stub
@@ -17,8 +21,7 @@ public class GameMessageInbound extends MessageInbound {
 
 	@Override
 	protected void onTextMessage(CharBuffer message) throws IOException {
-		// TODO Auto-generated method stub
-
+		log.info("Recieved incoming message from WebSocket: "+message);
 	}
 
 	@Override

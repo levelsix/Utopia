@@ -11,9 +11,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -29,8 +32,6 @@ public class DBConnection {
 	
 	/************************
 	 * TODO: Refactor this to use Spring JDBC or Spring Data JPA
-	 * 
-	 * 
 	 */
 
 	
@@ -47,6 +48,8 @@ public class DBConnection {
 
 	private final int SELECT_LIMIT_NOT_SET = -1;
 
+	
+	@Autowired
 	protected ComboPooledDataSource dataSource;
 
 	public ComboPooledDataSource getDataSource() {
@@ -54,17 +57,20 @@ public class DBConnection {
 	}
 
 	public void setDataSource(ComboPooledDataSource dataSource) {
+		log.info("Setting datasource for DBConnection: "+dataSource);
 		this.dataSource = dataSource;
 	}
 
 	public Connection getConnection() {
-
+		if(getDataSource() == null) log.error("Datasource is null");
 		// log.debug("before pool grab");
 		// printConnectionInfoInDebug();
 		//
 		Connection conn = null;
 		try {
-			conn = getDataSource().getConnection();
+			conn = 
+				getDataSource()
+				.getConnection();
 		} catch (SQLException e) {
 			log.error("Problem with grabbing a db connection.");
 			try {

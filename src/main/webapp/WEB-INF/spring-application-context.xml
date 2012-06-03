@@ -20,7 +20,7 @@
 
 	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 	
-	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" init-method="run" >
+	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" >
 		<constructor-arg index="0" value="${server.ip}" />
 		<constructor-arg index="1" value="${server.port}" />
 	</bean>

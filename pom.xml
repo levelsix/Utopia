@@ -34,7 +34,7 @@
 	</scm>
 
 	<properties>
-		<jdbc.url>utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com</jdbc.url>
+		<jdbc.url>jdbc:mysql://utopiainstance1.cx558rzcwi45.us-west-1.rds.amazonaws.com/lostnations</jdbc.url>
 		<jdbc.username>lvl6admin</jdbc.username>
 		<jdbc.password>robashen123</jdbc.password>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
