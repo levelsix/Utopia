@@ -17,6 +17,7 @@ bin/
 gen/
 
 */target/*
+target/
 
 ## generic files to ignore
 *~
