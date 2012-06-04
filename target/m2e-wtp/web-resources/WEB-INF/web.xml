@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<display-name>lvl6-utopia</display-name>
+	<description>Lvl6 Utopia Server</description>
+
+
+	<servlet>
+		<servlet-name>gameServlet</servlet-name>
+		<servlet-class>com.lvl6.server.GameWebSocketServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>gameServlet</servlet-name>
+		<url-pattern>/game</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Spring Security -->
+	<!-- <filter> -->
+	<!-- <filter-name>springSecurityFilterChain</filter-name> -->
+	<!-- <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
+	<!-- </filter> -->
+
+	<!-- <filter-mapping> -->
+	<!-- <filter-name>springSecurityFilterChain</filter-name> -->
+	<!-- <url-pattern>/*</url-pattern> -->
+	<!-- </filter-mapping> -->
+
+
+
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring-application-context.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+
+</web-app>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="6.212" errors="0" skipped="0" tests="1" name="com.lvl6.test.DatabaseTests">
+  <properties>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/amd64"/>
+    <property name="java.vm.version" value="19.0-b09"/>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.vendor.url" value="http://java.sun.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/raid/development/workspaces/lvl6/Utopia"/>
+    <property name="java.runtime.version" value="1.6.0_20-b20"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="basedir" value="/raid/development/workspaces/lvl6/Utopia"/>
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-6-openjdk/jre/lib/endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="surefire.real.class.path" value="/tmp/surefirebooter4123229940815805698.jar"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="os.name" value="Linux"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-6-openjdk/jre/lib/amd64:/usr/lib/jvm/java-6-openjdk/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="surefire.test.class.path" value="/raid/development/workspaces/lvl6/Utopia/target/test-classes:/raid/development/workspaces/lvl6/Utopia/target/classes:/home/kelly/.m2/repository/mysql/mysql-connector-java/5.1.20/mysql-connector-java-5.1.20.jar:/home/kelly/.m2/repository/org/slf4j/slf4j-simple/1.6.4/slf4j-simple-1.6.4.jar:/home/kelly/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar:/home/kelly/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/home/kelly/.m2/repository/spy/spymemcached/2.8.1/spymemcached-2.8.1.jar:/home/kelly/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/home/kelly/.m2/repository/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar:/home/kelly/.m2/repository/com/notnoop/apns/apns/0.1.6/apns-0.1.6.jar:/home/kelly/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.4.0/jackson-mapper-asl-1.4.0.jar:/home/kelly/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.4.0/jackson-core-asl-1.4.0.jar:/home/kelly/.m2/repository/json-java/json-java/1.0/json-java-1.0.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-servlet-api/7.0.27/tomcat-servlet-api-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-catalina/7.0.27/tomcat-catalina-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-juli/7.0.27/tomcat-juli-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-annotations-api/7.0.27/tomcat-annotations-api-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-api/7.0.27/tomcat-api-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-util/7.0.27/tomcat-util-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-coyote/7.0.27/tomcat-coyote-7.0.27.jar:/home/kelly/.m2/repository/com/hazelcast/hazelcast-all/2.1.1/hazelcast-all-2.1.1.jar:/home/kelly/.m2/repository/org/springframework/spring-context/3.1.1.RELEASE/spring-context-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-aop/3.1.1.RELEASE/spring-aop-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/home/kelly/.m2/repository/org/springframework/spring-asm/3.1.1.RELEASE/spring-asm-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-beans/3.1.1.RELEASE/spring-beans-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-core/3.1.1.RELEASE/spring-core-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/home/kelly/.m2/repository/org/springframework/spring-expression/3.1.1.RELEASE/spring-expression-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-web/3.1.1.RELEASE/spring-web-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/junit/junit/4.10/junit-4.10.jar:/home/kelly/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/home/kelly/.m2/repository/org/springframework/spring-test/3.1.1.RELEASE/spring-test-3.1.1.RELEASE.jar:"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Server Compiler"/>
+    <property name="os.version" value="2.6.32-41-generic"/>
+    <property name="user.home" value="/home/kelly"/>
+    <property name="user.timezone" value="America/Phoenix"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="user.name" value="kelly"/>
+    <property name="java.class.path" value="/raid/development/workspaces/lvl6/Utopia/target/test-classes:/raid/development/workspaces/lvl6/Utopia/target/classes:/home/kelly/.m2/repository/mysql/mysql-connector-java/5.1.20/mysql-connector-java-5.1.20.jar:/home/kelly/.m2/repository/org/slf4j/slf4j-simple/1.6.4/slf4j-simple-1.6.4.jar:/home/kelly/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar:/home/kelly/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar:/home/kelly/.m2/repository/spy/spymemcached/2.8.1/spymemcached-2.8.1.jar:/home/kelly/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/home/kelly/.m2/repository/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar:/home/kelly/.m2/repository/com/notnoop/apns/apns/0.1.6/apns-0.1.6.jar:/home/kelly/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.4.0/jackson-mapper-asl-1.4.0.jar:/home/kelly/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.4.0/jackson-core-asl-1.4.0.jar:/home/kelly/.m2/repository/json-java/json-java/1.0/json-java-1.0.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-servlet-api/7.0.27/tomcat-servlet-api-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-catalina/7.0.27/tomcat-catalina-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-juli/7.0.27/tomcat-juli-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-annotations-api/7.0.27/tomcat-annotations-api-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-api/7.0.27/tomcat-api-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-util/7.0.27/tomcat-util-7.0.27.jar:/home/kelly/.m2/repository/org/apache/tomcat/tomcat-coyote/7.0.27/tomcat-coyote-7.0.27.jar:/home/kelly/.m2/repository/com/hazelcast/hazelcast-all/2.1.1/hazelcast-all-2.1.1.jar:/home/kelly/.m2/repository/org/springframework/spring-context/3.1.1.RELEASE/spring-context-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-aop/3.1.1.RELEASE/spring-aop-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/home/kelly/.m2/repository/org/springframework/spring-asm/3.1.1.RELEASE/spring-asm-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-beans/3.1.1.RELEASE/spring-beans-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-core/3.1.1.RELEASE/spring-core-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/home/kelly/.m2/repository/org/springframework/spring-expression/3.1.1.RELEASE/spring-expression-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/org/springframework/spring-web/3.1.1.RELEASE/spring-web-3.1.1.RELEASE.jar:/home/kelly/.m2/repository/junit/junit/4.10/junit-4.10.jar:/home/kelly/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/home/kelly/.m2/repository/org/springframework/spring-test/3.1.1.RELEASE/spring-test-3.1.1.RELEASE.jar:"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/usr/lib/jvm/java-6-openjdk/jre"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.language" value="en"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.6.0_20"/>
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jce.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/charsets.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/netx.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/plugin.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rhino.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/modules/jdk.boot.jar:/usr/lib/jvm/java-6-openjdk/jre/classes"/>
+    <property name="java.vendor" value="Sun Microsystems Inc."/>
+    <property name="localRepository" value="/home/kelly/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase time="6.19" classname="com.lvl6.test.DatabaseTests" name="testAppStart"/>
+</testsuite>
