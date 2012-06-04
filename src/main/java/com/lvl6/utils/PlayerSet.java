@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 public class PlayerSet {
 
-	@Resource(name="playersInActionSet")
+
 	private Set<Integer> players;
 
 	public Set<Integer> getPlayers() {

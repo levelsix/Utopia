@@ -21,6 +21,6 @@
 	<int:service-activator input-channel="gameEventQueueChannel"
 		ref="gameEventHandler" method="handleGameEvent" />
 
-	<bean id="gameEventHandler" class="com.lvl6.events.GameEventHandler" />
+	<bean id="gameEventHandler" class="com.lvl6.eventhandlers.GameEventHandler" />
 
 </beans>

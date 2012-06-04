@@ -25,10 +25,16 @@
 	
 	
 	<hz:queue name="gameEventQueue" instance-ref="hazel" />
+	
+	<hz:map name="playerToServerMap" instance-ref="hazel" />
+	
 		
 	<hz:set id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
+		
+	<bean id="playersInAction" class="com.lvl6.utils.PlayerSet" scope="singleton" >
+		<property name="players" ref="playersInActionSet" />
+	</bean>
 	
-	<bean id="playersInAction" class="com.lvl6.utils.PlayerSet"></bean>
-	
+	<bean id="openWebSockets" class="com.lvl6.utils.OpenWebSockets" scope="singleton" />
 	
 </beans>
