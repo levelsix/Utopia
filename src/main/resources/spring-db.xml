@@ -25,7 +25,10 @@
 		<property name="loginTimeout" value="300" />
 	</bean>
 
-	<bean id="dbConnection" class="com.lvl6.utils.DBConnection" scope="singleton" />
+	<bean id="dbConnection" class="com.lvl6.utils.DBConnection" scope="singleton" depends-on="dataSource" >
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 
 
 

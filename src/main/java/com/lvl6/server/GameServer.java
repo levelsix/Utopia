@@ -27,7 +27,7 @@ import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.PlayerSet;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class GameServer implements InitializingBean{
+public class GameServer extends Thread implements InitializingBean{
 
 	// Logger
 	private static Logger log = Logger.getLogger(new Object() {
@@ -73,6 +73,16 @@ public class GameServer implements InitializingBean{
 	// user specified input
 	private String serverIP;
 	private int portNum;
+	
+	protected boolean block = true;
+
+	public boolean isBlock() {
+		return block;
+	}
+
+	public void setBlock(boolean block) {
+		this.block = block;
+	}
 
 	// current client version to see if it is still playable
 	public static float clientVersionNumber = 1.0f;
@@ -150,7 +160,7 @@ public class GameServer implements InitializingBean{
 		init();
 		log.info("******** GameServer running ********");
 		running = true;
-
+		if(block)
 		while (running) {
 			// note, since we only have one ServerSocket to listen to,
 			// we don't need a Selector here, but we set it up for

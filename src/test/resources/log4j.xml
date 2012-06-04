@@ -26,14 +26,13 @@
 	<category name="com.mchange" additivity="true">
 		<priority value="info" />
 		<appender-ref ref="console" />
-		<appender-ref ref="R" />
 	</category>
 
 
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
-		<appender-ref ref="${lvl6.server.log.appender}" />
+<!-- 		<appender-ref ref="${lvl6.server.log.appender}" /> -->
 	</root>
 
 </log4j:configuration>

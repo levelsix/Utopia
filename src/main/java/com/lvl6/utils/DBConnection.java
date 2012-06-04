@@ -56,9 +56,9 @@ public class DBConnection {
 		return dataSource;
 	}
 
-	public void setDataSource(ComboPooledDataSource dataSource) {
+	public void setDataSource(ComboPooledDataSource ds) {
 		log.info("Setting datasource for DBConnection: "+dataSource);
-		this.dataSource = dataSource;
+		this.dataSource = ds;
 	}
 
 	public Connection getConnection() {
