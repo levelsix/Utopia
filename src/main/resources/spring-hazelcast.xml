@@ -24,9 +24,9 @@
 	<hz:atomicNumber id="connectedPlayerCount" name="connectedPlayerCount" instance-ref="hazel" />
 	
 	
-	<hz:queue name="gameEventQueue" instance-ref="hazel" />
+	<hz:queue id="gameEventQueue" name="gameEventQueue" instance-ref="hazel" />
 	
-	<hz:map name="playerToServerMap" instance-ref="hazel" />
+	<hz:map id="playerToServerMap" name="playerToServerMap" instance-ref="hazel" />
 	
 		
 	<hz:set id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
