@@ -11,7 +11,7 @@
 		<property name="initialPoolSize">10</property>
 		
 		
-		<property name="maxStatementsPerConnection">5</property>
+		<property name="maxStatementsPerConnection">30</property>
 		<property name="numHelperThreads">6</property>
 		<property name="maxIdleTime">360000</property>   <!-- 10 hours -->
 		<property name="maxIdleTimeExcessConnections">300</property> <!-- 5 minutes -->

@@ -1307,12 +1307,14 @@ message PostOnPlayerWallResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RetrievePlayerWallPostsRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 relevantUserId = 2;
 	optional int32 beforeThisPostId = 3;
 }
 
+																						//DONE
 message RetrievePlayerWallPostsResponseProto {
      optional MinimumUserProto sender = 1;
      optional int32 relevantUserId = 2;
@@ -1325,4 +1327,36 @@ message RetrievePlayerWallPostsResponseProto {
      	SUCCESS = 0;
      	OTHER_FAIL = 1;
      }
+}
+
+//------------------------------------------------------------------------------------------
+
+message EarnFreeGoldRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional EarnFreeGoldType freeGoldType = 2;
+	optional int64 clientTime = 3;
+		
+	optional string kiipReceipt = 4;
+	
+	enum EarnFreeGoldType {
+		KIIP = 1;
+		ADCOLONY = 2;
+		FB_INVITE = 3;
+		TAPJOY = 4;
+		FLURRY_VIDEO = 5;
+		TWITTER = 6;
+	}
+
+}
+
+message EarnFreeGoldResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional EarnFreeGoldStatus status = 2;
+	
+	enum EarnFreeGoldStatus {
+		SUCCESS = 0;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
+		METHOD_NOT_SUPPORTED = 2;
+		OTHER_FAIL = 3;
+	}
 }
