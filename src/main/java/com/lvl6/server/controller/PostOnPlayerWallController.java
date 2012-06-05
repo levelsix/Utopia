@@ -23,7 +23,9 @@ import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
@@ -31,8 +33,13 @@ public class PostOnPlayerWallController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  
+
+  protected InsertUtil insertUtils;
+  
   public PostOnPlayerWallController() {
     numAllocatedThreads = 4;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
 
   @Override
@@ -68,7 +75,7 @@ public class PostOnPlayerWallController extends EventController {
     
     if (legitPost) {
       Timestamp timeOfPost = new Timestamp(new Date().getTime());
-      int wallPostId = InsertUtils.insertPlayerWallPost(posterId, wallOwnerId, content, timeOfPost);
+      int wallPostId = insertUtils.insertPlayerWallPost(posterId, wallOwnerId, content, timeOfPost);
       if (wallPostId <= 0) {
         legitPost = false;
         resBuilder.setStatus(PostOnPlayerWallStatus.OTHER_FAIL);

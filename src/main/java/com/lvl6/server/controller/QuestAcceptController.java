@@ -20,6 +20,8 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.spring.AppContext;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -28,8 +30,13 @@ public class QuestAcceptController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  
+
+  protected InsertUtil insertUtils;
+  
   public QuestAcceptController() {
     numAllocatedThreads = 5;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
   
   @Override
@@ -89,7 +96,7 @@ public class QuestAcceptController extends EventController {
   }
 
   private void writeChangesToDB(UserQuest uq) {
-    if (!InsertUtils.insertUnredeemedUserQuest(uq.getUserId(), uq.getQuestId(), uq.isTasksComplete(), uq.isDefeatTypeJobsComplete())) {
+    if (!insertUtils.insertUnredeemedUserQuest(uq.getUserId(), uq.getQuestId(), uq.isTasksComplete(), uq.isDefeatTypeJobsComplete())) {
       log.error("problem with inserting unredeemd user quest: " + uq);
     }
   }

@@ -26,6 +26,8 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.spring.AppContext;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -35,8 +37,12 @@ public class PostToMarketplaceController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+
+  protected InsertUtil insertUtils;
+  
   public PostToMarketplaceController() {
     numAllocatedThreads = 3;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
   
   @Override
@@ -178,7 +184,7 @@ public class PostToMarketplaceController extends EventController {
     int postedEquipId = reqProto.getPostedEquipId();
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
-    if (!InsertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
+    if (!insertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
         diamondCost, coinCost, timeOfPost)) {
       log.error("problem with inserting post into marketplace. posterId=" + posterId
           + ", postType=" + postType + ", postedEquipId=" + postedEquipId

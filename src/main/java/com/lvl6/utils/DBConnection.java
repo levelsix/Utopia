@@ -1,6 +1,5 @@
 package com.lvl6.utils;
 
-import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,29 +10,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import com.lvl6.properties.DBConstants;
-import com.lvl6.properties.DBProperties;
-import com.lvl6.properties.Globals;
 import com.lvl6.spring.AppContext;
-import com.lvl6.spring.ApplicationContextProvider;
 import com.lvl6.utils.utilmethods.StringUtils;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DBConnection {
-	
-	/************************
-	 * TODO: Refactor this to use Spring JDBC or Spring Data JPA
-	 */
-
 	
 	public static DBConnection get(){
 		return (DBConnection) AppContext.getApplicationContext().getBean("dbConnection");
@@ -50,13 +38,13 @@ public class DBConnection {
 
 	
 	@Autowired
-	protected ComboPooledDataSource dataSource;
+	protected DataSource dataSource;
 
-	public ComboPooledDataSource getDataSource() {
+	public DataSource getDataSource() {
 		return dataSource;
 	}
 
-	public void setDataSource(ComboPooledDataSource ds) {
+	public void setDataSource(DataSource ds) {
 		log.info("Setting datasource for DBConnection: "+dataSource);
 		this.dataSource = ds;
 	}
@@ -72,17 +60,8 @@ public class DBConnection {
 				getDataSource()
 				.getConnection();
 		} catch (SQLException e) {
-			log.error("Problem with grabbing a db connection.");
-			try {
-				log.error("num_connections: "
-						+ getDataSource().getNumConnectionsDefaultUser());
-				log.error("num_busy_connections: "
-						+ getDataSource().getNumBusyConnectionsDefaultUser());
-				log.error("num_idle_connections: "
-						+ getDataSource().getNumIdleConnectionsDefaultUser());
-			} catch (SQLException e1) {
-				log.error("Problem with printing out db connection info");
-			}
+			log.error("Problem with grabbing a db connection.", e);
+			printConnectionInfoInDebug();
 		}
 
 		// log.debug("after pool grab");
@@ -93,16 +72,20 @@ public class DBConnection {
 
 	private void printConnectionInfoInDebug() {
 		try {
-			log.debug("num_connections: "
-					+ dataSource.getNumConnectionsDefaultUser());
-			log.debug("num_busy_connections: "
-					+ dataSource.getNumBusyConnectionsDefaultUser());
-			log.debug("num_idle_connections: "
-					+ dataSource.getNumIdleConnectionsDefaultUser());
+			if(dataSource instanceof ComboPooledDataSource) {
+				ComboPooledDataSource ds = (ComboPooledDataSource) dataSource;
+				log.debug("num_connections: "
+						+ ds.getNumConnectionsDefaultUser());
+				log.debug("num_busy_connections: "
+						+ ds.getNumBusyConnectionsDefaultUser());
+				log.debug("num_idle_connections: "
+						+ ds.getNumIdleConnectionsDefaultUser());
+			}
 		} catch (Exception e) {
 			log.error(e);
 		}
 	}
+	
 
 	public void close(ResultSet rs, Statement statement, Connection conn) {
 		try {

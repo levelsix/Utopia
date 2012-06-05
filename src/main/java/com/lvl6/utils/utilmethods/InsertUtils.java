@@ -21,9 +21,15 @@ import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;
 
-public class InsertUtils {
+public class InsertUtils implements InsertUtil {
+	
+	
   
-  public static boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int, java.util.List, int)
+ */
+@Override
+public boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity) {
       //insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
     
     Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
@@ -43,7 +49,11 @@ public class InsertUtils {
     return false;
   }
   
-  public static boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary, CoordinatePair carpenter) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertAviaryAndCarpenterCoords(int, com.lvl6.info.CoordinatePair, com.lvl6.info.CoordinatePair)
+ */
+@Override
+public boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary, CoordinatePair carpenter) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
     insertParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_X_COORD, aviary.getX());
@@ -58,7 +68,11 @@ public class InsertUtils {
     return false;
   }
   
-  public static boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertBattleHistory(int, int, com.lvl6.proto.InfoProto.BattleResult, java.util.Date, int, int, int)
+ */
+@Override
+public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
       Date battleCompleteTime, int coinsStolen, int stolenEquipId, int expGained) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.BATTLE_HISTORY__ATTACKER_ID, attackerId);
@@ -82,7 +96,11 @@ public class InsertUtils {
     return false;
   }
   
-  public static boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUnredeemedUserQuest(int, int, boolean, boolean)
+ */
+@Override
+public boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     insertParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -98,7 +116,11 @@ public class InsertUtils {
   }
   
   /* used for quest defeat type jobs*/
-  public static boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId, int questId) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedDefeatTypeJobIdForUserQuest(int, int, int)
+ */
+@Override
+public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID, userId);
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID, questId);
@@ -112,7 +134,11 @@ public class InsertUtils {
   }
 
   /* used for quest tasks*/
-  public static boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int questId) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedTaskIdForUserQuest(int, int, int)
+ */
+@Override
+public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__QUEST_ID, questId);
@@ -126,7 +152,11 @@ public class InsertUtils {
   }
 
 
-  public static boolean insertUserStructJustBuilt(int userId, int structId, Timestamp timeOfStructPurchase,
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStructJustBuilt(int, int, java.sql.Timestamp, java.sql.Timestamp, com.lvl6.info.CoordinatePair)
+ */
+@Override
+public boolean insertUserStructJustBuilt(int userId, int structId, Timestamp timeOfStructPurchase,
       Timestamp timeOfStructBuild, CoordinatePair structCoords) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
@@ -148,7 +178,11 @@ public class InsertUtils {
   /*
    * returns the id of the userstruct, -1 if none
    */
-  public static int insertUserStruct(int userId, int structId, CoordinatePair coordinates, Timestamp timeOfPurchase) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStruct(int, int, com.lvl6.info.CoordinatePair, java.sql.Timestamp)
+ */
+@Override
+public int insertUserStruct(int userId, int structId, CoordinatePair coordinates, Timestamp timeOfPurchase) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
     insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
@@ -160,7 +194,11 @@ public class InsertUtils {
     return userStructId;
   }
 
-  public static boolean insertIAPHistoryElem(JSONObject appleReceipt, int diamondChange, User user, double cashCost) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertIAPHistoryElem(org.json.JSONObject, int, com.lvl6.info.User, double)
+ */
+@Override
+public boolean insertIAPHistoryElem(JSONObject appleReceipt, int diamondChange, User user, double cashCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     try {
       insertParams.put(DBConstants.IAP_HISTORY__USER_ID, user.getId());
@@ -188,7 +226,11 @@ public class InsertUtils {
     return false;
   }
 
-  public static boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertMarketplaceItem(int, com.lvl6.proto.InfoProto.MarketplacePostType, int, int, int, java.sql.Timestamp)
+ */
+@Override
+public boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
       int postedEquipId, int diamondCost, int coinCost, Timestamp timeOfPost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
@@ -213,7 +255,11 @@ public class InsertUtils {
   }
 
 
-  public static boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertMarketplaceItemIntoHistory(com.lvl6.info.MarketplacePost, int)
+ */
+@Override
+public boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
       int buyerId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
@@ -242,7 +288,11 @@ public class InsertUtils {
     return false;
   }
 
-  public static boolean insertReferral(int referrerId, int referredId, int coinsGivenToReferrer) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertReferral(int, int, int)
+ */
+@Override
+public boolean insertReferral(int referrerId, int referredId, int coinsGivenToReferrer) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.REFERRALS__REFERRER_ID, referrerId);
@@ -258,7 +308,11 @@ public class InsertUtils {
   }
   
   //returns -1 if error
-  public static int insertUser(String udid, String name, UserType type, Location location, String deviceToken, String newReferCode, int level, 
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUser(java.lang.String, java.lang.String, com.lvl6.proto.InfoProto.UserType, com.lvl6.info.Location, java.lang.String, java.lang.String, int, int, int, int, int, int, int, int, int, java.lang.Integer, java.lang.Integer, java.lang.Integer, boolean)
+ */
+@Override
+public int insertUser(String udid, String name, UserType type, Location location, String deviceToken, String newReferCode, int level, 
       int attack, int defense, int energy, int health, int stamina, int experience, int coins, int diamonds, 
       Integer weaponEquipped, Integer armorEquipped, Integer amuletEquipped, boolean isFake) {
     
@@ -298,7 +352,11 @@ public class InsertUtils {
   /*
    * returns the id of the post, -1 if none
    */
-  public static int insertPlayerWallPost(int posterId, int wallOwnerId, String content, Timestamp timeOfPost) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertPlayerWallPost(int, int, java.lang.String, java.sql.Timestamp)
+ */
+@Override
+public int insertPlayerWallPost(int posterId, int wallOwnerId, String content, Timestamp timeOfPost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.PLAYER_WALL_POSTS__POSTER_ID, posterId);
     insertParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);

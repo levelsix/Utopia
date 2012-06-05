@@ -36,7 +36,9 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -46,8 +48,13 @@ public class BattleController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
+  
+  protected InsertUtil insertUtils;
+  
+  
   public BattleController() {
     numAllocatedThreads = 10;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
 
   @Override
@@ -164,7 +171,7 @@ public class BattleController extends EventController {
             server.writeAPNSNotificationOrEvent(resEvent2);
           }
           int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
-          if (!InsertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained)) {
+          if (!insertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained)) {
             log.error("problem with adding battle history into the db for attacker " + attacker.getId() + " and defender " + defender.getId() 
                 + " at " + battleTime);
           }
@@ -239,7 +246,7 @@ public class BattleController extends EventController {
                     
                     if (numDefeatedForJob + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
                       //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
-                      if (InsertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
+                      if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                         userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
                         if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
                           if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {

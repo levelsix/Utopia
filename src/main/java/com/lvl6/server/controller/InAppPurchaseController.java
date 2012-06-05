@@ -23,6 +23,8 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.spring.AppContext;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -33,8 +35,11 @@ public class InAppPurchaseController extends EventController {
   private static final String SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
   private static final String PRODUCTION_URL = "https://buy.itunes.apple.com/verifyReceipt";  
 
+  protected InsertUtil insertUtils;
+  
   public InAppPurchaseController() {
     numAllocatedThreads = 2;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
 
   @Override
@@ -101,7 +106,7 @@ public class InAppPurchaseController extends EventController {
               int diamondChange = IAPValues.getDiamondsForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
               double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
               user.updateRelativeDiamondsNaive(diamondChange);
-              if (!InsertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
+              if (!insertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
                 log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
               }
               resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);

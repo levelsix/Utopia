@@ -3,13 +3,18 @@ package com.lvl6.scriptsjava.generatefakeusers;
 import java.io.IOException;
 import java.util.Random;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 
 import com.lvl6.info.Location;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -22,8 +27,11 @@ public class GenerateFakeUsersWithoutInput {
   private static int syllablesInName1 = 2;
   private static int syllablesInName2 = 3;
 
+  protected InsertUtil insertUtils;
 
   public static void main(String[] args) {
+	  ApplicationContext context =
+		    new ClassPathXmlApplicationContext(new String[] {"test-spring-application-context.xml"});
     NameGenerator nameGenerator = null;
     Random random = new Random();
     try {
@@ -114,8 +122,9 @@ public class GenerateFakeUsersWithoutInput {
       weaponEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID;
       armorEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID;
     }
+    InsertUtil insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
 
-    if (InsertUtils.insertUser(newReferCode + newReferCode, name, type, location, null, newReferCode, level, 
+    if (insertUtils.insertUser(newReferCode + newReferCode, name, type, location, null, newReferCode, level, 
         0, 0, 0, health, 0, 0, 0, 0, weaponEquipped, armorEquipped, amuletEquipped, true) < 0) {
       System.out.println("error in creating user");
     }

@@ -25,6 +25,8 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.spring.AppContext;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -32,8 +34,11 @@ public class PurchaseNormStructureController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+
+  protected InsertUtil insertUtils;
   public PurchaseNormStructureController() {
     numAllocatedThreads = 3;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
 
   @Override
@@ -67,7 +72,7 @@ public class PurchaseNormStructureController extends EventController {
       boolean legitPurchaseNorm = checkLegitPurchaseNorm(resBuilder, struct, user, timeOfPurchase);
 
       if (legitPurchaseNorm) {
-        int userStructId = InsertUtils.insertUserStruct(user.getId(), struct.getId(), cp, timeOfPurchase);
+        int userStructId = insertUtils.insertUserStruct(user.getId(), struct.getId(), cp, timeOfPurchase);
         if (userStructId <= 0) {
           legitPurchaseNorm = false;
           resBuilder.setStatus(PurchaseNormStructureStatus.OTHER_FAIL);

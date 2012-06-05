@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.UserCreateRequestEvent;
@@ -33,10 +34,12 @@ import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -45,8 +48,11 @@ public class UserCreateController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  protected InsertUtil insertUtils;
+  
   public UserCreateController() {
     numAllocatedThreads = 3;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
 
   @Override
@@ -131,7 +137,7 @@ public class UserCreateController extends EventController {
       if (armorEquipped > 0) equipIds.add(armorEquipped);
       if (amuletEquipped > 0) equipIds.add(amuletEquipped);
 
-      userId = InsertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
+      userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
           attack, defense, energy, health, stamina, playerExp, playerCoins, playerDiamonds, 
           weaponEquipped, armorEquipped, amuletEquipped, false);
       if (userId > 0) {
@@ -206,7 +212,7 @@ public class UserCreateController extends EventController {
 
   private void writeFirstWallPost(int newPlayerId) {
     Timestamp timeOfPost = new Timestamp(new Date().getTime());
-    if (InsertUtils.insertPlayerWallPost(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, 
+    if (insertUtils.insertPlayerWallPost(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, 
         newPlayerId, ControllerConstants.USER_CREATE__FIRST_WALL_POST_TEXT, timeOfPost) < 0) {
         log.error("problem with writing wall post from user " + ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL
             + " for player " + newPlayerId + " at " + timeOfPost);
@@ -214,7 +220,7 @@ public class UserCreateController extends EventController {
   }
 
   private void writeUserStruct(int userId, int structId, Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair structCoords) {
-    if (!InsertUtils.insertUserStructJustBuilt(userId, structId, timeOfStructPurchase, timeOfStructBuild, structCoords)) {
+    if (!insertUtils.insertUserStructJustBuilt(userId, structId, timeOfStructPurchase, timeOfStructBuild, structCoords)) {
       log.error("problem in giving user the user struct with these properties: userId="
           + userId + ", structId=" + structId + ", timeOfStructPurchase=" + timeOfStructPurchase
           + ", timeOfStructBuild=" + timeOfStructBuild + ", structCoords");
@@ -232,14 +238,14 @@ public class UserCreateController extends EventController {
 
   private void writeUserEquips(int userId, List<Integer> equipIds) {
     if (equipIds.size() > 0) {
-      if (!InsertUtils.insertUserEquips(userId, equipIds, 1)) {
+      if (!insertUtils.insertUserEquips(userId, equipIds, 1)) {
         log.error("problem with giving user initial 1 of each user equips for user " + userId + ", equipIds are " + equipIds);
       }
     }
   }
 //
 //  private void writeUserCritstructs(int userId) {
-//    if (!InsertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
+//    if (!insertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
 //      log.error("problem with giving user his critical structs");
 //    }
 //  }
@@ -264,7 +270,7 @@ public class UserCreateController extends EventController {
         if (!referrer.updateRelativeCoinsNumreferrals(coinsGivenToReferrer, 1)) {
           log.error("problem with rewarding the referrer " + referrer + " with this many coins: " + coinsGivenToReferrer);
         } else {
-          if (!InsertUtils.insertReferral(referrer.getId(), user.getId(), coinsGivenToReferrer)) {
+          if (!insertUtils.insertReferral(referrer.getId(), user.getId(), coinsGivenToReferrer)) {
             log.error("problem with inserting referral into db. referrer is " + referrer.getId() + ", user=" + user.getId()
                 + ", coins given to referrer=" + coinsGivenToReferrer);
           }

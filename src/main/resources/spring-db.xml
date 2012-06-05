@@ -29,7 +29,8 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-
+	
+	<bean id="insertUtils" class="com.lvl6.utils.utilmethods.InsertUtils"/>
 
 
 </beans>

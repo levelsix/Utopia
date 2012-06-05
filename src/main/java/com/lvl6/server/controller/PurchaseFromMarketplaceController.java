@@ -23,8 +23,10 @@ import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -34,8 +36,12 @@ public class PurchaseFromMarketplaceController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+
+  protected InsertUtil insertUtils;
+  
   public PurchaseFromMarketplaceController() {
     numAllocatedThreads = 4;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
   
   @Override
@@ -161,7 +167,7 @@ public class PurchaseFromMarketplaceController extends EventController {
       log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
     }
 
-    if (!InsertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
+    if (!insertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }
 

@@ -37,6 +37,8 @@ import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.spring.AppContext;
+import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -46,8 +48,12 @@ public class TaskActionController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+
+  protected InsertUtil insertUtils;
+  
   public TaskActionController() {
     numAllocatedThreads = 20;
+    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
 
   @Override
@@ -204,7 +210,7 @@ public class TaskActionController extends EventController {
                     if (taskIdToNumTimesActed.get(remainingTask.getId()) != null && 
                         taskIdToNumTimesActed.get(remainingTask.getId()) + 1 == remainingTask.getNumForCompletion()) {
                       //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
-                      if (InsertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
+                      if (insertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
                         userCompletedTasksForQuest.add(remainingTask.getId());
                         if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
                           if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
