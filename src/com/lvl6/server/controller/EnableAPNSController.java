@@ -78,7 +78,11 @@ public class EnableAPNSController extends EventController {
       return false;
     }
     
-    return !oldToken.equals(newToken);
+    if (!oldTokenIsNothing && !newTokenIsNothing) {
+      return !oldToken.equals(newToken);
+    }
+    
+    return true;
   }
 
 }
