@@ -12,7 +12,7 @@
 		<servlet-class>com.lvl6.servlet.GameWebSocketServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>gameServlet</servlet-name>
+		<servlet-name>GameServlet</servlet-name>
 		<url-pattern>/game</url-pattern>
 	</servlet-mapping>
 
