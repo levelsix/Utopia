@@ -37,6 +37,7 @@ public class EnableAPNSController extends EventController {
 
     MinimumUserProto senderProto = reqProto.getSender();
     String deviceToken = reqProto.getDeviceToken();
+    if (deviceToken != null && deviceToken.length() == 0) deviceToken = null;
 
     EnableAPNSResponseProto.Builder resBuilder = EnableAPNSResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -44,23 +45,22 @@ public class EnableAPNSController extends EventController {
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 
-      boolean legitEnable = true;
-      if (deviceToken != null && deviceToken.length() > 0 && user != null) { 
+      if (deviceToken != null && user != null) { 
         resBuilder.setStatus(EnableAPNSStatus.SUCCESS);
       } else {
-        legitEnable = false;
         resBuilder.setStatus(EnableAPNSStatus.NOT_ENABLED);
-        log.error("problem with setting device token. user is " + user + ", device token is " + deviceToken);
       }
+
       EnableAPNSResponseProto resProto = resBuilder.build();
       EnableAPNSResponseEvent resEvent = new EnableAPNSResponseEvent(senderProto.getUserId());
       resEvent.setEnableAPNSResponseProto(resProto);
       server.writeEvent(resEvent);
-      if (legitEnable) {
-        if (user.getDeviceToken() == null || !deviceToken.equals(user.getDeviceToken())) {
-          if (!user.updateSetdevicetoken(deviceToken)) {
-            log.error("problem with setting user's device token to " + deviceToken);
-          }
+
+      boolean isDifferent = checkIfNewTokenDifferent(user.getDeviceToken(), deviceToken);
+
+      if (isDifferent) {
+        if (!user.updateSetdevicetoken(deviceToken)) {
+          log.error("problem with setting user's device token to " + deviceToken);
         }
       }
     } catch (Exception e) {
@@ -68,6 +68,17 @@ public class EnableAPNSController extends EventController {
     } finally {
       server.unlockPlayer(senderProto.getUserId()); 
     }
+  }
+
+  private boolean checkIfNewTokenDifferent(String oldToken, String newToken) {
+    boolean oldTokenIsNothing = oldToken == null || oldToken.length() == 0;
+    boolean newTokenIsNothing = newToken == null || newToken.length() == 0;
+    
+    if (oldTokenIsNothing && newTokenIsNothing) {
+      return false;
+    }
+    
+    return !oldToken.equals(newToken);
   }
 
 }

@@ -312,13 +312,11 @@ public class User {
     return false;
   }
 
-  public boolean updateAbsoluteDevicetokenApsalaridLastloginBadges(
-      String newDeviceToken, String newApsalarId, Timestamp loginTime, int newBadges) {
+  public boolean updateAbsoluteApsalaridLastloginBadges(String newApsalarId, Timestamp loginTime, int newBadges) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, newDeviceToken);
     absoluteParams.put(DBConstants.USER__APSALAR_ID, newApsalarId);
     absoluteParams.put(DBConstants.USER__LAST_LOGIN, loginTime);
     absoluteParams.put(DBConstants.USER__NUM_BADGES, newBadges);
@@ -326,7 +324,6 @@ public class User {
     int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
-      this.deviceToken = newDeviceToken;
       this.apsalarId = newApsalarId;
       this.lastLogin = loginTime;
       this.numBadges = newBadges;

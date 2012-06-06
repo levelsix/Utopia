@@ -109,8 +109,7 @@ message ArmoryResponseProto {
 message StartupRequestProto {				//client will also send ChangeUserLocationRequestProto
      optional string udid = 1;
      optional float versionNum = 2;			//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
-     optional string deviceToken = 4;		//only set this if the client is registered/has a device token
-     optional string apsalarId = 5;
+     optional string apsalarId = 3;
 }
 
 message StartupResponseProto {

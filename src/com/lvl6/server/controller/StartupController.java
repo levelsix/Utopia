@@ -87,7 +87,6 @@ public class StartupController extends EventController {
     UpdateStatus updateStatus;
     String udid = reqProto.getUdid();
     String apsalarId = reqProto.hasApsalarId() ? reqProto.getApsalarId() : null;
-    String newDeviceToken = reqProto.hasDeviceToken() ? reqProto.getDeviceToken() : null;
 
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
     
@@ -158,18 +157,18 @@ public class StartupController extends EventController {
     }
     
     if (user != null) {
-      syncDevicetokenApsalaridLastloginResetBadges(user, newDeviceToken, apsalarId, new Timestamp(new Date().getTime()));
+      syncApsalaridLastloginResetBadges(user, apsalarId, new Timestamp(new Date().getTime()));
     }    
   }
 
-  private void syncDevicetokenApsalaridLastloginResetBadges(User user, String newDeviceToken, String apsalarId, Timestamp loginTime) {
-    if (!user.updateAbsoluteDevicetokenApsalaridLastloginBadges(newDeviceToken, apsalarId, loginTime, 0)) {
-      log.error("problem with updating device token to " + newDeviceToken + ", apsalar id to " + 
+  private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime) {
+    if (!user.updateAbsoluteApsalaridLastloginBadges(apsalarId, loginTime, 0)) {
+      log.error("problem with updating apsalar id to " + 
           apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user);
     }
 
     if (user.getNumBadges() != 0) {
-      if (newDeviceToken != null && newDeviceToken.length() > 0) { 
+      if (user.getDeviceToken() != null) { 
         /*
          * handled locally?
          */
