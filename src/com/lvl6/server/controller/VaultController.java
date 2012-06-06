@@ -88,7 +88,6 @@ public class VaultController extends EventController {
 
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       resEventUpdate.setTag(event.getTag());
-      resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
       
       if (legitTransaction) {

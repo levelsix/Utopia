@@ -162,6 +162,9 @@ public class StartupController extends EventController {
   }
 
   private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime) {
+    if (user.getApsalarId() != null && apsalarId == null) {
+      apsalarId = user.getApsalarId();
+    }
     if (!user.updateAbsoluteApsalaridLastloginBadges(apsalarId, loginTime, 0)) {
       log.error("problem with updating apsalar id to " + 
           apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user);

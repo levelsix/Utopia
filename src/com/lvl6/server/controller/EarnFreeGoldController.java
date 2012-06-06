@@ -1,8 +1,15 @@
 package com.lvl6.server.controller;
 
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.EarnFreeGoldRequestEvent;
@@ -23,12 +30,19 @@ public class EarnFreeGoldController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
-  private static String ADCOLONY_V4VC_SECRET_KEY = "v4vc5ec0f36707ad4afaa5452e";
+//  private static String ADCOLONY_V4VC_SECRET_KEY = "v4vc5ec0f36707ad4afaa5452e";
   
-  private static String KIIP_KEY = "d6c7530ce4dc64ecbff535e521a241e3";
-  private static String KIIP_SECRET = "da8d864f948ae2b4e83c1b6e6a8151ed";
-  private static String KIIP_ENDPOINT = "https://api.kiip.me/1.0/transaction/invalidate";
-
+  private static String KIIP_CONSUMER_KEY = "d6c7530ce4dc64ecbff535e521a241e3";
+  private static String KIIP_CONSUMER_SECRET = "da8d864f948ae2b4e83c1b6e6a8151ed";
+  private static String KIIP_VERIFY_ENDPOINT = "https://api.kiip.me/1.0/transaction/verify";
+  private static String KIIP_INVALIDATE_ENDPOINT = "https://api.kiip.me/1.0/transaction/invalidate";
+  private static String KIIP_JSON_SUCCESS_KEY = "success";
+  private static String KIIP_JSON_RECEIPT_KEY = "receipt";
+  private static String KIIP_JSON_CONTENT_KEY = "content";
+  private static String KIIP_JSON_SIGNATURE_KEY = "receipt";
+  private static String KIIP_JSON_TRANSACTION_ID_KEY = "receipt";
+  private static String KIIP_JSON_QUANTITY_KEY = "receipt";
+  
   public EarnFreeGoldController() {
     numAllocatedThreads = 1;
   }
@@ -50,6 +64,9 @@ public class EarnFreeGoldController extends EventController {
 
     EarnFreeGoldType freeGoldType = reqProto.getFreeGoldType();
     Timestamp clientTime = new Timestamp(reqProto.getClientTime());
+    
+    String kiipReceiptString = (reqProto.hasKiipReceipt() && reqProto.getKiipReceipt().length() > 0) ? reqProto.getKiipReceipt() :
+      null;
 
     EarnFreeGoldResponseProto.Builder resBuilder = EarnFreeGoldResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -59,10 +76,14 @@ public class EarnFreeGoldController extends EventController {
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
       
-      boolean legitFreeGoldEarn = checkLegitFreeGoldEarn(resBuilder, freeGoldType, clientTime, user);
+      boolean legitFreeGoldEarn = checkLegitFreeGoldEarn(resBuilder, freeGoldType, clientTime, user, kiipReceiptString);
 
+      JSONObject kiipReceipt = null;
       if (legitFreeGoldEarn) {
-        
+        if (freeGoldType == EarnFreeGoldType.KIIP) {
+          kiipReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
+          if (kiipReceipt == null) legitFreeGoldEarn = false;
+        }
       }
       
       EarnFreeGoldResponseEvent resEvent = new EarnFreeGoldResponseEvent(senderProto.getUserId());
@@ -71,7 +92,7 @@ public class EarnFreeGoldController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitFreeGoldEarn) {
-        writeChangesToDB(freeGoldType);
+        writeChangesToDB(freeGoldType, kiipReceipt);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -84,15 +105,50 @@ public class EarnFreeGoldController extends EventController {
   }
 
 
-  private void writeChangesToDB(EarnFreeGoldType freeGoldType) {
-    
-//    URL url = new URL()
-    
-    // TODO Auto-generated method stub
-    
+  private JSONObject getLegitKiipRewardReceipt(Builder resBuilder, User user, String kiipReceipt) {
+    OAuthConsumer consumer = new DefaultOAuthConsumer(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
+    URL url;
+    String responseMessage = null;
+    try {
+      url = new URL(KIIP_VERIFY_ENDPOINT);
+      HttpURLConnection request = (HttpURLConnection) url.openConnection();
+      consumer.sign(request);
+      request.connect();
+      
+      if (request.getResponseCode() == 200) {
+        responseMessage = request.getResponseMessage();
+        
+        if (responseMessage != null) {
+          JSONObject kiipResponse = new JSONObject(responseMessage);
+          boolean success = kiipResponse.getBoolean(KIIP_JSON_SUCCESS_KEY);
+          if (success) {
+            String kiipResponseReceiptString = kiipResponse.getString(KIIP_JSON_RECEIPT_KEY);
+            if (kiipResponseReceiptString != null && kiipResponseReceiptString.length() > 0) {
+              return new JSONObject(kiipResponseReceiptString);
+            }
+          }
+        }
+      }
+    } catch (MalformedURLException e) {
+      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      log.error("problem with kiip endpoint URL", e);
+      return null;
+    } catch (Exception e) {
+      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      log.error("problem with checking kiip reward", e);
+      return null;
+    }
+    return null;
   }
 
-  private boolean checkLegitFreeGoldEarn(Builder resBuilder, EarnFreeGoldType freeGoldType, Timestamp clientTime, User user) {
+  private void writeChangesToDB(EarnFreeGoldType freeGoldType, JSONObject kiipReceipt) {
+    if (freeGoldType == EarnFreeGoldType.KIIP) {
+      
+    }
+  }
+
+  private boolean checkLegitFreeGoldEarn(Builder resBuilder, EarnFreeGoldType freeGoldType, Timestamp clientTime, User user, 
+      String kiipReceipt) {
     if (freeGoldType == null || clientTime == null || user == null) {
       resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
       log.error("parameter passed in is null. freeGoldType is " + freeGoldType + ", clientTime=" + clientTime + ", user=" + user);
@@ -100,11 +156,16 @@ public class EarnFreeGoldController extends EventController {
     }
 
     if (freeGoldType == EarnFreeGoldType.KIIP) {
-    } else if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
-    } else if (freeGoldType == EarnFreeGoldType.FB_INVITE) {
-    } else if (freeGoldType == EarnFreeGoldType.TAPJOY) {
-    } else if (freeGoldType == EarnFreeGoldType.FLURRY_VIDEO) {
-    } else if (freeGoldType == EarnFreeGoldType.TWITTER) {
+      if (kiipReceipt == null) {
+        resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+        log.error("kiip receipt passed in is null");
+        return false;
+      }
+//    } else if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
+//    } else if (freeGoldType == EarnFreeGoldType.FB_INVITE) {
+//    } else if (freeGoldType == EarnFreeGoldType.TAPJOY) {
+//    } else if (freeGoldType == EarnFreeGoldType.FLURRY_VIDEO) {
+//    } else if (freeGoldType == EarnFreeGoldType.TWITTER) {
     } else {
       resBuilder.setStatus(EarnFreeGoldStatus.METHOD_NOT_SUPPORTED);
       log.error("earn free gold type passed in not supported. type=" + freeGoldType);

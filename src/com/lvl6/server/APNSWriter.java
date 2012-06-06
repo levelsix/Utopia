@@ -132,7 +132,7 @@ public class APNSWriter extends Wrap {
 
 
   private void handlePostOnPlayerWallNotification(ApnsService service, PostOnPlayerWallResponseEvent event, User user, String token) {
-    PayloadBuilder pb = APNS.newPayload().actionKey("Use").badge(user.getNumBadges()+1);
+    PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(user.getNumBadges()+1);
 
     PostOnPlayerWallResponseProto resProto = event.getPostOnPlayerWallResponseProto();
     PlayerWallPostProto post = resProto.getPost();

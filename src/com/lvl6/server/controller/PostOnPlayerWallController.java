@@ -80,7 +80,7 @@ public class PostOnPlayerWallController extends EventController {
         PlayerWallPostProto pwpp = CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, users.get(posterId));
         resBuilder.setPost(pwpp);
 
-        PostOnPlayerWallResponseEvent resEvent2 = new PostOnPlayerWallResponseEvent(posterId);
+        PostOnPlayerWallResponseEvent resEvent2 = new PostOnPlayerWallResponseEvent(wallOwnerId);
         resEvent2.setPostOnPlayerWallResponseProto(resBuilder.build());
         server.writeAPNSNotificationOrEvent(resEvent2);
       }
