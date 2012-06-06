@@ -903,7 +903,7 @@ message RedeemMarketplaceEarningsResponseProto {
 																						//DONE
 message LoadPlayerCityRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional MinimumUserProto cityOwner = 2;
+	optional int32 cityOwnerId = 2;
 }
 
 																						//DONE
