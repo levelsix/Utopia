@@ -1,5 +1,6 @@
 package com.lvl6.server;
 
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
@@ -49,9 +50,8 @@ public class APNSWriter extends Wrap {
   /** 
    * constructor.
    */
-  public APNSWriter(GameServer server, int numWorkers) {
-    this.server = server;
-    initWrap(numWorkers);
+  public APNSWriter() {
+
   }
 
   /** 
@@ -61,21 +61,15 @@ public class APNSWriter extends Wrap {
    * thread to use
    */
   public void run() {
-    ResponseEvent event;
-    running = true;
-    while (running) {
-      try {
-        if ((event = (NormalResponseEvent)eventQueue.deQueue()) != null) {
-          processResponseEvent((NormalResponseEvent)event);
-        }
-      }
-      catch(InterruptedException e) {
-      }
-    }
+
   }
 
   /** unused */
-  protected void processEvent(GameEvent event) {}
+  protected void processEvent(GameEvent event) {
+	  if(event instanceof NormalResponseEvent)
+		  processResponseEvent((NormalResponseEvent) event);
+	  
+  }
 
   /** 
    * our own version of processEvent that takes 

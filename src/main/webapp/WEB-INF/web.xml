@@ -8,12 +8,22 @@
 
 
 	<servlet>
-		<servlet-name>gameServlet</servlet-name>
-		<servlet-class>com.lvl6.server.GameWebSocketServlet</servlet-class>
+		<servlet-name>GameServlet</servlet-name>
+		<servlet-class>com.lvl6.servlet.GameWebSocketServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>gameServlet</servlet-name>
 		<url-pattern>/game</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>SampleServlet</servlet-name>
+		<servlet-class>com.lvl6.servlet.SampleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SampleServlet</servlet-name>
+		<url-pattern>/some/path</url-pattern>
 	</servlet-mapping>
 
 

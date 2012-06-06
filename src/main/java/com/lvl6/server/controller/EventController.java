@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Async;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
@@ -58,6 +59,7 @@ public abstract class EventController extends Wrap{
    * subclasses must implement to do their processing
    * @throws Exception 
    */
+  
   protected void processEvent(GameEvent event) throws Exception {
     RequestEvent reqEvent = (RequestEvent) event;
     MiscMethods.setMDCProperties(null, reqEvent.getPlayerId(), MiscMethods.getIPOfPlayer(server, reqEvent.getPlayerId(), null));
@@ -87,9 +89,12 @@ public abstract class EventController extends Wrap{
    * subclasses must implement to provide their Event type
    */
   public abstract EventProtocolRequest getEventType();
-
+  
+  
+  @Async
   protected abstract void processRequestEvent(RequestEvent event) throws Exception;
 
+  
   protected int numAllocatedThreads = 0;
 
   public int getNumAllocatedThreads() {

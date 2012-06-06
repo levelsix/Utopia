@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.ArmoryRequestEvent;
@@ -24,7 +25,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
-public class ArmoryController extends EventController {
+ @Component public class ArmoryController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   

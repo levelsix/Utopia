@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseCityExpansionRequestEvent;
@@ -26,7 +27,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
  * NOT READY/BEING USED YET
  */
 
-public class PurchaseCityExpansionController extends EventController {
+ @Component public class PurchaseCityExpansionController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

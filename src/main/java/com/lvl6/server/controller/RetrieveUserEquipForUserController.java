@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveUserEquipForUserRequestEvent;
@@ -15,7 +16,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
-public class RetrieveUserEquipForUserController extends EventController{
+ @Component public class RetrieveUserEquipForUserController extends EventController{
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

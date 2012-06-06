@@ -22,35 +22,17 @@ public class EventWriter extends Wrap {
   /** 
    * constructor.
    */
-  public EventWriter(GameServer server, int numWorkers) {
-    this.server = server;
-    initWrap(numWorkers);
+  public EventWriter() {
+
   }
 
-  /** 
-   * note we override the Wrap's run method here
-   * doing essentially the same thing, but 
-   * first we allocate a ByteBuffer for this
-   * thread to use
-   */
-  public void run() {
-    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
 
-    ResponseEvent event;
-    running = true;
-    while (running) {
-      try {
-        if ((event = (ResponseEvent)eventQueue.deQueue()) != null) {
-          processResponseEvent(event, writeBuffer);
-        }
-      }
-      catch(InterruptedException e) {
-      }
-    }
+  protected void processEvent(GameEvent event) {
+	  ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+	  if(event instanceof ResponseEvent)
+		  processResponseEvent((ResponseEvent) event, writeBuffer);
+	  
   }
-
-  /** unused */
-  protected void processEvent(GameEvent event) {}
 
   /** 
    * our own version of processEvent that takes 

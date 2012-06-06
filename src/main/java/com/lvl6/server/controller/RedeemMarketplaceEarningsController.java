@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent;
@@ -16,7 +17,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class RedeemMarketplaceEarningsController extends EventController {
+ @Component public class RedeemMarketplaceEarningsController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

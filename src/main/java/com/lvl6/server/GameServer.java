@@ -1,6 +1,5 @@
 package com.lvl6.server;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -11,19 +10,21 @@ import java.nio.channels.SocketChannel;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
-import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.PlayerSet;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -36,9 +37,13 @@ public class GameServer extends Thread implements InitializingBean{
 	// ServerSocketChannel for accepting client connections
 	private ServerSocketChannel sSockChan;
 
-	private SelectAndRead selectAndRead;
-
 	
+	private SelectAndRead selectAndRead;
+	public void setSelectAndRead(SelectAndRead selectAndRead) {
+		this.selectAndRead = selectAndRead;
+	}
+
+
 	@Resource(name="playersInAction")
 	private PlayerSet playersInAction;
 
@@ -49,6 +54,14 @@ public class GameServer extends Thread implements InitializingBean{
 	public void setPlayersInAction(PlayerSet playersInAction) {
 		this.playersInAction = playersInAction;
 	}
+	
+	
+	@Autowired
+	protected List<EventController> eventControllerList;
+	public void setEventControllerList(List<EventController> eventControllerList) {
+		this.eventControllerList = eventControllerList;
+	}
+
 
 	// selector for multiplexing ServerSocketChannels
 	private Selector selector;
@@ -56,19 +69,27 @@ public class GameServer extends Thread implements InitializingBean{
 	// whether to keep listening for new sockets
 	private boolean running;
 
-	// used for loading event controllers into hashtable
-	private static final String CONTROLLER_CLASS_NAME = "EventController.class";
-	private static final String CONTROLLER_CLASS_PATHNAME = "com/lvl6/server/controller/"
-			+ CONTROLLER_CLASS_NAME;
-	private static final String CONTROLLER_CLASS_PREFIX = "com.lvl6.server.controller.";
+
 	private Hashtable<EventProtocolRequest, EventController> eventControllers;
 
 	private Hashtable<Integer, ConnectedPlayer> playersByPlayerId;
 	private Hashtable<SocketChannel, Integer> channelToPlayerId;
 	private Hashtable<String, SocketChannel> udidToChannel;
 
+	
+	@Autowired	
 	private EventWriter eventWriter;
+	public void setEventWriter(EventWriter eventWriter) {
+		this.eventWriter = eventWriter;
+	}
+
+	@Autowired
 	private APNSWriter apnsWriter;
+	public void setApnsWriter(APNSWriter apnsWriter) {
+		this.apnsWriter = apnsWriter;
+	}
+
+
 
 	// user specified input
 	private String serverIP;
@@ -131,9 +152,6 @@ public class GameServer extends Thread implements InitializingBean{
 
 		selectAndRead = new SelectAndRead(this);
 		selectAndRead.start();
-
-		eventWriter = new EventWriter(this, Globals.EVENT_WRITER_WORKERS);
-		apnsWriter = new APNSWriter(this, Globals.APNS_WRITER_WORKERS);
 		MiscMethods.reloadAllRareChangeStaticData();
 		// playersInAction = new PlayerSet();
 	}
@@ -241,6 +259,12 @@ public class GameServer extends Thread implements InitializingBean{
 	 * Dynamically loads GameControllers
 	 */
 	private void loadEventControllers() {
+		log.info("Adding event controllers to eventControllers controllerType-->controller map");
+		for(EventController ec: eventControllerList) {
+			eventControllers.put(ec.getEventType(), ec);
+		}
+	}
+/*	private void loadEventControllers() {
 		log.info("loadEventControllers : Loading event controllers");
 
 		// grab all class files in the same directory as EventController
@@ -289,7 +313,7 @@ public class GameServer extends Thread implements InitializingBean{
 						+ file, e);
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * shutdown the GameServer

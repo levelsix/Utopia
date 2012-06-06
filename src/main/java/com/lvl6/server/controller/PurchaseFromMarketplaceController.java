@@ -2,6 +2,8 @@ package com.lvl6.server.controller;
 
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent;
@@ -23,25 +25,28 @@ import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
-public class PurchaseFromMarketplaceController extends EventController {
+ @Component public class PurchaseFromMarketplaceController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
 
+  @Autowired
   protected InsertUtil insertUtils;
+
+  public void setInsertUtils(InsertUtil insertUtils) {
+	this.insertUtils = insertUtils;
+  }
+
   
   public PurchaseFromMarketplaceController() {
     numAllocatedThreads = 4;
-    insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
   }
   
   @Override

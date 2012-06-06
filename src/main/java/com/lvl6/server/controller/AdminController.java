@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.util.Enumeration;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.AdminChangeRequestEvent;
@@ -24,7 +25,7 @@ import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class AdminController extends EventController {
+ @Component public class AdminController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
