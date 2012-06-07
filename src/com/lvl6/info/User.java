@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.UserType;
@@ -847,6 +848,36 @@ public class User {
       this.battlesWon += battlesWon;
       this.battlesLost += battlesLost;
       this.flees += fleesChange;
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean updateRelativeDiamondsForFree(int diamondChange, EarnFreeGoldType freeGoldType) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    if (diamondChange <= 0) return false;
+    
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    if (freeGoldType == EarnFreeGoldType.KIIP) {
+      relativeParams.put(DBConstants.USER__NUM_TIMES_KIIP_REWARDED, 1);
+    }
+    if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
+      relativeParams.put(DBConstants.USER__NUM_ADCOLONY_VIDEOS_WATCHED, 1);
+    }
+
+    int numUpdated = DBConnection.updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      if (freeGoldType == EarnFreeGoldType.KIIP) {
+        this.numTimesKiipRewarded++;
+      }
+      if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
+        this.numAdColonyVideosWatched++;
+      }
       return true;
     }
     return false;
