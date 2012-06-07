@@ -80917,6 +80917,14 @@ public final class EventProto {
     // optional string kiipReceipt = 4;
     boolean hasKiipReceipt();
     String getKiipReceipt();
+    
+    // optional string adColonyDigest = 5;
+    boolean hasAdColonyDigest();
+    String getAdColonyDigest();
+    
+    // optional int32 adColonyGoldEarned = 6;
+    boolean hasAdColonyGoldEarned();
+    int getAdColonyGoldEarned();
   }
   public static final class EarnFreeGoldRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -81093,11 +81101,55 @@ public final class EventProto {
       }
     }
     
+    // optional string adColonyDigest = 5;
+    public static final int ADCOLONYDIGEST_FIELD_NUMBER = 5;
+    private java.lang.Object adColonyDigest_;
+    public boolean hasAdColonyDigest() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public String getAdColonyDigest() {
+      java.lang.Object ref = adColonyDigest_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          adColonyDigest_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getAdColonyDigestBytes() {
+      java.lang.Object ref = adColonyDigest_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        adColonyDigest_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // optional int32 adColonyGoldEarned = 6;
+    public static final int ADCOLONYGOLDEARNED_FIELD_NUMBER = 6;
+    private int adColonyGoldEarned_;
+    public boolean hasAdColonyGoldEarned() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public int getAdColonyGoldEarned() {
+      return adColonyGoldEarned_;
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       freeGoldType_ = com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType.KIIP;
       clientTime_ = 0L;
       kiipReceipt_ = "";
+      adColonyDigest_ = "";
+      adColonyGoldEarned_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -81123,6 +81175,12 @@ public final class EventProto {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeBytes(4, getKiipReceiptBytes());
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getAdColonyDigestBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(6, adColonyGoldEarned_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -81147,6 +81205,14 @@ public final class EventProto {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(4, getKiipReceiptBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getAdColonyDigestBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, adColonyGoldEarned_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -81285,6 +81351,10 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         kiipReceipt_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
+        adColonyDigest_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        adColonyGoldEarned_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
       
@@ -81343,6 +81413,14 @@ public final class EventProto {
           to_bitField0_ |= 0x00000008;
         }
         result.kiipReceipt_ = kiipReceipt_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.adColonyDigest_ = adColonyDigest_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.adColonyGoldEarned_ = adColonyGoldEarned_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -81370,6 +81448,12 @@ public final class EventProto {
         }
         if (other.hasKiipReceipt()) {
           setKiipReceipt(other.getKiipReceipt());
+        }
+        if (other.hasAdColonyDigest()) {
+          setAdColonyDigest(other.getAdColonyDigest());
+        }
+        if (other.hasAdColonyGoldEarned()) {
+          setAdColonyGoldEarned(other.getAdColonyGoldEarned());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -81430,6 +81514,16 @@ public final class EventProto {
             case 34: {
               bitField0_ |= 0x00000008;
               kiipReceipt_ = input.readBytes();
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              adColonyDigest_ = input.readBytes();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              adColonyGoldEarned_ = input.readInt32();
               break;
             }
           }
@@ -81607,6 +81701,63 @@ public final class EventProto {
         bitField0_ |= 0x00000008;
         kiipReceipt_ = value;
         onChanged();
+      }
+      
+      // optional string adColonyDigest = 5;
+      private java.lang.Object adColonyDigest_ = "";
+      public boolean hasAdColonyDigest() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public String getAdColonyDigest() {
+        java.lang.Object ref = adColonyDigest_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          adColonyDigest_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setAdColonyDigest(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        adColonyDigest_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAdColonyDigest() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        adColonyDigest_ = getDefaultInstance().getAdColonyDigest();
+        onChanged();
+        return this;
+      }
+      void setAdColonyDigest(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000010;
+        adColonyDigest_ = value;
+        onChanged();
+      }
+      
+      // optional int32 adColonyGoldEarned = 6;
+      private int adColonyGoldEarned_ ;
+      public boolean hasAdColonyGoldEarned() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getAdColonyGoldEarned() {
+        return adColonyGoldEarned_;
+      }
+      public Builder setAdColonyGoldEarned(int value) {
+        bitField0_ |= 0x00000020;
+        adColonyGoldEarned_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAdColonyGoldEarned() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        adColonyGoldEarned_ = 0;
+        onChanged();
+        return this;
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.EarnFreeGoldRequestProto)
@@ -83430,21 +83581,23 @@ public final class EventProto {
       "playerWallPosts\030\005 \003(\0132#.com.lvl6.proto.P" +
       "layerWallPostProto\"<\n\035RetrievePlayerWall" +
       "PostsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001" +
-      "\"\254\002\n\030EarnFreeGoldRequestProto\0220\n\006sender\030" +
+      "\"\340\002\n\030EarnFreeGoldRequestProto\0220\n\006sender\030" +
       "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
       "O\n\014freeGoldType\030\002 \001(\01629.com.lvl6.proto.E" +
       "arnFreeGoldRequestProto.EarnFreeGoldType",
       "\022\022\n\nclientTime\030\003 \001(\003\022\023\n\013kiipReceipt\030\004 \001(" +
-      "\t\"d\n\020EarnFreeGoldType\022\010\n\004KIIP\020\001\022\014\n\010ADCOL" +
-      "ONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLUR" +
-      "RY_VIDEO\020\005\022\013\n\007TWITTER\020\006\"\217\002\n\031EarnFreeGold" +
-      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022L\n\006status\030\002 \001(\0162" +
-      "<.com.lvl6.proto.EarnFreeGoldResponsePro" +
-      "to.EarnFreeGoldStatus\"r\n\022EarnFreeGoldSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022%\n!CLIENT_TOO_APART_FRO" +
-      "M_SERVER_TIME\020\001\022\030\n\024METHOD_NOT_SUPPORTED\020",
-      "\002\022\016\n\nOTHER_FAIL\020\003B\014B\nEventProto"
+      "\t\022\026\n\016adColonyDigest\030\005 \001(\t\022\032\n\022adColonyGol" +
+      "dEarned\030\006 \001(\005\"d\n\020EarnFreeGoldType\022\010\n\004KII" +
+      "P\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJ" +
+      "OY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006\"\217\002\n\031" +
+      "EarnFreeGoldResponseProto\0220\n\006sender\030\001 \001(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022L\n\006s" +
+      "tatus\030\002 \001(\0162<.com.lvl6.proto.EarnFreeGol" +
+      "dResponseProto.EarnFreeGoldStatus\"r\n\022Ear" +
+      "nFreeGoldStatus\022\013\n\007SUCCESS\020\000\022%\n!CLIENT_T",
+      "OO_APART_FROM_SERVER_TIME\020\001\022\030\n\024METHOD_NO" +
+      "T_SUPPORTED\020\002\022\016\n\nOTHER_FAIL\020\003B\014B\nEventPr" +
+      "oto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -84256,7 +84409,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "FreeGoldType", "ClientTime", "KiipReceipt", },
+              new java.lang.String[] { "Sender", "FreeGoldType", "ClientTime", "KiipReceipt", "AdColonyDigest", "AdColonyGoldEarned", },
               com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.class,
               com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.Builder.class);
           internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_descriptor =

@@ -81,6 +81,8 @@ message FullUserProto {
 	optional int32 numBadges = 42;
 	optional int64 createTime = 47;
 	optional int32 apsalarId = 49;
+	optional int32 numAdColonyVideosWatched = 51;
+	optional int32 numTimesKiipRewarded = 52;
 }
 
 //------------------------------------------------------------------------------------------

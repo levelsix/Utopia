@@ -60,6 +60,8 @@ public class User {
   private boolean isAdmin;
   private String apsalarId;
   private int numCoinsRetrievedFromStructs;
+  private int numAdColonyVideosWatched;
+  private int numTimesKiipRewarded;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -74,7 +76,8 @@ public class User {
       Date lastBattleNotificationTime, Date lastTimeAttacked, int numBadges,
       Date lastShortLicensePurchaseTime, Date lastLongLicensePurchaseTime,
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
-      int numCoinsRetrievedFromStructs) {
+      int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
+      int numTimesKiipRewarded) {
     super();
     this.id = id;
     this.name = name;
@@ -122,6 +125,8 @@ public class User {
     this.isAdmin = isAdmin;
     this.apsalarId = apsalarId;
     this.numCoinsRetrievedFromStructs = numCoinsRetrievedFromStructs;
+    this.numAdColonyVideosWatched = numAdColonyVideosWatched;
+    this.numTimesKiipRewarded = numTimesKiipRewarded;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -1031,6 +1036,14 @@ public class User {
     return numCoinsRetrievedFromStructs;
   }
 
+  public int getNumAdColonyVideosWatched() {
+    return numAdColonyVideosWatched;
+  }
+
+  public int getNumTimesKiipRewarded() {
+    return numTimesKiipRewarded;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -1060,7 +1073,8 @@ public class User {
         + ", isFake=" + isFake + ", createTime=" + createTime + ", isAdmin="
         + isAdmin + ", apsalarId=" + apsalarId
         + ", numCoinsRetrievedFromStructs=" + numCoinsRetrievedFromStructs
-        + "]";
+        + ", numAdColonyVideosWatched=" + numAdColonyVideosWatched
+        + ", numTimesKiipRewarded=" + numTimesKiipRewarded + "]";
   }
 
 }

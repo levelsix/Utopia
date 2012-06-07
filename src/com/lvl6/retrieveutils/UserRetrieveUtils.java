@@ -353,6 +353,8 @@ public class UserRetrieveUtils {
     
     String apsalarId = rs.getString(i++);
     int numCoinsRetrievedFromStructs = rs.getInt(i++);
+    int numAdcolonyVideosWatched = rs.getInt(i++);
+    int numTimesKiipRewarded = rs.getInt(i++);
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
@@ -360,7 +362,7 @@ public class UserRetrieveUtils {
         referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
-        isAdmin, apsalarId, numCoinsRetrievedFromStructs);
+        isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded);
     return user;
   }
 }

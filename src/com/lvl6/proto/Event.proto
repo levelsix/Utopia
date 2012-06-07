@@ -1336,7 +1336,10 @@ message EarnFreeGoldRequestProto {
 	optional int64 clientTime = 3;
 		
 	optional string kiipReceipt = 4;
-	
+
+	optional string adColonyDigest = 5;
+	optional int32 adColonyGoldEarned = 6;
+		
 	enum EarnFreeGoldType {
 		KIIP = 1;
 		ADCOLONY = 2;
