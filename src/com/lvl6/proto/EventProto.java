@@ -80898,7 +80898,7 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.RetrievePlayerWallPostsResponseProto)
   }
   
-  public interface EarnFreeGoldRequestProtoOrBuilder
+  public interface EarnFreeDiamondsRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // optional .com.lvl6.proto.MinimumUserProto sender = 1;
@@ -80906,9 +80906,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // optional .com.lvl6.proto.EarnFreeGoldRequestProto.EarnFreeGoldType freeGoldType = 2;
-    boolean hasFreeGoldType();
-    com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType getFreeGoldType();
+    // optional .com.lvl6.proto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType freeDiamondsType = 2;
+    boolean hasFreeDiamondsType();
+    com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType getFreeDiamondsType();
     
     // optional int64 clientTime = 3;
     boolean hasClientTime();
@@ -80922,39 +80922,39 @@ public final class EventProto {
     boolean hasAdColonyDigest();
     String getAdColonyDigest();
     
-    // optional int32 adColonyGoldEarned = 6;
-    boolean hasAdColonyGoldEarned();
-    int getAdColonyGoldEarned();
+    // optional int32 adColonyDiamondsEarned = 6;
+    boolean hasAdColonyDiamondsEarned();
+    int getAdColonyDiamondsEarned();
   }
-  public static final class EarnFreeGoldRequestProto extends
+  public static final class EarnFreeDiamondsRequestProto extends
       com.google.protobuf.GeneratedMessage
-      implements EarnFreeGoldRequestProtoOrBuilder {
-    // Use EarnFreeGoldRequestProto.newBuilder() to construct.
-    private EarnFreeGoldRequestProto(Builder builder) {
+      implements EarnFreeDiamondsRequestProtoOrBuilder {
+    // Use EarnFreeDiamondsRequestProto.newBuilder() to construct.
+    private EarnFreeDiamondsRequestProto(Builder builder) {
       super(builder);
     }
-    private EarnFreeGoldRequestProto(boolean noInit) {}
+    private EarnFreeDiamondsRequestProto(boolean noInit) {}
     
-    private static final EarnFreeGoldRequestProto defaultInstance;
-    public static EarnFreeGoldRequestProto getDefaultInstance() {
+    private static final EarnFreeDiamondsRequestProto defaultInstance;
+    public static EarnFreeDiamondsRequestProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public EarnFreeGoldRequestProto getDefaultInstanceForType() {
+    public EarnFreeDiamondsRequestProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_descriptor;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_fieldAccessorTable;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_fieldAccessorTable;
     }
     
-    public enum EarnFreeGoldType
+    public enum EarnFreeDiamondsType
         implements com.google.protobuf.ProtocolMessageEnum {
       KIIP(0, 1),
       ADCOLONY(1, 2),
@@ -80974,7 +80974,7 @@ public final class EventProto {
       
       public final int getNumber() { return value; }
       
-      public static EarnFreeGoldType valueOf(int value) {
+      public static EarnFreeDiamondsType valueOf(int value) {
         switch (value) {
           case 1: return KIIP;
           case 2: return ADCOLONY;
@@ -80986,15 +80986,15 @@ public final class EventProto {
         }
       }
       
-      public static com.google.protobuf.Internal.EnumLiteMap<EarnFreeGoldType>
+      public static com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsType>
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<EarnFreeGoldType>
+      private static com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsType>
           internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<EarnFreeGoldType>() {
-              public EarnFreeGoldType findValueByNumber(int number) {
-                return EarnFreeGoldType.valueOf(number);
+            new com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsType>() {
+              public EarnFreeDiamondsType findValueByNumber(int number) {
+                return EarnFreeDiamondsType.valueOf(number);
               }
             };
       
@@ -81008,14 +81008,14 @@ public final class EventProto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.getDescriptor().getEnumTypes().get(0);
+        return com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.getDescriptor().getEnumTypes().get(0);
       }
       
-      private static final EarnFreeGoldType[] VALUES = {
+      private static final EarnFreeDiamondsType[] VALUES = {
         KIIP, ADCOLONY, FB_INVITE, TAPJOY, FLURRY_VIDEO, TWITTER, 
       };
       
-      public static EarnFreeGoldType valueOf(
+      public static EarnFreeDiamondsType valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -81027,12 +81027,12 @@ public final class EventProto {
       private final int index;
       private final int value;
       
-      private EarnFreeGoldType(int index, int value) {
+      private EarnFreeDiamondsType(int index, int value) {
         this.index = index;
         this.value = value;
       }
       
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.EarnFreeGoldRequestProto.EarnFreeGoldType)
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType)
     }
     
     private int bitField0_;
@@ -81049,14 +81049,14 @@ public final class EventProto {
       return sender_;
     }
     
-    // optional .com.lvl6.proto.EarnFreeGoldRequestProto.EarnFreeGoldType freeGoldType = 2;
-    public static final int FREEGOLDTYPE_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType freeGoldType_;
-    public boolean hasFreeGoldType() {
+    // optional .com.lvl6.proto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType freeDiamondsType = 2;
+    public static final int FREEDIAMONDSTYPE_FIELD_NUMBER = 2;
+    private com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType freeDiamondsType_;
+    public boolean hasFreeDiamondsType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType getFreeGoldType() {
-      return freeGoldType_;
+    public com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType getFreeDiamondsType() {
+      return freeDiamondsType_;
     }
     
     // optional int64 clientTime = 3;
@@ -81133,23 +81133,23 @@ public final class EventProto {
       }
     }
     
-    // optional int32 adColonyGoldEarned = 6;
-    public static final int ADCOLONYGOLDEARNED_FIELD_NUMBER = 6;
-    private int adColonyGoldEarned_;
-    public boolean hasAdColonyGoldEarned() {
+    // optional int32 adColonyDiamondsEarned = 6;
+    public static final int ADCOLONYDIAMONDSEARNED_FIELD_NUMBER = 6;
+    private int adColonyDiamondsEarned_;
+    public boolean hasAdColonyDiamondsEarned() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
-    public int getAdColonyGoldEarned() {
-      return adColonyGoldEarned_;
+    public int getAdColonyDiamondsEarned() {
+      return adColonyDiamondsEarned_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      freeGoldType_ = com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType.KIIP;
+      freeDiamondsType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType.KIIP;
       clientTime_ = 0L;
       kiipReceipt_ = "";
       adColonyDigest_ = "";
-      adColonyGoldEarned_ = 0;
+      adColonyDiamondsEarned_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -81167,7 +81167,7 @@ public final class EventProto {
         output.writeMessage(1, sender_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, freeGoldType_.getNumber());
+        output.writeEnum(2, freeDiamondsType_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt64(3, clientTime_);
@@ -81179,7 +81179,7 @@ public final class EventProto {
         output.writeBytes(5, getAdColonyDigestBytes());
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, adColonyGoldEarned_);
+        output.writeInt32(6, adColonyDiamondsEarned_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -81196,7 +81196,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, freeGoldType_.getNumber());
+          .computeEnumSize(2, freeDiamondsType_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
@@ -81212,7 +81212,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, adColonyGoldEarned_);
+          .computeInt32Size(6, adColonyDiamondsEarned_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -81226,41 +81226,41 @@ public final class EventProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(byte[] data)
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -81269,7 +81269,7 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseDelimitedFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -81280,12 +81280,12 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldRequestProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -81295,7 +81295,7 @@ public final class EventProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.EarnFreeGoldRequestProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -81308,18 +81308,18 @@ public final class EventProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.EarnFreeGoldRequestProtoOrBuilder {
+       implements com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_descriptor;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_fieldAccessorTable;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.newBuilder()
+      // Construct using com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -81345,7 +81345,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        freeGoldType_ = com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType.KIIP;
+        freeDiamondsType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType.KIIP;
         bitField0_ = (bitField0_ & ~0x00000002);
         clientTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -81353,7 +81353,7 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000008);
         adColonyDigest_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
-        adColonyGoldEarned_ = 0;
+        adColonyDiamondsEarned_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
@@ -81364,24 +81364,24 @@ public final class EventProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.getDescriptor();
+        return com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.getDescriptor();
       }
       
-      public com.lvl6.proto.EventProto.EarnFreeGoldRequestProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.getDefaultInstance();
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.EventProto.EarnFreeGoldRequestProto build() {
-        com.lvl6.proto.EventProto.EarnFreeGoldRequestProto result = buildPartial();
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto build() {
+        com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.EventProto.EarnFreeGoldRequestProto buildParsed()
+      private com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.EarnFreeGoldRequestProto result = buildPartial();
+        com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -81389,8 +81389,8 @@ public final class EventProto {
         return result;
       }
       
-      public com.lvl6.proto.EventProto.EarnFreeGoldRequestProto buildPartial() {
-        com.lvl6.proto.EventProto.EarnFreeGoldRequestProto result = new com.lvl6.proto.EventProto.EarnFreeGoldRequestProto(this);
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto result = new com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -81404,7 +81404,7 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.freeGoldType_ = freeGoldType_;
+        result.freeDiamondsType_ = freeDiamondsType_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -81420,28 +81420,28 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.adColonyGoldEarned_ = adColonyGoldEarned_;
+        result.adColonyDiamondsEarned_ = adColonyDiamondsEarned_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.EarnFreeGoldRequestProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.EarnFreeGoldRequestProto)other);
+        if (other instanceof com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.EventProto.EarnFreeGoldRequestProto other) {
-        if (other == com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
-        if (other.hasFreeGoldType()) {
-          setFreeGoldType(other.getFreeGoldType());
+        if (other.hasFreeDiamondsType()) {
+          setFreeDiamondsType(other.getFreeDiamondsType());
         }
         if (other.hasClientTime()) {
           setClientTime(other.getClientTime());
@@ -81452,8 +81452,8 @@ public final class EventProto {
         if (other.hasAdColonyDigest()) {
           setAdColonyDigest(other.getAdColonyDigest());
         }
-        if (other.hasAdColonyGoldEarned()) {
-          setAdColonyGoldEarned(other.getAdColonyGoldEarned());
+        if (other.hasAdColonyDiamondsEarned()) {
+          setAdColonyDiamondsEarned(other.getAdColonyDiamondsEarned());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -81497,12 +81497,12 @@ public final class EventProto {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType value = com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType.valueOf(rawValue);
+              com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType value = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
                 bitField0_ |= 0x00000002;
-                freeGoldType_ = value;
+                freeDiamondsType_ = value;
               }
               break;
             }
@@ -81523,7 +81523,7 @@ public final class EventProto {
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              adColonyGoldEarned_ = input.readInt32();
+              adColonyDiamondsEarned_ = input.readInt32();
               break;
             }
           }
@@ -81622,26 +81622,26 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // optional .com.lvl6.proto.EarnFreeGoldRequestProto.EarnFreeGoldType freeGoldType = 2;
-      private com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType freeGoldType_ = com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType.KIIP;
-      public boolean hasFreeGoldType() {
+      // optional .com.lvl6.proto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType freeDiamondsType = 2;
+      private com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType freeDiamondsType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType.KIIP;
+      public boolean hasFreeDiamondsType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType getFreeGoldType() {
-        return freeGoldType_;
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType getFreeDiamondsType() {
+        return freeDiamondsType_;
       }
-      public Builder setFreeGoldType(com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType value) {
+      public Builder setFreeDiamondsType(com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000002;
-        freeGoldType_ = value;
+        freeDiamondsType_ = value;
         onChanged();
         return this;
       }
-      public Builder clearFreeGoldType() {
+      public Builder clearFreeDiamondsType() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        freeGoldType_ = com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType.KIIP;
+        freeDiamondsType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType.KIIP;
         onChanged();
         return this;
       }
@@ -81739,39 +81739,39 @@ public final class EventProto {
         onChanged();
       }
       
-      // optional int32 adColonyGoldEarned = 6;
-      private int adColonyGoldEarned_ ;
-      public boolean hasAdColonyGoldEarned() {
+      // optional int32 adColonyDiamondsEarned = 6;
+      private int adColonyDiamondsEarned_ ;
+      public boolean hasAdColonyDiamondsEarned() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
-      public int getAdColonyGoldEarned() {
-        return adColonyGoldEarned_;
+      public int getAdColonyDiamondsEarned() {
+        return adColonyDiamondsEarned_;
       }
-      public Builder setAdColonyGoldEarned(int value) {
+      public Builder setAdColonyDiamondsEarned(int value) {
         bitField0_ |= 0x00000020;
-        adColonyGoldEarned_ = value;
+        adColonyDiamondsEarned_ = value;
         onChanged();
         return this;
       }
-      public Builder clearAdColonyGoldEarned() {
+      public Builder clearAdColonyDiamondsEarned() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        adColonyGoldEarned_ = 0;
+        adColonyDiamondsEarned_ = 0;
         onChanged();
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.EarnFreeGoldRequestProto)
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.EarnFreeDiamondsRequestProto)
     }
     
     static {
-      defaultInstance = new EarnFreeGoldRequestProto(true);
+      defaultInstance = new EarnFreeDiamondsRequestProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.EarnFreeGoldRequestProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.EarnFreeDiamondsRequestProto)
   }
   
-  public interface EarnFreeGoldResponseProtoOrBuilder
+  public interface EarnFreeDiamondsResponseProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // optional .com.lvl6.proto.MinimumUserProto sender = 1;
@@ -81779,39 +81779,39 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // optional .com.lvl6.proto.EarnFreeGoldResponseProto.EarnFreeGoldStatus status = 2;
+    // optional .com.lvl6.proto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus status = 2;
     boolean hasStatus();
-    com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus getStatus();
+    com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus getStatus();
   }
-  public static final class EarnFreeGoldResponseProto extends
+  public static final class EarnFreeDiamondsResponseProto extends
       com.google.protobuf.GeneratedMessage
-      implements EarnFreeGoldResponseProtoOrBuilder {
-    // Use EarnFreeGoldResponseProto.newBuilder() to construct.
-    private EarnFreeGoldResponseProto(Builder builder) {
+      implements EarnFreeDiamondsResponseProtoOrBuilder {
+    // Use EarnFreeDiamondsResponseProto.newBuilder() to construct.
+    private EarnFreeDiamondsResponseProto(Builder builder) {
       super(builder);
     }
-    private EarnFreeGoldResponseProto(boolean noInit) {}
+    private EarnFreeDiamondsResponseProto(boolean noInit) {}
     
-    private static final EarnFreeGoldResponseProto defaultInstance;
-    public static EarnFreeGoldResponseProto getDefaultInstance() {
+    private static final EarnFreeDiamondsResponseProto defaultInstance;
+    public static EarnFreeDiamondsResponseProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public EarnFreeGoldResponseProto getDefaultInstanceForType() {
+    public EarnFreeDiamondsResponseProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_descriptor;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_fieldAccessorTable;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_fieldAccessorTable;
     }
     
-    public enum EarnFreeGoldStatus
+    public enum EarnFreeDiamondsStatus
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
       CLIENT_TOO_APART_FROM_SERVER_TIME(1, 1),
@@ -81827,7 +81827,7 @@ public final class EventProto {
       
       public final int getNumber() { return value; }
       
-      public static EarnFreeGoldStatus valueOf(int value) {
+      public static EarnFreeDiamondsStatus valueOf(int value) {
         switch (value) {
           case 0: return SUCCESS;
           case 1: return CLIENT_TOO_APART_FROM_SERVER_TIME;
@@ -81837,15 +81837,15 @@ public final class EventProto {
         }
       }
       
-      public static com.google.protobuf.Internal.EnumLiteMap<EarnFreeGoldStatus>
+      public static com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsStatus>
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<EarnFreeGoldStatus>
+      private static com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsStatus>
           internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<EarnFreeGoldStatus>() {
-              public EarnFreeGoldStatus findValueByNumber(int number) {
-                return EarnFreeGoldStatus.valueOf(number);
+            new com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsStatus>() {
+              public EarnFreeDiamondsStatus findValueByNumber(int number) {
+                return EarnFreeDiamondsStatus.valueOf(number);
               }
             };
       
@@ -81859,14 +81859,14 @@ public final class EventProto {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.getDescriptor().getEnumTypes().get(0);
+        return com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.getDescriptor().getEnumTypes().get(0);
       }
       
-      private static final EarnFreeGoldStatus[] VALUES = {
+      private static final EarnFreeDiamondsStatus[] VALUES = {
         SUCCESS, CLIENT_TOO_APART_FROM_SERVER_TIME, METHOD_NOT_SUPPORTED, OTHER_FAIL, 
       };
       
-      public static EarnFreeGoldStatus valueOf(
+      public static EarnFreeDiamondsStatus valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -81878,12 +81878,12 @@ public final class EventProto {
       private final int index;
       private final int value;
       
-      private EarnFreeGoldStatus(int index, int value) {
+      private EarnFreeDiamondsStatus(int index, int value) {
         this.index = index;
         this.value = value;
       }
       
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.EarnFreeGoldResponseProto.EarnFreeGoldStatus)
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus)
     }
     
     private int bitField0_;
@@ -81900,19 +81900,19 @@ public final class EventProto {
       return sender_;
     }
     
-    // optional .com.lvl6.proto.EarnFreeGoldResponseProto.EarnFreeGoldStatus status = 2;
+    // optional .com.lvl6.proto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus status_;
+    private com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus status_;
     public boolean hasStatus() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus getStatus() {
+    public com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus getStatus() {
       return status_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      status_ = com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus.SUCCESS;
+      status_ = com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -81961,41 +81961,41 @@ public final class EventProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(byte[] data)
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -82004,7 +82004,7 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseDelimitedFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -82015,12 +82015,12 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.EarnFreeGoldResponseProto parseFrom(
+    public static com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -82030,7 +82030,7 @@ public final class EventProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.EarnFreeGoldResponseProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -82043,18 +82043,18 @@ public final class EventProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.EarnFreeGoldResponseProtoOrBuilder {
+       implements com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_descriptor;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_fieldAccessorTable;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.newBuilder()
+      // Construct using com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -82080,7 +82080,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -82091,24 +82091,24 @@ public final class EventProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.getDescriptor();
+        return com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.getDescriptor();
       }
       
-      public com.lvl6.proto.EventProto.EarnFreeGoldResponseProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.getDefaultInstance();
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.EventProto.EarnFreeGoldResponseProto build() {
-        com.lvl6.proto.EventProto.EarnFreeGoldResponseProto result = buildPartial();
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto build() {
+        com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.EventProto.EarnFreeGoldResponseProto buildParsed()
+      private com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.EarnFreeGoldResponseProto result = buildPartial();
+        com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -82116,8 +82116,8 @@ public final class EventProto {
         return result;
       }
       
-      public com.lvl6.proto.EventProto.EarnFreeGoldResponseProto buildPartial() {
-        com.lvl6.proto.EventProto.EarnFreeGoldResponseProto result = new com.lvl6.proto.EventProto.EarnFreeGoldResponseProto(this);
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto buildPartial() {
+        com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto result = new com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -82138,16 +82138,16 @@ public final class EventProto {
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.EarnFreeGoldResponseProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.EarnFreeGoldResponseProto)other);
+        if (other instanceof com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.EventProto.EarnFreeGoldResponseProto other) {
-        if (other == com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto other) {
+        if (other == com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
@@ -82196,7 +82196,7 @@ public final class EventProto {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus value = com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus.valueOf(rawValue);
+              com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus value = com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
@@ -82301,15 +82301,15 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // optional .com.lvl6.proto.EarnFreeGoldResponseProto.EarnFreeGoldStatus status = 2;
-      private com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus status_ = com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus.SUCCESS;
+      // optional .com.lvl6.proto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus status = 2;
+      private com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus status_ = com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus getStatus() {
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus getStatus() {
         return status_;
       }
-      public Builder setStatus(com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus value) {
+      public Builder setStatus(com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -82320,20 +82320,20 @@ public final class EventProto {
       }
       public Builder clearStatus() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        status_ = com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus.SUCCESS;
         onChanged();
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.EarnFreeGoldResponseProto)
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.EarnFreeDiamondsResponseProto)
     }
     
     static {
-      defaultInstance = new EarnFreeGoldResponseProto(true);
+      defaultInstance = new EarnFreeDiamondsResponseProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.EarnFreeGoldResponseProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.EarnFreeDiamondsResponseProto)
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
@@ -82837,15 +82837,15 @@ public final class EventProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_RetrievePlayerWallPostsResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_descriptor;
+    internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_descriptor;
+    internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -83581,20 +83581,21 @@ public final class EventProto {
       "playerWallPosts\030\005 \003(\0132#.com.lvl6.proto.P" +
       "layerWallPostProto\"<\n\035RetrievePlayerWall" +
       "PostsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001" +
-      "\"\340\002\n\030EarnFreeGoldRequestProto\0220\n\006sender\030" +
-      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "O\n\014freeGoldType\030\002 \001(\01629.com.lvl6.proto.E" +
-      "arnFreeGoldRequestProto.EarnFreeGoldType",
-      "\022\022\n\nclientTime\030\003 \001(\003\022\023\n\013kiipReceipt\030\004 \001(" +
-      "\t\022\026\n\016adColonyDigest\030\005 \001(\t\022\032\n\022adColonyGol" +
-      "dEarned\030\006 \001(\005\"d\n\020EarnFreeGoldType\022\010\n\004KII" +
-      "P\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJ" +
-      "OY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006\"\217\002\n\031" +
-      "EarnFreeGoldResponseProto\0220\n\006sender\030\001 \001(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022L\n\006s" +
-      "tatus\030\002 \001(\0162<.com.lvl6.proto.EarnFreeGol" +
-      "dResponseProto.EarnFreeGoldStatus\"r\n\022Ear" +
-      "nFreeGoldStatus\022\013\n\007SUCCESS\020\000\022%\n!CLIENT_T",
+      "\"\370\002\n\034EarnFreeDiamondsRequestProto\0220\n\006sen" +
+      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\022[\n\020freeDiamondsType\030\002 \001(\0162A.com.lvl6" +
+      ".proto.EarnFreeDiamondsRequestProto.Earn",
+      "FreeDiamondsType\022\022\n\nclientTime\030\003 \001(\003\022\023\n\013" +
+      "kiipReceipt\030\004 \001(\t\022\026\n\016adColonyDigest\030\005 \001(" +
+      "\t\022\036\n\026adColonyDiamondsEarned\030\006 \001(\005\"h\n\024Ear" +
+      "nFreeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020" +
+      "\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_V" +
+      "IDEO\020\005\022\013\n\007TWITTER\020\006\"\237\002\n\035EarnFreeDiamonds" +
+      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\022T\n\006status\030\002 \001(\0162" +
+      "D.com.lvl6.proto.EarnFreeDiamondsRespons" +
+      "eProto.EarnFreeDiamondsStatus\"v\n\026EarnFre",
+      "eDiamondsStatus\022\013\n\007SUCCESS\020\000\022%\n!CLIENT_T" +
       "OO_APART_FROM_SERVER_TIME\020\001\022\030\n\024METHOD_NO" +
       "T_SUPPORTED\020\002\022\016\n\nOTHER_FAIL\020\003B\014B\nEventPr" +
       "oto"
@@ -84404,22 +84405,22 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "RelevantUserId", "BeforeThisPostId", "Status", "PlayerWallPosts", },
               com.lvl6.proto.EventProto.RetrievePlayerWallPostsResponseProto.class,
               com.lvl6.proto.EventProto.RetrievePlayerWallPostsResponseProto.Builder.class);
-          internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_descriptor =
+          internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_descriptor =
             getDescriptor().getMessageTypes().get(92);
-          internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_EarnFreeGoldRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "FreeGoldType", "ClientTime", "KiipReceipt", "AdColonyDigest", "AdColonyGoldEarned", },
-              com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.class,
-              com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.Builder.class);
-          internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_descriptor =
+              internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_descriptor,
+              new java.lang.String[] { "Sender", "FreeDiamondsType", "ClientTime", "KiipReceipt", "AdColonyDigest", "AdColonyDiamondsEarned", },
+              com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.class,
+              com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.Builder.class);
+          internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_descriptor =
             getDescriptor().getMessageTypes().get(93);
-          internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_EarnFreeGoldResponseProto_descriptor,
+              internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_descriptor,
               new java.lang.String[] { "Sender", "Status", },
-              com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.class,
-              com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.Builder.class);
+              com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.class,
+              com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.Builder.class);
           return null;
         }
       };

@@ -1330,17 +1330,17 @@ message RetrievePlayerWallPostsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message EarnFreeGoldRequestProto {
+message EarnFreeDiamondsRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional EarnFreeGoldType freeGoldType = 2;
+	optional EarnFreeDiamondsType freeDiamondsType = 2;
 	optional int64 clientTime = 3;
 		
 	optional string kiipReceipt = 4;
 
 	optional string adColonyDigest = 5;
-	optional int32 adColonyGoldEarned = 6;
+	optional int32 adColonyDiamondsEarned = 6;
 		
-	enum EarnFreeGoldType {
+	enum EarnFreeDiamondsType {
 		KIIP = 1;
 		ADCOLONY = 2;
 		FB_INVITE = 3;
@@ -1351,11 +1351,11 @@ message EarnFreeGoldRequestProto {
 
 }
 
-message EarnFreeGoldResponseProto {
+message EarnFreeDiamondsResponseProto {
 	optional MinimumUserProto sender = 1;
-	optional EarnFreeGoldStatus status = 2;
+	optional EarnFreeDiamondsStatus status = 2;
 	
-	enum EarnFreeGoldStatus {
+	enum EarnFreeDiamondsStatus {
 		SUCCESS = 0;
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
 		METHOD_NOT_SUPPORTED = 2;

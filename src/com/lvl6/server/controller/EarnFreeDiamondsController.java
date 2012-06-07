@@ -3,36 +3,39 @@ package com.lvl6.server.controller;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.crypto.Mac;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 
 import org.apache.log4j.Logger;
+import org.apache.mina.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lvl6.events.RequestEvent;
-import com.lvl6.events.request.EarnFreeGoldRequestEvent;
-import com.lvl6.events.response.EarnFreeGoldResponseEvent;
+import com.lvl6.events.request.EarnFreeDiamondsRequestEvent;
+import com.lvl6.events.response.EarnFreeDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.proto.EventProto.EarnFreeGoldRequestProto;
-import com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType;
-import com.lvl6.proto.EventProto.EarnFreeGoldResponseProto;
-import com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.Builder;
-import com.lvl6.proto.EventProto.EarnFreeGoldResponseProto.EarnFreeGoldStatus;
-import com.lvl6.proto.EventProto.RefillStatWaitCompleteResponseProto.RefillStatWaitCompleteStatus;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.Builder;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class EarnFreeGoldController extends EventController {
+public class EarnFreeDiamondsController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -50,36 +53,38 @@ public class EarnFreeGoldController extends EventController {
   private static String KIIP_JSON_TRANSACTION_ID_KEY = "receipt";
   private static String KIIP_JSON_QUANTITY_KEY = "receipt";
 
-  public EarnFreeGoldController() {
+  public EarnFreeDiamondsController() {
     numAllocatedThreads = 1;
   }
 
   @Override
   public RequestEvent createRequestEvent() {
-    return new EarnFreeGoldRequestEvent();
+    return new EarnFreeDiamondsRequestEvent();
   }
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_EARN_FREE_GOLD;
+    return EventProtocolRequest.C_EARN_FREE_DIAMONDS;
   }
 
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
-    EarnFreeGoldRequestProto reqProto = ((EarnFreeGoldRequestEvent)event).getEarnFreeGoldRequestProto();
-    MinimumUserProto senderProto = reqProto.getSender();
+    EarnFreeDiamondsRequestProto reqProto = ((EarnFreeDiamondsRequestEvent)event).getEarnFreeDiamondsRequestProto();
+    //    MinimumUserProto senderProto = reqProto.getSender();
 
-    EarnFreeGoldType freeGoldType = reqProto.getFreeGoldType();
+    MinimumUserProto senderProto = MinimumUserProto.newBuilder().setUserId(2602).build();
+
+    EarnFreeDiamondsType freeDiamondsType = reqProto.getFreeDiamondsType();
     Timestamp clientTime = new Timestamp(reqProto.getClientTime());
 
     String kiipReceiptString = (reqProto.hasKiipReceipt() && reqProto.getKiipReceipt().length() > 0) ? reqProto.getKiipReceipt() : null;
 
     String adColonyDigest = (reqProto.hasAdColonyDigest() && reqProto.getAdColonyDigest().length() > 0) ? reqProto.getAdColonyDigest() : null;
-    int adColonyGoldEarned = reqProto.getAdColonyGoldEarned();
+    int adColonyDiamondsEarned = reqProto.getAdColonyDiamondsEarned();
 
 
 
-    EarnFreeGoldResponseProto.Builder resBuilder = EarnFreeGoldResponseProto.newBuilder();
+    EarnFreeDiamondsResponseProto.Builder resBuilder = EarnFreeDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
     server.lockPlayer(senderProto.getUserId());
@@ -87,34 +92,34 @@ public class EarnFreeGoldController extends EventController {
     try {
       User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
 
-      boolean legitFreeGoldEarn = checkLegitFreeGoldEarnBasic(resBuilder, freeGoldType, clientTime, user, kiipReceiptString, adColonyDigest, adColonyGoldEarned);
+      boolean legitFreeDiamondsEarn = checkLegitFreeDiamondsEarnBasic(resBuilder, freeDiamondsType, clientTime, user, kiipReceiptString, adColonyDigest, adColonyDiamondsEarned);
 
       JSONObject kiipConfirmationReceipt = null;
 
       //      kiipReceipt = new JSONObject("{\"content\": \"abc\", \"signature\": \"def74f51b2ab87c3fd4c169fad18b40fab8924fd\", \"transaction_id\": \"4f1e2755cc693441c330044a8\", \"quantity\": 500}");
 
-      if (legitFreeGoldEarn) {
-        if (freeGoldType == EarnFreeGoldType.KIIP) {
+      if (legitFreeDiamondsEarn) {
+        if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
           kiipConfirmationReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
-          if (kiipConfirmationReceipt == null) legitFreeGoldEarn = false;
+          if (kiipConfirmationReceipt == null) legitFreeDiamondsEarn = false;
         }
-        if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
-          if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyGoldEarned, clientTime)) legitFreeGoldEarn = false;
+        if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
+          if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyDiamondsEarned, clientTime)) legitFreeDiamondsEarn = false;
         }
       }
 
-      EarnFreeGoldResponseEvent resEvent = new EarnFreeGoldResponseEvent(senderProto.getUserId());
+      EarnFreeDiamondsResponseEvent resEvent = new EarnFreeDiamondsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
-      resEvent.setEarnFreeGoldResponseProto(resBuilder.build());  
+      resEvent.setEarnFreeDiamondsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
-      if (legitFreeGoldEarn) {
-        writeChangesToDB(user, freeGoldType, kiipConfirmationReceipt, adColonyGoldEarned);
+      if (legitFreeDiamondsEarn) {
+        writeChangesToDB(user, freeDiamondsType, kiipConfirmationReceipt, adColonyDiamondsEarned);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        
-        writeToDBHistory(user, freeGoldType, kiipConfirmationReceipt, adColonyDigest, adColonyGoldEarned);
+
+        writeToDBHistory(user, freeDiamondsType, kiipConfirmationReceipt, adColonyDigest, adColonyDiamondsEarned);
       }
     } catch (Exception e) {
       log.error("exception in earn free gold processEvent", e);
@@ -123,13 +128,13 @@ public class EarnFreeGoldController extends EventController {
     }
   }
 
-  private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyGoldEarned, Timestamp clientTime) {
+  private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyDiamondsEarned, Timestamp clientTime) {
     String serverAdColonyDigest = null;
-    String prepareString = user.getId() + user.getReferralCode() + adColonyGoldEarned + clientTime.getTime();
+    String prepareString = user.getId() + user.getReferralCode() + adColonyDiamondsEarned + clientTime.getTime();
     serverAdColonyDigest = getHMACSHA1Digest(prepareString, LVL6_SHARED_SECRET);
 
     if (serverAdColonyDigest == null || !serverAdColonyDigest.equals(adColonyDigest)) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("failure in confirming adColony digest. server's digest is " + serverAdColonyDigest
           + ", client's is " + adColonyDigest);
       return false;
@@ -162,84 +167,84 @@ public class EarnFreeGoldController extends EventController {
         }
       }
     } catch (MalformedURLException e) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("problem with kiip endpoint URL", e);
       return null;
     } catch (Exception e) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("problem with checking kiip reward", e);
       return null;
     }
     return null;
   }
 
-  private void writeChangesToDB(User user, EarnFreeGoldType freeGoldType, JSONObject kiipReceipt, int adColonyGoldEarned) throws JSONException {
-    if (freeGoldType == EarnFreeGoldType.KIIP) {
-      if (!user.updateRelativeDiamondsForFree(kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY), freeGoldType)) {
+  private void writeChangesToDB(User user, EarnFreeDiamondsType freeDiamondsType, JSONObject kiipReceipt, int adColonyDiamondsEarned) throws JSONException {
+    if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
+      if (!user.updateRelativeDiamondsForFree(kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY), freeDiamondsType)) {
         log.error("problem with updating diamonds. diamondChange=" + kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY)
-            + ", freeGoldType=" + freeGoldType);
+            + ", freeDiamondsType=" + freeDiamondsType);
       }
     }
-    if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
-      if (!user.updateRelativeDiamondsForFree(adColonyGoldEarned, freeGoldType)) {
-        log.error("problem with updating diamonds. diamondChange=" + adColonyGoldEarned
-            + ", freeGoldType=" + freeGoldType);
+    if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
+      if (!user.updateRelativeDiamondsForFree(adColonyDiamondsEarned, freeDiamondsType)) {
+        log.error("problem with updating diamonds. diamondChange=" + adColonyDiamondsEarned
+            + ", freeDiamondsType=" + freeDiamondsType);
       }
     }
   }
-  
-  private void writeToDBHistory(User user, EarnFreeGoldType freeGoldType, JSONObject kiipConfirmationReceipt, String adColonyDigest,
-      int adColonyGoldEarned) {
-    if (freeGoldType == EarnFreeGoldType.KIIP) {
+
+  private void writeToDBHistory(User user, EarnFreeDiamondsType freeDiamondsType, JSONObject kiipConfirmationReceipt, String adColonyDigest,
+      int adColonyDiamondsEarned) {
+    if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
       //TODO:
     }
-    if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
+    if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
       //TODO:
     }
   }
 
-  private boolean checkLegitFreeGoldEarnBasic(Builder resBuilder, EarnFreeGoldType freeGoldType, Timestamp clientTime, User user, 
-      String kiipReceiptString, String adColonyDigest, int adColonyGoldEarned) {
-    if (freeGoldType == null || clientTime == null || user == null) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
-      log.error("parameter passed in is null. freeGoldType is " + freeGoldType + ", clientTime=" + clientTime + ", user=" + user);
+  private boolean checkLegitFreeDiamondsEarnBasic(Builder resBuilder, EarnFreeDiamondsType freeDiamondsType, Timestamp clientTime, User user, 
+      String kiipReceiptString, String adColonyDigest, int adColonyDiamondsEarned) {
+    if (freeDiamondsType == null || clientTime == null || user == null) {
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. freeDiamondsType is " + freeDiamondsType + ", clientTime=" + clientTime + ", user=" + user);
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(clientTime)) {
-      resBuilder.setStatus(EarnFreeGoldStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       log.error("client time too apart of server time. client time=" + clientTime + ", servertime~="
           + new Date());
       return false;
     }
-    if (freeGoldType == EarnFreeGoldType.KIIP) {
+    if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
       if (!checkLegitKiipRedeem(resBuilder, kiipReceiptString)) {
         return false;
       }
-    } else if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
-      if (!checkLegitAdColonyRedeem(resBuilder, adColonyDigest, adColonyGoldEarned, user, clientTime)) {
+    } else if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
+      if (!checkLegitAdColonyRedeem(resBuilder, adColonyDigest, adColonyDiamondsEarned, user, clientTime)) {
         return false;
       }
-      //    } else if (freeGoldType == EarnFreeGoldType.FB_INVITE) {
-      //    } else if (freeGoldType == EarnFreeGoldType.TAPJOY) {
-      //    } else if (freeGoldType == EarnFreeGoldType.FLURRY_VIDEO) {
-      //    } else if (freeGoldType == EarnFreeGoldType.TWITTER) {
+      //    } else if (freeDiamondsType == EarnFreeDiamondsType.FB_INVITE) {
+      //    } else if (freeDiamondsType == EarnFreeDiamondsType.TAPJOY) {
+      //    } else if (freeDiamondsType == EarnFreeDiamondsType.FLURRY_VIDEO) {
+      //    } else if (freeDiamondsType == EarnFreeDiamondsType.TWITTER) {
     } else {
-      resBuilder.setStatus(EarnFreeGoldStatus.METHOD_NOT_SUPPORTED);
-      log.error("earn free gold type passed in not supported. type=" + freeGoldType);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.METHOD_NOT_SUPPORTED);
+      log.error("earn free gold type passed in not supported. type=" + freeDiamondsType);
       return false;
     }
-    resBuilder.setStatus(EarnFreeGoldStatus.SUCCESS);
+    resBuilder.setStatus(EarnFreeDiamondsStatus.SUCCESS);
     return true;  
   }
 
-  private boolean checkLegitAdColonyRedeem(Builder resBuilder, String adColonyDigest, int adColonyGoldEarned, User user, Timestamp clientTime) {
+  private boolean checkLegitAdColonyRedeem(Builder resBuilder, String adColonyDigest, int adColonyDiamondsEarned, User user, Timestamp clientTime) {
     if (adColonyDigest == null) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("no digest given for AdColony");
       return false;
     }
-    if (adColonyGoldEarned <= 0) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+    if (adColonyDiamondsEarned <= 0) {
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("<= 0 gold given from AdColony");
       return false;
     }
@@ -248,7 +253,7 @@ public class EarnFreeGoldController extends EventController {
 
   private boolean checkLegitKiipRedeem(Builder resBuilder, String kiipReceiptString) {
     if (kiipReceiptString == null) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("kiip receipt passed in is null");
       return false;
     }
@@ -256,12 +261,12 @@ public class EarnFreeGoldController extends EventController {
     try {
       kiipJSONReceipt = new JSONObject(kiipReceiptString);
       if (kiipJSONReceipt.getInt(KIIP_JSON_QUANTITY_KEY) <= 0) {
-        resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+        resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
         log.error("kiip receipt passed in quantity may be <=0. kiipReceiptString=" + kiipReceiptString);
         return false;
       }
     } catch (JSONException e) {
-      resBuilder.setStatus(EarnFreeGoldStatus.OTHER_FAIL);
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("kiip receipt passed in has an error. kiipReceiptString=" + kiipReceiptString);
       return false;
     }
@@ -270,12 +275,26 @@ public class EarnFreeGoldController extends EventController {
 
   private String getHMACSHA1Digest(String prepareString, String secretString) {
     try {
-      Mac mac = Mac.getInstance("HmacSHA1");
-      SecretKeySpec secret = new SecretKeySpec(secretString.getBytes(),"HmacSHA1");
-      mac.init(secret);
-      byte[] digest = mac.doFinal(prepareString.getBytes());
-      String enc = new String(digest);
-      return enc;
+      SecretKey secretKey = null;
+
+      byte[] keyBytes = secretString.getBytes();
+      secretKey = new SecretKeySpec(keyBytes, "HmacSHA1");
+
+      Mac mac = null;
+      try {
+        mac = Mac.getInstance("HmacSHA1");
+        mac.init(secretKey);
+      } catch (NoSuchAlgorithmException e) {
+        log.error("exception when trying to create hash for " + prepareString);
+        return null;
+      } catch (InvalidKeyException e) {
+        log.error("exception when trying to create hash for " + prepareString);
+        return null;
+      }
+
+      byte[] text = prepareString.getBytes();
+
+      return new String(Base64.encodeBase64(mac.doFinal(text))).trim();
     } catch (Exception e) {
       log.error("exception when trying to create hash for " + prepareString);
       return null;
