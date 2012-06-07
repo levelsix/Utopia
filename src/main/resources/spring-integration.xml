@@ -10,16 +10,16 @@
     http://www.springframework.org/schema/integration 
 	http://www.springframework.org/schema/integration/spring-integration-2.1.xsd">
 
-	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50" queue-capacity="100" />
+	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50" queue-capacity="100" rejection-policy="CALLER_RUNS"  />
 	
 	<int:channel id="gameEventQueueChannel">
 		<int:queue ref="gameEventQueue" />
 	</int:channel>
 	
 	
-	<int:service-activator input-channel="gameEventQueueChannel" ref="gameEventHandler" method="handleMessage" >
-		<int:poller fixed-rate="1" task-executor="gameEventsHandlerExecutor" />
-	</int:service-activator>
+<!-- 	<int:service-activator input-channel="gameEventQueueChannel" ref="gameEventHandler" method="handleMessage" > -->
+<!-- 		<int:poller fixed-rate="100" task-executor="gameEventsHandlerExecutor" /> -->
+<!-- 	</int:service-activator> -->
 
 
 	<bean id="gameEventHandler" class="com.lvl6.eventhandlers.GameEventHandler" />

@@ -14,15 +14,15 @@
 		http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		">
 
+	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 
 	<import resource="classpath:spring-hazelcast.xml" />
 	<import resource="classpath:spring-db.xml" />
 	<import resource="classpath:spring-integration.xml" />
 	<import resource="classpath:spring-controllers.xml" />
 
-	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 	
-	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" >
+	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" depends-on="dbConnection" destroy-method="shutdown" >
 		<constructor-arg index="0" value="${server.ip}" />
 		<constructor-arg index="1" value="${server.port}" />
 		<property name="block" value="false" />

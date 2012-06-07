@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 
 import com.lvl6.events.GameEvent;
@@ -13,28 +14,22 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public abstract class EventController extends Wrap{
 
-  /** reference to the GameServer */
+	
+	@Autowired
   protected GameServer server;
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  
-  /**
-   * GameServer will call this init method immediately after construction.
-   * It is final so that this initialization does not got overridden by subclasses.
-   * Initialization for subclasses is done in the initController() method below.
-   * @param numThreads 
-   */
-  public final void init(GameServer s, int numThreads) {
-    this.server = s;
-
-    if (numThreads >= 1) {
-      // init the Wrap first
-      initWrap(numThreads);
-
-      // now call the subclasses' init
-      initController();
-    }
+  public GameServer getServer() {
+	  return server;
   }
+  
+  public void setServer(GameServer server) {
+		this.server = server;
+	}
+
+
+	private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  
+  
 
 //  we have the controllers call server.writeEvent manually already
 //  /**

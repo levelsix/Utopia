@@ -1,8 +1,11 @@
 package com.lvl6.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.URL;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -20,7 +23,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.events.ResponseEvent;
-import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
@@ -186,8 +188,9 @@ public class GameServer extends Thread implements InitializingBean{
 			// for administrative uses.
 			try {
 				// blocking select, will return when we get a new connection
-				selector.select();
-
+				log.info("Waiting for incoming socket connection");
+				int channelkey = selector.select();
+				log.info("Channel connected: "+channelkey);
 				// fetch the keys
 				Set<SelectionKey> readyKeys = selector.selectedKeys();
 
@@ -227,10 +230,10 @@ public class GameServer extends Thread implements InitializingBean{
 			sSockChan = ServerSocketChannel.open();
 			sSockChan.configureBlocking(false);
 
-			// bind to localhost on designated port
-			InetAddress addr = InetAddress.getByName(serverIP);
+			//bind to external ip on designated port
+			InetAddress addr = InetAddress.getByName("0.0.0.0");
 
-			log.info("binding to address: " + addr.getHostAddress());
+			log.info("binding to address: " + addr.getHostAddress()+" port: "+portNum);
 			sSockChan.socket().bind(new InetSocketAddress(addr, portNum));
 
 			// get a selector
@@ -264,63 +267,16 @@ public class GameServer extends Thread implements InitializingBean{
 			eventControllers.put(ec.getEventType(), ec);
 		}
 	}
-/*	private void loadEventControllers() {
-		log.info("loadEventControllers : Loading event controllers");
 
-		// grab all class files in the same directory as EventController
-		File f = new File(this.getClass().getClassLoader()
-				.getResource(CONTROLLER_CLASS_PATHNAME).getPath());
-		File[] files = f.getParentFile().listFiles();
-
-		if (files == null) {
-			log.error("error getting GameController directory");
-			return;
-		}
-
-		for (int i = 0; (i < files.length); i++) {
-			String file = files[i].getName();
-			if (file.indexOf(".class") == -1)
-				continue;
-			if (file.equals(CONTROLLER_CLASS_NAME))
-				continue;
-
-			try {
-				// grab the class
-				String endOfClass = file.substring(0, file.indexOf(".class"));
-				String controllerClassName = CONTROLLER_CLASS_PREFIX
-						+ endOfClass;
-				log.info("loading class: " + endOfClass);
-
-				Class<?> cl = Class.forName(controllerClassName);
-
-				// make sure it extends GameController
-				if (!EventController.class.isAssignableFrom(cl)) {
-					log.warn("class file does not extend EventController: "
-							+ file);
-					continue;
-				}
-
-				// get an instance and initialize
-				EventController ec = (EventController) cl.newInstance();
-				ec.init(this, ec.getNumAllocatedThreads());
-
-				// add to our controllers hash
-				eventControllers.put(ec.getEventType(), ec);
-
-				log.info("loaded controller for event: " + ec.getEventType());
-			} catch (Exception e) {
-				log.error("Error instantiating EventController from file: "
-						+ file, e);
-			}
-		}
-	}*/
 
 	/**
 	 * shutdown the GameServer
+	 * @throws IOException 
 	 */
-	public void shutdown() {
+	public void shutdown() throws IOException {
 		running = false;
 		selector.wakeup();
+		sSockChan.close();
 	}
 
 	/**

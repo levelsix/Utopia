@@ -107,6 +107,7 @@ public class SelectAndRead extends Thread{
               // read as many events as are available in the buffer
               while(attachment.eventReady()) {
                 RequestEvent event = getEvent(attachment);
+                log.info("Recieved event from client: "+event.getPlayerId());
                 delegateEvent(event, channel, attachment.eventType);
                 attachment.reset();
               }
@@ -236,6 +237,7 @@ public class SelectAndRead extends Thread{
           SocketChannel clientChannel = newClients.removeFirst();
           clientChannel.configureBlocking( false);
           clientChannel.register(selector, SelectionKey.OP_READ, new Attachment());
+          log.info("Adding new client connection to selector"+clientChannel.hashCode());
         }
         catch (ClosedChannelException cce) {
           log.error("checkNewConnections - channel closed", cce);

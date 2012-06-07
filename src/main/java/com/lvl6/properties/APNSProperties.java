@@ -1,6 +1,19 @@
 package com.lvl6.properties;
 
 public class APNSProperties {
-	public static String PATH_TO_CERT;
-	public static String CERT_PASSWORD;
+	public String pathToCert = "";
+	public String certPassword = "";
+
+	public String getPathToCert() {
+		return pathToCert;
+	}
+	public void setPathToCert(String pathToCert) {
+		this.pathToCert = pathToCert;
+	}
+	public String getCertPassword() {
+		return certPassword;
+	}
+	public void setCertPassword(String certPassword) {
+		this.certPassword = certPassword;
+	}
 }

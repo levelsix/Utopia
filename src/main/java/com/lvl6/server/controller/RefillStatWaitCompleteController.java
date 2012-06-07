@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -22,7 +23,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
- @Component public class RefillStatWaitCompleteController extends EventController{
+  @Component @DependsOn("gameServer") public class RefillStatWaitCompleteController extends EventController{
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

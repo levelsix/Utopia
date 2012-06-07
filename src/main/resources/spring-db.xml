@@ -11,7 +11,7 @@
 		">
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
+		destroy-method="close" depends-on="contextApplicationContextProvider">
 		<!-- Connection properties -->
 		<property name="driverClass" value="${jdbc.driverClassName}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />

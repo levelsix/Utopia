@@ -3,6 +3,7 @@ import java.nio.*;
 import java.nio.channels.*;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.events.BroadcastResponseEvent;
 import com.lvl6.events.GameEvent;
@@ -15,9 +16,20 @@ import com.lvl6.utils.Wrap;
 
 public class EventWriter extends Wrap {
   //reference to game server
+	
+	@Autowired
   private GameServer server;
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  public GameServer getServer() {
+	return server;
+}
+
+
+public void setServer(GameServer server) {
+	this.server = server;
+}
+
+private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
   /** 
    * constructor.

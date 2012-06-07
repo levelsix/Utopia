@@ -21,8 +21,16 @@
 	<task:executor id="controllersExecutor" pool-size="5-50"
 		queue-capacity="500" />
 	
-	<bean id="eventWriter" class="com.lvl6.server.EventWriter" />
+	
+	<bean id="apnsProperties" class="com.lvl6.properties.APNSProperties">
+		<property name="pathToCert" value="${apns.path.to.cert}"></property>
+		<property name="certPassword" value="${apns.cert.password}"></property>
+	</bean>
+	
 	<bean id="apnsWriter" class="com.lvl6.server.APNSWriter" />
+
+
+	<bean id="eventWriter" class="com.lvl6.server.EventWriter" />
 	
 	
 </beans>

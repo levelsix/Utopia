@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -22,7 +23,7 @@ import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
- @Component public class RetrieveCurrentMarketplacePostsController extends EventController{
+  @Component @DependsOn("gameServer") public class RetrieveCurrentMarketplacePostsController extends EventController{
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

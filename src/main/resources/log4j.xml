@@ -22,6 +22,7 @@
 	<logger name="com.mchange.v2.c3p0">
 		<level value="info" />
 	</logger>
+	
 
 	<category name="com.mchange" additivity="true">
 		<priority value="info" />
@@ -30,8 +31,10 @@
 	</category>
 
 
+
+
 	<root>
-		<priority value="info" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 		<appender-ref ref="${lvl6.server.log.appender}" />
 	</root>

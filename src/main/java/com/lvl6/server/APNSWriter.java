@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
@@ -47,7 +48,16 @@ public class APNSWriter extends Wrap {
   private static final long MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH = 60*24*3;
   private static Date LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = new Date();
 
-  /** 
+  
+  
+  @Autowired
+  protected APNSProperties apnsProperties;
+  
+  public void setApnsProperties(APNSProperties apnsProperties) {
+	this.apnsProperties = apnsProperties;
+}
+
+/** 
    * constructor.
    */
   public APNSWriter() {
@@ -85,7 +95,7 @@ public class APNSWriter extends Wrap {
       log.info("received APNS notification to send to player with id " + playerId);
       User user = UserRetrieveUtils.getUserById(playerId);
       if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
-        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
+        ApnsServiceBuilder builder = APNS.newService().withCert(ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert), apnsProperties.certPassword);
 
         if (Globals.IS_SANDBOX) {
           builder.withSandboxDestination();

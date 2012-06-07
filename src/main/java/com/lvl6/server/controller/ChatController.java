@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
@@ -17,7 +18,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
  * NOT READY/BEING USED YET
  */
 
- @Component public class ChatController extends EventController {
+  @Component @DependsOn("gameServer") public class ChatController extends EventController {
 
   @SuppressWarnings("unused")
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
