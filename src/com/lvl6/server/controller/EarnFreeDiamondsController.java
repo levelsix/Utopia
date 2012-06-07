@@ -33,6 +33,7 @@ import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsS
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class EarnFreeDiamondsController extends EventController {
@@ -119,7 +120,7 @@ public class EarnFreeDiamondsController extends EventController {
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
 
-        writeToDBHistory(user, freeDiamondsType, kiipConfirmationReceipt, adColonyDigest, adColonyDiamondsEarned);
+        writeToDBHistory(user, freeDiamondsType, clientTime, kiipConfirmationReceipt, adColonyDigest, adColonyDiamondsEarned);
       }
     } catch (Exception e) {
       log.error("exception in earn free gold processEvent", e);
@@ -193,12 +194,16 @@ public class EarnFreeDiamondsController extends EventController {
     }
   }
 
-  private void writeToDBHistory(User user, EarnFreeDiamondsType freeDiamondsType, JSONObject kiipConfirmationReceipt, String adColonyDigest,
+  private void writeToDBHistory(User user, EarnFreeDiamondsType freeDiamondsType, Timestamp clientTime, JSONObject kiipConfirmationReceipt, String adColonyDigest,
       int adColonyDiamondsEarned) {
     if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
       //TODO:
     }
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
+      if (!InsertUtils.insertApsalarRecentHistory(user.getId(), clientTime, adColonyDiamondsEarned, adColonyDigest)) {
+        log.error("problem with saving adcolony rewarding into recent history. user=" + user + ", clientTime=" + clientTime
+            + ", diamondsEarned=" + adColonyDiamondsEarned + ", digest=" + adColonyDigest);
+      }
       //TODO:
     }
   }
@@ -267,7 +272,7 @@ public class EarnFreeDiamondsController extends EventController {
       }
     } catch (JSONException e) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
-      log.error("kiip receipt passed in has an error. kiipReceiptString=" + kiipReceiptString);
+      log.error("kiip receipt passed in has an error. kiipReceiptString=" + kiipReceiptString, e);
       return false;
     }
     return true;
@@ -285,10 +290,10 @@ public class EarnFreeDiamondsController extends EventController {
         mac = Mac.getInstance("HmacSHA1");
         mac.init(secretKey);
       } catch (NoSuchAlgorithmException e) {
-        log.error("exception when trying to create hash for " + prepareString);
+        log.error("exception when trying to create hash for " + prepareString, e);
         return null;
       } catch (InvalidKeyException e) {
-        log.error("exception when trying to create hash for " + prepareString);
+        log.error("exception when trying to create hash for " + prepareString, e);
         return null;
       }
 
@@ -296,7 +301,7 @@ public class EarnFreeDiamondsController extends EventController {
 
       return new String(Base64.encodeBase64(mac.doFinal(text))).trim();
     } catch (Exception e) {
-      log.error("exception when trying to create hash for " + prepareString);
+      log.error("exception when trying to create hash for " + prepareString, e);
       return null;
     }
   }

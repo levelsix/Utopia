@@ -58,6 +58,21 @@ public class InsertUtils {
     return false;
   }
   
+  public static boolean insertApsalarRecentHistory(int userId, Timestamp timeOfReward, int diamondsEarned, 
+      String digest) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__USER_ID, userId);
+    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD, timeOfReward);
+    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED, diamondsEarned);
+    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIGEST, digest);
+    
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_ADCOLONY_RECENT_HISTORY, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   public static boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
       Date battleCompleteTime, int coinsStolen, int stolenEquipId, int expGained) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
