@@ -109,8 +109,7 @@ message ArmoryResponseProto {
 message StartupRequestProto {				//client will also send ChangeUserLocationRequestProto
      optional string udid = 1;
      optional float versionNum = 2;			//1.0->2.0 critical, 1.0->1.1 minor. server checks db for latest vnum
-     optional string deviceToken = 4;		//only set this if the client is registered/has a device token
-     optional string apsalarId = 5;
+     optional string apsalarId = 3;
 }
 
 message StartupResponseProto {
@@ -295,8 +294,8 @@ message StartupResponseProto {
 			optional string badDescription = 4;
 			optional string goodDoneResponse = 5;
 			optional string badDoneResponse = 6;
-			optional string goodInProgress = 7;
-			optional string badInProgress = 8;
+			optional DialogueProto goodAcceptDialogue = 7;
+			optional DialogueProto badAcceptDialogue = 8;
 			optional int32 assetNumWithinCity = 9; 
 			optional int32 coinsGained = 10;
 			optional int32 expGained = 11;
@@ -904,7 +903,7 @@ message RedeemMarketplaceEarningsResponseProto {
 																						//DONE
 message LoadPlayerCityRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional MinimumUserProto cityOwner = 2;
+	optional int32 cityOwnerId = 2;
 }
 
 																						//DONE
@@ -1307,12 +1306,14 @@ message PostOnPlayerWallResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message RetrievePlayerWallPostsRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 relevantUserId = 2;
 	optional int32 beforeThisPostId = 3;
 }
 
+																						//DONE
 message RetrievePlayerWallPostsResponseProto {
      optional MinimumUserProto sender = 1;
      optional int32 relevantUserId = 2;
@@ -1325,4 +1326,39 @@ message RetrievePlayerWallPostsResponseProto {
      	SUCCESS = 0;
      	OTHER_FAIL = 1;
      }
+}
+
+//------------------------------------------------------------------------------------------
+
+message EarnFreeGoldRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional EarnFreeGoldType freeGoldType = 2;
+	optional int64 clientTime = 3;
+		
+	optional string kiipReceipt = 4;
+
+	optional string adColonyDigest = 5;
+	optional int32 adColonyGoldEarned = 6;
+		
+	enum EarnFreeGoldType {
+		KIIP = 1;
+		ADCOLONY = 2;
+		FB_INVITE = 3;
+		TAPJOY = 4;
+		FLURRY_VIDEO = 5;
+		TWITTER = 6;
+	}
+
+}
+
+message EarnFreeGoldResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional EarnFreeGoldStatus status = 2;
+	
+	enum EarnFreeGoldStatus {
+		SUCCESS = 0;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 1;
+		METHOD_NOT_SUPPORTED = 2;
+		OTHER_FAIL = 3;
+	}
 }

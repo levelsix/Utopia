@@ -15,9 +15,9 @@ import com.lvl6.info.Dialogue;
 import com.lvl6.info.Quest;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
-import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.QuestGraph;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class QuestRetrieveUtils {
 
@@ -140,31 +140,6 @@ public class QuestRetrieveUtils {
     setStaticQuestIdsToQuests();
   }
 
-  private static Dialogue createDialogue(String dialogueBlob) {
-    if (dialogueBlob != null && dialogueBlob.length() > 0) { 
-      StringTokenizer st = new StringTokenizer(dialogueBlob, "~");
-
-      List<DialogueSpeaker> speakers = new ArrayList<DialogueSpeaker>();
-      List<String> speakerTexts = new ArrayList<String>();
-
-      try {
-        while (st.hasMoreTokens()) {
-          DialogueSpeaker speaker = DialogueSpeaker.valueOf(Integer.parseInt(st.nextToken()));
-          String speakerText = st.nextToken();
-          if (speakerText != null) {
-            speakers.add(speaker);
-            speakerTexts.add(speakerText);
-          }
-        }
-      } catch (Exception e) {
-        log.error("problem with creating dialogue object for this dialogueblob: " + dialogueBlob);
-        log.error(e);
-      }
-      return new Dialogue(speakers, speakerTexts);
-    }
-    return null;
-  }
-
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
@@ -182,9 +157,9 @@ public class QuestRetrieveUtils {
     String badDoneResponse = rs.getString(i++);
 
     String goodAcceptDialogueBlob = rs.getString(i++);
-    Dialogue goodAcceptDialogue = createDialogue(goodAcceptDialogueBlob);
+    Dialogue goodAcceptDialogue = MiscMethods.createDialogue(goodAcceptDialogueBlob);
     String badAcceptDialogueBlob = rs.getString(i++);
-    Dialogue badAcceptDialogue = createDialogue(badAcceptDialogueBlob);
+    Dialogue badAcceptDialogue = MiscMethods.createDialogue(badAcceptDialogueBlob);
 
     int assetNumWithinCity = rs.getInt(i++);
     int coinsGained = rs.getInt(i++);

@@ -27,6 +27,7 @@ import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.BattleResponseProto.BattleStatus;
 import com.lvl6.proto.EventProto.BattleResponseProto.Builder;
 import com.lvl6.proto.InfoProto.BattleResult;
+import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -57,8 +58,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	this.insertUtils = insertUtils;
   }
 
-  
-  
   public BattleController() {
     numAllocatedThreads = 10;
   }
@@ -88,7 +87,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         .getEquipmentIdsToEquipment();
 
     List<FullUserEquipProto> oldDefenderUserEquipsList = reqProto.getDefenderUserEquipsList();
-    
+
     server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
 
     try {
@@ -241,38 +240,41 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                   .getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobsRemaining);
               if (remainingDTJMap != null && remainingDTJMap.size() > 0) {
                 for (DefeatTypeJob remainingDTJ : remainingDTJMap.values()) {
-                  if (remainingDTJ.getCityId() == cityId && enemyType == MiscMethods.getUserTypeFromDefeatTypeJobUserType(remainingDTJ.getEnemyType())) {
-                    if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
-                      questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
-                    }
-                    Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
-                    int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
-                        userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
-                    
-                    
-                    if (numDefeatedForJob + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
-                      //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
-                      if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
-                        userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
-                        if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
-                          if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
-                            userQuest.setDefeatTypeJobsComplete(true);
-                            questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, attackerProto, true, null);
+                  if (remainingDTJ.getCityId() == cityId) {
+                    if (remainingDTJ.getEnemyType() == DefeatTypeJobEnemyType.ALL_TYPES_FROM_OPPOSING_SIDE || 
+                        enemyType == MiscMethods.getUserTypeFromDefeatTypeJobUserType(remainingDTJ.getEnemyType())) {
+
+                      if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
+                        questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
+                      }
+                      Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
+                      int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
+                          userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
+
+                          if (numDefeatedForJob + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
+                            //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
+                            if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
+                              userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
+                              if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
+                                if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
+                                  userQuest.setDefeatTypeJobsComplete(true);
+                                  questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, attackerProto, true, null);
+                                } else {
+                                  log.error("problem with marking all defeat type jobs in quest " 
+                                      + quest.getId() + " completed for a user " + attacker.getId() + " after completing defeat type job with id "
+                                      + remainingDTJ.getId());
+                                }
+                              }
+                            } else {
+                              log.error("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
+                                  + " and quest " + quest.getId());
+                            }
                           } else {
-                            log.error("problem with marking all defeat type jobs in quest " 
-                                + quest.getId() + " completed for a user " + attacker.getId() + " after completing defeat type job with id "
-                                + remainingDTJ.getId());
+                            if (!UpdateUtils.incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
+                              log.error("problem with incrementing user quest defeat type job progress for user "
+                                  + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
+                            }
                           }
-                        }
-                      } else {
-                        log.error("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
-                            + " and quest " + quest.getId());
-                      }
-                    } else {
-                      if (!UpdateUtils.incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
-                        log.error("problem with incrementing user quest defeat type job progress for user "
-                            + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
-                      }
                     }
                   }
                 }
@@ -349,7 +351,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int calculateLostCoins(User winner, User loser, Random random, boolean isFlee) {
     User player = (loser.isFake() && !winner.isFake()) ? winner : loser;
-    
+
     int lostCoins = (int) Math.rint(Math.min(player.getCoins() * Math.random()
         * ControllerConstants.BATTLE__A, player.getLevel()
         * ControllerConstants.BATTLE__B));

@@ -28,6 +28,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
+import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
   @Component @DependsOn("gameServer") public class PostOnPlayerWallController extends EventController {
@@ -78,7 +79,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     PostOnPlayerWallResponseEvent resEvent = new PostOnPlayerWallResponseEvent(posterId);
     resEvent.setTag(event.getTag());
-    
+
     if (legitPost) {
       Timestamp timeOfPost = new Timestamp(new Date().getTime());
       int wallPostId = insertUtils.insertPlayerWallPost(posterId, wallOwnerId, content, timeOfPost);
@@ -92,17 +93,22 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         PlayerWallPostProto pwpp = CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, users.get(posterId));
         resBuilder.setPost(pwpp);
 
-        PostOnPlayerWallResponseEvent resEvent2 = new PostOnPlayerWallResponseEvent(posterId);
+        PostOnPlayerWallResponseEvent resEvent2 = new PostOnPlayerWallResponseEvent(wallOwnerId);
         resEvent2.setPostOnPlayerWallResponseProto(resBuilder.build());
         server.writeAPNSNotificationOrEvent(resEvent2);
       }
     }
     resEvent.setPostOnPlayerWallResponseProto(resBuilder.build());
     server.writeEvent(resEvent);
-    
+
     if (legitPost && wallOwnerId != posterId) {
-      QuestUtils.checkAndSendQuestsCompleteBasic(server, posterId, senderProto, SpecialQuestAction.WRITE_ON_OTHER_WALL, true);
+      User wallOwner = users.get(wallOwnerId);
+      User poster = users.get(posterId);
+      if (MiscMethods.checkIfGoodSide(wallOwner.getType()) == !MiscMethods.checkIfGoodSide(poster.getType())) {
+        QuestUtils.checkAndSendQuestsCompleteBasic(server, posterId, senderProto, SpecialQuestAction.WRITE_ON_ENEMY_WALL, true);
+      }
     }
+
   }
 
 

@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     LocationProto locationProto = (reqProto.hasUserLocation()) ? reqProto.getUserLocation() : null;
     String referrerCode = (reqProto.hasReferrerCode()) ? reqProto.getReferrerCode() : null;
-    String deviceToken = (reqProto.hasDeviceToken()) ? reqProto.getDeviceToken() : null;
+    String deviceToken = (reqProto.hasDeviceToken() && reqProto.getDeviceToken().length() > 0) ? reqProto.getDeviceToken() : null;
 
     Timestamp timeOfStructPurchase = new Timestamp(reqProto.getTimeOfStructPurchase());
     Timestamp timeOfStructBuild = new Timestamp(reqProto.getTimeOfStructBuild());

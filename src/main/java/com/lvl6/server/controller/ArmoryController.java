@@ -104,11 +104,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
       if (legitBuy) {
-        if (userEquip == null || userEquip.getQuantity() < 1) {
-          if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, user) && !user.updateEquipped(equipment)) {
-            log.error("problem with equipping " + equipment + " for user " + user);
-          }
-        }
+//        if (userEquip == null || userEquip.getQuantity() < 1) {
+//          if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, user) && !user.updateEquipped(equipment)) {
+//            log.error("problem with equipping " + equipment + " for user " + user);
+//          }
+//        }
         if (!UpdateUtils.incrementUserEquip(user.getId(), equipId, quantity)) {
           log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
         }

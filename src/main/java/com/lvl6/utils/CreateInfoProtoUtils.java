@@ -181,7 +181,7 @@ public class CreateInfoProtoUtils {
     return builder.build();
   }
   
-  private static DialogueProto createDialogueProtoFromDialogue(Dialogue d) {
+  public static DialogueProto createDialogueProtoFromDialogue(Dialogue d) {
     if (d == null) return null;
 
     DialogueProto.Builder dp = DialogueProto.newBuilder();

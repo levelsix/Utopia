@@ -48,19 +48,18 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     LoadPlayerCityRequestProto reqProto = ((LoadPlayerCityRequestEvent)event).getLoadPlayerCityRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    MinimumUserProto cityOwnerProto = reqProto.getCityOwner();
+    int cityOwnerId = reqProto.getCityOwnerId();
 
     LoadPlayerCityResponseProto.Builder resBuilder = LoadPlayerCityResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
-    resBuilder.setCityOwner(cityOwnerProto);
 
     resBuilder.setStatus(LoadPlayerCityStatus.SUCCESS);
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User owner = UserRetrieveUtils.getUserById(cityOwnerProto.getUserId());
+      User owner = UserRetrieveUtils.getUserById(cityOwnerId);
 
-      List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerProto.getUserId());
+      List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerId);
       setResponseUserStructs(resBuilder, userStructs);
 
 //      Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());
@@ -71,7 +70,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 //        resBuilder.setUserCityExpansionData(CreateInfoProtoUtils.createFullUserCityExpansionDataProtoFromUserCityExpansionData(userCityExpansionData));
 //      }
 
-      boolean ownerIsGood = MiscMethods.checkIfGoodSide(cityOwnerProto.getUserType());
+      resBuilder.setCityOwner(CreateInfoProtoUtils.createMinimumUserProtoFromUser(owner));
+      
+      boolean ownerIsGood = MiscMethods.checkIfGoodSide(owner.getType());
       boolean senderIsGood = MiscMethods.checkIfGoodSide(senderProto.getUserType());
 
       List<UserType> userTypes = new ArrayList<UserType>();

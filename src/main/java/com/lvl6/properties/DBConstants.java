@@ -87,6 +87,8 @@ public class DBConstants {
   public static final String USER__CREATE_TIME = "create_time";
   public static final String USER__APSALAR_ID = "apsalar_id";
   public static final String USER__NUM_COINS_RETRIEVED_FROM_STRUCTS = "num_coins_retrieved_from_structs";
+  public static final String USER__NUM_ADCOLONY_VIDEOS_WATCHED = "num_adcolony_videos_watched";
+  public static final String USER__NUM_TIMES_KIIP_REWARDED = "num_times_kiip_rewarded";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;

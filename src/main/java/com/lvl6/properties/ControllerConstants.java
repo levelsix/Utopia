@@ -79,12 +79,12 @@ public class ControllerConstants {
   public static final int TUTORIAL__WARRIOR_INIT_ARMOR_ID = 41;
   public static final String TUTORIAL__FAKE_QUEST_GOOD_NAME = "Cold Welcome";
   public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Cold Welcome";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE = "10~good~";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE = "10~bad~";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Welcome to Kirin Village, stranger. We are in dire times and we need your help. A few moments ago, a strange white light consumed the sky and legion soldiers appeared out of thin air. One seems to have strayed from the pack. Start by killing him!";
   public static final String TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION = "Welcome to Kirin Village, soldier. A few moments ago, a strange white light consumed the sky and blinded our eyes during our siege against the Alliance. We found ourselves here with a few Lumorian soldiers after we regained our vision. One seems to have strayed from the pack. Start by killing him!";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE = "Simply amazing! Your battle prowess makes our village seem safer already. ";
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
-  public static final String TUTORIAL__FAKE_QUEST_GOOD_IN_PROGRESS = "Back already? Don't tell me you couldn't even complete these measy tasks!";
-  public static final String TUTORIAL__FAKE_QUEST_BAD_IN_PROGRESS = "Back already? Don't tell me you couldn't even complete these measy tasks!";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 1;
   public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 30;
   public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 4;

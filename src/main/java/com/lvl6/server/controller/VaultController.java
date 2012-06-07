@@ -90,7 +90,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
       resEventUpdate.setTag(event.getTag());
-      resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
       
       if (legitTransaction) {

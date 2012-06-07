@@ -17,6 +17,7 @@ import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
+import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.NeutralCityElement;
@@ -88,7 +89,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     UpdateStatus updateStatus;
     String udid = reqProto.getUdid();
     String apsalarId = reqProto.hasApsalarId() ? reqProto.getApsalarId() : null;
-    String newDeviceToken = reqProto.hasDeviceToken() ? reqProto.getDeviceToken() : null;
 
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
     
@@ -159,18 +159,21 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
     
     if (user != null) {
-      syncDevicetokenApsalaridLastloginResetBadges(user, newDeviceToken, apsalarId, new Timestamp(new Date().getTime()));
+      syncApsalaridLastloginResetBadges(user, apsalarId, new Timestamp(new Date().getTime()));
     }    
   }
 
-  private void syncDevicetokenApsalaridLastloginResetBadges(User user, String newDeviceToken, String apsalarId, Timestamp loginTime) {
-    if (!user.updateAbsoluteDevicetokenApsalaridLastloginBadges(newDeviceToken, apsalarId, loginTime, 0)) {
-      log.error("problem with updating device token to " + newDeviceToken + ", apsalar id to " + 
+  private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime) {
+    if (user.getApsalarId() != null && apsalarId == null) {
+      apsalarId = user.getApsalarId();
+    }
+    if (!user.updateAbsoluteApsalaridLastloginBadges(apsalarId, loginTime, 0)) {
+      log.error("problem with updating apsalar id to " + 
           apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user);
     }
 
     if (user.getNumBadges() != 0) {
-      if (newDeviceToken != null && newDeviceToken.length() > 0) { 
+      if (user.getDeviceToken() != null) { 
         /*
          * handled locally?
          */
@@ -322,6 +325,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
 
+    Dialogue goodAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE);
+    Dialogue badAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE);
+    
     FullTutorialQuestProto tqbp = FullTutorialQuestProto.newBuilder()
         .setGoodName(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_NAME)
         .setBadName(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_NAME)
@@ -329,8 +335,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         .setBadDescription(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION)
         .setGoodDoneResponse(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE)
         .setBadDoneResponse(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE)
-        .setGoodInProgress(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_IN_PROGRESS)
-        .setBadInProgress(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_IN_PROGRESS)
+        .setGoodAcceptDialogue(CreateInfoProtoUtils.createDialogueProtoFromDialogue(goodAcceptDialogue))
+        .setBadAcceptDialogue(CreateInfoProtoUtils.createDialogueProtoFromDialogue(badAcceptDialogue))
         .setAssetNumWithinCity(ControllerConstants.TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY)
         .setCoinsGained(ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED)
         .setExpGained(ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED)

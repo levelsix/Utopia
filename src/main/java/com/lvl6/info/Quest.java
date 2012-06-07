@@ -266,6 +266,7 @@ public class Quest {
 
   public int getNumComponents(boolean isGoodSide) {
     int numComponents = 0;
+    if (specialQuestActionRequired != null) return 1;
     if (tasksRequired != null) numComponents += tasksRequired.size();
     if (upgradeStructJobsRequired != null) numComponents += upgradeStructJobsRequired.size();
     if (buildStructJobsRequired != null) numComponents += buildStructJobsRequired.size();

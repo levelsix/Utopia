@@ -11,7 +11,7 @@ enum SpecialQuestAction {
 	POST_TO_MARKETPLACE = 4;
 	DEPOSIT_IN_VAULT = 5;
 	WITHDRAW_FROM_VAULT = 6;
-	WRITE_ON_OTHER_WALL = 7;	
+	WRITE_ON_ENEMY_WALL = 7;	
 }
 
 //------------------------------------------------------------------------------------------
@@ -81,6 +81,8 @@ message FullUserProto {
 	optional int32 numBadges = 42;
 	optional int64 createTime = 47;
 	optional int32 apsalarId = 49;
+	optional int32 numAdColonyVideosWatched = 51;
+	optional int32 numTimesKiipRewarded = 52;
 }
 
 //------------------------------------------------------------------------------------------
@@ -463,7 +465,8 @@ message DialogueProto {
 			QUESTGIVER_1 = 10;
 			QUESTGIVER_2 = 11;
 			QUESTGIVER_3 = 12;
-			QUESTGIVER_4 = 13;			
+			QUESTGIVER_4 = 13;	
+			BAZAAR = 25;		
 		}
 	}
 }

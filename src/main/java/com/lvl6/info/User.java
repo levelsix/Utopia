@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.EventProto.EarnFreeGoldRequestProto.EarnFreeGoldType;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.UserType;
@@ -60,6 +61,8 @@ public class User {
   private boolean isAdmin;
   private String apsalarId;
   private int numCoinsRetrievedFromStructs;
+  private int numAdColonyVideosWatched;
+  private int numTimesKiipRewarded;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -74,7 +77,8 @@ public class User {
       Date lastBattleNotificationTime, Date lastTimeAttacked, int numBadges,
       Date lastShortLicensePurchaseTime, Date lastLongLicensePurchaseTime,
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
-      int numCoinsRetrievedFromStructs) {
+      int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
+      int numTimesKiipRewarded) {
     super();
     this.id = id;
     this.name = name;
@@ -122,6 +126,8 @@ public class User {
     this.isAdmin = isAdmin;
     this.apsalarId = apsalarId;
     this.numCoinsRetrievedFromStructs = numCoinsRetrievedFromStructs;
+    this.numAdColonyVideosWatched = numAdColonyVideosWatched;
+    this.numTimesKiipRewarded = numTimesKiipRewarded;
   }
 
   public boolean updateAbsoluteUserLocation(Location location) {
@@ -312,13 +318,11 @@ public class User {
     return false;
   }
 
-  public boolean updateAbsoluteDevicetokenApsalaridLastloginBadges(
-      String newDeviceToken, String newApsalarId, Timestamp loginTime, int newBadges) {
+  public boolean updateAbsoluteApsalaridLastloginBadges(String newApsalarId, Timestamp loginTime, int newBadges) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.USER__DEVICE_TOKEN, newDeviceToken);
     absoluteParams.put(DBConstants.USER__APSALAR_ID, newApsalarId);
     absoluteParams.put(DBConstants.USER__LAST_LOGIN, loginTime);
     absoluteParams.put(DBConstants.USER__NUM_BADGES, newBadges);
@@ -326,7 +330,6 @@ public class User {
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
-      this.deviceToken = newDeviceToken;
       this.apsalarId = newApsalarId;
       this.lastLogin = loginTime;
       this.numBadges = newBadges;
@@ -849,6 +852,36 @@ public class User {
     }
     return false;
   }
+  
+  public boolean updateRelativeDiamondsForFree(int diamondChange, EarnFreeGoldType freeGoldType) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    if (diamondChange <= 0) return false;
+    
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    if (freeGoldType == EarnFreeGoldType.KIIP) {
+      relativeParams.put(DBConstants.USER__NUM_TIMES_KIIP_REWARDED, 1);
+    }
+    if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
+      relativeParams.put(DBConstants.USER__NUM_ADCOLONY_VIDEOS_WATCHED, 1);
+    }
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      if (freeGoldType == EarnFreeGoldType.KIIP) {
+        this.numTimesKiipRewarded++;
+      }
+      if (freeGoldType == EarnFreeGoldType.ADCOLONY) {
+        this.numAdColonyVideosWatched++;
+      }
+      return true;
+    }
+    return false;
+  }
 
   public int getId() {
     return id;
@@ -1034,6 +1067,14 @@ public class User {
     return numCoinsRetrievedFromStructs;
   }
 
+  public int getNumAdColonyVideosWatched() {
+    return numAdColonyVideosWatched;
+  }
+
+  public int getNumTimesKiipRewarded() {
+    return numTimesKiipRewarded;
+  }
+
   @Override
   public String toString() {
     return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
@@ -1063,7 +1104,8 @@ public class User {
         + ", isFake=" + isFake + ", createTime=" + createTime + ", isAdmin="
         + isAdmin + ", apsalarId=" + apsalarId
         + ", numCoinsRetrievedFromStructs=" + numCoinsRetrievedFromStructs
-        + "]";
+        + ", numAdColonyVideosWatched=" + numAdColonyVideosWatched
+        + ", numTimesKiipRewarded=" + numTimesKiipRewarded + "]";
   }
 
 }

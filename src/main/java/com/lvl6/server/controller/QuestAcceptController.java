@@ -89,7 +89,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
             : quest.getDefeatGoodGuysJobsRequired();
         if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) defeatTypeJobsComplete = false;
         
-        UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, tasksComplete, defeatTypeJobsComplete, false, 0);
+        UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, false, tasksComplete, defeatTypeJobsComplete, 0);
         writeChangesToDB(uq);
         QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, uq, senderProto, true, null);
       }
