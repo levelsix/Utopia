@@ -32,6 +32,7 @@ import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.Builder;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.AdColonyRecentHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -41,6 +42,8 @@ public class EarnFreeDiamondsController extends EventController {
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static String LVL6_SHARED_SECRET = "mister8conrad3chan9is1a2very4great5man";
+  private Mac hmacSHA1WithLVL6Secret = null;
+  
   //  private static String ADCOLONY_V4VC_SECRET_KEY = "v4vc5ec0f36707ad4afaa5452e";
 
   private static String KIIP_CONSUMER_KEY = "d6c7530ce4dc64ecbff535e521a241e3";
@@ -50,9 +53,9 @@ public class EarnFreeDiamondsController extends EventController {
   private static String KIIP_JSON_SUCCESS_KEY = "success";
   private static String KIIP_JSON_RECEIPT_KEY = "receipt";
   private static String KIIP_JSON_CONTENT_KEY = "content";
-  private static String KIIP_JSON_SIGNATURE_KEY = "receipt";
-  private static String KIIP_JSON_TRANSACTION_ID_KEY = "receipt";
-  private static String KIIP_JSON_QUANTITY_KEY = "receipt";
+  private static String KIIP_JSON_SIGNATURE_KEY = "signature";
+  private static String KIIP_JSON_TRANSACTION_ID_KEY = "transaction_id";
+  private static String KIIP_JSON_QUANTITY_KEY = "quantity";
 
   public EarnFreeDiamondsController() {
     numAllocatedThreads = 1;
@@ -83,7 +86,14 @@ public class EarnFreeDiamondsController extends EventController {
     String adColonyDigest = (reqProto.hasAdColonyDigest() && reqProto.getAdColonyDigest().length() > 0) ? reqProto.getAdColonyDigest() : null;
     int adColonyDiamondsEarned = reqProto.getAdColonyDiamondsEarned();
 
-
+    
+    
+    //TODO:
+    kiipReceiptString = "{\"signature\":\"33ee5157a3a2048d092bbeb798e89be3106001af\",\"content\":\"reward_gold\",\"quantity\":\"26\",\"transaction_id\":\"None\"}";
+    freeDiamondsType = EarnFreeDiamondsType.KIIP;
+    
+    
+    
 
     EarnFreeDiamondsResponseProto.Builder resBuilder = EarnFreeDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -97,15 +107,18 @@ public class EarnFreeDiamondsController extends EventController {
 
       JSONObject kiipConfirmationReceipt = null;
 
-      //      kiipReceipt = new JSONObject("{\"content\": \"abc\", \"signature\": \"def74f51b2ab87c3fd4c169fad18b40fab8924fd\", \"transaction_id\": \"4f1e2755cc693441c330044a8\", \"quantity\": 500}");
-
       if (legitFreeDiamondsEarn) {
         if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
           kiipConfirmationReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
           if (kiipConfirmationReceipt == null) legitFreeDiamondsEarn = false;
         }
         if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-          if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyDiamondsEarned, clientTime)) legitFreeDiamondsEarn = false;
+          if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyDiamondsEarned, clientTime)) {
+            legitFreeDiamondsEarn = false;
+          } else if (AdColonyRecentHistoryRetrieveUtils.checkIfDuplicateDigest(adColonyDigest)) {
+            resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
+            legitFreeDiamondsEarn = false;
+          }
         }
       }
 
@@ -132,7 +145,8 @@ public class EarnFreeDiamondsController extends EventController {
   private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyDiamondsEarned, Timestamp clientTime) {
     String serverAdColonyDigest = null;
     String prepareString = user.getId() + user.getReferralCode() + adColonyDiamondsEarned + clientTime.getTime();
-    serverAdColonyDigest = getHMACSHA1Digest(prepareString, LVL6_SHARED_SECRET);
+    
+    serverAdColonyDigest = getHMACSHA1DigestWithLVL6Secret(prepareString);
 
     if (serverAdColonyDigest == null || !serverAdColonyDigest.equals(adColonyDigest)) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
@@ -176,6 +190,8 @@ public class EarnFreeDiamondsController extends EventController {
       log.error("problem with checking kiip reward", e);
       return null;
     }
+    resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
+    log.error("problem with getting kiip Receipt, input kiipreceipt is=" + kiipReceipt);
     return null;
   }
 
@@ -204,7 +220,6 @@ public class EarnFreeDiamondsController extends EventController {
         log.error("problem with saving adcolony rewarding into recent history. user=" + user + ", clientTime=" + clientTime
             + ", diamondsEarned=" + adColonyDiamondsEarned + ", digest=" + adColonyDigest);
       }
-      //TODO:
     }
   }
 
@@ -265,7 +280,10 @@ public class EarnFreeDiamondsController extends EventController {
     JSONObject kiipJSONReceipt;
     try {
       kiipJSONReceipt = new JSONObject(kiipReceiptString);
-      if (kiipJSONReceipt.getInt(KIIP_JSON_QUANTITY_KEY) <= 0) {
+      if (kiipJSONReceipt.getInt(KIIP_JSON_QUANTITY_KEY) <= 0 || 
+          kiipJSONReceipt.getString(KIIP_JSON_CONTENT_KEY).length() <= 0 ||
+          kiipJSONReceipt.getString(KIIP_JSON_TRANSACTION_ID_KEY).length() <= 0 ||
+          kiipJSONReceipt.getString(KIIP_JSON_SIGNATURE_KEY).length() <= 0) {
         resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
         log.error("kiip receipt passed in quantity may be <=0. kiipReceiptString=" + kiipReceiptString);
         return false;
@@ -274,29 +292,20 @@ public class EarnFreeDiamondsController extends EventController {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("kiip receipt passed in has an error. kiipReceiptString=" + kiipReceiptString, e);
       return false;
+    } catch (Exception e) {
+      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
+      log.error("kiip receipt passed in has an error. kiipReceiptString=" + kiipReceiptString, e);
+      return false;
     }
     return true;
   }
 
-  private String getHMACSHA1Digest(String prepareString, String secretString) {
+  
+  private String getHMACSHA1DigestWithLVL6Secret(String prepareString) {
     try {
-      SecretKey secretKey = null;
-
-      byte[] keyBytes = secretString.getBytes();
-      secretKey = new SecretKeySpec(keyBytes, "HmacSHA1");
-
-      Mac mac = null;
-      try {
-        mac = Mac.getInstance("HmacSHA1");
-        mac.init(secretKey);
-      } catch (NoSuchAlgorithmException e) {
-        log.error("exception when trying to create hash for " + prepareString, e);
-        return null;
-      } catch (InvalidKeyException e) {
-        log.error("exception when trying to create hash for " + prepareString, e);
-        return null;
-      }
-
+      Mac mac = getHMACSHA1WithLVL6Secret();
+      if (mac == null) return null;
+      
       byte[] text = prepareString.getBytes();
 
       return new String(Base64.encodeBase64(mac.doFinal(text))).trim();
@@ -306,5 +315,22 @@ public class EarnFreeDiamondsController extends EventController {
     }
   }
 
+  private Mac getHMACSHA1WithLVL6Secret() {
+    if (hmacSHA1WithLVL6Secret == null) {
+      SecretKey secretKey = null;
+
+      byte[] keyBytes = LVL6_SHARED_SECRET.getBytes();
+      secretKey = new SecretKeySpec(keyBytes, "HmacSHA1");
+
+      try {
+        hmacSHA1WithLVL6Secret = Mac.getInstance("HmacSHA1");
+        hmacSHA1WithLVL6Secret.init(secretKey);
+      } catch (Exception e) {
+        log.error("exception when trying to create mac with our secret", e);
+        return null;
+      }
+    }
+    return hmacSHA1WithLVL6Secret;
+  }
 
 }

@@ -318,7 +318,11 @@ public class CreateInfoProtoUtils {
         .setMaxCoinsGained(task.getMaxCoinsGained()).setChanceOfEquipLoot(task.getChanceOfEquipFloat())
         .setExpGained(task.getExpGained()).setAssetNumWithinCity(task.getAssetNumberWithinCity()).
         setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds())
-        .setProcessingText(processingText);
+        .setProcessingText(processingText).setAnimationType(task.getAnimationType());
+    
+    if (task.getSpriteLandingCoords() != null) {
+      builder.setSpriteLandingCoords(createCoordinateProtoFromCoordinatePair(task.getSpriteLandingCoords()));
+    }
 
     Map<Integer, Integer> equipIdsToQuantity = TaskEquipReqRetrieveUtils.getEquipmentIdsToQuantityForTaskId(task.getId());
     if (equipIdsToQuantity != null && equipIdsToQuantity.size() > 0) {

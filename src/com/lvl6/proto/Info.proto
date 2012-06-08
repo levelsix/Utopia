@@ -2,6 +2,14 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+
+//------------------------------------------------------------------------------------------
+
+enum AnimationType {
+	GENERIC_ACTION = 1;
+	ATTACK = 2;
+}
+
 //------------------------------------------------------------------------------------------
 
 enum SpecialQuestAction {
@@ -182,6 +190,8 @@ message FullTaskProto {
 	optional int32 expGained = 10;
 	optional int32 assetNumWithinCity = 11;
 	optional string processingText = 12;
+	optional CoordinateProto spriteLandingCoords = 14;
+	optional AnimationType animationType = 15;
 	
 	repeated FullTaskEquipReqProto equipReqs = 13;
 	
