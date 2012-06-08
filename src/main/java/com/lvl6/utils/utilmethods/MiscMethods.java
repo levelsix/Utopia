@@ -92,23 +92,23 @@ public class MiscMethods {
     return false;
   }
   
-  public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
-    if (playerId != null && playerId > 0) {
-      if (server.getPlayerById(playerId) != null) {
-        return server.getPlayerById(playerId).getChannel().socket().getInetAddress().toString();
-      }
-    }
-    if (udid != null) {
-      SocketChannel channel = server.getChannelForUdid(udid);
-      if (channel != null) {
-        Socket socket = channel.socket();
-        if (socket != null) {
-          return socket.getInetAddress().toString();
-        }
-      }
-    }
-    return null;
-  }
+//  public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
+//    if (playerId != null && playerId > 0) {
+//      if (server.getPlayerById(playerId) != null) {
+//        return server.getPlayerById(playerId).getChannel().socket().getInetAddress().toString();
+//      }
+//    }
+//    if (udid != null) {
+//      SocketChannel channel = server.getChannelForUdid(udid);
+//      if (channel != null) {
+//        Socket socket = channel.socket();
+//        if (socket != null) {
+//          return socket.getInetAddress().toString();
+//        }
+//      }
+//    }
+//    return null;
+//  }
   
   public static void purgeMDCProperties(){
     MDC.remove(MDCKeys.UDID);

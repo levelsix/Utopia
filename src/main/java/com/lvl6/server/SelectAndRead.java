@@ -197,30 +197,30 @@ public class SelectAndRead extends Thread{
 
     ConnectedPlayer p = server.getPlayerById(event.getPlayerId());
     if (p != null) {
-      if (p.getChannel() != channel) {
-        log.warn("player " + p.getPlayerId() + " is on a new channel, must be reconnected.");
-        p.setChannel(channel);
-        server.removePlayer(p.getChannel());
-        server.addPlayer(p);
-      }
+//      if (p.getChannel() != channel) {
+//        log.warn("player " + p.getPlayerId() + " is on a new channel, must be reconnected.");
+//        p.setChannel(channel);
+//        server.removePlayer(p.getChannel());
+//        server.addPlayer(p);
+//      }
     }
     else {
       // first time we see a playerId, create the Player object
       // and populate the channel, and also add to our lists
-      if (event.getPlayerId() > 0) {
-        p = new ConnectedPlayer();
-        p.setPlayerId(event.getPlayerId());
-        p.setChannel(channel);
-        server.addPlayer(p);
-        log.debug("delegate event, new player created and channel set, player:" + 
-            p.getPlayerId() + ", channel: " + channel);
-      } else if (event.getPlayerId() == -1){
-        // This is for the case before the tutorial has started
-        // Save the socket into another array so that controller can retrieve later
-        String udid = ((PreDatabaseRequestEvent)event).getUdid();
-        server.addPreDbPlayer(udid, channel);
-        log.debug("new pre-db player, udid: "+ udid);
-      }
+//      if (event.getPlayerId() > 0) {
+//        p = new ConnectedPlayer();
+//        p.setPlayerId(event.getPlayerId());
+//        p.setChannel(channel);
+//        server.addPlayer(p);
+//        log.debug("delegate event, new player created and channel set, player:" + 
+//            p.getPlayerId() + ", channel: " + channel);
+//      } else if (event.getPlayerId() == -1){
+//        // This is for the case before the tutorial has started
+//        // Save the socket into another array so that controller can retrieve later
+//        String udid = ((PreDatabaseRequestEvent)event).getUdid();
+//        server.addPreDbPlayer(udid, channel);
+//        log.debug("new pre-db player, udid: "+ udid);
+//      }
     }
 
     ec.handleEvent(event);

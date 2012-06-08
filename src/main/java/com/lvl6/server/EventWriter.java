@@ -80,20 +80,20 @@ private static Logger log = Logger.getLogger(new Object() { }.getClass().getEncl
    * write the event to the given playerId's channel
    */
   private void write(int playerId, ByteBuffer writeBuffer) {  
-    ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
-    
-    if (connectedPlayer != null) {
-      SocketChannel channel = connectedPlayer.getChannel();
-  
-      if (channel == null || !channel.isConnected()) {
-        log.error("writeEvent: client channel is null or disconnected for playerId " + playerId);
-        return;
-      }
-  
-      NIOUtils.channelWrite(channel, writeBuffer, playerId);
-    } else {
-      log.info("playerId " + playerId + " is no longer in server"); 
-    }
+//    ConnectedPlayer connectedPlayer = server.getPlayerById(playerId);
+//    
+//    if (connectedPlayer != null) {
+//      SocketChannel channel = connectedPlayer.getChannel();
+//  
+//      if (channel == null || !channel.isConnected()) {
+//        log.error("writeEvent: client channel is null or disconnected for playerId " + playerId);
+//        return;
+//      }
+//  
+//      NIOUtils.channelWrite(channel, writeBuffer, playerId);
+//    } else {
+//      log.info("playerId " + playerId + " is no longer in server"); 
+//    }
   }
 
 }// EventWriter

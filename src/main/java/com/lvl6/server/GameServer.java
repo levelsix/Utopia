@@ -14,6 +14,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -74,9 +75,12 @@ public class GameServer extends Thread implements InitializingBean{
 
 	private Hashtable<EventProtocolRequest, EventController> eventControllers;
 
-	private Hashtable<Integer, ConnectedPlayer> playersByPlayerId;
-	private Hashtable<SocketChannel, Integer> channelToPlayerId;
-	private Hashtable<String, SocketChannel> udidToChannel;
+	@Autowired
+	Map<Integer, ConnectedPlayer> playersByPlayerId;
+	
+	
+//	private Hashtable<SocketChannel, Integer> channelToPlayerId;
+//	private Hashtable<String, SocketChannel> udidToChannel;
 
 	
 	@Autowired	
@@ -127,12 +131,12 @@ public class GameServer extends Thread implements InitializingBean{
 	public GameServer(String serverIP, int portNum) {
 		if (eventControllers == null)
 			eventControllers = new Hashtable<EventProtocolRequest, EventController>();
-		if (playersByPlayerId == null)
-			playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
-		if (channelToPlayerId == null)
-			channelToPlayerId = new Hashtable<SocketChannel, Integer>();
-		if (udidToChannel == null)
-			udidToChannel = new Hashtable<String, SocketChannel>();
+//		if (playersByPlayerId == null)
+//			playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
+//		if (channelToPlayerId == null)
+//			channelToPlayerId = new Hashtable<SocketChannel, Integer>();
+//		if (udidToChannel == null)
+//			udidToChannel = new Hashtable<String, SocketChannel>();
 		this.serverIP = serverIP;
 		this.portNum = portNum;
 	}
@@ -282,43 +286,43 @@ public class GameServer extends Thread implements InitializingBean{
 	/**
 	 * fetches the Player for a given playerId
 	 */
-	public synchronized ConnectedPlayer getPlayerById(int id) {
+	public ConnectedPlayer getPlayerById(int id) {
 		return playersByPlayerId.get(id);
 	}
 
-	public synchronized SocketChannel getChannelForUdid(String udid) {
-		return udidToChannel.get(udid);
-	}
+//	public synchronized SocketChannel getChannelForUdid(String udid) {
+//		return udidToChannel.get(udid);
+//	}
 
 	/**
 	 * add a player to our lists
 	 */
-	public synchronized void addPlayer(ConnectedPlayer p) {
-		channelToPlayerId.put(p.getChannel(), p.getPlayerId());
-		playersByPlayerId.put(p.getPlayerId(), p);
-	}
+//	public synchronized void addPlayer(ConnectedPlayer p) {
+//		//channelToPlayerId.put(p.getChannel(), p.getPlayerId());
+//		playersByPlayerId.put(p.getPlayerId(), p);
+//	}
 
 	/**
 	 * remove a player from our lists
 	 */
-	public synchronized void removePlayer(SocketChannel channel) {
-		try {
-			playersByPlayerId.remove(channelToPlayerId.get(channel));
-			channelToPlayerId.remove(channel);
-		} catch (Exception e) {
-			log.error("problem with removing player from game on channel "
-					+ channel + ". ", e);
-		}
-	}
+//	public synchronized void removePlayer(SocketChannel channel) {
+//		try {
+//			playersByPlayerId.remove(channelToPlayerId.get(channel));
+//			channelToPlayerId.remove(channel);
+//		} catch (Exception e) {
+//			log.error("problem with removing player from game on channel "
+//					+ channel + ". ", e);
+//		}
+//	}
 
 	// returns -1 if he's not in there
-	public synchronized int getPlayerIdOnChannel(SocketChannel channel) {
-		if (channelToPlayerId.keySet().contains(channel)) {
-			return channelToPlayerId.get(channel);
-		}
-		log.error("no player on channel " + channel);
-		return -1;
-	}
+//	public synchronized int getPlayerIdOnChannel(SocketChannel channel) {
+//		if (channelToPlayerId.keySet().contains(channel)) {
+//			return channelToPlayerId.get(channel);
+//		}
+//		log.error("no player on channel " + channel);
+//		return -1;
+//	}
 
 	public void lockPlayer(int playerId) {
 		playersInAction.addPlayer(playerId);
@@ -353,17 +357,17 @@ public class GameServer extends Thread implements InitializingBean{
 		}
 	}
 
-	public Enumeration<Integer> getConnectedPlayerIds() {
-		return playersByPlayerId.keys();
-	}
-
-	public void addPreDbPlayer(String udid, SocketChannel channel) {
-		udidToChannel.put(udid, channel);
-	}
-
-	public SocketChannel removePreDbPlayer(String udid) {
-		return udidToChannel.remove(udid);
-	}
+//	public Enumeration<Integer> getConnectedPlayerIds() {
+//		return playersByPlayerId.keys();
+//	}
+//
+//	public void addPreDbPlayer(String udid, SocketChannel channel) {
+//		udidToChannel.put(udid, channel);
+//	}
+//
+//	public SocketChannel removePreDbPlayer(String udid) {
+//		return udidToChannel.remove(udid);
+//	}
 
 	
 }

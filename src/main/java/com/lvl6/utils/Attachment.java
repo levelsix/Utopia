@@ -18,7 +18,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
  */
 public class Attachment {
   /** number of bytes in the network event header */
-  public static final int HEADER_SIZE = 5; 
+  public static final int HEADER_SIZE = 12; 
 
   /** log4j logger */
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
@@ -40,6 +40,11 @@ public class Attachment {
 
   /** temporary storage of the payload before it is read into an event  */
   public byte payload[];
+  
+  public void setPayload(byte[] bytes) {
+	  payload = bytes;
+	  payloadSize = bytes.length;
+  }
 
   /** 
    * constructor. initializes the payload array and the read buffer 

@@ -22,7 +22,11 @@
 	<logger name="com.mchange.v2.c3p0">
 		<level value="info" />
 	</logger>
-	
+
+
+	<logger name="com.springframework">
+		<level value="info" />
+	</logger>	
 
 	<category name="com.mchange" additivity="true">
 		<priority value="info" />
@@ -34,7 +38,7 @@
 
 
 	<root>
-		<priority value="debug" />
+		<priority value="info" />
 		<appender-ref ref="console" />
 		<appender-ref ref="${lvl6.server.log.appender}" />
 	</root>
