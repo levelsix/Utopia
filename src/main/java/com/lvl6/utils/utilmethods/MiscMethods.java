@@ -48,6 +48,7 @@ import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.server.GameServer;
+import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
@@ -92,23 +93,22 @@ public class MiscMethods {
     return false;
   }
   
-//  public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
-//    if (playerId != null && playerId > 0) {
-//      if (server.getPlayerById(playerId) != null) {
-//        return server.getPlayerById(playerId).getChannel().socket().getInetAddress().toString();
-//      }
-//    }
-//    if (udid != null) {
-//      SocketChannel channel = server.getChannelForUdid(udid);
-//      if (channel != null) {
-//        Socket socket = channel.socket();
-//        if (socket != null) {
-//          return socket.getInetAddress().toString();
-//        }
-//      }
-//    }
-//    return null;
-//  }
+  public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
+	  ConnectedPlayer player = null;
+	  if (playerId != null && playerId > 0) {
+		  player = server.getPlayerById(playerId); 
+      if (player != null) {
+        return player.getIp_connection_id();
+      }
+    }
+    if (udid != null) {
+    	player = server.getPlayerByUdId(udid);
+    	if (player != null) {
+          return player.getIp_connection_id();
+    	}
+   	}
+    return null;
+  }
   
   public static void purgeMDCProperties(){
     MDC.remove(MDCKeys.UDID);

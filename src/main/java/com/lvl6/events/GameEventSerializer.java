@@ -43,8 +43,8 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 		int n = 0;
 		int bite;
 		byte[] paysize = new byte[4];
-		int payloadSize = 0;
-		log.info("Available to read:" + inputStream.available());
+		int payloadSize = maxMessageSize;//message+header
+		log.info("Deserializing message...available to read:" + inputStream.available());
 		while (true) {
 			bite = inputStream.read();
 			if (bite < 0 && n == 0) {
@@ -56,10 +56,11 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 			if ( n < 12 && n >= 7){
 				paysize[n-4] = (byte) bite;
 				if(n == 11) {
-					payloadSize = ByteBuffer.wrap(paysize).getInt();
+					payloadSize = ByteBuffer.wrap(paysize).getInt()+Attachment.HEADER_SIZE;
+					log.info("Message size: "+payloadSize);
 				}
 			}
-			if(n == maxMessageSize - 1) {
+			if(n == payloadSize - 1) {
 				break;
 			}
 			if (n >= maxMessageSize) {

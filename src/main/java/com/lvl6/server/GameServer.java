@@ -45,7 +45,19 @@ public class GameServer extends Thread implements InitializingBean{
 	public void setSelectAndRead(SelectAndRead selectAndRead) {
 		this.selectAndRead = selectAndRead;
 	}
+	
+	@Autowired
+	Map<String, ConnectedPlayer> playersPreDatabaseByUDID;
 
+
+	public Map<String, ConnectedPlayer> getPlayersPreDatabaseByUDID() {
+		return playersPreDatabaseByUDID;
+	}
+
+	public void setPlayersPreDatabaseByUDID(
+			Map<String, ConnectedPlayer> playersPreDatabaseByUDID) {
+		this.playersPreDatabaseByUDID = playersPreDatabaseByUDID;
+	}
 
 	@Resource(name="playersInAction")
 	private PlayerSet playersInAction;
@@ -289,6 +301,10 @@ public class GameServer extends Thread implements InitializingBean{
 	public ConnectedPlayer getPlayerById(int id) {
 		return playersByPlayerId.get(id);
 	}
+	
+	public ConnectedPlayer getPlayerByUdId(String id) {
+		return playersPreDatabaseByUDID.get(id);
+	}
 
 //	public synchronized SocketChannel getChannelForUdid(String udid) {
 //		return udidToChannel.get(udid);
@@ -357,17 +373,12 @@ public class GameServer extends Thread implements InitializingBean{
 		}
 	}
 
-//	public Enumeration<Integer> getConnectedPlayerIds() {
-//		return playersByPlayerId.keys();
-//	}
-//
-//	public void addPreDbPlayer(String udid, SocketChannel channel) {
-//		udidToChannel.put(udid, channel);
-//	}
-//
-//	public SocketChannel removePreDbPlayer(String udid) {
-//		return udidToChannel.remove(udid);
-//	}
-
+	public Set<Integer> getConnectedPlayerIds(){
+		return playersByPlayerId.keySet();
+	}
+	
+	public ConnectedPlayer removePreDbPlayer(String udid) {
+		return playersPreDatabaseByUDID.remove(udid);
+	}
 	
 }

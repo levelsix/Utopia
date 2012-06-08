@@ -137,25 +137,25 @@ public class SelectAndRead extends Thread{
   }
 
   private void removePlayerFromServer(SocketChannel channel) {
-    int playerId = server.getPlayerIdOnChannel(channel);
-    if (playerId > 0) {
-      server.lockPlayer(playerId);
-      try {
-        User user = UserRetrieveUtils.getUserById(playerId);
-        if (user != null) {
-          if (!user.updateLastlogout(new Timestamp(new Date().getTime()))) {
-            log.error("problem with updating user's last logout time for user " + playerId);
-          }
-        }
-      } catch (Exception e) {
-        log.error("exception in updating user logout", e);
-      } finally {
-        server.unlockPlayer(playerId); 
-        server.removePlayer(channel);
-      }
-    } else {
-      log.error("cannot update last logout because there is no player on channel " + channel);
-    }
+//   // int playerId = server.getPlayerIdOnChannel(channel);
+////    if (playerId > 0) {
+////      server.lockPlayer(playerId);
+////      try {
+//        User user = UserRetrieveUtils.getUserById(playerId);
+//        if (user != null) {
+//          if (!user.updateLastlogout(new Timestamp(new Date().getTime()))) {
+//            log.error("problem with updating user's last logout time for user " + playerId);
+//          }
+//        }
+//      } catch (Exception e) {
+//        log.error("exception in updating user logout", e);
+//      } finally {
+//        server.unlockPlayer(playerId); 
+//        //server.removePlayer(channel);
+//      }
+//    } else {
+//      log.error("cannot update last logout because there is no player on channel " + channel);
+//    }
   }
 
   /**

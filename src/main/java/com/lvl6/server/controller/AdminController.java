@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import java.util.Enumeration;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
@@ -96,10 +97,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     if (reqProto.hasPurgeStaticDataForConnectedClients() && 
         reqProto.getPurgeStaticDataForConnectedClients()) {
       PurgeClientStaticDataResponseProto.Builder builder = PurgeClientStaticDataResponseProto.newBuilder();
-      Enumeration<Integer> connectedPlayerIds = server.getConnectedPlayerIds();
+      Set<Integer> connectedPlayerIds = server.getConnectedPlayerIds();
       
-      while (connectedPlayerIds.hasMoreElements()) {
-        int playerId = connectedPlayerIds.nextElement();
+      for(Integer playerId : connectedPlayerIds) {
         PurgeClientStaticDataResponseEvent resEvent = new PurgeClientStaticDataResponseEvent(playerId);
         resEvent.setPurgeClientStaticDataResponseProto(builder.setSenderId(playerId).build());
         server.writeEvent(resEvent);

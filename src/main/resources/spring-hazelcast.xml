@@ -29,7 +29,7 @@
 	
 	<hz:map id="playersByPlayerId" name="playersByPlayerId" instance-ref="hazel" />
 
-	<hz:map id="playersPreDBByUDID" name="playersPreDBByUDID" instance-ref="hazel" />
+	<hz:map id="playersPreDatabaseByUDID" name="playersPreDBByUDID" instance-ref="hazel" />
 		
 		
 	<hz:set id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>

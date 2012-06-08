@@ -39,10 +39,11 @@
 
 
 	<int-ip:tcp-connection-factory id="serverSocket"
-		type="server" port="10002" 
+		type="server" port="${server.port}" 
 		using-nio="true" 
 		lookup-host="false"
 		task-executor="gameEventsHandlerExecutor"
+		deserializer="gameEventSerializer"
 		serializer="gameEventSerializer" />
 
 
@@ -52,9 +53,20 @@
 		id="inboundClient" 
 		channel="gameEventQueueChannel" 
 		connection-factory="serverSocket"
-		
-		 />
-
+	/>
+	
+	
+	<int:channel id="outboundMessageChannel" />
+	
+	<int-ip:tcp-outbound-channel-adapter
+		id="outboundClient" 
+		channel="outboundMessageChannel" 
+		connection-factory="serverSocket"
+	/>
+	
+	
+	
+	
 
 	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG"/>
 
