@@ -73,6 +73,9 @@ public class Task {
   public List<Integer> getPotentialLootEquipIds() {
     return potentialLootEquipIds;
   }
+  public void setPotentialLootEquipIds(List<Integer> potentialLootEquipIds) {
+    this.potentialLootEquipIds = potentialLootEquipIds;
+  }
   public int getExpGained() {
     return expGained;
   }

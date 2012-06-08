@@ -119,6 +119,7 @@ public class StartupController extends EventController {
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
+          setAllies(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
           resBuilder.setExperienceRequiredForNextLevel(
@@ -237,6 +238,27 @@ public class StartupController extends EventController {
     }
   }
 
+  private void setAllies(Builder resBuilder, User user) {
+    List<UserType> userTypes = new ArrayList<UserType>();
+    if (MiscMethods.checkIfGoodSide(user.getType())) {
+      userTypes.add(UserType.GOOD_ARCHER);
+      userTypes.add(UserType.GOOD_MAGE);
+      userTypes.add(UserType.GOOD_WARRIOR);      
+    } else {
+      userTypes.add(UserType.BAD_ARCHER);
+      userTypes.add(UserType.BAD_MAGE);
+      userTypes.add(UserType.BAD_WARRIOR);
+    }
+
+    List<User> allies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(), user.getId(), false, 
+        null, null, null, null, false);
+    if (allies != null && allies.size() > 0) {
+      for (User ally : allies) {
+        resBuilder.addAllies(CreateInfoProtoUtils.createMinimumUserProtoFromUser(ally));
+      }
+    }
+  }
+  
   private void setUserEquipsAndEquips(Builder resBuilder, User user) {
     List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
     if (userEquips != null) {
@@ -320,6 +342,7 @@ public class StartupController extends EventController {
     UserType aBadType = UserType.BAD_ARCHER;
 
     Task task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
+    task.setPotentialLootEquipIds(new ArrayList<Integer>());
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
 

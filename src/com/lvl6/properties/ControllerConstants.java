@@ -85,7 +85,7 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION = "Welcome to Kirin Village, soldier. A few moments ago, a strange white light consumed the sky and blinded our eyes during our siege against the Alliance. We found ourselves here with a few Lumorian soldiers after we regained our vision. One seems to have strayed from the pack. Start by killing him!";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE = "Simply amazing! Your battle prowess makes our village seem safer already. ";
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
-  public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 1;
+  public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
   public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 30;
   public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 4;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 20;
@@ -97,6 +97,7 @@ public class ControllerConstants {
   //STARTUP
   public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 10;
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
+  public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 8;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
