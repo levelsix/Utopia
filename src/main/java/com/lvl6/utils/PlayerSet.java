@@ -2,8 +2,6 @@ package com.lvl6.utils;
 
 import java.util.Set;
 
-import javax.annotation.Resource;
-
 public class PlayerSet {
 
 

@@ -1,16 +1,13 @@
 package com.lvl6.server;
 
-import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.URL;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +43,18 @@ public class GameServer extends Thread implements InitializingBean{
 		this.selectAndRead = selectAndRead;
 	}
 	
+	@Autowired
+	protected ServerInstance serverInstance;
+	
+	
+	public ServerInstance getServerInstance() {
+		return serverInstance;
+	}
+
+	public void setServerInstance(ServerInstance serverInstance) {
+		this.serverInstance = serverInstance;
+	}
+
 	@Autowired
 	Map<String, ConnectedPlayer> playersPreDatabaseByUDID;
 
@@ -95,6 +104,14 @@ public class GameServer extends Thread implements InitializingBean{
 //	private Hashtable<String, SocketChannel> udidToChannel;
 
 	
+	public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+		return playersByPlayerId;
+	}
+
+	public void setPlayersByPlayerId(Map<Integer, ConnectedPlayer> playersByPlayerId) {
+		this.playersByPlayerId = playersByPlayerId;
+	}
+
 	@Autowired	
 	private EventWriter eventWriter;
 	public void setEventWriter(EventWriter eventWriter) {
@@ -181,6 +198,20 @@ public class GameServer extends Thread implements InitializingBean{
 		eventWriter.handleEvent(e);
 	}
 
+	
+	
+	  public String serverId() throws FileNotFoundException {
+		  return getServerInstance().serverId();
+	  }
+	
+	
+	/**
+	 * pass the event on to the EventWriter
+	 */
+	public void writePreDBEvent(ResponseEvent e, String udid) {
+		eventWriter.processPreDBResponseEvent(e, udid);
+	}
+	
 	/**
 	 * pass the event on to the APNSWriter
 	 */

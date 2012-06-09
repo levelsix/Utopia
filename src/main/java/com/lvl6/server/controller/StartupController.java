@@ -58,6 +58,7 @@ import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.server.EventWriter;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
@@ -149,15 +150,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     // Write event directly since EventWriter cannot handle without userId.
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
     NIOUtils.prepBuffer(resEvent, writeBuffer);
-
-    SocketChannel sc = server.removePreDbPlayer(udid);
-    if (sc != null) {
-      if (user != null) 
-        NIOUtils.channelWrite(sc, writeBuffer, user.getId());
-      else
-        NIOUtils.channelWrite(sc, writeBuffer, ControllerConstants.NOT_SET);
-    }
     
+    server.writePreDBEvent(resEvent, udid);
+//    SocketChannel sc = server.removePreDbPlayer(udid);
+//    if (sc != null) {
+//      if (user != null) 
+//        NIOUtils.channelWrite(sc, writeBuffer, user.getId());
+//      else
+//        NIOUtils.channelWrite(sc, writeBuffer, ControllerConstants.NOT_SET);
+//    }
+//    
     if (user != null) {
       syncApsalaridLastloginResetBadges(user, apsalarId, new Timestamp(new Date().getTime()));
     }    

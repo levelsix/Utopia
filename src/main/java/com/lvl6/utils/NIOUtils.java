@@ -1,7 +1,8 @@
 package com.lvl6.utils;
 
-import java.nio.*;
-import java.nio.channels.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.ClosedChannelException;
+import java.nio.channels.SocketChannel;
 
 import org.apache.log4j.Logger;
 

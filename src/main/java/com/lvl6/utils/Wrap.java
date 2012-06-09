@@ -1,7 +1,6 @@
 package com.lvl6.utils;
 
 import org.apache.log4j.Logger;
-import org.springframework.scheduling.annotation.Async;
 
 import com.lvl6.events.GameEvent;
 

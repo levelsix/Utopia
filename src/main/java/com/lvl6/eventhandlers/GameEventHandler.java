@@ -137,16 +137,16 @@ public class GameEventHandler implements MessageHandler {
 		  log.debug("Updating player to server maps for player: "+event.getPlayerId());
 		  if(playersByPlayerId.containsKey(event.getPlayerId())) {
 			  ConnectedPlayer p = playersByPlayerId.get(event.getPlayerId());
-			  if(!p.getIp_connection_id().equals(ip_connection_id) || !p.getServerHostName().equals(serverId())) {
+			  if(!p.getIp_connection_id().equals(ip_connection_id) || !p.getServerHostName().equals(server.serverId())) {
 				  log.debug("Player is connected to a new socket or server");
 				  p.setIp_connection_id(ip_connection_id);
-				  p.setServerHostName(serverId());
+				  p.setServerHostName(server.serverId());
 				  playersByPlayerId.put(event.getPlayerId(), p);
 			  }
 		  }else {
 			  ConnectedPlayer newp = new ConnectedPlayer();
 			  newp.setIp_connection_id(ip_connection_id);
-			  newp.setServerHostName(serverId());
+			  newp.setServerHostName(server.serverId());
 			  if(event.getPlayerId() != -1) {
 				  newp.setPlayerId(event.getPlayerId());
 				  playersByPlayerId.put(event.getPlayerId(), newp);
@@ -158,12 +158,6 @@ public class GameEventHandler implements MessageHandler {
 		  
 	  }
 	  
-	  protected String hostName = "";
-	  protected String serverId() throws FileNotFoundException {
-		  if(hostName.equals("")) {
-			  hostName = new Scanner(new File("/etc/hostname")).useDelimiter("\\Z").next();
-		  }
-		  return hostName;
-	  }
+
 
 }

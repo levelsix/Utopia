@@ -6,20 +6,15 @@ import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
-import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.lvl6.events.PreDatabaseRequestEvent;
 import com.lvl6.events.RequestEvent;
-import com.lvl6.info.User;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.Attachment;
 import com.lvl6.utils.ConnectedPlayer;

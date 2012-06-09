@@ -37,7 +37,6 @@
 	<bean id="playersInAction" class="com.lvl6.utils.PlayerSet" scope="singleton" >
 		<property name="players" ref="playersInActionSet" />
 	</bean>
-	
-	<bean id="openWebSockets" class="com.lvl6.utils.OpenWebSockets" scope="singleton" />
+
 	
 </beans>

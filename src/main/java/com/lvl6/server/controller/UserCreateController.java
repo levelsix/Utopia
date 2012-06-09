@@ -173,25 +173,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resEvent.setUserCreateResponseProto(resProto);
 
     log.info("Writing event: " + resEvent);
+    
+    
+    
+    
     // Write event directly since EventWriter cannot handle without userId.
-    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
-    NIOUtils.prepBuffer(resEvent, writeBuffer);
+//    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+//    NIOUtils.prepBuffer(resEvent, writeBuffer);
 
-    SocketChannel sc = server.removePreDbPlayer(udid);
+    server.writePreDBEvent(resEvent, udid);
 
     if (user != null) {
-      ConnectedPlayer p = new ConnectedPlayer();
-      p.setPlayerId(user.getId());
-      p.setChannel(sc);
-      server.addPlayer(p);
-      log.debug("delegate event, new player created and channel set, player:" + 
-          p.getPlayerId() + ", channel: " + sc);
+    	ConnectedPlayer player = server.getPlayerByUdId(udid);
+    	player.setPlayerId(user.getId());
+    	server.getPlayersByPlayerId().put(user.getId(), player);
+    	server.getPlayersPreDatabaseByUDID().remove(udid);
     }
-
-    if (user != null) 
-      NIOUtils.channelWrite(sc, writeBuffer, user.getId());
-    else
-      NIOUtils.channelWrite(sc, writeBuffer, ControllerConstants.NOT_SET);
 
     if (legitUserCreate && userId > 0) {
       server.lockPlayer(userId);
