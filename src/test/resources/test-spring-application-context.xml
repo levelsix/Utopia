@@ -21,6 +21,7 @@
 	<import resource="classpath:spring-integration.xml" />
 	<import resource="classpath:spring-controllers.xml" />
 
+	<bean id="serverInstance" class="com.lvl6.server.ServerInstance" />
 	
 	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" depends-on="dbConnection" destroy-method="shutdown" >
 		<constructor-arg index="0" value="${server.ip}" />

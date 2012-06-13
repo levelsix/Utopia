@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Level;
@@ -37,9 +38,10 @@ public class DBConnection {
 	private final int SELECT_LIMIT_NOT_SET = -1;
 
 	
-	@Autowired
+	@Resource(name="dataSource")
 	protected DataSource dataSource;
 
+	
 	public DataSource getDataSource() {
 		return dataSource;
 	}

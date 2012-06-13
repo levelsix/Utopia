@@ -33,17 +33,6 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 		this.serverInstanceOutboundEventTopic = serverInstanceOutboundEventTopic;
 	}
 
-	public GameServer getServer() {
-		return server;
-	}
-
-	public void setServer(GameServer server) {
-		this.server = server;
-	}
-
-	@Autowired
-	protected GameServer server;
-
 	
 	@Autowired
 	protected MessageChannel outboundMessageChannel;
@@ -83,6 +72,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 
 	@Override
 	public void onMessage(com.hazelcast.core.Message<Message<?>> message) {
+		log.info("Sending outbound message to "+message.getMessageObject().getHeaders().get("ip_connection_id")+" from server: "+hostName);
 		getOutboundMessageChannel().send(message.getMessageObject());
 	}
 

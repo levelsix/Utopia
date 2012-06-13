@@ -53,6 +53,7 @@
 		id="inboundClient" 
 		channel="gameEventQueueChannel" 
 		connection-factory="serverSocket"
+		error-channel="errorChannel"
 	/>
 	
 	

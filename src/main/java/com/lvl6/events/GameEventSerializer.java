@@ -28,6 +28,7 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 	
 	@Override
 	public void serialize(byte[] bytes, OutputStream outputStream) throws IOException {
+		log.info("Serializing outbound message");
 		outputStream.write(bytes);
 		outputStream.flush();
 	}
@@ -52,9 +53,9 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 			}
 			bytes.add((byte) bite);
 			//check header for payload size
-			//payload size is 3rd int in header (index 7 to 11 in byte[])
-			if ( n < 12 && n >= 7){
-				paysize[n-4] = (byte) bite;
+			//payload size is 3rd int in header (index 8 thru 11 in byte[])
+			if ( n < 12 && n > 7){
+				paysize[n-8] = (byte) bite;
 				if(n == 11) {
 					payloadSize = ByteBuffer.wrap(paysize).getInt()+Attachment.HEADER_SIZE;
 					log.info("Message size: "+payloadSize);
@@ -65,6 +66,9 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 			}
 			if (n >= maxMessageSize) {
 				throw new IOException("event not ready before max message length: "	+ maxMessageSize);
+			}
+			if(payloadSize > maxMessageSize) {
+				throw new IOException("Message size: "+payloadSize+" is greater then max message size: "+maxMessageSize);
 			}
 			n++;
 		};

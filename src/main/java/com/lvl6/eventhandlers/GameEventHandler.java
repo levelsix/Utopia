@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.Message;
@@ -31,10 +33,10 @@ public class GameEventHandler implements MessageHandler {
 	@Autowired
 	GameServer server;
 		
-	@Autowired
+	@Resource(name="playersByPlayerId")
 	Map<Integer, ConnectedPlayer> playersByPlayerId;
 	
-	@Autowired
+	@Resource(name="playersPreDatabaseByUDID")
 	Map<String, ConnectedPlayer> playersPreDatabaseByUDID;
 	
 	

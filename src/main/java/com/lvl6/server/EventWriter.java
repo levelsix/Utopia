@@ -1,8 +1,11 @@
 package com.lvl6.server;
 
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
+
+import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +18,15 @@ import com.lvl6.events.BroadcastResponseEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
+import com.lvl6.properties.Globals;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.Wrap;
 
 public class EventWriter extends Wrap {
 	// reference to game server
 
-	@Autowired
+	@Resource(name="gameEventsHandlerExecutor")
 	protected Executor gameEventsExecutor;
 
 	
@@ -50,11 +55,11 @@ public class EventWriter extends Wrap {
 		this.playersByPlayerId = playersByPlayerId;
 	}
 
-	@Autowired
+	@Resource(name="playersPreDatabaseByUDID")
 	protected Map<String, ConnectedPlayer> playersPreDatabaseByUDID;
 
 
-	@Autowired
+	@Resource(name="playersByPlayerId")
 	protected Map<Integer, ConnectedPlayer> playersByPlayerId;
 
 	
@@ -83,13 +88,14 @@ public class EventWriter extends Wrap {
 	 */
 	public void processResponseEvent(ResponseEvent event) {
 		log.info("writer received event=" + event);
+		ByteBuffer buff = getBytes(event);
 		if (BroadcastResponseEvent.class.isInstance(event)) {
 			int[] recipients = ((BroadcastResponseEvent) event).getRecipients();
 			for (int i = 0; i < recipients.length; i++) {
 				if (recipients[i] > 0) {
 					log.info("writing broadcast event with type="+ event.getEventType() + " to players with ids "+ recipients[i]);
 					ConnectedPlayer player = playersByPlayerId.get(recipients[i]);
-					write(event, player);
+					write(buff.duplicate(), player);
 				}
 			}
 		}
@@ -98,7 +104,7 @@ public class EventWriter extends Wrap {
 			int playerId = ((NormalResponseEvent) event).getPlayerId();
 			ConnectedPlayer player = playersByPlayerId.get(playerId);
 			log.info("writing normal event with type=" + event.getEventType()+ " to player with id " + playerId + ", event=" + event);
-			write(event, player);
+			write(buff, player);
 		}
 
 	}
@@ -106,19 +112,26 @@ public class EventWriter extends Wrap {
 	
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
 		ConnectedPlayer player = playersPreDatabaseByUDID.get(udid);
-		write(event, player);
+		ByteBuffer bytes = getBytes(event);
+		write(bytes, player);
 	}
 	
-	
+	protected ByteBuffer getBytes(ResponseEvent event) {
+		ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+		NIOUtils.prepBuffer(event, writeBuffer);
+		return writeBuffer;
+	}
 
 	/**
 	 * write the event to the given playerId's channel
 	 */
-	private void write(ResponseEvent event, ConnectedPlayer player) {
+	private void write(ByteBuffer event, ConnectedPlayer player) {
 		ITopic<Message<?>> serverOutboundMessages = Hazelcast.getTopic(ServerInstance.getOutboundMessageTopicForServer(player.getServerHostName()));
-		Map<String, String> headers = new HashMap<String, String>();
+		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ip_connection_id", player.getIp_connection_id());
-		Message<ResponseEvent> msg = new GenericMessage<ResponseEvent>(event);
+		byte[] bArray = new byte[event.remaining()];
+		event.get(bArray);
+		Message<byte[]> msg = new GenericMessage<byte[]>(bArray, headers);
 		serverOutboundMessages.publish(msg);
 	}
 

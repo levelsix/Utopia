@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
 
 import javax.annotation.Resource;
 
@@ -20,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hazelcast.core.Hazelcast;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
@@ -55,7 +57,7 @@ public class GameServer extends Thread implements InitializingBean{
 		this.serverInstance = serverInstance;
 	}
 
-	@Autowired
+	@Resource(name="playersPreDatabaseByUDID")
 	Map<String, ConnectedPlayer> playersPreDatabaseByUDID;
 
 
@@ -96,7 +98,7 @@ public class GameServer extends Thread implements InitializingBean{
 
 	private Hashtable<EventProtocolRequest, EventController> eventControllers;
 
-	@Autowired
+	@Resource(name="playersByPlayerId")
 	Map<Integer, ConnectedPlayer> playersByPlayerId;
 	
 	
@@ -182,11 +184,11 @@ public class GameServer extends Thread implements InitializingBean{
 		log.info("init : Server initializing");
 		loadEventControllers();
 
-		initServerSocket(); // can make several of these with diff portnums in
-							// each, binded to same selector
-
-		selectAndRead = new SelectAndRead(this);
-		selectAndRead.start();
+//		initServerSocket(); // can make several of these with diff portnums in
+//							// each, binded to same selector
+//
+//		selectAndRead = new SelectAndRead(this);
+//		selectAndRead.start();
 		MiscMethods.reloadAllRareChangeStaticData();
 		// playersInAction = new PlayerSet();
 	}
@@ -269,7 +271,7 @@ public class GameServer extends Thread implements InitializingBean{
 	 * Specific initialization, bind to the server port, setup the Selector,
 	 * etc.
 	 */
-	private void initServerSocket() {
+/*	private void initServerSocket() {
 		log.info("initServerSocket : Initializing server socket");
 
 		try {
@@ -292,7 +294,7 @@ public class GameServer extends Thread implements InitializingBean{
 			log.error("error initializing ServerSocket", e);
 			System.exit(1);
 		}
-	}
+	}*/
 
 	/**
 	 * finds the EventController for a given event type
@@ -322,8 +324,8 @@ public class GameServer extends Thread implements InitializingBean{
 	 */
 	public void shutdown() throws IOException {
 		running = false;
-		selector.wakeup();
-		sSockChan.close();
+//		selector.wakeup();
+//		sSockChan.close();
 	}
 
 	/**
@@ -372,6 +374,8 @@ public class GameServer extends Thread implements InitializingBean{
 //	}
 
 	public void lockPlayer(int playerId) {
+		Lock playerLock = Hazelcast.getLock(playerId);
+		playerLock.lock();
 		playersInAction.addPlayer(playerId);
 	}
 
@@ -390,6 +394,8 @@ public class GameServer extends Thread implements InitializingBean{
 	}
 
 	public void unlockPlayer(int playerId) {
+		Lock lock = Hazelcast.getLock(playerId);
+		lock.unlock();
 		if (playersInAction.containsPlayer(playerId))
 			playersInAction.removePlayer(playerId);
 	}
