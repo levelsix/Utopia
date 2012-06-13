@@ -1,8 +1,11 @@
 package com.lvl6.server;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
@@ -56,12 +59,45 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 	
 	protected String hostName = "";
 
-	public String serverId() throws FileNotFoundException {
+	public String serverId(){
 		if (hostName.equals("")) {
-			hostName = new Scanner(new File("/etc/hostname")).useDelimiter(
-					"\\Z").next();
+			setServerId();
 		}
 		return hostName;
+	}
+	
+	protected void setServerId() {
+		File hostn = new File("/etc/hostname");
+		if(hostn.exists() && hostn.canRead()) {
+			try {
+				hostName = new Scanner(hostn).useDelimiter(
+				"\\Z").next();
+			} catch (FileNotFoundException e) {
+				log.error(e);
+	            log.error("Setting serverId to random UUID");
+	            hostName = UUID.randomUUID().toString();
+			}
+		}else {
+			try {
+	            Runtime rt = Runtime.getRuntime();
+	            Process pr = rt.exec("/bin/hostname");
+	            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+	            String line=null;
+	            while((line=input.readLine()) != null) {
+	                hostName = line;
+	            }
+	            int exitVal = pr.waitFor();
+	            if(exitVal > 0) {
+	            	log.error("Getting hostname failed with error code "+exitVal);
+	            	log.error("Setting serverId to random UUID");
+	            	hostName = UUID.randomUUID().toString();
+	            }
+	        } catch(Exception e) {
+	            log.error(e);
+	            log.error("Setting serverId to random UUID");
+	            hostName = UUID.randomUUID().toString();
+	        }
+		}
 	}
 
 	@Override
