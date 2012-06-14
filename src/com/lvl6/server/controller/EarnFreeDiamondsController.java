@@ -10,6 +10,7 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 
@@ -160,7 +161,9 @@ public class EarnFreeDiamondsController extends EventController {
     URL url;
     String responseMessage = null;
     try {
-      url = new URL(KIIP_VERIFY_ENDPOINT);
+      url = new URL(OAuth.addQueryParameters(KIIP_VERIFY_ENDPOINT, "app_key", KIIP_CONSUMER_KEY,
+          "receipt", kiipReceipt));
+      
       HttpURLConnection request = (HttpURLConnection) url.openConnection();
       consumer.sign(request);
       request.connect();

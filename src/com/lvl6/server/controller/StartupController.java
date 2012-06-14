@@ -139,6 +139,7 @@ public class StartupController extends EventController {
       setConstants(resBuilder, startupStatus);      
     }
 
+    
     StartupResponseProto resProto = resBuilder.build();
     StartupResponseEvent resEvent = new StartupResponseEvent(udid);
     resEvent.setTag(event.getTag());
