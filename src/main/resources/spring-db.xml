@@ -11,37 +11,35 @@
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
 		">
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close" depends-on="contextApplicationContextProvider">
-		<!-- Connection properties -->
-		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<!-- Pool properties -->
-		<property name="minPoolSize" value="5" />
-		<property name="maxPoolSize" value="20" />
-		<property name="maxStatements" value="50" />
-		<property name="idleConnectionTestPeriod" value="3000" />
-		<property name="loginTimeout" value="300" />
-	</bean>
-
-
-<!-- 	<bean id="boneDataSource" class="com.jolbox.bonecp.BoneCPDataSource" -->
-<!-- 		destroy-method="close"> -->
+<!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" -->
+<!-- 		destroy-method="close" depends-on="contextApplicationContextProvider"> -->
 <!-- 		<property name="driverClass" value="${jdbc.driverClassName}" /> -->
 <!-- 		<property name="jdbcUrl" value="${jdbc.url}" /> -->
 <!-- 		<property name="user" value="${jdbc.username}" /> -->
 <!-- 		<property name="password" value="${jdbc.password}" /> -->
-<!-- 		<property name="idleConnectionTestPeriod" value="60" /> -->
-<!-- 		<property name="idleMaxAge" value="240" /> -->
-<!-- 		<property name="maxConnectionsPerPartition" value="30" /> -->
-<!-- 		<property name="minConnectionsPerPartition" value="10" /> -->
-<!-- 		<property name="partitionCount" value="3" /> -->
-<!-- 		<property name="acquireIncrement" value="5" /> -->
-<!-- 		<property name="statementsCacheSize" value="500" /> -->
-<!-- 		<property name="releaseHelperThreads" value="3" /> -->
+<!-- 		<property name="minPoolSize" value="5" /> -->
+<!-- 		<property name="maxPoolSize" value="20" /> -->
+<!-- 		<property name="maxStatements" value="50" /> -->
+<!-- 		<property name="idleConnectionTestPeriod" value="3000" /> -->
+<!-- 		<property name="loginTimeout" value="300" /> -->
 <!-- 	</bean> -->
+
+
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="idleMaxAge" value="240" />
+		<property name="maxConnectionsPerPartition" value="30" />
+		<property name="minConnectionsPerPartition" value="10" />
+		<property name="partitionCount" value="3" />
+		<property name="acquireIncrement" value="5" />
+		<property name="statementsCacheSize" value="500" />
+		<property name="releaseHelperThreads" value="3" />
+	</bean>
 
 	<bean id="dbConnection" class="com.lvl6.utils.DBConnection" scope="singleton"
 		depends-on="dataSource">

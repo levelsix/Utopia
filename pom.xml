@@ -158,6 +158,11 @@
 				<version>0.9.1.2</version>
 			</dependency>
 			<dependency>
+				<groupId>com.jolbox</groupId>
+				<artifactId>bonecp</artifactId>
+				<version>0.7.1.RELEASE</version>
+			</dependency>
+			<dependency>
 				<groupId>com.notnoop.apns</groupId>
 				<artifactId>apns</artifactId>
 				<version>0.1.6</version>
@@ -298,6 +303,10 @@
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.notnoop.apns</groupId>
