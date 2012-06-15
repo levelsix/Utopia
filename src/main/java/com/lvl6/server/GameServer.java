@@ -20,6 +20,9 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.hazelcast.core.Hazelcast;
 import com.lvl6.events.ResponseEvent;
@@ -146,15 +149,16 @@ public class GameServer extends Thread implements InitializingBean{
 	public static float clientVersionNumber = 1.0f;
 
 	public static void main(String args[]) {
-		if (args.length == 2) {
-			GameServer server = new GameServer(args[0],
-					Integer.parseInt(args[1]));
-			DBConnection.get().init();
-			MiscMethods.reloadAllRareChangeStaticData();
-		} else {
-			System.out
-					.println("Error in input- two arguments required: <serverip> <portnum>");
-		}
+		//if (args.length == 2) {
+			ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
+//			GameServer server = new GameServer(args[0],
+//					Integer.parseInt(args[1]));
+//			DBConnection.get().init();
+//			MiscMethods.reloadAllRareChangeStaticData();
+		//} else {
+		//	System.out
+		//			.println("Error in input- two arguments required: <serverip> <portnum>");
+		//}
 	}
 
 	
