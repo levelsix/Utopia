@@ -22,13 +22,13 @@ public class PlayerSet {
 	 * @throws InterruptedException
 	 */
 	public void addPlayer(int playerId) {
-		while (players.contains(playerId)) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				// Continue waiting??
-			}
-		}
+//		while (players.contains(playerId)) {
+//			try {
+//				wait();
+//			} catch (InterruptedException e) {
+//				// Continue waiting??
+//			}
+//		}
 		players.add(playerId);
 	}
 
