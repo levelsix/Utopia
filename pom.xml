@@ -41,6 +41,7 @@
 		<apns.path.to.cert></apns.path.to.cert>
 		<apns.cert.password></apns.cert.password>
 		<hazelcast.ec2.security.group></hazelcast.ec2.security.group>
+		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
 		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
 		<server.ip>0.0.0.0</server.ip>
