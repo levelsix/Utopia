@@ -29,17 +29,16 @@ import com.lvl6.proto.EventProto.TaskActionResponseProto.Builder;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedTasksRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -85,7 +84,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     server.lockPlayer(senderProto.getUserId());
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       TaskActionResponseProto.Builder resBuilder = TaskActionResponseProto.newBuilder();
       resBuilder.setSender(senderProto);    
 
@@ -111,7 +110,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           resBuilder.setLootEquipId(lootEquipId);
         }
 
-        int cityRank = UserCityRetrieveUtils.getCurrentCityRankForUser(user.getId(), task.getCityId());
+        int cityRank = RetrieveUtils.userCityRetrieveUtils().getCurrentCityRankForUser(user.getId(), task.getCityId());
         if (cityRank < ControllerConstants.TASK_ACTION__MAX_CITY_RANK) {
           Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(senderProto.getUserId());
           int numTimesActedInRank = 0;
@@ -219,7 +218,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                       if (insertUtils.insertCompletedTaskIdForUserQuest(user.getId(), remainingTask.getId(), quest.getId())) {
                         userCompletedTasksForQuest.add(remainingTask.getId());
                         if (userCompletedTasksForQuest.containsAll(tasksRequired)) {
-                          if (UpdateUtils.updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
+                          if (UpdateUtils.get().updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
                             userQuest.setTasksComplete(true);
                             questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, senderProto, true, null);
                           } else {
@@ -231,7 +230,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                             + remainingTask.getId() + ", questId=" + quest.getId());
                       }
                     } else {
-                      if (!UpdateUtils.incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
+                      if (!UpdateUtils.get().incrementUserQuestTaskProgress(user.getId(), quest.getId(), remainingTask.getId(), 1)) {
                         log.error("problem with incrementing user quest task progress by 1 for quest id " + quest.getId()
                             + ", task id=" + remainingTask.getId());
                       }
@@ -255,24 +254,24 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     if (legitAction) {
       if (cityRankedUp) {
-        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), task.getCityId(), 1)) {
+        if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), task.getCityId(), 1)) {
           log.error("problem with incrementing user city rank post-task by " + task.getCityId());
         }
         if (tasksInCity != null) {
-          if (!UpdateUtils.resetTimesCompletedInRankForUserTasksInCity(user.getId(), tasksInCity)) {
+          if (!UpdateUtils.get().resetTimesCompletedInRankForUserTasksInCity(user.getId(), tasksInCity)) {
             log.error("problem with resetting user times completed in rank post-task");
           }
         }
       } else {
         if (changeNumTimesUserActedInDB) {
-          if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(user.getId(), task.getId(), 1)) {
+          if (!UpdateUtils.get().incrementTimesCompletedInRankForUserTask(user.getId(), task.getId(), 1)) {
             log.error("problem with incrementing user times completed in rank post-task for task " + task.getId());
           }
         }
       }
 
       if (lootEquipId != ControllerConstants.NOT_SET) {
-        if (!UpdateUtils.incrementUserEquip(user.getId(), lootEquipId, 1)) {
+        if (!UpdateUtils.get().incrementUserEquip(user.getId(), lootEquipId, 1)) {
           log.error("problem with giving user 1 of equip " + lootEquipId);
         }
       }

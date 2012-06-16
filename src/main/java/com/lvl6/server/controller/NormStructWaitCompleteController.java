@@ -101,10 +101,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(List<UserStruct> upgradesDone, List<UserStruct> buildsDone) {
-    if (!UpdateUtils.updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(upgradesDone, 1)) {
+    if (!UpdateUtils.get().updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(upgradesDone, 1)) {
       log.error("problem with marking norm struct upgrade as complete for one of these structs: " + upgradesDone);
     }    
-    if (!UpdateUtils.updateUserStructsLastretrievedpostbuildIscomplete(buildsDone)) {
+    if (!UpdateUtils.get().updateUserStructsLastretrievedpostbuildIscomplete(buildsDone)) {
       log.error("problem with marking norm struct builds as complete for one of these structs: " + upgradesDone);
     }
   }

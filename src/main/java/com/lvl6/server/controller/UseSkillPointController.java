@@ -17,7 +17,7 @@ import com.lvl6.proto.EventProto.UseSkillPointResponseProto.Builder;
 import com.lvl6.proto.EventProto.UseSkillPointResponseProto.UseSkillPointStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class UseSkillPointController extends EventController {
@@ -55,7 +55,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       int gain = 0;
       int cost = 0;

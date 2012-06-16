@@ -26,11 +26,11 @@ import com.lvl6.proto.EventProto.LevelUpResponseProto.LevelUpStatus;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -63,7 +63,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     server.lockPlayer(senderProto.getUserId());
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       boolean legitLevelUp = checkLegitLevelUp(resBuilder, user);
       List<Integer> newlyUnlockedCityIds = null;
       if (legitLevelUp) {
@@ -131,7 +131,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     if (newlyUnlockedCityIds != null && newlyUnlockedCityIds.size() > 0) {
       for (Integer cityId : newlyUnlockedCityIds) {
-        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), cityId, 1)) {
+        if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), cityId, 1)) {
           log.error("problem with unlocking city for user");
         }
       }

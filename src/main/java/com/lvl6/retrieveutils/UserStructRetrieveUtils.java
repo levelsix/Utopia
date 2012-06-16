@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.UserStruct;
@@ -19,7 +21,7 @@ import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.StringUtils;
 
-public class UserStructRetrieveUtils {
+@Component @DependsOn("gameServer") public class UserStructRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

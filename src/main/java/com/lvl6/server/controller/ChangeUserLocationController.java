@@ -19,7 +19,7 @@ import com.lvl6.proto.EventProto.ChangeUserLocationResponseProto.ChangeUserLocat
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class ChangeUserLocationController extends EventController {
@@ -53,7 +53,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       
       boolean legitLocationChange = checkLegitLocationChange(resBuilder, user, location);
 

@@ -25,8 +25,8 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -74,7 +74,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     List<Integer> userIds = new ArrayList<Integer>();
     userIds.add(posterId);
     userIds.add(wallOwnerId);
-    Map<Integer, User> users = UserRetrieveUtils.getUsersByIds(userIds);
+    Map<Integer, User> users = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
     boolean legitPost = checkLegitPost(resBuilder, posterId, wallOwnerId, content, users);
 
     PostOnPlayerWallResponseEvent resEvent = new PostOnPlayerWallResponseEvent(posterId);

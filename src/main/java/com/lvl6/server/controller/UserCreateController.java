@@ -1,7 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,12 +31,11 @@ import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
-import com.lvl6.utils.NIOUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -98,7 +95,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     Location loc = (locationProto == null) ? MiscMethods.getRandomValidLocation() : new Location(locationProto.getLatitude(), locationProto.getLongitude());
 
-    User referrer = (referrerCode != null && referrerCode.length() > 0) ? UserRetrieveUtils.getUserByReferralCode(referrerCode) : null;;
+    User referrer = (referrerCode != null && referrerCode.length() > 0) ? RetrieveUtils.userRetrieveUtils().getUserByReferralCode(referrerCode) : null;;
 
     boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, 
         loc, type, attack, defense, energy, health, stamina, timeOfStructPurchase, timeOfStructBuild, structCoords, 
@@ -148,7 +145,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
-          user = UserRetrieveUtils.getUserById(userId);
+          user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
           FullUserProto userProto = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(userProto);
         } catch (Exception e) {
@@ -198,7 +195,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //        writeUserCritstructs(user.getId());
         writeUserEquips(user.getId(), equipIds);
         writeTaskCompleted(user.getId(), taskCompleted);
-        if (!UpdateUtils.incrementCityRankForUserCity(user.getId(), 1, 1)) {
+        if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), 1, 1)) {
           log.error("problem with giving user access to first city (city with id 1)");
         }
         if (referrer != null && user != null) {
@@ -231,7 +228,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void writeTaskCompleted(int userId, Task taskCompleted) {
     if (taskCompleted != null) {
-      if (!UpdateUtils.incrementTimesCompletedInRankForUserTask(userId, taskCompleted.getId(), taskCompleted.getNumForCompletion())) {
+      if (!UpdateUtils.get().incrementTimesCompletedInRankForUserTask(userId, taskCompleted.getId(), taskCompleted.getNumForCompletion())) {
         log.error("problem with incrementing number of times user completed task in current rank for task " + taskCompleted.getId()
             + " for player " + userId + " by " + taskCompleted.getNumForCompletion());
       }
@@ -318,7 +315,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + ", health=" + health + ", stamina=" + stamina + ", type=" + type);
       return false;
     }
-    if (UserRetrieveUtils.getUserByUDID(udid) != null) {
+    if (RetrieveUtils.userRetrieveUtils().getUserByUDID(udid) != null) {
       resBuilder.setStatus(UserCreateStatus.USER_WITH_UDID_ALREADY_EXISTS);
       log.error("user with udid " + udid + " already exists");
       return false;

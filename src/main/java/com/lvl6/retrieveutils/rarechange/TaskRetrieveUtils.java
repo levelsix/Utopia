@@ -10,12 +10,14 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.Task;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
-public class TaskRetrieveUtils {
+@Component @DependsOn("gameServer") public class TaskRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

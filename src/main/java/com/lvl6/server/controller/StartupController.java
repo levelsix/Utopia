@@ -1,7 +1,6 @@
 package com.lvl6.server.controller;
 
 import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,10 +45,8 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
-import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -58,10 +55,10 @@ import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
-import com.lvl6.server.EventWriter;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
@@ -114,7 +111,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
 
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
-      user = UserRetrieveUtils.getUserByUDID(udid);
+      user = RetrieveUtils.userRetrieveUtils().getUserByUDID(udid);
       if (user != null) {
         server.lockPlayer(user.getId());
         try {
@@ -219,7 +216,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       Map<Integer, User> usersByIds = null;
       if (userIds.size() > 0) {
-        usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
+        usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
       }
 
       if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
@@ -280,7 +277,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void setCitiesAndUserCityInfos(Builder resBuilder, User user) {
-    Map<Integer, Integer> cityIdsToUserCityRanks = UserCityRetrieveUtils.getCityIdToUserCityRank(user.getId());
+    Map<Integer, Integer> cityIdsToUserCityRanks = RetrieveUtils.userCityRetrieveUtils().getCityIdToUserCityRank(user.getId());
     Map<Integer, Integer> taskIdToNumTimesActedInRank = UserTaskRetrieveUtils.getTaskIdToNumTimesActedInRankForUser(user.getId());
 
 

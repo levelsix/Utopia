@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.TaskEquipRequirement;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
-public class TaskEquipReqRetrieveUtils {
+@Component @DependsOn("gameServer") public class TaskEquipReqRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

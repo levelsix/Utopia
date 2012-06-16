@@ -25,11 +25,11 @@ import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.server.GameServer;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -71,7 +71,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       
       int coinGain = MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel());
       
@@ -82,7 +82,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           log.error("problem with updating user stats after retrieving " + coinGain + " silver");
           legitRetrieval = false;
         }
-        if (!UpdateUtils.updateUserStructLastretrieved(userStructId, timeOfRetrieval)) {
+        if (!UpdateUtils.get().updateUserStructLastretrieved(userStructId, timeOfRetrieval)) {
           log.error("problem with updating user struct last retrieved for userStructId " + userStructId + " to " + timeOfRetrieval);
           legitRetrieval = false;
         }
@@ -126,7 +126,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           }
         }
       }
-      if (relevantQuests.size() > 0 && !UpdateUtils.updateUserQuestsCoinsretrievedforreq(senderProto.getUserId(), relevantQuests, coinGain)) {
+      if (relevantQuests.size() > 0 && !UpdateUtils.get().updateUserQuestsCoinsretrievedforreq(senderProto.getUserId(), relevantQuests, coinGain)) {
         log.error("problem with incrementing coins retrieved by " + coinGain + " in user quest info for these quests:" + relevantQuests);
       }
     }

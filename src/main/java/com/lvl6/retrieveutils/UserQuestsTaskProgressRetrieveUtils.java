@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 /*should make a UserQuestsTaskProgress*/
-public class UserQuestsTaskProgressRetrieveUtils {
+@Component @DependsOn("gameServer") public class UserQuestsTaskProgressRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   

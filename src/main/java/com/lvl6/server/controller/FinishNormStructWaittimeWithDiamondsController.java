@@ -22,9 +22,9 @@ import com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponsePro
 import com.lvl6.proto.EventProto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -63,7 +63,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());      
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());      
       UserStruct userStruct = UserStructRetrieveUtils.getSpecificUserStruct(userStructId);
       Structure struct = null;
       if (userStruct != null) {
@@ -103,7 +103,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           * -1)) {
         log.error("problem with using diamonds to finish norm struct build");
       } else {
-        if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
+        if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
           log.error("problem with using diamonds to finish norm struct build");
         }
       }
@@ -112,7 +112,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (!user.updateRelativeDiamondsCoinsExperienceNaive(calculateDiamondCostForInstaRetrieve(userStruct, struct)*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0)) {
         log.error("problem with using diamonds to finish norm struct income waittime");
       } else {
-        if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
+        if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
           log.error("problem with using diamonds to finish norm struct income waittime");
         }
       }
@@ -121,7 +121,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (!user.updateRelativeDiamondsNaive(calculateDiamondCostForInstaUpgrade(userStruct, struct) * -1)) {
         log.error("problem with using diamonds to finish norm struct upgrade waittime");
       } else {
-        if (!UpdateUtils.updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), timeOfPurchase, true, 1)) {
+        if (!UpdateUtils.get().updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), timeOfPurchase, true, 1)) {
           log.error("problem with using diamodns to finish upgrade waittime");
         }
       }

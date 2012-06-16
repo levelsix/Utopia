@@ -20,9 +20,9 @@ import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatu
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class LoadPlayerCityController extends EventController {
@@ -57,7 +57,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User owner = UserRetrieveUtils.getUserById(cityOwnerId);
+      User owner = RetrieveUtils.userRetrieveUtils().getUserById(cityOwnerId);
 
       List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerId);
       setResponseUserStructs(resBuilder, userStructs);
@@ -87,11 +87,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       }
 
       if (ownerIsGood != senderIsGood) {    //loading enemy city, load some of owners allies (more enemies from your POV)
-        List<User> ownerAllies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
+        List<User> ownerAllies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
             null, null, null, null, false);
         setResponseOwnerAlliesOrEnemies(resBuilder, ownerAllies, true);
       } else {                              //loading ally city or your city, creating some of owners enemies
-        List<User> ownerEnemies = UserRetrieveUtils.getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
+        List<User> ownerEnemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
             null, null, null, null, false);
         setResponseOwnerAlliesOrEnemies(resBuilder, ownerEnemies, false);
       }

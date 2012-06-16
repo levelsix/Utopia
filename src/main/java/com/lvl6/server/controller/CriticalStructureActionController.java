@@ -18,7 +18,7 @@ import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
 /*
@@ -67,7 +67,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       boolean legitAction = checkLegitAction(resBuilder, user, cStructType, action, cp, orientation);
 
@@ -123,11 +123,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void writeChangesToDB(User user, CritStructActionType action, CritStructType cStructType, CoordinatePair cp,
       StructOrientation orientation) {
     if (action == CritStructActionType.MOVE || action == CritStructActionType.PLACE) {
-      if (!UpdateUtils.updateUserCritstructCoord(user.getId(), cp, cStructType)) {
+      if (!UpdateUtils.get().updateUserCritstructCoord(user.getId(), cp, cStructType)) {
         log.error("error in changing critstruct location for " + user + " " + cStructType.toString());
       }
     } else if (action == CritStructActionType.ROTATE){
-      if (!UpdateUtils.updateUserCritstructOrientation(user.getId(), orientation, cStructType)) {
+      if (!UpdateUtils.get().updateUserCritstructOrientation(user.getId(), orientation, cStructType)) {
         log.error("error in changing critstruct orientation for " + user + " " + cStructType.toString());
       }
     }

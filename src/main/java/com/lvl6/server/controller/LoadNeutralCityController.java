@@ -28,9 +28,7 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
@@ -38,6 +36,7 @@ import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class LoadNeutralCityController extends EventController {
@@ -74,8 +73,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
-      int currentCityRankForUser = UserCityRetrieveUtils.getCurrentCityRankForUser(senderProto.getUserId(), cityId);
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int currentCityRankForUser = RetrieveUtils.userCityRetrieveUtils().getCurrentCityRankForUser(senderProto.getUserId(), cityId);
 
       boolean legitCityLoad = checkLegitCityLoad(resBuilder, user, city, currentCityRankForUser);
 
@@ -192,7 +191,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     for (UserType type : numToGenerate.keySet()) {
       List<UserType> temp = new ArrayList<UserType>();
       temp.add(type);
-      List<User> users = UserRetrieveUtils.getUsers(temp,
+      List<User> users = RetrieveUtils.userRetrieveUtils().getUsers(temp,
           numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true);
       if (users != null) {
         for (User u : users) {

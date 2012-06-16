@@ -18,7 +18,7 @@ import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMark
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -63,7 +63,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int diamondCut = Math.max(0, (int)(Math.ceil(diamondCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
       int coinCut = Math.max(0, (int)(Math.ceil(coinCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
       
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       boolean legitRetract = checkLegitRetract(user, mp, resBuilder, 
           diamondCut, coinCut, postId);
@@ -98,7 +98,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int diamondChange = diamondCut * -1;
     int coinChange = coinCut * -1;
     
-    if (!UpdateUtils.incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
+    if (!UpdateUtils.get().incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
       log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());
     }
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, -1)) {

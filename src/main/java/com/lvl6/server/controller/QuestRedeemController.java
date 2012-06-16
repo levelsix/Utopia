@@ -23,9 +23,9 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -100,7 +100,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitRedeem) {
-        User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+        User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
         writeChangesToDB(userQuest, quest, user, senderProto);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
@@ -141,12 +141,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(UserQuest userQuest, Quest quest, User user, MinimumUserProto senderProto) {
-    if (!UpdateUtils.updateRedeemUserQuest(userQuest.getUserId(), userQuest.getQuestId())) {
+    if (!UpdateUtils.get().updateRedeemUserQuest(userQuest.getUserId(), userQuest.getQuestId())) {
       log.error("problem with marking user quest as redeemed. questId=" + userQuest.getQuestId());
     }
 
     if (quest.getEquipIdGained() > 0) {
-      if (!UpdateUtils.incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
+      if (!UpdateUtils.get().incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
         log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
             + quest.getEquipIdGained());
       } else {

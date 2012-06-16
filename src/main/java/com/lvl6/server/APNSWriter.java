@@ -19,8 +19,8 @@ import com.lvl6.proto.EventProto.BattleResponseProto;
 import com.lvl6.proto.EventProto.PostOnPlayerWallResponseProto;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.Wrap;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 import com.notnoop.apns.APNS;
@@ -91,7 +91,7 @@ public class APNSWriter extends Wrap {
       server.writeEvent(event);
     } else {
       log.info("received APNS notification to send to player with id " + playerId);
-      User user = UserRetrieveUtils.getUserById(playerId);
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
       if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
         ApnsServiceBuilder builder = APNS.newService().withCert(ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert), apnsProperties.certPassword);
 
@@ -106,7 +106,7 @@ public class APNSWriter extends Wrap {
             < now.getTime()) {
           LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = now;
           Map<String, Date> inactiveDevices = service.getInactiveDevices();
-          UpdateUtils.updateNullifyDeviceTokens(inactiveDevices.keySet());
+          UpdateUtils.get().updateNullifyDeviceTokens(inactiveDevices.keySet());
         }
 
         if (BattleResponseEvent.class.isInstance(event)) {
@@ -139,7 +139,7 @@ public class APNSWriter extends Wrap {
     PostOnPlayerWallResponseProto resProto = event.getPostOnPlayerWallResponseProto();
     PlayerWallPostProto post = resProto.getPost();
 
-    User poster = UserRetrieveUtils.getUserById(post.getPoster().getUserId());
+    User poster = RetrieveUtils.userRetrieveUtils().getUserById(post.getPoster().getUserId());
     if (poster != null) {
       pb.alertBody(poster.getName() + " just posted on your wall! Check out the message.");
 

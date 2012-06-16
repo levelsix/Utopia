@@ -27,8 +27,8 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -77,7 +77,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       UserEquip ue = UserEquipRetrieveUtils.getSpecificUserEquip(user.getId(), reqProto.getPostedEquipId());
 
@@ -166,7 +166,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       UserEquip ue, MarketplacePostType postType, Timestamp timeOfPost) {
 
     if (ue != null) {
-      if (!UpdateUtils.decrementUserEquip(user.getId(), reqProto.getPostedEquipId(), 
+      if (!UpdateUtils.get().decrementUserEquip(user.getId(), reqProto.getPostedEquipId(), 
           ue.getQuantity(), 1)) {
         log.error("problem with decrementing a user equip from user for marketplace post. user is "
             + user.getId() + ", posted equip id is " + reqProto.getPostedEquipId()

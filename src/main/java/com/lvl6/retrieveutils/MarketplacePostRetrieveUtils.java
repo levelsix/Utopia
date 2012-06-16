@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.properties.ControllerConstants;
@@ -16,7 +18,7 @@ import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.utils.DBConnection;
 
-public class MarketplacePostRetrieveUtils {
+@Component @DependsOn("gameServer") public class MarketplacePostRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

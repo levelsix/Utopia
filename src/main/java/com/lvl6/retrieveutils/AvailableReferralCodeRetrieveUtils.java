@@ -5,11 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
-public class AvailableReferralCodeRetrieveUtils {
+@Component @DependsOn("gameServer") public class AvailableReferralCodeRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

@@ -82,14 +82,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legit) {
         if (type == MoveOrRotateNormStructType.MOVE) {
-          if (!UpdateUtils.updateUserStructCoord(userStructId, newCoords)) {
+          if (!UpdateUtils.get().updateUserStructCoord(userStructId, newCoords)) {
             resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);
             log.error("problem with updating coordinates to " + newCoords + " for user struct " + userStructId);
           } else {
             resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);
           }
         } else {
-          if (!UpdateUtils.updateUserStructOrientation(userStructId, orientation)) {
+          if (!UpdateUtils.get().updateUserStructOrientation(userStructId, orientation)) {
             resBuilder.setStatus(MoveOrRotateNormStructureStatus.OTHER_FAIL);
             log.error("problem with updating orientation to " + orientation + " for user struct " + userStructId);
           } else {

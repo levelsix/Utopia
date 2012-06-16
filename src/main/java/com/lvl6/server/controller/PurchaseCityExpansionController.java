@@ -20,7 +20,7 @@ import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserCityExpansionRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -60,7 +60,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       UserCityExpansionData userCityExpansionData = UserCityExpansionRetrieveUtils.getUserCityExpansionDataForUser(senderProto.getUserId());
       
       boolean legitExpansion = checkLegitExpansion(resBuilder, direction, timeOfPurchase, user, userCityExpansionData);
@@ -88,7 +88,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (!user.updateRelativeCoinsNaive(calculateExpansionCost(userCityExpansionData)*-1)) {
       log.error("problem with updating coins after purchasing a city");
     }
-    if (!UpdateUtils.updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(user.getId(), timeOfPurchase, direction, true)) {
+    if (!UpdateUtils.get().updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(user.getId(), timeOfPurchase, direction, true)) {
       log.error("problem with updating user expansion info after purchase");
     }
   }

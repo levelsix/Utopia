@@ -148,7 +148,7 @@ public class QuestUtils {
     if (server != null && senderProto != null && sendCompleteMessageIfJustCompleted) {
       sendQuestCompleteResponse(server, senderProto, quest);
     }
-    if (!userQuest.isComplete() && !UpdateUtils.updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
+    if (!userQuest.isComplete() && !UpdateUtils.get().updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
       log.error("problem with marking user quest as complete. userquest=" + userQuest);
     }
   }

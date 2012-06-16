@@ -20,8 +20,8 @@ import com.lvl6.proto.EventProto.RetrievePlayerWallPostsResponseProto.RetrievePl
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class RetrievePlayerWallPostsController extends EventController{
 
@@ -56,7 +56,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
     server.lockPlayer(relevantUserId);
     try {
-      User user = UserRetrieveUtils.getUserById(relevantUserId);
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(relevantUserId);
       if (user == null) {
         resBuilder.setStatus(RetrievePlayerWallPostsStatus.OTHER_FAIL);
         log.error("no user with id " + relevantUserId);
@@ -77,7 +77,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
             }
             Map<Integer, User> usersByIds = null;
             if (userIds.size() > 0) {
-              usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
+              usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
               for (PlayerWallPost pwp : activePlayerWallPosts) {
                 resBuilder.addPlayerWallPosts(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, usersByIds.get(pwp.getPosterId())));
               }

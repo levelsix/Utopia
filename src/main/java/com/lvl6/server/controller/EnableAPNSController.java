@@ -13,7 +13,7 @@ import com.lvl6.proto.EventProto.EnableAPNSResponseProto;
 import com.lvl6.proto.EventProto.EnableAPNSResponseProto.EnableAPNSStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class EnableAPNSController extends EventController {
 
@@ -45,7 +45,7 @@ import com.lvl6.retrieveutils.UserRetrieveUtils;
     resBuilder.setSender(senderProto);
     server.lockPlayer(senderProto.getUserId());
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       if (deviceToken != null && user != null) { 
         resBuilder.setStatus(EnableAPNSStatus.SUCCESS);

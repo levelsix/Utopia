@@ -15,8 +15,8 @@ import com.lvl6.proto.EventProto.RetrieveUsersForUserIdsRequestProto;
 import com.lvl6.proto.EventProto.RetrieveUsersForUserIdsResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class RetrieveUsersForUserIdsController extends EventController{
 
@@ -46,7 +46,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
     RetrieveUsersForUserIdsResponseProto.Builder resBuilder = RetrieveUsersForUserIdsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    Map<Integer, User> usersByIds = UserRetrieveUtils.getUsersByIds(requestedUserIds);
+    Map<Integer, User> usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(requestedUserIds);
     if (usersByIds != null) {
       for (User user : usersByIds.values()) {
         resBuilder.addRequestedUsers(CreateInfoProtoUtils.createFullUserProtoFromUser(user));

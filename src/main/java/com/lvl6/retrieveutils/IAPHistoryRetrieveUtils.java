@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
-public class IAPHistoryRetrieveUtils {
+@Component @DependsOn("gameServer") public class IAPHistoryRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

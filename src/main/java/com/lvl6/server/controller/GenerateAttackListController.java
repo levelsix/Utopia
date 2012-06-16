@@ -19,8 +19,8 @@ import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class GenerateAttackListController extends EventController {
@@ -56,7 +56,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(GenerateAttackListStatus.SUCCESS);
     
-    User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+    User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
     if (numEnemies > ControllerConstants.GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX || numEnemies < 1) {
       resBuilder.setStatus(GenerateAttackListStatus.INVALID_NUM_ENEMIES_COUNT);      
     } else if ((latLowerBound != null && (latLowerBound < ControllerConstants.LATITUDE_MIN || latLowerBound > ControllerConstants.LATITUDE_MAX)) || 
@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         userTypes.add(UserType.GOOD_WARRIOR);
       }
 
-      List<User> enemies = UserRetrieveUtils.getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
+      List<User> enemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, numEnemies, user.getLevel(), user.getId(), false, 
           latLowerBound, latUpperBound, longLowerBound, longUpperBound, true);
       if (enemies != null) {
         for (User enemy : enemies) {

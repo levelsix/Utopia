@@ -8,20 +8,25 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 /*NO UserTask needed because you can just return a map- only two non-user fields*/
-public class UserCityRetrieveUtils {
+@Component @DependsOn("gameServer") public class UserCityRetrieveUtils {
 
-  private static final int NOT_SET = -1;
+  private final int NOT_SET = -1;
   
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
-  private static final String TABLE_NAME = DBConstants.TABLE_USER_CITIES;
+  private final String TABLE_NAME = DBConstants.TABLE_USER_CITIES;
   
-  public static Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
+  
+  @Cacheable(value="cityIdToUserCityRankCache", key="#userId")
+  public Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
     log.debug("retrieving city id to user city rank map for userId " + userId);
 
     Connection conn = DBConnection.get().getConnection();
@@ -31,7 +36,10 @@ public class UserCityRetrieveUtils {
     return cityIdToUserCityRankMap;
   }
   
-  public static int getCurrentCityRankForUser(int userId, int cityId) {
+  
+  
+  @Cacheable(value="currentCityRankForUserCache")
+  public int getCurrentCityRankForUser(int userId, int cityId) {
     log.debug("retrieving user city info for userId " + userId + " and cityId " + cityId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
@@ -44,7 +52,7 @@ public class UserCityRetrieveUtils {
     return cityRank;
   }
   
-  private static int convertRSToCityRank(ResultSet rs) {
+  private int convertRSToCityRank(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -61,7 +69,7 @@ public class UserCityRetrieveUtils {
     return NOT_SET;
   }
 
-  private static Map<Integer, Integer> convertRSToCityIdToCityRankMap(ResultSet rs) {
+  private Map<Integer, Integer> convertRSToCityIdToCityRankMap(ResultSet rs) {
     Map<Integer, Integer> cityIdToCityRankMap = new HashMap<Integer, Integer>();
     if (rs != null) {
       try {

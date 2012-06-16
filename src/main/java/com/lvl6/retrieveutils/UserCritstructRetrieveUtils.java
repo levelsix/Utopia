@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.UserCritstruct;
@@ -15,7 +17,7 @@ import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.utils.DBConnection;
 
-public class UserCritstructRetrieveUtils {
+@Component @DependsOn("gameServer") public class UserCritstructRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

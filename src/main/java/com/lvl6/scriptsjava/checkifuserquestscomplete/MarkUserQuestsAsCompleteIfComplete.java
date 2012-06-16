@@ -90,7 +90,7 @@ public class MarkUserQuestsAsCompleteIfComplete {
                 }
               }
             }
-            if (!userQuest.isComplete() && !UpdateUtils.updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
+            if (!userQuest.isComplete() && !UpdateUtils.get().updateUserQuestIscomplete(userQuest.getUserId(), userQuest.getQuestId())) {
               System.out.println("problem with marking user quest as complete");
             } else {
               System.out.println("successfull changed user quest");

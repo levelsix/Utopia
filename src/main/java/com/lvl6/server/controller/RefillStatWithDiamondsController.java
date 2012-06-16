@@ -17,7 +17,7 @@ import com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.Builder;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsResponseProto.RefillStatStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class RefillStatWithDiamondsController extends EventController{
@@ -51,7 +51,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());      
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());      
 
       boolean legitRefill = checkLegitRefill(resBuilder, user, statType);
 

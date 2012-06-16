@@ -17,9 +17,9 @@ import com.lvl6.proto.EventProto.SellNormStructureResponseProto;
 import com.lvl6.proto.EventProto.SellNormStructureResponseProto.SellNormStructureStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -63,7 +63,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     try {
       User user = null;
       if (userStruct != null) {
-        user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+        user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
         if (user != null && struct != null && user.getId() == userStruct.getUserId()) {
           int diamondChange = Math.max(0,  (int)Math.ceil(struct.getDiamondPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
           int coinChange = Math.max(0,  (int)Math.ceil(struct.getCoinPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));

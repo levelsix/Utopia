@@ -20,8 +20,8 @@ import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.Re
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class RetrieveCurrentMarketplacePostsController extends EventController{
 
@@ -58,7 +58,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
     server.lockPlayer(senderProto.getUserId());
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       if (user == null) {
         resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.OTHER_FAIL);
         log.error("no user with given id");
@@ -88,7 +88,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
           Map<Integer, User> usersByIds = null;
           if (userIds.size() > 0) {
-            usersByIds = UserRetrieveUtils.getUsersByIds(userIds);
+            usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
           }
           
           for (MarketplacePost mp : activeMarketplacePosts) {

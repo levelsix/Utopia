@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.cache.annotation.CacheEvict;
+
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
@@ -16,13 +18,19 @@ import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils {
 
-//  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+	
+	public static UpdateUtils get() {
+		return (UpdateUtils) AppContext.getApplicationContext().getBean("updateUtils");
+	}
+	
+//  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
-  public static boolean updateUserQuestsCoinsretrievedforreq(int userId, List <Integer> questIds, int coinGain) {
+  public boolean updateUserQuestsCoinsretrievedforreq(int userId, List <Integer> questIds, int coinGain) {
     String query = "update " + DBConstants.TABLE_USER_QUESTS + " set " + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ
         + "=" + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ + "+? where " 
         + DBConstants.USER_QUESTS__USER_ID + "=? and (";
@@ -43,7 +51,7 @@ public class UpdateUtils {
   }
 
   
-  public static void updateNullifyDeviceTokens(Set<String> deviceTokens) {
+  public void updateNullifyDeviceTokens(Set<String> deviceTokens) {
     if (deviceTokens != null && deviceTokens.size() > 0) {
       String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__DEVICE_TOKEN 
           + "=? where ";
@@ -62,7 +70,7 @@ public class UpdateUtils {
   /*
    * used when an expansion is complete
    */
-  public static boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
+  public boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
       int farLeftExpansionsChange, int farRightExpansionsChange, 
       boolean isExpanding) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -84,7 +92,7 @@ public class UpdateUtils {
   /*
    * used for purchasing a city expansion
    */
-  public static boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int userId, Timestamp lastExpandTime, 
+  public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int userId, Timestamp lastExpandTime, 
       ExpansionDirection lastExpansionDirection, boolean isExpanding) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
@@ -102,7 +110,7 @@ public class UpdateUtils {
     return false;
   }
 
-  public static boolean updateUserQuestIscomplete(int userId, int questId) {
+  public boolean updateUserQuestIscomplete(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
@@ -120,7 +128,7 @@ public class UpdateUtils {
     return false;
   }  
 
-  public static boolean updateRedeemUserQuest(int userId, int questId) {
+  public boolean updateRedeemUserQuest(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
@@ -142,7 +150,7 @@ public class UpdateUtils {
   /*
    * changin orientation
    */
-  public static boolean updateUserStructOrientation(int userStructId,
+  public boolean updateUserStructOrientation(int userStructId,
       StructOrientation orientation) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -161,7 +169,7 @@ public class UpdateUtils {
   /*
    * used for setting a questitemtype as completed for a user quest
    */
-  public static boolean updateUserQuestsSetCompleted(int userId, int questId, boolean setTasksCompleteTrue, boolean setDefeatTypeJobsCompleteTrue) {
+  public boolean updateUserQuestsSetCompleted(int userId, int questId, boolean setTasksCompleteTrue, boolean setDefeatTypeJobsCompleteTrue) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
@@ -182,7 +190,7 @@ public class UpdateUtils {
     return false;
   }
 
-  public static boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
+  public boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
 
@@ -214,7 +222,7 @@ public class UpdateUtils {
   /*
    * used for moving user structs
    */
-  public static boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates, CritStructType critStructType) {
+  public boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates, CritStructType critStructType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
 
@@ -251,7 +259,7 @@ public class UpdateUtils {
   /*
    * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct
    */
-  public static boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(List<UserStruct> userStructs, int levelChange) {
+  public boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(List<UserStruct> userStructs, int levelChange) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
 
     for (UserStruct userStruct : userStructs) {
@@ -260,7 +268,7 @@ public class UpdateUtils {
         return false;
       }
       Timestamp lastRetrievedTime = new Timestamp(userStruct.getLastUpgradeTime().getTime() + 60000*MiscMethods.calculateMinutesToUpgradeForUserStruct(structure.getMinutesToUpgradeBase(), userStruct.getLevel()));
-      if (!UpdateUtils.updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), lastRetrievedTime, true, levelChange)) {
+      if (!updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), lastRetrievedTime, true, levelChange)) {
         return false;
       }
     }
@@ -270,7 +278,7 @@ public class UpdateUtils {
   /*
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
-  public static boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
+  public boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 
@@ -294,7 +302,7 @@ public class UpdateUtils {
   /*
    * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
    */
-  public static boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct> userStructs) {
+  public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct> userStructs) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
 
     for (UserStruct userStruct : userStructs) {
@@ -303,7 +311,7 @@ public class UpdateUtils {
         return false;
       }
       Timestamp lastRetrievedTime = new Timestamp(userStruct.getPurchaseTime().getTime() + 60000*structure.getMinutesToBuild());
-      if (!UpdateUtils.updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), lastRetrievedTime, null, true)) {
+      if (!updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), lastRetrievedTime, null, true)) {
         return false;
       }
     }
@@ -313,7 +321,7 @@ public class UpdateUtils {
   /*
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
-  public static boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
+  public boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 
@@ -337,7 +345,7 @@ public class UpdateUtils {
   /*
    * used for updating last retrieved user struct time
    */
-  public static boolean updateUserStructLastretrieved(int userStructId, Timestamp lastRetrievedTime) {
+  public boolean updateUserStructLastretrieved(int userStructId, Timestamp lastRetrievedTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 
@@ -355,7 +363,7 @@ public class UpdateUtils {
   /*
    * used for upgrading user structs level
    */
-  public static boolean updateUserStructLevel(int userStructId, int levelChange) {
+  public boolean updateUserStructLevel(int userStructId, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 
@@ -373,7 +381,7 @@ public class UpdateUtils {
   /*
    * used for moving user structs
    */
-  public static boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
+  public boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 
@@ -389,7 +397,7 @@ public class UpdateUtils {
     return false;
   }
 
-  public static boolean incrementUserEquip(int userId, int equipId, int increment) {
+  public boolean incrementUserEquip(int userId, int equipId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
     insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
@@ -406,7 +414,7 @@ public class UpdateUtils {
   /*
    * used for battles
    */
-  public static boolean decrementUserEquip(int userId, int equipId, int currentQuantity, int decrement) {
+  public boolean decrementUserEquip(int userId, int equipId, int currentQuantity, int decrement) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
     conditionParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
@@ -434,7 +442,8 @@ public class UpdateUtils {
   /*
    * used for tasks
    */
-  public static boolean incrementCityRankForUserCity(int userId, int cityId, int increment) {
+  @CacheEvict(value="cityIdToUserCityRankCache", key="#userId")
+  public boolean incrementCityRankForUserCity(int userId, int cityId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.USER_CITIES__USER_ID, userId);
@@ -453,7 +462,7 @@ public class UpdateUtils {
   /*
    * used for tasks
    */
-  public static boolean incrementTimesCompletedInRankForUserTask(int userId, int taskId, int increment) {
+  public boolean incrementTimesCompletedInRankForUserTask(int userId, int taskId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.USER_TASK__USER_ID, userId);
@@ -470,7 +479,7 @@ public class UpdateUtils {
   }  
 
 
-  public static boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, int defeatTypeJobId, int increment) {
+  public boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, int defeatTypeJobId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);
@@ -487,7 +496,7 @@ public class UpdateUtils {
     return false;
   }
 
-  public static boolean incrementUserQuestTaskProgress(int userId, int questId, int taskId, int increment) {
+  public boolean incrementUserQuestTaskProgress(int userId, int questId, int taskId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__USER_ID, userId);
@@ -504,7 +513,7 @@ public class UpdateUtils {
     return false;
   }
 
-  public static boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
+  public boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
     String query = "update " + DBConstants.TABLE_USER_TASKS + " set " + DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK 
         + "=? where ";
     List<Object> values = new ArrayList<Object>();

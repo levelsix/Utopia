@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
 /*NO UserTask needed because you can just return a map- only two non-user fields*/
-public class UserTaskRetrieveUtils {
+@Component @DependsOn("gameServer") public class UserTaskRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   

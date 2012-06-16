@@ -48,6 +48,7 @@
 
 
 	<bean id="insertUtils" class="com.lvl6.utils.utilmethods.InsertUtils" />
+	<bean id="updateUtils" class="com.lvl6.utils.utilmethods.UpdateUtils" />
 
 
 </beans>

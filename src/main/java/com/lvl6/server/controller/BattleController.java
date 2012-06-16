@@ -36,11 +36,11 @@ import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedDefeatTypeJobsRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
@@ -91,8 +91,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
 
     try {
-      User attacker = UserRetrieveUtils.getUserById(attackerProto.getUserId());
-      User defender = UserRetrieveUtils.getUserById(defenderProto.getUserId());
+      User attacker = RetrieveUtils.userRetrieveUtils().getUserById(attackerProto.getUserId());
+      User defender = RetrieveUtils.userRetrieveUtils().getUserById(defenderProto.getUserId());
 
       BattleResponseProto.Builder resBuilder = BattleResponseProto.newBuilder();
 
@@ -256,7 +256,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                             if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                               userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
                               if (userCompletedDefeatTypeJobsForQuest.containsAll(defeatTypeJobsRequired)) {
-                                if (UpdateUtils.updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
+                                if (UpdateUtils.get().updateUserQuestsSetCompleted(attacker.getId(), quest.getId(), false, true)) {
                                   userQuest.setDefeatTypeJobsComplete(true);
                                   questCompletedAndSent = QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, userQuest, attackerProto, true, null);
                                 } else {
@@ -270,7 +270,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                                   + " and quest " + quest.getId());
                             }
                           } else {
-                            if (!UpdateUtils.incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
+                            if (!UpdateUtils.get().incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
                               log.error("problem with incrementing user quest defeat type job progress for user "
                                   + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
                             }
@@ -294,7 +294,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User winner, User loser, User attacker, User defender, int expGained,
       int lostCoins, Timestamp battleTime, boolean isFlee) {
     if (lostEquip != null) {
-      if (!loser.isFake() && !UpdateUtils.decrementUserEquip(loser.getId(),
+      if (!loser.isFake() && !UpdateUtils.get().decrementUserEquip(loser.getId(),
           lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
         log.error("problem with decreasing 1 of equip " + lostEquip.getEquipId() + " from user " + loser.getId()
             + " who currently has " + lostEquip.getQuantity() + " of them");
@@ -303,7 +303,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           log.error("problem with unequipping " + lostEquip.getEquipId() + " from " + loser);
         }
       }
-      if (!UpdateUtils.incrementUserEquip(winner.getId(),
+      if (!UpdateUtils.get().incrementUserEquip(winner.getId(),
           lostEquip.getEquipId(), 1)) {
         log.error("problem with giving user " + winner + " one of " + lostEquip.getEquipId());
       }

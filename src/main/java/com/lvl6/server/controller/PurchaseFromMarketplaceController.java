@@ -22,9 +22,9 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -83,9 +83,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayers(sellerId, buyerId);
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
-      User buyer = UserRetrieveUtils.getUserById(buyerId);
+      User buyer = RetrieveUtils.userRetrieveUtils().getUserById(buyerId);
 
-      User seller = UserRetrieveUtils.getUserById(sellerId);        
+      User seller = RetrieveUtils.userRetrieveUtils().getUserById(sellerId);        
       boolean legitPurchase = checkLegitPurchase(resBuilder, mp, buyer, seller, postId);
 
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
@@ -168,7 +168,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //      }
 //    }
     
-    if (!UpdateUtils.incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
+    if (!UpdateUtils.get().incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
       log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
     }
 

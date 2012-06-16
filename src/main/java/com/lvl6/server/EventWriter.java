@@ -8,7 +8,6 @@ import java.util.concurrent.Executor;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.Message;
 import org.springframework.integration.message.GenericMessage;
 

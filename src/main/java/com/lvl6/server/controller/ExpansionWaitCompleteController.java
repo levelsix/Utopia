@@ -83,7 +83,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (userCityExpansionData.getLastExpandDirection() == ExpansionDirection.FAR_RIGHT) {
       farRightExpansionChange++;
     }
-    if (!UpdateUtils.updateUserExpansionNumexpansionsIsexpanding(userCityExpansionData.getUserId(), 
+    if (!UpdateUtils.get().updateUserExpansionNumexpansionsIsexpanding(userCityExpansionData.getUserId(), 
         farLeftExpansionChange, farRightExpansionChange, false)) {
       log.error("problem with resolving expansion");
     }

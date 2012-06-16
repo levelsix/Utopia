@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.Location;
 import com.lvl6.info.User;
@@ -20,19 +23,21 @@ import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.StringUtils;
 
-public class UserRetrieveUtils {
+@Component @DependsOn("gameServer") public class UserRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = DBConstants.TABLE_USER;
+  private final String TABLE_NAME = DBConstants.TABLE_USER;
 
-  private static final int BATTLE_INITIAL_LEVEL_RANGE = 2;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
-  private static final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
-  private static final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
-  private static final int MAX_BATTLE_DB_HITS = 5;
-  private static final int EXTREME_MAX_BATTLE_DB_HITS = 30;
+  private final int BATTLE_INITIAL_LEVEL_RANGE = 2;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
+  private final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
+  private final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
+  private final int MAX_BATTLE_DB_HITS = 5;
+  private final int EXTREME_MAX_BATTLE_DB_HITS = 30;
   
-  public static User getUserById(int userId) {
+  
+  //@Cacheable(value="usersCache")
+  public User getUserById(int userId) {
     log.debug("retrieving user with userId " + userId);
 
     Connection conn = DBConnection.get().getConnection();
@@ -42,7 +47,7 @@ public class UserRetrieveUtils {
     return user;
   }
 
-  public static Map<Integer, User> getUsersByIds(List<Integer> userIds) {
+  public Map<Integer, User> getUsersByIds(List<Integer> userIds) {
     log.debug("retrieving users with userIds " + userIds);
     
     if (userIds == null || userIds.size() <= 0 ) {
@@ -65,7 +70,7 @@ public class UserRetrieveUtils {
     return userIdToUserMap;
   }
 
-  public static List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
+  public List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
       Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle) {
     log.debug("retrieving list of users for user " + userId + " with requested types " + requestedTypes + 
         " , " + numUsers + " users " + " around player level " + playerLevel + ", guaranteeNum="+guaranteeNum + 
@@ -161,7 +166,7 @@ public class UserRetrieveUtils {
 
   //when you first log in, call this
   //if this returns null, tell user it's the player's first time/launch tutorial
-  public static User getUserByUDID(String UDID) {
+  public User getUserByUDID(String UDID) {
     log.debug("retrieving user with udid " + UDID);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
@@ -173,7 +178,7 @@ public class UserRetrieveUtils {
     return user;
   }
 
-  public static User getUserByReferralCode(String referralCode) {
+  public User getUserByReferralCode(String referralCode) {
     log.debug("retrieving user with referral code " + referralCode);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
@@ -185,7 +190,7 @@ public class UserRetrieveUtils {
     return user;
   }
 
-  private static User convertRSToUser(ResultSet rs) {
+  private User convertRSToUser(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -201,7 +206,7 @@ public class UserRetrieveUtils {
     return null;
   }
 
-  private static Map<Integer, User> convertRSToUserIdToUsersMap(ResultSet rs) {
+  private Map<Integer, User> convertRSToUserIdToUsersMap(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -222,7 +227,7 @@ public class UserRetrieveUtils {
     return null;
   }
 
-  private static List<User> convertRSToUsers(ResultSet rs) {
+  private List<User> convertRSToUsers(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -243,7 +248,7 @@ public class UserRetrieveUtils {
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
-  private static User convertRSRowToUser(ResultSet rs) throws SQLException {
+  private User convertRSRowToUser(ResultSet rs) throws SQLException {
     int i = 1;
     int userId = rs.getInt(i++);
     String name = rs.getString(i++);

@@ -7,13 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
-public class CityRetrieveUtils {
+@Component @DependsOn("gameServer") public class CityRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

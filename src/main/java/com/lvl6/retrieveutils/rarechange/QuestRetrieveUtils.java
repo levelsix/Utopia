@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Quest;
@@ -19,7 +21,7 @@ import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.QuestGraph;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class QuestRetrieveUtils {
+@Component @DependsOn("gameServer") public class QuestRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

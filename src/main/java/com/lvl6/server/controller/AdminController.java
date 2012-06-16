@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.util.Enumeration;
 import java.util.Set;
 
 import org.apache.log4j.Logger;

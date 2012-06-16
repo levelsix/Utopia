@@ -8,13 +8,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.jobs.DefeatTypeJob;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.utils.DBConnection;
 
-public class DefeatTypeJobRetrieveUtils {
+@Component @DependsOn("gameServer") public class DefeatTypeJobRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

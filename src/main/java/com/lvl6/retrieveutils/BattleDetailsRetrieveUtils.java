@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.BattleDetails;
 import com.lvl6.properties.ControllerConstants;
@@ -17,7 +19,7 @@ import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.utils.DBConnection;
 
-public class BattleDetailsRetrieveUtils {
+@Component @DependsOn("gameServer") public class BattleDetailsRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

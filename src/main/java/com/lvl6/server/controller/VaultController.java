@@ -18,7 +18,7 @@ import com.lvl6.proto.EventProto.VaultResponseProto.VaultStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
@@ -58,7 +58,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     server.lockPlayer(senderProto.getUserId());
     
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       boolean legitTransaction = checkLegitTransaction(resBuilder, user, amount, requestType);
             

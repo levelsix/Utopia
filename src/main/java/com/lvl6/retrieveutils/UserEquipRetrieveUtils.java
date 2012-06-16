@@ -10,12 +10,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import com.lvl6.info.UserEquip;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
-public class UserEquipRetrieveUtils {
+@Component @DependsOn("gameServer") public class UserEquipRetrieveUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 

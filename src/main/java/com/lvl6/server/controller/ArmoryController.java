@@ -20,8 +20,8 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -62,7 +62,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     server.lockPlayer(senderProto.getUserId());
     try {
-      User user = UserRetrieveUtils.getUserById(senderProto.getUserId());
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       UserEquip userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equipId);;
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
 
@@ -109,7 +109,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //            log.error("problem with equipping " + equipment + " for user " + user);
 //          }
 //        }
-        if (!UpdateUtils.incrementUserEquip(user.getId(), equipId, quantity)) {
+        if (!UpdateUtils.get().incrementUserEquip(user.getId(), equipId, quantity)) {
           log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
         }
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {
@@ -124,7 +124,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
       if (legitSell) {
-        if (!UpdateUtils.decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity)) {
+        if (!UpdateUtils.get().decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity)) {
           log.error("problem with taking away " + quantity + " of equip id " + equipId + " from player");
         }
         if (quantity >= userEquip.getQuantity()) {
