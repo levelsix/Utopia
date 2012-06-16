@@ -1,8 +1,6 @@
 package com.lvl6.server.controller;
 
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -10,10 +8,16 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
-import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.mina.util.Base64;
 import org.json.JSONException;
@@ -42,13 +46,14 @@ public class EarnFreeDiamondsController extends EventController {
 
   private static String LVL6_SHARED_SECRET = "mister8conrad3chan9is1a2very4great5man";
   private Mac hmacSHA1WithLVL6Secret = null;
-  
+
   //  private static String ADCOLONY_V4VC_SECRET_KEY = "v4vc5ec0f36707ad4afaa5452e";
 
   private static String KIIP_CONSUMER_KEY = "d6c7530ce4dc64ecbff535e521a241e3";
   private static String KIIP_CONSUMER_SECRET = "da8d864f948ae2b4e83c1b6e6a8151ed";
   private static String KIIP_VERIFY_ENDPOINT = "https://api.kiip.me/1.0/transaction/verify";
   private static String KIIP_INVALIDATE_ENDPOINT = "https://api.kiip.me/1.0/transaction/invalidate";
+  private static String KIIP_JSON_APP_KEY_KEY = "app_key";
   private static String KIIP_JSON_SUCCESS_KEY = "success";
   private static String KIIP_JSON_RECEIPT_KEY = "receipt";
   private static String KIIP_JSON_CONTENT_KEY = "content";
@@ -85,14 +90,14 @@ public class EarnFreeDiamondsController extends EventController {
     String adColonyDigest = (reqProto.hasAdColonyDigest() && reqProto.getAdColonyDigest().length() > 0) ? reqProto.getAdColonyDigest() : null;
     int adColonyDiamondsEarned = reqProto.getAdColonyDiamondsEarned();
 
-    
-    
+
+
     //TODO:
     kiipReceiptString = "{\"signature\":\"33ee5157a3a2048d092bbeb798e89be3106001af\",\"content\":\"reward_gold\",\"quantity\":\"26\",\"transaction_id\":\"None\"}";
     freeDiamondsType = EarnFreeDiamondsType.KIIP;
-    
-    
-    
+
+
+
 
     EarnFreeDiamondsResponseProto.Builder resBuilder = EarnFreeDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -144,7 +149,7 @@ public class EarnFreeDiamondsController extends EventController {
   private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyDiamondsEarned, Timestamp clientTime) {
     String serverAdColonyDigest = null;
     String prepareString = user.getId() + user.getReferralCode() + adColonyDiamondsEarned + clientTime.getTime();
-    
+
     serverAdColonyDigest = getHMACSHA1DigestWithLVL6Secret(prepareString);
 
     if (serverAdColonyDigest == null || !serverAdColonyDigest.equals(adColonyDigest)) {
@@ -157,29 +162,24 @@ public class EarnFreeDiamondsController extends EventController {
   }
 
   private JSONObject getLegitKiipRewardReceipt(Builder resBuilder, User user, String kiipReceipt) {
-    OAuthConsumer consumer = new DefaultOAuthConsumer(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
-    URL url;
-    String responseMessage = null;
     try {
-      url = new URL(OAuth.addQueryParameters(KIIP_VERIFY_ENDPOINT, "app_key", KIIP_CONSUMER_KEY,
-          "receipt", kiipReceipt));
-      
-      HttpURLConnection request = (HttpURLConnection) url.openConnection();
-      consumer.sign(request);
-      request.connect();
+      OAuthConsumer consumer = new CommonsHttpOAuthConsumer(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
+      HttpPost verifyPost = new HttpPost(KIIP_VERIFY_ENDPOINT);
+      consumer.setTokenWithSecret(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
+      consumer.sign(verifyPost);
 
-      if (request.getResponseCode() == 200) {
-        responseMessage = request.getResponseMessage();
+      HttpParams params = new BasicHttpParams();
+      params.setParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
+      params.setParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
 
-        if (responseMessage != null) {
-          JSONObject kiipResponse = new JSONObject(responseMessage);
-          boolean success = kiipResponse.getBoolean(KIIP_JSON_SUCCESS_KEY);
-          if (success) {
-            String kiipResponseReceiptString = kiipResponse.getString(KIIP_JSON_RECEIPT_KEY);
-            if (kiipResponseReceiptString != null && kiipResponseReceiptString.length() > 0) {
-              return new JSONObject(kiipResponseReceiptString);
-            }
-          }
+      DefaultHttpClient httpClient = new DefaultHttpClient(params);
+      HttpResponse response = httpClient.execute(verifyPost);
+      if (response.getStatusLine().getStatusCode() == 200) {
+        String responseJSONString = EntityUtils.toString(response.getEntity());
+        if (responseJSONString != null && responseJSONString.length() > 0) {
+          JSONObject kiipResponse = new JSONObject(responseJSONString);
+          if (kiipResponse.getBoolean(KIIP_JSON_SUCCESS_KEY)) 
+            return kiipResponse.getJSONObject(KIIP_JSON_RECEIPT_KEY);
         }
       }
     } catch (MalformedURLException e) {
@@ -301,12 +301,12 @@ public class EarnFreeDiamondsController extends EventController {
     return true;
   }
 
-  
+
   private String getHMACSHA1DigestWithLVL6Secret(String prepareString) {
     try {
       Mac mac = getHMACSHA1WithLVL6Secret();
       if (mac == null) return null;
-      
+
       byte[] text = prepareString.getBytes();
 
       return new String(Base64.encodeBase64(mac.doFinal(text))).trim();
