@@ -25,7 +25,6 @@ import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.Builder;
 import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
@@ -147,7 +146,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       return false;
     }
 
-    Map<Integer, List<UserStruct>> structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(user.getId());
+    Map<Integer, List<UserStruct>> structIdsToUserStructs = RetrieveUtils.userStructRetrieveUtils().getStructIdsToUserStructsForUser(user.getId());
     if (structIdsToUserStructs != null) {
       for (Integer structId : structIdsToUserStructs.keySet()) {
         List<UserStruct> userStructsOfSameStructId = structIdsToUserStructs.get(structId);

@@ -179,6 +179,8 @@ public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int que
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStructJustBuilt(int, int, java.sql.Timestamp, java.sql.Timestamp, com.lvl6.info.CoordinatePair)
  */
 @Override
+@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", key="#userId"),
+		  @CacheEvict(value="structIdsToUserStructsForUser", key="#userId")})
 public boolean insertUserStructJustBuilt(int userId, int structId, Timestamp timeOfStructPurchase,
       Timestamp timeOfStructBuild, CoordinatePair structCoords) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
@@ -205,6 +207,8 @@ public boolean insertUserStructJustBuilt(int userId, int structId, Timestamp tim
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStruct(int, int, com.lvl6.info.CoordinatePair, java.sql.Timestamp)
  */
 @Override
+@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", key="#userId"),
+		  @CacheEvict(value="structIdsToUserStructsForUser", key="#userId")})
 public int insertUserStruct(int userId, int structId, CoordinatePair coordinates, Timestamp timeOfPurchase) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);

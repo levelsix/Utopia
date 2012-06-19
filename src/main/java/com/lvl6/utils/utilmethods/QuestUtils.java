@@ -81,7 +81,7 @@ public class QuestUtils {
 
       if ((buildStructJobsRequired != null && buildStructJobsRequired.size()>0) || 
           (upgradeStructJobsRequired != null && upgradeStructJobsRequired.size()>0)) {
-        Map<Integer, List<UserStruct>> structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(userQuest.getUserId());
+        Map<Integer, List<UserStruct>> structIdsToUserStructs = RetrieveUtils.userStructRetrieveUtils().getStructIdsToUserStructsForUser(userQuest.getUserId());
         if (structIdsToUserStructs == null || structIdsToUserStructs.size() <= 0) {
           return false;
         }

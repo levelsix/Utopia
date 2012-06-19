@@ -20,7 +20,6 @@ import com.lvl6.proto.EventProto.LoadPlayerCityResponseProto.LoadPlayerCityStatu
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -59,7 +58,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     try {
       User owner = RetrieveUtils.userRetrieveUtils().getUserById(cityOwnerId);
 
-      List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(cityOwnerId);
+      List<UserStruct> userStructs = RetrieveUtils.userStructRetrieveUtils().getUserStructsForUser(cityOwnerId);
       setResponseUserStructs(resBuilder, userStructs);
 
 //      Map<CritStructType, UserCritstruct> userCritStructs = UserCritstructRetrieveUtils.getUserCritstructsForUser(cityOwnerProto.getUserId());

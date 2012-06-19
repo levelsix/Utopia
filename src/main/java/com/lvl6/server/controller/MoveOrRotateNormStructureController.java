@@ -16,7 +16,7 @@ import com.lvl6.proto.EventProto.MoveOrRotateNormStructureResponseProto.MoveOrRo
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class MoveOrRotateNormStructureController extends EventController {
@@ -64,7 +64,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       boolean legit = true;
       resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);
       
-      UserStruct userStruct = UserStructRetrieveUtils.getSpecificUserStruct(userStructId);
+      UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
       if (userStruct == null) {
         legit = false;
         resBuilder.setStatus(MoveOrRotateNormStructureStatus.SUCCESS);

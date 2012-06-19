@@ -22,7 +22,6 @@ import com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto.Builder;
 import com.lvl6.proto.EventProto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -60,7 +59,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resBuilder.setSender(senderProto);
 
     Structure struct = null;
-    UserStruct userStruct = UserStructRetrieveUtils.getSpecificUserStruct(userStructId);
+    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
 
     if (userStruct != null) {
       struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
@@ -148,7 +147,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("user doesn't have enough diamonds, has " + user.getDiamonds() + ", needs " + upgradeDiamondCost);
       return false;
     }
-    List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructsForUser(user.getId());
+    List<UserStruct> userStructs = RetrieveUtils.userStructRetrieveUtils().getUserStructsForUser(user.getId());
     if (userStructs != null) {
       for (UserStruct us : userStructs) {
         if (!us.isComplete() && us.getLastRetrieved() != null && us.getLastUpgradeTime() != null) {

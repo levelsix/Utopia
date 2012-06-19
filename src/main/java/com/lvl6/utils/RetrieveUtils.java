@@ -4,6 +4,7 @@ import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
+import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.spring.AppContext;
 
 public class RetrieveUtils {
@@ -26,6 +27,11 @@ public class RetrieveUtils {
 	public static UserQuestRetrieveUtils userQuestRetrieveUtils() {
 		return AppContext.getApplicationContext().getBean(
 				UserQuestRetrieveUtils.class);
+	}
+
+	public static UserStructRetrieveUtils userStructRetrieveUtils() {
+		return AppContext.getApplicationContext().getBean(
+				UserStructRetrieveUtils.class);
 	}
 
 }

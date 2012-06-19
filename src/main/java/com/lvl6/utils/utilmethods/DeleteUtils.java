@@ -3,6 +3,9 @@ package com.lvl6.utils.utilmethods;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Caching;
+import org.springframework.cache.annotation.CacheEvict;
+
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
@@ -71,6 +74,9 @@ public class DeleteUtils {
     return false;
   }
   
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public static boolean deleteUserStruct(int userStructId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);

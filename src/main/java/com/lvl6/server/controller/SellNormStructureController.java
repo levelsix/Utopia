@@ -17,7 +17,6 @@ import com.lvl6.proto.EventProto.SellNormStructureResponseProto;
 import com.lvl6.proto.EventProto.SellNormStructureResponseProto.SellNormStructureStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -51,7 +50,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     SellNormStructureResponseProto.Builder resBuilder = SellNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    UserStruct userStruct = UserStructRetrieveUtils.getSpecificUserStruct(userStructId);
+    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
     Structure struct = null;
 
     if (userStruct != null) {

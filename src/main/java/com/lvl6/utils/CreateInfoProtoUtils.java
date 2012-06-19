@@ -483,7 +483,7 @@ public class CreateInfoProtoUtils {
           }
           if (quest.getBuildStructJobsRequired() != null && quest.getBuildStructJobsRequired().size() > 0) {
             if (structIdsToUserStructs == null) {
-              structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(userQuest.getUserId());              
+              structIdsToUserStructs = RetrieveUtils.userStructRetrieveUtils().getStructIdsToUserStructsForUser(userQuest.getUserId());              
             }
             for (Integer buildStructJobId : quest.getBuildStructJobsRequired()) {
               BuildStructJob buildStructJob = BuildStructJobRetrieveUtils.getBuildStructJobForBuildStructJobId(buildStructJobId);
@@ -504,7 +504,7 @@ public class CreateInfoProtoUtils {
           }
           if (quest.getUpgradeStructJobsRequired() != null && quest.getUpgradeStructJobsRequired().size() > 0) {
             if (structIdsToUserStructs == null) {
-              structIdsToUserStructs = UserStructRetrieveUtils.getStructIdsToUserStructsForUser(userQuest.getUserId());              
+              structIdsToUserStructs = RetrieveUtils.userStructRetrieveUtils().getStructIdsToUserStructsForUser(userQuest.getUserId());              
             }
             for (Integer upgradeStructJobId : quest.getUpgradeStructJobsRequired()) {
               UpgradeStructJob upgradeStructJob = UpgradeStructJobRetrieveUtils.getUpgradeStructJobForUpgradeStructJobId(upgradeStructJobId);

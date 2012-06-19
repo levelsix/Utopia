@@ -164,6 +164,9 @@ public class UpdateUtils {
   /*
    * changin orientation
    */
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructOrientation(int userStructId,
       StructOrientation orientation) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -296,6 +299,9 @@ public class UpdateUtils {
   /*
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -339,6 +345,9 @@ public class UpdateUtils {
   /*
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -363,6 +372,9 @@ public class UpdateUtils {
   /*
    * used for updating last retrieved user struct time
    */
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrieved(int userStructId, Timestamp lastRetrievedTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -381,6 +393,9 @@ public class UpdateUtils {
   /*
    * used for upgrading user structs level
    */
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLevel(int userStructId, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -399,6 +414,9 @@ public class UpdateUtils {
   /*
    * used for moving user structs
    */
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);

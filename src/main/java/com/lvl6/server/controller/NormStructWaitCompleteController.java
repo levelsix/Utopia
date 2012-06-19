@@ -21,9 +21,9 @@ import com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.Builder;
 import com.lvl6.proto.EventProto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -60,7 +60,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      List<UserStruct> userStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
+      List<UserStruct> userStructs = RetrieveUtils.userStructRetrieveUtils().getUserStructs(userStructIds);
 
       boolean legitWaitComplete = checkLegitWaitComplete(resBuilder, userStructs, userStructIds, senderProto.getUserId(), clientTime);
 
@@ -82,7 +82,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeChangesToDB(upgradesDone, buildsDone);
       }
 
-      List<UserStruct> newUserStructs = UserStructRetrieveUtils.getUserStructs(userStructIds);
+      List<UserStruct> newUserStructs = RetrieveUtils.userStructRetrieveUtils().getUserStructs(userStructIds);
       for (UserStruct userStruct : newUserStructs) {
         resBuilder.addUserStruct(CreateInfoProtoUtils.createFullUserStructureProtoFromUserstruct(userStruct));
       }

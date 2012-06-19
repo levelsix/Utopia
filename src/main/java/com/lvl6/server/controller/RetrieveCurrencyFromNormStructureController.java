@@ -24,7 +24,6 @@ import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.server.GameServer;
@@ -62,7 +61,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     RetrieveCurrencyFromNormStructureResponseProto.Builder resBuilder = RetrieveCurrencyFromNormStructureResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    UserStruct userStruct = UserStructRetrieveUtils.getSpecificUserStruct(userStructId);
+    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
     Structure struct = null;
     if (userStruct != null) {
       struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());

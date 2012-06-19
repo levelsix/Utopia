@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -23,11 +24,11 @@ import com.lvl6.utils.utilmethods.StringUtils;
 
 @Component @DependsOn("gameServer") public class UserStructRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = DBConstants.TABLE_USER_STRUCTS;
+  private final String TABLE_NAME = DBConstants.TABLE_USER_STRUCTS;
 
-  public static List<UserStruct> getUserStructsForUser(int userId) {
+  public List<UserStruct> getUserStructsForUser(int userId) {
     log.debug("retrieving user structs for userId " + userId);
     
     Connection conn = DBConnection.get().getConnection();
@@ -37,7 +38,9 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return userStructs;
   }
 
-  public static Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
+  
+  @Cacheable(value="structIdsToUserStructsForUser", key="#userId")
+  public Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
     log.debug("retrieving map of struct id to userstructs for userId " + userId);
     
     Connection conn = DBConnection.get().getConnection();
@@ -47,7 +50,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return structIdToUserStructs;
   }
 
-  public static UserStruct getSpecificUserStruct(int userStructId) {
+  @Cacheable(value="specificUserStruct", key="#userStructId")
+  public UserStruct getSpecificUserStruct(int userStructId) {
     log.debug("retrieving user struct with id " + userStructId);
     
     Connection conn = DBConnection.get().getConnection();
@@ -57,7 +61,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return userStruct;
   }
 
-  public static List<UserStruct> getUserStructs(List<Integer> userStructIds) {
+  
+  public List<UserStruct> getUserStructs(List<Integer> userStructIds) {
     log.debug("retrieving userStructs with ids " + userStructIds);
     
     if (userStructIds == null || userStructIds.size() <= 0 ) {
@@ -80,7 +85,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return userStructs;
   }
 
-  private static List<UserStruct> convertRSToUserStructs(ResultSet rs) {
+  private List<UserStruct> convertRSToUserStructs(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -99,7 +104,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   }
 
 
-  private static Map<Integer, List<UserStruct>> convertRSToStructIdsToUserStructs(
+  private Map<Integer, List<UserStruct>> convertRSToStructIdsToUserStructs(
       ResultSet rs) {
     if (rs != null) {
       try {
@@ -126,7 +131,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return null;
   }
 
-  private static UserStruct convertRSSingleToUserStructs(ResultSet rs) {
+  private UserStruct convertRSSingleToUserStructs(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -145,7 +150,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
-  private static UserStruct convertRSRowToUserStruct(ResultSet rs) throws SQLException {
+  private UserStruct convertRSRowToUserStruct(ResultSet rs) throws SQLException {
     int i = 1;
     int id = rs.getInt(i++);
     int userId = rs.getInt(i++);
