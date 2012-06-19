@@ -198,11 +198,11 @@ public class APNSWriter extends Wrap {
       String alertBody = null;
 
       if (battleResult == BattleResult.ATTACKER_WIN) {
-        alertBody = attacker + " has just humiliated you";
+        alertBody = attacker;
         if (equipStolen) {
-          alertBody += " and stole equipment from you. Show justice to this thief!";        
+          alertBody += " stole equipment from you in battle. You may now be defenseless, fight back strong!";        
         } else {
-          alertBody += ". Fight back and defend your honor!";
+          alertBody += " just humiliated you in battle. Fight back and defend your honor!";
         }
       } else if (battleResult == BattleResult.ATTACKER_FLEE){
         alertBody = attacker + " has just fled from you after initiating battle. Chase the coward down!";

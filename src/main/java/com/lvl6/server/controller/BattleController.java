@@ -32,7 +32,6 @@ import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedDefeatTypeJobsRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
@@ -115,8 +114,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (result == BattleResult.ATTACKER_WIN) {
           winner = attacker;
           loser = defender;
-          List<UserEquip> defenderEquips = UserEquipRetrieveUtils
-              .getUserEquipsForUser(defender.getId());
+          List<UserEquip> defenderEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(defender.getId());
           lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
               defender, oldDefenderUserEquipsList);
           if (lostEquip != null) {

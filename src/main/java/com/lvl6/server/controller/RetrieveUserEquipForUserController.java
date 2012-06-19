@@ -14,8 +14,8 @@ import com.lvl6.proto.EventProto.RetrieveUserEquipForUserRequestProto;
 import com.lvl6.proto.EventProto.RetrieveUserEquipForUserResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class RetrieveUserEquipForUserController extends EventController{
 
@@ -48,7 +48,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 
     server.lockPlayer(relevantUserId);
     try {
-      List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(relevantUserId);
+      List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(relevantUserId);
       if (userEquips != null) {
         for (UserEquip ue : userEquips) {
           if (ue != null) {

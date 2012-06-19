@@ -29,7 +29,6 @@ import com.lvl6.proto.EventProto.TaskActionResponseProto.Builder;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedTasksRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
@@ -349,7 +348,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(User user, Task task) {
     Map<Integer, Integer> equipIdsToQuantityReq = TaskEquipReqRetrieveUtils.getEquipmentIdsToQuantityForTaskId(task.getId());
-    List<UserEquip> userEquipIds = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
+    List<UserEquip> userEquipIds = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(user.getId());
 
     if (equipIdsToQuantityReq == null)
       return 0;

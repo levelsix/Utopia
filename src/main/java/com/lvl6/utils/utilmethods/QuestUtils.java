@@ -17,7 +17,6 @@ import com.lvl6.info.jobs.UpgradeStructJob;
 import com.lvl6.proto.EventProto.QuestCompleteResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
-import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
@@ -28,6 +27,7 @@ import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.QuestGraph;
+import com.lvl6.utils.RetrieveUtils;
 
 public class QuestUtils {
 
@@ -123,7 +123,7 @@ public class QuestUtils {
         }
       }
       if (possessEquipJobsRequired != null && possessEquipJobsRequired.size() > 0) {
-        Map<Integer, UserEquip> equipIdsToUserEquips = UserEquipRetrieveUtils.getEquipIdsToUserEquipsForUser(userQuest.getUserId());
+        Map<Integer, UserEquip> equipIdsToUserEquips = RetrieveUtils.userEquipRetrieveUtils().getEquipIdsToUserEquipsForUser(userQuest.getUserId());
         if (equipIdsToUserEquips == null || equipIdsToUserEquips.size() <= 0) {
           return false;
         }

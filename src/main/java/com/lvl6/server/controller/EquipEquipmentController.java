@@ -18,7 +18,6 @@ import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatu
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -56,7 +55,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      UserEquip userEquip = (equip == null) ? null : UserEquipRetrieveUtils.getSpecificUserEquip(senderProto.getUserId(), equip.getId());
+      UserEquip userEquip = (equip == null) ? null : RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(senderProto.getUserId(), equip.getId());
       
       boolean legitEquip = checkEquip(resBuilder, user, userEquip, equip, equipId);
 

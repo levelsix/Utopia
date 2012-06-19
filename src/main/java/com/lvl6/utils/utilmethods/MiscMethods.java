@@ -1,7 +1,5 @@
 package com.lvl6.utils.utilmethods;
 
-import java.net.Socket;
-import java.nio.channels.SocketChannel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;

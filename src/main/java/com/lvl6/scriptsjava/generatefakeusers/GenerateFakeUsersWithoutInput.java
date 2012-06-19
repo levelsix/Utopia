@@ -6,7 +6,6 @@ import java.util.Random;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
 import com.lvl6.info.Location;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.UserType;

@@ -34,6 +34,7 @@ public class DBConstants {
   public static final String TABLE_AVAILABLE_REFERRAL_CODES = "available_referral_codes";
   public static final String TABLE_NEUTRAL_CITY_ELEMENTS = "neutral_city_elems";
   public static final String TABLE_PLAYER_WALL_POSTS = "player_wall_posts";
+  public static final String TABLE_ADCOLONY_RECENT_HISTORY = "adcolony_recent_history";
   public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   
   /*COLUMNNAMES*/
@@ -240,4 +241,10 @@ public class DBConstants {
   public static final String PLAYER_WALL_POSTS__WALL_OWNER_ID = "wall_owner_id";
   public static final String PLAYER_WALL_POSTS__TIME_OF_POST = "time_of_post";
   public static final String PLAYER_WALL_POSTS__CONTENT = "content";
+  
+  /*ADCOLONY_RECENT_HISTORY*/
+  public static final String ADCOLONY_RECENT_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD = "time_of_reward";
+  public static final String ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED = "diamonds_earned";
+  public static final String ADCOLONY_RECENT_HISTORY__DIGEST = "digest";
 }

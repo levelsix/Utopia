@@ -45,7 +45,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
-import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -119,6 +118,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
+          setAllies(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
           resBuilder.setExperienceRequiredForNextLevel(
@@ -138,6 +138,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       setConstants(resBuilder, startupStatus);      
     }
 
+    
     StartupResponseProto resProto = resBuilder.build();
     StartupResponseEvent resEvent = new StartupResponseEvent(udid);
     resEvent.setTag(event.getTag());
@@ -238,8 +239,29 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
   }
 
+  private void setAllies(Builder resBuilder, User user) {
+    List<UserType> userTypes = new ArrayList<UserType>();
+    if (MiscMethods.checkIfGoodSide(user.getType())) {
+      userTypes.add(UserType.GOOD_ARCHER);
+      userTypes.add(UserType.GOOD_MAGE);
+      userTypes.add(UserType.GOOD_WARRIOR);      
+    } else {
+      userTypes.add(UserType.BAD_ARCHER);
+      userTypes.add(UserType.BAD_MAGE);
+      userTypes.add(UserType.BAD_WARRIOR);
+    }
+
+    List<User> allies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(), user.getId(), false, 
+        null, null, null, null, false);
+    if (allies != null && allies.size() > 0) {
+      for (User ally : allies) {
+        resBuilder.addAllies(CreateInfoProtoUtils.createMinimumUserProtoFromUser(ally));
+      }
+    }
+  }
+  
   private void setUserEquipsAndEquips(Builder resBuilder, User user) {
-    List<UserEquip> userEquips = UserEquipRetrieveUtils.getUserEquipsForUser(user.getId());
+    List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(user.getId());
     if (userEquips != null) {
       Map<Integer, Equipment> equipIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       for (UserEquip ue : userEquips) {
@@ -321,6 +343,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     UserType aBadType = UserType.BAD_ARCHER;
 
     Task task = TaskRetrieveUtils.getTaskForTaskId(ControllerConstants.TUTORIAL__FIRST_TASK_ID);
+    task.setPotentialLootEquipIds(new ArrayList<Integer>());
     FullTaskProto ftpGood = CreateInfoProtoUtils.createFullTaskProtoFromTask(aGoodType, task);
     FullTaskProto ftpBad = CreateInfoProtoUtils.createFullTaskProtoFromTask(aBadType, task);
 

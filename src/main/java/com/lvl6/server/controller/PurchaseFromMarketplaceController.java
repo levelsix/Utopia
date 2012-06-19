@@ -157,7 +157,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
 
-//    UserEquip userEquip = UserEquipRetrieveUtils.getSpecificUserEquip(buyer.getId(), mp.getPostedEquipId());
+//    UserEquip userEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(buyer.getId(), mp.getPostedEquipId());
     Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId()); 
     if (equipment == null) {
       log.error("equipment with " + mp.getPostedEquipId() + " does not exist");

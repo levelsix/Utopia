@@ -13,8 +13,10 @@ import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
+import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Task;
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.AnimationType;
 import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class TaskRetrieveUtils {
@@ -153,9 +155,18 @@ import com.lvl6.utils.DBConnection;
     String goodProcessingText = rs.getString(i++);
     String badProcessingText = rs.getString(i++);
     
+    float spriteLandingX = rs.getFloat(i++);
+    boolean spriteLandingXWasSet = !rs.wasNull();
+    float spriteLandingY = rs.getFloat(i++);
+    boolean spriteLandingYWasSet = !rs.wasNull();
+    
+    CoordinatePair spriteLandingCoords = (spriteLandingXWasSet && spriteLandingYWasSet) ? new CoordinatePair(spriteLandingX, spriteLandingY) : null;
+
+    AnimationType at = AnimationType.valueOf(rs.getInt(i++));
+    
     Task task = new Task(id, goodName, badName, cityId, energyCost, minCoinsGained, maxCoinsGained, 
         chanceOfEquipLoot, equipIds, expGained, assetNumWithinCity, numForCompletion, goodProcessingText, 
-        badProcessingText);
+        badProcessingText, spriteLandingCoords, at);
     return task;
   }
 }

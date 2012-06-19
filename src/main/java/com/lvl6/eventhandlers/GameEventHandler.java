@@ -1,13 +1,9 @@
 package com.lvl6.eventhandlers;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.annotation.Resource;
 
@@ -17,7 +13,6 @@ import org.springframework.integration.Message;
 import org.springframework.integration.MessagingException;
 import org.springframework.integration.core.MessageHandler;
 
-import com.lvl6.events.GameEvent;
 import com.lvl6.events.PreDatabaseRequestEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;

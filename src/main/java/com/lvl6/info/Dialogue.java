@@ -1,6 +1,7 @@
 package com.lvl6.info;
 
 import java.util.List;
+
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 
 public class Dialogue {

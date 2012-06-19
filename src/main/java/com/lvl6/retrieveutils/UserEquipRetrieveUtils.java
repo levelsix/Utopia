@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +20,13 @@ import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class UserEquipRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
+  private final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
 
-  public static List<UserEquip> getUserEquipsForUser(int userId) {
+  
+  @Cacheable(value="userEquipsForUser", key="#userId")
+  public List<UserEquip> getUserEquipsForUser(int userId) {
     log.debug("retrieving user equips for userId " + userId);
     
     Connection conn = DBConnection.get().getConnection();
@@ -33,7 +36,9 @@ import com.lvl6.utils.DBConnection;
     return userEquips;
   }
 
-  public static Map<Integer, UserEquip> getEquipIdsToUserEquipsForUser(int userId) {
+  
+  @Cacheable(value="equipsToUserEquipsForUser", key="#userId")
+  public Map<Integer, UserEquip> getEquipIdsToUserEquipsForUser(int userId) {
     log.debug("retrieving user equips for userId " + userId);
     
     Connection conn = DBConnection.get().getConnection();
@@ -43,7 +48,8 @@ import com.lvl6.utils.DBConnection;
     return equipIdsToUserEquips;
   }
 
-  public static UserEquip getSpecificUserEquip(int userId, int equipId) {
+  
+  public UserEquip getSpecificUserEquip(int userId, int equipId) {
     log.debug("retrieving user equip for userId " + userId + " and equipId " + equipId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
@@ -58,7 +64,7 @@ import com.lvl6.utils.DBConnection;
 
   /*
   //returns map from userId to his equipments
-  public static Map<Integer, List<UserEquip>> getUserEquipsForUserIds(List<Integer> userIds) {
+  public Map<Integer, List<UserEquip>> getUserEquipsForUserIds(List<Integer> userIds) {
     log.debug("retrieving user equips for userIds " + userIds);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     for (Integer i : userIds) {
@@ -67,7 +73,7 @@ import com.lvl6.utils.DBConnection;
     return convertRSToUserToUserEquips(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
   }
 
-    private static Map<Integer, List<UserEquip>> convertRSToUserToUserEquips(ResultSet rs) {
+    private Map<Integer, List<UserEquip>> convertRSToUserToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -94,7 +100,7 @@ import com.lvl6.utils.DBConnection;
   }
    */
 
-  private static Map<Integer, UserEquip> convertRSToEquipIdsToUserEquips(
+  private Map<Integer, UserEquip> convertRSToEquipIdsToUserEquips(
       ResultSet rs) {
     if (rs != null) {
       try {
@@ -114,7 +120,7 @@ import com.lvl6.utils.DBConnection;
     return null;
   }
 
-  private static List<UserEquip> convertRSToUserEquips(ResultSet rs) {
+  private List<UserEquip> convertRSToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -132,7 +138,7 @@ import com.lvl6.utils.DBConnection;
     return null;
   }
 
-  private static UserEquip convertRSSingleToUserEquips(ResultSet rs) {
+  private UserEquip convertRSSingleToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
@@ -151,7 +157,7 @@ import com.lvl6.utils.DBConnection;
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
-  private static UserEquip convertRSRowToUserEquip(ResultSet rs) throws SQLException {
+  private UserEquip convertRSRowToUserEquip(ResultSet rs) throws SQLException {
     int i = 1;
     int userId = rs.getInt(i++);
     int equipId = rs.getInt(i++);

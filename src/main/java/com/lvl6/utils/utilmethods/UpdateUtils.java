@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
@@ -397,6 +398,11 @@ public class UpdateUtils {
     return false;
   }
 
+  
+	@Caching(evict= {
+			@CacheEvict(value="userEquipsForUser", key="#userId"),
+			@CacheEvict(value="equipsToUserEquipsForUser", key="#userId")
+		})
   public boolean incrementUserEquip(int userId, int equipId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
@@ -414,6 +420,10 @@ public class UpdateUtils {
   /*
    * used for battles
    */
+	@Caching(evict= {
+			@CacheEvict(value="userEquipsForUser", key="#userId"),
+			@CacheEvict(value="equipsToUserEquipsForUser", key="#userId")
+		})
   public boolean decrementUserEquip(int userId, int equipId, int currentQuantity, int decrement) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__USER_ID, userId);

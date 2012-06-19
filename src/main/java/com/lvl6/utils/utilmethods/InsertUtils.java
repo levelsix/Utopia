@@ -68,6 +68,24 @@ public boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary,
     return false;
   }
   
+
+
+public boolean insertApsalarRecentHistory(int userId, Timestamp timeOfReward, int diamondsEarned, 
+	      String digest) {
+	    Map <String, Object> insertParams = new HashMap<String, Object>();
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__USER_ID, userId);
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD, timeOfReward);
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED, diamondsEarned);
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIGEST, digest);
+	    
+	    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_ADCOLONY_RECENT_HISTORY, insertParams);
+	    if (numInserted == 1) {
+	      return true;
+	    }
+	    return false;
+	  }
+	  
+
   /* (non-Javadoc)
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertBattleHistory(int, int, com.lvl6.proto.InfoProto.BattleResult, java.util.Date, int, int, int)
  */
