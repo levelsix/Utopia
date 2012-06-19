@@ -288,6 +288,8 @@ message StartupResponseProto {
      	repeated FullEquipProto newlyEquippableEpicsAndLegendariesForAllClassesAfterLevelup = 31;			//only new ones
 	    repeated FullStructureProto newlyAvailableStructsAfterLevelup = 32;					//only new ones
      	
+     	optional PlayerWallPostProto firstWallPost = 33;
+     	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy
 			optional string goodName = 1;

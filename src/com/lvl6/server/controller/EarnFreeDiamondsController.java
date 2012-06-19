@@ -12,11 +12,14 @@ import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.mina.util.Base64;
@@ -93,7 +96,7 @@ public class EarnFreeDiamondsController extends EventController {
 
 
     //TODO:
-    kiipReceiptString = "{\"signature\":\"33ee5157a3a2048d092bbeb798e89be3106001af\",\"content\":\"reward_gold\",\"quantity\":\"26\",\"transaction_id\":\"None\"}";
+    kiipReceiptString = "{\"signature\":\"6793ccc4dcc9d4fe54ef177205b56901ff193e36\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"None\"}";
     freeDiamondsType = EarnFreeDiamondsType.KIIP;
 
 
@@ -169,8 +172,16 @@ public class EarnFreeDiamondsController extends EventController {
       consumer.sign(verifyPost);
 
       HttpParams params = new BasicHttpParams();
-      params.setParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
-      params.setParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
+      HttpProtocolParams.setUseExpectContinue(params, false);
+
+      //      params.setParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
+      //      params.setParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
+
+      MultipartEntity entity = new MultipartEntity(HttpMultipartMode.STRICT);
+      entity.addPart(KIIP_JSON_APP_KEY_KEY, new StringBody(KIIP_CONSUMER_KEY));
+      entity.addPart(KIIP_JSON_RECEIPT_KEY, new StringBody(kiipReceipt));
+      verifyPost.setEntity(entity);
+
 
       DefaultHttpClient httpClient = new DefaultHttpClient(params);
       HttpResponse response = httpClient.execute(verifyPost);
