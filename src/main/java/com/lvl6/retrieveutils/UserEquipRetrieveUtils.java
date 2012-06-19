@@ -49,6 +49,7 @@ import com.lvl6.utils.DBConnection;
   }
 
   
+  //@Cacheable(value="specificUserEquip", key="#userId+':'+#equipId")
   public UserEquip getSpecificUserEquip(int userId, int equipId) {
     log.debug("retrieving user equip for userId " + userId + " and equipId " + equipId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();

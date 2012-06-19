@@ -44,7 +44,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   @Override
-
   protected void processRequestEvent(RequestEvent event) throws Exception {
     ArmoryRequestProto reqProto = ((ArmoryRequestEvent)event).getArmoryRequestProto();
 

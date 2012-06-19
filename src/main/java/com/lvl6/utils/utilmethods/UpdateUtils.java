@@ -31,6 +31,10 @@ public class UpdateUtils {
 	
 //  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
   
+
+	@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+			@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+			@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateUserQuestsCoinsretrievedforreq(int userId, List <Integer> questIds, int coinGain) {
     String query = "update " + DBConstants.TABLE_USER_QUESTS + " set " + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ
         + "=" + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ + "+? where " 
@@ -111,6 +115,10 @@ public class UpdateUtils {
     return false;
   }
 
+
+  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+  		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateUserQuestIscomplete(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -129,6 +137,11 @@ public class UpdateUtils {
     return false;
   }  
 
+  
+
+  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+  		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateRedeemUserQuest(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -170,6 +183,10 @@ public class UpdateUtils {
   /*
    * used for setting a questitemtype as completed for a user quest
    */
+
+  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+  		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+  		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateUserQuestsSetCompleted(int userId, int questId, boolean setTasksCompleteTrue, boolean setDefeatTypeJobsCompleteTrue) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);

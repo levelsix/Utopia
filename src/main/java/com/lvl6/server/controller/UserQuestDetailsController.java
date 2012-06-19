@@ -20,9 +20,9 @@ import com.lvl6.proto.EventProto.UserQuestDetailsResponseProto.UserQuestDetailsS
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.RetrieveUtils;
 
   @Component @DependsOn("gameServer") public class UserQuestDetailsController extends EventController {
 
@@ -57,7 +57,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
     try {
       List<UserQuest> questsToCheck = null;
       if (questId > 0) {
-        UserQuest questToCheck = UserQuestRetrieveUtils.getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
+        UserQuest questToCheck = RetrieveUtils.userQuestRetrieveUtils().getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
         if (questToCheck != null) {
           questsToCheck = new ArrayList<UserQuest>();
           questsToCheck.add(questToCheck);
@@ -66,7 +66,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
           log.error("questId " + questId + "wasn't in progress for user before redeem attempt");
         }
       } else {
-        questsToCheck = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(senderProto.getUserId());
+        questsToCheck = RetrieveUtils.userQuestRetrieveUtils().getUnredeemedUserQuestsForUser(senderProto.getUserId());
       }
       if (questsToCheck != null && questsToCheck.size() > 0) {
         addFullUserQuestDataLarges(resBuilder, questsToCheck, senderProto.getUserType());

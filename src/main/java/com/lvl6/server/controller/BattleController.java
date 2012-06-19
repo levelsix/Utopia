@@ -208,7 +208,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       MinimumUserProto attackerProto, int cityId, UserEquip lostEquip) {
     boolean goodSide = MiscMethods.checkIfGoodSide(attacker.getType());
 
-    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils
+    List<UserQuest> inProgressUserQuests = RetrieveUtils.userQuestRetrieveUtils()
         .getIncompleteUserQuestsForUser(attacker.getId());
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;

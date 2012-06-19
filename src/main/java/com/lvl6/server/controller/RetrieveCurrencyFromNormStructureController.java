@@ -24,7 +24,6 @@ import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
@@ -109,7 +108,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void updateAndCheckUserQuests(GameServer server, int coinGain, MinimumUserProto senderProto) {
-    List<UserQuest> inProgressUserQuests = UserQuestRetrieveUtils.getIncompleteUserQuestsForUser(senderProto.getUserId());
+    List<UserQuest> inProgressUserQuests = RetrieveUtils.userQuestRetrieveUtils().getIncompleteUserQuestsForUser(senderProto.getUserId());
     if (inProgressUserQuests != null) {
       List<Integer> relevantQuests = new ArrayList<Integer>();
       for (UserQuest userQuest : inProgressUserQuests) {

@@ -28,7 +28,6 @@ import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
@@ -96,7 +95,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           setResponseDefeatTypeJobEnemies(resBuilder, questsInCity, user, cityId);
         }
         
-        List<UserQuest> allUnredeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedUserQuestsForUser(senderProto.getUserId());
+        List<UserQuest> allUnredeemedUserQuests = RetrieveUtils.userQuestRetrieveUtils().getUnredeemedUserQuestsForUser(senderProto.getUserId());
         List<UserQuest> userQuestsInCity = new ArrayList<UserQuest>();
         if (allUnredeemedUserQuests != null && allUnredeemedUserQuests.size() > 0) {
           for (UserQuest uq : allUnredeemedUserQuests) {

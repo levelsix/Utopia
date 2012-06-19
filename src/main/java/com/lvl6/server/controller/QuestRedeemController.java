@@ -22,7 +22,6 @@ import com.lvl6.proto.EventProto.QuestRedeemResponseProto.QuestRedeemStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -66,13 +65,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      userQuest = UserQuestRetrieveUtils.getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
+      userQuest = RetrieveUtils.userQuestRetrieveUtils().getSpecificUnredeemedUserQuest(senderProto.getUserId(), questId);
       quest = QuestRetrieveUtils.getQuestForQuestId(questId);
       legitRedeem = checkLegitRedeem(resBuilder, userQuest, quest);
 
       List<UserQuest> inProgressAndRedeemedUserQuests = null;
       if (legitRedeem) {
-        inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedAndRedeemedUserQuestsForUser(senderProto.getUserId());
+        inProgressAndRedeemedUserQuests = RetrieveUtils.userQuestRetrieveUtils().getUnredeemedAndRedeemedUserQuestsForUser(senderProto.getUserId());
         List<Integer> inProgressQuestIds = new ArrayList<Integer>();
         List<Integer> redeemedQuestIds = new ArrayList<Integer>();
 

@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
@@ -117,6 +119,9 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
   /* (non-Javadoc)
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertUnredeemedUserQuest(int, int, boolean, boolean)
  */
+@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
 @Override
 public boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
     Map <String, Object> insertParams = new HashMap<String, Object>();

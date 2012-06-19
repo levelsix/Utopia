@@ -20,7 +20,6 @@ import com.lvl6.proto.EventProto.QuestAcceptResponseProto.Builder;
 import com.lvl6.proto.EventProto.QuestAcceptResponseProto.QuestAcceptStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
@@ -113,7 +112,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("parameter passed in is null. user=" + user + ", quest=" + quest);
       return false;
     }
-    List<UserQuest> inProgressAndRedeemedUserQuests = UserQuestRetrieveUtils.getUnredeemedAndRedeemedUserQuestsForUser(user.getId());
+    List<UserQuest> inProgressAndRedeemedUserQuests = RetrieveUtils.userQuestRetrieveUtils().getUnredeemedAndRedeemedUserQuestsForUser(user.getId());
     List<Integer> inProgressQuestIds = new ArrayList<Integer>();
     List<Integer> redeemedQuestIds = new ArrayList<Integer>();
 
