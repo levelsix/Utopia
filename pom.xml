@@ -49,7 +49,7 @@
 		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
-		<lvl6.server.log.location>/opt/tomcat7/logs/utopia.log</lvl6.server.log.location>
+		<lvl6.server.log.location>/opt/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 	</properties>
 
 
