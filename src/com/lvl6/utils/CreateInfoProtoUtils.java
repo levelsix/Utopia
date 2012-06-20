@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
@@ -34,6 +35,7 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
@@ -97,6 +99,11 @@ public class CreateInfoProtoUtils {
     FullMarketplacePostProto fmpp = createFullMarketplacePostProtoFromMarketplacePost(mt.getPost(), seller);
     return MarketplacePostPurchasedNotificationProto.newBuilder().setMarketplacePost(fmpp)
         .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime()).build();
+  }
+  
+  public static AnimatedSpriteOffsetProto createAnimatedSpriteOffsetProtoFromAnimatedSpriteOffset(AnimatedSpriteOffset aso) {
+    return AnimatedSpriteOffsetProto.newBuilder().setImageName(aso.getImgName())
+        .setOffSet(createCoordinateProtoFromCoordinatePair(aso.getOffSet())).build();
   }
 
   public static AttackedNotificationProto createAttackedNotificationProtoFromBattleHistory(BattleDetails bd, User attacker) {

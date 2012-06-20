@@ -1,5 +1,6 @@
 package com.lvl6.server.controller;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -11,15 +12,20 @@ import javax.crypto.spec.SecretKeySpec;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
+import org.apache.http.HttpException;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.mina.util.Base64;
@@ -81,9 +87,7 @@ public class EarnFreeDiamondsController extends EventController {
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
     EarnFreeDiamondsRequestProto reqProto = ((EarnFreeDiamondsRequestEvent)event).getEarnFreeDiamondsRequestProto();
-    //    MinimumUserProto senderProto = reqProto.getSender();
-
-    MinimumUserProto senderProto = MinimumUserProto.newBuilder().setUserId(2602).build();
+    MinimumUserProto senderProto = reqProto.getSender();
 
     EarnFreeDiamondsType freeDiamondsType = reqProto.getFreeDiamondsType();
     Timestamp clientTime = new Timestamp(reqProto.getClientTime());
@@ -95,8 +99,8 @@ public class EarnFreeDiamondsController extends EventController {
 
 
 
-    //TODO:
-    kiipReceiptString = "{\"signature\":\"6793ccc4dcc9d4fe54ef177205b56901ff193e36\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"None\"}";
+////    //TODO:
+    kiipReceiptString = "{\"signature\":\"f5dcbefaa733d43164c2bc81e31dca080f05b788\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"4fe0d1828fbab2185e000267\"}";
     freeDiamondsType = EarnFreeDiamondsType.KIIP;
 
 
@@ -118,6 +122,9 @@ public class EarnFreeDiamondsController extends EventController {
         if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
           kiipConfirmationReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
           if (kiipConfirmationReceipt == null) legitFreeDiamondsEarn = false;
+          else {
+            invalidateKiipTransaction(kiipConfirmationReceipt);
+          }
         }
         if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
           if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyDiamondsEarned, clientTime)) {
@@ -149,6 +156,10 @@ public class EarnFreeDiamondsController extends EventController {
     }
   }
 
+  private void invalidateKiipTransaction(JSONObject kiipConfirmationReceipt) {
+    // TODO Auto-generated method stub
+  }
+
   private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyDiamondsEarned, Timestamp clientTime) {
     String serverAdColonyDigest = null;
     String prepareString = user.getId() + user.getReferralCode() + adColonyDiamondsEarned + clientTime.getTime();
@@ -165,25 +176,43 @@ public class EarnFreeDiamondsController extends EventController {
   }
 
   private JSONObject getLegitKiipRewardReceipt(Builder resBuilder, User user, String kiipReceipt) {
+    DefaultHttpClient httpClient = new DefaultHttpClient();
     try {
       OAuthConsumer consumer = new CommonsHttpOAuthConsumer(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
       HttpPost verifyPost = new HttpPost(KIIP_VERIFY_ENDPOINT);
-      consumer.setTokenWithSecret(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
-      consumer.sign(verifyPost);
+      
+//      consumer.setTokenWithSecret(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
 
-      HttpParams params = new BasicHttpParams();
-      HttpProtocolParams.setUseExpectContinue(params, false);
-
-      //      params.setParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
-      //      params.setParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
-
+//      HttpParams params = new BasicHttpParams();
+//      HttpProtocolParams.setUseExpectContinue(params, false);
+//
+//            params.setParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
+//            params.setParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
+//      httpClient.setParams(params);
+//
       MultipartEntity entity = new MultipartEntity(HttpMultipartMode.STRICT);
       entity.addPart(KIIP_JSON_APP_KEY_KEY, new StringBody(KIIP_CONSUMER_KEY));
       entity.addPart(KIIP_JSON_RECEIPT_KEY, new StringBody(kiipReceipt));
       verifyPost.setEntity(entity);
+            
+      
+      //TODO:
+//      httpClient.addRequestInterceptor(new HttpRequestInterceptor() {
+//        @Override
+//        public void process(HttpRequest arg0, HttpContext arg1)
+//            throws HttpException, IOException {
+//          log.info("the request is " + arg0.getAllHeaders() + "\n and " + arg0.getRequestLine() + "\n and " + arg0);
+//          log.info(arg0.getParams().getParameter(KIIP_JSON_APP_KEY_KEY));
+//          log.info(arg0.getParams().getParameter(KIIP_JSON_RECEIPT_KEY));
+//        }
+//
+//    });
 
-
-      DefaultHttpClient httpClient = new DefaultHttpClient(params);
+      consumer.sign(verifyPost);
+      httpClient.execute(verifyPost, new BasicResponseHandler());
+      
+      
+      
       HttpResponse response = httpClient.execute(verifyPost);
       if (response.getStatusLine().getStatusCode() == 200) {
         String responseJSONString = EntityUtils.toString(response.getEntity());
@@ -201,6 +230,8 @@ public class EarnFreeDiamondsController extends EventController {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("problem with checking kiip reward", e);
       return null;
+    } finally {
+      httpClient.getConnectionManager().shutdown();
     }
     resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
     log.error("problem with getting kiip Receipt, input kiipreceipt is=" + kiipReceipt);

@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.City;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -51,7 +52,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
 public class MiscMethods {
-  
+
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public static Dialogue createDialogue(String dialogueBlob) {
@@ -78,7 +79,7 @@ public class MiscMethods {
     }
     return null;
   }
-  
+
   /*
    * doesn't check if the user has the equip or not
    */
@@ -91,7 +92,7 @@ public class MiscMethods {
     }
     return false;
   }
-  
+
   public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
     if (playerId != null && playerId > 0) {
       if (server.getPlayerById(playerId) != null) {
@@ -109,13 +110,13 @@ public class MiscMethods {
     }
     return null;
   }
-  
+
   public static void purgeMDCProperties(){
     MDC.remove(MDCKeys.UDID);
     MDC.remove(MDCKeys.PLAYER_ID);
     MDC.remove(MDCKeys.IP);
   }
-  
+
   public static void setMDCProperties(String udid, Integer playerId, String ip) {
     purgeMDCProperties();
     if (udid != null) MDC.put(MDCKeys.UDID, udid);
@@ -272,6 +273,12 @@ public class MiscMethods {
         .setMaxCharLengthForWallPost(ControllerConstants.POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH)
         .setPlayerWallPostsRetrieveCap(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP);
 
+    if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
+      for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
+        AnimatedSpriteOffset aso = ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS[i];
+        cb.addAnimatedSpriteOffsets(CreateInfoProtoUtils.createAnimatedSpriteOffsetProtoFromAnimatedSpriteOffset(aso));
+      }
+    }
 
     FormulaConstants formulaConstants = FormulaConstants.newBuilder()
         .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
@@ -335,9 +342,9 @@ public class MiscMethods {
       return UserType.GOOD_WARRIOR;
     case GOOD_MAGE:
       return UserType.GOOD_MAGE;
-      default:
-        log.error("no usertype for this defeat type job enemy type: " + enemyType);
-        return null;
+    default:
+      log.error("no usertype for this defeat type job enemy type: " + enemyType);
+      return null;
     }
   }
 }
