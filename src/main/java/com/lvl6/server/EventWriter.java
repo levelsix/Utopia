@@ -28,7 +28,7 @@ public class EventWriter extends Wrap {
 	@Resource(name="gameEventsHandlerExecutor")
 	protected Executor gameEventsExecutor;
 
-	
+
 	public Executor getGameEventsExecutor() {
 		return gameEventsExecutor;
 	}
@@ -61,9 +61,9 @@ public class EventWriter extends Wrap {
 	@Resource(name="playersByPlayerId")
 	protected Map<Integer, ConnectedPlayer> playersByPlayerId;
 
-	
-	
-	
+
+
+
 	private static Logger log = Logger.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
@@ -80,7 +80,7 @@ public class EventWriter extends Wrap {
 
 	}
 
-	
+
 	/**
 	 * our own version of processEvent that takes the additional parameter of
 	 * the writeBuffer
@@ -107,14 +107,14 @@ public class EventWriter extends Wrap {
 		}
 
 	}
-	
-	
+
+
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
 		ConnectedPlayer player = playersPreDatabaseByUDID.get(udid);
 		ByteBuffer bytes = getBytes(event);
 		write(bytes, player);
 	}
-	
+
 	protected ByteBuffer getBytes(ResponseEvent event) {
 		ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
 		NIOUtils.prepBuffer(event, writeBuffer);
