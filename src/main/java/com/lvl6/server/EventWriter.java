@@ -94,7 +94,13 @@ public class EventWriter extends Wrap {
 				if (recipients[i] > 0) {
 					log.info("writing broadcast event with type="+ event.getEventType() + " to players with ids "+ recipients[i]);
 					ConnectedPlayer player = playersByPlayerId.get(recipients[i]);
-					write(buff.duplicate(), player);
+					if(player != null){
+						log.info("writing normal event with type=" + event.getEventType()+ " to player with id " + recipients[i] + ", event=" + event);
+						write(buff.duplicate(), player);
+					}else{
+						//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
+						log.error("Player "+recipients[i]+" not found in playersByPlayerId");
+					}
 				}
 			}
 		}
@@ -102,8 +108,13 @@ public class EventWriter extends Wrap {
 		else {
 			int playerId = ((NormalResponseEvent) event).getPlayerId();
 			ConnectedPlayer player = playersByPlayerId.get(playerId);
-			log.info("writing normal event with type=" + event.getEventType()+ " to player with id " + playerId + ", event=" + event);
-			write(buff, player);
+			if(player != null){
+				log.info("writing normal event with type=" + event.getEventType()+ " to player with id " + playerId + ", event=" + event);
+				write(buff, player);
+			}else{
+				//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
+				log.error("Player "+playerId+" not found in playersByPlayerId");
+			}
 		}
 
 	}
@@ -125,7 +136,9 @@ public class EventWriter extends Wrap {
 	 * write the event to the given playerId's channel
 	 */
 	private void write(ByteBuffer event, ConnectedPlayer player) {
-		ITopic<Message<?>> serverOutboundMessages = Hazelcast.getTopic(ServerInstance.getOutboundMessageTopicForServer(player.getServerHostName()));
+		ITopic<Message<?>> serverOutboundMessages = Hazelcast.getTopic(
+				ServerInstance.getOutboundMessageTopicForServer(
+						player.getServerHostName()));
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ip_connection_id", player.getIp_connection_id());
 		byte[] bArray = new byte[event.remaining()];
