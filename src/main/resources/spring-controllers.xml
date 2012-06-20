@@ -14,8 +14,8 @@
 	http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:component-scan base-package="com.lvl6.server.controller" />
-	<context:component-scan base-package="com.lvl6.server.retrieveutils" />
+	<context:component-scan base-package="com.lvl6" />
+<!-- 	<context:component-scan base-package="com.lvl6.retrieveutils" /> -->
 	
 
 	<task:annotation-driven executor="controllersExecutor" />
