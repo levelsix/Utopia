@@ -176,7 +176,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }
 
-    if (!DeleteUtils.deleteMarketplacePost(mp.getId())) {
+    if (!DeleteUtils.get().deleteMarketplacePost(mp.getId())) {
       log.error("problem with deleting marketplace post with id " + mp.getId());      
     }
   }

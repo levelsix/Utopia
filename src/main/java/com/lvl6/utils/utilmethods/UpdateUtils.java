@@ -487,7 +487,8 @@ public class UpdateUtils {
   /*
    * used for tasks
    */
-  @CacheEvict(value="cityIdToUserCityRankCache", key="#userId")
+	@Caching(evict={@CacheEvict(value="cityIdToUserCityRankCache", key="#userId"),
+			@CacheEvict(value="currentCityRankForUserCache", key="#userId+':'+#cityId")})
   public boolean incrementCityRankForUserCity(int userId, int cityId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 

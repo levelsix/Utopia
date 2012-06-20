@@ -119,7 +119,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private void clearUserQuestData(Quest quest, UserQuest userQuest, UserType userType) {
     if (quest.getTasksRequired() != null && quest.getTasksRequired().size() > 0) {
-      if (!DeleteUtils.deleteUserQuestInfoInTaskProgressAndCompletedTasks(userQuest.getUserId(), userQuest.getQuestId(), quest.getTasksRequired().size())) {
+      if (!DeleteUtils.get().deleteUserQuestInfoInTaskProgressAndCompletedTasks(userQuest.getUserId(), userQuest.getQuestId(), quest.getTasksRequired().size())) {
         log.error("problem with deleting user quest info in user quest task tables. questid=" + userQuest.getQuestId() 
             + ", num tasks it has is " + quest.getTasksRequired().size());
       }
@@ -132,7 +132,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       defeatTypeJobs = quest.getDefeatGoodGuysJobsRequired();
     }
     if (defeatTypeJobs != null && defeatTypeJobs.size() > 0) {
-      if (!DeleteUtils.deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(userQuest.getUserId(), userQuest.getQuestId(), defeatTypeJobs.size())) {
+      if (!DeleteUtils.get().deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(userQuest.getUserId(), userQuest.getQuestId(), defeatTypeJobs.size())) {
         log.error("problem with deleting user quest info for defeat type job tables. questid=" + userQuest.getQuestId() 
             + ", num defeat type jobs it has is " + defeatTypeJobs.size());
       }

@@ -143,6 +143,7 @@ public boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoR
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedDefeatTypeJobIdForUserQuest(int, int, int)
  */
 @Override
+@CacheEvict(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
 public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID, userId);
@@ -161,6 +162,7 @@ public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId,
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedTaskIdForUserQuest(int, int, int)
  */
 @Override
+@CacheEvict(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
 public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);

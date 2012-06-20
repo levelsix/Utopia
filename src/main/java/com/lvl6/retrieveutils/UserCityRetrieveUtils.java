@@ -38,7 +38,7 @@ import com.lvl6.utils.DBConnection;
   
   
   
-  @Cacheable(value="currentCityRankForUserCache")
+  @Cacheable(value="currentCityRankForUserCache", key="#userId+':'+#cityId")
   public int getCurrentCityRankForUser(int userId, int cityId) {
     log.debug("retrieving user city info for userId " + userId + " and cityId " + cityId);
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();

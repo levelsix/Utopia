@@ -17,8 +17,6 @@ import com.lvl6.info.jobs.UpgradeStructJob;
 import com.lvl6.proto.EventProto.QuestCompleteResponseProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
-import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
-import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;

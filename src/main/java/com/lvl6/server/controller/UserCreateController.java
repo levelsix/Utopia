@@ -252,7 +252,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private String grabNewReferCode() {
     String newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
     if (newReferCode != null && newReferCode.length() > 0) {
-      while (!DeleteUtils.deleteAvailableReferralCode(newReferCode)) {
+      while (!DeleteUtils.get().deleteAvailableReferralCode(newReferCode)) {
         newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
       }
     } else {

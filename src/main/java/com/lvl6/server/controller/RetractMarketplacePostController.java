@@ -106,7 +106,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           + diamondChange + " and changing coins by " + coinChange);
     }
 
-    if (!DeleteUtils.deleteMarketplacePost(mp.getId())) {
+    if (!DeleteUtils.get().deleteMarketplacePost(mp.getId())) {
       log.error("problem with deleting marketplace post with id " + mp.getId());      
     }
   }

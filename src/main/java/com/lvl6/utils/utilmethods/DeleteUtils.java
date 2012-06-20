@@ -3,15 +3,21 @@ package com.lvl6.utils.utilmethods;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.cache.annotation.Caching;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.properties.DBConstants;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 
 public class DeleteUtils {
 
-  public static boolean deleteAvailableReferralCode(String referralCode) {
+	
+	public static DeleteUtils get(){
+		return (DeleteUtils) AppContext.getApplicationContext().getBean("deleteUtils");
+	}
+	
+  public boolean deleteAvailableReferralCode(String referralCode) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.AVAILABLE_REFERRAL_CODES__CODE, referralCode);
 
@@ -22,7 +28,8 @@ public class DeleteUtils {
     return true;  
   }
 
-  public static boolean deleteUserQuestInfoInTaskProgressAndCompletedTasks(int userId, int questId, int numTasks) {
+  @CacheEvict(value = "questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
+  public boolean deleteUserQuestInfoInTaskProgressAndCompletedTasks(int userId, int questId, int numTasks) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__QUEST_ID, questId);
@@ -43,7 +50,8 @@ public class DeleteUtils {
     return true;  
   }
 
-  public static boolean deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(int userId, int questId, int numDefeatJobs) {
+  @CacheEvict(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
+  public boolean deleteUserQuestInfoInDefeatTypeJobProgressAndCompletedDefeatTypeJobs(int userId, int questId, int numDefeatJobs) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);
     conditionParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__QUEST_ID, questId);
@@ -62,7 +70,7 @@ public class DeleteUtils {
     return true;  
   }
   
-  public static boolean deleteMarketplacePost(int mpId) {
+  public boolean deleteMarketplacePost(int mpId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.MARKETPLACE__ID, mpId);
 
@@ -77,7 +85,7 @@ public class DeleteUtils {
   @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
 		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
 		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
-  public static boolean deleteUserStruct(int userStructId) {
+  public boolean deleteUserStruct(int userStructId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
 

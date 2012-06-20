@@ -65,7 +65,7 @@ public class GenerateFakeUsersWithoutInput {
 
     String newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
     if (newReferCode != null && newReferCode.length() > 0) {
-      while (!DeleteUtils.deleteAvailableReferralCode(newReferCode)) {
+      while (!DeleteUtils.get().deleteAvailableReferralCode(newReferCode)) {
         newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
       }
     } else {

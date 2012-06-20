@@ -3,6 +3,8 @@ package com.lvl6.utils;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestsCompletedDefeatTypeJobsRetrieveUtils;
+import com.lvl6.retrieveutils.UserQuestsCompletedTasksRetrieveUtils;
 import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.retrieveutils.UserStructRetrieveUtils;
 import com.lvl6.spring.AppContext;
@@ -34,4 +36,13 @@ public class RetrieveUtils {
 				UserStructRetrieveUtils.class);
 	}
 
+	public static UserQuestsCompletedDefeatTypeJobsRetrieveUtils userQuestsCompletedDefeatTypeJobsRetrieveUtils() {
+		return AppContext.getApplicationContext().getBean(
+				UserQuestsCompletedDefeatTypeJobsRetrieveUtils.class);
+	}
+	
+	public static UserQuestsCompletedTasksRetrieveUtils userQuestsCompletedTasksRetrieveUtils() {
+		return AppContext.getApplicationContext().getBean(
+				UserQuestsCompletedTasksRetrieveUtils.class);
+	}
 }

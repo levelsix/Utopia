@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +18,12 @@ import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class UserQuestsCompletedDefeatTypeJobsRetrieveUtils {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private static final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS;
+  private final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS;
 
-  public static Map<Integer, List<Integer>> getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(int userId) {
+  @Cacheable(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
+  public Map<Integer, List<Integer>> getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(int userId) {
     log.debug("retrieving user's quest id to completed defeat type jobs map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserDefeatTypeJobsCompleted = new HashMap<Integer, List<Integer>>();
 

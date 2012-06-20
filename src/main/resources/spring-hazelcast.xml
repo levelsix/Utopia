@@ -13,7 +13,7 @@
 	
 	<hz:hazelcast id="hazel" >
 		<hz:config>
-			<hz:network port="5701" port-auto-increment="false">
+			<hz:network port="5701" >
 			<hz:join>
 				<hz:aws 
 				access-key="${hazelcast.ec2.awsId}" 

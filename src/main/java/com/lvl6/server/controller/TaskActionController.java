@@ -29,7 +29,6 @@ import com.lvl6.proto.EventProto.TaskActionResponseProto.Builder;
 import com.lvl6.proto.EventProto.TaskActionResponseProto.TaskActionStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserQuestsCompletedTasksRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -193,7 +192,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             List<Integer> tasksRequired = quest.getTasksRequired();
             if (tasksRequired != null) {
               if (questIdToUserTasksCompletedForQuestForUser == null) {
-                questIdToUserTasksCompletedForQuestForUser = UserQuestsCompletedTasksRetrieveUtils.getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
+                questIdToUserTasksCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedTasksRetrieveUtils().getQuestIdToUserTasksCompletedForQuestForUser(user.getId());
               }
               List<Integer> userCompletedTasksForQuest = questIdToUserTasksCompletedForQuestForUser.get(quest.getId());
               if (userCompletedTasksForQuest == null) userCompletedTasksForQuest = new ArrayList<Integer>();

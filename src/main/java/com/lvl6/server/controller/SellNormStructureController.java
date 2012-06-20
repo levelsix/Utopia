@@ -71,7 +71,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
             resBuilder.setStatus(SellNormStructureStatus.FAIL);
             log.error("problem with giving user " + diamondChange + " diamonds and " + coinChange + " coins");
           } else {
-            if (!DeleteUtils.deleteUserStruct(userStructId)) {
+            if (!DeleteUtils.get().deleteUserStruct(userStructId)) {
               resBuilder.setStatus(SellNormStructureStatus.FAIL);
               log.error("problem with deleting user struct with user struct id " + userStructId);
             } else {
