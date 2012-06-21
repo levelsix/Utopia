@@ -1,17 +1,26 @@
 package com.lvl6.utils;
 
+import java.util.Date;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+
+import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import com.hazelcast.core.Hazelcast;
 
 public class PlayerSet {
 
+	
+	Logger log = Logger.getLogger(PlayerSet.class);
+	
+	private Set<PlayerInAction> players;
 
-	private Set<Integer> players;
-
-	public Set<Integer> getPlayers() {
+	public Set<PlayerInAction> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(Set<Integer> players) {
+	public void setPlayers(Set<PlayerInAction> players) {
 		this.players = players;
 	}
 
@@ -29,7 +38,7 @@ public class PlayerSet {
 //				// Continue waiting??
 //			}
 //		}
-		players.add(playerId);
+		players.add(new PlayerInAction(playerId));
 	}
 
 	public void removePlayer(int playerId) {
@@ -38,6 +47,21 @@ public class PlayerSet {
 
 	public boolean containsPlayer(int playerId) {
 		return players.contains(playerId);
+	}
+	
+	
+	
+	@Scheduled(fixedDelay=60000)
+	public void clearOldLocks(){
+		long now = new Date().getTime();
+		log.info("Removing stale player locks");
+		for(PlayerInAction player:players){
+			if(now - player.getLockTime().getTime() > 60000){
+				Lock playerLock = Hazelcast.getLock(player.getPlayerId());
+				playerLock.unlock();
+				players.remove(player);
+			}
+		}
 	}
 
 }// EventQueue

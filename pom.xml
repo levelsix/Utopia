@@ -49,7 +49,7 @@
 		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
-		<lvl6.server.log.location>/opt/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 	</properties>
 
 
@@ -250,6 +250,11 @@
 				<artifactId>spring-integration-ip</artifactId>
 				<version>2.1.2.RELEASE</version>
 			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.springframework</groupId> -->
+<!-- 				<artifactId>spring-aspects</artifactId> -->
+<!-- 				<version>3.1.1.RELEASE</version> -->
+<!-- 			</dependency> -->
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
@@ -276,6 +281,21 @@
 				<version>3.0.1</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.2</version>
+			</dependency>
+			<!-- <dependency> -->
+			<!-- <groupId>oauth.signpost</groupId> -->
+			<!-- <artifactId>oauth-signpost</artifactId> -->
+			<!-- <version>1.2.1.2</version> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>oauth.signpost</groupId> -->
+			<!-- <artifactId>signpost-commonshttp4</artifactId> -->
+			<!-- <version>1.2.1.2</version> -->
+			<!-- </dependency> -->
 		</dependencies>
 	</dependencyManagement>
 
@@ -373,6 +393,10 @@
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-ip</artifactId>
 		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-aspects</artifactId> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -393,6 +417,18 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>oauth.signpost</groupId> -->
+		<!-- <artifactId>oauth-signpost</artifactId> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>oauth.signpost</groupId> -->
+		<!-- <artifactId>signpost-commonshttp4</artifactId> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 </project>

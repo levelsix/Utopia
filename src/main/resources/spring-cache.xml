@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop 
@@ -10,13 +11,11 @@
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
         http://www.springframework.org/schema/cache 
         http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd
 		">
-
-
-	<cache:annotation-driven cache-manager="cacheManager" />
-
-	<bean id="cacheManager" class="com.hazelcast.spring.cache.HazelcastCacheManager">
-		<constructor-arg ref="hazel" />
-	</bean>
+	
+	<task:scheduler id="taskScheduler" pool-size="5"/>
+	
 
 </beans>
