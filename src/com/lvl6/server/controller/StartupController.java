@@ -189,7 +189,6 @@ public class StartupController extends EventController {
   }
 
   private void setNotifications(Builder resBuilder, User user) {
-    if (user.getLastLogout() != null) {
       List <Integer> userIds = new ArrayList<Integer>();
 
       List<MarketplaceTransaction> marketplaceTransactions = 
@@ -235,8 +234,6 @@ public class StartupController extends EventController {
           resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
         }
       }
-
-    }
   }
 
   private void setAllies(Builder resBuilder, User user) {
