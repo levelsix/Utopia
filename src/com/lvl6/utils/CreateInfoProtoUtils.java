@@ -147,6 +147,8 @@ public class CreateInfoProtoUtils {
 
     String questGiverName = null;
     NeutralCityElement nce = NeutralCityElementsRetrieveUtils.getNeutralCityElement(quest.getCityId(), quest.getAssetNumWithinCity());
+    
+    String questGiverImageSuffix = null;
     if (goodSide) {
       name = quest.getGoodName();
       description = quest.getGoodDescription();
@@ -156,6 +158,7 @@ public class CreateInfoProtoUtils {
       if (nce != null) {
         questGiverName = nce.getGoodName();
       }
+      questGiverImageSuffix = quest.getGoodQuestGiverImageSuffix();
     } else {
       name = quest.getBadName();
       description = quest.getBadDescription();
@@ -165,6 +168,7 @@ public class CreateInfoProtoUtils {
       if (nce != null) {
         questGiverName = nce.getBadName();
       }
+      questGiverImageSuffix = quest.getBadQuestGiverImageSuffix();
     }
     
     FullQuestProto.Builder builder = FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
@@ -175,7 +179,7 @@ public class CreateInfoProtoUtils {
         .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired())
         .addAllDefeatTypeReqs(defeatTypeReqs).addAllPossessEquipJobReqs(quest.getPossessEquipJobsRequired())
         .setNumComponentsForGood(quest.getNumComponents(true)).setNumComponentsForBad(quest.getNumComponents(false))
-        .setCoinRetrievalReq(quest.getCoinRetrievalAmountRequired());
+        .setCoinRetrievalReq(quest.getCoinRetrievalAmountRequired()).setQuestGiverImageSuffix(questGiverImageSuffix);
     if (acceptDialogue != null) {
       builder.setAcceptDialogue(createDialogueProtoFromDialogue(acceptDialogue));
     }

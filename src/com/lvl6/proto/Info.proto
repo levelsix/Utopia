@@ -451,6 +451,7 @@ message FullQuestProto {
      optional DialogueProto acceptDialogue = 20;
      
      optional string questGiverName = 21;
+     optional string questGiverImageSuffix = 23;
 }
 
 //------------------------------------------------------------------------------------------

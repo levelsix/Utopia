@@ -30,7 +30,9 @@ public class Quest {
   private List<Integer> possessEquipJobsRequired;
   private int coinRetrievalAmountRequired;
   private SpecialQuestAction specialQuestActionRequired;
-
+  private String goodQuestGiverImageSuffix;
+  private String badQuestGiverImageSuffix;
+  
   public Quest(int id, int cityId, String goodName, String badName,
       String goodDescription, String badDescription, String goodDoneResponse,
       String badDoneResponse, Dialogue goodAcceptDialogue,
@@ -42,7 +44,8 @@ public class Quest {
       List<Integer> defeatGoodGuysJobsRequired,
       List<Integer> defeatBadGuysJobsRequired,
       List<Integer> possessEquipJobsRequired, int coinRetrievalAmountRequired,
-      SpecialQuestAction specialQuestActionRequired) {
+      SpecialQuestAction specialQuestActionRequired,
+      String goodQuestGiverImageSuffix, String badQuestGiverImageSuffix) {
     super();
     this.id = id;
     this.cityId = cityId;
@@ -68,200 +71,112 @@ public class Quest {
     this.possessEquipJobsRequired = possessEquipJobsRequired;
     this.coinRetrievalAmountRequired = coinRetrievalAmountRequired;
     this.specialQuestActionRequired = specialQuestActionRequired;
+    this.goodQuestGiverImageSuffix = goodQuestGiverImageSuffix;
+    this.badQuestGiverImageSuffix = badQuestGiverImageSuffix;
   }
 
   public int getId() {
     return id;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
   public int getCityId() {
     return cityId;
-  }
-
-  public void setCityId(int cityId) {
-    this.cityId = cityId;
   }
 
   public String getGoodName() {
     return goodName;
   }
 
-  public void setGoodName(String goodName) {
-    this.goodName = goodName;
-  }
-
   public String getBadName() {
     return badName;
-  }
-
-  public void setBadName(String badName) {
-    this.badName = badName;
   }
 
   public String getGoodDescription() {
     return goodDescription;
   }
 
-  public void setGoodDescription(String goodDescription) {
-    this.goodDescription = goodDescription;
-  }
-
   public String getBadDescription() {
     return badDescription;
-  }
-
-  public void setBadDescription(String badDescription) {
-    this.badDescription = badDescription;
   }
 
   public String getGoodDoneResponse() {
     return goodDoneResponse;
   }
 
-  public void setGoodDoneResponse(String goodDoneResponse) {
-    this.goodDoneResponse = goodDoneResponse;
-  }
-
   public String getBadDoneResponse() {
     return badDoneResponse;
-  }
-
-  public void setBadDoneResponse(String badDoneResponse) {
-    this.badDoneResponse = badDoneResponse;
   }
 
   public Dialogue getGoodAcceptDialogue() {
     return goodAcceptDialogue;
   }
 
-  public void setGoodAcceptDialogue(Dialogue goodAcceptDialogue) {
-    this.goodAcceptDialogue = goodAcceptDialogue;
-  }
-
   public Dialogue getBadAcceptDialogue() {
     return badAcceptDialogue;
-  }
-
-  public void setBadAcceptDialogue(Dialogue badAcceptDialogue) {
-    this.badAcceptDialogue = badAcceptDialogue;
   }
 
   public int getAssetNumWithinCity() {
     return assetNumWithinCity;
   }
 
-  public void setAssetNumWithinCity(int assetNumWithinCity) {
-    this.assetNumWithinCity = assetNumWithinCity;
-  }
-
   public int getCoinsGained() {
     return coinsGained;
-  }
-
-  public void setCoinsGained(int coinsGained) {
-    this.coinsGained = coinsGained;
   }
 
   public int getDiamondsGained() {
     return diamondsGained;
   }
 
-  public void setDiamondsGained(int diamondsGained) {
-    this.diamondsGained = diamondsGained;
-  }
-
   public int getExpGained() {
     return expGained;
-  }
-
-  public void setExpGained(int expGained) {
-    this.expGained = expGained;
   }
 
   public int getEquipIdGained() {
     return equipIdGained;
   }
 
-  public void setEquipIdGained(int equipIdGained) {
-    this.equipIdGained = equipIdGained;
-  }
-
   public List<Integer> getQuestsRequiredForThis() {
     return questsRequiredForThis;
-  }
-
-  public void setQuestsRequiredForThis(List<Integer> questsRequiredForThis) {
-    this.questsRequiredForThis = questsRequiredForThis;
   }
 
   public List<Integer> getTasksRequired() {
     return tasksRequired;
   }
 
-  public void setTasksRequired(List<Integer> tasksRequired) {
-    this.tasksRequired = tasksRequired;
-  }
-
   public List<Integer> getUpgradeStructJobsRequired() {
     return upgradeStructJobsRequired;
-  }
-
-  public void setUpgradeStructJobsRequired(List<Integer> upgradeStructJobsRequired) {
-    this.upgradeStructJobsRequired = upgradeStructJobsRequired;
   }
 
   public List<Integer> getBuildStructJobsRequired() {
     return buildStructJobsRequired;
   }
 
-  public void setBuildStructJobsRequired(List<Integer> buildStructJobsRequired) {
-    this.buildStructJobsRequired = buildStructJobsRequired;
-  }
-
   public List<Integer> getDefeatGoodGuysJobsRequired() {
     return defeatGoodGuysJobsRequired;
-  }
-
-  public void setDefeatGoodGuysJobsRequired(
-      List<Integer> defeatGoodGuysJobsRequired) {
-    this.defeatGoodGuysJobsRequired = defeatGoodGuysJobsRequired;
   }
 
   public List<Integer> getDefeatBadGuysJobsRequired() {
     return defeatBadGuysJobsRequired;
   }
 
-  public void setDefeatBadGuysJobsRequired(List<Integer> defeatBadGuysJobsRequired) {
-    this.defeatBadGuysJobsRequired = defeatBadGuysJobsRequired;
-  }
-
   public List<Integer> getPossessEquipJobsRequired() {
     return possessEquipJobsRequired;
-  }
-
-  public void setPossessEquipJobsRequired(List<Integer> possessEquipJobsRequired) {
-    this.possessEquipJobsRequired = possessEquipJobsRequired;
   }
 
   public int getCoinRetrievalAmountRequired() {
     return coinRetrievalAmountRequired;
   }
 
-  public void setCoinRetrievalAmountRequired(int coinRetrievalAmountRequired) {
-    this.coinRetrievalAmountRequired = coinRetrievalAmountRequired;
-  }
-
   public SpecialQuestAction getSpecialQuestActionRequired() {
     return specialQuestActionRequired;
   }
 
-  public void setSpecialQuestActionRequired(
-      SpecialQuestAction specialQuestActionRequired) {
-    this.specialQuestActionRequired = specialQuestActionRequired;
+  public String getGoodQuestGiverImageSuffix() {
+    return goodQuestGiverImageSuffix;
+  }
+
+  public String getBadQuestGiverImageSuffix() {
+    return badQuestGiverImageSuffix;
   }
 
   public int getNumComponents(boolean isGoodSide) {

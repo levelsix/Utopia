@@ -237,14 +237,18 @@ public class QuestRetrieveUtils {
     if (!rs.wasNull()) {
       sqaReq = SpecialQuestAction.valueOf(specialQuestActionInt);
     }
-
+    
+    String goodQuestGiverImageSuffix = rs.getString(i++);
+    String badQuestGiverImageSuffix = rs.getString(i++);
+    
     Quest quest = new Quest(id, cityId, goodName, badName, goodDescription, badDescription, 
         goodDoneResponse, badDoneResponse,
         goodAcceptDialogue, badAcceptDialogue, assetNumWithinCity, 
         coinsGained, diamondsGained, expGained, equipIdGained, questsRequiredForThis, 
         tasksRequired, upgradeStructJobsRequired, 
         buildStructJobsRequired, defeatGoodGuysRequired, 
-        defeatBadGuysRequired, possessEquipJobsRequired, coinRetrievalReq, sqaReq);
+        defeatBadGuysRequired, possessEquipJobsRequired, coinRetrievalReq, sqaReq, 
+        goodQuestGiverImageSuffix, badQuestGiverImageSuffix);
     return quest;
   }
 
