@@ -32,6 +32,7 @@
 	<hz:queue id="gameEventQueue" name="gameEventQueue" instance-ref="hazel" />
 	
 	<hz:map id="playersByPlayerId" name="playersByPlayerId" instance-ref="hazel" />
+		
 
 	<hz:map id="playersPreDatabaseByUDID" name="playersPreDatabaseByUDID" instance-ref="hazel" />
 		

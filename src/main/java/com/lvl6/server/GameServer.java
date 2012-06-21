@@ -202,7 +202,7 @@ public class GameServer extends Thread implements InitializingBean{
 
 	
 	
-	  public String serverId() throws FileNotFoundException {
+	  public String serverId() {
 		  return getServerInstance().serverId();
 	  }
 	
@@ -229,6 +229,7 @@ public class GameServer extends Thread implements InitializingBean{
 		init();
 		log.info("******** GameServer running ********");
 		running = true;
+		
 		if(block)
 		while (running) {
 			// note, since we only have one ServerSocket to listen to,

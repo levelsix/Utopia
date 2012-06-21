@@ -78,12 +78,9 @@ public class GameEventHandler implements MessageHandler {
 		while(attachment.eventReady()) {
             RequestEvent event = getEvent(attachment);
             log.info("Recieved event from client: "+event.getPlayerId());
-            try {
+            
 				delegateEvent(event, (String) msg.getHeaders().get("ip_connection_id"), attachment.eventType);
-			} catch (FileNotFoundException e) {
-				MessagingException msge = new MessagingException("Could not find file /etc/hostname", e);
-				throw(msge);
-			}
+
             attachment.reset();
         }
 	}
@@ -115,7 +112,7 @@ public class GameEventHandler implements MessageHandler {
 	   * based on the GameName of the event
 	 * @throws FileNotFoundException 
 	   */
-	  private void delegateEvent(RequestEvent event, String ip_connection_id, EventProtocolRequest eventType) throws FileNotFoundException {
+	  private void delegateEvent(RequestEvent event, String ip_connection_id, EventProtocolRequest eventType){
 	    if (event != null && eventType.getNumber() < 0) {
 	      log.error("the event type is < 0");
 	      return;
@@ -130,7 +127,7 @@ public class GameEventHandler implements MessageHandler {
 	  }
 	  
 	  
-	  protected void updatePlayerToServerMaps(RequestEvent event, String ip_connection_id) throws FileNotFoundException {
+	  protected void updatePlayerToServerMaps(RequestEvent event, String ip_connection_id) {
 		  log.debug("Updating player to server maps for player: "+event.getPlayerId());
 		  if(playersByPlayerId.containsKey(event.getPlayerId())) {
 			  ConnectedPlayer p = playersByPlayerId.get(event.getPlayerId());
