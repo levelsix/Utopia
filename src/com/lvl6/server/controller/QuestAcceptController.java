@@ -76,6 +76,11 @@ public class QuestAcceptController extends EventController {
             : quest.getDefeatGoodGuysJobsRequired();
         if (defeatTypeJobIds != null && defeatTypeJobIds.size() > 0) defeatTypeJobsComplete = false;
         
+        if (quest.getSpecialQuestActionRequired() != null) {
+          tasksComplete = true;
+          defeatTypeJobsComplete = true;
+        }
+        
         UserQuest uq = new UserQuest(user.getId(), quest.getId(), false, false, tasksComplete, defeatTypeJobsComplete, 0);
         writeChangesToDB(uq);
         QuestUtils.checkQuestCompleteAndMaybeSendIfJustCompleted(server, quest, uq, senderProto, true, null);
