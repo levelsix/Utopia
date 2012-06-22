@@ -76,7 +76,7 @@ public class EventWriter extends Wrap {
     else
     {
       int playerId = ((NormalResponseEvent)event).getPlayerId();
-      log.info("writing normal event with type=" + event.getEventType() + " to player with id " + playerId + ", event=" + event);
+      log.info("writing normal event with type=" + event.getEventType() + " to player with id " + playerId + ", event=" + event + ", tag=" + event.getTag());
       write(playerId, writeBuffer);
     }
     

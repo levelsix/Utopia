@@ -79,7 +79,7 @@ public class Attachment {
       eventType = EventProtocolRequest.valueOf(readBuff.getInt());
       tag = readBuff.getInt();
       payloadSize = readBuff.getInt();
-      log.info("Read event type: "+eventType+" and size: "+payloadSize);
+      log.info("Read event type: "+eventType+" and size: "+payloadSize + " and tag " + tag);
 
       // check bounds on the payload
       if (payloadSize > Globals.MAX_EVENT_SIZE) 
