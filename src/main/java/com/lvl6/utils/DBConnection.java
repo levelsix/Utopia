@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import com.lvl6.properties.DBConstants;
 import com.lvl6.spring.AppContext;
@@ -52,22 +53,7 @@ public class DBConnection {
 
 	public Connection getConnection() {
 		if(getDataSource() == null) log.error("Datasource is null");
-		// log.debug("before pool grab");
-		// printConnectionInfoInDebug();
-		//
-		Connection conn = null;
-		try {
-			conn = 
-				getDataSource()
-				.getConnection();
-		} catch (SQLException e) {
-			log.error("Problem with grabbing a db connection.", e);
-			printConnectionInfoInDebug();
-		}
-
-		// log.debug("after pool grab");
-		// printConnectionInfoInDebug();
-
+		Connection conn = DataSourceUtils.getConnection(dataSource); 
 		return conn;
 	}
 

@@ -3,6 +3,11 @@ package com.lvl6.server.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.RequestEvent;
@@ -15,6 +20,22 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public abstract class EventController extends Wrap{
 
 	
+	protected TransactionTemplate transactionTemplate;
+	
+	@Autowired
+	protected PlatformTransactionManager transactionManager;
+	
+	
+	public PlatformTransactionManager getTransactionManager() {
+		return transactionManager;
+	}
+
+	public void setTransactionManager(PlatformTransactionManager transactionManager) {
+		transactionTemplate = new TransactionTemplate(transactionManager);
+		this.transactionManager = transactionManager;
+	}
+
+
 	@Autowired
   protected GameServer server;
 
@@ -56,29 +77,47 @@ public abstract class EventController extends Wrap{
    */
   
   protected void processEvent(GameEvent event) throws Exception {
-    RequestEvent reqEvent = (RequestEvent) event;
+    final RequestEvent reqEvent = (RequestEvent) event;
     MiscMethods.setMDCProperties(null, reqEvent.getPlayerId(), MiscMethods.getIPOfPlayer(server, reqEvent.getPlayerId(), null));
     log.info("Received event: " + event.toString());
     
     final long startTime = System.nanoTime();
     final long endTime;
     try {
-      processRequestEvent(reqEvent);
+    	Exception e = doInTransaction(reqEvent);
+    	if(e != null) {
+    		throw e;
+    	}
     } catch (Exception e) {
       throw e;
     } finally {
       endTime = System.nanoTime();
     }
-    double numSeconds = (endTime-startTime) / 1000000000;
+    double numSeconds = (endTime-startTime) / 1000000;
     
-    log.info("Finished processing event: " + event.toString() + ", took ~" + numSeconds + " seconds");
+    log.info("Finished processing event: " + event.toString() + ", took ~" + numSeconds + "ms");
     
-    if (numSeconds > Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING) {
+    if (numSeconds/1000 > Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING) {
       log.warn("event: " + event.toString() + " took over " + Globals.NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING+ " seconds");
     }
     
     MiscMethods.purgeMDCProperties();
   }    
+  
+  protected Exception doInTransaction(final RequestEvent reqEvent) {
+	  return transactionTemplate.execute(new TransactionCallback<Exception>() {
+			
+			@Override
+			public Exception doInTransaction(TransactionStatus arg0) {
+				try {
+					processRequestEvent(reqEvent);
+					return null;
+				} catch (Exception e) {
+					return e;
+				}
+			}
+		});
+  }
 
   /**
    * subclasses must implement to provide their Event type
