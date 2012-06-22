@@ -2,7 +2,9 @@ package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -17,6 +19,8 @@ import com.lvl6.server.GameServer;
 import com.lvl6.utils.Wrap;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
+@Component
+@DependsOn("gameServer")
 public abstract class EventController extends Wrap{
 
 	
