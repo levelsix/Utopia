@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -8,25 +7,38 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+<<<<<<< HEAD
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.util.EntityUtils;
+=======
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd
 import org.apache.log4j.Logger;
 import org.apache.mina.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.EarnFreeDiamondsRequestEvent;
 import com.lvl6.events.response.EarnFreeDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.TwoLeggedOAuth;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType;
@@ -61,6 +73,8 @@ public class EarnFreeDiamondsController extends EventController {
   private static String KIIP_JSON_TRANSACTION_ID_KEY = "transaction_id";
   private static String KIIP_JSON_QUANTITY_KEY = "quantity";
 
+  private OAuthService oAuthService = null;
+
   public EarnFreeDiamondsController() {
     numAllocatedThreads = 1;
   }
@@ -78,9 +92,7 @@ public class EarnFreeDiamondsController extends EventController {
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
     EarnFreeDiamondsRequestProto reqProto = ((EarnFreeDiamondsRequestEvent)event).getEarnFreeDiamondsRequestProto();
-    //    MinimumUserProto senderProto = reqProto.getSender();
-
-    MinimumUserProto senderProto = MinimumUserProto.newBuilder().setUserId(2602).build();
+    MinimumUserProto senderProto = reqProto.getSender();
 
     EarnFreeDiamondsType freeDiamondsType = reqProto.getFreeDiamondsType();
     Timestamp clientTime = new Timestamp(reqProto.getClientTime());
@@ -92,9 +104,15 @@ public class EarnFreeDiamondsController extends EventController {
 
 
 
+<<<<<<< HEAD
+    //TODO:
+    kiipReceiptString = "{\"signature\":\"6793ccc4dcc9d4fe54ef177205b56901ff193e36\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"None\"}";
+    freeDiamondsType = EarnFreeDiamondsType.KIIP;
+=======
 //    ////    //TODO:
 //    kiipReceiptString = "{\"signature\":\"f5dcbefaa733d43164c2bc81e31dca080f05b788\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"4fe0d1828fbab2185e000267\"}";
 //    freeDiamondsType = EarnFreeDiamondsType.KIIP;
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd
 
 
 
@@ -115,6 +133,9 @@ public class EarnFreeDiamondsController extends EventController {
         if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
           kiipConfirmationReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
           if (kiipConfirmationReceipt == null) legitFreeDiamondsEarn = false;
+          else {
+            invalidateKiipTransaction(kiipConfirmationReceipt);
+          }
         }
         if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
           if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyDiamondsEarned, clientTime)) {
@@ -146,6 +167,34 @@ public class EarnFreeDiamondsController extends EventController {
     }
   }
 
+  private void invalidateKiipTransaction(JSONObject kiipConfirmationReceipt) {
+    try {
+      oAuthService = getOAuthService();   
+
+      Token token = new Token("", "");            
+
+      OAuthRequest request = new OAuthRequest(Verb.POST, KIIP_INVALIDATE_ENDPOINT);
+      request.addBodyParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
+      request.addBodyParameter(KIIP_JSON_RECEIPT_KEY, kiipConfirmationReceipt.toString());
+      oAuthService.signRequest(token, request);  
+      Response response = request.send();       
+      if (response.getCode() == 200) {
+        String responseJSONString = response.getBody();
+        if (responseJSONString != null && responseJSONString.length() > 0) {
+          JSONObject kiipResponse = new JSONObject(responseJSONString);
+          if (!kiipResponse.getBoolean(KIIP_JSON_SUCCESS_KEY)) { 
+            log.error("problem with invalidating kiip transaction with receipt " + kiipConfirmationReceipt);
+          }
+        } else {
+          log.error("problem with invalidating kiip transaction with receipt " + kiipConfirmationReceipt);
+        }
+      }
+    } catch (Exception e) {
+      log.error("problem with invalidating kiip transaction with receipt " + kiipConfirmationReceipt, e);
+    }
+
+  }
+
   private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyDiamondsEarned, Timestamp clientTime) {
     String serverAdColonyDigest = null;
     String prepareString = user.getId() + user.getReferralCode() + adColonyDiamondsEarned + clientTime.getTime();
@@ -164,6 +213,29 @@ public class EarnFreeDiamondsController extends EventController {
   private JSONObject getLegitKiipRewardReceipt(Builder resBuilder, User user, String kiipReceipt) {
 
     try {
+<<<<<<< HEAD
+      OAuthConsumer consumer = new CommonsHttpOAuthConsumer(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
+      HttpPost verifyPost = new HttpPost(KIIP_VERIFY_ENDPOINT);
+      consumer.setTokenWithSecret(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
+      consumer.sign(verifyPost);
+
+      HttpParams params = new BasicHttpParams();
+      HttpProtocolParams.setUseExpectContinue(params, false);
+
+      //      params.setParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
+      //      params.setParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
+
+      MultipartEntity entity = new MultipartEntity(HttpMultipartMode.STRICT);
+      entity.addPart(KIIP_JSON_APP_KEY_KEY, new StringBody(KIIP_CONSUMER_KEY));
+      entity.addPart(KIIP_JSON_RECEIPT_KEY, new StringBody(kiipReceipt));
+      verifyPost.setEntity(entity);
+
+
+      DefaultHttpClient httpClient = new DefaultHttpClient(params);
+      HttpResponse response = httpClient.execute(verifyPost);
+      if (response.getStatusLine().getStatusCode() == 200) {
+        String responseJSONString = EntityUtils.toString(response.getEntity());
+=======
       oAuthService = getOAuthService();   
 
       Token token = new Token("", "");            
@@ -176,13 +248,14 @@ public class EarnFreeDiamondsController extends EventController {
 
       if (response.getCode() == 200) {
         String responseJSONString = response.getBody();
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd
         if (responseJSONString != null && responseJSONString.length() > 0) {
           JSONObject kiipResponse = new JSONObject(responseJSONString);
           if (kiipResponse.getBoolean(KIIP_JSON_SUCCESS_KEY)) 
             return kiipResponse.getJSONObject(KIIP_JSON_RECEIPT_KEY);
         }
       }
-    }  catch (Exception e) {
+    } catch (Exception e) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("problem with checking kiip reward", e);
       return null;
@@ -210,10 +283,22 @@ public class EarnFreeDiamondsController extends EventController {
   private void writeToDBHistory(User user, EarnFreeDiamondsType freeDiamondsType, Timestamp clientTime, JSONObject kiipConfirmationReceipt, String adColonyDigest,
       int adColonyDiamondsEarned) {
     if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
-      //TODO:
+      try {
+        String content = kiipConfirmationReceipt.getString(KIIP_JSON_CONTENT_KEY);
+        String signature = kiipConfirmationReceipt.getString(KIIP_JSON_SIGNATURE_KEY);
+        int quantity = kiipConfirmationReceipt.getInt(KIIP_JSON_QUANTITY_KEY);
+        String transactionId = kiipConfirmationReceipt.getString(KIIP_JSON_TRANSACTION_ID_KEY);
+        
+        if (!InsertUtils.insertKiipHistory(user.getId(), clientTime, content, signature, quantity, transactionId)) {
+          log.error("problem with saving kiip reward into history. user=" + user + ", clientTime=" + clientTime
+              + ", kiipConfirmationReceipt=" + kiipConfirmationReceipt);
+        }
+      } catch (Exception e) {
+        log.error("problem with trying to save kiip reward in db. kiipConfirmationReceipt=" + kiipConfirmationReceipt);
+      }
     }
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-      if (!InsertUtils.insertApsalarRecentHistory(user.getId(), clientTime, adColonyDiamondsEarned, adColonyDigest)) {
+      if (!InsertUtils.insertAdcolonyRecentHistory(user.getId(), clientTime, adColonyDiamondsEarned, adColonyDigest)) {
         log.error("problem with saving adcolony rewarding into recent history. user=" + user + ", clientTime=" + clientTime
             + ", diamondsEarned=" + adColonyDiamondsEarned + ", digest=" + adColonyDigest);
       }
@@ -328,6 +413,17 @@ public class EarnFreeDiamondsController extends EventController {
       }
     }
     return hmacSHA1WithLVL6Secret;
+  }
+
+  private OAuthService getOAuthService() {
+    if (oAuthService == null) {
+      oAuthService = new ServiceBuilder()
+      .provider(TwoLeggedOAuth.class)
+      .apiKey(KIIP_CONSUMER_KEY)
+      .apiSecret(KIIP_CONSUMER_SECRET)
+      .build();  
+    }
+    return oAuthService;
   }
 
 }

@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
@@ -19,14 +21,12 @@ import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
-import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
 public class InsertUtils implements InsertUtil {
 	
-	public static InsertUtils get() {
-		return (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
-	}
+	
   
   /* (non-Javadoc)
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int, java.util.List, int)
@@ -35,6 +35,13 @@ public class InsertUtils implements InsertUtil {
 public boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity) {
       //insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
     
+=======
+public class InsertUtils {
+
+  public static boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity) {
+    //insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
+
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
     Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, new ArrayList<Object>());
     insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, new ArrayList<Object>());
@@ -44,19 +51,29 @@ public boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity
       insertParams.get(DBConstants.USER_EQUIP__EQUIP_ID).add(equipId);
       insertParams.get(DBConstants.USER_EQUIP__QUANTITY).add(quantity);
     }
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
     
     int numInserted = DBConnection.get().insertIntoTableMultipleRows(DBConstants.TABLE_USER_EQUIP, insertParams, equipIds.size());
+=======
+
+    int numInserted = DBConnection.insertIntoTableMultipleRows(DBConstants.TABLE_USER_EQUIP, insertParams, equipIds.size());
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
     if (numInserted == equipIds.size()) {
       return true;
     }
     return false;
   }
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
   
   /* (non-Javadoc)
  * @see com.lvl6.utils.utilmethods.InsertUtil#insertAviaryAndCarpenterCoords(int, com.lvl6.info.CoordinatePair, com.lvl6.info.CoordinatePair)
  */
 @Override
 public boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary, CoordinatePair carpenter) {
+=======
+
+  public static boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary, CoordinatePair carpenter) {
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
     insertParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_X_COORD, aviary.getX());
@@ -64,15 +81,40 @@ public boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary,
     insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_X_COORD, carpenter.getX());
     insertParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_Y_COORD, carpenter.getY());
 
-    int numInserted = DBConnection.get().get().insertIntoTableBasic(DBConstants.TABLE_USER_CITY_ELEMS, insertParams);
+    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_USER_CITY_ELEMS, insertParams);
     if (numInserted == 1) {
       return true;
     }
     return false;
   }
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
   
 
-  public boolean insertAdcolonyRecentHistory(int userId, Timestamp timeOfReward, int diamondsEarned, 
+
+public boolean insertApsalarRecentHistory(int userId, Timestamp timeOfReward, int diamondsEarned, 
+	      String digest) {
+	    Map <String, Object> insertParams = new HashMap<String, Object>();
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__USER_ID, userId);
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD, timeOfReward);
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED, diamondsEarned);
+	    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIGEST, digest);
+	    
+	    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_ADCOLONY_RECENT_HISTORY, insertParams);
+	    if (numInserted == 1) {
+	      return true;
+	    }
+	    return false;
+	  }
+	  
+
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertBattleHistory(int, int, com.lvl6.proto.InfoProto.BattleResult, java.util.Date, int, int, int)
+ */
+@Override
+public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
+=======
+
+  public static boolean insertAdcolonyRecentHistory(int userId, Timestamp timeOfReward, int diamondsEarned, 
       String digest) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__USER_ID, userId);
@@ -80,18 +122,15 @@ public boolean insertAviaryAndCarpenterCoords(int userId, CoordinatePair aviary,
     insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED, diamondsEarned);
     insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIGEST, digest);
 
-    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_ADCOLONY_RECENT_HISTORY, insertParams);
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_ADCOLONY_RECENT_HISTORY, insertParams);
     if (numInserted == 1) {
       return true;
     }
     return false;
   }
 
-  /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.InsertUtil#insertBattleHistory(int, int, com.lvl6.proto.InfoProto.BattleResult, java.util.Date, int, int, int)
- */
-@Override
-public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
+  public static boolean insertBattleHistory(int attackerId, int defenderId, BattleResult result, 
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
       Date battleCompleteTime, int coinsStolen, int stolenEquipId, int expGained) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.BATTLE_HISTORY__ATTACKER_ID, attackerId);
@@ -107,15 +146,32 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     if (expGained > 0) {
       insertParams.put(DBConstants.BATTLE_HISTORY__EXP_GAINED, expGained);
     }
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
     
     int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_BATTLE_HISTORY, insertParams);
+=======
+
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_BATTLE_HISTORY, insertParams);
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
     if (numInserted == 1) {
       return true;
     }
     return false;
   }
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
   
-  public boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUnredeemedUserQuest(int, int, boolean, boolean)
+ */
+@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+@Override
+public boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
+=======
+
+  public static boolean insertUnredeemedUserQuest(int userId, int questId, boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     insertParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -129,9 +185,14 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     }
     return false;
   }
-  
+
   /* used for quest defeat type jobs*/
-  public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId, int questId) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedDefeatTypeJobIdForUserQuest(int, int, int)
+ */
+@Override
+@CacheEvict(value="questIdToUserDefeatTypeJobsCompletedForQuestForUserCache", key="#userId")
+public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId, int dtjId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__USER_ID, userId);
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__QUEST_ID, questId);
@@ -145,7 +206,12 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
   }
 
   /* used for quest tasks*/
-  public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int questId) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedTaskIdForUserQuest(int, int, int)
+ */
+@Override
+@CacheEvict(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
+public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId, int questId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__USER_ID, userId);
     insertParams.put(DBConstants.USER_QUESTS_COMPLETED_TASKS__QUEST_ID, questId);
@@ -159,7 +225,13 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
   }
 
 
-  public boolean insertUserStructJustBuilt(int userId, int structId, Timestamp timeOfStructPurchase,
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStructJustBuilt(int, int, java.sql.Timestamp, java.sql.Timestamp, com.lvl6.info.CoordinatePair)
+ */
+@Override
+@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", key="#userId"),
+		  @CacheEvict(value="structIdsToUserStructsForUser", key="#userId")})
+public boolean insertUserStructJustBuilt(int userId, int structId, Timestamp timeOfStructPurchase,
       Timestamp timeOfStructBuild, CoordinatePair structCoords) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
@@ -176,12 +248,18 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     }
     return false;
   }
-  
-  
+
+
   /*
    * returns the id of the userstruct, -1 if none
    */
-  public int insertUserStruct(int userId, int structId, CoordinatePair coordinates, Timestamp timeOfPurchase) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStruct(int, int, com.lvl6.info.CoordinatePair, java.sql.Timestamp)
+ */
+@Override
+@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", key="#userId"),
+		  @CacheEvict(value="structIdsToUserStructsForUser", key="#userId")})
+public int insertUserStruct(int userId, int structId, CoordinatePair coordinates, Timestamp timeOfPurchase) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_STRUCTS__USER_ID, userId);
     insertParams.put(DBConstants.USER_STRUCTS__STRUCT_ID, structId);
@@ -193,7 +271,11 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     return userStructId;
   }
 
-  public boolean insertIAPHistoryElem(JSONObject appleReceipt, int diamondChange, User user, double cashCost) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertIAPHistoryElem(org.json.JSONObject, int, com.lvl6.info.User, double)
+ */
+@Override
+public boolean insertIAPHistoryElem(JSONObject appleReceipt, int diamondChange, User user, double cashCost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     try {
       insertParams.put(DBConstants.IAP_HISTORY__USER_ID, user.getId());
@@ -221,7 +303,11 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     return false;
   }
 
-  public boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertMarketplaceItem(int, com.lvl6.proto.InfoProto.MarketplacePostType, int, int, int, java.sql.Timestamp)
+ */
+@Override
+public boolean insertMarketplaceItem(int posterId, MarketplacePostType postType, 
       int postedEquipId, int diamondCost, int coinCost, Timestamp timeOfPost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
@@ -246,7 +332,11 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
   }
 
 
-  public boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertMarketplaceItemIntoHistory(com.lvl6.info.MarketplacePost, int)
+ */
+@Override
+public boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
       int buyerId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
@@ -258,7 +348,7 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POST_TYPE, postType.getNumber());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_POST, mp.getTimeOfPost());
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE, new Timestamp(new Date().getTime()));
-    
+
     insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID, mp.getPostedEquipId());
     if (mp.getDiamondCost() > 0){
       insertParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST, mp.getDiamondCost());
@@ -275,26 +365,39 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     return false;
   }
 
-  public boolean insertReferral(int referrerId, int referredId, int coinsGivenToReferrer) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertReferral(int, int, int)
+ */
+@Override
+public boolean insertReferral(int referrerId, int referredId, int coinsGivenToReferrer) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.REFERRALS__REFERRER_ID, referrerId);
     insertParams.put(DBConstants.REFERRALS__NEWLY_REFERRED_ID, referredId);
     insertParams.put(DBConstants.REFERRALS__TIME_OF_REFERRAL, new Timestamp(new Date().getTime()));
     insertParams.put(DBConstants.REFERRALS__COINS_GIVEN_TO_REFERRER, new Timestamp(new Date().getTime()));
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
     
     int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_REFERRALS, insertParams);
+=======
+
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_REFERRALS, insertParams);
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
     if (numInserted == 1) {
       return true;
     }
     return false;
   }
-  
+
   //returns -1 if error
-  public int insertUser(String udid, String name, UserType type, Location location, String deviceToken, String newReferCode, int level, 
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertUser(java.lang.String, java.lang.String, com.lvl6.proto.InfoProto.UserType, com.lvl6.info.Location, java.lang.String, java.lang.String, int, int, int, int, int, int, int, int, int, java.lang.Integer, java.lang.Integer, java.lang.Integer, boolean)
+ */
+@Override
+public int insertUser(String udid, String name, UserType type, Location location, String deviceToken, String newReferCode, int level, 
       int attack, int defense, int energy, int health, int stamina, int experience, int coins, int diamonds, 
       Integer weaponEquipped, Integer armorEquipped, Integer amuletEquipped, boolean isFake) {
-    
+
     Timestamp now = new Timestamp(new Date().getTime());
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER__UDID, udid);
@@ -321,17 +424,27 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     insertParams.put(DBConstants.USER__ARMOR_EQUIPPED, armorEquipped);
     insertParams.put(DBConstants.USER__AMULET_EQUIPPED, amuletEquipped);
     insertParams.put(DBConstants.USER__CREATE_TIME, now);
+<<<<<<< HEAD:src/main/java/com/lvl6/utils/utilmethods/InsertUtils.java
     
     
     int userId = DBConnection.get().insertIntoTableBasicReturnId(DBConstants.TABLE_USER, insertParams);
+=======
+
+
+    int userId = DBConnection.insertIntoTableBasicReturnId(DBConstants.TABLE_USER, insertParams);
+>>>>>>> 7a0ca5dcfd2fcb6d09479507660c2f96381c27cd:src/com/lvl6/utils/utilmethods/InsertUtils.java
     return userId;
   }
 
-  
+
   /*
    * returns the id of the post, -1 if none
    */
-  public int insertPlayerWallPost(int posterId, int wallOwnerId, String content, Timestamp timeOfPost) {
+  /* (non-Javadoc)
+ * @see com.lvl6.utils.utilmethods.InsertUtil#insertPlayerWallPost(int, int, java.lang.String, java.sql.Timestamp)
+ */
+@Override
+public int insertPlayerWallPost(int posterId, int wallOwnerId, String content, Timestamp timeOfPost) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.PLAYER_WALL_POSTS__POSTER_ID, posterId);
     insertParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
@@ -341,25 +454,23 @@ public boolean insertBattleHistory(int attackerId, int defenderId, BattleResult 
     int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(DBConstants.TABLE_PLAYER_WALL_POSTS, insertParams);
     return wallPostId;
   }
-  
-  public boolean insertKiipHistory(int userId, Timestamp clientTime,
-	      String content, String signature, int quantity, String transactionId) {
-	    
-	    Map <String, Object> insertParams = new HashMap<String, Object>();
-	    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__CONTENT, content);
-	    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__QUANTITY, quantity);
-	    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__SIGNATURE, signature);
-	    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__TIME_OF_REWARD, clientTime);
-	    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__TRANSACTION_ID, transactionId);
-	    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__USER_ID, userId);
-	    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__SIGNATURE, signature);
 
-	    int numInserted = DBConnection.get().insertIntoTableBasic(DBConstants.TABLE_KIIP_REWARD_HISTORY, insertParams);
-	    if (numInserted == 1) {
-	      return true;
-	    }
-	    return false;
-	  }
+  public static boolean insertKiipHistory(int userId, Timestamp clientTime,
+      String content, String signature, int quantity, String transactionId) {
+    
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__CONTENT, content);
+    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__QUANTITY, quantity);
+    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__SIGNATURE, signature);
+    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__TIME_OF_REWARD, clientTime);
+    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__TRANSACTION_ID, transactionId);
+    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__USER_ID, userId);
+    insertParams.put(DBConstants.KIIP_REWARD_HISTORY__SIGNATURE, signature);
 
-  
+    int numInserted = DBConnection.insertIntoTableBasic(DBConstants.TABLE_KIIP_REWARD_HISTORY, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
 }
