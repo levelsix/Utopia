@@ -35,6 +35,7 @@ public class DBConstants {
   public static final String TABLE_NEUTRAL_CITY_ELEMENTS = "neutral_city_elems";
   public static final String TABLE_PLAYER_WALL_POSTS = "player_wall_posts";
   public static final String TABLE_ADCOLONY_RECENT_HISTORY = "adcolony_recent_history";
+  public static final String TABLE_KIIP_REWARD_HISTORY = "kiip_reward_history";
   public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   
   /*COLUMNNAMES*/
@@ -247,4 +248,12 @@ public class DBConstants {
   public static final String ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD = "time_of_reward";
   public static final String ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED = "diamonds_earned";
   public static final String ADCOLONY_RECENT_HISTORY__DIGEST = "digest";
+  
+  /*KIIP REWARD HISTORY*/
+  public static final String KIIP_REWARD_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String KIIP_REWARD_HISTORY__TRANSACTION_ID = "transaction_id";
+  public static final String KIIP_REWARD_HISTORY__CONTENT = "content";
+  public static final String KIIP_REWARD_HISTORY__QUANTITY = "quantity";
+  public static final String KIIP_REWARD_HISTORY__SIGNATURE = "signature";
+  public static final String KIIP_REWARD_HISTORY__TIME_OF_REWARD = "time_of_reward";
 }

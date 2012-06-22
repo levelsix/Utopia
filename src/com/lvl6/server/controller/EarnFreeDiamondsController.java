@@ -88,9 +88,9 @@ public class EarnFreeDiamondsController extends EventController {
 
 
 
-    ////    //TODO:
-    kiipReceiptString = "{\"signature\":\"f5dcbefaa733d43164c2bc81e31dca080f05b788\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"4fe0d1828fbab2185e000267\"}";
-    freeDiamondsType = EarnFreeDiamondsType.KIIP;
+//    ////    //TODO:
+//    kiipReceiptString = "{\"signature\":\"f5dcbefaa733d43164c2bc81e31dca080f05b788\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"4fe0d1828fbab2185e000267\"}";
+//    freeDiamondsType = EarnFreeDiamondsType.KIIP;
 
 
 
@@ -112,8 +112,7 @@ public class EarnFreeDiamondsController extends EventController {
           kiipConfirmationReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
           if (kiipConfirmationReceipt == null) legitFreeDiamondsEarn = false;
           else {
-            //TODO:
-//            invalidateKiipTransaction(kiipConfirmationReceipt);
+            invalidateKiipTransaction(kiipConfirmationReceipt);
           }
         }
         if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
@@ -238,10 +237,22 @@ public class EarnFreeDiamondsController extends EventController {
   private void writeToDBHistory(User user, EarnFreeDiamondsType freeDiamondsType, Timestamp clientTime, JSONObject kiipConfirmationReceipt, String adColonyDigest,
       int adColonyDiamondsEarned) {
     if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
-      //TODO:
+      try {
+        String content = kiipConfirmationReceipt.getString(KIIP_JSON_CONTENT_KEY);
+        String signature = kiipConfirmationReceipt.getString(KIIP_JSON_SIGNATURE_KEY);
+        int quantity = kiipConfirmationReceipt.getInt(KIIP_JSON_QUANTITY_KEY);
+        String transactionId = kiipConfirmationReceipt.getString(KIIP_JSON_TRANSACTION_ID_KEY);
+        
+        if (!InsertUtils.insertKiipHistory(user.getId(), clientTime, content, signature, quantity, transactionId)) {
+          log.error("problem with saving kiip reward into history. user=" + user + ", clientTime=" + clientTime
+              + ", kiipConfirmationReceipt=" + kiipConfirmationReceipt);
+        }
+      } catch (Exception e) {
+        log.error("problem with trying to save kiip reward in db. kiipConfirmationReceipt=" + kiipConfirmationReceipt);
+      }
     }
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-      if (!InsertUtils.insertApsalarRecentHistory(user.getId(), clientTime, adColonyDiamondsEarned, adColonyDigest)) {
+      if (!InsertUtils.insertAdcolonyRecentHistory(user.getId(), clientTime, adColonyDiamondsEarned, adColonyDigest)) {
         log.error("problem with saving adcolony rewarding into recent history. user=" + user + ", clientTime=" + clientTime
             + ", diamondsEarned=" + adColonyDiamondsEarned + ", digest=" + adColonyDigest);
       }
