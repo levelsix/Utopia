@@ -122,19 +122,19 @@ public abstract class EventController extends Wrap {
 	}
 
 	protected Exception doInTransaction(final RequestEvent reqEvent) {
-		return transactionTemplate
-				.execute(new TransactionCallback<Exception>() {
-
-					@Override
-					public Exception doInTransaction(TransactionStatus arg0) {
+//		return transactionTemplate
+//				.execute(new TransactionCallback<Exception>() {
+//
+//					@Override
+//					public Exception doInTransaction(TransactionStatus arg0) {
 						try {
 							processRequestEvent(reqEvent);
 							return null;
 						} catch (Exception e) {
 							return e;
 						}
-					}
-				});
+//					}
+//				});
 	}
 
 	/**
