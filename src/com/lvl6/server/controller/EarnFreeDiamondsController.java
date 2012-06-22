@@ -12,14 +12,11 @@ import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.mina.util.Base64;
@@ -95,9 +92,9 @@ public class EarnFreeDiamondsController extends EventController {
 
 
 
-    //TODO:
-    kiipReceiptString = "{\"signature\":\"6793ccc4dcc9d4fe54ef177205b56901ff193e36\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"None\"}";
-    freeDiamondsType = EarnFreeDiamondsType.KIIP;
+//    ////    //TODO:
+//    kiipReceiptString = "{\"signature\":\"f5dcbefaa733d43164c2bc81e31dca080f05b788\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"4fe0d1828fbab2185e000267\"}";
+//    freeDiamondsType = EarnFreeDiamondsType.KIIP;
 
 
 
@@ -165,39 +162,27 @@ public class EarnFreeDiamondsController extends EventController {
   }
 
   private JSONObject getLegitKiipRewardReceipt(Builder resBuilder, User user, String kiipReceipt) {
+
     try {
-      OAuthConsumer consumer = new CommonsHttpOAuthConsumer(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
-      HttpPost verifyPost = new HttpPost(KIIP_VERIFY_ENDPOINT);
-      consumer.setTokenWithSecret(KIIP_CONSUMER_KEY, KIIP_CONSUMER_SECRET);
-      consumer.sign(verifyPost);
+      oAuthService = getOAuthService();   
 
-      HttpParams params = new BasicHttpParams();
-      HttpProtocolParams.setUseExpectContinue(params, false);
+      Token token = new Token("", "");            
 
-      //      params.setParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
-      //      params.setParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
+      OAuthRequest request = new OAuthRequest(Verb.POST, KIIP_VERIFY_ENDPOINT);
+      request.addBodyParameter(KIIP_JSON_APP_KEY_KEY, KIIP_CONSUMER_KEY);
+      request.addBodyParameter(KIIP_JSON_RECEIPT_KEY, kiipReceipt);
+      oAuthService.signRequest(token, request);  
+      Response response = request.send();       
 
-      MultipartEntity entity = new MultipartEntity(HttpMultipartMode.STRICT);
-      entity.addPart(KIIP_JSON_APP_KEY_KEY, new StringBody(KIIP_CONSUMER_KEY));
-      entity.addPart(KIIP_JSON_RECEIPT_KEY, new StringBody(kiipReceipt));
-      verifyPost.setEntity(entity);
-
-
-      DefaultHttpClient httpClient = new DefaultHttpClient(params);
-      HttpResponse response = httpClient.execute(verifyPost);
-      if (response.getStatusLine().getStatusCode() == 200) {
-        String responseJSONString = EntityUtils.toString(response.getEntity());
+      if (response.getCode() == 200) {
+        String responseJSONString = response.getBody();
         if (responseJSONString != null && responseJSONString.length() > 0) {
           JSONObject kiipResponse = new JSONObject(responseJSONString);
           if (kiipResponse.getBoolean(KIIP_JSON_SUCCESS_KEY)) 
             return kiipResponse.getJSONObject(KIIP_JSON_RECEIPT_KEY);
         }
       }
-    } catch (MalformedURLException e) {
-      resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
-      log.error("problem with kiip endpoint URL", e);
-      return null;
-    } catch (Exception e) {
+    }  catch (Exception e) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("problem with checking kiip reward", e);
       return null;

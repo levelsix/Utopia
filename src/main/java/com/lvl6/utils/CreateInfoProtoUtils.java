@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
@@ -34,6 +35,7 @@ import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.AttackedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
@@ -94,6 +96,11 @@ public class CreateInfoProtoUtils {
     return MarketplacePostPurchasedNotificationProto.newBuilder().setMarketplacePost(fmpp)
         .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime()).build();
   }
+  
+  public static AnimatedSpriteOffsetProto createAnimatedSpriteOffsetProtoFromAnimatedSpriteOffset(AnimatedSpriteOffset aso) {
+    return AnimatedSpriteOffsetProto.newBuilder().setImageName(aso.getImgName())
+        .setOffSet(createCoordinateProtoFromCoordinatePair(aso.getOffSet())).build();
+  }
 
   public static AttackedNotificationProto createAttackedNotificationProtoFromBattleHistory(BattleDetails bd, User attacker) {
     AttackedNotificationProto.Builder builder = AttackedNotificationProto.newBuilder();
@@ -136,6 +143,8 @@ public class CreateInfoProtoUtils {
 
     String questGiverName = null;
     NeutralCityElement nce = NeutralCityElementsRetrieveUtils.getNeutralCityElement(quest.getCityId(), quest.getAssetNumWithinCity());
+    
+    String questGiverImageSuffix = null;
     if (goodSide) {
       name = quest.getGoodName();
       description = quest.getGoodDescription();
@@ -145,6 +154,7 @@ public class CreateInfoProtoUtils {
       if (nce != null) {
         questGiverName = nce.getGoodName();
       }
+      questGiverImageSuffix = quest.getGoodQuestGiverImageSuffix();
     } else {
       name = quest.getBadName();
       description = quest.getBadDescription();
@@ -154,6 +164,7 @@ public class CreateInfoProtoUtils {
       if (nce != null) {
         questGiverName = nce.getBadName();
       }
+      questGiverImageSuffix = quest.getBadQuestGiverImageSuffix();
     }
     
     FullQuestProto.Builder builder = FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
@@ -164,7 +175,7 @@ public class CreateInfoProtoUtils {
         .addAllBuildStructJobsReqs(quest.getBuildStructJobsRequired())
         .addAllDefeatTypeReqs(defeatTypeReqs).addAllPossessEquipJobReqs(quest.getPossessEquipJobsRequired())
         .setNumComponentsForGood(quest.getNumComponents(true)).setNumComponentsForBad(quest.getNumComponents(false))
-        .setCoinRetrievalReq(quest.getCoinRetrievalAmountRequired());
+        .setCoinRetrievalReq(quest.getCoinRetrievalAmountRequired()).setQuestGiverImageSuffix(questGiverImageSuffix);
     if (acceptDialogue != null) {
       builder.setAcceptDialogue(createDialogueProtoFromDialogue(acceptDialogue));
     }

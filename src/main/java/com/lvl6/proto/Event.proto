@@ -223,6 +223,13 @@ message StartupResponseProto {
 		optional int32 maxCharLengthForWallPost = 52;
 		optional int32 playerWallPostsRetrieveCap = 53;
 		
+		repeated AnimatedSpriteOffsetProto animatedSpriteOffsets = 60;
+		
+		message AnimatedSpriteOffsetProto {
+			optional string imageName = 55;
+			optional CoordinateProto offSet = 56;
+		}
+		
 		message FormulaConstants {
 			optional double minutesToUpgradeForNormStructMultiplier = 1;
 			optional double incomeFromNormStructMultiplier = 2;
@@ -287,6 +294,8 @@ message StartupResponseProto {
      	repeated FullCityProto citiesNewlyAvailableToUserAfterLevelup = 30;					//only new ones
      	repeated FullEquipProto newlyEquippableEpicsAndLegendariesForAllClassesAfterLevelup = 31;			//only new ones
 	    repeated FullStructureProto newlyAvailableStructsAfterLevelup = 32;					//only new ones
+     	
+     	optional PlayerWallPostProto firstWallPost = 33;
      	
 		message FullTutorialQuestProto {
 				//do one task once, kill one enemy

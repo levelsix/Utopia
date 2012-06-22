@@ -1,5 +1,6 @@
 package com.lvl6.properties;
 
+import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.ValidLocationBox;
 
@@ -189,7 +190,7 @@ public class ControllerConstants {
   public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hey! My name's Alex, one of the creators of this game. We hope you enjoy it! :)";
   
   //LEVEL UP
-  public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
+  public static final int LEVEL_UP__SKILL_POINTS_GAINED = 6;
   public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 35;
 
   //POST_ON_PLAYER_WALL
@@ -209,5 +210,16 @@ public class ControllerConstants {
     new ValidLocationBox(7.239326, 45.496315, 22.494024, 8.4832458, "EUROPE RIGHT"),
     new ValidLocationBox(-50.585747, 70.842873, 19.442516, 3.4063075, "GREENLAND"),
     new ValidLocationBox(122.57473, -29.775003, 22.857393, 12.192301, "GREENLAND")};
+
+  public static final AnimatedSpriteOffset[] STARTUP__ANIMATED_SPRITE_OFFSETS = {
+    new AnimatedSpriteOffset("TutorialGuide", new CoordinatePair(0, -6)),
+    new AnimatedSpriteOffset("TutorialGuideBad", new CoordinatePair(0, -6)),
+    new AnimatedSpriteOffset("AllianceArcher", new CoordinatePair(0, -5)),
+    new AnimatedSpriteOffset("AllianceWarrior", new CoordinatePair(0, -15)),
+    new AnimatedSpriteOffset("AllianceMage", new CoordinatePair(0, -26)),
+    new AnimatedSpriteOffset("LegionArcher", new CoordinatePair(0, -5)),
+    new AnimatedSpriteOffset("LegionWarrior", new CoordinatePair(0, -15)),
+    new AnimatedSpriteOffset("LegionMage", new CoordinatePair(0, -18)),
+  };
   
 }

@@ -188,7 +188,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void setNotifications(Builder resBuilder, User user) {
-    if (user.getLastLogout() != null) {
       List <Integer> userIds = new ArrayList<Integer>();
 
       List<MarketplaceTransaction> marketplaceTransactions = 
@@ -234,8 +233,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
         }
       }
-
-    }
   }
 
   private void setAllies(Builder resBuilder, User user) {
@@ -369,6 +366,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         (CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipmentIdsToEquipment.get(ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID)))
         .build();
 
+    PlayerWallPost pwp = new PlayerWallPost(-1, ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, -1, 
+        new Date(), ControllerConstants.USER_CREATE__FIRST_WALL_POST_TEXT);
+    User poster = RetrieveUtils.userRetrieveUtils().getUserById(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL);
+    
     TutorialConstants.Builder builder = TutorialConstants.newBuilder()
         .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY).setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH).setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)
@@ -388,7 +389,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         .setInitDiamonds(ControllerConstants.TUTORIAL__INIT_DIAMONDS)
         .setInitCoins(ControllerConstants.TUTORIAL__INIT_COINS)
         .setExpRequiredForLevelTwo(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(2))
-        .setExpRequiredForLevelThree(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3));
+        .setExpRequiredForLevelThree(LevelsRequiredExperienceRetrieveUtils.getLevelsToRequiredExperienceForLevels().get(3))
+        .setFirstWallPost(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(pwp, poster));
 
     List<NeutralCityElement> neutralCityElements = NeutralCityElementsRetrieveUtils.getNeutralCityElementsForCity(ControllerConstants.TUTORIAL__FIRST_NEUTRAL_CITY_ID);
     if (neutralCityElements != null) {
