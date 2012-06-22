@@ -112,7 +112,8 @@ public class EarnFreeDiamondsController extends EventController {
           kiipConfirmationReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
           if (kiipConfirmationReceipt == null) legitFreeDiamondsEarn = false;
           else {
-            invalidateKiipTransaction(kiipConfirmationReceipt);
+            //TODO:
+//            invalidateKiipTransaction(kiipConfirmationReceipt);
           }
         }
         if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
@@ -364,9 +365,8 @@ public class EarnFreeDiamondsController extends EventController {
       .apiKey(KIIP_CONSUMER_KEY)
       .apiSecret(KIIP_CONSUMER_SECRET)
       .build();  
-      return oAuthService;
     }
-    return null;
+    return oAuthService;
   }
 
 }
