@@ -98,6 +98,7 @@ public abstract class EventController extends Wrap {
 		final long endTime;
 		try {
 			Exception e = doInTransaction(reqEvent);
+			DBConnection.get().getConnection().close();
 			if (e != null) {
 				throw e;
 			}
@@ -130,7 +131,6 @@ public abstract class EventController extends Wrap {
 					public Exception doInTransaction(TransactionStatus arg0) {
 						try {
 							processRequestEvent(reqEvent);
-							DBConnection.get().getConnection().close();
 							return null;
 						} catch (Exception e) {
 							return e;

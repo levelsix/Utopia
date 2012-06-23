@@ -54,7 +54,7 @@ public class PlayerSet {
 	@Scheduled(fixedDelay=60000)
 	public void clearOldLocks(){
 		long now = new Date().getTime();
-		log.info("Removing stale player locks");
+		log.debug("Removing stale player locks");
 		for(PlayerInAction player:players){
 			if(now - player.getLockTime().getTime() > 60000){
 				Lock playerLock = Hazelcast.getLock(player.getPlayerId());
