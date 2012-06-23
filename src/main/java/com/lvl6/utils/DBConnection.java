@@ -52,7 +52,7 @@ public class DBConnection {
 	}
 
 	
-	protected ThreadLocal<Connection> connectionManager = new ThreadLocal<Connection>() {
+	public ThreadLocal<Connection> connectionManager = new ThreadLocal<Connection>() {
 		
 		protected Connection connec; 
 		@Override

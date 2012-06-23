@@ -55,8 +55,7 @@ public abstract class EventController extends Wrap {
 		this.server = server;
 	}
 
-	private static Logger log = Logger.getLogger(new Object() {
-	}.getClass().getEnclosingClass());
+	private Logger log = Logger.getLogger(this.getClass());
 
 	// we have the controllers call server.writeEvent manually already
 	// /**
