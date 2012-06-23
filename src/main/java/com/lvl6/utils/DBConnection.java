@@ -51,10 +51,33 @@ public class DBConnection {
 		this.dataSource = ds;
 	}
 
+	
+	protected ThreadLocal<Connection> connectionManager = new ThreadLocal<Connection>() {
+		
+		protected Connection connec; 
+		@Override
+        protected Connection initialValue()
+        {
+			connec = DataSourceUtils.getConnection(dataSource); 
+			return connec;
+        }
+		
+		@Override 
+		public Connection get() {
+			try {
+				if(connec == null || connec.isClosed()) {
+					connec = DataSourceUtils.getConnection(dataSource); 
+				}
+			} catch (SQLException e) {
+				return null;
+			}
+			return connec;
+		}
+	};
+	
+	
 	public Connection getConnection() {
-		if(getDataSource() == null) log.error("Datasource is null");
-		Connection conn = DataSourceUtils.getConnection(dataSource); 
-		return conn;
+		return connectionManager.get();
 	}
 
 	private void printConnectionInfoInDebug() {
@@ -89,12 +112,12 @@ public class DBConnection {
 		} catch (SQLException e) {
 			log.error("The statement cannot be closed.", e);
 		}
-		try {
-			if (conn != null)
-				conn.close();
+/*		try {
+			//if (conn != null)
+				//conn.close();
 		} catch (SQLException e) {
-			log.error("The data source connection cannot be closed.", e);
-		}
+			//log.error("The data source connection cannot be closed.", e);
+		}*/
 	}
 
 	public void init() {

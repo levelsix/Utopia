@@ -16,6 +16,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.GameServer;
+import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.Wrap;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -122,19 +123,20 @@ public abstract class EventController extends Wrap {
 	}
 
 	protected Exception doInTransaction(final RequestEvent reqEvent) {
-//		return transactionTemplate
-//				.execute(new TransactionCallback<Exception>() {
-//
-//					@Override
-//					public Exception doInTransaction(TransactionStatus arg0) {
+		return transactionTemplate
+				.execute(new TransactionCallback<Exception>() {
+
+					@Override
+					public Exception doInTransaction(TransactionStatus arg0) {
 						try {
 							processRequestEvent(reqEvent);
+							DBConnection.get().getConnection().close();
 							return null;
 						} catch (Exception e) {
 							return e;
 						}
-//					}
-//				});
+					}
+				});
 	}
 
 	/**
@@ -143,8 +145,7 @@ public abstract class EventController extends Wrap {
 	public abstract EventProtocolRequest getEventType();
 
 	@Async
-	protected abstract void processRequestEvent(RequestEvent event)
-			throws Exception;
+	protected abstract void processRequestEvent(RequestEvent event)	throws Exception;
 
 	protected int numAllocatedThreads = 0;
 
