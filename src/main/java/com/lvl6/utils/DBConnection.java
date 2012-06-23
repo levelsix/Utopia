@@ -69,6 +69,7 @@ public class DBConnection {
 					connec = DataSourceUtils.getConnection(dataSource); 
 				}
 			} catch (SQLException e) {
+				log.error("Error getting connection", e);
 				return null;
 			}
 			return connec;
