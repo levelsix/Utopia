@@ -225,6 +225,7 @@ public class DBConnection {
 			List<Object> values) {
 		ResultSet rs = null;
 		try {
+			conn = getConnection();
 			PreparedStatement stmt = conn.prepareStatement(query);
 			if (values != null && values.size() > 0) {
 				int i = 1;
@@ -322,7 +323,7 @@ public class DBConnection {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = dataSource.getConnection();
+			conn = getConnection();
 			stmt = conn.prepareStatement(query);
 			if (values.size() > 0) {
 				int i = 1;
@@ -361,7 +362,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = dataSource.getConnection();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query);
 				if (values.size() > 0) {
 					int i = 1;
@@ -424,7 +425,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = dataSource.getConnection();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query);
 				if (values.size() > 0) {
 					int i = 1;
@@ -464,7 +465,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = dataSource.getConnection();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query,
 						Statement.RETURN_GENERATED_KEYS);
 				if (values.size() > 0) {
@@ -516,7 +517,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = dataSource.getConnection();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query);
 				if (values.size() > 0) {
 					int i = 1;
@@ -559,7 +560,7 @@ public class DBConnection {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = dataSource.getConnection();
+			conn = getConnection();
 			stmt = conn.prepareStatement(query);
 			if (values.size() > 0) {
 				int i = 1;
@@ -607,6 +608,7 @@ public class DBConnection {
 			Map<String, Object> relativeLessThanConditionParams,
 			String tablename, String conddelim, String orderByColumn,
 			boolean orderByAsc, int limit, boolean random) {
+		conn = getConnection();
 		String query = "select ";
 		if (columns != null) {
 			query += StringUtils.getListInString(columns, ",");
