@@ -192,6 +192,7 @@ public class ControllerConstants {
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
   public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 35;
+  public static final int LEVEL_UP_HEALTH_GAINED = 2;
 
   //POST_ON_PLAYER_WALL
   public static final int POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH = 1000;
