@@ -54,7 +54,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticPossessEquipJobIdsToPossessEquipJobs() {
     log.debug("setting static map of possess equip job id to possess equip job");
 
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);

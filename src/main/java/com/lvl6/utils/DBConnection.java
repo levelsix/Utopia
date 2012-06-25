@@ -76,10 +76,6 @@ public class DBConnection {
 		}
 	};
 	
-	
-	public Connection getConnection() {
-		return connectionManager.get();
-	}
 
 	private void printConnectionInfoInDebug() {
 		try {
@@ -140,15 +136,13 @@ public class DBConnection {
 		printConnectionInfoInDebug();
 	}
 
-	public ResultSet selectRowsByUserId(Connection conn, int userId,
-			String tablename) {
-		return selectRowsByIntAttr(conn, null, DBConstants.GENERIC__USER_ID,
+	public ResultSet selectRowsByUserId(int userId, String tablename) {
+		return selectRowsByIntAttr(null, DBConstants.GENERIC__USER_ID,
 				userId, tablename);
 	}
 
 	public ResultSet selectRowsById(Connection conn, int id, String tablename) {
-		return selectRowsByIntAttr(conn, null, DBConstants.GENERIC__ID, id,
-				tablename);
+		return selectRowsByIntAttr(null, DBConstants.GENERIC__ID, id, tablename);
 	}
 
 	public ResultSet selectWholeTable(Connection conn, String tablename) {
@@ -373,7 +367,7 @@ public class DBConnection {
 				numUpdated = stmt.executeUpdate();
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				e.printStackTrace();
+				//e.printStackTrace();
 			} finally {
 				close(null, stmt, conn);
 			}
@@ -436,7 +430,7 @@ public class DBConnection {
 				numUpdated = stmt.executeUpdate();
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				e.printStackTrace();
+				//e.printStackTrace();
 			} finally {
 				close(null, stmt, conn);
 			}
@@ -483,7 +477,7 @@ public class DBConnection {
 				}
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				e.printStackTrace();
+				//e.printStackTrace();
 			} finally {
 				close(null, stmt, conn);
 			}
@@ -528,7 +522,7 @@ public class DBConnection {
 				numUpdated = stmt.executeUpdate();
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				e.printStackTrace();
+				//e.printStackTrace();
 			} finally {
 				close(null, stmt, conn);
 			}
@@ -578,8 +572,8 @@ public class DBConnection {
 		return numDeleted;
 	}
 
-	private ResultSet selectRowsByIntAttr(Connection conn,
-			List<String> columns, String attr, int value, String tablename) {
+	private ResultSet selectRowsByIntAttr(List<String> columns,
+			String attr, int value, String tablename) {
 		String query = "select ";
 		if (columns != null) {
 			query += StringUtils.getListInString(columns, ",");

@@ -23,8 +23,8 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, Integer> getTaskIdToNumTimesActedInRankForUser(int userId) {
     log.debug("retrieving task id to num times acted in rank map for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
+    Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     Map<Integer, Integer> taskIdToNumTimesActedInRank = convertRSToTaskIdToNumTimesCompletedMap(rs);
     DBConnection.get().close(rs, null, conn);
     return taskIdToNumTimesActedInRank;

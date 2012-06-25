@@ -24,7 +24,7 @@ import com.lvl6.utils.DBConnection;
 
     boolean isDuplicateTransaction = false;
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     if (conn != null) {
       rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);

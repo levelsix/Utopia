@@ -27,7 +27,7 @@ import com.lvl6.utils.DBConnection;
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
     log.debug("retrieving specific marketplace post with id " + marketplacePostId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsById(conn, marketplacePostId, TABLE_NAME);
     MarketplacePost marketplacePost = convertRSToSingleMarketplacePost(rs);
     DBConnection.get().close(rs, null, conn);
@@ -39,7 +39,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
     DBConnection.get().close(rs, null, conn);
@@ -53,7 +53,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
     DBConnection.get().close(rs, null, conn);
@@ -63,7 +63,7 @@ import com.lvl6.utils.DBConnection;
   public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
     log.debug("retrieving up to " + limit + " most recent marketplace posts");
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
     DBConnection.get().close(rs, null, conn);
@@ -75,7 +75,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParamsToVals = new TreeMap<String, Object>();
     absoluteParamsToVals.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
     
-    Connection conn = DBConnection.get().getConnection();
+    Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParamsToVals, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
     DBConnection.get().close(rs, null, conn);
