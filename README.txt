@@ -1,5 +1,5 @@
 1) To use protoc, go to top of project and type
-protoc -I=src/com/lvl6/proto/ --java_out=src/ src/com/lvl6/proto/*.proto
+protoc -I=src/main/java/com/lvl6/proto/ --java_out=src/main/java/ src/main/java/com/lvl6/proto/*.proto
 
 2) Useful commands if you know what they do
 git ls-files --deleted -z | xargs -0 git rm

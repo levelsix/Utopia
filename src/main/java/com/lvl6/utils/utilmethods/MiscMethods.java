@@ -29,6 +29,7 @@ import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
@@ -279,6 +280,24 @@ public class MiscMethods {
       }
     }
 
+    KiipRewardConditions.Builder krcb = KiipRewardConditions.newBuilder();
+    
+    int[] levelsThatTriggerKiipRewards = ControllerConstants.STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS;
+    if (levelsThatTriggerKiipRewards != null) { 
+      for (int i = 0; i < levelsThatTriggerKiipRewards.length; i++) {
+        krcb.addLevelUpConditions(levelsThatTriggerKiipRewards[i]);
+      }
+    }
+    
+    int[] questsThatTriggerKiipRewardsOnRedeem = ControllerConstants.STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM;
+    if (questsThatTriggerKiipRewardsOnRedeem != null) { 
+      for (int i = 0; i < questsThatTriggerKiipRewardsOnRedeem.length; i++) {
+        krcb.addQuestRedeemConditions(questsThatTriggerKiipRewardsOnRedeem[i]);
+      }
+    }
+    
+    cb.setKiipRewardConditions(krcb.build());
+    
     FormulaConstants formulaConstants = FormulaConstants.newBuilder()
         .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
         .setIncomeFromNormStructMultiplier(ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER)

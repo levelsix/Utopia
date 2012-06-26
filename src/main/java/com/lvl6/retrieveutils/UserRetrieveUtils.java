@@ -70,7 +70,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
   }
 
   public List<User> getUsers(List<UserType> requestedTypes, int numUsers, int playerLevel, int userId, boolean guaranteeNum, 
-      Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle) {
+      Double latLowerBound, Double latUpperBound, Double longLowerBound, Double longUpperBound, boolean forBattle, 
+      List<Integer> forbiddenPlayerIds) {
     log.debug("retrieving list of users for user " + userId + " with requested types " + requestedTypes + 
         " , " + numUsers + " users " + " around player level " + playerLevel + ", guaranteeNum="+guaranteeNum + 
         ", latLowerBound=" + latLowerBound + ", latUpperBound=" + latUpperBound + 
@@ -96,6 +97,19 @@ import com.lvl6.utils.utilmethods.StringUtils;
       query += ") and ";
     }
 
+    if (forbiddenPlayerIds != null && forbiddenPlayerIds.size() > 0) {
+      query += "(";
+      for (int i = 0; i < forbiddenPlayerIds.size(); i++) {
+        values.add(forbiddenPlayerIds.get(i));
+        if (i == forbiddenPlayerIds.size() - 1) {
+          query += DBConstants.USER__ID + "!=?";
+        } else {
+          query += DBConstants.USER__ID + "!=?  and ";
+        }
+      }
+      query += ") and ";
+    }
+    
     if (latLowerBound != null) {
       query += DBConstants.USER__LATITUDE + ">=? and ";
       values.add(latLowerBound);
