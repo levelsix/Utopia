@@ -76,7 +76,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -108,7 +108,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(TABLE_NAME);
 
       if (rs != null) {
         try {

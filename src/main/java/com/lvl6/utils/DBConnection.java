@@ -145,7 +145,7 @@ public class DBConnection {
 		return selectRowsByIntAttr(null, DBConstants.GENERIC__ID, id, tablename);
 	}
 
-	public ResultSet selectWholeTable(Connection conn, String tablename) {
+	public ResultSet selectWholeTable(String tablename) {
 		return selectRows(null, null, null, null, tablename, null, null, false,
 				SELECT_LIMIT_NOT_SET, false);
 	}

@@ -18,6 +18,7 @@
 		">
 
 
+	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 
 	<import resource="classpath:spring-hazelcast.xml" />
 	<import resource="classpath:spring-db.xml" />
@@ -32,7 +33,6 @@
 		<property name="block" value="false" />
 	</bean>
 	
-	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 	
 	
 	<!-- <bean id="setup" class="com.lvl6.Setup" />-->

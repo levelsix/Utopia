@@ -44,7 +44,7 @@ import com.lvl6.utils.DBConnection;
     Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
+      rs = DBConnection.get().selectWholeTable(TABLE_NAME);
       try {
         rs.last();
         rs.beforeFirst();
