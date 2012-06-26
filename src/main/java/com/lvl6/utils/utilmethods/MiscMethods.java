@@ -102,22 +102,11 @@ public class MiscMethods {
       }
     }
     if (udid != null) {
-<<<<<<< HEAD:src/com/lvl6/utils/utilmethods/MiscMethods.java
-      SocketChannel channel = server.getChannelForUdid(udid);
-      if (channel != null) {
-        Socket socket = channel.socket();
-        if (socket != null) {
-//          return socket.getInetAddress().toString();
-        }
-      }
-    }
-=======
     	player = server.getPlayerByUdId(udid);
     	if (player != null) {
           return player.getIp_connection_id();
     	}
    	}
->>>>>>> 5136f6e85d89997b11f1b7910991eb413254963e:src/main/java/com/lvl6/utils/utilmethods/MiscMethods.java
     return null;
   }
 
