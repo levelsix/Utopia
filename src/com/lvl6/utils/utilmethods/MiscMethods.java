@@ -104,7 +104,7 @@ public class MiscMethods {
       if (channel != null) {
         Socket socket = channel.socket();
         if (socket != null) {
-          return socket.getInetAddress().toString();
+//          return socket.getInetAddress().toString();
         }
       }
     }
