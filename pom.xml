@@ -42,6 +42,8 @@
 		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
 		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
+		<hazelcast.group>main</hazelcast.group>
+		<hazelcast.pass>lvl6</hazelcast.pass>
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
 		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
@@ -56,6 +58,8 @@
 			<properties>
 				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 				<server.port>10002</server.port>
+				<hazelcast.group>kelly</hazelcast.group>
+				<hazelcast.pass>lvl6</hazelcast.pass>
 			</properties>
 		</profile>
 	</profiles>
