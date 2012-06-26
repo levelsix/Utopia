@@ -59,12 +59,12 @@ public class ControllerConstants {
   //--------------------------------------------------------------------------------------------------------------------------
 
   //TUTORIAL CONSTANTS
-  public static final int TUTORIAL__ARCHER_INIT_ATTACK = 17;
+  public static final int TUTORIAL__ARCHER_INIT_ATTACK = 12; 
   public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 12;
-  public static final int TUTORIAL__MAGE_INIT_ATTACK = 12;
-  public static final int TUTORIAL__MAGE_INIT_DEFENSE = 20;
-  public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 15;
-  public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 15;
+  public static final int TUTORIAL__MAGE_INIT_ATTACK = 16; 
+  public static final int TUTORIAL__MAGE_INIT_DEFENSE = 8;
+  public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 8;
+  public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 16;
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 3;
   public static final int TUTORIAL__INIT_HEALTH = 30;
@@ -190,7 +190,7 @@ public class ControllerConstants {
   public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hey! My name's Alex, one of the creators of this game. We hope you enjoy it! :)";
   
   //LEVEL UP
-  public static final int LEVEL_UP__SKILL_POINTS_GAINED = 6;
+  public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
   public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 35;
 
   //POST_ON_PLAYER_WALL
