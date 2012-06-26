@@ -59,6 +59,7 @@ public class ControllerConstants {
   //--------------------------------------------------------------------------------------------------------------------------
 
   //TUTORIAL CONSTANTS
+  public static final double CHARACTERS_ATTACK_DEFENSE_VARIABILITY = 0.67;
   public static final int TUTORIAL__ARCHER_INIT_ATTACK = 12; 
   public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 12;
   public static final int TUTORIAL__MAGE_INIT_ATTACK = 16; 
@@ -193,8 +194,8 @@ public class ControllerConstants {
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
   public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 30; //add level up equipment for fake players if increasing
   public static final double LEVEL_UP_HEALTH_GAINED = 2.0;
-  public static final double LEVEL_UP_ATTACK_GAINED = 0.8;
-  public static final double LEVEL_UP_DEFENSE_GAINED = 0.8;
+  public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
+  public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
 
   //LEVEL UP EQUIPMENT FOR FAKE PLAYERS (levels 1-30 must add more if going above level 30)
   public static final int[] WARRIOR_WEAPON_ID_LEVEL = {1,1,1,3,3, 5,5,6,6,7, 
