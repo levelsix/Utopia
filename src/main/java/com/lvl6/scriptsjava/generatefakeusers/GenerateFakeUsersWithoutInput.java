@@ -149,8 +149,8 @@ public class GenerateFakeUsersWithoutInput {
 	    } else {
 	    	health -= (int)Math.floor(Math.random() * 5) + 1;
 	    }
-	    if (health<30) {
-	    	health = 30;
+	    if (health<ControllerConstants.TUTORIAL__INIT_HEALTH) {
+	    	health = ControllerConstants.TUTORIAL__INIT_HEALTH;
 	    }
 	    
 	    initialized[0] = attack;
