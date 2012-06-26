@@ -55,6 +55,7 @@
 			<id>kelly</id>
 			<properties>
 				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+				<server.port>10002</server.port>
 			</properties>
 		</profile>
 	</profiles>
