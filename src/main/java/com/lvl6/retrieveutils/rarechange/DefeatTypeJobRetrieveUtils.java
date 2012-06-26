@@ -55,9 +55,9 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticDefeatTypeJobIdsToDefeatTypeJobs() {
     log.debug("setting static map of defeat type job ids to defeat type jobs");
 
-    Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
+    //if (conn != null) {
       rs = DBConnection.get().selectWholeTable(TABLE_NAME);
       if (rs != null) {
         try {
@@ -75,8 +75,8 @@ import com.lvl6.utils.DBConnection;
           log.error(e);
         }
       }    
-    }
-    DBConnection.get().close(rs, null, conn);
+    //}
+    DBConnection.get().close(rs, null);
   }
 
   public static void reload() {

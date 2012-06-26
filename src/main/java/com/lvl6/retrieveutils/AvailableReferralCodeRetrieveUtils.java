@@ -25,9 +25,9 @@ import com.lvl6.utils.DBConnection;
 
     Integer offset = null;
     
-    Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
+    //if (conn != null) {
       rs = DBConnection.get().selectDirectQueryNaive(query, null);
       if (rs != null) {
         try {
@@ -42,11 +42,11 @@ import com.lvl6.utils.DBConnection;
           log.error(e);
         }
       } 
-    }
-    DBConnection.get().close(rs, null, null);
+    //}
+    DBConnection.get().close(rs, null);
     
     ResultSet rs2 = null;
-    if (conn != null) {
+    //if (conn != null) {
       query = "SELECT " + DBConstants.AVAILABLE_REFERRAL_CODES__CODE+ " FROM " + TABLE_NAME + " LIMIT " + offset + ", 1"; 
       rs2 = DBConnection.get().selectDirectQueryNaive(query, null);
       if (rs2 != null) {
@@ -62,8 +62,8 @@ import com.lvl6.utils.DBConnection;
           log.error(e);
         }
       } 
-    }
-    DBConnection.get().close(rs2, null, conn);
+    //}
+    DBConnection.get().close(rs2, null);
 
     return availableReferralCode;
   }

@@ -94,7 +94,7 @@ public class DBConnection {
 	}
 	
 
-	public void close(ResultSet rs, Statement statement, Connection conn) {
+	public void close(ResultSet rs, Statement statement) {
 		try {
 			if (rs != null) {
 				statement = rs.getStatement();
@@ -252,7 +252,7 @@ public class DBConnection {
 		} catch (NullPointerException e) {
 			log.error("problem with " + query + ", values are " + values, e);
 		} finally {
-			close(null, stmt, conn);
+			close(null, stmt);
 		}
 		return 0;
 	}
@@ -324,7 +324,7 @@ public class DBConnection {
 			log.error("problem with " + query + ", values are " + values, e);
 			e.printStackTrace();
 		} finally {
-			close(null, stmt, conn);
+			close(null, stmt);
 		}
 		return numUpdated;
 	}
@@ -363,7 +363,7 @@ public class DBConnection {
 				log.error("problem with " + query + ", values are " + values, e);
 				//e.printStackTrace();
 			} finally {
-				close(null, stmt, conn);
+				close(null, stmt);
 			}
 		}
 		return numUpdated;
@@ -426,7 +426,7 @@ public class DBConnection {
 				log.error("problem with " + query + ", values are " + values, e);
 				//e.printStackTrace();
 			} finally {
-				close(null, stmt, conn);
+				close(null, stmt);
 			}
 		}
 		return numUpdated;
@@ -473,7 +473,7 @@ public class DBConnection {
 				log.error("problem with " + query + ", values are " + values, e);
 				//e.printStackTrace();
 			} finally {
-				close(null, stmt, conn);
+				close(null, stmt);
 			}
 		}
 		return generatedKey;
@@ -518,7 +518,7 @@ public class DBConnection {
 				log.error("problem with " + query + ", values are " + values, e);
 				//e.printStackTrace();
 			} finally {
-				close(null, stmt, conn);
+				close(null, stmt);
 			}
 		}
 		return numUpdated;
@@ -561,7 +561,7 @@ public class DBConnection {
 			log.error("problem with " + query + ", values are " + values, e);
 			e.printStackTrace();
 		} finally {
-			close(null, stmt, conn);
+			close(null, stmt);
 		}
 		return numDeleted;
 	}

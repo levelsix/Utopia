@@ -23,10 +23,10 @@ import com.lvl6.utils.DBConnection;
   public static Map<Integer, Map<Integer, Integer>> getQuestIdToDefeatTypeJobIdsToNumDefeated(int userId) {
     log.debug("retrieving user's quest id to (defeat type job progress map) map for user " + userId);
     
-    Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = convertRSToQuestIdToDefeatTypeJobIdsToNumDefeatedMap(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return questIdToDefeatTypeJobIdsToNumDefeated;
   }
   

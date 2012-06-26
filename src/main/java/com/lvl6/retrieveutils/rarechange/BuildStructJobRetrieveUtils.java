@@ -80,7 +80,7 @@ public class BuildStructJobRetrieveUtils {
 				log.error(e);
 			}
 		}
-		DBConnection.get().close(rs, null, null);
+		DBConnection.get().close(rs, null);
 	}
 
 	public static void reload() {
