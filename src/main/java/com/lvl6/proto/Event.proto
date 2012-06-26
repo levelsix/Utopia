@@ -225,6 +225,13 @@ message StartupResponseProto {
 		
 		repeated AnimatedSpriteOffsetProto animatedSpriteOffsets = 60;
 		
+		optional KiipRewardConditions kiipRewardConditions = 61;
+		
+		message KiipRewardConditions {
+			repeated int32 levelUpConditions = 1;
+			repeated int32 questRedeemConditions = 2;
+		}
+		
 		message AnimatedSpriteOffsetProto {
 			optional string imageName = 55;
 			optional CoordinateProto offSet = 56;
