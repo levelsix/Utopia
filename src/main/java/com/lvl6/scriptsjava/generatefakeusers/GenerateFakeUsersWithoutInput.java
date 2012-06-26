@@ -73,8 +73,13 @@ public class GenerateFakeUsersWithoutInput {
     }
 
     int skillPoints = (level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
+    int attack = 0;
+    int defense = 0;
     int health = ControllerConstants.TUTORIAL__INIT_HEALTH;
-
+    
+    health += (level-1)*ControllerConstants.LEVEL_UP_HEALTH_GAINED;
+    
+/*
     while (skillPoints > 0) {
       int rint = (int)Math.floor(Math.random() * 5) + 1;
       switch (rint) {
@@ -106,7 +111,8 @@ public class GenerateFakeUsersWithoutInput {
         break;
       }
     }
-
+*/
+    
     Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
     Integer weaponEquipped = null, armorEquipped = null;
     if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
@@ -124,7 +130,7 @@ public class GenerateFakeUsersWithoutInput {
     InsertUtil insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
 
     if (insertUtils.insertUser(newReferCode + newReferCode, name, type, location, null, newReferCode, level, 
-        0, 0, 0, health, 0, 0, 0, 0, weaponEquipped, armorEquipped, amuletEquipped, true) < 0) {
+        attack, defense, 0, health, 0, 0, 0, 0, weaponEquipped, armorEquipped, amuletEquipped, true) < 0) {
       System.out.println("error in creating user");
     }
   }
