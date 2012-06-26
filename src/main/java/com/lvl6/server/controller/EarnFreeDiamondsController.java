@@ -75,7 +75,7 @@ public class EarnFreeDiamondsController extends EventController {
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_EARN_FREE_DIAMONDS;
+    return EventProtocolRequest.C_EARN_FREE_DIAMONDS_EVENT;
   }
 
   @Override

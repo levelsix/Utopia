@@ -1393,6 +1393,8 @@ message ReconnectResponseProto {
 	optional bool incomingResponseMessages = 2;
 }
 
-message LogoutNoticeProto {
+//------------------------------------------------------------------------------------------
+
+message LogoutRequestProto {
 	optional MinimumUserProto sender = 1;
 }

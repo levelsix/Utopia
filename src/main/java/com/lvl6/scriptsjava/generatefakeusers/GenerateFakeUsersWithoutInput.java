@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Random;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.lvl6.info.Location;

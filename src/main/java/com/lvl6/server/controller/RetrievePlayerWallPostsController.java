@@ -38,7 +38,7 @@ import com.lvl6.utils.RetrieveUtils;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_RETRIEVE_PLAYER_WALL_POSTS;
+    return EventProtocolRequest.C_RETRIEVE_PLAYER_WALL_POSTS_EVENT;
   }
 
   @Override

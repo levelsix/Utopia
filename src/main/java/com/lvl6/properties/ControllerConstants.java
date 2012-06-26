@@ -99,7 +99,7 @@ public class ControllerConstants {
   //STARTUP
   public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 10;
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
-  public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 8;
+  public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 20;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
