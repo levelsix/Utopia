@@ -1,6 +1,5 @@
 package com.lvl6.server;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -21,7 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.HazelcastInstanceAware;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
@@ -29,7 +29,7 @@ import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.PlayerSet;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class GameServer extends Thread implements InitializingBean{
+public class GameServer extends Thread implements InitializingBean, HazelcastInstanceAware{
 
 	// Logger
 	private static Logger log = Logger.getLogger(new Object() {
@@ -375,7 +375,7 @@ public class GameServer extends Thread implements InitializingBean{
 //	}
 
 	public void lockPlayer(int playerId) {
-		Lock playerLock = Hazelcast.getLock(playerId);
+		Lock playerLock = hazel.getLock(playerId);
 		playerLock.lock();
 		playersInAction.addPlayer(playerId);
 	}
@@ -395,7 +395,7 @@ public class GameServer extends Thread implements InitializingBean{
 	}
 
 	public void unlockPlayer(int playerId) {
-		Lock lock = Hazelcast.getLock(playerId);
+		Lock lock = hazel.getLock(playerId);
 		lock.unlock();
 		if (playersInAction.containsPlayer(playerId))
 			playersInAction.removePlayer(playerId);
@@ -418,5 +418,13 @@ public class GameServer extends Thread implements InitializingBean{
 	public ConnectedPlayer removePreDbPlayer(String udid) {
 		return playersPreDatabaseByUDID.remove(udid);
 	}
+	
+	protected HazelcastInstance hazel;
+	@Override
+	@Autowired
+	public void setHazelcastInstance(HazelcastInstance instance) {
+		hazel = instance;
+	}
+
 	
 }

@@ -5,11 +5,13 @@ import java.util.Set;
 import java.util.concurrent.locks.Lock;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.HazelcastInstanceAware;
 
-public class PlayerSet {
+public class PlayerSet implements HazelcastInstanceAware {
 
 	
 	Logger log = Logger.getLogger(PlayerSet.class);
@@ -57,11 +59,19 @@ public class PlayerSet {
 		log.info("Removing stale player locks");
 		for(PlayerInAction player:players){
 			if(now - player.getLockTime().getTime() > 60000){
-				Lock playerLock = Hazelcast.getLock(player.getPlayerId());
+				Lock playerLock = hazel.getLock(player.getPlayerId());
 				playerLock.unlock();
 				players.remove(player);
 			}
 		}
 	}
+	
+	protected HazelcastInstance hazel;
+	@Override
+	@Autowired
+	public void setHazelcastInstance(HazelcastInstance instance) {
+		hazel = instance;
+	}
+
 
 }// EventQueue

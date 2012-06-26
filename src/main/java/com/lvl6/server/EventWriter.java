@@ -8,10 +8,12 @@ import java.util.concurrent.Executor;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.Message;
 import org.springframework.integration.message.GenericMessage;
 
-import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.ITopic;
 import com.lvl6.events.BroadcastResponseEvent;
 import com.lvl6.events.GameEvent;
@@ -22,9 +24,10 @@ import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.Wrap;
 
-public class EventWriter extends Wrap {
+public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	// reference to game server
 
+	
 	@Resource(name="gameEventsHandlerExecutor")
 	protected Executor gameEventsExecutor;
 
@@ -136,7 +139,7 @@ public class EventWriter extends Wrap {
 	 * write the event to the given playerId's channel
 	 */
 	private void write(ByteBuffer event, ConnectedPlayer player) {
-		ITopic<Message<?>> serverOutboundMessages = Hazelcast.getTopic(
+		ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(
 				ServerInstance.getOutboundMessageTopicForServer(
 						player.getServerHostName()));
 		Map<String, Object> headers = new HashMap<String, Object>();
@@ -145,6 +148,13 @@ public class EventWriter extends Wrap {
 		event.get(bArray);
 		Message<byte[]> msg = new GenericMessage<byte[]>(bArray, headers);
 		serverOutboundMessages.publish(msg);
+	}
+
+	protected HazelcastInstance hazel;
+	@Override
+	@Autowired
+	public void setHazelcastInstance(HazelcastInstance instance) {
+		hazel = instance;
 	}
 
 }// EventWriter
