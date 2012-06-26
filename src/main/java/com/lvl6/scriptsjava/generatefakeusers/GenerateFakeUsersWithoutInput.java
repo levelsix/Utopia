@@ -22,7 +22,7 @@ public class GenerateFakeUsersWithoutInput {
   private static String nameRulesFile = "src/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
   private static int numEnemiesToCreatePerLevel = 75;
   private static int minLevel = 2;
-  private static int maxLevel = 50;
+  private static int maxLevel = ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER;
   private static int syllablesInName1 = 2;
   private static int syllablesInName2 = 3;
 
@@ -71,10 +71,11 @@ public class GenerateFakeUsersWithoutInput {
     } else {
       //TODO: generate more codes?
     }
-    int skillPoints = (level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
+    //int skillPoints = (level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
     int attack = 0;
     int defense = 0;
     int health = ControllerConstants.TUTORIAL__INIT_HEALTH;
+    int equipmentLevel = level;
     
     health += (int) ((level-1)*ControllerConstants.LEVEL_UP_HEALTH_GAINED);
     
@@ -111,26 +112,31 @@ public class GenerateFakeUsersWithoutInput {
       }
     }
 */
+    if (equipmentLevel > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER) {
+    	equipmentLevel = ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER;
+    }
     
-    Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
-    Integer weaponEquipped = null, armorEquipped = null;
+    Integer weaponEquipped = null, armorEquipped = null, amuletEquipped = null;
     if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
       attack = (int) (ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK + (level-1)*ControllerConstants.LEVEL_UP_ATTACK_GAINED);
       defense = (int) (ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE + (level-1)*ControllerConstants.LEVEL_UP_DEFENSE_GAINED);
-      weaponEquipped = ControllerConstants.TUTORIAL__ARCHER_INIT_WEAPON_ID;
-      armorEquipped = ControllerConstants.TUTORIAL__ARCHER_INIT_ARMOR_ID;
+      weaponEquipped = ControllerConstants.ARCHER_WEAPON_ID_LEVEL[equipmentLevel-1];
+      armorEquipped = ControllerConstants.ARCHER_ARMOR_ID_LEVEL[equipmentLevel-1];
+      amuletEquipped = ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1];
     }
     if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
       attack = (int) (ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK + (level-1)*ControllerConstants.LEVEL_UP_ATTACK_GAINED);
       defense = (int) (ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE + (level-1)*ControllerConstants.LEVEL_UP_DEFENSE_GAINED);
-      weaponEquipped = ControllerConstants.TUTORIAL__WARRIOR_INIT_WEAPON_ID;
-      armorEquipped = ControllerConstants.TUTORIAL__WARRIOR_INIT_ARMOR_ID;
+      weaponEquipped = ControllerConstants.WARRIOR_WEAPON_ID_LEVEL[equipmentLevel-1];
+      armorEquipped = ControllerConstants.WARRIOR_ARMOR_ID_LEVEL[equipmentLevel-1];
+      amuletEquipped = ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1];
     }
     if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
       attack = (int) (ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK + (level-1)*ControllerConstants.LEVEL_UP_ATTACK_GAINED);
       defense = (int) (ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE + (level-1)*ControllerConstants.LEVEL_UP_DEFENSE_GAINED);
-      weaponEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_WEAPON_ID;
-      armorEquipped = ControllerConstants.TUTORIAL__MAGE_INIT_ARMOR_ID;
+      weaponEquipped = ControllerConstants.MAGE_WEAPON_ID_LEVEL[equipmentLevel-1];
+      armorEquipped = ControllerConstants.MAGE_ARMOR_ID_LEVEL[equipmentLevel-1];
+      amuletEquipped = ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1];
     }
     
     //Add randomization
