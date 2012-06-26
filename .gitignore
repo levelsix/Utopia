@@ -29,3 +29,6 @@ target/
 *.swp
 *.out
 *.p12
+
+## 
+runOnTomcat.sh

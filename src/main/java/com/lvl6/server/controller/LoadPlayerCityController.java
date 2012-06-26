@@ -87,11 +87,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       if (ownerIsGood != senderIsGood) {    //loading enemy city, load some of owners allies (more enemies from your POV)
         List<User> ownerAllies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
-            null, null, null, null, false);
+            null, null, null, null, false, null);
         setResponseOwnerAlliesOrEnemies(resBuilder, ownerAllies, true);
       } else {                              //loading ally city or your city, creating some of owners enemies
         List<User> ownerEnemies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY, owner.getLevel(), owner.getId(), false, 
-            null, null, null, null, false);
+            null, null, null, null, false, null);
         setResponseOwnerAlliesOrEnemies(resBuilder, ownerEnemies, false);
       }
 
