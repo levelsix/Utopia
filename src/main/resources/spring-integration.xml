@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xsi:schemaLocation=" 
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+    http://www.springframework.org/schema/integration 
+	http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
+	http://www.springframework.org/schema/integration/ip
+    http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+
+	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50"
+		queue-capacity="100" rejection-policy="CALLER_RUNS" />
+
+	<int:channel id="gameEventQueueChannel">
+		<int:queue ref="gameEventQueue" />
+		<int:interceptors>
+        	<int:wire-tap channel="loggerChannelAdapter"/>
+     	</int:interceptors>
+	</int:channel>
+
+
+	<int:service-activator 
+		input-channel="gameEventQueueChannel"
+		ref="gameEventHandler"
+		 method="handleMessage">
+		<int:poller 
+			fixed-rate="100" 
+			task-executor="gameEventsHandlerExecutor"
+			max-messages-per-poll="25" />
+	</int:service-activator>
+
+
+	<bean id="gameEventHandler" class="com.lvl6.eventhandlers.GameEventHandler" />
+
+
+
+	<int-ip:tcp-connection-factory id="serverSocket"
+		type="server" port="${server.port}" 
+		using-nio="true" 
+		lookup-host="false"
+		task-executor="gameEventsHandlerExecutor"
+		deserializer="gameEventSerializer"
+		serializer="gameEventSerializer" />
+
+
+	<bean id="gameEventSerializer" class="com.lvl6.events.GameEventSerializer" />
+
+	<int-ip:tcp-inbound-channel-adapter
+		id="inboundClient" 
+		channel="gameEventQueueChannel" 
+		connection-factory="serverSocket"
+		error-channel="errorChannel"
+	/>
+	
+	
+	<int:channel id="outboundMessageChannel" />
+	
+	<int-ip:tcp-outbound-channel-adapter
+		id="outboundClient" 
+		channel="outboundMessageChannel" 
+		connection-factory="serverSocket"
+	/>
+	
+	
+	
+	
+
+	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG"/>
+
+
+
+</beans>
