@@ -59,7 +59,7 @@
 		<profile>
 			<id>kelly</id>
 			<properties>
-				<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations_kelly.log</lvl6.server.log.location>
+				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
