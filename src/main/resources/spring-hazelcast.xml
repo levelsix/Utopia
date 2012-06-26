@@ -11,6 +11,7 @@
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
 		">
 	
+<<<<<<< HEAD
 	<hz:hazelcast id="hazel" >
 	
 		<hz:config>
@@ -26,6 +27,9 @@
 			</hz:network>
 		</hz:config>
 	</hz:hazelcast>
+=======
+	<import resource="classpath:spring-hazelcast-cluster-${hazelcast.config}.xml"/>
+>>>>>>> master
 	
 	
 	<hz:atomicNumber id="connectedPlayerCount" name="connectedPlayerCount" instance-ref="hazel" />
