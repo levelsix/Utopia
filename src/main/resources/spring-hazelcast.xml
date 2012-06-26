@@ -11,19 +11,7 @@
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
 		">
 	
-	<hz:hazelcast id="hazel" >
-		<hz:config>
-			<hz:network port="5701" >
-			<hz:join>
-				<hz:aws 
-				access-key="${hazelcast.ec2.awsId}" 
-				secret-key="${hazelcast.ec2.awsSecretKey}" 
-				region="${hazelcast.ec2.region}" 
-				security-group-name="${hazelcast.ec2.security.group}"/>
-			</hz:join>
-			</hz:network>
-		</hz:config>
-	</hz:hazelcast>
+	<import resource="classpath:spring-hazelcast-cluster-${hazelcast.config}.xml"/>
 	
 	
 	<hz:atomicNumber id="connectedPlayerCount" name="connectedPlayerCount" instance-ref="hazel" />

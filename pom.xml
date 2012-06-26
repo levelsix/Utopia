@@ -38,12 +38,13 @@
 		<jdbc.username>lvl6admin</jdbc.username>
 		<jdbc.password>robashen123</jdbc.password>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-		<apns.path.to.cert></apns.path.to.cert>
-		<apns.cert.password></apns.cert.password>
 		<hazelcast.ec2.security.group></hazelcast.ec2.security.group>
 		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
 		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
+		<hazelcast.group>main</hazelcast.group>
+		<hazelcast.pass>lvl6</hazelcast.pass>
+		<hazelcast.config>dev</hazelcast.config>
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
 		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
@@ -51,6 +52,19 @@
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>kelly</id>
+			<properties>
+				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+				<server.port>10002</server.port>
+				<hazelcast.group>kelly</hazelcast.group>
+				<hazelcast.pass>lvl6</hazelcast.pass>
+				<hazelcast.config>dev</hazelcast.config>
+			</properties>
+		</profile>
+	</profiles>
 
 
 	<repositories>
