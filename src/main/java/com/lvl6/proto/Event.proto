@@ -1373,3 +1373,19 @@ message EarnFreeDiamondsResponseProto {
 		OTHER_FAIL = 3;
 	}
 }
+
+
+//------------------------------------------------------------------------------------------
+
+message ReconnectRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message ReconnectResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional bool incomingResponseMessages = 2;
+}
+
+message LogoutNoticeProto {
+	optional MinimumUserProto sender = 1;
+}

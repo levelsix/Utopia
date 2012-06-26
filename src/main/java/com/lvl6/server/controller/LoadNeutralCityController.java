@@ -191,7 +191,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       List<UserType> temp = new ArrayList<UserType>();
       temp.add(type);
       List<User> users = RetrieveUtils.userRetrieveUtils().getUsers(temp,
-          numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true);
+          numToGenerate.get(type), user.getLevel(), user.getId(), true, null, null, null, null, true, null);
       if (users != null) {
         for (User u : users) {
           resBuilder.addDefeatTypeJobEnemies(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
