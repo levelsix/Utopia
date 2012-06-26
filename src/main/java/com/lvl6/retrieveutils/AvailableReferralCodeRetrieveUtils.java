@@ -28,7 +28,7 @@ import com.lvl6.utils.DBConnection;
     Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.get().selectDirectQueryNaive(conn, query, null);
+      rs = DBConnection.get().selectDirectQueryNaive(query, null);
       if (rs != null) {
         try {
           rs.last();
@@ -48,7 +48,7 @@ import com.lvl6.utils.DBConnection;
     ResultSet rs2 = null;
     if (conn != null) {
       query = "SELECT " + DBConstants.AVAILABLE_REFERRAL_CODES__CODE+ " FROM " + TABLE_NAME + " LIMIT " + offset + ", 1"; 
-      rs2 = DBConnection.get().selectDirectQueryNaive(conn, query, null);
+      rs2 = DBConnection.get().selectDirectQueryNaive(query, null);
       if (rs2 != null) {
         try {
           rs2.last();

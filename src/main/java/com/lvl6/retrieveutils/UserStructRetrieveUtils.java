@@ -55,7 +55,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     log.debug("retrieving user struct with id " + userStructId);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsById(conn, userStructId, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsById(userStructId, TABLE_NAME);
     UserStruct userStruct = convertRSSingleToUserStructs(rs);
     DBConnection.get().close(rs, null, conn);
     return userStruct;
@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     query += StringUtils.getListInString(condClauses, "or") + ")";
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(query, values);
     List<UserStruct> userStructs = convertRSToUserStructs(rs);
     DBConnection.get().close(rs, null, conn);
     return userStructs;

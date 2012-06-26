@@ -33,7 +33,7 @@ import com.lvl6.utils.DBConnection;
     greaterThanParams.put(DBConstants.REFERRALS__TIME_OF_REFERRAL, lastLogout);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.REFERRALS__TIME_OF_REFERRAL, greaterThanParams);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescGreaterthan(absoluteParams, TABLE_NAME, DBConstants.REFERRALS__TIME_OF_REFERRAL, greaterThanParams);
     List<Referral> referrals = convertRSToReferralsList(rs);
     DBConnection.get().close(rs, null, conn);
     return referrals;

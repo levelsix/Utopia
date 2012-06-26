@@ -38,8 +38,6 @@
 		<jdbc.username>lvl6admin</jdbc.username>
 		<jdbc.password>robashen123</jdbc.password>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-		<apns.path.to.cert></apns.path.to.cert>
-		<apns.cert.password></apns.cert.password>
 		<hazelcast.ec2.security.group></hazelcast.ec2.security.group>
 		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
@@ -52,7 +50,16 @@
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 	</properties>
 
-
+	<profiles>
+		<profile>
+			<id>kelly</id>
+			<properties>
+				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+			</properties>
+		</profile>
+	</profiles>
+	
+	
 	<repositories>
 		<repository>
 			<id>spy</id>

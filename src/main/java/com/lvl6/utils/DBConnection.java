@@ -141,7 +141,7 @@ public class DBConnection {
 				userId, tablename);
 	}
 
-	public ResultSet selectRowsById(Connection conn, int id, String tablename) {
+	public ResultSet selectRowsById(int id, String tablename) {
 		return selectRowsByIntAttr(null, DBConstants.GENERIC__ID, id, tablename);
 	}
 
@@ -150,54 +150,50 @@ public class DBConnection {
 				SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteOr(Connection conn,
-			Map<String, Object> absoluteConditionParams, String tablename) {
+	public ResultSet selectRowsAbsoluteOr(Map<String, Object> absoluteConditionParams,
+			String tablename) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"or", null, false, SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteAnd(Connection conn,
-			Map<String, Object> absoluteConditionParams, String tablename) {
+	public ResultSet selectRowsAbsoluteAnd(Map<String, Object> absoluteConditionParams,
+			String tablename) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"and", null, false, SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteAndOrderbydesc(Connection conn,
-			Map<String, Object> absoluteConditionParams, String tablename,
-			String orderByColumn) {
+	public ResultSet selectRowsAbsoluteAndOrderbydesc(Map<String, Object> absoluteConditionParams,
+			String tablename, String orderByColumn) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteAndOrderbydescLimit(Connection conn,
-			Map<String, Object> absoluteConditionParams, String tablename,
-			String orderByColumn, int limit) {
+	public ResultSet selectRowsAbsoluteAndOrderbydescLimit(Map<String, Object> absoluteConditionParams,
+			String tablename, String orderByColumn,
+			int limit) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"and", orderByColumn, false, limit, false);
 	}
 
 	public ResultSet selectRowsAbsoluteAndOrderbydescLimitLessthan(
-			Connection conn, Map<String, Object> absoluteConditionParams,
-			String tablename, String orderByColumn, int limit,
-			Map<String, Object> lessThanConditionParams) {
+			Map<String, Object> absoluteConditionParams, String tablename,
+			String orderByColumn, int limit, Map<String, Object> lessThanConditionParams) {
 		return selectRows(null, absoluteConditionParams, null, lessThanConditionParams,
 				tablename, "and", orderByColumn, false,
 				limit, false);
 	}
 
 	public ResultSet selectRowsAbsoluteAndOrderbydescLimitGreaterthan(
-			Connection conn, Map<String, Object> absoluteConditionParams,
-			String tablename, String orderByColumn, int limit,
-			Map<String, Object> greaterThanConditionParams) {
+			Map<String, Object> absoluteConditionParams, String tablename,
+			String orderByColumn, int limit, Map<String, Object> greaterThanConditionParams) {
 		return selectRows(null, absoluteConditionParams, greaterThanConditionParams,
 				null, tablename, "and", orderByColumn,
 				false, limit, false);
 	}
 
 	public ResultSet selectRowsAbsoluteAndLimitLessthanGreaterthanRand(
-			Connection conn, Map<String, Object> absoluteConditionParams,
-			String tablename, String orderByColumn, int limit,
-			Map<String, Object> lessThanConditionParams,
+			Map<String, Object> absoluteConditionParams, String tablename,
+			String orderByColumn, int limit, Map<String, Object> lessThanConditionParams,
 			Map<String, Object> greaterThanConditionParams) {
 		return selectRows(null, absoluteConditionParams, greaterThanConditionParams,
 				lessThanConditionParams, tablename, "and",
@@ -205,20 +201,18 @@ public class DBConnection {
 	}
 
 	public ResultSet selectRowsAbsoluteAndOrderbydescGreaterthan(
-			Connection conn, Map<String, Object> absoluteConditionParams,
-			String tablename, String orderByColumn,
-			Map<String, Object> greaterThanConditionParams) {
+			Map<String, Object> absoluteConditionParams, String tablename,
+			String orderByColumn, Map<String, Object> greaterThanConditionParams) {
 		return selectRows(null, absoluteConditionParams, greaterThanConditionParams,
 				null, tablename, "and", orderByColumn,
 				false, SELECT_LIMIT_NOT_SET, false);
 	}
 
 	/* assumes number of ? in the query = values.size() */
-	public ResultSet selectDirectQueryNaive(Connection conn, String query,
-			List<Object> values) {
+	public ResultSet selectDirectQueryNaive(String query, List<Object> values) {
 		ResultSet rs = null;
 		try {
-			conn = connectionManager.get();
+			Connection conn = connectionManager.get();
 			PreparedStatement stmt = conn.prepareStatement(query);
 			if (values != null && values.size() > 0) {
 				int i = 1;
@@ -581,7 +575,7 @@ public class DBConnection {
 			query += "* ";
 		}
 		query += " from " + tablename + " where " + attr + "=?";
-		conn = connectionManager.get();
+		Connection conn = connectionManager.get();
 		ResultSet rs = null;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);

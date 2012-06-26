@@ -31,7 +31,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
     return userQuests;
@@ -48,7 +48,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
     return userQuests;
@@ -75,7 +75,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
     DBConnection.get().close(rs, null, conn);
     return userQuests;
@@ -101,7 +101,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     UserQuest userQuest = convertRSToSingleUserQuest(rs);
     DBConnection.get().close(rs, null, conn);
     return userQuest;

@@ -26,7 +26,7 @@ import com.lvl6.utils.DBConnection;
     log.debug("retrieving wall post with id " + wallPostId);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsById(conn, wallPostId, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsById(wallPostId, TABLE_NAME);
     PlayerWallPost playerWallPost = convertRSToSinglePlayerWallPost(rs);
     DBConnection.get().close(rs, null, conn);
     return playerWallPost;
@@ -56,7 +56,7 @@ import com.lvl6.utils.DBConnection;
     absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit, lessThanParamsToVals);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit, lessThanParamsToVals);
     List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
     DBConnection.get().close(rs, null, conn);
     return playerWallPosts;
@@ -69,7 +69,7 @@ import com.lvl6.utils.DBConnection;
     absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
     
     Connection conn = DBConnection.get().connectionManager.get();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit);
     List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
     DBConnection.get().close(rs, null, conn);
     return playerWallPosts;

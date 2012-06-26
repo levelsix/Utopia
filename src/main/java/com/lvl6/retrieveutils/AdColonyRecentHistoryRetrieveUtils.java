@@ -25,7 +25,7 @@ public class AdColonyRecentHistoryRetrieveUtils {
     Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     if (conn != null) {
-      rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+      rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
