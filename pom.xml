@@ -44,6 +44,7 @@
 		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
 		<hazelcast.group>main</hazelcast.group>
 		<hazelcast.pass>lvl6</hazelcast.pass>
+		<hazelcast.config>dev</hazelcast.config>
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
 		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
@@ -60,6 +61,7 @@
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
+				<hazelcast.config>dev</hazelcast.config>
 			</properties>
 		</profile>
 	</profiles>
