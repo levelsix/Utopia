@@ -14,16 +14,19 @@ import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 
 import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.ITopic;
 import com.hazelcast.core.MessageListener;
 
-public class ServerInstance implements InitializingBean, MessageListener<Message<?>>  {
+public class ServerInstance implements InitializingBean, MessageListener<Message<?>>, HazelcastInstanceAware  {
 
 	protected static Logger log = Logger.getLogger(ServerInstance.class);
 	
 	protected static String outboundMessagesTopicPostFix = "OutboundMessages";
 
 	
+	protected HazelcastInstance hzInstance;
 	
 	protected ITopic<Message<?>> serverInstanceOutboundEventTopic;
 
@@ -48,7 +51,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 	 * @throws FileNotFoundException 
 	 */
 	public void setup() throws FileNotFoundException {
-		serverInstanceOutboundEventTopic = Hazelcast.getTopic(getOutboundMessageTopicForServer(serverId()));
+		serverInstanceOutboundEventTopic = hzInstance.getTopic(getOutboundMessageTopicForServer(serverId()));
 		serverInstanceOutboundEventTopic.addMessageListener(this);
 	}
 
@@ -118,6 +121,12 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 
 	public void setOutboundMessageChannel(MessageChannel outboundMessageChannel) {
 		this.outboundMessageChannel = outboundMessageChannel;
+	}
+
+	@Override
+	@Autowired
+	public void setHazelcastInstance(HazelcastInstance instance) {
+		hzInstance = instance;
 	}
 
 }
