@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.lvl6.info.Location;
 import com.lvl6.properties.ControllerConstants;
@@ -19,8 +20,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GenerateFakeUsersWithoutInput {
 
-  private static String nameRulesFile = "src/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
-  private static int numEnemiesToCreatePerLevel = 75;
+  private static String nameRulesFile = "src/main/java/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
+  private static int numEnemiesToCreatePerLevel = 100;
   private static int minLevel = 2;
   private static int maxLevel = ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER;
   private static int syllablesInName1 = 2;
@@ -29,8 +30,7 @@ public class GenerateFakeUsersWithoutInput {
   protected InsertUtil insertUtils;
 
   public static void main(String[] args) {
-	  ApplicationContext context =
-		    new ClassPathXmlApplicationContext(new String[] {"test-spring-application-context.xml"});
+    ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
     NameGenerator nameGenerator = null;
     Random random = new Random();
     try {
@@ -149,8 +149,8 @@ public class GenerateFakeUsersWithoutInput {
 	    } else {
 	    	health -= (int)Math.floor(Math.random() * 5) + 1;
 	    }
-	    if (health<30) {
-	    	health = 30;
+	    if (health<ControllerConstants.TUTORIAL__INIT_HEALTH) {
+	    	health = ControllerConstants.TUTORIAL__INIT_HEALTH;
 	    }
 	    
 	    initialized[0] = attack;

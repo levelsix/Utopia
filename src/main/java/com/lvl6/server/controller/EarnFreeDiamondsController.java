@@ -92,9 +92,9 @@ public class EarnFreeDiamondsController extends EventController {
     int adColonyDiamondsEarned = reqProto.getAdColonyDiamondsEarned();
 
 
-
-//    ////    //TODO:
-//    kiipReceiptString = "{\"signature\":\"f5dcbefaa733d43164c2bc81e31dca080f05b788\",\"content\":\"reward_gold\",\"quantity\":\"4\",\"transaction_id\":\"4fe0d1828fbab2185e000267\"}";
+//
+////    ////    //TODO:
+//    kiipReceiptString = "{\"signature\":\"a525d6cbb8ec18d5c4e47266d736162cf18a3ff7\",\"content\":\"reward_gold\",\"quantity\":\"2\",\"transaction_id\":\"4fe924dc4972e91ed6000147\"}";
 //    freeDiamondsType = EarnFreeDiamondsType.KIIP;
 
 
