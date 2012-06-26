@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 
@@ -62,17 +61,19 @@ public class PlayerSet implements HazelcastInstanceAware {
 		log.debug("Removing stale player locks");
 		for(PlayerInAction player:players){
 			if(now - player.getLockTime().getTime() > 60000){
-				Lock playerLock = hzInstance.getLock(player.getPlayerId());
+				Lock playerLock = hazel.getLock(player.getPlayerId());
 				playerLock.unlock();
 				players.remove(player);
 			}
 		}
 	}
-
+	
+	protected HazelcastInstance hazel;
 	@Override
 	@Autowired
 	public void setHazelcastInstance(HazelcastInstance instance) {
-		hzInstance = instance;	
+		hazel = instance;
 	}
+
 
 }// EventQueue

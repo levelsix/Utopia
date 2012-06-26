@@ -1,6 +1,5 @@
 package com.lvl6.server;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -21,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.lvl6.events.ResponseEvent;
@@ -49,7 +47,6 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	@Autowired
 	protected ServerInstance serverInstance;
 	
-	protected HazelcastInstance hzInstance;
 	
 	
 	public ServerInstance getServerInstance() {
@@ -379,7 +376,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 //	}
 
 	public void lockPlayer(int playerId) {
-		Lock playerLock = hzInstance.getLock(playerId);
+		Lock playerLock = hazel.getLock(playerId);
 		playerLock.lock();
 		playersInAction.addPlayer(playerId);
 	}
@@ -399,7 +396,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}
 
 	public void unlockPlayer(int playerId) {
-		Lock lock = hzInstance.getLock(playerId);
+		Lock lock = hazel.getLock(playerId);
 		lock.unlock();
 		if (playersInAction.containsPlayer(playerId))
 			playersInAction.removePlayer(playerId);
@@ -423,10 +420,13 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 		return playersPreDatabaseByUDID.remove(udid);
 	}
 
+
+	protected HazelcastInstance hazel;
 	@Override
 	@Autowired
 	public void setHazelcastInstance(HazelcastInstance instance) {
-		hzInstance = instance;
+		hazel = instance;
 	}
+
 	
 }
