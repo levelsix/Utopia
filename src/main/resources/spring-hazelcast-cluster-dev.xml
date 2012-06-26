@@ -14,6 +14,15 @@
 	<hz:hazelcast id="hazel" >
 		<hz:config>
 			<hz:group name="${hazelcast.group}" password="${hazelcast.pass}" />
+			<hz:network port="${hazelcast.port}" >
+			<hz:join>
+				<hz:aws 
+				access-key="${hazelcast.ec2.awsId}" 
+				secret-key="${hazelcast.ec2.awsSecretKey}" 
+				region="${hazelcast.ec2.region}" 
+				security-group-name="${hazelcast.ec2.security.group}"/>
+			</hz:join>
+			</hz:network>
 		</hz:config>
 	</hz:hazelcast>
 	
