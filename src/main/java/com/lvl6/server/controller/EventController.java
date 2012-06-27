@@ -15,7 +15,6 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.GameServer;
-import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.Wrap;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
