@@ -7,7 +7,7 @@ import org.springframework.integration.core.MessageHandler;
 public class OutboundErrorMessageHandler implements MessageHandler {
 
 	@Override
-	public void handleMessage(Message<?> arg0) throws MessagingException {
+	public void handleMessage(Message<?> message) throws MessagingException {
 		
 	}
 

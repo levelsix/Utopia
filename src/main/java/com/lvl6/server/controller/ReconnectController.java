@@ -14,7 +14,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 
 @Component @DependsOn("gameServer") public class ReconnectController extends EventController{
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private static Logger log = Logger.getLogger(ReconnectController.class);
 
   public ReconnectController() {
     numAllocatedThreads = 4;
