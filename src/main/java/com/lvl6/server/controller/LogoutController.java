@@ -11,9 +11,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LogoutRequestEvent;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.LogoutRequestProto;
-import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 
 @Component @DependsOn("gameServer") public class LogoutController extends EventController{
