@@ -58,7 +58,7 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("cannot update last logout because playerid of sender is <= 0, it's " + playerId);
     }
 
-    //clear cache
+    //TODO: clear cache
 
   }
 

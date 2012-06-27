@@ -40,7 +40,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
     resBuilder.setSender(senderProto);
     resBuilder.setIncomingResponseMessages(false);
 
-
+    //TODO: 
     //grab events from hazel
     //if there are any
       //log it
