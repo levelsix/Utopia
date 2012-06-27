@@ -344,7 +344,7 @@ public class MiscMethods {
     LevelsRequiredExperienceRetrieveUtils.reload();
     NeutralCityElementsRetrieveUtils.reload();    
     try {
-		DBConnection.get().connectionManager.get().close();
+		DBConnection.get().getConnection().close();
 	} catch (SQLException e) {
 		log.error("Error closing DBConnection after loading RareChangeStaticData", e);
 	}

@@ -22,7 +22,7 @@ public class AdColonyRecentHistoryRetrieveUtils {
 
     boolean isDuplicateDigest = false;
     
-    //Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     //if (conn != null) {
       rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);

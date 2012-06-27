@@ -54,7 +54,7 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticUpgradeStructJobIdsToUpgradeStructJobs() {
     log.debug("setting static map of upgrade struct job id to upgrade struct job");
 
-    //Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
     //if (conn != null) {
       rs = DBConnection.get().selectWholeTable(TABLE_NAME);

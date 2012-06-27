@@ -29,7 +29,7 @@ import com.lvl6.utils.DBConnection;
   public Map<Integer, Integer> getCityIdToUserCityRank(int userId) {
     log.debug("retrieving city id to user city rank map for userId " + userId);
 
-    //Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     Map<Integer, Integer> cityIdToUserCityRankMap = convertRSToCityIdToCityRankMap(rs);
     DBConnection.get().close(rs, null);
@@ -45,7 +45,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_CITIES__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_CITIES__CITY_ID, cityId);
 
-    //Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     int cityRank = convertRSToCityRank(rs);
     DBConnection.get().close(rs, null);

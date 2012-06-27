@@ -27,7 +27,7 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
     
     
-    //Connection conn = DBConnection.get().connectionManager.get();
+    //Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     UserCityExpansionData userCityExpansionData = convertRSToUserCritstructs(rs);
     DBConnection.get().close(rs, null);

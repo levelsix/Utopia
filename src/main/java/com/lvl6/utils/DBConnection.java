@@ -28,8 +28,7 @@ public class DBConnection {
 		return (DBConnection) AppContext.getApplicationContext().getBean("dbConnection");
 	}
 	
-	protected Logger log = Logger.getLogger(new Object() {
-	}.getClass().getEnclosingClass());
+	protected Logger log = Logger.getLogger(DBConnection.class);
 
 
 	// private final Level MCHANGE_LOG_LEVEL = Level.DEBUG;
@@ -75,6 +74,10 @@ public class DBConnection {
 			return connec;
 		}
 	};
+	
+	public Connection getConnection() {
+		return DataSourceUtils.getConnection(dataSource);
+	}
 	
 
 	private void printConnectionInfoInDebug() {
@@ -212,7 +215,7 @@ public class DBConnection {
 	public ResultSet selectDirectQueryNaive(String query, List<Object> values) {
 		ResultSet rs = null;
 		try {
-			Connection conn = connectionManager.get();
+			Connection conn = getConnection();
 			PreparedStatement stmt = conn.prepareStatement(query);
 			if (values != null && values.size() > 0) {
 				int i = 1;
@@ -236,7 +239,7 @@ public class DBConnection {
 		PreparedStatement stmt = null;
 
 		try {
-			conn = connectionManager.get();
+			conn = getConnection();
 			stmt = conn.prepareStatement(query);
 			if (values != null && values.size() > 0) {
 				int i = 1;
@@ -310,7 +313,7 @@ public class DBConnection {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = connectionManager.get();
+			conn = getConnection();
 			stmt = conn.prepareStatement(query);
 			if (values.size() > 0) {
 				int i = 1;
@@ -349,7 +352,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = connectionManager.get();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query);
 				if (values.size() > 0) {
 					int i = 1;
@@ -412,7 +415,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = connectionManager.get();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query);
 				if (values.size() > 0) {
 					int i = 1;
@@ -452,7 +455,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = connectionManager.get();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query,
 						Statement.RETURN_GENERATED_KEYS);
 				if (values.size() > 0) {
@@ -504,7 +507,7 @@ public class DBConnection {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				conn = connectionManager.get();
+				conn = getConnection();
 				stmt = conn.prepareStatement(query);
 				if (values.size() > 0) {
 					int i = 1;
@@ -547,7 +550,7 @@ public class DBConnection {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = connectionManager.get();
+			conn = getConnection();
 			stmt = conn.prepareStatement(query);
 			if (values.size() > 0) {
 				int i = 1;
@@ -575,7 +578,7 @@ public class DBConnection {
 			query += "* ";
 		}
 		query += " from " + tablename + " where " + attr + "=?";
-		Connection conn = connectionManager.get();
+		Connection conn = getConnection();
 		ResultSet rs = null;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -595,7 +598,7 @@ public class DBConnection {
 			String tablename,
 			String conddelim, String orderByColumn, boolean orderByAsc,
 			int limit, boolean random) {
-		Connection conn = connectionManager.get();
+		Connection conn = getConnection();
 		String query = "select ";
 		if (columns != null) {
 			query += StringUtils.getListInString(columns, ",");

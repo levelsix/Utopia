@@ -102,7 +102,7 @@ public abstract class EventController extends Wrap {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			DBConnection.get().connectionManager.get().close();
+			DBConnection.get().getConnection().close();
 			endTime = System.nanoTime();
 		}
 		double numSeconds = (endTime - startTime) / 1000000;
@@ -126,11 +126,12 @@ public abstract class EventController extends Wrap {
 				.execute(new TransactionCallback<Exception>() {
 
 					@Override
-					public Exception doInTransaction(TransactionStatus arg0) {
+					public Exception doInTransaction(TransactionStatus status) {
 						try {
 							processRequestEvent(reqEvent);
 							return null;
 						} catch (Exception e) {
+							status.setRollbackOnly();
 							return e;
 						}
 					}
