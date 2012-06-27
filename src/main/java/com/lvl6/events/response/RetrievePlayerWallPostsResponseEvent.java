@@ -13,7 +13,7 @@ public class RetrievePlayerWallPostsResponseEvent extends NormalResponseEvent {
   
   public RetrievePlayerWallPostsResponseEvent(int playerId) {
     super(playerId);
-    eventType = EventProtocolResponse.S_RETRIEVE_PLAYER_WALL_POSTS;
+    eventType = EventProtocolResponse.S_RETRIEVE_PLAYER_WALL_POSTS_EVENT;
   }
 
   /** 

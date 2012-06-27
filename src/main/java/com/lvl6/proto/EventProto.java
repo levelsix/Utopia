@@ -85085,7 +85085,7 @@ public final class EventProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.ReconnectResponseProto)
   }
   
-  public interface LogoutNoticeProtoOrBuilder
+  public interface LogoutRequestProtoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
     // optional .com.lvl6.proto.MinimumUserProto sender = 1;
@@ -85093,32 +85093,32 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
   }
-  public static final class LogoutNoticeProto extends
+  public static final class LogoutRequestProto extends
       com.google.protobuf.GeneratedMessage
-      implements LogoutNoticeProtoOrBuilder {
-    // Use LogoutNoticeProto.newBuilder() to construct.
-    private LogoutNoticeProto(Builder builder) {
+      implements LogoutRequestProtoOrBuilder {
+    // Use LogoutRequestProto.newBuilder() to construct.
+    private LogoutRequestProto(Builder builder) {
       super(builder);
     }
-    private LogoutNoticeProto(boolean noInit) {}
+    private LogoutRequestProto(boolean noInit) {}
     
-    private static final LogoutNoticeProto defaultInstance;
-    public static LogoutNoticeProto getDefaultInstance() {
+    private static final LogoutRequestProto defaultInstance;
+    public static LogoutRequestProto getDefaultInstance() {
       return defaultInstance;
     }
     
-    public LogoutNoticeProto getDefaultInstanceForType() {
+    public LogoutRequestProto getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutNoticeProto_descriptor;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutRequestProto_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutNoticeProto_fieldAccessorTable;
+      return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutRequestProto_fieldAccessorTable;
     }
     
     private int bitField0_;
@@ -85178,41 +85178,41 @@ public final class EventProto {
       return super.writeReplace();
     }
     
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(byte[] data)
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseDelimitedFrom(java.io.InputStream input)
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -85221,7 +85221,7 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseDelimitedFrom(
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -85232,12 +85232,12 @@ public final class EventProto {
         return null;
       }
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.lvl6.proto.EventProto.LogoutNoticeProto parseFrom(
+    public static com.lvl6.proto.EventProto.LogoutRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -85247,7 +85247,7 @@ public final class EventProto {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.lvl6.proto.EventProto.LogoutNoticeProto prototype) {
+    public static Builder newBuilder(com.lvl6.proto.EventProto.LogoutRequestProto prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -85260,18 +85260,18 @@ public final class EventProto {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.lvl6.proto.EventProto.LogoutNoticeProtoOrBuilder {
+       implements com.lvl6.proto.EventProto.LogoutRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutNoticeProto_descriptor;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutRequestProto_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutNoticeProto_fieldAccessorTable;
+        return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_LogoutRequestProto_fieldAccessorTable;
       }
       
-      // Construct using com.lvl6.proto.EventProto.LogoutNoticeProto.newBuilder()
+      // Construct using com.lvl6.proto.EventProto.LogoutRequestProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -85306,24 +85306,24 @@ public final class EventProto {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.lvl6.proto.EventProto.LogoutNoticeProto.getDescriptor();
+        return com.lvl6.proto.EventProto.LogoutRequestProto.getDescriptor();
       }
       
-      public com.lvl6.proto.EventProto.LogoutNoticeProto getDefaultInstanceForType() {
-        return com.lvl6.proto.EventProto.LogoutNoticeProto.getDefaultInstance();
+      public com.lvl6.proto.EventProto.LogoutRequestProto getDefaultInstanceForType() {
+        return com.lvl6.proto.EventProto.LogoutRequestProto.getDefaultInstance();
       }
       
-      public com.lvl6.proto.EventProto.LogoutNoticeProto build() {
-        com.lvl6.proto.EventProto.LogoutNoticeProto result = buildPartial();
+      public com.lvl6.proto.EventProto.LogoutRequestProto build() {
+        com.lvl6.proto.EventProto.LogoutRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.lvl6.proto.EventProto.LogoutNoticeProto buildParsed()
+      private com.lvl6.proto.EventProto.LogoutRequestProto buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.lvl6.proto.EventProto.LogoutNoticeProto result = buildPartial();
+        com.lvl6.proto.EventProto.LogoutRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -85331,8 +85331,8 @@ public final class EventProto {
         return result;
       }
       
-      public com.lvl6.proto.EventProto.LogoutNoticeProto buildPartial() {
-        com.lvl6.proto.EventProto.LogoutNoticeProto result = new com.lvl6.proto.EventProto.LogoutNoticeProto(this);
+      public com.lvl6.proto.EventProto.LogoutRequestProto buildPartial() {
+        com.lvl6.proto.EventProto.LogoutRequestProto result = new com.lvl6.proto.EventProto.LogoutRequestProto(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -85349,16 +85349,16 @@ public final class EventProto {
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.lvl6.proto.EventProto.LogoutNoticeProto) {
-          return mergeFrom((com.lvl6.proto.EventProto.LogoutNoticeProto)other);
+        if (other instanceof com.lvl6.proto.EventProto.LogoutRequestProto) {
+          return mergeFrom((com.lvl6.proto.EventProto.LogoutRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.lvl6.proto.EventProto.LogoutNoticeProto other) {
-        if (other == com.lvl6.proto.EventProto.LogoutNoticeProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.lvl6.proto.EventProto.LogoutRequestProto other) {
+        if (other == com.lvl6.proto.EventProto.LogoutRequestProto.getDefaultInstance()) return this;
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
@@ -85498,15 +85498,15 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LogoutNoticeProto)
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.LogoutRequestProto)
     }
     
     static {
-      defaultInstance = new LogoutNoticeProto(true);
+      defaultInstance = new LogoutRequestProto(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LogoutNoticeProto)
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.LogoutRequestProto)
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
@@ -86040,10 +86040,10 @@ public final class EventProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_ReconnectResponseProto_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_lvl6_proto_LogoutNoticeProto_descriptor;
+    internal_static_com_lvl6_proto_LogoutRequestProto_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_lvl6_proto_LogoutNoticeProto_fieldAccessorTable;
+      internal_static_com_lvl6_proto_LogoutRequestProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -86813,9 +86813,9 @@ public final class EventProto {
       "umUserProto\"l\n\026ReconnectResponseProto\0220\n" +
       "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
       "erProto\022 \n\030incomingResponseMessages\030\002 \001(",
-      "\010\"E\n\021LogoutNoticeProto\0220\n\006sender\030\001 \001(\0132 " +
-      ".com.lvl6.proto.MinimumUserProtoB\014B\nEven" +
-      "tProto"
+      "\010\"F\n\022LogoutRequestProto\0220\n\006sender\030\001 \001(\0132" +
+      " .com.lvl6.proto.MinimumUserProtoB\014B\nEve" +
+      "ntProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -87670,14 +87670,14 @@ public final class EventProto {
               new java.lang.String[] { "Sender", "IncomingResponseMessages", },
               com.lvl6.proto.EventProto.ReconnectResponseProto.class,
               com.lvl6.proto.EventProto.ReconnectResponseProto.Builder.class);
-          internal_static_com_lvl6_proto_LogoutNoticeProto_descriptor =
+          internal_static_com_lvl6_proto_LogoutRequestProto_descriptor =
             getDescriptor().getMessageTypes().get(96);
-          internal_static_com_lvl6_proto_LogoutNoticeProto_fieldAccessorTable = new
+          internal_static_com_lvl6_proto_LogoutRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_lvl6_proto_LogoutNoticeProto_descriptor,
+              internal_static_com_lvl6_proto_LogoutRequestProto_descriptor,
               new java.lang.String[] { "Sender", },
-              com.lvl6.proto.EventProto.LogoutNoticeProto.class,
-              com.lvl6.proto.EventProto.LogoutNoticeProto.Builder.class);
+              com.lvl6.proto.EventProto.LogoutRequestProto.class,
+              com.lvl6.proto.EventProto.LogoutRequestProto.Builder.class);
           return null;
         }
       };
