@@ -31,7 +31,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public List<UserStruct> getUserStructsForUser(int userId) {
     log.debug("retrieving user structs for userId " + userId);
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     List<UserStruct> userStructs = convertRSToUserStructs(rs);
     DBConnection.get().close(rs, null);
@@ -43,7 +43,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public Map<Integer, List<UserStruct>> getStructIdsToUserStructsForUser(int userId) {
     log.debug("retrieving map of struct id to userstructs for userId " + userId);
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     Map<Integer, List<UserStruct>> structIdToUserStructs = convertRSToStructIdsToUserStructs(rs);
     DBConnection.get().close(rs, null);
@@ -54,7 +54,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public UserStruct getSpecificUserStruct(int userStructId) {
     log.debug("retrieving user struct with id " + userStructId);
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsById(userStructId, TABLE_NAME);
     UserStruct userStruct = convertRSSingleToUserStructs(rs);
     DBConnection.get().close(rs, null);
@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(query, values);
     List<UserStruct> userStructs = convertRSToUserStructs(rs);
     DBConnection.get().close(rs, null);

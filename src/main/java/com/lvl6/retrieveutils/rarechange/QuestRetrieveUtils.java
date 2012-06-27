@@ -73,7 +73,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   private static void setStaticQuestIdsToQuests() {
     log.debug("setting static map of questIds to quests");
 
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     //if (conn != null) {
       rs = DBConnection.get().selectWholeTable(TABLE_NAME);
@@ -105,7 +105,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   private static void setStaticQuestGraph() {
     log.debug("setting static quest graph");
 
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     //if (conn != null) {
       rs = DBConnection.get().selectWholeTable(TABLE_NAME);

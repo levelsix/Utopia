@@ -25,7 +25,7 @@ import com.lvl6.utils.DBConnection;
 
     Integer offset = null;
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     //if (conn != null) {
       rs = DBConnection.get().selectDirectQueryNaive(query, null);

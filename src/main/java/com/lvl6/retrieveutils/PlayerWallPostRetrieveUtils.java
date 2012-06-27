@@ -25,7 +25,7 @@ import com.lvl6.utils.DBConnection;
   public static PlayerWallPost getSpecificActivePlayerWallPost(int wallPostId) {
     log.debug("retrieving wall post with id " + wallPostId);
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsById(wallPostId, TABLE_NAME);
     PlayerWallPost playerWallPost = convertRSToSinglePlayerWallPost(rs);
     DBConnection.get().close(rs, null);
@@ -40,7 +40,7 @@ import com.lvl6.utils.DBConnection;
 //    TreeMap <String, Object> greaterThanParams = new TreeMap<String, Object>();
 //    greaterThanParams.put(DBConstants.PLAYER_WALL_POSTS__TIME_OF_POST, lastLogout);
 //    
-//    //Connection conn = DBConnection.get().getConnection();
+//    //Connection conn = DBConnection.get().connectionManager.get();
 //    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__TIME_OF_POST, greaterThanParams);
 //    List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
 //    DBConnection.get().close(rs, null, conn);
@@ -55,7 +55,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit, lessThanParamsToVals);
     List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
     DBConnection.get().close(rs, null);
@@ -68,7 +68,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.PLAYER_WALL_POSTS__WALL_OWNER_ID, wallOwnerId);
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(absoluteParams, TABLE_NAME, DBConstants.PLAYER_WALL_POSTS__ID, limit);
     List<PlayerWallPost> playerWallPosts = convertRSToPlayerWallPosts(rs);
     DBConnection.get().close(rs, null);

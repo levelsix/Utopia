@@ -39,7 +39,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public User getUserById(int userId) {
     log.debug("retrieving user with userId " + userId);
 
-    ////Connection conn = DBConnection.get().getConnection();
+    ////Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsById(userId, TABLE_NAME);
     User user = convertRSToUser(rs);
     DBConnection.get().close(rs, null);
@@ -62,7 +62,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
 
-    ////Connection conn = DBConnection.get().getConnection();
+    ////Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectDirectQueryNaive(query, values);
     Map<Integer, User> userIdToUserMap = convertRSToUserIdToUsersMap(rs);
     DBConnection.get().close(rs, null);
@@ -143,7 +143,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
     int numDBHits = 1;
 
-    ////Connection conn = DBConnection.get().getConnection();
+    ////Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     //if (conn != null) {
       rs = DBConnection.get().selectDirectQueryNaive(query, values);
@@ -184,7 +184,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
 
-    ////Connection conn = DBConnection.get().getConnection();
+    ////Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(paramsToVals, TABLE_NAME);
     User user = convertRSToUser(rs);
     DBConnection.get().close(rs, null);
@@ -196,7 +196,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
 
-    ////Connection conn = DBConnection.get().getConnection();
+    ////Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(paramsToVals, TABLE_NAME);
     User user = convertRSToUser(rs);
     DBConnection.get().close(rs, null);

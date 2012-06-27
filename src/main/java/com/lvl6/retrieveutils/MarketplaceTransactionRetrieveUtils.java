@@ -31,7 +31,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, posterId);
     
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, limit);
     List<MarketplaceTransaction> marketplacePostTransactions = convertRSToMarketplaceTransactionsList(rs);
     DBConnection.get().close(rs, null);

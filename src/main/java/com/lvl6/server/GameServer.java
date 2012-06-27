@@ -315,6 +315,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	private void loadEventControllers() {
 		log.info("Adding event controllers to eventControllers controllerType-->controller map");
 		for(EventController ec: eventControllerList) {
+			log.info("Adding "+ec.getEventType());
 			eventControllers.put(ec.getEventType(), ec);
 		}
 	}

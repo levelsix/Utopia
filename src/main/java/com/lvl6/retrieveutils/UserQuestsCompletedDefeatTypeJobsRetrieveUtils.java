@@ -27,7 +27,7 @@ import com.lvl6.utils.DBConnection;
     log.debug("retrieving user's quest id to completed defeat type jobs map for user " + userId);
     Map <Integer, List<Integer>> questIdToUserDefeatTypeJobsCompleted = new HashMap<Integer, List<Integer>>();
 
-    //Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
     //if (conn != null) {
       rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);

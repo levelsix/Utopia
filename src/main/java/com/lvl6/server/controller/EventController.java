@@ -102,7 +102,7 @@ public abstract class EventController extends Wrap {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			DBConnection.get().getConnection().close();
+			//DBConnection.get().connectionManager.get().close();
 			endTime = System.nanoTime();
 		}
 		double numSeconds = (endTime - startTime) / 1000000;

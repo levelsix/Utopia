@@ -38,7 +38,9 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-  @Component @DependsOn("gameServer") public class LoadNeutralCityController extends EventController {
+  @Component 
+  @DependsOn("gameServer") 
+  public class LoadNeutralCityController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
