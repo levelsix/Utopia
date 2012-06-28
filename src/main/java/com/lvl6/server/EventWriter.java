@@ -144,6 +144,9 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 						player.getServerHostName()));
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ip_connection_id", player.getIp_connection_id());
+		if(player.getPlayerId() != 0) {
+			headers.put("playerId", player.getPlayerId());
+		}
 		byte[] bArray = new byte[event.remaining()];
 		event.get(bArray);
 		Message<byte[]> msg = new GenericMessage<byte[]>(bArray, headers);

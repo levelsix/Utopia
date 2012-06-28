@@ -81,7 +81,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 		}else {
 			try {
 	            Runtime rt = Runtime.getRuntime();
-	            Process pr = rt.exec("/bin/hostname");
+	            Process pr = rt.exec("hostname");
 	            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 	            String line=null;
 	            while((line=input.readLine()) != null) {

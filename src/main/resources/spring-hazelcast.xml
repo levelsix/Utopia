@@ -23,6 +23,8 @@
 		
 
 	<hz:map id="playersPreDatabaseByUDID" name="playersPreDatabaseByUDID" instance-ref="hazel" />
+	
+	<hz:map id="messagesForDisconnectedPlayers" name="messagesForDisconnectedPlayers" instance-ref="hazel"/>
 		
 		
 	<hz:set id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
