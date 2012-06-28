@@ -154,6 +154,13 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	}
 	
 	
+	
+	/***
+	 * for sending queued messages to reconnected players 
+	 * @param message
+	 * @param playerId
+	 */
+	//
 	public void sendMessageToPlayer(Message<?> message, Integer playerId) {
 		ConnectedPlayer player = playersByPlayerId.get(playerId);
 		Map<String, Object> headers = new HashMap<String, Object>();
@@ -161,6 +168,11 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 		if(player.getPlayerId() != 0) {
 			headers.put("playerId", player.getPlayerId());
 		}
+		ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(
+				ServerInstance.getOutboundMessageTopicForServer(
+						player.getServerHostName()));
+		Message<byte[]> msg = new GenericMessage<byte[]>((byte[]) message.getPayload(), headers);
+		serverOutboundMessages.publish(msg);
 	}
 
 	protected HazelcastInstance hazel;
