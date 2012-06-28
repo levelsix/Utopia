@@ -239,6 +239,7 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("LegionWarrior", new CoordinatePair(0, -15)),
     new AnimatedSpriteOffset("LegionMage", new CoordinatePair(0, -18)),
     new AnimatedSpriteOffset("Bandit", new CoordinatePair(0, -15)),
+    new AnimatedSpriteOffset("FarmerMitch", new CoordinatePair(0, -8)),
   };
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
