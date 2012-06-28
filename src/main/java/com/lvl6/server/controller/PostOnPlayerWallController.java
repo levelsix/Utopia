@@ -56,7 +56,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_POST_ON_PLAYER_WALL;
+    return EventProtocolRequest.C_POST_ON_PLAYER_WALL_EVENT;
   }
 
   @Override

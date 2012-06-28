@@ -13,7 +13,7 @@ public class PostOnPlayerWallResponseEvent extends NormalResponseEvent {
   
   public PostOnPlayerWallResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_POST_ON_PLAYER_WALL;
+    eventType = EventProtocolResponse.S_POST_ON_PLAYER_WALL_EVENT;
   }
   
   @Override

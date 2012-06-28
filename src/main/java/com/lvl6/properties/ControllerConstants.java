@@ -59,6 +59,7 @@ public class ControllerConstants {
   //--------------------------------------------------------------------------------------------------------------------------
 
   //TUTORIAL CONSTANTS
+  public static final double CHARACTERS_ATTACK_DEFENSE_VARIABILITY = 0.67;
   public static final int TUTORIAL__ARCHER_INIT_ATTACK = 12; 
   public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 12;
   public static final int TUTORIAL__MAGE_INIT_ATTACK = 16; 
@@ -98,7 +99,7 @@ public class ControllerConstants {
   //STARTUP
   public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 10;
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
-  public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 8;
+  public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 20;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;
@@ -108,9 +109,7 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
-  public static final double BATTLE__EXP_GAIN_LOWER_BOUND = .8;
-  public static final double BATTLE__EXP_GAIN_UPPER_BOUND = 1.2;
-  public static final double BATTLE__EXP_GAIN_MULTIPLIER = .6;
+  public static final double BATTLE__EXP_GAIN_BALANCER = 1.0;
   
   public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
   public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
@@ -193,8 +192,8 @@ public class ControllerConstants {
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
   public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 30; //add level up equipment for fake players if increasing
   public static final double LEVEL_UP_HEALTH_GAINED = 2.0;
-  public static final double LEVEL_UP_ATTACK_GAINED = 0.8;
-  public static final double LEVEL_UP_DEFENSE_GAINED = 0.8;
+  public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
+  public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
 
   //LEVEL UP EQUIPMENT FOR FAKE PLAYERS (levels 1-30 must add more if going above level 30)
   public static final int[] WARRIOR_WEAPON_ID_LEVEL = {1,1,1,3,3, 5,5,6,6,7, 
@@ -231,14 +230,15 @@ public class ControllerConstants {
     new ValidLocationBox(122.57473, -29.775003, 22.857393, 12.192301, "GREENLAND")};
 
   public static final AnimatedSpriteOffset[] STARTUP__ANIMATED_SPRITE_OFFSETS = {
-    new AnimatedSpriteOffset("TutorialGuide", new CoordinatePair(0, -6)),
-    new AnimatedSpriteOffset("TutorialGuideBad", new CoordinatePair(0, -6)),
-    new AnimatedSpriteOffset("AllianceArcher", new CoordinatePair(0, -5)),
+    new AnimatedSpriteOffset("TutorialGuide", new CoordinatePair(0, -9)),
+    new AnimatedSpriteOffset("TutorialGuideBad", new CoordinatePair(0, -7)),
+    new AnimatedSpriteOffset("AllianceArcher", new CoordinatePair(0, -7)),
     new AnimatedSpriteOffset("AllianceWarrior", new CoordinatePair(0, -15)),
     new AnimatedSpriteOffset("AllianceMage", new CoordinatePair(0, -26)),
-    new AnimatedSpriteOffset("LegionArcher", new CoordinatePair(0, -5)),
+    new AnimatedSpriteOffset("LegionArcher", new CoordinatePair(0, -7)),
     new AnimatedSpriteOffset("LegionWarrior", new CoordinatePair(0, -15)),
     new AnimatedSpriteOffset("LegionMage", new CoordinatePair(0, -18)),
+    new AnimatedSpriteOffset("Bandit", new CoordinatePair(0, -15)),
   };
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 

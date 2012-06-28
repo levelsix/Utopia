@@ -35,6 +35,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -186,9 +187,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private int calculateExpGain(User loser) {
-    int expGain = (int)((ControllerConstants.BATTLE__EXP_GAIN_LOWER_BOUND + 
-        (ControllerConstants.BATTLE__EXP_GAIN_UPPER_BOUND-ControllerConstants.BATTLE__EXP_GAIN_LOWER_BOUND)
-        *Math.random()) * loser.getLevel() * ControllerConstants.BATTLE__EXP_GAIN_MULTIPLIER);
+    int loserLevel = loser.getLevel();
+    double expGainMultiple = ControllerConstants.BATTLE__EXP_GAIN_BALANCER/loserLevel;
+    int nextExp = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loserLevel);
+    int expGain = (int) Math.max(loserLevel, (nextExp*expGainMultiple)-(loserLevel*Math.random()));
     return Math.max(1, expGain);
   }
 
