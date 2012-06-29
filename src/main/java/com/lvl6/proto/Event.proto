@@ -136,7 +136,7 @@ message StartupResponseProto {
 	
 	optional string appStoreURL = 17;
 	
-	repeated MinimumUserProto allies = 11;
+	repeated MinimumUserProtoWithLevel allies = 11;
 
 	message MarketplacePostPurchasedNotificationProto {
 		optional FullMarketplacePostProto marketplacePost = 1;
