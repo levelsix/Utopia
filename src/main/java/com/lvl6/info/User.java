@@ -7,8 +7,8 @@ import java.util.Map;
 
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType;
 import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
+import com.lvl6.proto.InfoProto.EarnFreeDiamondsType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.DBConnection;

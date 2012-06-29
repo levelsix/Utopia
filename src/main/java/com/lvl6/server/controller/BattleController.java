@@ -187,11 +187,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private int calculateExpGain(User loser) {
-    int loserLevel = loser.getLevel();
-    double expGainMultiple = ControllerConstants.BATTLE__EXP_GAIN_BALANCER/loserLevel;
-    int nextExp = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loserLevel);
-    int expGain = (int) Math.max(loserLevel, (nextExp*expGainMultiple)-(loserLevel*Math.random()));
-    return Math.max(1, expGain);
+    int requiredKills = (int) (ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT * loser.getLevel())
+        + (int)(ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT*ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT);
+    int expNeeded = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel()+1)
+        - LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel());
+    int randomness = (int)((Math.random()+1.0)*((loser.getLevel()/10)+1));
+    return (int) (expNeeded/requiredKills)+randomness;
   }
 
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {

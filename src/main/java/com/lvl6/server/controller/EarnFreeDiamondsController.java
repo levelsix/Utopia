@@ -27,10 +27,10 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.TwoLeggedOAuth;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto;
-import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.EarnFreeDiamondsType;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.Builder;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus;
+import com.lvl6.proto.InfoProto.EarnFreeDiamondsType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.AdColonyRecentHistoryRetrieveUtils;
@@ -91,13 +91,9 @@ public class EarnFreeDiamondsController extends EventController {
     String adColonyDigest = (reqProto.hasAdColonyDigest() && reqProto.getAdColonyDigest().length() > 0) ? reqProto.getAdColonyDigest() : null;
     int adColonyDiamondsEarned = reqProto.getAdColonyDiamondsEarned();
 
-
-//
 ////    ////    //TODO:
 //    kiipReceiptString = "{\"signature\":\"a525d6cbb8ec18d5c4e47266d736162cf18a3ff7\",\"content\":\"reward_gold\",\"quantity\":\"2\",\"transaction_id\":\"4fe924dc4972e91ed6000147\"}";
 //    freeDiamondsType = EarnFreeDiamondsType.KIIP;
-
-
 
 
     EarnFreeDiamondsResponseProto.Builder resBuilder = EarnFreeDiamondsResponseProto.newBuilder();
@@ -113,6 +109,8 @@ public class EarnFreeDiamondsController extends EventController {
       JSONObject kiipConfirmationReceipt = null;
 
       if (legitFreeDiamondsEarn) {
+        resBuilder.setFreeDiamondsType(freeDiamondsType);
+
         if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
           kiipConfirmationReceipt = getLegitKiipRewardReceipt(resBuilder, user, kiipReceiptString);
           if (kiipConfirmationReceipt == null) legitFreeDiamondsEarn = false;

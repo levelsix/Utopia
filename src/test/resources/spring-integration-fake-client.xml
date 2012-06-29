@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xsi:schemaLocation=" 
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+    http://www.springframework.org/schema/integration 
+	http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
+	http://www.springframework.org/schema/integration/ip
+    http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+
+
+	<int:channel id="inboundFakeClientChannel">
+		<int:queue/>
+		<int:interceptors>
+        	<int:wire-tap channel="loggerChannelAdapter"/>
+     	</int:interceptors>
+	</int:channel>
+
+
+	<int-ip:tcp-connection-factory id="clientSocket" type="client"
+		deserializer="gameEventSerializer"
+		serializer="gameEventSerializer"
+		port="${server.port}" 
+		host="localhost"
+		 
+	/>	
+	
+	<int:channel id="outboundFakeClientMessageChannel" />
+	
+	<int-ip:tcp-outbound-channel-adapter
+		id="outboundFakeClient" 
+		channel="outboundFakeClientMessageChannel" 
+		connection-factory="clientSocket"
+	/>
+	
+	
+	<int-ip:tcp-inbound-channel-adapter
+		id="inboundFakeClient" 
+		channel="inboundFakeClientChannel" 
+		connection-factory="clientSocket"
+		error-channel="errorChannel"
+	/>
+
+	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG"/>
+
+
+
+</beans>
