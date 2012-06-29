@@ -31,7 +31,7 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 	
 	@Override
 	public void serialize(byte[] bytes, OutputStream outputStream) throws IOException {
-		log.info("Serializing outbound message");
+		log.debug("Serializing outbound message");
 		outputStream.write(bytes);
 		outputStream.flush();
 	}
@@ -48,7 +48,7 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 		int bite;
 		byte[] paysize = new byte[4];
 		int payloadSize = maxMessageSize;//message+header
-		log.info("Deserializing message...available to read:" + inputStream.available());
+		log.debug("Deserializing message...available to read:" + inputStream.available());
 		while (true) {
 			bite = inputStream.read();
 			if (bite < 0 && n == 0) {
@@ -61,7 +61,7 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 				paysize[n-8] = (byte) bite;
 				if(n == 11) {
 					payloadSize = ByteBuffer.wrap(paysize).order(getByteOrder()).getInt()+Attachment.HEADER_SIZE;
-					log.info("Message size: "+payloadSize);
+					log.debug("Message size: "+payloadSize);
 				}
 			}
 			if(n == payloadSize - 1) {
