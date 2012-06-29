@@ -42,6 +42,7 @@ public class NIOUtils {
 		int sizePos = writeBuffer.position();
 		writeBuffer.putInt(0); // placeholder for payload size
 		int size = event.write(writeBuffer);
+		log.info("Prepped buffer size: "+(size+12));
 		// insert the payload size in the placeholder spot
 		writeBuffer.put(sizePos, (byte) (size & 0xFF));
 		writeBuffer.put(sizePos+1, (byte) ((size & 0xFF00) >> 8));

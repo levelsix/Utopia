@@ -22,14 +22,18 @@
 
 
 	<int-ip:tcp-connection-factory id="clientSocket" type="client"
-		deserializer="gameEventSerializer"
+		deserializer="gameEventClientSerializer"
 		serializer="gameEventSerializer"
 		port="${server.port}" 
 		host="localhost"
 		 
 	/>	
 	
-	<int:channel id="outboundFakeClientMessageChannel" />
+	<int:channel id="outboundFakeClientMessageChannel" >
+		<int:interceptors>
+        	<int:wire-tap channel="loggerChannelAdapter"/>
+     	</int:interceptors>
+	</int:channel>
 	
 	<int-ip:tcp-outbound-channel-adapter
 		id="outboundFakeClient" 
@@ -45,7 +49,10 @@
 		error-channel="errorChannel"
 	/>
 
-	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG"/>
+
+	<bean id="gameEventClientSerializer" class="com.lvl6.events.GameEventClientSerializer" />
+	
+	<int:logging-channel-adapter id="loggerChannelAdapter" level="INFO"/>
 
 
 

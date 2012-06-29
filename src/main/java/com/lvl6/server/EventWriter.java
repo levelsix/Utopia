@@ -67,8 +67,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 
 
 
-	private static Logger log = Logger.getLogger(new Object() {
-	}.getClass().getEnclosingClass());
+	private static Logger log = Logger.getLogger(EventWriter.class);
 
 	/**
 	 * constructor.

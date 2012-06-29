@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +18,16 @@ import com.lvl6.utils.Attachment;
 
 public class GameEventSerializer extends AbstractByteArraySerializer {
 	
-	private static Logger log = Logger.getLogger(GameEventSerializer.class);
+	private Logger log = Logger.getLogger(GameEventSerializer.class);
 
 	/**
 	 * This class serializes/deserializes GameEvents for Spring IP 
 	 * socket listeners
 	 */
 	
-	
+	protected ByteOrder getByteOrder() {
+		return ByteOrder.BIG_ENDIAN;
+	}
 	
 	@Override
 	public void serialize(byte[] bytes, OutputStream outputStream) throws IOException {
@@ -57,7 +60,7 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 			if ( n < 12 && n > 7){
 				paysize[n-8] = (byte) bite;
 				if(n == 11) {
-					payloadSize = ByteBuffer.wrap(paysize).getInt()+Attachment.HEADER_SIZE;
+					payloadSize = ByteBuffer.wrap(paysize).order(getByteOrder()).getInt()+Attachment.HEADER_SIZE;
 					log.info("Message size: "+payloadSize);
 				}
 			}

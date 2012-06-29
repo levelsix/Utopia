@@ -1,6 +1,7 @@
 package com.lvl6.test;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -20,11 +21,15 @@ import com.lvl6.events.ResponseEvent;
 import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.Location;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.properties.Globals;
+import com.lvl6.proto.ProtocolsProto;
 import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupRequestProto.Builder;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.scriptsjava.generatefakeusers.GenerateFakeUsersWithoutInput;
 import com.lvl6.utils.Attachment;
+import com.lvl6.utils.ClientAttachment;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 
@@ -59,25 +64,45 @@ public class FakeClientTests {
 
 	
 	@Test
-	public void testFakeClientStartup(){
-/*		Builder builder = StartupRequestProto.newBuilder();
+	public void testFakeClientStartup() throws InterruptedException{
+		Builder builder = StartupRequestProto.newBuilder();
 		builder.setUdid("A_fake_client");
-		byte[] messageBytes = builder.build().toByteArray();
-		Message<byte[]> startupMessage = new GenericMessage<byte[]>(messageBytes);
+		builder.setVersionNum(1.0f);
+		byte[]  bytes = builder.build().toByteArray();
+		ByteBuffer bb = ByteBuffer.allocate(bytes.length+12);
+		bb.putInt(EventProtocolRequest.C_STARTUP_EVENT_VALUE);
+		bb.putInt(99);
+		bb.putInt(bytes.length);
+		bb.put(bytes);
+		Message<byte[]> startupMessage = new GenericMessage<byte[]>(bb.array());
 		sendToServer.send(startupMessage);
-		Message<?> msg = serverResponses.receive(10000);
-		log.info("Received message: ");
-		for (String key: msg.getHeaders().keySet()) {
-			log.info(key+": "+msg.getHeaders().get(key));
-		}
-		//log.info("Payload: "+msg.getPayload());
-		Attachment attachment = new Attachment();
-		attachment.readBuff = ByteBuffer.wrap((byte[]) msg.getPayload());
-		while(attachment.eventReady()) {
-			ResponseEvent response = new StartupResponseEvent(null);
-			response.setTag(attachment.tag);
-			//response.re
-        }*/
+		
+		//wait(5000);
+		waitForMessage(0);
 	}
+	
+	
+	protected void waitForMessage(int attempt) {
+		Message<?> msg = serverResponses.receive(1500);
+		if(msg != null && msg.getHeaders() != null) {
+			log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
+			for (String key: msg.getHeaders().keySet()) {
+				log.info(key+": "+msg.getHeaders().get(key));
+			}
+			//log.info("Payload: "+msg.getPayload());
+			ClientAttachment attachment = new ClientAttachment();
+			attachment.readBuff = ByteBuffer.wrap((byte[]) msg.getPayload()).order(ByteOrder.LITTLE_ENDIAN);
+			while(attachment.eventReady()) {
+				ResponseEvent response = new StartupResponseEvent(null);
+				response.setTag(attachment.tag);
+				log.info("Received startupResponseEvent");
+			}
+		}else {
+			if(attempt < 2) {
+				waitForMessage(++attempt);
+			}
+		}
+	}
+	
 }
 
