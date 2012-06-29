@@ -79,8 +79,8 @@ public class ControllerConstants {
   public static final int TUTORIAL__MAGE_INIT_ARMOR_ID = 224;
   public static final int TUTORIAL__WARRIOR_INIT_WEAPON_ID = 1;
   public static final int TUTORIAL__WARRIOR_INIT_ARMOR_ID = 41;
-  public static final String TUTORIAL__FAKE_QUEST_GOOD_NAME = "Cold Welcome";
-  public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Cold Welcome";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_NAME = "Preserve the Peace";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Witness Protection";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE = "10~good~";
   public static final String TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE = "10~bad~";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Welcome to Kirin Village, stranger. We are in dire times and we need your help. A few moments ago, a strange white light consumed the sky and legion soldiers appeared out of thin air. One seems to have strayed from the pack. Start by killing him!";
@@ -109,7 +109,9 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
-  public static final double BATTLE__EXP_GAIN_BALANCER = 1.0;
+  public static final double BATTLE__EXP_GAIN_BALANCER_A = .75;
+  public static final int BATTLE__EXP_GAIN_BALANCER_B = 10;
+  public static final int BATTLE__EXP_GAIN_RANDOM = 4;
   
   public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
   public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
@@ -117,6 +119,22 @@ public class ControllerConstants {
   public static final double BATTLE__MAX_PERCENT_OF_ENEMY_HEALTH = .6;
   public static final double BATTLE__BATTLE_DIFFERENCE_MULTIPLIER = 2;
   public static final double BATTLE__BATTLE_DIFFERENCE_TUNER = 0;
+  
+  /*
+#define PERFECT_PERCENT_THRESHOLD 3.0f
+#define GREAT_PERCENT_THRESHOLD   17.0f
+#define GOOD_PERCENT_THRESHOLD    38.0f
+
+#define PERFECT_MULTIPLIER  2.0f
+#define GREAT_MULTIPLIER    1.5f
+#define GOOD_MULTIPLIER     1.0f
+
+#define IMBALANCE_PERCENT     .67f
+
+battleWeightGivenToDefenseStat
+ 
+   */
+  
   
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;

@@ -258,7 +258,6 @@ message StartupResponseProto {
 			optional double battleDifferenceMultiplier = 7;
 			optional double battleDifferenceTuner = 8;			
 		}
-
 	}
 	
 	message TutorialConstants {

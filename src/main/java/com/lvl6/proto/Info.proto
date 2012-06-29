@@ -39,6 +39,11 @@ message MinimumUserProto {
 	optional UserType userType = 3;
 }
 
+message MinimumUserProtoWithLevel {
+	optional MinimumUserProto minUserProto = 1;
+	optional int32 level = 2;
+}
+
 message FullUserProto {
 	optional int32 userId = 1;
 	optional string name = 2;
