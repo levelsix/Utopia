@@ -109,10 +109,9 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
-  public static final double BATTLE__EXP_GAIN_BALANCER_A = .75;
-  public static final int BATTLE__EXP_GAIN_BALANCER_B = 10;
-  public static final int BATTLE__EXP_GAIN_RANDOM = 4;
-  
+  public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
+  public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
+
   public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
   public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
   public static final double BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH = .25;
