@@ -88,7 +88,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	 * the writeBuffer
 	 */
 	public void processResponseEvent(ResponseEvent event) {
-		log.info("writer received event=" + event);
+		log.debug("writer received event=" + event);
 		ByteBuffer buff = getBytes(event);
 		if (BroadcastResponseEvent.class.isInstance(event)) {
 			int[] recipients = ((BroadcastResponseEvent) event).getRecipients();

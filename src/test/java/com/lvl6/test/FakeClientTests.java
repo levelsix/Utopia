@@ -78,11 +78,11 @@ public class FakeClientTests {
 		sendToServer.send(startupMessage);
 		
 		//wait(5000);
-		waitForMessage(0);
+		waitForMessage();
 	}
 	
 	
-	protected void waitForMessage(int attempt) {
+	protected void waitForMessage() {
 		Message<?> msg = serverResponses.receive(1500);
 		if(msg != null && msg.getHeaders() != null) {
 			log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
@@ -96,10 +96,6 @@ public class FakeClientTests {
 				ResponseEvent response = new StartupResponseEvent(null);
 				response.setTag(attachment.tag);
 				log.info("Received startupResponseEvent");
-			}
-		}else {
-			if(attempt < 2) {
-				waitForMessage(++attempt);
 			}
 		}
 	}
