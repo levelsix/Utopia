@@ -95,7 +95,6 @@ public class EarnFreeDiamondsController extends EventController {
 //    kiipReceiptString = "{\"signature\":\"a525d6cbb8ec18d5c4e47266d736162cf18a3ff7\",\"content\":\"reward_gold\",\"quantity\":\"2\",\"transaction_id\":\"4fe924dc4972e91ed6000147\"}";
 //    freeDiamondsType = EarnFreeDiamondsType.KIIP;
 
-
     EarnFreeDiamondsResponseProto.Builder resBuilder = EarnFreeDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
