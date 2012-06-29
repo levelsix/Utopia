@@ -169,8 +169,8 @@ public class ControllerConstants {
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;
   
   //REFILL STAT WAIT COMPLETE
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 10;
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 3;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 1;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 1;
 
   //PURCHASE MARKETPLACE LICENSE
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
@@ -240,6 +240,7 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("LegionMage", new CoordinatePair(0, -18)),
     new AnimatedSpriteOffset("Bandit", new CoordinatePair(0, -15)),
     new AnimatedSpriteOffset("FarmerMitch", new CoordinatePair(0, -8)),
+    new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -8)),
   };
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
