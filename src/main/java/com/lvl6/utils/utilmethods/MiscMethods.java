@@ -94,19 +94,19 @@ public class MiscMethods {
   }
 
   public static String getIPOfPlayer(GameServer server, Integer playerId, String udid) {
-	  ConnectedPlayer player = null;
-	  if (playerId != null && playerId > 0) {
-		  player = server.getPlayerById(playerId); 
+    ConnectedPlayer player = null;
+    if (playerId != null && playerId > 0) {
+      player = server.getPlayerById(playerId); 
       if (player != null) {
         return player.getIp_connection_id();
       }
     }
     if (udid != null) {
-    	player = server.getPlayerByUdId(udid);
-    	if (player != null) {
-          return player.getIp_connection_id();
-    	}
-   	}
+      player = server.getPlayerByUdId(udid);
+      if (player != null) {
+        return player.getIp_connection_id();
+      }
+    }
     return null;
   }
 
@@ -280,44 +280,46 @@ public class MiscMethods {
     }
 
     KiipRewardConditions.Builder krcb = KiipRewardConditions.newBuilder();
-    
+
     int[] levelsThatTriggerKiipRewards = ControllerConstants.STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS;
     if (levelsThatTriggerKiipRewards != null) { 
       for (int i = 0; i < levelsThatTriggerKiipRewards.length; i++) {
         krcb.addLevelUpConditions(levelsThatTriggerKiipRewards[i]);
       }
     }
-    
+
     int[] questsThatTriggerKiipRewardsOnRedeem = ControllerConstants.STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM;
     if (questsThatTriggerKiipRewardsOnRedeem != null) { 
       for (int i = 0; i < questsThatTriggerKiipRewardsOnRedeem.length; i++) {
         krcb.addQuestRedeemConditions(questsThatTriggerKiipRewardsOnRedeem[i]);
       }
     }
-    
+
     cb.setKiipRewardConditions(krcb.build());
-    
+
     FormulaConstants formulaConstants = FormulaConstants.newBuilder()
         .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
         .setIncomeFromNormStructMultiplier(ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER)
         .setUpgradeStructCoinCostExponentBase(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_COIN_COST_EXPONENT_BASE)
         .setUpgradeStructDiamondCostExponentBase(ControllerConstants.UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE)
         .setDiamondCostForInstantUpgradeMultiplier(ControllerConstants.FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS__DIAMOND_COST_FOR_INSTANT_UPGRADE_MULTIPLIER)
-        .setBattleWeightGivenToAttackStat(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_ATTACK_STAT)
-        .setBattleWeightGivenToAttackEquipSum(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_ATTACK_EQUIP_SUM)
-        .setBattleWeightGivenToDefenseStat(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_DEFENSE_STAT)
-        .setBattleWeightGivenToDefenseEquipSum(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_DEFENSE_EQUIP_SUM)
         .build();
 
     cb = cb.setFormulaConstants(formulaConstants);
 
     BattleConstants battleConstants = BattleConstants.newBuilder()
-        .setLocationBarMax(ControllerConstants.BATTLE__LOCATION_BAR_MAX)
-        .setMaxAttackMultiplier(ControllerConstants.BATTLE__MAX_ATTACK_MULTIPLIER)
-        .setMinPercentOfEnemyHealth(ControllerConstants.BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH)
-        .setMaxPercentOfEnemyHealth(ControllerConstants.BATTLE__MAX_PERCENT_OF_ENEMY_HEALTH)
-        .setBattleDifferenceMultiplier(ControllerConstants.BATTLE__BATTLE_DIFFERENCE_MULTIPLIER)
-        .setBattleDifferenceTuner(ControllerConstants.BATTLE__BATTLE_DIFFERENCE_TUNER)
+        .setLocationBarMax(ControllerConstants.BATTLE_LOCATION_BAR_MAX)
+        .setBattleWeightGivenToAttackStat(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_ATTACK_STAT)
+        .setBattleWeightGivenToAttackEquipSum(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_ATTACK_EQUIP_SUM)
+        .setBattleWeightGivenToDefenseStat(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_DEFENSE_STAT)
+        .setBattleWeightGivenToDefenseEquipSum(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_DEFENSE_EQUIP_SUM)
+        .setBattlePerfectPercentThreshold(ControllerConstants.BATTLE_PERFECT_PERCENT_THRESHOLD)
+        .setBattleGreatPercentThreshold(ControllerConstants.BATTLE_GREAT_PERCENT_THRESHOLD)
+        .setBattleGoodPercentThreshold(ControllerConstants.BATTLE_GOOD_PERCENT_THRESHOLD)
+        .setBattlePerfectMultiplier(ControllerConstants.BATTLE_PERFECT_MULTIPLIER)
+        .setBattlePerfectMultiplier(ControllerConstants.BATTLE_GREAT_MULTIPLIER)
+        .setBattlePerfectMultiplier(ControllerConstants.BATTLE_GOOD_MULTIPLIER)
+        .setBattleImbalancePercent(ControllerConstants.BATTLE_IMBALANCE_PERCENT)
         .build();
 
     cb = cb.setBattleConstants(battleConstants);
