@@ -89,9 +89,9 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
   public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 30;
-  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 4;
+  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 12;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 20;
-  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 4;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 11;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 250;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
