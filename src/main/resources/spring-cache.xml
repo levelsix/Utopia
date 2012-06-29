@@ -14,8 +14,13 @@
         http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task.xsd
 		">
-	
-	<task:scheduler id="taskScheduler" pool-size="5"/>
-	
+
+
+
+	<cache:annotation-driven cache-manager="cacheManager" />
+
+	<bean id="cacheManager" class="com.hazelcast.spring.cache.HazelcastCacheManager">
+		<constructor-arg ref="hazel" />
+	</bean>
 
 </beans>

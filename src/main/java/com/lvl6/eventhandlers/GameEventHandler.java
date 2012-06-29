@@ -3,6 +3,7 @@ package com.lvl6.eventhandlers;
 import java.io.FileNotFoundException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -131,6 +132,7 @@ public class GameEventHandler implements MessageHandler {
 		  log.debug("Updating player to server maps for player: "+event.getPlayerId());
 		  if(playersByPlayerId.containsKey(event.getPlayerId())) {
 			  ConnectedPlayer p = playersByPlayerId.get(event.getPlayerId());
+			  p.setLastMessageSentToServer(new Date());
 			  if(!p.getIp_connection_id().equals(ip_connection_id) || !p.getServerHostName().equals(server.serverId())) {
 				  log.debug("Player is connected to a new socket or server");
 				  p.setIp_connection_id(ip_connection_id);
@@ -142,11 +144,13 @@ public class GameEventHandler implements MessageHandler {
 			  newp.setIp_connection_id(ip_connection_id);
 			  newp.setServerHostName(server.serverId());
 			  if(event.getPlayerId() != -1) {
+				  log.info("Player logged on: "+event.getPlayerId());
 				  newp.setPlayerId(event.getPlayerId());
 				  playersByPlayerId.put(event.getPlayerId(), newp);
 			  }else {
 				  newp.setUdid(((PreDatabaseRequestEvent)event).getUdid());
 				  getPlayersPreDatabaseByUDID().put(newp.getUdid(), newp);
+				  log.info("New player with UdId: "+newp.getUdid());
 			  }
 		  }
 		  

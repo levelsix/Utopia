@@ -1,6 +1,7 @@
 package com.lvl6.utils;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Player.java
@@ -15,8 +16,17 @@ public class ConnectedPlayer implements Serializable {
 	protected String ip_connection_id = "";
 	protected String serverHostName = "";
 	protected String udid = "";
+	protected Date lastMessageSentToServer = new Date();
 
 	
+	public Date getLastMessageSentToServer() {
+		return lastMessageSentToServer;
+	}
+
+	public void setLastMessageSentToServer(Date lastMessageSentToServer) {
+		this.lastMessageSentToServer = lastMessageSentToServer;
+	}
+
 	public String getUdid() {
 		return udid;
 	}
