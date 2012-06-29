@@ -77,6 +77,87 @@ public final class InfoProto {
     // @@protoc_insertion_point(enum_scope:com.lvl6.proto.AnimationType)
   }
   
+  public enum EarnFreeDiamondsType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    KIIP(0, 1),
+    ADCOLONY(1, 2),
+    FB_INVITE(2, 3),
+    TAPJOY(3, 4),
+    FLURRY_VIDEO(4, 5),
+    TWITTER(5, 6),
+    ;
+    
+    public static final int KIIP_VALUE = 1;
+    public static final int ADCOLONY_VALUE = 2;
+    public static final int FB_INVITE_VALUE = 3;
+    public static final int TAPJOY_VALUE = 4;
+    public static final int FLURRY_VIDEO_VALUE = 5;
+    public static final int TWITTER_VALUE = 6;
+    
+    
+    public final int getNumber() { return value; }
+    
+    public static EarnFreeDiamondsType valueOf(int value) {
+      switch (value) {
+        case 1: return KIIP;
+        case 2: return ADCOLONY;
+        case 3: return FB_INVITE;
+        case 4: return TAPJOY;
+        case 5: return FLURRY_VIDEO;
+        case 6: return TWITTER;
+        default: return null;
+      }
+    }
+    
+    public static com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<EarnFreeDiamondsType>() {
+            public EarnFreeDiamondsType findValueByNumber(int number) {
+              return EarnFreeDiamondsType.valueOf(number);
+            }
+          };
+    
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(1);
+    }
+    
+    private static final EarnFreeDiamondsType[] VALUES = {
+      KIIP, ADCOLONY, FB_INVITE, TAPJOY, FLURRY_VIDEO, TWITTER, 
+    };
+    
+    public static EarnFreeDiamondsType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+    
+    private final int index;
+    private final int value;
+    
+    private EarnFreeDiamondsType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+    
+    // @@protoc_insertion_point(enum_scope:com.lvl6.proto.EarnFreeDiamondsType)
+  }
+  
   public enum SpecialQuestAction
       implements com.google.protobuf.ProtocolMessageEnum {
     PURCHASE_FROM_ARMORY(0, 1),
@@ -134,7 +215,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(1);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(2);
     }
     
     private static final SpecialQuestAction[] VALUES = {
@@ -215,7 +296,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(2);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(3);
     }
     
     private static final UserType[] VALUES = {
@@ -287,7 +368,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(3);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(4);
     }
     
     private static final BattleResult[] VALUES = {
@@ -356,7 +437,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(4);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(5);
     }
     
     private static final MarketplacePostType[] VALUES = {
@@ -425,7 +506,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(5);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(6);
     }
     
     private static final MarketplaceJobRequirementType[] VALUES = {
@@ -503,7 +584,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(6);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(7);
     }
     
     private static final CritStructType[] VALUES = {
@@ -572,7 +653,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(7);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(8);
     }
     
     private static final StructOrientation[] VALUES = {
@@ -641,7 +722,7 @@ public final class InfoProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(8);
+      return com.lvl6.proto.InfoProto.getDescriptor().getEnumTypes().get(9);
     }
     
     private static final ExpansionDirection[] VALUES = {
@@ -27473,25 +27554,27 @@ public final class InfoProto {
       "ter\030\002 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
       "oto\022\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004" +
       " \001(\003\022\017\n\007content\030\005 \001(\t*/\n\rAnimationType\022\022" +
-      "\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*\302\001\n\022Speci",
-      "alQuestAction\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022" +
-      "\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_T" +
-      "O_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020D" +
-      "EPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT" +
-      "\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007*k\n\010UserType\022" +
-      "\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGO" +
-      "OD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER" +
-      "\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTA" +
-      "CKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER" +
-      "_FLEE\020\002*B\n\023MarketplacePostType\022\026\n\022PREMIU",
-      "M_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035M" +
-      "arketplaceJobRequirementType\022\007\n\003BUY\020\000\022\010\n" +
-      "\004SELL\020\001*S\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n" +
-      "\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013M" +
-      "ARKETPLACE\020\005*3\n\021StructOrientation\022\016\n\nPOS" +
-      "ITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022ExpansionDi" +
-      "rection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\t" +
-      "InfoProto"
+      "\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFr",
+      "eeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r" +
+      "\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDE" +
+      "O\020\005\022\013\n\007TWITTER\020\006*\302\001\n\022SpecialQuestAction\022" +
+      "\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FR" +
+      "OM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023" +
+      "POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAUL" +
+      "T\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON" +
+      "_ENEMY_WALL\020\007*k\n\010UserType\022\020\n\014GOOD_WARRIO" +
+      "R\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013B" +
+      "AD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE",
+      "\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014" +
+      "DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Mar" +
+      "ketplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000" +
+      "\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJobR" +
+      "equirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016Cri" +
+      "tStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t" +
+      "\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3" +
+      "\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nP" +
+      "OSITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR" +
+      "_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

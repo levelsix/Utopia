@@ -1356,21 +1356,12 @@ message EarnFreeDiamondsRequestProto {
 
 	optional string adColonyDigest = 5;
 	optional int32 adColonyDiamondsEarned = 6;
-		
-	enum EarnFreeDiamondsType {
-		KIIP = 1;
-		ADCOLONY = 2;
-		FB_INVITE = 3;
-		TAPJOY = 4;
-		FLURRY_VIDEO = 5;
-		TWITTER = 6;
-	}
-
 }
 
 message EarnFreeDiamondsResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional EarnFreeDiamondsStatus status = 2;
+	optional EarnFreeDiamondsType freeDiamondsType = 3;
 	
 	enum EarnFreeDiamondsStatus {
 		SUCCESS = 0;
