@@ -56,12 +56,13 @@ public class PlayerSet implements HazelcastInstanceAware {
 	@Scheduled(fixedDelay=60000)
 	public void clearOldLocks(){
 		long now = new Date().getTime();
-		log.info("Removing stale player locks");
+		log.debug("Removing stale player locks");
 		for(PlayerInAction player:players){
 			if(now - player.getLockTime().getTime() > 60000){
 				Lock playerLock = hazel.getLock(player.getPlayerId());
 				playerLock.unlock();
 				players.remove(player);
+				log.info("Automatically removing timed out lock for player: "+player.getPlayerId());
 			}
 		}
 	}
