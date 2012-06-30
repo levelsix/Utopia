@@ -243,20 +243,21 @@ message StartupResponseProto {
 			optional double upgradeStructCoinCostExponentBase = 3;
 			optional double upgradeStructDiamondCostExponentBase = 4;
 			optional double diamondCostForInstantUpgradeMultiplier = 5;
-			
-			optional double battleWeightGivenToAttackStat = 6;
-			optional double battleWeightGivenToAttackEquipSum = 7;
-			optional double battleWeightGivenToDefenseStat = 8;
-			optional double battleWeightGivenToDefenseEquipSum = 9;
 		}
 		
 		message BattleConstants {
-			optional float locationBarMax = 3;
-			optional double maxAttackMultiplier = 4;
-			optional double minPercentOfEnemyHealth = 5;
-			optional double maxPercentOfEnemyHealth = 6;
-			optional double battleDifferenceMultiplier = 7;
-			optional double battleDifferenceTuner = 8;			
+			optional float locationBarMax = 1;	
+			optional double battleWeightGivenToAttackStat = 2;
+			optional double battleWeightGivenToAttackEquipSum = 3;
+			optional double battleWeightGivenToDefenseStat = 4;
+			optional double battleWeightGivenToDefenseEquipSum = 5;
+			optional float battlePerfectPercentThreshold = 6;
+			optional float battleGreatPercentThreshold = 7;
+			optional float battleGoodPercentThreshold = 8;
+			optional float battlePerfectMultiplier = 9;
+			optional float battleGreatMultiplier = 10;
+			optional float battleGoodMultiplier = 11;
+			optional float battleImbalancePercent = 12;
 		}
 	}
 	

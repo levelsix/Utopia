@@ -46,9 +46,17 @@ public class ControllerConstants {
   public static final double UPGRADE_NORM_STRUCTURE__UPGRADE_STRUCT_DIAMOND_COST_EXPONENT_BASE = 1.1;
   public static final double FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS__DIAMOND_COST_FOR_INSTANT_UPGRADE_MULTIPLIER = 1;
   public static final double BATTLE_WEIGHT_GIVEN_TO_ATTACK_STAT = 1;
-  public static final double BATTLE_WEIGHT_GIVEN_TO_ATTACK_EQUIP_SUM = .5;
+  public static final double BATTLE_WEIGHT_GIVEN_TO_ATTACK_EQUIP_SUM = 1;
   public static final double BATTLE_WEIGHT_GIVEN_TO_DEFENSE_STAT = 1;
-  public static final double BATTLE_WEIGHT_GIVEN_TO_DEFENSE_EQUIP_SUM = .5;
+  public static final double BATTLE_WEIGHT_GIVEN_TO_DEFENSE_EQUIP_SUM = 1;
+  public static final float BATTLE_LOCATION_BAR_MAX = 75.f;
+  public static final float BATTLE_PERFECT_PERCENT_THRESHOLD = 3.0f;
+  public static final float BATTLE_GREAT_PERCENT_THRESHOLD = 17.0f;
+  public static final float BATTLE_GOOD_PERCENT_THRESHOLD = 38.0f;
+  public static final float BATTLE_PERFECT_MULTIPLIER = 2.0f;
+  public static final float BATTLE_GREAT_MULTIPLIER = 1.5f;
+  public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
+  public static final float BATTLE_IMBALANCE_PERCENT = .67f;
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
@@ -69,7 +77,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 3;
   public static final int TUTORIAL__INIT_HEALTH = 30;
-  public static final int TUTORIAL__INIT_DIAMONDS = 10;
+  public static final int TUTORIAL__INIT_DIAMONDS = 20;
   public static final int TUTORIAL__INIT_COINS = 50;
   public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 2;
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
@@ -112,29 +120,6 @@ public class ControllerConstants {
   public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
   public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
 
-  public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
-  public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
-  public static final double BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH = .25;
-  public static final double BATTLE__MAX_PERCENT_OF_ENEMY_HEALTH = .6;
-  public static final double BATTLE__BATTLE_DIFFERENCE_MULTIPLIER = 2;
-  public static final double BATTLE__BATTLE_DIFFERENCE_TUNER = 0;
-  
-  /*
-#define PERFECT_PERCENT_THRESHOLD 3.0f
-#define GREAT_PERCENT_THRESHOLD   17.0f
-#define GOOD_PERCENT_THRESHOLD    38.0f
-
-#define PERFECT_MULTIPLIER  2.0f
-#define GREAT_MULTIPLIER    1.5f
-#define GOOD_MULTIPLIER     1.0f
-
-#define IMBALANCE_PERCENT     .67f
-
-battleWeightGivenToDefenseStat
- 
-   */
-  
-  
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
   
@@ -186,8 +171,8 @@ battleWeightGivenToDefenseStat
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;
   
   //REFILL STAT WAIT COMPLETE
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 1;
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 1;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 10;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 3;
 
   //PURCHASE MARKETPLACE LICENSE
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
