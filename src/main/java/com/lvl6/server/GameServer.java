@@ -255,12 +255,14 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 
 
 	public void lockPlayer(int playerId) {
+		log.info("Locking player: "+playerId);
 		Lock playerLock = hazel.getLock(playerId);
 		playerLock.lock();
 		playersInAction.addPlayer(playerId);
 	}
 
 	public void lockPlayers(int playerId1, int playerId2) {
+		log.info("Locking players: "+playerId1+", "+playerId2);
 		if (playerId1 == playerId2) {
 			lockPlayer(playerId1);
 			return;
@@ -275,6 +277,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}
 
 	public void unlockPlayer(int playerId) {
+		log.info("Unlocking player: "+playerId);
 		Lock lock = hazel.getLock(playerId);
 		lock.unlock();
 		if (playersInAction.containsPlayer(playerId))
@@ -282,6 +285,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}
 
 	public void unlockPlayers(int playerId1, int playerId2) {
+		log.info("Unlocking players: "+playerId1+", "+playerId2);
 		if (playerId1 > playerId2) {
 			unlockPlayer(playerId2);
 			unlockPlayer(playerId1);

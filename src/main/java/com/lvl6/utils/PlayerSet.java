@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
+import com.hazelcast.core.ILock;
 
 public class PlayerSet implements HazelcastInstanceAware {
 
@@ -33,13 +34,6 @@ public class PlayerSet implements HazelcastInstanceAware {
 	 * @throws InterruptedException
 	 */
 	public void addPlayer(int playerId) {
-//		while (players.contains(playerId)) {
-//			try {
-//				wait();
-//			} catch (InterruptedException e) {
-//				// Continue waiting??
-//			}
-//		}
 		players.add(new PlayerInAction(playerId));
 	}
 
@@ -59,8 +53,8 @@ public class PlayerSet implements HazelcastInstanceAware {
 		log.debug("Removing stale player locks");
 		for(PlayerInAction player:players){
 			if(now - player.getLockTime().getTime() > 60000){
-				Lock playerLock = hazel.getLock(player.getPlayerId());
-				playerLock.unlock();
+				ILock playerLock = hazel.getLock(player.getPlayerId());
+				playerLock.forceUnlock();
 				players.remove(player);
 				log.info("Automatically removing timed out lock for player: "+player.getPlayerId());
 			}
