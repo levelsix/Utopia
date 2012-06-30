@@ -25,4 +25,10 @@ public class PlayerInAction implements Serializable {
 	public PlayerInAction(int playerId){
 		this.playerId = playerId;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		return getPlayerId() == ((PlayerInAction) obj).getPlayerId();
+	}
+	
+	
 }

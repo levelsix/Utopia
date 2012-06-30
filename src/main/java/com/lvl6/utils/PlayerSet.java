@@ -44,11 +44,11 @@ public class PlayerSet implements HazelcastInstanceAware {
 	}
 
 	public void removePlayer(int playerId) {
-		players.remove(playerId);
+		players.remove(new PlayerInAction(playerId));
 	}
 
 	public boolean containsPlayer(int playerId) {
-		return players.contains(playerId);
+		return players.contains(new PlayerInAction(playerId));
 	}
 	
 	
