@@ -20,7 +20,13 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GeneratingFakeUsersTests {
 	private static Logger log = Logger.getLogger(GenerateFakeUsersWithoutInput.class);
+	
 	@Test
+	public void emptyTest() {
+		
+	}
+	
+	//@Test
 	public void testGenerateFakeUsers(){
 		for (int i = 2; i <= 30; i++){
 	        for (int j = 0; j < 10; j++) {

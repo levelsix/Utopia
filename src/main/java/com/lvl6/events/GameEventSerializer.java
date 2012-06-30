@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,18 +18,20 @@ import com.lvl6.utils.Attachment;
 
 public class GameEventSerializer extends AbstractByteArraySerializer {
 	
-	private static Logger log = Logger.getLogger(GameEventSerializer.class);
+	private Logger log = Logger.getLogger(GameEventSerializer.class);
 
 	/**
 	 * This class serializes/deserializes GameEvents for Spring IP 
 	 * socket listeners
 	 */
 	
-	
+	protected ByteOrder getByteOrder() {
+		return ByteOrder.BIG_ENDIAN;
+	}
 	
 	@Override
 	public void serialize(byte[] bytes, OutputStream outputStream) throws IOException {
-		log.info("Serializing outbound message");
+		log.debug("Serializing outbound message");
 		outputStream.write(bytes);
 		outputStream.flush();
 	}
@@ -45,7 +48,7 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 		int bite;
 		byte[] paysize = new byte[4];
 		int payloadSize = maxMessageSize;//message+header
-		log.info("Deserializing message...available to read:" + inputStream.available());
+		log.debug("Deserializing message...available to read:" + inputStream.available());
 		while (true) {
 			bite = inputStream.read();
 			if (bite < 0 && n == 0) {
@@ -57,8 +60,8 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 			if ( n < 12 && n > 7){
 				paysize[n-8] = (byte) bite;
 				if(n == 11) {
-					payloadSize = ByteBuffer.wrap(paysize).getInt()+Attachment.HEADER_SIZE;
-					log.info("Message size: "+payloadSize);
+					payloadSize = ByteBuffer.wrap(paysize).order(getByteOrder()).getInt()+Attachment.HEADER_SIZE;
+					log.debug("Message size: "+payloadSize);
 				}
 			}
 			if(n == payloadSize - 1) {

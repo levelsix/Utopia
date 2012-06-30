@@ -145,16 +145,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	public static float clientVersionNumber = 1.0f;
 
 	public static void main(String args[]) {
-		//if (args.length == 2) {
-			ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
-//			GameServer server = new GameServer(args[0],
-//					Integer.parseInt(args[1]));
-//			DBConnection.get().init();
-//			MiscMethods.reloadAllRareChangeStaticData();
-		//} else {
-		//	System.out
-		//			.println("Error in input- two arguments required: <serverip> <portnum>");
-		//}
+		ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
 	}
 
 	
@@ -162,12 +153,6 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	public GameServer(String serverIP, int portNum) {
 		if (eventControllers == null)
 			eventControllers = new Hashtable<EventProtocolRequest, EventController>();
-//		if (playersByPlayerId == null)
-//			playersByPlayerId = new Hashtable<Integer, ConnectedPlayer>();
-//		if (channelToPlayerId == null)
-//			channelToPlayerId = new Hashtable<SocketChannel, Integer>();
-//		if (udidToChannel == null)
-//			udidToChannel = new Hashtable<String, SocketChannel>();
 		this.serverIP = serverIP;
 		this.portNum = portNum;
 	}
@@ -183,14 +168,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	public void init() {
 		log.info("init : Server initializing");
 		loadEventControllers();
-
-//		initServerSocket(); // can make several of these with diff portnums in
-//							// each, binded to same selector
-//
-//		selectAndRead = new SelectAndRead(this);
-//		selectAndRead.start();
 		MiscMethods.reloadAllRareChangeStaticData();
-		// playersInAction = new PlayerSet();
 	}
 
 	/**
@@ -229,73 +207,9 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 		init();
 		log.info("******** GameServer running ********");
 		running = true;
-		
-		if(block)
-		while (running) {
-			// note, since we only have one ServerSocket to listen to,
-			// we don't need a Selector here, but we set it up for
-			// later additions such as listening on another port
-			// for administrative uses.
-			try {
-				// blocking select, will return when we get a new connection
-				log.info("Waiting for incoming socket connection");
-				int channelkey = selector.select();
-				log.info("Channel connected: "+channelkey);
-				// fetch the keys
-				Set<SelectionKey> readyKeys = selector.selectedKeys();
-
-				// run through the keys and process
-				Iterator<SelectionKey> i = readyKeys.iterator();
-				while (i.hasNext()) {
-					SelectionKey key = (SelectionKey) i.next();
-					i.remove();
-
-					ServerSocketChannel ssChannel = (ServerSocketChannel) key
-							.channel();
-					SocketChannel clientChannel = ssChannel.accept();
-
-					// add to the list in SelectAndRead for processing
-					selectAndRead.addNewClient(clientChannel);
-					log.info("received connection from: "
-							+ clientChannel.socket().getInetAddress());
-				}
-			} catch (IOException ioe) {
-				log.warn("error during serverSocket select(): "
-						+ ioe.getMessage());
-			} catch (Exception e) {
-				log.error("exception in run()", e);
-			}
-		}
 	}
 
-	/**
-	 * Specific initialization, bind to the server port, setup the Selector,
-	 * etc.
-	 */
-/*	private void initServerSocket() {
-		log.info("initServerSocket : Initializing server socket");
 
-		try {
-			// open a non-blocking server socket channel
-			sSockChan = ServerSocketChannel.open();
-			sSockChan.configureBlocking(false);
-
-			//bind to external ip on designated port
-			InetAddress addr = InetAddress.getByName("0.0.0.0");
-
-			log.info("binding to address: " + addr.getHostAddress()+" port: "+portNum);
-			sSockChan.socket().bind(new InetSocketAddress(addr, portNum));
-
-			// get a selector
-			selector = Selector.open();
-
-			// register the channel with the selector to handle accepts
-			sSockChan.register(selector, SelectionKey.OP_ACCEPT);
-		} catch (Exception e) {
-			log.error("error initializing ServerSocket", e);
-			System.exit(1);
-		}
-	}*/
 
 	/**
 	 * finds the EventController for a given event type
@@ -325,8 +239,6 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	 */
 	public void shutdown() throws IOException {
 		running = false;
-//		selector.wakeup();
-//		sSockChan.close();
 	}
 
 	/**
@@ -340,39 +252,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 		return playersPreDatabaseByUDID.get(id);
 	}
 
-//	public synchronized SocketChannel getChannelForUdid(String udid) {
-//		return udidToChannel.get(udid);
-//	}
 
-	/**
-	 * add a player to our lists
-	 */
-//	public synchronized void addPlayer(ConnectedPlayer p) {
-//		//channelToPlayerId.put(p.getChannel(), p.getPlayerId());
-//		playersByPlayerId.put(p.getPlayerId(), p);
-//	}
-
-	/**
-	 * remove a player from our lists
-	 */
-//	public synchronized void removePlayer(SocketChannel channel) {
-//		try {
-//			playersByPlayerId.remove(channelToPlayerId.get(channel));
-//			channelToPlayerId.remove(channel);
-//		} catch (Exception e) {
-//			log.error("problem with removing player from game on channel "
-//					+ channel + ". ", e);
-//		}
-//	}
-
-	// returns -1 if he's not in there
-//	public synchronized int getPlayerIdOnChannel(SocketChannel channel) {
-//		if (channelToPlayerId.keySet().contains(channel)) {
-//			return channelToPlayerId.get(channel);
-//		}
-//		log.error("no player on channel " + channel);
-//		return -1;
-//	}
 
 	public void lockPlayer(int playerId) {
 		Lock playerLock = hazel.getLock(playerId);

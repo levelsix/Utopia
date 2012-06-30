@@ -69,16 +69,16 @@ public class GameEventHandler implements MessageHandler {
 
 	@Override
 	public void handleMessage(Message<?> msg) throws MessagingException {
-		log.info("Received message: ");
+		log.debug("Received message: ");
 		for (String key: msg.getHeaders().keySet()) {
-			log.info(key+": "+msg.getHeaders().get(key));
+			log.debug(key+": "+msg.getHeaders().get(key));
 		}
 		//log.info("Payload: "+msg.getPayload());
 		Attachment attachment = new Attachment();
 		attachment.readBuff = ByteBuffer.wrap((byte[]) msg.getPayload());
 		while(attachment.eventReady()) {
             RequestEvent event = getEvent(attachment);
-            log.info("Recieved event from client: "+event.getPlayerId());
+            log.debug("Recieved event from client: "+event.getPlayerId());
             
 				delegateEvent(event, (String) msg.getHeaders().get("ip_connection_id"), attachment.eventType);
 

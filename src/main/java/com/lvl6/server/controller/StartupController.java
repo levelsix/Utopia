@@ -254,7 +254,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         null, null, null, null, false, forbiddenUserIds);
     if (allies != null && allies.size() > 0) {
       for (User ally : allies) {
-        resBuilder.addAllies(CreateInfoProtoUtils.createMinimumUserProtoFromUser(ally));
+        resBuilder.addAllies(CreateInfoProtoUtils.createMinimumUserProtoWithLevelFromUser(ally));
       }
     }
   }

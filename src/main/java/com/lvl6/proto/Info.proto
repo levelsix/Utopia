@@ -12,6 +12,17 @@ enum AnimationType {
 
 //------------------------------------------------------------------------------------------
 
+enum EarnFreeDiamondsType {
+	KIIP = 1;
+	ADCOLONY = 2;
+	FB_INVITE = 3;
+	TAPJOY = 4;
+	FLURRY_VIDEO = 5;
+	TWITTER = 6;
+}
+
+//------------------------------------------------------------------------------------------
+
 enum SpecialQuestAction {
 	PURCHASE_FROM_ARMORY = 1;
 	PURCHASE_FROM_MARKETPLACE = 2;
@@ -37,6 +48,11 @@ message MinimumUserProto {
 	optional int32 userId = 1;
 	optional string name = 2;
 	optional UserType userType = 3;
+}
+
+message MinimumUserProtoWithLevel {
+	optional MinimumUserProto minUserProto = 1;
+	optional int32 level = 2;
 }
 
 message FullUserProto {

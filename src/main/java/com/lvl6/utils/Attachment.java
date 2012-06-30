@@ -2,6 +2,7 @@ package com.lvl6.utils;
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 import org.apache.log4j.Logger;
 
@@ -21,7 +22,7 @@ public class Attachment {
   public static final int HEADER_SIZE = 12; 
 
   /** log4j logger */
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+  private Logger log = Logger.getLogger(Attachment.class);
   
   /** event type for this message */
   public EventProtocolRequest eventType;
@@ -41,6 +42,10 @@ public class Attachment {
   /** temporary storage of the payload before it is read into an event  */
   public byte payload[];
   
+  protected ByteOrder getByteOrder() {
+	  return ByteOrder.BIG_ENDIAN;
+  }
+  
   public void setPayload(byte[] bytes) {
 	  payload = bytes;
 	  payloadSize = bytes.length;
@@ -52,6 +57,7 @@ public class Attachment {
   public Attachment () {
     payload = new byte[Globals.MAX_EVENT_SIZE];
     readBuff = ByteBuffer.allocateDirect(Globals.NET_BUFFER_SIZE);
+    readBuff.order(getByteOrder());
   }
 
   /** 
@@ -84,7 +90,7 @@ public class Attachment {
       eventType = EventProtocolRequest.valueOf(readBuff.getInt());
       tag = readBuff.getInt();
       payloadSize = readBuff.getInt();
-      log.info("Read event type: "+eventType+" and size: "+payloadSize);
+      log.debug("Read event type: "+eventType+" and size: "+payloadSize);
 
       // check bounds on the payload
       if (payloadSize > Globals.MAX_EVENT_SIZE) 

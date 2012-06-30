@@ -79,8 +79,8 @@ public class ControllerConstants {
   public static final int TUTORIAL__MAGE_INIT_ARMOR_ID = 224;
   public static final int TUTORIAL__WARRIOR_INIT_WEAPON_ID = 1;
   public static final int TUTORIAL__WARRIOR_INIT_ARMOR_ID = 41;
-  public static final String TUTORIAL__FAKE_QUEST_GOOD_NAME = "Cold Welcome";
-  public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Cold Welcome";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_NAME = "Preserve the Peace";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Witness Protection";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE = "10~good~";
   public static final String TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE = "10~bad~";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Welcome to Kirin Village, stranger. We are in dire times and we need your help. A few moments ago, a strange white light consumed the sky and legion soldiers appeared out of thin air. One seems to have strayed from the pack. Start by killing him!";
@@ -89,9 +89,9 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
   public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 30;
-  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 4;
+  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 12;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 20;
-  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 4;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 11;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 250;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
@@ -109,14 +109,31 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 10;
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
-  public static final double BATTLE__EXP_GAIN_BALANCER = 1.0;
-  
+  public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
+  public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
+
   public static final float BATTLE__LOCATION_BAR_MAX = 75.f;
   public static final double BATTLE__MAX_ATTACK_MULTIPLIER = 1.5;
   public static final double BATTLE__MIN_PERCENT_OF_ENEMY_HEALTH = .25;
   public static final double BATTLE__MAX_PERCENT_OF_ENEMY_HEALTH = .6;
   public static final double BATTLE__BATTLE_DIFFERENCE_MULTIPLIER = 2;
   public static final double BATTLE__BATTLE_DIFFERENCE_TUNER = 0;
+  
+  /*
+#define PERFECT_PERCENT_THRESHOLD 3.0f
+#define GREAT_PERCENT_THRESHOLD   17.0f
+#define GOOD_PERCENT_THRESHOLD    38.0f
+
+#define PERFECT_MULTIPLIER  2.0f
+#define GREAT_MULTIPLIER    1.5f
+#define GOOD_MULTIPLIER     1.0f
+
+#define IMBALANCE_PERCENT     .67f
+
+battleWeightGivenToDefenseStat
+ 
+   */
+  
   
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
@@ -169,8 +186,8 @@ public class ControllerConstants {
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;
   
   //REFILL STAT WAIT COMPLETE
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 10;
-  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 3;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_STAMINA = 1;
+  public static final int REFILL_STAT_WAIT_COMPLETE__MINUTES_FOR_ENERGY = 1;
 
   //PURCHASE MARKETPLACE LICENSE
   public static final int PURCHASE_MARKETPLACE_LICENSE__DAYS_FOR_LONG_LICENSE = 30;
@@ -239,6 +256,8 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("LegionWarrior", new CoordinatePair(0, -15)),
     new AnimatedSpriteOffset("LegionMage", new CoordinatePair(0, -18)),
     new AnimatedSpriteOffset("Bandit", new CoordinatePair(0, -15)),
+    new AnimatedSpriteOffset("FarmerMitch", new CoordinatePair(0, -8)),
+    new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -8)),
   };
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
