@@ -1,7 +1,7 @@
 <?php
 include_once '../ConnectionFactory.php';
 
-$numToGenerate=4000;
+$numToGenerate=15000;
 $referralCodeLength = 6;
 $availableReferralCodesTableName = 'available_referral_codes';
 $generatedReferralCodesTableName = 'generated_referral_codes';
