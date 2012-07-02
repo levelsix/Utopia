@@ -46,7 +46,7 @@
 		<hazelcast.pass>lvl6</hazelcast.pass>
 		<hazelcast.config>dev</hazelcast.config>
 		<hazelcast.port>5701</hazelcast.port>
-		<hazelcast.dev.ips>10.1.10.10</hazelcast.dev.ips>
+		<hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips>
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
 		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
