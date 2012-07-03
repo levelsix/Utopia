@@ -27,7 +27,7 @@
 	<hz:map id="messagesForDisconnectedPlayers" name="messagesForDisconnectedPlayers" instance-ref="hazel"/>
 		
 		
-	<hz:set id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
+	<hz:map id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
 		
 	<bean id="playersInAction" class="com.lvl6.utils.PlayerSet" scope="singleton" >
 		<property name="players" ref="playersInActionSet" />
