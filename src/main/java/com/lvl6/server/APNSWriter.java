@@ -136,17 +136,20 @@ public class APNSWriter extends Wrap {
 	protected ApnsService service;
 	private ApnsService getApnsService() {
 		if(service == null ) {
+			log.info("Apns Service null... building new");
 			buildService();
 		}
 		try{
 			service.testConnection();
 		}catch(Throwable e) {
+			log.info("ApnsService connection test failed... building again");
 			buildService();
 		}
 		return service;
 	}
 
 	protected void buildService() {
+		log.info("Building ApnsService");
 		ApnsServiceBuilder builder = APNS
 				.newService()
 				.withCert(ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert), apnsProperties.certPassword)
