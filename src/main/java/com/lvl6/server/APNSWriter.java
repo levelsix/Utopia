@@ -140,7 +140,8 @@ public class APNSWriter extends Wrap {
 
 
 	private void handlePostOnPlayerWallNotification(ApnsService service, PostOnPlayerWallResponseEvent event, User user, String token) {
-		PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(user.getNumBadges()+1);
+//    PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(user.getNumBadges()+1);
+	  PayloadBuilder pb = APNS.newPayload().actionKey("View").badge(1);
 
 		PostOnPlayerWallResponseProto resProto = event.getPostOnPlayerWallResponseProto();
 		PlayerWallPostProto post = resProto.getPost();
@@ -151,9 +152,9 @@ public class APNSWriter extends Wrap {
 
 			if (!pb.isTooLong()) {
 				service.push(token, pb.build());
-				if (user.updateRelativeBadge(1)) {
-					log.error("problem with pushing notification to user " + user);
-				}
+//				if (user.updateRelativeBadge(1)) {
+//					log.error("problem with pushing notification to user " + user);
+//				}
 			}
 		}
 	}
@@ -173,13 +174,14 @@ public class APNSWriter extends Wrap {
 	//  }
 
 	private void handlePurchaseFromMarketplaceNotification(ApnsService service, PurchaseFromMarketplaceResponseEvent event, User user, String token) {
-		PayloadBuilder pb = APNS.newPayload().actionKey("Redeem").badge(user.getNumBadges()+1).alertBody("Someone purchased your equipment in the marketplace. Redeem your earnings!");
-
+//		PayloadBuilder pb = APNS.newPayload().actionKey("Redeem").badge(user.getNumBadges()+1).alertBody("Someone purchased your equipment in the marketplace. Redeem your earnings!");
+    PayloadBuilder pb = APNS.newPayload().actionKey("Redeem").badge(1).alertBody("Someone purchased your equipment in the marketplace. Redeem your earnings!");
+		
 		if (!pb.isTooLong()) {
 			service.push(token, pb.build());
-			if (user.updateRelativeBadge(1)) {
-				log.error("problem with pushing notification to user " + user);
-			}
+//			if (user.updateRelativeBadge(1)) {
+//				log.error("problem with pushing notification to user " + user);
+//			}
 		}
 	}
 
@@ -190,7 +192,8 @@ public class APNSWriter extends Wrap {
 				(lastBattleNotificationTime == null || now.getTime() - lastBattleNotificationTime.getTime() > 60000*MIN_MINUTES_BETWEEN_BATTLE_NOTIFICATIONS)) ||
 				(lastBattleNotificationTime != null && lastBattleNotificationTime.getTime() + 60000*MINUTES_BEFORE_IGNORE_BADGE_CAP < now.getTime())) {
 
-			PayloadBuilder pb = APNS.newPayload().actionKey("Retaliate").badge(user.getNumBadges()+1);
+//			PayloadBuilder pb = APNS.newPayload().actionKey("Retaliate").badge(user.getNumBadges()+1);
+	     PayloadBuilder pb = APNS.newPayload().actionKey("Retaliate").badge(1);
 
 			BattleResponseProto battleResponseProto = event.getBattleResponseProto();
 
@@ -222,7 +225,8 @@ public class APNSWriter extends Wrap {
 
 			if (!pb.isTooLong()) {
 				service.push(token, pb.build());
-				if (!user.updateRelativeBadgeAbsoluteLastbattlenotificationtime(1, new Timestamp(now.getTime()))) {
+//        if (!user.updateRelativeBadgeAbsoluteLastbattlenotificationtime(1, new Timestamp(now.getTime()))) {
+				if (!user.updateRelativeBadgeAbsoluteLastbattlenotificationtime(0, new Timestamp(now.getTime()))) {
 					log.error("problem with pushing notification to user " + user);
 				}
 			}

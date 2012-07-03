@@ -133,22 +133,22 @@ public class GenerateFakeUsersWithoutInput {
 	    }
 	    
 	    //Add randomization
-	    if ((int)Math.floor(Math.random() * 5) + 1 < 2) {
-	    	attack += (int)Math.floor(Math.random() * 3) + 1;
+	    if (Math.random() < 0.5) {
+	    	attack += (int)Math.floor(Math.random() * 3);
 	    } else {
-	    	attack -= (int)Math.floor(Math.random() * 3) + 1;
+	    	attack -= (int)Math.floor(Math.random() * 3);
 	    }
 	    
-	    if ((int)Math.floor(Math.random() * 5) + 1 < 2) {
-	    	defense += (int)Math.floor(Math.random() * 3) + 1;
+	    if (Math.random() < 0.5) {
+	    	defense += (int)Math.floor(Math.random() * 3);
 	    } else {
-	    	defense -= (int)Math.floor(Math.random() * 3) + 1;
+	    	defense -= (int)Math.floor(Math.random() * 3);
 	    }
 	    
-	    if ((int)Math.floor(Math.random() * 5) + 1 < 2) {
-	    	health += (int)Math.floor(Math.random() * 5) + 1;
+	    if (Math.random() < 0.5) {
+	    	health += (int)Math.floor(Math.random() * 5);
 	    } else {
-	    	health -= (int)Math.floor(Math.random() * 5) + 1;
+	    	health -= (int)Math.floor(Math.random() * 5);
 	    }
 	    if (health<ControllerConstants.TUTORIAL__INIT_HEALTH) {
 	    	health = ControllerConstants.TUTORIAL__INIT_HEALTH;
