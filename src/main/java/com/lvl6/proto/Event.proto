@@ -251,6 +251,7 @@ message StartupResponseProto {
 			optional double battleWeightGivenToAttackEquipSum = 3;
 			optional double battleWeightGivenToDefenseStat = 4;
 			optional double battleWeightGivenToDefenseEquipSum = 5;
+			optional double battleWeightGivenToLevel = 13;
 			optional float battlePerfectPercentThreshold = 6;
 			optional float battleGreatPercentThreshold = 7;
 			optional float battleGoodPercentThreshold = 8;
