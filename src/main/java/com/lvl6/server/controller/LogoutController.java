@@ -63,8 +63,7 @@ public class LogoutController extends EventController {
 				User user = RetrieveUtils.userRetrieveUtils().getUserById(
 						playerId);
 				if (user != null) {
-					if (!user.updateLastlogout(new Timestamp(new Date()
-							.getTime()))) {
+					if (!user.updateLastlogout(new Timestamp(new Date().getTime()))) {
 						log.error("problem with updating user's last logout time for user "
 								+ playerId);
 					}

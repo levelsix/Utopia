@@ -28,7 +28,7 @@
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="jdbcUrl"><value><![CDATA[${jdbc.url}]]></value></property>
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<property name="idleConnectionTestPeriod" value="60" />
