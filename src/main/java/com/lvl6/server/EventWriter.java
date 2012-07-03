@@ -101,7 +101,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 						write(buff.duplicate(), player);
 					}else{
 						//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-						log.error("Player "+recipients[i]+" not found in playersByPlayerId");
+						log.error("Broadcast: Player "+recipients[i]+" not found in playersByPlayerId");
 					}
 				}
 			}
@@ -115,7 +115,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 				write(buff, player);
 			}else{
 				//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-				log.error("Player "+playerId+" not found in playersByPlayerId");
+				log.error("Normal: Player "+playerId+" not found in playersByPlayerId");
 			}
 		}
 
