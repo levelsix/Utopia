@@ -99,13 +99,7 @@ public class APNSWriter extends Wrap {
 			log.info("received APNS notification to send to player with id " + playerId);
 			User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
 			if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
-				ApnsServiceBuilder builder = APNS.newService().withCert(ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert), apnsProperties.certPassword);
-
-				if (Globals.IS_SANDBOX) {
-					builder.withSandboxDestination();
-				}
-
-				ApnsService service = builder.build();
+				ApnsService service = getApnsService();
 
 				Date now = new Date();
 				if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime() + 60000*MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH
@@ -136,6 +130,33 @@ public class APNSWriter extends Wrap {
 				log.info("could not send push notification because user " + user + " has no device token");
 			}
 		}
+	}
+	
+	
+	protected ApnsService service;
+	private ApnsService getApnsService() {
+		if(service == null ) {
+			buildService();
+		}
+		try{
+			service.testConnection();
+		}catch(Throwable e) {
+			buildService();
+		}
+		return service;
+	}
+
+	protected void buildService() {
+		ApnsServiceBuilder builder = APNS
+				.newService()
+				.withCert(ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert), apnsProperties.certPassword)
+				.asNonBlocking();
+
+		if (Globals.IS_SANDBOX) {
+			builder.withSandboxDestination();
+		}
+
+		service = builder.build();
 	}
 
 
