@@ -69,6 +69,18 @@
 				<hazelcast.dev.ips>localhost</hazelcast.dev.ips>
 			</properties>
 		</profile>
+		<profile>
+			<id>conradlocal</id>
+			<properties>
+				<lvl6.server.log.location>/Users/conradchan/Desktop/LostNations/Server/lostnations.log</lvl6.server.log.location>
+				<server.port>10001</server.port>
+				<hazelcast.group>conrad</hazelcast.group>
+				<hazelcast.pass>lvl6</hazelcast.pass>
+				<hazelcast.config>dev</hazelcast.config>
+				<hazelcast.port>6701</hazelcast.port>
+				<hazelcast.dev.ips>192.168.15.206</hazelcast.dev.ips>
+			</properties>
+		</profile>
 	</profiles>
 
 	<repositories>

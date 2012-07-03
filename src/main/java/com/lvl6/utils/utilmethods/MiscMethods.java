@@ -317,8 +317,8 @@ public class MiscMethods {
         .setBattleGreatPercentThreshold(ControllerConstants.BATTLE_GREAT_PERCENT_THRESHOLD)
         .setBattleGoodPercentThreshold(ControllerConstants.BATTLE_GOOD_PERCENT_THRESHOLD)
         .setBattlePerfectMultiplier(ControllerConstants.BATTLE_PERFECT_MULTIPLIER)
-        .setBattlePerfectMultiplier(ControllerConstants.BATTLE_GREAT_MULTIPLIER)
-        .setBattlePerfectMultiplier(ControllerConstants.BATTLE_GOOD_MULTIPLIER)
+        .setBattleGreatMultiplier(ControllerConstants.BATTLE_GREAT_MULTIPLIER)
+        .setBattleGoodMultiplier(ControllerConstants.BATTLE_GOOD_MULTIPLIER)
         .setBattleImbalancePercent(ControllerConstants.BATTLE_IMBALANCE_PERCENT)
         .build();
 
