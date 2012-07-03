@@ -1,6 +1,7 @@
 package com.lvl6.utils;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 
@@ -17,13 +18,13 @@ public class PlayerSet implements HazelcastInstanceAware {
 	
 	Logger log = Logger.getLogger(PlayerSet.class);
 	
-	private Set<PlayerInAction> players;
+	private Map<Integer, PlayerInAction> players;
 
-	public Set<PlayerInAction> getPlayers() {
+	public Map<Integer, PlayerInAction> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(Set<PlayerInAction> players) {
+	public void setPlayers(Map<Integer, PlayerInAction> players) {
 		this.players = players;
 	}
 
@@ -34,15 +35,16 @@ public class PlayerSet implements HazelcastInstanceAware {
 	 * @throws InterruptedException
 	 */
 	public void addPlayer(int playerId) {
-		players.add(new PlayerInAction(playerId));
+		players.put(playerId, new PlayerInAction(playerId));
 	}
 
 	public void removePlayer(int playerId) {
-		players.remove(new PlayerInAction(playerId));
+		if(containsPlayer(playerId))
+			players.remove(playerId);
 	}
 
 	public boolean containsPlayer(int playerId) {
-		return players.contains(new PlayerInAction(playerId));
+		return players.containsKey(playerId);
 	}
 	
 	
@@ -51,12 +53,13 @@ public class PlayerSet implements HazelcastInstanceAware {
 	public void clearOldLocks(){
 		long now = new Date().getTime();
 		log.debug("Removing stale player locks");
-		for(PlayerInAction player:players){
-			if(now - player.getLockTime().getTime() > 60000){
-				ILock playerLock = hazel.getLock(player.getPlayerId());
+		for(Integer player:players.keySet()){
+			PlayerInAction play = players.get(player);
+			if(now - play.getLockTime().getTime() > 60000){
+				ILock playerLock = hazel.getLock(play.getPlayerId());
 				playerLock.forceUnlock();
-				players.remove(player);
-				log.info("Automatically removing timed out lock for player: "+player.getPlayerId());
+				removePlayer(player);
+				log.info("Automatically removing timed out lock for player: "+play.getPlayerId());
 			}
 		}
 	}
