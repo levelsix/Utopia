@@ -8585,6 +8585,10 @@ public final class EventProto {
       boolean hasMaxLevelDifferenceForBattle();
       int getMaxLevelDifferenceForBattle();
       
+      // optional int32 maxLevelForUser = 62;
+      boolean hasMaxLevelForUser();
+      int getMaxLevelForUser();
+      
       // optional int32 armoryXLength = 7;
       boolean hasArmoryXLength();
       int getArmoryXLength();
@@ -11462,11 +11466,21 @@ public final class EventProto {
         return maxLevelDifferenceForBattle_;
       }
       
+      // optional int32 maxLevelForUser = 62;
+      public static final int MAXLEVELFORUSER_FIELD_NUMBER = 62;
+      private int maxLevelForUser_;
+      public boolean hasMaxLevelForUser() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getMaxLevelForUser() {
+        return maxLevelForUser_;
+      }
+      
       // optional int32 armoryXLength = 7;
       public static final int ARMORYXLENGTH_FIELD_NUMBER = 7;
       private int armoryXLength_;
       public boolean hasArmoryXLength() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public int getArmoryXLength() {
         return armoryXLength_;
@@ -11476,7 +11490,7 @@ public final class EventProto {
       public static final int ARMORYYLENGTH_FIELD_NUMBER = 8;
       private int armoryYLength_;
       public boolean hasArmoryYLength() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public int getArmoryYLength() {
         return armoryYLength_;
@@ -11486,7 +11500,7 @@ public final class EventProto {
       public static final int VAULTXLENGTH_FIELD_NUMBER = 9;
       private int vaultXLength_;
       public boolean hasVaultXLength() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public int getVaultXLength() {
         return vaultXLength_;
@@ -11496,7 +11510,7 @@ public final class EventProto {
       public static final int VAULTYLENGTH_FIELD_NUMBER = 10;
       private int vaultYLength_;
       public boolean hasVaultYLength() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       public int getVaultYLength() {
         return vaultYLength_;
@@ -11506,7 +11520,7 @@ public final class EventProto {
       public static final int MARKETPLACEXLENGTH_FIELD_NUMBER = 11;
       private int marketplaceXLength_;
       public boolean hasMarketplaceXLength() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public int getMarketplaceXLength() {
         return marketplaceXLength_;
@@ -11516,7 +11530,7 @@ public final class EventProto {
       public static final int MARKETPLACEYLENGTH_FIELD_NUMBER = 12;
       private int marketplaceYLength_;
       public boolean hasMarketplaceYLength() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public int getMarketplaceYLength() {
         return marketplaceYLength_;
@@ -11526,7 +11540,7 @@ public final class EventProto {
       public static final int CARPENTERXLENGTH_FIELD_NUMBER = 13;
       private int carpenterXLength_;
       public boolean hasCarpenterXLength() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       public int getCarpenterXLength() {
         return carpenterXLength_;
@@ -11536,7 +11550,7 @@ public final class EventProto {
       public static final int CARPENTERYLENGTH_FIELD_NUMBER = 14;
       private int carpenterYLength_;
       public boolean hasCarpenterYLength() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       public int getCarpenterYLength() {
         return carpenterYLength_;
@@ -11546,7 +11560,7 @@ public final class EventProto {
       public static final int AVIARYXLENGTH_FIELD_NUMBER = 15;
       private int aviaryXLength_;
       public boolean hasAviaryXLength() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       public int getAviaryXLength() {
         return aviaryXLength_;
@@ -11556,7 +11570,7 @@ public final class EventProto {
       public static final int AVIARYYLENGTH_FIELD_NUMBER = 16;
       private int aviaryYLength_;
       public boolean hasAviaryYLength() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       public int getAviaryYLength() {
         return aviaryYLength_;
@@ -11566,7 +11580,7 @@ public final class EventProto {
       public static final int ATTACKBASEGAIN_FIELD_NUMBER = 17;
       private int attackBaseGain_;
       public boolean hasAttackBaseGain() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       public int getAttackBaseGain() {
         return attackBaseGain_;
@@ -11576,7 +11590,7 @@ public final class EventProto {
       public static final int DEFENSEBASEGAIN_FIELD_NUMBER = 18;
       private int defenseBaseGain_;
       public boolean hasDefenseBaseGain() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
+        return ((bitField0_ & 0x00002000) == 0x00002000);
       }
       public int getDefenseBaseGain() {
         return defenseBaseGain_;
@@ -11586,7 +11600,7 @@ public final class EventProto {
       public static final int ENERGYBASEGAIN_FIELD_NUMBER = 19;
       private int energyBaseGain_;
       public boolean hasEnergyBaseGain() {
-        return ((bitField0_ & 0x00002000) == 0x00002000);
+        return ((bitField0_ & 0x00004000) == 0x00004000);
       }
       public int getEnergyBaseGain() {
         return energyBaseGain_;
@@ -11596,7 +11610,7 @@ public final class EventProto {
       public static final int HEALTHBASEGAIN_FIELD_NUMBER = 20;
       private int healthBaseGain_;
       public boolean hasHealthBaseGain() {
-        return ((bitField0_ & 0x00004000) == 0x00004000);
+        return ((bitField0_ & 0x00008000) == 0x00008000);
       }
       public int getHealthBaseGain() {
         return healthBaseGain_;
@@ -11606,7 +11620,7 @@ public final class EventProto {
       public static final int STAMINABASEGAIN_FIELD_NUMBER = 21;
       private int staminaBaseGain_;
       public boolean hasStaminaBaseGain() {
-        return ((bitField0_ & 0x00008000) == 0x00008000);
+        return ((bitField0_ & 0x00010000) == 0x00010000);
       }
       public int getStaminaBaseGain() {
         return staminaBaseGain_;
@@ -11616,7 +11630,7 @@ public final class EventProto {
       public static final int ATTACKBASECOST_FIELD_NUMBER = 22;
       private int attackBaseCost_;
       public boolean hasAttackBaseCost() {
-        return ((bitField0_ & 0x00010000) == 0x00010000);
+        return ((bitField0_ & 0x00020000) == 0x00020000);
       }
       public int getAttackBaseCost() {
         return attackBaseCost_;
@@ -11626,7 +11640,7 @@ public final class EventProto {
       public static final int DEFENSEBASECOST_FIELD_NUMBER = 23;
       private int defenseBaseCost_;
       public boolean hasDefenseBaseCost() {
-        return ((bitField0_ & 0x00020000) == 0x00020000);
+        return ((bitField0_ & 0x00040000) == 0x00040000);
       }
       public int getDefenseBaseCost() {
         return defenseBaseCost_;
@@ -11636,7 +11650,7 @@ public final class EventProto {
       public static final int ENERGYBASECOST_FIELD_NUMBER = 24;
       private int energyBaseCost_;
       public boolean hasEnergyBaseCost() {
-        return ((bitField0_ & 0x00040000) == 0x00040000);
+        return ((bitField0_ & 0x00080000) == 0x00080000);
       }
       public int getEnergyBaseCost() {
         return energyBaseCost_;
@@ -11646,7 +11660,7 @@ public final class EventProto {
       public static final int HEALTHBASECOST_FIELD_NUMBER = 25;
       private int healthBaseCost_;
       public boolean hasHealthBaseCost() {
-        return ((bitField0_ & 0x00080000) == 0x00080000);
+        return ((bitField0_ & 0x00100000) == 0x00100000);
       }
       public int getHealthBaseCost() {
         return healthBaseCost_;
@@ -11656,7 +11670,7 @@ public final class EventProto {
       public static final int STAMINABASECOST_FIELD_NUMBER = 26;
       private int staminaBaseCost_;
       public boolean hasStaminaBaseCost() {
-        return ((bitField0_ & 0x00100000) == 0x00100000);
+        return ((bitField0_ & 0x00200000) == 0x00200000);
       }
       public int getStaminaBaseCost() {
         return staminaBaseCost_;
@@ -11666,7 +11680,7 @@ public final class EventProto {
       public static final int SKILLPOINTSGAINEDONLEVELUP_FIELD_NUMBER = 27;
       private int skillPointsGainedOnLevelup_;
       public boolean hasSkillPointsGainedOnLevelup() {
-        return ((bitField0_ & 0x00200000) == 0x00200000);
+        return ((bitField0_ & 0x00400000) == 0x00400000);
       }
       public int getSkillPointsGainedOnLevelup() {
         return skillPointsGainedOnLevelup_;
@@ -11676,7 +11690,7 @@ public final class EventProto {
       public static final int CUTOFVAULTDEPOSITTAKEN_FIELD_NUMBER = 28;
       private double cutOfVaultDepositTaken_;
       public boolean hasCutOfVaultDepositTaken() {
-        return ((bitField0_ & 0x00400000) == 0x00400000);
+        return ((bitField0_ & 0x00800000) == 0x00800000);
       }
       public double getCutOfVaultDepositTaken() {
         return cutOfVaultDepositTaken_;
@@ -11686,7 +11700,7 @@ public final class EventProto {
       public static final int MAXLEVELFORSTRUCT_FIELD_NUMBER = 33;
       private int maxLevelForStruct_;
       public boolean hasMaxLevelForStruct() {
-        return ((bitField0_ & 0x00800000) == 0x00800000);
+        return ((bitField0_ & 0x01000000) == 0x01000000);
       }
       public int getMaxLevelForStruct() {
         return maxLevelForStruct_;
@@ -11696,7 +11710,7 @@ public final class EventProto {
       public static final int MAXNUMOFSINGLESTRUCT_FIELD_NUMBER = 34;
       private int maxNumOfSingleStruct_;
       public boolean hasMaxNumOfSingleStruct() {
-        return ((bitField0_ & 0x01000000) == 0x01000000);
+        return ((bitField0_ & 0x02000000) == 0x02000000);
       }
       public int getMaxNumOfSingleStruct() {
         return maxNumOfSingleStruct_;
@@ -11706,7 +11720,7 @@ public final class EventProto {
       public static final int PERCENTRETURNEDTOUSERFORSELLINGNORMSTRUCTURE_FIELD_NUMBER = 35;
       private double percentReturnedToUserForSellingNormStructure_;
       public boolean hasPercentReturnedToUserForSellingNormStructure() {
-        return ((bitField0_ & 0x02000000) == 0x02000000);
+        return ((bitField0_ & 0x04000000) == 0x04000000);
       }
       public double getPercentReturnedToUserForSellingNormStructure() {
         return percentReturnedToUserForSellingNormStructure_;
@@ -11716,7 +11730,7 @@ public final class EventProto {
       public static final int MINUTESTOREFILLAENERGY_FIELD_NUMBER = 36;
       private int minutesToRefillAEnergy_;
       public boolean hasMinutesToRefillAEnergy() {
-        return ((bitField0_ & 0x04000000) == 0x04000000);
+        return ((bitField0_ & 0x08000000) == 0x08000000);
       }
       public int getMinutesToRefillAEnergy() {
         return minutesToRefillAEnergy_;
@@ -11726,7 +11740,7 @@ public final class EventProto {
       public static final int MINUTESTOREFILLASTAMINA_FIELD_NUMBER = 37;
       private int minutesToRefillAStamina_;
       public boolean hasMinutesToRefillAStamina() {
-        return ((bitField0_ & 0x08000000) == 0x08000000);
+        return ((bitField0_ & 0x10000000) == 0x10000000);
       }
       public int getMinutesToRefillAStamina() {
         return minutesToRefillAStamina_;
@@ -11736,7 +11750,7 @@ public final class EventProto {
       public static final int DIAMONDCOSTFORFULLSTAMINAREFILL_FIELD_NUMBER = 48;
       private int diamondCostForFullStaminaRefill_;
       public boolean hasDiamondCostForFullStaminaRefill() {
-        return ((bitField0_ & 0x10000000) == 0x10000000);
+        return ((bitField0_ & 0x20000000) == 0x20000000);
       }
       public int getDiamondCostForFullStaminaRefill() {
         return diamondCostForFullStaminaRefill_;
@@ -11746,7 +11760,7 @@ public final class EventProto {
       public static final int DIAMONDCOSTFORFULLENERGYREFILL_FIELD_NUMBER = 49;
       private int diamondCostForFullEnergyRefill_;
       public boolean hasDiamondCostForFullEnergyRefill() {
-        return ((bitField0_ & 0x20000000) == 0x20000000);
+        return ((bitField0_ & 0x40000000) == 0x40000000);
       }
       public int getDiamondCostForFullEnergyRefill() {
         return diamondCostForFullEnergyRefill_;
@@ -11756,7 +11770,7 @@ public final class EventProto {
       public static final int MAXNUMBEROFMARKETPLACEPOSTS_FIELD_NUMBER = 40;
       private int maxNumberOfMarketplacePosts_;
       public boolean hasMaxNumberOfMarketplacePosts() {
-        return ((bitField0_ & 0x40000000) == 0x40000000);
+        return ((bitField0_ & 0x80000000) == 0x80000000);
       }
       public int getMaxNumberOfMarketplacePosts() {
         return maxNumberOfMarketplacePosts_;
@@ -11766,7 +11780,7 @@ public final class EventProto {
       public static final int PERCENTOFSELLINGCOSTTAKENFROMSELLERONMARKETPLACEPURCHASE_FIELD_NUMBER = 41;
       private double percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
       public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
-        return ((bitField0_ & 0x80000000) == 0x80000000);
+        return ((bitField1_ & 0x00000001) == 0x00000001);
       }
       public double getPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
         return percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
@@ -11776,7 +11790,7 @@ public final class EventProto {
       public static final int PERCENTOFSELLINGCOSTTAKENFROMSELLERONMARKETPLACERETRACT_FIELD_NUMBER = 42;
       private double percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
       public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
-        return ((bitField1_ & 0x00000001) == 0x00000001);
+        return ((bitField1_ & 0x00000002) == 0x00000002);
       }
       public double getPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
         return percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
@@ -11786,7 +11800,7 @@ public final class EventProto {
       public static final int NUMDAYSLONGMARKETPLACELICENSELASTSFOR_FIELD_NUMBER = 43;
       private int numDaysLongMarketplaceLicenseLastsFor_;
       public boolean hasNumDaysLongMarketplaceLicenseLastsFor() {
-        return ((bitField1_ & 0x00000002) == 0x00000002);
+        return ((bitField1_ & 0x00000004) == 0x00000004);
       }
       public int getNumDaysLongMarketplaceLicenseLastsFor() {
         return numDaysLongMarketplaceLicenseLastsFor_;
@@ -11796,7 +11810,7 @@ public final class EventProto {
       public static final int NUMDAYSSHORTMARKETPLACELICENSELASTSFOR_FIELD_NUMBER = 44;
       private int numDaysShortMarketplaceLicenseLastsFor_;
       public boolean hasNumDaysShortMarketplaceLicenseLastsFor() {
-        return ((bitField1_ & 0x00000004) == 0x00000004);
+        return ((bitField1_ & 0x00000008) == 0x00000008);
       }
       public int getNumDaysShortMarketplaceLicenseLastsFor() {
         return numDaysShortMarketplaceLicenseLastsFor_;
@@ -11806,7 +11820,7 @@ public final class EventProto {
       public static final int DIAMONDCOSTOFLONGMARKETPLACELICENSE_FIELD_NUMBER = 45;
       private int diamondCostOfLongMarketplaceLicense_;
       public boolean hasDiamondCostOfLongMarketplaceLicense() {
-        return ((bitField1_ & 0x00000008) == 0x00000008);
+        return ((bitField1_ & 0x00000010) == 0x00000010);
       }
       public int getDiamondCostOfLongMarketplaceLicense() {
         return diamondCostOfLongMarketplaceLicense_;
@@ -11816,7 +11830,7 @@ public final class EventProto {
       public static final int DIAMONDCOSTOFSHORTMARKETPLACELICENSE_FIELD_NUMBER = 46;
       private int diamondCostOfShortMarketplaceLicense_;
       public boolean hasDiamondCostOfShortMarketplaceLicense() {
-        return ((bitField1_ & 0x00000010) == 0x00000010);
+        return ((bitField1_ & 0x00000020) == 0x00000020);
       }
       public int getDiamondCostOfShortMarketplaceLicense() {
         return diamondCostOfShortMarketplaceLicense_;
@@ -11826,7 +11840,7 @@ public final class EventProto {
       public static final int MAXNUMBERSOFENEMIESTOGENERATEATONCE_FIELD_NUMBER = 4;
       private int maxNumbersOfEnemiesToGenerateAtOnce_;
       public boolean hasMaxNumbersOfEnemiesToGenerateAtOnce() {
-        return ((bitField1_ & 0x00000020) == 0x00000020);
+        return ((bitField1_ & 0x00000040) == 0x00000040);
       }
       public int getMaxNumbersOfEnemiesToGenerateAtOnce() {
         return maxNumbersOfEnemiesToGenerateAtOnce_;
@@ -11836,7 +11850,7 @@ public final class EventProto {
       public static final int PERCENTRETURNEDTOUSERFORSELLINGEQUIPINARMORY_FIELD_NUMBER = 5;
       private double percentReturnedToUserForSellingEquipInArmory_;
       public boolean hasPercentReturnedToUserForSellingEquipInArmory() {
-        return ((bitField1_ & 0x00000040) == 0x00000040);
+        return ((bitField1_ & 0x00000080) == 0x00000080);
       }
       public double getPercentReturnedToUserForSellingEquipInArmory() {
         return percentReturnedToUserForSellingEquipInArmory_;
@@ -11846,7 +11860,7 @@ public final class EventProto {
       public static final int MAXCITYRANK_FIELD_NUMBER = 50;
       private int maxCityRank_;
       public boolean hasMaxCityRank() {
-        return ((bitField1_ & 0x00000080) == 0x00000080);
+        return ((bitField1_ & 0x00000100) == 0x00000100);
       }
       public int getMaxCityRank() {
         return maxCityRank_;
@@ -11856,7 +11870,7 @@ public final class EventProto {
       public static final int ARMORYIMGVERTICALPIXELOFFSET_FIELD_NUMBER = 54;
       private int armoryImgVerticalPixelOffset_;
       public boolean hasArmoryImgVerticalPixelOffset() {
-        return ((bitField1_ & 0x00000100) == 0x00000100);
+        return ((bitField1_ & 0x00000200) == 0x00000200);
       }
       public int getArmoryImgVerticalPixelOffset() {
         return armoryImgVerticalPixelOffset_;
@@ -11866,7 +11880,7 @@ public final class EventProto {
       public static final int VAULTIMGVERTICALPIXELOFFSET_FIELD_NUMBER = 55;
       private int vaultImgVerticalPixelOffset_;
       public boolean hasVaultImgVerticalPixelOffset() {
-        return ((bitField1_ & 0x00000200) == 0x00000200);
+        return ((bitField1_ & 0x00000400) == 0x00000400);
       }
       public int getVaultImgVerticalPixelOffset() {
         return vaultImgVerticalPixelOffset_;
@@ -11876,7 +11890,7 @@ public final class EventProto {
       public static final int MARKETPLACEIMGVERTICALPIXELOFFSET_FIELD_NUMBER = 56;
       private int marketplaceImgVerticalPixelOffset_;
       public boolean hasMarketplaceImgVerticalPixelOffset() {
-        return ((bitField1_ & 0x00000400) == 0x00000400);
+        return ((bitField1_ & 0x00000800) == 0x00000800);
       }
       public int getMarketplaceImgVerticalPixelOffset() {
         return marketplaceImgVerticalPixelOffset_;
@@ -11886,7 +11900,7 @@ public final class EventProto {
       public static final int CARPENTERIMGVERTICALPIXELOFFSET_FIELD_NUMBER = 57;
       private int carpenterImgVerticalPixelOffset_;
       public boolean hasCarpenterImgVerticalPixelOffset() {
-        return ((bitField1_ & 0x00000800) == 0x00000800);
+        return ((bitField1_ & 0x00001000) == 0x00001000);
       }
       public int getCarpenterImgVerticalPixelOffset() {
         return carpenterImgVerticalPixelOffset_;
@@ -11896,7 +11910,7 @@ public final class EventProto {
       public static final int AVIARYIMGVERTICALPIXELOFFSET_FIELD_NUMBER = 58;
       private int aviaryImgVerticalPixelOffset_;
       public boolean hasAviaryImgVerticalPixelOffset() {
-        return ((bitField1_ & 0x00001000) == 0x00001000);
+        return ((bitField1_ & 0x00002000) == 0x00002000);
       }
       public int getAviaryImgVerticalPixelOffset() {
         return aviaryImgVerticalPixelOffset_;
@@ -11906,7 +11920,7 @@ public final class EventProto {
       public static final int FORMULACONSTANTS_FIELD_NUMBER = 59;
       private com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants formulaConstants_;
       public boolean hasFormulaConstants() {
-        return ((bitField1_ & 0x00002000) == 0x00002000);
+        return ((bitField1_ & 0x00004000) == 0x00004000);
       }
       public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants getFormulaConstants() {
         return formulaConstants_;
@@ -11919,7 +11933,7 @@ public final class EventProto {
       public static final int BATTLECONSTANTS_FIELD_NUMBER = 51;
       private com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants battleConstants_;
       public boolean hasBattleConstants() {
-        return ((bitField1_ & 0x00004000) == 0x00004000);
+        return ((bitField1_ & 0x00008000) == 0x00008000);
       }
       public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants getBattleConstants() {
         return battleConstants_;
@@ -11932,7 +11946,7 @@ public final class EventProto {
       public static final int MAXCHARLENGTHFORWALLPOST_FIELD_NUMBER = 52;
       private int maxCharLengthForWallPost_;
       public boolean hasMaxCharLengthForWallPost() {
-        return ((bitField1_ & 0x00008000) == 0x00008000);
+        return ((bitField1_ & 0x00010000) == 0x00010000);
       }
       public int getMaxCharLengthForWallPost() {
         return maxCharLengthForWallPost_;
@@ -11942,7 +11956,7 @@ public final class EventProto {
       public static final int PLAYERWALLPOSTSRETRIEVECAP_FIELD_NUMBER = 53;
       private int playerWallPostsRetrieveCap_;
       public boolean hasPlayerWallPostsRetrieveCap() {
-        return ((bitField1_ & 0x00010000) == 0x00010000);
+        return ((bitField1_ & 0x00020000) == 0x00020000);
       }
       public int getPlayerWallPostsRetrieveCap() {
         return playerWallPostsRetrieveCap_;
@@ -11973,7 +11987,7 @@ public final class EventProto {
       public static final int KIIPREWARDCONDITIONS_FIELD_NUMBER = 61;
       private com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions kiipRewardConditions_;
       public boolean hasKiipRewardConditions() {
-        return ((bitField1_ & 0x00020000) == 0x00020000);
+        return ((bitField1_ & 0x00040000) == 0x00040000);
       }
       public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions getKiipRewardConditions() {
         return kiipRewardConditions_;
@@ -11986,6 +12000,7 @@ public final class EventProto {
         productIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         productDiamondsGiven_ = java.util.Collections.emptyList();;
         maxLevelDifferenceForBattle_ = 0;
+        maxLevelForUser_ = 0;
         armoryXLength_ = 0;
         armoryYLength_ = 0;
         vaultXLength_ = 0;
@@ -12055,158 +12070,161 @@ public final class EventProto {
         for (int i = 0; i < productDiamondsGiven_.size(); i++) {
           output.writeInt32(2, productDiamondsGiven_.get(i));
         }
-        if (((bitField1_ & 0x00000020) == 0x00000020)) {
+        if (((bitField1_ & 0x00000040) == 0x00000040)) {
           output.writeInt32(4, maxNumbersOfEnemiesToGenerateAtOnce_);
         }
-        if (((bitField1_ & 0x00000040) == 0x00000040)) {
+        if (((bitField1_ & 0x00000080) == 0x00000080)) {
           output.writeDouble(5, percentReturnedToUserForSellingEquipInArmory_);
         }
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           output.writeInt32(6, maxLevelDifferenceForBattle_);
         }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
           output.writeInt32(7, armoryXLength_);
         }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
           output.writeInt32(8, armoryYLength_);
         }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
           output.writeInt32(9, vaultXLength_);
         }
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
           output.writeInt32(10, vaultYLength_);
         }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
           output.writeInt32(11, marketplaceXLength_);
         }
-        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
           output.writeInt32(12, marketplaceYLength_);
         }
-        if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        if (((bitField0_ & 0x00000100) == 0x00000100)) {
           output.writeInt32(13, carpenterXLength_);
         }
-        if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((bitField0_ & 0x00000200) == 0x00000200)) {
           output.writeInt32(14, carpenterYLength_);
         }
-        if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (((bitField0_ & 0x00000400) == 0x00000400)) {
           output.writeInt32(15, aviaryXLength_);
         }
-        if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        if (((bitField0_ & 0x00000800) == 0x00000800)) {
           output.writeInt32(16, aviaryYLength_);
         }
-        if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        if (((bitField0_ & 0x00001000) == 0x00001000)) {
           output.writeInt32(17, attackBaseGain_);
         }
-        if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        if (((bitField0_ & 0x00002000) == 0x00002000)) {
           output.writeInt32(18, defenseBaseGain_);
         }
-        if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        if (((bitField0_ & 0x00004000) == 0x00004000)) {
           output.writeInt32(19, energyBaseGain_);
         }
-        if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        if (((bitField0_ & 0x00008000) == 0x00008000)) {
           output.writeInt32(20, healthBaseGain_);
         }
-        if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        if (((bitField0_ & 0x00010000) == 0x00010000)) {
           output.writeInt32(21, staminaBaseGain_);
         }
-        if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        if (((bitField0_ & 0x00020000) == 0x00020000)) {
           output.writeInt32(22, attackBaseCost_);
         }
-        if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        if (((bitField0_ & 0x00040000) == 0x00040000)) {
           output.writeInt32(23, defenseBaseCost_);
         }
-        if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        if (((bitField0_ & 0x00080000) == 0x00080000)) {
           output.writeInt32(24, energyBaseCost_);
         }
-        if (((bitField0_ & 0x00080000) == 0x00080000)) {
+        if (((bitField0_ & 0x00100000) == 0x00100000)) {
           output.writeInt32(25, healthBaseCost_);
         }
-        if (((bitField0_ & 0x00100000) == 0x00100000)) {
+        if (((bitField0_ & 0x00200000) == 0x00200000)) {
           output.writeInt32(26, staminaBaseCost_);
         }
-        if (((bitField0_ & 0x00200000) == 0x00200000)) {
+        if (((bitField0_ & 0x00400000) == 0x00400000)) {
           output.writeInt32(27, skillPointsGainedOnLevelup_);
         }
-        if (((bitField0_ & 0x00400000) == 0x00400000)) {
+        if (((bitField0_ & 0x00800000) == 0x00800000)) {
           output.writeDouble(28, cutOfVaultDepositTaken_);
         }
-        if (((bitField0_ & 0x00800000) == 0x00800000)) {
+        if (((bitField0_ & 0x01000000) == 0x01000000)) {
           output.writeInt32(33, maxLevelForStruct_);
         }
-        if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        if (((bitField0_ & 0x02000000) == 0x02000000)) {
           output.writeInt32(34, maxNumOfSingleStruct_);
         }
-        if (((bitField0_ & 0x02000000) == 0x02000000)) {
+        if (((bitField0_ & 0x04000000) == 0x04000000)) {
           output.writeDouble(35, percentReturnedToUserForSellingNormStructure_);
         }
-        if (((bitField0_ & 0x04000000) == 0x04000000)) {
+        if (((bitField0_ & 0x08000000) == 0x08000000)) {
           output.writeInt32(36, minutesToRefillAEnergy_);
         }
-        if (((bitField0_ & 0x08000000) == 0x08000000)) {
+        if (((bitField0_ & 0x10000000) == 0x10000000)) {
           output.writeInt32(37, minutesToRefillAStamina_);
         }
-        if (((bitField0_ & 0x40000000) == 0x40000000)) {
+        if (((bitField0_ & 0x80000000) == 0x80000000)) {
           output.writeInt32(40, maxNumberOfMarketplacePosts_);
         }
-        if (((bitField0_ & 0x80000000) == 0x80000000)) {
+        if (((bitField1_ & 0x00000001) == 0x00000001)) {
           output.writeDouble(41, percentOfSellingCostTakenFromSellerOnMarketplacePurchase_);
         }
-        if (((bitField1_ & 0x00000001) == 0x00000001)) {
+        if (((bitField1_ & 0x00000002) == 0x00000002)) {
           output.writeDouble(42, percentOfSellingCostTakenFromSellerOnMarketplaceRetract_);
         }
-        if (((bitField1_ & 0x00000002) == 0x00000002)) {
+        if (((bitField1_ & 0x00000004) == 0x00000004)) {
           output.writeInt32(43, numDaysLongMarketplaceLicenseLastsFor_);
         }
-        if (((bitField1_ & 0x00000004) == 0x00000004)) {
+        if (((bitField1_ & 0x00000008) == 0x00000008)) {
           output.writeInt32(44, numDaysShortMarketplaceLicenseLastsFor_);
         }
-        if (((bitField1_ & 0x00000008) == 0x00000008)) {
+        if (((bitField1_ & 0x00000010) == 0x00000010)) {
           output.writeInt32(45, diamondCostOfLongMarketplaceLicense_);
         }
-        if (((bitField1_ & 0x00000010) == 0x00000010)) {
+        if (((bitField1_ & 0x00000020) == 0x00000020)) {
           output.writeInt32(46, diamondCostOfShortMarketplaceLicense_);
         }
-        if (((bitField0_ & 0x10000000) == 0x10000000)) {
+        if (((bitField0_ & 0x20000000) == 0x20000000)) {
           output.writeInt32(48, diamondCostForFullStaminaRefill_);
         }
-        if (((bitField0_ & 0x20000000) == 0x20000000)) {
+        if (((bitField0_ & 0x40000000) == 0x40000000)) {
           output.writeInt32(49, diamondCostForFullEnergyRefill_);
         }
-        if (((bitField1_ & 0x00000080) == 0x00000080)) {
+        if (((bitField1_ & 0x00000100) == 0x00000100)) {
           output.writeInt32(50, maxCityRank_);
         }
-        if (((bitField1_ & 0x00004000) == 0x00004000)) {
+        if (((bitField1_ & 0x00008000) == 0x00008000)) {
           output.writeMessage(51, battleConstants_);
         }
-        if (((bitField1_ & 0x00008000) == 0x00008000)) {
+        if (((bitField1_ & 0x00010000) == 0x00010000)) {
           output.writeInt32(52, maxCharLengthForWallPost_);
         }
-        if (((bitField1_ & 0x00010000) == 0x00010000)) {
+        if (((bitField1_ & 0x00020000) == 0x00020000)) {
           output.writeInt32(53, playerWallPostsRetrieveCap_);
         }
-        if (((bitField1_ & 0x00000100) == 0x00000100)) {
+        if (((bitField1_ & 0x00000200) == 0x00000200)) {
           output.writeInt32(54, armoryImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00000200) == 0x00000200)) {
+        if (((bitField1_ & 0x00000400) == 0x00000400)) {
           output.writeInt32(55, vaultImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00000400) == 0x00000400)) {
+        if (((bitField1_ & 0x00000800) == 0x00000800)) {
           output.writeInt32(56, marketplaceImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00000800) == 0x00000800)) {
+        if (((bitField1_ & 0x00001000) == 0x00001000)) {
           output.writeInt32(57, carpenterImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00001000) == 0x00001000)) {
+        if (((bitField1_ & 0x00002000) == 0x00002000)) {
           output.writeInt32(58, aviaryImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00002000) == 0x00002000)) {
+        if (((bitField1_ & 0x00004000) == 0x00004000)) {
           output.writeMessage(59, formulaConstants_);
         }
         for (int i = 0; i < animatedSpriteOffsets_.size(); i++) {
           output.writeMessage(60, animatedSpriteOffsets_.get(i));
         }
-        if (((bitField1_ & 0x00020000) == 0x00020000)) {
+        if (((bitField1_ & 0x00040000) == 0x00040000)) {
           output.writeMessage(61, kiipRewardConditions_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeInt32(62, maxLevelForUser_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -12235,11 +12253,11 @@ public final class EventProto {
           size += dataSize;
           size += 1 * getProductDiamondsGivenList().size();
         }
-        if (((bitField1_ & 0x00000020) == 0x00000020)) {
+        if (((bitField1_ & 0x00000040) == 0x00000040)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(4, maxNumbersOfEnemiesToGenerateAtOnce_);
         }
-        if (((bitField1_ & 0x00000040) == 0x00000040)) {
+        if (((bitField1_ & 0x00000080) == 0x00000080)) {
           size += com.google.protobuf.CodedOutputStream
             .computeDoubleSize(5, percentReturnedToUserForSellingEquipInArmory_);
         }
@@ -12247,187 +12265,187 @@ public final class EventProto {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(6, maxLevelDifferenceForBattle_);
         }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(7, armoryXLength_);
         }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(8, armoryYLength_);
         }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(9, vaultXLength_);
         }
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(10, vaultYLength_);
         }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(11, marketplaceXLength_);
         }
-        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(12, marketplaceYLength_);
         }
-        if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        if (((bitField0_ & 0x00000100) == 0x00000100)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(13, carpenterXLength_);
         }
-        if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((bitField0_ & 0x00000200) == 0x00000200)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(14, carpenterYLength_);
         }
-        if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (((bitField0_ & 0x00000400) == 0x00000400)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(15, aviaryXLength_);
         }
-        if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        if (((bitField0_ & 0x00000800) == 0x00000800)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(16, aviaryYLength_);
         }
-        if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        if (((bitField0_ & 0x00001000) == 0x00001000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(17, attackBaseGain_);
         }
-        if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        if (((bitField0_ & 0x00002000) == 0x00002000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(18, defenseBaseGain_);
         }
-        if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        if (((bitField0_ & 0x00004000) == 0x00004000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(19, energyBaseGain_);
         }
-        if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        if (((bitField0_ & 0x00008000) == 0x00008000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(20, healthBaseGain_);
         }
-        if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        if (((bitField0_ & 0x00010000) == 0x00010000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(21, staminaBaseGain_);
         }
-        if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        if (((bitField0_ & 0x00020000) == 0x00020000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(22, attackBaseCost_);
         }
-        if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        if (((bitField0_ & 0x00040000) == 0x00040000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(23, defenseBaseCost_);
         }
-        if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        if (((bitField0_ & 0x00080000) == 0x00080000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(24, energyBaseCost_);
         }
-        if (((bitField0_ & 0x00080000) == 0x00080000)) {
+        if (((bitField0_ & 0x00100000) == 0x00100000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(25, healthBaseCost_);
         }
-        if (((bitField0_ & 0x00100000) == 0x00100000)) {
+        if (((bitField0_ & 0x00200000) == 0x00200000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(26, staminaBaseCost_);
         }
-        if (((bitField0_ & 0x00200000) == 0x00200000)) {
+        if (((bitField0_ & 0x00400000) == 0x00400000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(27, skillPointsGainedOnLevelup_);
         }
-        if (((bitField0_ & 0x00400000) == 0x00400000)) {
+        if (((bitField0_ & 0x00800000) == 0x00800000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeDoubleSize(28, cutOfVaultDepositTaken_);
         }
-        if (((bitField0_ & 0x00800000) == 0x00800000)) {
+        if (((bitField0_ & 0x01000000) == 0x01000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(33, maxLevelForStruct_);
         }
-        if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        if (((bitField0_ & 0x02000000) == 0x02000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(34, maxNumOfSingleStruct_);
         }
-        if (((bitField0_ & 0x02000000) == 0x02000000)) {
+        if (((bitField0_ & 0x04000000) == 0x04000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeDoubleSize(35, percentReturnedToUserForSellingNormStructure_);
         }
-        if (((bitField0_ & 0x04000000) == 0x04000000)) {
+        if (((bitField0_ & 0x08000000) == 0x08000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(36, minutesToRefillAEnergy_);
         }
-        if (((bitField0_ & 0x08000000) == 0x08000000)) {
+        if (((bitField0_ & 0x10000000) == 0x10000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(37, minutesToRefillAStamina_);
         }
-        if (((bitField0_ & 0x40000000) == 0x40000000)) {
+        if (((bitField0_ & 0x80000000) == 0x80000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(40, maxNumberOfMarketplacePosts_);
         }
-        if (((bitField0_ & 0x80000000) == 0x80000000)) {
+        if (((bitField1_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
             .computeDoubleSize(41, percentOfSellingCostTakenFromSellerOnMarketplacePurchase_);
         }
-        if (((bitField1_ & 0x00000001) == 0x00000001)) {
+        if (((bitField1_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
             .computeDoubleSize(42, percentOfSellingCostTakenFromSellerOnMarketplaceRetract_);
         }
-        if (((bitField1_ & 0x00000002) == 0x00000002)) {
+        if (((bitField1_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(43, numDaysLongMarketplaceLicenseLastsFor_);
         }
-        if (((bitField1_ & 0x00000004) == 0x00000004)) {
+        if (((bitField1_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(44, numDaysShortMarketplaceLicenseLastsFor_);
         }
-        if (((bitField1_ & 0x00000008) == 0x00000008)) {
+        if (((bitField1_ & 0x00000010) == 0x00000010)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(45, diamondCostOfLongMarketplaceLicense_);
         }
-        if (((bitField1_ & 0x00000010) == 0x00000010)) {
+        if (((bitField1_ & 0x00000020) == 0x00000020)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(46, diamondCostOfShortMarketplaceLicense_);
         }
-        if (((bitField0_ & 0x10000000) == 0x10000000)) {
+        if (((bitField0_ & 0x20000000) == 0x20000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(48, diamondCostForFullStaminaRefill_);
         }
-        if (((bitField0_ & 0x20000000) == 0x20000000)) {
+        if (((bitField0_ & 0x40000000) == 0x40000000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(49, diamondCostForFullEnergyRefill_);
         }
-        if (((bitField1_ & 0x00000080) == 0x00000080)) {
+        if (((bitField1_ & 0x00000100) == 0x00000100)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(50, maxCityRank_);
         }
-        if (((bitField1_ & 0x00004000) == 0x00004000)) {
+        if (((bitField1_ & 0x00008000) == 0x00008000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(51, battleConstants_);
         }
-        if (((bitField1_ & 0x00008000) == 0x00008000)) {
+        if (((bitField1_ & 0x00010000) == 0x00010000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(52, maxCharLengthForWallPost_);
         }
-        if (((bitField1_ & 0x00010000) == 0x00010000)) {
+        if (((bitField1_ & 0x00020000) == 0x00020000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(53, playerWallPostsRetrieveCap_);
         }
-        if (((bitField1_ & 0x00000100) == 0x00000100)) {
+        if (((bitField1_ & 0x00000200) == 0x00000200)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(54, armoryImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00000200) == 0x00000200)) {
+        if (((bitField1_ & 0x00000400) == 0x00000400)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(55, vaultImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00000400) == 0x00000400)) {
+        if (((bitField1_ & 0x00000800) == 0x00000800)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(56, marketplaceImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00000800) == 0x00000800)) {
+        if (((bitField1_ & 0x00001000) == 0x00001000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(57, carpenterImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00001000) == 0x00001000)) {
+        if (((bitField1_ & 0x00002000) == 0x00002000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(58, aviaryImgVerticalPixelOffset_);
         }
-        if (((bitField1_ & 0x00002000) == 0x00002000)) {
+        if (((bitField1_ & 0x00004000) == 0x00004000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(59, formulaConstants_);
         }
@@ -12435,9 +12453,13 @@ public final class EventProto {
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(60, animatedSpriteOffsets_.get(i));
         }
-        if (((bitField1_ & 0x00020000) == 0x00020000)) {
+        if (((bitField1_ & 0x00040000) == 0x00040000)) {
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(61, kiipRewardConditions_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(62, maxLevelForUser_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -12573,113 +12595,115 @@ public final class EventProto {
           bitField0_ = (bitField0_ & ~0x00000002);
           maxLevelDifferenceForBattle_ = 0;
           bitField0_ = (bitField0_ & ~0x00000004);
-          armoryXLength_ = 0;
+          maxLevelForUser_ = 0;
           bitField0_ = (bitField0_ & ~0x00000008);
-          armoryYLength_ = 0;
+          armoryXLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000010);
-          vaultXLength_ = 0;
+          armoryYLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000020);
-          vaultYLength_ = 0;
+          vaultXLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000040);
-          marketplaceXLength_ = 0;
+          vaultYLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000080);
-          marketplaceYLength_ = 0;
+          marketplaceXLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000100);
-          carpenterXLength_ = 0;
+          marketplaceYLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000200);
-          carpenterYLength_ = 0;
+          carpenterXLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000400);
-          aviaryXLength_ = 0;
+          carpenterYLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000800);
-          aviaryYLength_ = 0;
+          aviaryXLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00001000);
-          attackBaseGain_ = 0;
+          aviaryYLength_ = 0;
           bitField0_ = (bitField0_ & ~0x00002000);
-          defenseBaseGain_ = 0;
+          attackBaseGain_ = 0;
           bitField0_ = (bitField0_ & ~0x00004000);
-          energyBaseGain_ = 0;
+          defenseBaseGain_ = 0;
           bitField0_ = (bitField0_ & ~0x00008000);
-          healthBaseGain_ = 0;
+          energyBaseGain_ = 0;
           bitField0_ = (bitField0_ & ~0x00010000);
-          staminaBaseGain_ = 0;
+          healthBaseGain_ = 0;
           bitField0_ = (bitField0_ & ~0x00020000);
-          attackBaseCost_ = 0;
+          staminaBaseGain_ = 0;
           bitField0_ = (bitField0_ & ~0x00040000);
-          defenseBaseCost_ = 0;
+          attackBaseCost_ = 0;
           bitField0_ = (bitField0_ & ~0x00080000);
-          energyBaseCost_ = 0;
+          defenseBaseCost_ = 0;
           bitField0_ = (bitField0_ & ~0x00100000);
-          healthBaseCost_ = 0;
+          energyBaseCost_ = 0;
           bitField0_ = (bitField0_ & ~0x00200000);
-          staminaBaseCost_ = 0;
+          healthBaseCost_ = 0;
           bitField0_ = (bitField0_ & ~0x00400000);
-          skillPointsGainedOnLevelup_ = 0;
+          staminaBaseCost_ = 0;
           bitField0_ = (bitField0_ & ~0x00800000);
-          cutOfVaultDepositTaken_ = 0D;
+          skillPointsGainedOnLevelup_ = 0;
           bitField0_ = (bitField0_ & ~0x01000000);
-          maxLevelForStruct_ = 0;
+          cutOfVaultDepositTaken_ = 0D;
           bitField0_ = (bitField0_ & ~0x02000000);
-          maxNumOfSingleStruct_ = 0;
+          maxLevelForStruct_ = 0;
           bitField0_ = (bitField0_ & ~0x04000000);
-          percentReturnedToUserForSellingNormStructure_ = 0D;
+          maxNumOfSingleStruct_ = 0;
           bitField0_ = (bitField0_ & ~0x08000000);
-          minutesToRefillAEnergy_ = 0;
+          percentReturnedToUserForSellingNormStructure_ = 0D;
           bitField0_ = (bitField0_ & ~0x10000000);
-          minutesToRefillAStamina_ = 0;
+          minutesToRefillAEnergy_ = 0;
           bitField0_ = (bitField0_ & ~0x20000000);
-          diamondCostForFullStaminaRefill_ = 0;
+          minutesToRefillAStamina_ = 0;
           bitField0_ = (bitField0_ & ~0x40000000);
-          diamondCostForFullEnergyRefill_ = 0;
+          diamondCostForFullStaminaRefill_ = 0;
           bitField0_ = (bitField0_ & ~0x80000000);
-          maxNumberOfMarketplacePosts_ = 0;
+          diamondCostForFullEnergyRefill_ = 0;
           bitField1_ = (bitField1_ & ~0x00000001);
-          percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = 0D;
+          maxNumberOfMarketplacePosts_ = 0;
           bitField1_ = (bitField1_ & ~0x00000002);
-          percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = 0D;
+          percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = 0D;
           bitField1_ = (bitField1_ & ~0x00000004);
-          numDaysLongMarketplaceLicenseLastsFor_ = 0;
+          percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = 0D;
           bitField1_ = (bitField1_ & ~0x00000008);
-          numDaysShortMarketplaceLicenseLastsFor_ = 0;
+          numDaysLongMarketplaceLicenseLastsFor_ = 0;
           bitField1_ = (bitField1_ & ~0x00000010);
-          diamondCostOfLongMarketplaceLicense_ = 0;
+          numDaysShortMarketplaceLicenseLastsFor_ = 0;
           bitField1_ = (bitField1_ & ~0x00000020);
-          diamondCostOfShortMarketplaceLicense_ = 0;
+          diamondCostOfLongMarketplaceLicense_ = 0;
           bitField1_ = (bitField1_ & ~0x00000040);
-          maxNumbersOfEnemiesToGenerateAtOnce_ = 0;
+          diamondCostOfShortMarketplaceLicense_ = 0;
           bitField1_ = (bitField1_ & ~0x00000080);
-          percentReturnedToUserForSellingEquipInArmory_ = 0D;
+          maxNumbersOfEnemiesToGenerateAtOnce_ = 0;
           bitField1_ = (bitField1_ & ~0x00000100);
-          maxCityRank_ = 0;
+          percentReturnedToUserForSellingEquipInArmory_ = 0D;
           bitField1_ = (bitField1_ & ~0x00000200);
-          armoryImgVerticalPixelOffset_ = 0;
+          maxCityRank_ = 0;
           bitField1_ = (bitField1_ & ~0x00000400);
-          vaultImgVerticalPixelOffset_ = 0;
+          armoryImgVerticalPixelOffset_ = 0;
           bitField1_ = (bitField1_ & ~0x00000800);
-          marketplaceImgVerticalPixelOffset_ = 0;
+          vaultImgVerticalPixelOffset_ = 0;
           bitField1_ = (bitField1_ & ~0x00001000);
-          carpenterImgVerticalPixelOffset_ = 0;
+          marketplaceImgVerticalPixelOffset_ = 0;
           bitField1_ = (bitField1_ & ~0x00002000);
-          aviaryImgVerticalPixelOffset_ = 0;
+          carpenterImgVerticalPixelOffset_ = 0;
           bitField1_ = (bitField1_ & ~0x00004000);
+          aviaryImgVerticalPixelOffset_ = 0;
+          bitField1_ = (bitField1_ & ~0x00008000);
           if (formulaConstantsBuilder_ == null) {
             formulaConstants_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants.getDefaultInstance();
           } else {
             formulaConstantsBuilder_.clear();
           }
-          bitField1_ = (bitField1_ & ~0x00008000);
+          bitField1_ = (bitField1_ & ~0x00010000);
           if (battleConstantsBuilder_ == null) {
             battleConstants_ = com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants.getDefaultInstance();
           } else {
             battleConstantsBuilder_.clear();
           }
-          bitField1_ = (bitField1_ & ~0x00010000);
-          maxCharLengthForWallPost_ = 0;
           bitField1_ = (bitField1_ & ~0x00020000);
-          playerWallPostsRetrieveCap_ = 0;
+          maxCharLengthForWallPost_ = 0;
           bitField1_ = (bitField1_ & ~0x00040000);
+          playerWallPostsRetrieveCap_ = 0;
+          bitField1_ = (bitField1_ & ~0x00080000);
           if (animatedSpriteOffsetsBuilder_ == null) {
             animatedSpriteOffsets_ = java.util.Collections.emptyList();
-            bitField1_ = (bitField1_ & ~0x00080000);
+            bitField1_ = (bitField1_ & ~0x00100000);
           } else {
             animatedSpriteOffsetsBuilder_.clear();
           }
@@ -12688,7 +12712,7 @@ public final class EventProto {
           } else {
             kiipRewardConditionsBuilder_.clear();
           }
-          bitField1_ = (bitField1_ & ~0x00100000);
+          bitField1_ = (bitField1_ & ~0x00200000);
           return this;
         }
         
@@ -12747,214 +12771,218 @@ public final class EventProto {
           if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
             to_bitField0_ |= 0x00000002;
           }
-          result.armoryXLength_ = armoryXLength_;
+          result.maxLevelForUser_ = maxLevelForUser_;
           if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
             to_bitField0_ |= 0x00000004;
           }
-          result.armoryYLength_ = armoryYLength_;
+          result.armoryXLength_ = armoryXLength_;
           if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
             to_bitField0_ |= 0x00000008;
           }
-          result.vaultXLength_ = vaultXLength_;
+          result.armoryYLength_ = armoryYLength_;
           if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
             to_bitField0_ |= 0x00000010;
           }
-          result.vaultYLength_ = vaultYLength_;
+          result.vaultXLength_ = vaultXLength_;
           if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
             to_bitField0_ |= 0x00000020;
           }
-          result.marketplaceXLength_ = marketplaceXLength_;
+          result.vaultYLength_ = vaultYLength_;
           if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
             to_bitField0_ |= 0x00000040;
           }
-          result.marketplaceYLength_ = marketplaceYLength_;
+          result.marketplaceXLength_ = marketplaceXLength_;
           if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
             to_bitField0_ |= 0x00000080;
           }
-          result.carpenterXLength_ = carpenterXLength_;
+          result.marketplaceYLength_ = marketplaceYLength_;
           if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
             to_bitField0_ |= 0x00000100;
           }
-          result.carpenterYLength_ = carpenterYLength_;
+          result.carpenterXLength_ = carpenterXLength_;
           if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
             to_bitField0_ |= 0x00000200;
           }
-          result.aviaryXLength_ = aviaryXLength_;
+          result.carpenterYLength_ = carpenterYLength_;
           if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
             to_bitField0_ |= 0x00000400;
           }
-          result.aviaryYLength_ = aviaryYLength_;
+          result.aviaryXLength_ = aviaryXLength_;
           if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
             to_bitField0_ |= 0x00000800;
           }
-          result.attackBaseGain_ = attackBaseGain_;
+          result.aviaryYLength_ = aviaryYLength_;
           if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
             to_bitField0_ |= 0x00001000;
           }
-          result.defenseBaseGain_ = defenseBaseGain_;
+          result.attackBaseGain_ = attackBaseGain_;
           if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
             to_bitField0_ |= 0x00002000;
           }
-          result.energyBaseGain_ = energyBaseGain_;
+          result.defenseBaseGain_ = defenseBaseGain_;
           if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
             to_bitField0_ |= 0x00004000;
           }
-          result.healthBaseGain_ = healthBaseGain_;
+          result.energyBaseGain_ = energyBaseGain_;
           if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
             to_bitField0_ |= 0x00008000;
           }
-          result.staminaBaseGain_ = staminaBaseGain_;
+          result.healthBaseGain_ = healthBaseGain_;
           if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
             to_bitField0_ |= 0x00010000;
           }
-          result.attackBaseCost_ = attackBaseCost_;
+          result.staminaBaseGain_ = staminaBaseGain_;
           if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
             to_bitField0_ |= 0x00020000;
           }
-          result.defenseBaseCost_ = defenseBaseCost_;
+          result.attackBaseCost_ = attackBaseCost_;
           if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
             to_bitField0_ |= 0x00040000;
           }
-          result.energyBaseCost_ = energyBaseCost_;
+          result.defenseBaseCost_ = defenseBaseCost_;
           if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
             to_bitField0_ |= 0x00080000;
           }
-          result.healthBaseCost_ = healthBaseCost_;
+          result.energyBaseCost_ = energyBaseCost_;
           if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
             to_bitField0_ |= 0x00100000;
           }
-          result.staminaBaseCost_ = staminaBaseCost_;
+          result.healthBaseCost_ = healthBaseCost_;
           if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
             to_bitField0_ |= 0x00200000;
           }
-          result.skillPointsGainedOnLevelup_ = skillPointsGainedOnLevelup_;
+          result.staminaBaseCost_ = staminaBaseCost_;
           if (((from_bitField0_ & 0x01000000) == 0x01000000)) {
             to_bitField0_ |= 0x00400000;
           }
-          result.cutOfVaultDepositTaken_ = cutOfVaultDepositTaken_;
+          result.skillPointsGainedOnLevelup_ = skillPointsGainedOnLevelup_;
           if (((from_bitField0_ & 0x02000000) == 0x02000000)) {
             to_bitField0_ |= 0x00800000;
           }
-          result.maxLevelForStruct_ = maxLevelForStruct_;
+          result.cutOfVaultDepositTaken_ = cutOfVaultDepositTaken_;
           if (((from_bitField0_ & 0x04000000) == 0x04000000)) {
             to_bitField0_ |= 0x01000000;
           }
-          result.maxNumOfSingleStruct_ = maxNumOfSingleStruct_;
+          result.maxLevelForStruct_ = maxLevelForStruct_;
           if (((from_bitField0_ & 0x08000000) == 0x08000000)) {
             to_bitField0_ |= 0x02000000;
           }
-          result.percentReturnedToUserForSellingNormStructure_ = percentReturnedToUserForSellingNormStructure_;
+          result.maxNumOfSingleStruct_ = maxNumOfSingleStruct_;
           if (((from_bitField0_ & 0x10000000) == 0x10000000)) {
             to_bitField0_ |= 0x04000000;
           }
-          result.minutesToRefillAEnergy_ = minutesToRefillAEnergy_;
+          result.percentReturnedToUserForSellingNormStructure_ = percentReturnedToUserForSellingNormStructure_;
           if (((from_bitField0_ & 0x20000000) == 0x20000000)) {
             to_bitField0_ |= 0x08000000;
           }
-          result.minutesToRefillAStamina_ = minutesToRefillAStamina_;
+          result.minutesToRefillAEnergy_ = minutesToRefillAEnergy_;
           if (((from_bitField0_ & 0x40000000) == 0x40000000)) {
             to_bitField0_ |= 0x10000000;
           }
-          result.diamondCostForFullStaminaRefill_ = diamondCostForFullStaminaRefill_;
+          result.minutesToRefillAStamina_ = minutesToRefillAStamina_;
           if (((from_bitField0_ & 0x80000000) == 0x80000000)) {
             to_bitField0_ |= 0x20000000;
           }
-          result.diamondCostForFullEnergyRefill_ = diamondCostForFullEnergyRefill_;
+          result.diamondCostForFullStaminaRefill_ = diamondCostForFullStaminaRefill_;
           if (((from_bitField1_ & 0x00000001) == 0x00000001)) {
             to_bitField0_ |= 0x40000000;
           }
-          result.maxNumberOfMarketplacePosts_ = maxNumberOfMarketplacePosts_;
+          result.diamondCostForFullEnergyRefill_ = diamondCostForFullEnergyRefill_;
           if (((from_bitField1_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x80000000;
           }
-          result.percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
+          result.maxNumberOfMarketplacePosts_ = maxNumberOfMarketplacePosts_;
           if (((from_bitField1_ & 0x00000004) == 0x00000004)) {
             to_bitField1_ |= 0x00000001;
           }
-          result.percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
+          result.percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
           if (((from_bitField1_ & 0x00000008) == 0x00000008)) {
             to_bitField1_ |= 0x00000002;
           }
-          result.numDaysLongMarketplaceLicenseLastsFor_ = numDaysLongMarketplaceLicenseLastsFor_;
+          result.percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
           if (((from_bitField1_ & 0x00000010) == 0x00000010)) {
             to_bitField1_ |= 0x00000004;
           }
-          result.numDaysShortMarketplaceLicenseLastsFor_ = numDaysShortMarketplaceLicenseLastsFor_;
+          result.numDaysLongMarketplaceLicenseLastsFor_ = numDaysLongMarketplaceLicenseLastsFor_;
           if (((from_bitField1_ & 0x00000020) == 0x00000020)) {
             to_bitField1_ |= 0x00000008;
           }
-          result.diamondCostOfLongMarketplaceLicense_ = diamondCostOfLongMarketplaceLicense_;
+          result.numDaysShortMarketplaceLicenseLastsFor_ = numDaysShortMarketplaceLicenseLastsFor_;
           if (((from_bitField1_ & 0x00000040) == 0x00000040)) {
             to_bitField1_ |= 0x00000010;
           }
-          result.diamondCostOfShortMarketplaceLicense_ = diamondCostOfShortMarketplaceLicense_;
+          result.diamondCostOfLongMarketplaceLicense_ = diamondCostOfLongMarketplaceLicense_;
           if (((from_bitField1_ & 0x00000080) == 0x00000080)) {
             to_bitField1_ |= 0x00000020;
           }
-          result.maxNumbersOfEnemiesToGenerateAtOnce_ = maxNumbersOfEnemiesToGenerateAtOnce_;
+          result.diamondCostOfShortMarketplaceLicense_ = diamondCostOfShortMarketplaceLicense_;
           if (((from_bitField1_ & 0x00000100) == 0x00000100)) {
             to_bitField1_ |= 0x00000040;
           }
-          result.percentReturnedToUserForSellingEquipInArmory_ = percentReturnedToUserForSellingEquipInArmory_;
+          result.maxNumbersOfEnemiesToGenerateAtOnce_ = maxNumbersOfEnemiesToGenerateAtOnce_;
           if (((from_bitField1_ & 0x00000200) == 0x00000200)) {
             to_bitField1_ |= 0x00000080;
           }
-          result.maxCityRank_ = maxCityRank_;
+          result.percentReturnedToUserForSellingEquipInArmory_ = percentReturnedToUserForSellingEquipInArmory_;
           if (((from_bitField1_ & 0x00000400) == 0x00000400)) {
             to_bitField1_ |= 0x00000100;
           }
-          result.armoryImgVerticalPixelOffset_ = armoryImgVerticalPixelOffset_;
+          result.maxCityRank_ = maxCityRank_;
           if (((from_bitField1_ & 0x00000800) == 0x00000800)) {
             to_bitField1_ |= 0x00000200;
           }
-          result.vaultImgVerticalPixelOffset_ = vaultImgVerticalPixelOffset_;
+          result.armoryImgVerticalPixelOffset_ = armoryImgVerticalPixelOffset_;
           if (((from_bitField1_ & 0x00001000) == 0x00001000)) {
             to_bitField1_ |= 0x00000400;
           }
-          result.marketplaceImgVerticalPixelOffset_ = marketplaceImgVerticalPixelOffset_;
+          result.vaultImgVerticalPixelOffset_ = vaultImgVerticalPixelOffset_;
           if (((from_bitField1_ & 0x00002000) == 0x00002000)) {
             to_bitField1_ |= 0x00000800;
           }
-          result.carpenterImgVerticalPixelOffset_ = carpenterImgVerticalPixelOffset_;
+          result.marketplaceImgVerticalPixelOffset_ = marketplaceImgVerticalPixelOffset_;
           if (((from_bitField1_ & 0x00004000) == 0x00004000)) {
             to_bitField1_ |= 0x00001000;
           }
-          result.aviaryImgVerticalPixelOffset_ = aviaryImgVerticalPixelOffset_;
+          result.carpenterImgVerticalPixelOffset_ = carpenterImgVerticalPixelOffset_;
           if (((from_bitField1_ & 0x00008000) == 0x00008000)) {
             to_bitField1_ |= 0x00002000;
+          }
+          result.aviaryImgVerticalPixelOffset_ = aviaryImgVerticalPixelOffset_;
+          if (((from_bitField1_ & 0x00010000) == 0x00010000)) {
+            to_bitField1_ |= 0x00004000;
           }
           if (formulaConstantsBuilder_ == null) {
             result.formulaConstants_ = formulaConstants_;
           } else {
             result.formulaConstants_ = formulaConstantsBuilder_.build();
           }
-          if (((from_bitField1_ & 0x00010000) == 0x00010000)) {
-            to_bitField1_ |= 0x00004000;
+          if (((from_bitField1_ & 0x00020000) == 0x00020000)) {
+            to_bitField1_ |= 0x00008000;
           }
           if (battleConstantsBuilder_ == null) {
             result.battleConstants_ = battleConstants_;
           } else {
             result.battleConstants_ = battleConstantsBuilder_.build();
           }
-          if (((from_bitField1_ & 0x00020000) == 0x00020000)) {
-            to_bitField1_ |= 0x00008000;
-          }
-          result.maxCharLengthForWallPost_ = maxCharLengthForWallPost_;
           if (((from_bitField1_ & 0x00040000) == 0x00040000)) {
             to_bitField1_ |= 0x00010000;
           }
+          result.maxCharLengthForWallPost_ = maxCharLengthForWallPost_;
+          if (((from_bitField1_ & 0x00080000) == 0x00080000)) {
+            to_bitField1_ |= 0x00020000;
+          }
           result.playerWallPostsRetrieveCap_ = playerWallPostsRetrieveCap_;
           if (animatedSpriteOffsetsBuilder_ == null) {
-            if (((bitField1_ & 0x00080000) == 0x00080000)) {
+            if (((bitField1_ & 0x00100000) == 0x00100000)) {
               animatedSpriteOffsets_ = java.util.Collections.unmodifiableList(animatedSpriteOffsets_);
-              bitField1_ = (bitField1_ & ~0x00080000);
+              bitField1_ = (bitField1_ & ~0x00100000);
             }
             result.animatedSpriteOffsets_ = animatedSpriteOffsets_;
           } else {
             result.animatedSpriteOffsets_ = animatedSpriteOffsetsBuilder_.build();
           }
-          if (((from_bitField1_ & 0x00100000) == 0x00100000)) {
-            to_bitField1_ |= 0x00020000;
+          if (((from_bitField1_ & 0x00200000) == 0x00200000)) {
+            to_bitField1_ |= 0x00040000;
           }
           if (kiipRewardConditionsBuilder_ == null) {
             result.kiipRewardConditions_ = kiipRewardConditions_;
@@ -13000,6 +13028,9 @@ public final class EventProto {
           }
           if (other.hasMaxLevelDifferenceForBattle()) {
             setMaxLevelDifferenceForBattle(other.getMaxLevelDifferenceForBattle());
+          }
+          if (other.hasMaxLevelForUser()) {
+            setMaxLevelForUser(other.getMaxLevelForUser());
           }
           if (other.hasArmoryXLength()) {
             setArmoryXLength(other.getArmoryXLength());
@@ -13149,7 +13180,7 @@ public final class EventProto {
             if (!other.animatedSpriteOffsets_.isEmpty()) {
               if (animatedSpriteOffsets_.isEmpty()) {
                 animatedSpriteOffsets_ = other.animatedSpriteOffsets_;
-                bitField1_ = (bitField1_ & ~0x00080000);
+                bitField1_ = (bitField1_ & ~0x00100000);
               } else {
                 ensureAnimatedSpriteOffsetsIsMutable();
                 animatedSpriteOffsets_.addAll(other.animatedSpriteOffsets_);
@@ -13162,7 +13193,7 @@ public final class EventProto {
                 animatedSpriteOffsetsBuilder_.dispose();
                 animatedSpriteOffsetsBuilder_ = null;
                 animatedSpriteOffsets_ = other.animatedSpriteOffsets_;
-                bitField1_ = (bitField1_ & ~0x00080000);
+                bitField1_ = (bitField1_ & ~0x00100000);
                 animatedSpriteOffsetsBuilder_ = 
                   com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                      getAnimatedSpriteOffsetsFieldBuilder() : null;
@@ -13225,12 +13256,12 @@ public final class EventProto {
                 break;
               }
               case 32: {
-                bitField1_ |= 0x00000080;
+                bitField1_ |= 0x00000100;
                 maxNumbersOfEnemiesToGenerateAtOnce_ = input.readInt32();
                 break;
               }
               case 41: {
-                bitField1_ |= 0x00000100;
+                bitField1_ |= 0x00000200;
                 percentReturnedToUserForSellingEquipInArmory_ = input.readDouble();
                 break;
               }
@@ -13240,187 +13271,187 @@ public final class EventProto {
                 break;
               }
               case 56: {
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000010;
                 armoryXLength_ = input.readInt32();
                 break;
               }
               case 64: {
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000020;
                 armoryYLength_ = input.readInt32();
                 break;
               }
               case 72: {
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000040;
                 vaultXLength_ = input.readInt32();
                 break;
               }
               case 80: {
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000080;
                 vaultYLength_ = input.readInt32();
                 break;
               }
               case 88: {
-                bitField0_ |= 0x00000080;
+                bitField0_ |= 0x00000100;
                 marketplaceXLength_ = input.readInt32();
                 break;
               }
               case 96: {
-                bitField0_ |= 0x00000100;
+                bitField0_ |= 0x00000200;
                 marketplaceYLength_ = input.readInt32();
                 break;
               }
               case 104: {
-                bitField0_ |= 0x00000200;
+                bitField0_ |= 0x00000400;
                 carpenterXLength_ = input.readInt32();
                 break;
               }
               case 112: {
-                bitField0_ |= 0x00000400;
+                bitField0_ |= 0x00000800;
                 carpenterYLength_ = input.readInt32();
                 break;
               }
               case 120: {
-                bitField0_ |= 0x00000800;
+                bitField0_ |= 0x00001000;
                 aviaryXLength_ = input.readInt32();
                 break;
               }
               case 128: {
-                bitField0_ |= 0x00001000;
+                bitField0_ |= 0x00002000;
                 aviaryYLength_ = input.readInt32();
                 break;
               }
               case 136: {
-                bitField0_ |= 0x00002000;
+                bitField0_ |= 0x00004000;
                 attackBaseGain_ = input.readInt32();
                 break;
               }
               case 144: {
-                bitField0_ |= 0x00004000;
+                bitField0_ |= 0x00008000;
                 defenseBaseGain_ = input.readInt32();
                 break;
               }
               case 152: {
-                bitField0_ |= 0x00008000;
+                bitField0_ |= 0x00010000;
                 energyBaseGain_ = input.readInt32();
                 break;
               }
               case 160: {
-                bitField0_ |= 0x00010000;
+                bitField0_ |= 0x00020000;
                 healthBaseGain_ = input.readInt32();
                 break;
               }
               case 168: {
-                bitField0_ |= 0x00020000;
+                bitField0_ |= 0x00040000;
                 staminaBaseGain_ = input.readInt32();
                 break;
               }
               case 176: {
-                bitField0_ |= 0x00040000;
+                bitField0_ |= 0x00080000;
                 attackBaseCost_ = input.readInt32();
                 break;
               }
               case 184: {
-                bitField0_ |= 0x00080000;
+                bitField0_ |= 0x00100000;
                 defenseBaseCost_ = input.readInt32();
                 break;
               }
               case 192: {
-                bitField0_ |= 0x00100000;
+                bitField0_ |= 0x00200000;
                 energyBaseCost_ = input.readInt32();
                 break;
               }
               case 200: {
-                bitField0_ |= 0x00200000;
+                bitField0_ |= 0x00400000;
                 healthBaseCost_ = input.readInt32();
                 break;
               }
               case 208: {
-                bitField0_ |= 0x00400000;
+                bitField0_ |= 0x00800000;
                 staminaBaseCost_ = input.readInt32();
                 break;
               }
               case 216: {
-                bitField0_ |= 0x00800000;
+                bitField0_ |= 0x01000000;
                 skillPointsGainedOnLevelup_ = input.readInt32();
                 break;
               }
               case 225: {
-                bitField0_ |= 0x01000000;
+                bitField0_ |= 0x02000000;
                 cutOfVaultDepositTaken_ = input.readDouble();
                 break;
               }
               case 264: {
-                bitField0_ |= 0x02000000;
+                bitField0_ |= 0x04000000;
                 maxLevelForStruct_ = input.readInt32();
                 break;
               }
               case 272: {
-                bitField0_ |= 0x04000000;
+                bitField0_ |= 0x08000000;
                 maxNumOfSingleStruct_ = input.readInt32();
                 break;
               }
               case 281: {
-                bitField0_ |= 0x08000000;
+                bitField0_ |= 0x10000000;
                 percentReturnedToUserForSellingNormStructure_ = input.readDouble();
                 break;
               }
               case 288: {
-                bitField0_ |= 0x10000000;
+                bitField0_ |= 0x20000000;
                 minutesToRefillAEnergy_ = input.readInt32();
                 break;
               }
               case 296: {
-                bitField0_ |= 0x20000000;
+                bitField0_ |= 0x40000000;
                 minutesToRefillAStamina_ = input.readInt32();
                 break;
               }
               case 320: {
-                bitField1_ |= 0x00000001;
+                bitField1_ |= 0x00000002;
                 maxNumberOfMarketplacePosts_ = input.readInt32();
                 break;
               }
               case 329: {
-                bitField1_ |= 0x00000002;
+                bitField1_ |= 0x00000004;
                 percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = input.readDouble();
                 break;
               }
               case 337: {
-                bitField1_ |= 0x00000004;
+                bitField1_ |= 0x00000008;
                 percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = input.readDouble();
                 break;
               }
               case 344: {
-                bitField1_ |= 0x00000008;
+                bitField1_ |= 0x00000010;
                 numDaysLongMarketplaceLicenseLastsFor_ = input.readInt32();
                 break;
               }
               case 352: {
-                bitField1_ |= 0x00000010;
+                bitField1_ |= 0x00000020;
                 numDaysShortMarketplaceLicenseLastsFor_ = input.readInt32();
                 break;
               }
               case 360: {
-                bitField1_ |= 0x00000020;
+                bitField1_ |= 0x00000040;
                 diamondCostOfLongMarketplaceLicense_ = input.readInt32();
                 break;
               }
               case 368: {
-                bitField1_ |= 0x00000040;
+                bitField1_ |= 0x00000080;
                 diamondCostOfShortMarketplaceLicense_ = input.readInt32();
                 break;
               }
               case 384: {
-                bitField0_ |= 0x40000000;
+                bitField0_ |= 0x80000000;
                 diamondCostForFullStaminaRefill_ = input.readInt32();
                 break;
               }
               case 392: {
-                bitField0_ |= 0x80000000;
+                bitField1_ |= 0x00000001;
                 diamondCostForFullEnergyRefill_ = input.readInt32();
                 break;
               }
               case 400: {
-                bitField1_ |= 0x00000200;
+                bitField1_ |= 0x00000400;
                 maxCityRank_ = input.readInt32();
                 break;
               }
@@ -13434,37 +13465,37 @@ public final class EventProto {
                 break;
               }
               case 416: {
-                bitField1_ |= 0x00020000;
+                bitField1_ |= 0x00040000;
                 maxCharLengthForWallPost_ = input.readInt32();
                 break;
               }
               case 424: {
-                bitField1_ |= 0x00040000;
+                bitField1_ |= 0x00080000;
                 playerWallPostsRetrieveCap_ = input.readInt32();
                 break;
               }
               case 432: {
-                bitField1_ |= 0x00000400;
+                bitField1_ |= 0x00000800;
                 armoryImgVerticalPixelOffset_ = input.readInt32();
                 break;
               }
               case 440: {
-                bitField1_ |= 0x00000800;
+                bitField1_ |= 0x00001000;
                 vaultImgVerticalPixelOffset_ = input.readInt32();
                 break;
               }
               case 448: {
-                bitField1_ |= 0x00001000;
+                bitField1_ |= 0x00002000;
                 marketplaceImgVerticalPixelOffset_ = input.readInt32();
                 break;
               }
               case 456: {
-                bitField1_ |= 0x00002000;
+                bitField1_ |= 0x00004000;
                 carpenterImgVerticalPixelOffset_ = input.readInt32();
                 break;
               }
               case 464: {
-                bitField1_ |= 0x00004000;
+                bitField1_ |= 0x00008000;
                 aviaryImgVerticalPixelOffset_ = input.readInt32();
                 break;
               }
@@ -13490,6 +13521,11 @@ public final class EventProto {
                 }
                 input.readMessage(subBuilder, extensionRegistry);
                 setKiipRewardConditions(subBuilder.buildPartial());
+                break;
+              }
+              case 496: {
+                bitField0_ |= 0x00000008;
+                maxLevelForUser_ = input.readInt32();
                 break;
               }
             }
@@ -13621,22 +13657,43 @@ public final class EventProto {
           return this;
         }
         
+        // optional int32 maxLevelForUser = 62;
+        private int maxLevelForUser_ ;
+        public boolean hasMaxLevelForUser() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        public int getMaxLevelForUser() {
+          return maxLevelForUser_;
+        }
+        public Builder setMaxLevelForUser(int value) {
+          bitField0_ |= 0x00000008;
+          maxLevelForUser_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearMaxLevelForUser() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          maxLevelForUser_ = 0;
+          onChanged();
+          return this;
+        }
+        
         // optional int32 armoryXLength = 7;
         private int armoryXLength_ ;
         public boolean hasArmoryXLength() {
-          return ((bitField0_ & 0x00000008) == 0x00000008);
+          return ((bitField0_ & 0x00000010) == 0x00000010);
         }
         public int getArmoryXLength() {
           return armoryXLength_;
         }
         public Builder setArmoryXLength(int value) {
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
           armoryXLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearArmoryXLength() {
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000010);
           armoryXLength_ = 0;
           onChanged();
           return this;
@@ -13645,19 +13702,19 @@ public final class EventProto {
         // optional int32 armoryYLength = 8;
         private int armoryYLength_ ;
         public boolean hasArmoryYLength() {
-          return ((bitField0_ & 0x00000010) == 0x00000010);
+          return ((bitField0_ & 0x00000020) == 0x00000020);
         }
         public int getArmoryYLength() {
           return armoryYLength_;
         }
         public Builder setArmoryYLength(int value) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           armoryYLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearArmoryYLength() {
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000020);
           armoryYLength_ = 0;
           onChanged();
           return this;
@@ -13666,19 +13723,19 @@ public final class EventProto {
         // optional int32 vaultXLength = 9;
         private int vaultXLength_ ;
         public boolean hasVaultXLength() {
-          return ((bitField0_ & 0x00000020) == 0x00000020);
+          return ((bitField0_ & 0x00000040) == 0x00000040);
         }
         public int getVaultXLength() {
           return vaultXLength_;
         }
         public Builder setVaultXLength(int value) {
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000040;
           vaultXLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearVaultXLength() {
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000040);
           vaultXLength_ = 0;
           onChanged();
           return this;
@@ -13687,19 +13744,19 @@ public final class EventProto {
         // optional int32 vaultYLength = 10;
         private int vaultYLength_ ;
         public boolean hasVaultYLength() {
-          return ((bitField0_ & 0x00000040) == 0x00000040);
+          return ((bitField0_ & 0x00000080) == 0x00000080);
         }
         public int getVaultYLength() {
           return vaultYLength_;
         }
         public Builder setVaultYLength(int value) {
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000080;
           vaultYLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearVaultYLength() {
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000080);
           vaultYLength_ = 0;
           onChanged();
           return this;
@@ -13708,19 +13765,19 @@ public final class EventProto {
         // optional int32 marketplaceXLength = 11;
         private int marketplaceXLength_ ;
         public boolean hasMarketplaceXLength() {
-          return ((bitField0_ & 0x00000080) == 0x00000080);
+          return ((bitField0_ & 0x00000100) == 0x00000100);
         }
         public int getMarketplaceXLength() {
           return marketplaceXLength_;
         }
         public Builder setMarketplaceXLength(int value) {
-          bitField0_ |= 0x00000080;
+          bitField0_ |= 0x00000100;
           marketplaceXLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearMarketplaceXLength() {
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000100);
           marketplaceXLength_ = 0;
           onChanged();
           return this;
@@ -13729,19 +13786,19 @@ public final class EventProto {
         // optional int32 marketplaceYLength = 12;
         private int marketplaceYLength_ ;
         public boolean hasMarketplaceYLength() {
-          return ((bitField0_ & 0x00000100) == 0x00000100);
+          return ((bitField0_ & 0x00000200) == 0x00000200);
         }
         public int getMarketplaceYLength() {
           return marketplaceYLength_;
         }
         public Builder setMarketplaceYLength(int value) {
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000200;
           marketplaceYLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearMarketplaceYLength() {
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000200);
           marketplaceYLength_ = 0;
           onChanged();
           return this;
@@ -13750,19 +13807,19 @@ public final class EventProto {
         // optional int32 carpenterXLength = 13;
         private int carpenterXLength_ ;
         public boolean hasCarpenterXLength() {
-          return ((bitField0_ & 0x00000200) == 0x00000200);
+          return ((bitField0_ & 0x00000400) == 0x00000400);
         }
         public int getCarpenterXLength() {
           return carpenterXLength_;
         }
         public Builder setCarpenterXLength(int value) {
-          bitField0_ |= 0x00000200;
+          bitField0_ |= 0x00000400;
           carpenterXLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearCarpenterXLength() {
-          bitField0_ = (bitField0_ & ~0x00000200);
+          bitField0_ = (bitField0_ & ~0x00000400);
           carpenterXLength_ = 0;
           onChanged();
           return this;
@@ -13771,19 +13828,19 @@ public final class EventProto {
         // optional int32 carpenterYLength = 14;
         private int carpenterYLength_ ;
         public boolean hasCarpenterYLength() {
-          return ((bitField0_ & 0x00000400) == 0x00000400);
+          return ((bitField0_ & 0x00000800) == 0x00000800);
         }
         public int getCarpenterYLength() {
           return carpenterYLength_;
         }
         public Builder setCarpenterYLength(int value) {
-          bitField0_ |= 0x00000400;
+          bitField0_ |= 0x00000800;
           carpenterYLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearCarpenterYLength() {
-          bitField0_ = (bitField0_ & ~0x00000400);
+          bitField0_ = (bitField0_ & ~0x00000800);
           carpenterYLength_ = 0;
           onChanged();
           return this;
@@ -13792,19 +13849,19 @@ public final class EventProto {
         // optional int32 aviaryXLength = 15;
         private int aviaryXLength_ ;
         public boolean hasAviaryXLength() {
-          return ((bitField0_ & 0x00000800) == 0x00000800);
+          return ((bitField0_ & 0x00001000) == 0x00001000);
         }
         public int getAviaryXLength() {
           return aviaryXLength_;
         }
         public Builder setAviaryXLength(int value) {
-          bitField0_ |= 0x00000800;
+          bitField0_ |= 0x00001000;
           aviaryXLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearAviaryXLength() {
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00001000);
           aviaryXLength_ = 0;
           onChanged();
           return this;
@@ -13813,19 +13870,19 @@ public final class EventProto {
         // optional int32 aviaryYLength = 16;
         private int aviaryYLength_ ;
         public boolean hasAviaryYLength() {
-          return ((bitField0_ & 0x00001000) == 0x00001000);
+          return ((bitField0_ & 0x00002000) == 0x00002000);
         }
         public int getAviaryYLength() {
           return aviaryYLength_;
         }
         public Builder setAviaryYLength(int value) {
-          bitField0_ |= 0x00001000;
+          bitField0_ |= 0x00002000;
           aviaryYLength_ = value;
           onChanged();
           return this;
         }
         public Builder clearAviaryYLength() {
-          bitField0_ = (bitField0_ & ~0x00001000);
+          bitField0_ = (bitField0_ & ~0x00002000);
           aviaryYLength_ = 0;
           onChanged();
           return this;
@@ -13834,19 +13891,19 @@ public final class EventProto {
         // optional int32 attackBaseGain = 17;
         private int attackBaseGain_ ;
         public boolean hasAttackBaseGain() {
-          return ((bitField0_ & 0x00002000) == 0x00002000);
+          return ((bitField0_ & 0x00004000) == 0x00004000);
         }
         public int getAttackBaseGain() {
           return attackBaseGain_;
         }
         public Builder setAttackBaseGain(int value) {
-          bitField0_ |= 0x00002000;
+          bitField0_ |= 0x00004000;
           attackBaseGain_ = value;
           onChanged();
           return this;
         }
         public Builder clearAttackBaseGain() {
-          bitField0_ = (bitField0_ & ~0x00002000);
+          bitField0_ = (bitField0_ & ~0x00004000);
           attackBaseGain_ = 0;
           onChanged();
           return this;
@@ -13855,19 +13912,19 @@ public final class EventProto {
         // optional int32 defenseBaseGain = 18;
         private int defenseBaseGain_ ;
         public boolean hasDefenseBaseGain() {
-          return ((bitField0_ & 0x00004000) == 0x00004000);
+          return ((bitField0_ & 0x00008000) == 0x00008000);
         }
         public int getDefenseBaseGain() {
           return defenseBaseGain_;
         }
         public Builder setDefenseBaseGain(int value) {
-          bitField0_ |= 0x00004000;
+          bitField0_ |= 0x00008000;
           defenseBaseGain_ = value;
           onChanged();
           return this;
         }
         public Builder clearDefenseBaseGain() {
-          bitField0_ = (bitField0_ & ~0x00004000);
+          bitField0_ = (bitField0_ & ~0x00008000);
           defenseBaseGain_ = 0;
           onChanged();
           return this;
@@ -13876,19 +13933,19 @@ public final class EventProto {
         // optional int32 energyBaseGain = 19;
         private int energyBaseGain_ ;
         public boolean hasEnergyBaseGain() {
-          return ((bitField0_ & 0x00008000) == 0x00008000);
+          return ((bitField0_ & 0x00010000) == 0x00010000);
         }
         public int getEnergyBaseGain() {
           return energyBaseGain_;
         }
         public Builder setEnergyBaseGain(int value) {
-          bitField0_ |= 0x00008000;
+          bitField0_ |= 0x00010000;
           energyBaseGain_ = value;
           onChanged();
           return this;
         }
         public Builder clearEnergyBaseGain() {
-          bitField0_ = (bitField0_ & ~0x00008000);
+          bitField0_ = (bitField0_ & ~0x00010000);
           energyBaseGain_ = 0;
           onChanged();
           return this;
@@ -13897,19 +13954,19 @@ public final class EventProto {
         // optional int32 healthBaseGain = 20;
         private int healthBaseGain_ ;
         public boolean hasHealthBaseGain() {
-          return ((bitField0_ & 0x00010000) == 0x00010000);
+          return ((bitField0_ & 0x00020000) == 0x00020000);
         }
         public int getHealthBaseGain() {
           return healthBaseGain_;
         }
         public Builder setHealthBaseGain(int value) {
-          bitField0_ |= 0x00010000;
+          bitField0_ |= 0x00020000;
           healthBaseGain_ = value;
           onChanged();
           return this;
         }
         public Builder clearHealthBaseGain() {
-          bitField0_ = (bitField0_ & ~0x00010000);
+          bitField0_ = (bitField0_ & ~0x00020000);
           healthBaseGain_ = 0;
           onChanged();
           return this;
@@ -13918,19 +13975,19 @@ public final class EventProto {
         // optional int32 staminaBaseGain = 21;
         private int staminaBaseGain_ ;
         public boolean hasStaminaBaseGain() {
-          return ((bitField0_ & 0x00020000) == 0x00020000);
+          return ((bitField0_ & 0x00040000) == 0x00040000);
         }
         public int getStaminaBaseGain() {
           return staminaBaseGain_;
         }
         public Builder setStaminaBaseGain(int value) {
-          bitField0_ |= 0x00020000;
+          bitField0_ |= 0x00040000;
           staminaBaseGain_ = value;
           onChanged();
           return this;
         }
         public Builder clearStaminaBaseGain() {
-          bitField0_ = (bitField0_ & ~0x00020000);
+          bitField0_ = (bitField0_ & ~0x00040000);
           staminaBaseGain_ = 0;
           onChanged();
           return this;
@@ -13939,19 +13996,19 @@ public final class EventProto {
         // optional int32 attackBaseCost = 22;
         private int attackBaseCost_ ;
         public boolean hasAttackBaseCost() {
-          return ((bitField0_ & 0x00040000) == 0x00040000);
+          return ((bitField0_ & 0x00080000) == 0x00080000);
         }
         public int getAttackBaseCost() {
           return attackBaseCost_;
         }
         public Builder setAttackBaseCost(int value) {
-          bitField0_ |= 0x00040000;
+          bitField0_ |= 0x00080000;
           attackBaseCost_ = value;
           onChanged();
           return this;
         }
         public Builder clearAttackBaseCost() {
-          bitField0_ = (bitField0_ & ~0x00040000);
+          bitField0_ = (bitField0_ & ~0x00080000);
           attackBaseCost_ = 0;
           onChanged();
           return this;
@@ -13960,19 +14017,19 @@ public final class EventProto {
         // optional int32 defenseBaseCost = 23;
         private int defenseBaseCost_ ;
         public boolean hasDefenseBaseCost() {
-          return ((bitField0_ & 0x00080000) == 0x00080000);
+          return ((bitField0_ & 0x00100000) == 0x00100000);
         }
         public int getDefenseBaseCost() {
           return defenseBaseCost_;
         }
         public Builder setDefenseBaseCost(int value) {
-          bitField0_ |= 0x00080000;
+          bitField0_ |= 0x00100000;
           defenseBaseCost_ = value;
           onChanged();
           return this;
         }
         public Builder clearDefenseBaseCost() {
-          bitField0_ = (bitField0_ & ~0x00080000);
+          bitField0_ = (bitField0_ & ~0x00100000);
           defenseBaseCost_ = 0;
           onChanged();
           return this;
@@ -13981,19 +14038,19 @@ public final class EventProto {
         // optional int32 energyBaseCost = 24;
         private int energyBaseCost_ ;
         public boolean hasEnergyBaseCost() {
-          return ((bitField0_ & 0x00100000) == 0x00100000);
+          return ((bitField0_ & 0x00200000) == 0x00200000);
         }
         public int getEnergyBaseCost() {
           return energyBaseCost_;
         }
         public Builder setEnergyBaseCost(int value) {
-          bitField0_ |= 0x00100000;
+          bitField0_ |= 0x00200000;
           energyBaseCost_ = value;
           onChanged();
           return this;
         }
         public Builder clearEnergyBaseCost() {
-          bitField0_ = (bitField0_ & ~0x00100000);
+          bitField0_ = (bitField0_ & ~0x00200000);
           energyBaseCost_ = 0;
           onChanged();
           return this;
@@ -14002,19 +14059,19 @@ public final class EventProto {
         // optional int32 healthBaseCost = 25;
         private int healthBaseCost_ ;
         public boolean hasHealthBaseCost() {
-          return ((bitField0_ & 0x00200000) == 0x00200000);
+          return ((bitField0_ & 0x00400000) == 0x00400000);
         }
         public int getHealthBaseCost() {
           return healthBaseCost_;
         }
         public Builder setHealthBaseCost(int value) {
-          bitField0_ |= 0x00200000;
+          bitField0_ |= 0x00400000;
           healthBaseCost_ = value;
           onChanged();
           return this;
         }
         public Builder clearHealthBaseCost() {
-          bitField0_ = (bitField0_ & ~0x00200000);
+          bitField0_ = (bitField0_ & ~0x00400000);
           healthBaseCost_ = 0;
           onChanged();
           return this;
@@ -14023,19 +14080,19 @@ public final class EventProto {
         // optional int32 staminaBaseCost = 26;
         private int staminaBaseCost_ ;
         public boolean hasStaminaBaseCost() {
-          return ((bitField0_ & 0x00400000) == 0x00400000);
+          return ((bitField0_ & 0x00800000) == 0x00800000);
         }
         public int getStaminaBaseCost() {
           return staminaBaseCost_;
         }
         public Builder setStaminaBaseCost(int value) {
-          bitField0_ |= 0x00400000;
+          bitField0_ |= 0x00800000;
           staminaBaseCost_ = value;
           onChanged();
           return this;
         }
         public Builder clearStaminaBaseCost() {
-          bitField0_ = (bitField0_ & ~0x00400000);
+          bitField0_ = (bitField0_ & ~0x00800000);
           staminaBaseCost_ = 0;
           onChanged();
           return this;
@@ -14044,19 +14101,19 @@ public final class EventProto {
         // optional int32 skillPointsGainedOnLevelup = 27;
         private int skillPointsGainedOnLevelup_ ;
         public boolean hasSkillPointsGainedOnLevelup() {
-          return ((bitField0_ & 0x00800000) == 0x00800000);
+          return ((bitField0_ & 0x01000000) == 0x01000000);
         }
         public int getSkillPointsGainedOnLevelup() {
           return skillPointsGainedOnLevelup_;
         }
         public Builder setSkillPointsGainedOnLevelup(int value) {
-          bitField0_ |= 0x00800000;
+          bitField0_ |= 0x01000000;
           skillPointsGainedOnLevelup_ = value;
           onChanged();
           return this;
         }
         public Builder clearSkillPointsGainedOnLevelup() {
-          bitField0_ = (bitField0_ & ~0x00800000);
+          bitField0_ = (bitField0_ & ~0x01000000);
           skillPointsGainedOnLevelup_ = 0;
           onChanged();
           return this;
@@ -14065,19 +14122,19 @@ public final class EventProto {
         // optional double cutOfVaultDepositTaken = 28;
         private double cutOfVaultDepositTaken_ ;
         public boolean hasCutOfVaultDepositTaken() {
-          return ((bitField0_ & 0x01000000) == 0x01000000);
+          return ((bitField0_ & 0x02000000) == 0x02000000);
         }
         public double getCutOfVaultDepositTaken() {
           return cutOfVaultDepositTaken_;
         }
         public Builder setCutOfVaultDepositTaken(double value) {
-          bitField0_ |= 0x01000000;
+          bitField0_ |= 0x02000000;
           cutOfVaultDepositTaken_ = value;
           onChanged();
           return this;
         }
         public Builder clearCutOfVaultDepositTaken() {
-          bitField0_ = (bitField0_ & ~0x01000000);
+          bitField0_ = (bitField0_ & ~0x02000000);
           cutOfVaultDepositTaken_ = 0D;
           onChanged();
           return this;
@@ -14086,19 +14143,19 @@ public final class EventProto {
         // optional int32 maxLevelForStruct = 33;
         private int maxLevelForStruct_ ;
         public boolean hasMaxLevelForStruct() {
-          return ((bitField0_ & 0x02000000) == 0x02000000);
+          return ((bitField0_ & 0x04000000) == 0x04000000);
         }
         public int getMaxLevelForStruct() {
           return maxLevelForStruct_;
         }
         public Builder setMaxLevelForStruct(int value) {
-          bitField0_ |= 0x02000000;
+          bitField0_ |= 0x04000000;
           maxLevelForStruct_ = value;
           onChanged();
           return this;
         }
         public Builder clearMaxLevelForStruct() {
-          bitField0_ = (bitField0_ & ~0x02000000);
+          bitField0_ = (bitField0_ & ~0x04000000);
           maxLevelForStruct_ = 0;
           onChanged();
           return this;
@@ -14107,19 +14164,19 @@ public final class EventProto {
         // optional int32 maxNumOfSingleStruct = 34;
         private int maxNumOfSingleStruct_ ;
         public boolean hasMaxNumOfSingleStruct() {
-          return ((bitField0_ & 0x04000000) == 0x04000000);
+          return ((bitField0_ & 0x08000000) == 0x08000000);
         }
         public int getMaxNumOfSingleStruct() {
           return maxNumOfSingleStruct_;
         }
         public Builder setMaxNumOfSingleStruct(int value) {
-          bitField0_ |= 0x04000000;
+          bitField0_ |= 0x08000000;
           maxNumOfSingleStruct_ = value;
           onChanged();
           return this;
         }
         public Builder clearMaxNumOfSingleStruct() {
-          bitField0_ = (bitField0_ & ~0x04000000);
+          bitField0_ = (bitField0_ & ~0x08000000);
           maxNumOfSingleStruct_ = 0;
           onChanged();
           return this;
@@ -14128,19 +14185,19 @@ public final class EventProto {
         // optional double percentReturnedToUserForSellingNormStructure = 35;
         private double percentReturnedToUserForSellingNormStructure_ ;
         public boolean hasPercentReturnedToUserForSellingNormStructure() {
-          return ((bitField0_ & 0x08000000) == 0x08000000);
+          return ((bitField0_ & 0x10000000) == 0x10000000);
         }
         public double getPercentReturnedToUserForSellingNormStructure() {
           return percentReturnedToUserForSellingNormStructure_;
         }
         public Builder setPercentReturnedToUserForSellingNormStructure(double value) {
-          bitField0_ |= 0x08000000;
+          bitField0_ |= 0x10000000;
           percentReturnedToUserForSellingNormStructure_ = value;
           onChanged();
           return this;
         }
         public Builder clearPercentReturnedToUserForSellingNormStructure() {
-          bitField0_ = (bitField0_ & ~0x08000000);
+          bitField0_ = (bitField0_ & ~0x10000000);
           percentReturnedToUserForSellingNormStructure_ = 0D;
           onChanged();
           return this;
@@ -14149,19 +14206,19 @@ public final class EventProto {
         // optional int32 minutesToRefillAEnergy = 36;
         private int minutesToRefillAEnergy_ ;
         public boolean hasMinutesToRefillAEnergy() {
-          return ((bitField0_ & 0x10000000) == 0x10000000);
+          return ((bitField0_ & 0x20000000) == 0x20000000);
         }
         public int getMinutesToRefillAEnergy() {
           return minutesToRefillAEnergy_;
         }
         public Builder setMinutesToRefillAEnergy(int value) {
-          bitField0_ |= 0x10000000;
+          bitField0_ |= 0x20000000;
           minutesToRefillAEnergy_ = value;
           onChanged();
           return this;
         }
         public Builder clearMinutesToRefillAEnergy() {
-          bitField0_ = (bitField0_ & ~0x10000000);
+          bitField0_ = (bitField0_ & ~0x20000000);
           minutesToRefillAEnergy_ = 0;
           onChanged();
           return this;
@@ -14170,19 +14227,19 @@ public final class EventProto {
         // optional int32 minutesToRefillAStamina = 37;
         private int minutesToRefillAStamina_ ;
         public boolean hasMinutesToRefillAStamina() {
-          return ((bitField0_ & 0x20000000) == 0x20000000);
+          return ((bitField0_ & 0x40000000) == 0x40000000);
         }
         public int getMinutesToRefillAStamina() {
           return minutesToRefillAStamina_;
         }
         public Builder setMinutesToRefillAStamina(int value) {
-          bitField0_ |= 0x20000000;
+          bitField0_ |= 0x40000000;
           minutesToRefillAStamina_ = value;
           onChanged();
           return this;
         }
         public Builder clearMinutesToRefillAStamina() {
-          bitField0_ = (bitField0_ & ~0x20000000);
+          bitField0_ = (bitField0_ & ~0x40000000);
           minutesToRefillAStamina_ = 0;
           onChanged();
           return this;
@@ -14191,19 +14248,19 @@ public final class EventProto {
         // optional int32 diamondCostForFullStaminaRefill = 48;
         private int diamondCostForFullStaminaRefill_ ;
         public boolean hasDiamondCostForFullStaminaRefill() {
-          return ((bitField0_ & 0x40000000) == 0x40000000);
+          return ((bitField0_ & 0x80000000) == 0x80000000);
         }
         public int getDiamondCostForFullStaminaRefill() {
           return diamondCostForFullStaminaRefill_;
         }
         public Builder setDiamondCostForFullStaminaRefill(int value) {
-          bitField0_ |= 0x40000000;
+          bitField0_ |= 0x80000000;
           diamondCostForFullStaminaRefill_ = value;
           onChanged();
           return this;
         }
         public Builder clearDiamondCostForFullStaminaRefill() {
-          bitField0_ = (bitField0_ & ~0x40000000);
+          bitField0_ = (bitField0_ & ~0x80000000);
           diamondCostForFullStaminaRefill_ = 0;
           onChanged();
           return this;
@@ -14212,19 +14269,19 @@ public final class EventProto {
         // optional int32 diamondCostForFullEnergyRefill = 49;
         private int diamondCostForFullEnergyRefill_ ;
         public boolean hasDiamondCostForFullEnergyRefill() {
-          return ((bitField0_ & 0x80000000) == 0x80000000);
+          return ((bitField1_ & 0x00000001) == 0x00000001);
         }
         public int getDiamondCostForFullEnergyRefill() {
           return diamondCostForFullEnergyRefill_;
         }
         public Builder setDiamondCostForFullEnergyRefill(int value) {
-          bitField0_ |= 0x80000000;
+          bitField1_ |= 0x00000001;
           diamondCostForFullEnergyRefill_ = value;
           onChanged();
           return this;
         }
         public Builder clearDiamondCostForFullEnergyRefill() {
-          bitField0_ = (bitField0_ & ~0x80000000);
+          bitField1_ = (bitField1_ & ~0x00000001);
           diamondCostForFullEnergyRefill_ = 0;
           onChanged();
           return this;
@@ -14233,19 +14290,19 @@ public final class EventProto {
         // optional int32 maxNumberOfMarketplacePosts = 40;
         private int maxNumberOfMarketplacePosts_ ;
         public boolean hasMaxNumberOfMarketplacePosts() {
-          return ((bitField1_ & 0x00000001) == 0x00000001);
+          return ((bitField1_ & 0x00000002) == 0x00000002);
         }
         public int getMaxNumberOfMarketplacePosts() {
           return maxNumberOfMarketplacePosts_;
         }
         public Builder setMaxNumberOfMarketplacePosts(int value) {
-          bitField1_ |= 0x00000001;
+          bitField1_ |= 0x00000002;
           maxNumberOfMarketplacePosts_ = value;
           onChanged();
           return this;
         }
         public Builder clearMaxNumberOfMarketplacePosts() {
-          bitField1_ = (bitField1_ & ~0x00000001);
+          bitField1_ = (bitField1_ & ~0x00000002);
           maxNumberOfMarketplacePosts_ = 0;
           onChanged();
           return this;
@@ -14254,19 +14311,19 @@ public final class EventProto {
         // optional double percentOfSellingCostTakenFromSellerOnMarketplacePurchase = 41;
         private double percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ ;
         public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
-          return ((bitField1_ & 0x00000002) == 0x00000002);
+          return ((bitField1_ & 0x00000004) == 0x00000004);
         }
         public double getPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
           return percentOfSellingCostTakenFromSellerOnMarketplacePurchase_;
         }
         public Builder setPercentOfSellingCostTakenFromSellerOnMarketplacePurchase(double value) {
-          bitField1_ |= 0x00000002;
+          bitField1_ |= 0x00000004;
           percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = value;
           onChanged();
           return this;
         }
         public Builder clearPercentOfSellingCostTakenFromSellerOnMarketplacePurchase() {
-          bitField1_ = (bitField1_ & ~0x00000002);
+          bitField1_ = (bitField1_ & ~0x00000004);
           percentOfSellingCostTakenFromSellerOnMarketplacePurchase_ = 0D;
           onChanged();
           return this;
@@ -14275,19 +14332,19 @@ public final class EventProto {
         // optional double percentOfSellingCostTakenFromSellerOnMarketplaceRetract = 42;
         private double percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ ;
         public boolean hasPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
-          return ((bitField1_ & 0x00000004) == 0x00000004);
+          return ((bitField1_ & 0x00000008) == 0x00000008);
         }
         public double getPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
           return percentOfSellingCostTakenFromSellerOnMarketplaceRetract_;
         }
         public Builder setPercentOfSellingCostTakenFromSellerOnMarketplaceRetract(double value) {
-          bitField1_ |= 0x00000004;
+          bitField1_ |= 0x00000008;
           percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = value;
           onChanged();
           return this;
         }
         public Builder clearPercentOfSellingCostTakenFromSellerOnMarketplaceRetract() {
-          bitField1_ = (bitField1_ & ~0x00000004);
+          bitField1_ = (bitField1_ & ~0x00000008);
           percentOfSellingCostTakenFromSellerOnMarketplaceRetract_ = 0D;
           onChanged();
           return this;
@@ -14296,19 +14353,19 @@ public final class EventProto {
         // optional int32 numDaysLongMarketplaceLicenseLastsFor = 43;
         private int numDaysLongMarketplaceLicenseLastsFor_ ;
         public boolean hasNumDaysLongMarketplaceLicenseLastsFor() {
-          return ((bitField1_ & 0x00000008) == 0x00000008);
+          return ((bitField1_ & 0x00000010) == 0x00000010);
         }
         public int getNumDaysLongMarketplaceLicenseLastsFor() {
           return numDaysLongMarketplaceLicenseLastsFor_;
         }
         public Builder setNumDaysLongMarketplaceLicenseLastsFor(int value) {
-          bitField1_ |= 0x00000008;
+          bitField1_ |= 0x00000010;
           numDaysLongMarketplaceLicenseLastsFor_ = value;
           onChanged();
           return this;
         }
         public Builder clearNumDaysLongMarketplaceLicenseLastsFor() {
-          bitField1_ = (bitField1_ & ~0x00000008);
+          bitField1_ = (bitField1_ & ~0x00000010);
           numDaysLongMarketplaceLicenseLastsFor_ = 0;
           onChanged();
           return this;
@@ -14317,19 +14374,19 @@ public final class EventProto {
         // optional int32 numDaysShortMarketplaceLicenseLastsFor = 44;
         private int numDaysShortMarketplaceLicenseLastsFor_ ;
         public boolean hasNumDaysShortMarketplaceLicenseLastsFor() {
-          return ((bitField1_ & 0x00000010) == 0x00000010);
+          return ((bitField1_ & 0x00000020) == 0x00000020);
         }
         public int getNumDaysShortMarketplaceLicenseLastsFor() {
           return numDaysShortMarketplaceLicenseLastsFor_;
         }
         public Builder setNumDaysShortMarketplaceLicenseLastsFor(int value) {
-          bitField1_ |= 0x00000010;
+          bitField1_ |= 0x00000020;
           numDaysShortMarketplaceLicenseLastsFor_ = value;
           onChanged();
           return this;
         }
         public Builder clearNumDaysShortMarketplaceLicenseLastsFor() {
-          bitField1_ = (bitField1_ & ~0x00000010);
+          bitField1_ = (bitField1_ & ~0x00000020);
           numDaysShortMarketplaceLicenseLastsFor_ = 0;
           onChanged();
           return this;
@@ -14338,19 +14395,19 @@ public final class EventProto {
         // optional int32 diamondCostOfLongMarketplaceLicense = 45;
         private int diamondCostOfLongMarketplaceLicense_ ;
         public boolean hasDiamondCostOfLongMarketplaceLicense() {
-          return ((bitField1_ & 0x00000020) == 0x00000020);
+          return ((bitField1_ & 0x00000040) == 0x00000040);
         }
         public int getDiamondCostOfLongMarketplaceLicense() {
           return diamondCostOfLongMarketplaceLicense_;
         }
         public Builder setDiamondCostOfLongMarketplaceLicense(int value) {
-          bitField1_ |= 0x00000020;
+          bitField1_ |= 0x00000040;
           diamondCostOfLongMarketplaceLicense_ = value;
           onChanged();
           return this;
         }
         public Builder clearDiamondCostOfLongMarketplaceLicense() {
-          bitField1_ = (bitField1_ & ~0x00000020);
+          bitField1_ = (bitField1_ & ~0x00000040);
           diamondCostOfLongMarketplaceLicense_ = 0;
           onChanged();
           return this;
@@ -14359,19 +14416,19 @@ public final class EventProto {
         // optional int32 diamondCostOfShortMarketplaceLicense = 46;
         private int diamondCostOfShortMarketplaceLicense_ ;
         public boolean hasDiamondCostOfShortMarketplaceLicense() {
-          return ((bitField1_ & 0x00000040) == 0x00000040);
+          return ((bitField1_ & 0x00000080) == 0x00000080);
         }
         public int getDiamondCostOfShortMarketplaceLicense() {
           return diamondCostOfShortMarketplaceLicense_;
         }
         public Builder setDiamondCostOfShortMarketplaceLicense(int value) {
-          bitField1_ |= 0x00000040;
+          bitField1_ |= 0x00000080;
           diamondCostOfShortMarketplaceLicense_ = value;
           onChanged();
           return this;
         }
         public Builder clearDiamondCostOfShortMarketplaceLicense() {
-          bitField1_ = (bitField1_ & ~0x00000040);
+          bitField1_ = (bitField1_ & ~0x00000080);
           diamondCostOfShortMarketplaceLicense_ = 0;
           onChanged();
           return this;
@@ -14380,19 +14437,19 @@ public final class EventProto {
         // optional int32 maxNumbersOfEnemiesToGenerateAtOnce = 4;
         private int maxNumbersOfEnemiesToGenerateAtOnce_ ;
         public boolean hasMaxNumbersOfEnemiesToGenerateAtOnce() {
-          return ((bitField1_ & 0x00000080) == 0x00000080);
+          return ((bitField1_ & 0x00000100) == 0x00000100);
         }
         public int getMaxNumbersOfEnemiesToGenerateAtOnce() {
           return maxNumbersOfEnemiesToGenerateAtOnce_;
         }
         public Builder setMaxNumbersOfEnemiesToGenerateAtOnce(int value) {
-          bitField1_ |= 0x00000080;
+          bitField1_ |= 0x00000100;
           maxNumbersOfEnemiesToGenerateAtOnce_ = value;
           onChanged();
           return this;
         }
         public Builder clearMaxNumbersOfEnemiesToGenerateAtOnce() {
-          bitField1_ = (bitField1_ & ~0x00000080);
+          bitField1_ = (bitField1_ & ~0x00000100);
           maxNumbersOfEnemiesToGenerateAtOnce_ = 0;
           onChanged();
           return this;
@@ -14401,19 +14458,19 @@ public final class EventProto {
         // optional double percentReturnedToUserForSellingEquipInArmory = 5;
         private double percentReturnedToUserForSellingEquipInArmory_ ;
         public boolean hasPercentReturnedToUserForSellingEquipInArmory() {
-          return ((bitField1_ & 0x00000100) == 0x00000100);
+          return ((bitField1_ & 0x00000200) == 0x00000200);
         }
         public double getPercentReturnedToUserForSellingEquipInArmory() {
           return percentReturnedToUserForSellingEquipInArmory_;
         }
         public Builder setPercentReturnedToUserForSellingEquipInArmory(double value) {
-          bitField1_ |= 0x00000100;
+          bitField1_ |= 0x00000200;
           percentReturnedToUserForSellingEquipInArmory_ = value;
           onChanged();
           return this;
         }
         public Builder clearPercentReturnedToUserForSellingEquipInArmory() {
-          bitField1_ = (bitField1_ & ~0x00000100);
+          bitField1_ = (bitField1_ & ~0x00000200);
           percentReturnedToUserForSellingEquipInArmory_ = 0D;
           onChanged();
           return this;
@@ -14422,19 +14479,19 @@ public final class EventProto {
         // optional int32 maxCityRank = 50;
         private int maxCityRank_ ;
         public boolean hasMaxCityRank() {
-          return ((bitField1_ & 0x00000200) == 0x00000200);
+          return ((bitField1_ & 0x00000400) == 0x00000400);
         }
         public int getMaxCityRank() {
           return maxCityRank_;
         }
         public Builder setMaxCityRank(int value) {
-          bitField1_ |= 0x00000200;
+          bitField1_ |= 0x00000400;
           maxCityRank_ = value;
           onChanged();
           return this;
         }
         public Builder clearMaxCityRank() {
-          bitField1_ = (bitField1_ & ~0x00000200);
+          bitField1_ = (bitField1_ & ~0x00000400);
           maxCityRank_ = 0;
           onChanged();
           return this;
@@ -14443,19 +14500,19 @@ public final class EventProto {
         // optional int32 armoryImgVerticalPixelOffset = 54;
         private int armoryImgVerticalPixelOffset_ ;
         public boolean hasArmoryImgVerticalPixelOffset() {
-          return ((bitField1_ & 0x00000400) == 0x00000400);
+          return ((bitField1_ & 0x00000800) == 0x00000800);
         }
         public int getArmoryImgVerticalPixelOffset() {
           return armoryImgVerticalPixelOffset_;
         }
         public Builder setArmoryImgVerticalPixelOffset(int value) {
-          bitField1_ |= 0x00000400;
+          bitField1_ |= 0x00000800;
           armoryImgVerticalPixelOffset_ = value;
           onChanged();
           return this;
         }
         public Builder clearArmoryImgVerticalPixelOffset() {
-          bitField1_ = (bitField1_ & ~0x00000400);
+          bitField1_ = (bitField1_ & ~0x00000800);
           armoryImgVerticalPixelOffset_ = 0;
           onChanged();
           return this;
@@ -14464,19 +14521,19 @@ public final class EventProto {
         // optional int32 vaultImgVerticalPixelOffset = 55;
         private int vaultImgVerticalPixelOffset_ ;
         public boolean hasVaultImgVerticalPixelOffset() {
-          return ((bitField1_ & 0x00000800) == 0x00000800);
+          return ((bitField1_ & 0x00001000) == 0x00001000);
         }
         public int getVaultImgVerticalPixelOffset() {
           return vaultImgVerticalPixelOffset_;
         }
         public Builder setVaultImgVerticalPixelOffset(int value) {
-          bitField1_ |= 0x00000800;
+          bitField1_ |= 0x00001000;
           vaultImgVerticalPixelOffset_ = value;
           onChanged();
           return this;
         }
         public Builder clearVaultImgVerticalPixelOffset() {
-          bitField1_ = (bitField1_ & ~0x00000800);
+          bitField1_ = (bitField1_ & ~0x00001000);
           vaultImgVerticalPixelOffset_ = 0;
           onChanged();
           return this;
@@ -14485,19 +14542,19 @@ public final class EventProto {
         // optional int32 marketplaceImgVerticalPixelOffset = 56;
         private int marketplaceImgVerticalPixelOffset_ ;
         public boolean hasMarketplaceImgVerticalPixelOffset() {
-          return ((bitField1_ & 0x00001000) == 0x00001000);
+          return ((bitField1_ & 0x00002000) == 0x00002000);
         }
         public int getMarketplaceImgVerticalPixelOffset() {
           return marketplaceImgVerticalPixelOffset_;
         }
         public Builder setMarketplaceImgVerticalPixelOffset(int value) {
-          bitField1_ |= 0x00001000;
+          bitField1_ |= 0x00002000;
           marketplaceImgVerticalPixelOffset_ = value;
           onChanged();
           return this;
         }
         public Builder clearMarketplaceImgVerticalPixelOffset() {
-          bitField1_ = (bitField1_ & ~0x00001000);
+          bitField1_ = (bitField1_ & ~0x00002000);
           marketplaceImgVerticalPixelOffset_ = 0;
           onChanged();
           return this;
@@ -14506,19 +14563,19 @@ public final class EventProto {
         // optional int32 carpenterImgVerticalPixelOffset = 57;
         private int carpenterImgVerticalPixelOffset_ ;
         public boolean hasCarpenterImgVerticalPixelOffset() {
-          return ((bitField1_ & 0x00002000) == 0x00002000);
+          return ((bitField1_ & 0x00004000) == 0x00004000);
         }
         public int getCarpenterImgVerticalPixelOffset() {
           return carpenterImgVerticalPixelOffset_;
         }
         public Builder setCarpenterImgVerticalPixelOffset(int value) {
-          bitField1_ |= 0x00002000;
+          bitField1_ |= 0x00004000;
           carpenterImgVerticalPixelOffset_ = value;
           onChanged();
           return this;
         }
         public Builder clearCarpenterImgVerticalPixelOffset() {
-          bitField1_ = (bitField1_ & ~0x00002000);
+          bitField1_ = (bitField1_ & ~0x00004000);
           carpenterImgVerticalPixelOffset_ = 0;
           onChanged();
           return this;
@@ -14527,19 +14584,19 @@ public final class EventProto {
         // optional int32 aviaryImgVerticalPixelOffset = 58;
         private int aviaryImgVerticalPixelOffset_ ;
         public boolean hasAviaryImgVerticalPixelOffset() {
-          return ((bitField1_ & 0x00004000) == 0x00004000);
+          return ((bitField1_ & 0x00008000) == 0x00008000);
         }
         public int getAviaryImgVerticalPixelOffset() {
           return aviaryImgVerticalPixelOffset_;
         }
         public Builder setAviaryImgVerticalPixelOffset(int value) {
-          bitField1_ |= 0x00004000;
+          bitField1_ |= 0x00008000;
           aviaryImgVerticalPixelOffset_ = value;
           onChanged();
           return this;
         }
         public Builder clearAviaryImgVerticalPixelOffset() {
-          bitField1_ = (bitField1_ & ~0x00004000);
+          bitField1_ = (bitField1_ & ~0x00008000);
           aviaryImgVerticalPixelOffset_ = 0;
           onChanged();
           return this;
@@ -14550,7 +14607,7 @@ public final class EventProto {
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants.Builder, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstantsOrBuilder> formulaConstantsBuilder_;
         public boolean hasFormulaConstants() {
-          return ((bitField1_ & 0x00008000) == 0x00008000);
+          return ((bitField1_ & 0x00010000) == 0x00010000);
         }
         public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants getFormulaConstants() {
           if (formulaConstantsBuilder_ == null) {
@@ -14569,7 +14626,7 @@ public final class EventProto {
           } else {
             formulaConstantsBuilder_.setMessage(value);
           }
-          bitField1_ |= 0x00008000;
+          bitField1_ |= 0x00010000;
           return this;
         }
         public Builder setFormulaConstants(
@@ -14580,12 +14637,12 @@ public final class EventProto {
           } else {
             formulaConstantsBuilder_.setMessage(builderForValue.build());
           }
-          bitField1_ |= 0x00008000;
+          bitField1_ |= 0x00010000;
           return this;
         }
         public Builder mergeFormulaConstants(com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants value) {
           if (formulaConstantsBuilder_ == null) {
-            if (((bitField1_ & 0x00008000) == 0x00008000) &&
+            if (((bitField1_ & 0x00010000) == 0x00010000) &&
                 formulaConstants_ != com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants.getDefaultInstance()) {
               formulaConstants_ =
                 com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants.newBuilder(formulaConstants_).mergeFrom(value).buildPartial();
@@ -14596,7 +14653,7 @@ public final class EventProto {
           } else {
             formulaConstantsBuilder_.mergeFrom(value);
           }
-          bitField1_ |= 0x00008000;
+          bitField1_ |= 0x00010000;
           return this;
         }
         public Builder clearFormulaConstants() {
@@ -14606,11 +14663,11 @@ public final class EventProto {
           } else {
             formulaConstantsBuilder_.clear();
           }
-          bitField1_ = (bitField1_ & ~0x00008000);
+          bitField1_ = (bitField1_ & ~0x00010000);
           return this;
         }
         public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants.Builder getFormulaConstantsBuilder() {
-          bitField1_ |= 0x00008000;
+          bitField1_ |= 0x00010000;
           onChanged();
           return getFormulaConstantsFieldBuilder().getBuilder();
         }
@@ -14640,7 +14697,7 @@ public final class EventProto {
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants.Builder, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstantsOrBuilder> battleConstantsBuilder_;
         public boolean hasBattleConstants() {
-          return ((bitField1_ & 0x00010000) == 0x00010000);
+          return ((bitField1_ & 0x00020000) == 0x00020000);
         }
         public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants getBattleConstants() {
           if (battleConstantsBuilder_ == null) {
@@ -14659,7 +14716,7 @@ public final class EventProto {
           } else {
             battleConstantsBuilder_.setMessage(value);
           }
-          bitField1_ |= 0x00010000;
+          bitField1_ |= 0x00020000;
           return this;
         }
         public Builder setBattleConstants(
@@ -14670,12 +14727,12 @@ public final class EventProto {
           } else {
             battleConstantsBuilder_.setMessage(builderForValue.build());
           }
-          bitField1_ |= 0x00010000;
+          bitField1_ |= 0x00020000;
           return this;
         }
         public Builder mergeBattleConstants(com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants value) {
           if (battleConstantsBuilder_ == null) {
-            if (((bitField1_ & 0x00010000) == 0x00010000) &&
+            if (((bitField1_ & 0x00020000) == 0x00020000) &&
                 battleConstants_ != com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants.getDefaultInstance()) {
               battleConstants_ =
                 com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants.newBuilder(battleConstants_).mergeFrom(value).buildPartial();
@@ -14686,7 +14743,7 @@ public final class EventProto {
           } else {
             battleConstantsBuilder_.mergeFrom(value);
           }
-          bitField1_ |= 0x00010000;
+          bitField1_ |= 0x00020000;
           return this;
         }
         public Builder clearBattleConstants() {
@@ -14696,11 +14753,11 @@ public final class EventProto {
           } else {
             battleConstantsBuilder_.clear();
           }
-          bitField1_ = (bitField1_ & ~0x00010000);
+          bitField1_ = (bitField1_ & ~0x00020000);
           return this;
         }
         public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants.Builder getBattleConstantsBuilder() {
-          bitField1_ |= 0x00010000;
+          bitField1_ |= 0x00020000;
           onChanged();
           return getBattleConstantsFieldBuilder().getBuilder();
         }
@@ -14728,19 +14785,19 @@ public final class EventProto {
         // optional int32 maxCharLengthForWallPost = 52;
         private int maxCharLengthForWallPost_ ;
         public boolean hasMaxCharLengthForWallPost() {
-          return ((bitField1_ & 0x00020000) == 0x00020000);
+          return ((bitField1_ & 0x00040000) == 0x00040000);
         }
         public int getMaxCharLengthForWallPost() {
           return maxCharLengthForWallPost_;
         }
         public Builder setMaxCharLengthForWallPost(int value) {
-          bitField1_ |= 0x00020000;
+          bitField1_ |= 0x00040000;
           maxCharLengthForWallPost_ = value;
           onChanged();
           return this;
         }
         public Builder clearMaxCharLengthForWallPost() {
-          bitField1_ = (bitField1_ & ~0x00020000);
+          bitField1_ = (bitField1_ & ~0x00040000);
           maxCharLengthForWallPost_ = 0;
           onChanged();
           return this;
@@ -14749,19 +14806,19 @@ public final class EventProto {
         // optional int32 playerWallPostsRetrieveCap = 53;
         private int playerWallPostsRetrieveCap_ ;
         public boolean hasPlayerWallPostsRetrieveCap() {
-          return ((bitField1_ & 0x00040000) == 0x00040000);
+          return ((bitField1_ & 0x00080000) == 0x00080000);
         }
         public int getPlayerWallPostsRetrieveCap() {
           return playerWallPostsRetrieveCap_;
         }
         public Builder setPlayerWallPostsRetrieveCap(int value) {
-          bitField1_ |= 0x00040000;
+          bitField1_ |= 0x00080000;
           playerWallPostsRetrieveCap_ = value;
           onChanged();
           return this;
         }
         public Builder clearPlayerWallPostsRetrieveCap() {
-          bitField1_ = (bitField1_ & ~0x00040000);
+          bitField1_ = (bitField1_ & ~0x00080000);
           playerWallPostsRetrieveCap_ = 0;
           onChanged();
           return this;
@@ -14771,9 +14828,9 @@ public final class EventProto {
         private java.util.List<com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto> animatedSpriteOffsets_ =
           java.util.Collections.emptyList();
         private void ensureAnimatedSpriteOffsetsIsMutable() {
-          if (!((bitField1_ & 0x00080000) == 0x00080000)) {
+          if (!((bitField1_ & 0x00100000) == 0x00100000)) {
             animatedSpriteOffsets_ = new java.util.ArrayList<com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto>(animatedSpriteOffsets_);
-            bitField1_ |= 0x00080000;
+            bitField1_ |= 0x00100000;
            }
         }
         
@@ -14889,7 +14946,7 @@ public final class EventProto {
         public Builder clearAnimatedSpriteOffsets() {
           if (animatedSpriteOffsetsBuilder_ == null) {
             animatedSpriteOffsets_ = java.util.Collections.emptyList();
-            bitField1_ = (bitField1_ & ~0x00080000);
+            bitField1_ = (bitField1_ & ~0x00100000);
             onChanged();
           } else {
             animatedSpriteOffsetsBuilder_.clear();
@@ -14945,7 +15002,7 @@ public final class EventProto {
             animatedSpriteOffsetsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
                 com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto.Builder, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProtoOrBuilder>(
                     animatedSpriteOffsets_,
-                    ((bitField1_ & 0x00080000) == 0x00080000),
+                    ((bitField1_ & 0x00100000) == 0x00100000),
                     getParentForChildren(),
                     isClean());
             animatedSpriteOffsets_ = null;
@@ -14958,7 +15015,7 @@ public final class EventProto {
         private com.google.protobuf.SingleFieldBuilder<
             com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions.Builder, com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditionsOrBuilder> kiipRewardConditionsBuilder_;
         public boolean hasKiipRewardConditions() {
-          return ((bitField1_ & 0x00100000) == 0x00100000);
+          return ((bitField1_ & 0x00200000) == 0x00200000);
         }
         public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions getKiipRewardConditions() {
           if (kiipRewardConditionsBuilder_ == null) {
@@ -14977,7 +15034,7 @@ public final class EventProto {
           } else {
             kiipRewardConditionsBuilder_.setMessage(value);
           }
-          bitField1_ |= 0x00100000;
+          bitField1_ |= 0x00200000;
           return this;
         }
         public Builder setKiipRewardConditions(
@@ -14988,12 +15045,12 @@ public final class EventProto {
           } else {
             kiipRewardConditionsBuilder_.setMessage(builderForValue.build());
           }
-          bitField1_ |= 0x00100000;
+          bitField1_ |= 0x00200000;
           return this;
         }
         public Builder mergeKiipRewardConditions(com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions value) {
           if (kiipRewardConditionsBuilder_ == null) {
-            if (((bitField1_ & 0x00100000) == 0x00100000) &&
+            if (((bitField1_ & 0x00200000) == 0x00200000) &&
                 kiipRewardConditions_ != com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions.getDefaultInstance()) {
               kiipRewardConditions_ =
                 com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions.newBuilder(kiipRewardConditions_).mergeFrom(value).buildPartial();
@@ -15004,7 +15061,7 @@ public final class EventProto {
           } else {
             kiipRewardConditionsBuilder_.mergeFrom(value);
           }
-          bitField1_ |= 0x00100000;
+          bitField1_ |= 0x00200000;
           return this;
         }
         public Builder clearKiipRewardConditions() {
@@ -15014,11 +15071,11 @@ public final class EventProto {
           } else {
             kiipRewardConditionsBuilder_.clear();
           }
-          bitField1_ = (bitField1_ & ~0x00100000);
+          bitField1_ = (bitField1_ & ~0x00200000);
           return this;
         }
         public com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions.Builder getKiipRewardConditionsBuilder() {
-          bitField1_ |= 0x00100000;
+          bitField1_ |= 0x00200000;
           onChanged();
           return getKiipRewardConditionsFieldBuilder().getBuilder();
         }
@@ -86257,7 +86314,7 @@ public final class EventProto {
       "T_ENOUGH_CURRENCY_TO_BUY\020\002\022\035\n\031CANNOT_SEL" +
       "L_DIAMOND_EQUIP\020\003\022\016\n\nOTHER_FAIL\020\005\"J\n\023Sta" +
       "rtupRequestProto\022\014\n\004udid\030\001 \001(\t\022\022\n\nversio" +
-      "nNum\030\002 \001(\002\022\021\n\tapsalarId\030\003 \001(\t\"\2457\n\024Startu" +
+      "nNum\030\002 \001(\002\022\021\n\tapsalarId\030\003 \001(\t\"\2767\n\024Startu" +
       "pResponseProto\022-\n\006sender\030\001 \001(\0132\035.com.lvl",
       "6.proto.FullUserProto\022I\n\rstartupStatus\030\002" +
       " \001(\01622.com.lvl6.proto.StartupResponsePro" +
@@ -86304,675 +86361,675 @@ public final class EventProto {
       "ReferralNotificationProto\0222\n\010referred\030\001 " +
       "\001(\0132 .com.lvl6.proto.MinimumUserProto\022\023\n" +
       "\013recruitTime\030\002 \001(\003\022\034\n\024coinsGivenToReferr" +
-      "er\030\003 \001(\005\032\243\027\n\020StartupConstants\022\022\n\nproduct" +
+      "er\030\003 \001(\005\032\274\027\n\020StartupConstants\022\022\n\nproduct" +
       "Ids\030\001 \003(\t\022\034\n\024productDiamondsGiven\030\002 \003(\005\022" +
-      "#\n\033maxLevelDifferenceForBattle\030\006 \001(\005\022\025\n\r" +
-      "armoryXLength\030\007 \001(\005\022\025\n\rarmoryYLength\030\010 \001" +
-      "(\005\022\024\n\014vaultXLength\030\t \001(\005\022\024\n\014vaultYLength",
-      "\030\n \001(\005\022\032\n\022marketplaceXLength\030\013 \001(\005\022\032\n\022ma" +
-      "rketplaceYLength\030\014 \001(\005\022\030\n\020carpenterXLeng" +
-      "th\030\r \001(\005\022\030\n\020carpenterYLength\030\016 \001(\005\022\025\n\rav" +
-      "iaryXLength\030\017 \001(\005\022\025\n\raviaryYLength\030\020 \001(\005" +
-      "\022\026\n\016attackBaseGain\030\021 \001(\005\022\027\n\017defenseBaseG" +
-      "ain\030\022 \001(\005\022\026\n\016energyBaseGain\030\023 \001(\005\022\026\n\016hea" +
-      "lthBaseGain\030\024 \001(\005\022\027\n\017staminaBaseGain\030\025 \001" +
-      "(\005\022\026\n\016attackBaseCost\030\026 \001(\005\022\027\n\017defenseBas" +
-      "eCost\030\027 \001(\005\022\026\n\016energyBaseCost\030\030 \001(\005\022\026\n\016h" +
-      "ealthBaseCost\030\031 \001(\005\022\027\n\017staminaBaseCost\030\032",
-      " \001(\005\022\"\n\032skillPointsGainedOnLevelup\030\033 \001(\005" +
-      "\022\036\n\026cutOfVaultDepositTaken\030\034 \001(\001\022\031\n\021maxL" +
-      "evelForStruct\030! \001(\005\022\034\n\024maxNumOfSingleStr" +
-      "uct\030\" \001(\005\0224\n,percentReturnedToUserForSel" +
-      "lingNormStructure\030# \001(\001\022\036\n\026minutesToRefi" +
-      "llAEnergy\030$ \001(\005\022\037\n\027minutesToRefillAStami" +
-      "na\030% \001(\005\022\'\n\037diamondCostForFullStaminaRef" +
-      "ill\0300 \001(\005\022&\n\036diamondCostForFullEnergyRef" +
-      "ill\0301 \001(\005\022#\n\033maxNumberOfMarketplacePosts" +
-      "\030( \001(\005\022@\n8percentOfSellingCostTakenFromS",
-      "ellerOnMarketplacePurchase\030) \001(\001\022?\n7perc" +
-      "entOfSellingCostTakenFromSellerOnMarketp" +
-      "laceRetract\030* \001(\001\022-\n%numDaysLongMarketpl" +
-      "aceLicenseLastsFor\030+ \001(\005\022.\n&numDaysShort" +
-      "MarketplaceLicenseLastsFor\030, \001(\005\022+\n#diam" +
-      "ondCostOfLongMarketplaceLicense\030- \001(\005\022,\n" +
-      "$diamondCostOfShortMarketplaceLicense\030. " +
-      "\001(\005\022+\n#maxNumbersOfEnemiesToGenerateAtOn" +
-      "ce\030\004 \001(\005\0224\n,percentReturnedToUserForSell" +
-      "ingEquipInArmory\030\005 \001(\001\022\023\n\013maxCityRank\0302 ",
-      "\001(\005\022$\n\034armoryImgVerticalPixelOffset\0306 \001(" +
-      "\005\022#\n\033vaultImgVerticalPixelOffset\0307 \001(\005\022)" +
-      "\n!marketplaceImgVerticalPixelOffset\0308 \001(" +
-      "\005\022\'\n\037carpenterImgVerticalPixelOffset\0309 \001" +
-      "(\005\022$\n\034aviaryImgVerticalPixelOffset\030: \001(\005" +
-      "\022`\n\020formulaConstants\030; \001(\0132F.com.lvl6.pr" +
-      "oto.StartupResponseProto.StartupConstant" +
-      "s.FormulaConstants\022^\n\017battleConstants\0303 " +
-      "\001(\0132E.com.lvl6.proto.StartupResponseProt" +
-      "o.StartupConstants.BattleConstants\022 \n\030ma",
-      "xCharLengthForWallPost\0304 \001(\005\022\"\n\032playerWa" +
-      "llPostsRetrieveCap\0305 \001(\005\022n\n\025animatedSpri" +
-      "teOffsets\030< \003(\0132O.com.lvl6.proto.Startup" +
-      "ResponseProto.StartupConstants.AnimatedS" +
-      "priteOffsetProto\022h\n\024kiipRewardConditions" +
-      "\030= \001(\0132J.com.lvl6.proto.StartupResponseP" +
-      "roto.StartupConstants.KiipRewardConditio" +
-      "ns\032P\n\024KiipRewardConditions\022\031\n\021levelUpCon" +
-      "ditions\030\001 \003(\005\022\035\n\025questRedeemConditions\030\002" +
-      " \003(\005\032_\n\031AnimatedSpriteOffsetProto\022\021\n\tima",
-      "geName\0307 \001(\t\022/\n\006offSet\0308 \001(\0132\037.com.lvl6." +
-      "proto.CoordinateProto\032\364\001\n\020FormulaConstan" +
-      "ts\022/\n\'minutesToUpgradeForNormStructMulti" +
-      "plier\030\001 \001(\001\022&\n\036incomeFromNormStructMulti" +
-      "plier\030\002 \001(\001\022)\n!upgradeStructCoinCostExpo" +
-      "nentBase\030\003 \001(\001\022,\n$upgradeStructDiamondCo" +
-      "stExponentBase\030\004 \001(\001\022.\n&diamondCostForIn" +
-      "stantUpgradeMultiplier\030\005 \001(\001\032\337\003\n\017BattleC" +
-      "onstants\022\026\n\016locationBarMax\030\001 \001(\002\022%\n\035batt" +
-      "leWeightGivenToAttackStat\030\002 \001(\001\022)\n!battl",
-      "eWeightGivenToAttackEquipSum\030\003 \001(\001\022&\n\036ba" +
-      "ttleWeightGivenToDefenseStat\030\004 \001(\001\022*\n\"ba" +
-      "ttleWeightGivenToDefenseEquipSum\030\005 \001(\001\022 " +
-      "\n\030battleWeightGivenToLevel\030\r \001(\001\022%\n\035batt" +
-      "lePerfectPercentThreshold\030\006 \001(\002\022#\n\033battl" +
-      "eGreatPercentThreshold\030\007 \001(\002\022\"\n\032battleGo" +
-      "odPercentThreshold\030\010 \001(\002\022\037\n\027battlePerfec" +
-      "tMultiplier\030\t \001(\002\022\035\n\025battleGreatMultipli" +
-      "er\030\n \001(\002\022\034\n\024battleGoodMultiplier\030\013 \001(\002\022\036" +
-      "\n\026battleImbalancePercent\030\014 \001(\002\032\304\020\n\021Tutor",
-      "ialConstants\022\022\n\ninitEnergy\030\001 \001(\005\022\023\n\013init" +
-      "Stamina\030\002 \001(\005\022\022\n\ninitHealth\030\003 \001(\005\022d\n\rtut" +
-      "orialQuest\030\004 \001(\0132M.com.lvl6.proto.Startu" +
-      "pResponseProto.TutorialConstants.FullTut" +
-      "orialQuestProto\022\025\n\rstructToBuild\030\005 \001(\005\022*" +
-      "\n\"diamondCostToInstabuildFirstStruct\030\006 \001" +
-      "(\005\022\030\n\020archerInitAttack\030\021 \001(\005\022\031\n\021archerIn" +
-      "itDefense\030\022 \001(\005\0228\n\020archerInitWeapon\030\007 \001(" +
-      "\0132\036.com.lvl6.proto.FullEquipProto\0227\n\017arc" +
-      "herInitArmor\030\010 \001(\0132\036.com.lvl6.proto.Full",
-      "EquipProto\022\026\n\016mageInitAttack\030\t \001(\005\022\027\n\017ma" +
-      "geInitDefense\030\n \001(\005\0226\n\016mageInitWeapon\030\013 " +
-      "\001(\0132\036.com.lvl6.proto.FullEquipProto\0225\n\rm" +
-      "ageInitArmor\030\014 \001(\0132\036.com.lvl6.proto.Full" +
-      "EquipProto\022\031\n\021warriorInitAttack\030\r \001(\005\022\032\n" +
-      "\022warriorInitDefense\030\016 \001(\005\0229\n\021warriorInit" +
-      "Weapon\030\017 \001(\0132\036.com.lvl6.proto.FullEquipP" +
-      "roto\0228\n\020warriorInitArmor\030\020 \001(\0132\036.com.lvl" +
-      "6.proto.FullEquipProto\022\025\n\rminNameLength\030" +
-      "\023 \001(\005\022\025\n\rmaxNameLength\030\024 \001(\005\022\"\n\032coinRewa",
-      "rdForBeingReferred\030\026 \001(\005\022I\n\030firstCityEle" +
-      "mentsForGood\030\027 \003(\0132\'.com.lvl6.proto.Neut" +
-      "ralCityElementProto\022H\n\027firstCityElements" +
-      "ForBad\030\030 \003(\0132\'.com.lvl6.proto.NeutralCit" +
-      "yElementProto\022\021\n\tinitCoins\030\031 \001(\005\022\024\n\014init" +
-      "Diamonds\030\032 \001(\005\022<\n\020carpenterStructs\030\033 \003(\013" +
-      "2\".com.lvl6.proto.FullStructureProto\022\036\n\026" +
-      "expRequiredForLevelTwo\030\034 \001(\005\022 \n\030expRequi" +
-      "redForLevelThree\030\035 \001(\005\022M\n&citiesNewlyAva" +
-      "ilableToUserAfterLevelup\030\036 \003(\0132\035.com.lvl",
-      "6.proto.FullCityProto\022c\n;newlyEquippable" +
-      "EpicsAndLegendariesForAllClassesAfterLev" +
-      "elup\030\037 \003(\0132\036.com.lvl6.proto.FullEquipPro" +
-      "to\022M\n!newlyAvailableStructsAfterLevelup\030" +
-      "  \003(\0132\".com.lvl6.proto.FullStructureProt" +
-      "o\022:\n\rfirstWallPost\030! \001(\0132#.com.lvl6.prot" +
-      "o.PlayerWallPostProto\032\205\005\n\026FullTutorialQu" +
-      "estProto\022\020\n\010goodName\030\001 \001(\t\022\017\n\007badName\030\002 " +
-      "\001(\t\022\027\n\017goodDescription\030\003 \001(\t\022\026\n\016badDescr" +
-      "iption\030\004 \001(\t\022\030\n\020goodDoneResponse\030\005 \001(\t\022\027",
-      "\n\017badDoneResponse\030\006 \001(\t\0229\n\022goodAcceptDia" +
-      "logue\030\007 \001(\0132\035.com.lvl6.proto.DialoguePro" +
-      "to\0228\n\021badAcceptDialogue\030\010 \001(\0132\035.com.lvl6" +
-      ".proto.DialogueProto\022\032\n\022assetNumWithinCi" +
-      "ty\030\t \001(\005\022\023\n\013coinsGained\030\n \001(\005\022\021\n\texpGain" +
-      "ed\030\013 \001(\005\0224\n\rfirstTaskGood\030\014 \001(\0132\035.com.lv" +
-      "l6.proto.FullTaskProto\0223\n\014firstTaskBad\030\r" +
-      " \001(\0132\035.com.lvl6.proto.FullTaskProto\022!\n\031f" +
-      "irstTaskCompleteCoinGain\030\016 \001(\005\022(\n firstD" +
-      "efeatTypeJobBattleCoinGain\030\021 \001(\005\022\'\n\037firs",
-      "tDefeatTypeJobBattleExpGain\030\022 \001(\005\022J\n\"fir" +
-      "stDefeatTypeJobBattleLootAmulet\030\023 \001(\0132\036." +
-      "com.lvl6.proto.FullEquipProto\"A\n\014UpdateS" +
-      "tatus\022\r\n\tNO_UPDATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020" +
-      "\n\014MAJOR_UPDATE\020\002\"3\n\rStartupStatus\022\016\n\nUSE" +
-      "R_IN_DB\020\000\022\022\n\016USER_NOT_IN_DB\020\001\"\233\003\n\026UserCr" +
-      "eateRequestProto\022\014\n\004udid\030\001 \001(\t\022\014\n\004name\030\002" +
-      " \001(\t\022&\n\004type\030\003 \001(\0162\030.com.lvl6.proto.User" +
-      "Type\0223\n\014userLocation\030\006 \001(\0132\035.com.lvl6.pr" +
-      "oto.LocationProto\022\024\n\014referrerCode\030\007 \001(\t\022",
-      "\023\n\013deviceToken\030\010 \001(\t\022\016\n\006attack\030\t \001(\005\022\017\n\007" +
-      "defense\030\n \001(\005\022\016\n\006health\030\013 \001(\005\022\016\n\006energy\030" +
-      "\014 \001(\005\022\017\n\007stamina\030\r \001(\005\022\034\n\024timeOfStructPu" +
-      "rchase\030\016 \001(\003\022\031\n\021timeOfStructBuild\030\017 \001(\003\022" +
-      "5\n\014structCoords\030\004 \001(\0132\037.com.lvl6.proto.C" +
-      "oordinateProto\022\033\n\023usedDiamondsToBuilt\030\020 " +
-      "\001(\010\"\333\002\n\027UserCreateResponseProto\022-\n\006sende" +
-      "r\030\001 \001(\0132\035.com.lvl6.proto.FullUserProto\022H" +
-      "\n\006status\030\002 \001(\01628.com.lvl6.proto.UserCrea" +
-      "teResponseProto.UserCreateStatus\"\306\001\n\020Use",
-      "rCreateStatus\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NA" +
-      "ME\020\001\022\024\n\020INVALID_LOCATION\020\002\022!\n\035USER_WITH_" +
-      "UDID_ALREADY_EXISTS\020\003\022\016\n\nTIME_ISSUE\020\004\022\"\n" +
-      "\036INVALID_SKILL_POINT_ALLOCATION\020\005\022\026\n\022INV" +
-      "ALID_REFER_CODE\020\006\022\016\n\nOTHER_FAIL\020\007\"d\n Ret" +
-      "rieveTasksForCityRequestProto\0220\n\006sender\030" +
-      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "\016\n\006cityId\030\002 \001(\005\"\203\001\n!RetrieveTasksForCity" +
-      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022,\n\005tasks\030\002 \003(\0132\035",
-      ".com.lvl6.proto.FullTaskProto\"\367\001\n%Retrie" +
-      "veStaticDataForShopRequestProto\0220\n\006sende" +
-      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022W\n\004type\030\002 \001(\0162I.com.lvl6.proto.Retriev" +
-      "eStaticDataForShopRequestProto.RetrieveF" +
-      "orShopType\"C\n\023RetrieveForShopType\022\030\n\024EQU" +
-      "IPMENT_FOR_ARMORY\020\000\022\022\n\016ALL_STRUCTURES\020\001\"" +
-      "\346\002\n&RetrieveStaticDataForShopResponsePro" +
-      "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022f\n\006status\030\002 \001(\0162V.com.lvl6.",
-      "proto.RetrieveStaticDataForShopResponseP" +
-      "roto.RetrieveStaticDataForShopStatus\022.\n\006" +
-      "equips\030\003 \003(\0132\036.com.lvl6.proto.FullEquipP" +
-      "roto\0223\n\007structs\030\004 \003(\0132\".com.lvl6.proto.F" +
-      "ullStructureProto\"=\n\037RetrieveStaticDataF" +
-      "orShopStatus\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001" +
-      "\"k\n\026TaskActionRequestProto\0220\n\006sender\030\001 \001" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022\016\n\006" +
-      "taskId\030\002 \001(\005\022\017\n\007curTime\030\003 \001(\003\"\317\003\n\027TaskAc" +
-      "tionResponseProto\0220\n\006sender\030\001 \001(\0132 .com.",
-      "lvl6.proto.MinimumUserProto\022H\n\006status\030\002 " +
-      "\001(\01628.com.lvl6.proto.TaskActionResponseP" +
-      "roto.TaskActionStatus\022\025\n\rtaskCompleted\030\003" +
-      " \001(\010\022\024\n\014cityRankedUp\030\004 \001(\010\022\023\n\013lootEquipI" +
-      "d\030\005 \001(\005\022\023\n\013coinsGained\030\006 \001(\005\022\035\n\025coinBonu" +
-      "sIfCityRankup\030\007 \001(\005\022\034\n\024expBonusIfCityRan" +
-      "kup\030\010 \001(\005\022\016\n\006cityId\030\t \001(\005\"\223\001\n\020TaskAction" +
-      "Status\022\013\n\007SUCCESS\020\000\022\032\n\026USER_NOT_ENOUGH_E" +
-      "NERGY\020\001\022\037\n\033USER_NOT_ALL_REQUIRED_ITEMS\020\002" +
-      "\022\016\n\nOTHER_FAIL\020\003\022%\n!CLIENT_TOO_APART_FRO",
-      "M_SERVER_TIME\020\004\"\273\001\n!PurchaseNormStructur" +
-      "eRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\022:\n\021structCoordin" +
-      "ates\030\002 \001(\0132\037.com.lvl6.proto.CoordinatePr" +
-      "oto\022\020\n\010structId\030\003 \001(\005\022\026\n\016timeOfPurchase\030" +
-      "\004 \001(\003\"\245\003\n\"PurchaseNormStructureResponseP" +
-      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022^\n\006status\030\002 \001(\0162N.com.lvl" +
-      "6.proto.PurchaseNormStructureResponsePro" +
-      "to.PurchaseNormStructureStatus\022\024\n\014userSt",
-      "ructId\030\003 \001(\005\"\326\001\n\033PurchaseNormStructureSt" +
-      "atus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIAL" +
-      "S\020\001\022\021\n\rLEVEL_TOO_LOW\020\002\022!\n\035ANOTHER_STRUCT" +
-      "_STILL_BUILDING\020\003\022#\n\037ALREADY_HAVE_MAX_OF" +
-      "_THIS_STRUCT\020\004\022\016\n\nOTHER_FAIL\020\005\022%\n!CLIENT" +
-      "_TOO_APART_FROM_SERVER_TIME\020\006\"\375\002\n%MoveOr" +
-      "RotateNormStructureRequestProto\0220\n\006sende" +
-      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022\024\n\014userStructId\030\002 \001(\005\022^\n\004type\030\003 \001(\0162P." +
-      "com.lvl6.proto.MoveOrRotateNormStructure",
-      "RequestProto.MoveOrRotateNormStructType\022" +
-      "=\n\024curStructCoordinates\030\004 \001(\0132\037.com.lvl6" +
-      ".proto.CoordinateProto\0229\n\016newOrientation" +
-      "\030\005 \001(\0162!.com.lvl6.proto.StructOrientatio" +
-      "n\"2\n\032MoveOrRotateNormStructType\022\010\n\004MOVE\020" +
-      "\000\022\n\n\006ROTATE\020\001\"\202\002\n&MoveOrRotateNormStruct" +
-      "ureResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022f\n\006status\030\002 \001" +
-      "(\0162V.com.lvl6.proto.MoveOrRotateNormStru" +
-      "ctureResponseProto.MoveOrRotateNormStruc",
-      "tureStatus\">\n\037MoveOrRotateNormStructureS" +
-      "tatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\002\"g\n\035Se" +
-      "llNormStructureRequestProto\0220\n\006sender\030\001 " +
-      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022\024\n" +
-      "\014userStructId\030\002 \001(\005\"\334\001\n\036SellNormStructur" +
-      "eResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\022V\n\006status\030\002 \001(\016" +
-      "2F.com.lvl6.proto.SellNormStructureRespo" +
-      "nseProto.SellNormStructureStatus\"0\n\027Sell" +
-      "NormStructureStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL",
-      "\020\001\"\201\001\n UpgradeNormStructureRequestProto\022" +
-      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022\024\n\014userStructId\030\002 \001(\005\022\025\n\rtimeO" +
-      "fUpgrade\030\003 \001(\003\"\227\003\n!UpgradeNormStructureR" +
-      "esponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022\\\n\006status\030\002 \001(\0162L" +
-      ".com.lvl6.proto.UpgradeNormStructureResp" +
-      "onseProto.UpgradeNormStructureStatus\"\341\001\n" +
-      "\032UpgradeNormStructureStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\rNOT_BUILT_",
-      "YET\020\002\022\024\n\020NOT_USERS_STRUCT\020\003\022\"\n\036ANOTHER_S" +
-      "TRUCT_STILL_UPGRADING\020\004\022\016\n\nOTHER_FAIL\020\005\022" +
-      "%\n!CLIENT_TOO_APART_FROM_SERVER_TIME\020\006\022\030" +
-      "\n\024AT_MAX_LEVEL_ALREADY\020\007\"\220\001\n-RetrieveCur" +
-      "rencyFromNormStructureRequestProto\0220\n\006se" +
-      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022\024\n\014userStructId\030\002 \001(\005\022\027\n\017timeOfRetr" +
-      "ieval\030\003 \001(\003\"\362\002\n.RetrieveCurrencyFromNorm" +
-      "StructureResponseProto\0220\n\006sender\030\001 \001(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022v\n\006stat",
-      "us\030\002 \001(\0162f.com.lvl6.proto.RetrieveCurren" +
-      "cyFromNormStructureResponseProto.Retriev" +
-      "eCurrencyFromNormStructureStatus\"\225\001\n\'Ret" +
-      "rieveCurrencyFromNormStructureStatus\022\013\n\007" +
-      "SUCCESS\020\000\022\023\n\017NOT_LONG_ENOUGH\020\001\022\016\n\nOTHER_" +
-      "FAIL\020\002\022%\n!CLIENT_TOO_APART_FROM_SERVER_T" +
-      "IME\020\003\022\021\n\rLEVEL_TOO_LOW\020\004\"\236\003\n#CriticalStr" +
-      "uctureActionRequestProto\0220\n\006sender\030\001 \001(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022\\\n\nac" +
-      "tionType\030\002 \001(\0162H.com.lvl6.proto.Critical",
-      "StructureActionRequestProto.CritStructAc" +
-      "tionType\0226\n\016critStructType\030\003 \001(\0162\036.com.l" +
-      "vl6.proto.CritStructType\022>\n\025critStructCo" +
-      "ordinates\030\004 \001(\0132\037.com.lvl6.proto.Coordin" +
-      "ateProto\0226\n\013orientation\030\005 \001(\0162!.com.lvl6" +
-      ".proto.StructOrientation\"7\n\024CritStructAc" +
-      "tionType\022\t\n\005PLACE\020\000\022\010\n\004MOVE\020\001\022\n\n\006ROTATE\020" +
-      "\002\"\260\002\n$CriticalStructureActionResponsePro" +
-      "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022[\n\006status\030\003 \001(\0162K.com.lvl6.",
-      "proto.CriticalStructureActionResponsePro" +
-      "to.CritStructActionStatus\"y\n\026CritStructA" +
-      "ctionStatus\022\013\n\007SUCCESS\020\000\022*\n&CANNOT_PLACE" +
-      "_NON_PLACEABLE_CRIT_STRUCT\020\001\022\026\n\022CANNOT_M" +
-      "OVE_AVIARY\020\003\022\016\n\nOTHER_FAIL\020\004\"\343\002\n0FinishN" +
-      "ormStructWaittimeWithDiamondsRequestProt" +
-      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\024\n\014userStructId\030\002 \001(\005\022\025\n\rtim" +
-      "eOfSpeedup\030\003 \001(\003\022m\n\014waitTimeType\030\004 \001(\0162W" +
-      ".com.lvl6.proto.FinishNormStructWaittime",
-      "WithDiamondsRequestProto.NormStructWaitT" +
-      "imeType\"a\n\026NormStructWaitTimeType\022\027\n\023FIN" +
-      "ISH_CONSTRUCTION\020\000\022\032\n\026FINISH_INCOME_WAIT" +
-      "TIME\020\001\022\022\n\016FINISH_UPGRADE\020\002\"\326\002\n1FinishNor" +
-      "mStructWaittimeWithDiamondsResponseProto" +
-      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022p\n\006status\030\002 \001(\0162`.com.lvl6.pr" +
-      "oto.FinishNormStructWaittimeWithDiamonds" +
-      "ResponseProto.FinishNormStructWaittimeSt" +
-      "atus\"}\n\036FinishNormStructWaittimeStatus\022\013",
-      "\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\n" +
-      "OTHER_FAIL\020\002\022%\n!CLIENT_TOO_APART_FROM_SE" +
-      "RVER_TIME\020\003\"}\n\"NormStructWaitCompleteReq" +
-      "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\024\n\014userStructId\030\002 \003(" +
-      "\005\022\017\n\007curTime\030\003 \001(\003\"\353\002\n#NormStructWaitCom" +
-      "pleteResponseProto\0220\n\006sender\030\001 \001(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022`\n\006status\030\002" +
-      " \001(\0162P.com.lvl6.proto.NormStructWaitComp" +
-      "leteResponseProto.NormStructWaitComplete",
-      "Status\022:\n\nuserStruct\030\003 \003(\0132&.com.lvl6.pr" +
-      "oto.FullUserStructureProto\"t\n\034NormStruct" +
-      "WaitCompleteStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_D" +
-      "ONE_YET\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIENT_TOO_" +
-      "APART_FROM_SERVER_TIME\020\003\"G\n\023LevelUpReque" +
-      "stProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\"\233\004\n\024LevelUpResponsePro" +
-      "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022B\n\006status\030\002 \001(\01622.com.lvl6." +
-      "proto.LevelUpResponseProto.LevelUpStatus",
-      "\022\020\n\010newLevel\030\013 \001(\005\022\024\n\014newNextLevel\030\003 \001(\005" +
-      "\022)\n!experienceRequiredForNewNextLevel\030\004 " +
-      "\001(\005\022A\n\032citiesNewlyAvailableToUser\030\005 \003(\0132" +
-      "\035.com.lvl6.proto.FullCityProto\022J\n\"newlyE" +
-      "quippableEpicsAndLegendaries\030\006 \003(\0132\036.com" +
-      ".lvl6.proto.FullEquipProto\022A\n\025newlyAvail" +
-      "ableStructs\030\007 \003(\0132\".com.lvl6.proto.FullS" +
-      "tructureProto\"h\n\rLevelUpStatus\022\013\n\007SUCCES" +
-      "S\020\000\022 \n\034NOT_ENOUGH_EXP_TO_NEXT_LEVEL\020\001\022\030\n" +
-      "\024ALREADY_AT_MAX_LEVEL\020\002\022\016\n\nOTHER_FAIL\020\003\"",
-      "^\n\031InAppPurchaseRequestProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022\017" +
-      "\n\007receipt\030\002 \001(\t\"\344\001\n\032InAppPurchaseRespons" +
-      "eProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022N\n\006status\030\002 \001(\0162>.com.l" +
-      "vl6.proto.InAppPurchaseResponseProto.InA" +
-      "ppPurchaseStatus\022\026\n\016diamondsGained\030\003 \001(\005" +
-      "\",\n\023InAppPurchaseStatus\022\013\n\007SUCCESS\020\000\022\010\n\004" +
-      "FAIL\020\001\"h\n\035UpdateClientUserResponseProto\022" +
-      "-\n\006sender\030\001 \001(\0132\035.com.lvl6.proto.FullUse",
-      "rProto\022\030\n\020timeOfUserUpdate\030\002 \001(\003\"\215\001\n+Ret" +
-      "rieveCurrentMarketplacePostsRequestProto" +
-      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\030\n\020beforeThisPostId\030\002 \001(\005\022\022\n\n" +
-      "fromSender\030\003 \001(\010\"\214\003\n,RetrieveCurrentMark" +
-      "etplacePostsResponseProto\0220\n\006sender\030\001 \001(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022\022\n\nf" +
-      "romSender\030\002 \001(\010\022\030\n\020beforeThisPostId\030\003 \001(" +
-      "\005\022r\n\006status\030\004 \001(\0162b.com.lvl6.proto.Retri" +
-      "eveCurrentMarketplacePostsResponseProto.",
-      "RetrieveCurrentMarketplacePostsStatus\022B\n" +
-      "\020marketplacePosts\030\005 \003(\0132(.com.lvl6.proto" +
-      ".FullMarketplacePostProto\"D\n%RetrieveCur" +
-      "rentMarketplacePostsStatus\022\013\n\007SUCCESS\020\000\022" +
-      "\016\n\nOTHER_FAIL\020\002\"\217\001\n\035PostToMarketplaceReq" +
-      "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022\025\n\rpostedEquipId\030\002 \001" +
-      "(\005\022\023\n\013diamondCost\030\003 \001(\005\022\020\n\010coinCost\030\004 \001(" +
-      "\005\"\212\003\n\036PostToMarketplaceResponseProto\0220\n\006" +
-      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse",
-      "rProto\022V\n\006status\030\002 \001(\0162F.com.lvl6.proto." +
-      "PostToMarketplaceResponseProto.PostToMar" +
-      "ketplaceStatus\"\335\001\n\027PostToMarketplaceStat" +
-      "us\022\013\n\007SUCCESS\020\000\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020NO" +
-      "T_ENOUGH_EQUIP\020\002\022\021\n\rNEGATIVE_COST\020\003\022\013\n\007N" +
-      "O_COST\020\004\022&\n\"USER_ALREADY_MAX_MARKETPLACE" +
-      "_POSTS\020\005\022\024\n\020CANT_DEMAND_BOTH\020\006\022\036\n\032INVALI" +
-      "D_COST_TYPE_FOR_POST\020\007\022\016\n\nOTHER_FAIL\020\010\"q" +
-      "\n\"RetractMarketplacePostRequestProto\0220\n\006" +
-      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse",
-      "rProto\022\031\n\021marketplacePostId\030\002 \001(\005\"\312\002\n#Re" +
-      "tractMarketplacePostResponseProto\0220\n\006sen" +
-      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022`\n\006status\030\002 \001(\0162P.com.lvl6.proto.Ret" +
-      "ractMarketplacePostResponseProto.Retract" +
-      "MarketplacePostStatus\"\216\001\n\034RetractMarketp" +
-      "lacePostStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_REQUE" +
-      "STERS_POST\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002\022" +
-      "\027\n\023NOT_ENOUGH_DIAMONDS\020\003\022\024\n\020NOT_ENOUGH_C" +
-      "OINS\020\004\"\204\001\n#PurchaseFromMarketplaceReques",
-      "tProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022\031\n\021marketplacePostId\030\002 " +
-      "\001(\005\022\020\n\010posterId\030\003 \001(\005\"\241\003\n$PurchaseFromMa" +
-      "rketplaceResponseProto\0223\n\tpurchaser\030\001 \001(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022\020\n\010p" +
-      "osterId\030\002 \001(\005\022A\n\017marketplacePost\030\003 \001(\0132(" +
-      ".com.lvl6.proto.FullMarketplacePostProto" +
-      "\022b\n\006status\030\004 \001(\0162R.com.lvl6.proto.Purcha" +
-      "seFromMarketplaceResponseProto.PurchaseF" +
-      "romMarketplaceStatus\"\212\001\n\035PurchaseFromMar",
-      "ketplaceStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUG" +
-      "H_MATERIALS\020\001\022\031\n\025POST_NO_LONGER_EXISTS\020\002" +
-      "\022\027\n\023PURCHASER_IS_SELLER\020\003\022\016\n\nOTHER_FAIL\020" +
-      "\005\"\340\001\n\031UseSkillPointRequestProto\0220\n\006sende" +
-      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022F\n\tboostType\030\002 \001(\01623.com.lvl6.proto.Us" +
-      "eSkillPointRequestProto.BoostType\"I\n\tBoo" +
-      "stType\022\n\n\006ATTACK\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERG" +
-      "Y\020\002\022\n\n\006HEALTH\020\003\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkil" +
-      "lPointResponseProto\0220\n\006sender\030\001 \001(\0132 .co",
-      "m.lvl6.proto.MinimumUserProto\022N\n\006status\030" +
-      "\002 \001(\0162>.com.lvl6.proto.UseSkillPointResp" +
-      "onseProto.UseSkillPointStatus\"O\n\023UseSkil" +
-      "lPointStatus\022\013\n\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_" +
-      "SKILL_POINTS\020\001\022\016\n\nOTHER_FAIL\020\002\"\304\001\n\036Gener" +
-      "ateAttackListRequestProto\0220\n\006sender\030\001 \001(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022\022\n\nn" +
-      "umEnemies\030\002 \001(\005\022\025\n\rlatLowerBound\030\003 \001(\001\022\025" +
-      "\n\rlatUpperBound\030\004 \001(\001\022\026\n\016longLowerBound\030" +
-      "\005 \001(\001\022\026\n\016longUpperBound\030\006 \001(\001\"\307\002\n\037Genera",
-      "teAttackListResponseProto\0220\n\006sender\030\001 \001(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\022.\n\007e" +
-      "nemies\030\002 \003(\0132\035.com.lvl6.proto.FullUserPr" +
-      "oto\022X\n\006status\030\003 \001(\0162H.com.lvl6.proto.Gen" +
-      "erateAttackListResponseProto.GenerateAtt" +
-      "ackListStatus\"h\n\030GenerateAttackListStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\022\035\n\031INVALID" +
-      "_NUM_ENEMIES_COUNT\020\002\022\021\n\rINVALID_BOUND\020\003\"" +
-      "\312\001\n\"RefillStatWithDiamondsRequestProto\0220" +
+      "#\n\033maxLevelDifferenceForBattle\030\006 \001(\005\022\027\n\017" +
+      "maxLevelForUser\030> \001(\005\022\025\n\rarmoryXLength\030\007" +
+      " \001(\005\022\025\n\rarmoryYLength\030\010 \001(\005\022\024\n\014vaultXLen",
+      "gth\030\t \001(\005\022\024\n\014vaultYLength\030\n \001(\005\022\032\n\022marke" +
+      "tplaceXLength\030\013 \001(\005\022\032\n\022marketplaceYLengt" +
+      "h\030\014 \001(\005\022\030\n\020carpenterXLength\030\r \001(\005\022\030\n\020car" +
+      "penterYLength\030\016 \001(\005\022\025\n\raviaryXLength\030\017 \001" +
+      "(\005\022\025\n\raviaryYLength\030\020 \001(\005\022\026\n\016attackBaseG" +
+      "ain\030\021 \001(\005\022\027\n\017defenseBaseGain\030\022 \001(\005\022\026\n\016en" +
+      "ergyBaseGain\030\023 \001(\005\022\026\n\016healthBaseGain\030\024 \001" +
+      "(\005\022\027\n\017staminaBaseGain\030\025 \001(\005\022\026\n\016attackBas" +
+      "eCost\030\026 \001(\005\022\027\n\017defenseBaseCost\030\027 \001(\005\022\026\n\016" +
+      "energyBaseCost\030\030 \001(\005\022\026\n\016healthBaseCost\030\031",
+      " \001(\005\022\027\n\017staminaBaseCost\030\032 \001(\005\022\"\n\032skillPo" +
+      "intsGainedOnLevelup\030\033 \001(\005\022\036\n\026cutOfVaultD" +
+      "epositTaken\030\034 \001(\001\022\031\n\021maxLevelForStruct\030!" +
+      " \001(\005\022\034\n\024maxNumOfSingleStruct\030\" \001(\005\0224\n,pe" +
+      "rcentReturnedToUserForSellingNormStructu" +
+      "re\030# \001(\001\022\036\n\026minutesToRefillAEnergy\030$ \001(\005" +
+      "\022\037\n\027minutesToRefillAStamina\030% \001(\005\022\'\n\037dia" +
+      "mondCostForFullStaminaRefill\0300 \001(\005\022&\n\036di" +
+      "amondCostForFullEnergyRefill\0301 \001(\005\022#\n\033ma" +
+      "xNumberOfMarketplacePosts\030( \001(\005\022@\n8perce",
+      "ntOfSellingCostTakenFromSellerOnMarketpl" +
+      "acePurchase\030) \001(\001\022?\n7percentOfSellingCos" +
+      "tTakenFromSellerOnMarketplaceRetract\030* \001" +
+      "(\001\022-\n%numDaysLongMarketplaceLicenseLasts" +
+      "For\030+ \001(\005\022.\n&numDaysShortMarketplaceLice" +
+      "nseLastsFor\030, \001(\005\022+\n#diamondCostOfLongMa" +
+      "rketplaceLicense\030- \001(\005\022,\n$diamondCostOfS" +
+      "hortMarketplaceLicense\030. \001(\005\022+\n#maxNumbe" +
+      "rsOfEnemiesToGenerateAtOnce\030\004 \001(\005\0224\n,per" +
+      "centReturnedToUserForSellingEquipInArmor",
+      "y\030\005 \001(\001\022\023\n\013maxCityRank\0302 \001(\005\022$\n\034armoryIm" +
+      "gVerticalPixelOffset\0306 \001(\005\022#\n\033vaultImgVe" +
+      "rticalPixelOffset\0307 \001(\005\022)\n!marketplaceIm" +
+      "gVerticalPixelOffset\0308 \001(\005\022\'\n\037carpenterI" +
+      "mgVerticalPixelOffset\0309 \001(\005\022$\n\034aviaryImg" +
+      "VerticalPixelOffset\030: \001(\005\022`\n\020formulaCons" +
+      "tants\030; \001(\0132F.com.lvl6.proto.StartupResp" +
+      "onseProto.StartupConstants.FormulaConsta" +
+      "nts\022^\n\017battleConstants\0303 \001(\0132E.com.lvl6." +
+      "proto.StartupResponseProto.StartupConsta",
+      "nts.BattleConstants\022 \n\030maxCharLengthForW" +
+      "allPost\0304 \001(\005\022\"\n\032playerWallPostsRetrieve" +
+      "Cap\0305 \001(\005\022n\n\025animatedSpriteOffsets\030< \003(\013" +
+      "2O.com.lvl6.proto.StartupResponseProto.S" +
+      "tartupConstants.AnimatedSpriteOffsetProt" +
+      "o\022h\n\024kiipRewardConditions\030= \001(\0132J.com.lv" +
+      "l6.proto.StartupResponseProto.StartupCon" +
+      "stants.KiipRewardConditions\032P\n\024KiipRewar" +
+      "dConditions\022\031\n\021levelUpConditions\030\001 \003(\005\022\035" +
+      "\n\025questRedeemConditions\030\002 \003(\005\032_\n\031Animate",
+      "dSpriteOffsetProto\022\021\n\timageName\0307 \001(\t\022/\n" +
+      "\006offSet\0308 \001(\0132\037.com.lvl6.proto.Coordinat" +
+      "eProto\032\364\001\n\020FormulaConstants\022/\n\'minutesTo" +
+      "UpgradeForNormStructMultiplier\030\001 \001(\001\022&\n\036" +
+      "incomeFromNormStructMultiplier\030\002 \001(\001\022)\n!" +
+      "upgradeStructCoinCostExponentBase\030\003 \001(\001\022" +
+      ",\n$upgradeStructDiamondCostExponentBase\030" +
+      "\004 \001(\001\022.\n&diamondCostForInstantUpgradeMul" +
+      "tiplier\030\005 \001(\001\032\337\003\n\017BattleConstants\022\026\n\016loc" +
+      "ationBarMax\030\001 \001(\002\022%\n\035battleWeightGivenTo",
+      "AttackStat\030\002 \001(\001\022)\n!battleWeightGivenToA" +
+      "ttackEquipSum\030\003 \001(\001\022&\n\036battleWeightGiven" +
+      "ToDefenseStat\030\004 \001(\001\022*\n\"battleWeightGiven" +
+      "ToDefenseEquipSum\030\005 \001(\001\022 \n\030battleWeightG" +
+      "ivenToLevel\030\r \001(\001\022%\n\035battlePerfectPercen" +
+      "tThreshold\030\006 \001(\002\022#\n\033battleGreatPercentTh" +
+      "reshold\030\007 \001(\002\022\"\n\032battleGoodPercentThresh" +
+      "old\030\010 \001(\002\022\037\n\027battlePerfectMultiplier\030\t \001" +
+      "(\002\022\035\n\025battleGreatMultiplier\030\n \001(\002\022\034\n\024bat" +
+      "tleGoodMultiplier\030\013 \001(\002\022\036\n\026battleImbalan",
+      "cePercent\030\014 \001(\002\032\304\020\n\021TutorialConstants\022\022\n" +
+      "\ninitEnergy\030\001 \001(\005\022\023\n\013initStamina\030\002 \001(\005\022\022" +
+      "\n\ninitHealth\030\003 \001(\005\022d\n\rtutorialQuest\030\004 \001(" +
+      "\0132M.com.lvl6.proto.StartupResponseProto." +
+      "TutorialConstants.FullTutorialQuestProto" +
+      "\022\025\n\rstructToBuild\030\005 \001(\005\022*\n\"diamondCostTo" +
+      "InstabuildFirstStruct\030\006 \001(\005\022\030\n\020archerIni" +
+      "tAttack\030\021 \001(\005\022\031\n\021archerInitDefense\030\022 \001(\005" +
+      "\0228\n\020archerInitWeapon\030\007 \001(\0132\036.com.lvl6.pr" +
+      "oto.FullEquipProto\0227\n\017archerInitArmor\030\010 ",
+      "\001(\0132\036.com.lvl6.proto.FullEquipProto\022\026\n\016m" +
+      "ageInitAttack\030\t \001(\005\022\027\n\017mageInitDefense\030\n" +
+      " \001(\005\0226\n\016mageInitWeapon\030\013 \001(\0132\036.com.lvl6." +
+      "proto.FullEquipProto\0225\n\rmageInitArmor\030\014 " +
+      "\001(\0132\036.com.lvl6.proto.FullEquipProto\022\031\n\021w" +
+      "arriorInitAttack\030\r \001(\005\022\032\n\022warriorInitDef" +
+      "ense\030\016 \001(\005\0229\n\021warriorInitWeapon\030\017 \001(\0132\036." +
+      "com.lvl6.proto.FullEquipProto\0228\n\020warrior" +
+      "InitArmor\030\020 \001(\0132\036.com.lvl6.proto.FullEqu" +
+      "ipProto\022\025\n\rminNameLength\030\023 \001(\005\022\025\n\rmaxNam",
+      "eLength\030\024 \001(\005\022\"\n\032coinRewardForBeingRefer" +
+      "red\030\026 \001(\005\022I\n\030firstCityElementsForGood\030\027 " +
+      "\003(\0132\'.com.lvl6.proto.NeutralCityElementP" +
+      "roto\022H\n\027firstCityElementsForBad\030\030 \003(\0132\'." +
+      "com.lvl6.proto.NeutralCityElementProto\022\021" +
+      "\n\tinitCoins\030\031 \001(\005\022\024\n\014initDiamonds\030\032 \001(\005\022" +
+      "<\n\020carpenterStructs\030\033 \003(\0132\".com.lvl6.pro" +
+      "to.FullStructureProto\022\036\n\026expRequiredForL" +
+      "evelTwo\030\034 \001(\005\022 \n\030expRequiredForLevelThre" +
+      "e\030\035 \001(\005\022M\n&citiesNewlyAvailableToUserAft",
+      "erLevelup\030\036 \003(\0132\035.com.lvl6.proto.FullCit" +
+      "yProto\022c\n;newlyEquippableEpicsAndLegenda" +
+      "riesForAllClassesAfterLevelup\030\037 \003(\0132\036.co" +
+      "m.lvl6.proto.FullEquipProto\022M\n!newlyAvai" +
+      "lableStructsAfterLevelup\030  \003(\0132\".com.lvl" +
+      "6.proto.FullStructureProto\022:\n\rfirstWallP" +
+      "ost\030! \001(\0132#.com.lvl6.proto.PlayerWallPos" +
+      "tProto\032\205\005\n\026FullTutorialQuestProto\022\020\n\010goo" +
+      "dName\030\001 \001(\t\022\017\n\007badName\030\002 \001(\t\022\027\n\017goodDesc" +
+      "ription\030\003 \001(\t\022\026\n\016badDescription\030\004 \001(\t\022\030\n",
+      "\020goodDoneResponse\030\005 \001(\t\022\027\n\017badDoneRespon" +
+      "se\030\006 \001(\t\0229\n\022goodAcceptDialogue\030\007 \001(\0132\035.c" +
+      "om.lvl6.proto.DialogueProto\0228\n\021badAccept" +
+      "Dialogue\030\010 \001(\0132\035.com.lvl6.proto.Dialogue" +
+      "Proto\022\032\n\022assetNumWithinCity\030\t \001(\005\022\023\n\013coi" +
+      "nsGained\030\n \001(\005\022\021\n\texpGained\030\013 \001(\005\0224\n\rfir" +
+      "stTaskGood\030\014 \001(\0132\035.com.lvl6.proto.FullTa" +
+      "skProto\0223\n\014firstTaskBad\030\r \001(\0132\035.com.lvl6" +
+      ".proto.FullTaskProto\022!\n\031firstTaskComplet" +
+      "eCoinGain\030\016 \001(\005\022(\n firstDefeatTypeJobBat",
+      "tleCoinGain\030\021 \001(\005\022\'\n\037firstDefeatTypeJobB" +
+      "attleExpGain\030\022 \001(\005\022J\n\"firstDefeatTypeJob" +
+      "BattleLootAmulet\030\023 \001(\0132\036.com.lvl6.proto." +
+      "FullEquipProto\"A\n\014UpdateStatus\022\r\n\tNO_UPD" +
+      "ATE\020\000\022\020\n\014MINOR_UPDATE\020\001\022\020\n\014MAJOR_UPDATE\020" +
+      "\002\"3\n\rStartupStatus\022\016\n\nUSER_IN_DB\020\000\022\022\n\016US" +
+      "ER_NOT_IN_DB\020\001\"\233\003\n\026UserCreateRequestProt" +
+      "o\022\014\n\004udid\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022&\n\004type\030\003 " +
+      "\001(\0162\030.com.lvl6.proto.UserType\0223\n\014userLoc" +
+      "ation\030\006 \001(\0132\035.com.lvl6.proto.LocationPro",
+      "to\022\024\n\014referrerCode\030\007 \001(\t\022\023\n\013deviceToken\030" +
+      "\010 \001(\t\022\016\n\006attack\030\t \001(\005\022\017\n\007defense\030\n \001(\005\022\016" +
+      "\n\006health\030\013 \001(\005\022\016\n\006energy\030\014 \001(\005\022\017\n\007stamin" +
+      "a\030\r \001(\005\022\034\n\024timeOfStructPurchase\030\016 \001(\003\022\031\n" +
+      "\021timeOfStructBuild\030\017 \001(\003\0225\n\014structCoords" +
+      "\030\004 \001(\0132\037.com.lvl6.proto.CoordinateProto\022" +
+      "\033\n\023usedDiamondsToBuilt\030\020 \001(\010\"\333\002\n\027UserCre" +
+      "ateResponseProto\022-\n\006sender\030\001 \001(\0132\035.com.l" +
+      "vl6.proto.FullUserProto\022H\n\006status\030\002 \001(\0162" +
+      "8.com.lvl6.proto.UserCreateResponseProto",
+      ".UserCreateStatus\"\306\001\n\020UserCreateStatus\022\013" +
+      "\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\024\n\020INVALID" +
+      "_LOCATION\020\002\022!\n\035USER_WITH_UDID_ALREADY_EX" +
+      "ISTS\020\003\022\016\n\nTIME_ISSUE\020\004\022\"\n\036INVALID_SKILL_" +
+      "POINT_ALLOCATION\020\005\022\026\n\022INVALID_REFER_CODE" +
+      "\020\006\022\016\n\nOTHER_FAIL\020\007\"d\n RetrieveTasksForCi" +
+      "tyRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl" +
+      "6.proto.MinimumUserProto\022\016\n\006cityId\030\002 \001(\005" +
+      "\"\203\001\n!RetrieveTasksForCityResponseProto\0220" +
       "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU",
-      "serProto\022M\n\010statType\030\002 \001(\0162;.com.lvl6.pr" +
-      "oto.RefillStatWithDiamondsRequestProto.S" +
-      "tatType\"#\n\010StatType\022\n\n\006ENERGY\020\000\022\013\n\007STAMI" +
-      "NA\020\001\"\210\002\n#RefillStatWithDiamondsResponseP" +
-      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
-      "nimumUserProto\022T\n\006status\030\002 \001(\0162D.com.lvl" +
-      "6.proto.RefillStatWithDiamondsResponsePr" +
-      "oto.RefillStatStatus\"Y\n\020RefillStatStatus" +
-      "\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\017" +
-      "\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003\"Y\n%Redee",
-      "mMarketplaceEarningsRequestProto\0220\n\006send" +
-      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\"\202\002\n&RedeemMarketplaceEarningsResponse" +
-      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
-      "inimumUserProto\022f\n\006status\030\002 \001(\0162V.com.lv" +
-      "l6.proto.RedeemMarketplaceEarningsRespon" +
-      "seProto.RedeemMarketplaceEarningsStatus\"" +
-      ">\n\037RedeemMarketplaceEarningsStatus\022\013\n\007SU" +
-      "CCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"c\n\032LoadPlayerCit" +
-      "yRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6",
-      ".proto.MinimumUserProto\022\023\n\013cityOwnerId\030\002" +
-      " \001(\005\"\275\006\n\033LoadPlayerCityResponseProto\0220\n\006" +
-      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse" +
-      "rProto\0223\n\tcityOwner\030\002 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022P\n\006status\030\003 \001(\0162@.co" +
-      "m.lvl6.proto.LoadPlayerCityResponseProto" +
-      ".LoadPlayerCityStatus\022@\n\020ownerNormStruct" +
-      "s\030\004 \003(\0132&.com.lvl6.proto.FullUserStructu" +
-      "reProto\0222\n\013ownerAllies\030\005 \003(\0132\035.com.lvl6." +
-      "proto.FullUserProto\0223\n\014ownerEnemies\030\006 \003(",
-      "\0132\035.com.lvl6.proto.FullUserProto\0227\n\006armo" +
-      "ry\030\007 \001(\0132\'.com.lvl6.proto.FullUserCritst" +
-      "ructProto\0226\n\005vault\030\010 \001(\0132\'.com.lvl6.prot" +
-      "o.FullUserCritstructProto\022<\n\013marketplace" +
-      "\030\t \001(\0132\'.com.lvl6.proto.FullUserCritstru" +
-      "ctProto\022:\n\tcarpenter\030\n \001(\0132\'.com.lvl6.pr" +
-      "oto.FullUserCritstructProto\0227\n\006aviary\030\013 " +
-      "\001(\0132\'.com.lvl6.proto.FullUserCritstructP" +
-      "roto\022M\n\025userCityExpansionData\030\014 \001(\0132..co" +
-      "m.lvl6.proto.FullUserCityExpansionDataPr",
-      "oto\"G\n\024LoadPlayerCityStatus\022\013\n\007SUCCESS\020\000" +
-      "\022\022\n\016NO_SUCH_PLAYER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027" +
-      "QuestAcceptRequestProto\0220\n\006sender\030\001 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\017\n\007que" +
-      "stId\030\002 \001(\005\"\200\002\n\030QuestAcceptResponseProto\022" +
-      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022J\n\006status\030\002 \001(\0162:.com.lvl6.pro" +
-      "to.QuestAcceptResponseProto.QuestAcceptS" +
-      "tatus\022\035\n\025cityIdOfAcceptedQuest\030\004 \001(\005\"G\n\021" +
-      "QuestAcceptStatus\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AV",
-      "AIL_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"\244\001\n\032QuestC" +
-      "ompleteResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022\017\n\007questI" +
-      "d\030\002 \001(\005\022C\n\022neutralCityElement\030\003 \001(\0132\'.co" +
-      "m.lvl6.proto.NeutralCityElementProto\"\\\n\027" +
-      "QuestRedeemRequestProto\0220\n\006sender\030\001 \001(\0132" +
-      " .com.lvl6.proto.MinimumUserProto\022\017\n\007que" +
-      "stId\030\002 \001(\005\"\232\002\n\030QuestRedeemResponseProto\022" +
-      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022<\n\024newlyAvailableQuests\030\002 \003(\0132",
-      "\036.com.lvl6.proto.FullQuestProto\022J\n\006statu" +
-      "s\030\003 \001(\0162:.com.lvl6.proto.QuestRedeemResp" +
-      "onseProto.QuestRedeemStatus\"B\n\021QuestRede" +
-      "emStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022" +
-      "\016\n\nOTHER_FAIL\020\002\"a\n\034UserQuestDetailsReque" +
-      "stProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
-      ".MinimumUserProto\022\017\n\007questId\030\002 \001(\005\"\333\002\n\035U" +
-      "serQuestDetailsResponseProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022L" +
-      "\n\027inProgressUserQuestData\030\002 \003(\0132+.com.lv",
-      "l6.proto.FullUserQuestDataLargeProto\022T\n\006" +
-      "status\030\003 \001(\0162D.com.lvl6.proto.UserQuestD" +
-      "etailsResponseProto.UserQuestDetailsStat" +
-      "us\"d\n\026UserQuestDetailsStatus\022\013\n\007SUCCESS\020" +
-      "\000\022.\n*SUPPLIED_QUESTID_CURRENTLY_NOT_IN_P" +
-      "ROGRESS\020\001\022\r\n\tSOME_FAIL\020\002\"\275\002\n\036RetrieveSta" +
-      "ticDataRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022\021\n\tstructI" +
-      "ds\030\002 \003(\005\022\017\n\007taskIds\030\003 \003(\005\022\020\n\010questIds\030\004 " +
-      "\003(\005\022\017\n\007cityIds\030\005 \003(\005\022\020\n\010equipIds\030\006 \003(\005\022\031",
-      "\n\021buildStructJobIds\030\007 \003(\005\022\030\n\020defeatTypeJ" +
-      "obIds\030\010 \003(\005\022\032\n\022possessEquipJobIds\030\t \003(\005\022" +
-      "\033\n\023upgradeStructJobIds\030\n \003(\005\022\"\n\032levelFor" +
-      "ExpRequiredRequest\030\013 \001(\005\"\371\005\n\037RetrieveSta" +
-      "ticDataResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\0223\n\007struct" +
-      "s\030\002 \003(\0132\".com.lvl6.proto.FullStructurePr" +
-      "oto\022,\n\005tasks\030\003 \003(\0132\035.com.lvl6.proto.Full" +
-      "TaskProto\022.\n\006quests\030\004 \003(\0132\036.com.lvl6.pro" +
-      "to.FullQuestProto\022-\n\006cities\030\005 \003(\0132\035.com.",
-      "lvl6.proto.FullCityProto\022.\n\006equips\030\006 \003(\013" +
-      "2\036.com.lvl6.proto.FullEquipProto\022<\n\017buil" +
-      "dStructJobs\030\007 \003(\0132#.com.lvl6.proto.Build" +
-      "StructJobProto\022:\n\016defeatTypeJobs\030\010 \003(\0132\"" +
-      ".com.lvl6.proto.DefeatTypeJobProto\022>\n\020po" +
-      "ssessEquipJobs\030\t \003(\0132$.com.lvl6.proto.Po" +
-      "ssessEquipJobProto\022@\n\021upgradeStructJobs\030" +
-      "\n \003(\0132%.com.lvl6.proto.UpgradeStructJobP" +
-      "roto\022$\n\034expRequiredForRequestedLevel\030\013 \001" +
-      "(\005\022X\n\006status\030\014 \001(\0162H.com.lvl6.proto.Retr",
-      "ieveStaticDataResponseProto.RetrieveStat" +
-      "icDataStatus\"6\n\030RetrieveStaticDataStatus" +
-      "\022\013\n\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"\244\001\n!Purchas" +
-      "eCityExpansionRequestProto\0220\n\006sender\030\001 \001" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\0225\n\t" +
-      "direction\030\002 \001(\0162\".com.lvl6.proto.Expansi" +
-      "onDirection\022\026\n\016timeOfPurchase\030\003 \001(\003\"\307\002\n\"" +
-      "PurchaseCityExpansionResponseProto\0220\n\006se" +
-      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022^\n\006status\030\002 \001(\0162N.com.lvl6.proto.Pu",
-      "rchaseCityExpansionResponseProto.Purchas" +
-      "eCityExpansionStatus\"\216\001\n\033PurchaseCityExp" +
-      "ansionStatus\022\013\n\007SUCCESS\020\000\022\024\n\020NOT_ENOUGH_" +
-      "COINS\020\001\022\025\n\021ALREADY_EXPANDING\020\002\022\016\n\nOTHER_" +
-      "FAIL\020\003\022%\n!CLIENT_TOO_APART_FROM_SERVER_T" +
-      "IME\020\004\"f\n!ExpansionWaitCompleteRequestPro" +
+      "serProto\022,\n\005tasks\030\002 \003(\0132\035.com.lvl6.proto" +
+      ".FullTaskProto\"\367\001\n%RetrieveStaticDataFor" +
+      "ShopRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022W\n\004type\030\002 \001(\016" +
+      "2I.com.lvl6.proto.RetrieveStaticDataForS" +
+      "hopRequestProto.RetrieveForShopType\"C\n\023R" +
+      "etrieveForShopType\022\030\n\024EQUIPMENT_FOR_ARMO" +
+      "RY\020\000\022\022\n\016ALL_STRUCTURES\020\001\"\346\002\n&RetrieveSta" +
+      "ticDataForShopResponseProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022f\n",
+      "\006status\030\002 \001(\0162V.com.lvl6.proto.RetrieveS" +
+      "taticDataForShopResponseProto.RetrieveSt" +
+      "aticDataForShopStatus\022.\n\006equips\030\003 \003(\0132\036." +
+      "com.lvl6.proto.FullEquipProto\0223\n\007structs" +
+      "\030\004 \003(\0132\".com.lvl6.proto.FullStructurePro" +
+      "to\"=\n\037RetrieveStaticDataForShopStatus\022\013\n" +
+      "\007SUCCESS\020\000\022\r\n\tSOME_FAIL\020\001\"k\n\026TaskActionR" +
+      "equestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\022\016\n\006taskId\030\002 \001(\005\022\017\n" +
+      "\007curTime\030\003 \001(\003\"\317\003\n\027TaskActionResponsePro",
       "to\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mini" +
-      "mumUserProto\022\017\n\007curTime\030\002 \001(\003\"\303\002\n\"Expans" +
-      "ionWaitCompleteResponseProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022^",
-      "\n\006status\030\002 \001(\0162N.com.lvl6.proto.Expansio" +
-      "nWaitCompleteResponseProto.ExpansionWait" +
-      "CompleteStatus\"\212\001\n\033ExpansionWaitComplete" +
-      "Status\022\013\n\007SUCCESS\020\000\022\025\n\021WAS_NOT_EXPANDING" +
-      "\020\001\022\020\n\014NOT_DONE_YET\020\002\022\016\n\nOTHER_FAIL\020\003\022%\n!" +
-      "CLIENT_TOO_APART_FROM_SERVER_TIME\020\004\"\373\001\n\"" +
-      "RefillStatWaitCompleteRequestProto\0220\n\006se" +
-      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
-      "roto\022\017\n\007curTime\030\002 \001(\003\022[\n\004type\030\003 \001(\0162M.co" +
-      "m.lvl6.proto.RefillStatWaitCompleteReque",
-      "stProto.RefillStatWaitCompleteType\"5\n\032Re" +
-      "fillStatWaitCompleteType\022\n\n\006ENERGY\020\000\022\013\n\007" +
-      "STAMINA\020\001\"\302\002\n#RefillStatWaitCompleteResp" +
-      "onseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022`\n\006status\030\002 \001(\0162P.co" +
-      "m.lvl6.proto.RefillStatWaitCompleteRespo" +
-      "nseProto.RefillStatWaitCompleteStatus\"\206\001" +
-      "\n\034RefillStatWaitCompleteStatus\022\013\n\007SUCCES" +
-      "S\020\000\022\021\n\rNOT_READY_YET\020\001\022\017\n\013ALREADY_MAX\020\002\022" +
-      "\016\n\nOTHER_FAIL\020\003\022%\n!CLIENT_TOO_APART_FROM",
-      "_SERVER_TIME\020\004\"_\n\026EnableAPNSRequestProto" +
-      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\023\n\013deviceToken\030\002 \001(\t\"\307\001\n\027Enab" +
-      "leAPNSResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022H\n\006status\030" +
-      "\002 \001(\01628.com.lvl6.proto.EnableAPNSRespons" +
-      "eProto.EnableAPNSStatus\"0\n\020EnableAPNSSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022\017\n\013NOT_ENABLED\020\001\"\353\001\n&Pu" +
-      "rchaseMarketplaceLicenseRequestProto\0220\n\006" +
-      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse",
-      "rProto\022\022\n\nclientTime\030\002 \001(\003\022W\n\013licenseTyp" +
-      "e\030\003 \001(\0162B.com.lvl6.proto.PurchaseMarketp" +
-      "laceLicenseRequestProto.LicenseType\"\"\n\013L" +
-      "icenseType\022\t\n\005SHORT\020\000\022\010\n\004LONG\020\001\"\345\002\n\'Purc" +
-      "haseMarketplaceLicenseResponseProto\0220\n\006s" +
-      "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\022h\n\006status\030\002 \001(\0162X.com.lvl6.proto.P" +
-      "urchaseMarketplaceLicenseResponseProto.P" +
-      "urchaseMarketplaceLicenseStatus\"\235\001\n Purc" +
-      "haseMarketplaceLicenseStatus\022\013\n\007SUCCESS\020",
-      "\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\034\n\030ALREADY_HA" +
-      "VE_LICENSE_NOW\020\002\022\016\n\nOTHER_FAIL\020\003\022%\n!CLIE" +
-      "NT_TOO_APART_FROM_SERVER_TIME\020\004\"\251\001\n\035Refe" +
-      "rralCodeUsedResponseProto\0220\n\006sender\030\001 \001(" +
-      "\0132 .com.lvl6.proto.MinimumUserProto\0228\n\016r" +
-      "eferredPlayer\030\002 \001(\0132 .com.lvl6.proto.Min" +
-      "imumUserProto\022\034\n\024coinsGivenToReferrer\030\003 " +
-      "\001(\005\"_\n\032EquipEquipmentRequestProto\0220\n\006sen" +
-      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022\017\n\007equipId\030\002 \001(\005\"\274\002\n\033EquipEquipmentR",
-      "esponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
-      "proto.MinimumUserProto\022P\n\006status\030\002 \001(\0162@" +
-      ".com.lvl6.proto.EquipEquipmentResponsePr" +
-      "oto.EquipEquipmentStatus\"\230\001\n\024EquipEquipm" +
-      "entStatus\022\013\n\007SUCCESS\020\000\022\031\n\025NOT_HIGH_ENOUG" +
-      "H_LEVEL\020\001\022\034\n\030DOES_NOT_HAVE_THIS_EQUIP\020\002\022" +
-      "\020\n\014NOT_AN_EQUIP\020\003\022\030\n\024INCORRECT_CLASS_TYP" +
-      "E\020\004\022\016\n\nOTHER_FAIL\020\005\"\207\001\n\036ChangeUserLocati" +
-      "onRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl" +
-      "6.proto.MinimumUserProto\0223\n\014userLocation",
-      "\030\002 \001(\0132\035.com.lvl6.proto.LocationProto\"\372\001" +
-      "\n\037ChangeUserLocationResponseProto\0220\n\006sen" +
-      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
-      "oto\022X\n\006status\030\002 \001(\0162H.com.lvl6.proto.Cha" +
-      "ngeUserLocationResponseProto.ChangeUserL" +
-      "ocationStatus\"K\n\030ChangeUserLocationStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\022\n\016INVALID_BOUNDS\020\001\022\016\n\nOT" +
-      "HER_FAIL\020\002\"_\n\033LoadNeutralCityRequestProt" +
-      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\016\n\006cityId\030\002 \001(\005\"\223\004\n\034LoadNeut",
-      "ralCityResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
-      "om.lvl6.proto.MinimumUserProto\022R\n\006status" +
-      "\030\002 \001(\0162B.com.lvl6.proto.LoadNeutralCityR" +
-      "esponseProto.LoadNeutralCityStatus\022;\n\rus" +
-      "erTasksInfo\030\003 \003(\0132$.com.lvl6.proto.Minim" +
-      "umUserTaskProto\022;\n\024defeatTypeJobEnemies\030" +
-      "\004 \003(\0132\035.com.lvl6.proto.FullUserProto\022=\n\014" +
-      "cityElements\030\005 \003(\0132\'.com.lvl6.proto.Neut" +
-      "ralCityElementProto\022\016\n\006cityId\030\006 \001(\005\022R\n\035i" +
-      "nProgressUserQuestDataInCity\030\007 \003(\0132+.com",
-      ".lvl6.proto.FullUserQuestDataLargeProto\"" +
-      "P\n\025LoadNeutralCityStatus\022\013\n\007SUCCESS\020\000\022\032\n" +
-      "\026NOT_ACCESSIBLE_TO_USER\020\001\022\016\n\nOTHER_FAIL\020" +
-      "\002\"p\n$RetrieveUserEquipForUserRequestProt" +
-      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\026\n\016relevantUserId\030\002 \001(\005\"\251\001\n%" +
-      "RetrieveUserEquipForUserResponseProto\0220\n" +
-      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
-      "erProto\022\026\n\016relevantUserId\030\002 \001(\005\0226\n\nuserE" +
-      "quips\030\003 \003(\0132\".com.lvl6.proto.FullUserEqu",
-      "ipProto\"6\n\"PurgeClientStaticDataResponse" +
-      "Proto\022\020\n\010senderId\030\001 \001(\005\"q\n#RetrieveUsers" +
-      "ForUserIdsRequestProto\0220\n\006sender\030\001 \001(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\030\n\020requ" +
-      "estedUserIds\030\002 \003(\005\"\217\001\n$RetrieveUsersForU" +
-      "serIdsResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\0225\n\016request" +
-      "edUsers\030\002 \003(\0132\035.com.lvl6.proto.FullUserP" +
-      "roto\"v\n\034PostOnPlayerWallRequestProto\0220\n\006" +
-      "sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUse",
-      "rProto\022\023\n\013wallOwnerId\030\002 \001(\005\022\017\n\007content\030\003" +
-      " \001(\t\"\272\002\n\035PostOnPlayerWallResponseProto\0220" +
+      "mumUserProto\022H\n\006status\030\002 \001(\01628.com.lvl6." +
+      "proto.TaskActionResponseProto.TaskAction" +
+      "Status\022\025\n\rtaskCompleted\030\003 \001(\010\022\024\n\014cityRan" +
+      "kedUp\030\004 \001(\010\022\023\n\013lootEquipId\030\005 \001(\005\022\023\n\013coin" +
+      "sGained\030\006 \001(\005\022\035\n\025coinBonusIfCityRankup\030\007" +
+      " \001(\005\022\034\n\024expBonusIfCityRankup\030\010 \001(\005\022\016\n\006ci" +
+      "tyId\030\t \001(\005\"\223\001\n\020TaskActionStatus\022\013\n\007SUCCE" +
+      "SS\020\000\022\032\n\026USER_NOT_ENOUGH_ENERGY\020\001\022\037\n\033USER" +
+      "_NOT_ALL_REQUIRED_ITEMS\020\002\022\016\n\nOTHER_FAIL\020",
+      "\003\022%\n!CLIENT_TOO_APART_FROM_SERVER_TIME\020\004" +
+      "\"\273\001\n!PurchaseNormStructureRequestProto\0220" +
       "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022T\n\006status\030\002 \001(\0162D.com.lvl6.prot" +
-      "o.PostOnPlayerWallResponseProto.PostOnPl" +
-      "ayerWallStatus\0221\n\004post\030\003 \001(\0132#.com.lvl6." +
-      "proto.PlayerWallPostProto\"^\n\026PostOnPlaye" +
-      "rWallStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NO_CONTENT_S" +
-      "ENT\020\001\022\022\n\016POST_TOO_LARGE\020\002\022\016\n\nOTHER_FAIL\020" +
-      "\003\"\211\001\n#RetrievePlayerWallPostsRequestProt",
+      "serProto\022:\n\021structCoordinates\030\002 \001(\0132\037.co" +
+      "m.lvl6.proto.CoordinateProto\022\020\n\010structId" +
+      "\030\003 \001(\005\022\026\n\016timeOfPurchase\030\004 \001(\003\"\245\003\n\"Purch" +
+      "aseNormStructureResponseProto\0220\n\006sender\030" +
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "^\n\006status\030\002 \001(\0162N.com.lvl6.proto.Purchas" +
+      "eNormStructureResponseProto.PurchaseNorm",
+      "StructureStatus\022\024\n\014userStructId\030\003 \001(\005\"\326\001" +
+      "\n\033PurchaseNormStructureStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\021\n\rLEVEL_TO" +
+      "O_LOW\020\002\022!\n\035ANOTHER_STRUCT_STILL_BUILDING" +
+      "\020\003\022#\n\037ALREADY_HAVE_MAX_OF_THIS_STRUCT\020\004\022" +
+      "\016\n\nOTHER_FAIL\020\005\022%\n!CLIENT_TOO_APART_FROM" +
+      "_SERVER_TIME\020\006\"\375\002\n%MoveOrRotateNormStruc" +
+      "tureRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022\024\n\014userStruct" +
+      "Id\030\002 \001(\005\022^\n\004type\030\003 \001(\0162P.com.lvl6.proto.",
+      "MoveOrRotateNormStructureRequestProto.Mo" +
+      "veOrRotateNormStructType\022=\n\024curStructCoo" +
+      "rdinates\030\004 \001(\0132\037.com.lvl6.proto.Coordina" +
+      "teProto\0229\n\016newOrientation\030\005 \001(\0162!.com.lv" +
+      "l6.proto.StructOrientation\"2\n\032MoveOrRota" +
+      "teNormStructType\022\010\n\004MOVE\020\000\022\n\n\006ROTATE\020\001\"\202" +
+      "\002\n&MoveOrRotateNormStructureResponseProt" +
       "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022\026\n\016relevantUserId\030\002 \001(\005\022\030\n\020b" +
-      "eforeThisPostId\030\003 \001(\005\"\352\002\n$RetrievePlayer" +
-      "WallPostsResponseProto\0220\n\006sender\030\001 \001(\0132 " +
-      ".com.lvl6.proto.MinimumUserProto\022\026\n\016rele" +
-      "vantUserId\030\002 \001(\005\022\030\n\020beforeThisPostId\030\003 \001" +
-      "(\005\022b\n\006status\030\004 \001(\0162R.com.lvl6.proto.Retr" +
-      "ievePlayerWallPostsResponseProto.Retriev" +
-      "ePlayerWallPostsStatus\022<\n\017playerWallPost" +
-      "s\030\005 \003(\0132#.com.lvl6.proto.PlayerWallPostP",
-      "roto\"<\n\035RetrievePlayerWallPostsStatus\022\013\n" +
-      "\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\361\001\n\034EarnFreeD" +
-      "iamondsRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
-      "m.lvl6.proto.MinimumUserProto\022>\n\020freeDia" +
-      "mondsType\030\002 \001(\0162$.com.lvl6.proto.EarnFre" +
-      "eDiamondsType\022\022\n\nclientTime\030\003 \001(\003\022\023\n\013kii" +
-      "pReceipt\030\004 \001(\t\022\026\n\016adColonyDigest\030\005 \001(\t\022\036" +
-      "\n\026adColonyDiamondsEarned\030\006 \001(\005\"\337\002\n\035EarnF" +
-      "reeDiamondsResponseProto\0220\n\006sender\030\001 \001(\013" +
-      "2 .com.lvl6.proto.MinimumUserProto\022T\n\006st",
-      "atus\030\002 \001(\0162D.com.lvl6.proto.EarnFreeDiam" +
-      "ondsResponseProto.EarnFreeDiamondsStatus" +
-      "\022>\n\020freeDiamondsType\030\003 \001(\0162$.com.lvl6.pr" +
-      "oto.EarnFreeDiamondsType\"v\n\026EarnFreeDiam" +
-      "ondsStatus\022\013\n\007SUCCESS\020\000\022%\n!CLIENT_TOO_AP" +
-      "ART_FROM_SERVER_TIME\020\001\022\030\n\024METHOD_NOT_SUP" +
-      "PORTED\020\002\022\016\n\nOTHER_FAIL\020\003\"I\n\025ReconnectReq" +
+      "umUserProto\022f\n\006status\030\002 \001(\0162V.com.lvl6.p" +
+      "roto.MoveOrRotateNormStructureResponsePr",
+      "oto.MoveOrRotateNormStructureStatus\">\n\037M" +
+      "oveOrRotateNormStructureStatus\022\013\n\007SUCCES" +
+      "S\020\000\022\016\n\nOTHER_FAIL\020\002\"g\n\035SellNormStructure" +
+      "RequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022\024\n\014userStructId\030\002" +
+      " \001(\005\"\334\001\n\036SellNormStructureResponseProto\022" +
+      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
+      "UserProto\022V\n\006status\030\002 \001(\0162F.com.lvl6.pro" +
+      "to.SellNormStructureResponseProto.SellNo" +
+      "rmStructureStatus\"0\n\027SellNormStructureSt",
+      "atus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"\201\001\n UpgradeN" +
+      "ormStructureRequestProto\0220\n\006sender\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022\024\n\014us" +
+      "erStructId\030\002 \001(\005\022\025\n\rtimeOfUpgrade\030\003 \001(\003\"" +
+      "\227\003\n!UpgradeNormStructureResponseProto\0220\n" +
+      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\022\\\n\006status\030\002 \001(\0162L.com.lvl6.proto" +
+      ".UpgradeNormStructureResponseProto.Upgra" +
+      "deNormStructureStatus\"\341\001\n\032UpgradeNormStr" +
+      "uctureStatus\022\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_",
+      "MATERIALS\020\001\022\021\n\rNOT_BUILT_YET\020\002\022\024\n\020NOT_US" +
+      "ERS_STRUCT\020\003\022\"\n\036ANOTHER_STRUCT_STILL_UPG" +
+      "RADING\020\004\022\016\n\nOTHER_FAIL\020\005\022%\n!CLIENT_TOO_A" +
+      "PART_FROM_SERVER_TIME\020\006\022\030\n\024AT_MAX_LEVEL_" +
+      "ALREADY\020\007\"\220\001\n-RetrieveCurrencyFromNormSt" +
+      "ructureRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022\024\n\014userStr" +
+      "uctId\030\002 \001(\005\022\027\n\017timeOfRetrieval\030\003 \001(\003\"\362\002\n" +
+      ".RetrieveCurrencyFromNormStructureRespon" +
+      "seProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto",
+      ".MinimumUserProto\022v\n\006status\030\002 \001(\0162f.com." +
+      "lvl6.proto.RetrieveCurrencyFromNormStruc" +
+      "tureResponseProto.RetrieveCurrencyFromNo" +
+      "rmStructureStatus\"\225\001\n\'RetrieveCurrencyFr" +
+      "omNormStructureStatus\022\013\n\007SUCCESS\020\000\022\023\n\017NO" +
+      "T_LONG_ENOUGH\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIEN" +
+      "T_TOO_APART_FROM_SERVER_TIME\020\003\022\021\n\rLEVEL_" +
+      "TOO_LOW\020\004\"\236\003\n#CriticalStructureActionReq" +
       "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\"l\n\026ReconnectResponse" +
-      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M",
-      "inimumUserProto\022 \n\030incomingResponseMessa" +
-      "ges\030\002 \001(\010\"F\n\022LogoutRequestProto\0220\n\006sende" +
+      "to.MinimumUserProto\022\\\n\nactionType\030\002 \001(\0162",
+      "H.com.lvl6.proto.CriticalStructureAction" +
+      "RequestProto.CritStructActionType\0226\n\016cri" +
+      "tStructType\030\003 \001(\0162\036.com.lvl6.proto.CritS" +
+      "tructType\022>\n\025critStructCoordinates\030\004 \001(\013" +
+      "2\037.com.lvl6.proto.CoordinateProto\0226\n\013ori" +
+      "entation\030\005 \001(\0162!.com.lvl6.proto.StructOr" +
+      "ientation\"7\n\024CritStructActionType\022\t\n\005PLA" +
+      "CE\020\000\022\010\n\004MOVE\020\001\022\n\n\006ROTATE\020\002\"\260\002\n$CriticalS" +
+      "tructureActionResponseProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022[\n",
+      "\006status\030\003 \001(\0162K.com.lvl6.proto.CriticalS" +
+      "tructureActionResponseProto.CritStructAc" +
+      "tionStatus\"y\n\026CritStructActionStatus\022\013\n\007" +
+      "SUCCESS\020\000\022*\n&CANNOT_PLACE_NON_PLACEABLE_" +
+      "CRIT_STRUCT\020\001\022\026\n\022CANNOT_MOVE_AVIARY\020\003\022\016\n" +
+      "\nOTHER_FAIL\020\004\"\343\002\n0FinishNormStructWaitti" +
+      "meWithDiamondsRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\024\n\014" +
+      "userStructId\030\002 \001(\005\022\025\n\rtimeOfSpeedup\030\003 \001(" +
+      "\003\022m\n\014waitTimeType\030\004 \001(\0162W.com.lvl6.proto",
+      ".FinishNormStructWaittimeWithDiamondsReq" +
+      "uestProto.NormStructWaitTimeType\"a\n\026Norm" +
+      "StructWaitTimeType\022\027\n\023FINISH_CONSTRUCTIO" +
+      "N\020\000\022\032\n\026FINISH_INCOME_WAITTIME\020\001\022\022\n\016FINIS" +
+      "H_UPGRADE\020\002\"\326\002\n1FinishNormStructWaittime" +
+      "WithDiamondsResponseProto\0220\n\006sender\030\001 \001(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022p\n\006s" +
+      "tatus\030\002 \001(\0162`.com.lvl6.proto.FinishNormS" +
+      "tructWaittimeWithDiamondsResponseProto.F" +
+      "inishNormStructWaittimeStatus\"}\n\036FinishN",
+      "ormStructWaittimeStatus\022\013\n\007SUCCESS\020\000\022\027\n\023" +
+      "NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n" +
+      "!CLIENT_TOO_APART_FROM_SERVER_TIME\020\003\"}\n\"" +
+      "NormStructWaitCompleteRequestProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022\024\n\014userStructId\030\002 \003(\005\022\017\n\007curTime\030\003 " +
+      "\001(\003\"\353\002\n#NormStructWaitCompleteResponsePr" +
+      "oto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Min" +
+      "imumUserProto\022`\n\006status\030\002 \001(\0162P.com.lvl6" +
+      ".proto.NormStructWaitCompleteResponsePro",
+      "to.NormStructWaitCompleteStatus\022:\n\nuserS" +
+      "truct\030\003 \003(\0132&.com.lvl6.proto.FullUserStr" +
+      "uctureProto\"t\n\034NormStructWaitCompleteSta" +
+      "tus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016\n\nOT" +
+      "HER_FAIL\020\002\022%\n!CLIENT_TOO_APART_FROM_SERV" +
+      "ER_TIME\020\003\"G\n\023LevelUpRequestProto\0220\n\006send" +
+      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
+      "to\"\233\004\n\024LevelUpResponseProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022B\n" +
+      "\006status\030\002 \001(\01622.com.lvl6.proto.LevelUpRe",
+      "sponseProto.LevelUpStatus\022\020\n\010newLevel\030\013 " +
+      "\001(\005\022\024\n\014newNextLevel\030\003 \001(\005\022)\n!experienceR" +
+      "equiredForNewNextLevel\030\004 \001(\005\022A\n\032citiesNe" +
+      "wlyAvailableToUser\030\005 \003(\0132\035.com.lvl6.prot" +
+      "o.FullCityProto\022J\n\"newlyEquippableEpicsA" +
+      "ndLegendaries\030\006 \003(\0132\036.com.lvl6.proto.Ful" +
+      "lEquipProto\022A\n\025newlyAvailableStructs\030\007 \003" +
+      "(\0132\".com.lvl6.proto.FullStructureProto\"h" +
+      "\n\rLevelUpStatus\022\013\n\007SUCCESS\020\000\022 \n\034NOT_ENOU" +
+      "GH_EXP_TO_NEXT_LEVEL\020\001\022\030\n\024ALREADY_AT_MAX",
+      "_LEVEL\020\002\022\016\n\nOTHER_FAIL\020\003\"^\n\031InAppPurchas" +
+      "eRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\022\017\n\007receipt\030\002 \001(\t" +
+      "\"\344\001\n\032InAppPurchaseResponseProto\0220\n\006sende" +
       "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "oB\014B\nEventProto"
+      "o\022N\n\006status\030\002 \001(\0162>.com.lvl6.proto.InApp" +
+      "PurchaseResponseProto.InAppPurchaseStatu" +
+      "s\022\026\n\016diamondsGained\030\003 \001(\005\",\n\023InAppPurcha" +
+      "seStatus\022\013\n\007SUCCESS\020\000\022\010\n\004FAIL\020\001\"h\n\035Updat" +
+      "eClientUserResponseProto\022-\n\006sender\030\001 \001(\013",
+      "2\035.com.lvl6.proto.FullUserProto\022\030\n\020timeO" +
+      "fUserUpdate\030\002 \001(\003\"\215\001\n+RetrieveCurrentMar" +
+      "ketplacePostsRequestProto\0220\n\006sender\030\001 \001(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022\030\n\020b" +
+      "eforeThisPostId\030\002 \001(\005\022\022\n\nfromSender\030\003 \001(" +
+      "\010\"\214\003\n,RetrieveCurrentMarketplacePostsRes" +
+      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022\022\n\nfromSender\030\002 \001(\010" +
+      "\022\030\n\020beforeThisPostId\030\003 \001(\005\022r\n\006status\030\004 \001" +
+      "(\0162b.com.lvl6.proto.RetrieveCurrentMarke",
+      "tplacePostsResponseProto.RetrieveCurrent" +
+      "MarketplacePostsStatus\022B\n\020marketplacePos" +
+      "ts\030\005 \003(\0132(.com.lvl6.proto.FullMarketplac" +
+      "ePostProto\"D\n%RetrieveCurrentMarketplace" +
+      "PostsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\002" +
+      "\"\217\001\n\035PostToMarketplaceRequestProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022\025\n\rpostedEquipId\030\002 \001(\005\022\023\n\013diamondCo" +
+      "st\030\003 \001(\005\022\020\n\010coinCost\030\004 \001(\005\"\212\003\n\036PostToMar" +
+      "ketplaceResponseProto\0220\n\006sender\030\001 \001(\0132 .",
+      "com.lvl6.proto.MinimumUserProto\022V\n\006statu" +
+      "s\030\002 \001(\0162F.com.lvl6.proto.PostToMarketpla" +
+      "ceResponseProto.PostToMarketplaceStatus\"" +
+      "\335\001\n\027PostToMarketplaceStatus\022\013\n\007SUCCESS\020\000" +
+      "\022\021\n\rNEGATIVE_POST\020\001\022\024\n\020NOT_ENOUGH_EQUIP\020" +
+      "\002\022\021\n\rNEGATIVE_COST\020\003\022\013\n\007NO_COST\020\004\022&\n\"USE" +
+      "R_ALREADY_MAX_MARKETPLACE_POSTS\020\005\022\024\n\020CAN" +
+      "T_DEMAND_BOTH\020\006\022\036\n\032INVALID_COST_TYPE_FOR" +
+      "_POST\020\007\022\016\n\nOTHER_FAIL\020\010\"q\n\"RetractMarket" +
+      "placePostRequestProto\0220\n\006sender\030\001 \001(\0132 .",
+      "com.lvl6.proto.MinimumUserProto\022\031\n\021marke" +
+      "tplacePostId\030\002 \001(\005\"\312\002\n#RetractMarketplac" +
+      "ePostResponseProto\0220\n\006sender\030\001 \001(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022`\n\006status\030\002" +
+      " \001(\0162P.com.lvl6.proto.RetractMarketplace" +
+      "PostResponseProto.RetractMarketplacePost" +
+      "Status\"\216\001\n\034RetractMarketplacePostStatus\022" +
+      "\013\n\007SUCCESS\020\000\022\027\n\023NOT_REQUESTERS_POST\020\001\022\031\n" +
+      "\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023NOT_ENOUGH_D" +
+      "IAMONDS\020\003\022\024\n\020NOT_ENOUGH_COINS\020\004\"\204\001\n#Purc",
+      "haseFromMarketplaceRequestProto\0220\n\006sende" +
+      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\022\031\n\021marketplacePostId\030\002 \001(\005\022\020\n\010posterId" +
+      "\030\003 \001(\005\"\241\003\n$PurchaseFromMarketplaceRespon" +
+      "seProto\0223\n\tpurchaser\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022\020\n\010posterId\030\002 \001(\005\022A" +
+      "\n\017marketplacePost\030\003 \001(\0132(.com.lvl6.proto" +
+      ".FullMarketplacePostProto\022b\n\006status\030\004 \001(" +
+      "\0162R.com.lvl6.proto.PurchaseFromMarketpla" +
+      "ceResponseProto.PurchaseFromMarketplaceS",
+      "tatus\"\212\001\n\035PurchaseFromMarketplaceStatus\022" +
+      "\013\n\007SUCCESS\020\000\022\030\n\024NOT_ENOUGH_MATERIALS\020\001\022\031" +
+      "\n\025POST_NO_LONGER_EXISTS\020\002\022\027\n\023PURCHASER_I" +
+      "S_SELLER\020\003\022\016\n\nOTHER_FAIL\020\005\"\340\001\n\031UseSkillP" +
+      "ointRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022F\n\tboostType\030" +
+      "\002 \001(\01623.com.lvl6.proto.UseSkillPointRequ" +
+      "estProto.BoostType\"I\n\tBoostType\022\n\n\006ATTAC" +
+      "K\020\000\022\013\n\007DEFENSE\020\001\022\n\n\006ENERGY\020\002\022\n\n\006HEALTH\020\003" +
+      "\022\013\n\007STAMINA\020\004\"\357\001\n\032UseSkillPointResponseP",
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022N\n\006status\030\002 \001(\0162>.com.lvl" +
+      "6.proto.UseSkillPointResponseProto.UseSk" +
+      "illPointStatus\"O\n\023UseSkillPointStatus\022\013\n" +
+      "\007SUCCESS\020\000\022\033\n\027NOT_ENOUGH_SKILL_POINTS\020\001\022" +
+      "\016\n\nOTHER_FAIL\020\002\"\304\001\n\036GenerateAttackListRe" +
+      "questProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022\022\n\nnumEnemies\030\002 \001(\005" +
+      "\022\025\n\rlatLowerBound\030\003 \001(\001\022\025\n\rlatUpperBound" +
+      "\030\004 \001(\001\022\026\n\016longLowerBound\030\005 \001(\001\022\026\n\016longUp",
+      "perBound\030\006 \001(\001\"\307\002\n\037GenerateAttackListRes" +
+      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022.\n\007enemies\030\002 \003(\0132\035." +
+      "com.lvl6.proto.FullUserProto\022X\n\006status\030\003" +
+      " \001(\0162H.com.lvl6.proto.GenerateAttackList" +
+      "ResponseProto.GenerateAttackListStatus\"h" +
+      "\n\030GenerateAttackListStatus\022\013\n\007SUCCESS\020\000\022" +
+      "\r\n\tSOME_FAIL\020\001\022\035\n\031INVALID_NUM_ENEMIES_CO" +
+      "UNT\020\002\022\021\n\rINVALID_BOUND\020\003\"\312\001\n\"RefillStatW" +
+      "ithDiamondsRequestProto\0220\n\006sender\030\001 \001(\0132",
+      " .com.lvl6.proto.MinimumUserProto\022M\n\010sta" +
+      "tType\030\002 \001(\0162;.com.lvl6.proto.RefillStatW" +
+      "ithDiamondsRequestProto.StatType\"#\n\010Stat" +
+      "Type\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\210\002\n#Refill" +
+      "StatWithDiamondsResponseProto\0220\n\006sender\030" +
+      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
+      "T\n\006status\030\002 \001(\0162D.com.lvl6.proto.RefillS" +
+      "tatWithDiamondsResponseProto.RefillStatS" +
+      "tatus\"Y\n\020RefillStatStatus\022\013\n\007SUCCESS\020\000\022\027" +
+      "\n\023NOT_ENOUGH_DIAMONDS\020\001\022\017\n\013ALREADY_MAX\020\002",
+      "\022\016\n\nOTHER_FAIL\020\003\"Y\n%RedeemMarketplaceEar" +
+      "ningsRequestProto\0220\n\006sender\030\001 \001(\0132 .com." +
+      "lvl6.proto.MinimumUserProto\"\202\002\n&RedeemMa" +
+      "rketplaceEarningsResponseProto\0220\n\006sender" +
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022f\n\006status\030\002 \001(\0162V.com.lvl6.proto.Redeem" +
+      "MarketplaceEarningsResponseProto.RedeemM" +
+      "arketplaceEarningsStatus\">\n\037RedeemMarket" +
+      "placeEarningsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHE" +
+      "R_FAIL\020\001\"c\n\032LoadPlayerCityRequestProto\0220",
+      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
+      "serProto\022\023\n\013cityOwnerId\030\002 \001(\005\"\275\006\n\033LoadPl" +
+      "ayerCityResponseProto\0220\n\006sender\030\001 \001(\0132 ." +
+      "com.lvl6.proto.MinimumUserProto\0223\n\tcityO" +
+      "wner\030\002 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022P\n\006status\030\003 \001(\0162@.com.lvl6.proto.Lo" +
+      "adPlayerCityResponseProto.LoadPlayerCity" +
+      "Status\022@\n\020ownerNormStructs\030\004 \003(\0132&.com.l" +
+      "vl6.proto.FullUserStructureProto\0222\n\013owne" +
+      "rAllies\030\005 \003(\0132\035.com.lvl6.proto.FullUserP",
+      "roto\0223\n\014ownerEnemies\030\006 \003(\0132\035.com.lvl6.pr" +
+      "oto.FullUserProto\0227\n\006armory\030\007 \001(\0132\'.com." +
+      "lvl6.proto.FullUserCritstructProto\0226\n\005va" +
+      "ult\030\010 \001(\0132\'.com.lvl6.proto.FullUserCrits" +
+      "tructProto\022<\n\013marketplace\030\t \001(\0132\'.com.lv" +
+      "l6.proto.FullUserCritstructProto\022:\n\tcarp" +
+      "enter\030\n \001(\0132\'.com.lvl6.proto.FullUserCri" +
+      "tstructProto\0227\n\006aviary\030\013 \001(\0132\'.com.lvl6." +
+      "proto.FullUserCritstructProto\022M\n\025userCit" +
+      "yExpansionData\030\014 \001(\0132..com.lvl6.proto.Fu",
+      "llUserCityExpansionDataProto\"G\n\024LoadPlay" +
+      "erCityStatus\022\013\n\007SUCCESS\020\000\022\022\n\016NO_SUCH_PLA" +
+      "YER\020\001\022\016\n\nOTHER_FAIL\020\002\"\\\n\027QuestAcceptRequ" +
+      "estProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\017\n\007questId\030\002 \001(\005\"\200\002\n\030" +
+      "QuestAcceptResponseProto\0220\n\006sender\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022J\n\006st" +
+      "atus\030\002 \001(\0162:.com.lvl6.proto.QuestAcceptR" +
+      "esponseProto.QuestAcceptStatus\022\035\n\025cityId" +
+      "OfAcceptedQuest\030\004 \001(\005\"G\n\021QuestAcceptStat",
+      "us\022\013\n\007SUCCESS\020\000\022\025\n\021NOT_AVAIL_TO_USER\020\001\022\016" +
+      "\n\nOTHER_FAIL\020\002\"\244\001\n\032QuestCompleteResponse" +
+      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022\017\n\007questId\030\002 \001(\005\022C\n\022neut" +
+      "ralCityElement\030\003 \001(\0132\'.com.lvl6.proto.Ne" +
+      "utralCityElementProto\"\\\n\027QuestRedeemRequ" +
+      "estProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022\017\n\007questId\030\002 \001(\005\"\232\002\n\030" +
+      "QuestRedeemResponseProto\0220\n\006sender\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022<\n\024ne",
+      "wlyAvailableQuests\030\002 \003(\0132\036.com.lvl6.prot" +
+      "o.FullQuestProto\022J\n\006status\030\003 \001(\0162:.com.l" +
+      "vl6.proto.QuestRedeemResponseProto.Quest" +
+      "RedeemStatus\"B\n\021QuestRedeemStatus\022\013\n\007SUC" +
+      "CESS\020\000\022\020\n\014NOT_COMPLETE\020\001\022\016\n\nOTHER_FAIL\020\002" +
+      "\"a\n\034UserQuestDetailsRequestProto\0220\n\006send" +
+      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
+      "to\022\017\n\007questId\030\002 \001(\005\"\333\002\n\035UserQuestDetails" +
+      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
+      ".proto.MinimumUserProto\022L\n\027inProgressUse",
+      "rQuestData\030\002 \003(\0132+.com.lvl6.proto.FullUs" +
+      "erQuestDataLargeProto\022T\n\006status\030\003 \001(\0162D." +
+      "com.lvl6.proto.UserQuestDetailsResponseP" +
+      "roto.UserQuestDetailsStatus\"d\n\026UserQuest" +
+      "DetailsStatus\022\013\n\007SUCCESS\020\000\022.\n*SUPPLIED_Q" +
+      "UESTID_CURRENTLY_NOT_IN_PROGRESS\020\001\022\r\n\tSO" +
+      "ME_FAIL\020\002\"\275\002\n\036RetrieveStaticDataRequestP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022\021\n\tstructIds\030\002 \003(\005\022\017\n\007tas" +
+      "kIds\030\003 \003(\005\022\020\n\010questIds\030\004 \003(\005\022\017\n\007cityIds\030",
+      "\005 \003(\005\022\020\n\010equipIds\030\006 \003(\005\022\031\n\021buildStructJo" +
+      "bIds\030\007 \003(\005\022\030\n\020defeatTypeJobIds\030\010 \003(\005\022\032\n\022" +
+      "possessEquipJobIds\030\t \003(\005\022\033\n\023upgradeStruc" +
+      "tJobIds\030\n \003(\005\022\"\n\032levelForExpRequiredRequ" +
+      "est\030\013 \001(\005\"\371\005\n\037RetrieveStaticDataResponse" +
+      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\0223\n\007structs\030\002 \003(\0132\".com.l" +
+      "vl6.proto.FullStructureProto\022,\n\005tasks\030\003 " +
+      "\003(\0132\035.com.lvl6.proto.FullTaskProto\022.\n\006qu" +
+      "ests\030\004 \003(\0132\036.com.lvl6.proto.FullQuestPro",
+      "to\022-\n\006cities\030\005 \003(\0132\035.com.lvl6.proto.Full" +
+      "CityProto\022.\n\006equips\030\006 \003(\0132\036.com.lvl6.pro" +
+      "to.FullEquipProto\022<\n\017buildStructJobs\030\007 \003" +
+      "(\0132#.com.lvl6.proto.BuildStructJobProto\022" +
+      ":\n\016defeatTypeJobs\030\010 \003(\0132\".com.lvl6.proto" +
+      ".DefeatTypeJobProto\022>\n\020possessEquipJobs\030" +
+      "\t \003(\0132$.com.lvl6.proto.PossessEquipJobPr" +
+      "oto\022@\n\021upgradeStructJobs\030\n \003(\0132%.com.lvl" +
+      "6.proto.UpgradeStructJobProto\022$\n\034expRequ" +
+      "iredForRequestedLevel\030\013 \001(\005\022X\n\006status\030\014 ",
+      "\001(\0162H.com.lvl6.proto.RetrieveStaticDataR" +
+      "esponseProto.RetrieveStaticDataStatus\"6\n" +
+      "\030RetrieveStaticDataStatus\022\013\n\007SUCCESS\020\000\022\r" +
+      "\n\tSOME_FAIL\020\001\"\244\001\n!PurchaseCityExpansionR" +
+      "equestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.p" +
+      "roto.MinimumUserProto\0225\n\tdirection\030\002 \001(\016" +
+      "2\".com.lvl6.proto.ExpansionDirection\022\026\n\016" +
+      "timeOfPurchase\030\003 \001(\003\"\307\002\n\"PurchaseCityExp" +
+      "ansionResponseProto\0220\n\006sender\030\001 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022^\n\006status\030",
+      "\002 \001(\0162N.com.lvl6.proto.PurchaseCityExpan" +
+      "sionResponseProto.PurchaseCityExpansionS" +
+      "tatus\"\216\001\n\033PurchaseCityExpansionStatus\022\013\n" +
+      "\007SUCCESS\020\000\022\024\n\020NOT_ENOUGH_COINS\020\001\022\025\n\021ALRE" +
+      "ADY_EXPANDING\020\002\022\016\n\nOTHER_FAIL\020\003\022%\n!CLIEN" +
+      "T_TOO_APART_FROM_SERVER_TIME\020\004\"f\n!Expans" +
+      "ionWaitCompleteRequestProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022\017\n" +
+      "\007curTime\030\002 \001(\003\"\303\002\n\"ExpansionWaitComplete" +
+      "ResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6",
+      ".proto.MinimumUserProto\022^\n\006status\030\002 \001(\0162" +
+      "N.com.lvl6.proto.ExpansionWaitCompleteRe" +
+      "sponseProto.ExpansionWaitCompleteStatus\"" +
+      "\212\001\n\033ExpansionWaitCompleteStatus\022\013\n\007SUCCE" +
+      "SS\020\000\022\025\n\021WAS_NOT_EXPANDING\020\001\022\020\n\014NOT_DONE_" +
+      "YET\020\002\022\016\n\nOTHER_FAIL\020\003\022%\n!CLIENT_TOO_APAR" +
+      "T_FROM_SERVER_TIME\020\004\"\373\001\n\"RefillStatWaitC" +
+      "ompleteRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022\017\n\007curTime" +
+      "\030\002 \001(\003\022[\n\004type\030\003 \001(\0162M.com.lvl6.proto.Re",
+      "fillStatWaitCompleteRequestProto.RefillS" +
+      "tatWaitCompleteType\"5\n\032RefillStatWaitCom" +
+      "pleteType\022\n\n\006ENERGY\020\000\022\013\n\007STAMINA\020\001\"\302\002\n#R" +
+      "efillStatWaitCompleteResponseProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022`\n\006status\030\002 \001(\0162P.com.lvl6.proto.Re" +
+      "fillStatWaitCompleteResponseProto.Refill" +
+      "StatWaitCompleteStatus\"\206\001\n\034RefillStatWai" +
+      "tCompleteStatus\022\013\n\007SUCCESS\020\000\022\021\n\rNOT_READ" +
+      "Y_YET\020\001\022\017\n\013ALREADY_MAX\020\002\022\016\n\nOTHER_FAIL\020\003",
+      "\022%\n!CLIENT_TOO_APART_FROM_SERVER_TIME\020\004\"" +
+      "_\n\026EnableAPNSRequestProto\0220\n\006sender\030\001 \001(" +
+      "\0132 .com.lvl6.proto.MinimumUserProto\022\023\n\013d" +
+      "eviceToken\030\002 \001(\t\"\307\001\n\027EnableAPNSResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022H\n\006status\030\002 \001(\01628.com.lvl" +
+      "6.proto.EnableAPNSResponseProto.EnableAP" +
+      "NSStatus\"0\n\020EnableAPNSStatus\022\013\n\007SUCCESS\020" +
+      "\000\022\017\n\013NOT_ENABLED\020\001\"\353\001\n&PurchaseMarketpla" +
+      "ceLicenseRequestProto\0220\n\006sender\030\001 \001(\0132 .",
+      "com.lvl6.proto.MinimumUserProto\022\022\n\nclien" +
+      "tTime\030\002 \001(\003\022W\n\013licenseType\030\003 \001(\0162B.com.l" +
+      "vl6.proto.PurchaseMarketplaceLicenseRequ" +
+      "estProto.LicenseType\"\"\n\013LicenseType\022\t\n\005S" +
+      "HORT\020\000\022\010\n\004LONG\020\001\"\345\002\n\'PurchaseMarketplace" +
+      "LicenseResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
+      "om.lvl6.proto.MinimumUserProto\022h\n\006status" +
+      "\030\002 \001(\0162X.com.lvl6.proto.PurchaseMarketpl" +
+      "aceLicenseResponseProto.PurchaseMarketpl" +
+      "aceLicenseStatus\"\235\001\n PurchaseMarketplace",
+      "LicenseStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH" +
+      "_DIAMONDS\020\001\022\034\n\030ALREADY_HAVE_LICENSE_NOW\020" +
+      "\002\022\016\n\nOTHER_FAIL\020\003\022%\n!CLIENT_TOO_APART_FR" +
+      "OM_SERVER_TIME\020\004\"\251\001\n\035ReferralCodeUsedRes" +
+      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\0228\n\016referredPlayer\030\002" +
+      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022\034" +
+      "\n\024coinsGivenToReferrer\030\003 \001(\005\"_\n\032EquipEqu" +
+      "ipmentRequestProto\0220\n\006sender\030\001 \001(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022\017\n\007equipId\030",
+      "\002 \001(\005\"\274\002\n\033EquipEquipmentResponseProto\0220\n" +
+      "\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumUs" +
+      "erProto\022P\n\006status\030\002 \001(\0162@.com.lvl6.proto" +
+      ".EquipEquipmentResponseProto.EquipEquipm" +
+      "entStatus\"\230\001\n\024EquipEquipmentStatus\022\013\n\007SU" +
+      "CCESS\020\000\022\031\n\025NOT_HIGH_ENOUGH_LEVEL\020\001\022\034\n\030DO" +
+      "ES_NOT_HAVE_THIS_EQUIP\020\002\022\020\n\014NOT_AN_EQUIP" +
+      "\020\003\022\030\n\024INCORRECT_CLASS_TYPE\020\004\022\016\n\nOTHER_FA" +
+      "IL\020\005\"\207\001\n\036ChangeUserLocationRequestProto\022" +
+      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum",
+      "UserProto\0223\n\014userLocation\030\002 \001(\0132\035.com.lv" +
+      "l6.proto.LocationProto\"\372\001\n\037ChangeUserLoc" +
+      "ationResponseProto\0220\n\006sender\030\001 \001(\0132 .com" +
+      ".lvl6.proto.MinimumUserProto\022X\n\006status\030\002" +
+      " \001(\0162H.com.lvl6.proto.ChangeUserLocation" +
+      "ResponseProto.ChangeUserLocationStatus\"K" +
+      "\n\030ChangeUserLocationStatus\022\013\n\007SUCCESS\020\000\022" +
+      "\022\n\016INVALID_BOUNDS\020\001\022\016\n\nOTHER_FAIL\020\002\"_\n\033L" +
+      "oadNeutralCityRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\016\n\006",
+      "cityId\030\002 \001(\005\"\223\004\n\034LoadNeutralCityResponse" +
+      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022R\n\006status\030\002 \001(\0162B.com.lv" +
+      "l6.proto.LoadNeutralCityResponseProto.Lo" +
+      "adNeutralCityStatus\022;\n\ruserTasksInfo\030\003 \003" +
+      "(\0132$.com.lvl6.proto.MinimumUserTaskProto" +
+      "\022;\n\024defeatTypeJobEnemies\030\004 \003(\0132\035.com.lvl" +
+      "6.proto.FullUserProto\022=\n\014cityElements\030\005 " +
+      "\003(\0132\'.com.lvl6.proto.NeutralCityElementP" +
+      "roto\022\016\n\006cityId\030\006 \001(\005\022R\n\035inProgressUserQu",
+      "estDataInCity\030\007 \003(\0132+.com.lvl6.proto.Ful" +
+      "lUserQuestDataLargeProto\"P\n\025LoadNeutralC" +
+      "ityStatus\022\013\n\007SUCCESS\020\000\022\032\n\026NOT_ACCESSIBLE" +
+      "_TO_USER\020\001\022\016\n\nOTHER_FAIL\020\002\"p\n$RetrieveUs" +
+      "erEquipForUserRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\026\n\016" +
+      "relevantUserId\030\002 \001(\005\"\251\001\n%RetrieveUserEqu" +
+      "ipForUserResponseProto\0220\n\006sender\030\001 \001(\0132 " +
+      ".com.lvl6.proto.MinimumUserProto\022\026\n\016rele" +
+      "vantUserId\030\002 \001(\005\0226\n\nuserEquips\030\003 \003(\0132\".c",
+      "om.lvl6.proto.FullUserEquipProto\"6\n\"Purg" +
+      "eClientStaticDataResponseProto\022\020\n\010sender" +
+      "Id\030\001 \001(\005\"q\n#RetrieveUsersForUserIdsReque" +
+      "stProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022\030\n\020requestedUserIds\030\002 " +
+      "\003(\005\"\217\001\n$RetrieveUsersForUserIdsResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\0225\n\016requestedUsers\030\002 \003(\0132\035" +
+      ".com.lvl6.proto.FullUserProto\"v\n\034PostOnP" +
+      "layerWallRequestProto\0220\n\006sender\030\001 \001(\0132 .",
+      "com.lvl6.proto.MinimumUserProto\022\023\n\013wallO" +
+      "wnerId\030\002 \001(\005\022\017\n\007content\030\003 \001(\t\"\272\002\n\035PostOn" +
+      "PlayerWallResponseProto\0220\n\006sender\030\001 \001(\0132" +
+      " .com.lvl6.proto.MinimumUserProto\022T\n\006sta" +
+      "tus\030\002 \001(\0162D.com.lvl6.proto.PostOnPlayerW" +
+      "allResponseProto.PostOnPlayerWallStatus\022" +
+      "1\n\004post\030\003 \001(\0132#.com.lvl6.proto.PlayerWal" +
+      "lPostProto\"^\n\026PostOnPlayerWallStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\023\n\017NO_CONTENT_SENT\020\001\022\022\n\016POST_T" +
+      "OO_LARGE\020\002\022\016\n\nOTHER_FAIL\020\003\"\211\001\n#RetrieveP",
+      "layerWallPostsRequestProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\026\n\016" +
+      "relevantUserId\030\002 \001(\005\022\030\n\020beforeThisPostId" +
+      "\030\003 \001(\005\"\352\002\n$RetrievePlayerWallPostsRespon" +
+      "seProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto" +
+      ".MinimumUserProto\022\026\n\016relevantUserId\030\002 \001(" +
+      "\005\022\030\n\020beforeThisPostId\030\003 \001(\005\022b\n\006status\030\004 " +
+      "\001(\0162R.com.lvl6.proto.RetrievePlayerWallP" +
+      "ostsResponseProto.RetrievePlayerWallPost" +
+      "sStatus\022<\n\017playerWallPosts\030\005 \003(\0132#.com.l",
+      "vl6.proto.PlayerWallPostProto\"<\n\035Retriev" +
+      "ePlayerWallPostsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nO" +
+      "THER_FAIL\020\001\"\361\001\n\034EarnFreeDiamondsRequestP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022>\n\020freeDiamondsType\030\002 \001(\016" +
+      "2$.com.lvl6.proto.EarnFreeDiamondsType\022\022" +
+      "\n\nclientTime\030\003 \001(\003\022\023\n\013kiipReceipt\030\004 \001(\t\022" +
+      "\026\n\016adColonyDigest\030\005 \001(\t\022\036\n\026adColonyDiamo" +
+      "ndsEarned\030\006 \001(\005\"\337\002\n\035EarnFreeDiamondsResp" +
+      "onseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro",
+      "to.MinimumUserProto\022T\n\006status\030\002 \001(\0162D.co" +
+      "m.lvl6.proto.EarnFreeDiamondsResponsePro" +
+      "to.EarnFreeDiamondsStatus\022>\n\020freeDiamond" +
+      "sType\030\003 \001(\0162$.com.lvl6.proto.EarnFreeDia" +
+      "mondsType\"v\n\026EarnFreeDiamondsStatus\022\013\n\007S" +
+      "UCCESS\020\000\022%\n!CLIENT_TOO_APART_FROM_SERVER" +
+      "_TIME\020\001\022\030\n\024METHOD_NOT_SUPPORTED\020\002\022\016\n\nOTH" +
+      "ER_FAIL\020\003\"I\n\025ReconnectRequestProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\"l\n\026ReconnectResponseProto\0220\n\006sender",
+      "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto" +
+      "\022 \n\030incomingResponseMessages\030\002 \001(\010\"F\n\022Lo" +
+      "goutRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProtoB\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -87088,7 +87145,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_StartupResponseProto_StartupConstants_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_StartupResponseProto_StartupConstants_descriptor,
-              new java.lang.String[] { "ProductIds", "ProductDiamondsGiven", "MaxLevelDifferenceForBattle", "ArmoryXLength", "ArmoryYLength", "VaultXLength", "VaultYLength", "MarketplaceXLength", "MarketplaceYLength", "CarpenterXLength", "CarpenterYLength", "AviaryXLength", "AviaryYLength", "AttackBaseGain", "DefenseBaseGain", "EnergyBaseGain", "HealthBaseGain", "StaminaBaseGain", "AttackBaseCost", "DefenseBaseCost", "EnergyBaseCost", "HealthBaseCost", "StaminaBaseCost", "SkillPointsGainedOnLevelup", "CutOfVaultDepositTaken", "MaxLevelForStruct", "MaxNumOfSingleStruct", "PercentReturnedToUserForSellingNormStructure", "MinutesToRefillAEnergy", "MinutesToRefillAStamina", "DiamondCostForFullStaminaRefill", "DiamondCostForFullEnergyRefill", "MaxNumberOfMarketplacePosts", "PercentOfSellingCostTakenFromSellerOnMarketplacePurchase", "PercentOfSellingCostTakenFromSellerOnMarketplaceRetract", "NumDaysLongMarketplaceLicenseLastsFor", "NumDaysShortMarketplaceLicenseLastsFor", "DiamondCostOfLongMarketplaceLicense", "DiamondCostOfShortMarketplaceLicense", "MaxNumbersOfEnemiesToGenerateAtOnce", "PercentReturnedToUserForSellingEquipInArmory", "MaxCityRank", "ArmoryImgVerticalPixelOffset", "VaultImgVerticalPixelOffset", "MarketplaceImgVerticalPixelOffset", "CarpenterImgVerticalPixelOffset", "AviaryImgVerticalPixelOffset", "FormulaConstants", "BattleConstants", "MaxCharLengthForWallPost", "PlayerWallPostsRetrieveCap", "AnimatedSpriteOffsets", "KiipRewardConditions", },
+              new java.lang.String[] { "ProductIds", "ProductDiamondsGiven", "MaxLevelDifferenceForBattle", "MaxLevelForUser", "ArmoryXLength", "ArmoryYLength", "VaultXLength", "VaultYLength", "MarketplaceXLength", "MarketplaceYLength", "CarpenterXLength", "CarpenterYLength", "AviaryXLength", "AviaryYLength", "AttackBaseGain", "DefenseBaseGain", "EnergyBaseGain", "HealthBaseGain", "StaminaBaseGain", "AttackBaseCost", "DefenseBaseCost", "EnergyBaseCost", "HealthBaseCost", "StaminaBaseCost", "SkillPointsGainedOnLevelup", "CutOfVaultDepositTaken", "MaxLevelForStruct", "MaxNumOfSingleStruct", "PercentReturnedToUserForSellingNormStructure", "MinutesToRefillAEnergy", "MinutesToRefillAStamina", "DiamondCostForFullStaminaRefill", "DiamondCostForFullEnergyRefill", "MaxNumberOfMarketplacePosts", "PercentOfSellingCostTakenFromSellerOnMarketplacePurchase", "PercentOfSellingCostTakenFromSellerOnMarketplaceRetract", "NumDaysLongMarketplaceLicenseLastsFor", "NumDaysShortMarketplaceLicenseLastsFor", "DiamondCostOfLongMarketplaceLicense", "DiamondCostOfShortMarketplaceLicense", "MaxNumbersOfEnemiesToGenerateAtOnce", "PercentReturnedToUserForSellingEquipInArmory", "MaxCityRank", "ArmoryImgVerticalPixelOffset", "VaultImgVerticalPixelOffset", "MarketplaceImgVerticalPixelOffset", "CarpenterImgVerticalPixelOffset", "AviaryImgVerticalPixelOffset", "FormulaConstants", "BattleConstants", "MaxCharLengthForWallPost", "PlayerWallPostsRetrieveCap", "AnimatedSpriteOffsets", "KiipRewardConditions", },
               com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.class,
               com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.Builder.class);
           internal_static_com_lvl6_proto_StartupResponseProto_StartupConstants_KiipRewardConditions_descriptor =

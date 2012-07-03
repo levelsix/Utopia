@@ -162,6 +162,7 @@ message StartupResponseProto {
 	  	repeated string productIds = 1;
 	  	repeated int32 productDiamondsGiven = 2;
     	optional int32 maxLevelDifferenceForBattle = 6;
+    	optional int32 maxLevelForUser = 62;
     	
     	optional int32 armoryXLength = 7;
     	optional int32 armoryYLength = 8;
