@@ -133,19 +133,19 @@ public class GenerateFakeUsersWithoutInput {
 	    }
 	    
 	    //Add randomization
-	    if ((int)Math.floor(Math.random() * 5) + 1 < 2) {
+	    if ((int)Math.floor(Math.random() * 2) + 1 < 2) {
 	    	attack += (int)Math.floor(Math.random() * 3) + 1;
 	    } else {
 	    	attack -= (int)Math.floor(Math.random() * 3) + 1;
 	    }
 	    
-	    if ((int)Math.floor(Math.random() * 5) + 1 < 2) {
+	    if ((int)Math.floor(Math.random() * 2) + 1 < 2) {
 	    	defense += (int)Math.floor(Math.random() * 3) + 1;
 	    } else {
 	    	defense -= (int)Math.floor(Math.random() * 3) + 1;
 	    }
 	    
-	    if ((int)Math.floor(Math.random() * 5) + 1 < 2) {
+	    if ((int)Math.floor(Math.random() * 2) + 1 < 2) {
 	    	health += (int)Math.floor(Math.random() * 5) + 1;
 	    } else {
 	    	health -= (int)Math.floor(Math.random() * 5) + 1;
