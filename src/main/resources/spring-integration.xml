@@ -42,7 +42,7 @@
 		type="server" port="${server.port}" 
 		using-nio="true" 
 		lookup-host="false"
-		task-executor="gameEventsHandlerExecutor"
+		
 		deserializer="gameEventSerializer"
 		serializer="gameEventSerializer" />
 
