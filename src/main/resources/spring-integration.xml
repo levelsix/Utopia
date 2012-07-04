@@ -12,11 +12,11 @@
 	http://www.springframework.org/schema/integration/ip
     http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
 
-	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50"
-		queue-capacity="100" rejection-policy="CALLER_RUNS" />
+<!-- 	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50" -->
+<!-- 		queue-capacity="100" rejection-policy="CALLER_RUNS" /> -->
 
 	<int:channel id="gameEventQueueChannel">
-		<int:queue ref="gameEventQueue" />
+<!-- 		<int:queue ref="gameEventQueue" /> -->
 		<int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors>
@@ -27,10 +27,10 @@
 		input-channel="gameEventQueueChannel"
 		ref="gameEventHandler"
 		 method="handleMessage">
-		<int:poller 
-			fixed-rate="100" 
-			task-executor="gameEventsHandlerExecutor"
-			max-messages-per-poll="25" />
+<!-- 		<int:poller  -->
+<!-- 			fixed-rate="100"  -->
+<!-- 			task-executor="gameEventsHandlerExecutor" -->
+<!-- 			max-messages-per-poll="25" /> -->
 	</int:service-activator>
 
 
@@ -42,7 +42,7 @@
 		type="server" port="${server.port}" 
 		using-nio="true" 
 		lookup-host="false"
-		task-executor="gameEventsHandlerExecutor"
+		
 		deserializer="gameEventSerializer"
 		serializer="gameEventSerializer" />
 

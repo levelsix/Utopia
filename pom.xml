@@ -137,6 +137,31 @@
 					</webResources>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>br.com.ingenieux</groupId>
+				<artifactId>beanstalk-maven-plugin</artifactId>
+				<configuration>
+					<configurationTemplate>default</configurationTemplate>
+					<templateName>default</templateName>
+					<configurationTemplates>
+						<configurationTemplate>
+							<id>default</id>
+							<optionSettings>
+								<optionSetting>
+									<namespace>aws:elasticbeanstalk:application</namespace>
+									<optionName>Application Healthcheck URL</optionName>
+									<value>/index.html</value>
+								</optionSetting>
+								<optionSetting>
+									<namespace>aws:autoscaling:launchconfiguration</namespace>
+									<optionName>EC2KeyName</optionName>
+									<value>w7desktop</value>
+								</optionSetting>
+							</optionSettings>
+						</configurationTemplate>
+					</configurationTemplates>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
@@ -321,6 +346,11 @@
 				<artifactId>scribe</artifactId>
 				<version>1.3.1</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.mina</groupId>
+				<artifactId>mina-core</artifactId>
+				<version>2.0.4</version>
+			</dependency>
 			<!-- <dependency> -->
 			<!-- <groupId>oauth.signpost</groupId> -->
 			<!-- <artifactId>oauth-signpost</artifactId> -->
@@ -459,6 +489,10 @@
 		<dependency>
 			<groupId>org.scribe</groupId>
 			<artifactId>scribe</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
 		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>oauth.signpost</groupId> -->

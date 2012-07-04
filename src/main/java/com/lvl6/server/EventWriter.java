@@ -28,17 +28,17 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	// reference to game server
 
 	
-	@Resource(name="gameEventsHandlerExecutor")
-	protected Executor gameEventsExecutor;
-
-
-	public Executor getGameEventsExecutor() {
-		return gameEventsExecutor;
-	}
-
-	public void setGameEventsExecutor(Executor gameEventsExecutor) {
-		this.gameEventsExecutor = gameEventsExecutor;
-	}
+//	@Resource(name="gameEventsHandlerExecutor")
+//	protected Executor gameEventsExecutor;
+//
+//
+//	public Executor getGameEventsExecutor() {
+//		return gameEventsExecutor;
+//	}
+//
+//	public void setGameEventsExecutor(Executor gameEventsExecutor) {
+//		this.gameEventsExecutor = gameEventsExecutor;
+//	}
 
 	public Map<String, ConnectedPlayer> getPlayersPreDatabaseByUDID() {
 		return playersPreDatabaseByUDID;
@@ -101,7 +101,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 						write(buff.duplicate(), player);
 					}else{
 						//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-						log.error("Player "+recipients[i]+" not found in playersByPlayerId");
+						log.debug("Broadcast: Player "+recipients[i]+" not found in playersByPlayerId");
 					}
 				}
 			}
@@ -115,7 +115,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 				write(buff, player);
 			}else{
 				//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-				log.error("Player "+playerId+" not found in playersByPlayerId");
+				log.debug("Normal: Player "+playerId+" not found in playersByPlayerId");
 			}
 		}
 
