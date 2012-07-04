@@ -71,10 +71,10 @@ public class ControllerConstants {
   public static final double CHARACTERS_ATTACK_DEFENSE_VARIABILITY = 0.67;
   public static final int TUTORIAL__ARCHER_INIT_ATTACK = 12; 
   public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 12;
-  public static final int TUTORIAL__MAGE_INIT_ATTACK = 16; 
-  public static final int TUTORIAL__MAGE_INIT_DEFENSE = 8;
-  public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 8;
-  public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 16;
+  public static final int TUTORIAL__MAGE_INIT_ATTACK = 14; 
+  public static final int TUTORIAL__MAGE_INIT_DEFENSE = 10;
+  public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 10;
+  public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 14;
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 3;
   public static final int TUTORIAL__INIT_HEALTH = 30;
