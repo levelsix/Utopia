@@ -38,7 +38,7 @@
 
 
 	<root>
-		<priority value="info" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 		<appender-ref ref="${lvl6.server.log.appender}" />
 	</root>

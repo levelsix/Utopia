@@ -12,8 +12,8 @@
 	http://www.springframework.org/schema/integration/ip
     http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
 
-	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50"
-		queue-capacity="100" rejection-policy="CALLER_RUNS" />
+<!-- 	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50" -->
+<!-- 		queue-capacity="100" rejection-policy="CALLER_RUNS" /> -->
 
 	<int:channel id="gameEventQueueChannel">
 <!-- 		<int:queue ref="gameEventQueue" /> -->
