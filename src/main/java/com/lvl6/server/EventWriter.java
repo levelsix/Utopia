@@ -28,17 +28,17 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	// reference to game server
 
 	
-	@Resource(name="gameEventsHandlerExecutor")
-	protected Executor gameEventsExecutor;
-
-
-	public Executor getGameEventsExecutor() {
-		return gameEventsExecutor;
-	}
-
-	public void setGameEventsExecutor(Executor gameEventsExecutor) {
-		this.gameEventsExecutor = gameEventsExecutor;
-	}
+//	@Resource(name="gameEventsHandlerExecutor")
+//	protected Executor gameEventsExecutor;
+//
+//
+//	public Executor getGameEventsExecutor() {
+//		return gameEventsExecutor;
+//	}
+//
+//	public void setGameEventsExecutor(Executor gameEventsExecutor) {
+//		this.gameEventsExecutor = gameEventsExecutor;
+//	}
 
 	public Map<String, ConnectedPlayer> getPlayersPreDatabaseByUDID() {
 		return playersPreDatabaseByUDID;
