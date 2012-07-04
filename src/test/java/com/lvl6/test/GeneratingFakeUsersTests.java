@@ -8,11 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lvl6.info.Location;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.scriptsjava.generatefakeusers.GenerateFakeUsersWithoutInput;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

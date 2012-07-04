@@ -16,7 +16,7 @@
 		queue-capacity="100" rejection-policy="CALLER_RUNS" />
 
 	<int:channel id="gameEventQueueChannel">
-		<int:queue ref="gameEventQueue" />
+<!-- 		<int:queue ref="gameEventQueue" /> -->
 		<int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors>
@@ -27,10 +27,10 @@
 		input-channel="gameEventQueueChannel"
 		ref="gameEventHandler"
 		 method="handleMessage">
-		<int:poller 
-			fixed-rate="100" 
-			task-executor="gameEventsHandlerExecutor"
-			max-messages-per-poll="25" />
+<!-- 		<int:poller  -->
+<!-- 			fixed-rate="100"  -->
+<!-- 			task-executor="gameEventsHandlerExecutor" -->
+<!-- 			max-messages-per-poll="25" /> -->
 	</int:service-activator>
 
 

@@ -3,8 +3,6 @@ package com.lvl6.test;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,9 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lvl6.properties.APNSProperties;
-import com.lvl6.server.controller.EarnFreeDiamondsController;
-import com.lvl6.spring.AppContext;
-import com.lvl6.utils.RetrieveUtils;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

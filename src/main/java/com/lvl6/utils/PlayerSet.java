@@ -2,8 +2,6 @@ package com.lvl6.utils;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.locks.Lock;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
