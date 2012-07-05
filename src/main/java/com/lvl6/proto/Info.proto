@@ -166,7 +166,7 @@ message FullUserStructureProto {
 //------------------------------------------------------------------------------------------
 
 message FullUserEquipProto {
-	optional int32 userStructId = 1;
+	optional int32 userEquipId = 1;
 	optional int32 userId = 2;
 	optional int32 equipId = 3;
 }
