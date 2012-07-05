@@ -166,9 +166,9 @@ message FullUserStructureProto {
 //------------------------------------------------------------------------------------------
 
 message FullUserEquipProto {
-	optional int32 userId = 1;
-	optional int32 equipId = 2;
-	optional int32 quantity = 3;
+	optional int32 userStructId = 1;
+	optional int32 userId = 2;
+	optional int32 equipId = 3;
 }
 
 //------------------------------------------------------------------------------------------
