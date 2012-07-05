@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
@@ -38,79 +37,44 @@ import com.lvl6.utils.DBConnection;
 
   
   @Cacheable(value="equipsToUserEquipsForUser", key="#userId")
-  public Map<Integer, UserEquip> getEquipIdsToUserEquipsForUser(int userId) {
-    log.debug("retrieving user equips for userId " + userId);
+  public Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
+    log.debug("retrieving map of equip id to userequips for userId " + userId);
     
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
-    Map<Integer, UserEquip> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
+    Map<Integer, List<UserEquip>> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
     return equipIdsToUserEquips;
   }
 
-  
   //@Cacheable(value="specificUserEquip", key="#userId+':'+#equipId")
-  public UserEquip getSpecificUserEquip(int userId, int equipId) {
-    log.debug("retrieving user equip for userId " + userId + " and equipId " + equipId);
-    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
-    paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
-    paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+  public UserEquip getSpecificUserEquip(int userEquipId) {
+    log.debug("retrieving user equip for userEquipId: " + userEquipId);
     
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsById(conn, userEquipId, TABLE_NAME);
     UserEquip userEquip = convertRSSingleToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
     return userEquip;
   }
 
-  /*
-  //returns map from userId to his equipments
-  public Map<Integer, List<UserEquip>> getUserEquipsForUserIds(List<Integer> userIds) {
-    log.debug("retrieving user equips for userIds " + userIds);
-    Map <String, Object> paramsToVals = new HashMap<String, Object>();
-    for (Integer i : userIds) {
-      paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, i); BUG BUG IT OVERWRITES
-    }
-    return convertRSToUserToUserEquips(DBConnection.selectRowsAbsoluteOr(paramsToVals, TABLE_NAME));
-  }
-
-    private Map<Integer, List<UserEquip>> convertRSToUserToUserEquips(ResultSet rs) {
-    if (rs != null) {
-      try {
-        rs.last();
-        rs.beforeFirst();
-        Map<Integer, List<UserEquip>> userToUserEquips = new HashMap<Integer, List<UserEquip>>();
-        while(rs.next()) {  //should only be one
-          UserEquip ue = convertRSRowToUserEquip(rs);
-          List<UserEquip> userUEs = userToUserEquips.get(ue.getUserId());
-          if (userUEs != null) {
-            userUEs.add(ue);
-          } else {
-            List<UserEquip> ues = new ArrayList<UserEquip>();
-            ues.add(ue);
-            userToUserEquips.put(ue.getUserId(), ues);
-          }
-        }
-        return userToUserEquips;
-      } catch (SQLException e) {
-        log.error("problem with database call.");
-        log.error(e);
-      }
-    }
-    return null;
-  }
-   */
-
-  private Map<Integer, UserEquip> convertRSToEquipIdsToUserEquips(
+  private Map<Integer, List<UserEquip>> convertRSToEquipIdsToUserEquips(
       ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        Map<Integer, UserEquip> equipIdsToUserEquips = new HashMap<Integer, UserEquip>();
+        Map<Integer, List<UserEquip>> equipIdsToUserEquips = new HashMap<Integer, List<UserEquip>>();
         while(rs.next()) {
           UserEquip userEquip = convertRSRowToUserEquip(rs);
-          equipIdsToUserEquips.put(userEquip.getEquipId(), userEquip);
+          List<UserEquip> userEquipsForEquipId = equipIdsToUserEquips.get(userEquip.getEquipId());
+          if (userEquipsForEquipId != null) {
+            userEquipsForEquipId.add(userEquip);
+          } else {
+            List<UserEquip> userEquips = new ArrayList<UserEquip>();
+            userEquips.add(userEquip);
+            equipIdsToUserEquips.put(userEquip.getEquipId(), userEquips);
+          }
         }
         return equipIdsToUserEquips;
       } catch (SQLException e) {
@@ -120,7 +84,7 @@ import com.lvl6.utils.DBConnection;
     }
     return null;
   }
-
+  
   private List<UserEquip> convertRSToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
@@ -160,10 +124,10 @@ import com.lvl6.utils.DBConnection;
    */
   private UserEquip convertRSRowToUserEquip(ResultSet rs) throws SQLException {
     int i = 1;
+    int userEquipId = rs.getInt(i++);
     int userId = rs.getInt(i++);
     int equipId = rs.getInt(i++);
-    int quantity = rs.getInt(i++);
-    UserEquip userEquip = new UserEquip(userId, equipId, quantity);
+    UserEquip userEquip = new UserEquip(userEquipId, userId, equipId);
     return userEquip;
   }
 

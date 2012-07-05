@@ -346,22 +346,24 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int getNumRequiredEquipmentsWithoutQuantityRequirementFulfilled(User user, Task task) {
     Map<Integer, Integer> equipIdsToQuantityReq = TaskEquipReqRetrieveUtils.getEquipmentIdsToQuantityForTaskId(task.getId());
-    List<UserEquip> userEquipIds = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(user.getId());
+    Map<Integer, List<UserEquip>> userEquips = RetrieveUtils.userEquipRetrieveUtils().getEquipIdsToUserEquipsForUser(user.getId());
 
     if (equipIdsToQuantityReq == null)
       return 0;
 
     int numReqEquipsWithoutQuantityReqFulfilled = equipIdsToQuantityReq.keySet().size();
 
-    if (userEquipIds != null) {
-      for (UserEquip ue : userEquipIds) {
-        Integer quantityReq = equipIdsToQuantityReq.get(ue.getEquipId());
-        if (quantityReq != null && quantityReq <= ue.getQuantity()) {
+    if (userEquips != null) {
+      for (Integer userEquipId : userEquips.keySet()) {
+        List<UserEquip> userEquipsForEquipId = userEquips.get(userEquipId);
+        int numOfEquipUserHas = (userEquipsForEquipId != null) ? userEquipsForEquipId.size() : 0;
+        Integer quantityReq = equipIdsToQuantityReq.get(userEquipId);
+        if (quantityReq != null && quantityReq <= numOfEquipUserHas) {
           numReqEquipsWithoutQuantityReqFulfilled--;
           if (numReqEquipsWithoutQuantityReqFulfilled == 0) break;
         } else {
           if (quantityReq != null && quantityReq > 0)
-            log.error("user is missing equips of id " + ue.getEquipId() + ". has " + ue.getQuantity() + ", need " + quantityReq);
+            log.error("user is missing equips of id " + userEquipId + ". has " + numOfEquipUserHas + ", need " + quantityReq);
         }
       }
     }

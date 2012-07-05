@@ -93,9 +93,9 @@ public class DBConstants {
   public static final String USER__NUM_TIMES_KIIP_REWARDED = "num_times_kiip_rewarded";
   
   /*USER EQUIP TABLE*/
+  public static final String USER_EQUIP__ID = GENERIC__ID;
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;
   public static final String USER_EQUIP__EQUIP_ID = "equip_id";
-  public static final String USER_EQUIP__QUANTITY = "quantity";
 
   /*EQUIPMENT TABLE*/
   public static final String EQUIPMENT__ID = GENERIC__ID;
