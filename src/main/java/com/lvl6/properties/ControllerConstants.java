@@ -58,6 +58,11 @@ public class ControllerConstants {
   public static final float BATTLE_GREAT_MULTIPLIER = 1.5f;
   public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
   public static final float BATTLE_IMBALANCE_PERCENT = .67f;
+//  public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
+//  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
+//  public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
+//  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
+
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
@@ -71,10 +76,10 @@ public class ControllerConstants {
   public static final double CHARACTERS_ATTACK_DEFENSE_VARIABILITY = 0.67;
   public static final int TUTORIAL__ARCHER_INIT_ATTACK = 12; 
   public static final int TUTORIAL__ARCHER_INIT_DEFENSE = 12;
-  public static final int TUTORIAL__MAGE_INIT_ATTACK = 16; 
-  public static final int TUTORIAL__MAGE_INIT_DEFENSE = 8;
-  public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 8;
-  public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 16;
+  public static final int TUTORIAL__MAGE_INIT_ATTACK = 14; 
+  public static final int TUTORIAL__MAGE_INIT_DEFENSE = 10;
+  public static final int TUTORIAL__WARRIOR_INIT_ATTACK = 10;
+  public static final int TUTORIAL__WARRIOR_INIT_DEFENSE = 14;
   public static final int TUTORIAL__INIT_ENERGY = 20;
   public static final int TUTORIAL__INIT_STAMINA = 3;
   public static final int TUTORIAL__INIT_HEALTH = 30;
