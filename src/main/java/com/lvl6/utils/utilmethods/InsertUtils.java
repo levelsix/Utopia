@@ -323,9 +323,9 @@ public class InsertUtils implements InsertUtil {
     insertParams.put(DBConstants.USER__LAST_LOGIN, now);
     insertParams.put(DBConstants.USER__DEVICE_TOKEN, deviceToken);
     insertParams.put(DBConstants.USER__IS_FAKE, isFake);
-    insertParams.put(DBConstants.USER__WEAPON_EQUIPPED, weaponEquipped);
-    insertParams.put(DBConstants.USER__ARMOR_EQUIPPED, armorEquipped);
-    insertParams.put(DBConstants.USER__AMULET_EQUIPPED, amuletEquipped);
+    insertParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, weaponEquipped);
+    insertParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, armorEquipped);
+    insertParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, amuletEquipped);
     insertParams.put(DBConstants.USER__CREATE_TIME, now);
 
 

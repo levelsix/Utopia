@@ -45,9 +45,9 @@ public class User {
   private Location userLocation;
   private int numPostsInMarketplace;
   private int numMarketplaceSalesUnredeemed;
-  private int weaponEquipped;
-  private int armorEquipped;
-  private int amuletEquipped;
+  private int weaponEquippedUserEquipId;
+  private int armorEquippedUserEquipId;
+  private int amuletEquippedUserEquipId;
   private Date lastLogin;
   private Date lastLogout;
   private String deviceToken;
@@ -72,8 +72,9 @@ public class User {
       int tasksCompleted, int battlesWon, int battlesLost, int flees,
       String referralCode, int numReferrals, String udid,
       Location userLocation, int numPostsInMarketplace,
-      int numMarketplaceSalesUnredeemed, int weaponEquipped, int armorEquipped,
-      int amuletEquipped, Date lastLogin, Date lastLogout, String deviceToken,
+      int numMarketplaceSalesUnredeemed, int weaponEquippedUserEquipId,
+      int armorEquippedUserEquipId, int amuletEquippedUserEquipId,
+      Date lastLogin, Date lastLogout, String deviceToken,
       Date lastBattleNotificationTime, Date lastTimeAttacked, int numBadges,
       Date lastShortLicensePurchaseTime, Date lastLongLicensePurchaseTime,
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
@@ -110,9 +111,9 @@ public class User {
     this.userLocation = userLocation;
     this.numPostsInMarketplace = numPostsInMarketplace;
     this.numMarketplaceSalesUnredeemed = numMarketplaceSalesUnredeemed;
-    this.weaponEquipped = weaponEquipped;
-    this.armorEquipped = armorEquipped;
-    this.amuletEquipped = amuletEquipped;
+    this.weaponEquippedUserEquipId = weaponEquippedUserEquipId;
+    this.armorEquippedUserEquipId = armorEquippedUserEquipId;
+    this.amuletEquippedUserEquipId = amuletEquippedUserEquipId;
     this.lastLogin = lastLogin;
     this.lastLogout = lastLogout;
     this.deviceToken = deviceToken;
@@ -129,7 +130,7 @@ public class User {
     this.numAdColonyVideosWatched = numAdColonyVideosWatched;
     this.numTimesKiipRewarded = numTimesKiipRewarded;
   }
-
+  
   public boolean updateAbsoluteUserLocation(Location location) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -147,6 +148,7 @@ public class User {
     return false;
   }
 
+
   public boolean updateEquipped(Equipment equipment) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -155,13 +157,13 @@ public class User {
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (equipment.getType() == EquipType.WEAPON) {
-      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED, equipId);
+      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, equipId);
     }
     if (equipment.getType() == EquipType.ARMOR) {
-      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED, equipId);      
+      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, equipId);      
     }
     if (equipment.getType() == EquipType.AMULET) {
-      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED, equipId);
+      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, equipId);
     }
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
@@ -181,32 +183,32 @@ public class User {
     return false;
   }
 
-  public boolean updateUnequip(int equipId, boolean isWeapon, boolean isArmor, boolean isAmulet) {
+  public boolean updateUnequip(boolean isWeapon, boolean isArmor, boolean isAmulet) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (isWeapon) {
-      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED, null);
+      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, null);
     }
     if (isArmor) {
-      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED, null);      
+      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, null);      
     }
     if (isAmulet) {
-      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED, null);
+      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, null);
     }
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       if (isWeapon) {
-        this.weaponEquipped = ControllerConstants.NOT_SET;
+        this.weaponEquippedUserEquipId = ControllerConstants.NOT_SET;
       }
       if (isArmor) {
-        this.armorEquipped = ControllerConstants.NOT_SET;
+        this.armorEquippedUserEquipId = ControllerConstants.NOT_SET;
       }
       if (isAmulet) {
-        this.amuletEquipped = ControllerConstants.NOT_SET;
+        this.amuletEquippedUserEquipId = ControllerConstants.NOT_SET;
       }
       return true;
     }
@@ -1003,16 +1005,16 @@ public class User {
     return numMarketplaceSalesUnredeemed;
   }
 
-  public int getWeaponEquipped() {
-    return weaponEquipped;
+  public int getWeaponEquippedUserEquipId() {
+    return weaponEquippedUserEquipId;
   }
 
-  public int getArmorEquipped() {
-    return armorEquipped;
+  public int getArmorEquippedUserEquipId() {
+    return armorEquippedUserEquipId;
   }
 
-  public int getAmuletEquipped() {
-    return amuletEquipped;
+  public int getAmuletEquippedUserEquipId() {
+    return amuletEquippedUserEquipId;
   }
 
   public Date getLastLogin() {
@@ -1073,39 +1075,6 @@ public class User {
 
   public int getNumTimesKiipRewarded() {
     return numTimesKiipRewarded;
-  }
-
-  @Override
-  public String toString() {
-    return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
-        + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
-        + stamina + ", lastStaminaRefillTime=" + lastStaminaRefillTime
-        + ", energy=" + energy + ", lastEnergyRefillTime="
-        + lastEnergyRefillTime + ", skillPoints=" + skillPoints
-        + ", healthMax=" + healthMax + ", energyMax=" + energyMax
-        + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
-        + coins + ", marketplaceDiamondsEarnings="
-        + marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="
-        + marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
-        + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
-        + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
-        + ", flees=" + flees + ", referralCode=" + referralCode
-        + ", numReferrals=" + numReferrals + ", udid=" + udid
-        + ", userLocation=" + userLocation + ", numPostsInMarketplace="
-        + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
-        + numMarketplaceSalesUnredeemed + ", weaponEquipped=" + weaponEquipped
-        + ", armorEquipped=" + armorEquipped + ", amuletEquipped="
-        + amuletEquipped + ", lastLogin=" + lastLogin + ", lastLogout="
-        + lastLogout + ", deviceToken=" + deviceToken
-        + ", lastBattleNotificationTime=" + lastBattleNotificationTime
-        + ", lastTimeAttacked=" + lastTimeAttacked + ", numBadges=" + numBadges
-        + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
-        + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime
-        + ", isFake=" + isFake + ", createTime=" + createTime + ", isAdmin="
-        + isAdmin + ", apsalarId=" + apsalarId
-        + ", numCoinsRetrievedFromStructs=" + numCoinsRetrievedFromStructs
-        + ", numAdColonyVideosWatched=" + numAdColonyVideosWatched
-        + ", numTimesKiipRewarded=" + numTimesKiipRewarded + "]";
   }
 
 }

@@ -21,6 +21,7 @@ import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.info.ValidLocationBox;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
@@ -134,9 +135,12 @@ public class MiscMethods {
         * firstTaskToComplete.getNumForCompletion();
   }
 
-  public static boolean unequipUserEquipIfEquipped(User user, int equipId) {
-    if (user.getWeaponEquipped() == equipId || user.getArmorEquipped() == equipId || user.getAmuletEquipped() == equipId) {
-      return user.updateUnequip(equipId, user.getWeaponEquipped() == equipId, user.getArmorEquipped() == equipId, user.getAmuletEquipped() == equipId);
+  public static boolean unequipUserEquipIfEquipped(User user, UserEquip userEquip) {
+    if (user.getWeaponEquippedUserEquipId() == userEquip.getId() || 
+        user.getArmorEquippedUserEquipId() == userEquip.getId()||
+        user.getAmuletEquippedUserEquipId() == userEquip.getId()) {
+      return user.updateUnequip(user.getWeaponEquippedUserEquipId() == userEquip.getId(), 
+          user.getArmorEquippedUserEquipId() == userEquip.getId(), user.getAmuletEquippedUserEquipId() == userEquip.getId());
     } 
     return true;
   }
@@ -273,7 +277,7 @@ public class MiscMethods {
         .setPlayerWallPostsRetrieveCap(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP)
         .setMaxLevelForUser(ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER);
 
-    
+
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
         AnimatedSpriteOffset aso = ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS[i];

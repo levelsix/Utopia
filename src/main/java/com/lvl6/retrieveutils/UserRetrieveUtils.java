@@ -306,17 +306,17 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int numPostsInMarketplace = rs.getInt(i++);
     int numMarketplaceSalesUnredeemed = rs.getInt(i++);
 
-    int weaponEquipped = rs.getInt(i++);
+    int weaponEquippedUserEquipId = rs.getInt(i++);
     if (rs.wasNull()) {
-      weaponEquipped = ControllerConstants.NOT_SET;
+      weaponEquippedUserEquipId = ControllerConstants.NOT_SET;
     }
-    int armorEquipped = rs.getInt(i++);
+    int armorEquippedUserEquipId = rs.getInt(i++);
     if (rs.wasNull()) {
-      armorEquipped = ControllerConstants.NOT_SET;
+      armorEquippedUserEquipId = ControllerConstants.NOT_SET;
     }
-    int amuletEquipped = rs.getInt(i++);
+    int amuletEquippedUserEquipId = rs.getInt(i++);
     if (rs.wasNull()) {
-      amuletEquipped = ControllerConstants.NOT_SET;
+      amuletEquippedUserEquipId = ControllerConstants.NOT_SET;
     }
 
     Date lastLoginTime = null;
@@ -378,7 +378,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,
         referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
-        weaponEquipped, armorEquipped, amuletEquipped, lastLoginTime, lastLogoutTime, deviceToken, 
+        weaponEquippedUserEquipId, armorEquippedUserEquipId, amuletEquippedUserEquipId, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded);
     return user;

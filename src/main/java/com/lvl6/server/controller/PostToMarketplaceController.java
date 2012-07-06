@@ -79,8 +79,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(user.getId(), reqProto.getPostedEquipId());
-      UserEquip ue = (userEquips == null) ? null : userEquips.get(0);
+      List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(user.getId(), reqProto.getPostedEquipId());
+      UserEquip ue = (userEquipsForEquipId == null) ? null : userEquipsForEquipId.get(0);
       
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
@@ -98,7 +98,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         } else {
           postType = MarketplacePostType.NORM_EQUIP_POST;
         }
-        writeChangesToDB(user, reqProto, ue, userEquips, postType, timeOfPost);
+        writeChangesToDB(user, reqProto, ue, userEquipsForEquipId, postType, timeOfPost);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -164,15 +164,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void writeChangesToDB(User user, PostToMarketplaceRequestProto reqProto, 
-      UserEquip ue, List<UserEquip> userEquips, MarketplacePostType postType, Timestamp timeOfPost) {
+      UserEquip ue, List<UserEquip> userEquipsForEquipId, MarketplacePostType postType, Timestamp timeOfPost) {
 
     if (ue != null) {
       if (!DeleteUtils.get().deleteUserEquip(ue.getId())) {
         log.error("problem with decrementing user equip with ue id: " + ue.getId());
         return;
       }
-      if (userEquips.size() <= 1) {
-        if (!MiscMethods.unequipUserEquipIfEquipped(user, reqProto.getPostedEquipId())) {
+      if (userEquipsForEquipId.size() <= 1) {
+        if (!MiscMethods.unequipUserEquipIfEquipped(user, ue)) {
           log.error("problem with unequipping " + reqProto.getPostedEquipId());
           return;
         }

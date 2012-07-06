@@ -295,13 +295,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       int lostCoins, Timestamp battleTime, boolean isFlee) {
     if (lostEquip != null) {
       if (!loser.isFake()) {
+        /*
+         * if this is the only one the loser has, unequip it from him
+         */
+        asdf
         if (!(UpdateUtils.get().updateUserEquipOwner(lostEquip.getId(), winner.getId()))) {
           log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
         }
-      } else {
-        if (!(InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId()) < 0)) {
-          log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
-        }
+      } 
+      if (!(InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId()) < 0)) {
+        log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
       }
     }
 

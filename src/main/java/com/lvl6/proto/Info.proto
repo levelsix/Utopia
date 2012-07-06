@@ -85,9 +85,9 @@ message FullUserProto {
 	optional LocationProto userLocation = 30;
 	optional int32 numPostsInMarketplace = 31;
 	optional int32 numMarketplaceSalesUnredeemed = 32;
-	optional int32 weaponEquipped = 33;
-	optional int32 armorEquipped = 34;
-	optional int32 amuletEquipped = 35;
+	optional int32 weaponEquippedUserEquipId = 33;
+	optional int32 armorEquippedUserEquipId = 34;
+	optional int32 amuletEquippedUserEquipId = 35;
 	optional int64 lastLoginTime = 36;
 	optional int64 lastLogoutTime = 37;
 	optional int64 lastShortLicensePurchaseTime = 43;
