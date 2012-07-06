@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
@@ -56,6 +57,20 @@ import com.lvl6.utils.DBConnection;
     UserEquip userEquip = convertRSSingleToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
     return userEquip;
+  }
+  
+  public List<UserEquip> getUserEquipsWithEquipId(int userId, int equipId) {
+    log.debug("retrieving user equip for user: " + userId + ", equipId: " + equipId);
+
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
+    paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+    
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    List<UserEquip> userEquips = convertRSToUserEquips(rs);
+    DBConnection.get().close(rs, null, conn);
+    return userEquips;
   }
 
   private Map<Integer, List<UserEquip>> convertRSToEquipIdsToUserEquips(

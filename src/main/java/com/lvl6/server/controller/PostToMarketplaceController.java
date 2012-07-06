@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -28,10 +29,10 @@ import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class PostToMarketplaceController extends EventController {
 
@@ -78,8 +79,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      UserEquip ue = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(user.getId(), reqProto.getPostedEquipId());
-
+      List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(user.getId(), reqProto.getPostedEquipId());
+      UserEquip ue = (userEquips == null) ? null : userEquips.get(0);
+      
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
       boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip, timeOfPost);
@@ -96,7 +98,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         } else {
           postType = MarketplacePostType.NORM_EQUIP_POST;
         }
-        writeChangesToDB(user, reqProto, ue, postType, timeOfPost);
+        writeChangesToDB(user, reqProto, ue, userEquips, postType, timeOfPost);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -118,7 +120,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("a passed in parameter was null. user=" + user + ", equip=" + equip + ", timeOfPost=" + timeOfPost);
       return false;
     }
-    if (userEquip == null || userEquip.getQuantity() < 1) {
+    if (userEquip == null) {
       resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_EQUIP);
       log.error("user does not have enough of equip with id " + equip.getId() + ", userEquip=" + userEquip);
       return false;
@@ -162,21 +164,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(User user, PostToMarketplaceRequestProto reqProto, 
-      UserEquip ue, MarketplacePostType postType, Timestamp timeOfPost) {
+      UserEquip ue, List<UserEquip> userEquips, MarketplacePostType postType, Timestamp timeOfPost) {
 
     if (ue != null) {
-      if (!UpdateUtils.get().decrementUserEquip(user.getId(), reqProto.getPostedEquipId(), 
-          ue.getQuantity(), 1)) {
-        log.error("problem with decrementing a user equip from user for marketplace post. user is "
-            + user.getId() + ", posted equip id is " + reqProto.getPostedEquipId()
-            + ", and user has this many of it: " + ue.getQuantity());
+      if (!DeleteUtils.get().deleteUserEquip(ue.getId())) {
+        log.error("problem with decrementing user equip with ue id: " + ue.getId());
         return;
       }
-    }
-    if (ue.getQuantity() == 1) {
-      if (!MiscMethods.unequipUserEquipIfEquipped(user, reqProto.getPostedEquipId())) {
-        log.error("problem with unequipping " + reqProto.getPostedEquipId());
-        return;
+      if (userEquips.size() <= 1) {
+        if (!MiscMethods.unequipUserEquipIfEquipped(user, reqProto.getPostedEquipId())) {
+          log.error("problem with unequipping " + reqProto.getPostedEquipId());
+          return;
+        }
       }
     }
 
