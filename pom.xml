@@ -152,13 +152,15 @@
 				<groupId>br.com.ingenieux</groupId>
 				<artifactId>beanstalk-maven-plugin</artifactId>
 				<configuration>
-					<applicationName>Utopia-${maven.build.timestamp}</applicationName>
-					<defaultEnvironmentName>Utopia-${maven.build.timestamp}</defaultEnvironmentName>
+					<applicationName>Utopia</applicationName>
+					<environmentName>Utopia-${maven.build.timestamp}</environmentName>
+					<defaultEnvironmentName>default</defaultEnvironmentName>
 					<cnamePrefix>${project.artifactId}-${maven.build.timestamp}</cnamePrefix>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
 					<configurationTemplate>lvl6prod-${maven.build.timestamp}</configurationTemplate>
 					<templateName>lvl6prod-${maven.build.timestamp}</templateName>
+					<solutionStack>64bit Amazon Linux running Tomcat 7</solutionStack>
 					<configurationTemplates>
 						<configurationTemplate>
 							<id>lvl6prod-${maven.build.timestamp}</id>
