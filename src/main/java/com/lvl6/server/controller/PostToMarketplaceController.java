@@ -80,7 +80,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(user.getId(), reqProto.getPostedEquipId());
-      UserEquip ue = (userEquipsForEquipId == null) ? null : userEquipsForEquipId.get(0);
+      UserEquip ue = (userEquipsForEquipId == null || userEquipsForEquipId.size() <= 0) ? null : userEquipsForEquipId.get(0);
       
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());

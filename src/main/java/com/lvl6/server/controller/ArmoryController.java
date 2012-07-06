@@ -65,7 +65,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equipId);;
-      UserEquip userEquip = (userEquipsForEquipId == null) ? null : userEquipsForEquipId.get(0);
+      UserEquip userEquip = (userEquipsForEquipId == null || userEquipsForEquipId.size() <= 0) ? null : userEquipsForEquipId.get(0);
       
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
 
