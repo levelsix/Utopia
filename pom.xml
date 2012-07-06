@@ -155,11 +155,11 @@
 					<applicationName>Utopia</applicationName>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
-					<configurationTemplate>default</configurationTemplate>
-					<templateName>default</templateName>
+					<configurationTemplate>lvl6prod</configurationTemplate>
+					<templateName>Lvl6 Production</templateName>
 					<configurationTemplates>
 						<configurationTemplate>
-							<id>default</id>
+							<id>lvl6prod</id>
 							<optionSettings>
 								<optionSetting>
 									<namespace>aws:elasticbeanstalk:application</namespace>
