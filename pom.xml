@@ -219,7 +219,7 @@
 								<optionSetting>
 									<namespace>aws:autoscaling:launchconfiguration</namespace>
 									<optionName>InstanceType</optionName>
-									<value>64-bit: m1.small</value>
+									<value>m1.small</value>
 								</optionSetting>
 							</optionSettings>
 						</configurationTemplate>
