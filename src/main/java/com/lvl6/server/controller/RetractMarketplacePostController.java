@@ -98,7 +98,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int diamondChange = diamondCut * -1;
     int coinChange = coinCut * -1;
     
-    if (!(InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId()) < 0)) {
+    if (InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId()) < 0) {
       log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());
     }
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, -1)) {

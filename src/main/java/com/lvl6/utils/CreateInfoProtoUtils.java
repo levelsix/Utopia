@@ -260,14 +260,14 @@ public class CreateInfoProtoUtils {
         .setCreateTime(u.getCreateTime().getTime())
         .setIsAdmin(u.isAdmin())
         .setNumCoinsRetrievedFromStructs(u.getNumCoinsRetrievedFromStructs());
-    if (u.getWeaponEquipped() != ControllerConstants.NOT_SET) {
-      builder.setWeaponEquipped(u.getWeaponEquipped());
+    if (u.getWeaponEquippedUserEquipId() != ControllerConstants.NOT_SET) {
+      builder.setWeaponEquippedUserEquipId(u.getWeaponEquippedUserEquipId());
     }
-    if (u.getArmorEquipped() != ControllerConstants.NOT_SET) {
-      builder.setArmorEquipped(u.getArmorEquipped());
+    if (u.getArmorEquippedUserEquipId() != ControllerConstants.NOT_SET) {
+      builder.setArmorEquippedUserEquipId(u.getArmorEquippedUserEquipId());
     }
-    if (u.getAmuletEquipped() != ControllerConstants.NOT_SET) {
-      builder.setAmuletEquipped(u.getAmuletEquipped());
+    if (u.getAmuletEquippedUserEquipId() != ControllerConstants.NOT_SET) {
+      builder.setAmuletEquippedUserEquipId(u.getAmuletEquippedUserEquipId());
     }
     if (u.getLastEnergyRefillTime() != null) {
       builder.setLastEnergyRefillTime(u.getLastEnergyRefillTime().getTime());

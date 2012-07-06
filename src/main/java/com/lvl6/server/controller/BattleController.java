@@ -45,16 +45,16 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
-  @Component @DependsOn("gameServer") public class BattleController extends EventController {
+@Component @DependsOn("gameServer") public class BattleController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  
-  
+
+
   @Autowired
   protected InsertUtil insertUtils;
 
   public void setInsertUtils(InsertUtil insertUtils) {
-	this.insertUtils = insertUtils;
+    this.insertUtils = insertUtils;
   }
 
   public BattleController() {
@@ -110,6 +110,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       boolean legitBattle = checkLegitBattle(resBuilder, result, attacker, defender);
 
+      boolean stolenEquipIsLastOne = false;
+
       if (legitBattle) {
         if (result == BattleResult.ATTACKER_WIN) {
           winner = attacker;
@@ -121,6 +123,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
             resBuilder.setEquipGained(CreateInfoProtoUtils
                 .createFullEquipProtoFromEquip(equip));
+
+            int numOfThisEquipHeld = 0;
+            if (defenderEquips != null) {
+              for (UserEquip ue : defenderEquips) {
+                if (ue.getEquipId() == lostEquip.getEquipId()) numOfThisEquipHeld++;
+              }
+              if (numOfThisEquipHeld == 1) {
+                stolenEquipIsLastOne = true;
+              }
+            }
+
           }
         } else if (result == BattleResult.DEFENDER_WIN || result == BattleResult.ATTACKER_FLEE){
           winner = defender;
@@ -144,7 +157,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitBattle) {
-        writeChangesToDB(lostEquip, winner, loser, attacker,
+        writeChangesToDB(lostEquip, stolenEquipIsLastOne, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
 
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
@@ -291,19 +304,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(UserEquip lostEquip,
-      User winner, User loser, User attacker, User defender, int expGained,
+      boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, int expGained,
       int lostCoins, Timestamp battleTime, boolean isFlee) {
     if (lostEquip != null) {
       if (!loser.isFake()) {
-        /*
-         * if this is the only one the loser has, unequip it from him
-         */
-        asdf
+        if (stolenEquipIsLastOne) {
+          if (!MiscMethods.unequipUserEquipIfEquipped(loser, lostEquip)) {
+            log.error("problem with unequipping userequip" + lostEquip.getId());
+            return;
+          }
+        }
         if (!(UpdateUtils.get().updateUserEquipOwner(lostEquip.getId(), winner.getId()))) {
           log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
         }
       } 
-      if (!(InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId()) < 0)) {
+      if (InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId()) < 0) {
         log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
       }
     }

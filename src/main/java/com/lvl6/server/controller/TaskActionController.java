@@ -269,7 +269,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
 
       if (lootEquipId != ControllerConstants.NOT_SET) {
-        if (!(InsertUtils.get().insertUserEquip(user.getId(), lootEquipId) < 0)) {
+        if (InsertUtils.get().insertUserEquip(user.getId(), lootEquipId) < 0) {
           log.error("problem with giving user 1 of equip " + lootEquipId);
         }
       }

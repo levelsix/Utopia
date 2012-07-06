@@ -11,6 +11,7 @@ import com.lvl6.proto.EventProto.RefillStatWithDiamondsRequestProto.StatType;
 import com.lvl6.proto.InfoProto.EarnFreeDiamondsType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.DBConnection;
 
 public class User {
@@ -149,34 +150,35 @@ public class User {
   }
 
 
-  public boolean updateEquipped(Equipment equipment) {
+  public boolean updateEquipped(UserEquip ue) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
-    int equipId = equipment.getId();
+    int userEquipId = ue.getId();
+    Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ue.getEquipId());
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (equipment.getType() == EquipType.WEAPON) {
-      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, equipId);
+      absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, userEquipId);
     }
     if (equipment.getType() == EquipType.ARMOR) {
-      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, equipId);      
+      absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, userEquipId);      
     }
     if (equipment.getType() == EquipType.AMULET) {
-      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, equipId);
+      absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, userEquipId);
     }
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       if (equipment.getType() == EquipType.WEAPON) {
-        this.weaponEquipped = equipId;
+        this.weaponEquippedUserEquipId = userEquipId;
       }
       if (equipment.getType() == EquipType.ARMOR) {
-        this.armorEquipped = equipId;
+        this.armorEquippedUserEquipId = userEquipId;
       }
       if (equipment.getType() == EquipType.AMULET) {
-        this.amuletEquipped = equipId;
+        this.amuletEquippedUserEquipId = userEquipId;
       }
       return true;
     }

@@ -146,7 +146,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     if (quest.getEquipIdGained() > 0) {
-      if (!(InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained()) < 0)) {
+      if (InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained()) < 0) {
         log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
             + quest.getEquipIdGained());
       } else {

@@ -167,15 +167,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       UserEquip ue, List<UserEquip> userEquipsForEquipId, MarketplacePostType postType, Timestamp timeOfPost) {
 
     if (ue != null) {
+      if (userEquipsForEquipId.size() <= 1) {
+        if (!MiscMethods.unequipUserEquipIfEquipped(user, ue)) {
+          log.error("problem with unequipping userequip" + ue.getId());
+          return;
+        }
+      }
       if (!DeleteUtils.get().deleteUserEquip(ue.getId())) {
         log.error("problem with decrementing user equip with ue id: " + ue.getId());
         return;
-      }
-      if (userEquipsForEquipId.size() <= 1) {
-        if (!MiscMethods.unequipUserEquipIfEquipped(user, ue)) {
-          log.error("problem with unequipping " + reqProto.getPostedEquipId());
-          return;
-        }
       }
     }
 

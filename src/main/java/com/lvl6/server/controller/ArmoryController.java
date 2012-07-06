@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -21,9 +23,10 @@ import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class ArmoryController extends EventController {
 
@@ -61,10 +64,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      UserEquip userEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(senderProto.getUserId(), equipId);;
+      List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equipId);;
+      UserEquip userEquip = (userEquipsForEquipId == null) ? null : userEquipsForEquipId.get(0);
+      
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
 
-      if (quantity < 1 || equipment == null) {
+      if (quantity != 1 || equipment == null) {
+        if (quantity > 1) {
+          log.fatal("controller does not support selling quantity > 1");
+          quantity = 1;
+        }
         resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
       } else {
         if (requestType == ArmoryRequestType.BUY) {
@@ -91,12 +100,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             resBuilder.setStatus(ArmoryStatus.CANNOT_SELL_DIAMOND_EQUIP);
             log.error("player tried to sell a diamond equip (equip with id " + equipId + ")");
           } else {
-            if (userEquip != null && userEquip.getQuantity() >= quantity) {
+            if (userEquip != null) {
               legitSell = true;
             } else {
               resBuilder.setStatus(ArmoryStatus.NOT_ENOUGH_EQUIP_TO_SELL);
-              log.error("player tried to sell " + quantity + " equips with id " + equipId + " but only has " + userEquip.getQuantity() 
-                  + " of them");
+              log.error("player tried to sell " + quantity + " equips with id " + equipId + " but has none");
             }
           }
         }
@@ -107,7 +115,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //            log.error("problem with equipping " + equipment + " for user " + user);
 //          }
 //        }
-        if (!UpdateUtils.get().incrementUserEquip(user.getId(), equipId, quantity)) {
+        if (InsertUtils.get().insertUserEquip(user.getId(), equipId) < 0) {
           log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
         }
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {
@@ -122,13 +130,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.setStatus(ArmoryStatus.SUCCESS);
       }
       if (legitSell) {
-        if (!UpdateUtils.get().decrementUserEquip(user.getId(), equipId, userEquip.getQuantity(), quantity)) {
-          log.error("problem with taking away " + quantity + " of equip id " + equipId + " from player");
-        }
-        if (quantity >= userEquip.getQuantity()) {
-          if (!MiscMethods.unequipUserEquipIfEquipped(user, equipId)) {
-            log.error("problem with unequipping " + equipId);
+        if (userEquipsForEquipId.size() <= 1) {
+          if (!MiscMethods.unequipUserEquipIfEquipped(user, userEquip)) {
+            log.error("problem with unequipping userequip" + userEquip.getId());
           }
+        }
+        if (!DeleteUtils.get().deleteUserEquip(userEquip.getId())) {
+          log.error("problem with delete from player userequip with id " + userEquip.getId());
         }
         if (!user.updateRelativeCoinsNaive((int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()))) {
           log.error("problem with changing coin count by " + (int)(ControllerConstants.ARMORY__SELL_RATIO * equipment.getCoinPrice()));
