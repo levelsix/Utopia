@@ -73,5 +73,7 @@ public interface InsertUtil {
 	 */
 	public abstract int insertPlayerWallPost(int posterId, int wallOwnerId,
 			String content, Timestamp timeOfPost);
+	
+	public abstract int insertUserEquip(int userId, int equipId);
 
 }

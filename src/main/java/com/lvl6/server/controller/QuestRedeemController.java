@@ -26,6 +26,7 @@ import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -145,7 +146,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     if (quest.getEquipIdGained() > 0) {
-      if (!UpdateUtils.get().incrementUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), 1)) {
+      if (!(InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained()) < 0)) {
         log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
             + quest.getEquipIdGained());
       } else {

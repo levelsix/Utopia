@@ -4,8 +4,10 @@ import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
@@ -60,7 +62,7 @@ import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
-  @Component @DependsOn("gameServer") public class StartupController extends EventController {
+@Component @DependsOn("gameServer") public class StartupController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -81,15 +83,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
     StartupRequestProto reqProto = ((StartupRequestEvent)event).getStartupRequestProto();
-        
+
     UpdateStatus updateStatus;
     String udid = reqProto.getUdid();
     String apsalarId = reqProto.hasApsalarId() ? reqProto.getApsalarId() : null;
 
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
-    
+
     MiscMethods.setMDCProperties(udid, null, MiscMethods.getIPOfPlayer(server, null, udid));
-    
+
     // Check version number
     if ((int)reqProto.getVersionNum() < (int)GameServer.clientVersionNumber) {
       updateStatus = UpdateStatus.MAJOR_UPDATE;
@@ -137,7 +139,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       setConstants(resBuilder, startupStatus);      
     }
 
-    
+
     StartupResponseProto resProto = resBuilder.build();
     StartupResponseEvent resEvent = new StartupResponseEvent(udid);
     resEvent.setTag(event.getTag());
@@ -147,16 +149,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     // Write event directly since EventWriter cannot handle without userId.
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
     NIOUtils.prepBuffer(resEvent, writeBuffer);
-    
+
     server.writePreDBEvent(resEvent, udid);
-//    SocketChannel sc = server.removePreDbPlayer(udid);
-//    if (sc != null) {
-//      if (user != null) 
-//        NIOUtils.channelWrite(sc, writeBuffer, user.getId());
-//      else
-//        NIOUtils.channelWrite(sc, writeBuffer, ControllerConstants.NOT_SET);
-//    }
-//    
+    //    SocketChannel sc = server.removePreDbPlayer(udid);
+    //    if (sc != null) {
+    //      if (user != null) 
+    //        NIOUtils.channelWrite(sc, writeBuffer, user.getId());
+    //      else
+    //        NIOUtils.channelWrite(sc, writeBuffer, ControllerConstants.NOT_SET);
+    //    }
+    //    
     if (user != null) {
       syncApsalaridLastloginResetBadges(user, apsalarId, new Timestamp(new Date().getTime()));
     }    
@@ -188,51 +190,51 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void setNotifications(Builder resBuilder, User user) {
-      List <Integer> userIds = new ArrayList<Integer>();
+    List <Integer> userIds = new ArrayList<Integer>();
 
-      List<MarketplaceTransaction> marketplaceTransactions = 
-          MarketplaceTransactionRetrieveUtils.getMostRecentMarketplaceTransactionsForPoster(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND);
-      if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
-        for (MarketplaceTransaction mt : marketplaceTransactions) {
-          userIds.add(mt.getBuyerId());
-        }
+    List<MarketplaceTransaction> marketplaceTransactions = 
+        MarketplaceTransactionRetrieveUtils.getMostRecentMarketplaceTransactionsForPoster(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND);
+    if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
+      for (MarketplaceTransaction mt : marketplaceTransactions) {
+        userIds.add(mt.getBuyerId());
       }
+    }
 
-      Timestamp earliestBattleNotificationTimeToRetrieve = new Timestamp(new Date().getTime() - ControllerConstants.STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND*3600000);
-      List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getMostRecentBattleDetailsForDefenderAfterTime(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND, earliestBattleNotificationTimeToRetrieve);
-      if (battleDetails != null && battleDetails.size() > 0) {
-        for (BattleDetails bd : battleDetails) {
-          userIds.add(bd.getAttackerId());
-        }        
-      }
+    Timestamp earliestBattleNotificationTimeToRetrieve = new Timestamp(new Date().getTime() - ControllerConstants.STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND*3600000);
+    List<BattleDetails> battleDetails = BattleDetailsRetrieveUtils.getMostRecentBattleDetailsForDefenderAfterTime(user.getId(), ControllerConstants.STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND, earliestBattleNotificationTimeToRetrieve);
+    if (battleDetails != null && battleDetails.size() > 0) {
+      for (BattleDetails bd : battleDetails) {
+        userIds.add(bd.getAttackerId());
+      }        
+    }
 
-      List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getMostRecentPlayerWallPostsForWallOwner(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getId());
-      if (wallPosts != null && wallPosts.size() > 0) {
-        for (PlayerWallPost p : wallPosts) {
-          userIds.add(p.getPosterId());
-        }
+    List<PlayerWallPost> wallPosts = PlayerWallPostRetrieveUtils.getMostRecentPlayerWallPostsForWallOwner(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getId());
+    if (wallPosts != null && wallPosts.size() > 0) {
+      for (PlayerWallPost p : wallPosts) {
+        userIds.add(p.getPosterId());
       }
+    }
 
-      Map<Integer, User> usersByIds = null;
-      if (userIds.size() > 0) {
-        usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
-      }
+    Map<Integer, User> usersByIds = null;
+    if (userIds.size() > 0) {
+      usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
+    }
 
-      if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
-        for (MarketplaceTransaction mt : marketplaceTransactions) {
-          resBuilder.addMarketplacePurchaseNotifications(CreateInfoProtoUtils.createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(mt, usersByIds.get(mt.getBuyerId()), user));
-        }
+    if (marketplaceTransactions != null && marketplaceTransactions.size() > 0) {
+      for (MarketplaceTransaction mt : marketplaceTransactions) {
+        resBuilder.addMarketplacePurchaseNotifications(CreateInfoProtoUtils.createMarketplacePostPurchasedNotificationProtoFromMarketplaceTransaction(mt, usersByIds.get(mt.getBuyerId()), user));
       }
-      if (battleDetails != null && battleDetails.size() > 0) {
-        for (BattleDetails bd : battleDetails) {
-          resBuilder.addAttackNotifications(CreateInfoProtoUtils.createAttackedNotificationProtoFromBattleHistory(bd, usersByIds.get(bd.getAttackerId())));
-        }        
-      } 
-      if (wallPosts != null && wallPosts.size() > 0) {
-        for (PlayerWallPost p : wallPosts) {
-          resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
-        }
+    }
+    if (battleDetails != null && battleDetails.size() > 0) {
+      for (BattleDetails bd : battleDetails) {
+        resBuilder.addAttackNotifications(CreateInfoProtoUtils.createAttackedNotificationProtoFromBattleHistory(bd, usersByIds.get(bd.getAttackerId())));
+      }        
+    } 
+    if (wallPosts != null && wallPosts.size() > 0) {
+      for (PlayerWallPost p : wallPosts) {
+        resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
       }
+    }
   }
 
   private void setAllies(Builder resBuilder, User user) {
@@ -249,7 +251,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     List<Integer> forbiddenUserIds = new ArrayList<Integer>();
     forbiddenUserIds.add(user.getId());
-    
+
     List<User> allies = RetrieveUtils.userRetrieveUtils().getUsers(userTypes, ControllerConstants.STARTUP__APPROX_NUM_ALLIES_TO_SEND, user.getLevel(), user.getId(), false, 
         null, null, null, null, false, forbiddenUserIds);
     if (allies != null && allies.size() > 0) {
@@ -258,14 +260,18 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       }
     }
   }
-  
+
   private void setUserEquipsAndEquips(Builder resBuilder, User user) {
     List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(user.getId());
     if (userEquips != null) {
       Map<Integer, Equipment> equipIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+      Set<Integer> equipsGivenAlready = new HashSet<Integer>();
       for (UserEquip ue : userEquips) {
         resBuilder.addUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
-        resBuilder.addEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipIdsToEquipment.get(ue.getEquipId())));
+        if (!equipsGivenAlready.contains(ue.getEquipId())) {
+          resBuilder.addEquips(CreateInfoProtoUtils.createFullEquipProtoFromEquip(equipIdsToEquipment.get(ue.getEquipId())));
+          equipsGivenAlready.add(ue.getEquipId());
+        }
       }
     }
   }
@@ -348,7 +354,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     Dialogue goodAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE);
     Dialogue badAcceptDialogue = MiscMethods.createDialogue(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE);
-    
+
     FullTutorialQuestProto tqbp = FullTutorialQuestProto.newBuilder()
         .setGoodName(ControllerConstants.TUTORIAL__FAKE_QUEST_GOOD_NAME)
         .setBadName(ControllerConstants.TUTORIAL__FAKE_QUEST_BAD_NAME)
@@ -372,7 +378,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     PlayerWallPost pwp = new PlayerWallPost(-1, ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, -1, 
         new Date(), ControllerConstants.USER_CREATE__FIRST_WALL_POST_TEXT);
     User poster = RetrieveUtils.userRetrieveUtils().getUserById(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL);
-    
+
     TutorialConstants.Builder builder = TutorialConstants.newBuilder()
         .setInitEnergy(ControllerConstants.TUTORIAL__INIT_ENERGY).setInitStamina(ControllerConstants.TUTORIAL__INIT_STAMINA)
         .setInitHealth(ControllerConstants.TUTORIAL__INIT_HEALTH).setStructToBuild(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD)

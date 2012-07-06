@@ -501,65 +501,6 @@ public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct
     return false;
   }
 
-  
-	/* (non-Javadoc)
-	 * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementUserEquip(int, int, int)
-	 */
-	@Override
-	@Caching(evict= {
-			@CacheEvict(value="userEquipsForUser", key="#userId"),
-			@CacheEvict(value="equipsToUserEquipsForUser", key="#userId")
-		})
-  public boolean incrementUserEquip(int userId, int equipId, int increment) {
-    Map <String, Object> insertParams = new HashMap<String, Object>();
-    insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
-    insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-    insertParams.put(DBConstants.USER_EQUIP__QUANTITY, increment);
-    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_EQUIP, insertParams, 
-        DBConstants.USER_EQUIP__QUANTITY, increment);
-    if (numUpdated >= 1) {
-      return true;
-    }
-    return false;
-  }
-
-  //note: decrement is a positive number
-  /*
-   * used for battles
-   */
-	/* (non-Javadoc)
-	 * @see com.lvl6.utils.utilmethods.UpdateUtil#decrementUserEquip(int, int, int, int)
-	 */
-	@Override
-	@Caching(evict= {
-			@CacheEvict(value="userEquipsForUser", key="#userId"),
-			@CacheEvict(value="equipsToUserEquipsForUser", key="#userId")
-		})
-  public boolean decrementUserEquip(int userId, int equipId, int currentQuantity, int decrement) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
-    conditionParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-
-    if (currentQuantity - decrement < 0) {
-      return false;
-    }
-    if (currentQuantity - decrement <= 0) {
-      int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_EQUIP, conditionParams, "and");
-      if (numDeleted == 1) {
-        return true;
-      }
-    } else {
-      Map <String, Object> relativeParams = new HashMap<String, Object>();
-      relativeParams.put(DBConstants.USER_EQUIP__QUANTITY, -1*decrement);      
-      int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, relativeParams, null, 
-          conditionParams, "and");
-      if (numUpdated == 1) {
-        return true;
-      }
-    }    
-    return false;
-  }
-
   /*
    * used for tasks
    */

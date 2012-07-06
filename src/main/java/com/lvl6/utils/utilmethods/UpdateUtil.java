@@ -141,31 +141,15 @@ public interface UpdateUtil {
 			@CacheEvict(value = "specificUserStruct", key = "#userStructId") })
 	public abstract boolean updateUserStructCoord(int userStructId,
 			CoordinatePair coordinates);
-
-	@Caching(evict = {
-			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
-			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId") })
-	public abstract boolean incrementUserEquip(int userId, int equipId,
-			int increment);
-
-	//note: decrement is a positive number
+	
 	/*
-	 * used for battles
-	 */
-	@Caching(evict = {
-			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
-			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId") })
-	public abstract boolean decrementUserEquip(int userId, int equipId,
-			int currentQuantity, int decrement);
-
-	/*
-	 * used for tasks
-	 */
-	@Caching(evict = {
-			@CacheEvict(value = "cityIdToUserCityRankCache", key = "#userId"),
-			@CacheEvict(value = "currentCityRankForUserCache", key = "#userId+':'+#cityId") })
-	public abstract boolean incrementCityRankForUserCity(int userId,
-			int cityId, int increment);
+   * used for tasks
+   */
+  @Caching(evict = {
+      @CacheEvict(value = "cityIdToUserCityRankCache", key = "#userId"),
+      @CacheEvict(value = "currentCityRankForUserCache", key = "#userId+':'+#cityId") })
+  public abstract boolean incrementCityRankForUserCity(int userId,
+      int cityId, int increment);
 
 	/*
 	 * used for tasks

@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -26,24 +25,14 @@ import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
-import com.lvl6.utils.utilmethods.InsertUtil;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class PurchaseFromMarketplaceController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-
-  @Autowired
-  protected InsertUtil insertUtils;
-
-  public void setInsertUtils(InsertUtil insertUtils) {
-	this.insertUtils = insertUtils;
-  }
-
-  
   public PurchaseFromMarketplaceController() {
     numAllocatedThreads = 4;
   }
@@ -168,11 +157,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 //      }
 //    }
     
-    if (!UpdateUtils.get().incrementUserEquip(buyer.getId(), mp.getPostedEquipId(), 1)) {
+    if (InsertUtils.get().insertUserEquip(buyer.getId(), mp.getPostedEquipId()) < 0) {
       log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
     }
 
-    if (!insertUtils.insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
+    if (!InsertUtils.get().insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }
 

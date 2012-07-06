@@ -20,9 +20,9 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
-import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class RetractMarketplacePostController extends EventController{
 
@@ -98,7 +98,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int diamondChange = diamondCut * -1;
     int coinChange = coinCut * -1;
     
-    if (!UpdateUtils.get().incrementUserEquip(user.getId(), mp.getPostedEquipId(), 1)) {
+    if (!(InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId()) < 0)) {
       log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());
     }
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, -1)) {

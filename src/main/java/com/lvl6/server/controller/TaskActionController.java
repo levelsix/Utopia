@@ -37,6 +37,7 @@ import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -268,7 +269,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
 
       if (lootEquipId != ControllerConstants.NOT_SET) {
-        if (!UpdateUtils.get().incrementUserEquip(user.getId(), lootEquipId, 1)) {
+        if (!(InsertUtils.get().insertUserEquip(user.getId(), lootEquipId) < 0)) {
           log.error("problem with giving user 1 of equip " + lootEquipId);
         }
       }

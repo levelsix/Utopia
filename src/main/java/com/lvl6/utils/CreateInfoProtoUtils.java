@@ -302,8 +302,8 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
-    return FullUserEquipProto.newBuilder().setUserId(ue.getUserId()).setEquipId(ue.getEquipId())
-        .setQuantity(ue.getQuantity()).build();
+    return FullUserEquipProto.newBuilder().setUserEquipId(ue.getUserEquipId()).setUserId(ue.getUserId())
+        .setEquipId(ue.getEquipId()).build();
   }
 
   public static FullUserCritstructProto createFullUserCritstructProtoFromUserCritstruct(UserCritstruct uc) {
@@ -413,7 +413,7 @@ public class CreateInfoProtoUtils {
 
     Map<Integer, List<UserStruct>> structIdsToUserStructs = null;
 
-    Map<Integer, UserEquip> equipIdsToUserEquips = null;
+    Map<Integer, List<UserEquip>> equipIdsToUserEquips = null;
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
     
     for (UserQuest userQuest : userQuests) {
@@ -543,8 +543,8 @@ public class CreateInfoProtoUtils {
             }
             for (Integer possessEquipJobId : quest.getPossessEquipJobsRequired()) {
               PossessEquipJob possessEquipJob = PossessEquipJobRetrieveUtils.getPossessEquipJobForPossessEquipJobId(possessEquipJobId);
-              UserEquip userEquip = equipIdsToUserEquips.get(possessEquipJob.getEquipId());
-              int quantityOwned = (userEquip != null) ? userEquip.getQuantity() : 0;
+              List<UserEquip> userEquips = equipIdsToUserEquips.get(possessEquipJob.getEquipId());
+              int quantityOwned = (userEquips != null) ? userEquips.size() : 0;
               if (quantityOwned >= possessEquipJob.getQuantity()) {
                 numComponentsComplete++;
               }

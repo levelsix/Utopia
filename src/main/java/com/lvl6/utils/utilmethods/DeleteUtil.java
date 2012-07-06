@@ -22,5 +22,6 @@ public interface DeleteUtil {
 			@CacheEvict(value = "structIdsToUserStructsForUser", allEntries = true),
 			@CacheEvict(value = "specificUserStruct", key = "#userStructId") })
 	public abstract boolean deleteUserStruct(int userStructId);
-
+	
+  public abstract boolean deleteUserEquip(int userEquipId);
 }
