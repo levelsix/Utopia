@@ -156,12 +156,17 @@
 					<applicationName>Utopia</applicationName>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
-					<configurationTemplate>lvl6prod</configurationTemplate>
-					<templateName>Lvl6 Production</templateName>
+					<configurationTemplate>lvl6prod-2012-7-6-13-48</configurationTemplate>
+					<templateName>lvl6prodlvl6prod-2012-7-6-13-48</templateName>
 					<configurationTemplates>
 						<configurationTemplate>
-							<id>lvl6prod</id>
+							<id>lvl6prodlvl6prod-2012-7-6-13-48</id>
 							<optionSettings>
+								<optionSetting>
+									<namespace>aws:autoscaling:launchconfiguration</namespace>
+									<optionName>EC2KeyName</optionName>
+									<value>lvl6-us-east</value>
+								</optionSetting>
 								<optionSetting>
 									<namespace>aws:elasticbeanstalk:application</namespace>
 									<optionName>Application Healthcheck URL</optionName>
@@ -198,6 +203,11 @@
 									<value>6</value>
 								</optionSetting>
 								<optionSetting>
+									<namespace>aws:autoscaling:asg</namespace>
+									<optionName>Availability Zones</optionName>
+									<value>Any 2</value>
+								</optionSetting>
+								<optionSetting>
 									<namespace>aws:autoscaling:trigger</namespace>
 									<optionName>Period</optionName>
 									<value>5</value>
@@ -207,15 +217,10 @@
 									<optionName>LoadBalancerHTTPPort</optionName>
 									<value>80</value>
 								</optionSetting>
-<!-- 								<optionSetting> -->
-<!-- 									<namespace>aws:elb:loadbalancer</namespace> -->
-<!-- 									<optionName>LoadBalancerTCPPort</optionName> -->
-<!-- 									<value>${server.port}</value> -->
-<!-- 								</optionSetting> -->
 								<optionSetting>
 									<namespace>aws:autoscaling:launchconfiguration</namespace>
 									<optionName>InstanceType</optionName>
-									<value>m1.small</value>
+									<value>64-bit: m1.small</value>
 								</optionSetting>
 							</optionSettings>
 						</configurationTemplate>
