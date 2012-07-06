@@ -162,6 +162,11 @@
 							<id>lvl6prod</id>
 							<optionSettings>
 								<optionSetting>
+									<namespace>aws:autoscaling:launchconfiguration</namespace>
+									<optionName>EC2KeyName</optionName>
+									<value>lvl6-us-east</value>
+								</optionSetting>
+								<optionSetting>
 									<namespace>aws:elasticbeanstalk:application</namespace>
 									<optionName>Application Healthcheck URL</optionName>
 									<value>/index.html</value>
@@ -197,6 +202,11 @@
 									<value>6</value>
 								</optionSetting>
 								<optionSetting>
+									<namespace>aws:autoscaling:asg</namespace>
+									<optionName>Availability Zones</optionName>
+									<value>Any 2</value>
+								</optionSetting>
+								<optionSetting>
 									<namespace>aws:autoscaling:trigger</namespace>
 									<optionName>Period</optionName>
 									<value>5</value>
@@ -206,15 +216,10 @@
 									<optionName>LoadBalancerHTTPPort</optionName>
 									<value>80</value>
 								</optionSetting>
-<!-- 								<optionSetting> -->
-<!-- 									<namespace>aws:elb:loadbalancer</namespace> -->
-<!-- 									<optionName>LoadBalancerTCPPort</optionName> -->
-<!-- 									<value>${server.port}</value> -->
-<!-- 								</optionSetting> -->
 								<optionSetting>
 									<namespace>aws:autoscaling:launchconfiguration</namespace>
 									<optionName>InstanceType</optionName>
-									<value>m1.small</value>
+									<value>64-bit: m1.small</value>
 								</optionSetting>
 							</optionSettings>
 						</configurationTemplate>
