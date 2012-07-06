@@ -153,6 +153,7 @@
 				<artifactId>beanstalk-maven-plugin</artifactId>
 				<configuration>
 					<applicationName>Utopia</applicationName>
+					<cnamePrefix>${project.build.finalName}-${maven.build.timestamp}</cnamePrefix>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
 					<configurationTemplate>lvl6prod-2012-7-6-13-48</configurationTemplate>
