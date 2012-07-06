@@ -53,6 +53,8 @@
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 	</properties>
 
 	<profiles>
@@ -98,6 +100,15 @@
 
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>br.com.ingenieux</groupId>
+					<artifactId>beanstalk-maven-plugin</artifactId>
+					<version>0.2.7-RC5</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -142,11 +153,14 @@
 				<groupId>br.com.ingenieux</groupId>
 				<artifactId>beanstalk-maven-plugin</artifactId>
 				<configuration>
-					<configurationTemplate>default</configurationTemplate>
-					<templateName>default</templateName>
+					<applicationName>Utopia</applicationName>
+					<s3Bucket>prodWars</s3Bucket>
+					<s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
+					<configurationTemplate>lvl6prod</configurationTemplate>
+					<templateName>Lvl6 Production</templateName>
 					<configurationTemplates>
 						<configurationTemplate>
-							<id>default</id>
+							<id>lvl6prod</id>
 							<optionSettings>
 								<optionSetting>
 									<namespace>aws:elasticbeanstalk:application</namespace>
@@ -154,9 +168,54 @@
 									<value>/index.html</value>
 								</optionSetting>
 								<optionSetting>
+									<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
+									<optionName>Xms</optionName>
+									<value>256m</value>
+								</optionSetting>
+								<optionSetting>
+									<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
+									<optionName>Xmx</optionName>
+									<value>1300m</value>
+								</optionSetting>
+								<optionSetting>
+									<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
+									<optionName>XX:MaxPermSize</optionName>
+									<value>256m</value>
+								</optionSetting>
+								<optionSetting>
 									<namespace>aws:autoscaling:launchconfiguration</namespace>
-									<optionName>EC2KeyName</optionName>
-									<value>w7desktop</value>
+									<optionName>SecurityGroups</optionName>
+									<value>elasticbeanstalk-default</value>
+								</optionSetting>
+								<optionSetting>
+									<namespace>aws:autoscaling:asg</namespace>
+									<optionName>MinSize</optionName>
+									<value>2</value>
+								</optionSetting>
+								<optionSetting>
+									<namespace>aws:autoscaling:asg</namespace>
+									<optionName>MaxSize</optionName>
+									<value>6</value>
+								</optionSetting>
+								<optionSetting>
+									<namespace>aws:autoscaling:trigger</namespace>
+									<optionName>Period</optionName>
+									<value>5</value>
+								</optionSetting>
+								<optionSetting>
+									<namespace>aws:elb:loadbalancer</namespace>
+									<optionName>LoadBalancerHTTPPort</optionName>
+									<value>80</value>
+								</optionSetting>
+<!-- 								<optionSetting> -->
+<!-- 									<namespace>aws:elb:loadbalancer</namespace> -->
+<!-- 									<optionName>LoadBalancerTCPPort</optionName> -->
+<!-- 									<value>${server.port}</value> -->
+<!-- 								</optionSetting> -->
+								<optionSetting>
+									<namespace>aws:autoscaling:launchconfiguration</namespace>
+									<optionName>InstanceType</optionName>
+									<value>m1.small</value>
 								</optionSetting>
 							</optionSettings>
 						</configurationTemplate>
@@ -177,6 +236,7 @@
 			</testResource>
 		</testResources>
 	</build>
+
 
 
 
