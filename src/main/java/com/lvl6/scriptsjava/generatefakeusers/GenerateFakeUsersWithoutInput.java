@@ -76,14 +76,11 @@ public class GenerateFakeUsersWithoutInput {
     int attack = fakePlayerStats[0];
     int defense = fakePlayerStats[1];
     int health = fakePlayerStats[2];
-    int weaponEquipped = fakePlayerStats[3];
-    int armorEquipped = fakePlayerStats[4];
-    int amuletEquipped = fakePlayerStats[5];
     
     InsertUtil insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
 
     if (insertUtils.insertUser(newReferCode + newReferCode, name, type, location, null, newReferCode, level, 
-        attack, defense, 0, health, 0, 0, 0, 0, weaponEquipped, armorEquipped, amuletEquipped, true) < 0) {
+        attack, defense, 0, health, 0, 0, 0, 0, null, null, null, true) < 0) {
       System.out.println("error in creating user");
     }
   }
@@ -94,41 +91,31 @@ public class GenerateFakeUsersWithoutInput {
 	    int health = ControllerConstants.TUTORIAL__INIT_HEALTH;
 	    int equipmentLevel = level;
 	    double characterMultiplier = ControllerConstants.CHARACTERS_ATTACK_DEFENSE_VARIABILITY;
-	    int[] initialized = new int[6];
+	    int[] initialized = new int[3];
 	    
-	    health += (int) ((level-1)*ControllerConstants.LEVEL_UP_HEALTH_GAINED);
+	    health += (int) ((level-1)*0.5*ControllerConstants.LEVEL_UP_HEALTH_GAINED);
 
 	    if (equipmentLevel > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER) {
 	    	equipmentLevel = ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER;
 	    }
 	    
-	    Integer weaponEquipped = null, armorEquipped = null, amuletEquipped = null;
 	    if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
 	      attack = (int) (ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK 
 	    		  + Math.ceil((level-1)*ControllerConstants.LEVEL_UP_ATTACK_GAINED/2));
 	      defense = (int) (ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE 
 	    		  + Math.ceil((level-1)*ControllerConstants.LEVEL_UP_DEFENSE_GAINED/2));
-	      weaponEquipped = ControllerConstants.ARCHER_WEAPON_ID_LEVEL[equipmentLevel-1];
-	      armorEquipped = ControllerConstants.ARCHER_ARMOR_ID_LEVEL[equipmentLevel-1];
-	      amuletEquipped = ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1];
 	    }
 	    if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
 	      attack = (int) (ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK 
 	    		  + Math.ceil((level-1)*ControllerConstants.LEVEL_UP_ATTACK_GAINED*(1-characterMultiplier)));
 	      defense = (int) (ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE 
 	    		  + Math.ceil((level-1)*ControllerConstants.LEVEL_UP_DEFENSE_GAINED*characterMultiplier));
-	      weaponEquipped = ControllerConstants.WARRIOR_WEAPON_ID_LEVEL[equipmentLevel-1];
-	      armorEquipped = ControllerConstants.WARRIOR_ARMOR_ID_LEVEL[equipmentLevel-1];
-	      amuletEquipped = ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1];
 	    }
 	    if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
 	      attack = (int) (ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK 
 	    		  + Math.ceil((level-1)*ControllerConstants.LEVEL_UP_ATTACK_GAINED*characterMultiplier));
 	      defense = (int) (ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE 
 	    		  + Math.ceil((level-1)*ControllerConstants.LEVEL_UP_DEFENSE_GAINED*(1-characterMultiplier)));
-	      weaponEquipped = ControllerConstants.MAGE_WEAPON_ID_LEVEL[equipmentLevel-1];
-	      armorEquipped = ControllerConstants.MAGE_ARMOR_ID_LEVEL[equipmentLevel-1];
-	      amuletEquipped = ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1];
 	    }
 	    
 	    //Add randomization
@@ -156,9 +143,7 @@ public class GenerateFakeUsersWithoutInput {
 	    initialized[0] = attack;
 	    initialized[1] = defense;
 	    initialized[2] = health;
-	    initialized[3] = weaponEquipped;
-	    initialized[4] = armorEquipped;
-	    initialized[5] = amuletEquipped;
+	    
 	    return initialized;
 	    
   }

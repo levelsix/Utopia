@@ -97,7 +97,7 @@ public class CreateInfoProtoUtils {
     return MarketplacePostPurchasedNotificationProto.newBuilder().setMarketplacePost(fmpp)
         .setBuyer(createMinimumUserProtoFromUser(buyer)).setTimeOfPurchase(mt.getTimeOfPurchase().getTime()).build();
   }
-  
+
   public static AnimatedSpriteOffsetProto createAnimatedSpriteOffsetProtoFromAnimatedSpriteOffset(AnimatedSpriteOffset aso) {
     return AnimatedSpriteOffsetProto.newBuilder().setImageName(aso.getImgName())
         .setOffSet(createCoordinateProtoFromCoordinatePair(aso.getOffSet())).build();
@@ -119,7 +119,7 @@ public class CreateInfoProtoUtils {
   public static MinimumUserProto createMinimumUserProtoFromUser(User u) {
     return MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType()).build();
   }
-  
+
   public static MinimumUserProtoWithLevel createMinimumUserProtoWithLevelFromUser(User u) {
     MinimumUserProto mup = createMinimumUserProtoFromUser(u);
     return MinimumUserProtoWithLevel.newBuilder().setMinUserProto(mup).setLevel(u.getLevel()).build();
@@ -149,7 +149,7 @@ public class CreateInfoProtoUtils {
 
     String questGiverName = null;
     NeutralCityElement nce = NeutralCityElementsRetrieveUtils.getNeutralCityElement(quest.getCityId(), quest.getAssetNumWithinCity());
-    
+
     String questGiverImageSuffix = null;
     if (goodSide) {
       name = quest.getGoodName();
@@ -172,7 +172,7 @@ public class CreateInfoProtoUtils {
       }
       questGiverImageSuffix = quest.getBadQuestGiverImageSuffix();
     }
-    
+
     FullQuestProto.Builder builder = FullQuestProto.newBuilder().setQuestId(quest.getId()).setCityId(quest.getCityId()).setName(name)
         .setDescription(description).setDoneResponse(doneResponse).setAssetNumWithinCity(quest.getAssetNumWithinCity())
         .setCoinsGained(quest.getCoinsGained()).setDiamondsGained(quest.getDiamondsGained())
@@ -193,12 +193,12 @@ public class CreateInfoProtoUtils {
     }
     return builder.build();
   }
-  
+
   public static DialogueProto createDialogueProtoFromDialogue(Dialogue d) {
     if (d == null) return null;
 
     DialogueProto.Builder dp = DialogueProto.newBuilder();
-    
+
     List<String> speakerTexts = d.getSpeakerTexts();
     int i = 0;
     for (DialogueSpeaker speaker : d.getSpeakers()) {
@@ -260,14 +260,46 @@ public class CreateInfoProtoUtils {
         .setCreateTime(u.getCreateTime().getTime())
         .setIsAdmin(u.isAdmin())
         .setNumCoinsRetrievedFromStructs(u.getNumCoinsRetrievedFromStructs());
-    if (u.getWeaponEquippedUserEquipId() != ControllerConstants.NOT_SET) {
-      builder.setWeaponEquippedUserEquipId(u.getWeaponEquippedUserEquipId());
-    }
-    if (u.getArmorEquippedUserEquipId() != ControllerConstants.NOT_SET) {
-      builder.setArmorEquippedUserEquipId(u.getArmorEquippedUserEquipId());
-    }
-    if (u.getAmuletEquippedUserEquipId() != ControllerConstants.NOT_SET) {
-      builder.setAmuletEquippedUserEquipId(u.getAmuletEquippedUserEquipId());
+
+    int equipmentLevel = (u.getLevel() > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER)
+        ? ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER : u.getLevel();
+
+    if (u.isFake()) {
+      UserEquip weaponUserEquip = null;
+      UserEquip armorUserEquip = null;
+      UserEquip amuletUserEquip = null;
+
+      if (u.getType() == UserType.GOOD_WARRIOR || u.getType() == UserType.BAD_WARRIOR) {
+        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_WEAPON_ID_LEVEL[equipmentLevel-1]);
+        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_ARMOR_ID_LEVEL[equipmentLevel-1]);
+        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1]);
+      }
+      if (u.getType() == UserType.GOOD_ARCHER || u.getType() == UserType.BAD_ARCHER) {
+        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ARCHER_WEAPON_ID_LEVEL[equipmentLevel-1]);
+        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ARCHER_ARMOR_ID_LEVEL[equipmentLevel-1]);
+        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1]);
+      }
+      if (u.getType() == UserType.GOOD_MAGE || u.getType() == UserType.BAD_MAGE) {
+        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_WEAPON_ID_LEVEL[equipmentLevel-1]);
+        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_ARMOR_ID_LEVEL[equipmentLevel-1]);
+        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1]);
+      }
+      builder.setWeaponEquippedUserEquip(createFullUserEquipProtoFromUserEquip(weaponUserEquip));
+      builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(armorUserEquip));
+      builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(amuletUserEquip));
+    } else {
+      if (u.getWeaponEquippedUserEquipId() != ControllerConstants.NOT_SET) {
+        UserEquip weaponUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(u.getWeaponEquippedUserEquipId());
+        builder.setWeaponEquippedUserEquip(createFullUserEquipProtoFromUserEquip(weaponUserEquip));
+      }
+      if (u.getArmorEquippedUserEquipId() != ControllerConstants.NOT_SET) {
+        UserEquip armorUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(u.getArmorEquippedUserEquipId());
+        builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(armorUserEquip));
+      }
+      if (u.getAmuletEquippedUserEquipId() != ControllerConstants.NOT_SET) {
+        UserEquip amuletUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(u.getAmuletEquippedUserEquipId());
+        builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(amuletUserEquip));
+      }
     }
     if (u.getLastEnergyRefillTime() != null) {
       builder.setLastEnergyRefillTime(u.getLastEnergyRefillTime().getTime());
@@ -332,7 +364,7 @@ public class CreateInfoProtoUtils {
         .setExpGained(task.getExpGained()).setAssetNumWithinCity(task.getAssetNumberWithinCity()).
         setNumRequiredForCompletion(task.getNumForCompletion()).addAllPotentialLootEquipIds(task.getPotentialLootEquipIds())
         .setProcessingText(processingText).setAnimationType(task.getAnimationType());
-    
+
     if (task.getSpriteLandingCoords() != null) {
       builder.setSpriteLandingCoords(createCoordinateProtoFromCoordinatePair(task.getSpriteLandingCoords()));
     }
@@ -415,7 +447,7 @@ public class CreateInfoProtoUtils {
 
     Map<Integer, List<UserEquip>> equipIdsToUserEquips = null;
     boolean goodSide = MiscMethods.checkIfGoodSide(userType);
-    
+
     for (UserQuest userQuest : userQuests) {
       Quest quest = questIdsToQuests.get(userQuest.getQuestId());
       FullUserQuestDataLargeProto.Builder builder = FullUserQuestDataLargeProto.newBuilder();
@@ -427,16 +459,16 @@ public class CreateInfoProtoUtils {
         builder.setIsRedeemed(userQuest.isRedeemed());
         builder.setIsComplete(userQuest.isComplete());
         builder.setCoinsRetrievedForReq(userQuest.getCoinsRetrievedForReq());
-        
+
         if (!userQuest.isRedeemed() && !userQuest.isComplete()) {
           List<Integer> tasksRequired = quest.getTasksRequired(); 
           if (tasksRequired != null && tasksRequired.size() > 0) {
-            
+
             if (questIdToUserTasksCompletedForQuestForUser == null) {
               questIdToUserTasksCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedTasksRetrieveUtils().getQuestIdToUserTasksCompletedForQuestForUser(userQuest.getUserId());
             }
             List<Integer> userTasksCompletedForQuest = questIdToUserTasksCompletedForQuestForUser.get(userQuest.getQuestId());
-            
+
             for (Integer requiredTaskId : tasksRequired) {
               boolean taskCompletedForQuest = false;
               Integer numTimesActed = null;
@@ -570,7 +602,7 @@ public class CreateInfoProtoUtils {
   public static MinimumUserTaskProto createMinimumUserTaskProto(UserType userType, Integer userId, int taskId, Integer numTimesUserActed) {
     return MinimumUserTaskProto.newBuilder().setUserId(userId).setTaskId(taskId).setNumTimesActed(numTimesUserActed).build();
   }
-  
+
   public static NeutralCityElementProto createNeutralCityElementProtoFromNeutralCityElement(NeutralCityElement nce, UserType type) {
     NeutralCityElementProto.Builder builder = NeutralCityElementProto.newBuilder().setCityId(nce.getCityId()).setAssetId(nce.getAssetId())
         .setType(nce.getType())
@@ -594,7 +626,7 @@ public class CreateInfoProtoUtils {
     }
     return builder.build();
   }
-  
+
   public static FullUserCityProto createFullUserCityProto(int userId, int cityId, int currentRank, int numTasksCurrentlyCompleteInRank) {
     return FullUserCityProto.newBuilder().setUserId(userId).setCityId(cityId).setCurrentRank(currentRank).setNumTasksCurrentlyCompleteInRank(numTasksCurrentlyCompleteInRank)
         .build();
