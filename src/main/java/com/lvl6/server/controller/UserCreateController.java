@@ -3,7 +3,9 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.lvl6.events.request.UserCreateRequestEvent;
 import com.lvl6.events.response.ReferralCodeUsedResponseEvent;
 import com.lvl6.events.response.UserCreateResponseEvent;
 import com.lvl6.info.CoordinatePair;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
@@ -26,6 +29,7 @@ import com.lvl6.proto.EventProto.UserCreateResponseProto;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.Builder;
 import com.lvl6.proto.EventProto.UserCreateResponseProto.UserCreateStatus;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
+import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.UserType;
@@ -146,6 +150,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         server.lockPlayer(userId);
         try {
           user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
+          
+          Map<EquipType, Integer> userEquipIds = writeUserEquips(user.getId(), equipIds);
+          if (!user.updateAbsoluteAllEquipped(userEquipIds.get(EquipType.WEAPON), 
+              userEquipIds.get(EquipType.ARMOR), userEquipIds.get(EquipType.AMULET))) {
+            log.error("problem with marking user's equipped userequips, weapon:" + userEquipIds.get(EquipType.WEAPON) +
+                ", armor: " + userEquipIds.get(EquipType.ARMOR) + ", amulet: " + userEquipIds.get(EquipType.AMULET));
+          }
+          
           FullUserProto userProto = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(userProto);
         } catch (Exception e) {
@@ -193,7 +205,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeFirstWallPost(userId);
         writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfStructBuild, structCoords);
 //        writeUserCritstructs(user.getId());
-        writeUserEquips(user.getId(), equipIds);
         writeTaskCompleted(user.getId(), taskCompleted);
         if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), 1, 1)) {
           log.error("problem with giving user access to first city (city with id 1)");
@@ -235,12 +246,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void writeUserEquips(int userId, List<Integer> equipIds) {
+  private Map<EquipType, Integer> writeUserEquips(int userId, List<Integer> equipIds) {
+    Map <EquipType, Integer> userEquipIds = new HashMap<EquipType, Integer>();
     if (equipIds.size() > 0) {
-      if (!insertUtils.insertUserEquips(userId, equipIds, 1)) {
-        log.error("problem with giving user initial 1 of each user equips for user " + userId + ", equipIds are " + equipIds);
+      
+      for (int i = 0; i < equipIds.size(); i++) {
+        int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i));
+        if (userEquipId < 0) {
+          log.error("problem with giving user " + userId + " 1 " + equipIds.get(i));
+        } else {
+          Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipIds.get(i));
+          userEquipIds.put(equip.getType(), userEquipId);
+        }
       }
+      return userEquipIds;
     }
+    return userEquipIds;
   }
 //
 //  private void writeUserCritstructs(int userId) {

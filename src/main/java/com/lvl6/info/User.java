@@ -131,7 +131,7 @@ public class User {
     this.numAdColonyVideosWatched = numAdColonyVideosWatched;
     this.numTimesKiipRewarded = numTimesKiipRewarded;
   }
-  
+
   public boolean updateAbsoluteUserLocation(Location location) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -180,6 +180,27 @@ public class User {
       if (equipment.getType() == EquipType.AMULET) {
         this.amuletEquippedUserEquipId = userEquipId;
       }
+      return true;
+    }
+    return false;
+  }
+
+  public boolean updateAbsoluteAllEquipped(int weaponEquippedUserEquipId, int armorEquippedUserEquipId, 
+      int amuletEquippedUserequipId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__WEAPON_EQUIPPED_USER_EQUIP_ID, weaponEquippedUserEquipId);
+    absoluteParams.put(DBConstants.USER__ARMOR_EQUIPPED_USER_EQUIP_ID, armorEquippedUserEquipId);      
+    absoluteParams.put(DBConstants.USER__AMULET_EQUIPPED_USER_EQUIP_ID, amuletEquippedUserequipId);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.weaponEquippedUserEquipId = weaponEquippedUserEquipId;
+      this.armorEquippedUserEquipId = armorEquippedUserEquipId;
+      this.amuletEquippedUserEquipId = amuletEquippedUserequipId;
       return true;
     }
     return false;
@@ -330,7 +351,7 @@ public class User {
     absoluteParams.put(DBConstants.USER__APSALAR_ID, newApsalarId);
     absoluteParams.put(DBConstants.USER__LAST_LOGIN, loginTime);
     absoluteParams.put(DBConstants.USER__NUM_BADGES, newBadges);
-    
+
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -768,7 +789,7 @@ public class User {
     return false;
   }
 
-  
+
   public boolean updateRelativeCoinsNaive (int coinChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -856,14 +877,14 @@ public class User {
     }
     return false;
   }
-  
+
   public boolean updateRelativeDiamondsForFree(int diamondChange, EarnFreeDiamondsType freeDiamondsType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     if (diamondChange <= 0) return false;
-    
+
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
       relativeParams.put(DBConstants.USER__NUM_TIMES_KIIP_REWARDED, 1);
