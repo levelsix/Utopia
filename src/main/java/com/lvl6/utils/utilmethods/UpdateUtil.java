@@ -165,5 +165,7 @@ public interface UpdateUtil {
 
 	public abstract boolean resetTimesCompletedInRankForUserTasksInCity(
 			int userId, List<Task> tasksInCity);
+	
+	public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId);
 
 }

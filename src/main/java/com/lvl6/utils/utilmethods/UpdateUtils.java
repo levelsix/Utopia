@@ -24,21 +24,21 @@ import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils implements UpdateUtil {
 
-	
-	public static UpdateUtil get() {
-		return (UpdateUtil) AppContext.getApplicationContext().getBean("updateUtils");
-	}
-	
-//  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  
 
-	/* (non-Javadoc)
-	 * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsCoinsretrievedforreq(int, java.util.List, int)
-	 */
-	@Override
-	@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-			@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-			@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+  public static UpdateUtil get() {
+    return (UpdateUtil) AppContext.getApplicationContext().getBean("updateUtils");
+  }
+
+  //  private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+
+
+  /* (non-Javadoc)
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsCoinsretrievedforreq(int, java.util.List, int)
+   */
+  @Override
+  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateUserQuestsCoinsretrievedforreq(int userId, List <Integer> questIds, int coinGain) {
     String query = "update " + DBConstants.TABLE_USER_QUESTS + " set " + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ
         + "=" + DBConstants.USER_QUESTS__COINS_RETRIEVED_FOR_REQ + "+? where " 
@@ -59,12 +59,12 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
-  
+
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateNullifyDeviceTokens(java.util.Set)
- */
-@Override
-public void updateNullifyDeviceTokens(Set<String> deviceTokens) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateNullifyDeviceTokens(java.util.Set)
+   */
+  @Override
+  public void updateNullifyDeviceTokens(Set<String> deviceTokens) {
     if (deviceTokens != null && deviceTokens.size() > 0) {
       String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__DEVICE_TOKEN 
           + "=? where ";
@@ -84,10 +84,10 @@ public void updateNullifyDeviceTokens(Set<String> deviceTokens) {
    * used when an expansion is complete
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserExpansionNumexpansionsIsexpanding(int, int, int, boolean)
- */
-@Override
-public boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserExpansionNumexpansionsIsexpanding(int, int, int, boolean)
+   */
+  @Override
+  public boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
       int farLeftExpansionsChange, int farRightExpansionsChange, 
       boolean isExpanding) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -110,10 +110,10 @@ public boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
    * used for purchasing a city expansion
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int, java.sql.Timestamp, com.lvl6.proto.InfoProto.ExpansionDirection, boolean)
- */
-@Override
-public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int userId, Timestamp lastExpandTime, 
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int, java.sql.Timestamp, com.lvl6.proto.InfoProto.ExpansionDirection, boolean)
+   */
+  @Override
+  public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int userId, Timestamp lastExpandTime, 
       ExpansionDirection lastExpansionDirection, boolean isExpanding) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
@@ -133,12 +133,12 @@ public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(i
 
 
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestIscomplete(int, int)
- */
-@Override
-@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-  		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-  		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestIscomplete(int, int)
+   */
+  @Override
+  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateUserQuestIscomplete(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -157,15 +157,15 @@ public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(i
     return false;
   }  
 
-  
+
 
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateRedeemUserQuest(int, int)
- */
-@Override
-@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-  		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-  		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateRedeemUserQuest(int, int)
+   */
+  @Override
+  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateRedeemUserQuest(int userId, int questId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -189,12 +189,12 @@ public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(i
    * changin orientation
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructOrientation(int, com.lvl6.proto.InfoProto.StructOrientation)
- */
-@Override
-@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructOrientation(int, com.lvl6.proto.InfoProto.StructOrientation)
+   */
+  @Override
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructOrientation(int userStructId,
       StructOrientation orientation) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -216,12 +216,12 @@ public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(i
    */
 
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsSetCompleted(int, int, boolean, boolean)
- */
-@Override
-@Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
-  		@CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
-  		@CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserQuestsSetCompleted(int, int, boolean, boolean)
+   */
+  @Override
+  @Caching(evict={@CacheEvict(value="unredeemedAndRedeemedUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="incompleteUserQuestsForUser", key="#userId"),
+      @CacheEvict(value="unredeemedUserQuestsForUser", key="#userId")})
   public boolean updateUserQuestsSetCompleted(int userId, int questId, boolean setTasksCompleteTrue, boolean setDefeatTypeJobsCompleteTrue) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_QUESTS__USER_ID, userId);
@@ -243,11 +243,26 @@ public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(i
     return false;
   }
 
+  public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_EQUIP__USER_ID, newOwnerId); 
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserCritstructOrientation(int, com.lvl6.proto.InfoProto.StructOrientation, com.lvl6.proto.InfoProto.CritStructType)
- */
-@Override
-public boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserCritstructOrientation(int, com.lvl6.proto.InfoProto.StructOrientation, com.lvl6.proto.InfoProto.CritStructType)
+   */
+  @Override
+  public boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
 
@@ -280,10 +295,10 @@ public boolean updateUserCritstructOrientation(int userId, StructOrientation ori
    * used for moving user structs
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserCritstructCoord(int, com.lvl6.info.CoordinatePair, com.lvl6.proto.InfoProto.CritStructType)
- */
-@Override
-public boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates, CritStructType critStructType) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserCritstructCoord(int, com.lvl6.info.CoordinatePair, com.lvl6.proto.InfoProto.CritStructType)
+   */
+  @Override
+  public boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates, CritStructType critStructType) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
 
@@ -321,10 +336,10 @@ public boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates,
    * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(java.util.List, int)
- */
-@Override
-public boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(List<UserStruct> userStructs, int levelChange) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(java.util.List, int)
+   */
+  @Override
+  public boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(List<UserStruct> userStructs, int levelChange) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
 
     for (UserStruct userStruct : userStructs) {
@@ -344,12 +359,12 @@ public boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(Li
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedIscompleteLevelchange(int, java.sql.Timestamp, boolean, int)
- */
-@Override
-@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedIscompleteLevelchange(int, java.sql.Timestamp, boolean, int)
+   */
+  @Override
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -375,10 +390,10 @@ public boolean updateUserStructsLastretrievedpostupgradeIscompleteLevelchange(Li
    * used for updating is_complete=true and last_retrieved to purchased_time+minutestogain for a userstruct
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructsLastretrievedpostbuildIscomplete(java.util.List)
- */
-@Override
-public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct> userStructs) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructsLastretrievedpostbuildIscomplete(java.util.List)
+   */
+  @Override
+  public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct> userStructs) {
     Map<Integer, Structure> structures = StructureRetrieveUtils.getStructIdsToStructs();
 
     for (UserStruct userStruct : userStructs) {
@@ -398,12 +413,12 @@ public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct
    * used for updating last retrieved and/or last upgrade user struct time and is_complete
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedLastupgradeIscomplete(int, java.sql.Timestamp, java.sql.Timestamp, boolean)
- */
-@Override
-@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedLastupgradeIscomplete(int, java.sql.Timestamp, java.sql.Timestamp, boolean)
+   */
+  @Override
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -429,12 +444,12 @@ public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct
    * used for updating last retrieved user struct time
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrieved(int, java.sql.Timestamp)
- */
-@Override
-@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrieved(int, java.sql.Timestamp)
+   */
+  @Override
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrieved(int userStructId, Timestamp lastRetrievedTime) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -454,12 +469,12 @@ public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct
    * used for upgrading user structs level
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLevel(int, int)
- */
-@Override
-@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLevel(int, int)
+   */
+  @Override
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLevel(int userStructId, int levelChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -479,12 +494,12 @@ public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct
    * used for moving user structs
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructCoord(int, com.lvl6.info.CoordinatePair)
- */
-@Override
-@Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
-		  @CacheEvict(value="specificUserStruct", key="#userStructId")})
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructCoord(int, com.lvl6.info.CoordinatePair)
+   */
+  @Override
+  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+      @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
@@ -504,12 +519,12 @@ public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct
   /*
    * used for tasks
    */
-	/* (non-Javadoc)
-	 * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementCityRankForUserCity(int, int, int)
-	 */
-	@Override
-	@Caching(evict={@CacheEvict(value="cityIdToUserCityRankCache", key="#userId"),
-			@CacheEvict(value="currentCityRankForUserCache", key="#userId+':'+#cityId")})
+  /* (non-Javadoc)
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementCityRankForUserCity(int, int, int)
+   */
+  @Override
+  @Caching(evict={@CacheEvict(value="cityIdToUserCityRankCache", key="#userId"),
+      @CacheEvict(value="currentCityRankForUserCache", key="#userId+':'+#cityId")})
   public boolean incrementCityRankForUserCity(int userId, int cityId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
@@ -530,10 +545,10 @@ public boolean updateUserStructsLastretrievedpostbuildIscomplete(List<UserStruct
    * used for tasks
    */
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementTimesCompletedInRankForUserTask(int, int, int)
- */
-@Override
-public boolean incrementTimesCompletedInRankForUserTask(int userId, int taskId, int increment) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementTimesCompletedInRankForUserTask(int, int, int)
+   */
+  @Override
+  public boolean incrementTimesCompletedInRankForUserTask(int userId, int taskId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.USER_TASK__USER_ID, userId);
@@ -551,10 +566,10 @@ public boolean incrementTimesCompletedInRankForUserTask(int userId, int taskId, 
 
 
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementUserQuestDefeatTypeJobProgress(int, int, int, int)
- */
-@Override
-public boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, int defeatTypeJobId, int increment) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementUserQuestDefeatTypeJobProgress(int, int, int, int)
+   */
+  @Override
+  public boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, int defeatTypeJobId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__USER_ID, userId);
@@ -572,10 +587,10 @@ public boolean incrementUserQuestDefeatTypeJobProgress(int userId, int questId, 
   }
 
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementUserQuestTaskProgress(int, int, int, int)
- */
-@Override
-public boolean incrementUserQuestTaskProgress(int userId, int questId, int taskId, int increment) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#incrementUserQuestTaskProgress(int, int, int, int)
+   */
+  @Override
+  public boolean incrementUserQuestTaskProgress(int userId, int questId, int taskId, int increment) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
 
     insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__USER_ID, userId);
@@ -593,10 +608,10 @@ public boolean incrementUserQuestTaskProgress(int userId, int questId, int taskI
   }
 
   /* (non-Javadoc)
- * @see com.lvl6.utils.utilmethods.UpdateUtil#resetTimesCompletedInRankForUserTasksInCity(int, java.util.List)
- */
-@Override
-public boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
+   * @see com.lvl6.utils.utilmethods.UpdateUtil#resetTimesCompletedInRankForUserTasksInCity(int, java.util.List)
+   */
+  @Override
+  public boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
     String query = "update " + DBConstants.TABLE_USER_TASKS + " set " + DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK 
         + "=? where ";
     List<Object> values = new ArrayList<Object>();

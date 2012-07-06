@@ -40,6 +40,7 @@ import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -293,18 +294,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       User winner, User loser, User attacker, User defender, int expGained,
       int lostCoins, Timestamp battleTime, boolean isFlee) {
     if (lostEquip != null) {
-      if (!loser.isFake() && !UpdateUtils.get().decrementUserEquip(loser.getId(),
-          lostEquip.getEquipId(), lostEquip.getQuantity(), 1)) {
-        log.error("problem with decreasing 1 of equip " + lostEquip.getEquipId() + " from user " + loser.getId()
-            + " who currently has " + lostEquip.getQuantity() + " of them");
-      } else if (lostEquip.getQuantity() == 1) {
-        if (!MiscMethods.unequipUserEquipIfEquipped(loser, lostEquip.getEquipId())) {
-          log.error("problem with unequipping " + lostEquip.getEquipId() + " from " + loser);
+      if (!loser.isFake()) {
+        if (!(UpdateUtils.get().updateUserEquipOwner(lostEquip.getId(), winner.getId()))) {
+          log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
         }
-      }
-      if (!UpdateUtils.get().incrementUserEquip(winner.getId(),
-          lostEquip.getEquipId(), 1)) {
-        log.error("problem with giving user " + winner + " one of " + lostEquip.getEquipId());
+      } else {
+        if (!(InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId()) < 0)) {
+          log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
+        }
       }
     }
 

@@ -302,7 +302,7 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
-    return FullUserEquipProto.newBuilder().setUserEquipId(ue.getUserEquipId()).setUserId(ue.getUserId())
+    return FullUserEquipProto.newBuilder().setUserEquipId(ue.getId()).setUserId(ue.getUserId())
         .setEquipId(ue.getEquipId()).build();
   }
 
