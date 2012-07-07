@@ -158,76 +158,77 @@
 					<cnamePrefix>${project.artifactId}-${maven.build.timestamp}</cnamePrefix>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
-					<configurationTemplate>lvl6prod-${maven.build.timestamp}</configurationTemplate>
-					<templateName>lvl6prod-${maven.build.timestamp}</templateName>
+					<!-- <configurationTemplate>lvl6prod-${maven.build.timestamp}</configurationTemplate> -->
+					<!-- <templateName>lvl6prod-${maven.build.timestamp}</templateName> -->
 					<solutionStack>64bit Amazon Linux running Tomcat 7</solutionStack>
-					<configurationTemplates>
-						<configurationTemplate>
-							<id>lvl6prod-${maven.build.timestamp}</id>
-							<optionSettings>
-								<optionSetting>
-									<namespace>aws:autoscaling:launchconfiguration</namespace>
-									<optionName>EC2KeyName</optionName>
-									<value>lvl6-us-east</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:elasticbeanstalk:application</namespace>
-									<optionName>Application Healthcheck URL</optionName>
-									<value>/index.html</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
-									<optionName>Xms</optionName>
-									<value>256m</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
-									<optionName>Xmx</optionName>
-									<value>1300m</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
-									<optionName>XX:MaxPermSize</optionName>
-									<value>256m</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:autoscaling:launchconfiguration</namespace>
-									<optionName>SecurityGroups</optionName>
-									<value>elasticbeanstalk-default</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:autoscaling:asg</namespace>
-									<optionName>MinSize</optionName>
-									<value>2</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:autoscaling:asg</namespace>
-									<optionName>MaxSize</optionName>
-									<value>6</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:autoscaling:asg</namespace>
-									<optionName>Availability Zones</optionName>
-									<value>Any 2</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:autoscaling:trigger</namespace>
-									<optionName>Period</optionName>
-									<value>5</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:elb:loadbalancer</namespace>
-									<optionName>LoadBalancerHTTPPort</optionName>
-									<value>80</value>
-								</optionSetting>
-								<optionSetting>
-									<namespace>aws:autoscaling:launchconfiguration</namespace>
-									<optionName>InstanceType</optionName>
-									<value>m1.small</value>
-								</optionSetting>
-							</optionSettings>
-						</configurationTemplate>
-					</configurationTemplates>
+					<optionSettings>
+						<optionSetting>
+							<namespace>aws:autoscaling:launchconfiguration</namespace>
+							<optionName>EC2KeyName</optionName>
+							<value>lvl6-us-east</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:elasticbeanstalk:application</namespace>
+							<optionName>Application Healthcheck URL</optionName>
+							<value>/index.html</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
+							<optionName>Xms</optionName>
+							<value>256m</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
+							<optionName>Xmx</optionName>
+							<value>1300m</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
+							<optionName>XX:MaxPermSize</optionName>
+							<value>256m</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:launchconfiguration</namespace>
+							<optionName>SecurityGroups</optionName>
+							<value>elasticbeanstalk-default</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:asg</namespace>
+							<optionName>MinSize</optionName>
+							<value>2</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:asg</namespace>
+							<optionName>MaxSize</optionName>
+							<value>6</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:asg</namespace>
+							<optionName>Availability Zones</optionName>
+							<value>Any 2</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>Period</optionName>
+							<value>5</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:elb:loadbalancer</namespace>
+							<optionName>LoadBalancerHTTPPort</optionName>
+							<value>80</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:launchconfiguration</namespace>
+							<optionName>InstanceType</optionName>
+							<value>m1.small</value>
+						</optionSetting>
+					</optionSettings>
+					<!-- <configurationTemplates> -->
+					<!-- <configurationTemplate> -->
+					<!-- <id>lvl6prod-${maven.build.timestamp}</id> -->
+
+					<!-- </configurationTemplate> -->
+					<!-- </configurationTemplates> -->
 				</configuration>
 			</plugin>
 		</plugins>
