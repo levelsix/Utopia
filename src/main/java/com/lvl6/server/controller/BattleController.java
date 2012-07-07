@@ -403,7 +403,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (oldDefenderUserEquipsList != null) {
           for (FullUserEquipProto oldUserEquip : oldDefenderUserEquipsList) {
             if (oldUserEquip.getEquipId() == lostUserEquip.getEquipId()) {
-              return lostUserEquip;
+              List<UserEquip> userEquipsWithEquipId = new ArrayList<UserEquip>();
+              for (UserEquip defenderEquip : defenderEquips) {
+                if (defenderEquip.getEquipId() == lostUserEquip.getEquipId()) userEquipsWithEquipId.add(defenderEquip);
+              }
+              return MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquipped(defender, userEquipsWithEquipId);
             }
           }
         }
