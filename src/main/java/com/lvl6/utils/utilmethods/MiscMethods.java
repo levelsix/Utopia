@@ -56,6 +56,28 @@ public class MiscMethods {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquipped(User user, List<UserEquip> userEquipsForEquipId) {
+    if (user == null || userEquipsForEquipId == null || userEquipsForEquipId.size() <= 0) {
+      return null;
+    }
+    if (userEquipsForEquipId.size() == 1) {
+      return userEquipsForEquipId.get(0);
+    }
+    for (UserEquip ue : userEquipsForEquipId) {
+      if (ue != null) {
+        if (ue.getId() >= 1) {
+          if (ue.getId() == user.getWeaponEquippedUserEquipId() || ue.getId() == user.getArmorEquippedUserEquipId()
+              || ue.getId() == user.getAmuletEquippedUserEquipId()) {
+            continue;
+          } else {
+            return ue;
+          }
+        }
+      }
+    }
+    return null;
+  }
+  
   public static Dialogue createDialogue(String dialogueBlob) {
     if (dialogueBlob != null && dialogueBlob.length() > 0) { 
       StringTokenizer st = new StringTokenizer(dialogueBlob, "~");

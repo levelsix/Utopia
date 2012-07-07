@@ -57,8 +57,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       MarketplacePost mp = MarketplacePostRetrieveUtils.getSpecificActiveMarketplacePost(postId);
       
-      int diamondCost = mp.getDiamondCost();
-      int coinCost = mp.getCoinCost();
+      int diamondCost = (mp == null) ? ControllerConstants.NOT_SET : mp.getDiamondCost();
+      int coinCost = (mp == null) ? ControllerConstants.NOT_SET : mp.getCoinCost();
 
       int diamondCut = Math.max(0, (int)(Math.ceil(diamondCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
       int coinCut = Math.max(0, (int)(Math.ceil(coinCost * ControllerConstants.RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN)));
@@ -116,6 +116,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (mp == null) {
       resBuilder.setStatus(RetractMarketplacePostStatus.POST_NO_LONGER_EXISTS);
       log.warn("problem with retracting marketplace post with id " + postId + " b/c no longer exists");      
+      return false;
+    }
+    if (diamondCut <= 0 && coinCut <= 0) {
+      resBuilder.setStatus(RetractMarketplacePostStatus.OTHER_FAIL);
+      log.error("diamond cut and coin cut <= 0 for marketplace post " + mp);      
       return false;
     }
     if (user.getId() != mp.getPosterId()) {

@@ -58,8 +58,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<UserEquip> userEquipsForEquipId = (equip == null) ? null : RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equip.getId());
-      UserEquip ue = (userEquipsForEquipId == null || userEquipsForEquipId.size() <= 0) ? null : userEquipsForEquipId.get(0);
-      
+      UserEquip ue = MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquipped(user, userEquipsForEquipId);
+
       boolean legitEquip = checkEquip(resBuilder, user, ue, equip, equipId);
 
       EquipEquipmentResponseEvent resEvent = new EquipEquipmentResponseEvent(senderProto.getUserId());

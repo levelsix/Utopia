@@ -791,6 +791,7 @@ message RetractMarketplacePostResponseProto {
 		POST_NO_LONGER_EXISTS = 2;
 		NOT_ENOUGH_DIAMONDS = 3;
 		NOT_ENOUGH_COINS = 4;
+		OTHER_FAIL = 5;
 	}
 }
 
