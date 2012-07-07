@@ -75,7 +75,6 @@
 		<profile>
 			<id>conradlocal</id>
 			<properties>
-				<jdbc.url><![CDATA[jdbc:mysql://lost-nations-dev-uniqueuserequip.cv5kxrel3z7x.us-east-1.rds.amazonaws.com/lostnations?useLegacyDatetimeCode=false]]></jdbc.url>
 				<lvl6.server.log.location>/Users/conradchan/Desktop/LostNations/Server/lostnations.log</lvl6.server.log.location>
 				<server.port>10001</server.port>
 				<hazelcast.group>conrad</hazelcast.group>
