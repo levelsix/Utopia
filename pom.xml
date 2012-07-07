@@ -61,7 +61,6 @@
 		<profile>
 			<id>kelly</id>
 			<properties>
-				<jdbc.url><![CDATA[jdbc:mysql://lost-nations-dev-uniqueuserequip.cv5kxrel3z7x.us-east-1.rds.amazonaws.com/lostnations?useLegacyDatetimeCode=false]]></jdbc.url>
 				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
