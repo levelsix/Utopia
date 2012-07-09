@@ -42,9 +42,9 @@ import com.lvl6.utils.DBConnection;
     log.debug("retrieving map of equip id to userequips for userId " + userId);
 
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     Map<Integer, List<UserEquip>> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return equipIdsToUserEquips;
   }
 
@@ -53,7 +53,7 @@ import com.lvl6.utils.DBConnection;
     log.debug("retrieving user equip for userEquipId: " + userEquipId);
 
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsById(conn, userEquipId, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsById( userEquipId, TABLE_NAME);
     UserEquip userEquip = convertRSSingleToUserEquips(rs);
     DBConnection.get().close(rs, null);
     return userEquip;
@@ -67,9 +67,9 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
     
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userEquips;
   }
 

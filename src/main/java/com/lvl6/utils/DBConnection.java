@@ -23,49 +23,46 @@ import com.lvl6.utils.utilmethods.StringUtils;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DBConnection {
-	
-	public static DBConnection get(){
-		return (DBConnection) AppContext.getApplicationContext().getBean("dbConnection");
-	}
-	
-	protected Logger log = Logger.getLogger(DBConnection.class);
 
+	public static DBConnection get() {
+		return (DBConnection) AppContext.getApplicationContext().getBean(
+				"dbConnection");
+	}
+
+	protected Logger log = Logger.getLogger(DBConnection.class);
 
 	// private final Level MCHANGE_LOG_LEVEL = Level.DEBUG;
 	private final Level MCHANGE_LOG_LEVEL = Level.INFO;
 
 	private final int SELECT_LIMIT_NOT_SET = -1;
 
-	
-	@Resource(name="dataSource")
+	@Resource(name = "dataSource")
 	protected DataSource dataSource;
 
-	
 	public DataSource getDataSource() {
 		return dataSource;
 	}
 
 	public void setDataSource(DataSource ds) {
-		log.info("Setting datasource for DBConnection: "+dataSource);
+		log.info("Setting datasource for DBConnection: " + dataSource);
 		this.dataSource = ds;
 	}
 
-	
 	public ThreadLocal<Connection> connectionManager = new ThreadLocal<Connection>() {
-		
-		protected Connection connec; 
+
+		protected Connection connec;
+
 		@Override
-        protected Connection initialValue()
-        {
-			connec = DataSourceUtils.getConnection(dataSource); 
+		protected Connection initialValue() {
+			connec = DataSourceUtils.getConnection(dataSource);
 			return connec;
-        }
-		
-		@Override 
+		}
+
+		@Override
 		public Connection get() {
 			try {
-				if(connec == null || connec.isClosed()) {
-					connec = DataSourceUtils.getConnection(dataSource); 
+				if (connec == null || connec.isClosed()) {
+					connec = DataSourceUtils.getConnection(dataSource);
 				}
 			} catch (SQLException e) {
 				log.error("Error getting connection", e);
@@ -74,15 +71,22 @@ public class DBConnection {
 			return connec;
 		}
 	};
-	
-	/*public Connection connectionManager.get() {
-		return DataSourceUtils.getConnection(dataSource);
-	}*/
-	
+
+	public Connection getConnection() {
+		if (getDataSource() == null)
+			log.error("Datasource is null");
+		Connection conn = DataSourceUtils.getConnection(dataSource);
+		return conn;
+	}
+
+	/*
+	 * public Connection connectionManager.get() { return
+	 * DataSourceUtils.getConnection(dataSource); }
+	 */
 
 	private void printConnectionInfoInDebug() {
 		try {
-			if(dataSource instanceof ComboPooledDataSource) {
+			if (dataSource instanceof ComboPooledDataSource) {
 				ComboPooledDataSource ds = (ComboPooledDataSource) dataSource;
 				log.debug("num_connections: "
 						+ ds.getNumConnectionsDefaultUser());
@@ -95,7 +99,6 @@ public class DBConnection {
 			log.error(e);
 		}
 	}
-	
 
 	public void close(ResultSet rs, Statement statement) {
 		try {
@@ -112,36 +115,34 @@ public class DBConnection {
 		} catch (SQLException e) {
 			log.error("The statement cannot be closed.", e);
 		}
-/*		try {
-			//if (conn != null)
-				//conn.close();
-		} catch (SQLException e) {
-			//log.error("The data source connection cannot be closed.", e);
-		}*/
+		/*
+		 * try { //if (conn != null) //conn.close(); } catch (SQLException e) {
+		 * //log.error("The data source connection cannot be closed.", e); }
+		 */
 	}
 
 	public void init() {
 		Logger.getLogger("com.mchange.v2").setLevel(MCHANGE_LOG_LEVEL);
-//
-//		if (Globals.IS_SANDBOX) {
-//			dataSource = new ComboPooledDataSource();
-//		} else {
-//			dataSource = new ComboPooledDataSource("production");
-//		}
-//		try {
-//			dataSource.setDriverClass("com.mysql.jdbc.Driver");
-//			dataSource.setJdbcUrl("jdbc:mysql://" + server + "/" + database);
-//			dataSource.setUser(user);
-//			dataSource.setPassword(password);
-//		} catch (PropertyVetoException e) {
-//			e.printStackTrace();
-//		}
+		//
+		// if (Globals.IS_SANDBOX) {
+		// dataSource = new ComboPooledDataSource();
+		// } else {
+		// dataSource = new ComboPooledDataSource("production");
+		// }
+		// try {
+		// dataSource.setDriverClass("com.mysql.jdbc.Driver");
+		// dataSource.setJdbcUrl("jdbc:mysql://" + server + "/" + database);
+		// dataSource.setUser(user);
+		// dataSource.setPassword(password);
+		// } catch (PropertyVetoException e) {
+		// e.printStackTrace();
+		// }
 		printConnectionInfoInDebug();
 	}
 
 	public ResultSet selectRowsByUserId(int userId, String tablename) {
-		return selectRowsByIntAttr(null, DBConstants.GENERIC__USER_ID,
-				userId, tablename);
+		return selectRowsByIntAttr(null, DBConstants.GENERIC__USER_ID, userId,
+				tablename);
 	}
 
 	public ResultSet selectRowsById(int id, String tablename) {
@@ -153,62 +154,66 @@ public class DBConnection {
 				SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteOr(Map<String, Object> absoluteConditionParams,
-			String tablename) {
+	public ResultSet selectRowsAbsoluteOr(
+			Map<String, Object> absoluteConditionParams, String tablename) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"or", null, false, SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteAnd(Map<String, Object> absoluteConditionParams,
-			String tablename) {
+	public ResultSet selectRowsAbsoluteAnd(
+			Map<String, Object> absoluteConditionParams, String tablename) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"and", null, false, SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteAndOrderbydesc(Map<String, Object> absoluteConditionParams,
-			String tablename, String orderByColumn) {
+	public ResultSet selectRowsAbsoluteAndOrderbydesc(
+			Map<String, Object> absoluteConditionParams, String tablename,
+			String orderByColumn) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"and", orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
 	}
 
-	public ResultSet selectRowsAbsoluteAndOrderbydescLimit(Map<String, Object> absoluteConditionParams,
-			String tablename, String orderByColumn,
-			int limit) {
+	public ResultSet selectRowsAbsoluteAndOrderbydescLimit(
+			Map<String, Object> absoluteConditionParams, String tablename,
+			String orderByColumn, int limit) {
 		return selectRows(null, absoluteConditionParams, null, null, tablename,
 				"and", orderByColumn, false, limit, false);
 	}
 
 	public ResultSet selectRowsAbsoluteAndOrderbydescLimitLessthan(
 			Map<String, Object> absoluteConditionParams, String tablename,
-			String orderByColumn, int limit, Map<String, Object> lessThanConditionParams) {
-		return selectRows(null, absoluteConditionParams, null, lessThanConditionParams,
-				tablename, "and", orderByColumn, false,
-				limit, false);
+			String orderByColumn, int limit,
+			Map<String, Object> lessThanConditionParams) {
+		return selectRows(null, absoluteConditionParams, null,
+				lessThanConditionParams, tablename, "and", orderByColumn,
+				false, limit, false);
 	}
 
 	public ResultSet selectRowsAbsoluteAndOrderbydescLimitGreaterthan(
 			Map<String, Object> absoluteConditionParams, String tablename,
-			String orderByColumn, int limit, Map<String, Object> greaterThanConditionParams) {
-		return selectRows(null, absoluteConditionParams, greaterThanConditionParams,
-				null, tablename, "and", orderByColumn,
-				false, limit, false);
+			String orderByColumn, int limit,
+			Map<String, Object> greaterThanConditionParams) {
+		return selectRows(null, absoluteConditionParams,
+				greaterThanConditionParams, null, tablename, "and",
+				orderByColumn, false, limit, false);
 	}
 
 	public ResultSet selectRowsAbsoluteAndLimitLessthanGreaterthanRand(
 			Map<String, Object> absoluteConditionParams, String tablename,
-			String orderByColumn, int limit, Map<String, Object> lessThanConditionParams,
+			String orderByColumn, int limit,
+			Map<String, Object> lessThanConditionParams,
 			Map<String, Object> greaterThanConditionParams) {
-		return selectRows(null, absoluteConditionParams, greaterThanConditionParams,
-				lessThanConditionParams, tablename, "and",
-				null, false, limit, true);
+		return selectRows(null, absoluteConditionParams,
+				greaterThanConditionParams, lessThanConditionParams, tablename,
+				"and", null, false, limit, true);
 	}
 
 	public ResultSet selectRowsAbsoluteAndOrderbydescGreaterthan(
 			Map<String, Object> absoluteConditionParams, String tablename,
 			String orderByColumn, Map<String, Object> greaterThanConditionParams) {
-		return selectRows(null, absoluteConditionParams, greaterThanConditionParams,
-				null, tablename, "and", orderByColumn,
-				false, SELECT_LIMIT_NOT_SET, false);
+		return selectRows(null, absoluteConditionParams,
+				greaterThanConditionParams, null, tablename, "and",
+				orderByColumn, false, SELECT_LIMIT_NOT_SET, false);
 	}
 
 	/* assumes number of ? in the query = values.size() */
@@ -364,7 +369,7 @@ public class DBConnection {
 				numUpdated = stmt.executeUpdate();
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				//e.printStackTrace();
+				// e.printStackTrace();
 			} finally {
 				close(null, stmt);
 			}
@@ -427,7 +432,7 @@ public class DBConnection {
 				numUpdated = stmt.executeUpdate();
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				//e.printStackTrace();
+				// e.printStackTrace();
 			} finally {
 				close(null, stmt);
 			}
@@ -474,7 +479,7 @@ public class DBConnection {
 				}
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				//e.printStackTrace();
+				// e.printStackTrace();
 			} finally {
 				close(null, stmt);
 			}
@@ -519,7 +524,7 @@ public class DBConnection {
 				numUpdated = stmt.executeUpdate();
 			} catch (SQLException e) {
 				log.error("problem with " + query + ", values are " + values, e);
-				//e.printStackTrace();
+				// e.printStackTrace();
 			} finally {
 				close(null, stmt);
 			}
@@ -569,8 +574,8 @@ public class DBConnection {
 		return numDeleted;
 	}
 
-	private ResultSet selectRowsByIntAttr(List<String> columns,
-			String attr, int value, String tablename) {
+	private ResultSet selectRowsByIntAttr(List<String> columns, String attr,
+			int value, String tablename) {
 		String query = "select ";
 		if (columns != null) {
 			query += StringUtils.getListInString(columns, ",");
@@ -592,12 +597,12 @@ public class DBConnection {
 		return rs;
 	}
 
-	private ResultSet selectRows(List<String> columns, Map<String, Object> absoluteConditionParams,
+	private ResultSet selectRows(List<String> columns,
+			Map<String, Object> absoluteConditionParams,
 			Map<String, Object> relativeGreaterThanConditionParams,
 			Map<String, Object> relativeLessThanConditionParams,
-			String tablename,
-			String conddelim, String orderByColumn, boolean orderByAsc,
-			int limit, boolean random) {
+			String tablename, String conddelim, String orderByColumn,
+			boolean orderByAsc, int limit, boolean random) {
 		Connection conn = connectionManager.get();
 		String query = "select ";
 		if (columns != null) {
@@ -700,5 +705,4 @@ public class DBConnection {
 		return rs;
 	}
 
-	
 }
