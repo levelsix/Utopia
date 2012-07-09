@@ -39,10 +39,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public User getUserById(int userId) {
     log.debug("retrieving user with userId " + userId);
 
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsById(conn, userId, TABLE_NAME);
+    ////Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsById(userId, TABLE_NAME);
     User user = convertRSToUser(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return user;
   }
 
@@ -62,10 +62,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     query += StringUtils.getListInString(condClauses, "or") + ")";
 
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    ////Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(query, values);
     Map<Integer, User> userIdToUserMap = convertRSToUserIdToUsersMap(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userIdToUserMap;
   }
 
@@ -143,10 +143,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int rangeIncrease = BATTLE_INITIAL_RANGE_INCREASE;
     int numDBHits = 1;
 
-    Connection conn = DBConnection.get().getConnection();
+    ////Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
-      rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    //if (conn != null) {
+      rs = DBConnection.get().selectDirectQueryNaive(query, values);
       while (rs != null && MiscMethods.getRowCount(rs) < numUsers) {
         values.remove(values.size()-1);
         values.remove(values.size()-1);
@@ -156,7 +156,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         levelMax = levelMax + rangeIncrease*3/4;
         values.add(levelMax);
         values.add(numUsers);
-        rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+        rs = DBConnection.get().selectDirectQueryNaive(query, values);
         numDBHits++;
         if (!guaranteeNum) {
           if (numDBHits == MAX_BATTLE_DB_HITS) break;
@@ -164,7 +164,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         if (numDBHits == EXTREME_MAX_BATTLE_DB_HITS) break;
         rangeIncrease *= BATTLE_RANGE_INCREASE_MULTIPLE;
       }
-    }
+   // }
     
     List<User> users = convertRSToUsers(rs);
     if (users == null) users = new ArrayList<User>();
@@ -173,7 +173,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         " when " + numUsers + " around " + playerLevel + " were requested");
 
     
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return users;
   }
 
@@ -184,10 +184,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__UDID, UDID);
 
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
+    ////Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(paramsToVals, TABLE_NAME);
     User user = convertRSToUser(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return user;
   }
 
@@ -196,10 +196,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
     paramsToVals.put(DBConstants.USER__REFERRAL_CODE, referralCode);
 
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
+    ////Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(paramsToVals, TABLE_NAME);
     User user = convertRSToUser(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return user;
   }
 

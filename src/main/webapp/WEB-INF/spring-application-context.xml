@@ -25,9 +25,9 @@
 	<import resource="classpath:spring-integration.xml" />
 	<import resource="classpath:spring-controllers.xml" />
 
-	<bean id="serverInstance" class="com.lvl6.server.ServerInstance" />
+	<bean id="serverInstance" class="com.lvl6.server.ServerInstance" depends-on="hazel"/>
 	
-	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" depends-on="dbConnection,serverInstance" destroy-method="shutdown" >
+	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" depends-on="dbConnection,serverInstance,hazel" destroy-method="shutdown" >
 		<constructor-arg index="0" value="${server.ip}" />
 		<constructor-arg index="1" value="${server.port}" />
 		<property name="block" value="false" />

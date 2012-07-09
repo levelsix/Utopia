@@ -24,10 +24,10 @@ import com.lvl6.utils.DBConnection;
 
     boolean isDuplicateTransaction = false;
     
-    Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
-      rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    //if (conn != null) {
+      rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -40,8 +40,8 @@ import com.lvl6.utils.DBConnection;
           log.error(e);
         }
       } 
-    }
-    DBConnection.get().close(rs, null, conn);
+    //}
+    DBConnection.get().close(rs, null);
     return isDuplicateTransaction;
   }
 

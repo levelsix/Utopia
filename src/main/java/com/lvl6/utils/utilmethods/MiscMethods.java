@@ -51,6 +51,7 @@ import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.DBConnection;
 
 public class MiscMethods {
 
@@ -373,6 +374,11 @@ public class MiscMethods {
     PossessEquipJobRetrieveUtils.reload();
     LevelsRequiredExperienceRetrieveUtils.reload();
     NeutralCityElementsRetrieveUtils.reload();    
+    try {
+		DBConnection.get().connectionManager.get().close();
+	} catch (SQLException e) {
+		log.error("Error closing DBConnection after loading RareChangeStaticData", e);
+	}
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(

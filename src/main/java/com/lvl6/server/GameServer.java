@@ -45,6 +45,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	protected ServerInstance serverInstance;
 	
 	
+	
 	public ServerInstance getServerInstance() {
 		return serverInstance;
 	}
@@ -225,6 +226,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	private void loadEventControllers() {
 		log.info("Adding event controllers to eventControllers controllerType-->controller map");
 		for(EventController ec: eventControllerList) {
+			log.info("Adding "+ec.getEventType());
 			eventControllers.put(ec.getEventType(), ec);
 		}
 	}
@@ -299,7 +301,8 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	public ConnectedPlayer removePreDbPlayer(String udid) {
 		return playersPreDatabaseByUDID.remove(udid);
 	}
-	
+
+
 	protected HazelcastInstance hazel;
 	@Override
 	@Autowired

@@ -24,7 +24,9 @@ import com.lvl6.server.EventWriter;
 @DependsOn("gameServer")
 public class ReconnectController extends EventController {
 
+
 	private Logger log = Logger.getLogger(getClass());
+
 
 	public ReconnectController() {
 		numAllocatedThreads = 4;

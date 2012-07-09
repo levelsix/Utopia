@@ -67,10 +67,10 @@ import com.lvl6.utils.DBConnection;
   private static void setStaticCityIdsToTasks() {
     log.debug("setting static map of cityId to tasks");
 
-    Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
+    //if (conn != null) {
+      rs = DBConnection.get().selectWholeTable(TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -91,17 +91,17 @@ import com.lvl6.utils.DBConnection;
           log.error(e);
         }
       }    
-    }
-    DBConnection.get().close(rs, null, conn);
+    //}
+    DBConnection.get().close(rs, null);
   }
 
   private static void setStaticTaskIdsToTasks() {
     log.debug("setting static map of taskIds to tasks");
 
-    Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
+    //if (conn != null) {
+      rs = DBConnection.get().selectWholeTable(TABLE_NAME);
 
       if (rs != null) {
         try {
@@ -119,8 +119,8 @@ import com.lvl6.utils.DBConnection;
           log.error(e);
         }
       }    
-    }
-    DBConnection.get().close(rs, null, conn);
+    //}
+    DBConnection.get().close(rs, null);
   }
 
   public static void reload() {

@@ -42,7 +42,7 @@
 		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
 		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
-		<hazelcast.group>main</hazelcast.group>
+		<hazelcast.group>development</hazelcast.group>
 		<hazelcast.pass>lvl6</hazelcast.pass>
 		<hazelcast.config>dev</hazelcast.config>
 		<hazelcast.port>5701</hazelcast.port>
@@ -84,7 +84,6 @@
 			</properties>
 		</profile>
 	</profiles>
-
 	<repositories>
 		<repository>
 			<id>spy</id>

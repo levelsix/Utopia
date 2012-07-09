@@ -73,10 +73,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   private static void setStaticQuestIdsToQuests() {
     log.debug("setting static map of questIds to quests");
 
-    Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
+    //if (conn != null) {
+      rs = DBConnection.get().selectWholeTable(TABLE_NAME);
       if (rs != null) {
         try {
           rs.last();
@@ -98,17 +98,17 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           log.error(e);
         }
       }
-    }
-    DBConnection.get().close(rs,  null, conn);
+    //}
+    DBConnection.get().close(rs,  null);
   }
 
   private static void setStaticQuestGraph() {
     log.debug("setting static quest graph");
 
-    Connection conn = DBConnection.get().getConnection();
+    //Connection conn = DBConnection.get().connectionManager.get();
     ResultSet rs = null;
-    if (conn != null) {
-      rs = DBConnection.get().selectWholeTable(conn, TABLE_NAME);
+    //if (conn != null) {
+      rs = DBConnection.get().selectWholeTable(TABLE_NAME);
 
       if (rs != null) {
         try {
@@ -132,8 +132,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           log.error(e);
         }
       }    
-    }
-    DBConnection.get().close(rs, null, conn);
+    //}
+    DBConnection.get().close(rs, null);
   }
 
   public static void reload() {

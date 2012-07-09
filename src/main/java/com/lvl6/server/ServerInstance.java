@@ -25,6 +25,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 	protected static String outboundMessagesTopicPostFix = "OutboundMessages";
 
 	
+	protected HazelcastInstance hzInstance;
 	
 	protected ITopic<Message<?>> serverInstanceOutboundEventTopic;
 

@@ -29,10 +29,10 @@ import com.lvl6.utils.DBConnection;
   public List<UserEquip> getUserEquipsForUser(int userId) {
     log.debug("retrieving user equips for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
+    //Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userEquips;
   }
 
@@ -40,7 +40,7 @@ import com.lvl6.utils.DBConnection;
   @Cacheable(value="equipsToUserEquipsForUser", key="#userId")
   public Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
     log.debug("retrieving map of equip id to userequips for userId " + userId);
-    
+
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, List<UserEquip>> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
@@ -51,11 +51,11 @@ import com.lvl6.utils.DBConnection;
   //@Cacheable(value="specificUserEquip", key="#userId+':'+#equipId")
   public UserEquip getSpecificUserEquip(int userEquipId) {
     log.debug("retrieving user equip for userEquipId: " + userEquipId);
-    
+
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsById(conn, userEquipId, TABLE_NAME);
     UserEquip userEquip = convertRSSingleToUserEquips(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userEquip;
   }
   

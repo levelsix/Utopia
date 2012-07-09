@@ -6,6 +6,8 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.lvl6.events.GameEvent;
@@ -51,8 +53,7 @@ public abstract class EventController extends Wrap {
 		this.server = server;
 	}
 
-	private static Logger log = Logger.getLogger(new Object() {
-	}.getClass().getEnclosingClass());
+	private Logger log = Logger.getLogger(this.getClass());
 
 	// we have the controllers call server.writeEvent manually already
 	// /**
@@ -100,6 +101,7 @@ public abstract class EventController extends Wrap {
 		} catch (Exception e) {
 			throw e;
 		} finally {
+			//DBConnection.get().connectionManager.get().close();
 			endTime = System.nanoTime();
 		}
 		double numSeconds = (endTime - startTime) / 1000000;
@@ -119,19 +121,20 @@ public abstract class EventController extends Wrap {
 	}
 
 	protected Exception doInTransaction(final RequestEvent reqEvent) {
-//		return transactionTemplate
-//				.execute(new TransactionCallback<Exception>() {
-//
-//					@Override
-//					public Exception doInTransaction(TransactionStatus arg0) {
+		return transactionTemplate
+				.execute(new TransactionCallback<Exception>() {
+
+					@Override
+					public Exception doInTransaction(TransactionStatus status) {
 						try {
 							processRequestEvent(reqEvent);
 							return null;
 						} catch (Exception e) {
+							status.setRollbackOnly();
 							return e;
 						}
-//					}
-//				});
+					}
+				});
 	}
 
 	/**
@@ -140,8 +143,7 @@ public abstract class EventController extends Wrap {
 	public abstract EventProtocolRequest getEventType();
 
 	@Async
-	protected abstract void processRequestEvent(RequestEvent event)
-			throws Exception;
+	protected abstract void processRequestEvent(RequestEvent event)	throws Exception;
 
 	protected int numAllocatedThreads = 0;
 

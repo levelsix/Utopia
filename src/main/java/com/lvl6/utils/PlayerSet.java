@@ -16,7 +16,9 @@ public class PlayerSet implements HazelcastInstanceAware {
 	
 	Logger log = Logger.getLogger(PlayerSet.class);
 	
+
 	private Map<Integer, PlayerInAction> players;
+
 
 	public Map<Integer, PlayerInAction> getPlayers() {
 		return players;
@@ -58,6 +60,7 @@ public class PlayerSet implements HazelcastInstanceAware {
 				playerLock.forceUnlock();
 				removePlayer(player);
 				log.info("Automatically removing timed out lock for player: "+play.getPlayerId());
+
 			}
 		}
 	}

@@ -27,7 +27,6 @@ import com.lvl6.utils.Wrap;
 public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	// reference to game server
 
-	
 //	@Resource(name="gameEventsHandlerExecutor")
 //	protected Executor gameEventsExecutor;
 //
@@ -39,6 +38,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 //	public void setGameEventsExecutor(Executor gameEventsExecutor) {
 //		this.gameEventsExecutor = gameEventsExecutor;
 //	}
+
 
 	public Map<String, ConnectedPlayer> getPlayersPreDatabaseByUDID() {
 		return playersPreDatabaseByUDID;

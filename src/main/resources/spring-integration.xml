@@ -44,7 +44,8 @@
 		lookup-host="false"
 		
 		deserializer="gameEventSerializer"
-		serializer="gameEventSerializer" />
+		serializer="gameEventSerializer"
+		 />
 
 
 	<bean id="gameEventSerializer" class="com.lvl6.events.GameEventSerializer" />

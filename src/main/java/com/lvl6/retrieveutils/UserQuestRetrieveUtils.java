@@ -30,10 +30,10 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    //Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userQuests;
   }
   
@@ -47,10 +47,10 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_COMPLETE, false);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    //Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userQuests;
   }
   
@@ -59,10 +59,10 @@ import com.lvl6.utils.DBConnection;
   public List<UserQuest> getUnredeemedAndRedeemedUserQuestsForUser(int userId) {
     log.debug("retrieving unredeemed and redeemed user quests for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
+    //Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userQuests;
   }
   
@@ -74,10 +74,10 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    //Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userQuests;
   }
   
@@ -86,10 +86,10 @@ import com.lvl6.utils.DBConnection;
   public List<UserQuest> getUserQuestsForUser(int userId) {
     log.debug("retrieving user quests for userId " + userId);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
+    //Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsByUserId(userId, TABLE_NAME);
     List<UserQuest> userQuests = convertRSToUserQuests(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userQuests;
   }
   
@@ -100,10 +100,10 @@ import com.lvl6.utils.DBConnection;
     paramsToVals.put(DBConstants.USER_QUESTS__QUEST_ID, questId);
     paramsToVals.put(DBConstants.USER_QUESTS__IS_REDEEMED, false);
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    //Connection conn = DBConnection.get().connectionManager.get();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(paramsToVals, TABLE_NAME);
     UserQuest userQuest = convertRSToSingleUserQuest(rs);
-    DBConnection.get().close(rs, null, conn);
+    DBConnection.get().close(rs, null);
     return userQuest;
   }
   
