@@ -30,8 +30,7 @@ import com.lvl6.utils.DBConnection;
 public class InsertUtils implements InsertUtil {
 
 	public static InsertUtil get() {
-		return (InsertUtil) AppContext.getApplicationContext().getBean(
-				"insertUtils");
+		return (InsertUtil) AppContext.getApplicationContext().getBean("insertUtils");
 	}
 
 	@Autowired
