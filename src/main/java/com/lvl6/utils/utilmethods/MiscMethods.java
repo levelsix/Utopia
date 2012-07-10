@@ -398,4 +398,9 @@ public class MiscMethods {
       return null;
     }
   }
+
+public static int chooseMysteryBoxEquip() {
+	// TODO Auto-generated method stub
+	return 0;
+}
 }
