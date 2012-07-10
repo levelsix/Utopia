@@ -27,7 +27,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 
-public class InsertUtils implements InsertUtil {
+public class InsertUtils implements InsertUtil{
 
 	public static InsertUtil get() {
 		return (InsertUtil) AppContext.getApplicationContext().getBean("insertUtils");
@@ -36,10 +36,18 @@ public class InsertUtils implements InsertUtil {
 	@Autowired
 	protected CacheManager cache;
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#getCache()
+	 */
+	@Override
 	public CacheManager getCache() {
 		return cache;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#setCache(org.springframework.cache.CacheManager)
+	 */
+	@Override
 	public void setCache(CacheManager cache) {
 		this.cache = cache;
 	}
@@ -49,6 +57,9 @@ public class InsertUtils implements InsertUtil {
 	 * 
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int,
 	 * java.util.List, int)
+	 */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int, java.util.List, int)
 	 */
 	@Override
 	@Caching(evict = {
@@ -84,6 +95,10 @@ public class InsertUtils implements InsertUtil {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquip(int, int)
+	 */
+	@Override
 	@Caching(evict = {
 			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
 			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
@@ -104,6 +119,9 @@ public class InsertUtils implements InsertUtil {
 	 * @see
 	 * com.lvl6.utils.utilmethods.InsertUtil#insertAviaryAndCarpenterCoords(int,
 	 * com.lvl6.info.CoordinatePair, com.lvl6.info.CoordinatePair)
+	 */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertAviaryAndCarpenterCoords(int, com.lvl6.info.CoordinatePair, com.lvl6.info.CoordinatePair)
 	 */
 	@Override
 	public boolean insertAviaryAndCarpenterCoords(int userId,
@@ -127,6 +145,10 @@ public class InsertUtils implements InsertUtil {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertAdcolonyRecentHistory(int, java.sql.Timestamp, int, java.lang.String)
+	 */
+	@Override
 	public boolean insertAdcolonyRecentHistory(int userId,
 			Timestamp timeOfReward, int diamondsEarned, String digest) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -150,6 +172,9 @@ public class InsertUtils implements InsertUtil {
 	 * 
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertBattleHistory(int, int,
 	 * com.lvl6.proto.InfoProto.BattleResult, java.util.Date, int, int, int)
+	 */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertBattleHistory(int, int, com.lvl6.proto.InfoProto.BattleResult, java.util.Date, int, int, int)
 	 */
 	@Override
 	public boolean insertBattleHistory(int attackerId, int defenderId,
@@ -182,6 +207,10 @@ public class InsertUtils implements InsertUtil {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUnredeemedUserQuest(int, int, boolean, boolean)
+	 */
+	@Override
 	public boolean insertUnredeemedUserQuest(int userId, int questId,
 			boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -202,6 +231,10 @@ public class InsertUtils implements InsertUtil {
 	}
 
 	/* used for quest defeat type jobs */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedDefeatTypeJobIdForUserQuest(int, int, int)
+	 */
+	@Override
 	public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId,
 			int dtjId, int questId) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -225,6 +258,10 @@ public class InsertUtils implements InsertUtil {
 	}
 
 	/* used for quest tasks */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedTaskIdForUserQuest(int, int, int)
+	 */
+	@Override
 	public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId,
 			int questId) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -244,6 +281,10 @@ public class InsertUtils implements InsertUtil {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStructJustBuilt(int, int, java.sql.Timestamp, java.sql.Timestamp, com.lvl6.info.CoordinatePair)
+	 */
+	@Override
 	public boolean insertUserStructJustBuilt(int userId, int structId,
 			Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild,
 			CoordinatePair structCoords) {
@@ -271,6 +312,10 @@ public class InsertUtils implements InsertUtil {
 	/*
 	 * returns the id of the userstruct, -1 if none
 	 */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStruct(int, int, com.lvl6.info.CoordinatePair, java.sql.Timestamp)
+	 */
+	@Override
 	public int insertUserStruct(int userId, int structId,
 			CoordinatePair coordinates, Timestamp timeOfPurchase) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -286,6 +331,10 @@ public class InsertUtils implements InsertUtil {
 		return userStructId;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertIAPHistoryElem(org.json.JSONObject, int, com.lvl6.info.User, double)
+	 */
+	@Override
 	public boolean insertIAPHistoryElem(JSONObject appleReceipt,
 			int diamondChange, User user, double cashCost) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -324,6 +373,10 @@ public class InsertUtils implements InsertUtil {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertMarketplaceItem(int, com.lvl6.proto.InfoProto.MarketplacePostType, int, int, int, java.sql.Timestamp)
+	 */
+	@Override
 	public boolean insertMarketplaceItem(int posterId,
 			MarketplacePostType postType, int postedEquipId, int diamondCost,
 			int coinCost, Timestamp timeOfPost) {
@@ -353,6 +406,10 @@ public class InsertUtils implements InsertUtil {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertMarketplaceItemIntoHistory(com.lvl6.info.MarketplacePost, int)
+	 */
+	@Override
 	public boolean insertMarketplaceItemIntoHistory(MarketplacePost mp,
 			int buyerId) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -402,6 +459,10 @@ public class InsertUtils implements InsertUtil {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertReferral(int, int, int)
+	 */
+	@Override
 	public boolean insertReferral(int referrerId, int referredId,
 			int coinsGivenToReferrer) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -422,6 +483,10 @@ public class InsertUtils implements InsertUtil {
 	}
 
 	// returns -1 if error
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUser(java.lang.String, java.lang.String, com.lvl6.proto.InfoProto.UserType, com.lvl6.info.Location, java.lang.String, java.lang.String, int, int, int, int, int, int, int, int, int, java.lang.Integer, java.lang.Integer, java.lang.Integer, boolean)
+	 */
+	@Override
 	public int insertUser(String udid, String name, UserType type,
 			Location location, String deviceToken, String newReferCode,
 			int level, int attack, int defense, int energy, int health,
@@ -467,6 +532,10 @@ public class InsertUtils implements InsertUtil {
 	/*
 	 * returns the id of the post, -1 if none
 	 */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertPlayerWallPost(int, int, java.lang.String, java.sql.Timestamp)
+	 */
+	@Override
 	public int insertPlayerWallPost(int posterId, int wallOwnerId,
 			String content, Timestamp timeOfPost) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -482,6 +551,10 @@ public class InsertUtils implements InsertUtil {
 		return wallPostId;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertKiipHistory(int, java.sql.Timestamp, java.lang.String, java.lang.String, int, java.lang.String)
+	 */
+	@Override
 	public boolean insertKiipHistory(int userId, Timestamp clientTime,
 			String content, String signature, int quantity, String transactionId) {
 

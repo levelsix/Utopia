@@ -14,7 +14,6 @@ import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GenerateFakeUsersWithoutInput {
@@ -77,7 +76,7 @@ public class GenerateFakeUsersWithoutInput {
     int defense = fakePlayerStats[1];
     int health = fakePlayerStats[2];
     
-    InsertUtil insertUtils = (InsertUtils) AppContext.getApplicationContext().getBean("insertUtils");
+    InsertUtil insertUtils = (InsertUtil) AppContext.getApplicationContext().getBean("insertUtils");
 
     if (insertUtils.insertUser(newReferCode + newReferCode, name, type, location, null, newReferCode, level, 
         attack, defense, 0, health, 0, 0, 0, 0, null, null, null, true) < 0) {
