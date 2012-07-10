@@ -299,7 +299,6 @@ public class MiscMethods {
         .setPlayerWallPostsRetrieveCap(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP)
         .setMaxLevelForUser(ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER);
 
-
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
         AnimatedSpriteOffset aso = ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS[i];
@@ -349,6 +348,10 @@ public class MiscMethods {
         .setBattleGreatMultiplier(ControllerConstants.BATTLE_GREAT_MULTIPLIER)
         .setBattleGoodMultiplier(ControllerConstants.BATTLE_GOOD_MULTIPLIER)
         .setBattleImbalancePercent(ControllerConstants.BATTLE_IMBALANCE_PERCENT)
+        .setBattlePerfectLikelihood(ControllerConstants.BATTLE_PERFECT_LIKELIHOOD)
+        .setBattleGreatLikelihood(ControllerConstants.BATTLE_GREAT_LIKELIHOOD)
+        .setBattleGoodLikelihood(ControllerConstants.BATTLE_GOOD_LIKELIHOOD)
+        .setBattleMissLikelihood(ControllerConstants.BATTLE_MISS_LIKELIHOOD)
         .build();
 
     cb = cb.setBattleConstants(battleConstants);

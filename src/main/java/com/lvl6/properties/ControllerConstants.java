@@ -58,10 +58,10 @@ public class ControllerConstants {
   public static final float BATTLE_GREAT_MULTIPLIER = 1.5f;
   public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
   public static final float BATTLE_IMBALANCE_PERCENT = .67f;
-//  public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
-//  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
-//  public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
-//  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
+  public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
+  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
+  public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
+  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
 
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
