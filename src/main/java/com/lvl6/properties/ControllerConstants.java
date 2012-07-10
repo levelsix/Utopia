@@ -58,10 +58,10 @@ public class ControllerConstants {
   public static final float BATTLE_GREAT_MULTIPLIER = 1.5f;
   public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
   public static final float BATTLE_IMBALANCE_PERCENT = .67f;
-//  public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
-//  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
-//  public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
-//  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
+  public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
+  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
+  public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
+  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
 
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
@@ -114,6 +114,11 @@ public class ControllerConstants {
   public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 10;
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
   public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 20;
+  public static final int STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS = 1; //in days
+  public static final int STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY = 30;
+  public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS = 1;
+  public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS = 5;
+  public static final int STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS = 5;
   
   //ARMORY
   public static final double ARMORY__SELL_RATIO = 0.15;

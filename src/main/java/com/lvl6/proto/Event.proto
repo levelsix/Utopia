@@ -142,8 +142,9 @@ message StartupResponseProto {
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
-		optional int32 silverBonus = 2;
-		optional FullUserEquipProto userEquipBonus = 3;
+		optional bool firstTimeToday = 2;
+		optional int32 silverBonus = 3;
+		optional FullUserEquipProto userEquipBonus = 4;
 	}
 
 	message MarketplacePostPurchasedNotificationProto {
@@ -268,6 +269,10 @@ message StartupResponseProto {
 			optional float battleGreatMultiplier = 10;
 			optional float battleGoodMultiplier = 11;
 			optional float battleImbalancePercent = 12;
+			optional float battlePerfectLikelihood = 14;
+			optional float battleGreatLikelihood = 15;
+			optional float battleGoodLikelihood = 16;
+			optional float battleMissLikelihood = 17;
 		}
 	}
 	
