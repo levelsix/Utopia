@@ -32,6 +32,8 @@ public class DeleteUtils implements DeleteUtil {
     return true;  
   }
 
+  
+  @CacheEvict(value ="specificUserEquip", key="#userEquipId")
   public boolean deleteUserEquip(int userEquipId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);

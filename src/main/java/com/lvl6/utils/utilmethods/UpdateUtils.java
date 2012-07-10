@@ -243,6 +243,14 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
+  
+  
+  @Caching(evict= {
+		  @CacheEvict(value ="specificUserEquip", key="#userEquipId"),
+			 @CacheEvict(value="userEquipsForUser", key="#newOwnerId"),
+			 @CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
+			 @CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
+	  })
   public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);

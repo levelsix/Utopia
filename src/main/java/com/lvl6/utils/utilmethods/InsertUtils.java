@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
@@ -32,6 +34,11 @@ public class InsertUtils implements InsertUtil {
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int, java.util.List, int)
    */
   @Override
+  @Caching(evict= {
+			 @CacheEvict(value="userEquipsForUser", key="#userId"),
+			 @CacheEvict(value="equipsToUserEquipsForUser", key="#userId"),
+			 @CacheEvict(value="userEquipsWithEquipId", allEntries=true)  
+	  })
   public boolean insertUserEquips(int userId, List<Integer> equipIds, int quantity) {
     //insertIntoTableMultipleRows(String tablename, Map<String, List<Object>> insertParams, int numRows) {
 
@@ -50,6 +57,12 @@ public class InsertUtils implements InsertUtil {
     return false;
   }
   
+  
+  @Caching(evict= {
+		 @CacheEvict(value="userEquipsForUser", key="#userId"),
+		 @CacheEvict(value="equipsToUserEquipsForUser", key="#userId"),
+		 @CacheEvict(value="userEquipsWithEquipId", key="#userId+':'+#equipId")  
+  })
   public int insertUserEquip(int userId, int equipId) {
     Map <String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
