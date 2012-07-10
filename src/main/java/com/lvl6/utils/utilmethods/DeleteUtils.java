@@ -32,6 +32,8 @@ public class DeleteUtils implements DeleteUtil {
     return true;  
   }
 
+  
+  @CacheEvict(value ="specificUserEquip", key="#userEquipId")
   public boolean deleteUserEquip(int userEquipId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
@@ -114,7 +116,7 @@ public class DeleteUtils implements DeleteUtil {
    * @see com.lvl6.utils.utilmethods.DeleteUtil#deleteUserStruct(int)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean deleteUserStruct(int userStructId) {

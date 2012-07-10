@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,7 @@ import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.Builder;
+import com.lvl6.proto.EventProto.StartupResponseProto.DailyBonusInfo;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.TutorialConstants.FullTutorialQuestProto;
@@ -59,6 +61,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
@@ -120,7 +123,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           startupStatus = StartupStatus.USER_IN_DB;          
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
-          setDailyBonusInfo(resBuilder, user, now);
+          //setDailyBonusInfo(resBuilder, user, now);
           setUserEquipsAndEquips(resBuilder, user);
           setAllies(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -168,11 +171,83 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
-//    DailyBonusInfo dbi = DailyBonusInfo.newBuilder().setNumConsecutiveDaysPlayed(1).setSilverBonus(100).build();
-//    
-//    UserEquip ue = new UserEquip(10, 2, 56);
-//    DailyBonusInfo dbi = DailyBonusInfo.newBuilder().setNumConsecutiveDaysPlayed(1).setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue)).build();    
-    
+		int numConsecDaysPlayed = user.getNumConsecutiveDaysPlayed();
+//*1/		
+		Calendar curDate = Calendar.getInstance();
+		curDate.setTime(new Date(now.getTime()));
+		curDate.set(Calendar.HOUR_OF_DAY, 0);
+		curDate.set(Calendar.HOUR, 0);
+		curDate.set(Calendar.MINUTE, 0);
+		curDate.set(Calendar.SECOND, 0);
+		curDate.set(Calendar.MILLISECOND, 0);
+		
+//*2/	//new Timestamp(1341777252698l); Sunday
+		//1341860400000 Monday
+		Timestamp last_login = new Timestamp(user.getLastLogin().getTime());
+		Calendar lastDate = Calendar.getInstance();
+		lastDate.setTime(new Date(last_login.getTime()));
+		lastDate.set(Calendar.HOUR_OF_DAY, 0);
+		lastDate.set(Calendar.HOUR, 0);
+		lastDate.set(Calendar.MINUTE, 0);
+		lastDate.set(Calendar.SECOND, 0);
+		lastDate.set(Calendar.MILLISECOND, 0);
+	
+		if (curDate.before(lastDate)) {
+			log.error("ERROR in setDailyBonusInfo, Current login, "+curDate+" is dated before last login "+lastDate);
+		}
+		if (ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS>ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
+			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Small bonus, "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS
+					+" should be smaller than big bonus which is "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS);
+		}
+		if (ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS>ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS) {
+			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Min big bonus days, "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS
+					+" should be more than max big bonus days which is "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS);
+		}
+		//check if already logged in today
+		if (curDate.equals(lastDate)) {
+			DailyBonusInfo.newBuilder().setFirstTimeToday(false).build();
+		} else { //first time logging in today
+			DailyBonusInfo.Builder dbiBuilder = DailyBonusInfo.newBuilder();
+			dbiBuilder.setFirstTimeToday(true);
+			
+			//check if consecutive login
+			lastDate.add(Calendar.DATE,ControllerConstants.STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS);
+			if (curDate.equals(lastDate)) {
+						numConsecDaysPlayed++;
+						//BIG BONUS
+						if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
+							
+							//TODO: impl
+							int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip();
+							int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive);
+							if (userEquipId <= 0) {
+								log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
+							} else {
+								UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive);
+								dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
+							}
+							
+							if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS) {
+								numConsecDaysPlayed = 0; //set to day 0 because at max consecutive days
+							}
+						//SMALL BONUS
+						} else if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS) {
+							dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());
+						}
+			} else { //more than a day since last login
+				if (!lastDate.before(curDate)) {
+					log.error("ERROR in setDailyBonusInfo, lastDate, "+lastDate+" is not before curDate, "+curDate);
+				}
+					numConsecDaysPlayed = 1;
+					dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());					
+			}
+			//TODO:
+//*3/		set database.lostnations.users.num_consecutive_days_played = numConsecDaysPlayed;
+		}
   }
 
   private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime) {
@@ -190,7 +265,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
          * handled locally?
          */
         //        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
-        //        if (Globals.IS_SANDBOX) {
+        //        if (Globals.IS_SANDBOX()) {
         //          builder.withSandboxDestination();
         //        }
         //        ApnsService service = builder.build();

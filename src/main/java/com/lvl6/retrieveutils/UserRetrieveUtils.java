@@ -373,6 +373,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int numCoinsRetrievedFromStructs = rs.getInt(i++);
     int numAdcolonyVideosWatched = rs.getInt(i++);
     int numTimesKiipRewarded = rs.getInt(i++);
+    int numConsecutiveDaysPlayed = rs.getInt(i++);
+
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
@@ -380,7 +382,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquippedUserEquipId, armorEquippedUserEquipId, amuletEquippedUserEquipId, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
-        isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded);
+        isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed);
     return user;
   }
 }

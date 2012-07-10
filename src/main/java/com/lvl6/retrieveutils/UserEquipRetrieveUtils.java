@@ -48,7 +48,7 @@ import com.lvl6.utils.DBConnection;
     return equipIdsToUserEquips;
   }
 
-  //@Cacheable(value="specificUserEquip", key="#userId+':'+#equipId")
+  @Cacheable(value="specificUserEquip", key="#userEquipId")
   public UserEquip getSpecificUserEquip(int userEquipId) {
     log.debug("retrieving user equip for userEquipId: " + userEquipId);
 
@@ -59,6 +59,7 @@ import com.lvl6.utils.DBConnection;
     return userEquip;
   }
   
+  @Cacheable(value="userEquipsWithEquipId", key="#userId+':'+#equipId")
   public List<UserEquip> getUserEquipsWithEquipId(int userId, int equipId) {
     log.debug("retrieving user equip for user: " + userId + ", equipId: " + equipId);
 

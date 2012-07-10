@@ -137,6 +137,7 @@ public class DBConnection {
 		// } catch (PropertyVetoException e) {
 		// e.printStackTrace();
 		// }
+
 		printConnectionInfoInDebug();
 	}
 

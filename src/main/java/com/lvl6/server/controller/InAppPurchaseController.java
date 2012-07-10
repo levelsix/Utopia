@@ -84,7 +84,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
         // Send data
         URL url;
-        if (Globals.IS_SANDBOX) {
+        if (Globals.IS_SANDBOX()) {
           url = new URL(SANDBOX_URL);
         } else {
           url = new URL(PRODUCTION_URL);

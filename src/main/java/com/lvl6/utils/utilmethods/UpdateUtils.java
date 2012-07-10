@@ -192,7 +192,7 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructOrientation(int, com.lvl6.proto.InfoProto.StructOrientation)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructOrientation(int userStructId,
@@ -243,6 +243,14 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
+  
+  
+  @Caching(evict= {
+		  @CacheEvict(value ="specificUserEquip", key="#userEquipId"),
+			 @CacheEvict(value="userEquipsForUser", key="#newOwnerId"),
+			 @CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
+			 @CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
+	  })
   public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
@@ -362,7 +370,7 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedIscompleteLevelchange(int, java.sql.Timestamp, boolean, int)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrievedIscompleteLevelchange(int userStructId, Timestamp lastRetrievedTime, boolean isComplete, int levelChange) {
@@ -416,7 +424,7 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrievedLastupgradeIscomplete(int, java.sql.Timestamp, java.sql.Timestamp, boolean)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrievedLastupgradeIscomplete(int userStructId, Timestamp lastRetrievedTime, Timestamp lastUpgradeTime, boolean isComplete) {
@@ -447,7 +455,7 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLastretrieved(int, java.sql.Timestamp)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLastretrieved(int userStructId, Timestamp lastRetrievedTime) {
@@ -472,7 +480,7 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructLevel(int, int)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructLevel(int userStructId, int levelChange) {
@@ -497,7 +505,7 @@ public class UpdateUtils implements UpdateUtil {
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserStructCoord(int, com.lvl6.info.CoordinatePair)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean updateUserStructCoord(int userStructId, CoordinatePair coordinates) {

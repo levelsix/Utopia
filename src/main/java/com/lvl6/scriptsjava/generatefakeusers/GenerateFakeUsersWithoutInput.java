@@ -20,7 +20,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 public class GenerateFakeUsersWithoutInput {
 
   private static String nameRulesFile = "src/main/java/com/lvl6/scriptsjava/generatefakeusers/namerulesElven.txt";
-  private static int numEnemiesToCreatePerLevel = 100;
+  private static int numEnemiesToCreatePerLevel = 300;
   private static int minLevel = 2;
   private static int maxLevel = ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER;
 

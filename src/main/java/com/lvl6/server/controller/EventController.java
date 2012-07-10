@@ -15,6 +15,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.GameServer;
+import com.lvl6.utils.DBConnection;
 import com.lvl6.utils.Wrap;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -101,7 +102,7 @@ public abstract class EventController extends Wrap {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			//DBConnection.get().connectionManager.get().close();
+			DBConnection.get().connectionManager.get().close();
 			endTime = System.nanoTime();
 		}
 		double numSeconds = (endTime - startTime) / 1000000;
