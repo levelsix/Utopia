@@ -61,6 +61,7 @@ import com.lvl6.server.GameServer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
@@ -122,7 +123,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           startupStatus = StartupStatus.USER_IN_DB;          
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
-          setDailyBonusInfo(resBuilder, user, now);
+          //setDailyBonusInfo(resBuilder, user, now);
           setUserEquipsAndEquips(resBuilder, user);
           setAllies(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -170,7 +171,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
-		int numConsecDaysPlayed = 1; // retrieve from database.lostnations.users.num_consecutive_days_played
+		int numConsecDaysPlayed = user.getNumConsecutiveDaysPlayed();
 //*1/		
 		Calendar curDate = Calendar.getInstance();
 		curDate.setTime(new Date(now.getTime()));
@@ -180,8 +181,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 		curDate.set(Calendar.SECOND, 0);
 		curDate.set(Calendar.MILLISECOND, 0);
 		
-//*2/		
-		Timestamp last_login = new Timestamp(1341777252698l); // retrieve from database.lostnations.users.last_login
+//*2/	//new Timestamp(1341777252698l); Sunday
+		//1341860400000 Monday
+		Timestamp last_login = new Timestamp(user.getLastLogin().getTime());
 		Calendar lastDate = Calendar.getInstance();
 		lastDate.setTime(new Date(last_login.getTime()));
 		lastDate.set(Calendar.HOUR_OF_DAY, 0);
@@ -191,13 +193,19 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 		lastDate.set(Calendar.MILLISECOND, 0);
 	
 		if (curDate.before(lastDate)) {
-			log.error("ERROR in setDailyBonusInfo, Current login is dated before last login!");
+			log.error("ERROR in setDailyBonusInfo, Current login, "+curDate+" is dated before last login "+lastDate);
 		}
 		if (ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS>ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
-			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Small bonus requires more days than big bonus");
+			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Small bonus, "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS
+					+" should be smaller than big bonus which is "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS);
 		}
 		if (ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS>ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS) {
-			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Min big bonus days more than max big bonus days");
+			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Min big bonus days, "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS
+					+" should be more than max big bonus days which is "
+					+ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS);
 		}
 		//check if already logged in today
 		if (curDate.equals(lastDate)) {
@@ -212,8 +220,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 						numConsecDaysPlayed++;
 						//BIG BONUS
 						if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
-							UserEquip ue = new UserEquip(1, 1, 1);
-							dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
+							
+							//TODO: impl
+							int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip();
+							int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive);
+							if (userEquipId <= 0) {
+								log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
+							} else {
+								UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive);
+								dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
+							}
+							
 							if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS) {
 								numConsecDaysPlayed = 0; //set to day 0 because at max consecutive days
 							}
@@ -223,11 +240,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 						}
 			} else { //more than a day since last login
 				if (!lastDate.before(curDate)) {
-					log.error("ERROR in setDailyBonusInfo, lastDate not before curDate");
+					log.error("ERROR in setDailyBonusInfo, lastDate, "+lastDate+" is not before curDate, "+curDate);
 				}
 					numConsecDaysPlayed = 1;
 					dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());					
 			}
+			//TODO:
 //*3/		set database.lostnations.users.num_consecutive_days_played = numConsecDaysPlayed;
 		}
   }
