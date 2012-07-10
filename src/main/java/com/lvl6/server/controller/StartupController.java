@@ -211,7 +211,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         //BIG BONUS
         if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
 
-          //TODO: impl
           int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip();
           int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive);
           if (userEquipId <= 0) {

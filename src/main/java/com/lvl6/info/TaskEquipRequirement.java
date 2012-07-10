@@ -1,33 +1,36 @@
 package com.lvl6.info;
 
-public class TaskEquipRequirement {
+import java.io.Serializable;
 
-  private int taskId;
-  private int equipId;
-  private int quantity;
-  
-  public TaskEquipRequirement(int taskId, int equipId, int quantity) {
-    this.taskId = taskId;
-    this.equipId = equipId;
-    this.quantity = quantity;
-  }
+public class TaskEquipRequirement implements Serializable {
 
-  public int getTaskId() {
-    return taskId;
-  }
+	private static final long serialVersionUID = 1174273124421767317L;
+	private int taskId;
+	private int equipId;
+	private int quantity;
 
-  public int getEquipId() {
-    return equipId;
-  }
+	public TaskEquipRequirement(int taskId, int equipId, int quantity) {
+		this.taskId = taskId;
+		this.equipId = equipId;
+		this.quantity = quantity;
+	}
 
-  public int getQuantity() {
-    return quantity;
-  }
+	public int getTaskId() {
+		return taskId;
+	}
 
-  @Override
-  public String toString() {
-    return "TaskEquipRequirement [taskId=" + taskId + ", equipId=" + equipId
-        + ", quantity=" + quantity + "]";
-  }
-  
+	public int getEquipId() {
+		return equipId;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	@Override
+	public String toString() {
+		return "TaskEquipRequirement [taskId=" + taskId + ", equipId="
+				+ equipId + ", quantity=" + quantity + "]";
+	}
+
 }
