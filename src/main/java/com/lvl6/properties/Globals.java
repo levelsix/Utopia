@@ -2,9 +2,23 @@ package com.lvl6.properties;
 
 import org.apache.log4j.Level;
 
+import com.lvl6.spring.AppContext;
+
 
 public class Globals {
-    /** size of ByteBuffer for reading/writing from channels */
+	
+	protected boolean sandbox = true;
+	
+	
+    public boolean getSandbox() {
+		return sandbox;
+	}
+
+	public void setSandbox(boolean isSandbox) {
+		this.sandbox = isSandbox;
+	}
+
+	/** size of ByteBuffer for reading/writing from channels */
     public static final int NET_BUFFER_SIZE=16384*4;
 
     /** maximum event size in bytes */
@@ -22,7 +36,7 @@ public class Globals {
     /** default number of workers for GameControllers */
     public static final int DEFAULT_CONTROLLER_WORKERS = 2;
 
-    public static final boolean IS_SANDBOX = true;
+    public static final boolean IS_SANDBOX(){return AppContext.getApplicationContext().getBean(Globals.class).getSandbox();};
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     

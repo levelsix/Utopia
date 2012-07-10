@@ -107,6 +107,7 @@ message FullUserProto {
 	optional int32 apsalarId = 49;
 	optional int32 numAdColonyVideosWatched = 51;
 	optional int32 numTimesKiipRewarded = 52;
+	optional int32 numConsecutiveDaysPlayed = 53;
 }
 
 //------------------------------------------------------------------------------------------

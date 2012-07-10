@@ -100,7 +100,7 @@ public class DBConnection {
 	public void init() {
 		Logger.getLogger("com.mchange.v2").setLevel(MCHANGE_LOG_LEVEL);
 //
-//		if (Globals.IS_SANDBOX) {
+//		if (Globals.IS_SANDBOX()) {
 //			dataSource = new ComboPooledDataSource();
 //		} else {
 //			dataSource = new ComboPooledDataSource("production");
