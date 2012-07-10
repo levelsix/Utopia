@@ -422,6 +422,11 @@
 				<artifactId>mina-core</artifactId>
 				<version>2.0.4</version>
 			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>2.2.2</version>
+			</dependency>
 			<!-- <dependency> -->
 			<!-- <groupId>oauth.signpost</groupId> -->
 			<!-- <artifactId>oauth-signpost</artifactId> -->
@@ -564,6 +569,10 @@
 		<dependency>
 			<groupId>org.apache.mina</groupId>
 			<artifactId>mina-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
 		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>oauth.signpost</groupId> -->
