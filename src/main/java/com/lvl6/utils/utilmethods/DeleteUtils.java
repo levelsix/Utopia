@@ -116,7 +116,7 @@ public class DeleteUtils implements DeleteUtil {
    * @see com.lvl6.utils.utilmethods.DeleteUtil#deleteUserStruct(int)
    */
   @Override
-  @Caching(evict= {@CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
+  @Caching(evict= {
       @CacheEvict(value="structIdsToUserStructsForUser", allEntries=true),
       @CacheEvict(value="specificUserStruct", key="#userStructId")})
   public boolean deleteUserStruct(int userStructId) {
