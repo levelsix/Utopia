@@ -183,7 +183,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     curDate.set(Calendar.SECOND, 0);
     curDate.set(Calendar.MILLISECOND, 0);
 
-    Timestamp lastLogin = new Timestamp(user.getLastLogin().getTime());
+    Timestamp lastLogin = new Timestamp(1341777252698l);
+    //Timestamp lastLogin = new Timestamp(user.getLastLogin().getTime());
     Calendar lastDate = Calendar.getInstance();
     lastDate.setTime(new Date(lastLogin.getTime()));
     lastDate.set(Calendar.HOUR_OF_DAY, 0);
