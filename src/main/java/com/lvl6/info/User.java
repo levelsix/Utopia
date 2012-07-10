@@ -64,6 +64,7 @@ public class User {
   private int numCoinsRetrievedFromStructs;
   private int numAdColonyVideosWatched;
   private int numTimesKiipRewarded;
+  private int numConsecutiveDaysPlayed;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -80,7 +81,7 @@ public class User {
       Date lastShortLicensePurchaseTime, Date lastLongLicensePurchaseTime,
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
       int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
-      int numTimesKiipRewarded) {
+      int numTimesKiipRewarded, int numConsecutiveDaysPlayed) {
     super();
     this.id = id;
     this.name = name;
@@ -130,7 +131,9 @@ public class User {
     this.numCoinsRetrievedFromStructs = numCoinsRetrievedFromStructs;
     this.numAdColonyVideosWatched = numAdColonyVideosWatched;
     this.numTimesKiipRewarded = numTimesKiipRewarded;
+    this.numConsecutiveDaysPlayed = numConsecutiveDaysPlayed;
   }
+
 
   public boolean updateAbsoluteUserLocation(Location location) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -1098,6 +1101,45 @@ public class User {
 
   public int getNumTimesKiipRewarded() {
     return numTimesKiipRewarded;
+  }
+
+  public int getNumConsecutiveDaysPlayed() {
+    return numConsecutiveDaysPlayed;
+  }
+
+  @Override
+  public String toString() {
+    return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
+        + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
+        + stamina + ", lastStaminaRefillTime=" + lastStaminaRefillTime
+        + ", energy=" + energy + ", lastEnergyRefillTime="
+        + lastEnergyRefillTime + ", skillPoints=" + skillPoints
+        + ", healthMax=" + healthMax + ", energyMax=" + energyMax
+        + ", staminaMax=" + staminaMax + ", diamonds=" + diamonds + ", coins="
+        + coins + ", marketplaceDiamondsEarnings="
+        + marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="
+        + marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
+        + ", experience=" + experience + ", tasksCompleted=" + tasksCompleted
+        + ", battlesWon=" + battlesWon + ", battlesLost=" + battlesLost
+        + ", flees=" + flees + ", referralCode=" + referralCode
+        + ", numReferrals=" + numReferrals + ", udid=" + udid
+        + ", userLocation=" + userLocation + ", numPostsInMarketplace="
+        + numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
+        + numMarketplaceSalesUnredeemed + ", weaponEquippedUserEquipId="
+        + weaponEquippedUserEquipId + ", armorEquippedUserEquipId="
+        + armorEquippedUserEquipId + ", amuletEquippedUserEquipId="
+        + amuletEquippedUserEquipId + ", lastLogin=" + lastLogin
+        + ", lastLogout=" + lastLogout + ", deviceToken=" + deviceToken
+        + ", lastBattleNotificationTime=" + lastBattleNotificationTime
+        + ", lastTimeAttacked=" + lastTimeAttacked + ", numBadges=" + numBadges
+        + ", lastShortLicensePurchaseTime=" + lastShortLicensePurchaseTime
+        + ", lastLongLicensePurchaseTime=" + lastLongLicensePurchaseTime
+        + ", isFake=" + isFake + ", createTime=" + createTime + ", isAdmin="
+        + isAdmin + ", apsalarId=" + apsalarId
+        + ", numCoinsRetrievedFromStructs=" + numCoinsRetrievedFromStructs
+        + ", numAdColonyVideosWatched=" + numAdColonyVideosWatched
+        + ", numTimesKiipRewarded=" + numTimesKiipRewarded
+        + ", numConsecutiveDaysPlayed=" + numConsecutiveDaysPlayed + "]";
   }
 
 }
