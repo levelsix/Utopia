@@ -37,6 +37,6 @@
 	<bean id="eventWriter" class="com.lvl6.server.EventWriter" />
 	
 	<bean id="appGlobals" class="com.lvl6.properties.Globals" >
-		<property name="sandBox" value="${globals.isSandbox}" />
+		<property name="sandbox" value="${globals.isSandbox}" />
 	</bean>
 </beans>
