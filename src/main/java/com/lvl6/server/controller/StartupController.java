@@ -104,12 +104,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     resBuilder.setUpdateStatus(updateStatus);
     resBuilder.setAppStoreURL(Globals.APP_STORE_URL);
-
+    
     User user = null;
 
     // Don't fill in other fields if it is a major update
     StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
 
+    Timestamp now = new Timestamp(new Date().getTime());
+    
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       user = RetrieveUtils.userRetrieveUtils().getUserByUDID(udid);
       if (user != null) {
@@ -118,6 +120,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           startupStatus = StartupStatus.USER_IN_DB;          
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
+          setDailyBonusInfo(resBuilder, user, now);
           setUserEquipsAndEquips(resBuilder, user);
           setAllies(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -160,8 +163,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     //    }
     //    
     if (user != null) {
-      syncApsalaridLastloginResetBadges(user, apsalarId, new Timestamp(new Date().getTime()));
+      syncApsalaridLastloginResetBadges(user, apsalarId, now);
     }    
+  }
+
+  private void setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
+//    DailyBonusInfo dbi = DailyBonusInfo.newBuilder().setNumConsecutiveDaysPlayed(1).setSilverBonus(100).build();
+//    
+//    UserEquip ue = new UserEquip(10, 2, 56);
+//    DailyBonusInfo dbi = DailyBonusInfo.newBuilder().setNumConsecutiveDaysPlayed(1).setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue)).build();    
+    
   }
 
   private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime) {
