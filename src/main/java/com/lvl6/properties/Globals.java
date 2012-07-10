@@ -7,15 +7,15 @@ import com.lvl6.spring.AppContext;
 
 public class Globals {
 	
-	protected boolean isSandbox = true;
+	protected boolean sandbox = true;
 	
 	
-    public boolean isSandbox() {
-		return isSandbox;
+    public boolean getSandbox() {
+		return sandbox;
 	}
 
 	public void setSandbox(boolean isSandbox) {
-		this.isSandbox = isSandbox;
+		this.sandbox = isSandbox;
 	}
 
 	/** size of ByteBuffer for reading/writing from channels */
@@ -36,7 +36,7 @@ public class Globals {
     /** default number of workers for GameControllers */
     public static final int DEFAULT_CONTROLLER_WORKERS = 2;
 
-    public static final boolean IS_SANDBOX(){return AppContext.getApplicationContext().getBean(Globals.class).isSandbox;};
+    public static final boolean IS_SANDBOX(){return AppContext.getApplicationContext().getBean(Globals.class).getSandbox();};
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
