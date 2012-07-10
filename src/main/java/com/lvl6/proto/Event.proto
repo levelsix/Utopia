@@ -142,8 +142,9 @@ message StartupResponseProto {
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
-		optional int32 silverBonus = 2;
-		optional FullUserEquipProto userEquipBonus = 3;
+		optional bool firstTimeToday = 2;
+		optional int32 silverBonus = 3;
+		optional FullUserEquipProto userEquipBonus = 4;
 	}
 
 	message MarketplacePostPurchasedNotificationProto {
