@@ -156,7 +156,7 @@ public class APNSWriter extends Wrap {
 				.withCert(ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert), apnsProperties.certPassword)
 				.asNonBlocking();
 
-		if (Globals.IS_SANDBOX) {
+		if (Globals.IS_SANDBOX()) {
 			builder.withSandboxDestination();
 		}
 

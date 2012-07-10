@@ -49,6 +49,7 @@
 		<hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips>
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
+		<globals.isSandbox>true</globals.isSandbox>
 		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>

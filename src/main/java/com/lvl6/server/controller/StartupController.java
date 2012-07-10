@@ -190,7 +190,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
          * handled locally?
          */
         //        ApnsServiceBuilder builder = APNS.newService().withCert(APNSProperties.PATH_TO_CERT, APNSProperties.CERT_PASSWORD);
-        //        if (Globals.IS_SANDBOX) {
+        //        if (Globals.IS_SANDBOX()) {
         //          builder.withSandboxDestination();
         //        }
         //        ApnsService service = builder.build();
