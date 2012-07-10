@@ -346,7 +346,8 @@ public class User {
     return false;
   }
 
-  public boolean updateAbsoluteApsalaridLastloginBadges(String newApsalarId, Timestamp loginTime, int newBadges) {
+  public boolean updateAbsoluteApsalaridLastloginBadgesNumConsecutiveDaysLoggedIn(String newApsalarId, Timestamp loginTime, 
+      int newBadges, int newNumConsecutiveDaysLoggedIn) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -354,7 +355,8 @@ public class User {
     absoluteParams.put(DBConstants.USER__APSALAR_ID, newApsalarId);
     absoluteParams.put(DBConstants.USER__LAST_LOGIN, loginTime);
     absoluteParams.put(DBConstants.USER__NUM_BADGES, newBadges);
-
+    absoluteParams.put(DBConstants.USER__NUM_CONSECUTIVE_DAYS_PLAYED, newNumConsecutiveDaysLoggedIn);
+    
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {

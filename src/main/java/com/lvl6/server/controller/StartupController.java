@@ -107,14 +107,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     resBuilder.setUpdateStatus(updateStatus);
     resBuilder.setAppStoreURL(Globals.APP_STORE_URL);
-    
+
     User user = null;
 
     // Don't fill in other fields if it is a major update
     StartupStatus startupStatus = StartupStatus.USER_NOT_IN_DB;
 
     Timestamp now = new Timestamp(new Date().getTime());
-    
+
+    int newNumConsecutiveDaysLoggedIn = 0;
+
     if (updateStatus != UpdateStatus.MAJOR_UPDATE) {
       user = RetrieveUtils.userRetrieveUtils().getUserByUDID(udid);
       if (user != null) {
@@ -123,7 +125,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           startupStatus = StartupStatus.USER_IN_DB;          
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
-          //setDailyBonusInfo(resBuilder, user, now);
+          newNumConsecutiveDaysLoggedIn = setDailyBonusInfo(resBuilder, user, now);
           setUserEquipsAndEquips(resBuilder, user);
           setAllies(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -166,97 +168,86 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     //    }
     //    
     if (user != null) {
-      syncApsalaridLastloginResetBadges(user, apsalarId, now);
+      syncApsalaridLastloginResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
     }    
   }
 
-  private void setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
-		int numConsecDaysPlayed = user.getNumConsecutiveDaysPlayed();
-//*1/		
-		Calendar curDate = Calendar.getInstance();
-		curDate.setTime(new Date(now.getTime()));
-		curDate.set(Calendar.HOUR_OF_DAY, 0);
-		curDate.set(Calendar.HOUR, 0);
-		curDate.set(Calendar.MINUTE, 0);
-		curDate.set(Calendar.SECOND, 0);
-		curDate.set(Calendar.MILLISECOND, 0);
-		
-//*2/	//new Timestamp(1341777252698l); Sunday
-		//1341860400000 Monday
-		Timestamp last_login = new Timestamp(user.getLastLogin().getTime());
-		Calendar lastDate = Calendar.getInstance();
-		lastDate.setTime(new Date(last_login.getTime()));
-		lastDate.set(Calendar.HOUR_OF_DAY, 0);
-		lastDate.set(Calendar.HOUR, 0);
-		lastDate.set(Calendar.MINUTE, 0);
-		lastDate.set(Calendar.SECOND, 0);
-		lastDate.set(Calendar.MILLISECOND, 0);
-	
-		if (curDate.before(lastDate)) {
-			log.error("ERROR in setDailyBonusInfo, Current login, "+curDate+" is dated before last login "+lastDate);
-		}
-		if (ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS>ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
-			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Small bonus, "
-					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS
-					+" should be smaller than big bonus which is "
-					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS);
-		}
-		if (ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS>ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS) {
-			log.error("ERROR in setDailyBonusInfo, bonus constants wrong. Min big bonus days, "
-					+ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS
-					+" should be more than max big bonus days which is "
-					+ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS);
-		}
-		//check if already logged in today
-		if (curDate.equals(lastDate)) {
-			DailyBonusInfo.newBuilder().setFirstTimeToday(false).build();
-		} else { //first time logging in today
-			DailyBonusInfo.Builder dbiBuilder = DailyBonusInfo.newBuilder();
-			dbiBuilder.setFirstTimeToday(true);
-			
-			//check if consecutive login
-			lastDate.add(Calendar.DATE,ControllerConstants.STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS);
-			if (curDate.equals(lastDate)) {
-						numConsecDaysPlayed++;
-						//BIG BONUS
-						if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
-							
-							//TODO: impl
-							int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip();
-							int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive);
-							if (userEquipId <= 0) {
-								log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
-							} else {
-								UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive);
-								dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
-							}
-							
-							if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS) {
-								numConsecDaysPlayed = 0; //set to day 0 because at max consecutive days
-							}
-						//SMALL BONUS
-						} else if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS) {
-							dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());
-						}
-			} else { //more than a day since last login
-				if (!lastDate.before(curDate)) {
-					log.error("ERROR in setDailyBonusInfo, lastDate, "+lastDate+" is not before curDate, "+curDate);
-				}
-					numConsecDaysPlayed = 1;
-					dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());					
-			}
-			//TODO:
-//*3/		set database.lostnations.users.num_consecutive_days_played = numConsecDaysPlayed;
-		}
+  private int setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
+    int numConsecDaysPlayed = user.getNumConsecutiveDaysPlayed();
+
+    Calendar curDate = Calendar.getInstance();
+    curDate.setTime(new Date(now.getTime()));
+    curDate.set(Calendar.HOUR_OF_DAY, 0);
+    curDate.set(Calendar.HOUR, 0);
+    curDate.set(Calendar.MINUTE, 0);
+    curDate.set(Calendar.SECOND, 0);
+    curDate.set(Calendar.MILLISECOND, 0);
+
+    Timestamp lastLogin = new Timestamp(user.getLastLogin().getTime());
+    Calendar lastDate = Calendar.getInstance();
+    lastDate.setTime(new Date(lastLogin.getTime()));
+    lastDate.set(Calendar.HOUR_OF_DAY, 0);
+    lastDate.set(Calendar.HOUR, 0);
+    lastDate.set(Calendar.MINUTE, 0);
+    lastDate.set(Calendar.SECOND, 0);
+    lastDate.set(Calendar.MILLISECOND, 0);
+
+    if (curDate.before(lastDate)) {
+      log.error("ERROR in setDailyBonusInfo, Current login, "+curDate+" is dated before last login "+lastDate);
+      return 0;
+    }
+    //check if already logged in today
+    if (curDate.equals(lastDate)) {
+      resBuilder.setDailyBonusInfo(DailyBonusInfo.newBuilder().setFirstTimeToday(false).build());
+      return numConsecDaysPlayed;
+    } else { //first time logging in today
+      DailyBonusInfo.Builder dbiBuilder = DailyBonusInfo.newBuilder();
+      dbiBuilder.setFirstTimeToday(true);
+
+      //check if consecutive login
+      lastDate.add(Calendar.DATE,ControllerConstants.STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS);
+      if (curDate.equals(lastDate)) {
+        numConsecDaysPlayed++;
+        //BIG BONUS
+        if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
+
+          //TODO: impl
+          int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip();
+          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive);
+          if (userEquipId <= 0) {
+            log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
+            return 0;
+          } else {
+            UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive);
+            dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
+          }
+
+          if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS) {
+            numConsecDaysPlayed = 0; //set to day 0 because at max consecutive days
+          }
+          //SMALL BONUS
+        } else if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS) {
+          dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());
+        }
+      } else { //more than a day since last login
+        if (!lastDate.before(curDate)) {
+          log.error("ERROR in setDailyBonusInfo, lastDate, "+lastDate+" is not before curDate, " + curDate);
+        }
+        numConsecDaysPlayed = 1;
+        dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());					
+      }
+      resBuilder.setDailyBonusInfo(dbiBuilder.build());
+      return numConsecDaysPlayed;
+    }
   }
 
-  private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime) {
+  private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime, int newNumConsecutiveDaysLoggedIn) {
     if (user.getApsalarId() != null && apsalarId == null) {
       apsalarId = user.getApsalarId();
     }
-    if (!user.updateAbsoluteApsalaridLastloginBadges(apsalarId, loginTime, 0)) {
+    if (!user.updateAbsoluteApsalaridLastloginBadgesNumConsecutiveDaysLoggedIn(apsalarId, loginTime, 0, newNumConsecutiveDaysLoggedIn)) {
       log.error("problem with updating apsalar id to " + 
-          apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user);
+          apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user + " and newNumConsecutiveDaysLoggedIn is " + newNumConsecutiveDaysLoggedIn);
     }
 
     if (user.getNumBadges() != 0) {
