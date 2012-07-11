@@ -6,6 +6,7 @@ import java.util.Date;
 import com.lvl6.proto.InfoProto.BattleResult;
 
 public class BattleDetails implements Serializable {
+
 	private static final long serialVersionUID = 7523602709627035018L;
 	private int attackerId;
 	private int defenderId;

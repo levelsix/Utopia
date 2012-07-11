@@ -117,6 +117,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 //        }
         if (InsertUtils.get().insertUserEquip(user.getId(), equipId) < 0) {
           log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
+          legitBuy = false;
         }
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {
           if (!user.updateRelativeCoinsNaive(equipment.getCoinPrice() * -1)) {

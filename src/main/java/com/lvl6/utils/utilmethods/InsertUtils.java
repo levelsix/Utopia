@@ -238,6 +238,7 @@ public class InsertUtils implements InsertUtil{
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedDefeatTypeJobIdForUserQuest(int, int, int)
 	 */
 	@Override
+	@CacheEvict(value="questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
 	public boolean insertCompletedDefeatTypeJobIdForUserQuest(int userId,
 			int dtjId, int questId) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -265,6 +266,7 @@ public class InsertUtils implements InsertUtil{
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedTaskIdForUserQuest(int, int, int)
 	 */
 	@Override
+	@CacheEvict(value = "questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
 	public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId,
 			int questId) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
