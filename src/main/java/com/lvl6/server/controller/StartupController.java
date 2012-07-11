@@ -168,7 +168,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     //    }
     //    
     if (user != null) {
-      syncApsalaridLastloginResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
+      syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
     }    
   }
 
@@ -243,7 +243,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
   }
 
-  private void syncApsalaridLastloginResetBadges(User user, String apsalarId, Timestamp loginTime, int newNumConsecutiveDaysLoggedIn) {
+  private void syncApsalaridLastloginConsecutivedaysloggedinResetBadges(User user, String apsalarId, Timestamp loginTime, int newNumConsecutiveDaysLoggedIn) {
     if (user.getApsalarId() != null && apsalarId == null) {
       apsalarId = user.getApsalarId();
     }
