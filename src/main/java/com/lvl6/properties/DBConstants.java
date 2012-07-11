@@ -91,7 +91,8 @@ public class DBConstants {
   public static final String USER__NUM_COINS_RETRIEVED_FROM_STRUCTS = "num_coins_retrieved_from_structs";
   public static final String USER__NUM_ADCOLONY_VIDEOS_WATCHED = "num_adcolony_videos_watched";
   public static final String USER__NUM_TIMES_KIIP_REWARDED = "num_times_kiip_rewarded";
-  
+  public static final String USER__NUM_CONSECUTIVE_DAYS_PLAYED = "num_consecutive_days_played";
+
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;

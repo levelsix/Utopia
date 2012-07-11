@@ -115,7 +115,7 @@ public class ControllerConstants {
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
   public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 20;
   public static final int STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS = 1; //in days
-  public static final int STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY = 30;
+  public static final int STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY = 5;
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS = 1;
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS = 5;
   public static final int STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS = 5;

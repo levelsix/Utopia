@@ -83,7 +83,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       UserEquip ue = MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquipped(user, userEquipsForEquipId);
       
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
-      Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
+      Equipment equip = (ue == null) ? null : equipmentIdsToEquipment.get(ue.getEquipId());
       boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip, timeOfPost);
 
       PostToMarketplaceResponseEvent resEvent = new PostToMarketplaceResponseEvent(senderProto.getUserId());
