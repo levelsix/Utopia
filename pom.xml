@@ -62,14 +62,14 @@
 		<profile>
 			<id>kelly</id>
 			<properties>
-				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+				<lvl6.server.log.location>/home/kelly/Desktop/lostnations.log</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6701</hazelcast.port>
 				<!-- <hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips> -->
-				<hazelcast.dev.ips>localhost</hazelcast.dev.ips>
+				<hazelcast.dev.ips>192.168.13.105</hazelcast.dev.ips>
 			</properties>
 		</profile>
 		<profile>
