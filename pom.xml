@@ -81,7 +81,7 @@
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6701</hazelcast.port>
-				<hazelcast.dev.ips>192.168.105.119</hazelcast.dev.ips>
+				<hazelcast.dev.ips>192.168.105.119, 192.168.104.206</hazelcast.dev.ips>
 			</properties>
 		</profile>
 	</profiles>
