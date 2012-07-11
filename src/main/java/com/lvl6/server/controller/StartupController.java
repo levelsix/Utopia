@@ -209,6 +209,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       lastDate.add(Calendar.DATE,ControllerConstants.STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS);
       if (curDate.equals(lastDate)) {
         numConsecDaysPlayed++;
+        dbiBuilder.setNumConsecutiveDaysPlayed(numConsecDaysPlayed);
         //BIG BONUS
         if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
 
@@ -234,6 +235,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           log.error("ERROR in setDailyBonusInfo, lastDate, "+lastDate+" is not before curDate, " + curDate);
         }
         numConsecDaysPlayed = 1;
+        dbiBuilder.setNumConsecutiveDaysPlayed(numConsecDaysPlayed);
         dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());					
       }
       resBuilder.setDailyBonusInfo(dbiBuilder.build());
