@@ -266,6 +266,7 @@ public class InsertUtils implements InsertUtil{
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertCompletedTaskIdForUserQuest(int, int, int)
 	 */
 	@Override
+	@CacheEvict(value = "questIdToUserTasksCompletedForQuestForUserCache", key="#userId")
 	public boolean insertCompletedTaskIdForUserQuest(int userId, int taskId,
 			int questId) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
