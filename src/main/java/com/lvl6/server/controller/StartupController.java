@@ -123,9 +123,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         server.lockPlayer(user.getId());
         try {
           startupStatus = StartupStatus.USER_IN_DB;          
+          newNumConsecutiveDaysLoggedIn = setDailyBonusInfo(resBuilder, user, now);
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
-          newNumConsecutiveDaysLoggedIn = setDailyBonusInfo(resBuilder, user, now);
           setUserEquipsAndEquips(resBuilder, user);
           setAllies(resBuilder, user);
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -168,6 +168,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     //    }
     //    
     if (user != null) {
+      //for things that client doesn't need
       syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
     }    
   }
@@ -229,6 +230,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           //SMALL BONUS
         } else if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS) {
           dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());
+          //TODO: give user this much silver
         }
       } else { //more than a day since last login
         if (!lastDate.before(curDate)) {

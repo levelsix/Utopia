@@ -18,10 +18,12 @@ import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsRequestProto;
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto;
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
   @Component @DependsOn("gameServer") public class RetrieveCurrentMarketplacePostsController extends EventController{
 
@@ -65,8 +67,8 @@ import com.lvl6.utils.RetrieveUtils;
       } else {
         resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.SUCCESS);
         List <MarketplacePost> activeMarketplacePosts;
+        boolean populateMarketplace = false;
         if (beforeThisPostId > 0) {
-          resBuilder.setBeforeThisPostId(beforeThisPostId);
           if (forSender) {
             activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, beforeThisPostId, senderProto.getUserId());
           } else {
@@ -77,9 +79,17 @@ import com.lvl6.utils.RetrieveUtils;
             activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
           } else {
             activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
+            populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts);
           }
         }
-        if (activeMarketplacePosts != null) {
+        int i = 0;
+        while (populateMarketplace && i < ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES) {
+          populateMarketplaceWithPosts(user);
+          activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
+          populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts);
+          i++;
+        }
+        if (activeMarketplacePosts != null && activeMarketplacePosts.size() > 0) {
           List <Integer> userIds = new ArrayList<Integer>();
           
           for (MarketplacePost amp : activeMarketplacePosts) {
@@ -90,11 +100,10 @@ import com.lvl6.utils.RetrieveUtils;
           if (userIds.size() > 0) {
             usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
           }
-          
           for (MarketplacePost mp : activeMarketplacePosts) {
             resBuilder.addMarketplacePosts(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp, usersByIds.get(mp.getPosterId())));
           }
-        }
+        } 
       }
       RetrieveCurrentMarketplacePostsResponseProto resProto = resBuilder.build();
 
@@ -109,6 +118,28 @@ import com.lvl6.utils.RetrieveUtils;
       server.unlockPlayer(senderProto.getUserId()); 
     }
 
+  }
+
+  private boolean checkWhetherToPopulateMarketplace(List<MarketplacePost> activeMarketplacePosts) {
+    if (activeMarketplacePosts == null || activeMarketplacePosts.size() <= 0) {
+      return true;
+    }
+    if (activeMarketplacePosts.size() >= ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE) {
+      return false;
+    }
+    for (MarketplacePost mp : activeMarketplacePosts) {
+      if (mp.getPostedEquipId() == ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private void populateMarketplaceWithPosts(User user) {
+    /*
+     * TODO: 
+     * insert RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_FAKE_TO_POPULATE numbers of equip with id RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE posted by RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_ID
+     */
   }
 
 }
