@@ -159,8 +159,8 @@ public class APNSWriter extends Wrap {
 		if (Globals.IS_SANDBOX()) {
 			builder.withSandboxDestination();
 		}
-
 		service = builder.build();
+		service.testConnection();
 	}
 
 
