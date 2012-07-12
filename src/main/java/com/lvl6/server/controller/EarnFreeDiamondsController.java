@@ -38,7 +38,6 @@ import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-
 @Component
 @DependsOn("gameServer")
 public class EarnFreeDiamondsController extends EventController {
