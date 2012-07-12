@@ -174,7 +174,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         }
       }
       if (!DeleteUtils.get().deleteUserEquip(ue.getId())) {
-        log.error("problem with decrementing user equip with ue id: " + ue.getId());
+        log.error("problem with decrementing user equip with ue id: " + ue);
         return;
       }
     }
