@@ -19,9 +19,9 @@ import com.lvl6.proto.InfoProto.UserType;
 
 public interface InsertUtil {
 
-	public abstract CacheManager getCache();
-
-	public abstract void setCache(CacheManager cache);
+//	public abstract CacheManager getCache();
+//
+//	public abstract void setCache(CacheManager cache);
 
 	/*
 	 * (non-Javadoc)

@@ -33,24 +33,24 @@ public class InsertUtils implements InsertUtil{
 		return (InsertUtil) AppContext.getApplicationContext().getBean("insertUtils");
 	}
 
-	@Autowired
-	protected CacheManager cache;
+//	@Autowired
+//	protected CacheManager cache;
 
 	/* (non-Javadoc)
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#getCache()
 	 */
-	@Override
-	public CacheManager getCache() {
-		return cache;
-	}
+//	@Override
+//	public CacheManager getCache() {
+//		return cache;
+//	}
 
 	/* (non-Javadoc)
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#setCache(org.springframework.cache.CacheManager)
 	 */
-	@Override
-	public void setCache(CacheManager cache) {
-		this.cache = cache;
-	}
+//	@Override
+//	public void setCache(CacheManager cache) {
+//		this.cache = cache;
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -70,12 +70,12 @@ public class InsertUtils implements InsertUtil{
 		// insertIntoTableMultipleRows(String tablename, Map<String,
 		// List<Object>> insertParams, int numRows) {
 		// manually clear userEquipsWithEquipId cache
-		Cache userEquipsWithEquipId = cache.getCache("userEquipsWithEquipId");
-		if (userEquipsWithEquipId != null) {
-			for (Integer id : equipIds) {
-				userEquipsWithEquipId.evict(userId + ":" + id);
-			}
-		}
+//		Cache userEquipsWithEquipId = cache.getCache("userEquipsWithEquipId");
+//		if (userEquipsWithEquipId != null) {
+//			for (Integer id : equipIds) {
+//				userEquipsWithEquipId.evict(userId + ":" + id);
+//			}
+//		}
 
 		Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
 		insertParams.put(DBConstants.USER_EQUIP__USER_ID,
