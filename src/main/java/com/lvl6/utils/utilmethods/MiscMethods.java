@@ -35,6 +35,7 @@ import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -399,7 +400,56 @@ public class MiscMethods {
     }
   }
 
-public static int chooseMysteryBoxEquip(User user) {
-	return 1;
-}
+  public static int chooseMysteryBoxEquip(User user) {
+	  int userLevelMin = user.getLevel()-ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
+	  int userLevelMax = user.getLevel()+ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
+	  double randItem = Math.random();
+	  double randSelection = Math.random();
+	  double totalPercentage = 0;
+	  int retEquipId = 1;
+
+	  List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(getClassTypeFromUserType(user.getType()));
+	  List<Equipment> commonEquips = new ArrayList<Equipment>();
+	  List<Equipment> uncommonEquips = new ArrayList<Equipment>();
+	  List<Equipment> rareEquips = new ArrayList<Equipment>();
+	  List<Equipment> epicEquips = new ArrayList<Equipment>();
+	  List<Equipment> legendaryEquips = new ArrayList<Equipment>();
+
+	  for (Equipment e:allEquipment) {
+	  	if (e.getMinLevel()>=userLevelMin && e.getMinLevel()<=userLevelMax) {
+	  		//the equipment is at the right level	
+	  		if (e.getRarity().equals(Rarity.COMMON)) {
+	  			commonEquips.add(e);
+	  		} else if (e.getRarity().equals(Rarity.UNCOMMON)) {
+	  			uncommonEquips.add(e);
+	  		} else if (e.getRarity().equals(Rarity.RARE)) {
+	  			rareEquips.add(e);
+	  		} else if (e.getRarity().equals(Rarity.EPIC)) {
+	  			epicEquips.add(e);
+	  		} else if (e.getRarity().equals(Rarity.LEGENDARY)) {
+	  			legendaryEquips.add(e);
+	  		} else {
+	  			log.error("ERROR! equipment " + e + " has no rarity");
+	  		}
+	  	}
+	  }
+	  if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_COMMON_EQUIP)) {
+	  	int selection = (int) randSelection*commonEquips.size();
+	  	retEquipId = commonEquips.get(selection).getId();
+	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_UNCOMMON_EQUIP)) {
+	  	int selection = (int) randSelection*uncommonEquips.size();	
+	  	retEquipId = uncommonEquips.get(selection).getId();
+	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_RARE_EQUIP)) {
+	  	int selection = (int) randSelection*rareEquips.size();	
+	  	retEquipId = rareEquips.get(selection).getId();
+	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_EPIC_EQUIP)) {
+	  	int selection = (int) randSelection*epicEquips.size();	
+	  	retEquipId = epicEquips.get(selection).getId();
+	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP)) {
+	  	int selection = (int) randSelection*legendaryEquips.size();
+	  	retEquipId = legendaryEquips.get(selection).getId();
+	  }
+	  
+	  return 1; //retEquipId;
+  }
 }
