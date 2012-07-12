@@ -184,7 +184,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     curDate.set(Calendar.SECOND, 0);
     curDate.set(Calendar.MILLISECOND, 0);
 
-    //Timestamp lastLogin = new Timestamp(1341946800000l); //1341946800000l = Tuesday
     Timestamp lastLogin = new Timestamp(user.getLastLogin().getTime());
     Calendar lastDate = Calendar.getInstance();
     lastDate.setTime(new Date(lastLogin.getTime()));
@@ -214,7 +213,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         //BIG BONUS
         if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
 
-          int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip();
+          int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip(user);
           int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive);
           if (userEquipId <= 0) {
             log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);

@@ -399,7 +399,7 @@ public class MiscMethods {
     }
   }
 
-public static int chooseMysteryBoxEquip() {
+public static int chooseMysteryBoxEquip(User user) {
 	return 1;
 }
 }
