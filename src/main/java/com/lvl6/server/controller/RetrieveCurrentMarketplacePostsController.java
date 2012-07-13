@@ -28,7 +28,6 @@ import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
 
   @Component @DependsOn("gameServer") public class RetrieveCurrentMarketplacePostsController extends EventController{
@@ -164,7 +163,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 		  diamondCost = (int) (equip.getDiamondPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
 	  }
       
-	  if (!InsertUtils.get().insertMarketplaceItem(fakePosterId, postType, equipIdToPopulate, diamondCost, coinCost, timeOfPost) {
+	  if (!InsertUtils.get().insertMarketplaceItem(fakePosterId, postType, equipIdToPopulate, diamondCost, coinCost, timeOfPost)) {
       log.error("problem with inserting post into marketplace. posterId=" + fakePosterId
           + ", postType=" + postType + ", postedEquipId=" + equipIdToPopulate
           + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost
