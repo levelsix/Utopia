@@ -427,11 +427,6 @@
 				<artifactId>cglib</artifactId>
 				<version>2.2.2</version>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-				<version>3.1.1.RELEASE</version>
-			</dependency>
 			<!-- <dependency> -->
 			<!-- <groupId>oauth.signpost</groupId> -->
 			<!-- <artifactId>oauth-signpost</artifactId> -->
