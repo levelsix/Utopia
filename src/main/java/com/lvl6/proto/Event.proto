@@ -143,7 +143,7 @@ message StartupResponseProto {
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
-		optional int32 silverBonus = 3;
+		optional int32 coinBonus = 3;
 		optional FullUserEquipProto userEquipBonus = 4;
 	}
 

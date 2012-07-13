@@ -228,8 +228,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           }
           //SMALL BONUS
         } else if (numConsecDaysPlayed>=ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS) {
-          dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());
-          //TODO: give user this much silver
+          int coinBonus = ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_COIN_QUANTITY*numConsecDaysPlayed*user.getLevel();
+          dbiBuilder.setCoinBonus(coinBonus);
+          if (!user.updateRelativeCoinsNaive(coinBonus)) {
+            log.error("problem with giving silver bonus of " + coinBonus + " to user " + user);
+          }
         }
       } else { //more than a day since last login
         if (!lastDate.before(curDate)) {
@@ -237,7 +240,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         }
         numConsecDaysPlayed = 1;
         dbiBuilder.setNumConsecutiveDaysPlayed(numConsecDaysPlayed);
-        dbiBuilder.setSilverBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_SILVER_QUANTITY*numConsecDaysPlayed*user.getLevel());					
+        dbiBuilder.setCoinBonus(ControllerConstants.STARTUP__DAILY_BONUS_SMALL_BONUS_COIN_QUANTITY*numConsecDaysPlayed*user.getLevel());					
       }
       resBuilder.setDailyBonusInfo(dbiBuilder.build());
       return numConsecDaysPlayed;

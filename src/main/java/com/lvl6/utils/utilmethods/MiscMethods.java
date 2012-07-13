@@ -448,8 +448,10 @@ public class MiscMethods {
 	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP)) {
 	  	int selection = (int) randSelection*legendaryEquips.size();
 	  	retEquipId = legendaryEquips.get(selection).getId();
+	  } else {
+	    return ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
 	  }
 	  
-	  return 1; //retEquipId;
+	  return retEquipId;
   }
 }
