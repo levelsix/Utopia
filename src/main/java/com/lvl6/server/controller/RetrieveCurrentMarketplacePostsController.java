@@ -1,6 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,19 +13,22 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveCurrentMarketplacePostsRequestEvent;
 import com.lvl6.events.response.RetrieveCurrentMarketplacePostsResponseEvent;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsRequestProto;
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto;
 import com.lvl6.proto.EventProto.RetrieveCurrentMarketplacePostsResponseProto.RetrieveCurrentMarketplacePostsStatus;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
+import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.InsertUtil;
 
   @Component @DependsOn("gameServer") public class RetrieveCurrentMarketplacePostsController extends EventController{
 
@@ -136,10 +141,30 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   }
 
   private void populateMarketplaceWithPosts(User user) {
-    /*
-     * TODO: 
-     * insert RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_FAKE_TO_POPULATE numbers of equip with id RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE posted by RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_ID
-     */
+	  int equipIdToPopulate = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE;
+	  int[] fakePosterIds = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_IDS;
+	  int fakePosterId = fakePosterIds[(int) (Math.random()*fakePosterIds.length)];
+	  MarketplacePostType postType = MarketplacePostType.NORM_EQUIP_POST;
+	  int diamondCost = 0;
+	  int coinCost = 0;
+	  InsertUtil insertUtil = null;
+	  Timestamp timeOfPost = new Timestamp(new Date().getTime());
+	  Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipIdToPopulate);
+	  
+	  if (!equip.isBuyableInArmory()) {
+		  log.error("ERROR, equip " + equip + "is not buyable in armory!");
+		  return;
+	  }
+
+	  if (equip.getDiamondPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
+		  postType = MarketplacePostType.NORM_EQUIP_POST;		
+		  coinCost = (int) (equip.getCoinPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
+	  } else {
+		  postType = MarketplacePostType.PREMIUM_EQUIP_POST;
+		  diamondCost = (int) (equip.getCoinPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
+	  }
+      
+	  insertUtil.insertMarketplaceItem(fakePosterId, postType, equipIdToPopulate, diamondCost, coinCost, timeOfPost);
   }
 
 }
