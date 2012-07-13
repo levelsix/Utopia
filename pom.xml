@@ -51,7 +51,7 @@
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
 		<apns.path.to.cert>LostNationsAPNSDev07132012.p12</apns.path.to.cert>
-		<apns.cert.password>rrrobashen123</apns.cert.password>
+		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -67,7 +67,7 @@
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
-				<hazelcast.port>6701</hazelcast.port>
+				<hazelcast.port>6702</hazelcast.port>
 				<!-- <hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips> -->
 				<hazelcast.dev.ips>192.168.13.105</hazelcast.dev.ips>
 			</properties>
@@ -237,6 +237,16 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<excludes>
+					<exclude>*.p12</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>*.p12</include>
+				</includes>
 			</resource>
 		</resources>
 		<testResources>

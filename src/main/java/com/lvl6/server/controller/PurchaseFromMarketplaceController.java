@@ -132,7 +132,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }
 
     if (totalSellerDiamondChange != 0 || totalSellerCoinChange != 0) {
-      if (!seller.updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive(totalSellerDiamondChange, totalSellerCoinChange, -1, 1)) {
+      if (!seller.isFake() && !seller.updateRelativeDiamondsearningsCoinsearningsNumpostsinmarketplaceNummarketplacesalesunredeemedNaive(
+          totalSellerDiamondChange, totalSellerCoinChange, -1, 1)) {
         log.error("problem with updating seller info. diamondChange=" + totalSellerDiamondChange
             + ", coinChange=" + totalSellerCoinChange + ", num posts in marketplace decremented by 1, " +
             		"num marketplace sales unredeemed increased by 1");
