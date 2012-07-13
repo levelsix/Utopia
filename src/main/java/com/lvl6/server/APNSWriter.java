@@ -1,5 +1,6 @@
 package com.lvl6.server;
 
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class APNSWriter extends Wrap {
 	@Autowired
 	private GameServer server;
 
-	private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+	private static Logger log = Logger.getLogger(APNSWriter.class);
 
 	private static final int SOFT_MAX_NOTIFICATION_BADGES = 10;
 
@@ -134,12 +135,13 @@ public class APNSWriter extends Wrap {
 	
 	
 	protected ApnsService service;
-	private ApnsService getApnsService() {
+	public ApnsService getApnsService() {
 		if(service == null ) {
 			log.info("Apns Service null... building new");
 			buildService();
 		}
 		try{
+			log.info("Testing APNS connection");
 			service.testConnection();
 		}catch(Throwable e) {
 			log.info("ApnsService connection test failed... building again");
@@ -150,16 +152,15 @@ public class APNSWriter extends Wrap {
 
 	protected void buildService() {
 		log.info("Building ApnsService");
-		
+		InputStream cert = ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert);
 		ApnsServiceBuilder builder = APNS
 				.newService()
-				.withCert(ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert), apnsProperties.certPassword)
+				.withCert(cert, apnsProperties.certPassword)
 				.asNonBlocking();
 
 		if (Globals.IS_SANDBOX()) {
 			builder.withSandboxDestination();
 		}
-
 		service = builder.build();
 	}
 
