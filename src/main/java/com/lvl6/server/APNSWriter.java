@@ -105,7 +105,7 @@ public class APNSWriter extends Wrap {
 				try {
 					ApnsService service;
 					service = getApnsService();
-					service.start();
+					//service.start();
 					Date now = new Date();
 					if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime()
 							+ 60000
@@ -144,7 +144,7 @@ public class APNSWriter extends Wrap {
 					// user.getDeviceToken());
 					// }
 
-					service.stop();
+					//service.stop();
 				} catch (FileNotFoundException e) {
 					log.error(e);
 				}
@@ -183,6 +183,7 @@ public class APNSWriter extends Wrap {
 			builder.withSandboxDestination();
 		}
 		service = builder.build();
+		service.start();
 	}
 
 	private void handlePostOnPlayerWallNotification(ApnsService service,
