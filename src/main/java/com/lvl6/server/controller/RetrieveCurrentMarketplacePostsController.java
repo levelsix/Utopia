@@ -29,6 +29,7 @@ import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
   @Component @DependsOn("gameServer") public class RetrieveCurrentMarketplacePostsController extends EventController{
 
@@ -144,10 +145,9 @@ import com.lvl6.utils.utilmethods.InsertUtil;
 	  int equipIdToPopulate = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE;
 	  int[] fakePosterIds = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_IDS;
 	  int fakePosterId = fakePosterIds[(int) (Math.random()*fakePosterIds.length)];
-	  MarketplacePostType postType = MarketplacePostType.NORM_EQUIP_POST;
+	  MarketplacePostType postType;
 	  int diamondCost = 0;
 	  int coinCost = 0;
-	  InsertUtil insertUtil = null;
 	  Timestamp timeOfPost = new Timestamp(new Date().getTime());
 	  Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipIdToPopulate);
 	  
@@ -161,10 +161,10 @@ import com.lvl6.utils.utilmethods.InsertUtil;
 		  coinCost = (int) (equip.getCoinPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
 	  } else {
 		  postType = MarketplacePostType.PREMIUM_EQUIP_POST;
-		  diamondCost = (int) (equip.getCoinPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
+		  diamondCost = (int) (equip.getDiamondPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
 	  }
       
-	  insertUtil.insertMarketplaceItem(fakePosterId, postType, equipIdToPopulate, diamondCost, coinCost, timeOfPost);
+	  InsertUtils.get().insertMarketplaceItem(fakePosterId, postType, equipIdToPopulate, diamondCost, coinCost, timeOfPost);
   }
 
 }
