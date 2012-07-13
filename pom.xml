@@ -50,8 +50,8 @@
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
-		<apns.path.to.cert>LostNationsAPNSDev.p12</apns.path.to.cert>
-		<apns.cert.password>robashen123</apns.cert.password>
+		<apns.path.to.cert>LostNationsAPNSDev07132012.p12</apns.path.to.cert>
+		<apns.cert.password>rrrobashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>

@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lvl6.properties.APNSProperties;
+import com.lvl6.server.APNSWriter;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,11 +29,22 @@ public class ApnsTests {
 		return props;
 	}
 
-
 	public void setProps(APNSProperties props) {
 		this.props = props;
 	}
 
+	
+	@Autowired
+	protected APNSWriter writer;
+
+
+	public APNSWriter getWriter() {
+		return writer;
+	}
+
+	public void setWriter(APNSWriter writer) {
+		this.writer = writer;
+	}
 
 	@Test
 	public void testApnsCertLocation() throws IOException{
@@ -40,6 +52,11 @@ public class ApnsTests {
 		if(stream.available() > 0) {
 			log.info("Apns Cert found");
 		}
+	}
+	
+	//@Test
+	public void testApnsWriter() {
+		writer.getApnsService();
 	}
 	
 }

@@ -31,8 +31,8 @@
 		<property name="jdbcUrl"><value><![CDATA[${jdbc.url}]]></value></property>
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-		<property name="idleConnectionTestPeriod" value="60" />
-		<property name="idleMaxAge" value="240" />
+		<property name="idleConnectionTestPeriod" value="1" />
+		<property name="idleMaxAge" value="10" />
 		<property name="maxConnectionsPerPartition" value="4" />
 		<property name="minConnectionsPerPartition" value="2" />
 		<property name="partitionCount" value="3" />
