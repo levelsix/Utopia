@@ -84,14 +84,14 @@ import com.lvl6.utils.utilmethods.InsertUtils;
             activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
           } else {
             activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
-            populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts);
+            populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
           }
         }
         int i = 0;
         while (populateMarketplace && i < ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES) {
           populateMarketplaceWithPosts(user);
           activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
-          populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts);
+          populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
           i++;
         }
         if (activeMarketplacePosts != null && activeMarketplacePosts.size() > 0) {
@@ -125,7 +125,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
   }
 
-  private boolean checkWhetherToPopulateMarketplace(List<MarketplacePost> activeMarketplacePosts) {
+  private boolean checkWhetherToPopulateMarketplace(List<MarketplacePost> activeMarketplacePosts, User user) {
     if (activeMarketplacePosts == null || activeMarketplacePosts.size() <= 0) {
       return true;
     }
@@ -133,7 +133,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       return false;
     }
     for (MarketplacePost mp : activeMarketplacePosts) {
-      if (mp.getPostedEquipId() == ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE) {
+      if (mp.getPostedEquipId() == ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE
+    		  && (mp.getPosterId() != user.getId())) {
         return false;
       }
     }
