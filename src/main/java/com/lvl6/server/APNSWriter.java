@@ -1,6 +1,9 @@
 package com.lvl6.server;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
@@ -100,33 +103,38 @@ public class APNSWriter extends Wrap {
 			log.info("received APNS notification to send to player with id " + playerId);
 			User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
 			if (user != null && user.getDeviceToken() != null && user.getDeviceToken().length() > 0) {
-				ApnsService service = getApnsService();
-
-				Date now = new Date();
-				if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime() + 60000*MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH
-						< now.getTime()) {
-					LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = now;
-					Map<String, Date> inactiveDevices = service.getInactiveDevices();
-					UpdateUtils.get().updateNullifyDeviceTokens(inactiveDevices.keySet());
+				try {
+					ApnsService service;
+					service = getApnsService();
+	
+					Date now = new Date();
+					if (LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME.getTime() + 60000*MINUTES_BETWEEN_INACTIVE_DEVICE_TOKEN_FLUSH
+							< now.getTime()) {
+						LAST_NULLIFY_INACTIVE_DEVICE_TOKEN_TIME = now;
+						Map<String, Date> inactiveDevices = service.getInactiveDevices();
+						UpdateUtils.get().updateNullifyDeviceTokens(inactiveDevices.keySet());
+					}
+	
+					if (BattleResponseEvent.class.isInstance(event)) {
+						handleBattleNotification(service, (BattleResponseEvent)event, user, user.getDeviceToken());
+					}
+	
+					if (PurchaseFromMarketplaceResponseEvent.class.isInstance(event)) {
+						handlePurchaseFromMarketplaceNotification(service, (PurchaseFromMarketplaceResponseEvent)event, user, user.getDeviceToken());
+					}
+	
+					if (PostOnPlayerWallResponseEvent.class.isInstance(event)) {
+						handlePostOnPlayerWallNotification(service, (PostOnPlayerWallResponseEvent)event, user, user.getDeviceToken());
+					}
+	
+					//        if (ReferralCodeUsedResponseEvent.class.isInstance(event)) {
+						//          handleReferralCodeUsedNotification(service, (ReferralCodeUsedResponseEvent)event, user, user.getDeviceToken());
+					//        }
+	
+					service.stop();
+				} catch (FileNotFoundException e) {
+					log.error(e);
 				}
-
-				if (BattleResponseEvent.class.isInstance(event)) {
-					handleBattleNotification(service, (BattleResponseEvent)event, user, user.getDeviceToken());
-				}
-
-				if (PurchaseFromMarketplaceResponseEvent.class.isInstance(event)) {
-					handlePurchaseFromMarketplaceNotification(service, (PurchaseFromMarketplaceResponseEvent)event, user, user.getDeviceToken());
-				}
-
-				if (PostOnPlayerWallResponseEvent.class.isInstance(event)) {
-					handlePostOnPlayerWallNotification(service, (PostOnPlayerWallResponseEvent)event, user, user.getDeviceToken());
-				}
-
-				//        if (ReferralCodeUsedResponseEvent.class.isInstance(event)) {
-					//          handleReferralCodeUsedNotification(service, (ReferralCodeUsedResponseEvent)event, user, user.getDeviceToken());
-				//        }
-
-				service.stop();
 			} else {
 				log.info("could not send push notification because user " + user + " has no device token");
 			}
@@ -135,7 +143,7 @@ public class APNSWriter extends Wrap {
 	
 	
 	protected ApnsService service;
-	public ApnsService getApnsService() {
+	public ApnsService getApnsService() throws FileNotFoundException {
 		if(service == null ) {
 			log.info("Apns Service null... building new");
 			buildService();
@@ -150,12 +158,12 @@ public class APNSWriter extends Wrap {
 		return service;
 	}
 
-	protected void buildService() {
+	protected void buildService() throws FileNotFoundException {
 		log.info("Building ApnsService");
-		InputStream cert = ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert);
+		InputStream stream = getClass().getClassLoader().getSystemResourceAsStream(apnsProperties.pathToCert);
 		ApnsServiceBuilder builder = APNS
 				.newService()
-				.withCert(cert, apnsProperties.certPassword)
+				.withCert(stream, apnsProperties.certPassword)
 				.asNonBlocking();
 
 		if (Globals.IS_SANDBOX()) {
