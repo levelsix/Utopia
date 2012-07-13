@@ -157,7 +157,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 //      }
 //    }
     
-    if (InsertUtils.get().insertUserEquip(buyer.getId(), mp.getPostedEquipId()) < 0) {
+    if (InsertUtils.get().insertUserEquip(buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel()) < 0) {
       log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
     }
 

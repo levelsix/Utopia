@@ -20,31 +20,37 @@ public class Equipment implements Serializable {
 	private int minLevel;
 	private int coinPrice = NOT_SET;
 	private int diamondPrice = NOT_SET;
-	private float chanceOfLoss = NOT_SET;
+	private float chanceOfLoss;
 	private ClassType classType;
 	private Rarity rarity;
 	private boolean isBuyableInArmory;
+	private float chanceOfForgeFailureBase;
+  private int costToAttemptForgeBase;
 
 	public Equipment(int id, String name, EquipType type, String description,
-			int attackBoost, int defenseBoost, int minLevel, int coinPrice,
-			int diamondPrice, float chanceOfLoss, ClassType classType,
-			Rarity rarity, boolean isBuyableInArmory) {
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.description = description;
-		this.attackBoost = attackBoost;
-		this.defenseBoost = defenseBoost;
-		this.minLevel = minLevel;
-		this.coinPrice = coinPrice;
-		this.diamondPrice = diamondPrice;
-		this.chanceOfLoss = chanceOfLoss;
-		this.classType = classType;
-		this.rarity = rarity;
-		this.isBuyableInArmory = isBuyableInArmory;
-	}
+      int attackBoost, int defenseBoost, int minLevel, int coinPrice,
+      int diamondPrice, float chanceOfLoss, ClassType classType, Rarity rarity,
+      boolean isBuyableInArmory, float chanceOfForgeFailureBase,
+      int costToAttemptForgeBase) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.description = description;
+    this.attackBoost = attackBoost;
+    this.defenseBoost = defenseBoost;
+    this.minLevel = minLevel;
+    this.coinPrice = coinPrice;
+    this.diamondPrice = diamondPrice;
+    this.chanceOfLoss = chanceOfLoss;
+    this.classType = classType;
+    this.rarity = rarity;
+    this.isBuyableInArmory = isBuyableInArmory;
+    this.chanceOfForgeFailureBase = chanceOfForgeFailureBase;
+    this.costToAttemptForgeBase = costToAttemptForgeBase;
+  }
 
-	public static int getNotSet() {
+  public static int getNotSet() {
 		return NOT_SET;
 	}
 
@@ -100,15 +106,24 @@ public class Equipment implements Serializable {
 		return isBuyableInArmory;
 	}
 
-	@Override
-	public String toString() {
-		return "Equipment [id=" + id + ", name=" + name + ", type=" + type
-				+ ", description=" + description + ", attackBoost="
-				+ attackBoost + ", defenseBoost=" + defenseBoost
-				+ ", minLevel=" + minLevel + ", coinPrice=" + coinPrice
-				+ ", diamondPrice=" + diamondPrice + ", chanceOfLoss="
-				+ chanceOfLoss + ", classType=" + classType + ", rarity="
-				+ rarity + ", isBuyableInArmory=" + isBuyableInArmory + "]";
-	}
+  public float getChanceOfForgeFailureBase() {
+    return chanceOfForgeFailureBase;
+  }
+
+  public int getCostToAttemptForgeBase() {
+    return costToAttemptForgeBase;
+  }
+
+  @Override
+  public String toString() {
+    return "Equipment [id=" + id + ", name=" + name + ", type=" + type
+        + ", description=" + description + ", attackBoost=" + attackBoost
+        + ", defenseBoost=" + defenseBoost + ", minLevel=" + minLevel
+        + ", coinPrice=" + coinPrice + ", diamondPrice=" + diamondPrice
+        + ", chanceOfLoss=" + chanceOfLoss + ", classType=" + classType
+        + ", rarity=" + rarity + ", isBuyableInArmory=" + isBuyableInArmory
+        + ", chanceOfForgeFailureBase=" + chanceOfForgeFailureBase
+        + ", costToAttemptForgeBase=" + costToAttemptForgeBase + "]";
+  }
 
 }

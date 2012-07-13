@@ -15,6 +15,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
 import com.lvl6.info.UserQuest;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.QuestRedeemRequestProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto.Builder;
@@ -146,7 +147,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
 
     if (quest.getEquipIdGained() > 0) {
-      if (InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained()) < 0) {
+      if (InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL) < 0) {
         log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
             + quest.getEquipIdGained());
       } else {

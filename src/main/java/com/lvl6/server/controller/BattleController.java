@@ -318,7 +318,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
         }
       } 
-      if (InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId()) < 0) {
+      if (InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId(), lostEquip.getLevel()) < 0) {
         log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
       }
     }

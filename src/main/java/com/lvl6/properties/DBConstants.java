@@ -19,6 +19,8 @@ public class DBConstants {
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
   public static final String TABLE_CITIES = "cities";
   public static final String TABLE_IAP_HISTORY = "iap_history";
+  public static final String TABLE_FORGE = "forge";
+  public static final String TABLE_FORGE_HISTORY = "forge_history";
   public static final String TABLE_MARKETPLACE = "marketplace";
   public static final String TABLE_MARKETPLACE_TRANSACTION_HISTORY = "marketplace_transaction_history";
   public static final String TABLE_JOBS_BUILD_STRUCT = "jobs_build_struct";
@@ -97,13 +99,8 @@ public class DBConstants {
   public static final String USER_EQUIP__ID = GENERIC__ID;
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;
   public static final String USER_EQUIP__EQUIP_ID = "equip_id";
-
-  /*EQUIPMENT TABLE*/
-  public static final String EQUIPMENT__ID = GENERIC__ID;
-
-  /*STRUCTURE TABLE*/
-  public static final String STRUCTURE__ID = GENERIC__ID;
-
+  public static final String USER_EQUIP__LEVEL = "level";
+  
   /*USER TASK TABLE*/
   public static final String USER_TASK__USER_ID = GENERIC__USER_ID;
   public static final String USER_TASK__TASK_ID = "task_id";
@@ -136,7 +133,8 @@ public class DBConstants {
   public static final String MARKETPLACE__POSTED_EQUIP_ID = "posted_equip_id";
   public static final String MARKETPLACE__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE__COIN_COST = "coin_cost";
-  
+  public static final String MARKETPLACE__EQUIP_LEVEL = "equip_level";
+
   /*MARKETPLACE HISTORY TABLE*/
   public static final String MARKETPLACE_TRANSACTION_HISTORY__MARKETPLACE_ID = "marketplace_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID = "poster_id";
@@ -147,6 +145,7 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID = "posted_equip_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL = "equip_level";
   
   /*USER STRUCTS TABLE*/
   public static final String USER_STRUCTS__ID = GENERIC__ID;

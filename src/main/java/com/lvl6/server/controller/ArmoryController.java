@@ -115,7 +115,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 //            log.error("problem with equipping " + equipment + " for user " + user);
 //          }
 //        }
-        if (InsertUtils.get().insertUserEquip(user.getId(), equipId) < 0) {
+        if (InsertUtils.get().insertUserEquip(user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL) < 0) {
           log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
           legitBuy = false;
         }

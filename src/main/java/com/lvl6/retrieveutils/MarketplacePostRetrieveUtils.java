@@ -132,9 +132,11 @@ import com.lvl6.utils.DBConnection;
     
     int coinCost = rs.getInt(i++);
     if (coinCost == 0) coinCost = ControllerConstants.NOT_SET;
+    
+    int equipLevel = rs.getInt(i++);
 
     MarketplacePost mp = new MarketplacePost(id, posterId, postType, timeOfPost, 
-        postedEquipId, diamondCost, coinCost);
+        postedEquipId, diamondCost, coinCost, equipLevel);
   
     return mp;
   }

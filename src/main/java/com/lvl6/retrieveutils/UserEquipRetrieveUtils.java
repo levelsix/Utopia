@@ -143,7 +143,8 @@ import com.lvl6.utils.DBConnection;
     int userEquipId = rs.getInt(i++);
     int userId = rs.getInt(i++);
     int equipId = rs.getInt(i++);
-    UserEquip userEquip = new UserEquip(userEquipId, userId, equipId);
+    int level = rs.getInt(i++);
+    UserEquip userEquip = new UserEquip(userEquipId, userId, equipId, level);
     return userEquip;
   }
 

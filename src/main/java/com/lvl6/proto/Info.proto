@@ -126,6 +126,8 @@ message FullEquipProto {
 	optional ClassType classType = 11;
 	optional Rarity rarity = 12;
 	optional bool isBuyableInArmory = 13;
+	optional float chanceOfForgeFailureBase = 14;
+	optional int32 costToAttemptForgeBase = 15;
 	
 	enum Rarity {
 		COMMON = 0;
@@ -170,6 +172,7 @@ message FullUserEquipProto {
 	optional int32 userEquipId = 1;
 	optional int32 userId = 2;
 	optional int32 equipId = 3;
+	optional int32 level = 4;
 }
 
 //------------------------------------------------------------------------------------------
@@ -311,6 +314,7 @@ message FullMarketplacePostProto {
 	optional FullEquipProto postedEquip = 5;
 	optional int32 diamondCost = 6;
 	optional int32 coinCost = 7;
+	optional int32 equipLevel = 8;
 }
 
 //------------------------------------------------------------------------------------------

@@ -52,49 +52,6 @@ public class InsertUtils implements InsertUtil{
 //		this.cache = cache;
 //	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int,
-	 * java.util.List, int)
-	 */
-	/* (non-Javadoc)
-	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int, java.util.List, int)
-	 */
-	@Override
-	@Caching(evict = {
-			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
-			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"), })
-	public boolean insertUserEquips(int userId, List<Integer> equipIds,
-			int quantity) {
-		// insertIntoTableMultipleRows(String tablename, Map<String,
-		// List<Object>> insertParams, int numRows) {
-		// manually clear userEquipsWithEquipId cache
-//		Cache userEquipsWithEquipId = cache.getCache("userEquipsWithEquipId");
-//		if (userEquipsWithEquipId != null) {
-//			for (Integer id : equipIds) {
-//				userEquipsWithEquipId.evict(userId + ":" + id);
-//			}
-//		}
-
-		Map<String, List<Object>> insertParams = new HashMap<String, List<Object>>();
-		insertParams.put(DBConstants.USER_EQUIP__USER_ID,
-				new ArrayList<Object>());
-		insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID,
-				new ArrayList<Object>());
-		for (Integer equipId : equipIds) {
-			insertParams.get(DBConstants.USER_EQUIP__USER_ID).add(userId);
-			insertParams.get(DBConstants.USER_EQUIP__EQUIP_ID).add(equipId);
-		}
-
-		int numInserted = DBConnection.get().insertIntoTableMultipleRows(
-				DBConstants.TABLE_USER_EQUIP, insertParams, equipIds.size());
-		if (numInserted == equipIds.size()) {
-			return true;
-		}
-		return false;
-	}
-
 	/* (non-Javadoc)
 	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquip(int, int)
 	 */
@@ -103,10 +60,11 @@ public class InsertUtils implements InsertUtil{
 			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
 			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
 			@CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })
-	public int insertUserEquip(int userId, int equipId) {
+	public int insertUserEquip(int userId, int equipId, int level) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
 		insertParams.put(DBConstants.USER_EQUIP__USER_ID, userId);
 		insertParams.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.USER_EQUIP__LEVEL, level);
 
 		int userEquipId = DBConnection.get().insertIntoTableBasicReturnId(
 				DBConstants.TABLE_USER_EQUIP, insertParams);

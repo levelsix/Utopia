@@ -23,23 +23,12 @@ public interface InsertUtil {
 //
 //	public abstract void setCache(CacheManager cache);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int,
-	 * java.util.List, int)
-	 */
-	@Caching(evict = {
-			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
-			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"), })
-	public abstract boolean insertUserEquips(int userId,
-			List<Integer> equipIds, int quantity);
 
 	@Caching(evict = {
 			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
 			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
 			@CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })
-	public abstract int insertUserEquip(int userId, int equipId);
+	public abstract int insertUserEquip(int userId, int equipId, int level);
 
 	/*
 	 * (non-Javadoc)
