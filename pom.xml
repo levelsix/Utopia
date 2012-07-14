@@ -437,16 +437,16 @@
 				<artifactId>cglib</artifactId>
 				<version>2.2.2</version>
 			</dependency>
-			<!-- <dependency> -->
-			<!-- <groupId>oauth.signpost</groupId> -->
-			<!-- <artifactId>oauth-signpost</artifactId> -->
-			<!-- <version>1.2.1.2</version> -->
-			<!-- </dependency> -->
-			<!-- <dependency> -->
-			<!-- <groupId>oauth.signpost</groupId> -->
-			<!-- <artifactId>signpost-commonshttp4</artifactId> -->
-			<!-- <version>1.2.1.2</version> -->
-			<!-- </dependency> -->
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-core</artifactId>
+				<version>1.5.7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>3.1.1.RELEASE</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -488,34 +488,6 @@
 			<groupId>json-java</groupId>
 			<artifactId>json-java</artifactId>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-servlet-api</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-catalina</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-annotations-api</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-api</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-juli</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-util</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-coyote</artifactId> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-all</artifactId>
@@ -584,14 +556,14 @@
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>oauth.signpost</groupId> -->
-		<!-- <artifactId>oauth-signpost</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>oauth.signpost</groupId> -->
-		<!-- <artifactId>signpost-commonshttp4</artifactId> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>

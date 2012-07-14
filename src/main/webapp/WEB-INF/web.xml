@@ -37,7 +37,18 @@
 	<!-- <filter-name>springSecurityFilterChain</filter-name> -->
 	<!-- <url-pattern>/*</url-pattern> -->
 	<!-- </filter-mapping> -->
-
+	<filter>
+		<filter-name>Lvl6Admin</filter-name>
+		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+		<init-param>
+			<param-name>applicationClassName</param-name>
+			<param-value>com.lvl6.ui.admin.Lvl6Admin</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Lvl6Admin</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
 
