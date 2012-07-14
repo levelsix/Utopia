@@ -189,11 +189,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
     if (!insertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
-        diamondCost, coinCost, timeOfPost)) {
+        diamondCost, coinCost, timeOfPost, ue.getLevel())) {
       log.error("problem with inserting post into marketplace. posterId=" + posterId
           + ", postType=" + postType + ", postedEquipId=" + postedEquipId
           + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost
-          + ", timeOfPost=" + timeOfPost);      
+          + ", timeOfPost=" + timeOfPost + ", equipLevel=" + ue.getLevel());      
     }
   } 
 

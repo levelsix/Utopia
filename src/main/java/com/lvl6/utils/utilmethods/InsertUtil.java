@@ -78,8 +78,8 @@ public interface InsertUtil {
 			int diamondChange, User user, double cashCost);
 
 	public abstract boolean insertMarketplaceItem(int posterId,
-			MarketplacePostType postType, int postedEquipId, int diamondCost,
-			int coinCost, Timestamp timeOfPost);
+      MarketplacePostType postType, int postedEquipId, int diamondCost,
+      int coinCost, Timestamp timeOfPost, int equipLevel);
 
 	public abstract boolean insertMarketplaceItemIntoHistory(
 			MarketplacePost mp, int buyerId);

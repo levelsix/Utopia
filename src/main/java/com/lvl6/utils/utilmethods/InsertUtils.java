@@ -342,7 +342,7 @@ public class InsertUtils implements InsertUtil{
 	@Override
 	public boolean insertMarketplaceItem(int posterId,
 			MarketplacePostType postType, int postedEquipId, int diamondCost,
-			int coinCost, Timestamp timeOfPost) {
+			int coinCost, Timestamp timeOfPost, int equipLevel) {
 		Map<String, Object> insertParams = new HashMap<String, Object>();
 
 		insertParams.put(DBConstants.MARKETPLACE__POSTER_ID, posterId);
@@ -351,6 +351,7 @@ public class InsertUtils implements InsertUtil{
 		insertParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID,
 				postedEquipId);
 		insertParams.put(DBConstants.MARKETPLACE__TIME_OF_POST, timeOfPost);
+		insertParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, equipLevel);
 
 		if (diamondCost > 0) {
 			insertParams
@@ -396,6 +397,9 @@ public class InsertUtils implements InsertUtil{
 		insertParams.put(
 				DBConstants.MARKETPLACE_TRANSACTION_HISTORY__TIME_OF_PURCHASE,
 				new Timestamp(new Date().getTime()));
+    insertParams.put(
+        DBConstants.MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL, 
+        mp.getEquipLevel());
 
 		insertParams.put(
 				DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID,
