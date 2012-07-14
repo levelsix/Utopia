@@ -180,6 +180,7 @@ public class APNSWriter extends Wrap {
 				.withCert(stream, apnsProperties.certPassword).asNonBlocking();
 
 		if (Globals.IS_SANDBOX()) {
+			log.info("Building apns with sandbox=true");
 			builder.withSandboxDestination();
 		}
 		service = builder.build();
