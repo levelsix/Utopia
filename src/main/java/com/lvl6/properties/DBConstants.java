@@ -19,8 +19,8 @@ public class DBConstants {
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
   public static final String TABLE_CITIES = "cities";
   public static final String TABLE_IAP_HISTORY = "iap_history";
-  public static final String TABLE_FORGE = "forge";
-  public static final String TABLE_FORGE_HISTORY = "forge_history";
+  public static final String TABLE_BLACKSMITH = "blacksmith";
+  public static final String TABLE_BLACKSMITH_HISTORY = "blacksmith_history";
   public static final String TABLE_MARKETPLACE = "marketplace";
   public static final String TABLE_MARKETPLACE_TRANSACTION_HISTORY = "marketplace_transaction_history";
   public static final String TABLE_JOBS_BUILD_STRUCT = "jobs_build_struct";
