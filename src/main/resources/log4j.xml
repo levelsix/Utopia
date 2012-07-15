@@ -2,10 +2,11 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-		<appender name="console" class="org.apache.log4j.ConsoleAppender">
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
-			<param name="ConversionPattern" value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
+			<param name="ConversionPattern"
+				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
 		</layout>
 	</appender>
 
@@ -13,19 +14,21 @@
 		<param name="file" value="${lvl6.server.log.location}.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="10" />
-		<param name="Threshold" value="INFO"/>
+		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
-			<param name="ConversionPattern" value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
+			<param name="ConversionPattern"
+				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
 		</layout>
 	</appender>
-	
-	<appender name="ERROR_LOG" class="org.apache.log4j.RollingFileAppender" >
+
+	<appender name="ERROR_LOG" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="${lvl6.server.log.location}_errors.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="30" />
-		<param name="Threshold" value="ERROR"/>
+		<param name="Threshold" value="ERROR" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
-			<param name="ConversionPattern" value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
+			<param name="ConversionPattern"
+				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
 		</layout>
 	</appender>
 
