@@ -10,7 +10,7 @@
 	</appender>
 
 	<appender name="R" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="${lvl6.server.log.location}" />
+		<param name="file" value="${lvl6.server.log.location}.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<param name="Threshold" value="INFO"/>
@@ -20,7 +20,7 @@
 	</appender>
 	
 	<appender name="ERROR_LOG" class="org.apache.log4j.RollingFileAppender" >
-		<param name="file" value="errors_${lvl6.server.log.location}" />
+		<param name="file" value="${lvl6.server.log.location}_errors.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="30" />
 		<param name="Threshold" value="ERROR"/>
