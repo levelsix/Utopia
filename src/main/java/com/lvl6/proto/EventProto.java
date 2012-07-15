@@ -87338,7 +87338,8 @@ public final class EventProto {
       DOES_NOT_HAVE_NECESSARY_USER_EQUIPS(3, 3),
       SUBMITTED_EQUIPS_NOT_SAME_LEVEL(4, 4),
       TRYING_TO_SURPASS_MAX_LEVEL(5, 5),
-      OTHER_FAIL(6, 6),
+      ALREADY_FORGING(6, 6),
+      OTHER_FAIL(7, 7),
       ;
       
       public static final int SUCCESS_VALUE = 0;
@@ -87347,7 +87348,8 @@ public final class EventProto {
       public static final int DOES_NOT_HAVE_NECESSARY_USER_EQUIPS_VALUE = 3;
       public static final int SUBMITTED_EQUIPS_NOT_SAME_LEVEL_VALUE = 4;
       public static final int TRYING_TO_SURPASS_MAX_LEVEL_VALUE = 5;
-      public static final int OTHER_FAIL_VALUE = 6;
+      public static final int ALREADY_FORGING_VALUE = 6;
+      public static final int OTHER_FAIL_VALUE = 7;
       
       
       public final int getNumber() { return value; }
@@ -87360,7 +87362,8 @@ public final class EventProto {
           case 3: return DOES_NOT_HAVE_NECESSARY_USER_EQUIPS;
           case 4: return SUBMITTED_EQUIPS_NOT_SAME_LEVEL;
           case 5: return TRYING_TO_SURPASS_MAX_LEVEL;
-          case 6: return OTHER_FAIL;
+          case 6: return ALREADY_FORGING;
+          case 7: return OTHER_FAIL;
           default: return null;
         }
       }
@@ -87391,7 +87394,7 @@ public final class EventProto {
       }
       
       private static final SubmitEquipsToBlacksmithStatus[] VALUES = {
-        SUCCESS, NOT_ENOUGH_COINS_TO_FORGE, NOT_ENOUGH_DIAMONDS_FOR_GUARANTEE, DOES_NOT_HAVE_NECESSARY_USER_EQUIPS, SUBMITTED_EQUIPS_NOT_SAME_LEVEL, TRYING_TO_SURPASS_MAX_LEVEL, OTHER_FAIL, 
+        SUCCESS, NOT_ENOUGH_COINS_TO_FORGE, NOT_ENOUGH_DIAMONDS_FOR_GUARANTEE, DOES_NOT_HAVE_NECESSARY_USER_EQUIPS, SUBMITTED_EQUIPS_NOT_SAME_LEVEL, TRYING_TO_SURPASS_MAX_LEVEL, ALREADY_FORGING, OTHER_FAIL, 
       };
       
       public static SubmitEquipsToBlacksmithStatus valueOf(
@@ -92802,52 +92805,52 @@ public final class EventProto {
       "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
       "mUserProto\022\024\n\014userEquipOne\030\002 \001(\005\022\024\n\014user" +
       "EquipTwo\030\003 \001(\005\022\027\n\017paidToGuarantee\030\004 \001(\005\"" +
-      "\312\003\n%SubmitEquipsToBlacksmithResponseProt" +
+      "\337\003\n%SubmitEquipsToBlacksmithResponseProt" +
       "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
       "umUserProto\022d\n\006status\030\002 \001(\0162T.com.lvl6.p",
       "roto.SubmitEquipsToBlacksmithResponsePro" +
       "to.SubmitEquipsToBlacksmithStatus\022\024\n\014bla" +
-      "cksmithId\030\003 \001(\005\"\362\001\n\036SubmitEquipsToBlacks" +
+      "cksmithId\030\003 \001(\005\"\207\002\n\036SubmitEquipsToBlacks" +
       "mithStatus\022\013\n\007SUCCESS\020\000\022\035\n\031NOT_ENOUGH_CO" +
       "INS_TO_FORGE\020\001\022%\n!NOT_ENOUGH_DIAMONDS_FO" +
       "R_GUARANTEE\020\002\022\'\n#DOES_NOT_HAVE_NECESSARY" +
       "_USER_EQUIPS\020\003\022#\n\037SUBMITTED_EQUIPS_NOT_S" +
       "AME_LEVEL\020\004\022\037\n\033TRYING_TO_SURPASS_MAX_LEV" +
-      "EL\020\005\022\016\n\nOTHER_FAIL\020\006\"\177\n$ForgeAttemptWait" +
-      "CompleteRequestProto\0220\n\006sender\030\001 \001(\0132 .c",
-      "om.lvl6.proto.MinimumUserProto\022\024\n\014blacks" +
-      "mithId\030\002 \001(\005\022\017\n\007curTime\030\003 \001(\003\"\267\002\n%ForgeA" +
-      "ttemptWaitCompleteResponseProto\0220\n\006sende" +
-      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
-      "o\022d\n\006status\030\002 \001(\0162T.com.lvl6.proto.Forge" +
-      "AttemptWaitCompleteResponseProto.ForgeAt" +
-      "temptWaitCompleteStatus\"v\n\036ForgeAttemptW" +
-      "aitCompleteStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DO" +
-      "NE_YET\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIENT_TOO_A" +
-      "PART_FROM_SERVER_TIME\020\003\"\223\001\n2FinishForgeA",
-      "ttemptWaittimeWithDiamondsRequestProto\0220" +
-      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\022\024\n\014blacksmithId\030\002 \001(\005\022\025\n\rtimeOf" +
-      "Speedup\030\003 \001(\003\"\336\002\n3FinishForgeAttemptWait" +
-      "timeWithDiamondsResponseProto\0220\n\006sender\030" +
-      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "t\n\006status\030\002 \001(\0162d.com.lvl6.proto.FinishF" +
-      "orgeAttemptWaittimeWithDiamondsResponseP" +
-      "roto.FinishForgeAttemptWaittimeStatus\"\177\n" +
-      " FinishForgeAttemptWaittimeStatus\022\013\n\007SUC",
-      "CESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER" +
-      "_FAIL\020\002\022%\n!CLIENT_TOO_APART_FROM_SERVER_" +
-      "TIME\020\003\"h\n\036CollectForgeEquipsRequestProto" +
-      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022\024\n\014blacksmithId\030\002 \001(\005\"\241\002\n\037Col" +
-      "lectForgeEquipsResponseProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\0229" +
-      "\n\rnewUserEquips\030\002 \003(\0132\".com.lvl6.proto.F" +
-      "ullUserEquipProto\022X\n\006status\030\003 \001(\0162H.com." +
-      "lvl6.proto.CollectForgeEquipsResponsePro",
-      "to.CollectForgeEquipsStatus\"7\n\030CollectFo" +
-      "rgeEquipsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FA" +
-      "IL\020\001B\014B\nEventProto"
+      "EL\020\005\022\023\n\017ALREADY_FORGING\020\006\022\016\n\nOTHER_FAIL\020" +
+      "\007\"\177\n$ForgeAttemptWaitCompleteRequestProt",
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022\024\n\014blacksmithId\030\002 \001(\005\022\017\n\007cur" +
+      "Time\030\003 \001(\003\"\267\002\n%ForgeAttemptWaitCompleteR" +
+      "esponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022d\n\006status\030\002 \001(\0162T" +
+      ".com.lvl6.proto.ForgeAttemptWaitComplete" +
+      "ResponseProto.ForgeAttemptWaitCompleteSt" +
+      "atus\"v\n\036ForgeAttemptWaitCompleteStatus\022\013" +
+      "\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016\n\nOTHER_F" +
+      "AIL\020\002\022%\n!CLIENT_TOO_APART_FROM_SERVER_TI",
+      "ME\020\003\"\223\001\n2FinishForgeAttemptWaittimeWithD" +
+      "iamondsRequestProto\0220\n\006sender\030\001 \001(\0132 .co" +
+      "m.lvl6.proto.MinimumUserProto\022\024\n\014blacksm" +
+      "ithId\030\002 \001(\005\022\025\n\rtimeOfSpeedup\030\003 \001(\003\"\336\002\n3F" +
+      "inishForgeAttemptWaittimeWithDiamondsRes" +
+      "ponseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022t\n\006status\030\002 \001(\0162d.c" +
+      "om.lvl6.proto.FinishForgeAttemptWaittime" +
+      "WithDiamondsResponseProto.FinishForgeAtt" +
+      "emptWaittimeStatus\"\177\n FinishForgeAttempt",
+      "WaittimeStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUG" +
+      "H_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIENT_T" +
+      "OO_APART_FROM_SERVER_TIME\020\003\"h\n\036CollectFo" +
+      "rgeEquipsRequestProto\0220\n\006sender\030\001 \001(\0132 ." +
+      "com.lvl6.proto.MinimumUserProto\022\024\n\014black" +
+      "smithId\030\002 \001(\005\"\241\002\n\037CollectForgeEquipsResp" +
+      "onseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
+      "to.MinimumUserProto\0229\n\rnewUserEquips\030\002 \003" +
+      "(\0132\".com.lvl6.proto.FullUserEquipProto\022X" +
+      "\n\006status\030\003 \001(\0162H.com.lvl6.proto.CollectF",
+      "orgeEquipsResponseProto.CollectForgeEqui" +
+      "psStatus\"7\n\030CollectForgeEquipsStatus\022\013\n\007" +
+      "SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

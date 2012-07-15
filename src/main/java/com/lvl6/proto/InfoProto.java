@@ -27786,6 +27786,857 @@ public final class InfoProto {
     // @@protoc_insertion_point(class_scope:com.lvl6.proto.PlayerWallPostProto)
   }
   
+  public interface UnhandledBlacksmithAttemptProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // optional int32 blacksmithId = 1;
+    boolean hasBlacksmithId();
+    int getBlacksmithId();
+    
+    // optional int32 userId = 2;
+    boolean hasUserId();
+    int getUserId();
+    
+    // optional int32 equipId = 3;
+    boolean hasEquipId();
+    int getEquipId();
+    
+    // optional int64 goalLevel = 4;
+    boolean hasGoalLevel();
+    long getGoalLevel();
+    
+    // optional bool guaranteed = 5;
+    boolean hasGuaranteed();
+    boolean getGuaranteed();
+    
+    // optional int64 startTime = 6;
+    boolean hasStartTime();
+    long getStartTime();
+    
+    // optional int32 coinCost = 7;
+    boolean hasCoinCost();
+    int getCoinCost();
+    
+    // optional int32 diamondGuaranteeCost = 8;
+    boolean hasDiamondGuaranteeCost();
+    int getDiamondGuaranteeCost();
+    
+    // optional int64 timeToSpeedup = 9;
+    boolean hasTimeToSpeedup();
+    long getTimeToSpeedup();
+    
+    // optional bool attemptComplete = 10;
+    boolean hasAttemptComplete();
+    boolean getAttemptComplete();
+  }
+  public static final class UnhandledBlacksmithAttemptProto extends
+      com.google.protobuf.GeneratedMessage
+      implements UnhandledBlacksmithAttemptProtoOrBuilder {
+    // Use UnhandledBlacksmithAttemptProto.newBuilder() to construct.
+    private UnhandledBlacksmithAttemptProto(Builder builder) {
+      super(builder);
+    }
+    private UnhandledBlacksmithAttemptProto(boolean noInit) {}
+    
+    private static final UnhandledBlacksmithAttemptProto defaultInstance;
+    public static UnhandledBlacksmithAttemptProto getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public UnhandledBlacksmithAttemptProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable;
+    }
+    
+    private int bitField0_;
+    // optional int32 blacksmithId = 1;
+    public static final int BLACKSMITHID_FIELD_NUMBER = 1;
+    private int blacksmithId_;
+    public boolean hasBlacksmithId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getBlacksmithId() {
+      return blacksmithId_;
+    }
+    
+    // optional int32 userId = 2;
+    public static final int USERID_FIELD_NUMBER = 2;
+    private int userId_;
+    public boolean hasUserId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getUserId() {
+      return userId_;
+    }
+    
+    // optional int32 equipId = 3;
+    public static final int EQUIPID_FIELD_NUMBER = 3;
+    private int equipId_;
+    public boolean hasEquipId() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public int getEquipId() {
+      return equipId_;
+    }
+    
+    // optional int64 goalLevel = 4;
+    public static final int GOALLEVEL_FIELD_NUMBER = 4;
+    private long goalLevel_;
+    public boolean hasGoalLevel() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public long getGoalLevel() {
+      return goalLevel_;
+    }
+    
+    // optional bool guaranteed = 5;
+    public static final int GUARANTEED_FIELD_NUMBER = 5;
+    private boolean guaranteed_;
+    public boolean hasGuaranteed() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public boolean getGuaranteed() {
+      return guaranteed_;
+    }
+    
+    // optional int64 startTime = 6;
+    public static final int STARTTIME_FIELD_NUMBER = 6;
+    private long startTime_;
+    public boolean hasStartTime() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public long getStartTime() {
+      return startTime_;
+    }
+    
+    // optional int32 coinCost = 7;
+    public static final int COINCOST_FIELD_NUMBER = 7;
+    private int coinCost_;
+    public boolean hasCoinCost() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public int getCoinCost() {
+      return coinCost_;
+    }
+    
+    // optional int32 diamondGuaranteeCost = 8;
+    public static final int DIAMONDGUARANTEECOST_FIELD_NUMBER = 8;
+    private int diamondGuaranteeCost_;
+    public boolean hasDiamondGuaranteeCost() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public int getDiamondGuaranteeCost() {
+      return diamondGuaranteeCost_;
+    }
+    
+    // optional int64 timeToSpeedup = 9;
+    public static final int TIMETOSPEEDUP_FIELD_NUMBER = 9;
+    private long timeToSpeedup_;
+    public boolean hasTimeToSpeedup() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    public long getTimeToSpeedup() {
+      return timeToSpeedup_;
+    }
+    
+    // optional bool attemptComplete = 10;
+    public static final int ATTEMPTCOMPLETE_FIELD_NUMBER = 10;
+    private boolean attemptComplete_;
+    public boolean hasAttemptComplete() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    public boolean getAttemptComplete() {
+      return attemptComplete_;
+    }
+    
+    private void initFields() {
+      blacksmithId_ = 0;
+      userId_ = 0;
+      equipId_ = 0;
+      goalLevel_ = 0L;
+      guaranteed_ = false;
+      startTime_ = 0L;
+      coinCost_ = 0;
+      diamondGuaranteeCost_ = 0;
+      timeToSpeedup_ = 0L;
+      attemptComplete_ = false;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, blacksmithId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, userId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, equipId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt64(4, goalLevel_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBool(5, guaranteed_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt64(6, startTime_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, coinCost_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, diamondGuaranteeCost_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt64(9, timeToSpeedup_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeBool(10, attemptComplete_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, blacksmithId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, userId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, equipId_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, goalLevel_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, guaranteed_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, startTime_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, coinCost_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, diamondGuaranteeCost_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(9, timeToSpeedup_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(10, attemptComplete_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.lvl6.proto.InfoProto.internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable;
+      }
+      
+      // Construct using com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        blacksmithId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        equipId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        goalLevel_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        guaranteed_ = false;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        startTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        coinCost_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        diamondGuaranteeCost_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        timeToSpeedup_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        attemptComplete_ = false;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.getDescriptor();
+      }
+      
+      public com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto getDefaultInstanceForType() {
+        return com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.getDefaultInstance();
+      }
+      
+      public com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto build() {
+        com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto buildPartial() {
+        com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto result = new com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.blacksmithId_ = blacksmithId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.equipId_ = equipId_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.goalLevel_ = goalLevel_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.guaranteed_ = guaranteed_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.startTime_ = startTime_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.coinCost_ = coinCost_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.diamondGuaranteeCost_ = diamondGuaranteeCost_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.timeToSpeedup_ = timeToSpeedup_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.attemptComplete_ = attemptComplete_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto) {
+          return mergeFrom((com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto other) {
+        if (other == com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.getDefaultInstance()) return this;
+        if (other.hasBlacksmithId()) {
+          setBlacksmithId(other.getBlacksmithId());
+        }
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasEquipId()) {
+          setEquipId(other.getEquipId());
+        }
+        if (other.hasGoalLevel()) {
+          setGoalLevel(other.getGoalLevel());
+        }
+        if (other.hasGuaranteed()) {
+          setGuaranteed(other.getGuaranteed());
+        }
+        if (other.hasStartTime()) {
+          setStartTime(other.getStartTime());
+        }
+        if (other.hasCoinCost()) {
+          setCoinCost(other.getCoinCost());
+        }
+        if (other.hasDiamondGuaranteeCost()) {
+          setDiamondGuaranteeCost(other.getDiamondGuaranteeCost());
+        }
+        if (other.hasTimeToSpeedup()) {
+          setTimeToSpeedup(other.getTimeToSpeedup());
+        }
+        if (other.hasAttemptComplete()) {
+          setAttemptComplete(other.getAttemptComplete());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              blacksmithId_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              userId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              equipId_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              goalLevel_ = input.readInt64();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              guaranteed_ = input.readBool();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              startTime_ = input.readInt64();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              coinCost_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              diamondGuaranteeCost_ = input.readInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              timeToSpeedup_ = input.readInt64();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              attemptComplete_ = input.readBool();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional int32 blacksmithId = 1;
+      private int blacksmithId_ ;
+      public boolean hasBlacksmithId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getBlacksmithId() {
+        return blacksmithId_;
+      }
+      public Builder setBlacksmithId(int value) {
+        bitField0_ |= 0x00000001;
+        blacksmithId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearBlacksmithId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        blacksmithId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 userId = 2;
+      private int userId_ ;
+      public boolean hasUserId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getUserId() {
+        return userId_;
+      }
+      public Builder setUserId(int value) {
+        bitField0_ |= 0x00000002;
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearUserId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 equipId = 3;
+      private int equipId_ ;
+      public boolean hasEquipId() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getEquipId() {
+        return equipId_;
+      }
+      public Builder setEquipId(int value) {
+        bitField0_ |= 0x00000004;
+        equipId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEquipId() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        equipId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int64 goalLevel = 4;
+      private long goalLevel_ ;
+      public boolean hasGoalLevel() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public long getGoalLevel() {
+        return goalLevel_;
+      }
+      public Builder setGoalLevel(long value) {
+        bitField0_ |= 0x00000008;
+        goalLevel_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearGoalLevel() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        goalLevel_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional bool guaranteed = 5;
+      private boolean guaranteed_ ;
+      public boolean hasGuaranteed() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public boolean getGuaranteed() {
+        return guaranteed_;
+      }
+      public Builder setGuaranteed(boolean value) {
+        bitField0_ |= 0x00000010;
+        guaranteed_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearGuaranteed() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        guaranteed_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // optional int64 startTime = 6;
+      private long startTime_ ;
+      public boolean hasStartTime() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public long getStartTime() {
+        return startTime_;
+      }
+      public Builder setStartTime(long value) {
+        bitField0_ |= 0x00000020;
+        startTime_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStartTime() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        startTime_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 coinCost = 7;
+      private int coinCost_ ;
+      public boolean hasCoinCost() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getCoinCost() {
+        return coinCost_;
+      }
+      public Builder setCoinCost(int value) {
+        bitField0_ |= 0x00000040;
+        coinCost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCoinCost() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        coinCost_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 diamondGuaranteeCost = 8;
+      private int diamondGuaranteeCost_ ;
+      public boolean hasDiamondGuaranteeCost() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getDiamondGuaranteeCost() {
+        return diamondGuaranteeCost_;
+      }
+      public Builder setDiamondGuaranteeCost(int value) {
+        bitField0_ |= 0x00000080;
+        diamondGuaranteeCost_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDiamondGuaranteeCost() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        diamondGuaranteeCost_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int64 timeToSpeedup = 9;
+      private long timeToSpeedup_ ;
+      public boolean hasTimeToSpeedup() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public long getTimeToSpeedup() {
+        return timeToSpeedup_;
+      }
+      public Builder setTimeToSpeedup(long value) {
+        bitField0_ |= 0x00000100;
+        timeToSpeedup_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearTimeToSpeedup() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        timeToSpeedup_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // optional bool attemptComplete = 10;
+      private boolean attemptComplete_ ;
+      public boolean hasAttemptComplete() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public boolean getAttemptComplete() {
+        return attemptComplete_;
+      }
+      public Builder setAttemptComplete(boolean value) {
+        bitField0_ |= 0x00000200;
+        attemptComplete_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAttemptComplete() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        attemptComplete_ = false;
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:com.lvl6.proto.UnhandledBlacksmithAttemptProto)
+    }
+    
+    static {
+      defaultInstance = new UnhandledBlacksmithAttemptProto(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:com.lvl6.proto.UnhandledBlacksmithAttemptProto)
+  }
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_lvl6_proto_MinimumUserProto_descriptor;
   private static
@@ -27946,6 +28797,11 @@ public final class InfoProto {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_lvl6_proto_PlayerWallPostProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -28161,28 +29017,34 @@ public final class InfoProto {
       "layerWallPostId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 ." +
       "com.lvl6.proto.MinimumUserProto\022\023\n\013wallO" +
       "wnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007cont" +
-      "ent\030\005 \001(\t*/\n\rAnimationType\022\022\n\016GENERIC_AC" +
-      "TION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamondsTy" +
-      "pe\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020" +
-      "\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITT",
-      "ER\020\006*\302\001\n\022SpecialQuestAction\022\030\n\024PURCHASE_" +
-      "FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARKETPLA" +
-      "CE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_MARK" +
-      "ETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHD" +
-      "RAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020" +
-      "\007*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_" +
-      "ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003" +
-      "\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014Battle" +
-      "Result\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN" +
-      "\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023MarketplacePost",
-      "Type\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQU" +
-      "IP_POST\020\002*2\n\035MarketplaceJobRequirementTy" +
-      "pe\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStructType\022" +
-      "\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n" +
-      "\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021StructOrie" +
-      "ntation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*" +
-      "1\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tF" +
-      "AR_RIGHT\020\001B\013B\tInfoProto"
+      "ent\030\005 \001(\t\"\362\001\n\037UnhandledBlacksmithAttempt" +
+      "Proto\022\024\n\014blacksmithId\030\001 \001(\005\022\016\n\006userId\030\002 " +
+      "\001(\005\022\017\n\007equipId\030\003 \001(\005\022\021\n\tgoalLevel\030\004 \001(\003\022" +
+      "\022\n\nguaranteed\030\005 \001(\010\022\021\n\tstartTime\030\006 \001(\003\022\020",
+      "\n\010coinCost\030\007 \001(\005\022\034\n\024diamondGuaranteeCost" +
+      "\030\010 \001(\005\022\025\n\rtimeToSpeedup\030\t \001(\003\022\027\n\017attempt" +
+      "Complete\030\n \001(\010*/\n\rAnimationType\022\022\n\016GENER" +
+      "IC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamo" +
+      "ndsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_IN" +
+      "VITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007" +
+      "TWITTER\020\006*\302\001\n\022SpecialQuestAction\022\030\n\024PURC" +
+      "HASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARK" +
+      "ETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO" +
+      "_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023",
+      "WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_" +
+      "WALL\020\007*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013" +
+      "GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARR" +
+      "IOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014B" +
+      "attleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDE" +
+      "R_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Marketplac" +
+      "ePostType\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NOR" +
+      "M_EQUIP_POST\020\002*2\n\035MarketplaceJobRequirem" +
+      "entType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016CritStruct" +
+      "Type\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT",
+      "\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*3\n\021Struc" +
+      "tOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION" +
+      "_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_LEFT\020\000" +
+      "\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -28445,6 +29307,14 @@ public final class InfoProto {
               new java.lang.String[] { "PlayerWallPostId", "Poster", "WallOwnerId", "TimeOfPost", "Content", },
               com.lvl6.proto.InfoProto.PlayerWallPostProto.class,
               com.lvl6.proto.InfoProto.PlayerWallPostProto.Builder.class);
+          internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor =
+            getDescriptor().getMessageTypes().get(30);
+          internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor,
+              new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "CoinCost", "DiamondGuaranteeCost", "TimeToSpeedup", "AttemptComplete", },
+              com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.class,
+              com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.Builder.class);
           return null;
         }
       };
