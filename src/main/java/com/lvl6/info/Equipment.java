@@ -26,13 +26,13 @@ public class Equipment implements Serializable {
 	private boolean isBuyableInArmory;
 	private float chanceOfForgeFailureBase;
   private int costToAttemptForgeBase;
+  private int minutesToAttemptForgeBase;
 
 	public Equipment(int id, String name, EquipType type, String description,
       int attackBoost, int defenseBoost, int minLevel, int coinPrice,
       int diamondPrice, float chanceOfLoss, ClassType classType, Rarity rarity,
       boolean isBuyableInArmory, float chanceOfForgeFailureBase,
-      int costToAttemptForgeBase) {
-    super();
+      int costToAttemptForgeBase, int minutesToAttemptForgeBase) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -48,6 +48,7 @@ public class Equipment implements Serializable {
     this.isBuyableInArmory = isBuyableInArmory;
     this.chanceOfForgeFailureBase = chanceOfForgeFailureBase;
     this.costToAttemptForgeBase = costToAttemptForgeBase;
+    this.minutesToAttemptForgeBase = minutesToAttemptForgeBase;
   }
 
   public static int getNotSet() {
@@ -114,6 +115,10 @@ public class Equipment implements Serializable {
     return costToAttemptForgeBase;
   }
 
+  public int getMinutesToAttemptForgeBase() {
+    return minutesToAttemptForgeBase;
+  }
+
   @Override
   public String toString() {
     return "Equipment [id=" + id + ", name=" + name + ", type=" + type
@@ -123,7 +128,8 @@ public class Equipment implements Serializable {
         + ", chanceOfLoss=" + chanceOfLoss + ", classType=" + classType
         + ", rarity=" + rarity + ", isBuyableInArmory=" + isBuyableInArmory
         + ", chanceOfForgeFailureBase=" + chanceOfForgeFailureBase
-        + ", costToAttemptForgeBase=" + costToAttemptForgeBase + "]";
+        + ", costToAttemptForgeBase=" + costToAttemptForgeBase
+        + ", minutesToAttemptForgeBase=" + minutesToAttemptForgeBase + "]";
   }
 
 }

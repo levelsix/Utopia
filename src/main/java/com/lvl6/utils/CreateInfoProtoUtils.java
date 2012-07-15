@@ -325,7 +325,7 @@ public class CreateInfoProtoUtils {
         .setEquipType(equip.getType()).setDescription(equip.getDescription()).setAttackBoost(equip.getAttackBoost()).setDefenseBoost(equip.getDefenseBoost())
         .setMinLevel(equip.getMinLevel()).setChanceOfLoss(equip.getChanceOfLoss()).setClassType(equip.getClassType())
         .setRarity(equip.getRarity()).setIsBuyableInArmory(equip.isBuyableInArmory()).setChanceOfForgeFailureBase(equip.getChanceOfForgeFailureBase())
-        .setCostToAttemptForgeBase(equip.getCostToAttemptForgeBase());
+        .setCostToAttemptForgeBase(equip.getCostToAttemptForgeBase()).setMinutesToAttemptForgeBase(equip.getMinutesToAttemptForgeBase());
     if (equip.getCoinPrice() != Equipment.NOT_SET) {
       builder.setCoinPrice(equip.getCoinPrice());
     }

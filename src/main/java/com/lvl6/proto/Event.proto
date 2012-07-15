@@ -1364,6 +1364,7 @@ message RetrievePlayerWallPostsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message EarnFreeDiamondsRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional EarnFreeDiamondsType freeDiamondsType = 2;
@@ -1375,6 +1376,7 @@ message EarnFreeDiamondsRequestProto {
 	optional int32 adColonyDiamondsEarned = 6;
 }
 
+																						//DONE
 message EarnFreeDiamondsResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional EarnFreeDiamondsStatus status = 2;
@@ -1404,4 +1406,87 @@ message ReconnectResponseProto {
 
 message LogoutRequestProto {
 	optional MinimumUserProto sender = 1;
+}
+
+//------------------------------------------------------------------------------------------
+
+message SubmitEquipsToBlacksmithRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 userEquipOne = 2;
+	optional int32 userEquipTwo = 3;
+	optional int32 paidToGuarantee = 4;
+}
+
+message SubmitEquipsToBlacksmithResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional SubmitEquipsToBlacksmithStatus status = 2;
+	optional int32 blacksmithId = 3;
+	
+	enum SubmitEquipsToBlacksmithStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_COINS_TO_FORGE = 1;
+		NOT_ENOUGH_DIAMONDS_FOR_GUARANTEE = 2;
+		DOES_NOT_HAVE_NECESSARY_USER_EQUIPS = 3;
+		SUBMITTED_EQUIPS_NOT_SAME_LEVEL = 4;
+		TRYING_TO_SURPASS_MAX_LEVEL = 5;
+		OTHER_FAIL = 6;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message ForgeAttemptWaitCompleteRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 blacksmithId = 2;
+	optional int64 curTime = 3;
+}
+
+message ForgeAttemptWaitCompleteResponseProto {
+	optional MinimumUserProto sender = 1;
+    optional ForgeAttemptWaitCompleteStatus status = 2;
+   
+    enum ForgeAttemptWaitCompleteStatus {
+	  	SUCCESS = 0;
+    	NOT_DONE_YET = 1;
+     	OTHER_FAIL = 2;
+     	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
+    }
+}
+
+//------------------------------------------------------------------------------------------
+
+message FinishForgeAttemptWaittimeWithDiamondsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 blacksmithId = 2;
+	optional int64 timeOfSpeedup = 3; 
+}
+
+message FinishForgeAttemptWaittimeWithDiamondsResponseProto {
+	optional MinimumUserProto sender = 1;
+    optional FinishForgeAttemptWaittimeStatus status = 2;
+     
+    enum FinishForgeAttemptWaittimeStatus {
+     	SUCCESS = 0;
+     	NOT_ENOUGH_DIAMONDS = 1;
+     	OTHER_FAIL = 2;
+    	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
+    }
+}
+//------------------------------------------------------------------------------------------
+
+message CollectForgeEquipsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 blacksmithId = 2;
+}
+
+message CollectForgeEquipsResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated FullUserEquipProto newUserEquips = 2;
+	
+	optional CollectForgeEquipsStatus status = 3;
+	
+	enum CollectForgeEquipsStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+	}
 }
