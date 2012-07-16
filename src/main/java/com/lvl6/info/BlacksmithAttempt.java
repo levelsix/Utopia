@@ -12,7 +12,6 @@ public class BlacksmithAttempt implements Serializable {
   private int goalLevel;
   private boolean guaranteed;
   private Date startTime;
-  private Date endTimeWithoutSpeedup;
   private int coinCost;
   private int diamondGuaranteeCost;
   private Date timeOfSpeedup;
@@ -20,7 +19,7 @@ public class BlacksmithAttempt implements Serializable {
   
   public BlacksmithAttempt(int id, int userId, int equipId,
       int goalLevel, boolean guaranteed, Date startTime,
-      Date endTimeWithoutSpeedup, int coinCost, int diamondGuaranteeCost,
+      int coinCost, int diamondGuaranteeCost,
       Date timeOfSpeedup, boolean attemptComplete) {
     this.id = id;
     this.userId = userId;
@@ -28,7 +27,6 @@ public class BlacksmithAttempt implements Serializable {
     this.goalLevel = goalLevel;
     this.guaranteed = guaranteed;
     this.startTime = startTime;
-    this.endTimeWithoutSpeedup = endTimeWithoutSpeedup;
     this.coinCost = coinCost;
     this.diamondGuaranteeCost = diamondGuaranteeCost;
     this.timeOfSpeedup = timeOfSpeedup;
@@ -59,10 +57,6 @@ public class BlacksmithAttempt implements Serializable {
     return startTime;
   }
 
-  public Date getEndTimeWithoutSpeedup() {
-    return endTimeWithoutSpeedup;
-  }
-
   public int getCoinCost() {
     return coinCost;
   }
@@ -84,7 +78,7 @@ public class BlacksmithAttempt implements Serializable {
     return "UnhandledBlacksmithAttempt [id=" + id + ", userId=" + userId
         + ", equipId=" + equipId + ", goalLevel=" + goalLevel + ", guaranteed="
         + guaranteed + ", startTime=" + startTime + ", endTimeWithoutSpeedup="
-        + endTimeWithoutSpeedup + ", coinCost=" + coinCost
+        + ", coinCost=" + coinCost
         + ", diamondGuaranteeCost=" + diamondGuaranteeCost + ", timeOfSpeedup="
         + timeOfSpeedup + ", attemptComplete=" + attemptComplete + "]";
   }
