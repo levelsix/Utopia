@@ -53,7 +53,7 @@
 		<apns.path.to.cert>LostNationsAPNSDev07132012.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
-		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations</lvl6.server.log.location>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 	</properties>
@@ -62,7 +62,7 @@
 		<profile>
 			<id>kelly</id>
 			<properties>
-				<lvl6.server.log.location>/home/kelly/Desktop/lostnations.log</lvl6.server.log.location>
+				<lvl6.server.log.location>/home/kelly/Desktop/lostnations</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
@@ -75,7 +75,7 @@
 		<profile>
 			<id>conradlocal</id>
 			<properties>
-				<lvl6.server.log.location>/Users/conradchan/Desktop/LostNations/Server/lostnations.log</lvl6.server.log.location>
+				<lvl6.server.log.location>/Users/conradchan/Desktop/LostNations/Server/lostnations</lvl6.server.log.location>
 				<server.port>10001</server.port>
 				<hazelcast.group>conrad</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
