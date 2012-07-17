@@ -3,6 +3,7 @@ package com.lvl6.ui.admin;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 
+import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.MainPage;
 
 public class Lvl6Admin extends WebApplication{
@@ -11,6 +12,7 @@ public class Lvl6Admin extends WebApplication{
 	protected void init() {
 		super.init();
 		mountPage("/", MainPage.class);
+		mountPage("/admin", AdminPage.class);
 	}
 
 	@Override

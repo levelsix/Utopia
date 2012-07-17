@@ -2,6 +2,8 @@ package com.lvl6.ui.admin.components;
 
 import org.apache.wicket.markup.html.link.Link;
 
+import com.lvl6.utils.utilmethods.MiscMethods;
+
 public class ReloadStaticDataLink extends Link<String>{
 	public ReloadStaticDataLink(String id) {
 		super(id);
@@ -11,7 +13,7 @@ public class ReloadStaticDataLink extends Link<String>{
 
 	@Override
 	public void onClick() {
-		//do static data reload here
+		MiscMethods.reloadAllRareChangeStaticData();
 	}
 
 }
