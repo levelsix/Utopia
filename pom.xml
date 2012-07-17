@@ -238,8 +238,8 @@
 				<directory>src/main/java</directory>
 				<filtering>false</filtering>
 				<includes>
-					<include>*.xml</include>
-					<include>*.html</include>
+					<include>**/*.xml</include>
+					<include>**/*.html</include>
 				</includes>
 			</resource>
 			<resource>
