@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
 
-import com.hazelcast.core.HazelcastInstance;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
 import com.lvl6.utils.ConnectedPlayer;

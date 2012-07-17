@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
