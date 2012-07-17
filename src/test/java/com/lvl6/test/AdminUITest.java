@@ -12,7 +12,7 @@ public class AdminUITest extends TestCase {
 	
 	
 	@Test
-	protected void testAdminPage() {
+	public void testAdminPage() {
 		tester = new WicketTester();
 		tester.startPage(AdminPage.class);
 	}
