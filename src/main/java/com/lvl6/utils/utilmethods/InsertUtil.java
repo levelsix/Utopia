@@ -106,6 +106,6 @@ public interface InsertUtil {
 
   public abstract int insertForgeAttemptIntoBlacksmith(int userId, int equipId,
       int goalLevel, boolean paidToGuarantee, Timestamp startTime,
-      int coinCostForForge, int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete);
+      int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete);
 
 }

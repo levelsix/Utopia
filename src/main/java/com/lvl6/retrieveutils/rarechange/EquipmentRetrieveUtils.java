@@ -115,16 +115,15 @@ import com.lvl6.utils.DBConnection;
     Rarity rarity = Rarity.valueOf(rs.getInt(i++));
     boolean isBuyableInArmory = rs.getBoolean(i++);
     float chanceOfForgeFailureBase = rs.getFloat(i++);
-    int costToAttemptForgeBase = rs.getInt(i++);
     int minutesToAttemptForgeBase = rs.getInt(i++);
     
     Equipment equip = null;
     if (coinPriceSet && !diamondPriceSet) {
       equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, coinPrice, 
-          Equipment.NOT_SET, chanceOfLoss, classType, rarity, isBuyableInArmory, chanceOfForgeFailureBase, costToAttemptForgeBase, minutesToAttemptForgeBase);
+          Equipment.NOT_SET, chanceOfLoss, classType, rarity, isBuyableInArmory, chanceOfForgeFailureBase, minutesToAttemptForgeBase);
     } else if (diamondPriceSet && !coinPriceSet){
       equip = new Equipment(id, name, type, description, attackBoost, defenseBoost, minLevel, Equipment.NOT_SET, 
-          diamondPrice, chanceOfLoss, classType, rarity, isBuyableInArmory, chanceOfForgeFailureBase, costToAttemptForgeBase, minutesToAttemptForgeBase);      
+          diamondPrice, chanceOfLoss, classType, rarity, isBuyableInArmory, chanceOfForgeFailureBase, minutesToAttemptForgeBase);      
     } else if (diamondPriceSet && coinPriceSet){
       log.error("equipment should only have coin or diamond price, and this one doesnt: equip with id " + id);
       return null;

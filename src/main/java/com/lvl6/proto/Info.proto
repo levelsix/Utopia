@@ -127,8 +127,7 @@ message FullEquipProto {
 	optional Rarity rarity = 12;
 	optional bool isBuyableInArmory = 13;
 	optional float chanceOfForgeFailureBase = 14;
-	optional int32 costToAttemptForgeBase = 15;
-	optional int32 minutesToAttemptForgeBase = 16;
+	optional int32 minutesToAttemptForgeBase = 15;
 	
 	enum Rarity {
 		COMMON = 0;

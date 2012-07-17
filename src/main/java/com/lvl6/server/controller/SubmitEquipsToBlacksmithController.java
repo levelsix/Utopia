@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         goalLevel = userEquips.get(0).getLevel() + 1;
 
         int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
-            paidToGuarantee, startTime, calculateCoinCostForForge(equip, goalLevel), 
+            paidToGuarantee, startTime, 
             calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
 
         if (blacksmithId <= 0) {
@@ -87,7 +87,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           legitSubmit = false;
         } else {
           BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(), goalLevel, 
-            paidToGuarantee, startTime, calculateCoinCostForForge(equip, goalLevel), 
+            paidToGuarantee, startTime, 
             calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
           resBuilder.setUnhandledBlacksmithAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba));
         }
@@ -99,8 +99,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       server.writeEvent(resEvent);
 
       if (legitSubmit) {
-        writeChangesToDB(user, calculateCoinCostForForge(equip, goalLevel), 
-            calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), userEquips);
+        writeChangesToDB(user, calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), userEquips);
       }
 
     } catch (Exception e) {
@@ -110,17 +109,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-  private void writeChangesToDB(User user, int calculateCoinCostForForge,
-      int calculateDiamondCostForGuarantee, List<UserEquip> userEquips) {
+  private void writeChangesToDB(User user, int calculateDiamondCostForGuarantee, List<UserEquip> userEquips) {
     //TODO:
     //delete user equips
     //update user
-  }
-
-  private int calculateCoinCostForForge(Equipment equip, int goalLevel) {
-    int coinCost = 0;
-    //TODO:
-    return Math.max(1, coinCost);
   }
 
   private int calculateDiamondCostForGuarantee(Equipment equip, int goalLevel, boolean paidToGuarantee) {
@@ -164,12 +156,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.TRYING_TO_SURPASS_MAX_LEVEL);
       log.error("forged weapon levels are already >= max. max is " + ControllerConstants.SUBMIT_EQUIPS_TO_BLACKSMITH__MAX_EQUIP_LEVEL
           + ", weapon levels = " + ue1.getLevel());
-      return false;
-    }
-
-    if (user.getCoins() < calculateCoinCostForForge(equip, ue1.getLevel() + 1)) {
-      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.NOT_ENOUGH_COINS_TO_FORGE);
-      log.error("not enough coins to forge. has " + user.getCoins() + ", needs " + calculateCoinCostForForge(equip, ue1.getLevel() + 1));
       return false;
     }
 

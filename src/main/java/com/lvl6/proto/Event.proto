@@ -42,6 +42,7 @@ message BattleResponseProto {
 
 	optional int32 coinsGained = 4;
 	optional FullUserEquipProto userEquipGained = 5;
+	optional FullEquipProto equipGained = 8;
     optional int32 expGained = 6;
     
     enum BattleStatus {
@@ -1430,9 +1431,7 @@ message SubmitEquipsToBlacksmithResponseProto {
 	
 	enum SubmitEquipsToBlacksmithStatus {
 		SUCCESS = 0;
-		NOT_ENOUGH_COINS_TO_FORGE = 1;
 		NOT_ENOUGH_DIAMONDS_FOR_GUARANTEE = 2;
-		DOES_NOT_HAVE_NECESSARY_USER_EQUIPS = 3;
 		SUBMITTED_EQUIPS_NOT_SAME_LEVEL = 4;
 		TRYING_TO_SURPASS_MAX_LEVEL = 5;
 		ALREADY_FORGING = 6;

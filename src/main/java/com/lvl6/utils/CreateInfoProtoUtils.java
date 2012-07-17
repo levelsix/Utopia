@@ -327,7 +327,7 @@ public class CreateInfoProtoUtils {
         .setEquipType(equip.getType()).setDescription(equip.getDescription()).setAttackBoost(equip.getAttackBoost()).setDefenseBoost(equip.getDefenseBoost())
         .setMinLevel(equip.getMinLevel()).setChanceOfLoss(equip.getChanceOfLoss()).setClassType(equip.getClassType())
         .setRarity(equip.getRarity()).setIsBuyableInArmory(equip.isBuyableInArmory()).setChanceOfForgeFailureBase(equip.getChanceOfForgeFailureBase())
-        .setCostToAttemptForgeBase(equip.getCostToAttemptForgeBase()).setMinutesToAttemptForgeBase(equip.getMinutesToAttemptForgeBase());
+        .setMinutesToAttemptForgeBase(equip.getMinutesToAttemptForgeBase());
     if (equip.getCoinPrice() != Equipment.NOT_SET) {
       builder.setCoinPrice(equip.getCoinPrice());
     }
@@ -670,7 +670,7 @@ public class CreateInfoProtoUtils {
   public static UnhandledBlacksmithAttemptProto createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(BlacksmithAttempt ba) {
     UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
         .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())
-        .setCoinCost(ba.getCoinCost()).setAttemptComplete(ba.isAttemptComplete());
+        .setAttemptComplete(ba.isAttemptComplete());
     
     if (ba.getDiamondGuaranteeCost() > 0) {
       builder.setDiamondGuaranteeCost(ba.getDiamondGuaranteeCost());

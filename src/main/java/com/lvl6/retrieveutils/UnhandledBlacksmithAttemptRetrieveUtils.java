@@ -62,7 +62,6 @@ import com.lvl6.utils.DBConnection;
     int goalLevel = rs.getInt(i++);
     boolean guaranteed = rs.getBoolean(i++);
     Date startTime = new Date(rs.getTimestamp(i++).getTime());
-    int coinCost = rs.getInt(i++);
     
     int diamondGuaranteeCost = rs.getInt(i++);
     if (rs.wasNull()) diamondGuaranteeCost = ControllerConstants.NOT_SET;
@@ -75,7 +74,7 @@ import com.lvl6.utils.DBConnection;
     
     boolean attemptComplete = rs.getBoolean(i++);
     
-    return new BlacksmithAttempt(id, userId, equipId, goalLevel, guaranteed, startTime, coinCost, 
+    return new BlacksmithAttempt(id, userId, equipId, goalLevel, guaranteed, startTime,
         diamondGuaranteeCost, timeOfSpeedup, attemptComplete);
   }
 }
