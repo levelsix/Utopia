@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/spring_security_login" filters="none"/> 
+		<security:intercept-url pattern="/*" filters="none"/> 
 		<security:intercept-url pattern="/admin" access="ROLE_ADMIN" />
 	</security:http>
 
