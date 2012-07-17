@@ -131,10 +131,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
               new UserEquip(userEquipId, user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)));
         }
         
-        if (InsertUtils.get().insertUserEquip(user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL) < 0) {
-          log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
-          legitBuy = false;
-        }
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {
           if (!user.updateRelativeCoinsNaive(equipment.getCoinPrice() * -1)) {
             log.error("problem with taking away " + equipment.getCoinPrice() + " coins from user");

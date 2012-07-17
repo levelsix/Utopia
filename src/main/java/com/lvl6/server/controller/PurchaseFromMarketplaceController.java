@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,6 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.PurchaseFromMarketplaceRequestEvent;
 import com.lvl6.events.response.PurchaseFromMarketplaceResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
-import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -22,7 +20,6 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
@@ -159,17 +156,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       }
     }
 
-//    UserEquip userEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(buyer.getId(), mp.getPostedEquipId());
-    Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId()); 
-    if (equipment == null) {
-      log.error("equipment with " + mp.getPostedEquipId() + " does not exist");
-    } 
-//    else if ((userEquip == null || userEquip.getQuantity() < 1) && equipment != null) {
-//      if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, buyer) && !buyer.updateEquipped(equipment)) {
-//        log.error("problem with equipping " + equipment + " for user " + buyer);
-//      }
-//    }
-    
     if (!InsertUtils.get().insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }

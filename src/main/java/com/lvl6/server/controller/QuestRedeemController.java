@@ -14,6 +14,7 @@ import com.lvl6.events.response.QuestRedeemResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.QuestRedeemRequestProto;
@@ -72,6 +73,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       legitRedeem = checkLegitRedeem(resBuilder, userQuest, quest);
 
       List<UserQuest> inProgressAndRedeemedUserQuests = null;
+      boolean gainedEquip = false;
       if (legitRedeem) {
         inProgressAndRedeemedUserQuests = RetrieveUtils.userQuestRetrieveUtils().getUnredeemedAndRedeemedUserQuestsForUser(senderProto.getUserId());
         List<Integer> inProgressQuestIds = new ArrayList<Integer>();
@@ -94,7 +96,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             }
           }
         }
+        if (quest.getEquipIdGained() > 0) {
+          int userEquipId = InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+          if (userEquipId < 0) {
+            resBuilder.setStatus(QuestRedeemStatus.OTHER_FAIL);
+            log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
+                + quest.getEquipIdGained() + ", quest= " + quest);
+            legitRedeem = false;
+          } else {
+            resBuilder.setEquipRewardFromQuest(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+                new UserEquip(userEquipId, userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)));
+            gainedEquip = true;
+          }
+        }
       }
+      
       QuestRedeemResponseEvent resEvent = new QuestRedeemResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setQuestRedeemResponseProto(resBuilder.build());  
@@ -106,6 +122,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        if (gainedEquip) {
+          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
+        }
       }
 
     } catch (Exception e) {
@@ -144,15 +163,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void writeChangesToDB(UserQuest userQuest, Quest quest, User user, MinimumUserProto senderProto) {
     if (!UpdateUtils.get().updateRedeemUserQuest(userQuest.getUserId(), userQuest.getQuestId())) {
       log.error("problem with marking user quest as redeemed. questId=" + userQuest.getQuestId());
-    }
-
-    if (quest.getEquipIdGained() > 0) {
-      if (InsertUtils.get().insertUserEquip(userQuest.getUserId(), quest.getEquipIdGained(), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL) < 0) {
-        log.error("problem with giving user 1 reward equip after completing the quest, equipId=" 
-            + quest.getEquipIdGained());
-      } else {
-        QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
-      }
     }
 
     int coinsGained = Math.max(0, quest.getCoinsGained());

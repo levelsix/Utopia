@@ -35,6 +35,7 @@ import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.InsertUtils;
@@ -105,7 +106,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.setCoinsGained(coinsGained);
         lootEquipId = chooseLootEquipId(task);
         if (lootEquipId != ControllerConstants.NOT_SET) {
-          resBuilder.setLootEquipId(lootEquipId);
+          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), 
+              lootEquipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+          if (userEquipId < 0) {
+            log.error("problem with giving 1 of equip " + lootEquipId + " to task completer " + user.getId());
+            lootEquipId = ControllerConstants.NOT_SET;
+          } else {
+            resBuilder.setLootUserEquip(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+                new UserEquip(userEquipId, user.getId(), lootEquipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)));
+          }
         }
 
         int cityRank = RetrieveUtils.userCityRetrieveUtils().getCurrentCityRankForUser(user.getId(), task.getCityId());
@@ -267,13 +276,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           }
         }
       }
-
-      if (lootEquipId != ControllerConstants.NOT_SET) {
-        if (InsertUtils.get().insertUserEquip(user.getId(), lootEquipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL) < 0) {
-          log.error("problem with giving user 1 of equip " + lootEquipId);
-        }
-      }
-
+      
       boolean simulateEnergyRefill = (user.getEnergy() == user.getEnergyMax());
       if (!user.updateRelativeCoinsExpTaskscompletedEnergySimulateenergyrefill(totalCoinGain, totalExpGain, 1, task.getEnergyCost()*-1, simulateEnergyRefill, clientTime)) {
         log.error("problem with updating user stats post-task. coinChange=" + totalCoinGain + ", expGain="
@@ -370,6 +373,5 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
     return numReqEquipsWithoutQuantityReqFulfilled;
   }
-
 
 }
