@@ -220,6 +220,9 @@ public class ControllerConstants {
   public static final double LEVEL_UP_HEALTH_GAINED = 5.0;
   public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
   public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
+  
+  //SUBMIT EQUIPS TO BLACKSMITH
+  public static final int SUBMIT_EQUIPS_TO_BLACKSMITH__MAX_EQUIP_LEVEL = 10;
 
   //LEVEL UP EQUIPMENT FOR FAKE PLAYERS (levels 1-30 must add more if going above level 30)
   public static final int[] WARRIOR_WEAPON_ID_LEVEL = {1,1,1,3,3, 5,5,6,6,7, 

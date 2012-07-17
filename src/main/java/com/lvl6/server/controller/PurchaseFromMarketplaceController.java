@@ -12,6 +12,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto;
@@ -80,8 +81,19 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       PurchaseFromMarketplaceResponseEvent resEvent = new PurchaseFromMarketplaceResponseEvent(buyerId);
       resEvent.setTag(event.getTag());
 
-      if (legitPurchase)
+      if (legitPurchase) {
         resBuilder.setMarketplacePost(CreateInfoProtoUtils.createFullMarketplacePostProtoFromMarketplacePost(mp, seller));
+        
+        int userEquipId = InsertUtils.get().insertUserEquip(buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel());
+        if (userEquipId < 0) {
+          resBuilder.setStatus(PurchaseFromMarketplaceStatus.OTHER_FAIL);
+          log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
+          legitPurchase = false;
+        } else {
+          resBuilder.setFullUserEquipOfBoughtItem(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+              new UserEquip(userEquipId, buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel())));
+        }
+      }
       resEvent.setPurchaseFromMarketplaceResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
       
@@ -158,10 +170,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 //      }
 //    }
     
-    if (InsertUtils.get().insertUserEquip(buyer.getId(), mp.getPostedEquipId(), mp.getEquipLevel()) < 0) {
-      log.error("problem with giving 1 of equip " + mp.getPostedEquipId() + " to buyer " + buyer.getId());
-    }
-
     if (!InsertUtils.get().insertMarketplaceItemIntoHistory(mp, buyer.getId())) {
       log.error("problem with adding to marketplace history the post " + mp + " with buyer " + buyer.getId());
     }

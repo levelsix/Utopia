@@ -22,16 +22,17 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.SpecialQuestAction;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
-  @Component @DependsOn("gameServer") public class ArmoryController extends EventController {
+@Component @DependsOn("gameServer") public class ArmoryController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  
+
   public ArmoryController() {
     numAllocatedThreads = 4;
   }
@@ -66,7 +67,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equipId);;
       UserEquip userEquip = MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquipped(user, userEquipsForEquipId);
-      
+
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
 
       if (quantity != 1 || equipment == null) {
@@ -74,6 +75,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           log.fatal("controller does not support selling quantity > 1");
           quantity = 1;
         }
+        resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
+      } else if (requestType != ArmoryRequestType.BUY) {
+        log.fatal("controller does not support non buy");
         resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
       } else {
         if (requestType == ArmoryRequestType.BUY) {
@@ -110,11 +114,23 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         }
       }
       if (legitBuy) {
-//        if (userEquip == null || userEquip.getQuantity() < 1) {
-//          if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, user) && !user.updateEquipped(equipment)) {
-//            log.error("problem with equipping " + equipment + " for user " + user);
-//          }
-//        }
+        //        if (userEquip == null || userEquip.getQuantity() < 1) {
+        //          if (MiscMethods.checkIfEquipIsEquippableOnUser(equipment, user) && !user.updateEquipped(equipment)) {
+        //            log.error("problem with equipping " + equipment + " for user " + user);
+        //          }
+        //        }
+        
+        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), 
+            equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        if (userEquipId < 0) {
+          resBuilder.setStatus(ArmoryStatus.OTHER_FAIL);
+          log.error("problem with giving 1 of equip " + equipId + " to buyer " + user.getId());
+          legitBuy = false;
+        } else {
+          resBuilder.setFullUserEquipOfBoughtItem(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+              new UserEquip(userEquipId, user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)));
+        }
+        
         if (InsertUtils.get().insertUserEquip(user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL) < 0) {
           log.error("problem with giving player " + quantity + " more of equip with id " + equipId);
           legitBuy = false;

@@ -1,5 +1,10 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -7,29 +12,32 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SubmitEquipsToBlacksmithRequestEvent;
 import com.lvl6.events.response.SubmitEquipsToBlacksmithResponseEvent;
-import com.lvl6.events.response.UpdateClientUserResponseEvent;
-import com.lvl6.info.Structure;
+import com.lvl6.info.BlacksmithAttempt;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
-import com.lvl6.info.UserStruct;
+import com.lvl6.info.UserEquip;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.SubmitEquipsToBlacksmithRequestProto;
 import com.lvl6.proto.EventProto.SubmitEquipsToBlacksmithResponseProto;
+import com.lvl6.proto.EventProto.SubmitEquipsToBlacksmithResponseProto.Builder;
 import com.lvl6.proto.EventProto.SubmitEquipsToBlacksmithResponseProto.SubmitEquipsToBlacksmithStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
-import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
- @Component @DependsOn("gameServer") public class SubmitEquipsToBlacksmithController extends EventController {
+@Component @DependsOn("gameServer") public class SubmitEquipsToBlacksmithController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public SubmitEquipsToBlacksmithController() {
     numAllocatedThreads = 3;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new SubmitEquipsToBlacksmithRequestEvent();
@@ -42,67 +50,143 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
-//    SubmitEquipsToBlacksmithRequestProto reqProto = ((SubmitEquipsToBlacksmithRequestEvent)event).getSubmitEquipsToBlacksmithRequestProto();
-//
-//    MinimumUserProto senderProto = reqProto.getSender();
-//    int userStructId = reqProto.getUserStructId();
-//
-//    SubmitEquipsToBlacksmithResponseProto.Builder resBuilder = SubmitEquipsToBlacksmithResponseProto.newBuilder();
-//    resBuilder.setSender(senderProto);
-//
-//    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
-//    Structure struct = null;
-//
-//    if (userStruct != null) {
-//      struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
-//    }
-//
-//    server.lockPlayer(senderProto.getUserId());
-//
-//    try {
-//      User user = null;
-//      if (userStruct != null) {
-//        user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-//        if (user != null && struct != null && user.getId() == userStruct.getUserId()) {
-//          int diamondChange = Math.max(0,  (int)Math.ceil(struct.getDiamondPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
-//          int coinChange = Math.max(0,  (int)Math.ceil(struct.getCoinPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
-//          
-//          if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange, coinChange, 0)) {
-//            resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FAIL);
-//            log.error("problem with giving user " + diamondChange + " diamonds and " + coinChange + " coins");
-//          } else {
-//            if (!DeleteUtils.get().deleteUserStruct(userStructId)) {
-//              resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FAIL);
-//              log.error("problem with deleting user struct with user struct id " + userStructId);
-//            } else {
-//              resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.SUCCESS);                      
-//            }
-//          }
-//        } else {
-//          resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FAIL);
-//          log.error("parameter null, struct doesn't belong to user, or struct is not complete. user="
-//              + user + ", struct=" + struct + ", userStruct=" + userStruct);
-//        }
-//      } else {
-//        resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.FAIL);       
-//        log.error("no user struct with id " + userStructId);
-//      }
-//
-//      SubmitEquipsToBlacksmithResponseEvent resEvent = new SubmitEquipsToBlacksmithResponseEvent(senderProto.getUserId());
-//      resEvent.setTag(event.getTag());
-//      resEvent.setSubmitEquipsToBlacksmithResponseProto(resBuilder.build());  
-//      server.writeEvent(resEvent);
-//
-//      if (user != null) {
-//        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-//        resEventUpdate.setTag(event.getTag());
-//        server.writeEvent(resEventUpdate);
-//      }
-//
-//    } catch (Exception e) {
-//      log.error("exception in SubmitEquipsToBlacksmith processEvent", e);
-//    } finally {
-//      server.unlockPlayer(senderProto.getUserId());      
-//    }
+    SubmitEquipsToBlacksmithRequestProto reqProto = ((SubmitEquipsToBlacksmithRequestEvent)event).getSubmitEquipsToBlacksmithRequestProto();
+
+    MinimumUserProto senderProto = reqProto.getSender();
+    int userEquipOne = reqProto.getUserEquipOne();
+    int userEquipTwo = reqProto.getUserEquipTwo();
+    boolean paidToGuarantee = reqProto.getPaidToGuarantee();
+    Timestamp startTime = new Timestamp(reqProto.getStartTime());
+
+    SubmitEquipsToBlacksmithResponseProto.Builder resBuilder = SubmitEquipsToBlacksmithResponseProto.newBuilder();
+    resBuilder.setSender(senderProto);
+
+    server.lockPlayer(senderProto.getUserId());
+
+    try {
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      List<Integer> userEquipIds = new ArrayList<Integer>();
+      userEquipIds.add(userEquipOne);
+      userEquipIds.add(userEquipTwo);
+      List<UserEquip> userEquips = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquips(userEquipIds);
+      Equipment equip = (userEquips != null && userEquips.size() >= 1) ? EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(userEquips.get(0).getEquipId()) : null;
+
+      boolean legitSubmit = checkLegitSubmit(resBuilder, user, paidToGuarantee, userEquips, equip, startTime);
+
+      int goalLevel = 0;
+      if (legitSubmit) {
+        goalLevel = userEquips.get(0).getLevel() + 1;
+
+        int blacksmithId = InsertUtils.get().insertForgeAttemptIntoBlacksmith(user.getId(), equip.getId(), goalLevel, 
+            paidToGuarantee, startTime, calculateCoinCostForForge(equip, goalLevel), 
+            calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
+
+        if (blacksmithId <= 0) {
+          resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
+          log.error("problem with trying to give user blacksmith attempt");
+          legitSubmit = false;
+        } else {
+          BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(), goalLevel, 
+            paidToGuarantee, startTime, calculateCoinCostForForge(equip, goalLevel), 
+            calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
+          resBuilder.setUnhandledBlacksmithAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba));
+        }
+      }
+
+      SubmitEquipsToBlacksmithResponseEvent resEvent = new SubmitEquipsToBlacksmithResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
+      resEvent.setSubmitEquipsToBlacksmithResponseProto(resBuilder.build());  
+      server.writeEvent(resEvent);
+
+      if (legitSubmit) {
+        writeChangesToDB(user, calculateCoinCostForForge(equip, goalLevel), 
+            calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), userEquips);
+      }
+
+    } catch (Exception e) {
+      log.error("exception in SubmitEquipsToBlacksmith processEvent", e);
+    } finally {
+      server.unlockPlayer(senderProto.getUserId());      
+    }
+  }
+
+  private void writeChangesToDB(User user, int calculateCoinCostForForge,
+      int calculateDiamondCostForGuarantee, List<UserEquip> userEquips) {
+    //TODO:
+    //delete user equips
+    //update user
+  }
+
+  private int calculateCoinCostForForge(Equipment equip, int goalLevel) {
+    int coinCost = 0;
+    //TODO:
+    return Math.max(1, coinCost);
+  }
+
+  private int calculateDiamondCostForGuarantee(Equipment equip, int goalLevel, boolean paidToGuarantee) {
+    if (!paidToGuarantee) return 0;
+    //TODO:
+    return 0;
+  }
+
+  private boolean checkLegitSubmit(Builder resBuilder, User user, boolean paidToGuarantee, List<UserEquip> userEquips, Equipment equip, Timestamp startTime) {
+    if (user == null || userEquips == null || userEquips.size() != 2 || equip == null || startTime == null) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
+      log.error("parameter passed in is null. user=" + user + ", userEquips=" + userEquips + ", equip=" + equip);
+      return false;
+    }
+
+    if (!MiscMethods.checkClientTimeAroundApproximateNow(startTime)) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      log.error("client time too apart of server time. client time=" + startTime + ", servertime~="
+          + new Date());
+      return false;
+    }
+
+    UserEquip ue1 = userEquips.get(0);
+    UserEquip ue2 = userEquips.get(1);
+
+    if (ue1.getEquipId() != ue2.getEquipId()) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.OTHER_FAIL);
+      log.error("user equips passed in refer to different equips, equipId of first is " + ue1.getEquipId() + 
+          " and equipId of second is " + ue2.getEquipId());
+      return false;
+    }
+
+    if (ue1.getLevel() != ue2.getLevel()) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.SUBMITTED_EQUIPS_NOT_SAME_LEVEL);
+      log.error("user equips passed in have diff levels, level of first is " + ue1.getLevel() + 
+          " and level of second is " + ue2.getLevel());
+      return false;
+    }
+
+    if (ue1.getLevel() >= ControllerConstants.SUBMIT_EQUIPS_TO_BLACKSMITH__MAX_EQUIP_LEVEL) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.TRYING_TO_SURPASS_MAX_LEVEL);
+      log.error("forged weapon levels are already >= max. max is " + ControllerConstants.SUBMIT_EQUIPS_TO_BLACKSMITH__MAX_EQUIP_LEVEL
+          + ", weapon levels = " + ue1.getLevel());
+      return false;
+    }
+
+    if (user.getCoins() < calculateCoinCostForForge(equip, ue1.getLevel() + 1)) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.NOT_ENOUGH_COINS_TO_FORGE);
+      log.error("not enough coins to forge. has " + user.getCoins() + ", needs " + calculateCoinCostForForge(equip, ue1.getLevel() + 1));
+      return false;
+    }
+
+    if (user.getDiamonds() < calculateDiamondCostForGuarantee(equip, ue1.getLevel() + 1, paidToGuarantee)) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.NOT_ENOUGH_DIAMONDS_FOR_GUARANTEE);
+      log.error("not enough diamonds to guarantee. has " + user.getDiamonds() + ", needs " + calculateDiamondCostForGuarantee(equip, ue1.getLevel() + 1, paidToGuarantee));
+      return false;
+    }
+
+    List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(user.getId());
+    if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() > 0) {
+      resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.ALREADY_FORGING);
+      log.error("already have unhandled forges: " + unhandledBlacksmithAttemptsForUser);
+      return false;
+    }
+
+    resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.SUCCESS);
+    return true;
   }
 }

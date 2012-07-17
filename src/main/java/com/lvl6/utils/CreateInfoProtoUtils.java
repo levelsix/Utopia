@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
+import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
@@ -68,6 +69,7 @@ import com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
+import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
@@ -663,5 +665,21 @@ public class CreateInfoProtoUtils {
       PlayerWallPost p, User poster) {
     return PlayerWallPostProto.newBuilder().setPlayerWallPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(poster)).setWallOwnerId(p.getWallOwnerId())
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+
+  public static UnhandledBlacksmithAttemptProto createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(BlacksmithAttempt ba) {
+    UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
+        .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())
+        .setCoinCost(ba.getCoinCost()).setAttemptComplete(ba.isAttemptComplete());
+    
+    if (ba.getDiamondGuaranteeCost() > 0) {
+      builder.setDiamondGuaranteeCost(ba.getDiamondGuaranteeCost());
+    }
+    
+    if (ba.getTimeOfSpeedup() != null) {
+      builder.setTimeToSpeedup(ba.getTimeOfSpeedup().getTime());
+    }
+    
+    return builder.build();
   }
 }

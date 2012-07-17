@@ -59,7 +59,7 @@ public final class ProtocolsProto {
     C_FORGE_ATTEMPT_WAIT_COMPLETE(46, 49),
     C_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS(47, 50),
     C_COLLECT_FORGE_EQUIPS(48, 51),
-    C_LOGOUT_EVENT(49, 47),
+    C_LOGOUT_EVENT(49, 101),
     A_ADMIN_UPDATE(50, 300),
     ;
     
@@ -112,7 +112,7 @@ public final class ProtocolsProto {
     public static final int C_FORGE_ATTEMPT_WAIT_COMPLETE_VALUE = 49;
     public static final int C_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS_VALUE = 50;
     public static final int C_COLLECT_FORGE_EQUIPS_VALUE = 51;
-    public static final int C_LOGOUT_EVENT_VALUE = 47;
+    public static final int C_LOGOUT_EVENT_VALUE = 101;
     public static final int A_ADMIN_UPDATE_VALUE = 300;
     
     
@@ -169,7 +169,7 @@ public final class ProtocolsProto {
         case 49: return C_FORGE_ATTEMPT_WAIT_COMPLETE;
         case 50: return C_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS;
         case 51: return C_COLLECT_FORGE_EQUIPS;
-        case 47: return C_LOGOUT_EVENT;
+        case 101: return C_LOGOUT_EVENT;
         case 300: return A_ADMIN_UPDATE;
         default: return null;
       }
@@ -275,12 +275,12 @@ public final class ProtocolsProto {
     S_FORGE_ATTEMPT_WAIT_COMPLETE(46, 49),
     S_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS(47, 50),
     S_COLLECT_FORGE_EQUIPS(48, 51),
-    S_QUEST_COMPLETE_EVENT(50, 52),
-    S_REFERRAL_CODE_USED_EVENT(51, 53),
-    S_PURGE_STATIC_DATA_EVENT(52, 54),
+    S_UPDATE_CLIENT_USER_EVENT(49, 101),
+    S_QUEST_COMPLETE_EVENT(50, 102),
+    S_REFERRAL_CODE_USED_EVENT(51, 103),
+    S_PURGE_STATIC_DATA_EVENT(52, 104),
     ;
     
-    public static final EventProtocolResponse S_UPDATE_CLIENT_USER_EVENT = S_COLLECT_FORGE_EQUIPS;
     public static final int S_CHAT_EVENT_VALUE = 0;
     public static final int S_BATTLE_EVENT_VALUE = 1;
     public static final int S_VAULT_EVENT_VALUE = 2;
@@ -330,10 +330,10 @@ public final class ProtocolsProto {
     public static final int S_FORGE_ATTEMPT_WAIT_COMPLETE_VALUE = 49;
     public static final int S_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS_VALUE = 50;
     public static final int S_COLLECT_FORGE_EQUIPS_VALUE = 51;
-    public static final int S_UPDATE_CLIENT_USER_EVENT_VALUE = 51;
-    public static final int S_QUEST_COMPLETE_EVENT_VALUE = 52;
-    public static final int S_REFERRAL_CODE_USED_EVENT_VALUE = 53;
-    public static final int S_PURGE_STATIC_DATA_EVENT_VALUE = 54;
+    public static final int S_UPDATE_CLIENT_USER_EVENT_VALUE = 101;
+    public static final int S_QUEST_COMPLETE_EVENT_VALUE = 102;
+    public static final int S_REFERRAL_CODE_USED_EVENT_VALUE = 103;
+    public static final int S_PURGE_STATIC_DATA_EVENT_VALUE = 104;
     
     
     public final int getNumber() { return value; }
@@ -389,9 +389,10 @@ public final class ProtocolsProto {
         case 49: return S_FORGE_ATTEMPT_WAIT_COMPLETE;
         case 50: return S_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS;
         case 51: return S_COLLECT_FORGE_EQUIPS;
-        case 52: return S_QUEST_COMPLETE_EVENT;
-        case 53: return S_REFERRAL_CODE_USED_EVENT;
-        case 54: return S_PURGE_STATIC_DATA_EVENT;
+        case 101: return S_UPDATE_CLIENT_USER_EVENT;
+        case 102: return S_QUEST_COMPLETE_EVENT;
+        case 103: return S_REFERRAL_CODE_USED_EVENT;
+        case 104: return S_PURGE_STATIC_DATA_EVENT;
         default: return null;
       }
     }
@@ -497,7 +498,7 @@ public final class ProtocolsProto {
       "ACKSMITH\0200\022!\n\035C_FORGE_ATTEMPT_WAIT_COMPL" +
       "ETE\0201\0221\n-C_FINISH_FORGE_ATTEMPT_WAITTIME" +
       "_WITH_DIAMONDS\0202\022\032\n\026C_COLLECT_FORGE_EQUI" +
-      "PS\0203\022\022\n\016C_LOGOUT_EVENT\020/\022\023\n\016A_ADMIN_UPDA" +
+      "PS\0203\022\022\n\016C_LOGOUT_EVENT\020e\022\023\n\016A_ADMIN_UPDA" +
       "TE\020\254\002*\207\016\n\025EventProtocolResponse\022\020\n\014S_CHA" +
       "T_EVENT\020\000\022\022\n\016S_BATTLE_EVENT\020\001\022\021\n\rS_VAULT" +
       "_EVENT\020\002\022\027\n\023S_TASK_ACTION_EVENT\020\003\022\"\n\036S_R" +
@@ -540,10 +541,10 @@ public final class ProtocolsProto {
       "ACKSMITH\0200\022!\n\035S_FORGE_ATTEMPT_WAIT_COMPL" +
       "ETE\0201\0221\n-S_FINISH_FORGE_ATTEMPT_WAITTIME" +
       "_WITH_DIAMONDS\0202\022\032\n\026S_COLLECT_FORGE_EQUI" +
-      "PS\0203\022\036\n\032S_UPDATE_CLIENT_USER_EVENT\0203\022\032\n\026" +
-      "S_QUEST_COMPLETE_EVENT\0204\022\036\n\032S_REFERRAL_C" +
-      "ODE_USED_EVENT\0205\022\035\n\031S_PURGE_STATIC_DATA_" +
-      "EVENT\0206B\020B\016ProtocolsProto"
+      "PS\0203\022\036\n\032S_UPDATE_CLIENT_USER_EVENT\020e\022\032\n\026" +
+      "S_QUEST_COMPLETE_EVENT\020f\022\036\n\032S_REFERRAL_C" +
+      "ODE_USED_EVENT\020g\022\035\n\031S_PURGE_STATIC_DATA_" +
+      "EVENT\020hB\020B\016ProtocolsProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

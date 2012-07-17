@@ -104,4 +104,8 @@ public interface InsertUtil {
 	public abstract boolean insertKiipHistory(int userId, Timestamp clientTime,
 			String content, String signature, int quantity, String transactionId);
 
+  public abstract int insertForgeAttemptIntoBlacksmith(int userId, int equipId,
+      int goalLevel, boolean paidToGuarantee, Timestamp startTime,
+      int coinCostForForge, int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete);
+
 }

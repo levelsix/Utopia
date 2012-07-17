@@ -41,7 +41,7 @@ message BattleResponseProto {
 	optional BattleResult battleResult = 7;
 
 	optional int32 coinsGained = 4;
-	optional FullEquipProto equipGained = 5;
+	optional FullUserEquipProto userEquipGained = 5;
     optional int32 expGained = 6;
     
     enum BattleStatus {
@@ -94,6 +94,7 @@ message ArmoryRequestProto {
 message ArmoryResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional ArmoryStatus status = 2;
+	optional FullUserEquipProto fullUserEquipOfBoughtItem = 3;
 	
 	enum ArmoryStatus {
 		SUCCESS = 0; 
@@ -449,7 +450,7 @@ message TaskActionResponseProto {
 	optional TaskActionStatus status = 2;
 	optional bool taskCompleted = 3;
 	optional bool cityRankedUp = 4;
-	optional int32 lootEquipId = 5;
+	optional FullUserEquipProto lootUserEquip = 5;
 	optional int32 coinsGained = 6;
 	
 	optional int32 coinBonusIfCityRankup = 7;
@@ -762,7 +763,7 @@ message RetrieveCurrentMarketplacePostsResponseProto {
 																						//DONE
 message PostToMarketplaceRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 postedEquipId = 2;
+	optional int32 userEquipId = 2;
 	optional int32 diamondCost = 3;
 	optional int32 coinCost = 4;
 }
@@ -822,6 +823,7 @@ message PurchaseFromMarketplaceResponseProto {
      optional MinimumUserProto purchaser = 1;
      optional int32 posterId = 2;
      optional FullMarketplacePostProto marketplacePost = 3;
+     optional FullUserEquipProto fullUserEquipOfBoughtItem = 5;
      
      optional PurchaseFromMarketplaceStatus status = 4;
 
@@ -1009,6 +1011,7 @@ message QuestRedeemResponseProto {
      optional MinimumUserProto sender = 1;
      repeated FullQuestProto newlyAvailableQuests = 2;
      optional QuestRedeemStatus status = 3;    
+     optional FullUserEquipProto equipRewardFromQuest = 4;
 
      enum QuestRedeemStatus {
           SUCCESS = 0;
@@ -1215,7 +1218,7 @@ message ReferralCodeUsedResponseProto {
 																						//DONE
 message EquipEquipmentRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 equipId = 2;
+	optional int32 userEquipId = 2;
 }
 
 																						//DONE
@@ -1414,13 +1417,14 @@ message SubmitEquipsToBlacksmithRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 userEquipOne = 2;
 	optional int32 userEquipTwo = 3;
-	optional int32 paidToGuarantee = 4;
+	optional bool paidToGuarantee = 4;
+	optional int64 startTime = 5;
 }
 
 message SubmitEquipsToBlacksmithResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional SubmitEquipsToBlacksmithStatus status = 2;
-	optional int32 blacksmithId = 3;
+	optional UnhandledBlacksmithAttemptProto unhandledBlacksmithAttempt = 3;
 	
 	enum SubmitEquipsToBlacksmithStatus {
 		SUCCESS = 0;
@@ -1430,7 +1434,8 @@ message SubmitEquipsToBlacksmithResponseProto {
 		SUBMITTED_EQUIPS_NOT_SAME_LEVEL = 4;
 		TRYING_TO_SURPASS_MAX_LEVEL = 5;
 		ALREADY_FORGING = 6;
-		OTHER_FAIL = 7;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 7;
+		OTHER_FAIL = 8;
 	}
 }
 

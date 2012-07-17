@@ -120,20 +120,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           lostEquip = chooseLostEquip(defenderEquips, equipmentIdsToEquipment,
               defender, oldDefenderUserEquipsList);
           if (lostEquip != null) {
-            Equipment equip = equipmentIdsToEquipment.get(lostEquip.getEquipId());
-            resBuilder.setEquipGained(CreateInfoProtoUtils
-                .createFullEquipProtoFromEquip(equip));
-
-            int numOfThisEquipHeld = 0;
-            if (defenderEquips != null) {
-              for (UserEquip ue : defenderEquips) {
-                if (ue.getEquipId() == lostEquip.getEquipId()) numOfThisEquipHeld++;
-              }
-              if (numOfThisEquipHeld == 1) {
-                stolenEquipIsLastOne = true;
-              }
-            }
-
+            lostEquip = setLostEquip(resBuilder, lostEquip, winner, loser);
           }
         } else if (result == BattleResult.DEFENDER_WIN || result == BattleResult.ATTACKER_FLEE){
           winner = defender;
@@ -157,7 +144,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitBattle) {
-        writeChangesToDB(lostEquip, stolenEquipIsLastOne, winner, loser, attacker,
+        writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
 
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
@@ -198,6 +185,34 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } finally {
       server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
+  }
+
+  private UserEquip setLostEquip(BattleResponseProto.Builder resBuilder,
+      UserEquip lostEquip, User winner, User loser) {
+    if (!loser.isFake()) { //real, unequip and transfer
+      if (!MiscMethods.unequipUserEquipIfEquipped(loser, lostEquip)) {
+        log.error("problem with unequipping userequip" + lostEquip.getId());
+        lostEquip = null;
+      } else {
+        if (!(UpdateUtils.get().updateUserEquipOwner(lostEquip.getId(), winner.getId()))) {
+          log.error("problem with giving equip " + lostEquip.getEquipId() + " to user " + winner.getId());
+          lostEquip = null;
+        } else {
+          resBuilder.setUserEquipGained(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+              new UserEquip(lostEquip.getId(), winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel())));
+        }
+      }
+    } else {  //fake, just insert
+      int userEquipId = InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel());
+      if (userEquipId < 0) {
+        log.error("problem with giving 1 of equip " + lostEquip.getEquipId() + " to winner " + winner.getId());
+        lostEquip = null;
+      } else {
+        resBuilder.setUserEquipGained(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+            new UserEquip(lostEquip.getId(), winner.getId(), lostEquip.getEquipId(), lostEquip.getLevel())));
+      }
+    }
+    return lostEquip;
   }
 
   private int calculateExpGain(User loser) {
@@ -303,25 +318,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   }
 
-  private void writeChangesToDB(UserEquip lostEquip,
-      boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, int expGained,
+  private void writeChangesToDB(boolean stolenEquipIsLastOne, User winner, User loser, User attacker, User defender, int expGained,
       int lostCoins, Timestamp battleTime, boolean isFlee) {
-    if (lostEquip != null) {
-      if (!loser.isFake()) {
-        if (stolenEquipIsLastOne) {
-          if (!MiscMethods.unequipUserEquipIfEquipped(loser, lostEquip)) {
-            log.error("problem with unequipping userequip" + lostEquip.getId());
-            return;
-          }
-        }
-        if (!(UpdateUtils.get().updateUserEquipOwner(lostEquip.getId(), winner.getId()))) {
-          log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
-        }
-      } 
-      if (InsertUtils.get().insertUserEquip(winner.getId(), lostEquip.getId(), lostEquip.getLevel()) < 0) {
-        log.error("problem with giving equip " + lostEquip.getId() + " to user " + winner.getId());
-      }
-    }
 
     boolean simulateStaminaRefill = (attacker.getStamina() == attacker.getStaminaMax());
 

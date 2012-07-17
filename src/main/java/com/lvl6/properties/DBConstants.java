@@ -147,6 +147,18 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL = "equip_level";
   
+  /*BLACKSMITH TABLE*/
+  public static final String BLACKSMITH__ID = GENERIC__ID;
+  public static final String BLACKSMITH__USER_ID = GENERIC__USER_ID;
+  public static final String BLACKSMITH__EQUIP_ID = "equip_id";
+  public static final String BLACKSMITH__GOAL_LEVEL = "goal_level";
+  public static final String BLACKSMITH__GUARANTEED = "guaranteed";
+  public static final String BLACKSMITH__START_TIME = "start_time";
+  public static final String BLACKSMITH__COIN_COST = "coin_cost";
+  public static final String BLACKSMITH__DIAMOND_GUARANTEE_COST = "diamond_guarantee_cost";
+  public static final String BLACKSMITH__TIME_OF_SPEEDUP = "time_of_speedup";
+  public static final String BLACKSMITH__ATTEMPT_COMPLETE = "attempt_complete";
+  
   /*USER STRUCTS TABLE*/
   public static final String USER_STRUCTS__ID = GENERIC__ID;
   public static final String USER_STRUCTS__USER_ID = GENERIC__USER_ID;
