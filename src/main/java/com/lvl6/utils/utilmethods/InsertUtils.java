@@ -163,7 +163,7 @@ public class InsertUtils implements InsertUtil{
   @Override
   public boolean insertBattleHistory(int attackerId, int defenderId,
       BattleResult result, Date battleCompleteTime, int coinsStolen,
-      int stolenEquipId, int expGained) {
+      int stolenEquipId, int expGained, int stolenEquipLevel) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.BATTLE_HISTORY__ATTACKER_ID, attackerId);
     insertParams.put(DBConstants.BATTLE_HISTORY__DEFENDER_ID, defenderId);
@@ -178,6 +178,10 @@ public class InsertUtils implements InsertUtil{
     if (stolenEquipId > 0) {
       insertParams.put(DBConstants.BATTLE_HISTORY__EQUIP_STOLEN,
           stolenEquipId);
+    }
+    if (stolenEquipLevel > 0) {
+      insertParams.put(DBConstants.BATTLE_HISTORY__STOLEN_EQUIP_LEVEL,
+          stolenEquipLevel);
     }
     if (expGained > 0) {
       insertParams.put(DBConstants.BATTLE_HISTORY__EXP_GAINED, expGained);

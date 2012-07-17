@@ -160,6 +160,7 @@ message StartupResponseProto {
 		optional int64 battleCompleteTime = 3;
 		optional int32 coinsStolen = 4;
 		optional int32 stolenEquipId = 5;
+		optional int32 stolenEquipLevel = 6;
 	}
 	
 	message ReferralNotificationProto {
@@ -798,6 +799,7 @@ message RetractMarketplacePostRequestProto {
 message RetractMarketplacePostResponseProto {
      optional MinimumUserProto sender = 1;
      optional RetractMarketplacePostStatus status = 2;
+     optional FullUserEquipProto retractedUserEquip = 3;
 
 	enum RetractMarketplacePostStatus {
 		SUCCESS = 0;

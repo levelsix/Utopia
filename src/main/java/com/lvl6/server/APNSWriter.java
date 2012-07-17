@@ -232,7 +232,7 @@ public class APNSWriter extends Wrap {
 			BattleResponseProto battleResponseProto = event.getBattleResponseProto();
 
 			boolean equipStolen = false;
-			if (battleResponseProto.hasEquipGained() && battleResponseProto.getEquipGained().getEquipId() > 0) {
+			if (battleResponseProto.hasUserEquipGained() && battleResponseProto.getUserEquipGained().getEquipId() > 0) {
 				equipStolen = true;
 			}
 			String attacker = (battleResponseProto.getAttacker().hasName()) ? battleResponseProto.getAttacker().getName() : "";

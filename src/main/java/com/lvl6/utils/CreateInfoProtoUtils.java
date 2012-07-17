@@ -108,7 +108,7 @@ public class CreateInfoProtoUtils {
   public static AttackedNotificationProto createAttackedNotificationProtoFromBattleHistory(BattleDetails bd, User attacker) {
     AttackedNotificationProto.Builder builder = AttackedNotificationProto.newBuilder();
     builder.setAttacker(createMinimumUserProtoFromUser(attacker)).setBattleResult(bd.getResult())
-    .setBattleCompleteTime(bd.getBattleCompleteTime().getTime());
+    .setBattleCompleteTime(bd.getBattleCompleteTime().getTime()).setStolenEquipLevel(bd.getStolenEquipLevel());
     if (bd.getCoinsStolen() != ControllerConstants.NOT_SET && bd.getCoinsStolen() > 0) {
       builder.setCoinsStolen(bd.getCoinsStolen());
     }

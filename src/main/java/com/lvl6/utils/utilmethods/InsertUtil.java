@@ -51,7 +51,7 @@ public interface InsertUtil {
 	 */
 	public abstract boolean insertBattleHistory(int attackerId, int defenderId,
 			BattleResult result, Date battleCompleteTime, int coinsStolen,
-			int stolenEquipId, int expGained);
+			int stolenEquipId, int expGained, int stolenEquipLevel);
 
 	public abstract boolean insertUnredeemedUserQuest(int userId, int questId,
 			boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs);

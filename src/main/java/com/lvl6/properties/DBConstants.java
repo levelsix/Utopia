@@ -237,6 +237,8 @@ public class DBConstants {
   public static final String BATTLE_HISTORY__COINS_STOLEN = "coins_stolen";
   public static final String BATTLE_HISTORY__EQUIP_STOLEN = "equip_stolen";
   public static final String BATTLE_HISTORY__EXP_GAINED = "exp_gained";
+  public static final String BATTLE_HISTORY__STOLEN_EQUIP_LEVEL = "stolen_equip_level";
+
   
   /*REFERRALS*/
   public static final String REFERRALS__REFERRER_ID = "referrer_id";

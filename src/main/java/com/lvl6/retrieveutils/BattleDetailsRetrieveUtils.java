@@ -80,7 +80,12 @@ import com.lvl6.utils.DBConnection;
     if (rs.wasNull()) {
       expGained = ControllerConstants.NOT_SET;
     }
+    
+    int stolenEquipLevel = rs.getInt(i++);
+    if (rs.wasNull()) {
+      stolenEquipLevel = ControllerConstants.NOT_SET;
+    }
 
-    return new BattleDetails(attackerId, defenderId, result, battleCompleteTime, coinsStolen, equipStolen, expGained);
+    return new BattleDetails(attackerId, defenderId, result, battleCompleteTime, coinsStolen, equipStolen, expGained, stolenEquipLevel);
   }
 }

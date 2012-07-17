@@ -10,6 +10,7 @@ import com.lvl6.events.response.RetractMarketplacePostResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetractMarketplacePostRequestProto;
 import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto;
@@ -18,6 +19,7 @@ import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto.RetractMark
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.MarketplacePostRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
@@ -68,6 +70,18 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       boolean legitRetract = checkLegitRetract(user, mp, resBuilder, 
           diamondCut, coinCut, postId);
 
+      if (legitRetract) {
+        int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId(), mp.getEquipLevel());
+        if (userEquipId < 0) {
+          resBuilder.setStatus(RetractMarketplacePostStatus.OTHER_FAIL);
+          log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());
+          legitRetract = false;
+        } else {
+          resBuilder.setRetractedUserEquip(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+              new UserEquip(userEquipId, user.getId(), mp.getPostedEquipId(), mp.getEquipLevel())));
+        }
+      }
+      
       RetractMarketplacePostResponseEvent resEvent = new RetractMarketplacePostResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setRetractMarketplacePostResponseProto(resBuilder.build());  
@@ -97,10 +111,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
     int diamondChange = diamondCut * -1;
     int coinChange = coinCut * -1;
-    
-    if (InsertUtils.get().insertUserEquip(user.getId(), mp.getPostedEquipId(), mp.getEquipLevel()) < 0) {
-      log.error("problem with giving user 1 more of equip " + mp.getPostedEquipId());
-    }
+
     if (!user.updateRelativeDiamondsCoinsNumpostsinmarketplaceNaive(diamondChange, coinChange, -1)) {
       log.error("problem with decrementing user's num posts in marketplace by 1 and changing diamonds by "
           + diamondChange + " and changing coins by " + coinChange);

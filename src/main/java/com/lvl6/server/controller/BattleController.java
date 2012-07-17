@@ -174,7 +174,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             server.writeAPNSNotificationOrEvent(resEvent2);
           }
           int stolenEquipId = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getEquipId();
-          if (!insertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained)) {
+          int stolenEquipLevel = (lostEquip == null) ? ControllerConstants.NOT_SET : lostEquip.getLevel();
+
+          if (!insertUtils.insertBattleHistory(attacker.getId(), defender.getId(), result, battleTime, lostCoins, stolenEquipId, expGained, stolenEquipLevel)) {
             log.error("problem with adding battle history into the db for attacker " + attacker.getId() + " and defender " + defender.getId() 
                 + " at " + battleTime);
           }
@@ -405,7 +407,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
               for (UserEquip defenderEquip : defenderEquips) {
                 if (defenderEquip.getEquipId() == lostUserEquip.getEquipId()) userEquipsWithEquipId.add(defenderEquip);
               }
-              return MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquipped(defender, userEquipsWithEquipId);
+              return MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(defender, userEquipsWithEquipId);
             }
           }
         }
