@@ -36,7 +36,12 @@
 
 	<bean id="eventWriter" class="com.lvl6.server.EventWriter" />
 	
+	<bean id="serverAdmin" class="com.lvl6.server.ServerAdmin" />
+	
+	
 	<bean id="appGlobals" class="com.lvl6.properties.Globals" >
 		<property name="sandbox" value="${globals.isSandbox}" />
 	</bean>
+	
+	
 </beans>

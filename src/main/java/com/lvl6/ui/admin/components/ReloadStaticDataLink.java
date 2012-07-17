@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ITopic;
 import com.hazelcast.core.Message;
+import com.lvl6.server.ServerAdmin;
 import com.lvl6.server.ServerMessage;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.pages.AdminPage;
@@ -21,10 +22,8 @@ public class ReloadStaticDataLink extends Form<String>{
 	@Override
 	protected void onSubmit() {
 		super.onSubmit();
-		HazelcastInstance instance = (HazelcastInstance) AppContext.getApplicationContext().getBean("hazel");
-		ITopic<ServerMessage> topic = instance.getTopic("serverEvents");
-		log.info("Reloading all static data for cluster");
-		topic.publish(ServerMessage.RELOAD_STATIC_DATA);
+		ServerAdmin sa = AppContext.getApplicationContext().getBean(ServerAdmin.class);
+		sa.reloadAllStaticData();
 		setResponsePage(AdminPage.class);
 	}
 	
