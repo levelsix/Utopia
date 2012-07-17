@@ -29,9 +29,15 @@
 		
 	<hz:map id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
 		
+		
+	<hz:topic id="serverEvents" name="serverEvents" instance-ref="hazel"/>	
+		
 	<bean id="playersInAction" class="com.lvl6.utils.PlayerSet" scope="singleton" >
 		<property name="players" ref="playersInActionSet" />
 	</bean>
-
+	
+	
+	<bean id="serverMessageHandler" class="com.lvl6.eventhandlers.ServerEventHandler" scope="singleton" />
+	
 	
 </beans>
