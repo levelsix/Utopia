@@ -27,6 +27,7 @@ import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -109,10 +110,19 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-  private void writeChangesToDB(User user, int calculateDiamondCostForGuarantee, List<UserEquip> userEquips) {
-    //TODO:
-    //delete user equips
-    //update user
+  private void writeChangesToDB(User user, int diamondCostForGuarantee, List<UserEquip> userEquips) {
+    if (userEquips != null) {
+      for (UserEquip ue : userEquips) {
+        if (!DeleteUtils.get().deleteUserEquip(ue.getId())) {
+          log.error("problem with removing user equip post forge from user, user equip= " + ue);
+        }
+      }
+      if (diamondCostForGuarantee > 0) {
+        if (!user.updateRelativeDiamondsNaive(diamondCostForGuarantee*-1)) {
+          log.error("problem with taking away diamonds post forge guarantee attempt, taking away " + diamondCostForGuarantee + ", user only has " + user.getDiamonds());
+        }
+      }
+    }
   }
 
   private int calculateDiamondCostForGuarantee(Equipment equip, int goalLevel, boolean paidToGuarantee) {
