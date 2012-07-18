@@ -54,13 +54,17 @@
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations</lvl6.server.log.location>
+		<lvl6.cassandra.hosts>localhost</lvl6.cassandra.hosts>
+		<lvl6.cassandra.keyspace>Logs</lvl6.cassandra.keyspace>
+		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
+		<lvl6.cassandra.replication.factor>1</lvl6.cassandra.replication.factor>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 	</properties>
 
 	<profiles>
 		<profile>
-			<id>kelly</id>
+			<id>kellyrobot</id>
 			<properties>
 				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations</lvl6.server.log.location>
 				<server.port>10002</server.port>
@@ -68,7 +72,19 @@
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6702</hazelcast.port>
-				<!-- <hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips> -->
+				<hazelcast.dev.ips>5.9.28.212</hazelcast.dev.ips>
+			</properties>
+		</profile>
+		<profile>
+			<id>kellylocal</id>
+			<properties>
+				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations</lvl6.server.log.location>
+				<server.port>10002</server.port>
+				<hazelcast.group>kelly</hazelcast.group>
+				<hazelcast.pass>lvl6</hazelcast.pass>
+				<hazelcast.config>dev</hazelcast.config>
+				<hazelcast.port>6702</hazelcast.port>
+				<lvl6.cassandra.hosts>lucidyang.dekayd.com</lvl6.cassandra.hosts>
 				<hazelcast.dev.ips>192.168.13.105</hazelcast.dev.ips>
 			</properties>
 		</profile>
@@ -465,6 +481,11 @@
 				<artifactId>spring-security-http</artifactId>
 				<version>3.1.1.RELEASE</version>
 			</dependency>
+			<dependency>
+				<groupId>me.prettyprint</groupId>
+				<artifactId>hector-core</artifactId>
+				<version>1.0-5</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -586,10 +607,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-http</artifactId>
-		</dependency> -->
+		<dependency>
+			<groupId>me.prettyprint</groupId>
+			<artifactId>hector-core</artifactId>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-http</artifactId> 
+			</dependency> -->
 	</dependencies>
 
 </project>

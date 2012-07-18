@@ -10,21 +10,31 @@
 		</layout>
 	</appender>
 
+
+	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
+		<param name="hosts" value="${lvl6.cassandra.hosts}" />
+		<param name="keyspace" value="${lvl6.cassandra.keyspace}" />
+		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
+		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
+	</appender>
+	
+
 	<appender name="R" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="${lvl6.server.log.location}.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="10" />
-		<param name="Threshold" value="INFO"/>
+		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
-			<param name="ConversionPattern" value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
+			<param name="ConversionPattern"
+				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
 		</layout>
 	</appender>
-	
-	<appender name="ERROR_LOG" class="org.apache.log4j.RollingFileAppender" >
+
+	<appender name="ERROR_LOG" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="${lvl6.server.log.location}_errors.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="30" />
-		<param name="Threshold" value="ERROR"/>
+		<param name="Threshold" value="ERROR" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern"
 				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
@@ -34,6 +44,7 @@
 	<root>
 		<level value="debug" />
 		<!-- <appender-ref ref="console" /> -->
+		<appender-ref ref="cassandra" />
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
 	</root>

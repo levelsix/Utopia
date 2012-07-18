@@ -10,6 +10,14 @@
 		</layout>
 	</appender>
 
+	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
+		<param name="hosts" value="${lvl6.cassandra.hosts}" />
+		<param name="keyspace" value="${lvl6.cassandra.keyspace}" />
+		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
+		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
+	</appender>
+	
+	
 	<appender name="R" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="${lvl6.server.log.location}.log" />
 		<param name="MaxFileSize" value="25MB" />
@@ -35,6 +43,7 @@
 	<root>
 		<level value="INFO" />
 		<appender-ref ref="console" />
+		<appender-ref ref="cassandra" />
 		<!-- <appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" /> -->
 	</root>
