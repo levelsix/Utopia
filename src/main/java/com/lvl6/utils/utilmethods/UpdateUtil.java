@@ -1,6 +1,7 @@
 package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -167,5 +168,7 @@ public interface UpdateUtil {
 			int userId, List<Task> tasksInCity);
 	
 	public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId);
+
+  public abstract boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete);
 
 }

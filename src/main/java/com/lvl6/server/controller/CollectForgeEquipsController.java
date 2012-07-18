@@ -1,5 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -8,28 +11,38 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CollectForgeEquipsRequestEvent;
 import com.lvl6.events.response.CollectForgeEquipsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.BlacksmithAttempt;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CollectForgeEquipsRequestProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto;
+import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.Builder;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.CollectForgeEquipsStatus;
+import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto.ForgeAttemptWaitCompleteStatus;
+import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
- @Component @DependsOn("gameServer") public class CollectForgeEquipsController extends EventController {
+@Component @DependsOn("gameServer") public class CollectForgeEquipsController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public CollectForgeEquipsController() {
     numAllocatedThreads = 3;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new CollectForgeEquipsRequestEvent();
@@ -42,67 +55,95 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
-//    CollectForgeEquipsRequestProto reqProto = ((CollectForgeEquipsRequestEvent)event).getCollectForgeEquipsRequestProto();
-//
-//    MinimumUserProto senderProto = reqProto.getSender();
-//    int userStructId = reqProto.getUserStructId();
-//
-//    CollectForgeEquipsResponseProto.Builder resBuilder = CollectForgeEquipsResponseProto.newBuilder();
-//    resBuilder.setSender(senderProto);
-//
-//    UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
-//    Structure struct = null;
-//
-//    if (userStruct != null) {
-//      struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
-//    }
-//
-//    server.lockPlayer(senderProto.getUserId());
-//
-//    try {
-//      User user = null;
-//      if (userStruct != null) {
-//        user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-//        if (user != null && struct != null && user.getId() == userStruct.getUserId()) {
-//          int diamondChange = Math.max(0,  (int)Math.ceil(struct.getDiamondPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
-//          int coinChange = Math.max(0,  (int)Math.ceil(struct.getCoinPrice()*ControllerConstants.SELL_NORM_STRUCTURE__PERCENT_RETURNED_TO_USER));
-//          
-//          if (!user.updateRelativeDiamondsCoinsExperienceNaive(diamondChange, coinChange, 0)) {
-//            resBuilder.setStatus(CollectForgeEquipsStatus.FAIL);
-//            log.error("problem with giving user " + diamondChange + " diamonds and " + coinChange + " coins");
-//          } else {
-//            if (!DeleteUtils.get().deleteUserStruct(userStructId)) {
-//              resBuilder.setStatus(CollectForgeEquipsStatus.FAIL);
-//              log.error("problem with deleting user struct with user struct id " + userStructId);
-//            } else {
-//              resBuilder.setStatus(CollectForgeEquipsStatus.SUCCESS);                      
-//            }
-//          }
-//        } else {
-//          resBuilder.setStatus(CollectForgeEquipsStatus.FAIL);
-//          log.error("parameter null, struct doesn't belong to user, or struct is not complete. user="
-//              + user + ", struct=" + struct + ", userStruct=" + userStruct);
-//        }
-//      } else {
-//        resBuilder.setStatus(CollectForgeEquipsStatus.FAIL);       
-//        log.error("no user struct with id " + userStructId);
-//      }
-//
-//      CollectForgeEquipsResponseEvent resEvent = new CollectForgeEquipsResponseEvent(senderProto.getUserId());
-//      resEvent.setTag(event.getTag());
-//      resEvent.setCollectForgeEquipsResponseProto(resBuilder.build());  
-//      server.writeEvent(resEvent);
-//
-//      if (user != null) {
-//        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-//        resEventUpdate.setTag(event.getTag());
-//        server.writeEvent(resEventUpdate);
-//      }
-//
-//    } catch (Exception e) {
-//      log.error("exception in CollectForgeEquips processEvent", e);
-//    } finally {
-//      server.unlockPlayer(senderProto.getUserId());      
-//    }
+    CollectForgeEquipsRequestProto reqProto = ((CollectForgeEquipsRequestEvent)event).getCollectForgeEquipsRequestProto();
+
+    MinimumUserProto senderProto = reqProto.getSender();
+    int blacksmithId = reqProto.getBlacksmithId();
+
+    CollectForgeEquipsResponseProto.Builder resBuilder = CollectForgeEquipsResponseProto.newBuilder();
+    resBuilder.setSender(senderProto);
+
+    server.lockPlayer(senderProto.getUserId());
+    try {
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
+
+      boolean legitCollection = checkLegitCollection(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user);
+      
+      BlacksmithAttempt blacksmithAttempt = null;
+      boolean successfulForge = false;
+      
+      if (legitCollection) {
+        blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
+        successfulForge = checkIfSuccessfulForge(blacksmithAttempt, EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId()));
+        if (successfulForge) {
+          int newUserEquipId = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel());
+          if (newUserEquipId < 0) {
+            resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
+            log.error("problem with giving 1 of equip " + blacksmithAttempt.getEquipId() + " to forger " + user.getId());
+            legitCollection = false;
+          } else {
+            resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+                new UserEquip(newUserEquipId, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel())));
+          }
+        } else {
+          //unsuccessful forge
+        }
+      }
+      
+      CollectForgeEquipsResponseEvent resEvent = new CollectForgeEquipsResponseEvent(senderProto.getUserId());
+      resEvent.setTag(event.getTag());
+      resEvent.setCollectForgeEquipsResponseProto(resBuilder.build());  
+      server.writeEvent(resEvent);
+      
+      if (legitCollection) {
+        writeChangesToDB(blacksmithAttempt, successfulForge);
+      }
+      
+    } catch (Exception e) {
+      log.error("exception in CollectForgeEquips processEvent", e);
+    } finally {
+      server.unlockPlayer(senderProto.getUserId());      
+    }
+  }
+
+
+  private void writeChangesToDB(BlacksmithAttempt blacksmithAttempt,
+      boolean successfulForge) {
+    // delete from marketplace and move it into archive
+    
+  }
+
+  private boolean checkIfSuccessfulForge(BlacksmithAttempt blacksmithAttempt, Equipment equipment) {
+    if (blacksmithAttempt.isGuaranteed())
+      return true;
+    // TODO
+    return false;
+  }
+
+  private boolean checkLegitCollection(Builder resBuilder, int blacksmithId, List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user) {
+    if (unhandledBlacksmithAttemptsForUser == null || user == null || unhandledBlacksmithAttemptsForUser.size() != 1) {
+      resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
+      log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= " + unhandledBlacksmithAttemptsForUser + ", user= " + user);
+      return false;
+    }
+
+    BlacksmithAttempt blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
+    Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
+
+    if (!blacksmithAttempt.isAttemptComplete()) {
+      resBuilder.setStatus(CollectForgeEquipsStatus.NOT_DONE_YET);
+      log.error("user trying to collect from an incomplete forge attempt: " + blacksmithAttempt);
+      return false;
+    }
+
+    if (blacksmithAttempt.getUserId() != user.getId() || blacksmithAttempt.getId() != blacksmithId || equip == null) {
+      resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
+      log.error("wrong blacksmith attempt. blacksmith attempt is " + blacksmithAttempt + ", blacksmith id passed in is " + blacksmithId + ", equip = " + equip);
+      return false;
+    }
+
+    resBuilder.setStatus(CollectForgeEquipsStatus.SUCCESS);
+    return true;  
   }
 }

@@ -540,6 +540,7 @@ public final class InfoProto {
     VAULT(2, 3),
     ARMORY(3, 4),
     MARKETPLACE(4, 5),
+    BLACKSMITH(5, 6),
     ;
     
     public static final int AVIARY_VALUE = 0;
@@ -547,6 +548,7 @@ public final class InfoProto {
     public static final int VAULT_VALUE = 3;
     public static final int ARMORY_VALUE = 4;
     public static final int MARKETPLACE_VALUE = 5;
+    public static final int BLACKSMITH_VALUE = 6;
     
     
     public final int getNumber() { return value; }
@@ -558,6 +560,7 @@ public final class InfoProto {
         case 3: return VAULT;
         case 4: return ARMORY;
         case 5: return MARKETPLACE;
+        case 6: return BLACKSMITH;
         default: return null;
       }
     }
@@ -588,7 +591,7 @@ public final class InfoProto {
     }
     
     private static final CritStructType[] VALUES = {
-      AVIARY, CARPENTER, VAULT, ARMORY, MARKETPLACE, 
+      AVIARY, CARPENTER, VAULT, ARMORY, MARKETPLACE, BLACKSMITH, 
     };
     
     public static CritStructType valueOf(
@@ -28981,12 +28984,13 @@ public final class InfoProto {
       "\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Ma" +
       "rketplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020" +
       "\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJob" +
-      "RequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*S\n\016Cr" +
+      "RequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016Cr" +
       "itStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022" +
-      "\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005*",
-      "3\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\n" +
-      "POSITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FA" +
-      "R_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
+      "\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022",
+      "\016\n\nBLACKSMITH\020\006*3\n\021StructOrientation\022\016\n\n" +
+      "POSITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022Expansio" +
+      "nDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B" +
+      "\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

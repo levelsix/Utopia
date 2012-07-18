@@ -42,7 +42,6 @@ public class DeleteUtils implements DeleteUtil {
     if (numDeleted == 1) {
       return true;
     }
-
     return false;
   }
 

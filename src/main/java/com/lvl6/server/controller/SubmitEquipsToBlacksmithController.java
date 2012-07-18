@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SubmitEquipsToBlacksmithRequestEvent;
 import com.lvl6.events.response.SubmitEquipsToBlacksmithResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
@@ -88,8 +89,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           legitSubmit = false;
         } else {
           BlacksmithAttempt ba = new BlacksmithAttempt(blacksmithId, user.getId(), equip.getId(), goalLevel, 
-            paidToGuarantee, startTime, 
-            calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
+              paidToGuarantee, startTime, 
+              calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), null, false);
           resBuilder.setUnhandledBlacksmithAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(ba));
         }
       }
@@ -101,6 +102,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       if (legitSubmit) {
         writeChangesToDB(user, calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee), userEquips);
+        if (calculateDiamondCostForGuarantee(equip, goalLevel, paidToGuarantee) > 0) {
+          UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+          resEventUpdate.setTag(event.getTag());
+          server.writeEvent(resEventUpdate);
+        }
       }
 
     } catch (Exception e) {

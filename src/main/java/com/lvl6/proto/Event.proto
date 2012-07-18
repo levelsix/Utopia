@@ -1457,6 +1457,7 @@ message ForgeAttemptWaitCompleteResponseProto {
     	NOT_DONE_YET = 1;
      	OTHER_FAIL = 2;
      	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
+     	ALREADY_COMPLETE = 4;
     }
 }
 
@@ -1495,5 +1496,6 @@ message CollectForgeEquipsResponseProto {
 	enum CollectForgeEquipsStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
+		NOT_DONE_YET = 2;
 	}
 }

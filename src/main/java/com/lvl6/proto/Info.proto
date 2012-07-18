@@ -332,6 +332,7 @@ enum CritStructType {
 	VAULT = 3;
 	ARMORY = 4;
 	MARKETPLACE = 5;
+	BLACKSMITH = 6;
 }
 
 message FullUserCritstructProto {

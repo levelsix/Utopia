@@ -89502,12 +89502,14 @@ public final class EventProto {
       NOT_DONE_YET(1, 1),
       OTHER_FAIL(2, 2),
       CLIENT_TOO_APART_FROM_SERVER_TIME(3, 3),
+      ALREADY_COMPLETE(4, 4),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int NOT_DONE_YET_VALUE = 1;
       public static final int OTHER_FAIL_VALUE = 2;
       public static final int CLIENT_TOO_APART_FROM_SERVER_TIME_VALUE = 3;
+      public static final int ALREADY_COMPLETE_VALUE = 4;
       
       
       public final int getNumber() { return value; }
@@ -89518,6 +89520,7 @@ public final class EventProto {
           case 1: return NOT_DONE_YET;
           case 2: return OTHER_FAIL;
           case 3: return CLIENT_TOO_APART_FROM_SERVER_TIME;
+          case 4: return ALREADY_COMPLETE;
           default: return null;
         }
       }
@@ -89548,7 +89551,7 @@ public final class EventProto {
       }
       
       private static final ForgeAttemptWaitCompleteStatus[] VALUES = {
-        SUCCESS, NOT_DONE_YET, OTHER_FAIL, CLIENT_TOO_APART_FROM_SERVER_TIME, 
+        SUCCESS, NOT_DONE_YET, OTHER_FAIL, CLIENT_TOO_APART_FROM_SERVER_TIME, ALREADY_COMPLETE, 
       };
       
       public static ForgeAttemptWaitCompleteStatus valueOf(
@@ -91659,10 +91662,12 @@ public final class EventProto {
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
       OTHER_FAIL(1, 1),
+      NOT_DONE_YET(2, 2),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int OTHER_FAIL_VALUE = 1;
+      public static final int NOT_DONE_YET_VALUE = 2;
       
       
       public final int getNumber() { return value; }
@@ -91671,6 +91676,7 @@ public final class EventProto {
         switch (value) {
           case 0: return SUCCESS;
           case 1: return OTHER_FAIL;
+          case 2: return NOT_DONE_YET;
           default: return null;
         }
       }
@@ -91701,7 +91707,7 @@ public final class EventProto {
       }
       
       private static final CollectForgeEquipsStatus[] VALUES = {
-        SUCCESS, OTHER_FAIL, 
+        SUCCESS, OTHER_FAIL, NOT_DONE_YET, 
       };
       
       public static CollectForgeEquipsStatus valueOf(
@@ -93829,38 +93835,39 @@ public final class EventProto {
       "ER_FAIL\020\010\"\177\n$ForgeAttemptWaitCompleteReq" +
       "uestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
       "to.MinimumUserProto\022\024\n\014blacksmithId\030\002 \001(" +
-      "\005\022\017\n\007curTime\030\003 \001(\003\"\267\002\n%ForgeAttemptWaitC" +
+      "\005\022\017\n\007curTime\030\003 \001(\003\"\316\002\n%ForgeAttemptWaitC" +
       "ompleteResponseProto\0220\n\006sender\030\001 \001(\0132 .c" +
       "om.lvl6.proto.MinimumUserProto\022d\n\006status" +
       "\030\002 \001(\0162T.com.lvl6.proto.ForgeAttemptWait" +
       "CompleteResponseProto.ForgeAttemptWaitCo" +
-      "mpleteStatus\"v\n\036ForgeAttemptWaitComplete" +
-      "Status\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016\n",
-      "\nOTHER_FAIL\020\002\022%\n!CLIENT_TOO_APART_FROM_S" +
-      "ERVER_TIME\020\003\"\223\001\n2FinishForgeAttemptWaitt" +
-      "imeWithDiamondsRequestProto\0220\n\006sender\030\001 " +
-      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022\024\n" +
-      "\014blacksmithId\030\002 \001(\005\022\025\n\rtimeOfSpeedup\030\003 \001" +
-      "(\003\"\336\002\n3FinishForgeAttemptWaittimeWithDia" +
-      "mondsResponseProto\0220\n\006sender\030\001 \001(\0132 .com" +
-      ".lvl6.proto.MinimumUserProto\022t\n\006status\030\002" +
-      " \001(\0162d.com.lvl6.proto.FinishForgeAttempt" +
-      "WaittimeWithDiamondsResponseProto.Finish",
-      "ForgeAttemptWaittimeStatus\"\177\n FinishForg" +
-      "eAttemptWaittimeStatus\022\013\n\007SUCCESS\020\000\022\027\n\023N" +
-      "OT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!" +
-      "CLIENT_TOO_APART_FROM_SERVER_TIME\020\003\"h\n\036C" +
-      "ollectForgeEquipsRequestProto\0220\n\006sender\030" +
-      "\001 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
-      "\024\n\014blacksmithId\030\002 \001(\005\"\241\002\n\037CollectForgeEq" +
-      "uipsResponseProto\0220\n\006sender\030\001 \001(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\0229\n\rnewUserEq" +
-      "uips\030\002 \003(\0132\".com.lvl6.proto.FullUserEqui",
-      "pProto\022X\n\006status\030\003 \001(\0162H.com.lvl6.proto." +
-      "CollectForgeEquipsResponseProto.CollectF" +
-      "orgeEquipsStatus\"7\n\030CollectForgeEquipsSt" +
-      "atus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEve" +
-      "ntProto"
+      "mpleteStatus\"\214\001\n\036ForgeAttemptWaitComplet" +
+      "eStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016",
+      "\n\nOTHER_FAIL\020\002\022%\n!CLIENT_TOO_APART_FROM_" +
+      "SERVER_TIME\020\003\022\024\n\020ALREADY_COMPLETE\020\004\"\223\001\n2" +
+      "FinishForgeAttemptWaittimeWithDiamondsRe" +
+      "questProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
+      "oto.MinimumUserProto\022\024\n\014blacksmithId\030\002 \001" +
+      "(\005\022\025\n\rtimeOfSpeedup\030\003 \001(\003\"\336\002\n3FinishForg" +
+      "eAttemptWaittimeWithDiamondsResponseProt" +
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022t\n\006status\030\002 \001(\0162d.com.lvl6.p" +
+      "roto.FinishForgeAttemptWaittimeWithDiamo",
+      "ndsResponseProto.FinishForgeAttemptWaitt" +
+      "imeStatus\"\177\n FinishForgeAttemptWaittimeS" +
+      "tatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMOND" +
+      "S\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIENT_TOO_APART_" +
+      "FROM_SERVER_TIME\020\003\"h\n\036CollectForgeEquips" +
+      "RequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6." +
+      "proto.MinimumUserProto\022\024\n\014blacksmithId\030\002" +
+      " \001(\005\"\263\002\n\037CollectForgeEquipsResponseProto" +
+      "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
+      "mUserProto\0229\n\rnewUserEquips\030\002 \003(\0132\".com.",
+      "lvl6.proto.FullUserEquipProto\022X\n\006status\030" +
+      "\003 \001(\0162H.com.lvl6.proto.CollectForgeEquip" +
+      "sResponseProto.CollectForgeEquipsStatus\"" +
+      "I\n\030CollectForgeEquipsStatus\022\013\n\007SUCCESS\020\000" +
+      "\022\016\n\nOTHER_FAIL\020\001\022\020\n\014NOT_DONE_YET\020\002B\014B\nEv" +
+      "entProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
