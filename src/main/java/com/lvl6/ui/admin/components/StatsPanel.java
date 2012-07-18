@@ -17,8 +17,8 @@ public class StatsPanel extends Panel {
 	
 	
 	protected StatsModel stats = new StatsModel();
-	protected PropertyModel<Integer> cplayers = new PropertyModel<Integer>(stats, "connectedPlayers");
-	protected PropertyModel<Integer> tplayers = new PropertyModel<Integer>(stats, "totalPlayers");
+	protected PropertyModel<Integer> cplayers = new PropertyModel<Integer>(stats, "connectedPlayersCount");
+	protected PropertyModel<Integer> tplayers = new PropertyModel<Integer>(stats, "totalPlayersCount");
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
 	protected Label tplayersLabel = new Label("totalPlayers", tplayers);
 
