@@ -32,7 +32,7 @@
 	</appender>
 
 	<root>
-		<level value="INFO" />
+		<level value="debug" />
 		<!-- <appender-ref ref="console" /> -->
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
