@@ -523,7 +523,6 @@ message UnhandledBlacksmithAttemptProto {
 	optional int64 goalLevel = 4;
 	optional bool guaranteed = 5;
 	optional int64 startTime = 6;
-	optional int32 coinCost = 7;
 	optional int32 diamondGuaranteeCost = 8;
 	optional int64 timeOfSpeedup = 9;
 	optional bool attemptComplete = 10;

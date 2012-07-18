@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
@@ -11,21 +12,21 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.FinishForgeAttemptWaittimeWithDiamondsRequestEvent;
 import com.lvl6.events.response.FinishForgeAttemptWaittimeWithDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
-import com.lvl6.info.Structure;
+import com.lvl6.info.BlacksmithAttempt;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
-import com.lvl6.info.UserStruct;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsRequestProto;
-import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsRequestProto.ForgeAttemptWaitTimeType;
 import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto;
+import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.CollectForgeEquipsStatus;
 import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.Builder;
-import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus;
+import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus;
+import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto.ForgeAttemptWaitCompleteStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
-import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
+import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
-import com.lvl6.utils.utilmethods.QuestUtils;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Component @DependsOn("gameServer") public class FinishForgeAttemptWaittimeWithDiamondsController extends EventController{
@@ -43,7 +44,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS_EVENT;
+    return EventProtocolRequest.C_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS;
   }
 
   @Override
@@ -52,9 +53,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     FinishForgeAttemptWaittimeWithDiamondsRequestProto reqProto = ((FinishForgeAttemptWaittimeWithDiamondsRequestEvent)event).getFinishForgeAttemptWaittimeWithDiamondsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    int userStructId = reqProto.getUserStructId();
+    int blacksmithId = reqProto.getBlacksmithId();
     Timestamp timeOfSpeedup = new Timestamp(reqProto.getTimeOfSpeedup());
-    ForgeAttemptWaitTimeType waitTimeType = reqProto.getWaitTimeType();
 
     FinishForgeAttemptWaittimeWithDiamondsResponseProto.Builder resBuilder = FinishForgeAttemptWaittimeWithDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -62,32 +62,24 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
 
     try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());      
-      UserStruct userStruct = RetrieveUtils.userStructRetrieveUtils().getSpecificUserStruct(userStructId);
-      Structure struct = null;
-      if (userStruct != null) {
-        struct = StructureRetrieveUtils.getStructForStructId(userStruct.getStructId());
-      }
-
-      boolean legitSpeedup = checkLegitSpeedup(resBuilder, user, userStruct, timeOfSpeedup, waitTimeType, struct);
+      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
+      
+      boolean legitFinish = checkLegitFinish(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user, timeOfSpeedup);
 
       FinishForgeAttemptWaittimeWithDiamondsResponseEvent resEvent = new FinishForgeAttemptWaittimeWithDiamondsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setFinishForgeAttemptWaittimeWithDiamondsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
-      if (legitSpeedup) {
-        writeChangesToDB(user, userStruct, timeOfSpeedup, waitTimeType, struct);
+      if (legitFinish) {
+        BlacksmithAttempt ba = unhandledBlacksmithAttemptsForUser.get(0);
+        
+        int diamondCost = calculateDiamondCostToSpeedupForgeWaittime(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ba.getEquipId()), ba.getGoalLevel());
+        writeChangesToDB(user, ba, timeOfSpeedup, diamondCost);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        
-        if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_CONSTRUCTION) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
-        }
-        if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_UPGRADE) {
-          QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
-        }
       }
     } catch (Exception e) {
       log.error("exception in FinishForgeAttemptWaittimeWithDiamondsController processEvent", e);
@@ -96,90 +88,70 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void writeChangesToDB(User user, UserStruct userStruct, Timestamp timeOfPurchase, ForgeAttemptWaitTimeType waitTimeType, Structure struct) {
-    if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_CONSTRUCTION) {
-      if (!user.updateRelativeDiamondsNaive(struct.getInstaBuildDiamondCost()
-          * -1)) {
-        log.error("problem with using diamonds to finish norm struct build");
-      } else {
-        if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
-          log.error("problem with using diamonds to finish norm struct build");
-        }
-      }
-    }
-    if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_INCOME_WAITTIME) {
-      if (!user.updateRelativeDiamondsCoinsExperienceNaive(calculateDiamondCostForInstaRetrieve(userStruct, struct)*-1, MiscMethods.calculateIncomeGainedFromUserStruct(struct.getIncome(), userStruct.getLevel()), 0)) {
-        log.error("problem with using diamonds to finish norm struct income waittime");
-      } else {
-        if (!UpdateUtils.get().updateUserStructLastretrievedLastupgradeIscomplete(userStruct.getId(), timeOfPurchase, null, true)) {
-          log.error("problem with using diamonds to finish norm struct income waittime");
-        }
-      }
-    }
-    if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_UPGRADE) {
-      if (!user.updateRelativeDiamondsNaive(calculateDiamondCostForInstaUpgrade(userStruct, struct) * -1)) {
-        log.error("problem with using diamonds to finish norm struct upgrade waittime");
-      } else {
-        if (!UpdateUtils.get().updateUserStructLastretrievedIscompleteLevelchange(userStruct.getId(), timeOfPurchase, true, 1)) {
-          log.error("problem with using diamodns to finish upgrade waittime");
-        }
+  private void writeChangesToDB(User user, BlacksmithAttempt ba, Timestamp timeOfSpeedup, int diamondCost) {
+    if (!UpdateUtils.get().updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(ba.getId(), timeOfSpeedup, true)) {
+      log.error("problem with updating blacksmith attempt complete and time of speedup. ba=" + ba + ", timeOfSpeedup is " + timeOfSpeedup + ", attempt complete is true");
+    }    
+    if (diamondCost > 0) {
+      if (!user.updateRelativeDiamondsNaive(diamondCost*-1)) {
+        log.error("problem with taking away diamonds post forge speedup, taking away " + diamondCost + ", user only has " + user.getDiamonds());
       }
     }
   }
 
-  private boolean checkLegitSpeedup(Builder resBuilder, User user, UserStruct userStruct, Timestamp timeOfSpeedup, ForgeAttemptWaitTimeType waitTimeType, Structure struct) {
-    if (user == null || userStruct == null || waitTimeType == null || struct == null || userStruct.getUserId() != user.getId() || userStruct.isComplete()) {
-      resBuilder.setStatus(FinishForgeAttemptWaittimeStatus.OTHER_FAIL);
-      log.error("something passed in is null. user=" + user + ", userStruct=" + userStruct + ", waitTimeType="
-          + waitTimeType + ", struct=" + struct + ", struct owner's id=" + userStruct.getUserId());
+  private boolean checkLegitFinish(Builder resBuilder, int blacksmithId,
+      List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user,
+      Timestamp timeOfSpeedup) {
+    if (unhandledBlacksmithAttemptsForUser == null || user == null || unhandledBlacksmithAttemptsForUser.size() != 1 || timeOfSpeedup == null) {
+      resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.OTHER_FAIL);
+      log.error("a parameter passed in is null or invalid. unhandledBlacksmithAttemptsForUser= " + unhandledBlacksmithAttemptsForUser + ", user= " + user
+          + ", timeOfSpeedup=" + timeOfSpeedup);
       return false;
     }
+    
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfSpeedup)) {
-      resBuilder.setStatus(FinishForgeAttemptWaittimeStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
+      resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       log.error("client time too apart of server time. client time=" + timeOfSpeedup + ", servertime~="
           + new Date());
       return false;
     }
+    
+    BlacksmithAttempt blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
+    Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
 
-    //TODO:
-    if (timeOfSpeedup.getTime() < userStruct.getPurchaseTime().getTime()) {
-      resBuilder.setStatus(FinishForgeAttemptWaittimeStatus.OTHER_FAIL);
-      log.error("time passed in is before time user struct was purchased. timeOfSpeedup=" + timeOfSpeedup
-          + ", struct was purchased=" + userStruct.getPurchaseTime());
+    if (blacksmithAttempt.isAttemptComplete()) {
+      resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.ALREADY_COMPLETE);
+      log.error("user trying to speed up arleady complete forge attempt: " + blacksmithAttempt);
+      return false;
+    }
+
+    if (blacksmithAttempt.getUserId() != user.getId() || blacksmithAttempt.getId() != blacksmithId || equip == null) {
+      resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.OTHER_FAIL);
+      log.error("wrong blacksmith attempt. blacksmith attempt is " + blacksmithAttempt + ", blacksmith id passed in is " + blacksmithId + ", equip = " + equip);
       return false;
     }
     
-    
-    int diamondCost;
-    if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_CONSTRUCTION) {
-      diamondCost = struct.getInstaBuildDiamondCost();
-    } else if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_INCOME_WAITTIME) {
-      diamondCost = calculateDiamondCostForInstaRetrieve(userStruct, struct);
-    } else if (waitTimeType == ForgeAttemptWaitTimeType.FINISH_UPGRADE) {
-      diamondCost = calculateDiamondCostForInstaUpgrade(userStruct, struct);
-    } else {
-      resBuilder.setStatus(FinishForgeAttemptWaittimeStatus.OTHER_FAIL);
-      log.error("norm struct wait time type is unknown: " + waitTimeType);
+    if (blacksmithAttempt.getStartTime().getTime() > timeOfSpeedup.getTime()) {
+      resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.OTHER_FAIL);
+      log.error("start time after speedup time. starttime = " + blacksmithAttempt.getStartTime() + ", speedup time is " + timeOfSpeedup);
       return false;
     }
+
+
+    int diamondCost = calculateDiamondCostToSpeedupForgeWaittime(equip, blacksmithAttempt.getGoalLevel());
     if (user.getDiamonds() < diamondCost) {
-      resBuilder.setStatus(FinishForgeAttemptWaittimeStatus.NOT_ENOUGH_DIAMONDS);
+      resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.NOT_ENOUGH_DIAMONDS);
       log.error("user doesn't have enough diamonds. has " + user.getDiamonds() +", needs " + diamondCost);
       return false;
     }
-    resBuilder.setStatus(FinishForgeAttemptWaittimeStatus.SUCCESS);
+    resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.SUCCESS);
     return true;  
   }
-  
-  private int calculateDiamondCostForInstaRetrieve(UserStruct userStruct, Structure struct) {
-    int result = struct.getInstaRetrieveDiamondCostBase() * userStruct.getLevel();
-    return Math.max(1, result);
-  }
-  
-  private int calculateDiamondCostForInstaUpgrade(UserStruct userStruct, Structure struct) {
-    int result = (int)(struct.getInstaUpgradeDiamondCostBase() * userStruct.getLevel() * 
-        ControllerConstants.FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS__DIAMOND_COST_FOR_INSTANT_UPGRADE_MULTIPLIER);
-    return Math.max(1, result);
+
+  private int calculateDiamondCostToSpeedupForgeWaittime(Equipment equip,
+      int goalLevel) {
+    //TODO:
+    return 0;
   }
 
 }

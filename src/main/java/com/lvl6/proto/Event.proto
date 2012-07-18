@@ -1474,13 +1474,14 @@ message FinishForgeAttemptWaittimeWithDiamondsRequestProto {
 
 message FinishForgeAttemptWaittimeWithDiamondsResponseProto {
 	optional MinimumUserProto sender = 1;
-    optional FinishForgeAttemptWaittimeStatus status = 2;
+    optional FinishForgeAttemptWaittimeWithDiamondsStatus status = 2;
      
-    enum FinishForgeAttemptWaittimeStatus {
+    enum FinishForgeAttemptWaittimeWithDiamondsStatus {
      	SUCCESS = 0;
      	NOT_ENOUGH_DIAMONDS = 1;
      	OTHER_FAIL = 2;
     	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
+    	ALREADY_COMPLETE = 4;
     }
 }
 //------------------------------------------------------------------------------------------

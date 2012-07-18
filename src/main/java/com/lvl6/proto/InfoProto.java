@@ -27759,10 +27759,6 @@ public final class InfoProto {
     boolean hasStartTime();
     long getStartTime();
     
-    // optional int32 coinCost = 7;
-    boolean hasCoinCost();
-    int getCoinCost();
-    
     // optional int32 diamondGuaranteeCost = 8;
     boolean hasDiamondGuaranteeCost();
     int getDiamondGuaranteeCost();
@@ -27864,21 +27860,11 @@ public final class InfoProto {
       return startTime_;
     }
     
-    // optional int32 coinCost = 7;
-    public static final int COINCOST_FIELD_NUMBER = 7;
-    private int coinCost_;
-    public boolean hasCoinCost() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    public int getCoinCost() {
-      return coinCost_;
-    }
-    
     // optional int32 diamondGuaranteeCost = 8;
     public static final int DIAMONDGUARANTEECOST_FIELD_NUMBER = 8;
     private int diamondGuaranteeCost_;
     public boolean hasDiamondGuaranteeCost() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public int getDiamondGuaranteeCost() {
       return diamondGuaranteeCost_;
@@ -27888,7 +27874,7 @@ public final class InfoProto {
     public static final int TIMEOFSPEEDUP_FIELD_NUMBER = 9;
     private long timeOfSpeedup_;
     public boolean hasTimeOfSpeedup() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     public long getTimeOfSpeedup() {
       return timeOfSpeedup_;
@@ -27898,7 +27884,7 @@ public final class InfoProto {
     public static final int ATTEMPTCOMPLETE_FIELD_NUMBER = 10;
     private boolean attemptComplete_;
     public boolean hasAttemptComplete() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     public boolean getAttemptComplete() {
       return attemptComplete_;
@@ -27911,7 +27897,6 @@ public final class InfoProto {
       goalLevel_ = 0L;
       guaranteed_ = false;
       startTime_ = 0L;
-      coinCost_ = 0;
       diamondGuaranteeCost_ = 0;
       timeOfSpeedup_ = 0L;
       attemptComplete_ = false;
@@ -27947,15 +27932,12 @@ public final class InfoProto {
         output.writeInt64(6, startTime_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, coinCost_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeInt32(8, diamondGuaranteeCost_);
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeInt64(9, timeOfSpeedup_);
       }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
         output.writeBool(10, attemptComplete_);
       }
       getUnknownFields().writeTo(output);
@@ -27993,17 +27975,13 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, coinCost_);
+          .computeInt32Size(8, diamondGuaranteeCost_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, diamondGuaranteeCost_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(9, timeOfSpeedup_);
       }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(10, attemptComplete_);
       }
@@ -28143,14 +28121,12 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000010);
         startTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000020);
-        coinCost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000040);
         diamondGuaranteeCost_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         timeOfSpeedup_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         attemptComplete_ = false;
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
       
@@ -28216,17 +28192,13 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.coinCost_ = coinCost_;
+        result.diamondGuaranteeCost_ = diamondGuaranteeCost_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.diamondGuaranteeCost_ = diamondGuaranteeCost_;
+        result.timeOfSpeedup_ = timeOfSpeedup_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
-        }
-        result.timeOfSpeedup_ = timeOfSpeedup_;
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000200;
         }
         result.attemptComplete_ = attemptComplete_;
         result.bitField0_ = to_bitField0_;
@@ -28262,9 +28234,6 @@ public final class InfoProto {
         }
         if (other.hasStartTime()) {
           setStartTime(other.getStartTime());
-        }
-        if (other.hasCoinCost()) {
-          setCoinCost(other.getCoinCost());
         }
         if (other.hasDiamondGuaranteeCost()) {
           setDiamondGuaranteeCost(other.getDiamondGuaranteeCost());
@@ -28336,23 +28305,18 @@ public final class InfoProto {
               startTime_ = input.readInt64();
               break;
             }
-            case 56: {
-              bitField0_ |= 0x00000040;
-              coinCost_ = input.readInt32();
-              break;
-            }
             case 64: {
-              bitField0_ |= 0x00000080;
+              bitField0_ |= 0x00000040;
               diamondGuaranteeCost_ = input.readInt32();
               break;
             }
             case 72: {
-              bitField0_ |= 0x00000100;
+              bitField0_ |= 0x00000080;
               timeOfSpeedup_ = input.readInt64();
               break;
             }
             case 80: {
-              bitField0_ |= 0x00000200;
+              bitField0_ |= 0x00000100;
               attemptComplete_ = input.readBool();
               break;
             }
@@ -28488,43 +28452,22 @@ public final class InfoProto {
         return this;
       }
       
-      // optional int32 coinCost = 7;
-      private int coinCost_ ;
-      public boolean hasCoinCost() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
-      }
-      public int getCoinCost() {
-        return coinCost_;
-      }
-      public Builder setCoinCost(int value) {
-        bitField0_ |= 0x00000040;
-        coinCost_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearCoinCost() {
-        bitField0_ = (bitField0_ & ~0x00000040);
-        coinCost_ = 0;
-        onChanged();
-        return this;
-      }
-      
       // optional int32 diamondGuaranteeCost = 8;
       private int diamondGuaranteeCost_ ;
       public boolean hasDiamondGuaranteeCost() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public int getDiamondGuaranteeCost() {
         return diamondGuaranteeCost_;
       }
       public Builder setDiamondGuaranteeCost(int value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         diamondGuaranteeCost_ = value;
         onChanged();
         return this;
       }
       public Builder clearDiamondGuaranteeCost() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         diamondGuaranteeCost_ = 0;
         onChanged();
         return this;
@@ -28533,19 +28476,19 @@ public final class InfoProto {
       // optional int64 timeOfSpeedup = 9;
       private long timeOfSpeedup_ ;
       public boolean hasTimeOfSpeedup() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public long getTimeOfSpeedup() {
         return timeOfSpeedup_;
       }
       public Builder setTimeOfSpeedup(long value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         timeOfSpeedup_ = value;
         onChanged();
         return this;
       }
       public Builder clearTimeOfSpeedup() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         timeOfSpeedup_ = 0L;
         onChanged();
         return this;
@@ -28554,19 +28497,19 @@ public final class InfoProto {
       // optional bool attemptComplete = 10;
       private boolean attemptComplete_ ;
       public boolean hasAttemptComplete() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       public boolean getAttemptComplete() {
         return attemptComplete_;
       }
       public Builder setAttemptComplete(boolean value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         attemptComplete_ = value;
         onChanged();
         return this;
       }
       public Builder clearAttemptComplete() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         attemptComplete_ = false;
         onChanged();
         return this;
@@ -28962,35 +28905,34 @@ public final class InfoProto {
       "oto\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006poster\030" +
       "\002 \001(\0132 .com.lvl6.proto.MinimumUserProto\022" +
       "\023\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003" +
-      "\022\017\n\007content\030\005 \001(\t\"\362\001\n\037UnhandledBlacksmit" +
+      "\022\017\n\007content\030\005 \001(\t\"\340\001\n\037UnhandledBlacksmit" +
       "hAttemptProto\022\024\n\014blacksmithId\030\001 \001(\005\022\016\n\006u" +
       "serId\030\002 \001(\005\022\017\n\007equipId\030\003 \001(\005\022\021\n\tgoalLeve" +
       "l\030\004 \001(\003\022\022\n\nguaranteed\030\005 \001(\010\022\021\n\tstartTime" +
-      "\030\006 \001(\003\022\020\n\010coinCost\030\007 \001(\005\022\034\n\024diamondGuara",
-      "nteeCost\030\010 \001(\005\022\025\n\rtimeOfSpeedup\030\t \001(\003\022\027\n" +
-      "\017attemptComplete\030\n \001(\010*/\n\rAnimationType\022" +
-      "\022\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnF" +
-      "reeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022" +
-      "\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VID" +
-      "EO\020\005\022\013\n\007TWITTER\020\006*\302\001\n\022SpecialQuestAction" +
-      "\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCHASE_F" +
-      "ROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n" +
-      "\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAU" +
-      "LT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WRITE_O",
-      "N_ENEMY_WALL\020\007*k\n\010UserType\022\020\n\014GOOD_WARRI" +
-      "OR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013" +
-      "BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAG" +
-      "E\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN\020\000\022\020\n" +
-      "\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023Ma" +
-      "rketplacePostType\022\026\n\022PREMIUM_EQUIP_POST\020" +
-      "\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035MarketplaceJob" +
-      "RequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016Cr" +
-      "itStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022" +
-      "\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022",
-      "\016\n\nBLACKSMITH\020\006*3\n\021StructOrientation\022\016\n\n" +
-      "POSITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022Expansio" +
-      "nDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B" +
-      "\013B\tInfoProto"
+      "\030\006 \001(\003\022\034\n\024diamondGuaranteeCost\030\010 \001(\005\022\025\n\r",
+      "timeOfSpeedup\030\t \001(\003\022\027\n\017attemptComplete\030\n" +
+      " \001(\010*/\n\rAnimationType\022\022\n\016GENERIC_ACTION\020" +
+      "\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamondsType\022\010\n" +
+      "\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006" +
+      "TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITTER\020\006*" +
+      "\302\001\n\022SpecialQuestAction\022\030\n\024PURCHASE_FROM_" +
+      "ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARKETPLACE\020\002\022" +
+      "\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_MARKETPLA" +
+      "CE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHDRAW_F" +
+      "ROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020\007*k\n\010",
+      "UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_ARCHE" +
+      "R\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nB" +
+      "AD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014BattleResul" +
+      "t\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n" +
+      "\rATTACKER_FLEE\020\002*B\n\023MarketplacePostType\022" +
+      "\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQUIP_PO" +
+      "ST\020\002*2\n\035MarketplaceJobRequirementType\022\007\n" +
+      "\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022\n\n\006AV" +
+      "IARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMO" +
+      "RY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH\020\006*3\n",
+      "\021StructOrientation\022\016\n\nPOSITION_1\020\000\022\016\n\nPO" +
+      "SITION_2\020\001*1\n\022ExpansionDirection\022\014\n\010FAR_" +
+      "LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -29258,7 +29200,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor,
-              new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "CoinCost", "DiamondGuaranteeCost", "TimeOfSpeedup", "AttemptComplete", },
+              new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "DiamondGuaranteeCost", "TimeOfSpeedup", "AttemptComplete", },
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.class,
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.Builder.class);
           return null;

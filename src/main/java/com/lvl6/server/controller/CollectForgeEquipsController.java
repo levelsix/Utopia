@@ -1,6 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,30 +9,22 @@ import org.springframework.stereotype.Component;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CollectForgeEquipsRequestEvent;
 import com.lvl6.events.response.CollectForgeEquipsResponseEvent;
-import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
-import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
-import com.lvl6.info.UserStruct;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CollectForgeEquipsRequestProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.Builder;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.CollectForgeEquipsStatus;
-import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto.ForgeAttemptWaitCompleteStatus;
-import com.lvl6.proto.EventProto.PurchaseFromMarketplaceResponseProto.PurchaseFromMarketplaceStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
-import com.lvl6.utils.utilmethods.MiscMethods;
 
 @Component @DependsOn("gameServer") public class CollectForgeEquipsController extends EventController {
 

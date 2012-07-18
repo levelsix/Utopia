@@ -90770,9 +90770,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // optional .com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus status = 2;
+    // optional .com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus status = 2;
     boolean hasStatus();
-    com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus getStatus();
+    com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus getStatus();
   }
   public static final class FinishForgeAttemptWaittimeWithDiamondsResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -90802,41 +90802,44 @@ public final class EventProto {
       return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_FinishForgeAttemptWaittimeWithDiamondsResponseProto_fieldAccessorTable;
     }
     
-    public enum FinishForgeAttemptWaittimeStatus
+    public enum FinishForgeAttemptWaittimeWithDiamondsStatus
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
       NOT_ENOUGH_DIAMONDS(1, 1),
       OTHER_FAIL(2, 2),
       CLIENT_TOO_APART_FROM_SERVER_TIME(3, 3),
+      ALREADY_COMPLETE(4, 4),
       ;
       
       public static final int SUCCESS_VALUE = 0;
       public static final int NOT_ENOUGH_DIAMONDS_VALUE = 1;
       public static final int OTHER_FAIL_VALUE = 2;
       public static final int CLIENT_TOO_APART_FROM_SERVER_TIME_VALUE = 3;
+      public static final int ALREADY_COMPLETE_VALUE = 4;
       
       
       public final int getNumber() { return value; }
       
-      public static FinishForgeAttemptWaittimeStatus valueOf(int value) {
+      public static FinishForgeAttemptWaittimeWithDiamondsStatus valueOf(int value) {
         switch (value) {
           case 0: return SUCCESS;
           case 1: return NOT_ENOUGH_DIAMONDS;
           case 2: return OTHER_FAIL;
           case 3: return CLIENT_TOO_APART_FROM_SERVER_TIME;
+          case 4: return ALREADY_COMPLETE;
           default: return null;
         }
       }
       
-      public static com.google.protobuf.Internal.EnumLiteMap<FinishForgeAttemptWaittimeStatus>
+      public static com.google.protobuf.Internal.EnumLiteMap<FinishForgeAttemptWaittimeWithDiamondsStatus>
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<FinishForgeAttemptWaittimeStatus>
+      private static com.google.protobuf.Internal.EnumLiteMap<FinishForgeAttemptWaittimeWithDiamondsStatus>
           internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<FinishForgeAttemptWaittimeStatus>() {
-              public FinishForgeAttemptWaittimeStatus findValueByNumber(int number) {
-                return FinishForgeAttemptWaittimeStatus.valueOf(number);
+            new com.google.protobuf.Internal.EnumLiteMap<FinishForgeAttemptWaittimeWithDiamondsStatus>() {
+              public FinishForgeAttemptWaittimeWithDiamondsStatus findValueByNumber(int number) {
+                return FinishForgeAttemptWaittimeWithDiamondsStatus.valueOf(number);
               }
             };
       
@@ -90853,11 +90856,11 @@ public final class EventProto {
         return com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.getDescriptor().getEnumTypes().get(0);
       }
       
-      private static final FinishForgeAttemptWaittimeStatus[] VALUES = {
-        SUCCESS, NOT_ENOUGH_DIAMONDS, OTHER_FAIL, CLIENT_TOO_APART_FROM_SERVER_TIME, 
+      private static final FinishForgeAttemptWaittimeWithDiamondsStatus[] VALUES = {
+        SUCCESS, NOT_ENOUGH_DIAMONDS, OTHER_FAIL, CLIENT_TOO_APART_FROM_SERVER_TIME, ALREADY_COMPLETE, 
       };
       
-      public static FinishForgeAttemptWaittimeStatus valueOf(
+      public static FinishForgeAttemptWaittimeWithDiamondsStatus valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -90869,12 +90872,12 @@ public final class EventProto {
       private final int index;
       private final int value;
       
-      private FinishForgeAttemptWaittimeStatus(int index, int value) {
+      private FinishForgeAttemptWaittimeWithDiamondsStatus(int index, int value) {
         this.index = index;
         this.value = value;
       }
       
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus)
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus)
     }
     
     private int bitField0_;
@@ -90891,19 +90894,19 @@ public final class EventProto {
       return sender_;
     }
     
-    // optional .com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus status = 2;
+    // optional .com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus status_;
+    private com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus status_;
     public boolean hasStatus() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus getStatus() {
+    public com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus getStatus() {
       return status_;
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus.SUCCESS;
+      status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -91071,7 +91074,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -91187,7 +91190,7 @@ public final class EventProto {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus value = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus.valueOf(rawValue);
+              com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus value = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
@@ -91292,15 +91295,15 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // optional .com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus status = 2;
-      private com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus.SUCCESS;
+      // optional .com.lvl6.proto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus status = 2;
+      private com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus.SUCCESS;
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus getStatus() {
+      public com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus getStatus() {
         return status_;
       }
-      public Builder setStatus(com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus value) {
+      public Builder setStatus(com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -91311,7 +91314,7 @@ public final class EventProto {
       }
       public Builder clearStatus() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeStatus.SUCCESS;
+        status_ = com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.FinishForgeAttemptWaittimeWithDiamondsStatus.SUCCESS;
         onChanged();
         return this;
       }
@@ -94050,27 +94053,28 @@ public final class EventProto {
       "nishForgeAttemptWaittimeWithDiamondsRequ" +
       "estProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
       "o.MinimumUserProto\022\024\n\014blacksmithId\030\002 \001(\005" +
-      "\022\025\n\rtimeOfSpeedup\030\003 \001(\003\"\336\002\n3FinishForgeA" +
+      "\022\025\n\rtimeOfSpeedup\030\003 \001(\003\"\216\003\n3FinishForgeA" +
       "ttemptWaittimeWithDiamondsResponseProto\022",
       "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum" +
-      "UserProto\022t\n\006status\030\002 \001(\0162d.com.lvl6.pro" +
-      "to.FinishForgeAttemptWaittimeWithDiamond" +
-      "sResponseProto.FinishForgeAttemptWaittim" +
-      "eStatus\"\177\n FinishForgeAttemptWaittimeSta" +
-      "tus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020" +
-      "\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIENT_TOO_APART_FR" +
-      "OM_SERVER_TIME\020\003\"h\n\036CollectForgeEquipsRe" +
-      "questProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022\024\n\014blacksmithId\030\002 \001",
-      "(\005\"\263\002\n\037CollectForgeEquipsResponseProto\0220" +
-      "\n\006sender\030\001 \001(\0132 .com.lvl6.proto.MinimumU" +
-      "serProto\0229\n\rnewUserEquips\030\002 \003(\0132\".com.lv" +
-      "l6.proto.FullUserEquipProto\022X\n\006status\030\003 " +
-      "\001(\0162H.com.lvl6.proto.CollectForgeEquipsR" +
-      "esponseProto.CollectForgeEquipsStatus\"I\n" +
-      "\030CollectForgeEquipsStatus\022\013\n\007SUCCESS\020\000\022\016" +
-      "\n\nOTHER_FAIL\020\001\022\020\n\014NOT_DONE_YET\020\002B\014B\nEven" +
-      "tProto"
+      "UserProto\022\200\001\n\006status\030\002 \001(\0162p.com.lvl6.pr" +
+      "oto.FinishForgeAttemptWaittimeWithDiamon" +
+      "dsResponseProto.FinishForgeAttemptWaitti" +
+      "meWithDiamondsStatus\"\241\001\n,FinishForgeAtte" +
+      "mptWaittimeWithDiamondsStatus\022\013\n\007SUCCESS" +
+      "\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\nOTHER_FAI" +
+      "L\020\002\022%\n!CLIENT_TOO_APART_FROM_SERVER_TIME" +
+      "\020\003\022\024\n\020ALREADY_COMPLETE\020\004\"h\n\036CollectForge" +
+      "EquipsRequestProto\0220\n\006sender\030\001 \001(\0132 .com",
+      ".lvl6.proto.MinimumUserProto\022\024\n\014blacksmi" +
+      "thId\030\002 \001(\005\"\263\002\n\037CollectForgeEquipsRespons" +
+      "eProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\0229\n\rnewUserEquips\030\002 \003(\0132" +
+      "\".com.lvl6.proto.FullUserEquipProto\022X\n\006s" +
+      "tatus\030\003 \001(\0162H.com.lvl6.proto.CollectForg" +
+      "eEquipsResponseProto.CollectForgeEquipsS" +
+      "tatus\"I\n\030CollectForgeEquipsStatus\022\013\n\007SUC" +
+      "CESS\020\000\022\016\n\nOTHER_FAIL\020\001\022\020\n\014NOT_DONE_YET\020\002" +
+      "B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
