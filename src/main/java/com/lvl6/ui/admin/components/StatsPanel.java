@@ -22,7 +22,7 @@ public class StatsPanel extends Panel {
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
 	protected Label tplayersLabel = new Label("totalPlayers", tplayers);
 
-	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(1))
+	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(10))
 	{
 		private static final long serialVersionUID = 5721917435743521271L;
 
