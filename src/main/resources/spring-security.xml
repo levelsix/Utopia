@@ -12,14 +12,18 @@
         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/> 
-		<security:intercept-url pattern="/admin" access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/admin"
+			access="ROLE_ADMIN" />
 	</security:http>
 
-	<security:authentication-provider>
-		<security:user-service>
-			<security:user name="lvl6admin" password="${jdbc.password}" authorities="ROLE_USER, ROLE_ADMIN" />
-		</security:user-service>
-	</security:authentication-provider>
-
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="lvl6admin" password="${jdbc.password}"
+					authorities="ROLE_USER, ROLE_ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
 </beans>
