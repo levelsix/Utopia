@@ -35,6 +35,8 @@ public class StatsPanel extends Panel {
 	};
 	
 	protected void addStats() {
+		cplayersLabel.setOutputMarkupId(true);
+		tplayersLabel.setOutputMarkupId(true);
 		add(cplayersLabel);
 		add(tplayersLabel);
 		add(abstractAjaxTimerBehavior);
