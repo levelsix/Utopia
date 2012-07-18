@@ -9,7 +9,7 @@
 		http://www.hazelcast.com/schema/spring
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
         http://www.springframework.org/schema/security 
-        http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+        http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<security:http auto-config="true">
 		<security:intercept-url pattern="/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/> 
