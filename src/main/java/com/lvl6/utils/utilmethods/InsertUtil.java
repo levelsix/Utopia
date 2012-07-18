@@ -9,6 +9,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
+import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
@@ -108,4 +109,5 @@ public interface InsertUtil {
       int goalLevel, boolean paidToGuarantee, Timestamp startTime,
       int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete);
 
+  public abstract boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge);
 }

@@ -87,7 +87,18 @@ import com.lvl6.utils.utilmethods.MiscMethods;
                 new UserEquip(newUserEquipId, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel())));
           }
         } else {
-          //unsuccessful forge
+          int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
+          int newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
+          if (newUserEquipId1 < 0 || newUserEquipId2 < 0) {
+            resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
+            log.error("problem with giving 2 of equip " + blacksmithAttempt.getEquipId() + " to forger " + user.getId() + " at level " + (blacksmithAttempt.getGoalLevel() - 1));
+            legitCollection = false;
+          } else {
+            resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+                new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
+            resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
+                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
+          }
         }
       }
       
@@ -107,11 +118,15 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-
   private void writeChangesToDB(BlacksmithAttempt blacksmithAttempt,
       boolean successfulForge) {
-    // delete from marketplace and move it into archive
-    
+    if (!InsertUtils.get().insertForgeAttemptIntoBlacksmithHistory(blacksmithAttempt, successfulForge)) {
+      log.error("problem with inserting blacksmith attempt into history, blacksmith attempt=" + blacksmithAttempt + ", successfulForge=" + successfulForge);
+    } else {
+      if (!DeleteUtils.get().deleteBlacksmithAttempt(blacksmithAttempt.getId())) {
+        log.error("problem with deleting blacksmith attempt");
+      }
+    }
   }
 
   private boolean checkIfSuccessfulForge(BlacksmithAttempt blacksmithAttempt, Equipment equipment) {

@@ -1,20 +1,16 @@
 package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
+import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
@@ -52,6 +48,26 @@ public class InsertUtils implements InsertUtil{
   //		this.cache = cache;
   //	}
 
+  public boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__ID, ba.getId());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__USER_ID, ba.getUserId());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__EQUIP_ID, ba.getEquipId());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__GOAL_LEVEL, ba.getGoalLevel());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__GUARANTEED, ba.isGuaranteed());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__START_TIME, ba.getStartTime());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__DIAMOND_GUARANTEE_COST, ba.getDiamondGuaranteeCost());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__TIME_OF_SPEEDUP, ba.getTimeOfSpeedup());
+    insertParams.put(DBConstants.BLACKSMITH_HISTORY__SUCCESS, successfulForge);
+
+    int numInserted = DBConnection.get().insertIntoTableBasic(
+        DBConstants.TABLE_BLACKSMITH_HISTORY, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   /* (non-Javadoc)
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquip(int, int)
    */

@@ -44,6 +44,17 @@ public class DeleteUtils implements DeleteUtil {
     }
     return false;
   }
+  
+  public boolean deleteBlacksmithAttempt(int blacksmithId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.BLACKSMITH__ID, blacksmithId);
+
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_BLACKSMITH, conditionParams, "and");
+    if (numDeleted == 1) {
+      return true;
+    }
+    return false;
+  }
 
   /* (non-Javadoc)
    * @see com.lvl6.utils.utilmethods.DeleteUtil#deleteUserQuestInfoInTaskProgressAndCompletedTasks(int, int, int)
