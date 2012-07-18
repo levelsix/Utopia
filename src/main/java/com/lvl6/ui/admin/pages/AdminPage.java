@@ -8,6 +8,7 @@ import org.apache.wicket.model.Model;
 
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
+import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.utils.ConnectedPlayer;
 
 public class AdminPage extends TemplatePage {
@@ -21,10 +22,7 @@ public class AdminPage extends TemplatePage {
 	}
 
 	protected void setStats() {
-		Map<Integer, ConnectedPlayer> players = (Map<Integer, ConnectedPlayer>) AppContext.getApplicationContext().getBean("playersByPlayerId");
-		Integer connectedPlayers = players.size();
-		add(new Label("connectedPlayers", new Model<Integer>(connectedPlayers)));
-		add(new Label("totalPlayers", new Model<Integer>(0)));
+		add(new StatsPanel("statsPanel"));
 	}
 	
 	

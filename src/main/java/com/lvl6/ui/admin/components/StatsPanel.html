@@ -10,13 +10,20 @@
 		</tr>
 		<tr>
 			<td>
-				<span wicket:id="statsPanel"></span>
-			</td>
+				<table >
+					<tr>
+						<td>Connected Players: </td>
+						<td><span wicket:id="connectedPlayers">?</span></td>
+					</tr>
+					<tr>
+						<td>Total Players: </td>
+						<td><span wicket:id="totalPlayers" >?</span></td>
+					</tr>
+				</table></td>
 			<td>
 				<form wicket:id="reloadStaticDataLink">
 					<input type="submit" value="Reload Static Data" />
-				</form>
-			</td>
+				</form></td>
 		</tr>
 	</table>
 
