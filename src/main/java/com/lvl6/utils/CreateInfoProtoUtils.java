@@ -677,7 +677,7 @@ public class CreateInfoProtoUtils {
     }
     
     if (ba.getTimeOfSpeedup() != null) {
-      builder.setTimeToSpeedup(ba.getTimeOfSpeedup().getTime());
+      builder.setTimeOfSpeedup(ba.getTimeOfSpeedup().getTime());
     }
     
     return builder.build();

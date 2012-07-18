@@ -27767,9 +27767,9 @@ public final class InfoProto {
     boolean hasDiamondGuaranteeCost();
     int getDiamondGuaranteeCost();
     
-    // optional int64 timeToSpeedup = 9;
-    boolean hasTimeToSpeedup();
-    long getTimeToSpeedup();
+    // optional int64 timeOfSpeedup = 9;
+    boolean hasTimeOfSpeedup();
+    long getTimeOfSpeedup();
     
     // optional bool attemptComplete = 10;
     boolean hasAttemptComplete();
@@ -27884,14 +27884,14 @@ public final class InfoProto {
       return diamondGuaranteeCost_;
     }
     
-    // optional int64 timeToSpeedup = 9;
-    public static final int TIMETOSPEEDUP_FIELD_NUMBER = 9;
-    private long timeToSpeedup_;
-    public boolean hasTimeToSpeedup() {
+    // optional int64 timeOfSpeedup = 9;
+    public static final int TIMEOFSPEEDUP_FIELD_NUMBER = 9;
+    private long timeOfSpeedup_;
+    public boolean hasTimeOfSpeedup() {
       return ((bitField0_ & 0x00000100) == 0x00000100);
     }
-    public long getTimeToSpeedup() {
-      return timeToSpeedup_;
+    public long getTimeOfSpeedup() {
+      return timeOfSpeedup_;
     }
     
     // optional bool attemptComplete = 10;
@@ -27913,7 +27913,7 @@ public final class InfoProto {
       startTime_ = 0L;
       coinCost_ = 0;
       diamondGuaranteeCost_ = 0;
-      timeToSpeedup_ = 0L;
+      timeOfSpeedup_ = 0L;
       attemptComplete_ = false;
     }
     private byte memoizedIsInitialized = -1;
@@ -27953,7 +27953,7 @@ public final class InfoProto {
         output.writeInt32(8, diamondGuaranteeCost_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt64(9, timeToSpeedup_);
+        output.writeInt64(9, timeOfSpeedup_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         output.writeBool(10, attemptComplete_);
@@ -28001,7 +28001,7 @@ public final class InfoProto {
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(9, timeToSpeedup_);
+          .computeInt64Size(9, timeOfSpeedup_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
@@ -28147,7 +28147,7 @@ public final class InfoProto {
         bitField0_ = (bitField0_ & ~0x00000040);
         diamondGuaranteeCost_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
-        timeToSpeedup_ = 0L;
+        timeOfSpeedup_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000100);
         attemptComplete_ = false;
         bitField0_ = (bitField0_ & ~0x00000200);
@@ -28224,7 +28224,7 @@ public final class InfoProto {
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.timeToSpeedup_ = timeToSpeedup_;
+        result.timeOfSpeedup_ = timeOfSpeedup_;
         if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
           to_bitField0_ |= 0x00000200;
         }
@@ -28269,8 +28269,8 @@ public final class InfoProto {
         if (other.hasDiamondGuaranteeCost()) {
           setDiamondGuaranteeCost(other.getDiamondGuaranteeCost());
         }
-        if (other.hasTimeToSpeedup()) {
-          setTimeToSpeedup(other.getTimeToSpeedup());
+        if (other.hasTimeOfSpeedup()) {
+          setTimeOfSpeedup(other.getTimeOfSpeedup());
         }
         if (other.hasAttemptComplete()) {
           setAttemptComplete(other.getAttemptComplete());
@@ -28348,7 +28348,7 @@ public final class InfoProto {
             }
             case 72: {
               bitField0_ |= 0x00000100;
-              timeToSpeedup_ = input.readInt64();
+              timeOfSpeedup_ = input.readInt64();
               break;
             }
             case 80: {
@@ -28530,23 +28530,23 @@ public final class InfoProto {
         return this;
       }
       
-      // optional int64 timeToSpeedup = 9;
-      private long timeToSpeedup_ ;
-      public boolean hasTimeToSpeedup() {
+      // optional int64 timeOfSpeedup = 9;
+      private long timeOfSpeedup_ ;
+      public boolean hasTimeOfSpeedup() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
       }
-      public long getTimeToSpeedup() {
-        return timeToSpeedup_;
+      public long getTimeOfSpeedup() {
+        return timeOfSpeedup_;
       }
-      public Builder setTimeToSpeedup(long value) {
+      public Builder setTimeOfSpeedup(long value) {
         bitField0_ |= 0x00000100;
-        timeToSpeedup_ = value;
+        timeOfSpeedup_ = value;
         onChanged();
         return this;
       }
-      public Builder clearTimeToSpeedup() {
+      public Builder clearTimeOfSpeedup() {
         bitField0_ = (bitField0_ & ~0x00000100);
-        timeToSpeedup_ = 0L;
+        timeOfSpeedup_ = 0L;
         onChanged();
         return this;
       }
@@ -28967,7 +28967,7 @@ public final class InfoProto {
       "serId\030\002 \001(\005\022\017\n\007equipId\030\003 \001(\005\022\021\n\tgoalLeve" +
       "l\030\004 \001(\003\022\022\n\nguaranteed\030\005 \001(\010\022\021\n\tstartTime" +
       "\030\006 \001(\003\022\020\n\010coinCost\030\007 \001(\005\022\034\n\024diamondGuara",
-      "nteeCost\030\010 \001(\005\022\025\n\rtimeToSpeedup\030\t \001(\003\022\027\n" +
+      "nteeCost\030\010 \001(\005\022\025\n\rtimeOfSpeedup\030\t \001(\003\022\027\n" +
       "\017attemptComplete\030\n \001(\010*/\n\rAnimationType\022" +
       "\022\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnF" +
       "reeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022" +
@@ -29258,7 +29258,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_UnhandledBlacksmithAttemptProto_descriptor,
-              new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "CoinCost", "DiamondGuaranteeCost", "TimeToSpeedup", "AttemptComplete", },
+              new java.lang.String[] { "BlacksmithId", "UserId", "EquipId", "GoalLevel", "Guaranteed", "StartTime", "CoinCost", "DiamondGuaranteeCost", "TimeOfSpeedup", "AttemptComplete", },
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.class,
               com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto.Builder.class);
           return null;

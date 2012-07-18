@@ -45,6 +45,34 @@ import com.lvl6.utils.DBConnection;
     return isDuplicateTransaction;
   }
 
+  public static boolean checkIfUserHasPurchased(int userId) {
+    log.debug("checking if player has purchased anything");
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.IAP_HISTORY__USER_ID, userId);
+
+    boolean hasBought = false;
+    
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = null;
+    if (conn != null) {
+      rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+      if (rs != null) {
+        try {
+          rs.last();
+          rs.beforeFirst();
+          while(rs.next()) {
+            hasBought = true;
+            break;
+          }
+        } catch (SQLException e) {
+          log.error("problem with database call.");
+          log.error(e);
+        }
+      } 
+    }
+    DBConnection.get().close(rs, null, conn);
+    return hasBought;
+  }
 
 
 
