@@ -65,6 +65,14 @@ public class ControllerConstants {
   public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
   public static final float BATTLE_MISS_LIKELIHOOD = .1f;
 
+  public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
+
+  public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 5;
+  public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
+  public static final int FORGE_MAX_EQUIP_LEVEL = 10;
+  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
+  public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
+  
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
@@ -221,9 +229,6 @@ public class ControllerConstants {
   public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
   public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
   
-  //SUBMIT EQUIPS TO BLACKSMITH
-  public static final int SUBMIT_EQUIPS_TO_BLACKSMITH__MAX_EQUIP_LEVEL = 10;
-
   //LEVEL UP EQUIPMENT FOR FAKE PLAYERS (levels 1-30 must add more if going above level 30)
   public static final int[] WARRIOR_WEAPON_ID_LEVEL = {1,1,1,3,3, 5,5,6,6,7, 
 	  11,11,12,12,13, 17,18,19,19,20, 24,25,26,26,27, 31,32,32,33,34};

@@ -133,8 +133,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   private int calculateDiamondCostForGuarantee(Equipment equip, int goalLevel, boolean paidToGuarantee) {
     if (!paidToGuarantee) return 0;
-    //TODO:
-    return 0;
+    
+    return (int) ((ControllerConstants.FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE + 
+        (equip.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET) ) * 
+        (Math.pow(goalLevel, ControllerConstants.FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER)));
   }
 
   private boolean checkLegitSubmit(Builder resBuilder, User user, boolean paidToGuarantee, List<UserEquip> userEquips, Equipment equip, Timestamp startTime) {
@@ -168,9 +170,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       return false;
     }
 
-    if (ue1.getLevel() >= ControllerConstants.SUBMIT_EQUIPS_TO_BLACKSMITH__MAX_EQUIP_LEVEL) {
+    if (ue1.getLevel() >= ControllerConstants.FORGE_MAX_EQUIP_LEVEL) {
       resBuilder.setStatus(SubmitEquipsToBlacksmithStatus.TRYING_TO_SURPASS_MAX_LEVEL);
-      log.error("forged weapon levels are already >= max. max is " + ControllerConstants.SUBMIT_EQUIPS_TO_BLACKSMITH__MAX_EQUIP_LEVEL
+      log.error("forged weapon levels are already >= max. max is " + ControllerConstants.FORGE_MAX_EQUIP_LEVEL
           + ", weapon levels = " + ue1.getLevel());
       return false;
     }

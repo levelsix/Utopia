@@ -14,6 +14,7 @@ import com.lvl6.events.response.ForgeAttemptWaitCompleteResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteRequestProto;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto.Builder;
@@ -84,11 +85,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
-    //TODO:
-    return 0;
-  }
-  
   private boolean checkLegitWaitComplete(Builder resBuilder, int blacksmithId,
       List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user,
       Timestamp curTime) {
@@ -122,10 +118,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
     
-    if (blacksmithAttempt.getStartTime().getTime() + 60000*calculateMinutesToFinishForgeAttempt(equip, blacksmithAttempt.getGoalLevel())  > curTime.getTime()) {
+    if (blacksmithAttempt.getStartTime().getTime() + 60000*MiscMethods.calculateMinutesToFinishForgeAttempt(equip, blacksmithAttempt.getGoalLevel())  > curTime.getTime()) {
       resBuilder.setStatus(ForgeAttemptWaitCompleteStatus.NOT_DONE_YET);
       log.error("the forging is not done yet. blacksmithattempt=" + blacksmithAttempt + ", and minutes to finish forging is "
-          + calculateMinutesToFinishForgeAttempt(equip, blacksmithAttempt.getGoalLevel())
+          + MiscMethods.calculateMinutesToFinishForgeAttempt(equip, blacksmithAttempt.getGoalLevel())
           + ", client time is " + curTime);
       return false;
     }

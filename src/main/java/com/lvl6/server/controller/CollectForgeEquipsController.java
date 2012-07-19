@@ -13,11 +13,13 @@ import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CollectForgeEquipsRequestProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.Builder;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.CollectForgeEquipsStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -123,8 +125,12 @@ import com.lvl6.utils.utilmethods.InsertUtils;
   private boolean checkIfSuccessfulForge(BlacksmithAttempt blacksmithAttempt, Equipment equipment) {
     if (blacksmithAttempt.isGuaranteed())
       return true;
-    // TODO
-    return false;
+    
+    float chanceOfSuccess = equipment.getChanceOfForgeFailureBase() - 
+        (equipment.getChanceOfForgeFailureBase() / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
+        blacksmithAttempt.getGoalLevel()-1;
+    
+    return Math.random() <= chanceOfSuccess;
   }
 
   private boolean checkLegitCollection(Builder resBuilder, int blacksmithId, List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user) {

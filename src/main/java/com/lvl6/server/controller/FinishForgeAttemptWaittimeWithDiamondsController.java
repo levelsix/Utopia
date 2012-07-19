@@ -15,6 +15,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsRequestProto;
 import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto;
 import com.lvl6.proto.EventProto.FinishForgeAttemptWaittimeWithDiamondsResponseProto.Builder;
@@ -146,10 +147,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return true;  
   }
 
-  private int calculateDiamondCostToSpeedupForgeWaittime(Equipment equip,
-      int goalLevel) {
-    //TODO:
-    return 0;
+  private int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
+    return (int) MiscMethods.calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
+        (ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD+equipment.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET);
   }
 
 }

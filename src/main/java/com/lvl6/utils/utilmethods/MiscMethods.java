@@ -57,6 +57,11 @@ public class MiscMethods {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
+    return (int)
+        (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
+  }
+  
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
     if (user == null || userEquipsForEquipId == null || userEquipsForEquipId.size() <= 0) {
       return null;
