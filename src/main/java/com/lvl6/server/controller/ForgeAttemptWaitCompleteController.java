@@ -42,7 +42,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_NORM_STRUCT_WAIT_COMPLETE_EVENT;
+    return EventProtocolRequest.C_FORGE_ATTEMPT_WAIT_COMPLETE;
   }
 
   @Override
