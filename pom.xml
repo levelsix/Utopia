@@ -53,7 +53,7 @@
 		<apns.path.to.cert>LostNationsAPNSDev07132012.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
-		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations.log</lvl6.server.log.location>
+		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations</lvl6.server.log.location>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 	</properties>
@@ -62,7 +62,7 @@
 		<profile>
 			<id>kelly</id>
 			<properties>
-				<lvl6.server.log.location>/home/kelly/Desktop/lostnations.log</lvl6.server.log.location>
+				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
@@ -75,7 +75,7 @@
 		<profile>
 			<id>conradlocal</id>
 			<properties>
-				<lvl6.server.log.location>/Users/conradchan/Desktop/LostNations/Server/lostnations.log</lvl6.server.log.location>
+				<lvl6.server.log.location>/Users/conradchan/Desktop/LostNations/Server/lostnations</lvl6.server.log.location>
 				<server.port>10001</server.port>
 				<hazelcast.group>conrad</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
@@ -234,6 +234,14 @@
 			</plugin>
 		</plugins>
 		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.html</include>
+				</includes>
+			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
@@ -437,16 +445,26 @@
 				<artifactId>cglib</artifactId>
 				<version>2.2.2</version>
 			</dependency>
-			<!-- <dependency> -->
-			<!-- <groupId>oauth.signpost</groupId> -->
-			<!-- <artifactId>oauth-signpost</artifactId> -->
-			<!-- <version>1.2.1.2</version> -->
-			<!-- </dependency> -->
-			<!-- <dependency> -->
-			<!-- <groupId>oauth.signpost</groupId> -->
-			<!-- <artifactId>signpost-commonshttp4</artifactId> -->
-			<!-- <version>1.2.1.2</version> -->
-			<!-- </dependency> -->
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-core</artifactId>
+				<version>1.5.7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>3.1.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>3.1.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-http</artifactId>
+				<version>3.1.1.RELEASE</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -488,34 +506,6 @@
 			<groupId>json-java</groupId>
 			<artifactId>json-java</artifactId>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-servlet-api</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-catalina</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-annotations-api</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-api</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-juli</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-util</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat</groupId> -->
-		<!-- <artifactId>tomcat-coyote</artifactId> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-all</artifactId>
@@ -584,14 +574,22 @@
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>oauth.signpost</groupId> -->
-		<!-- <artifactId>oauth-signpost</artifactId> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>oauth.signpost</groupId> -->
-		<!-- <artifactId>signpost-commonshttp4</artifactId> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+<!-- 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-http</artifactId>
+		</dependency> -->
 	</dependencies>
 
 </project>

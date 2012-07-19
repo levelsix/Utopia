@@ -51,6 +51,8 @@
 	<bean id="updateUtils" class="com.lvl6.utils.utilmethods.UpdateUtils" />
 	<bean id="deleteUtils" class="com.lvl6.utils.utilmethods.DeleteUtils" />
 	
+	<bean id="applicationUtils" class="com.lvl6.utils.ApplicationUtils" />
+	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
   <property name="dataSource" ref="dataSource"/>
   </bean>
