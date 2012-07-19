@@ -183,6 +183,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     curDate.set(Calendar.MINUTE, 0);
     curDate.set(Calendar.SECOND, 0);
     curDate.set(Calendar.MILLISECOND, 0);
+    curDate.set(Calendar.AM_PM, 0);
+    long curTime = curDate.getTimeInMillis();
 
     Timestamp lastLogin = new Timestamp(user.getLastLogin().getTime());
     Calendar lastDate = Calendar.getInstance();
@@ -192,13 +194,15 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     lastDate.set(Calendar.MINUTE, 0);
     lastDate.set(Calendar.SECOND, 0);
     lastDate.set(Calendar.MILLISECOND, 0);
+    lastDate.set(Calendar.AM_PM, 0);
+    long lastTime = lastDate.getTimeInMillis();
 
-    if (curDate.before(lastDate)) {
-      log.error("ERROR in setDailyBonusInfo, Current login, "+curDate+" is dated before last login "+lastDate);
+    if (curTime<lastTime) {
+      log.error("ERROR in setDailyBonusInfo, Current login, "+curTime+" is dated before last login "+lastTime);
       return 0;
     }
     //check if already logged in today
-    if (curDate.equals(lastDate)) {
+    if (curTime==lastTime) {
       resBuilder.setDailyBonusInfo(DailyBonusInfo.newBuilder().setFirstTimeToday(false).build());
       return numConsecDaysPlayed;
     } else { //first time logging in today
@@ -207,7 +211,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       //check if consecutive login
       lastDate.add(Calendar.DATE,ControllerConstants.STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS);
-      if (curDate.equals(lastDate)) {
+      lastTime = lastDate.getTimeInMillis();
+      if (curTime==lastTime) {
         numConsecDaysPlayed++;
         dbiBuilder.setNumConsecutiveDaysPlayed(numConsecDaysPlayed);
         //BIG BONUS
@@ -235,8 +240,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           }
         }
       } else { //more than a day since last login
-        if (!lastDate.before(curDate)) {
-          log.error("ERROR in setDailyBonusInfo, lastDate, "+lastDate+" is not before curDate, " + curDate);
+        if (lastTime>curTime) {
+          log.error("ERROR in setDailyBonusInfo, lastDate, "+lastTime+" is not before curDate, " + curTime);
         }
         numConsecDaysPlayed = 1;
         dbiBuilder.setNumConsecutiveDaysPlayed(numConsecDaysPlayed);
