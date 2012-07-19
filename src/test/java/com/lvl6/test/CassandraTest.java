@@ -35,13 +35,15 @@ public class CassandraTest extends TestCase {
 
 	private ThriftCluster cassandraCluster;
 	private CassandraHostConfigurator cassandraHostConfigurator;
+	
+	
 
 	// @Before
 	public void setupCase() throws TTransportException, TException,
 			IllegalArgumentException, NotFoundException, UnknownHostException,
 			Exception {
 		cassandraHostConfigurator = new CassandraHostConfigurator(
-				"lucidyang.dekayd.com");
+				"localhost");
 		cassandraCluster = new ThriftCluster("Test Cluster",
 				cassandraHostConfigurator);
 	}
