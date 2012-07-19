@@ -146,7 +146,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	
 	
 	private void connect() throws Exception {
-		LogLog.debug("creating cassandra cluster connection");
+		LogLog.debug("creating cassandra cluster connection: "+hosts);
 		CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator(hosts);
 		cassandraHostConfigurator.setMaxActive(20);
 		cassandraHostConfigurator.setCassandraThriftSocketTimeout(500);
