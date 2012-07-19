@@ -14,7 +14,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
