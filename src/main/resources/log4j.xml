@@ -15,6 +15,7 @@
 		<param name="hosts" value="${lvl6.cassandra.hosts}" />
 		<param name="keyspace" value="${lvl6.cassandra.keyspace}" />
 		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
+		<param name="clusterName" value="${lvl6.cassandra.cluster.name}" />
 		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
 	</appender>
 	
