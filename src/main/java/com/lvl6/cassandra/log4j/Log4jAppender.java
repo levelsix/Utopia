@@ -248,20 +248,8 @@ public class Log4jAppender extends AppenderSkeleton {
 				LogLog.warn("Name: "+cd.getName()+", IndexType: "+cd.getIndexType());
 			}
 		}
-//		assertEquals("level",StringSerializer.get().fromByteBuffer(keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getName()));
-//	    assertEquals("level_index",keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getIndexName());
-//	    assertEquals("time",StringSerializer.get().fromByteBuffer(keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getName()));
-//	    assertEquals("time_index",keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getIndexName());
 	}
-	
-	
-	
 
-	private void assertEquals(String string, String fromByteBuffer) throws Exception {
-		if(!string.equals(fromByteBuffer)) {
-			throw new Exception("Error creating index on: "+string);
-		}
-	}
 
 	private String getHost() {
 		if (instanceId != null) {

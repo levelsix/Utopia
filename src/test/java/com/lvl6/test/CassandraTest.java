@@ -47,8 +47,10 @@ public class CassandraTest extends TestCase {
 	}
 
 	@Test
-	public void testWarning() {
+	public void testWarning() throws InterruptedException {
 		log.warn("This is a test warning for cassandra logging");
+		log.error("This is a test error for cassandra logging");
+		System.err.println("This is a test of System.err.out for cassandra logging in junit");
 	}
 
 	@Test
