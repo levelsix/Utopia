@@ -33,10 +33,10 @@
 		<property name="password" value="${jdbc.password}" />
 		<property name="idleConnectionTestPeriod" value="1" />
 		<property name="idleMaxAge" value="10" />
-		<property name="maxConnectionsPerPartition" value="4" />
-		<property name="minConnectionsPerPartition" value="2" />
-		<property name="partitionCount" value="3" />
-		<property name="acquireIncrement" value="5" />
+		<property name="maxConnectionsPerPartition" value="3" />
+		<property name="minConnectionsPerPartition" value="1" />
+		<property name="partitionCount" value="2" />
+		<property name="acquireIncrement" value="1" />
 		<property name="statementsCacheSize" value="500" />
 		<property name="releaseHelperThreads" value="3" />
 	</bean>
