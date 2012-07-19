@@ -47,17 +47,17 @@ public class CassandraTest extends TestCase {
 			IllegalArgumentException, NotFoundException, UnknownHostException,
 			Exception {
 		cassandraHostConfigurator = new CassandraHostConfigurator(
-				"lucidyang.dekayd.com");
+				"localhost");
 		cassandraCluster = new ThriftCluster("Test Cluster",
 				cassandraHostConfigurator);
 	}
 
 	@Test
 	public void testWarning() {
-		log.warn("This is a test warning for cassandra logging");
+		//log.warn("This is a test warning for cassandra logging");
 	}
 
-	@Test
+	//@Test
 	public void testEditColumnFamily() throws Exception {
 		setupCase();
 		try {
