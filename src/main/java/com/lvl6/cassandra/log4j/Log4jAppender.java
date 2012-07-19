@@ -97,35 +97,35 @@ public class Log4jAppender extends AppenderSkeleton {
 		long startTime = System.currentTimeMillis();
 		String message = event.getMessage() + "";
 		if (startedUp && client != null) {
-			UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
-			ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
-			updater.setLong("time", event.getTimeStamp());
-			updater.setString("host", getHost());
-			updater.setString("message", message);
-			updater.setString("level", event.getLevel() + "");
-			updater.setString("name", event.getLoggerName());
-			updater.setString("thread", event.getThreadName());
-			if (event.getThrowableInformation() != null
-					&& event.getThrowableInformation().getThrowable() != null) {
-				String stacktrace = ExceptionUtils.getFullStackTrace(event
-						.getThrowableInformation().getThrowable());
-				updater.setString("stacktrace", stacktrace);
-			}
-			Map props = event.getProperties();
-			for (Object pkey : props.keySet()) {
-				updater.setString(pkey.toString(), props.get(pkey).toString());
-			}
-			String playerId = (String) event.getMDC("playerId");
-			if (playerId != null && !playerId.equals(""))
-				updater.setString("playerId", playerId);
-			String udId = (String) event.getMDC("udId");
-			if (playerId != null && !playerId.equals(""))
-				updater.setString("udid", udId.toString());
 			try {
+				UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
+				ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
+				updater.setLong("time", event.getTimeStamp());
+				updater.setString("host", getHost());
+				updater.setString("message", message);
+				updater.setString("level", event.getLevel() + "");
+				updater.setString("name", event.getLoggerName());
+				updater.setString("thread", event.getThreadName());
+				if (event.getThrowableInformation() != null
+						&& event.getThrowableInformation().getThrowable() != null) {
+					String stacktrace = ExceptionUtils.getFullStackTrace(event
+							.getThrowableInformation().getThrowable());
+					updater.setString("stacktrace", stacktrace);
+				}
+				Map props = event.getProperties();
+				for (Object pkey : props.keySet()) {
+					updater.setString(pkey.toString(), props.get(pkey).toString());
+				}
+				Integer playerId = (Integer) event.getMDC("playerId");
+				if (playerId != null && !playerId.equals(""))
+					updater.setLong("playerId", playerId.longValue());
+				String udId = (String) event.getMDC("udId");
+				if (udId != null && !udId.equals(""))
+					updater.setString("udid", udId.toString());
 				client.update(updater);
-			} catch (HectorException e) {
+			} catch (Exception e) {
 				client = null;
-				LogLog.error("append failed, " + e.getMessage());
+				LogLog.error("append failed, " + e.getMessage(), e);
 			}
 		} else {
 			if (startedUp) {
