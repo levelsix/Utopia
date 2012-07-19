@@ -56,8 +56,15 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__GOAL_LEVEL, ba.getGoalLevel());
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__GUARANTEED, ba.isGuaranteed());
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__START_TIME, ba.getStartTime());
-    insertParams.put(DBConstants.BLACKSMITH_HISTORY__DIAMOND_GUARANTEE_COST, ba.getDiamondGuaranteeCost());
-    insertParams.put(DBConstants.BLACKSMITH_HISTORY__TIME_OF_SPEEDUP, ba.getTimeOfSpeedup());
+    
+    if (ba.getDiamondGuaranteeCost() > 0) {
+      insertParams.put(DBConstants.BLACKSMITH_HISTORY__DIAMOND_GUARANTEE_COST, ba.getDiamondGuaranteeCost());
+    }
+    
+    if (ba.getTimeOfSpeedup() != null) {
+      insertParams.put(DBConstants.BLACKSMITH_HISTORY__TIME_OF_SPEEDUP, ba.getTimeOfSpeedup());
+    }
+    
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__SUCCESS, successfulForge);
 
     int numInserted = DBConnection.get().insertIntoTableBasic(
