@@ -146,7 +146,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	
 	
 	private void connect() throws Exception {
-		LogLog.debug("creating cassandra cluster connection");
+		LogLog.debug("creating cassandra cluster connection: "+hosts);
 		CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator(hosts);
 		cassandraHostConfigurator.setMaxActive(20);
 		cassandraHostConfigurator.setCassandraThriftSocketTimeout(500);
@@ -237,7 +237,35 @@ public class Log4jAppender extends AppenderSkeleton {
         bcdf6.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
         columnFamilyDefinition.addColumnDefinition(bcdf6);
 
+        //stacktrace
+        BasicColumnDefinition bcdf7 = new BasicColumnDefinition();
+        bcdf7.setName(StringSerializer.get().toByteBuffer("stacktrace"));
+        bcdf7.setIndexType(ColumnIndexType.KEYS);
+        bcdf7.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf7);
         
+      //playerId
+        BasicColumnDefinition bcdf8 = new BasicColumnDefinition();
+        bcdf8.setName(StringSerializer.get().toByteBuffer("playerId"));
+        bcdf8.setIndexType(ColumnIndexType.KEYS);
+        bcdf8.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf8);
+        
+      //udId
+        BasicColumnDefinition bcdf9 = new BasicColumnDefinition();
+        bcdf9.setName(StringSerializer.get().toByteBuffer("udid"));
+        bcdf9.setIndexName("udid_index");
+        bcdf9.setIndexType(ColumnIndexType.KEYS);
+        bcdf9.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf9);
+        
+      //ip
+        BasicColumnDefinition bcdf10 = new BasicColumnDefinition();
+        bcdf10.setName(StringSerializer.get().toByteBuffer("ip"));
+        bcdf10.setIndexType(ColumnIndexType.KEYS);
+        bcdf10.setIndexName("ip_index");
+        bcdf10.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf10);
         
         cfDef = new ThriftCfDef(columnFamilyDefinition);
         c.updateColumnFamily(cfDef);
@@ -248,20 +276,8 @@ public class Log4jAppender extends AppenderSkeleton {
 				LogLog.warn("Name: "+cd.getName()+", IndexType: "+cd.getIndexType());
 			}
 		}
-//		assertEquals("level",StringSerializer.get().fromByteBuffer(keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getName()));
-//	    assertEquals("level_index",keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getIndexName());
-//	    assertEquals("time",StringSerializer.get().fromByteBuffer(keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getName()));
-//	    assertEquals("time_index",keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getIndexName());
 	}
-	
-	
-	
 
-	private void assertEquals(String string, String fromByteBuffer) throws Exception {
-		if(!string.equals(fromByteBuffer)) {
-			throw new Exception("Error creating index on: "+string);
-		}
-	}
 
 	private String getHost() {
 		if (instanceId != null) {

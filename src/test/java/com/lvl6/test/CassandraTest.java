@@ -41,6 +41,8 @@ public class CassandraTest extends TestCase {
 
 	private ThriftCluster cassandraCluster;
 	private CassandraHostConfigurator cassandraHostConfigurator;
+	
+	
 
 	// @Before
 	public void setupCase() throws TTransportException, TException,
