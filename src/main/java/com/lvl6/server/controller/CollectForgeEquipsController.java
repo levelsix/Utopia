@@ -19,7 +19,6 @@ import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.Builder;
 import com.lvl6.proto.EventProto.CollectForgeEquipsResponseProto.CollectForgeEquipsStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -126,8 +125,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     if (blacksmithAttempt.isGuaranteed())
       return true;
     
-    float chanceOfSuccess = equipment.getChanceOfForgeFailureBase() - 
-        (equipment.getChanceOfForgeFailureBase() / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
+    float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
+        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
         blacksmithAttempt.getGoalLevel()-1;
     
     return Math.random() <= chanceOfSuccess;
