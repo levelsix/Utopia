@@ -3,6 +3,7 @@ package com.lvl6.cassandra.log4j;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.UUID;
 
 import me.prettyprint.cassandra.serializers.StringSerializer;
@@ -20,6 +21,7 @@ import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
@@ -93,6 +95,20 @@ public class Log4jAppender extends AppenderSkeleton {
 	    updater.setString("level", event.getLevel() + "");
 	    updater.setString("name", event.getLoggerName());
 	    updater.setString("thread", event.getThreadName());
+	    if(event.getThrowableInformation() != null && event.getThrowableInformation().getThrowable() != null) {
+	    	String stacktrace = ExceptionUtils.getFullStackTrace(event.getThrowableInformation().getThrowable());
+	    	updater.setString("stacktrace", stacktrace);
+	    }
+	    Map props = event.getProperties();
+	    for(Object pkey : props.keySet()) {
+	    	updater.setString(pkey.toString(), props.get(pkey).toString());
+	    }
+	    String playerId = (String) event.getMDC("playerId");
+	    if(playerId != null && !playerId.equals(""))
+	    	updater.setString("playerId", playerId);
+	    String udId = (String) event.getMDC("udId");
+	    if(playerId != null && !playerId.equals(""))
+	    	updater.setString("udid", udId.toString());
 	    try {
 		client.update(updater);
 	    } catch (HectorException e) {
