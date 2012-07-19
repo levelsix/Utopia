@@ -36,7 +36,7 @@ public class CassandraTest extends TestCase {
 	private ThriftCluster cassandraCluster;
 	private CassandraHostConfigurator cassandraHostConfigurator;
 
-	//@Before
+	// @Before
 	public void setupCase() throws TTransportException, TException,
 			IllegalArgumentException, NotFoundException, UnknownHostException,
 			Exception {
@@ -45,45 +45,69 @@ public class CassandraTest extends TestCase {
 		cassandraCluster = new ThriftCluster("Test Cluster",
 				cassandraHostConfigurator);
 	}
-	
+
 	@Test
-	  public void testEditColumnFamily() throws Exception {
+	public void testWarning() {
+		log.warn("This is a test warning for cassandra logging");
+	}
+
+	@Test
+	public void testEditColumnFamily() throws Exception {
 		setupCase();
-	    try {
+		try {
 			BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
-		    columnFamilyDefinition.setKeyspaceName("DynKeyspace3");
-		    columnFamilyDefinition.setName("DynamicCF");
-		    
-		    ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
-		    
-		    KeyspaceDefinition keyspaceDefinition =
-		        HFactory.createKeyspaceDefinition("DynKeyspace3", "org.apache.cassandra.locator.SimpleStrategy", 1, Arrays.asList(cfDef));
-		    cassandraCluster.addKeyspace(keyspaceDefinition);
-	    }catch(Exception e) {
-	    	
-	    }
-	    KeyspaceDefinition fromCluster = cassandraCluster.describeKeyspace("DynKeyspace3");
-	    ColumnFamilyDefinition cfDef = fromCluster.getCfDefs().get(0);
-	    
-	    BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition(cfDef);
-	    BasicColumnDefinition columnDefinition = new BasicColumnDefinition();
-	    columnDefinition.setName(StringSerializer.get().toByteBuffer("birthdate"));
-	    columnDefinition.setIndexName("birthdate_idx");
-	    columnDefinition.setIndexType(ColumnIndexType.KEYS);
-	    columnDefinition.setValidationClass(ComparatorType.LONGTYPE.getClassName());
-	    columnFamilyDefinition.addColumnDefinition(columnDefinition);
-	    
-	    columnDefinition = new BasicColumnDefinition();
-	    columnDefinition.setName(StringSerializer.get().toByteBuffer("nonindexed_field"));
-	    columnDefinition.setValidationClass(ComparatorType.LONGTYPE.getClassName());
-	    columnFamilyDefinition.addColumnDefinition(columnDefinition);
-	    
-	    cassandraCluster.updateColumnFamily(new ThriftCfDef(columnFamilyDefinition));
-	    
-	    fromCluster = cassandraCluster.describeKeyspace("DynKeyspace3");
-	    
-	    assertEquals("birthdate",StringSerializer.get().fromByteBuffer(fromCluster.getCfDefs().get(0).getColumnMetadata().get(0).getName()));
-	    assertEquals("birthdate_idx",fromCluster.getCfDefs().get(0).getColumnMetadata().get(0).getIndexName());
-	    assertEquals("nonindexed_field",StringSerializer.get().fromByteBuffer(fromCluster.getCfDefs().get(0).getColumnMetadata().get(1).getName()));
-	  }
+			columnFamilyDefinition.setKeyspaceName("DynKeyspace3");
+			columnFamilyDefinition.setName("DynamicCF");
+
+			ColumnFamilyDefinition cfDef = new ThriftCfDef(
+					columnFamilyDefinition);
+
+			KeyspaceDefinition keyspaceDefinition = HFactory
+					.createKeyspaceDefinition("DynKeyspace3",
+							"org.apache.cassandra.locator.SimpleStrategy", 1,
+							Arrays.asList(cfDef));
+			cassandraCluster.addKeyspace(keyspaceDefinition);
+		} catch (Exception e) {
+
+		}
+		KeyspaceDefinition fromCluster = cassandraCluster
+				.describeKeyspace("DynKeyspace3");
+		ColumnFamilyDefinition cfDef = fromCluster.getCfDefs().get(0);
+
+		BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition(
+				cfDef);
+		BasicColumnDefinition columnDefinition = new BasicColumnDefinition();
+		columnDefinition.setName(StringSerializer.get().toByteBuffer(
+				"birthdate"));
+		columnDefinition.setIndexName("birthdate_idx");
+		columnDefinition.setIndexType(ColumnIndexType.KEYS);
+		columnDefinition.setValidationClass(ComparatorType.LONGTYPE
+				.getClassName());
+		columnFamilyDefinition.addColumnDefinition(columnDefinition);
+
+		columnDefinition = new BasicColumnDefinition();
+		columnDefinition.setName(StringSerializer.get().toByteBuffer(
+				"nonindexed_field"));
+		columnDefinition.setValidationClass(ComparatorType.LONGTYPE
+				.getClassName());
+		columnFamilyDefinition.addColumnDefinition(columnDefinition);
+
+		cassandraCluster.updateColumnFamily(new ThriftCfDef(
+				columnFamilyDefinition));
+
+		fromCluster = cassandraCluster.describeKeyspace("DynKeyspace3");
+
+		assertEquals(
+				"birthdate",
+				StringSerializer.get().fromByteBuffer(
+						fromCluster.getCfDefs().get(0).getColumnMetadata()
+								.get(0).getName()));
+		assertEquals("birthdate_idx", fromCluster.getCfDefs().get(0)
+				.getColumnMetadata().get(0).getIndexName());
+		assertEquals(
+				"nonindexed_field",
+				StringSerializer.get().fromByteBuffer(
+						fromCluster.getCfDefs().get(0).getColumnMetadata()
+								.get(1).getName()));
+	}
 }

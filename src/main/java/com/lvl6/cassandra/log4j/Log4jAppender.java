@@ -245,7 +245,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		for(ColumnFamilyDefinition cfd : keyspaceDef.getCfDefs()) {
 			LogLog.warn("ColumnFamilyDefinition: "+cfd.getName()+":"+cfd.getColumnType().getValue());
 			for(ColumnDefinition cd : cfd.getColumnMetadata()) {
-				LogLog.warn("Index name: "+cd.getIndexName()+", IndexType: "+cd.getIndexType());
+				LogLog.warn("Name: "+cd.getName()+", IndexType: "+cd.getIndexType());
 			}
 		}
 //		assertEquals("level",StringSerializer.get().fromByteBuffer(keyspaceDef.getCfDefs().get(0).getColumnMetadata().get(0).getName()));
