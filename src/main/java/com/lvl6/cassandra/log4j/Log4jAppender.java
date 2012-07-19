@@ -237,7 +237,35 @@ public class Log4jAppender extends AppenderSkeleton {
         bcdf6.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
         columnFamilyDefinition.addColumnDefinition(bcdf6);
 
+        //stacktrace
+        BasicColumnDefinition bcdf7 = new BasicColumnDefinition();
+        bcdf7.setName(StringSerializer.get().toByteBuffer("stacktrace"));
+        bcdf7.setIndexType(ColumnIndexType.KEYS);
+        bcdf7.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf7);
         
+      //playerId
+        BasicColumnDefinition bcdf8 = new BasicColumnDefinition();
+        bcdf8.setName(StringSerializer.get().toByteBuffer("playerId"));
+        bcdf8.setIndexType(ColumnIndexType.KEYS);
+        bcdf8.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf8);
+        
+      //udId
+        BasicColumnDefinition bcdf9 = new BasicColumnDefinition();
+        bcdf9.setName(StringSerializer.get().toByteBuffer("udid"));
+        bcdf9.setIndexName("udid_index");
+        bcdf9.setIndexType(ColumnIndexType.KEYS);
+        bcdf9.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf9);
+        
+      //ip
+        BasicColumnDefinition bcdf10 = new BasicColumnDefinition();
+        bcdf10.setName(StringSerializer.get().toByteBuffer("ip"));
+        bcdf10.setIndexType(ColumnIndexType.KEYS);
+        bcdf10.setIndexName("ip_index");
+        bcdf10.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf10);
         
         cfDef = new ThriftCfDef(columnFamilyDefinition);
         c.updateColumnFamily(cfDef);
