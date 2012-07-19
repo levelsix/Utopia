@@ -143,6 +143,8 @@ public class Log4jAppender extends AppenderSkeleton {
 		cluster.getConnectionManager().shutdown();
 	}
 
+	
+	
 	private void connect() throws Exception {
 		LogLog.debug("creating cassandra cluster connection");
 		CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator(hosts);
@@ -157,11 +159,16 @@ public class Log4jAppender extends AppenderSkeleton {
 				columnFamily, StringSerializer.get(), StringSerializer.get());
 	}
 
+	
+	
+	
 	private void setupColumnFamilies(Cluster c) throws Exception {
 		KeyspaceDefinition keyspaceDef = c.describeKeyspace(keyspace);
 		BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
 		columnFamilyDefinition.setKeyspaceName(keyspace);
 		columnFamilyDefinition.setName(columnFamily);
+		columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
+		//columnFamilyDefinition.setKeyValidationClass(ComparatorType.BYTESTYPE.getClassName());
 		ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 		if (keyspaceDef == null) {
 			LogLog.warn("Creating keyspace "+keyspace);
@@ -184,6 +191,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			}
 		}
 		columnFamilyDefinition = new BasicColumnFamilyDefinition(cfDef);
+		
 		//level index
         BasicColumnDefinition bcdf = new BasicColumnDefinition();
         bcdf.setName(StringSerializer.get().toByteBuffer("level"));
@@ -191,6 +199,7 @@ public class Log4jAppender extends AppenderSkeleton {
         bcdf.setIndexType(ColumnIndexType.KEYS);
         bcdf.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
         columnFamilyDefinition.addColumnDefinition(bcdf);
+        
         //time index
         BasicColumnDefinition bcdf2 = new BasicColumnDefinition();
         bcdf2.setName(StringSerializer.get().toByteBuffer("time"));
@@ -198,6 +207,38 @@ public class Log4jAppender extends AppenderSkeleton {
         bcdf2.setIndexType(ColumnIndexType.KEYS);
         bcdf2.setValidationClass(ComparatorType.LONGTYPE.getClassName());
         columnFamilyDefinition.addColumnDefinition(bcdf2);
+        
+        //host 
+        BasicColumnDefinition bcdf3 = new BasicColumnDefinition();
+        bcdf3.setName(StringSerializer.get().toByteBuffer("host"));
+        bcdf3.setIndexType(ColumnIndexType.KEYS);
+        bcdf3.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf3);
+        
+        //message 
+        BasicColumnDefinition bcdf4 = new BasicColumnDefinition();
+        bcdf4.setName(StringSerializer.get().toByteBuffer("message"));
+        bcdf4.setIndexType(ColumnIndexType.KEYS);
+        bcdf4.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf4);
+
+        //name 
+        BasicColumnDefinition bcdf5 = new BasicColumnDefinition();
+        bcdf5.setName(StringSerializer.get().toByteBuffer("name"));
+        bcdf5.setIndexType(ColumnIndexType.KEYS);
+        bcdf5.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf5);
+
+        
+        //thread 
+        BasicColumnDefinition bcdf6 = new BasicColumnDefinition();
+        bcdf6.setName(StringSerializer.get().toByteBuffer("thread"));
+        bcdf6.setIndexType(ColumnIndexType.KEYS);
+        bcdf6.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        columnFamilyDefinition.addColumnDefinition(bcdf6);
+
+        
+        
         cfDef = new ThriftCfDef(columnFamilyDefinition);
         c.updateColumnFamily(cfDef);
 		keyspaceDef = c.describeKeyspace(keyspace);
