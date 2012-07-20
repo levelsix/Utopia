@@ -24,4 +24,7 @@ public interface DeleteUtil {
 	public abstract boolean deleteUserStruct(int userStructId);
 	
   public abstract boolean deleteUserEquip(int userEquipId);
+  
+  public abstract boolean deleteBlacksmithAttempt(int blacksmithId);
+
 }

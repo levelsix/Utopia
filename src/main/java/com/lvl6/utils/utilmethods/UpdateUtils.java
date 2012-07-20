@@ -2,6 +2,7 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,25 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
+  @Override
+  public boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.BLACKSMITH__ID, blacksmithId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.BLACKSMITH__ATTEMPT_COMPLETE, attemptComplete);
+
+    if (timeOfSpeedup != null) {
+      absoluteParams.put(DBConstants.BLACKSMITH__TIME_OF_SPEEDUP, timeOfSpeedup);
+    }
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_BLACKSMITH, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
 
   /* (non-Javadoc)
    * @see com.lvl6.utils.utilmethods.UpdateUtil#updateNullifyDeviceTokens(java.util.Set)

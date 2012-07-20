@@ -251,7 +251,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (equipIds.size() > 0) {
       
       for (int i = 0; i < equipIds.size(); i++) {
-        int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i));
+        int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
         if (userEquipId < 0) {
           log.error("problem with giving user " + userId + " 1 " + equipIds.get(i));
         } else {

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
+import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
@@ -68,6 +69,7 @@ import com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
+import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
@@ -106,7 +108,7 @@ public class CreateInfoProtoUtils {
   public static AttackedNotificationProto createAttackedNotificationProtoFromBattleHistory(BattleDetails bd, User attacker) {
     AttackedNotificationProto.Builder builder = AttackedNotificationProto.newBuilder();
     builder.setAttacker(createMinimumUserProtoFromUser(attacker)).setBattleResult(bd.getResult())
-    .setBattleCompleteTime(bd.getBattleCompleteTime().getTime());
+    .setBattleCompleteTime(bd.getBattleCompleteTime().getTime()).setStolenEquipLevel(bd.getStolenEquipLevel());
     if (bd.getCoinsStolen() != ControllerConstants.NOT_SET && bd.getCoinsStolen() > 0) {
       builder.setCoinsStolen(bd.getCoinsStolen());
     }
@@ -213,7 +215,8 @@ public class CreateInfoProtoUtils {
     FullMarketplacePostProto.Builder builder = FullMarketplacePostProto.newBuilder().setMarketplacePostId(mp.getId())
         .setPoster(createMinimumUserProtoFromUser(poster)).setPostType(mp.getPostType())
         .setTimeOfPost(mp.getTimeOfPost().getTime()).setPostedEquip(createFullEquipProtoFromEquip(
-            EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())));
+            EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(mp.getPostedEquipId())))
+            .setEquipLevel(mp.getEquipLevel());
     if (mp.getDiamondCost() != ControllerConstants.NOT_SET) {
       builder.setDiamondCost(mp.getDiamondCost());
     }
@@ -270,19 +273,19 @@ public class CreateInfoProtoUtils {
       UserEquip amuletUserEquip = null;
 
       if (u.getType() == UserType.GOOD_WARRIOR || u.getType() == UserType.BAD_WARRIOR) {
-        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_WEAPON_ID_LEVEL[equipmentLevel-1]);
-        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_ARMOR_ID_LEVEL[equipmentLevel-1]);
-        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1]);
+        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_WEAPON_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.WARRIOR_ARMOR_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
       }
       if (u.getType() == UserType.GOOD_ARCHER || u.getType() == UserType.BAD_ARCHER) {
-        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ARCHER_WEAPON_ID_LEVEL[equipmentLevel-1]);
-        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ARCHER_ARMOR_ID_LEVEL[equipmentLevel-1]);
-        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1]);
+        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ARCHER_WEAPON_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ARCHER_ARMOR_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
       }
       if (u.getType() == UserType.GOOD_MAGE || u.getType() == UserType.BAD_MAGE) {
-        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_WEAPON_ID_LEVEL[equipmentLevel-1]);
-        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_ARMOR_ID_LEVEL[equipmentLevel-1]);
-        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1]);
+        weaponUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_WEAPON_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        armorUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.MAGE_ARMOR_ID_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        amuletUserEquip = new UserEquip(ControllerConstants.NOT_SET, u.getId(), ControllerConstants.ALL_CHARACTERS_EQUIP_LEVEL[equipmentLevel-1], ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
       }
       builder.setWeaponEquippedUserEquip(createFullUserEquipProtoFromUserEquip(weaponUserEquip));
       builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(armorUserEquip));
@@ -323,7 +326,8 @@ public class CreateInfoProtoUtils {
     FullEquipProto.Builder builder =  FullEquipProto.newBuilder().setEquipId(equip.getId()).setName(equip.getName())
         .setEquipType(equip.getType()).setDescription(equip.getDescription()).setAttackBoost(equip.getAttackBoost()).setDefenseBoost(equip.getDefenseBoost())
         .setMinLevel(equip.getMinLevel()).setChanceOfLoss(equip.getChanceOfLoss()).setClassType(equip.getClassType())
-        .setRarity(equip.getRarity()).setIsBuyableInArmory(equip.isBuyableInArmory());
+        .setRarity(equip.getRarity()).setIsBuyableInArmory(equip.isBuyableInArmory()).setChanceOfForgeFailureBase(equip.getChanceOfForgeFailureBase())
+        .setMinutesToAttemptForgeBase(equip.getMinutesToAttemptForgeBase());
     if (equip.getCoinPrice() != Equipment.NOT_SET) {
       builder.setCoinPrice(equip.getCoinPrice());
     }
@@ -335,7 +339,7 @@ public class CreateInfoProtoUtils {
 
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
     return FullUserEquipProto.newBuilder().setUserEquipId(ue.getId()).setUserId(ue.getUserId())
-        .setEquipId(ue.getEquipId()).build();
+        .setEquipId(ue.getEquipId()).setLevel(ue.getLevel()).build();
   }
 
   public static FullUserCritstructProto createFullUserCritstructProtoFromUserCritstruct(UserCritstruct uc) {
@@ -661,5 +665,21 @@ public class CreateInfoProtoUtils {
       PlayerWallPost p, User poster) {
     return PlayerWallPostProto.newBuilder().setPlayerWallPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(poster)).setWallOwnerId(p.getWallOwnerId())
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+
+  public static UnhandledBlacksmithAttemptProto createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(BlacksmithAttempt ba) {
+    UnhandledBlacksmithAttemptProto.Builder builder = UnhandledBlacksmithAttemptProto.newBuilder().setBlacksmithId(ba.getId()).setUserId(ba.getUserId())
+        .setEquipId(ba.getEquipId()).setGoalLevel(ba.getGoalLevel()).setGuaranteed(ba.isGuaranteed()).setStartTime(ba.getStartTime().getTime())
+        .setAttemptComplete(ba.isAttemptComplete());
+    
+    if (ba.getDiamondGuaranteeCost() > 0) {
+      builder.setDiamondGuaranteeCost(ba.getDiamondGuaranteeCost());
+    }
+    
+    if (ba.getTimeOfSpeedup() != null) {
+      builder.setTimeOfSpeedup(ba.getTimeOfSpeedup().getTime());
+    }
+    
+    return builder.build();
   }
 }

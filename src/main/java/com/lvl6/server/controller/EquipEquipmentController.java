@@ -1,6 +1,6 @@
 package com.lvl6.server.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
@@ -47,9 +47,12 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     EquipEquipmentRequestProto reqProto = ((EquipEquipmentRequestEvent)event).getEquipEquipmentRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    int equipId = reqProto.getEquipId();
     
-    Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
+    UserEquip ue = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(reqProto.getUserEquipId());
+
+    Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+    Equipment equip = (ue == null) ? null : equipmentIdsToEquipment.get(ue.getEquipId());
+
     EquipEquipmentResponseProto.Builder resBuilder = EquipEquipmentResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -57,10 +60,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      List<UserEquip> userEquipsForEquipId = (equip == null) ? null : RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(senderProto.getUserId(), equip.getId());
-      UserEquip ue = MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquipped(user, userEquipsForEquipId);
 
-      boolean legitEquip = checkEquip(resBuilder, user, ue, equip, equipId);
+      boolean legitEquip = checkEquip(resBuilder, user, ue, equip);
 
       EquipEquipmentResponseEvent resEvent = new EquipEquipmentResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -86,7 +87,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-  private boolean checkEquip(Builder resBuilder, User user, UserEquip ue, Equipment equip, int equipId) {
+  private boolean checkEquip(Builder resBuilder, User user, UserEquip ue, Equipment equip) {
     if (user == null) {
       resBuilder.setStatus(EquipEquipmentStatus.OTHER_FAIL);
       log.error("problem with equipping equip" + equip.getId() + ": user is null");
@@ -94,7 +95,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
     if (equip == null) {
       resBuilder.setStatus(EquipEquipmentStatus.NOT_AN_EQUIP);
-      log.error("problem with equipping equip- equipId passed in is not an equip, equip id was " + equipId);
+      log.error("problem with equipping equip- equipId passed in is not an equip, equip id was " + ue.getEquipId());
       return false;
     }
     if (ue == null) {

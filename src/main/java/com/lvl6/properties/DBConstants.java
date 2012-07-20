@@ -19,6 +19,8 @@ public class DBConstants {
   public static final String TABLE_TASKS_EQUIPREQS = "tasks_equipreqs";
   public static final String TABLE_CITIES = "cities";
   public static final String TABLE_IAP_HISTORY = "iap_history";
+  public static final String TABLE_BLACKSMITH = "blacksmith";
+  public static final String TABLE_BLACKSMITH_HISTORY = "blacksmith_history";
   public static final String TABLE_MARKETPLACE = "marketplace";
   public static final String TABLE_MARKETPLACE_TRANSACTION_HISTORY = "marketplace_transaction_history";
   public static final String TABLE_JOBS_BUILD_STRUCT = "jobs_build_struct";
@@ -98,13 +100,8 @@ public class DBConstants {
   public static final String USER_EQUIP__ID = GENERIC__ID;
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;
   public static final String USER_EQUIP__EQUIP_ID = "equip_id";
-
-  /*EQUIPMENT TABLE*/
-  public static final String EQUIPMENT__ID = GENERIC__ID;
-
-  /*STRUCTURE TABLE*/
-  public static final String STRUCTURE__ID = GENERIC__ID;
-
+  public static final String USER_EQUIP__LEVEL = "level";
+  
   /*USER TASK TABLE*/
   public static final String USER_TASK__USER_ID = GENERIC__USER_ID;
   public static final String USER_TASK__TASK_ID = "task_id";
@@ -137,7 +134,8 @@ public class DBConstants {
   public static final String MARKETPLACE__POSTED_EQUIP_ID = "posted_equip_id";
   public static final String MARKETPLACE__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE__COIN_COST = "coin_cost";
-  
+  public static final String MARKETPLACE__EQUIP_LEVEL = "equip_level";
+
   /*MARKETPLACE HISTORY TABLE*/
   public static final String MARKETPLACE_TRANSACTION_HISTORY__MARKETPLACE_ID = "marketplace_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID = "poster_id";
@@ -148,6 +146,29 @@ public class DBConstants {
   public static final String MARKETPLACE_TRANSACTION_HISTORY__POSTED_EQUIP_ID = "posted_equip_id";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__DIAMOND_COST = "diamond_cost";
   public static final String MARKETPLACE_TRANSACTION_HISTORY__COIN_COST = "coin_cost";
+  public static final String MARKETPLACE_TRANSACTION_HISTORY__EQUIP_LEVEL = "equip_level";
+  
+  /*BLACKSMITH TABLE*/
+  public static final String BLACKSMITH__ID = GENERIC__ID;
+  public static final String BLACKSMITH__USER_ID = GENERIC__USER_ID;
+  public static final String BLACKSMITH__EQUIP_ID = "equip_id";
+  public static final String BLACKSMITH__GOAL_LEVEL = "goal_level";
+  public static final String BLACKSMITH__GUARANTEED = "guaranteed";
+  public static final String BLACKSMITH__START_TIME = "start_time";
+  public static final String BLACKSMITH__DIAMOND_GUARANTEE_COST = "diamond_guarantee_cost";
+  public static final String BLACKSMITH__TIME_OF_SPEEDUP = "time_of_speedup";
+  public static final String BLACKSMITH__ATTEMPT_COMPLETE = "attempt_complete";
+
+  /*BLACKSMITH HISTORY TABLE*/
+  public static final String BLACKSMITH_HISTORY__ID = "blacksmith_id";
+  public static final String BLACKSMITH_HISTORY__USER_ID = GENERIC__USER_ID;
+  public static final String BLACKSMITH_HISTORY__EQUIP_ID = "equip_id";
+  public static final String BLACKSMITH_HISTORY__GOAL_LEVEL = "goal_level";
+  public static final String BLACKSMITH_HISTORY__GUARANTEED = "guaranteed";
+  public static final String BLACKSMITH_HISTORY__START_TIME = "start_time";
+  public static final String BLACKSMITH_HISTORY__DIAMOND_GUARANTEE_COST = "diamond_guarantee_cost";
+  public static final String BLACKSMITH_HISTORY__TIME_OF_SPEEDUP = "time_of_speedup";
+  public static final String BLACKSMITH_HISTORY__SUCCESS = "success";
   
   /*USER STRUCTS TABLE*/
   public static final String USER_STRUCTS__ID = GENERIC__ID;
@@ -227,6 +248,8 @@ public class DBConstants {
   public static final String BATTLE_HISTORY__COINS_STOLEN = "coins_stolen";
   public static final String BATTLE_HISTORY__EQUIP_STOLEN = "equip_stolen";
   public static final String BATTLE_HISTORY__EXP_GAINED = "exp_gained";
+  public static final String BATTLE_HISTORY__STOLEN_EQUIP_LEVEL = "stolen_equip_level";
+
   
   /*REFERRALS*/
   public static final String REFERRALS__REFERRER_ID = "referrer_id";

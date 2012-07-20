@@ -41,7 +41,8 @@ message BattleResponseProto {
 	optional BattleResult battleResult = 7;
 
 	optional int32 coinsGained = 4;
-	optional FullEquipProto equipGained = 5;
+	optional FullUserEquipProto userEquipGained = 5;
+	optional FullEquipProto equipGained = 8;
     optional int32 expGained = 6;
     
     enum BattleStatus {
@@ -94,6 +95,7 @@ message ArmoryRequestProto {
 message ArmoryResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional ArmoryStatus status = 2;
+	optional FullUserEquipProto fullUserEquipOfBoughtItem = 3;
 	
 	enum ArmoryStatus {
 		SUCCESS = 0; 
@@ -140,6 +142,9 @@ message StartupResponseProto {
 	
 	optional DailyBonusInfo dailyBonusInfo = 21;
 	
+	optional bool playerHasBoughtInAppPurchase = 22;
+	optional UnhandledBlacksmithAttemptProto unhandledForgeAttempt = 23;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;
@@ -159,6 +164,7 @@ message StartupResponseProto {
 		optional int64 battleCompleteTime = 3;
 		optional int32 coinsStolen = 4;
 		optional int32 stolenEquipId = 5;
+		optional int32 stolenEquipLevel = 6;
 	}
 	
 	message ReferralNotificationProto {
@@ -449,7 +455,7 @@ message TaskActionResponseProto {
 	optional TaskActionStatus status = 2;
 	optional bool taskCompleted = 3;
 	optional bool cityRankedUp = 4;
-	optional int32 lootEquipId = 5;
+	optional FullUserEquipProto lootUserEquip = 5;
 	optional int32 coinsGained = 6;
 	
 	optional int32 coinBonusIfCityRankup = 7;
@@ -762,7 +768,7 @@ message RetrieveCurrentMarketplacePostsResponseProto {
 																						//DONE
 message PostToMarketplaceRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 postedEquipId = 2;
+	optional int32 userEquipId = 2;
 	optional int32 diamondCost = 3;
 	optional int32 coinCost = 4;
 }
@@ -797,6 +803,7 @@ message RetractMarketplacePostRequestProto {
 message RetractMarketplacePostResponseProto {
      optional MinimumUserProto sender = 1;
      optional RetractMarketplacePostStatus status = 2;
+     optional FullUserEquipProto retractedUserEquip = 3;
 
 	enum RetractMarketplacePostStatus {
 		SUCCESS = 0;
@@ -822,6 +829,7 @@ message PurchaseFromMarketplaceResponseProto {
      optional MinimumUserProto purchaser = 1;
      optional int32 posterId = 2;
      optional FullMarketplacePostProto marketplacePost = 3;
+     optional FullUserEquipProto fullUserEquipOfBoughtItem = 5;
      
      optional PurchaseFromMarketplaceStatus status = 4;
 
@@ -1009,6 +1017,7 @@ message QuestRedeemResponseProto {
      optional MinimumUserProto sender = 1;
      repeated FullQuestProto newlyAvailableQuests = 2;
      optional QuestRedeemStatus status = 3;    
+     optional FullUserEquipProto equipRewardFromQuest = 4;
 
      enum QuestRedeemStatus {
           SUCCESS = 0;
@@ -1215,7 +1224,7 @@ message ReferralCodeUsedResponseProto {
 																						//DONE
 message EquipEquipmentRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 equipId = 2;
+	optional int32 userEquipId = 2;
 }
 
 																						//DONE
@@ -1364,6 +1373,7 @@ message RetrievePlayerWallPostsResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+																						//DONE
 message EarnFreeDiamondsRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional EarnFreeDiamondsType freeDiamondsType = 2;
@@ -1375,6 +1385,7 @@ message EarnFreeDiamondsRequestProto {
 	optional int32 adColonyDiamondsEarned = 6;
 }
 
+																						//DONE
 message EarnFreeDiamondsResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional EarnFreeDiamondsStatus status = 2;
@@ -1404,4 +1415,91 @@ message ReconnectResponseProto {
 
 message LogoutRequestProto {
 	optional MinimumUserProto sender = 1;
+}
+
+//------------------------------------------------------------------------------------------
+
+message SubmitEquipsToBlacksmithRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 userEquipOne = 2;
+	optional int32 userEquipTwo = 3;
+	optional bool paidToGuarantee = 4;
+	optional int64 startTime = 5;
+}
+
+message SubmitEquipsToBlacksmithResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional SubmitEquipsToBlacksmithStatus status = 2;
+	optional UnhandledBlacksmithAttemptProto unhandledBlacksmithAttempt = 3;
+	
+	enum SubmitEquipsToBlacksmithStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_DIAMONDS_FOR_GUARANTEE = 2;
+		SUBMITTED_EQUIPS_NOT_SAME_LEVEL = 4;
+		TRYING_TO_SURPASS_MAX_LEVEL = 5;
+		ALREADY_FORGING = 6;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 7;
+		OTHER_FAIL = 8;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message ForgeAttemptWaitCompleteRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 blacksmithId = 2;
+	optional int64 curTime = 3;
+}
+
+message ForgeAttemptWaitCompleteResponseProto {
+	optional MinimumUserProto sender = 1;
+    optional ForgeAttemptWaitCompleteStatus status = 2;
+   
+    enum ForgeAttemptWaitCompleteStatus {
+	  	SUCCESS = 0;
+    	NOT_DONE_YET = 1;
+     	OTHER_FAIL = 2;
+     	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
+     	ALREADY_COMPLETE = 4;
+    }
+}
+
+//------------------------------------------------------------------------------------------
+
+message FinishForgeAttemptWaittimeWithDiamondsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 blacksmithId = 2;
+	optional int64 timeOfSpeedup = 3; 
+}
+
+message FinishForgeAttemptWaittimeWithDiamondsResponseProto {
+	optional MinimumUserProto sender = 1;
+    optional FinishForgeAttemptWaittimeWithDiamondsStatus status = 2;
+     
+    enum FinishForgeAttemptWaittimeWithDiamondsStatus {
+     	SUCCESS = 0;
+     	NOT_ENOUGH_DIAMONDS = 1;
+     	OTHER_FAIL = 2;
+    	CLIENT_TOO_APART_FROM_SERVER_TIME = 3;
+    	ALREADY_COMPLETE = 4;
+    }
+}
+//------------------------------------------------------------------------------------------
+
+message CollectForgeEquipsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 blacksmithId = 2;
+}
+
+message CollectForgeEquipsResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated FullUserEquipProto newUserEquips = 2;
+	
+	optional CollectForgeEquipsStatus status = 3;
+	
+	enum CollectForgeEquipsStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_DONE_YET = 2;
+	}
 }

@@ -18,6 +18,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
 import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.BattleDetails;
+import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -47,8 +48,10 @@ import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
+import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
+import com.lvl6.retrieveutils.UnhandledBlacksmithAttemptRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -135,6 +138,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           resBuilder.setExperienceRequiredForCurrentLevel(
               LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel()));
           setNotifications(resBuilder, user);
+          setWhetherPlayerCompletedInAppPurchase(resBuilder, user);
+          setUnhandledForgeAttempts(resBuilder, user);
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
@@ -171,6 +176,23 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       //for things that client doesn't need
       syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
     }    
+  }
+
+  private void setUnhandledForgeAttempts(Builder resBuilder, User user) {
+    List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(user.getId());
+    if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() == 1) {
+      resBuilder.setUnhandledForgeAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(
+          unhandledBlacksmithAttemptsForUser.get(0)));
+    }
+    if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() > 1) {
+      log.error("user has too many blacksmith attempts, should only have one. blacksmith attempts = " + unhandledBlacksmithAttemptsForUser);
+    }
+  }
+
+  private void setWhetherPlayerCompletedInAppPurchase(Builder resBuilder,
+      User user) {
+    boolean hasPurchased = IAPHistoryRetrieveUtils.checkIfUserHasPurchased(user.getId());
+    resBuilder.setPlayerHasBoughtInAppPurchase(hasPurchased);
   }
 
   private int setDailyBonusInfo(Builder resBuilder, User user, Timestamp now) {
@@ -219,12 +241,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
 
           int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip(user);
-          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive);
+          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
           if (userEquipId <= 0) {
             log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
             return 0;
           } else {
-            UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive);
+            UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
             dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
           }
 

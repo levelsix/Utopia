@@ -126,6 +126,8 @@ message FullEquipProto {
 	optional ClassType classType = 11;
 	optional Rarity rarity = 12;
 	optional bool isBuyableInArmory = 13;
+	optional float chanceOfForgeFailureBase = 14;
+	optional int32 minutesToAttemptForgeBase = 15;
 	
 	enum Rarity {
 		COMMON = 0;
@@ -170,6 +172,7 @@ message FullUserEquipProto {
 	optional int32 userEquipId = 1;
 	optional int32 userId = 2;
 	optional int32 equipId = 3;
+	optional int32 level = 4;
 }
 
 //------------------------------------------------------------------------------------------
@@ -311,6 +314,7 @@ message FullMarketplacePostProto {
 	optional FullEquipProto postedEquip = 5;
 	optional int32 diamondCost = 6;
 	optional int32 coinCost = 7;
+	optional int32 equipLevel = 8;
 }
 
 //------------------------------------------------------------------------------------------
@@ -328,6 +332,7 @@ enum CritStructType {
 	VAULT = 3;
 	ARMORY = 4;
 	MARKETPLACE = 5;
+	BLACKSMITH = 6;
 }
 
 message FullUserCritstructProto {
@@ -507,4 +512,18 @@ message PlayerWallPostProto {
 	optional int32 wallOwnerId = 3;
 	optional int64 timeOfPost = 4;
 	optional string content = 5;
+}
+
+//------------------------------------------------------------------------------------------
+
+message UnhandledBlacksmithAttemptProto {
+	optional int32 blacksmithId = 1;
+	optional int32 userId = 2;
+	optional int32 equipId = 3;
+	optional int64 goalLevel = 4;
+	optional bool guaranteed = 5;
+	optional int64 startTime = 6;
+	optional int32 diamondGuaranteeCost = 8;
+	optional int64 timeOfSpeedup = 9;
+	optional bool attemptComplete = 10;
 }

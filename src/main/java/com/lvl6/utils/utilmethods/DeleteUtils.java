@@ -42,7 +42,17 @@ public class DeleteUtils implements DeleteUtil {
     if (numDeleted == 1) {
       return true;
     }
+    return false;
+  }
+  
+  public boolean deleteBlacksmithAttempt(int blacksmithId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.BLACKSMITH__ID, blacksmithId);
 
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_BLACKSMITH, conditionParams, "and");
+    if (numDeleted == 1) {
+      return true;
+    }
     return false;
   }
 

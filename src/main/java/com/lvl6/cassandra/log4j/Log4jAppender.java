@@ -45,11 +45,10 @@ public class Log4jAppender extends AppenderSkeleton {
 	private String clusterName;
 
 	public Log4jAppender(String clusterName, String hosts,
-			String instanceId, String keyspace, String columnFamily) {
+			 String keyspace, String columnFamily) {
 		super();
 		this.clusterName = clusterName;
 		this.hosts = hosts;
-		this.instanceId = instanceId;
 		this.keyspace = keyspace;
 		this.columnFamily = columnFamily;
 		startAppender();
