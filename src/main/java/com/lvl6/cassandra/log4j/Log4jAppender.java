@@ -133,12 +133,13 @@ public class Log4jAppender extends AppenderSkeleton {
 		try {
 			Integer pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null)
-				playerId = Long.parseLong(pid.toString());
+				updater.setString("playerIdString", playerId.toString());
+			/*	playerId = Long.parseLong(pid.toString());
 			if (playerId != null) {
 				if (playerId != null && playerId > 0)
 					LogLog.warn("Saving playerId: " + playerId);
-					updater.setLong("playerId", playerId);
-			}
+					
+			}*/
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + playerId, e);
 		}
@@ -169,20 +170,29 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 
 	private void connect() throws Exception {
-		LogLog.debug("creating cassandra cluster connection: " + hosts);
-		CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator(
+		LogLog.warn("connect() ");
+		Keyspace ksp = createKeyspace(keyspace, c);
+		client = new ThriftColumnFamilyTemplate<String, String>(ksp,
+				columnFamily, StringSerializer.get(), StringSerializer.get());
+		
+	}
+
+	protected CassandraHostConfigurator cassandraHostConfigurator;
+	protected ThriftCluster c;
+	
+	
+	private void setupConnection() throws Exception {
+		LogLog.warn("creating cassandra cluster connection: " + hosts);
+		cassandraHostConfigurator = new CassandraHostConfigurator(
 				hosts);
 		cassandraHostConfigurator.setMaxActive(20);
 		cassandraHostConfigurator.setCassandraThriftSocketTimeout(500);
 		cassandraHostConfigurator.setMaxWaitTimeWhenExhausted(500);
-		ThriftCluster c = new ThriftCluster(clusterName,
+		c = new ThriftCluster(clusterName,
 				cassandraHostConfigurator);// getOrCreateCluster(getClusterName(),
 											// cassandraHostConfigurator);
 		setupColumnFamilies(c);
-		Keyspace ksp = createKeyspace(keyspace, c);
 		cluster = c;
-		client = new ThriftColumnFamilyTemplate<String, String>(ksp,
-				columnFamily, StringSerializer.get(), StringSerializer.get());
 	}
 
 	private void setupColumnFamilies(Cluster c) throws Exception {
@@ -270,6 +280,14 @@ public class Log4jAppender extends AppenderSkeleton {
 		bcdf8.setIndexType(ColumnIndexType.KEYS);
 		bcdf8.setValidationClass(ComparatorType.LONGTYPE.getClassName());
 		columnFamilyDefinition.addColumnDefinition(bcdf8);
+		
+		// playerIdString
+		BasicColumnDefinition bcdf11 = new BasicColumnDefinition();
+		bcdf11.setName(StringSerializer.get().toByteBuffer("playerIdString"));
+		bcdf11.setIndexName("playerIdString_index");
+		bcdf11.setIndexType(ColumnIndexType.KEYS);
+		bcdf11.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf11);
 
 		// udId
 		BasicColumnDefinition bcdf9 = new BasicColumnDefinition();
