@@ -7,23 +7,14 @@
 	<description>Lvl6 Utopia Server</description>
 
 
-	<servlet>
-		<servlet-name>GameServlet</servlet-name>
-		<servlet-class>com.lvl6.servlet.GameWebSocketServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GameServlet</servlet-name>
-		<url-pattern>/game</url-pattern>
-	</servlet-mapping>
-
 
 	<servlet>
-		<servlet-name>SampleServlet</servlet-name>
-		<servlet-class>com.lvl6.servlet.SampleServlet</servlet-class>
+		<servlet-name>IddictionServlet</servlet-name>
+		<servlet-class>com.lvl6.tracking.AppODayUserTrackingServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>SampleServlet</servlet-name>
-		<url-pattern>/some/path</url-pattern>
+		<servlet-name>IddictionServlet</servlet-name>
+		<url-pattern>/iddiction</url-pattern>
 	</servlet-mapping>
 
 

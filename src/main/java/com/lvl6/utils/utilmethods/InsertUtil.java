@@ -113,5 +113,7 @@ public interface InsertUtil {
 
 	public abstract boolean insertKiipHistory(int userId, Timestamp clientTime,
 			String content, String signature, int quantity, String transactionId);
+	
+	public abstract int insertIddictionIndentifier(String identifier, Date clickTime); 
 
 }

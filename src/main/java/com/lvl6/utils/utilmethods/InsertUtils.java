@@ -578,5 +578,23 @@ public class InsertUtils implements InsertUtil{
 		}
 		return false;
 	}
+	
+	
+	/*
+	 * returns the id of the userstruct, -1 if none
+	 */
+	/* (non-Javadoc)
+	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserStruct(int, int, com.lvl6.info.CoordinatePair, java.sql.Timestamp)
+	 */
+	@Override
+	public int insertIddictionIndentifier(String identifier, Date clickTime) {
+		Map<String, Object> insertParams = new HashMap<String, Object>();
+		insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__IDENTIFIER, identifier);
+		insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__CLICK_TIME, new Timestamp(clickTime.getTime()));
+
+		int iddictionIdentId = DBConnection.get().insertIntoTableBasicReturnId(
+				DBConstants.TABLE_IDDICTION_IDENTIFIERS, insertParams);
+		return iddictionIdentId;
+	}
 
 }
