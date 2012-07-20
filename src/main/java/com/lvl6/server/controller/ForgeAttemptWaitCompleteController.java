@@ -14,7 +14,6 @@ import com.lvl6.events.response.ForgeAttemptWaitCompleteResponseEvent;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteRequestProto;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto;
 import com.lvl6.proto.EventProto.ForgeAttemptWaitCompleteResponseProto.Builder;
