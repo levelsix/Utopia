@@ -10,7 +10,7 @@
 
 	<servlet>
 		<servlet-name>IddictionServlet</servlet-name>
-		<servlet-class>com.lvl6.tracking.AppODayUserTrackingServlet</servlet-class>
+		<servlet-class>com.lvl6.tracking.AppODayUserTrackerServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>IddictionServlet</servlet-name>
