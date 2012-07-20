@@ -127,16 +127,20 @@ public class Log4jAppender extends AppenderSkeleton {
 			updater.setString("udid", udId.toString());
 	}
 
-	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
-		Long playerId = Long.parseLong(((Integer) event.getMDC(MDCKeys.PLAYER_ID)).toString());
+	private void addPlayerId(LoggingEvent event,
+			ColumnFamilyUpdater<String, String> updater) {
+		Long playerId = -1l;
 		try {
+			Integer pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
+			if (pid != null)
+				playerId = Long.parseLong(pid.toString());
 			if (playerId != null) {
-				LogLog.warn("Saving playerId: "+playerId);
 				if (playerId != null && playerId > 0)
+					LogLog.warn("Saving playerId: " + playerId);
 					updater.setLong("playerId", playerId);
 			}
 		} catch (Exception e) {
-			LogLog.error("Error setting playerId "+playerId, e);
+			LogLog.error("Error setting playerId " + playerId, e);
 		}
 	}
 
@@ -144,8 +148,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			ColumnFamilyUpdater<String, String> updater) {
 		Map props = event.getProperties();
 		for (Object pkey : props.keySet()) {
-			updater.setString(pkey.toString(), props.get(pkey)
-					.toString());
+			updater.setString(pkey.toString(), props.get(pkey).toString());
 		}
 	}
 
@@ -291,8 +294,9 @@ public class Log4jAppender extends AppenderSkeleton {
 			LogLog.warn("ColumnFamilyDefinition: " + cfd.getName() + ":"
 					+ cfd.getColumnType().getValue());
 			for (ColumnDefinition cd : cfd.getColumnMetadata()) {
-				LogLog.warn("Name: " + StringSerializer.get().fromByteBuffer(cd.getName()) + ", IndexType: "
-						+ cd.getIndexType());
+				LogLog.warn("Name: "
+						+ StringSerializer.get().fromByteBuffer(cd.getName())
+						+ ", IndexType: " + cd.getIndexType());
 			}
 		}
 	}
