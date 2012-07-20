@@ -91,7 +91,8 @@ public class Log4jAppender extends AppenderSkeleton {
 		if (startedUp && client != null) {
 			try {
 				UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
-				ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
+				ColumnFamilyUpdater<String, String> updater = client
+						.createUpdater(key.toString());
 				updater.setLong("time", event.getTimeStamp());
 				updater.setString("host", getHost());
 				updater.setString("message", message);
@@ -106,16 +107,17 @@ public class Log4jAppender extends AppenderSkeleton {
 				}
 				Map props = event.getProperties();
 				for (Object pkey : props.keySet()) {
-					updater.setString(pkey.toString(), props.get(pkey).toString());
+					updater.setString(pkey.toString(), props.get(pkey)
+							.toString());
 				}
 				try {
-					if(event.getMDC("playerId") != null) {
+					if (event.getMDC("playerId") != null) {
 						Long playerId = new Long((Integer) event.getMDC("playerId"));
 						if (playerId != null && playerId > 0)
-							updater.setLong("playerId", playerId.longValue());
+							updater.setLong("playerId", playerId);
 					}
-				}catch(Exception e) {
-					
+				} catch (Exception e) {
+					LogLog.error("Error setting playerId "+event.getMDC("playerId"), e);
 				}
 				String udId = (String) event.getMDC("udId");
 				if (udId != null && !udId.equals(""))
@@ -141,15 +143,16 @@ public class Log4jAppender extends AppenderSkeleton {
 		cluster.getConnectionManager().shutdown();
 	}
 
-	
-	
 	private void connect() throws Exception {
-		LogLog.debug("creating cassandra cluster connection: "+hosts);
-		CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator(hosts);
+		LogLog.debug("creating cassandra cluster connection: " + hosts);
+		CassandraHostConfigurator cassandraHostConfigurator = new CassandraHostConfigurator(
+				hosts);
 		cassandraHostConfigurator.setMaxActive(20);
 		cassandraHostConfigurator.setCassandraThriftSocketTimeout(500);
 		cassandraHostConfigurator.setMaxWaitTimeWhenExhausted(500);
-		ThriftCluster c = new ThriftCluster(clusterName, cassandraHostConfigurator);//getOrCreateCluster(getClusterName(), cassandraHostConfigurator);
+		ThriftCluster c = new ThriftCluster(clusterName,
+				cassandraHostConfigurator);// getOrCreateCluster(getClusterName(),
+											// cassandraHostConfigurator);
 		setupColumnFamilies(c);
 		Keyspace ksp = createKeyspace(keyspace, c);
 		cluster = c;
@@ -157,126 +160,120 @@ public class Log4jAppender extends AppenderSkeleton {
 				columnFamily, StringSerializer.get(), StringSerializer.get());
 	}
 
-	
-	
-	
 	private void setupColumnFamilies(Cluster c) throws Exception {
 		KeyspaceDefinition keyspaceDef = c.describeKeyspace(keyspace);
 		BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
 		columnFamilyDefinition.setKeyspaceName(keyspace);
 		columnFamilyDefinition.setName(columnFamily);
 		columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
-		//columnFamilyDefinition.setKeyValidationClass(ComparatorType.BYTESTYPE.getClassName());
+		// columnFamilyDefinition.setKeyValidationClass(ComparatorType.BYTESTYPE.getClassName());
 		ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 		if (keyspaceDef == null) {
-			LogLog.warn("Creating keyspace "+keyspace);
+			LogLog.warn("Creating keyspace " + keyspace);
 			KeyspaceDefinition newKeyspace = HFactory.createKeyspaceDefinition(
-					keyspace,
-					ThriftKsDef.DEF_STRATEGY_CLASS,
-					replicationFactor,
-					Arrays.asList(cfDef)
-			);
+					keyspace, ThriftKsDef.DEF_STRATEGY_CLASS,
+					replicationFactor, Arrays.asList(cfDef));
 			c.addKeyspace(newKeyspace);
-		}else {
-			LogLog.warn(keyspaceDef.getName()+" exists");
+		} else {
+			LogLog.warn(keyspaceDef.getName() + " exists");
 		}
 		keyspaceDef = null;
 		cfDef = null;
 		KeyspaceDefinition fromCluster = c.describeKeyspace(keyspace);
-		for(ColumnFamilyDefinition cfd : fromCluster.getCfDefs()) {
-			if(cfd.getName().equals(columnFamily)) {
+		for (ColumnFamilyDefinition cfd : fromCluster.getCfDefs()) {
+			if (cfd.getName().equals(columnFamily)) {
 				cfDef = cfd;
 			}
 		}
 		columnFamilyDefinition = new BasicColumnFamilyDefinition(cfDef);
-		
-		//level index
-        BasicColumnDefinition bcdf = new BasicColumnDefinition();
-        bcdf.setName(StringSerializer.get().toByteBuffer("level"));
-        bcdf.setIndexName("level_index");
-        bcdf.setIndexType(ColumnIndexType.KEYS);
-        bcdf.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf);
-        
-        //time index
-        BasicColumnDefinition bcdf2 = new BasicColumnDefinition();
-        bcdf2.setName(StringSerializer.get().toByteBuffer("time"));
-        bcdf2.setIndexName("time_index");
-        bcdf2.setIndexType(ColumnIndexType.KEYS);
-        bcdf2.setValidationClass(ComparatorType.LONGTYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf2);
-        
-        //host 
-        BasicColumnDefinition bcdf3 = new BasicColumnDefinition();
-        bcdf3.setName(StringSerializer.get().toByteBuffer("host"));
-        bcdf3.setIndexType(ColumnIndexType.KEYS);
-        bcdf3.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf3);
-        
-        //message 
-        BasicColumnDefinition bcdf4 = new BasicColumnDefinition();
-        bcdf4.setName(StringSerializer.get().toByteBuffer("message"));
-        bcdf4.setIndexType(ColumnIndexType.KEYS);
-        bcdf4.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf4);
 
-        //name 
-        BasicColumnDefinition bcdf5 = new BasicColumnDefinition();
-        bcdf5.setName(StringSerializer.get().toByteBuffer("name"));
-        bcdf5.setIndexType(ColumnIndexType.KEYS);
-        bcdf5.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf5);
+		// level index
+		BasicColumnDefinition bcdf = new BasicColumnDefinition();
+		bcdf.setName(StringSerializer.get().toByteBuffer("level"));
+		bcdf.setIndexName("level_index");
+		bcdf.setIndexType(ColumnIndexType.KEYS);
+		bcdf.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf);
 
-        
-        //thread 
-        BasicColumnDefinition bcdf6 = new BasicColumnDefinition();
-        bcdf6.setName(StringSerializer.get().toByteBuffer("thread"));
-        bcdf6.setIndexType(ColumnIndexType.KEYS);
-        bcdf6.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf6);
+		// time index
+		BasicColumnDefinition bcdf2 = new BasicColumnDefinition();
+		bcdf2.setName(StringSerializer.get().toByteBuffer("time"));
+		bcdf2.setIndexName("time_index");
+		bcdf2.setIndexType(ColumnIndexType.KEYS);
+		bcdf2.setValidationClass(ComparatorType.LONGTYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf2);
 
-        //stacktrace
-        BasicColumnDefinition bcdf7 = new BasicColumnDefinition();
-        bcdf7.setName(StringSerializer.get().toByteBuffer("stacktrace"));
-        bcdf7.setIndexType(ColumnIndexType.KEYS);
-        bcdf7.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf7);
-        
-      //playerId
-        BasicColumnDefinition bcdf8 = new BasicColumnDefinition();
-        bcdf8.setName(StringSerializer.get().toByteBuffer("playerId"));
-        bcdf8.setIndexType(ColumnIndexType.KEYS);
-        bcdf8.setIndexName("playerId_index");
-        bcdf8.setValidationClass(ComparatorType.LONGTYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf8);
-        
-      //udId
-        BasicColumnDefinition bcdf9 = new BasicColumnDefinition();
-        bcdf9.setName(StringSerializer.get().toByteBuffer("udid"));
-        bcdf9.setIndexName("udid_index");
-        bcdf9.setIndexType(ColumnIndexType.KEYS);
-        bcdf9.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf9);
-        
-      //ip
-        BasicColumnDefinition bcdf10 = new BasicColumnDefinition();
-        bcdf10.setName(StringSerializer.get().toByteBuffer("ip"));
-        bcdf10.setIndexType(ColumnIndexType.KEYS);
-        bcdf10.setIndexName("ip_index");
-        bcdf10.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-        columnFamilyDefinition.addColumnDefinition(bcdf10);
-        
-        cfDef = new ThriftCfDef(columnFamilyDefinition);
-        c.updateColumnFamily(cfDef);
+		// host
+		BasicColumnDefinition bcdf3 = new BasicColumnDefinition();
+		bcdf3.setName(StringSerializer.get().toByteBuffer("host"));
+		bcdf3.setIndexType(ColumnIndexType.KEYS);
+		bcdf3.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf3);
+
+		// message
+		BasicColumnDefinition bcdf4 = new BasicColumnDefinition();
+		bcdf4.setName(StringSerializer.get().toByteBuffer("message"));
+		bcdf4.setIndexType(ColumnIndexType.KEYS);
+		bcdf4.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf4);
+
+		// name
+		BasicColumnDefinition bcdf5 = new BasicColumnDefinition();
+		bcdf5.setName(StringSerializer.get().toByteBuffer("name"));
+		bcdf5.setIndexType(ColumnIndexType.KEYS);
+		bcdf5.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf5);
+
+		// thread
+		BasicColumnDefinition bcdf6 = new BasicColumnDefinition();
+		bcdf6.setName(StringSerializer.get().toByteBuffer("thread"));
+		bcdf6.setIndexType(ColumnIndexType.KEYS);
+		bcdf6.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf6);
+
+		// stacktrace
+		BasicColumnDefinition bcdf7 = new BasicColumnDefinition();
+		bcdf7.setName(StringSerializer.get().toByteBuffer("stacktrace"));
+		bcdf7.setIndexType(ColumnIndexType.KEYS);
+		bcdf7.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf7);
+
+		// playerId
+		BasicColumnDefinition bcdf8 = new BasicColumnDefinition();
+		bcdf8.setName(StringSerializer.get().toByteBuffer("playerId"));
+		bcdf8.setIndexType(ColumnIndexType.KEYS);
+		bcdf8.setIndexName("playerId_index");
+		bcdf8.setValidationClass(ComparatorType.LONGTYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf8);
+
+		// udId
+		BasicColumnDefinition bcdf9 = new BasicColumnDefinition();
+		bcdf9.setName(StringSerializer.get().toByteBuffer("udid"));
+		bcdf9.setIndexName("udid_index");
+		bcdf9.setIndexType(ColumnIndexType.KEYS);
+		bcdf9.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf9);
+
+		// ip
+		BasicColumnDefinition bcdf10 = new BasicColumnDefinition();
+		bcdf10.setName(StringSerializer.get().toByteBuffer("ip"));
+		bcdf10.setIndexType(ColumnIndexType.KEYS);
+		bcdf10.setIndexName("ip_index");
+		bcdf10.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+		columnFamilyDefinition.addColumnDefinition(bcdf10);
+
+		cfDef = new ThriftCfDef(columnFamilyDefinition);
+		c.updateColumnFamily(cfDef);
 		keyspaceDef = c.describeKeyspace(keyspace);
-		for(ColumnFamilyDefinition cfd : keyspaceDef.getCfDefs()) {
-			LogLog.warn("ColumnFamilyDefinition: "+cfd.getName()+":"+cfd.getColumnType().getValue());
-			for(ColumnDefinition cd : cfd.getColumnMetadata()) {
-				LogLog.warn("Name: "+cd.getName()+", IndexType: "+cd.getIndexType());
+		for (ColumnFamilyDefinition cfd : keyspaceDef.getCfDefs()) {
+			LogLog.warn("ColumnFamilyDefinition: " + cfd.getName() + ":"
+					+ cfd.getColumnType().getValue());
+			for (ColumnDefinition cd : cfd.getColumnMetadata()) {
+				LogLog.warn("Name: " + StringSerializer.get().fromByteBuffer(cd.getName()) + ", IndexType: "
+						+ cd.getIndexType());
 			}
 		}
 	}
-
 
 	private String getHost() {
 		if (instanceId != null) {
