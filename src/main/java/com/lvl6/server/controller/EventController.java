@@ -35,7 +35,7 @@ public abstract class EventController extends Wrap {
 	@Autowired
 	public void setTransactionManager(
 			PlatformTransactionManager transactionManager) {
-		log.info("Autowiring transactionManager into EventController");
+		log.debug("Autowiring transactionManager into EventController");
 		transactionTemplate = new TransactionTemplate(transactionManager);
 		this.transactionManager = transactionManager;
 	}

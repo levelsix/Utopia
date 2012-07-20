@@ -51,6 +51,9 @@ public class Log4jAppender extends AppenderSkeleton {
 
 	private ThriftCluster cluster;
 	private ColumnFamilyTemplate<String, String> client;
+	
+	protected CassandraHostConfigurator cassandraHostConfigurator;
+	
 
 	private boolean startedUp = false;
 	private boolean shutdown = false;
@@ -65,6 +68,9 @@ public class Log4jAppender extends AppenderSkeleton {
 				while (!shutdown) {
 					try {
 						Thread.sleep(1000);
+						if(cluster == null || cassandraHostConfigurator == null) {
+							setupConnection();
+						}
 						if (client == null) {
 							connect();
 						}
@@ -171,15 +177,11 @@ public class Log4jAppender extends AppenderSkeleton {
 
 	private void connect() throws Exception {
 		LogLog.warn("connect() ");
-		Keyspace ksp = createKeyspace(keyspace, c);
+		Keyspace ksp = createKeyspace(keyspace, cluster);
 		client = new ThriftColumnFamilyTemplate<String, String>(ksp,
 				columnFamily, StringSerializer.get(), StringSerializer.get());
 		
 	}
-
-	protected CassandraHostConfigurator cassandraHostConfigurator;
-	protected ThriftCluster c;
-	
 	
 	private void setupConnection() throws Exception {
 		LogLog.warn("creating cassandra cluster connection: " + hosts);
@@ -188,11 +190,10 @@ public class Log4jAppender extends AppenderSkeleton {
 		cassandraHostConfigurator.setMaxActive(20);
 		cassandraHostConfigurator.setCassandraThriftSocketTimeout(500);
 		cassandraHostConfigurator.setMaxWaitTimeWhenExhausted(500);
-		c = new ThriftCluster(clusterName,
+		cluster = new ThriftCluster(clusterName,
 				cassandraHostConfigurator);// getOrCreateCluster(getClusterName(),
 											// cassandraHostConfigurator);
-		setupColumnFamilies(c);
-		cluster = c;
+		setupColumnFamilies(cluster);
 	}
 
 	private void setupColumnFamilies(Cluster c) throws Exception {
