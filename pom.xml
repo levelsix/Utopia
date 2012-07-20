@@ -54,7 +54,7 @@
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations</lvl6.server.log.location>
-		<lvl6.cassandra.hosts>5.9.28.212</lvl6.cassandra.hosts>
+		<lvl6.cassandra.hosts>robot.lvl6.com</lvl6.cassandra.hosts>
 		<lvl6.cassandra.keyspace>Logs</lvl6.cassandra.keyspace>
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
 		<lvl6.cassandra.cluster.name>Test Cluster</lvl6.cassandra.cluster.name>
