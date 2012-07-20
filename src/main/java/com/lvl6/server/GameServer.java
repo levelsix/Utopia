@@ -212,6 +212,9 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	 * @throws Exception 
 	 */
 	public EventController getEventControllerByEventType(EventProtocolRequest eventType) {
+		if(eventType == null) {
+			throw new RuntimeException("EventProtocolRequest (eventType) is null");
+		}
 		if(eventControllerList.size() > eventControllers.size()) {
 			loadEventControllers();
 		}
