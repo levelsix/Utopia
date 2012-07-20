@@ -108,9 +108,15 @@ public class Log4jAppender extends AppenderSkeleton {
 				for (Object pkey : props.keySet()) {
 					updater.setString(pkey.toString(), props.get(pkey).toString());
 				}
-				Long playerId = new Long((Integer) event.getMDC("playerId"));
-				if (playerId != null && playerId > 0)
-					updater.setLong("playerId", playerId.longValue());
+				try {
+					if(event.getMDC("playerId") != null) {
+						Long playerId = new Long((Integer) event.getMDC("playerId"));
+						if (playerId != null && playerId > 0)
+							updater.setLong("playerId", playerId.longValue());
+					}
+				}catch(Exception e) {
+					
+				}
 				String udId = (String) event.getMDC("udId");
 				if (udId != null && !udId.equals(""))
 					updater.setString("udid", udId.toString());
