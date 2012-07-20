@@ -248,7 +248,8 @@ public class Log4jAppender extends AppenderSkeleton {
         BasicColumnDefinition bcdf8 = new BasicColumnDefinition();
         bcdf8.setName(StringSerializer.get().toByteBuffer("playerId"));
         bcdf8.setIndexType(ColumnIndexType.KEYS);
-        bcdf8.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
+        bcdf8.setIndexName("playerId_index");
+        bcdf8.setValidationClass(ComparatorType.LONGTYPE.getClassName());
         columnFamilyDefinition.addColumnDefinition(bcdf8);
         
       //udId
