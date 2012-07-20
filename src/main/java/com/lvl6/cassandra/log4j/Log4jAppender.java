@@ -101,31 +101,10 @@ public class Log4jAppender extends AppenderSkeleton {
 				updater.setString("level", event.getLevel() + "");
 				updater.setString("name", event.getLoggerName());
 				updater.setString("thread", event.getThreadName());
-				if (event.getThrowableInformation() != null
-						&& event.getThrowableInformation().getThrowable() != null) {
-					String stacktrace = ExceptionUtils.getFullStackTrace(event
-							.getThrowableInformation().getThrowable());
-					updater.setString("stacktrace", stacktrace);
-				}
-				Map props = event.getProperties();
-				for (Object pkey : props.keySet()) {
-					updater.setString(pkey.toString(), props.get(pkey)
-							.toString());
-				}
-				Object playerId = event.getMDC(MDCKeys.PLAYER_ID);
-				try {
-					if (playerId != null) {
-						LogLog.warn("Saving playerId: "+playerId);
-						Long playerIdL = 0l+((Integer) playerId);
-						if (playerIdL != null && playerIdL > 0)
-							updater.setLong("playerId", playerIdL);
-					}
-				} catch (Exception e) {
-					LogLog.error("Error setting playerId "+playerId, e);
-				}
-				String udId = (String) event.getMDC(MDCKeys.UDID);
-				if (udId != null && !udId.equals(""))
-					updater.setString("udid", udId.toString());
+				addStackTrace(event, updater);
+				addProperties(event, updater);
+				addPlayerId(event, updater);
+				addUdid(event, updater);
 				client.update(updater);
 			} catch (Exception e) {
 				client = null;
@@ -139,6 +118,45 @@ public class Log4jAppender extends AppenderSkeleton {
 		}
 		long endTime = System.currentTimeMillis();
 		lastPublishTime = endTime - startTime;
+	}
+
+	private void addUdid(LoggingEvent event,
+			ColumnFamilyUpdater<String, String> updater) {
+		String udId = (String) event.getMDC(MDCKeys.UDID);
+		if (udId != null && !udId.equals(""))
+			updater.setString("udid", udId.toString());
+	}
+
+	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
+		Long playerId = Long.parseLong(((Integer) event.getMDC(MDCKeys.PLAYER_ID)).toString());
+		try {
+			if (playerId != null) {
+				LogLog.warn("Saving playerId: "+playerId);
+				if (playerId != null && playerId > 0)
+					updater.setLong("playerId", playerId);
+			}
+		} catch (Exception e) {
+			LogLog.error("Error setting playerId "+playerId, e);
+		}
+	}
+
+	private void addProperties(LoggingEvent event,
+			ColumnFamilyUpdater<String, String> updater) {
+		Map props = event.getProperties();
+		for (Object pkey : props.keySet()) {
+			updater.setString(pkey.toString(), props.get(pkey)
+					.toString());
+		}
+	}
+
+	private void addStackTrace(LoggingEvent event,
+			ColumnFamilyUpdater<String, String> updater) {
+		if (event.getThrowableInformation() != null
+				&& event.getThrowableInformation().getThrowable() != null) {
+			String stacktrace = ExceptionUtils.getFullStackTrace(event
+					.getThrowableInformation().getThrowable());
+			updater.setString("stacktrace", stacktrace);
+		}
 	}
 
 	public void close() {
