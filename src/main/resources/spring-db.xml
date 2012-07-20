@@ -62,7 +62,7 @@
 
 	<bean id="cassandraHostConfigurator"
 		class="me.prettyprint.cassandra.service.CassandraHostConfigurator">
-		<constructor-arg value="${lvl6.cassandra.hosts}:9170" />
+		<constructor-arg value="${lvl6.cassandra.hosts}" />
 	</bean>
 	<bean id="cluster" class="me.prettyprint.cassandra.service.ThriftCluster">
 		<constructor-arg value="Test Cluster" />
