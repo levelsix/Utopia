@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:hz="http://www.hazelcast.com/schema/spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -11,24 +10,26 @@
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
 		">
 
-<!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" -->
-<!-- 		destroy-method="close" depends-on="contextApplicationContextProvider"> -->
-<!-- 		<property name="driverClass" value="${jdbc.driverClassName}" /> -->
-<!-- 		<property name="jdbcUrl" value="${jdbc.url}" /> -->
-<!-- 		<property name="user" value="${jdbc.username}" /> -->
-<!-- 		<property name="password" value="${jdbc.password}" /> -->
-<!-- 		<property name="minPoolSize" value="5" /> -->
-<!-- 		<property name="maxPoolSize" value="20" /> -->
-<!-- 		<property name="maxStatements" value="50" /> -->
-<!-- 		<property name="idleConnectionTestPeriod" value="3000" /> -->
-<!-- 		<property name="loginTimeout" value="300" /> -->
-<!-- 	</bean> -->
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" -->
+	<!-- destroy-method="close" depends-on="contextApplicationContextProvider"> -->
+	<!-- <property name="driverClass" value="${jdbc.driverClassName}" /> -->
+	<!-- <property name="jdbcUrl" value="${jdbc.url}" /> -->
+	<!-- <property name="user" value="${jdbc.username}" /> -->
+	<!-- <property name="password" value="${jdbc.password}" /> -->
+	<!-- <property name="minPoolSize" value="5" /> -->
+	<!-- <property name="maxPoolSize" value="20" /> -->
+	<!-- <property name="maxStatements" value="50" /> -->
+	<!-- <property name="idleConnectionTestPeriod" value="3000" /> -->
+	<!-- <property name="loginTimeout" value="300" /> -->
+	<!-- </bean> -->
 
 
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl"><value><![CDATA[${jdbc.url}]]></value></property>
+		<property name="jdbcUrl">
+			<value><![CDATA[${jdbc.url}]]></value>
+		</property>
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<property name="idleConnectionTestPeriodInMinutes" value="1" />
@@ -50,11 +51,27 @@
 	<bean id="insertUtils" class="com.lvl6.utils.utilmethods.InsertUtils" />
 	<bean id="updateUtils" class="com.lvl6.utils.utilmethods.UpdateUtils" />
 	<bean id="deleteUtils" class="com.lvl6.utils.utilmethods.DeleteUtils" />
-	
+
 	<bean id="applicationUtils" class="com.lvl6.utils.ApplicationUtils" />
-	
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  <property name="dataSource" ref="dataSource"/>
-  </bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<bean id="cassandraHostConfigurator"
+		class="me.prettyprint.cassandra.service.CassandraHostConfigurator">
+		<constructor-arg value="${lvl6.cassandra.hosts}:9170" />
+	</bean>
+	<bean id="cluster" class="me.prettyprint.cassandra.service.ThriftCluster">
+		<constructor-arg value="Test Cluster" />
+		<constructor-arg ref="cassandraHostConfigurator" />
+	</bean>
+	<bean id="keyspace" class="me.prettyprint.hector.api.factory.HFactory"
+		factory-method="createKeyspace">
+		<constructor-arg value="${lvl6.cassandra.keyspace}" />
+		<constructor-arg ref="cluster" />
+	</bean>
 
 </beans>

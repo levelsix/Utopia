@@ -17,14 +17,18 @@ import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
 
 import org.apache.cassandra.thrift.NotFoundException;
+import org.apache.log4j.MDC;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransportException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.lvl6.properties.MDCKeys;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +37,28 @@ public class CassandraTest extends TestCase {
 
 	Logger log = LoggerFactory.getLogger(getClass());
 
+	
+	@Autowired
 	private ThriftCluster cassandraCluster;
+	
+	public ThriftCluster getCassandraCluster() {
+		return cassandraCluster;
+	}
+
+	public void setCassandraCluster(ThriftCluster cassandraCluster) {
+		this.cassandraCluster = cassandraCluster;
+	}
+
+	public CassandraHostConfigurator getCassandraHostConfigurator() {
+		return cassandraHostConfigurator;
+	}
+
+	public void setCassandraHostConfigurator(
+			CassandraHostConfigurator cassandraHostConfigurator) {
+		this.cassandraHostConfigurator = cassandraHostConfigurator;
+	}
+
+	@Autowired
 	private CassandraHostConfigurator cassandraHostConfigurator;
 	
 	
@@ -42,21 +67,23 @@ public class CassandraTest extends TestCase {
 	public void setupCase() throws TTransportException, TException,
 			IllegalArgumentException, NotFoundException, UnknownHostException,
 			Exception {
-		cassandraHostConfigurator = new CassandraHostConfigurator(
-				"localhost");
-		cassandraCluster = new ThriftCluster("Test Cluster",
-				cassandraHostConfigurator);
+		
 	}
 
 	@Test
 	public void testWarning() {
-		//log.warn("This is a test warning for cassandra logging");
+		MDC.put(MDCKeys.PLAYER_ID, 420);
+		MDC.put(MDCKeys.IP, "4.2.0.0");
+		MDC.put(MDCKeys.UDID, "RArarararararararar");
+		log.info("This is a test info for cassandra logging");
+		log.warn("This is a test warning for cassandra logging");
+		log.error("This is a test error for cassandra logging");
 	}
 
 	//@Test
 	public void testEditColumnFamily() throws Exception {
 		setupCase();
-		try {
+/*		try {
 			BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
 			columnFamilyDefinition.setKeyspaceName("DynKeyspace3");
 			columnFamilyDefinition.setName("DynamicCF");
@@ -111,5 +138,6 @@ public class CassandraTest extends TestCase {
 				StringSerializer.get().fromByteBuffer(
 						fromCluster.getCfDefs().get(0).getColumnMetadata()
 								.get(1).getName()));
+								*/
 	}
 }
