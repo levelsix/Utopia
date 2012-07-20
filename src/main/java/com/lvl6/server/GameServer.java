@@ -209,13 +209,16 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 
 	/**
 	 * finds the EventController for a given event type
+	 * @throws Exception 
 	 */
-	public EventController getEventControllerByEventType(
-			EventProtocolRequest eventType) {
-		EventController ec = eventControllers.get(eventType);
-		if (ec == null)
-			log.error("no eventcontroller for eventType: " + eventType);
-		return ec;
+	public EventController getEventControllerByEventType(EventProtocolRequest eventType) {
+		if(eventControllers.contains(eventType)) {
+			EventController ec = eventControllers.get(eventType);
+			if (ec == null)
+				log.error("no eventcontroller for eventType: " + eventType);
+			return ec;
+		}
+		throw new RuntimeException("EventController of type: "+eventType+" not found");
 	}
 
 	/**
