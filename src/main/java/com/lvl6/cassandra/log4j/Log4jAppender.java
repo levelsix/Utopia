@@ -133,8 +133,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			updater.setString("udid", udId.toString());
 	}
 
-	private void addPlayerId(LoggingEvent event,
-			ColumnFamilyUpdater<String, String> updater) {
+	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
 		Long playerId = -1l;
 		try {
 			Integer pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
