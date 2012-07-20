@@ -134,19 +134,13 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 
 	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
-		Long playerId = -1l;
+		Integer pid;
 		try {
-			Integer pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
+			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null)
-				updater.setString("playerIdString", playerId.toString());
-			/*	playerId = Long.parseLong(pid.toString());
-			if (playerId != null) {
-				if (playerId != null && playerId > 0)
-					LogLog.warn("Saving playerId: " + playerId);
-					
-			}*/
+				updater.setInteger("playerId", pid);
 		} catch (Exception e) {
-			LogLog.error("Error setting playerId " + playerId, e);
+			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
 		}
 	}
 
@@ -179,7 +173,9 @@ public class Log4jAppender extends AppenderSkeleton {
 		Keyspace ksp = createKeyspace(keyspace, cluster);
 		client = new ThriftColumnFamilyTemplate<String, String>(ksp,
 				columnFamily, StringSerializer.get(), StringSerializer.get());
-		
+		if(!checkKeyspaceExists()){
+			setupConnection();
+		}
 	}
 	
 	private void setupConnection() throws Exception {
@@ -187,7 +183,8 @@ public class Log4jAppender extends AppenderSkeleton {
 		cassandraHostConfigurator = new CassandraHostConfigurator(
 				hosts);
 		cassandraHostConfigurator.setMaxActive(20);
-		cassandraHostConfigurator.setCassandraThriftSocketTimeout(500);
+		cassandraHostConfigurator.setCassandraThriftSocketTimeout(2500);
+		cassandraHostConfigurator.setUseSocketKeepalive(true);
 		cassandraHostConfigurator.setMaxWaitTimeWhenExhausted(500);
 		cluster = new ThriftCluster(clusterName,
 				cassandraHostConfigurator);// getOrCreateCluster(getClusterName(),
@@ -203,14 +200,8 @@ public class Log4jAppender extends AppenderSkeleton {
 		columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
 		// columnFamilyDefinition.setKeyValidationClass(ComparatorType.BYTESTYPE.getClassName());
 		ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
-		if (keyspaceDef == null) {
-			LogLog.warn("Creating keyspace " + keyspace);
-			KeyspaceDefinition newKeyspace = HFactory.createKeyspaceDefinition(
-					keyspace, ThriftKsDef.DEF_STRATEGY_CLASS,
-					replicationFactor, Arrays.asList(cfDef));
-			c.addKeyspace(newKeyspace);
-		} else {
-			LogLog.warn(keyspaceDef.getName() + " exists");
+		if(!checkKeyspaceExists()){
+			createKeyspaceDef(c, cfDef);
 		}
 		keyspaceDef = null;
 		cfDef = null;
@@ -278,16 +269,16 @@ public class Log4jAppender extends AppenderSkeleton {
 		bcdf8.setName(StringSerializer.get().toByteBuffer("playerId"));
 		bcdf8.setIndexName("playerId_index");
 		bcdf8.setIndexType(ColumnIndexType.KEYS);
-		bcdf8.setValidationClass(ComparatorType.LONGTYPE.getClassName());
+		bcdf8.setValidationClass(ComparatorType.INTEGERTYPE.getClassName());
 		columnFamilyDefinition.addColumnDefinition(bcdf8);
 		
-		// playerIdString
+/*		// playerIdString
 		BasicColumnDefinition bcdf11 = new BasicColumnDefinition();
 		bcdf11.setName(StringSerializer.get().toByteBuffer("playerIdString"));
 		bcdf11.setIndexName("playerIdString_index");
 		bcdf11.setIndexType(ColumnIndexType.KEYS);
 		bcdf11.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf11);
+		columnFamilyDefinition.addColumnDefinition(bcdf11);*/
 
 		// udId
 		BasicColumnDefinition bcdf9 = new BasicColumnDefinition();
@@ -317,6 +308,22 @@ public class Log4jAppender extends AppenderSkeleton {
 						+ ", IndexType: " + cd.getIndexType());
 			}
 		}
+	}
+
+	private boolean checkKeyspaceExists() {
+		KeyspaceDefinition keyspaceDef = cluster.describeKeyspace(keyspace);
+		if (keyspaceDef == null) {
+			return false;
+		}
+		return true;
+	}
+
+	private void createKeyspaceDef(Cluster c, ColumnFamilyDefinition cfDef) {
+		LogLog.warn("Creating keyspace " + keyspace);
+		KeyspaceDefinition newKeyspace = HFactory.createKeyspaceDefinition(
+				keyspace, ThriftKsDef.DEF_STRATEGY_CLASS,
+				replicationFactor, Arrays.asList(cfDef));
+		c.addKeyspace(newKeyspace);
 	}
 
 	private String getHost() {
