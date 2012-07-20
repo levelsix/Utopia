@@ -1,10 +1,8 @@
 package com.lvl6.test;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +50,8 @@ public class ApnsTests {
 	@Test
 	public void testApnsCertLocation() throws IOException{
 		log.info("Looking for cert: "+props.pathToCert);
-		InputStream stream = getClass().getClassLoader().getSystemResourceAsStream(props.pathToCert);
+		getClass().getClassLoader();
+		InputStream stream = ClassLoader.getSystemResourceAsStream(props.pathToCert);
 		if(stream != null && stream.available() > 0) {
 			log.info("Apns Cert found");
 		}

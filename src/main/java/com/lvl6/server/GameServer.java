@@ -1,7 +1,6 @@
 package com.lvl6.server;
 
 import java.io.IOException;
-import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.util.Hashtable;
 import java.util.List;
@@ -33,13 +32,13 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}.getClass().getEnclosingClass());
 
 	// ServerSocketChannel for accepting client connections
-	private ServerSocketChannel sSockChan;
-
-	
-	private SelectAndRead selectAndRead;
-	public void setSelectAndRead(SelectAndRead selectAndRead) {
-		this.selectAndRead = selectAndRead;
-	}
+//	private ServerSocketChannel sSockChan;
+//
+//	
+//	private SelectAndRead selectAndRead;
+//	public void setSelectAndRead(SelectAndRead selectAndRead) {
+//		this.selectAndRead = selectAndRead;
+//	}
 	
 	@Autowired
 	protected ServerInstance serverInstance;
@@ -86,7 +85,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 
 
 	// selector for multiplexing ServerSocketChannels
-	private Selector selector;
+	//private Selector selector;
 
 	// whether to keep listening for new sockets
 	private boolean running;

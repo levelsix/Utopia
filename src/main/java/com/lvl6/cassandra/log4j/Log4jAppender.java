@@ -1,10 +1,10 @@
 package com.lvl6.cassandra.log4j;
 
+import static me.prettyprint.hector.api.factory.HFactory.createKeyspace;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,7 +15,6 @@ import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.cassandra.service.ThriftCfDef;
 import me.prettyprint.cassandra.service.ThriftCluster;
-import me.prettyprint.cassandra.service.ThriftColumnDef;
 import me.prettyprint.cassandra.service.ThriftKsDef;
 import me.prettyprint.cassandra.service.template.ColumnFamilyTemplate;
 import me.prettyprint.cassandra.service.template.ColumnFamilyUpdater;
@@ -28,15 +27,8 @@ import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.ColumnIndexType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
-import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
-import static me.prettyprint.hector.api.factory.HFactory.createColumn;
-import static me.prettyprint.hector.api.factory.HFactory.createKeyspace;
-import static me.prettyprint.hector.api.factory.HFactory.createMutator;
-import static me.prettyprint.hector.api.factory.HFactory.getOrCreateCluster;
 
-import org.apache.cassandra.thrift.Column;
-import org.apache.cassandra.thrift.ColumnDef;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
@@ -117,7 +109,7 @@ public class Log4jAppender extends AppenderSkeleton {
 					updater.setString(pkey.toString(), props.get(pkey).toString());
 				}
 				Integer playerId = (Integer) event.getMDC("playerId");
-				if (playerId != null && !playerId.equals(""))
+				if (playerId != null)
 					updater.setLong("playerId", playerId.longValue());
 				String udId = (String) event.getMDC("udId");
 				if (udId != null && !udId.equals(""))

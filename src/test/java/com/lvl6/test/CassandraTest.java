@@ -3,6 +3,7 @@ package com.lvl6.test;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
+import junit.framework.TestCase;
 import me.prettyprint.cassandra.model.BasicColumnDefinition;
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.serializers.StringSerializer;
@@ -18,19 +19,12 @@ import me.prettyprint.hector.api.factory.HFactory;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransportException;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.lvl6.ui.admin.pages.AdminPage;
-import com.lvl6.ui.admin.pages.MainPage;
-
-import junit.framework.TestCase;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

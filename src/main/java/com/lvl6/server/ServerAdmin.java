@@ -29,13 +29,13 @@ public class ServerAdmin {
 	}
 
 	@Resource(name="serverEvents")
-	protected ITopic serverEvents;
+	protected ITopic<ServerMessage> serverEvents;
 		
-	public ITopic getServerEvents() {
+	public ITopic<ServerMessage> getServerEvents() {
 		return serverEvents;
 	}
 
-	public void setServerEvents(ITopic serverEvents) {
+	public void setServerEvents(ITopic<ServerMessage> serverEvents) {
 		this.serverEvents = serverEvents;
 	}
 
@@ -55,9 +55,11 @@ public class ServerAdmin {
 	public void reloadAllStaticData() {
 		log.info("Reloading all static data for cluster");
 		serverEvents.publish(ServerMessage.RELOAD_STATIC_DATA);
+		sendPurgeStaticDataNotificationToAllClients();
 	}
 	
 	protected void sendPurgeStaticDataNotificationToAllClients() {
+		log.info("Sending purge static data notification to clients");
 		Iterator<Integer> playas = players.keySet().iterator();
 		while(playas.hasNext()) {
 			Integer playa = playas.next();

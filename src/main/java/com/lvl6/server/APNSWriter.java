@@ -172,7 +172,8 @@ public class APNSWriter extends Wrap {
 
 	protected void buildService() throws FileNotFoundException {
 		log.info("Building ApnsService");
-		InputStream stream = getClass().getClassLoader()
+		getClass().getClassLoader();
+		InputStream stream = ClassLoader
 				.getSystemResourceAsStream(apnsProperties.pathToCert);
 		ApnsServiceBuilder builder = APNS.newService()
 				.withCert(stream, apnsProperties.certPassword).asNonBlocking();
