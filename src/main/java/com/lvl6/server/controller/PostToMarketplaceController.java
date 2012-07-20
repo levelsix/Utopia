@@ -2,7 +2,6 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -34,7 +33,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
 
-  @Component @DependsOn("gameServer") public class PostToMarketplaceController extends EventController {
+@Component @DependsOn("gameServer") public class PostToMarketplaceController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -43,14 +42,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   protected InsertUtil insertUtils;
 
   public void setInsertUtils(InsertUtil insertUtils) {
-	this.insertUtils = insertUtils;
+    this.insertUtils = insertUtils;
   }
 
-  
+
   public PostToMarketplaceController() {
     numAllocatedThreads = 3;
   }
-  
+
   @Override
   public RequestEvent createRequestEvent() {
     return new PostToMarketplaceRequestEvent();
@@ -79,9 +78,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      List<UserEquip> userEquipsForEquipId = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsWithEquipId(user.getId(), reqProto.getPostedEquipId());
-      UserEquip ue = MiscMethods.chooseUserEquipWithEquipIdPreferrablyNonEquipped(user, userEquipsForEquipId);
-      
+      UserEquip ue = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(reqProto.getUserEquipId());
+
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       Equipment equip = (ue == null) ? null : equipmentIdsToEquipment.get(ue.getEquipId());
       boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip, timeOfPost);
@@ -98,11 +96,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         } else {
           postType = MarketplacePostType.NORM_EQUIP_POST;
         }
-        writeChangesToDB(user, reqProto, ue, userEquipsForEquipId, postType, timeOfPost);
+        writeChangesToDB(user, reqProto, ue, postType, timeOfPost, equip);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        
+
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.POST_TO_MARKETPLACE, true);
       }
 
@@ -164,14 +162,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private void writeChangesToDB(User user, PostToMarketplaceRequestProto reqProto, 
-      UserEquip ue, List<UserEquip> userEquipsForEquipId, MarketplacePostType postType, Timestamp timeOfPost) {
+      UserEquip ue, MarketplacePostType postType, Timestamp timeOfPost, Equipment equip) {
 
     if (ue != null) {
-      if (userEquipsForEquipId.size() <= 1) {
-        if (!MiscMethods.unequipUserEquipIfEquipped(user, ue)) {
-          log.error("problem with unequipping userequip" + ue.getId());
-          return;
-        }
+      if (!MiscMethods.unequipUserEquipIfEquipped(user, ue)) {
+        log.error("problem with unequipping userequip" + ue.getId());
+        return;
       }
       if (!DeleteUtils.get().deleteUserEquip(ue.getId())) {
         log.error("problem with decrementing user equip with ue id: " + ue);
@@ -183,17 +179,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("problem with increasing user's num marketplace posts by 1");
       return;
     }
-    
+
     int posterId = reqProto.getSender().getUserId();
-    int postedEquipId = reqProto.getPostedEquipId();
+    int postedEquipId = equip.getId();
     int diamondCost = reqProto.getDiamondCost();
     int coinCost = reqProto.getCoinCost();
     if (!insertUtils.insertMarketplaceItem(posterId, postType, postedEquipId, 
-        diamondCost, coinCost, timeOfPost)) {
+        diamondCost, coinCost, timeOfPost, ue.getLevel())) {
       log.error("problem with inserting post into marketplace. posterId=" + posterId
           + ", postType=" + postType + ", postedEquipId=" + postedEquipId
           + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost
-          + ", timeOfPost=" + timeOfPost);      
+          + ", timeOfPost=" + timeOfPost + ", equipLevel=" + ue.getLevel());      
     }
   } 
 

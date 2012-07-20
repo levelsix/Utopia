@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
+import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
@@ -22,23 +23,12 @@ public interface InsertUtil {
 //
 //	public abstract void setCache(CacheManager cache);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquips(int,
-	 * java.util.List, int)
-	 */
-	@Caching(evict = {
-			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
-			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"), })
-	public abstract boolean insertUserEquips(int userId,
-			List<Integer> equipIds, int quantity);
 
 	@Caching(evict = {
 			@CacheEvict(value = "userEquipsForUser", key = "#userId"),
 			@CacheEvict(value = "equipsToUserEquipsForUser", key = "#userId"),
 			@CacheEvict(value = "userEquipsWithEquipId", key = "#userId+':'+#equipId") })
-	public abstract int insertUserEquip(int userId, int equipId);
+	public abstract int insertUserEquip(int userId, int equipId, int level);
 
 	/*
 	 * (non-Javadoc)
@@ -61,7 +51,7 @@ public interface InsertUtil {
 	 */
 	public abstract boolean insertBattleHistory(int attackerId, int defenderId,
 			BattleResult result, Date battleCompleteTime, int coinsStolen,
-			int stolenEquipId, int expGained);
+			int stolenEquipId, int expGained, int stolenEquipLevel);
 
 	public abstract boolean insertUnredeemedUserQuest(int userId, int questId,
 			boolean hasNoRequiredTasks, boolean hasNoRequiredDefeatTypeJobs);
@@ -88,8 +78,8 @@ public interface InsertUtil {
 			int diamondChange, User user, double cashCost);
 
 	public abstract boolean insertMarketplaceItem(int posterId,
-			MarketplacePostType postType, int postedEquipId, int diamondCost,
-			int coinCost, Timestamp timeOfPost);
+      MarketplacePostType postType, int postedEquipId, int diamondCost,
+      int coinCost, Timestamp timeOfPost, int equipLevel);
 
 	public abstract boolean insertMarketplaceItemIntoHistory(
 			MarketplacePost mp, int buyerId);
@@ -114,4 +104,9 @@ public interface InsertUtil {
 	public abstract boolean insertKiipHistory(int userId, Timestamp clientTime,
 			String content, String signature, int quantity, String transactionId);
 
+  public abstract int insertForgeAttemptIntoBlacksmith(int userId, int equipId,
+      int goalLevel, boolean paidToGuarantee, Timestamp startTime,
+      int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete);
+
+  public abstract boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge);
 }

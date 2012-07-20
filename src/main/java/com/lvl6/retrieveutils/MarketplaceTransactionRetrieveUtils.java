@@ -74,8 +74,10 @@ import com.lvl6.utils.DBConnection;
     int coinCost = rs.getInt(i++);
     if (rs.wasNull()) coinCost = ControllerConstants.NOT_SET;
 
+    int equipLevel = rs.getInt(i++);
+    
     MarketplacePost mp = new MarketplacePost(marketplaceId, posterId, postType, timeOfPost, 
-        postedEquipId, diamondCost, coinCost);
+        postedEquipId, diamondCost, coinCost, equipLevel);
     
     return new MarketplaceTransaction(mp, buyerId, timeOfPurchase);
   }

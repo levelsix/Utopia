@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.lvl6.info.UserEquip;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
+import com.lvl6.utils.utilmethods.StringUtils;
 
 @Component @DependsOn("gameServer") public class UserEquipRetrieveUtils {
 
@@ -24,11 +25,11 @@ import com.lvl6.utils.DBConnection;
 
   private final String TABLE_NAME = DBConstants.TABLE_USER_EQUIP;
 
-  
+
   @Cacheable(value="userEquipsForUser", key="#userId")
   public List<UserEquip> getUserEquipsForUser(int userId) {
     log.debug("retrieving user equips for userId " + userId);
-    
+
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
@@ -36,11 +37,10 @@ import com.lvl6.utils.DBConnection;
     return userEquips;
   }
 
-  
   @Cacheable(value="equipsToUserEquipsForUser", key="#userId")
   public Map<Integer, List<UserEquip>> getEquipIdsToUserEquipsForUser(int userId) {
     log.debug("retrieving map of equip id to userequips for userId " + userId);
-    
+
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsByUserId(conn, userId, TABLE_NAME);
     Map<Integer, List<UserEquip>> equipIdsToUserEquips = convertRSToEquipIdsToUserEquips(rs);
@@ -51,14 +51,37 @@ import com.lvl6.utils.DBConnection;
   @Cacheable(value="specificUserEquip", key="#userEquipId")
   public UserEquip getSpecificUserEquip(int userEquipId) {
     log.debug("retrieving user equip for userEquipId: " + userEquipId);
-    
+
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsById(conn, userEquipId, TABLE_NAME);
     UserEquip userEquip = convertRSSingleToUserEquips(rs);
     DBConnection.get().close(rs, null, conn);
     return userEquip;
   }
-  
+
+  public List<UserEquip> getSpecificUserEquips(List<Integer> userEquipIds) {
+    log.debug("retrieving user equip for userEquipIds: " + userEquipIds);
+
+    if (userEquipIds == null || userEquipIds.size() <= 0 ) {
+      return new ArrayList<UserEquip>();
+    }
+
+    String query = "select * from " + TABLE_NAME + " where (";
+    List<String> condClauses = new ArrayList<String>();
+    List <Object> values = new ArrayList<Object>();
+    for (Integer userEquipId : userEquipIds) {
+      condClauses.add(DBConstants.USER_EQUIP__ID + "=?");
+      values.add(userEquipId);
+    }
+    query += StringUtils.getListInString(condClauses, "or") + ")";
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, query, values);
+    List<UserEquip> userEquips = convertRSToUserEquips(rs);
+    DBConnection.get().close(rs, null, conn);
+    return userEquips;
+  }
+
   @Cacheable(value="userEquipsWithEquipId", key="#userId+':'+#equipId")
   public List<UserEquip> getUserEquipsWithEquipId(int userId, int equipId) {
     log.debug("retrieving user equip for user: " + userId + ", equipId: " + equipId);
@@ -66,7 +89,7 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_EQUIP__USER_ID, userId);
     paramsToVals.put(DBConstants.USER_EQUIP__EQUIP_ID, equipId);
-    
+
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserEquip> userEquips = convertRSToUserEquips(rs);
@@ -100,7 +123,7 @@ import com.lvl6.utils.DBConnection;
     }
     return null;
   }
-  
+
   private List<UserEquip> convertRSToUserEquips(ResultSet rs) {
     if (rs != null) {
       try {
@@ -143,7 +166,8 @@ import com.lvl6.utils.DBConnection;
     int userEquipId = rs.getInt(i++);
     int userId = rs.getInt(i++);
     int equipId = rs.getInt(i++);
-    UserEquip userEquip = new UserEquip(userEquipId, userId, equipId);
+    int level = rs.getInt(i++);
+    UserEquip userEquip = new UserEquip(userEquipId, userId, equipId, level);
     return userEquip;
   }
 
