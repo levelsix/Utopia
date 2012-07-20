@@ -34,6 +34,8 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
 
+import com.lvl6.properties.MDCKeys;
+
 public class Log4jAppender extends AppenderSkeleton {
 
 	private static final StringSerializer se = new StringSerializer();
@@ -110,16 +112,18 @@ public class Log4jAppender extends AppenderSkeleton {
 					updater.setString(pkey.toString(), props.get(pkey)
 							.toString());
 				}
+				Object playerId = event.getMDC(MDCKeys.PLAYER_ID);
 				try {
-					if (event.getMDC("playerId") != null) {
-						Long playerId = new Long((Integer) event.getMDC("playerId"));
-						if (playerId != null && playerId > 0)
-							updater.setLong("playerId", playerId);
+					if (playerId != null) {
+						LogLog.warn("Saving playerId: "+playerId);
+						Long playerIdL = 0l+((Integer) playerId);
+						if (playerIdL != null && playerIdL > 0)
+							updater.setLong("playerId", playerIdL);
 					}
 				} catch (Exception e) {
-					LogLog.error("Error setting playerId "+event.getMDC("playerId"), e);
+					LogLog.error("Error setting playerId "+playerId, e);
 				}
-				String udId = (String) event.getMDC("udId");
+				String udId = (String) event.getMDC(MDCKeys.UDID);
 				if (udId != null && !udId.equals(""))
 					updater.setString("udid", udId.toString());
 				client.update(updater);
