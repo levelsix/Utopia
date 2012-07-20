@@ -2,6 +2,9 @@ package com.lvl6.test;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import junit.framework.TestCase;
 import me.prettyprint.cassandra.model.BasicColumnDefinition;
@@ -17,7 +20,11 @@ import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
 
 import org.apache.cassandra.thrift.NotFoundException;
+import org.apache.log4j.Category;
+import org.apache.log4j.Level;
 import org.apache.log4j.MDC;
+import org.apache.log4j.lf5.LogLevel;
+import org.apache.log4j.spi.LoggingEvent;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransportException;
 import org.junit.Test;
@@ -28,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lvl6.cassandra.log4j.Log4jAppender;
 import com.lvl6.properties.MDCKeys;
 
 
@@ -40,7 +48,21 @@ public class CassandraTest extends TestCase {
 	
 	@Autowired
 	private ThriftCluster cassandraCluster;
+	@Autowired
+	private CassandraHostConfigurator cassandraHostConfigurator;
+
+	@Autowired
+	private Log4jAppender appender;
 	
+	
+	public Log4jAppender getAppender() {
+		return appender;
+	}
+
+	public void setAppender(Log4jAppender appender) {
+		this.appender = appender;
+	}
+
 	public ThriftCluster getCassandraCluster() {
 		return cassandraCluster;
 	}
@@ -58,8 +80,6 @@ public class CassandraTest extends TestCase {
 		this.cassandraHostConfigurator = cassandraHostConfigurator;
 	}
 
-	@Autowired
-	private CassandraHostConfigurator cassandraHostConfigurator;
 	
 	
 
@@ -72,14 +92,20 @@ public class CassandraTest extends TestCase {
 
 	@Test
 	public void testWarning() {
-		MDC.put(MDCKeys.PLAYER_ID, 420);
-		MDC.put(MDCKeys.IP, "4.2.0.0");
-		MDC.put(MDCKeys.UDID, "RArarararararararar");
 		log.info("This is a test info for cassandra logging");
 		log.warn("This is a test warning for cassandra logging");
 		log.error("This is a test error for cassandra logging");
 	}
 
+	
+	//@Test
+	public void testAppender() {
+		
+	}
+
+	
+	
+	
 	//@Test
 	public void testEditColumnFamily() throws Exception {
 		setupCase();
