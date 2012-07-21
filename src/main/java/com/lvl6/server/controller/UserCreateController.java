@@ -89,7 +89,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int attack = reqProto.getAttack();
     int defense = reqProto.getDefense();
     int energy = reqProto.getEnergy();
-    int health = reqProto.getHealth();
     int stamina = reqProto.getStamina();
     
     boolean usedDiamondsToBuild = reqProto.getUsedDiamondsToBuilt();
@@ -102,7 +101,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     User referrer = (referrerCode != null && referrerCode.length() > 0) ? RetrieveUtils.userRetrieveUtils().getUserByReferralCode(referrerCode) : null;;
 
     boolean legitUserCreate = checkLegitUserCreate(resBuilder, udid, name, 
-        loc, type, attack, defense, energy, health, stamina, timeOfStructPurchase, timeOfStructBuild, structCoords, 
+        loc, type, attack, defense, energy, stamina, timeOfStructPurchase, timeOfStructBuild, structCoords, 
         referrer, reqProto.hasReferrerCode());
 
     User user = null;
@@ -144,7 +143,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (amuletEquipped > 0) equipIds.add(amuletEquipped);
 
       userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
-          attack, defense, energy, health, stamina, playerExp, playerCoins, playerDiamonds, 
+          attack, defense, energy, stamina, playerExp, playerCoins, playerDiamonds, 
           weaponEquipped, armorEquipped, amuletEquipped, false);
       if (userId > 0) {
         server.lockPlayer(userId);
@@ -169,7 +168,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
         log.error("problem with trying to create user. udid=" + udid + ", name=" + name + ", type=" + type
             + ", loc=" + loc + ", deviceToken=" + deviceToken + ", newReferCode=" + newReferCode + ", attack="
-            + attack + ", defense=" + defense + ", energy=" + energy + ", health=" + health + ", stamina=" + stamina
+            + attack + ", defense=" + defense + ", energy=" + energy + ", stamina=" + stamina
             + ", playerExp=" + playerExp + ", playerCoins=" + playerCoins + ", playerDiamonds=" + playerDiamonds
             + ", weaponEquipped=" + weaponEquipped + ", armorEquipped=" + armorEquipped + ", amuletEquipped=" 
             + amuletEquipped); 
@@ -182,9 +181,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resEvent.setUserCreateResponseProto(resProto);
 
     log.info("Writing event: " + resEvent);
-    
-    
-    
     
     // Write event directly since EventWriter cannot handle without userId.
 //    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
@@ -311,7 +307,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private boolean checkLegitUserCreate(Builder resBuilder, String udid,
-      String name, Location loc, UserType type, int attack, int defense, int energy, int health, int stamina, 
+      String name, Location loc, UserType type, int attack, int defense, int energy, int stamina, 
       Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair coordinatePair, User referrer, 
       boolean hasReferrerCode) {
     
@@ -326,14 +322,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.info("refer code passed in is invalid.");
       return false;
     }
-    int sumStat = attack + defense + energy + health + stamina;
+    int sumStat = attack + defense + energy + stamina;
     int correctBaseSumStat = calculateCorrectSumStat(MiscMethods.getClassTypeFromUserType(type));
     if (sumStat < correctBaseSumStat || sumStat > correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED*ControllerConstants.USE_SKILL_POINT__MAX_STAT_GAIN) {
       resBuilder.setStatus(UserCreateStatus.INVALID_SKILL_POINT_ALLOCATION);
       log.error("invalid skill point allocation. sum stat range should be between " + correctBaseSumStat
           + " and " + (correctBaseSumStat + ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED*ControllerConstants.USE_SKILL_POINT__MAX_STAT_GAIN)
           + ", but it's at " + sumStat + ". attack=" + attack + ", defense=" + defense + ", energy=" + energy
-          + ", health=" + health + ", stamina=" + stamina + ", type=" + type);
+          + ", stamina=" + stamina + ", type=" + type);
       return false;
     }
     if (RetrieveUtils.userRetrieveUtils().getUserByUDID(udid) != null) {
@@ -406,11 +402,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       log.error("energy too low. energy is " + energy + ", init energy is " + ControllerConstants.TUTORIAL__INIT_ENERGY);
       return false;      
-    }
-    if (health < ControllerConstants.TUTORIAL__INIT_HEALTH) {
-      resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
-      log.error("health too low. health is " + health + ", init health is " + ControllerConstants.TUTORIAL__INIT_HEALTH);
-      return false;
     }
     if (stamina < ControllerConstants.TUTORIAL__INIT_STAMINA) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);

@@ -74,12 +74,11 @@ public class GenerateFakeUsersWithoutInput {
     int[] fakePlayerStats = initializeFakePlayerStats(type, level);
     int attack = fakePlayerStats[0];
     int defense = fakePlayerStats[1];
-    int health = fakePlayerStats[2];
     
     InsertUtil insertUtils = (InsertUtil) AppContext.getApplicationContext().getBean("insertUtils");
 
     if (insertUtils.insertUser(newReferCode + newReferCode, name, type, location, null, newReferCode, level, 
-        attack, defense, 0, health, 0, 0, 0, 0, null, null, null, true) < 0) {
+        attack, defense, 0, 0, 0, 0, 0, null, null, null, true) < 0) {
       System.out.println("error in creating user");
     }
   }
@@ -87,13 +86,10 @@ public class GenerateFakeUsersWithoutInput {
   public static int[] initializeFakePlayerStats(UserType type, int level) {
 	  int attack = 0;
 	    int defense = 0;
-	    int health = ControllerConstants.TUTORIAL__INIT_HEALTH;
 	    int equipmentLevel = level;
 	    double characterMultiplier = ControllerConstants.CHARACTERS_ATTACK_DEFENSE_VARIABILITY;
-	    int[] initialized = new int[3];
+	    int[] initialized = new int[2];
 	    
-	    health += (int) ((level-1)*0.5*ControllerConstants.LEVEL_UP_HEALTH_GAINED);
-
 	    if (equipmentLevel > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER) {
 	    	equipmentLevel = ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER;
 	    }
@@ -130,18 +126,8 @@ public class GenerateFakeUsersWithoutInput {
 	    	defense -= (int)Math.floor(Math.random() * 3);
 	    }
 	    
-	    if (Math.random() < 0.5) {
-	    	health += (int)Math.floor(Math.random() * 5);
-	    } else {
-	    	health -= (int)Math.floor(Math.random() * 5);
-	    }
-	    if (health<ControllerConstants.TUTORIAL__INIT_HEALTH) {
-	    	health = ControllerConstants.TUTORIAL__INIT_HEALTH;
-	    }
-	    
 	    initialized[0] = attack;
 	    initialized[1] = defense;
-	    initialized[2] = health;
 	    
 	    return initialized;
 	    

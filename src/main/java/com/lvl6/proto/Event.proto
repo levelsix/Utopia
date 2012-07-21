@@ -373,7 +373,6 @@ message UserCreateRequestProto {
      optional string deviceToken = 8;
      optional int32 attack = 9;
      optional int32 defense = 10;
-     optional int32 health = 11;
      optional int32 energy = 12;
      optional int32 stamina = 13;
      

@@ -90,7 +90,7 @@ public interface InsertUtil {
 	// returns -1 if error
 	public abstract int insertUser(String udid, String name, UserType type,
 			Location location, String deviceToken, String newReferCode,
-			int level, int attack, int defense, int energy, int health,
+			int level, int attack, int defense, int energy,
 			int stamina, int experience, int coins, int diamonds,
 			Integer weaponEquipped, Integer armorEquipped,
 			Integer amuletEquipped, boolean isFake);

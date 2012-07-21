@@ -57,7 +57,6 @@ public class DBConstants {
   public static final String USER__ENERGY = "energy";
   public static final String USER__LAST_ENERGY_REFILL_TIME = "last_energy_refill_time";
   public static final String USER__SKILL_POINTS = "skill_points";
-  public static final String USER__HEALTH_MAX = "health_max";
   public static final String USER__ENERGY_MAX = "energy_max";
   public static final String USER__STAMINA_MAX = "stamina_max";
   public static final String USER__DIAMONDS = "diamonds";
