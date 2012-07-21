@@ -68,9 +68,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       } else if (boostType == BoostType.ENERGY) {
         gain = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_GAIN;
         cost = ControllerConstants.USE_SKILL_POINT__ENERGY_BASE_COST;
-      } else if (boostType == BoostType.HEALTH) {
-        gain = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_GAIN;
-        cost = ControllerConstants.USE_SKILL_POINT__HEALTH_BASE_COST;
       } else if (boostType == BoostType.STAMINA) {
         gain = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_GAIN;
         cost = ControllerConstants.USE_SKILL_POINT__STAMINA_BASE_COST;
@@ -108,15 +105,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         log.error("error in taking away " + cost + " skill points and giving " + gain + " defense");
       }
     } else if (boostType == BoostType.ENERGY) {
-      if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, 0, cost*-1)){
+      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(gain, gain, 0, 0, cost*-1)){
         log.error("error in taking away " + cost + " skill points and giving " + gain + " energy/energymax");
       }
-    } else if (boostType == BoostType.HEALTH) {
-      if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(0, 0, gain, 0, 0, cost*-1)){
-        log.error("error in taking away " + cost + " skill points and giving " + gain + " health max");
-      }
     } else if (boostType == BoostType.STAMINA) {
-      if (!user.updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints(0, 0, 0, gain, gain, cost*-1)){
+      if (!user.updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints(0, 0, gain, gain, cost*-1)){
         log.error("error in taking away " + cost + " skill points and giving " + gain + " stamina/staminamax");
       }
     } 

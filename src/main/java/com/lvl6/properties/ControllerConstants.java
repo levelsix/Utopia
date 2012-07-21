@@ -184,12 +184,10 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__ATTACK_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_GAIN = 1;
-  public static final int USE_SKILL_POINT__HEALTH_BASE_GAIN = 5;
   public static final int USE_SKILL_POINT__STAMINA_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ATTACK_BASE_COST = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_COST = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_COST = 1;
-  public static final int USE_SKILL_POINT__HEALTH_BASE_COST = 1;
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
   
   //VAULT
@@ -225,7 +223,7 @@ public class ControllerConstants {
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
   public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 30; //add level up equipment for fake players if increasing
-  public static final double LEVEL_UP_HEALTH_GAINED = 5.0;
+//  public static final double LEVEL_UP_HEALTH_GAINED = 5.0;
   public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
   public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
   

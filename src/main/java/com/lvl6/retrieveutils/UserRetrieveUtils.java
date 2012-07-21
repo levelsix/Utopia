@@ -286,7 +286,6 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
 
     int skillPoints = rs.getInt(i++);
-    int healthMax = rs.getInt(i++);
     int energyMax = rs.getInt(i++);
     int staminaMax = rs.getInt(i++);
     int diamonds = rs.getInt(i++);
@@ -377,7 +376,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 
     
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
-        skillPoints, healthMax, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
+        skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,
         referralCode, numReferrals, udid, userLocation, numPostsInMarketplace, numMarketplaceSalesUnredeemed, 
         weaponEquippedUserEquipId, armorEquippedUserEquipId, amuletEquippedUserEquipId, lastLoginTime, lastLogoutTime, deviceToken, 

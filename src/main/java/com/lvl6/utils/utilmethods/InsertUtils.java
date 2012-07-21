@@ -509,7 +509,7 @@ public class InsertUtils implements InsertUtil{
   @Override
   public int insertUser(String udid, String name, UserType type,
       Location location, String deviceToken, String newReferCode,
-      int level, int attack, int defense, int energy, int health,
+      int level, int attack, int defense, int energy,
       int stamina, int experience, int coins, int diamonds,
       Integer weaponEquipped, Integer armorEquipped,
       Integer amuletEquipped, boolean isFake) {
@@ -524,7 +524,6 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER__DEFENSE, defense);
     insertParams.put(DBConstants.USER__ENERGY, energy);
     insertParams.put(DBConstants.USER__ENERGY_MAX, energy);
-    insertParams.put(DBConstants.USER__HEALTH_MAX, health);
     insertParams.put(DBConstants.USER__STAMINA, stamina);
     insertParams.put(DBConstants.USER__STAMINA_MAX, stamina);
     insertParams.put(DBConstants.USER__EXPERIENCE, experience);

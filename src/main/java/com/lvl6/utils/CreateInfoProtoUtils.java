@@ -249,7 +249,7 @@ public class CreateInfoProtoUtils {
         .setLevel(u.getLevel()).setUserType(u.getType()).setAttack(u.getAttack())
         .setDefense(u.getDefense()).setStamina(u.getStamina())
         .setEnergy(u.getEnergy())
-        .setSkillPoints(u.getSkillPoints()).setHealthMax(u.getHealthMax())
+        .setSkillPoints(u.getSkillPoints())
         .setEnergyMax(u.getEnergyMax()).setStaminaMax(u.getStaminaMax()).setDiamonds(u.getDiamonds())
         .setCoins(u.getCoins()).setMarketplaceDiamondsEarnings(u.getMarketplaceDiamondsEarnings())
         .setMarketplaceCoinsEarnings(u.getMarketplaceCoinsEarnings())

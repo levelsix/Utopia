@@ -67,7 +67,6 @@ message FullUserProto {
 	optional int32 energy = 10;
 	optional int64 lastEnergyRefillTime = 11;
 	optional int32 skillPoints = 13;
-	optional int32 healthMax = 14;
 	optional int32 energyMax = 15;
 	optional int32 staminaMax = 16;
 	optional int32 diamonds = 17;

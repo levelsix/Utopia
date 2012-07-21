@@ -29,7 +29,6 @@ public class User implements Serializable {
   private int energy;
   private Date lastEnergyRefillTime;
   private int skillPoints;
-  private int healthMax;
   private int energyMax;
   private int staminaMax;
   private int diamonds;
@@ -70,7 +69,7 @@ public class User implements Serializable {
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
-      Date lastEnergyRefillTime, int skillPoints, int healthMax, int energyMax,
+      Date lastEnergyRefillTime, int skillPoints, int energyMax,
       int staminaMax, int diamonds, int coins, int marketplaceDiamondsEarnings,
       int marketplaceCoinsEarnings, int vaultBalance, int experience,
       int tasksCompleted, int battlesWon, int battlesLost, int flees,
@@ -96,7 +95,6 @@ public class User implements Serializable {
     this.energy = energy;
     this.lastEnergyRefillTime = lastEnergyRefillTime;
     this.skillPoints = skillPoints;
-    this.healthMax = healthMax;
     this.energyMax = energyMax;
     this.staminaMax = staminaMax;
     this.diamonds = diamonds;
@@ -525,8 +523,8 @@ public class User implements Serializable {
   /*
    * used for using skill points
    */
-  public boolean updateRelativeEnergyEnergymaxHealthmaxStaminaStaminamaxSkillPoints 
-  (int energyChange, int energyMaxChange, int healthMaxChange, 
+  public boolean updateRelativeEnergyEnergymaxStaminaStaminamaxSkillPoints 
+  (int energyChange, int energyMaxChange, 
       int staminaChange, int staminaMaxChange, int skillPointsChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -535,7 +533,6 @@ public class User implements Serializable {
 
     if (energyChange > 0) relativeParams.put(DBConstants.USER__ENERGY, energyChange);
     if (energyMaxChange > 0) relativeParams.put(DBConstants.USER__ENERGY_MAX, energyMaxChange);
-    if (healthMaxChange > 0) relativeParams.put(DBConstants.USER__HEALTH_MAX, healthMaxChange);
     if (staminaChange > 0) relativeParams.put(DBConstants.USER__STAMINA, staminaChange);
     if (staminaMaxChange > 0) relativeParams.put(DBConstants.USER__STAMINA_MAX, staminaMaxChange);
 
@@ -546,7 +543,6 @@ public class User implements Serializable {
     if (numUpdated == 1) {
       this.energy += energyChange;
       this.energyMax += energyMaxChange;
-      this.healthMax += healthMaxChange;
       this.stamina += staminaChange;
       this.staminaMax += staminaMaxChange;
       this.skillPoints += skillPointsChange;
@@ -959,10 +955,6 @@ public class User implements Serializable {
     return skillPoints;
   }
 
-  public int getHealthMax() {
-    return healthMax;
-  }
-
   public int getEnergyMax() {
     return energyMax;
   }
@@ -1118,7 +1110,7 @@ public class User implements Serializable {
 				+ defense + ", stamina=" + stamina + ", lastStaminaRefillTime="
 				+ lastStaminaRefillTime + ", energy=" + energy
 				+ ", lastEnergyRefillTime=" + lastEnergyRefillTime
-				+ ", skillPoints=" + skillPoints + ", healthMax=" + healthMax
+				+ ", skillPoints=" + skillPoints
 				+ ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
 				+ ", diamonds=" + diamonds + ", coins=" + coins
 				+ ", marketplaceDiamondsEarnings="
