@@ -39,8 +39,8 @@ import com.lvl6.utils.utilmethods.StringUtils;
 	  List<Object> params = new ArrayList<Object>();
 	  params.add(isFake);
 	  Connection conn = DBConnection.get().getConnection();
+	  ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, "select count(*) from "+TABLE_NAME+" where is_fake = ?;", params) ;
 	  try {
-		  ResultSet rs = DBConnection.get().selectDirectQueryNaive(conn, "select count(*) from "+TABLE_NAME+" where is_fake = ?;", params) ;
 		  if(rs != null) {
 			  Integer count;
 			try {
@@ -55,11 +55,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 	  }catch(Exception e) {
 		  log.error(e);
 	  }finally {
-		  try {
-			conn.close();
-		} catch (SQLException e) {
-			log.error(e);
-		}
+		DBConnection.get().close(null, null, conn);
 	  }
 	  log.warn("No users found when counting users for isFake="+isFake);
 	  return 0;
