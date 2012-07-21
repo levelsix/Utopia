@@ -44,7 +44,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
 		  Integer count;
 		try {
 			if(rs.first()) {
-				count = rs.getInt(0);
+				count = rs.getInt(1);
 				return count;
 			}
 		} catch (SQLException e) {
