@@ -43,8 +43,10 @@ import com.lvl6.utils.utilmethods.StringUtils;
 	  if(rs != null) {
 		  Integer count;
 		try {
-			count = rs.getInt(0);
-			return count;
+			if(rs.first()) {
+				count = rs.getInt(0);
+				return count;
+			}
 		} catch (SQLException e) {
 			log.error(e);
 		}
