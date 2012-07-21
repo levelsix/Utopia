@@ -193,12 +193,10 @@ message StartupResponseProto {
 		optional int32 attackBaseGain = 17;
 		optional int32 defenseBaseGain = 18;
 		optional int32 energyBaseGain = 19;
-		optional int32 healthBaseGain = 20;
 		optional int32 staminaBaseGain = 21;
 		optional int32 attackBaseCost = 22;
 		optional int32 defenseBaseCost = 23;
 		optional int32 energyBaseCost = 24;
-		optional int32 healthBaseCost = 25;
 		optional int32 staminaBaseCost = 26;
 		
 		optional int32 skillPointsGainedOnLevelup = 27;
@@ -853,7 +851,6 @@ message UseSkillPointRequestProto {
 		ATTACK = 0;
 		DEFENSE = 1;
 		ENERGY = 2;
-		HEALTH = 3;
 		STAMINA = 4;
 	}
 }

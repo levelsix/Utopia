@@ -184,12 +184,10 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__ATTACK_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_GAIN = 1;
-  public static final int USE_SKILL_POINT__HEALTH_BASE_GAIN = 5;
   public static final int USE_SKILL_POINT__STAMINA_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ATTACK_BASE_COST = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_COST = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_COST = 1;
-  public static final int USE_SKILL_POINT__HEALTH_BASE_COST = 1;
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
   
   //VAULT
