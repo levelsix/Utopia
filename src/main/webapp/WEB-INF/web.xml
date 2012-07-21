@@ -37,11 +37,16 @@
 			<param-name>applicationClassName</param-name>
 			<param-value>com.lvl6.ui.admin.Lvl6Admin</param-value>
 		</init-param>
+		<init-param>
+			<param-name>ignorePaths</param-name>
+			<param-value>/iddiction</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>Lvl6Admin</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
 
 
 
