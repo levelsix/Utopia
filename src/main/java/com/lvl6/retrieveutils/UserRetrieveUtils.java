@@ -35,6 +35,24 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final int EXTREME_MAX_BATTLE_DB_HITS = 30;
   
   
+  public Integer countUsers(Boolean isFake){
+	  List<Object> params = new ArrayList<Object>();
+	  params.add(isFake);
+	  ResultSet rs = DBConnection.get().selectDirectQueryNaive(null, "select count(*) from "+TABLE_NAME+" where is_fake = ?", null) ;
+	  if(rs != null) {
+		  Integer count;
+		try {
+			count = rs.getInt(0);
+			return count;
+		} catch (SQLException e) {
+			log.error(e);
+		}
+	  }
+	  log.warn("No users found when counting users for isFake="+isFake);
+	  return 0;
+  }
+  
+  
   //@Cacheable(value="usersCache")
   public User getUserById(int userId) {
     log.debug("retrieving user with userId " + userId);
@@ -257,7 +275,9 @@ import com.lvl6.utils.utilmethods.StringUtils;
     }
     return null;
   }
-
+  
+  
+  
   /*
    * assumes the resultset is apprpriately set up. traverses the row it's on.
    */
