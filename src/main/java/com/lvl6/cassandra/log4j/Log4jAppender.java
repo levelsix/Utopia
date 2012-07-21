@@ -35,6 +35,8 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
 
+import com.lvl6.cassandra.CassandraUtil;
+import com.lvl6.cassandra.CassandraUtilImpl;
 import com.lvl6.properties.MDCKeys;
 
 public class Log4jAppender extends AppenderSkeleton {
@@ -65,6 +67,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	
 	protected CassandraHostConfigurator cassandraHostConfigurator;
 	
+	protected CassandraUtil cassandraUtil = new CassandraUtilImpl();
 
 	private boolean startedUp = false;
 	private boolean shutdown = false;
@@ -153,7 +156,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		try {
 			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE)
-				updater.setInteger("playerId", pid);
+				updater.setString("playerId", pid.toString());
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
 		}
@@ -229,87 +232,35 @@ public class Log4jAppender extends AppenderSkeleton {
 		columnFamilyDefinition = new BasicColumnFamilyDefinition(cfDef);
 
 		// level index
-		BasicColumnDefinition bcdf = new BasicColumnDefinition();
-		bcdf.setName(StringSerializer.get().toByteBuffer("level"));
-		bcdf.setIndexName("level_index");
-		bcdf.setIndexType(ColumnIndexType.KEYS);
-		bcdf.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf);
-
+		columnFamilyDefinition.addColumnDefinition(
+			cassandraUtil.createBasicColumnDefinition("level", ComparatorType.UTF8TYPE, true));
 		// time index
-		BasicColumnDefinition bcdf2 = new BasicColumnDefinition();
-		bcdf2.setName(StringSerializer.get().toByteBuffer("time"));
-		bcdf2.setIndexName("time_index");
-		bcdf2.setIndexType(ColumnIndexType.KEYS);
-		bcdf2.setValidationClass(ComparatorType.LONGTYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf2);
-
+		columnFamilyDefinition.addColumnDefinition(
+			cassandraUtil.createBasicColumnDefinition("time", ComparatorType.LONGTYPE, true));
 		// host
-		BasicColumnDefinition bcdf3 = new BasicColumnDefinition();
-		bcdf3.setName(StringSerializer.get().toByteBuffer("host"));
-		bcdf3.setIndexType(ColumnIndexType.KEYS);
-		bcdf3.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf3);
-
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("host", ComparatorType.UTF8TYPE, false));
 		// message
-		BasicColumnDefinition bcdf4 = new BasicColumnDefinition();
-		bcdf4.setName(StringSerializer.get().toByteBuffer("message"));
-		bcdf4.setIndexType(ColumnIndexType.KEYS);
-		bcdf4.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf4);
-
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("message", ComparatorType.UTF8TYPE, false));
 		// name
-		BasicColumnDefinition bcdf5 = new BasicColumnDefinition();
-		bcdf5.setName(StringSerializer.get().toByteBuffer("name"));
-		bcdf5.setIndexType(ColumnIndexType.KEYS);
-		bcdf5.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf5);
-
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("name", ComparatorType.UTF8TYPE, false));
 		// thread
-		BasicColumnDefinition bcdf6 = new BasicColumnDefinition();
-		bcdf6.setName(StringSerializer.get().toByteBuffer("thread"));
-		bcdf6.setIndexType(ColumnIndexType.KEYS);
-		bcdf6.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf6);
-
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("thread", ComparatorType.UTF8TYPE, false));
 		// stacktrace
-		BasicColumnDefinition bcdf7 = new BasicColumnDefinition();
-		bcdf7.setName(StringSerializer.get().toByteBuffer("stacktrace"));
-		bcdf7.setIndexType(ColumnIndexType.KEYS);
-		bcdf7.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf7);
-
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("stacktrace", ComparatorType.UTF8TYPE, false));
 		// playerId
-		BasicColumnDefinition bcdf8 = new BasicColumnDefinition();
-		bcdf8.setName(StringSerializer.get().toByteBuffer("playerId"));
-		bcdf8.setIndexName("playerId_index");
-		bcdf8.setIndexType(ColumnIndexType.KEYS);
-		bcdf8.setValidationClass(ComparatorType.INTEGERTYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf8);
-		
-/*		// playerIdString
-		BasicColumnDefinition bcdf11 = new BasicColumnDefinition();
-		bcdf11.setName(StringSerializer.get().toByteBuffer("playerIdString"));
-		bcdf11.setIndexName("playerIdString_index");
-		bcdf11.setIndexType(ColumnIndexType.KEYS);
-		bcdf11.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf11);*/
-
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("playerId", ComparatorType.UTF8TYPE, true));
 		// udId
-		BasicColumnDefinition bcdf9 = new BasicColumnDefinition();
-		bcdf9.setName(StringSerializer.get().toByteBuffer("udid"));
-		bcdf9.setIndexName("udid_index");
-		bcdf9.setIndexType(ColumnIndexType.KEYS);
-		bcdf9.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf9);
-
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("udid", ComparatorType.UTF8TYPE, true));
 		// ip
-		BasicColumnDefinition bcdf10 = new BasicColumnDefinition();
-		bcdf10.setName(StringSerializer.get().toByteBuffer("ip"));
-		bcdf10.setIndexType(ColumnIndexType.KEYS);
-		bcdf10.setIndexName("ip_index");
-		bcdf10.setValidationClass(ComparatorType.UTF8TYPE.getClassName());
-		columnFamilyDefinition.addColumnDefinition(bcdf10);
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("ip", ComparatorType.UTF8TYPE, true));
 
 		cfDef = new ThriftCfDef(columnFamilyDefinition);
 		c.updateColumnFamily(cfDef);
