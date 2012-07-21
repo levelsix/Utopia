@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import me.prettyprint.cassandra.model.BasicColumnDefinition;
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
+import me.prettyprint.cassandra.serializers.BigIntegerSerializer;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
@@ -43,6 +44,16 @@ public class Log4jAppender extends AppenderSkeleton {
 
 	private String clusterName;
 
+	public Log4jAppender(String clusterName, String hosts,
+			 String keyspace, String columnFamily) {
+		super();
+		this.clusterName = clusterName;
+		this.hosts = hosts;
+		this.keyspace = keyspace;
+		this.columnFamily = columnFamily;
+		startAppender();
+	}
+
 	private String hosts;
 	private String instanceId;
 	private String keyspace;
@@ -62,6 +73,10 @@ public class Log4jAppender extends AppenderSkeleton {
 
 	public Log4jAppender() {
 		super();
+		startAppender();
+	}
+
+	private void startAppender() {
 		Runnable r = new Runnable() {
 
 			public void run() {
@@ -137,7 +152,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		Integer pid;
 		try {
 			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
-			if (pid != null)
+			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE)
 				updater.setInteger("playerId", pid);
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);

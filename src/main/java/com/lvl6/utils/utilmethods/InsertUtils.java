@@ -25,6 +25,7 @@ import com.lvl6.utils.DBConnection;
 
 public class InsertUtils implements InsertUtil{
 
+
   public static InsertUtil get() {
     return (InsertUtil) AppContext.getApplicationContext().getBean("insertUtils");
   }
@@ -595,5 +596,16 @@ public class InsertUtils implements InsertUtil{
     }
     return false;
   }
+  
+	@Override
+	public int insertIddictionIndentifier(String identifier, Date clickTime) {
+		Map<String, Object> insertParams = new HashMap<String, Object>();
+		insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__IDENTIFIER, identifier);
+		insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__CLICK_TIME, new Timestamp(clickTime.getTime()));
+
+		int iddictionIdentId = DBConnection.get().insertIntoTableBasicReturnId(
+				DBConstants.TABLE_IDDICTION_IDENTIFIERS, insertParams);
+		return iddictionIdentId;
+	}
 
 }

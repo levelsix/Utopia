@@ -39,6 +39,7 @@ public class DBConstants {
   public static final String TABLE_ADCOLONY_RECENT_HISTORY = "adcolony_recent_history";
   public static final String TABLE_KIIP_REWARD_HISTORY = "kiip_reward_history";
   public static final String TABLE_C3P0_TEST = "c3p0_test_table";
+  public static final String TABLE_IDDICTION_IDENTIFIERS = "iddiction_identifiers";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -279,4 +280,9 @@ public class DBConstants {
   public static final String KIIP_REWARD_HISTORY__QUANTITY = "quantity";
   public static final String KIIP_REWARD_HISTORY__SIGNATURE = "signature";
   public static final String KIIP_REWARD_HISTORY__TIME_OF_REWARD = "time_of_reward";
+  
+
+  /*IDDICTION*/
+  public static final String IDDICTION_IDENTIFIERS__IDENTIFIER = "identifier";
+  public static final String IDDICTION_IDENTIFIERS__CLICK_TIME = "click_time";
 }

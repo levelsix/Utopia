@@ -11,11 +11,13 @@
         http://www.springframework.org/schema/security 
         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<security:http pattern="/iddiction*" security="none"/>
+
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/admin" access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/"	access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/*"	access="ROLE_USER" />
+		<security:intercept-url pattern="/admin*" access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/**"	access="IS_AUTHENTICATED_ANONYMOUSLY" />
 	</security:http>
+	
 
 	<security:authentication-manager>
 		<security:authentication-provider>
