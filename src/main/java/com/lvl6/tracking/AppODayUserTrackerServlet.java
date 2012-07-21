@@ -21,9 +21,8 @@ public class AppODayUserTrackerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		super.doGet(req, resp);
 		String mac = req.getParameter("mac");
-		if(!mac.equals("")) {
+		if(mac != null && !mac.equals("")) {
 			trackMacAddress(mac);
 		}else {
 			log.warn("AppODayTracker page loaded but no mac address specified");
