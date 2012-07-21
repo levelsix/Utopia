@@ -38,7 +38,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   public Integer countUsers(Boolean isFake){
 	  List<Object> params = new ArrayList<Object>();
 	  params.add(isFake);
-	  ResultSet rs = DBConnection.get().selectDirectQueryNaive(null, "select count(*) from "+TABLE_NAME+" where is_fake = ?", null) ;
+	  ResultSet rs = DBConnection.get().selectDirectQueryNaive(null, "select count(*) from "+TABLE_NAME+" where is_fake = ?;", params) ;
 	  if(rs != null) {
 		  Integer count;
 		try {
