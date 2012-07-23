@@ -414,7 +414,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private int calculateCorrectSumStat(ClassType classType) {
-    int sumStat = ControllerConstants.TUTORIAL__INIT_HEALTH + ControllerConstants.TUTORIAL__INIT_ENERGY 
+    int sumStat = ControllerConstants.TUTORIAL__INIT_ENERGY 
         + ControllerConstants.TUTORIAL__INIT_STAMINA;
     if (classType == ClassType.WARRIOR) {
       return sumStat + ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK + ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE;
