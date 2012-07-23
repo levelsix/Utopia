@@ -180,7 +180,7 @@ public class ControllerConstants {
   public static final double RETRACT_MARKETPLACE_POST__PERCENT_CUT_OF_SELLING_PRICE_TAKEN = .1;
   
   //USE SKILL POINT
-  public static final int USE_SKILL_POINT__MAX_STAT_GAIN = 5;   //right now its health
+  public static final int USE_SKILL_POINT__MAX_STAT_GAIN = 1;
   public static final int USE_SKILL_POINT__ATTACK_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__DEFENSE_BASE_GAIN = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_GAIN = 1;
