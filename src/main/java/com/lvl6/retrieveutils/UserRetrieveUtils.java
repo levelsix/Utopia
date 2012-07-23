@@ -29,7 +29,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
   private final String TABLE_NAME = DBConstants.TABLE_USER;
 
   private final int BATTLE_INITIAL_LEVEL_RANGE = 2;    //even number makes it more consistent. ie 6 would be +/- 3 levels from user level
-  private final int BATTLE_INITIAL_RANGE_INCREASE = 4;    //even number better again
+  private final int BATTLE_INITIAL_RANGE_INCREASE = 2;    //even number better again
   private final int BATTLE_RANGE_INCREASE_MULTIPLE = 2;
   private final int MAX_BATTLE_DB_HITS = 5;
   private final int EXTREME_MAX_BATTLE_DB_HITS = 30;
