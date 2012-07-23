@@ -276,8 +276,8 @@ public class ControllerConstants {
   };
   
   public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
-    "test", 
-    "test2"
+    "Danny's", 
+    "G"
   };
   
   
