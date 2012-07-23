@@ -145,6 +145,8 @@ message StartupResponseProto {
 	optional bool playerHasBoughtInAppPurchase = 22;
 	optional UnhandledBlacksmithAttemptProto unhandledForgeAttempt = 23;
 	
+	repeated string noticesToPlayers = 24;
+	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
 		optional bool firstTimeToday = 2;

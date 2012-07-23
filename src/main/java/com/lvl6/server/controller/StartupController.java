@@ -140,6 +140,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           setNotifications(resBuilder, user);
           setWhetherPlayerCompletedInAppPurchase(resBuilder, user);
           setUnhandledForgeAttempts(resBuilder, user);
+          setNoticesToPlayers(resBuilder);
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
@@ -176,6 +177,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       //for things that client doesn't need
       syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
     }    
+  }
+
+  private void setNoticesToPlayers(Builder resBuilder) {
+    if (ControllerConstants.STARTUP__NOTICES_TO_PLAYERS != null) {
+      for (int i = 0; i < ControllerConstants.STARTUP__NOTICES_TO_PLAYERS.length; i++) {
+        resBuilder.addNoticesToPlayers(ControllerConstants.STARTUP__NOTICES_TO_PLAYERS[i]);
+      }
+    }
   }
 
   private void setUnhandledForgeAttempts(Builder resBuilder, User user) {

@@ -309,7 +309,7 @@ public class MiscMethods {
         cb.addAnimatedSpriteOffsets(CreateInfoProtoUtils.createAnimatedSpriteOffsetProtoFromAnimatedSpriteOffset(aso));
       }
     }
-
+    
     KiipRewardConditions.Builder krcb = KiipRewardConditions.newBuilder();
 
     int[] levelsThatTriggerKiipRewards = ControllerConstants.STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS;
