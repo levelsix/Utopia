@@ -117,7 +117,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		if(msg.getMessageObject().equals(ServerMessage.DONE_RELOADING_STATIC_DATA)) {
 			instancesDoneReloadingCount++;
 			log.info("Instance done reloading static data: {}/{}", instancesDoneReloadingCount, instanceCountForDataReload);
-			if(instancesDoneReloadingCount > instanceCountForDataReload || instancesDoneReloadingCount > getHazel().getCluster().getMembers().size()) {
+			if(instancesDoneReloadingCount >= instanceCountForDataReload || instancesDoneReloadingCount >= getHazel().getCluster().getMembers().size()) {
 				log.info("All instances done reloading static data");
 				getStaticDataReloadDone().removeMessageListener(this);
 				sendPurgeStaticDataNotificationToAllClients();
