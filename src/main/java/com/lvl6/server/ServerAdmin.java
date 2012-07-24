@@ -2,6 +2,7 @@ package com.lvl6.server;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -60,13 +61,16 @@ public class ServerAdmin {
 	}
 	
 	protected void sendPurgeStaticDataNotificationToAllClients() {
-		log.info("Sending purge static data notification to clients");
-		Iterator<Integer> playas = players.keySet().iterator();
-		while(playas.hasNext()) {
-			Integer playa = playas.next();
-			PurgeClientStaticDataResponseEvent pcsd = new PurgeClientStaticDataResponseEvent(playa);
-			pcsd.setPurgeClientStaticDataResponseProto(PurgeClientStaticDataResponseProto.newBuilder().setSenderId(playa).build());
-			writer.processResponseEvent(pcsd);
+		Set<Integer> keySet = players.keySet();
+		Iterator<Integer> playas = keySet.iterator();
+		if(playas != null) {
+			log.info("Sending purge static data notification to clients: "+keySet.size());
+			while(playas.hasNext()) {
+				Integer playa = playas.next();
+				PurgeClientStaticDataResponseEvent pcsd = new PurgeClientStaticDataResponseEvent(playa);
+				pcsd.setPurgeClientStaticDataResponseProto(PurgeClientStaticDataResponseProto.newBuilder().setSenderId(playa).build());
+				writer.processResponseEvent(pcsd);
+			}
 		}
 	}
 	
