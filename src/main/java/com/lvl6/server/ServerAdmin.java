@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.hazelcast.core.ITopic;
 import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
+import com.lvl6.proto.EventProto.PurgeClientStaticDataResponseProto;
 import com.lvl6.utils.ConnectedPlayer;
 
 public class ServerAdmin {
@@ -64,6 +65,7 @@ public class ServerAdmin {
 		while(playas.hasNext()) {
 			Integer playa = playas.next();
 			PurgeClientStaticDataResponseEvent pcsd = new PurgeClientStaticDataResponseEvent(playa);
+			pcsd.setPurgeClientStaticDataResponseProto(PurgeClientStaticDataResponseProto.newBuilder().setSenderId(playa).build());
 			writer.processResponseEvent(pcsd);
 		}
 	}
