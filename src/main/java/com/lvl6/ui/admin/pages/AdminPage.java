@@ -16,7 +16,7 @@ public class AdminPage extends TemplatePage {
 		super();
 		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
 			String user = SecurityContextHolder.getContext().getAuthentication().getName();
-			log.info("Loading Admin Page for: " + user);
+			log.info("Loading Admin Page for: {}", user);
 		} else {
 			log.info("Loading Admin Page");
 		}

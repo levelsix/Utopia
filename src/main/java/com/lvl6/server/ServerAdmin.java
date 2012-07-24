@@ -2,23 +2,61 @@ package com.lvl6.server;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.ILock;
 import com.hazelcast.core.ITopic;
+import com.hazelcast.core.Message;
+import com.hazelcast.core.MessageListener;
 import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
+import com.lvl6.proto.EventProto.PurgeClientStaticDataResponseProto;
 import com.lvl6.utils.ConnectedPlayer;
 
-public class ServerAdmin {
+public class ServerAdmin implements MessageListener<ServerMessage> {
 	
 	Logger log = LoggerFactory.getLogger(getClass());
 	
+
 	
 	@Resource(name="playersByPlayerId")
 	Map<Integer, ConnectedPlayer> players;
+
+	@Resource(name="serverEvents")
+	protected ITopic<ServerMessage> serverEvents;
+	
+	@Resource(name="staticDataReloadDone")
+	protected ITopic<ServerMessage> staticDataReloadDone;
+	
+	@Resource(name="eventWriter")
+	protected EventWriter writer;
+
+	@Autowired
+	protected HazelcastInstance hazel;
+	
+	
+	
+	public HazelcastInstance getHazel() {
+		return hazel;
+	}
+
+	public void setHazel(HazelcastInstance hazel) {
+		this.hazel = hazel;
+	}
+
+	public ITopic<ServerMessage> getStaticDataReloadDone() {
+		return staticDataReloadDone;
+	}
+
+	public void setStaticDataReloadDone(ITopic<ServerMessage> staticDataReloadDone) {
+		this.staticDataReloadDone = staticDataReloadDone;
+	}
 	
 	public Map<Integer, ConnectedPlayer> getPlayers() {
 		return players;
@@ -28,9 +66,6 @@ public class ServerAdmin {
 		this.players = players;
 	}
 
-	@Resource(name="serverEvents")
-	protected ITopic<ServerMessage> serverEvents;
-		
 	public ITopic<ServerMessage> getServerEvents() {
 		return serverEvents;
 	}
@@ -38,11 +73,9 @@ public class ServerAdmin {
 	public void setServerEvents(ITopic<ServerMessage> serverEvents) {
 		this.serverEvents = serverEvents;
 	}
+	
 
-	
-	@Resource(name="eventWriter")
-	protected EventWriter writer;
-	
+
 
 	public EventWriter getWriter() {
 		return writer;
@@ -52,19 +85,45 @@ public class ServerAdmin {
 		this.writer = writer;
 	}
 
+	
+	protected Integer instanceCountForDataReload = 0;
+	protected Integer instancesDoneReloadingCount = 0;
+	protected ILock instancesReloadingLock;
 	public void reloadAllStaticData() {
-		log.info("Reloading all static data for cluster");
+		instancesDoneReloadingCount = 0;
+		instanceCountForDataReload = getHazel().getCluster().getMembers().size();
+		log.info("Reloading all static data for cluster instances: "+instanceCountForDataReload);
+		instancesReloadingLock = hazel.getLock(ServerMessage.RELOAD_STATIC_DATA);
+		getStaticDataReloadDone().addMessageListener(this);
 		serverEvents.publish(ServerMessage.RELOAD_STATIC_DATA);
-		sendPurgeStaticDataNotificationToAllClients();
 	}
 	
 	protected void sendPurgeStaticDataNotificationToAllClients() {
-		log.info("Sending purge static data notification to clients");
-		Iterator<Integer> playas = players.keySet().iterator();
-		while(playas.hasNext()) {
-			Integer playa = playas.next();
-			PurgeClientStaticDataResponseEvent pcsd = new PurgeClientStaticDataResponseEvent(playa);
-			writer.processResponseEvent(pcsd);
+		Set<Integer> keySet = players.keySet();
+		if(keySet != null) {
+			Iterator<Integer> playas = keySet.iterator();
+			log.info("Sending purge static data notification to clients: "+keySet.size());
+			while(playas.hasNext()) {
+				Integer playa = playas.next();
+				PurgeClientStaticDataResponseEvent pcsd = new PurgeClientStaticDataResponseEvent(playa);
+				pcsd.setPurgeClientStaticDataResponseProto(PurgeClientStaticDataResponseProto.newBuilder().setSenderId(playa).build());
+				writer.processResponseEvent(pcsd);
+			}
+		}
+	}
+
+	@Override
+	public void onMessage(Message<ServerMessage> msg) {
+		if(msg.getMessageObject().equals(ServerMessage.DONE_RELOADING_STATIC_DATA)) {
+			instancesDoneReloadingCount++;
+			log.info("Instance done reloading static data: {}/{}", instancesDoneReloadingCount, instanceCountForDataReload);
+			if(instancesDoneReloadingCount >= instanceCountForDataReload || instancesDoneReloadingCount >= getHazel().getCluster().getMembers().size()) {
+				log.info("All instances done reloading static data");
+				getStaticDataReloadDone().removeMessageListener(this);
+				sendPurgeStaticDataNotificationToAllClients();
+				instancesReloadingLock.unlock();
+				instancesReloadingLock = null;
+			}
 		}
 	}
 	
