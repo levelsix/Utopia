@@ -2,6 +2,8 @@ package com.lvl6.eventhandlers;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +14,7 @@ import com.hazelcast.core.InstanceListener;
 
 public class HazelInstanceListener implements InstanceListener, InitializingBean {
 
+	Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	protected HazelcastInstance hazel;
@@ -41,6 +44,7 @@ public class HazelInstanceListener implements InstanceListener, InitializingBean
 	
 	@Override
 	public void instanceCreated(InstanceEvent instanceEvent) {
+		log.info("Created hazel instance: {} type: {}", instanceEvent.getInstance().getId(), instanceEvent.getEventType().name() );
 		if(instanceEvent != null) {
 			getInstances().put(instanceEvent.getInstance().getId().toString(), instanceEvent.getInstance());
 		}
@@ -48,6 +52,7 @@ public class HazelInstanceListener implements InstanceListener, InitializingBean
 
 	@Override
 	public void instanceDestroyed(InstanceEvent instanceEvent) {
+		log.info("Destroyed hazel instance: {} type: {}", instanceEvent.getInstance().getId(), instanceEvent.getEventType().name() );
 		if(instanceEvent != null && getInstances().containsKey(instanceEvent.getInstance().getId().toString())) {
 			getInstances().remove(instanceEvent.getInstance().getId().toString());
 		}
