@@ -15,7 +15,6 @@ import com.hazelcast.core.ILock;
 import com.hazelcast.core.ITopic;
 import com.hazelcast.core.Message;
 import com.hazelcast.core.MessageListener;
-import com.lvl6.eventhandlers.HazelInstanceListener;
 import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
 import com.lvl6.proto.EventProto.PurgeClientStaticDataResponseProto;
 import com.lvl6.utils.ConnectedPlayer;
@@ -24,8 +23,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	
 	Logger log = LoggerFactory.getLogger(getClass());
 	
-	@Resource
-	protected HazelInstanceListener hazelInstances;
+
 	
 	@Resource(name="playersByPlayerId")
 	Map<Integer, ConnectedPlayer> players;
@@ -76,16 +74,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		this.serverEvents = serverEvents;
 	}
 	
-	
 
-	
-	public HazelInstanceListener getHazelInstances() {
-		return hazelInstances;
-	}
-
-	public void setHazelInstances(HazelInstanceListener hazelInstances) {
-		this.hazelInstances = hazelInstances;
-	}
 
 
 	public EventWriter getWriter() {
@@ -102,7 +91,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	protected ILock instancesReloadingLock;
 	public void reloadAllStaticData() {
 		instancesDoneReloadingCount = 0;
-		instanceCountForDataReload = getHazelInstances().getInstances().size();
+		instanceCountForDataReload = getHazel().getCluster().getMembers().size();
 		log.info("Reloading all static data for cluster instances: "+instanceCountForDataReload);
 		instancesReloadingLock = hazel.getLock(ServerMessage.RELOAD_STATIC_DATA);
 		getStaticDataReloadDone().addMessageListener(this);
@@ -128,7 +117,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		if(msg.getMessageObject().equals(ServerMessage.DONE_RELOADING_STATIC_DATA)) {
 			instancesDoneReloadingCount++;
 			log.info("Instance done reloading static data: {}/{}", instancesDoneReloadingCount, instanceCountForDataReload);
-			if(instancesDoneReloadingCount > instanceCountForDataReload || instancesDoneReloadingCount > getHazelInstances().getInstances().size()) {
+			if(instancesDoneReloadingCount > instanceCountForDataReload || instancesDoneReloadingCount > getHazel().getCluster().getMembers().size()) {
 				log.info("All instances done reloading static data");
 				getStaticDataReloadDone().removeMessageListener(this);
 				sendPurgeStaticDataNotificationToAllClients();

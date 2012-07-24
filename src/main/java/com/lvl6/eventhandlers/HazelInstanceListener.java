@@ -44,7 +44,7 @@ public class HazelInstanceListener implements InstanceListener, InitializingBean
 	
 	@Override
 	public void instanceCreated(InstanceEvent instanceEvent) {
-		log.info("Created hazel instance: {} type: {}", instanceEvent.getInstance().getId(), instanceEvent.getEventType().name() );
+		log.info("Created hazel instance: {} type: {}", instanceEvent.getInstance().getId(), instanceEvent.getInstance().getInstanceType().name());
 		if(instanceEvent != null) {
 			getInstances().put(instanceEvent.getInstance().getId().toString(), instanceEvent.getInstance());
 		}

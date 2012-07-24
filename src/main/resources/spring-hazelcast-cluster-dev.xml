@@ -10,7 +10,7 @@
 		http://www.hazelcast.com/schema/spring
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd">
 	
-	<hz:hazelcast id="hazel" depends-on="hazelInstances" >
+	<hz:hazelcast id="hazel" >
 		<hz:config>
 			<hz:group name="${hazelcast.group}" password="${hazelcast.pass}" />
 			<hz:network port="${hazelcast.port}" port-auto-increment="true" >

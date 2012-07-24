@@ -40,7 +40,7 @@
 	
 	<bean id="serverMessageHandler" class="com.lvl6.eventhandlers.ServerEventHandler" lazy-init="false" scope="singleton" />
 	
-	<bean id="hazelInstances" class="com.lvl6.eventhandlers.HazelInstanceListener" lazy-init="false" scope="singleton" />
+<!-- 	<bean id="hazelInstances" class="com.lvl6.eventhandlers.HazelInstanceListener" lazy-init="false" scope="singleton" /> -->
 	
 	
 </beans>
