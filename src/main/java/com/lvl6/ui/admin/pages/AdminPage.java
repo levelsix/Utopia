@@ -11,15 +11,14 @@ public class AdminPage extends TemplatePage {
 
 	private static final long serialVersionUID = -1728365297134290240L;
 	private static Logger log = LoggerFactory.getLogger(AdminPage.class);
-	private static org.apache.log4j.Logger alog = org.apache.log4j.Logger.getLogger(AdminPage.class);
 
 	public AdminPage() {
 		super();
 		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
 			String user = SecurityContextHolder.getContext().getAuthentication().getName();
-			alog.info("Loading Admin Page for: " + user);
+			log.info("Loading Admin Page for: {}", user);
 		} else {
-			alog.info("Loading Admin Page");
+			log.info("Loading Admin Page");
 		}
 		add(new ReloadStaticDataLink("reloadStaticDataLink"));
 		setStats();
