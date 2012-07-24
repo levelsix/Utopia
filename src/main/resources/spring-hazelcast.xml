@@ -30,7 +30,8 @@
 	<hz:map id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
 		
 		
-	<hz:topic id="serverEvents" name="serverEvents" instance-ref="hazel"/>	
+	<hz:topic id="serverEvents" name="serverEvents" instance-ref="hazel"/>
+	<hz:topic id="staticDataReloadDone" name="staticDataReloadDone" instance-ref="hazel"/>	
 		
 	<bean id="playersInAction" class="com.lvl6.utils.PlayerSet" scope="singleton" >
 		<property name="players" ref="playersInActionSet" />
@@ -38,6 +39,8 @@
 	
 	
 	<bean id="serverMessageHandler" class="com.lvl6.eventhandlers.ServerEventHandler" lazy-init="false" scope="singleton" />
+	
+	<bean id="hazelInstances" class="com.lvl6.eventhandlers.HazelcastInstanceListener" lazy-init="false" scope="singleton" />
 	
 	
 </beans>
