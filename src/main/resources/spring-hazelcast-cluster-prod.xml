@@ -12,7 +12,7 @@
 		">
 	
 	
-	<hz:hazelcast id="hazel" >
+	<hz:hazelcast id="hazel" depends-on="hazelInstances" >
 		<hz:config>
 			<hz:group name="${hazelcast.group}" password="${hazelcast.pass}" />
 			<hz:network port="5701" >
