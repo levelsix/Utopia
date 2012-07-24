@@ -368,6 +368,7 @@ public class MiscMethods {
   }
 
   public static void reloadAllRareChangeStaticData() {
+	  log.info("Reloading rare change static data");
     BuildStructJobRetrieveUtils.reload();
     CityRetrieveUtils.reload();
     DefeatTypeJobRetrieveUtils.reload();

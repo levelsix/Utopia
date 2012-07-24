@@ -80,7 +80,7 @@
 		<profile>
 			<id>kellylocal</id>
 			<properties>
-				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations</lvl6.server.log.location>
+				<lvl6.server.log.location>~/Desktop/lostnations</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
