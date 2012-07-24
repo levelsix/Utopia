@@ -131,8 +131,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           setInProgressAndAvailableQuests(resBuilder, user);
           setUserEquipsAndEquips(resBuilder, user);
           setAllies(resBuilder, user);
-          FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
-          resBuilder.setSender(fup);
           resBuilder.setExperienceRequiredForNextLevel(
               LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(user.getLevel() + 1));
           resBuilder.setExperienceRequiredForCurrentLevel(
@@ -141,6 +139,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           setWhetherPlayerCompletedInAppPurchase(resBuilder, user);
           setUnhandledForgeAttempts(resBuilder, user);
           setNoticesToPlayers(resBuilder);
+          
+          
+          FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
+          resBuilder.setSender(fup);
         } catch (Exception e) {
           log.error("exception in StartupController processEvent", e);
         } finally {
