@@ -62,8 +62,8 @@ public class ServerAdmin {
 	
 	protected void sendPurgeStaticDataNotificationToAllClients() {
 		Set<Integer> keySet = players.keySet();
-		Iterator<Integer> playas = keySet.iterator();
-		if(playas != null) {
+		if(keySet != null) {
+			Iterator<Integer> playas = keySet.iterator();
 			log.info("Sending purge static data notification to clients: "+keySet.size());
 			while(playas.hasNext()) {
 				Integer playa = playas.next();

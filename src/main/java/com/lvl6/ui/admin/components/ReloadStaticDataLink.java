@@ -16,6 +16,7 @@ public class ReloadStaticDataLink extends Form<String>{
 	@Override
 	protected void onSubmit() {
 		super.onSubmit();
+		log.info("An Admin requested a purge of all static data");
 		ServerAdmin sa = AppContext.getApplicationContext().getBean(ServerAdmin.class);
 		sa.reloadAllStaticData();
 		setResponsePage(AdminPage.class);
