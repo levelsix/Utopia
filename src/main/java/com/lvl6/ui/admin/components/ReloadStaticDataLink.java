@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import com.lvl6.server.ServerAdmin;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.pages.AdminPage;
-import com.lvl6.ui.admin.pages.MainPage;
 
 public class ReloadStaticDataLink extends Link<String>{
 	
@@ -26,7 +25,7 @@ public class ReloadStaticDataLink extends Link<String>{
 		log.info("An Admin requested a purge of all static data");
 		ServerAdmin sa = AppContext.getApplicationContext().getBean(ServerAdmin.class);
 		sa.reloadAllStaticData();
-		setResponsePage(MainPage.class);		
+		setResponsePage(AdminPage.class);		
 	}
 
 
