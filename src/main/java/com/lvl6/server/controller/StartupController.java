@@ -194,6 +194,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() == 1) {
       resBuilder.setUnhandledForgeAttempt(CreateInfoProtoUtils.createUnhandledBlacksmithAttemptProtoFromBlacksmithAttempt(
           unhandledBlacksmithAttemptsForUser.get(0)));
+      resBuilder.setForgeAttemptEquip(CreateInfoProtoUtils.createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(
+          unhandledBlacksmithAttemptsForUser.get(0).getEquipId())));
     }
     if (unhandledBlacksmithAttemptsForUser != null && unhandledBlacksmithAttemptsForUser.size() > 1) {
       log.error("user has too many blacksmith attempts, should only have one. blacksmith attempts = " + unhandledBlacksmithAttemptsForUser);

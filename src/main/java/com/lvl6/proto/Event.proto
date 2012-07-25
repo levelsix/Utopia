@@ -143,7 +143,9 @@ message StartupResponseProto {
 	optional DailyBonusInfo dailyBonusInfo = 21;
 	
 	optional bool playerHasBoughtInAppPurchase = 22;
+
 	optional UnhandledBlacksmithAttemptProto unhandledForgeAttempt = 23;
+	optional FullEquipProto forgeAttemptEquip = 25;
 	
 	repeated string noticesToPlayers = 24;
 	
