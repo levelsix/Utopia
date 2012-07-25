@@ -1,5 +1,6 @@
 package com.lvl6.utils;
 
+import com.lvl6.retrieveutils.StatisticsRetrieveUtil;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
@@ -44,5 +45,10 @@ public class RetrieveUtils {
 	public static UserQuestsCompletedTasksRetrieveUtils userQuestsCompletedTasksRetrieveUtils() {
 		return AppContext.getApplicationContext().getBean(
 				UserQuestsCompletedTasksRetrieveUtils.class);
+	}
+	
+	public static StatisticsRetrieveUtil statisticsRetrieveUtils() {
+		return AppContext.getApplicationContext().getBean(
+				StatisticsRetrieveUtil.class);
 	}
 }
