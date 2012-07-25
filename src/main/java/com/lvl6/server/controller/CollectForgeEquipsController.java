@@ -127,7 +127,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     
     float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
         ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
-        blacksmithAttempt.getGoalLevel()-1;
+        (blacksmithAttempt.getGoalLevel()-2);
     
     return Math.random() <= chanceOfSuccess;
   }

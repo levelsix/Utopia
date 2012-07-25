@@ -132,9 +132,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     if (activeMarketplacePosts.size() >= ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE) {
       return false;
     }
+    Equipment equipToPost = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE);
     for (MarketplacePost mp : activeMarketplacePosts) {
       if (mp.getPostedEquipId() == ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE
-    		  && (mp.getPosterId() != user.getId())) {
+    		  && (mp.getPosterId() != user.getId()) && mp.getCoinCost() < equipToPost.getCoinPrice()) {
         return false;
       }
     }

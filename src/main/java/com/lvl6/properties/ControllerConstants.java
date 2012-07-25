@@ -73,7 +73,6 @@ public class ControllerConstants {
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   
-  
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_THIRD_EXPANSION = 24;
@@ -113,9 +112,9 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
   public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 9;
-  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 12;
+  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 8;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 5;
-  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 11;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 5;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 250;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
@@ -146,6 +145,7 @@ public class ControllerConstants {
   public static final double BATTLE__B = 80;
   public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
   public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
+  public static final double BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES = 0.5;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
@@ -172,7 +172,7 @@ public class ControllerConstants {
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP = 100;
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES = 5;
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE = 5;
-  public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE = 250;   //ANYONE SHOULD BE ABLE TO EQUIP, and should be cheap AND ACCESSIBLE IN ARMORY
+  public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE = 250;   //ANYONE SHOULD BE ABLE TO EQUIP, and should be cheap AND ACCESSIBLE IN ARMORY and needs to have a coin cost
   public static final int[] RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_IDS = {2};
   public static final double RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING = 0.9; 
   
@@ -275,10 +275,7 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -8)),
   };
   
-  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
-    "Danny's", 
-    "G"
-  };
+  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {};
   
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
