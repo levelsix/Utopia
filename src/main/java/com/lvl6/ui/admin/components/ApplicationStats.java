@@ -13,7 +13,7 @@ public class ApplicationStats {
 	protected Long sumOfDiamondsInWorld = 0l;
 	
 	
-	public Integer getPercentageOfPayingPlayers() {
+	public Integer getPercentageOfPlayersPaying() {
 		return 100*(getTotalPayingPlayers()/getTotalPlayersCount());
 	}
 	

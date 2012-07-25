@@ -27,8 +27,8 @@ public class StatsPanel extends Panel {
 	protected PropertyModel<Long> countMarketplacePostsPM = new PropertyModel<Long>(stats, "countMarketplacePosts");
 	protected PropertyModel<Long> sumOfSilverInWorldPM = new PropertyModel<Long>(stats, "sumOfSilverInWorld");
 	protected PropertyModel<Long> sumOfDiamondsInWorldPM = new PropertyModel<Long>(stats, "sumOfDiamondsInWorld");
-	protected PropertyModel<Long> avgSilverPerPlayerPM = new PropertyModel<Long>(stats, "averageSilverPerPlayer");
-	protected PropertyModel<Long> percentageOfPlayersPayingPM = new PropertyModel<Long>(stats, "percentageOfPayingPlayers");
+	protected PropertyModel<Long> averageSilverPerPlayerPM = new PropertyModel<Long>(stats, "averageSilverPerPlayer");
+	protected PropertyModel<Long> percentageOfPlayersPayingPM = new PropertyModel<Long>(stats, "percentageOfPlayersPaying");
 	
 	
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
@@ -41,7 +41,7 @@ public class StatsPanel extends Panel {
 	protected Label countMarketplacePostsLabel = new Label("countMarketplacePosts", countMarketplacePostsPM);
 	protected Label sumOfSilverInWorldLabel = new Label("sumOfSilverInWorld", sumOfSilverInWorldPM);
 	protected Label sumOfDiamondsInWorldLabel = new Label("sumOfDiamondsInWorld", sumOfDiamondsInWorldPM);
-	protected Label avgSilverPerPlayerLabel = new Label("avgSilverPerPlayer", avgSilverPerPlayerPM);
+	protected Label averageSilverPerPlayerLabel = new Label("averageSilverPerPlayer", averageSilverPerPlayerPM);
 	protected Label percentageOfPlayersPayingLabel = new Label("percentageOfPlayersPaying", percentageOfPlayersPayingPM);
 	
 	//"totalPayingPlayers","totalInAppPurchases","sumOfInAppPurchases","countNumberKiipRewardsRedeemed","countMarketplaceTransactions","countMarketplacePosts","sumOfSilverInWorld","sumOfDiamondsInWorld"
@@ -56,12 +56,32 @@ public class StatsPanel extends Panel {
 		{
 			target.add(cplayersLabel);
 			target.add(tplayersLabel);
+			target.add(totalPayingPlayersLabel);
+			target.add(totalInAppPurchasesLabel);
+			target.add(sumOfInAppPurchasesLabel);
+			target.add(countNumberKiipRewardsRedeemedLabel);
+			target.add(countMarketplaceTransactionsLabel);
+			target.add(countMarketplacePostsLabel);
+			target.add(sumOfSilverInWorldLabel);
+			target.add(sumOfDiamondsInWorldLabel);
+			target.add(averageSilverPerPlayerLabel);
+			target.add(percentageOfPlayersPayingLabel);
 		}
 	};
 	
 	protected void addStats() {
 		cplayersLabel.setOutputMarkupId(true);
 		tplayersLabel.setOutputMarkupId(true);
+		totalPayingPlayersLabel.setOutputMarkupId(true);
+		totalInAppPurchasesLabel.setOutputMarkupId(true);
+		sumOfInAppPurchasesLabel.setOutputMarkupId(true);
+		countNumberKiipRewardsRedeemedLabel.setOutputMarkupId(true);
+		countMarketplaceTransactionsLabel.setOutputMarkupId(true);
+		countMarketplacePostsLabel.setOutputMarkupId(true);
+		sumOfSilverInWorldLabel.setOutputMarkupId(true);
+		sumOfDiamondsInWorldLabel.setOutputMarkupId(true);
+		averageSilverPerPlayerLabel.setOutputMarkupId(true);
+		percentageOfPlayersPayingLabel.setOutputMarkupId(true);
 		add(cplayersLabel);
 		add(tplayersLabel);
 		add(totalPayingPlayersLabel);
@@ -72,7 +92,7 @@ public class StatsPanel extends Panel {
 		add(countMarketplacePostsLabel);
 		add(sumOfSilverInWorldLabel);
 		add(sumOfDiamondsInWorldLabel);
-		add(avgSilverPerPlayerLabel);
+		add(averageSilverPerPlayerLabel);
 		add(percentageOfPlayersPayingLabel);
 		add(abstractAjaxTimerBehavior);
 	}
