@@ -19,8 +19,7 @@ public class StatsPanel extends Panel {
 	protected StatsModel stats = new StatsModel();
 	protected PropertyModel<Integer> cplayers = new PropertyModel<Integer>(stats, "connectedPlayersCount");
 	protected PropertyModel<Integer> tplayers = new PropertyModel<Integer>(stats, "totalPlayersCount");
-	protected PropertyModel<Integer> tpayingplayers = new PropertyModel<Integer>(stats, "totalPayingPlayers");
-	protected PropertyModel<Long> totalPayingPlayersPM = new PropertyModel<Long>(stats, "totalPayingPlayers");
+	protected PropertyModel<Integer> totalPayingPlayersPM = new PropertyModel<Integer>(stats, "totalPayingPlayers");
 	protected PropertyModel<Long> totalInAppPurchasesPM = new PropertyModel<Long>(stats, "totalInAppPurchases");
 	protected PropertyModel<Long> sumOfInAppPurchasesPM = new PropertyModel<Long>(stats, "sumOfInAppPurchases");
 	protected PropertyModel<Long> countNumberKiipRewardsRedeemedPM = new PropertyModel<Long>(stats, "countNumberKiipRewardsRedeemed");
@@ -31,7 +30,6 @@ public class StatsPanel extends Panel {
 	
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
 	protected Label tplayersLabel = new Label("totalPlayers", tplayers);
-	protected Label tpayingplayersLabel = new Label("totalPayingPlayers", tpayingplayers);
 	protected Label totalPayingPlayersLabel = new Label("totalPayingPlayers", totalPayingPlayersPM);
 	protected Label totalInAppPurchasesLabel = new Label("totalInAppPurchases", totalInAppPurchasesPM);
 	protected Label sumOfInAppPurchasesLabel = new Label("sumOfInAppPurchases", sumOfInAppPurchasesPM);
@@ -60,7 +58,6 @@ public class StatsPanel extends Panel {
 		tplayersLabel.setOutputMarkupId(true);
 		add(cplayersLabel);
 		add(tplayersLabel);
-		add(tpayingplayersLabel);
 		add(totalPayingPlayersLabel);
 		add(totalInAppPurchasesLabel);
 		add(sumOfInAppPurchasesLabel);
