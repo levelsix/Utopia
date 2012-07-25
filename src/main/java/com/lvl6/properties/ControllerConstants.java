@@ -152,6 +152,7 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 3;
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
+  public static final int BATTLE__MIN_COINS_FROM_WIN = 5;
   public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
   public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
   public static final double BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES = 0.5;
