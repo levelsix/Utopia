@@ -244,6 +244,7 @@ message StartupResponseProto {
 		optional KiipRewardConditions kiipRewardConditions = 61;
 		
 		optional int32 averageSizeOfLevelBracket = 63;
+		optional ForgeConstants forgeConstants = 64;
 		
 		message KiipRewardConditions {
 			repeated int32 levelUpConditions = 1;
