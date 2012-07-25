@@ -36,7 +36,7 @@ public class ApplicationUtils {
 	}
 
 	public ApplicationStats getStats() {
-		log.info("Getting application stats");
+		log.debug("Getting application stats");
 		ApplicationStats stats = new ApplicationStats();
 		stats.setConnectedPlayersCount(players.size());
 		stats.setTotalPlayersCount(usersUtil.countUsers(false));

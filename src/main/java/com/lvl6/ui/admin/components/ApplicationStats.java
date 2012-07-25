@@ -17,7 +17,7 @@ public class ApplicationStats {
 		return 100*(getTotalPayingPlayers()/getTotalPlayersCount());
 	}
 	
-	public Long getAvergeSilverPerPlayer() {
+	public Long getAverageSilverPerPlayer() {
 		return getSumOfSilverInWorld()/getTotalPlayersCount();
 	}
 	
