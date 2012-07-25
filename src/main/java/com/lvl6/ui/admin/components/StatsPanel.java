@@ -27,6 +27,9 @@ public class StatsPanel extends Panel {
 	protected PropertyModel<Long> countMarketplacePostsPM = new PropertyModel<Long>(stats, "countMarketplacePosts");
 	protected PropertyModel<Long> sumOfSilverInWorldPM = new PropertyModel<Long>(stats, "sumOfSilverInWorld");
 	protected PropertyModel<Long> sumOfDiamondsInWorldPM = new PropertyModel<Long>(stats, "sumOfDiamondsInWorld");
+	protected PropertyModel<Long> avgSilverPerPlayerPM = new PropertyModel<Long>(stats, "averageSilverPerPlayer");
+	protected PropertyModel<Long> percentageOfPlayersPayingPM = new PropertyModel<Long>(stats, "percentageOfPayingPlayers");
+	
 	
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
 	protected Label tplayersLabel = new Label("totalPlayers", tplayers);
@@ -38,10 +41,13 @@ public class StatsPanel extends Panel {
 	protected Label countMarketplacePostsLabel = new Label("countMarketplacePosts", countMarketplacePostsPM);
 	protected Label sumOfSilverInWorldLabel = new Label("sumOfSilverInWorld", sumOfSilverInWorldPM);
 	protected Label sumOfDiamondsInWorldLabel = new Label("sumOfDiamondsInWorld", sumOfDiamondsInWorldPM);
+	protected Label avgSilverPerPlayerLabel = new Label("avgSilverPerPlayer", avgSilverPerPlayerPM);
+	protected Label percentageOfPlayersPayingLabel = new Label("percentageOfPlayersPaying", percentageOfPlayersPayingPM);
+	
 	//"totalPayingPlayers","totalInAppPurchases","sumOfInAppPurchases","countNumberKiipRewardsRedeemed","countMarketplaceTransactions","countMarketplacePosts","sumOfSilverInWorld","sumOfDiamondsInWorld"
 
 	
-	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(10))
+	AbstractAjaxTimerBehavior abstractAjaxTimerBehavior = new AbstractAjaxTimerBehavior(Duration.seconds(90))
 	{
 		private static final long serialVersionUID = 5721917435743521271L;
 
@@ -66,6 +72,8 @@ public class StatsPanel extends Panel {
 		add(countMarketplacePostsLabel);
 		add(sumOfSilverInWorldLabel);
 		add(sumOfDiamondsInWorldLabel);
+		add(avgSilverPerPlayerLabel);
+		add(percentageOfPlayersPayingLabel);
 		add(abstractAjaxTimerBehavior);
 	}
 
