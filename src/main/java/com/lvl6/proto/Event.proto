@@ -248,6 +248,8 @@ message StartupResponseProto {
 		optional int32 averageSizeOfLevelBracket = 63;
 		optional ForgeConstants forgeConstants = 64;
 		
+		optional double healthFormulaExponentBase = 65;
+		
 		message KiipRewardConditions {
 			repeated int32 levelUpConditions = 1;
 			repeated int32 questRedeemConditions = 2;
@@ -284,6 +286,13 @@ message StartupResponseProto {
 			optional float battleGreatLikelihood = 15;
 			optional float battleGoodLikelihood = 16;
 			optional float battleMissLikelihood = 17;
+			
+			optional double battleHitPercentOfHealth = 18;
+			optional double battlePercentOfWeapon = 19;
+			optional double battlePercentOfArmor = 20;
+			optional double battlePercentOfAmulet = 21;
+			optional double battlePercentOfPlayerStats = 22;
+			optional double battleAttackExpoMultiplier = 23;
 		}
 		
 		message ForgeConstants {

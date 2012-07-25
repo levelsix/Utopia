@@ -65,6 +65,15 @@ public class ControllerConstants {
   public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
   public static final float BATTLE_MISS_LIKELIHOOD = .1f;
 
+  public static final double BATTLE__HIT_PERCENT_OF_HEALTH = 0.33;
+  public static final double BATTLE__PERCENT_OF_WEAPON = 2.0/9.0;
+  public static final double BATTLE__PERCENT_OF_ARMOR = 2.0/9.0;  
+  public static final double BATTLE__PERCENT_OF_AMULET = 2.0/9.0;
+  public static final double BATTLE__PERCENT_OF_PLAYER_STATS = 3.0/9.0;
+  public static final double BATTLE__ATTACK_EXPO_MULTIPLIER = 0.8;
+  
+  public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
+  
   public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
 
   public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 5;
@@ -171,7 +180,7 @@ public class ControllerConstants {
   //RETRIEVE CURRENT MARKETPLACE POSTS
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP = 100;
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES = 5;
-  public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE = 5;
+  public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE = 15;
   public static final int RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE = 250;   //ANYONE SHOULD BE ABLE TO EQUIP, and should be cheap AND ACCESSIBLE IN ARMORY and needs to have a coin cost
   public static final int[] RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_IDS = {2};
   public static final double RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING = 0.9; 
