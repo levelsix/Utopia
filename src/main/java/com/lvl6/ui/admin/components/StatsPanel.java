@@ -64,7 +64,7 @@ public class StatsPanel extends Panel {
 			target.add(countMarketplacePostsLabel);
 			target.add(sumOfSilverInWorldLabel);
 			target.add(sumOfDiamondsInWorldLabel);
-			target.add(averageSilverPerPlayerLabel);
+			//target.add(averageSilverPerPlayerLabel);
 			target.add(percentageOfPlayersPayingLabel);
 		}
 	};
@@ -92,7 +92,7 @@ public class StatsPanel extends Panel {
 		add(countMarketplacePostsLabel);
 		add(sumOfSilverInWorldLabel);
 		add(sumOfDiamondsInWorldLabel);
-		add(averageSilverPerPlayerLabel);
+		//add(averageSilverPerPlayerLabel);
 		add(percentageOfPlayersPayingLabel);
 		add(abstractAjaxTimerBehavior);
 	}

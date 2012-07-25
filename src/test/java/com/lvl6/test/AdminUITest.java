@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.MainPage;
 
@@ -23,5 +24,6 @@ public class AdminUITest extends TestCase {
 		tester = new WicketTester();
 		tester.startPage(AdminPage.class);
 		tester.startPage(MainPage.class);
+		tester.startComponentInPage(StatsPanel.class);
 	}
 }
