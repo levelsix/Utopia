@@ -11,8 +11,7 @@ public class ApplicationStats {
 	protected Long countMarketplacePosts = 0l;
 	protected Long sumOfSilverInWorld = 0l;
 	protected Long sumOfDiamondsInWorld = 0l;
-	protected Integer percentageOfPlayersPaying = 0;
-	protected Long averageSilverPerPlayer = 0l;
+	
 	
 	public Integer getPercentageOfPlayersPaying() {
 		return 100*(getTotalPayingPlayers()/getTotalPlayersCount());
