@@ -16,9 +16,14 @@ public class ApplicationStats {
 	public Integer getPercentageOfPlayersPaying() {
 		return 100*(getTotalPayingPlayers()/getTotalPlayersCount());
 	}
+	public void setPercentageOfPlayersPaying(Integer value) {
+	}
+	
 	
 	public Long getAverageSilverPerPlayer() {
 		return getSumOfSilverInWorld()/getTotalPlayersCount();
+	}
+	public void setAverageSilverPerPlayer(Long value) {
 	}
 	
 	public Integer getTotalPayingPlayers() {
