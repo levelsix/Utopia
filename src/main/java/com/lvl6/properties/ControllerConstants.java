@@ -112,9 +112,9 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
   public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 9;
-  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 12;
+  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 8;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 5;
-  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 11;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 5;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 250;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
@@ -145,6 +145,7 @@ public class ControllerConstants {
   public static final double BATTLE__B = 80;
   public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
   public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
+  public static final double BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES = 0.5;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
