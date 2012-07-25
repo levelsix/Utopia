@@ -275,10 +275,7 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -8)),
   };
   
-  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
-    "Danny's", 
-    "G"
-  };
+  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {};
   
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
