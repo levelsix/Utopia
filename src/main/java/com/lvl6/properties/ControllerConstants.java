@@ -73,7 +73,6 @@ public class ControllerConstants {
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   
-  
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_THIRD_EXPANSION = 24;
