@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.lvl6.ui.admin.components.RecentPurchasesPanel;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
 import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.components.TopSpendersPanel;
@@ -24,6 +25,7 @@ public class AdminPage extends TemplatePage {
 		setTools();
 		setStats();
 		setTopSpenders();
+		setRecentPurchases();
 	}
 
 	private void setTools() {
@@ -36,6 +38,10 @@ public class AdminPage extends TemplatePage {
 	
 	protected void setTopSpenders() {
 		add(new TopSpendersPanel("topSpenders"));
+	}
+	
+	protected void setRecentPurchases(){
+		add(new RecentPurchasesPanel("recentPurchases"));
 	}
 
 }
