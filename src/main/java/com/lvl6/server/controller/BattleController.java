@@ -370,6 +370,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int lostCoins = (int) Math.rint(Math.min(player.getCoins() * Math.random()
         * ControllerConstants.BATTLE__A, player.getLevel()
         * ControllerConstants.BATTLE__B));
+    if (lostCoins<ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
+    		ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=player.getCoins()) {
+    	lostCoins = ControllerConstants.BATTLE__MIN_COINS_FROM_WIN;
+    }
     if (isFlee) {
       return lostCoins/2;
     }

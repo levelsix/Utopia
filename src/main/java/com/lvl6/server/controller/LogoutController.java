@@ -14,6 +14,7 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.LogoutRequestEvent;
 import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.LogoutRequestProto;
+import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
@@ -55,17 +56,16 @@ public class LogoutController extends EventController {
 		LogoutRequestProto reqProto = ((LogoutRequestEvent) event)
 				.getLogoutRequestProto();
 
-		int playerId = reqProto.getSender().getUserId();
+		MinimumUserProto sender = reqProto.getSender();
+		int playerId = sender.getUserId();
 
 		if (playerId > 0) {
 			server.lockPlayer(playerId);
 			try {
-				User user = RetrieveUtils.userRetrieveUtils().getUserById(
-						playerId);
+				User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
 				if (user != null) {
 					if (!user.updateLastlogout(new Timestamp(new Date().getTime()))) {
-						log.error("problem with updating user's last logout time for user "
-								+ playerId);
+						log.error("problem with updating user's last logout time for user "	+ playerId);
 					}
 				}
 				log.info("Player logged out: "+playerId);
@@ -76,8 +76,7 @@ public class LogoutController extends EventController {
 				server.unlockPlayer(playerId);
 			}
 		} else {
-			log.error("cannot update last logout because playerid of sender is <= 0, it's "
-					+ playerId);
+			log.error("cannot update last logout because playerid of sender:"+sender.getName()+" is <= 0, it's "	+ playerId);
 		}
 
 		// TODO: clear cache

@@ -103,7 +103,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__INIT_HEALTH = 30;
   public static final int TUTORIAL__INIT_DIAMONDS = 20;
   public static final int TUTORIAL__INIT_COINS = 50;
-  public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 2;
+  public static final int TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT = 0; //Because it does not warn the user
   public static final int TUTORIAL__FIRST_TASK_ID = 1;          //give user full task proto for both sides
   public static final int TUTORIAL__ARCHER_INIT_WEAPON_ID = 120;
   public static final int TUTORIAL__ARCHER_INIT_ARMOR_ID = 159;
@@ -120,10 +120,10 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE = "Simply amazing! Your battle prowess makes our village seem safer already. ";
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
-  public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 9;
-  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 8;
+  public static final int TUTORIAL__FAKE_QUEST_COINS_GAINED = 8;
+  public static final int TUTORIAL__FAKE_QUEST_EXP_GAINED = 4;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN = 5;
-  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 5;
+  public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN = 1;
   public static final int TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID = 250;
   public static final int TUTORIAL__FIRST_STRUCT_TO_BUILD = 1;
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
@@ -152,6 +152,7 @@ public class ControllerConstants {
   public static final int BATTLE__MAX_LEVEL_DIFFERENCE = 3;
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
+  public static final int BATTLE__MIN_COINS_FROM_WIN = 5;
   public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
   public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
   public static final double BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES = 0.5;
