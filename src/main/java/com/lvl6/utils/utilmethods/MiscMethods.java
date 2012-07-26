@@ -374,6 +374,8 @@ public class MiscMethods {
         .setBattlePercentOfAmulet(ControllerConstants.BATTLE__PERCENT_OF_AMULET)
         .setBattlePercentOfPlayerStats(ControllerConstants.BATTLE__PERCENT_OF_PLAYER_STATS)
         .setBattleAttackExpoMultiplier(ControllerConstants.BATTLE__ATTACK_EXPO_MULTIPLIER)
+        .setPercentOfEquipment(ControllerConstants.BATTLE__PERCENT_OF_EQUIPMENT)
+        .setIndividualEquipAttackCap(ControllerConstants.BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP)
         .build();
 
     cb = cb.setBattleConstants(battleConstants);
