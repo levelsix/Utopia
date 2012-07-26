@@ -12,12 +12,29 @@ import org.springframework.integration.MessagingException;
 import org.springframework.integration.core.MessageHandler;
 
 import com.lvl6.events.NormalResponseEvent;
+import com.lvl6.utils.ConnectedPlayer;
 
 public class OutboundErrorMessageEventHandler implements MessageHandler {
 
 	Logger log = Logger.getLogger(getClass());
 	
+
+	@Resource(name="playersByPlayerId")
+	Map<Integer, ConnectedPlayer> playersByPlayerId; 
 	
+	
+	public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+		return playersByPlayerId;
+	}
+
+
+
+	public void setPlayersByPlayerId(Map<Integer, ConnectedPlayer> playersByPlayerId) {
+		this.playersByPlayerId = playersByPlayerId;
+	}
+
+
+
 	@Resource(name="messagesForDisconnectedPlayers")
 	protected Map<Integer, List<Message<?>>> messagesForDisconnectedPlayers;
 
@@ -50,6 +67,9 @@ public class OutboundErrorMessageEventHandler implements MessageHandler {
 				messagesForDisconnectedPlayers.put(user, playerPendingMessages);
 			}
 			playerPendingMessages.add(failedMessage);
+			if(playersByPlayerId.containsKey(user)) {
+				playersByPlayerId.remove(user);
+			}
 		}
 	}
 
