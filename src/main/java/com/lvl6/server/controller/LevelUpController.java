@@ -113,10 +113,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitLevelUp) {
         writeChangesToDB(user, newlyUnlockedCityIds);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
-        resEventUpdate.setTag(event.getTag());
-        server.writeEvent(resEventUpdate);
       }
+      
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      resEventUpdate.setTag(event.getTag());
+      server.writeEvent(resEventUpdate);
 
     } catch (Exception e) {
       log.error("exception in LevelUpController processEvent", e);
