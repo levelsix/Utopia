@@ -228,7 +228,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
-    if (attacker == null || defender == null) {
+    if (attacker == null || defender == null || attacker.getStamina() <= 0) {
       resBuilder.setStatus(BattleStatus.OTHER_FAIL);
       log.error("problem with battle- attacker or defender is null. attacker is " + attacker + " and defender is " + defender);
       return false;
