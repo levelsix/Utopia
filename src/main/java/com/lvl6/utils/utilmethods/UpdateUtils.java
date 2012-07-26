@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
@@ -25,6 +26,7 @@ import com.lvl6.utils.DBConnection;
 
 public class UpdateUtils implements UpdateUtil {
 
+  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   public static UpdateUtil get() {
     return (UpdateUtil) AppContext.getApplicationContext().getBean("updateUtils");
@@ -654,6 +656,8 @@ public class UpdateUtils implements UpdateUtil {
     if (numUpdated == tasksInCity.size()) {
       return true;
     }
+    log.error("problem with resetting times completed in rank for userid " + userId + ". tasks are=" + tasksInCity
+        + ", numUpdated=" + numUpdated);
     return false;
   }
 
