@@ -123,7 +123,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           } else {
             log.error("duplicate receipt from user " + user);
           }
+        } else {
+          log.error("problem with in-app purchase that client sent, with receipt " + receipt);
         }
+        
         wr.close();
         rd.close();
       } catch (Exception e) { e.printStackTrace();}
