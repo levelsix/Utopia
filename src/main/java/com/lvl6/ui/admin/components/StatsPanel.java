@@ -12,6 +12,7 @@ public class StatsPanel extends Panel {
 	public StatsPanel(String id) {
 		super(id);
 		addStats();
+		
 	}
 	
 	
