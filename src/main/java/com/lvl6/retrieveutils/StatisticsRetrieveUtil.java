@@ -81,8 +81,7 @@ public class StatisticsRetrieveUtil {
 		return spenders;
 	}
 	
-	
-	public Collection<InAppPurchase> getTopInAppPurchases(Integer limit){
+	public List<InAppPurchase> getTopInAppPurchases(Integer limit){
 		List<InAppPurchase> inAppPurchases = this.jdbcTemplate.query(
 		        "select user_id, cash_spent, purchase_date from iap_history order by purchase_date desc limit "+limit,
 		        new RowMapper<InAppPurchase>() {
