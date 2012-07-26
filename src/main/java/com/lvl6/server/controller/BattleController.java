@@ -371,8 +371,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         * ControllerConstants.BATTLE__A, player.getLevel()
         * ControllerConstants.BATTLE__B));
     if (lostCoins<ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
-    		ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=player.getCoins()) {
-    	lostCoins = ControllerConstants.BATTLE__MIN_COINS_FROM_WIN;
+        ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=player.getCoins()) {
+      lostCoins = ControllerConstants.BATTLE__MIN_COINS_FROM_WIN;
     }
     if (isFlee) {
       return lostCoins/2;
@@ -392,6 +392,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {
+        if (defenderEquip.getId() == defender.getWeaponEquippedUserEquipId() || defenderEquip.getId() == defender.getArmorEquippedUserEquipId()
+            || defenderEquip.getId() == defender.getAmuletEquippedUserEquipId()) {
+          continue;
+        }
+
         int equipId = defenderEquip.getEquipId();
         Equipment equip = equipmentIdsToEquipment.get(equipId);
         if (equip.getDiamondPrice() == Equipment.NOT_SET
