@@ -67,7 +67,7 @@ public class StatisticsRetrieveUtil {
 		return jdbcTemplate.queryForLong("select sum(diamonds) from users where is_fake=0");
 	}
 	
-	public Collection<Spender> getTopSpenders(Integer limit){
+	public List<Spender> getTopSpenders(Integer limit){
 		List<Spender> spenders = this.jdbcTemplate.query(
 		        "select user_id, sum(cash_spent) as amount_spent from iap_history group by user_id order by sum(cash_spent) desc limit "+limit,
 		        new RowMapper<Spender>() {

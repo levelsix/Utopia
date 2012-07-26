@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
 import com.lvl6.ui.admin.components.StatsPanel;
+import com.lvl6.ui.admin.components.TopSpendersPanel;
 
 public class AdminPage extends TemplatePage {
 
@@ -20,12 +21,21 @@ public class AdminPage extends TemplatePage {
 		} else {
 			log.info("Loading Admin Page");
 		}
-		add(new ReloadStaticDataLink("reloadStaticDataLink"));
+		setTools();
 		setStats();
+		setTopSpenders();
+	}
+
+	private void setTools() {
+		add(new ReloadStaticDataLink("reloadStaticDataLink"));
 	}
 
 	protected void setStats() {
 		add(new StatsPanel("statsPanel"));
+	}
+	
+	protected void setTopSpenders() {
+		add(new TopSpendersPanel("topSpenders"));
 	}
 
 }
