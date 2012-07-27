@@ -156,7 +156,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		try {
 			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE) {
-				updater.setString("playerIdString", pid.toString());
+				updater.setString("playerId", pid.toString());
 			}
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
