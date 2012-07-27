@@ -125,12 +125,15 @@ public class CassandraTest extends TestCase {
 	@Test
 	public void testEditColumnFamily() throws Exception {
 		setupCase();
-		CassandraUtil util = new CassandraUtilImpl();
+		/*CassandraUtil util = new CassandraUtilImpl();
 		createTestColumnFamily();
 		KeyspaceDefinition fromCluster = cassandraCluster.describeKeyspace(KEYSPACE);
-		createColumnsForTestColumnFamily(util, fromCluster);
+		//createColumnsForTestColumnFamily(util, fromCluster);
+*/		addRow();
+	}
+
+	private void addRow() {
 		Keyspace ksp = HFactory.createKeyspace(KEYSPACE, cassandraCluster);
-		fromCluster = cassandraCluster.describeKeyspace(KEYSPACE);
 		ColumnFamilyTemplate<String, String> client = new ThriftColumnFamilyTemplate<String, String>(ksp,
 				CF, StringSerializer.get(), StringSerializer.get());
 		UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
@@ -141,6 +144,7 @@ public class CassandraTest extends TestCase {
 		updater.setLong("testLong", 420l);
 		updater.setDate("testDate", new Date());
 		updater.setDouble("testDouble", 2013d);
+		client.update(updater);
 	}
 
 	private void createColumnsForTestColumnFamily(CassandraUtil util,
@@ -160,6 +164,8 @@ public class CassandraTest extends TestCase {
 			BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
 			columnFamilyDefinition.setKeyspaceName(KEYSPACE);
 			columnFamilyDefinition.setName(CF);
+			columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
+			columnFamilyDefinition.setDefaultValidationClass(ComparatorType.UTF8TYPE.getClassName());
 			ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 			KeyspaceDefinition keyspaceDefinition = HFactory
 					.createKeyspaceDefinition(KEYSPACE,
