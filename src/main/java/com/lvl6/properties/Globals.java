@@ -45,4 +45,6 @@ public class Globals {
     public static final Level LOG_LEVEL = Level.INFO;
     
     public static final int NUM_SECONDS_FOR_CONTROLLER_PROCESS_EVENT_LONGTIME_LOG_WARNING = 1;
+    
+    public static final String APPLE_BUNDLE_ID = "com.lvl6.kingdom";
 }

@@ -133,7 +133,7 @@ public class ControllerConstants {
   public static final int TUTORIAL__FIRST_NEUTRAL_CITY_ID = 1;
   
   //STARTUP
-  public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 10;
+  public static final int STARTUP__MAX_NUM_OF_STARTUP_NOTIFICATION_TYPE_TO_SEND = 20;
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
   public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 20;
   public static final int STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS = 1; //in days

@@ -17,11 +17,11 @@ public class IAPValues {
   public static final String APP_ITEM_ID = "app_item_id";
   public static final String PURCHASE_DATE = "purchase_date";
   
-  private static final String PACKAGE1 = "com.lvl6.lostnations.package1";
-  private static final String PACKAGE2 = "com.lvl6.lostnations.package2";
-  private static final String PACKAGE3 = "com.lvl6.lostnations.package3";
-  private static final String PACKAGE4 = "com.lvl6.lostnations.package4";
-  private static final String PACKAGE5 = "com.lvl6.lostnations.package5";
+  private static final String PACKAGE1 = Globals.APPLE_BUNDLE_ID + ".package1";
+  private static final String PACKAGE2 = Globals.APPLE_BUNDLE_ID + ".package2";
+  private static final String PACKAGE3 = Globals.APPLE_BUNDLE_ID + ".package3";
+  private static final String PACKAGE4 = Globals.APPLE_BUNDLE_ID + ".package4";
+  private static final String PACKAGE5 = Globals.APPLE_BUNDLE_ID + ".package5";
   
   /*
    * 1- $1 for 10 diamonds

@@ -38,7 +38,6 @@ import com.lvl6.utils.DBConnection;
     return marketplacePostTransactions;
   }
   
-  
   private static List<MarketplaceTransaction> convertRSToMarketplaceTransactionsList(ResultSet rs) {
     if (rs != null) {
       try {
