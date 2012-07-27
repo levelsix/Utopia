@@ -117,8 +117,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		if (startedUp && client != null) {
 			try {
 				UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
-				ColumnFamilyUpdater<String, String> updater = client
-						.createUpdater(key.toString());
+				ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
 				updater.setLong("time", event.getTimeStamp());
 				updater.setString("host", getHost());
 				updater.setString("message", message);
@@ -158,7 +157,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE) {
 				updater.setLong("playerId", pid.longValue());
-				updater.setString("playerId_string", pid.toString());
+				updater.setString("playerIdString", pid.toString());
 			}
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
@@ -201,15 +200,14 @@ public class Log4jAppender extends AppenderSkeleton {
 	
 	private void setupConnection() throws Exception {
 		LogLog.warn("creating cassandra cluster connection: " + hosts);
-		cassandraHostConfigurator = new CassandraHostConfigurator(
-				hosts);
+		cassandraHostConfigurator = new CassandraHostConfigurator(hosts);
 		cassandraHostConfigurator.setMaxActive(20);
 		cassandraHostConfigurator.setCassandraThriftSocketTimeout(2500);
 		cassandraHostConfigurator.setUseSocketKeepalive(true);
 		cassandraHostConfigurator.setMaxWaitTimeWhenExhausted(500);
-		cluster = new ThriftCluster(clusterName,
-				cassandraHostConfigurator);// getOrCreateCluster(getClusterName(),
-											// cassandraHostConfigurator);
+		cluster = new ThriftCluster(clusterName,cassandraHostConfigurator);
+		// getOrCreateCluster(getClusterName(),
+		// cassandraHostConfigurator);
 		setupColumnFamilies(cluster);
 	}
 
@@ -219,7 +217,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		columnFamilyDefinition.setKeyspaceName(keyspace);
 		columnFamilyDefinition.setName(columnFamily);
 		columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
-		columnFamilyDefinition.setKeyValidationClass(ComparatorType.UUIDTYPE.getClassName());
+		columnFamilyDefinition.setKeyValidationClass(ComparatorType.TIMEUUIDTYPE.getClassName());
 		ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 		if(!checkKeyspaceExists()){
 			createKeyspaceDef(c, cfDef);
@@ -260,7 +258,7 @@ public class Log4jAppender extends AppenderSkeleton {
 				cassandraUtil.createBasicColumnDefinition("playerId", ComparatorType.LONGTYPE, true));
 		// playerIdString
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("playerId_string", ComparatorType.UTF8TYPE, true));
+				cassandraUtil.createBasicColumnDefinition("playerIdString", ComparatorType.UTF8TYPE, true));
 		// udId
 		columnFamilyDefinition.addColumnDefinition(
 				cassandraUtil.createBasicColumnDefinition("udid", ComparatorType.UTF8TYPE, true));
