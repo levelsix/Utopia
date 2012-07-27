@@ -216,7 +216,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		columnFamilyDefinition.setKeyspaceName(keyspace);
 		columnFamilyDefinition.setName(columnFamily);
 		columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
-		// columnFamilyDefinition.setKeyValidationClass(ComparatorType.BYTESTYPE.getClassName());
+		columnFamilyDefinition.setKeyValidationClass(ComparatorType.UUIDTYPE.getClassName());
 		ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 		if(!checkKeyspaceExists()){
 			createKeyspaceDef(c, cfDef);

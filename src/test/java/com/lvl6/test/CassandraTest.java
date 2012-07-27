@@ -11,6 +11,8 @@ import java.util.UUID;
 import junit.framework.TestCase;
 import me.prettyprint.cassandra.model.BasicColumnDefinition;
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
+import me.prettyprint.cassandra.model.CqlQuery;
+import me.prettyprint.cassandra.model.CqlRows;
 import me.prettyprint.cassandra.serializers.DateSerializer;
 import me.prettyprint.cassandra.serializers.DoubleSerializer;
 import me.prettyprint.cassandra.serializers.IntegerSerializer;
@@ -30,6 +32,7 @@ import me.prettyprint.hector.api.ddl.ColumnIndexType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.query.QueryResult;
 
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.log4j.Category;
@@ -125,11 +128,11 @@ public class CassandraTest extends TestCase {
 	@Test
 	public void testEditColumnFamily() throws Exception {
 		setupCase();
-		/*CassandraUtil util = new CassandraUtilImpl();
+		CassandraUtil util = new CassandraUtilImpl();
 		createTestColumnFamily();
 		KeyspaceDefinition fromCluster = cassandraCluster.describeKeyspace(KEYSPACE);
-		//createColumnsForTestColumnFamily(util, fromCluster);
-*/		addRow();
+		createColumnsForTestColumnFamily(util, fromCluster);
+		addRow();
 	}
 
 	private void addRow() {
@@ -142,7 +145,7 @@ public class CassandraTest extends TestCase {
 		updater.setString("testString", "Test String: "+Math.random());
 		updater.setInteger("testInteger", 99);
 		updater.setLong("testLong", 420l);
-		updater.setDate("testDate", new Date());
+		updater.setLong("testDate", new Date().getTime());
 		updater.setDouble("testDouble", 2013d);
 		client.update(updater);
 	}
@@ -150,8 +153,9 @@ public class CassandraTest extends TestCase {
 	
 	private void createTestTable() {
 		String cql = 
-		"CREATE TABLE BasicCassandraTest ("+
-		  "KEY timestamp PRIMARY KEY,"+
+		"drop table "+KEYSPACE+"."+CF+";"+
+		"CREATE TABLE "+KEYSPACE+"."+CF+"("+
+		  "KEY timeuuid PRIMARY KEY,"+
 		  "testString text,"+
 		  "testLong bigint,"+
 		  "testDouble double,"+
@@ -178,6 +182,10 @@ public class CassandraTest extends TestCase {
 		"CREATE INDEX testDate_index ON BasicCassandraTest (testDate);"+
 		
 		"CREATE INDEX testInteger_index ON BasicCassandraTest (testInteger);";
+		Keyspace ksp = HFactory.createKeyspace(KEYSPACE, cassandraCluster);
+		CqlQuery<String,String,Long> cqlQuery = new CqlQuery<String,String,Long>(ksp, StringSerializer.get(), StringSerializer.get(), LongSerializer.get());
+		cqlQuery.setQuery(cql);
+		cqlQuery.execute();
 	}
 
 	private void createColumnsForTestColumnFamily(CassandraUtil util,
