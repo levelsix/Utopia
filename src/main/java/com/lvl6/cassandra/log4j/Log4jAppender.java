@@ -157,6 +157,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE)
 				updater.setLong("playerId", pid.longValue());
+				updater.setString("playerId_string", pid.toString());
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
 		}
@@ -255,6 +256,9 @@ public class Log4jAppender extends AppenderSkeleton {
 		// playerId
 		columnFamilyDefinition.addColumnDefinition(
 				cassandraUtil.createBasicColumnDefinition("playerId", ComparatorType.LONGTYPE, true));
+		// playerIdString
+		columnFamilyDefinition.addColumnDefinition(
+				cassandraUtil.createBasicColumnDefinition("playerId_string", ComparatorType.UTF8TYPE, true));
 		// udId
 		columnFamilyDefinition.addColumnDefinition(
 				cassandraUtil.createBasicColumnDefinition("udid", ComparatorType.UTF8TYPE, true));
