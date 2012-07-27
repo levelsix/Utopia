@@ -56,8 +56,8 @@ public class ControllerConstants {
   public static final float BATTLE_PERFECT_PERCENT_THRESHOLD = 3.0f;
   public static final float BATTLE_GREAT_PERCENT_THRESHOLD = 17.0f;
   public static final float BATTLE_GOOD_PERCENT_THRESHOLD = 38.0f;
-  public static final float BATTLE_PERFECT_MULTIPLIER = 1.2f;
-  public static final float BATTLE_GREAT_MULTIPLIER = 1.0f;
+  public static final float BATTLE_PERFECT_MULTIPLIER = 2.0f;
+  public static final float BATTLE_GREAT_MULTIPLIER = 1.5f;
   public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
   public static final float BATTLE_IMBALANCE_PERCENT = .67f;
   public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
@@ -65,7 +65,7 @@ public class ControllerConstants {
   public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
   public static final float BATTLE_MISS_LIKELIHOOD = .1f;
 
-  public static final double BATTLE__HIT_PERCENT_OF_HEALTH = 0.33;
+  public static final double BATTLE__HIT_PERCENT_OF_HEALTH = 0.2;
   public static final double BATTLE__PERCENT_OF_WEAPON = 1.0/9.0;
   public static final double BATTLE__PERCENT_OF_ARMOR = 1.0/9.0;  
   public static final double BATTLE__PERCENT_OF_AMULET = 1.0/9.0;
