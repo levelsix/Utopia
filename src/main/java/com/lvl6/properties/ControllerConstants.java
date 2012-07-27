@@ -65,7 +65,8 @@ public class ControllerConstants {
   public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
   public static final float BATTLE_MISS_LIKELIHOOD = .1f;
 
-  public static final double BATTLE__HIT_PERCENT_OF_HEALTH = 0.33;
+  public static final double BATTLE__HIT_ATTACKER_PERCENT_OF_HEALTH = 0.2;
+  public static final double BATTLE__HIT_DEFENDER_PERCENT_OF_HEALTH = 0.25;
   public static final double BATTLE__PERCENT_OF_WEAPON = 1.0/9.0;
   public static final double BATTLE__PERCENT_OF_ARMOR = 1.0/9.0;  
   public static final double BATTLE__PERCENT_OF_AMULET = 1.0/9.0;

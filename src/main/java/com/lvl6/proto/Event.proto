@@ -287,7 +287,8 @@ message StartupResponseProto {
 			optional float battleGoodLikelihood = 16;
 			optional float battleMissLikelihood = 17;
 			
-			optional double battleHitPercentOfHealth = 18;
+			optional double battleHitAttackerPercentOfHealth = 18;
+			optional double battleHitDefenderPercentOfHealth = 26;
 			optional double battlePercentOfWeapon = 19;
 			optional double battlePercentOfArmor = 20;
 			optional double battlePercentOfAmulet = 21;
