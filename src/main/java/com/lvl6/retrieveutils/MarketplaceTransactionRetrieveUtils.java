@@ -32,7 +32,7 @@ import com.lvl6.utils.DBConnection;
     absoluteParams.put(DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, posterId);
     
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__POSTER_ID, limit);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, absoluteParams, TABLE_NAME, DBConstants.MARKETPLACE_TRANSACTION_HISTORY__MARKETPLACE_ID, limit);
     List<MarketplaceTransaction> marketplacePostTransactions = convertRSToMarketplaceTransactionsList(rs);
     DBConnection.get().close(rs, null, conn);
     return marketplacePostTransactions;
