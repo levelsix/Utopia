@@ -24,7 +24,7 @@
 	<appender name="R" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="${lvl6.server.log.location}.log" />
 		<param name="MaxFileSize" value="25MB" />
-		<param name="MaxBackupIndex" value="10" />
+		<param name="MaxBackupIndex" value="100" />
 		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern"
@@ -35,7 +35,7 @@
 	<appender name="ERROR_LOG" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="${lvl6.server.log.location}_errors.log" />
 		<param name="MaxFileSize" value="25MB" />
-		<param name="MaxBackupIndex" value="30" />
+		<param name="MaxBackupIndex" value="300" />
 		<param name="Threshold" value="ERROR" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern"
