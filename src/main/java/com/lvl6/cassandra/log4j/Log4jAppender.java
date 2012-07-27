@@ -255,10 +255,7 @@ public class Log4jAppender extends AppenderSkeleton {
 				cassandraUtil.createBasicColumnDefinition("stacktrace", ComparatorType.UTF8TYPE, false));
 		// playerId
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("playerId", ComparatorType.LONGTYPE, true));
-		// playerIdString
-		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("playerIdString", ComparatorType.UTF8TYPE, true));
+				cassandraUtil.createBasicColumnDefinition("playerId", ComparatorType.UTF8TYPE, true));
 		// udId
 		columnFamilyDefinition.addColumnDefinition(
 				cassandraUtil.createBasicColumnDefinition("udid", ComparatorType.UTF8TYPE, true));
