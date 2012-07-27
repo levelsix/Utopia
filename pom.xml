@@ -62,6 +62,7 @@
 		<maven.build.timestamp.format>yyyy-MM-dd-HH-mm-ss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
+		<wicket.mode>development</wicket.mode>
 	</properties>
 
 	<profiles>
