@@ -293,8 +293,8 @@ message StartupResponseProto {
 			optional double battlePercentOfAmulet = 21;
 			optional double battlePercentOfPlayerStats = 22;
 			optional double battleAttackExpoMultiplier = 23;
-			optional double percentOfEquipment = 24;
-			optional double individualEquipAttackCap = 25;
+			optional double battlePercentOfEquipment = 24;
+			optional double battleIndividualEquipAttackCap = 25;
 		}
 		
 		message ForgeConstants {

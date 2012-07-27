@@ -55,6 +55,7 @@ public class OutboundErrorMessageEventHandler implements MessageHandler {
 
 	@Override
 	public void handleMessage(Message<?> failedMessage) throws MessagingException {
+		log.info("Handling failed message");
 		if(failedMessage.getHeaders().containsKey("playerId")) {
 			NormalResponseEvent ev = (NormalResponseEvent) failedMessage.getPayload();
 			Integer user = ev.getPlayerId();
@@ -70,6 +71,9 @@ public class OutboundErrorMessageEventHandler implements MessageHandler {
 			if(playersByPlayerId.containsKey(user)) {
 				playersByPlayerId.remove(user);
 			}
+		}else {
+			log.warn("Message that failed to send had no playerId header");
+			log.warn(failedMessage.getHeaders().toString());
 		}
 	}
 
