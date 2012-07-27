@@ -34,7 +34,7 @@
 	</scm>
 
 	<properties>
-		<jdbc.url><![CDATA[jdbc:mysql://lost-nations-dev-1.cv5kxrel3z7x.us-east-1.rds.amazonaws.com/lostnations?useLegacyDatetimeCode=false]]></jdbc.url>
+		<jdbc.url><![CDATA[jdbc:mysql://kingdom-dev-1.cv5kxrel3z7x.us-east-1.rds.amazonaws.com/kingdom?useLegacyDatetimeCode=false]]></jdbc.url>
 		<jdbc.username>lvl6admin</jdbc.username>
 		<jdbc.password>robashen123</jdbc.password>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
@@ -50,10 +50,10 @@
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
-		<apns.path.to.cert>LostNationsAPNSDev07132012.p12</apns.path.to.cert>
+		<apns.path.to.cert>KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
-		<lvl6.server.log.location>/var/lib/tomcat7/logs/lostnations</lvl6.server.log.location>
+		<lvl6.server.log.location>/var/lib/tomcat7/logs/kingdom</lvl6.server.log.location>
 		<lvl6.cassandra.hosts>robot.lvl6.com</lvl6.cassandra.hosts>
 		<lvl6.cassandra.keyspace>Logs</lvl6.cassandra.keyspace>
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
@@ -67,7 +67,7 @@
 		<profile>
 			<id>kellyrobot</id>
 			<properties>
-				<lvl6.server.log.location>/root/kelly/tomcat7/logs/lostnations</lvl6.server.log.location>
+				<lvl6.server.log.location>/root/kelly/tomcat7/logs/kingdom</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
@@ -80,7 +80,7 @@
 		<profile>
 			<id>kellylocal</id>
 			<properties>
-				<lvl6.server.log.location>~/Desktop/lostnations</lvl6.server.log.location>
+				<lvl6.server.log.location>~/Desktop/kingdom</lvl6.server.log.location>
 				<server.port>10002</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
@@ -92,7 +92,7 @@
 		<profile>
 			<id>conradlocal</id>
 			<properties>
-				<lvl6.server.log.location>/Users/conradchan/Desktop/LostNations/Server/lostnations</lvl6.server.log.location>
+				<lvl6.server.log.location>/Users/conradchan/Desktop/Kingdom/Server/kingdom</lvl6.server.log.location>
 				<server.port>10001</server.port>
 				<hazelcast.group>conrad</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
