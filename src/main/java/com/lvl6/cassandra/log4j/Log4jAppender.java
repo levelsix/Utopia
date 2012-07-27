@@ -85,7 +85,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			public void run() {
 				while (!shutdown) {
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(100);
 						if(cluster == null || cassandraHostConfigurator == null) {
 							setupConnection();
 						}
@@ -117,8 +117,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		if (startedUp && client != null) {
 			try {
 				UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
-				ColumnFamilyUpdater<String, String> updater = client
-						.createUpdater(key.toString());
+				ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
 				updater.setLong("time", event.getTimeStamp());
 				updater.setString("host", getHost());
 				updater.setString("message", message);
@@ -147,16 +146,18 @@ public class Log4jAppender extends AppenderSkeleton {
 	private void addUdid(LoggingEvent event,
 			ColumnFamilyUpdater<String, String> updater) {
 		String udId = (String) event.getMDC(MDCKeys.UDID);
-		if (udId != null && !udId.equals(""))
+		if (udId != null && !udId.equals("")) {
 			updater.setString("udid", udId.toString());
+		}
 	}
 
 	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
 		Integer pid;
 		try {
 			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
-			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE)
+			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE) {
 				updater.setString("playerId", pid.toString());
+			}
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
 		}
@@ -198,15 +199,14 @@ public class Log4jAppender extends AppenderSkeleton {
 	
 	private void setupConnection() throws Exception {
 		LogLog.warn("creating cassandra cluster connection: " + hosts);
-		cassandraHostConfigurator = new CassandraHostConfigurator(
-				hosts);
+		cassandraHostConfigurator = new CassandraHostConfigurator(hosts);
 		cassandraHostConfigurator.setMaxActive(20);
 		cassandraHostConfigurator.setCassandraThriftSocketTimeout(2500);
 		cassandraHostConfigurator.setUseSocketKeepalive(true);
 		cassandraHostConfigurator.setMaxWaitTimeWhenExhausted(500);
-		cluster = new ThriftCluster(clusterName,
-				cassandraHostConfigurator);// getOrCreateCluster(getClusterName(),
-											// cassandraHostConfigurator);
+		cluster = new ThriftCluster(clusterName,cassandraHostConfigurator);
+		// getOrCreateCluster(getClusterName(),
+		// cassandraHostConfigurator);
 		setupColumnFamilies(cluster);
 	}
 
@@ -216,7 +216,7 @@ public class Log4jAppender extends AppenderSkeleton {
 		columnFamilyDefinition.setKeyspaceName(keyspace);
 		columnFamilyDefinition.setName(columnFamily);
 		columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
-		// columnFamilyDefinition.setKeyValidationClass(ComparatorType.BYTESTYPE.getClassName());
+		//columnFamilyDefinition.setKeyValidationClass(ComparatorType.TIMEUUIDTYPE.getClassName());
 		ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 		if(!checkKeyspaceExists()){
 			createKeyspaceDef(c, cfDef);

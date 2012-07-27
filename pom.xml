@@ -59,8 +59,10 @@
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
 		<lvl6.cassandra.cluster.name>Test Cluster</lvl6.cassandra.cluster.name>
 		<lvl6.cassandra.replication.factor>1</lvl6.cassandra.replication.factor>
-		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<maven.build.timestamp.format>yyyy-MM-dd-HH-mm-ss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
+		<application.release.name>Kingdom</application.release.name>
+		<wicket.mode>development</wicket.mode>
 	</properties>
 
 	<profiles>
@@ -170,12 +172,12 @@
 				<groupId>br.com.ingenieux</groupId>
 				<artifactId>beanstalk-maven-plugin</artifactId>
 				<configuration>
-					<applicationName>Utopia</applicationName>
-					<environmentName>Utopia-${maven.build.timestamp}</environmentName>
+					<applicationName>${application.release.name}</applicationName>
+					<environmentName>${application.release.name}-${maven.build.timestamp}</environmentName>
 					<defaultEnvironmentName>default</defaultEnvironmentName>
-					<cnamePrefix>${project.artifactId}-${maven.build.timestamp}</cnamePrefix>
+					<cnamePrefix>${application.release.name}-${maven.build.timestamp}</cnamePrefix>
 					<s3Bucket>prodWars</s3Bucket>
-					<s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
+					<s3Key>${application.release.name}/${application.release.name}-${maven.build.timestamp}.war</s3Key>
 					<!-- <configurationTemplate>lvl6prod-${maven.build.timestamp}</configurationTemplate> -->
 					<!-- <templateName>lvl6prod-${maven.build.timestamp}</templateName> -->
 					<solutionStack>64bit Amazon Linux running Tomcat 7</solutionStack>

@@ -2,22 +2,37 @@ package com.lvl6.test;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import junit.framework.TestCase;
 import me.prettyprint.cassandra.model.BasicColumnDefinition;
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
+import me.prettyprint.cassandra.model.CqlQuery;
+import me.prettyprint.cassandra.model.CqlRows;
+import me.prettyprint.cassandra.serializers.DateSerializer;
+import me.prettyprint.cassandra.serializers.DoubleSerializer;
+import me.prettyprint.cassandra.serializers.IntegerSerializer;
+import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
+import me.prettyprint.cassandra.serializers.TimeUUIDSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.cassandra.service.ThriftCfDef;
 import me.prettyprint.cassandra.service.ThriftCluster;
+import me.prettyprint.cassandra.service.template.ColumnFamilyTemplate;
+import me.prettyprint.cassandra.service.template.ColumnFamilyUpdater;
+import me.prettyprint.cassandra.service.template.ThriftColumnFamilyTemplate;
+import me.prettyprint.cassandra.utils.TimeUUIDUtils;
+import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
 import me.prettyprint.hector.api.ddl.ColumnIndexType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
+import me.prettyprint.hector.api.query.QueryResult;
 
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.log4j.Category;
@@ -35,6 +50,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lvl6.cassandra.CassandraUtil;
+import com.lvl6.cassandra.CassandraUtilImpl;
 import com.lvl6.cassandra.log4j.Log4jAppender;
 import com.lvl6.properties.MDCKeys;
 
@@ -104,66 +121,101 @@ public class CassandraTest extends TestCase {
 	}
 
 	
+	protected static String KEYSPACE = "Junit";
+	protected static String CF = "BasicCassandraTest";
 	
 	
-	//@Test
+	@Test
 	public void testEditColumnFamily() throws Exception {
 		setupCase();
-/*		try {
+		CassandraUtil util = new CassandraUtilImpl();
+		createTestColumnFamily();
+		KeyspaceDefinition fromCluster = cassandraCluster.describeKeyspace(KEYSPACE);
+		createColumnsForTestColumnFamily(util, fromCluster);
+		addRow();
+	}
+
+	private void addRow() {
+		Keyspace ksp = HFactory.createKeyspace(KEYSPACE, cassandraCluster);
+		ColumnFamilyTemplate<String, String> client = new ThriftColumnFamilyTemplate<String, String>(ksp,
+				CF, StringSerializer.get(), StringSerializer.get());
+		UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
+		ColumnFamilyUpdater<String, String> updater = client
+		.createUpdater(key.toString());
+		updater.setString("testString", "Test String: "+Math.random());
+		updater.setInteger("testInteger", 99);
+		updater.setLong("testLong", 420l);
+		updater.setLong("testDate", new Date().getTime());
+		updater.setDouble("testDouble", 2013d);
+		client.update(updater);
+	}
+	
+	
+	private void createTestTable() {
+		String cql = 
+		"drop table "+KEYSPACE+"."+CF+";"+
+		"CREATE TABLE "+KEYSPACE+"."+CF+"("+
+		  "KEY timeuuid PRIMARY KEY,"+
+		  "testString text,"+
+		  "testLong bigint,"+
+		  "testDouble double,"+
+		  "testDate timestamp,"+
+		  "testInteger bigint"+
+		") WITH"+
+		  "comment='This is a junit test table for datatypes' AND"+
+		  "comparator=text AND"+
+		  "read_repair_chance=0.000000 AND"+
+		  "gc_grace_seconds=0 AND"+
+		  "default_validation=text AND"+
+		  "min_compaction_threshold=4 AND"+
+		  "max_compaction_threshold=32 AND"+
+		  "replicate_on_write='false' AND"+
+		  "compaction_strategy_class='SizeTieredCompactionStrategy' AND"+
+		  "compression_parameters:sstable_compression='SnappyCompressor';"+
+		
+		"CREATE INDEX testString_index ON BasicCassandraTest (testString);"+
+		
+		"CREATE INDEX testLong_index ON BasicCassandraTest (testLong);"+
+		
+		"CREATE INDEX testDouble_index ON BasicCassandraTest (testDouble);"+
+		
+		"CREATE INDEX testDate_index ON BasicCassandraTest (testDate);"+
+		
+		"CREATE INDEX testInteger_index ON BasicCassandraTest (testInteger);";
+		Keyspace ksp = HFactory.createKeyspace(KEYSPACE, cassandraCluster);
+		CqlQuery<String,String,Long> cqlQuery = new CqlQuery<String,String,Long>(ksp, StringSerializer.get(), StringSerializer.get(), LongSerializer.get());
+		cqlQuery.setQuery(cql);
+		cqlQuery.execute();
+	}
+
+	private void createColumnsForTestColumnFamily(CassandraUtil util,
+			KeyspaceDefinition fromCluster) {
+		ColumnFamilyDefinition cfDef = fromCluster.getCfDefs().get(0);
+		BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition(cfDef);
+		columnFamilyDefinition.addColumnDefinition(util.createBasicColumnDefinition("testString", StringSerializer.get().getComparatorType(), true));
+		columnFamilyDefinition.addColumnDefinition(util.createBasicColumnDefinition("testInteger", IntegerSerializer.get().getComparatorType(), true));
+		columnFamilyDefinition.addColumnDefinition(util.createBasicColumnDefinition("testLong", LongSerializer.get().getComparatorType(), true));
+		columnFamilyDefinition.addColumnDefinition(util.createBasicColumnDefinition("testDate", DateSerializer.get().getComparatorType(), true));
+		columnFamilyDefinition.addColumnDefinition(util.createBasicColumnDefinition("testDouble", DoubleSerializer.get().getComparatorType(), true));
+		cassandraCluster.updateColumnFamily(new ThriftCfDef(columnFamilyDefinition));
+	}
+
+	private void createTestColumnFamily() {
+		try {
 			BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
-			columnFamilyDefinition.setKeyspaceName("DynKeyspace3");
-			columnFamilyDefinition.setName("DynamicCF");
-
-			ColumnFamilyDefinition cfDef = new ThriftCfDef(
-					columnFamilyDefinition);
-
+			columnFamilyDefinition.setKeyspaceName(KEYSPACE);
+			columnFamilyDefinition.setName(CF);
+			columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
+			columnFamilyDefinition.setDefaultValidationClass(ComparatorType.UTF8TYPE.getClassName());
+			ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 			KeyspaceDefinition keyspaceDefinition = HFactory
-					.createKeyspaceDefinition("DynKeyspace3",
-							"org.apache.cassandra.locator.SimpleStrategy", 1,
-							Arrays.asList(cfDef));
+					.createKeyspaceDefinition(KEYSPACE,
+						"org.apache.cassandra.locator.SimpleStrategy", 
+						1,
+						Arrays.asList(cfDef));
 			cassandraCluster.addKeyspace(keyspaceDefinition);
 		} catch (Exception e) {
 
 		}
-		KeyspaceDefinition fromCluster = cassandraCluster
-				.describeKeyspace("DynKeyspace3");
-		ColumnFamilyDefinition cfDef = fromCluster.getCfDefs().get(0);
-
-		BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition(
-				cfDef);
-		BasicColumnDefinition columnDefinition = new BasicColumnDefinition();
-		columnDefinition.setName(StringSerializer.get().toByteBuffer(
-				"birthdate"));
-		columnDefinition.setIndexName("birthdate_idx");
-		columnDefinition.setIndexType(ColumnIndexType.KEYS);
-		columnDefinition.setValidationClass(ComparatorType.LONGTYPE
-				.getClassName());
-		columnFamilyDefinition.addColumnDefinition(columnDefinition);
-
-		columnDefinition = new BasicColumnDefinition();
-		columnDefinition.setName(StringSerializer.get().toByteBuffer(
-				"nonindexed_field"));
-		columnDefinition.setValidationClass(ComparatorType.LONGTYPE
-				.getClassName());
-		columnFamilyDefinition.addColumnDefinition(columnDefinition);
-
-		cassandraCluster.updateColumnFamily(new ThriftCfDef(
-				columnFamilyDefinition));
-
-		fromCluster = cassandraCluster.describeKeyspace("DynKeyspace3");
-
-		assertEquals(
-				"birthdate",
-				StringSerializer.get().fromByteBuffer(
-						fromCluster.getCfDefs().get(0).getColumnMetadata()
-								.get(0).getName()));
-		assertEquals("birthdate_idx", fromCluster.getCfDefs().get(0)
-				.getColumnMetadata().get(0).getIndexName());
-		assertEquals(
-				"nonindexed_field",
-				StringSerializer.get().fromByteBuffer(
-						fromCluster.getCfDefs().get(0).getColumnMetadata()
-								.get(1).getName()));
-								*/
 	}
 }

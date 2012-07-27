@@ -41,6 +41,10 @@
 			<param-name>ignorePaths</param-name>
 			<param-value>/iddiction</param-value>
 		</init-param>
+		<init-param>
+			<param-name>configuration</param-name>
+			<param-value>${wicket.mode}</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>Lvl6Admin</filter-name>
