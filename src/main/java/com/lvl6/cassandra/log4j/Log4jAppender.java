@@ -147,8 +147,9 @@ public class Log4jAppender extends AppenderSkeleton {
 	private void addUdid(LoggingEvent event,
 			ColumnFamilyUpdater<String, String> updater) {
 		String udId = (String) event.getMDC(MDCKeys.UDID);
-		if (udId != null && !udId.equals(""))
+		if (udId != null && !udId.equals("")) {
 			updater.setString("udid", udId.toString());
+		}
 	}
 
 	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
