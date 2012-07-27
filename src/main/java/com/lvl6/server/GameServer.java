@@ -19,6 +19,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.lvl6.events.ResponseEvent;
+import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
@@ -138,7 +139,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}
 
 	// current client version to see if it is still playable
-	public static float clientVersionNumber = 1.0f;
+	public static float clientVersionNumber = Globals.VERSION_NUMBER;
 
 	public static void main(String args[]) {
 		ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
