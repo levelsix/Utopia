@@ -368,14 +368,15 @@ public class MiscMethods {
         .setBattleGreatLikelihood(ControllerConstants.BATTLE_GREAT_LIKELIHOOD)
         .setBattleGoodLikelihood(ControllerConstants.BATTLE_GOOD_LIKELIHOOD)
         .setBattleMissLikelihood(ControllerConstants.BATTLE_MISS_LIKELIHOOD)
-        .setBattleHitPercentOfHealth(ControllerConstants.BATTLE__HIT_PERCENT_OF_HEALTH)
+        .setBattleHitAttackerPercentOfHealth(ControllerConstants.BATTLE__HIT_ATTACKER_PERCENT_OF_HEALTH)
+        .setBattleHitDefenderPercentOfHealth(ControllerConstants.BATTLE__HIT_DEFENDER_PERCENT_OF_HEALTH)
         .setBattlePercentOfWeapon(ControllerConstants.BATTLE__PERCENT_OF_WEAPON)
         .setBattlePercentOfArmor(ControllerConstants.BATTLE__PERCENT_OF_ARMOR)
         .setBattlePercentOfAmulet(ControllerConstants.BATTLE__PERCENT_OF_AMULET)
         .setBattlePercentOfPlayerStats(ControllerConstants.BATTLE__PERCENT_OF_PLAYER_STATS)
         .setBattleAttackExpoMultiplier(ControllerConstants.BATTLE__ATTACK_EXPO_MULTIPLIER)
-        .setPercentOfEquipment(ControllerConstants.BATTLE__PERCENT_OF_EQUIPMENT)
-        .setIndividualEquipAttackCap(ControllerConstants.BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP)
+        .setBattlePercentOfEquipment(ControllerConstants.BATTLE__PERCENT_OF_EQUIPMENT)
+        .setBattleIndividualEquipAttackCap(ControllerConstants.BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP)
         .build();
 
     cb = cb.setBattleConstants(battleConstants);

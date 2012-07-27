@@ -34,7 +34,7 @@ import com.lvl6.utils.DBConnection;
     greaterThanParams.put(DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, earliestBattleNotificationTimeToRetrieve);
     
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__DEFENDER_ID, limit, greaterThanParams);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitGreaterthan(conn, absoluteParams, TABLE_NAME, DBConstants.BATTLE_HISTORY__BATTLE_COMPLETE_TIME, limit, greaterThanParams);
     List<BattleDetails> battleDetailsList = convertRSToBattleDetailsList(rs);
     DBConnection.get().close(rs, null, conn);
     return battleDetailsList;
