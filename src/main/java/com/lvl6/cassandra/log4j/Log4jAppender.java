@@ -85,7 +85,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			public void run() {
 				while (!shutdown) {
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(100);
 						if(cluster == null || cassandraHostConfigurator == null) {
 							setupConnection();
 						}
