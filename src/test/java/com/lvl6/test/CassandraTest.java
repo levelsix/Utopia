@@ -146,6 +146,39 @@ public class CassandraTest extends TestCase {
 		updater.setDouble("testDouble", 2013d);
 		client.update(updater);
 	}
+	
+	
+	private void createTestTable() {
+		String cql = 
+		"CREATE TABLE BasicCassandraTest ("+
+		  "KEY timestamp PRIMARY KEY,"+
+		  "testString text,"+
+		  "testLong bigint,"+
+		  "testDouble double,"+
+		  "testDate timestamp,"+
+		  "testInteger bigint"+
+		") WITH"+
+		  "comment='This is a junit test table for datatypes' AND"+
+		  "comparator=text AND"+
+		  "read_repair_chance=0.000000 AND"+
+		  "gc_grace_seconds=0 AND"+
+		  "default_validation=text AND"+
+		  "min_compaction_threshold=4 AND"+
+		  "max_compaction_threshold=32 AND"+
+		  "replicate_on_write='false' AND"+
+		  "compaction_strategy_class='SizeTieredCompactionStrategy' AND"+
+		  "compression_parameters:sstable_compression='SnappyCompressor';"+
+		
+		"CREATE INDEX testString_index ON BasicCassandraTest (testString);"+
+		
+		"CREATE INDEX testLong_index ON BasicCassandraTest (testLong);"+
+		
+		"CREATE INDEX testDouble_index ON BasicCassandraTest (testDouble);"+
+		
+		"CREATE INDEX testDate_index ON BasicCassandraTest (testDate);"+
+		
+		"CREATE INDEX testInteger_index ON BasicCassandraTest (testInteger);";
+	}
 
 	private void createColumnsForTestColumnFamily(CassandraUtil util,
 			KeyspaceDefinition fromCluster) {
