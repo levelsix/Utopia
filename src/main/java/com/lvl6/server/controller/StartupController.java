@@ -254,12 +254,13 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         if (numConsecDaysPlayed >= ControllerConstants.STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS) {
 
           int idOfEquipToGive = MiscMethods.chooseMysteryBoxEquip(user);
-          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+          int levelOfEquipToGive = (int)(Math.random() * ControllerConstants.STARTUP__DAILY_BONUS_MYSTERY_BOX_EQUIP_FORGE_LEVEL_MAX) + 1;
+          int userEquipId = InsertUtils.get().insertUserEquip(user.getId(), idOfEquipToGive, levelOfEquipToGive);
           if (userEquipId <= 0) {
             log.error("failed in giving user " + user + " equip with id " + idOfEquipToGive);
             return 0;
           } else {
-            UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+            UserEquip ue = new UserEquip (userEquipId, user.getId(), idOfEquipToGive, levelOfEquipToGive);
             dbiBuilder.setUserEquipBonus(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(ue));
           }
 
