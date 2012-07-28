@@ -74,7 +74,8 @@ public class ControllerConstants {
   public static final double BATTLE__ATTACK_EXPO_MULTIPLIER = 0.8;
   public static final double BATTLE__PERCENT_OF_EQUIPMENT = 3.0/9.0;      
   public static final double BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP = 5.0; 
-  
+
+  public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.2;
   
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
   
@@ -85,7 +86,6 @@ public class ControllerConstants {
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
-  public static final double FORGE_LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.2;
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;

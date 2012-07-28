@@ -304,7 +304,8 @@ public class MiscMethods {
         .setPlayerWallPostsRetrieveCap(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP)
         .setMaxLevelForUser(ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER)
         .setAverageSizeOfLevelBracket(ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET)
-        .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE);
+        .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE)
+        .setLevelEquipBoostExponentBase(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE);
     
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
@@ -346,8 +347,7 @@ public class MiscMethods {
         .setForgeMinDiamondCostForGuarantee(ControllerConstants.FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE)
         .setForgeDiamondCostForGuaranteeExponentialMultiplier(ControllerConstants.FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER)
         .setForgeBaseMinutesToOneGold(ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD)
-        .setForgeMaxEquipLevel(ControllerConstants.FORGE_MAX_EQUIP_LEVEL)
-        .setForgeLevelEquipBoostExponentBase(ControllerConstants.FORGE_LEVEL_EQUIP_BOOST_EXPONENT_BASE).build();
+        .setForgeMaxEquipLevel(ControllerConstants.FORGE_MAX_EQUIP_LEVEL).build();
     
     cb.setForgeConstants(forgeConstants);
     
