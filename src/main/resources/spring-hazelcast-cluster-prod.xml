@@ -22,7 +22,7 @@
 			</hz:network>
 			
 
-			<hz:map name="playersByPlayerId"	backup-count="3"   max-size="0" >
+<!-- 			<hz:map name="playersByPlayerId"	backup-count="3"   max-size="0" >
 			</hz:map>
 
 
@@ -34,7 +34,7 @@
 
 
 			<hz:map  name="playersInActionSet"
-				backup-count="3"   max-size="0" />
+				backup-count="3"   max-size="0" /> -->
 
 		</hz:config>
 	</hz:hazelcast>
