@@ -85,6 +85,7 @@ public class ControllerConstants {
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
+  public static final double FORGE_LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.2;
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_SECOND_EXPANSION = 12;

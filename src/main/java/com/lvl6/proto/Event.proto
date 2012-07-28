@@ -304,6 +304,7 @@ message StartupResponseProto {
 			optional double forgeDiamondCostForGuaranteeExponentialMultiplier = 3;
 			optional int32 forgeBaseMinutesToOneGold = 4;
 			optional int32 forgeMaxEquipLevel = 5;
+			optional double forgeLevelEquipBoostExponentBase = 6;
 		}
 	}
 	

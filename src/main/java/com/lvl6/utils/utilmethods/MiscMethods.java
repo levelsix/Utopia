@@ -346,7 +346,8 @@ public class MiscMethods {
         .setForgeMinDiamondCostForGuarantee(ControllerConstants.FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE)
         .setForgeDiamondCostForGuaranteeExponentialMultiplier(ControllerConstants.FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER)
         .setForgeBaseMinutesToOneGold(ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD)
-        .setForgeMaxEquipLevel(ControllerConstants.FORGE_MAX_EQUIP_LEVEL).build();
+        .setForgeMaxEquipLevel(ControllerConstants.FORGE_MAX_EQUIP_LEVEL)
+        .setForgeLevelEquipBoostExponentBase(ControllerConstants.FORGE_LEVEL_EQUIP_BOOST_EXPONENT_BASE).build();
     
     cb.setForgeConstants(forgeConstants);
     
