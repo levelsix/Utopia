@@ -25,7 +25,7 @@ import com.lvl6.utils.Attachment;
 import com.lvl6.utils.ConnectedPlayer;
 
 public class GameEventHandler implements MessageHandler {
-	private static final int DEFAULT_TTL = 5;
+	private static final int DEFAULT_TTL = 30;
 
 
 	private static Logger log = Logger.getLogger(GameEventHandler.class);
@@ -137,30 +137,38 @@ public class GameEventHandler implements MessageHandler {
 		  log.debug("Updating player to server maps for player: "+event.getPlayerId());
 		  if(playersByPlayerId.containsKey(event.getPlayerId())) {
 			  ConnectedPlayer p = playersByPlayerId.get(event.getPlayerId());
-			  p.setLastMessageSentToServer(new Date());
-			  if(!p.getIp_connection_id().equals(ip_connection_id) || !p.getServerHostName().equals(server.serverId())) {
-				  log.debug("Player is connected to a new socket or server");
-				  p.setIp_connection_id(ip_connection_id);
-				  p.setServerHostName(server.serverId());
-			  }
-			  playersByPlayerId.remove(p.getPlayerId());
-			  playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL, TimeUnit.MINUTES);
-		  }else {
-			  ConnectedPlayer newp = new ConnectedPlayer();
-			  newp.setIp_connection_id(ip_connection_id);
-			  newp.setServerHostName(server.serverId());
-			  if(event.getPlayerId() != -1) {
-				  log.info("Player logged on: "+event.getPlayerId());
-				  newp.setPlayerId(event.getPlayerId());
-				  playersByPlayerId.put(event.getPlayerId(), newp, DEFAULT_TTL, TimeUnit.MINUTES);
+			  if(p != null) {
+				  p.setLastMessageSentToServer(new Date());
+				  if(!p.getIp_connection_id().equals(ip_connection_id) || !p.getServerHostName().equals(server.serverId())) {
+					  log.debug("Player is connected to a new socket or server");
+					  p.setIp_connection_id(ip_connection_id);
+					  p.setServerHostName(server.serverId());
+				  }
+				  playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL, TimeUnit.MINUTES);
 			  }else {
-				  newp.setUdid(((PreDatabaseRequestEvent)event).getUdid());
-				  getPlayersPreDatabaseByUDID().put(newp.getUdid(), newp);
-				  log.info("New player with UdId: "+newp.getUdid());
+				  addNewConnection(event, ip_connection_id);
 			  }
+		  }else {
+			  addNewConnection(event, ip_connection_id);
 		  }
 		  
 	  }
+
+
+	private void addNewConnection(RequestEvent event, String ip_connection_id) {
+		ConnectedPlayer newp = new ConnectedPlayer();
+		  newp.setIp_connection_id(ip_connection_id);
+		  newp.setServerHostName(server.serverId());
+		  if(event.getPlayerId() != -1) {
+			  log.info("Player logged on: "+event.getPlayerId());
+			  newp.setPlayerId(event.getPlayerId());
+			  playersByPlayerId.put(event.getPlayerId(), newp, DEFAULT_TTL, TimeUnit.MINUTES);
+		  }else {
+			  newp.setUdid(((PreDatabaseRequestEvent)event).getUdid());
+			  getPlayersPreDatabaseByUDID().put(newp.getUdid(), newp);
+			  log.info("New player with UdId: "+newp.getUdid());
+		  }
+	}
 	  
 
 

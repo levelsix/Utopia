@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.hazelcast.com/schema/spring
+        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
+		">
+
+	
+	<bean id="cassandraHostConfigurator"
+		class="me.prettyprint.cassandra.service.CassandraHostConfigurator">
+		<constructor-arg value="${lvl6.cassandra.hosts}" />
+	</bean>
+	<bean id="cluster" class="me.prettyprint.cassandra.service.ThriftCluster">
+		<constructor-arg value="Test Cluster" />
+		<constructor-arg ref="cassandraHostConfigurator" />
+	</bean>
+	<bean id="keyspace" class="me.prettyprint.hector.api.factory.HFactory"
+		factory-method="createKeyspace">
+		<constructor-arg value="${lvl6.cassandra.keyspace}" />
+		<constructor-arg ref="cluster" />
+	</bean>
+
+	<bean id="cassandraUtil" class="com.lvl6.cassandra.CassandraUtilImpl" />
+</beans>
