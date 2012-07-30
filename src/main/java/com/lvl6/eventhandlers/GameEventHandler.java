@@ -142,8 +142,9 @@ public class GameEventHandler implements MessageHandler {
 				  log.debug("Player is connected to a new socket or server");
 				  p.setIp_connection_id(ip_connection_id);
 				  p.setServerHostName(server.serverId());
-				  playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL, TimeUnit.MINUTES);
 			  }
+			  playersByPlayerId.remove(p.getPlayerId());
+			  playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL, TimeUnit.MINUTES);
 		  }else {
 			  ConnectedPlayer newp = new ConnectedPlayer();
 			  newp.setIp_connection_id(ip_connection_id);
