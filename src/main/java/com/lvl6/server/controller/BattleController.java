@@ -402,7 +402,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (equip.getDiamondPrice() == Equipment.NOT_SET
             && equip.getMinLevel() < defender.getLevel()) {
           double rand = Math.random();
-          if (rand <= equip.getChanceOfLoss()) {
+          if (rand <= equip.getChanceOfLoss() / defenderEquip.getLevel()) {
             potentialLosses.add(defenderEquip);
           }
         }
