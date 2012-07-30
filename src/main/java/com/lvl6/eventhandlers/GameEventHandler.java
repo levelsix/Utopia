@@ -144,7 +144,6 @@ public class GameEventHandler implements MessageHandler {
 					  p.setIp_connection_id(ip_connection_id);
 					  p.setServerHostName(server.serverId());
 				  }
-				  playersByPlayerId.remove(p.getPlayerId());
 				  playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL, TimeUnit.MINUTES);
 			  }else {
 				  addNewConnection(event, ip_connection_id);
