@@ -59,19 +59,4 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-
-	<bean id="cassandraHostConfigurator"
-		class="me.prettyprint.cassandra.service.CassandraHostConfigurator">
-		<constructor-arg value="${lvl6.cassandra.hosts}" />
-	</bean>
-	<bean id="cluster" class="me.prettyprint.cassandra.service.ThriftCluster">
-		<constructor-arg value="Test Cluster" />
-		<constructor-arg ref="cassandraHostConfigurator" />
-	</bean>
-	<bean id="keyspace" class="me.prettyprint.hector.api.factory.HFactory"
-		factory-method="createKeyspace">
-		<constructor-arg value="${lvl6.cassandra.keyspace}" />
-		<constructor-arg ref="cluster" />
-	</bean>
-
 </beans>
