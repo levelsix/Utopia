@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
@@ -14,6 +15,7 @@ import org.springframework.integration.Message;
 import org.springframework.integration.MessagingException;
 import org.springframework.integration.core.MessageHandler;
 
+import com.hazelcast.core.IMap;
 import com.lvl6.events.PreDatabaseRequestEvent;
 import com.lvl6.events.RequestEvent;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -23,6 +25,9 @@ import com.lvl6.utils.Attachment;
 import com.lvl6.utils.ConnectedPlayer;
 
 public class GameEventHandler implements MessageHandler {
+	private static final int DEFAULT_TTL = 5;
+
+
 	private static Logger log = Logger.getLogger(GameEventHandler.class);
 	
 	
@@ -30,29 +35,29 @@ public class GameEventHandler implements MessageHandler {
 	GameServer server;
 		
 	@Resource(name="playersByPlayerId")
-	Map<Integer, ConnectedPlayer> playersByPlayerId;
+	IMap<Integer, ConnectedPlayer> playersByPlayerId;
 	
 	@Resource(name="playersPreDatabaseByUDID")
-	Map<String, ConnectedPlayer> playersPreDatabaseByUDID;
+	IMap<String, ConnectedPlayer> playersPreDatabaseByUDID;
 	
 	
-	public Map<String, ConnectedPlayer> getPlayersPreDatabaseByUDID() {
+	public IMap<String, ConnectedPlayer> getPlayersPreDatabaseByUDID() {
 		return playersPreDatabaseByUDID;
 	}
 
 
 	public void setPlayersPreDatabaseByUDID(
-			Map<String, ConnectedPlayer> playersPreDatabaseByUDID) {
+			IMap<String, ConnectedPlayer> playersPreDatabaseByUDID) {
 		this.playersPreDatabaseByUDID = playersPreDatabaseByUDID;
 	}
 
 
-	public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+	public IMap<Integer, ConnectedPlayer> getPlayersByPlayerId() {
 		return playersByPlayerId;
 	}
 
 
-	public void setPlayersByPlayerId(Map<Integer, ConnectedPlayer> playersByPlayerId) {
+	public void setPlayersByPlayerId(IMap<Integer, ConnectedPlayer> playersByPlayerId) {
 		this.playersByPlayerId = playersByPlayerId;
 	}
 
@@ -137,7 +142,7 @@ public class GameEventHandler implements MessageHandler {
 				  log.debug("Player is connected to a new socket or server");
 				  p.setIp_connection_id(ip_connection_id);
 				  p.setServerHostName(server.serverId());
-				  playersByPlayerId.put(event.getPlayerId(), p);
+				  playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL, TimeUnit.MINUTES);
 			  }
 		  }else {
 			  ConnectedPlayer newp = new ConnectedPlayer();
@@ -146,7 +151,7 @@ public class GameEventHandler implements MessageHandler {
 			  if(event.getPlayerId() != -1) {
 				  log.info("Player logged on: "+event.getPlayerId());
 				  newp.setPlayerId(event.getPlayerId());
-				  playersByPlayerId.put(event.getPlayerId(), newp);
+				  playersByPlayerId.put(event.getPlayerId(), newp, DEFAULT_TTL, TimeUnit.MINUTES);
 			  }else {
 				  newp.setUdid(((PreDatabaseRequestEvent)event).getUdid());
 				  getPlayersPreDatabaseByUDID().put(newp.getUdid(), newp);
