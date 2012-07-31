@@ -20,6 +20,7 @@
 
 	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
 
+	<import resource="classpath:spring-redis.xml" />
 	<import resource="classpath:spring-cassandra.xml" />
 	<import resource="classpath:spring-hazelcast.xml" />
 	<import resource="classpath:spring-db.xml" />
