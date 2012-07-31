@@ -17,6 +17,6 @@
 		<constructor-arg name="auth" value="${lvl6.jedis.auth}" />
 	</bean>
 	
-	
+	<bean id="leaderBoardUtil" class="com.lvl6.leaderboards.LeaderBoardUtilImpl" />
 
 </beans>

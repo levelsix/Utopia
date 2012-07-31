@@ -63,6 +63,8 @@
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
 		<wicket.mode>development</wicket.mode>
+		<lvl6.jedis.host>robot.lvl6.com</lvl6.jedis.host>
+		<lvl6.jedis.auth>L3v3lS!x_K!ngd0m$</lvl6.jedis.auth>
 	</properties>
 
 	<profiles>

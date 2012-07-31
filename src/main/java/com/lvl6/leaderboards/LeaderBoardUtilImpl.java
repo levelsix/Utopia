@@ -3,9 +3,6 @@ package com.lvl6.leaderboards;
 
 import javax.annotation.Resource;
 
-import redis.clients.jedis.Jedis;
-import com.lvl6.leaderboards.LeaderBoardConstants.*;
-
 public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	
 	
