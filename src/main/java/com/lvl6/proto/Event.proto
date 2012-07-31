@@ -1509,6 +1509,7 @@ message FinishForgeAttemptWaittimeWithDiamondsResponseProto {
     	ALREADY_COMPLETE = 4;
     }
 }
+
 //------------------------------------------------------------------------------------------
 
 message CollectForgeEquipsRequestProto {
@@ -1526,5 +1527,32 @@ message CollectForgeEquipsResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		NOT_DONE_YET = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message CharacterModRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional ModType modType = 2;
+	
+	enum ModType {
+		NEW_PLAYER = 1;
+		RESET_SKILL_POINTS = 2;
+		CHANGE_CHARACTER_TYPE = 3;
+		CHANGE_NAME = 4;			
+	}
+}
+
+message CharacterModResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated CharacterModStatus status = 2;
+	
+	enum CharacterModStatus {
+		SUCCESS = 0;
+		INVALID_NAME = 1;
+		NOT_ENOUGH_DIAMONDS = 2;
+		OTHER_FAIL = 3;
+		CANNOT_CHANGE_TO_OPPOSING_SIDE_WHEN_IN_CLAN = 4;
 	}
 }
