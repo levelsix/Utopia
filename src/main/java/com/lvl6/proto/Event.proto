@@ -1536,6 +1536,9 @@ message CharacterModRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional ModType modType = 2;
 	
+	optional UserType newUserType = 3;
+	optional string newName = 4;
+	
 	enum ModType {
 		NEW_PLAYER = 1;
 		RESET_SKILL_POINTS = 2;
