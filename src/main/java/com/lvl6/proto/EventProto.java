@@ -94130,6 +94130,14 @@ public final class EventProto {
     // optional .com.lvl6.proto.CharacterModRequestProto.ModType modType = 2;
     boolean hasModType();
     com.lvl6.proto.EventProto.CharacterModRequestProto.ModType getModType();
+    
+    // optional .com.lvl6.proto.UserType newUserType = 3;
+    boolean hasNewUserType();
+    com.lvl6.proto.InfoProto.UserType getNewUserType();
+    
+    // optional string newName = 4;
+    boolean hasNewName();
+    String getNewName();
   }
   public static final class CharacterModRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -94258,9 +94266,53 @@ public final class EventProto {
       return modType_;
     }
     
+    // optional .com.lvl6.proto.UserType newUserType = 3;
+    public static final int NEWUSERTYPE_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.UserType newUserType_;
+    public boolean hasNewUserType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.UserType getNewUserType() {
+      return newUserType_;
+    }
+    
+    // optional string newName = 4;
+    public static final int NEWNAME_FIELD_NUMBER = 4;
+    private java.lang.Object newName_;
+    public boolean hasNewName() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public String getNewName() {
+      java.lang.Object ref = newName_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          newName_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getNewNameBytes() {
+      java.lang.Object ref = newName_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        newName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       modType_ = com.lvl6.proto.EventProto.CharacterModRequestProto.ModType.NEW_PLAYER;
+      newUserType_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+      newName_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -94280,6 +94332,12 @@ public final class EventProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeEnum(2, modType_.getNumber());
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, newUserType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getNewNameBytes());
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -94296,6 +94354,14 @@ public final class EventProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, modType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, newUserType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getNewNameBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -94430,6 +94496,10 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         modType_ = com.lvl6.proto.EventProto.CharacterModRequestProto.ModType.NEW_PLAYER;
         bitField0_ = (bitField0_ & ~0x00000002);
+        newUserType_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        newName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
@@ -94480,6 +94550,14 @@ public final class EventProto {
           to_bitField0_ |= 0x00000002;
         }
         result.modType_ = modType_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.newUserType_ = newUserType_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.newName_ = newName_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -94501,6 +94579,12 @@ public final class EventProto {
         }
         if (other.hasModType()) {
           setModType(other.getModType());
+        }
+        if (other.hasNewUserType()) {
+          setNewUserType(other.getNewUserType());
+        }
+        if (other.hasNewName()) {
+          setNewName(other.getNewName());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -94551,6 +94635,22 @@ public final class EventProto {
                 bitField0_ |= 0x00000002;
                 modType_ = value;
               }
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.UserType value = com.lvl6.proto.InfoProto.UserType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                newUserType_ = value;
+              }
+              break;
+            }
+            case 34: {
+              bitField0_ |= 0x00000008;
+              newName_ = input.readBytes();
               break;
             }
           }
@@ -94671,6 +94771,66 @@ public final class EventProto {
         modType_ = com.lvl6.proto.EventProto.CharacterModRequestProto.ModType.NEW_PLAYER;
         onChanged();
         return this;
+      }
+      
+      // optional .com.lvl6.proto.UserType newUserType = 3;
+      private com.lvl6.proto.InfoProto.UserType newUserType_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+      public boolean hasNewUserType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.UserType getNewUserType() {
+        return newUserType_;
+      }
+      public Builder setNewUserType(com.lvl6.proto.InfoProto.UserType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        newUserType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNewUserType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        newUserType_ = com.lvl6.proto.InfoProto.UserType.GOOD_WARRIOR;
+        onChanged();
+        return this;
+      }
+      
+      // optional string newName = 4;
+      private java.lang.Object newName_ = "";
+      public boolean hasNewName() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public String getNewName() {
+        java.lang.Object ref = newName_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          newName_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setNewName(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        newName_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNewName() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        newName_ = getDefaultInstance().getNewName();
+        onChanged();
+        return this;
+      }
+      void setNewName(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000008;
+        newName_ = value;
+        onChanged();
       }
       
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.CharacterModRequestProto)
@@ -96772,20 +96932,22 @@ public final class EventProto {
       "geEquipsResponseProto.CollectForgeEquips" +
       "Status\"I\n\030CollectForgeEquipsStatus\022\013\n\007SU" +
       "CCESS\020\000\022\016\n\nOTHER_FAIL\020\001\022\020\n\014NOT_DONE_YET\020" +
-      "\002\"\356\001\n\030CharacterModRequestProto\0220\n\006sender" +
+      "\002\"\256\002\n\030CharacterModRequestProto\0220\n\006sender" +
       "\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProto",
       "\022A\n\007modType\030\002 \001(\01620.com.lvl6.proto.Chara" +
-      "cterModRequestProto.ModType\"]\n\007ModType\022\016" +
-      "\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL_POINTS\020\002\022\031" +
-      "\n\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013CHANGE_NAME" +
-      "\020\004\"\253\002\n\031CharacterModResponseProto\0220\n\006send" +
-      "er\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPro" +
-      "to\022L\n\006status\030\002 \003(\0162<.com.lvl6.proto.Char" +
-      "acterModResponseProto.CharacterModStatus" +
-      "\"\215\001\n\022CharacterModStatus\022\013\n\007SUCCESS\020\000\022\020\n\014" +
-      "INVALID_NAME\020\001\022\027\n\023NOT_ENOUGH_DIAMONDS\020\002\022",
-      "\016\n\nOTHER_FAIL\020\003\022/\n+CANNOT_CHANGE_TO_OPPO" +
-      "SING_SIDE_WHEN_IN_CLAN\020\004B\014B\nEventProto"
+      "cterModRequestProto.ModType\022-\n\013newUserTy" +
+      "pe\030\003 \001(\0162\030.com.lvl6.proto.UserType\022\017\n\007ne" +
+      "wName\030\004 \001(\t\"]\n\007ModType\022\016\n\nNEW_PLAYER\020\001\022\026" +
+      "\n\022RESET_SKILL_POINTS\020\002\022\031\n\025CHANGE_CHARACT" +
+      "ER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004\"\253\002\n\031Character" +
+      "ModResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
+      "vl6.proto.MinimumUserProto\022L\n\006status\030\002 \003" +
+      "(\0162<.com.lvl6.proto.CharacterModResponse" +
+      "Proto.CharacterModStatus\"\215\001\n\022CharacterMo",
+      "dStatus\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\027" +
+      "\n\023NOT_ENOUGH_DIAMONDS\020\002\022\016\n\nOTHER_FAIL\020\003\022" +
+      "/\n+CANNOT_CHANGE_TO_OPPOSING_SIDE_WHEN_I" +
+      "N_CLAN\020\004B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -97733,7 +97895,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_CharacterModRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_CharacterModRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "ModType", },
+              new java.lang.String[] { "Sender", "ModType", "NewUserType", "NewName", },
               com.lvl6.proto.EventProto.CharacterModRequestProto.class,
               com.lvl6.proto.EventProto.CharacterModRequestProto.Builder.class);
           internal_static_com_lvl6_proto_CharacterModResponseProto_descriptor =
