@@ -94852,10 +94852,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // repeated .com.lvl6.proto.CharacterModResponseProto.CharacterModStatus status = 2;
-    java.util.List<com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus> getStatusList();
-    int getStatusCount();
-    com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus getStatus(int index);
+    // optional .com.lvl6.proto.CharacterModResponseProto.CharacterModStatus status = 2;
+    boolean hasStatus();
+    com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus getStatus();
   }
   public static final class CharacterModResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -94977,22 +94976,19 @@ public final class EventProto {
       return sender_;
     }
     
-    // repeated .com.lvl6.proto.CharacterModResponseProto.CharacterModStatus status = 2;
+    // optional .com.lvl6.proto.CharacterModResponseProto.CharacterModStatus status = 2;
     public static final int STATUS_FIELD_NUMBER = 2;
-    private java.util.List<com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus> status_;
-    public java.util.List<com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus> getStatusList() {
+    private com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus status_;
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus getStatus() {
       return status_;
-    }
-    public int getStatusCount() {
-      return status_.size();
-    }
-    public com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus getStatus(int index) {
-      return status_.get(index);
     }
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      status_ = java.util.Collections.emptyList();
+      status_ = com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus.SUCCESS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -95009,8 +95005,8 @@ public final class EventProto {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, sender_);
       }
-      for (int i = 0; i < status_.size(); i++) {
-        output.writeEnum(2, status_.get(i).getNumber());
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -95025,14 +95021,9 @@ public final class EventProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, sender_);
       }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < status_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeEnumSizeNoTag(status_.get(i).getNumber());
-        }
-        size += dataSize;
-        size += 1 * status_.size();
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -95165,7 +95156,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = java.util.Collections.emptyList();
+        status_ = com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -95213,9 +95204,8 @@ public final class EventProto {
         } else {
           result.sender_ = senderBuilder_.build();
         }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          status_ = java.util.Collections.unmodifiableList(status_);
-          bitField0_ = (bitField0_ & ~0x00000002);
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
         }
         result.status_ = status_;
         result.bitField0_ = to_bitField0_;
@@ -95237,15 +95227,8 @@ public final class EventProto {
         if (other.hasSender()) {
           mergeSender(other.getSender());
         }
-        if (!other.status_.isEmpty()) {
-          if (status_.isEmpty()) {
-            status_ = other.status_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-          } else {
-            ensureStatusIsMutable();
-            status_.addAll(other.status_);
-          }
-          onChanged();
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -95293,23 +95276,9 @@ public final class EventProto {
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
-                addStatus(value);
+                bitField0_ |= 0x00000002;
+                status_ = value;
               }
-              break;
-            }
-            case 18: {
-              int length = input.readRawVarint32();
-              int oldLimit = input.pushLimit(length);
-              while(input.getBytesUntilLimit() > 0) {
-                int rawValue = input.readEnum();
-                com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus value = com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(2, rawValue);
-                } else {
-                  addStatus(value);
-                }
-              }
-              input.popLimit(oldLimit);
               break;
             }
           }
@@ -95408,53 +95377,26 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // repeated .com.lvl6.proto.CharacterModResponseProto.CharacterModStatus status = 2;
-      private java.util.List<com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus> status_ =
-        java.util.Collections.emptyList();
-      private void ensureStatusIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          status_ = new java.util.ArrayList<com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus>(status_);
-          bitField0_ |= 0x00000002;
-        }
+      // optional .com.lvl6.proto.CharacterModResponseProto.CharacterModStatus status = 2;
+      private com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus status_ = com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus.SUCCESS;
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public java.util.List<com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus> getStatusList() {
-        return java.util.Collections.unmodifiableList(status_);
+      public com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus getStatus() {
+        return status_;
       }
-      public int getStatusCount() {
-        return status_.size();
-      }
-      public com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus getStatus(int index) {
-        return status_.get(index);
-      }
-      public Builder setStatus(
-          int index, com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus value) {
+      public Builder setStatus(com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensureStatusIsMutable();
-        status_.set(index, value);
-        onChanged();
-        return this;
-      }
-      public Builder addStatus(com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureStatusIsMutable();
-        status_.add(value);
-        onChanged();
-        return this;
-      }
-      public Builder addAllStatus(
-          java.lang.Iterable<? extends com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus> values) {
-        ensureStatusIsMutable();
-        super.addAll(values, status_);
+        bitField0_ |= 0x00000002;
+        status_ = value;
         onChanged();
         return this;
       }
       public Builder clearStatus() {
-        status_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus.SUCCESS;
         onChanged();
         return this;
       }
@@ -96941,7 +96883,7 @@ public final class EventProto {
       "\n\022RESET_SKILL_POINTS\020\002\022\031\n\025CHANGE_CHARACT" +
       "ER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004\"\253\002\n\031Character" +
       "ModResponseProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022L\n\006status\030\002 \003" +
+      "vl6.proto.MinimumUserProto\022L\n\006status\030\002 \001" +
       "(\0162<.com.lvl6.proto.CharacterModResponse" +
       "Proto.CharacterModStatus\"\215\001\n\022CharacterMo",
       "dStatus\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\027" +

@@ -1549,7 +1549,7 @@ message CharacterModRequestProto {
 
 message CharacterModResponseProto {
 	optional MinimumUserProto sender = 1;
-	repeated CharacterModStatus status = 2;
+	optional CharacterModStatus status = 2;
 	
 	enum CharacterModStatus {
 		SUCCESS = 0;
