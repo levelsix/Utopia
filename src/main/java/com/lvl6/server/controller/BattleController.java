@@ -138,11 +138,6 @@ public void setLeaderboard(LeaderBoardUtil leaderboard) {
           loser = attacker;
         }
         
-        
-        updateLeaderboards(winner, loser);
-        
-        
-        
         Random random = new Random();
         lostCoins = calculateLostCoins(winner, loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
@@ -162,7 +157,7 @@ public void setLeaderboard(LeaderBoardUtil leaderboard) {
       if (legitBattle) {
         writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
-
+        updateLeaderboards(winner, loser);
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
             .createUpdateClientUserResponseEvent(attacker);
         resEventAttacker.setTag(event.getTag());
@@ -208,11 +203,15 @@ public void setLeaderboard(LeaderBoardUtil leaderboard) {
 	private void updateLeaderboards(User winner, User loser) {
 		//if leaderboard stats don't need to be real time then 
 		//should make leaderboard calcs async
-		leaderboard.incrementTotalBattlesForUser(winner.getId());
-		leaderboard.incrementTotalBattlesForUser(loser.getId());
-		leaderboard.incrementBattlesWonForUser(winner.getId());
-		setBattlesWonRatioForUser(winner);
-		setBattlesWonRatioForUser(loser);
+		if(winner != null) {
+			leaderboard.incrementTotalBattlesForUser(winner.getId());
+			leaderboard.incrementBattlesWonForUser(winner.getId());
+			setBattlesWonRatioForUser(winner);
+		}
+		if(loser != null) {
+			leaderboard.incrementTotalBattlesForUser(loser.getId());
+			setBattlesWonRatioForUser(loser);
+		}
 	}
 
 	private void setBattlesWonRatioForUser(User user) {
