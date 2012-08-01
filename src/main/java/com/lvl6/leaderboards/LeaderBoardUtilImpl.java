@@ -1,6 +1,10 @@
 package com.lvl6.leaderboards;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 public class LeaderBoardUtilImpl implements LeaderBoardUtil {
@@ -32,12 +36,10 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	@Override
 	public void incrementBattlesWonForUser(Integer userId) {
 		jedis.zincrby(LeaderBoardConstants.BATTLES_WON, 1d, userId.toString());
-		
 	}
 	@Override
 	public void incrementTotalBattlesForUser(Integer userId) {
 		jedis.zincrby(LeaderBoardConstants.BATTLES_TOTAL, 1d, userId.toString());
-		
 	}
 	@Override
 	public void incrementBattlesWonOverTotalBattlesRatioForUser(Integer userId) {
@@ -91,6 +93,63 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	@Override
 	public double getTasksCompletedForUser(Integer userId) {
 		return jedis.zscore(LeaderBoardConstants.TASKS_COMPLETED, userId.toString());
+	}
+	@Override
+	public double getBattlesWonRankForUser(Integer userId) {
+		return jedis.zrevrank(LeaderBoardConstants.BATTLES_WON, userId.toString());
+	}
+	@Override
+	public double getTotalBattlesRankForUser(Integer userId) {
+		return jedis.zrevrank(LeaderBoardConstants.BATTLES_TOTAL, userId.toString());
+	}
+	@Override
+	public double getBattlesWonOverTotalBattlesRatioRankForUser(Integer userId) {
+		return jedis.zrevrank(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, userId.toString());
+	}
+	@Override
+	public double getSilverForRankUser(Integer userId) {
+		return jedis.zrevrank(LeaderBoardConstants.SILVER, userId.toString());
+	}
+	@Override
+	public double getTasksCompletedRankForUser(Integer userId) {
+		return jedis.zrevrank(LeaderBoardConstants.TASKS_COMPLETED, userId.toString());
+	}
+	@Override
+	public List<Integer> getBattlesWonTopN(Integer start, Integer stop) {
+		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.BATTLES_WON, start, stop);
+		return convertToIdStringsToInts(ids);
+	}
+	
+	@Override
+	public List<Integer> getTotalBattlesTopN(Integer start, Integer stop) {
+		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.BATTLES_TOTAL, start, stop);
+		return convertToIdStringsToInts(ids);
+	}
+	@Override
+	public List<Integer> getBattlesWonOverTotalBattlesRatioTopN(Integer start,Integer stop) {
+		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, start, stop);
+		return convertToIdStringsToInts(ids);
+	}
+	@Override
+	public List<Integer> getSilverForTopN(Integer start, Integer stop) {
+		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.SILVER, start, stop);
+		return convertToIdStringsToInts(ids);
+	}
+	@Override
+	public List<Integer> getTasksCompletedTopN(Integer start, Integer stop) {
+		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.TASKS_COMPLETED, start, stop);
+		return convertToIdStringsToInts(ids);
+	}
+
+
+	protected List<Integer> convertToIdStringsToInts(Set<String> ids) {
+		List<Integer> userIds = new ArrayList<Integer>();
+		if(ids != null) {
+			for(String id:ids) {
+				userIds.add(Integer.getInteger(id));
+			}
+		}
+		return userIds;
 	}
 	
 	
