@@ -1,15 +1,32 @@
 package com.lvl6.leaderboards;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	
+	protected JdbcTemplate jdbc;
 	
+	@Resource
+	protected DataSource dataSource;
+	
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+		jdbc = new JdbcTemplate(dataSource);
+	}
 	
 	@Resource
 	protected Lvl6Jedis jedis;
@@ -151,6 +168,81 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		}
 		return userIds;
 	}
+	
+	
+	
+	
+	
+	@Override
+	public void updateLeaderboardForUser(Integer userId) {
+		List<UserLeaderBoardStats> stats = jdbc.query("select coins, tasks_completed, battles_won, battles_lost from users where id = "+userId,
+				new RowMapper<UserLeaderBoardStats>() {
+					@Override
+					public UserLeaderBoardStats mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						UserLeaderBoardStats stats = new UserLeaderBoardStats();
+						stats.setBattles_lost(rs.getInt("battles_lost"));
+						stats.setBattles_won(rs.getInt("battles_won"));
+						stats.setCoins(rs.getLong("coins"));
+						stats.setTasks_completed(rs.getInt("tasks_completed"));
+						return stats;
+					}
+			
+		});
+		UserLeaderBoardStats stat = stats.get(0);
+		if(stat != null) {
+			setBattlesWonForUser(userId, stat.getBattles_won().doubleValue());
+			setBattlesWonOverTotalBattlesRatioForUser(userId, stat.battlesWonOfTotalBattles());
+			setTasksCompletedForUser(userId, stat.getTasks_completed().doubleValue());
+			setSilverForUser(userId, stat.getCoins().doubleValue());
+		}
+	}
+	
+	protected class UserLeaderBoardStats{
+		Long coins;
+		Integer tasks_completed;
+		Integer battles_won;
+		Integer battles_lost;
+
+		public Long getCoins() {
+			return coins;
+		}
+		public void setCoins(Long coins) {
+			this.coins = coins;
+		}
+		public Integer getTasks_completed() {
+			return tasks_completed;
+		}
+		public void setTasks_completed(Integer tasks_completed) {
+			this.tasks_completed = tasks_completed;
+		}
+		public Integer getBattles_won() {
+			return battles_won;
+		}
+		public void setBattles_won(Integer battles_won) {
+			this.battles_won = battles_won;
+		}
+		public Integer getBattles_lost() {
+			return battles_lost;
+		}
+		public void setBattles_lost(Integer battles_lost) {
+			this.battles_lost = battles_lost;
+		}
+		
+		public Double battlesWonOfTotalBattles() {
+			return battles_won.doubleValue()/(battles_lost.doubleValue()+battles_won);
+		}
+	}
+
+	@Override
+	public void updateLeaderboardCoinsForUser(Integer userId) {
+		Long silver = jdbc.queryForLong("select coins from user where id = ?", userId);
+		if(silver != null) {
+			setSilverForUser(userId, silver.doubleValue());
+		}
+	}
+	
+	
 	
 	
 }

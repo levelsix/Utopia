@@ -7,6 +7,7 @@ public interface LeaderBoardUtil {
 	public abstract Lvl6Jedis getJedis();
 
 	public abstract void setJedis(Lvl6Jedis jedis);
+	
 
 	public abstract void setBattlesWonForUser(Integer userId, Double battlesWon);
 	public abstract void setTotalBattlesForUser(Integer userId, Double totalBattles);
@@ -38,5 +39,9 @@ public interface LeaderBoardUtil {
 	public abstract List<Integer> getBattlesWonOverTotalBattlesRatioTopN(Integer start, Integer stop);
 	public abstract List<Integer> getSilverForTopN(Integer start, Integer stop );
 	public abstract List<Integer> getTasksCompletedTopN(Integer start, Integer stop);
+	
+	public abstract void updateLeaderboardForUser(Integer userId);
+	public abstract void updateLeaderboardCoinsForUser(Integer userId);
+		
 	
 }

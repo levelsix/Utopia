@@ -157,7 +157,7 @@ public void setLeaderboard(LeaderBoardUtil leaderboard) {
       if (legitBattle) {
         writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
-        updateLeaderboards(winner, loser);
+        
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
             .createUpdateClientUserResponseEvent(attacker);
         resEventAttacker.setTag(event.getTag());
@@ -192,6 +192,8 @@ public void setLeaderboard(LeaderBoardUtil leaderboard) {
                 + " at " + battleTime);
           }
         }
+        leaderboard.updateLeaderboardForUser(attacker.getId());
+        leaderboard.updateLeaderboardForUser(defender.getId());
       }
     } catch (Exception e) {
       log.error("exception in BattleController processEvent", e);
@@ -200,25 +202,7 @@ public void setLeaderboard(LeaderBoardUtil leaderboard) {
     }
   }
 
-	private void updateLeaderboards(User winner, User loser) {
-		//if leaderboard stats don't need to be real time then 
-		//should make leaderboard calcs async
-		if(winner != null) {
-			leaderboard.incrementTotalBattlesForUser(winner.getId());
-			leaderboard.incrementBattlesWonForUser(winner.getId());
-			setBattlesWonRatioForUser(winner);
-		}
-		if(loser != null) {
-			leaderboard.incrementTotalBattlesForUser(loser.getId());
-			setBattlesWonRatioForUser(loser);
-		}
-	}
 
-	private void setBattlesWonRatioForUser(User user) {
-		Double wins = leaderboard.getBattlesWonForUser(user.getId());
-		Double total = leaderboard.getTotalBattlesForUser(user.getId());
-		leaderboard.setBattlesWonOverTotalBattlesRatioForUser(user.getId(), wins/total);
-	}
 
   private UserEquip setLostEquip(BattleResponseProto.Builder resBuilder,
       UserEquip lostEquip, User winner, User loser) {
