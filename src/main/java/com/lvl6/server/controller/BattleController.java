@@ -21,6 +21,7 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
@@ -49,8 +50,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-
   @Autowired
+  protected LeaderBoardUtil leaderboard;
+
+  public LeaderBoardUtil getLeaderboard() {
+	return leaderboard;
+}
+
+public void setLeaderboard(LeaderBoardUtil leaderboard) {
+	this.leaderboard = leaderboard;
+}
+
+@Autowired
   protected InsertUtil insertUtils;
 
   public void setInsertUtils(InsertUtil insertUtils) {
@@ -126,7 +137,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           winner = defender;
           loser = attacker;
         }
-
+        
+        
+        updateLeaderboards(winner, loser);
+        
+        
+        
         Random random = new Random();
         lostCoins = calculateLostCoins(winner, loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
@@ -188,6 +204,22 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
   }
+
+	private void updateLeaderboards(User winner, User loser) {
+		//if leaderboard stats don't need to be real time then 
+		//should make leaderboard calcs async
+		leaderboard.incrementTotalBattlesForUser(winner.getId());
+		leaderboard.incrementTotalBattlesForUser(loser.getId());
+		leaderboard.incrementBattlesWonForUser(winner.getId());
+		setBattlesWonRatioForUser(winner);
+		setBattlesWonRatioForUser(loser);
+	}
+
+	private void setBattlesWonRatioForUser(User user) {
+		Double wins = leaderboard.getBattlesWonForUser(user.getId());
+		Double total = leaderboard.getTotalBattlesForUser(user.getId());
+		leaderboard.setBattlesWonOverTotalBattlesRatioForUser(user.getId(), wins/total);
+	}
 
   private UserEquip setLostEquip(BattleResponseProto.Builder resBuilder,
       UserEquip lostEquip, User winner, User loser) {
