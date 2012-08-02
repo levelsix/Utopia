@@ -32,7 +32,7 @@ public class AdminPage extends TemplatePage {
 	}
 	
 	private void setIsSandbox() {
-		add(new Label("isSandbox", ""+Globals.IS_SANDBOX()));
+		add(new Label("isSandbox", "Sandbox: "+Globals.IS_SANDBOX()));
 	}
 	
 	
