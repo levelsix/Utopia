@@ -206,6 +206,9 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__ENERGY_BASE_COST = 1;
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
   
+  //EARN FREE DIAMONDS
+  public static final int EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD = 20;
+  
   //VAULT
   public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
   
