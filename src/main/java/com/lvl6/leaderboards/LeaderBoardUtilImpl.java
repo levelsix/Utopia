@@ -10,10 +10,15 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class LeaderBoardUtilImpl implements LeaderBoardUtil {
+	
+	Logger log = LoggerFactory.getLogger(getClass());
+	
 	
 	protected JdbcTemplate jdbc;
 	
@@ -175,28 +180,46 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	
 	@Override
 	public void updateLeaderboardForUser(Integer userId) {
-		List<UserLeaderBoardStats> stats = jdbc.query("select coins, tasks_completed, battles_won, battles_lost from users where id = "+userId,
-				new RowMapper<UserLeaderBoardStats>() {
-					@Override
-					public UserLeaderBoardStats mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						UserLeaderBoardStats stats = new UserLeaderBoardStats();
-						stats.setBattles_lost(rs.getInt("battles_lost"));
-						stats.setBattles_won(rs.getInt("battles_won"));
-						stats.setCoins(rs.getLong("coins"));
-						stats.setTasks_completed(rs.getInt("tasks_completed"));
-						return stats;
-					}
-			
-		});
-		UserLeaderBoardStats stat = stats.get(0);
-		if(stat != null) {
-			setBattlesWonForUser(userId, stat.getBattles_won().doubleValue());
-			setBattlesWonOverTotalBattlesRatioForUser(userId, stat.battlesWonOfTotalBattles());
-			setTasksCompletedForUser(userId, stat.getTasks_completed().doubleValue());
-			setSilverForUser(userId, stat.getCoins().doubleValue());
+		try {
+			List<UserLeaderBoardStats> stats = jdbc.query("select coins, tasks_completed, battles_won, battles_lost from users where id = "+userId,
+					new RowMapper<UserLeaderBoardStats>() {
+						@Override
+						public UserLeaderBoardStats mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							UserLeaderBoardStats stats = new UserLeaderBoardStats();
+							stats.setBattles_lost(rs.getInt("battles_lost"));
+							stats.setBattles_won(rs.getInt("battles_won"));
+							stats.setCoins(rs.getLong("coins"));
+							stats.setTasks_completed(rs.getInt("tasks_completed"));
+							return stats;
+						}
+				
+			});
+			UserLeaderBoardStats stat = stats.get(0);
+			if(stat != null) {
+				setBattlesWonForUser(userId, stat.getBattles_won().doubleValue());
+				setBattlesWonOverTotalBattlesRatioForUser(userId, stat.battlesWonOfTotalBattles());
+				setTasksCompletedForUser(userId, stat.getTasks_completed().doubleValue());
+				setSilverForUser(userId, stat.getCoins().doubleValue());
+			}
+		}catch(Exception e) {
+			log.error("Error updating leaderboard for user: "+userId, e);
 		}
 	}
+	
+	@Override
+	public void updateLeaderboardCoinsForUser(Integer userId) {
+		try {
+			Long silver = jdbc.queryForLong("select coins from user where id = ?", userId);
+			if(silver != null) {
+				setSilverForUser(userId, silver.doubleValue());
+			}
+		}catch(Exception e) {
+			log.error("Error updating leaderboard coins for user: "+userId, e);
+		}
+	}
+
+	
 	
 	protected class UserLeaderBoardStats{
 		Long coins;
@@ -234,13 +257,6 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		}
 	}
 
-	@Override
-	public void updateLeaderboardCoinsForUser(Integer userId) {
-		Long silver = jdbc.queryForLong("select coins from user where id = ?", userId);
-		if(silver != null) {
-			setSilverForUser(userId, silver.doubleValue());
-		}
-	}
 	
 	
 	
