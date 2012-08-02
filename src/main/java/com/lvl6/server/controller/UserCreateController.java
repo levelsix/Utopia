@@ -36,6 +36,7 @@ import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -116,8 +117,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       int playerExp = taskCompleted.getExpGained() * taskCompleted.getNumForCompletion() + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_EXP_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_EXP_GAINED;
       int playerCoins = ControllerConstants.TUTORIAL__INIT_COINS + MiscMethods.calculateCoinsGainedFromTutorialTask(taskCompleted) + ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_COIN_GAIN + ControllerConstants.TUTORIAL__FAKE_QUEST_COINS_GAINED
-          - EquipmentRetrieveUtils.getEquipmentIdsToEquipment()
-          .get(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD).getCoinPrice(); 
+          - StructureRetrieveUtils.getStructForStructId(ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD).getCoinPrice(); 
       if (referrer != null) playerCoins += ControllerConstants.USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED;
 
       int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
