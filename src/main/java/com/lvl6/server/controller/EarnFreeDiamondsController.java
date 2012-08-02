@@ -26,6 +26,7 @@ import com.lvl6.events.response.EarnFreeDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.TwoLeggedOAuth;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto;
@@ -304,15 +305,22 @@ public class EarnFreeDiamondsController extends EventController {
     return true;  
   }
 
-  private boolean checkLegitAdColonyRedeem(Builder resBuilder, String adColonyDigest, int adColonyDiamondsEarned, AdColonyRewardType adColonyRewardType, User user, Timestamp clientTime) {
+  private boolean checkLegitAdColonyRedeem(Builder resBuilder, String adColonyDigest, int adColonyAmountEarned, AdColonyRewardType adColonyRewardType, User user, Timestamp clientTime) {
     if (adColonyDigest == null || (adColonyRewardType != AdColonyRewardType.DIAMONDS && adColonyRewardType != AdColonyRewardType.COINS)) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("no digest given for AdColony");
       return false;
     }
-    if (adColonyDiamondsEarned <= 0) {
+    if (adColonyRewardType == AdColonyRewardType.DIAMONDS) {
+      if ((user.getNumAdColonyVideosWatched()+1) % ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD != 0) {
+        resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
+        log.error("not supposed to get diamonds yet, user before this try has only watched " + user.getNumAdColonyVideosWatched() + " videos");
+        return false;
+      }
+    }
+    if (adColonyAmountEarned <= 0) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
-      log.error("<= 0 gold given from AdColony");
+      log.error("<= 0 diamonds given from AdColony");
       return false;
     }
     return true;
