@@ -86551,9 +86551,13 @@ public final class EventProto {
     boolean hasAdColonyDigest();
     String getAdColonyDigest();
     
-    // optional int32 adColonyDiamondsEarned = 6;
-    boolean hasAdColonyDiamondsEarned();
-    int getAdColonyDiamondsEarned();
+    // optional int32 adColonyAmountEarned = 6;
+    boolean hasAdColonyAmountEarned();
+    int getAdColonyAmountEarned();
+    
+    // optional .com.lvl6.proto.EarnFreeDiamondsRequestProto.AdColonyRewardType adColonyRewardType = 7;
+    boolean hasAdColonyRewardType();
+    com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType getAdColonyRewardType();
   }
   public static final class EarnFreeDiamondsRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -86581,6 +86585,75 @@ public final class EventProto {
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_fieldAccessorTable;
+    }
+    
+    public enum AdColonyRewardType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      DIAMONDS(0, 1),
+      COINS(1, 2),
+      ;
+      
+      public static final int DIAMONDS_VALUE = 1;
+      public static final int COINS_VALUE = 2;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static AdColonyRewardType valueOf(int value) {
+        switch (value) {
+          case 1: return DIAMONDS;
+          case 2: return COINS;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<AdColonyRewardType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<AdColonyRewardType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<AdColonyRewardType>() {
+              public AdColonyRewardType findValueByNumber(int number) {
+                return AdColonyRewardType.valueOf(number);
+              }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final AdColonyRewardType[] VALUES = {
+        DIAMONDS, COINS, 
+      };
+      
+      public static AdColonyRewardType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      
+      private final int index;
+      private final int value;
+      
+      private AdColonyRewardType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.EarnFreeDiamondsRequestProto.AdColonyRewardType)
     }
     
     private int bitField0_;
@@ -86681,14 +86754,24 @@ public final class EventProto {
       }
     }
     
-    // optional int32 adColonyDiamondsEarned = 6;
-    public static final int ADCOLONYDIAMONDSEARNED_FIELD_NUMBER = 6;
-    private int adColonyDiamondsEarned_;
-    public boolean hasAdColonyDiamondsEarned() {
+    // optional int32 adColonyAmountEarned = 6;
+    public static final int ADCOLONYAMOUNTEARNED_FIELD_NUMBER = 6;
+    private int adColonyAmountEarned_;
+    public boolean hasAdColonyAmountEarned() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
-    public int getAdColonyDiamondsEarned() {
-      return adColonyDiamondsEarned_;
+    public int getAdColonyAmountEarned() {
+      return adColonyAmountEarned_;
+    }
+    
+    // optional .com.lvl6.proto.EarnFreeDiamondsRequestProto.AdColonyRewardType adColonyRewardType = 7;
+    public static final int ADCOLONYREWARDTYPE_FIELD_NUMBER = 7;
+    private com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType adColonyRewardType_;
+    public boolean hasAdColonyRewardType() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType getAdColonyRewardType() {
+      return adColonyRewardType_;
     }
     
     private void initFields() {
@@ -86697,7 +86780,8 @@ public final class EventProto {
       clientTime_ = 0L;
       kiipReceipt_ = "";
       adColonyDigest_ = "";
-      adColonyDiamondsEarned_ = 0;
+      adColonyAmountEarned_ = 0;
+      adColonyRewardType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType.DIAMONDS;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -86727,7 +86811,10 @@ public final class EventProto {
         output.writeBytes(5, getAdColonyDigestBytes());
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt32(6, adColonyDiamondsEarned_);
+        output.writeInt32(6, adColonyAmountEarned_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeEnum(7, adColonyRewardType_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -86760,7 +86847,11 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, adColonyDiamondsEarned_);
+          .computeInt32Size(6, adColonyAmountEarned_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, adColonyRewardType_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -86901,8 +86992,10 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000008);
         adColonyDigest_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
-        adColonyDiamondsEarned_ = 0;
+        adColonyAmountEarned_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
+        adColonyRewardType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType.DIAMONDS;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
       
@@ -86968,7 +87061,11 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.adColonyDiamondsEarned_ = adColonyDiamondsEarned_;
+        result.adColonyAmountEarned_ = adColonyAmountEarned_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.adColonyRewardType_ = adColonyRewardType_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -87000,8 +87097,11 @@ public final class EventProto {
         if (other.hasAdColonyDigest()) {
           setAdColonyDigest(other.getAdColonyDigest());
         }
-        if (other.hasAdColonyDiamondsEarned()) {
-          setAdColonyDiamondsEarned(other.getAdColonyDiamondsEarned());
+        if (other.hasAdColonyAmountEarned()) {
+          setAdColonyAmountEarned(other.getAdColonyAmountEarned());
+        }
+        if (other.hasAdColonyRewardType()) {
+          setAdColonyRewardType(other.getAdColonyRewardType());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -87071,7 +87171,18 @@ public final class EventProto {
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              adColonyDiamondsEarned_ = input.readInt32();
+              adColonyAmountEarned_ = input.readInt32();
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType value = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(7, rawValue);
+              } else {
+                bitField0_ |= 0x00000040;
+                adColonyRewardType_ = value;
+              }
               break;
             }
           }
@@ -87287,23 +87398,47 @@ public final class EventProto {
         onChanged();
       }
       
-      // optional int32 adColonyDiamondsEarned = 6;
-      private int adColonyDiamondsEarned_ ;
-      public boolean hasAdColonyDiamondsEarned() {
+      // optional int32 adColonyAmountEarned = 6;
+      private int adColonyAmountEarned_ ;
+      public boolean hasAdColonyAmountEarned() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
-      public int getAdColonyDiamondsEarned() {
-        return adColonyDiamondsEarned_;
+      public int getAdColonyAmountEarned() {
+        return adColonyAmountEarned_;
       }
-      public Builder setAdColonyDiamondsEarned(int value) {
+      public Builder setAdColonyAmountEarned(int value) {
         bitField0_ |= 0x00000020;
-        adColonyDiamondsEarned_ = value;
+        adColonyAmountEarned_ = value;
         onChanged();
         return this;
       }
-      public Builder clearAdColonyDiamondsEarned() {
+      public Builder clearAdColonyAmountEarned() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        adColonyDiamondsEarned_ = 0;
+        adColonyAmountEarned_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional .com.lvl6.proto.EarnFreeDiamondsRequestProto.AdColonyRewardType adColonyRewardType = 7;
+      private com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType adColonyRewardType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType.DIAMONDS;
+      public boolean hasAdColonyRewardType() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType getAdColonyRewardType() {
+        return adColonyRewardType_;
+      }
+      public Builder setAdColonyRewardType(com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000040;
+        adColonyRewardType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAdColonyRewardType() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        adColonyRewardType_ = com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType.DIAMONDS;
         onChanged();
         return this;
       }
@@ -95554,82 +95689,86 @@ public final class EventProto {
       "rievePlayerWallPostsStatus\022<\n\017playerWall" +
       "Posts\030\005 \003(\0132#.com.lvl6.proto.PlayerWallP" +
       "ostProto\"<\n\035RetrievePlayerWallPostsStatu" +
-      "s\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\361\001\n\034EarnF" +
+      "s\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\"\373\002\n\034EarnF" +
       "reeDiamondsRequestProto\0220\n\006sender\030\001 \001(\0132" +
       " .com.lvl6.proto.MinimumUserProto\022>\n\020fre" +
       "eDiamondsType\030\002 \001(\0162$.com.lvl6.proto.Ear" +
       "nFreeDiamondsType\022\022\n\nclientTime\030\003 \001(\003\022\023\n" +
       "\013kiipReceipt\030\004 \001(\t\022\026\n\016adColonyDigest\030\005 \001",
-      "(\t\022\036\n\026adColonyDiamondsEarned\030\006 \001(\005\"\337\002\n\035E" +
-      "arnFreeDiamondsResponseProto\0220\n\006sender\030\001" +
-      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022T" +
-      "\n\006status\030\002 \001(\0162D.com.lvl6.proto.EarnFree" +
-      "DiamondsResponseProto.EarnFreeDiamondsSt" +
-      "atus\022>\n\020freeDiamondsType\030\003 \001(\0162$.com.lvl" +
-      "6.proto.EarnFreeDiamondsType\"v\n\026EarnFree" +
-      "DiamondsStatus\022\013\n\007SUCCESS\020\000\022%\n!CLIENT_TO" +
-      "O_APART_FROM_SERVER_TIME\020\001\022\030\n\024METHOD_NOT" +
-      "_SUPPORTED\020\002\022\016\n\nOTHER_FAIL\020\003\"I\n\025Reconnec",
+      "(\t\022\034\n\024adColonyAmountEarned\030\006 \001(\005\022[\n\022adCo" +
+      "lonyRewardType\030\007 \001(\0162?.com.lvl6.proto.Ea" +
+      "rnFreeDiamondsRequestProto.AdColonyRewar" +
+      "dType\"-\n\022AdColonyRewardType\022\014\n\010DIAMONDS\020" +
+      "\001\022\t\n\005COINS\020\002\"\337\002\n\035EarnFreeDiamondsRespons" +
+      "eProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
+      "MinimumUserProto\022T\n\006status\030\002 \001(\0162D.com.l" +
+      "vl6.proto.EarnFreeDiamondsResponseProto." +
+      "EarnFreeDiamondsStatus\022>\n\020freeDiamondsTy" +
+      "pe\030\003 \001(\0162$.com.lvl6.proto.EarnFreeDiamon",
+      "dsType\"v\n\026EarnFreeDiamondsStatus\022\013\n\007SUCC" +
+      "ESS\020\000\022%\n!CLIENT_TOO_APART_FROM_SERVER_TI" +
+      "ME\020\001\022\030\n\024METHOD_NOT_SUPPORTED\020\002\022\016\n\nOTHER_" +
+      "FAIL\020\003\"I\n\025ReconnectRequestProto\0220\n\006sende" +
+      "r\030\001 \001(\0132 .com.lvl6.proto.MinimumUserProt" +
+      "o\"l\n\026ReconnectResponseProto\0220\n\006sender\030\001 " +
+      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022 \n" +
+      "\030incomingResponseMessages\030\002 \001(\010\"F\n\022Logou" +
       "tRequestProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6" +
-      ".proto.MinimumUserProto\"l\n\026ReconnectResp" +
-      "onseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.pro" +
-      "to.MinimumUserProto\022 \n\030incomingResponseM" +
-      "essages\030\002 \001(\010\"F\n\022LogoutRequestProto\0220\n\006s" +
+      ".proto.MinimumUserProto\"\260\001\n$SubmitEquips",
+      "ToBlacksmithRequestProto\0220\n\006sender\030\001 \001(\013" +
+      "2 .com.lvl6.proto.MinimumUserProto\022\024\n\014us" +
+      "erEquipOne\030\002 \001(\005\022\024\n\014userEquipTwo\030\003 \001(\005\022\027" +
+      "\n\017paidToGuarantee\030\004 \001(\010\022\021\n\tstartTime\030\005 \001" +
+      "(\003\"\375\003\n%SubmitEquipsToBlacksmithResponseP" +
+      "roto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Mi" +
+      "nimumUserProto\022d\n\006status\030\002 \001(\0162T.com.lvl" +
+      "6.proto.SubmitEquipsToBlacksmithResponse" +
+      "Proto.SubmitEquipsToBlacksmithStatus\022S\n\032" +
+      "unhandledBlacksmithAttempt\030\003 \001(\0132/.com.l",
+      "vl6.proto.UnhandledBlacksmithAttemptProt" +
+      "o\"\346\001\n\036SubmitEquipsToBlacksmithStatus\022\013\n\007" +
+      "SUCCESS\020\000\022%\n!NOT_ENOUGH_DIAMONDS_FOR_GUA" +
+      "RANTEE\020\002\022#\n\037SUBMITTED_EQUIPS_NOT_SAME_LE" +
+      "VEL\020\004\022\037\n\033TRYING_TO_SURPASS_MAX_LEVEL\020\005\022\023" +
+      "\n\017ALREADY_FORGING\020\006\022%\n!CLIENT_TOO_APART_" +
+      "FROM_SERVER_TIME\020\007\022\016\n\nOTHER_FAIL\020\010\"\177\n$Fo" +
+      "rgeAttemptWaitCompleteRequestProto\0220\n\006se" +
+      "nder\030\001 \001(\0132 .com.lvl6.proto.MinimumUserP" +
+      "roto\022\024\n\014blacksmithId\030\002 \001(\005\022\017\n\007curTime\030\003 ",
+      "\001(\003\"\316\002\n%ForgeAttemptWaitCompleteResponse" +
+      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022d\n\006status\030\002 \001(\0162T.com.lv" +
+      "l6.proto.ForgeAttemptWaitCompleteRespons" +
+      "eProto.ForgeAttemptWaitCompleteStatus\"\214\001" +
+      "\n\036ForgeAttemptWaitCompleteStatus\022\013\n\007SUCC" +
+      "ESS\020\000\022\020\n\014NOT_DONE_YET\020\001\022\016\n\nOTHER_FAIL\020\002\022" +
+      "%\n!CLIENT_TOO_APART_FROM_SERVER_TIME\020\003\022\024" +
+      "\n\020ALREADY_COMPLETE\020\004\"\223\001\n2FinishForgeAtte" +
+      "mptWaittimeWithDiamondsRequestProto\0220\n\006s",
       "ender\030\001 \001(\0132 .com.lvl6.proto.MinimumUser" +
-      "Proto\"\260\001\n$SubmitEquipsToBlacksmithReques" +
-      "tProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto." +
-      "MinimumUserProto\022\024\n\014userEquipOne\030\002 \001(\005\022\024" +
-      "\n\014userEquipTwo\030\003 \001(\005\022\027\n\017paidToGuarantee\030",
-      "\004 \001(\010\022\021\n\tstartTime\030\005 \001(\003\"\375\003\n%SubmitEquip" +
-      "sToBlacksmithResponseProto\0220\n\006sender\030\001 \001" +
-      "(\0132 .com.lvl6.proto.MinimumUserProto\022d\n\006" +
-      "status\030\002 \001(\0162T.com.lvl6.proto.SubmitEqui" +
-      "psToBlacksmithResponseProto.SubmitEquips" +
-      "ToBlacksmithStatus\022S\n\032unhandledBlacksmit" +
-      "hAttempt\030\003 \001(\0132/.com.lvl6.proto.Unhandle" +
-      "dBlacksmithAttemptProto\"\346\001\n\036SubmitEquips" +
-      "ToBlacksmithStatus\022\013\n\007SUCCESS\020\000\022%\n!NOT_E" +
-      "NOUGH_DIAMONDS_FOR_GUARANTEE\020\002\022#\n\037SUBMIT",
-      "TED_EQUIPS_NOT_SAME_LEVEL\020\004\022\037\n\033TRYING_TO" +
-      "_SURPASS_MAX_LEVEL\020\005\022\023\n\017ALREADY_FORGING\020" +
-      "\006\022%\n!CLIENT_TOO_APART_FROM_SERVER_TIME\020\007" +
-      "\022\016\n\nOTHER_FAIL\020\010\"\177\n$ForgeAttemptWaitComp" +
-      "leteRequestProto\0220\n\006sender\030\001 \001(\0132 .com.l" +
-      "vl6.proto.MinimumUserProto\022\024\n\014blacksmith" +
-      "Id\030\002 \001(\005\022\017\n\007curTime\030\003 \001(\003\"\316\002\n%ForgeAttem" +
-      "ptWaitCompleteResponseProto\0220\n\006sender\030\001 " +
-      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022d\n" +
-      "\006status\030\002 \001(\0162T.com.lvl6.proto.ForgeAtte",
-      "mptWaitCompleteResponseProto.ForgeAttemp" +
-      "tWaitCompleteStatus\"\214\001\n\036ForgeAttemptWait" +
-      "CompleteStatus\022\013\n\007SUCCESS\020\000\022\020\n\014NOT_DONE_" +
-      "YET\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIENT_TOO_APAR" +
-      "T_FROM_SERVER_TIME\020\003\022\024\n\020ALREADY_COMPLETE" +
-      "\020\004\"\223\001\n2FinishForgeAttemptWaittimeWithDia" +
-      "mondsRequestProto\0220\n\006sender\030\001 \001(\0132 .com." +
-      "lvl6.proto.MinimumUserProto\022\024\n\014blacksmit" +
-      "hId\030\002 \001(\005\022\025\n\rtimeOfSpeedup\030\003 \001(\003\"\216\003\n3Fin" +
-      "ishForgeAttemptWaittimeWithDiamondsRespo",
-      "nseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
-      "o.MinimumUserProto\022\200\001\n\006status\030\002 \001(\0162p.co" +
-      "m.lvl6.proto.FinishForgeAttemptWaittimeW" +
-      "ithDiamondsResponseProto.FinishForgeAtte" +
-      "mptWaittimeWithDiamondsStatus\"\241\001\n,Finish" +
-      "ForgeAttemptWaittimeWithDiamondsStatus\022\013" +
-      "\n\007SUCCESS\020\000\022\027\n\023NOT_ENOUGH_DIAMONDS\020\001\022\016\n\n" +
-      "OTHER_FAIL\020\002\022%\n!CLIENT_TOO_APART_FROM_SE" +
-      "RVER_TIME\020\003\022\024\n\020ALREADY_COMPLETE\020\004\"h\n\036Col" +
-      "lectForgeEquipsRequestProto\0220\n\006sender\030\001 ",
-      "\001(\0132 .com.lvl6.proto.MinimumUserProto\022\024\n" +
-      "\014blacksmithId\030\002 \001(\005\"\263\002\n\037CollectForgeEqui" +
-      "psResponseProto\0220\n\006sender\030\001 \001(\0132 .com.lv" +
-      "l6.proto.MinimumUserProto\0229\n\rnewUserEqui" +
-      "ps\030\002 \003(\0132\".com.lvl6.proto.FullUserEquipP" +
-      "roto\022X\n\006status\030\003 \001(\0162H.com.lvl6.proto.Co" +
-      "llectForgeEquipsResponseProto.CollectFor" +
-      "geEquipsStatus\"I\n\030CollectForgeEquipsStat" +
-      "us\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\001\022\020\n\014NOT_D" +
-      "ONE_YET\020\002B\014B\nEventProto"
+      "Proto\022\024\n\014blacksmithId\030\002 \001(\005\022\025\n\rtimeOfSpe" +
+      "edup\030\003 \001(\003\"\216\003\n3FinishForgeAttemptWaittim" +
+      "eWithDiamondsResponseProto\0220\n\006sender\030\001 \001" +
+      "(\0132 .com.lvl6.proto.MinimumUserProto\022\200\001\n" +
+      "\006status\030\002 \001(\0162p.com.lvl6.proto.FinishFor" +
+      "geAttemptWaittimeWithDiamondsResponsePro" +
+      "to.FinishForgeAttemptWaittimeWithDiamond" +
+      "sStatus\"\241\001\n,FinishForgeAttemptWaittimeWi" +
+      "thDiamondsStatus\022\013\n\007SUCCESS\020\000\022\027\n\023NOT_ENO",
+      "UGH_DIAMONDS\020\001\022\016\n\nOTHER_FAIL\020\002\022%\n!CLIENT" +
+      "_TOO_APART_FROM_SERVER_TIME\020\003\022\024\n\020ALREADY" +
+      "_COMPLETE\020\004\"h\n\036CollectForgeEquipsRequest" +
+      "Proto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.M" +
+      "inimumUserProto\022\024\n\014blacksmithId\030\002 \001(\005\"\263\002" +
+      "\n\037CollectForgeEquipsResponseProto\0220\n\006sen" +
+      "der\030\001 \001(\0132 .com.lvl6.proto.MinimumUserPr" +
+      "oto\0229\n\rnewUserEquips\030\002 \003(\0132\".com.lvl6.pr" +
+      "oto.FullUserEquipProto\022X\n\006status\030\003 \001(\0162H" +
+      ".com.lvl6.proto.CollectForgeEquipsRespon",
+      "seProto.CollectForgeEquipsStatus\"I\n\030Coll" +
+      "ectForgeEquipsStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTH" +
+      "ER_FAIL\020\001\022\020\n\014NOT_DONE_YET\020\002B\014B\nEventProt" +
+      "o"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -96473,7 +96612,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_EarnFreeDiamondsRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "FreeDiamondsType", "ClientTime", "KiipReceipt", "AdColonyDigest", "AdColonyDiamondsEarned", },
+              new java.lang.String[] { "Sender", "FreeDiamondsType", "ClientTime", "KiipReceipt", "AdColonyDigest", "AdColonyAmountEarned", "AdColonyRewardType", },
               com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.class,
               com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.Builder.class);
           internal_static_com_lvl6_proto_EarnFreeDiamondsResponseProto_descriptor =
