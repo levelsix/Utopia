@@ -55,11 +55,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   public LeaderBoardUtil getLeaderboard() {
 	return leaderboard;
-}
-
-public void setLeaderboard(LeaderBoardUtil leaderboard) {
-	this.leaderboard = leaderboard;
-}
+	}
+	
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
 
 @Autowired
   protected InsertUtil insertUtils;

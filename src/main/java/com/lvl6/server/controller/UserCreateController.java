@@ -21,6 +21,7 @@ import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.ReferralCodeUsedResponseProto;
@@ -49,6 +50,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  @Autowired
+  protected LeaderBoardUtil leaderboard;
+
+  public LeaderBoardUtil getLeaderboard() {
+	return leaderboard;
+	}
+	
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
+  
   @Autowired
   protected InsertUtil insertUtils;
 
@@ -208,6 +220,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (referrer != null && user != null) {
           rewardReferrer(referrer, user);        
         }
+        leaderboard.updateLeaderboardCoinsForUser(user.getId());
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
       } finally {

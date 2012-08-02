@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.RetractMarketplacePostRequestProto;
 import com.lvl6.proto.EventProto.RetractMarketplacePostResponseProto;
@@ -30,6 +32,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  @Autowired
+  protected LeaderBoardUtil leaderboard;
+
+  public LeaderBoardUtil getLeaderboard() {
+	return leaderboard;
+	}
+	
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
+  
   public RetractMarketplacePostController() {
     numAllocatedThreads = 3;
   }
@@ -96,6 +109,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
       }
+      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in RetractMarketplacePostController processEvent", e);
     } finally {

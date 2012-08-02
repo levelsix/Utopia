@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ArmoryRequestProto;
 import com.lvl6.proto.EventProto.ArmoryRequestProto.ArmoryRequestType;
@@ -33,6 +35,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  @Autowired
+  protected LeaderBoardUtil leaderboard;
+
+  public LeaderBoardUtil getLeaderboard() {
+	return leaderboard;
+	}
+	
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
+  
   public ArmoryController() {
     numAllocatedThreads = 4;
   }
@@ -175,6 +188,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if (legitSell) {
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.SELL_TO_ARMORY, true);
       }
+      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in ArmoryController processEvent", e);
     } finally {

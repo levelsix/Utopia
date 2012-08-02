@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import com.lvl6.events.request.RedeemMarketplaceEarningsRequestEvent;
 import com.lvl6.events.response.RedeemMarketplaceEarningsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsRequestProto;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto;
 import com.lvl6.proto.EventProto.RedeemMarketplaceEarningsResponseProto.Builder;
@@ -22,6 +24,17 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  @Autowired
+  protected LeaderBoardUtil leaderboard;
+
+  public LeaderBoardUtil getLeaderboard() {
+	return leaderboard;
+	}
+	
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
+  
   public RedeemMarketplaceEarningsController() {
     numAllocatedThreads = 4;
   }
@@ -62,6 +75,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+        leaderboard.updateLeaderboardCoinsForUser(user.getId());
       }
 
     } catch (Exception e) {

@@ -51,6 +51,9 @@ public class TaskActionController extends EventController {
 	private static Logger log = Logger.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
 
+	
+	
+	
 	@Autowired
 	protected LeaderBoardUtil leaderboard;
 
@@ -227,6 +230,7 @@ public class TaskActionController extends EventController {
 				resEventUpdate.setTag(event.getTag());
 				server.writeEvent(resEventUpdate);
 				checkQuestsPostTaskAction(user, task, senderProto, lootEquipId);
+				leaderboard.updateLeaderboardForUser(user.getId());
 			}
 		} catch (Exception e) {
 			log.error("exception in TaskActionController processEvent", e);

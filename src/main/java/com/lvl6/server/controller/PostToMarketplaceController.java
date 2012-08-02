@@ -16,6 +16,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PostToMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto;
@@ -37,6 +38,16 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  @Autowired
+  protected LeaderBoardUtil leaderboard;
+
+  public LeaderBoardUtil getLeaderboard() {
+	return leaderboard;
+	}
+	
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
 
   @Autowired
   protected InsertUtil insertUtils;
@@ -103,7 +114,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.POST_TO_MARKETPLACE, true);
       }
-
+      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in PostToMarketplaceController processEvent", e);
     } finally {
