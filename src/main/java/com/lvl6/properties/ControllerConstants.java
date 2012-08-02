@@ -75,7 +75,7 @@ public class ControllerConstants {
   public static final double BATTLE__PERCENT_OF_EQUIPMENT = 3.0/9.0;      
   public static final double BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP = 5.0; 
 
-  public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.2;
+  public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
   
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
   
