@@ -220,8 +220,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int calculateExpGain(User winner, User loser) {
 	  int baseExp = (int) (loser.getLevel()*ControllerConstants.BATTLE__EXP_BASE_MULTIPLIER);
-	  int levelDifference = (int) ((loser.getLevel() - winner.getLevel()) * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT);
-	  int randomness = (int)((Math.random() + 1.0) * ((loser.getLevel() / 10) + 1));
+	  int levelDifference = (int) (baseExp * ((loser.getLevel() - winner.getLevel()) 
+			  * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT));
+	  int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
 	  int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
 	  return expGain;
   }
