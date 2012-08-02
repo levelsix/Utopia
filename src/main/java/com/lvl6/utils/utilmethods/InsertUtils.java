@@ -17,6 +17,7 @@ import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.properties.IAPValues;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
@@ -157,13 +158,18 @@ public class InsertUtils implements InsertUtil{
    */
   @Override
   public boolean insertAdcolonyRecentHistory(int userId,
-      Timestamp timeOfReward, int diamondsEarned, String digest) {
+      Timestamp timeOfReward, int amountEarned, AdColonyRewardType adColonyRewardType, String digest) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__USER_ID, userId);
     insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD,
         timeOfReward);
-    insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED,
-        diamondsEarned);
+    if (adColonyRewardType==AdColonyRewardType.DIAMONDS) {
+      insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED,
+          amountEarned);
+    } else if (adColonyRewardType==AdColonyRewardType.COINS) {
+      insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__COINS_EARNED,
+          amountEarned);
+    }
     insertParams.put(DBConstants.ADCOLONY_RECENT_HISTORY__DIGEST, digest);
 
     int numInserted = DBConnection.get().insertIntoTableBasic(

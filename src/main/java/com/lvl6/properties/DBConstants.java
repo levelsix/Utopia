@@ -270,6 +270,7 @@ public class DBConstants {
   public static final String ADCOLONY_RECENT_HISTORY__USER_ID = GENERIC__USER_ID;
   public static final String ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD = "time_of_reward";
   public static final String ADCOLONY_RECENT_HISTORY__DIAMONDS_EARNED = "diamonds_earned";
+  public static final String ADCOLONY_RECENT_HISTORY__COINS_EARNED = "coins_earned";
   public static final String ADCOLONY_RECENT_HISTORY__DIGEST = "digest";
   
   /*KIIP REWARD HISTORY*/

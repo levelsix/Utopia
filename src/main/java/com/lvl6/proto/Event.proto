@@ -252,6 +252,8 @@ message StartupResponseProto {
 		
 		optional double levelEquipBoostExponentBase = 66;
 		
+		optional int32 adColonyVideosRequiredToRedeemDiamonds = 67;
+		
 		message KiipRewardConditions {
 			repeated int32 levelUpConditions = 1;
 			repeated int32 questRedeemConditions = 2;
@@ -1407,7 +1409,12 @@ message EarnFreeDiamondsRequestProto {
 	optional string kiipReceipt = 4;
 
 	optional string adColonyDigest = 5;
-	optional int32 adColonyDiamondsEarned = 6;
+	optional int32 adColonyAmountEarned = 6;
+	optional AdColonyRewardType adColonyRewardType = 7;
+	enum AdColonyRewardType {
+		DIAMONDS = 1;
+		COINS = 2;
+	}
 }
 
 																						//DONE

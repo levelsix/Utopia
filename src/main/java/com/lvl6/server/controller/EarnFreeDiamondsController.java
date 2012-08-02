@@ -26,7 +26,9 @@ import com.lvl6.events.response.EarnFreeDiamondsResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.TwoLeggedOAuth;
 import com.lvl6.info.User;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.Builder;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus;
@@ -88,11 +90,12 @@ public class EarnFreeDiamondsController extends EventController {
     String kiipReceiptString = (reqProto.hasKiipReceipt() && reqProto.getKiipReceipt().length() > 0) ? reqProto.getKiipReceipt() : null;
 
     String adColonyDigest = (reqProto.hasAdColonyDigest() && reqProto.getAdColonyDigest().length() > 0) ? reqProto.getAdColonyDigest() : null;
-    int adColonyDiamondsEarned = reqProto.getAdColonyDiamondsEarned();
+    int adColonyAmountEarned = reqProto.getAdColonyAmountEarned();
+    AdColonyRewardType adColonyRewardType = reqProto.getAdColonyRewardType();
 
-////    ////    //TODO:
-//    kiipReceiptString = "{\"signature\":\"a525d6cbb8ec18d5c4e47266d736162cf18a3ff7\",\"content\":\"reward_gold\",\"quantity\":\"2\",\"transaction_id\":\"4fe924dc4972e91ed6000147\"}";
-//    freeDiamondsType = EarnFreeDiamondsType.KIIP;
+    ////    ////    //TODO:
+    //    kiipReceiptString = "{\"signature\":\"a525d6cbb8ec18d5c4e47266d736162cf18a3ff7\",\"content\":\"reward_gold\",\"quantity\":\"2\",\"transaction_id\":\"4fe924dc4972e91ed6000147\"}";
+    //    freeDiamondsType = EarnFreeDiamondsType.KIIP;
 
     EarnFreeDiamondsResponseProto.Builder resBuilder = EarnFreeDiamondsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -102,7 +105,7 @@ public class EarnFreeDiamondsController extends EventController {
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      boolean legitFreeDiamondsEarn = checkLegitFreeDiamondsEarnBasic(resBuilder, freeDiamondsType, clientTime, user, kiipReceiptString, adColonyDigest, adColonyDiamondsEarned);
+      boolean legitFreeDiamondsEarn = checkLegitFreeDiamondsEarnBasic(resBuilder, freeDiamondsType, clientTime, user, kiipReceiptString, adColonyDigest, adColonyAmountEarned, adColonyRewardType);
 
       JSONObject kiipConfirmationReceipt = null;
 
@@ -117,7 +120,7 @@ public class EarnFreeDiamondsController extends EventController {
           }
         }
         if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-          if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyDiamondsEarned, clientTime)) {
+          if (!signaturesAreEqual(resBuilder, user, adColonyDigest, adColonyAmountEarned, adColonyRewardType, clientTime)) {
             legitFreeDiamondsEarn = false;
           } else if (AdColonyRecentHistoryRetrieveUtils.checkIfDuplicateDigest(adColonyDigest)) {
             resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
@@ -132,12 +135,12 @@ public class EarnFreeDiamondsController extends EventController {
       server.writeEvent(resEvent);
 
       if (legitFreeDiamondsEarn) {
-        writeChangesToDB(user, freeDiamondsType, kiipConfirmationReceipt, adColonyDiamondsEarned);
+        writeChangesToDB(user, freeDiamondsType, kiipConfirmationReceipt, adColonyAmountEarned, adColonyRewardType);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
 
-        writeToDBHistory(user, freeDiamondsType, clientTime, kiipConfirmationReceipt, adColonyDigest, adColonyDiamondsEarned);
+        writeToDBHistory(user, freeDiamondsType, clientTime, kiipConfirmationReceipt, adColonyDigest, adColonyRewardType, adColonyAmountEarned);
       }
     } catch (Exception e) {
       log.error("exception in earn free gold processEvent", e);
@@ -174,9 +177,10 @@ public class EarnFreeDiamondsController extends EventController {
 
   }
 
-  private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyDiamondsEarned, Timestamp clientTime) {
+  private boolean signaturesAreEqual(Builder resBuilder, User user, String adColonyDigest, int adColonyAmountEarned, 
+      AdColonyRewardType adColonyRewardType, Timestamp clientTime) {
     String serverAdColonyDigest = null;
-    String prepareString = user.getId() + user.getReferralCode() + adColonyDiamondsEarned + clientTime.getTime();
+    String prepareString = user.getId() + user.getReferralCode() + adColonyAmountEarned + adColonyRewardType.getNumber() + clientTime.getTime();
 
     serverAdColonyDigest = getHMACSHA1DigestWithLVL6Secret(prepareString);
 
@@ -220,7 +224,7 @@ public class EarnFreeDiamondsController extends EventController {
     return null;
   }
 
-  private void writeChangesToDB(User user, EarnFreeDiamondsType freeDiamondsType, JSONObject kiipReceipt, int adColonyDiamondsEarned) throws JSONException {
+  private void writeChangesToDB(User user, EarnFreeDiamondsType freeDiamondsType, JSONObject kiipReceipt, int adColonyAmountEarned, AdColonyRewardType adColonyRewardType) throws JSONException {
     if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
       if (!user.updateRelativeDiamondsForFree(kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY), freeDiamondsType)) {
         log.error("problem with updating diamonds. diamondChange=" + kiipReceipt.getInt(KIIP_JSON_QUANTITY_KEY)
@@ -228,22 +232,29 @@ public class EarnFreeDiamondsController extends EventController {
       }
     }
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-      if (!user.updateRelativeDiamondsForFree(adColonyDiamondsEarned, freeDiamondsType)) {
-        log.error("problem with updating diamonds. diamondChange=" + adColonyDiamondsEarned
-            + ", freeDiamondsType=" + freeDiamondsType);
+      if (adColonyRewardType == AdColonyRewardType.DIAMONDS) {
+        if (!user.updateRelativeDiamondsForFree(adColonyAmountEarned, freeDiamondsType)) {
+          log.error("problem with updating diamonds. diamondChange=" + adColonyAmountEarned
+              + ", freeDiamondsType=" + freeDiamondsType);
+        }
+      } else if (adColonyRewardType == AdColonyRewardType.COINS) {
+        if (!user.updateRelativeCoinsAdcolonyvideoswatched(adColonyAmountEarned, 1)) {
+          log.error("problem with updating coins. coin change=" + adColonyAmountEarned
+              + ", Adcolonyvideoswatched=" + 1);
+        }
       }
     }
   }
 
   private void writeToDBHistory(User user, EarnFreeDiamondsType freeDiamondsType, Timestamp clientTime, JSONObject kiipConfirmationReceipt, String adColonyDigest,
-      int adColonyDiamondsEarned) {
+      AdColonyRewardType adColonyRewardType, int adColonyAmountEarned) {
     if (freeDiamondsType == EarnFreeDiamondsType.KIIP) {
       try {
         String content = kiipConfirmationReceipt.getString(KIIP_JSON_CONTENT_KEY);
         String signature = kiipConfirmationReceipt.getString(KIIP_JSON_SIGNATURE_KEY);
         int quantity = kiipConfirmationReceipt.getInt(KIIP_JSON_QUANTITY_KEY);
         String transactionId = kiipConfirmationReceipt.getString(KIIP_JSON_TRANSACTION_ID_KEY);
-        
+
         if (!InsertUtils.get().insertKiipHistory(user.getId(), clientTime, content, signature, quantity, transactionId)) {
           log.error("problem with saving kiip reward into history. user=" + user + ", clientTime=" + clientTime
               + ", kiipConfirmationReceipt=" + kiipConfirmationReceipt);
@@ -253,15 +264,15 @@ public class EarnFreeDiamondsController extends EventController {
       }
     }
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-      if (!InsertUtils.get().insertAdcolonyRecentHistory(user.getId(), clientTime, adColonyDiamondsEarned, adColonyDigest)) {
+      if (!InsertUtils.get().insertAdcolonyRecentHistory(user.getId(), clientTime, adColonyAmountEarned, adColonyRewardType, adColonyDigest)) {
         log.error("problem with saving adcolony rewarding into recent history. user=" + user + ", clientTime=" + clientTime
-            + ", diamondsEarned=" + adColonyDiamondsEarned + ", digest=" + adColonyDigest);
+            + ", amountEarned=" + adColonyAmountEarned + ", adColonyRewardType=" + adColonyRewardType + ", digest=" + adColonyDigest);
       }
     }
   }
 
   private boolean checkLegitFreeDiamondsEarnBasic(Builder resBuilder, EarnFreeDiamondsType freeDiamondsType, Timestamp clientTime, User user, 
-      String kiipReceiptString, String adColonyDigest, int adColonyDiamondsEarned) {
+      String kiipReceiptString, String adColonyDigest, int adColonyDiamondsEarned, AdColonyRewardType adColonyRewardType) {
     if (freeDiamondsType == null || clientTime == null || user == null) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("parameter passed in is null. freeDiamondsType is " + freeDiamondsType + ", clientTime=" + clientTime + ", user=" + user);
@@ -278,7 +289,7 @@ public class EarnFreeDiamondsController extends EventController {
         return false;
       }
     } else if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-      if (!checkLegitAdColonyRedeem(resBuilder, adColonyDigest, adColonyDiamondsEarned, user, clientTime)) {
+      if (!checkLegitAdColonyRedeem(resBuilder, adColonyDigest, adColonyDiamondsEarned, adColonyRewardType, user, clientTime)) {
         return false;
       }
       //    } else if (freeDiamondsType == EarnFreeDiamondsType.FB_INVITE) {
@@ -294,15 +305,22 @@ public class EarnFreeDiamondsController extends EventController {
     return true;  
   }
 
-  private boolean checkLegitAdColonyRedeem(Builder resBuilder, String adColonyDigest, int adColonyDiamondsEarned, User user, Timestamp clientTime) {
-    if (adColonyDigest == null) {
+  private boolean checkLegitAdColonyRedeem(Builder resBuilder, String adColonyDigest, int adColonyAmountEarned, AdColonyRewardType adColonyRewardType, User user, Timestamp clientTime) {
+    if (adColonyDigest == null || (adColonyRewardType != AdColonyRewardType.DIAMONDS && adColonyRewardType != AdColonyRewardType.COINS)) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
       log.error("no digest given for AdColony");
       return false;
     }
-    if (adColonyDiamondsEarned <= 0) {
+    if (adColonyRewardType == AdColonyRewardType.DIAMONDS) {
+      if ((user.getNumAdColonyVideosWatched()+1) % ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD != 0) {
+        resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
+        log.error("not supposed to get diamonds yet, user before this try has only watched " + user.getNumAdColonyVideosWatched() + " videos");
+        return false;
+      }
+    }
+    if (adColonyAmountEarned <= 0) {
       resBuilder.setStatus(EarnFreeDiamondsStatus.OTHER_FAIL);
-      log.error("<= 0 gold given from AdColony");
+      log.error("<= 0 diamonds given from AdColony");
       return false;
     }
     return true;

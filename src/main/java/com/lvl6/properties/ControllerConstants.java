@@ -61,9 +61,9 @@ public class ControllerConstants {
   public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
   public static final float BATTLE_IMBALANCE_PERCENT = .67f;
   public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
-  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
+  public static final float BATTLE_GREAT_LIKELIHOOD = .55f;
   public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
-  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
+  public static final float BATTLE_MISS_LIKELIHOOD = .05f;
 
   public static final double BATTLE__HIT_ATTACKER_PERCENT_OF_HEALTH = 0.2;
   public static final double BATTLE__HIT_DEFENDER_PERCENT_OF_HEALTH = 0.25;
@@ -75,13 +75,13 @@ public class ControllerConstants {
   public static final double BATTLE__PERCENT_OF_EQUIPMENT = 3.0/9.0;      
   public static final double BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP = 5.0; 
 
-  public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.2;
+  public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
   
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
   
   public static final int AVERAGE_SIZE_OF_LEVEL_BRACKET = 5;
 
-  public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 5;
+  public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 1;
   public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
   public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
@@ -205,6 +205,9 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__DEFENSE_BASE_COST = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_COST = 1;
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
+  
+  //EARN FREE DIAMONDS
+  public static final int EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD = 20;
   
   //VAULT
   public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
