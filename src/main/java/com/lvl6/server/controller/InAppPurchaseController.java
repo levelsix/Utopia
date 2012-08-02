@@ -17,7 +17,6 @@ import com.lvl6.events.request.InAppPurchaseRequestEvent;
 import com.lvl6.events.response.InAppPurchaseResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
-import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.InAppPurchaseRequestProto;
 import com.lvl6.proto.EventProto.InAppPurchaseResponseProto;
@@ -68,7 +67,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     MinimumUserProto senderProto = reqProto.getSender();
     String receipt = reqProto.getReceipt();
-
+    
     InAppPurchaseResponseProto.Builder resBuilder = InAppPurchaseResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -83,12 +82,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         jsonReceipt.put(IAPValues.RECEIPT_DATA, receipt);
 
         // Send data
-        URL url;
-        if (Globals.IS_SANDBOX()) {
-          url = new URL(SANDBOX_URL);
-        } else {
-          url = new URL(PRODUCTION_URL);
-        }
+        URL url = new URL(PRODUCTION_URL);
+        
         URLConnection conn = url.openConnection();
         conn.setDoOutput(true);
         OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -105,6 +100,24 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         }
 
         response = new JSONObject(responseString);
+
+        if (response.getInt(IAPValues.STATUS) == 21007 || response.getInt(IAPValues.STATUS) == 21008) {
+          wr.close();
+          rd.close();
+          url = new URL(SANDBOX_URL);
+          conn = url.openConnection();
+          conn.setDoOutput(true);
+          wr = new OutputStreamWriter(conn.getOutputStream());
+          wr.write(jsonReceipt.toString());
+          wr.flush();
+          rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+          responseString = "";
+          while ((line = rd.readLine()) != null) {
+            responseString += line;
+          }
+          response = new JSONObject(responseString);
+        }
+        
         if (response.getInt(IAPValues.STATUS) == 0) {
           JSONObject receiptFromApple = response.getJSONObject(IAPValues.RECEIPT);
           if (!IAPHistoryRetrieveUtils.checkIfDuplicateTransaction(Long.parseLong(receiptFromApple.getString(IAPValues.TRANSACTION_ID)))) {
