@@ -237,11 +237,9 @@ public class EarnFreeDiamondsController extends EventController {
               + ", freeDiamondsType=" + freeDiamondsType);
         }
       } else if (adColonyRewardType == AdColonyRewardType.COINS) {
-        
-        
-        if (!user.updateRelativeDiamondsForFree(adColonyDiamondsEarned, freeDiamondsType)) {
-          log.error("problem with updating diamonds. diamondChange=" + adColonyDiamondsEarned
-              + ", freeDiamondsType=" + freeDiamondsType);
+        if (!user.updateRelativeCoinsAdcolonyvideoswatched(adColonyAmountEarned, 1)) {
+          log.error("problem with updating coins. coin change=" + adColonyAmountEarned
+              + ", Adcolonyvideoswatched=" + 1);
         }
       }
     }
@@ -265,9 +263,9 @@ public class EarnFreeDiamondsController extends EventController {
       }
     }
     if (freeDiamondsType == EarnFreeDiamondsType.ADCOLONY) {
-      if (!InsertUtils.get().insertAdcolonyRecentHistory(user.getId(), clientTime, adColonyDiamondsEarned, adColonyDigest)) {
+      if (!InsertUtils.get().insertAdcolonyRecentHistory(user.getId(), clientTime, adColonyAmountEarned, adColonyRewardType, adColonyDigest)) {
         log.error("problem with saving adcolony rewarding into recent history. user=" + user + ", clientTime=" + clientTime
-            + ", diamondsEarned=" + adColonyDiamondsEarned + ", digest=" + adColonyDigest);
+            + ", amountEarned=" + adColonyAmountEarned + ", adColonyRewardType=" + adColonyRewardType + ", digest=" + adColonyDigest);
       }
     }
   }
