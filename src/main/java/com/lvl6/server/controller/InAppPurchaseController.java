@@ -80,10 +80,12 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       try {
         JSONObject jsonReceipt = new JSONObject();
         jsonReceipt.put(IAPValues.RECEIPT_DATA, receipt);
-
+        log.info("Processing purchase: "+jsonReceipt.toString(4));
         // Send data
         URL url = new URL(PRODUCTION_URL);
-        
+
+        log.info("Sending purchase request to: "+url.toString());
+
         URLConnection conn = url.openConnection();
         conn.setDoOutput(true);
         OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -126,7 +128,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
               double cashCost = IAPValues.getCashSpentForPackageName(receiptFromApple.getString(IAPValues.PRODUCT_ID));
               user.updateRelativeDiamondsNaive(diamondChange);
               if (!insertUtils.insertIAPHistoryElem(receiptFromApple, diamondChange, user, cashCost)) {
-                log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple + " and user " + user);
+                log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple.toString(4) + " and user " + user);
               }
               resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
               log.info("successful in-app purchase from user " + user.getId() + " for package " + receiptFromApple.getString(IAPValues.PRODUCT_ID));
