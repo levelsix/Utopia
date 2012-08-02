@@ -61,9 +61,9 @@ public class ControllerConstants {
   public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
   public static final float BATTLE_IMBALANCE_PERCENT = .67f;
   public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
-  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
+  public static final float BATTLE_GREAT_LIKELIHOOD = .55f;
   public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
-  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
+  public static final float BATTLE_MISS_LIKELIHOOD = .05f;
 
   public static final double BATTLE__HIT_ATTACKER_PERCENT_OF_HEALTH = 0.2;
   public static final double BATTLE__HIT_DEFENDER_PERCENT_OF_HEALTH = 0.25;
@@ -159,9 +159,9 @@ public class ControllerConstants {
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
   public static final int BATTLE__MIN_COINS_FROM_WIN = 5;
-  public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
-  public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
-  public static final double BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES = 0.33;
+  public static final double BATTLE__EXP_BASE_MULTIPLIER = 0.8;
+  public static final int BATTLE__EXP_MIN = 1;
+  public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 1.5;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;

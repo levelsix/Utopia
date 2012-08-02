@@ -132,7 +132,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.setCoinsGained(lostCoins);
 
         if (result == BattleResult.ATTACKER_WIN) {
-          expGained = calculateExpGain(loser);
+          expGained = calculateExpGain(winner, loser);
           resBuilder.setExpGained(expGained);
         }
         resBuilder.setStatus(BattleStatus.SUCCESS);
@@ -218,13 +218,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return lostEquip;
   }
 
-  private int calculateExpGain(User loser) {
-    int requiredKills = (int) (ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT * loser.getLevel())
-        + (int)(ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT*ControllerConstants.BATTLE__EXP_MIN_NUM_KILLS);
-    int expNeeded = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel()+1)
-        - LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel());
-    int randomness = (int)((Math.random()+1.0)*((loser.getLevel()/10)+1));
-    return (int) (ControllerConstants.BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES*(expNeeded/requiredKills))+randomness;
+  private int calculateExpGain(User winner, User loser) {
+	  int baseExp = (int) (loser.getLevel()*ControllerConstants.BATTLE__EXP_BASE_MULTIPLIER);
+	  int levelDifference = (int) ((loser.getLevel() - winner.getLevel()) * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT);
+	  int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
+	  int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
+	  return expGain;
   }
 
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
