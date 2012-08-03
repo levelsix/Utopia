@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.DBConstants;
 import com.lvl6.utils.DBConnection;
 
@@ -33,6 +34,9 @@ import com.lvl6.utils.DBConnection;
     log.debug("retrieving exp-requirement for level " + level);
     if (levelsToRequiredExperienceForLevels == null) {
       setStaticLevelsToRequiredExperienceForLevels();
+    }
+    if (level > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER) {
+      return levelsToRequiredExperienceForLevels.get(ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER)*2;
     }
     return levelsToRequiredExperienceForLevels.get(level);
   }

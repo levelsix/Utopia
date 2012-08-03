@@ -35,7 +35,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -223,6 +222,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	  int levelDifference = (int) (baseExp * ((loser.getLevel() - winner.getLevel()) 
 			  * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT));
 	  int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
+	  
 	  int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
 	  return expGain;
   }
