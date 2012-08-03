@@ -28,6 +28,7 @@
 	<!-- for load testing -->
 	<int:channel id="gameEventSaveQueueChannel" />
 	<bean id="gameEventSaveHandler" class="com.lvl6.loadtesting.GameEventSaveHandler" />
+	<bean id="gameEventRecorder" class="com.lvl6.loadtesting.GameEventRecorder" depends-on="dataSource" />
 	<int:service-activator 
 		input-channel="gameEventSaveQueueChannel"
 		ref="gameEventSaveHandler"

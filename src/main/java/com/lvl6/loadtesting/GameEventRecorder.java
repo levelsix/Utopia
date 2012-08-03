@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class GameEventRecorder implements InitializingBean {
@@ -18,6 +19,8 @@ public class GameEventRecorder implements InitializingBean {
 	
 	protected JdbcTemplate jdbc;
 
+	
+	@Autowired
 	protected DataSource dataSource;
 	
 	
