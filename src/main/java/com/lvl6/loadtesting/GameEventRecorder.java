@@ -3,6 +3,7 @@ package com.lvl6.loadtesting;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -19,19 +20,12 @@ public class GameEventRecorder implements InitializingBean {
 	
 	protected JdbcTemplate jdbc;
 
-	
-	@Autowired
-	protected DataSource dataSource;
-	
-	
-	public DataSource getDataSource() {
-		return dataSource;
-	}
 
-	public void setDataSource(DataSource dataSource) {
-		jdbc = new JdbcTemplate(dataSource);
-		this.dataSource = dataSource;
-	}
+	@Resource
+    public void setDataSource(DataSource dataSource) {
+		log.info("Setting datasource and creating jdbcTemplate");
+        this.jdbc = new JdbcTemplate(dataSource);
+    }
 	
 	
 
