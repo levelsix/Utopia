@@ -29,9 +29,11 @@ public class GameEventRecorder implements InitializingBean {
 	}
 
 	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
 		jdbc = new JdbcTemplate(dataSource);
+		this.dataSource = dataSource;
 	}
+	
+	
 
 	protected void setupStorage() {
 		log.info("Creating table for load_testing_events");
