@@ -38,6 +38,16 @@
 		<jdbc.username>lvl6admin</jdbc.username>
 		<jdbc.password>robashen123</jdbc.password>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
+		<jdbc.idleMaxAgeInMinutes>10</jdbc.idleMaxAgeInMinutes>
+		<jdbc.maxConnectionsPerPartition>3</jdbc.maxConnectionsPerPartition>
+		<jdbc.minConnectionsPerPartition>1</jdbc.minConnectionsPerPartition>
+		<jdbc.partitionCount>2</jdbc.partitionCount>
+		<jdbc.acquireIncrement>1</jdbc.acquireIncrement>
+		<jdbc.statementsCacheSize>500</jdbc.statementsCacheSize>
+		<jdbc.releaseHelperThreads>3</jdbc.releaseHelperThreads>
+		
+		
 		<hazelcast.ec2.security.group></hazelcast.ec2.security.group>
 		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
