@@ -1,7 +1,10 @@
 package com.lvl6.loadtesting;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -10,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 public class GameEventRecorder implements InitializingBean {
 
@@ -53,5 +57,27 @@ public class GameEventRecorder implements InitializingBean {
 			}
 		}
 	}
+	
+	
+	
+	public List<LoadTestEvent> getEventsForUser(Integer userId) {
+		return jdbc.query("select * from load_testing_events where userId = "+userId+" order by log_time", new RowMapper<LoadTestEvent>(){
 
+			@Override
+			public LoadTestEvent mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				LoadTestEvent lte = new LoadTestEvent();
+				lte.setEvent(rs.getBytes("event_bytes"));
+				lte.setEventTime(rs.getTimestamp("log_time"));
+				lte.setEventType(rs.getInt("event_type"));
+				lte.setUserId(rs.getInt("user_id"));
+				return lte;
+			}
+			
+		});
+	}
+	
+	
+	
+	
 }
