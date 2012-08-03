@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:task="http://www.springframework.org/schema/task" xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
 	xsi:schemaLocation=" 
     http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -10,27 +11,38 @@
     http://www.springframework.org/schema/integration 
 	http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
 	http://www.springframework.org/schema/integration/ip
-    http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd">
+    http://www.springframework.org/schema/integration/ip/spring-integration-ip.xsd
+    http://www.springframework.org/schema/integration/file
+    http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
 
 <!-- 	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50" -->
 <!-- 		queue-capacity="100" rejection-policy="CALLER_RUNS" /> -->
 
 	<int:channel id="gameEventQueueChannel">
-<!-- 		<int:queue ref="gameEventQueue" /> -->
 		<int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
+        	<int:wire-tap channel="gameEventSaveQueueChannel"/>
      	</int:interceptors>
 	</int:channel>
+
+	<!-- for load testing -->
+	<int:channel id="gameEventSaveQueueChannel" />
+	<bean id="gameEventSaveHandler" class="com.lvl6.loadtesting.GameEventSaveHandler" />
+	<int:service-activator 
+		input-channel="gameEventSaveQueueChannel"
+		ref="gameEventSaveHandler"
+		 method="handleMessage">
+	</int:service-activator>
+
+	
+	<!-- End load testing  -->
+
 
 
 	<int:service-activator 
 		input-channel="gameEventQueueChannel"
 		ref="gameEventHandler"
 		 method="handleMessage">
-<!-- 		<int:poller  -->
-<!-- 			fixed-rate="100"  -->
-<!-- 			task-executor="gameEventsHandlerExecutor" -->
-<!-- 			max-messages-per-poll="25" /> -->
 	</int:service-activator>
 
 
