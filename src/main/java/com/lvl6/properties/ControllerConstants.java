@@ -74,7 +74,9 @@ public class ControllerConstants {
   public static final double BATTLE__ATTACK_EXPO_MULTIPLIER = 0.8;
   public static final double BATTLE__PERCENT_OF_EQUIPMENT = 3.0/9.0;      
   public static final double BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP = 5.0; 
-
+  public static final double BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER = 3;
+  public static final double BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER = .2;
+  
   public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
   
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
