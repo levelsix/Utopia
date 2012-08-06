@@ -147,7 +147,7 @@ public class APNSWriter extends Wrap {
 					log.error(e);
 				}
 			} else {
-				log.info("could not send push notification because user "
+				log.warn("could not send push notification because user "
 						+ user + " has no device token");
 			}
 		}
