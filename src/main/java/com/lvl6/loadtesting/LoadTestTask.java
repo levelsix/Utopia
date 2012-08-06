@@ -86,7 +86,6 @@ public class LoadTestTask implements Runnable {
 	}
 	
 	public void updatePropertiesOfEvent() {
-		originalEvent.
 	}
 	
 	public void sendEventToServer() {
