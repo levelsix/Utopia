@@ -58,7 +58,8 @@ public class FakeClientTests {
 		Builder builder = StartupRequestProto.newBuilder();
 		builder.setUdid("A_fake_client");
 		builder.setVersionNum(1.0f);
-		byte[]  bytes = builder.build().toByteArray();
+		StartupRequestProto startupRequestEvent = builder.build();
+		byte[]  bytes = startupRequestEvent.toByteArray();
 		ByteBuffer bb = ByteBuffer.allocate(bytes.length+12);
 		bb.putInt(EventProtocolRequest.C_STARTUP_EVENT_VALUE);
 		bb.putInt(99);

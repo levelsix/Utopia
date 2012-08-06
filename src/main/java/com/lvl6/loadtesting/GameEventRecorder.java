@@ -3,6 +3,8 @@ package com.lvl6.loadtesting;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +42,7 @@ public class GameEventRecorder implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		setupStorage();
+		
 	}
 
 	public void persistEvent(Integer userId, Integer eventType,	byte[] eventBytes) {
@@ -58,7 +61,7 @@ public class GameEventRecorder implements InitializingBean {
 		}
 	}
 	
-	
+	public List<Integer> testUsers = Arrays.asList(11683, 11684, 11685, 11686, 11687);
 	
 	public List<LoadTestEvent> getEventsForUser(Integer userId) {
 		return jdbc.query("select * from load_testing_events where userId = "+userId+" order by log_time", new RowMapper<LoadTestEvent>(){
