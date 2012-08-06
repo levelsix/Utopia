@@ -181,6 +181,8 @@ public class APNSWriter extends Wrap {
 		if (Globals.IS_SANDBOX()) {
 			log.info("Building apns with sandbox=true");
 			builder.withSandboxDestination();
+		} else {
+		  builder.withProductionDestination();
 		}
 		service = builder.build();
 		service.start();
