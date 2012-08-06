@@ -127,7 +127,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
 
         Random random = new Random();
-        lostCoins = calculateLostCoins(winner, loser, random, (result == BattleResult.ATTACKER_FLEE));
+        lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
 
         if (result == BattleResult.ATTACKER_WIN) {
@@ -364,14 +364,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private int calculateLostCoins(User winner, User loser, Random random, boolean isFlee) {
-    User player = (loser.isFake() && !winner.isFake()) ? winner : loser;
-
-    int lostCoins = (int) Math.rint(Math.min(player.getCoins() * Math.random()
-        * ControllerConstants.BATTLE__A, player.getLevel()
+  private int calculateLostCoins(User loser, Random random, boolean isFlee) {
+    if (loser.isFake()) {
+      if (Math.random() < ControllerConstants.BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER) {
+        return 0;
+      }
+      return (int)(Math.random() * loser.getLevel() * ControllerConstants.BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER);
+    }
+    
+    int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * Math.random()
+        * ControllerConstants.BATTLE__A, loser.getLevel()
         * ControllerConstants.BATTLE__B));
-    if (lostCoins<ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
-        ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=player.getCoins()) {
+    if (lostCoins < ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
+        ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=loser.getCoins()) {
       lostCoins = ControllerConstants.BATTLE__MIN_COINS_FROM_WIN;
     }
     if (isFlee) {
