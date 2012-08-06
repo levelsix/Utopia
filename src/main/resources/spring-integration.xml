@@ -21,7 +21,7 @@
 	<int:channel id="gameEventQueueChannel">
 		<int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
-        	<int:wire-tap channel="gameEventSaveQueueChannel"/>
+        	<!-- <int:wire-tap channel="gameEventSaveQueueChannel"/> -->
      	</int:interceptors>
 	</int:channel>
 
