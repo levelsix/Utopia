@@ -100,7 +100,7 @@ public class FakeClientTests {
 		waitForMessage();
 	}
 	
-	//@Test
+	@Test
 	public void testGeneratingFakeLoad() {
 		List<BasicUser> users = getTestUsers();
 		log.info("Generating UserQuestDetailsRequestEvents for {} users", users.size());
