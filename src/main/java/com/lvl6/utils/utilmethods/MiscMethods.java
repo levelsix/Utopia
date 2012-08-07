@@ -29,6 +29,7 @@ import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
@@ -333,6 +334,15 @@ public class MiscMethods {
 
     cb.setKiipRewardConditions(krcb.build());
 
+    CharacterModConstants charModConstants = CharacterModConstants.newBuilder()
+        .setDiamondCostToChangeCharacterType(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE)
+        .setDiamondCostToChangeName(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME)
+        .setDiamondCostToResetCharacter(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS)
+        .setDiamondCostToResetSkillPoints(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS)
+        .build();
+    
+    cb.setCharModConstants(charModConstants);
+    
     FormulaConstants formulaConstants = FormulaConstants.newBuilder()
         .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
         .setIncomeFromNormStructMultiplier(ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER)

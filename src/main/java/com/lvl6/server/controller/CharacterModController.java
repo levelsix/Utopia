@@ -11,10 +11,10 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CharacterModRequestProto;
-import com.lvl6.proto.EventProto.CharacterModRequestProto.ModType;
 import com.lvl6.proto.EventProto.CharacterModResponseProto;
 import com.lvl6.proto.EventProto.CharacterModResponseProto.Builder;
 import com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus;
+import com.lvl6.proto.InfoProto.CharacterModType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -48,12 +48,13 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     CharacterModRequestProto reqProto = ((CharacterModRequestEvent)event).getCharacterModRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    ModType modType = reqProto.getModType();
-    UserType newUserType = reqProto.getNewUserType(); //could be null
-    String newName = reqProto.getNewName(); //could be null
+    CharacterModType modType = reqProto.getModType();
+    UserType newUserType = reqProto.getFutureUserType(); //could be null
+    String newName = reqProto.getFutureName(); //could be null
     CharacterModResponseProto.Builder resBuilder = CharacterModResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
-
+    resBuilder.setModType(modType);
+    
     // Lock this player's ID
     server.lockPlayer(senderProto.getUserId());
 
@@ -61,13 +62,13 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
       int diamondCost = 0;
-      if (modType == ModType.CHANGE_CHARACTER_TYPE) {
+      if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
         diamondCost = ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE;
-      } else if (modType == ModType.CHANGE_NAME) {
+      } else if (modType == CharacterModType.CHANGE_NAME) {
         diamondCost = ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME;
-      } else if (modType == ModType.NEW_PLAYER) {
+      } else if (modType == CharacterModType.NEW_PLAYER) {
         diamondCost = ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER;
-      } else if (modType == ModType.RESET_SKILL_POINTS) {
+      } else if (modType == CharacterModType.RESET_SKILL_POINTS) {
         diamondCost = ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS;
       } 
 
@@ -92,25 +93,25 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-  private void writeChangesToDB(User user, ModType modType, int diamondCost, UserType newUserType,
+  private void writeChangesToDB(User user, CharacterModType modType, int diamondCost, UserType newUserType,
       String newName) {
-    if (modType == ModType.CHANGE_CHARACTER_TYPE) {
+    if (modType == CharacterModType.CHANGE_CHARACTER_TYPE) {
       if (!user.updateNameUserTypeUdid(newUserType, null, null, diamondCost*-1)) {
         log.error("error in changing user character type from "+user.getType()+" to "+newUserType+
             " with diamond cost "+diamondCost);
       }
-    } else if (modType == ModType.CHANGE_NAME) {
+    } else if (modType == CharacterModType.CHANGE_NAME) {
       if (!user.updateNameUserTypeUdid(null, newName, null, diamondCost*-1)) {
         log.error("error in changing user name from "+user.getName()+" to "+newName+
             " with diamond cost "+diamondCost);
       }
-    } else if (modType == ModType.NEW_PLAYER) {
+    } else if (modType == CharacterModType.NEW_PLAYER) {
       String newUdid = user.getUdid()+(Math.random()*100); //randomly add number between 0-99 to the end of udid
       if (!user.updateNameUserTypeUdid(null, null, newUdid, diamondCost*-1)) {
         log.error("error in updating user UDID from "+user.getUdid()+" to "+newUdid+
             " with diamond cost "+diamondCost);
       }
-    } else if (modType == ModType.RESET_SKILL_POINTS) {
+    } else if (modType == CharacterModType.RESET_SKILL_POINTS) {
       if (!user.resetSkillPoints(user.getEnergy(), user.getStamina(), diamondCost*-1)) {
         log.error("error in reseting skill points");
       }
@@ -118,13 +119,13 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   }
 
   private boolean checkLegitMod(Builder resBuilder, int diamondCost, User user, UserType newUserType, 
-      String newName, ModType modType) {
-  if (modType == ModType.CHANGE_CHARACTER_TYPE && newUserType == null) {
+      String newName, CharacterModType modType) {
+  if (modType == CharacterModType.CHANGE_CHARACTER_TYPE && newUserType == null) {
     resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
     log.error("tried to change character type without providing newUserType, newUserType is "+newUserType);
     return false;
   }
-  if (modType == ModType.CHANGE_NAME && newName == null) {
+  if (modType == CharacterModType.CHANGE_NAME && newName == null) {
     resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
     log.error("tried to change character name without providing newName, newName is "+newName);
     return false;

@@ -253,6 +253,15 @@ message StartupResponseProto {
 		optional double levelEquipBoostExponentBase = 66;
 		
 		optional int32 adColonyVideosRequiredToRedeemDiamonds = 67;
+
+		optional CharacterModConstants charModConstants = 68;
+		
+		message CharacterModConstants {
+			optional int32 diamondCostToChangeCharacterType = 1;
+			optional int32 diamondCostToChangeName = 2;
+			optional int32 diamondCostToResetCharacter = 3;
+			optional int32 diamondCostToResetSkillPoints = 4;
+		}
 		
 		message KiipRewardConditions {
 			repeated int32 levelUpConditions = 1;
@@ -1541,22 +1550,16 @@ message CollectForgeEquipsResponseProto {
 
 message CharacterModRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional ModType modType = 2;
+	optional CharacterModType modType = 2;
 	
-	optional UserType newUserType = 3;
-	optional string newName = 4;
-	
-	enum ModType {
-		NEW_PLAYER = 1;
-		RESET_SKILL_POINTS = 2;
-		CHANGE_CHARACTER_TYPE = 3;
-		CHANGE_NAME = 4;			
-	}
+	optional UserType futureUserType = 3;
+	optional string futureName = 4;
 }
 
 message CharacterModResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional CharacterModStatus status = 2;
+	optional CharacterModType modType = 3;
 	
 	enum CharacterModStatus {
 		SUCCESS = 0;
