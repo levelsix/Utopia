@@ -47,7 +47,7 @@ public class FakeClientTests {
 	@Resource
 	protected LoadTestEventGenerator gen;
 	
-	@Resource 
+	@Resource(name="controllersExecutor") 
 	protected TaskExecutor te;
 
 	public TaskExecutor getTe() {

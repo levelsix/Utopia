@@ -73,6 +73,9 @@
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
 		<wicket.mode>development</wicket.mode>
+
+
+		<tests.fake.client.host>robot.lvl6.com</tests.fake.client.host>
 	</properties>
 
 	<profiles>
