@@ -9,14 +9,14 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.integration.Message;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.QueueChannel;
-import org.springframework.integration.message.GenericMessage;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,25 +24,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.events.response.StartupResponseEvent;
-import com.lvl6.info.UserQuest;
 import com.lvl6.loadtesting.BasicUser;
 import com.lvl6.loadtesting.LoadTestEventGenerator;
 import com.lvl6.loadtesting.UserQuestTask;
-import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.EventProto.StartupRequestProto;
-import com.lvl6.proto.EventProto.StartupRequestProto.Builder;
 import com.lvl6.proto.InfoProto.UserType;
-import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ClientAttachment;
-import com.lvl6.utils.RetrieveUtils;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-spring-application-context.xml")
 
 public class FakeClientTests {
-	private static Logger log = Logger.getLogger(FakeClientTests.class);
+	private static Logger log = LoggerFactory.getLogger(FakeClientTests.class);
 	
 	@Resource
 	protected LoadTestEventGenerator gen;
@@ -109,6 +103,7 @@ public class FakeClientTests {
 	//@Test
 	public void testGeneratingFakeLoad() {
 		List<BasicUser> users = getTestUsers();
+		log.info("Generating UserQuestDetailsRequestEvents for {} users", users.size());
 		for(BasicUser user: users) {
 			UserQuestTask task = AppContext.getApplicationContext().getBean(UserQuestTask.class);
 			task.setUserId(user.getUserId());
