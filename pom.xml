@@ -66,7 +66,7 @@
 	</properties>
 
 	<profiles>
-		<profile>
+		<!-- <profile>
 			<id>lvl6prod</id>
 			<build>
 				<plugins>
@@ -90,7 +90,7 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
+		</profile> -->
 		<profile>
 			<id>kellyrobot</id>
 			<properties>
