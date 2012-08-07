@@ -14,4 +14,5 @@
 
 
 	<bean id="userQuestTask" class="com.lvl6.loadtesting.UserQuestTask" scope="prototype" />
+	<bean id="loadTestGenerator" class="com.lvl6.loadtesting.LoadTestEventGeneratorImpl" scope="prototype" />
 </beans>
