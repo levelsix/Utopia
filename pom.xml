@@ -40,9 +40,9 @@
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
 		<jdbc.idleMaxAgeInMinutes>10</jdbc.idleMaxAgeInMinutes>
-		<jdbc.maxConnectionsPerPartition>30</jdbc.maxConnectionsPerPartition>
+		<jdbc.maxConnectionsPerPartition>15</jdbc.maxConnectionsPerPartition>
 		<jdbc.minConnectionsPerPartition>1</jdbc.minConnectionsPerPartition>
-		<jdbc.partitionCount>3</jdbc.partitionCount>
+		<jdbc.partitionCount>2</jdbc.partitionCount>
 		<jdbc.acquireIncrement>1</jdbc.acquireIncrement>
 		<jdbc.statementsCacheSize>500</jdbc.statementsCacheSize>
 		<jdbc.releaseHelperThreads>3</jdbc.releaseHelperThreads>
