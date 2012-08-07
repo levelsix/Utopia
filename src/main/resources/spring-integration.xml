@@ -52,10 +52,11 @@
 
 
 	<int-ip:tcp-connection-factory id="serverSocket"
-		type="server" port="${server.port}" 
+		type="server" 
+		port="${server.port}" 
 		using-nio="true" 
 		lookup-host="false"
-		
+		task-executor="controllersExecutor"
 		deserializer="gameEventSerializer"
 		serializer="gameEventSerializer" />
 
