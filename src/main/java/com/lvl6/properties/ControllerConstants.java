@@ -238,7 +238,7 @@ public class ControllerConstants {
   public static final int USER_CREATE__MIN_COIN_REWARD_FOR_REFERRER = 100;
   public static final int USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED = 50;
   public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
-  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 11615;
+  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 1;
   public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hey! My name's Alex, one of the creators of this game. We hope you enjoy it! :)";
   
   //LEVEL UP
