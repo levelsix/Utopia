@@ -36,7 +36,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_USE_SKILL_POINT_EVENT;
+    return EventProtocolRequest.C_CHARACTER_MOD_EVENT;
   }
 
   /*
