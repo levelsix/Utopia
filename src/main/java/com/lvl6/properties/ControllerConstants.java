@@ -140,7 +140,7 @@ public class ControllerConstants {
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
   public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 20;
   public static final int STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS = 1; //in days
-  public static final int STARTUP__DAILY_BONUS_SMALL_BONUS_COIN_QUANTITY = 5;
+  public static final int STARTUP__DAILY_BONUS_SMALL_BONUS_COIN_QUANTITY = 2;
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS = 1;
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS = 5;
   public static final int STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS = 5;
@@ -238,7 +238,7 @@ public class ControllerConstants {
   public static final int USER_CREATE__MIN_COIN_REWARD_FOR_REFERRER = 100;
   public static final int USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED = 50;
   public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
-  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 11605;
+  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 11615;
   public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hey! My name's Alex, one of the creators of this game. We hope you enjoy it! :)";
   
   //LEVEL UP
