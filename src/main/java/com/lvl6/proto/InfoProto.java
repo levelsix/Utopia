@@ -1890,6 +1890,10 @@ public final class InfoProto {
     boolean hasNumCoinsRetrievedFromStructs();
     int getNumCoinsRetrievedFromStructs();
     
+    // optional int32 numAdColonyVideosWatched = 51;
+    boolean hasNumAdColonyVideosWatched();
+    int getNumAdColonyVideosWatched();
+    
     // optional string udid = 29;
     boolean hasUdid();
     String getUdid();
@@ -1917,10 +1921,6 @@ public final class InfoProto {
     // optional int32 apsalarId = 49;
     boolean hasApsalarId();
     int getApsalarId();
-    
-    // optional int32 numAdColonyVideosWatched = 51;
-    boolean hasNumAdColonyVideosWatched();
-    int getNumAdColonyVideosWatched();
     
     // optional int32 numTimesKiipRewarded = 52;
     boolean hasNumTimesKiipRewarded();
@@ -2396,11 +2396,21 @@ public final class InfoProto {
       return numCoinsRetrievedFromStructs_;
     }
     
+    // optional int32 numAdColonyVideosWatched = 51;
+    public static final int NUMADCOLONYVIDEOSWATCHED_FIELD_NUMBER = 51;
+    private int numAdColonyVideosWatched_;
+    public boolean hasNumAdColonyVideosWatched() {
+      return ((bitField1_ & 0x00000040) == 0x00000040);
+    }
+    public int getNumAdColonyVideosWatched() {
+      return numAdColonyVideosWatched_;
+    }
+    
     // optional string udid = 29;
     public static final int UDID_FIELD_NUMBER = 29;
     private java.lang.Object udid_;
     public boolean hasUdid() {
-      return ((bitField1_ & 0x00000040) == 0x00000040);
+      return ((bitField1_ & 0x00000080) == 0x00000080);
     }
     public String getUdid() {
       java.lang.Object ref = udid_;
@@ -2432,7 +2442,7 @@ public final class InfoProto {
     public static final int DEVICETOKEN_FIELD_NUMBER = 38;
     private java.lang.Object deviceToken_;
     public boolean hasDeviceToken() {
-      return ((bitField1_ & 0x00000080) == 0x00000080);
+      return ((bitField1_ & 0x00000100) == 0x00000100);
     }
     public String getDeviceToken() {
       java.lang.Object ref = deviceToken_;
@@ -2464,7 +2474,7 @@ public final class InfoProto {
     public static final int LASTBATTLENOTIFICATIONTIME_FIELD_NUMBER = 39;
     private long lastBattleNotificationTime_;
     public boolean hasLastBattleNotificationTime() {
-      return ((bitField1_ & 0x00000100) == 0x00000100);
+      return ((bitField1_ & 0x00000200) == 0x00000200);
     }
     public long getLastBattleNotificationTime() {
       return lastBattleNotificationTime_;
@@ -2474,7 +2484,7 @@ public final class InfoProto {
     public static final int LASTTIMEATTACKED_FIELD_NUMBER = 40;
     private long lastTimeAttacked_;
     public boolean hasLastTimeAttacked() {
-      return ((bitField1_ & 0x00000200) == 0x00000200);
+      return ((bitField1_ & 0x00000400) == 0x00000400);
     }
     public long getLastTimeAttacked() {
       return lastTimeAttacked_;
@@ -2484,7 +2494,7 @@ public final class InfoProto {
     public static final int NUMBADGES_FIELD_NUMBER = 42;
     private int numBadges_;
     public boolean hasNumBadges() {
-      return ((bitField1_ & 0x00000400) == 0x00000400);
+      return ((bitField1_ & 0x00000800) == 0x00000800);
     }
     public int getNumBadges() {
       return numBadges_;
@@ -2494,7 +2504,7 @@ public final class InfoProto {
     public static final int CREATETIME_FIELD_NUMBER = 47;
     private long createTime_;
     public boolean hasCreateTime() {
-      return ((bitField1_ & 0x00000800) == 0x00000800);
+      return ((bitField1_ & 0x00001000) == 0x00001000);
     }
     public long getCreateTime() {
       return createTime_;
@@ -2504,20 +2514,10 @@ public final class InfoProto {
     public static final int APSALARID_FIELD_NUMBER = 49;
     private int apsalarId_;
     public boolean hasApsalarId() {
-      return ((bitField1_ & 0x00001000) == 0x00001000);
+      return ((bitField1_ & 0x00002000) == 0x00002000);
     }
     public int getApsalarId() {
       return apsalarId_;
-    }
-    
-    // optional int32 numAdColonyVideosWatched = 51;
-    public static final int NUMADCOLONYVIDEOSWATCHED_FIELD_NUMBER = 51;
-    private int numAdColonyVideosWatched_;
-    public boolean hasNumAdColonyVideosWatched() {
-      return ((bitField1_ & 0x00002000) == 0x00002000);
-    }
-    public int getNumAdColonyVideosWatched() {
-      return numAdColonyVideosWatched_;
     }
     
     // optional int32 numTimesKiipRewarded = 52;
@@ -2579,6 +2579,7 @@ public final class InfoProto {
       isFake_ = false;
       isAdmin_ = false;
       numCoinsRetrievedFromStructs_ = 0;
+      numAdColonyVideosWatched_ = 0;
       udid_ = "";
       deviceToken_ = "";
       lastBattleNotificationTime_ = 0L;
@@ -2586,7 +2587,6 @@ public final class InfoProto {
       numBadges_ = 0;
       createTime_ = 0L;
       apsalarId_ = 0;
-      numAdColonyVideosWatched_ = 0;
       numTimesKiipRewarded_ = 0;
       numConsecutiveDaysPlayed_ = 0;
     }
@@ -2674,7 +2674,7 @@ public final class InfoProto {
       if (((bitField0_ & 0x01000000) == 0x01000000)) {
         output.writeInt32(28, numReferrals_);
       }
-      if (((bitField1_ & 0x00000040) == 0x00000040)) {
+      if (((bitField1_ & 0x00000080) == 0x00000080)) {
         output.writeBytes(29, getUdidBytes());
       }
       if (((bitField0_ & 0x02000000) == 0x02000000)) {
@@ -2701,16 +2701,16 @@ public final class InfoProto {
       if (((bitField1_ & 0x00000001) == 0x00000001)) {
         output.writeInt64(37, lastLogoutTime_);
       }
-      if (((bitField1_ & 0x00000080) == 0x00000080)) {
+      if (((bitField1_ & 0x00000100) == 0x00000100)) {
         output.writeBytes(38, getDeviceTokenBytes());
       }
-      if (((bitField1_ & 0x00000100) == 0x00000100)) {
+      if (((bitField1_ & 0x00000200) == 0x00000200)) {
         output.writeInt64(39, lastBattleNotificationTime_);
       }
-      if (((bitField1_ & 0x00000200) == 0x00000200)) {
+      if (((bitField1_ & 0x00000400) == 0x00000400)) {
         output.writeInt64(40, lastTimeAttacked_);
       }
-      if (((bitField1_ & 0x00000400) == 0x00000400)) {
+      if (((bitField1_ & 0x00000800) == 0x00000800)) {
         output.writeInt32(42, numBadges_);
       }
       if (((bitField1_ & 0x00000002) == 0x00000002)) {
@@ -2725,19 +2725,19 @@ public final class InfoProto {
       if (((bitField1_ & 0x00000008) == 0x00000008)) {
         output.writeBool(46, isFake_);
       }
-      if (((bitField1_ & 0x00000800) == 0x00000800)) {
+      if (((bitField1_ & 0x00001000) == 0x00001000)) {
         output.writeInt64(47, createTime_);
       }
       if (((bitField1_ & 0x00000010) == 0x00000010)) {
         output.writeBool(48, isAdmin_);
       }
-      if (((bitField1_ & 0x00001000) == 0x00001000)) {
+      if (((bitField1_ & 0x00002000) == 0x00002000)) {
         output.writeInt32(49, apsalarId_);
       }
       if (((bitField1_ & 0x00000020) == 0x00000020)) {
         output.writeInt32(50, numCoinsRetrievedFromStructs_);
       }
-      if (((bitField1_ & 0x00002000) == 0x00002000)) {
+      if (((bitField1_ & 0x00000040) == 0x00000040)) {
         output.writeInt32(51, numAdColonyVideosWatched_);
       }
       if (((bitField1_ & 0x00004000) == 0x00004000)) {
@@ -2851,7 +2851,7 @@ public final class InfoProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(28, numReferrals_);
       }
-      if (((bitField1_ & 0x00000040) == 0x00000040)) {
+      if (((bitField1_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(29, getUdidBytes());
       }
@@ -2887,19 +2887,19 @@ public final class InfoProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(37, lastLogoutTime_);
       }
-      if (((bitField1_ & 0x00000080) == 0x00000080)) {
+      if (((bitField1_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(38, getDeviceTokenBytes());
       }
-      if (((bitField1_ & 0x00000100) == 0x00000100)) {
+      if (((bitField1_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(39, lastBattleNotificationTime_);
       }
-      if (((bitField1_ & 0x00000200) == 0x00000200)) {
+      if (((bitField1_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(40, lastTimeAttacked_);
       }
-      if (((bitField1_ & 0x00000400) == 0x00000400)) {
+      if (((bitField1_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(42, numBadges_);
       }
@@ -2919,7 +2919,7 @@ public final class InfoProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(46, isFake_);
       }
-      if (((bitField1_ & 0x00000800) == 0x00000800)) {
+      if (((bitField1_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(47, createTime_);
       }
@@ -2927,7 +2927,7 @@ public final class InfoProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(48, isAdmin_);
       }
-      if (((bitField1_ & 0x00001000) == 0x00001000)) {
+      if (((bitField1_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(49, apsalarId_);
       }
@@ -2935,7 +2935,7 @@ public final class InfoProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(50, numCoinsRetrievedFromStructs_);
       }
-      if (((bitField1_ & 0x00002000) == 0x00002000)) {
+      if (((bitField1_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(51, numAdColonyVideosWatched_);
       }
@@ -3167,21 +3167,21 @@ public final class InfoProto {
         bitField1_ = (bitField1_ & ~0x00000010);
         numCoinsRetrievedFromStructs_ = 0;
         bitField1_ = (bitField1_ & ~0x00000020);
-        udid_ = "";
-        bitField1_ = (bitField1_ & ~0x00000040);
-        deviceToken_ = "";
-        bitField1_ = (bitField1_ & ~0x00000080);
-        lastBattleNotificationTime_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000100);
-        lastTimeAttacked_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000200);
-        numBadges_ = 0;
-        bitField1_ = (bitField1_ & ~0x00000400);
-        createTime_ = 0L;
-        bitField1_ = (bitField1_ & ~0x00000800);
-        apsalarId_ = 0;
-        bitField1_ = (bitField1_ & ~0x00001000);
         numAdColonyVideosWatched_ = 0;
+        bitField1_ = (bitField1_ & ~0x00000040);
+        udid_ = "";
+        bitField1_ = (bitField1_ & ~0x00000080);
+        deviceToken_ = "";
+        bitField1_ = (bitField1_ & ~0x00000100);
+        lastBattleNotificationTime_ = 0L;
+        bitField1_ = (bitField1_ & ~0x00000200);
+        lastTimeAttacked_ = 0L;
+        bitField1_ = (bitField1_ & ~0x00000400);
+        numBadges_ = 0;
+        bitField1_ = (bitField1_ & ~0x00000800);
+        createTime_ = 0L;
+        bitField1_ = (bitField1_ & ~0x00001000);
+        apsalarId_ = 0;
         bitField1_ = (bitField1_ & ~0x00002000);
         numTimesKiipRewarded_ = 0;
         bitField1_ = (bitField1_ & ~0x00004000);
@@ -3398,35 +3398,35 @@ public final class InfoProto {
         if (((from_bitField1_ & 0x00000040) == 0x00000040)) {
           to_bitField1_ |= 0x00000040;
         }
-        result.udid_ = udid_;
+        result.numAdColonyVideosWatched_ = numAdColonyVideosWatched_;
         if (((from_bitField1_ & 0x00000080) == 0x00000080)) {
           to_bitField1_ |= 0x00000080;
         }
-        result.deviceToken_ = deviceToken_;
+        result.udid_ = udid_;
         if (((from_bitField1_ & 0x00000100) == 0x00000100)) {
           to_bitField1_ |= 0x00000100;
         }
-        result.lastBattleNotificationTime_ = lastBattleNotificationTime_;
+        result.deviceToken_ = deviceToken_;
         if (((from_bitField1_ & 0x00000200) == 0x00000200)) {
           to_bitField1_ |= 0x00000200;
         }
-        result.lastTimeAttacked_ = lastTimeAttacked_;
+        result.lastBattleNotificationTime_ = lastBattleNotificationTime_;
         if (((from_bitField1_ & 0x00000400) == 0x00000400)) {
           to_bitField1_ |= 0x00000400;
         }
-        result.numBadges_ = numBadges_;
+        result.lastTimeAttacked_ = lastTimeAttacked_;
         if (((from_bitField1_ & 0x00000800) == 0x00000800)) {
           to_bitField1_ |= 0x00000800;
         }
-        result.createTime_ = createTime_;
+        result.numBadges_ = numBadges_;
         if (((from_bitField1_ & 0x00001000) == 0x00001000)) {
           to_bitField1_ |= 0x00001000;
         }
-        result.apsalarId_ = apsalarId_;
+        result.createTime_ = createTime_;
         if (((from_bitField1_ & 0x00002000) == 0x00002000)) {
           to_bitField1_ |= 0x00002000;
         }
-        result.numAdColonyVideosWatched_ = numAdColonyVideosWatched_;
+        result.apsalarId_ = apsalarId_;
         if (((from_bitField1_ & 0x00004000) == 0x00004000)) {
           to_bitField1_ |= 0x00004000;
         }
@@ -3566,6 +3566,9 @@ public final class InfoProto {
         if (other.hasNumCoinsRetrievedFromStructs()) {
           setNumCoinsRetrievedFromStructs(other.getNumCoinsRetrievedFromStructs());
         }
+        if (other.hasNumAdColonyVideosWatched()) {
+          setNumAdColonyVideosWatched(other.getNumAdColonyVideosWatched());
+        }
         if (other.hasUdid()) {
           setUdid(other.getUdid());
         }
@@ -3586,9 +3589,6 @@ public final class InfoProto {
         }
         if (other.hasApsalarId()) {
           setApsalarId(other.getApsalarId());
-        }
-        if (other.hasNumAdColonyVideosWatched()) {
-          setNumAdColonyVideosWatched(other.getNumAdColonyVideosWatched());
         }
         if (other.hasNumTimesKiipRewarded()) {
           setNumTimesKiipRewarded(other.getNumTimesKiipRewarded());
@@ -3754,7 +3754,7 @@ public final class InfoProto {
               break;
             }
             case 234: {
-              bitField1_ |= 0x00000040;
+              bitField1_ |= 0x00000080;
               udid_ = input.readBytes();
               break;
             }
@@ -3815,22 +3815,22 @@ public final class InfoProto {
               break;
             }
             case 306: {
-              bitField1_ |= 0x00000080;
+              bitField1_ |= 0x00000100;
               deviceToken_ = input.readBytes();
               break;
             }
             case 312: {
-              bitField1_ |= 0x00000100;
+              bitField1_ |= 0x00000200;
               lastBattleNotificationTime_ = input.readInt64();
               break;
             }
             case 320: {
-              bitField1_ |= 0x00000200;
+              bitField1_ |= 0x00000400;
               lastTimeAttacked_ = input.readInt64();
               break;
             }
             case 336: {
-              bitField1_ |= 0x00000400;
+              bitField1_ |= 0x00000800;
               numBadges_ = input.readInt32();
               break;
             }
@@ -3855,7 +3855,7 @@ public final class InfoProto {
               break;
             }
             case 376: {
-              bitField1_ |= 0x00000800;
+              bitField1_ |= 0x00001000;
               createTime_ = input.readInt64();
               break;
             }
@@ -3865,7 +3865,7 @@ public final class InfoProto {
               break;
             }
             case 392: {
-              bitField1_ |= 0x00001000;
+              bitField1_ |= 0x00002000;
               apsalarId_ = input.readInt32();
               break;
             }
@@ -3875,7 +3875,7 @@ public final class InfoProto {
               break;
             }
             case 408: {
-              bitField1_ |= 0x00002000;
+              bitField1_ |= 0x00000040;
               numAdColonyVideosWatched_ = input.readInt32();
               break;
             }
@@ -5003,10 +5003,31 @@ public final class InfoProto {
         return this;
       }
       
+      // optional int32 numAdColonyVideosWatched = 51;
+      private int numAdColonyVideosWatched_ ;
+      public boolean hasNumAdColonyVideosWatched() {
+        return ((bitField1_ & 0x00000040) == 0x00000040);
+      }
+      public int getNumAdColonyVideosWatched() {
+        return numAdColonyVideosWatched_;
+      }
+      public Builder setNumAdColonyVideosWatched(int value) {
+        bitField1_ |= 0x00000040;
+        numAdColonyVideosWatched_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearNumAdColonyVideosWatched() {
+        bitField1_ = (bitField1_ & ~0x00000040);
+        numAdColonyVideosWatched_ = 0;
+        onChanged();
+        return this;
+      }
+      
       // optional string udid = 29;
       private java.lang.Object udid_ = "";
       public boolean hasUdid() {
-        return ((bitField1_ & 0x00000040) == 0x00000040);
+        return ((bitField1_ & 0x00000080) == 0x00000080);
       }
       public String getUdid() {
         java.lang.Object ref = udid_;
@@ -5022,19 +5043,19 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField1_ |= 0x00000040;
+  bitField1_ |= 0x00000080;
         udid_ = value;
         onChanged();
         return this;
       }
       public Builder clearUdid() {
-        bitField1_ = (bitField1_ & ~0x00000040);
+        bitField1_ = (bitField1_ & ~0x00000080);
         udid_ = getDefaultInstance().getUdid();
         onChanged();
         return this;
       }
       void setUdid(com.google.protobuf.ByteString value) {
-        bitField1_ |= 0x00000040;
+        bitField1_ |= 0x00000080;
         udid_ = value;
         onChanged();
       }
@@ -5042,7 +5063,7 @@ public final class InfoProto {
       // optional string deviceToken = 38;
       private java.lang.Object deviceToken_ = "";
       public boolean hasDeviceToken() {
-        return ((bitField1_ & 0x00000080) == 0x00000080);
+        return ((bitField1_ & 0x00000100) == 0x00000100);
       }
       public String getDeviceToken() {
         java.lang.Object ref = deviceToken_;
@@ -5058,19 +5079,19 @@ public final class InfoProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField1_ |= 0x00000080;
+  bitField1_ |= 0x00000100;
         deviceToken_ = value;
         onChanged();
         return this;
       }
       public Builder clearDeviceToken() {
-        bitField1_ = (bitField1_ & ~0x00000080);
+        bitField1_ = (bitField1_ & ~0x00000100);
         deviceToken_ = getDefaultInstance().getDeviceToken();
         onChanged();
         return this;
       }
       void setDeviceToken(com.google.protobuf.ByteString value) {
-        bitField1_ |= 0x00000080;
+        bitField1_ |= 0x00000100;
         deviceToken_ = value;
         onChanged();
       }
@@ -5078,19 +5099,19 @@ public final class InfoProto {
       // optional int64 lastBattleNotificationTime = 39;
       private long lastBattleNotificationTime_ ;
       public boolean hasLastBattleNotificationTime() {
-        return ((bitField1_ & 0x00000100) == 0x00000100);
+        return ((bitField1_ & 0x00000200) == 0x00000200);
       }
       public long getLastBattleNotificationTime() {
         return lastBattleNotificationTime_;
       }
       public Builder setLastBattleNotificationTime(long value) {
-        bitField1_ |= 0x00000100;
+        bitField1_ |= 0x00000200;
         lastBattleNotificationTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastBattleNotificationTime() {
-        bitField1_ = (bitField1_ & ~0x00000100);
+        bitField1_ = (bitField1_ & ~0x00000200);
         lastBattleNotificationTime_ = 0L;
         onChanged();
         return this;
@@ -5099,19 +5120,19 @@ public final class InfoProto {
       // optional int64 lastTimeAttacked = 40;
       private long lastTimeAttacked_ ;
       public boolean hasLastTimeAttacked() {
-        return ((bitField1_ & 0x00000200) == 0x00000200);
+        return ((bitField1_ & 0x00000400) == 0x00000400);
       }
       public long getLastTimeAttacked() {
         return lastTimeAttacked_;
       }
       public Builder setLastTimeAttacked(long value) {
-        bitField1_ |= 0x00000200;
+        bitField1_ |= 0x00000400;
         lastTimeAttacked_ = value;
         onChanged();
         return this;
       }
       public Builder clearLastTimeAttacked() {
-        bitField1_ = (bitField1_ & ~0x00000200);
+        bitField1_ = (bitField1_ & ~0x00000400);
         lastTimeAttacked_ = 0L;
         onChanged();
         return this;
@@ -5120,19 +5141,19 @@ public final class InfoProto {
       // optional int32 numBadges = 42;
       private int numBadges_ ;
       public boolean hasNumBadges() {
-        return ((bitField1_ & 0x00000400) == 0x00000400);
+        return ((bitField1_ & 0x00000800) == 0x00000800);
       }
       public int getNumBadges() {
         return numBadges_;
       }
       public Builder setNumBadges(int value) {
-        bitField1_ |= 0x00000400;
+        bitField1_ |= 0x00000800;
         numBadges_ = value;
         onChanged();
         return this;
       }
       public Builder clearNumBadges() {
-        bitField1_ = (bitField1_ & ~0x00000400);
+        bitField1_ = (bitField1_ & ~0x00000800);
         numBadges_ = 0;
         onChanged();
         return this;
@@ -5141,19 +5162,19 @@ public final class InfoProto {
       // optional int64 createTime = 47;
       private long createTime_ ;
       public boolean hasCreateTime() {
-        return ((bitField1_ & 0x00000800) == 0x00000800);
+        return ((bitField1_ & 0x00001000) == 0x00001000);
       }
       public long getCreateTime() {
         return createTime_;
       }
       public Builder setCreateTime(long value) {
-        bitField1_ |= 0x00000800;
+        bitField1_ |= 0x00001000;
         createTime_ = value;
         onChanged();
         return this;
       }
       public Builder clearCreateTime() {
-        bitField1_ = (bitField1_ & ~0x00000800);
+        bitField1_ = (bitField1_ & ~0x00001000);
         createTime_ = 0L;
         onChanged();
         return this;
@@ -5162,41 +5183,20 @@ public final class InfoProto {
       // optional int32 apsalarId = 49;
       private int apsalarId_ ;
       public boolean hasApsalarId() {
-        return ((bitField1_ & 0x00001000) == 0x00001000);
+        return ((bitField1_ & 0x00002000) == 0x00002000);
       }
       public int getApsalarId() {
         return apsalarId_;
       }
       public Builder setApsalarId(int value) {
-        bitField1_ |= 0x00001000;
+        bitField1_ |= 0x00002000;
         apsalarId_ = value;
         onChanged();
         return this;
       }
       public Builder clearApsalarId() {
-        bitField1_ = (bitField1_ & ~0x00001000);
-        apsalarId_ = 0;
-        onChanged();
-        return this;
-      }
-      
-      // optional int32 numAdColonyVideosWatched = 51;
-      private int numAdColonyVideosWatched_ ;
-      public boolean hasNumAdColonyVideosWatched() {
-        return ((bitField1_ & 0x00002000) == 0x00002000);
-      }
-      public int getNumAdColonyVideosWatched() {
-        return numAdColonyVideosWatched_;
-      }
-      public Builder setNumAdColonyVideosWatched(int value) {
-        bitField1_ |= 0x00002000;
-        numAdColonyVideosWatched_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearNumAdColonyVideosWatched() {
         bitField1_ = (bitField1_ & ~0x00002000);
-        numAdColonyVideosWatched_ = 0;
+        apsalarId_ = 0;
         onChanged();
         return this;
       }
@@ -28675,12 +28675,12 @@ public final class InfoProto {
       "(\003\022$\n\034lastShortLicensePurchaseTime\030+ \001(\003",
       "\022#\n\033lastLongLicensePurchaseTime\030, \001(\003\022\016\n" +
       "\006isFake\030. \001(\010\022\017\n\007isAdmin\0300 \001(\010\022$\n\034numCoi" +
-      "nsRetrievedFromStructs\0302 \001(\005\022\014\n\004udid\030\035 \001" +
-      "(\t\022\023\n\013deviceToken\030& \001(\t\022\"\n\032lastBattleNot" +
-      "ificationTime\030\' \001(\003\022\030\n\020lastTimeAttacked\030" +
-      "( \001(\003\022\021\n\tnumBadges\030* \001(\005\022\022\n\ncreateTime\030/" +
-      " \001(\003\022\021\n\tapsalarId\0301 \001(\005\022 \n\030numAdColonyVi" +
-      "deosWatched\0303 \001(\005\022\034\n\024numTimesKiipRewarde" +
+      "nsRetrievedFromStructs\0302 \001(\005\022 \n\030numAdCol" +
+      "onyVideosWatched\0303 \001(\005\022\014\n\004udid\030\035 \001(\t\022\023\n\013" +
+      "deviceToken\030& \001(\t\022\"\n\032lastBattleNotificat" +
+      "ionTime\030\' \001(\003\022\030\n\020lastTimeAttacked\030( \001(\003\022" +
+      "\021\n\tnumBadges\030* \001(\005\022\022\n\ncreateTime\030/ \001(\003\022\021" +
+      "\n\tapsalarId\0301 \001(\005\022\034\n\024numTimesKiipRewarde" +
       "d\0304 \001(\005\022 \n\030numConsecutiveDaysPlayed\0305 \001(" +
       "\005\"\210\005\n\016FullEquipProto\022\017\n\007equipId\030\001 \001(\005\022\014\n",
       "\004name\030\002 \001(\t\022;\n\tequipType\030\003 \001(\0162(.com.lvl" +
@@ -28903,7 +28903,7 @@ public final class InfoProto {
           internal_static_com_lvl6_proto_FullUserProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_FullUserProto_descriptor,
-              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "LastStaminaRefillTime", "Energy", "LastEnergyRefillTime", "SkillPoints", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "MarketplaceDiamondsEarnings", "MarketplaceCoinsEarnings", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "Flees", "ReferralCode", "NumReferrals", "UserLocation", "NumPostsInMarketplace", "NumMarketplaceSalesUnredeemed", "WeaponEquippedUserEquip", "ArmorEquippedUserEquip", "AmuletEquippedUserEquip", "LastLoginTime", "LastLogoutTime", "LastShortLicensePurchaseTime", "LastLongLicensePurchaseTime", "IsFake", "IsAdmin", "NumCoinsRetrievedFromStructs", "Udid", "DeviceToken", "LastBattleNotificationTime", "LastTimeAttacked", "NumBadges", "CreateTime", "ApsalarId", "NumAdColonyVideosWatched", "NumTimesKiipRewarded", "NumConsecutiveDaysPlayed", },
+              new java.lang.String[] { "UserId", "Name", "Level", "UserType", "Attack", "Defense", "Stamina", "LastStaminaRefillTime", "Energy", "LastEnergyRefillTime", "SkillPoints", "EnergyMax", "StaminaMax", "Diamonds", "Coins", "MarketplaceDiamondsEarnings", "MarketplaceCoinsEarnings", "VaultBalance", "Experience", "TasksCompleted", "BattlesWon", "BattlesLost", "Flees", "ReferralCode", "NumReferrals", "UserLocation", "NumPostsInMarketplace", "NumMarketplaceSalesUnredeemed", "WeaponEquippedUserEquip", "ArmorEquippedUserEquip", "AmuletEquippedUserEquip", "LastLoginTime", "LastLogoutTime", "LastShortLicensePurchaseTime", "LastLongLicensePurchaseTime", "IsFake", "IsAdmin", "NumCoinsRetrievedFromStructs", "NumAdColonyVideosWatched", "Udid", "DeviceToken", "LastBattleNotificationTime", "LastTimeAttacked", "NumBadges", "CreateTime", "ApsalarId", "NumTimesKiipRewarded", "NumConsecutiveDaysPlayed", },
               com.lvl6.proto.InfoProto.FullUserProto.class,
               com.lvl6.proto.InfoProto.FullUserProto.Builder.class);
           internal_static_com_lvl6_proto_FullEquipProto_descriptor =

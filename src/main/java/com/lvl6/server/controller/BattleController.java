@@ -35,7 +35,6 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -128,11 +127,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
 
         Random random = new Random();
-        lostCoins = calculateLostCoins(winner, loser, random, (result == BattleResult.ATTACKER_FLEE));
+        lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
 
         if (result == BattleResult.ATTACKER_WIN) {
-          expGained = calculateExpGain(loser);
+          expGained = calculateExpGain(winner, loser);
           resBuilder.setExpGained(expGained);
         }
         resBuilder.setStatus(BattleStatus.SUCCESS);
@@ -218,13 +217,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return lostEquip;
   }
 
-  private int calculateExpGain(User loser) {
-    int requiredKills = (int) (ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT * loser.getLevel())
-        + (int)(ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT*ControllerConstants.BATTLE__EXP_MIN_NUM_KILLS);
-    int expNeeded = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel()+1)
-        - LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel());
-    int randomness = (int)((Math.random()+1.0)*((loser.getLevel()/10)+1));
-    return (int) (ControllerConstants.BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES*(expNeeded/requiredKills))+randomness;
+  private int calculateExpGain(User winner, User loser) {
+	  int baseExp = (int) (loser.getLevel()*ControllerConstants.BATTLE__EXP_BASE_MULTIPLIER);
+	  int levelDifference = (int) (baseExp * ((loser.getLevel() - winner.getLevel()) 
+			  * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT));
+	  int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
+	  
+	  int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
+	  return expGain;
   }
 
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
@@ -364,14 +364,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private int calculateLostCoins(User winner, User loser, Random random, boolean isFlee) {
-    User player = (loser.isFake() && !winner.isFake()) ? winner : loser;
-
-    int lostCoins = (int) Math.rint(Math.min(player.getCoins() * Math.random()
-        * ControllerConstants.BATTLE__A, player.getLevel()
+  private int calculateLostCoins(User loser, Random random, boolean isFlee) {
+    if (loser.isFake()) {
+      if (Math.random() < ControllerConstants.BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER) {
+        return 0;
+      }
+      return (int)(Math.random() * loser.getLevel() * ControllerConstants.BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER);
+    }
+    
+    int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * Math.random()
+        * ControllerConstants.BATTLE__A, loser.getLevel()
         * ControllerConstants.BATTLE__B));
-    if (lostCoins<ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
-        ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=player.getCoins()) {
+    if (lostCoins < ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
+        ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=loser.getCoins()) {
       lostCoins = ControllerConstants.BATTLE__MIN_COINS_FROM_WIN;
     }
     if (isFlee) {

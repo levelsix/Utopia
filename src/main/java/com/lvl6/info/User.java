@@ -748,6 +748,29 @@ public class User implements Serializable {
     }
     return false;
   }
+  
+  public boolean updateRelativeCoinsAdcolonyvideoswatched (int coinChange, int numAdColonyVideosWatched) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (coinChange != 0) {
+      relativeParams.put(DBConstants.USER__COINS, coinChange);
+    }
+    if (numAdColonyVideosWatched != 0) {
+      relativeParams.put(DBConstants.USER__NUM_ADCOLONY_VIDEOS_WATCHED, numAdColonyVideosWatched); 
+    }
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinChange;
+      this.numAdColonyVideosWatched += numAdColonyVideosWatched;
+      return true;
+    }
+    return false;
+  }
 
   /*
    * used for in app purchases, armory, finishingnormstructbuild

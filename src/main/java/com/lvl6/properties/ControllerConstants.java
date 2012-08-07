@@ -61,9 +61,9 @@ public class ControllerConstants {
   public static final float BATTLE_GOOD_MULTIPLIER = 1.0f;
   public static final float BATTLE_IMBALANCE_PERCENT = .67f;
   public static final float BATTLE_PERFECT_LIKELIHOOD = .25f;
-  public static final float BATTLE_GREAT_LIKELIHOOD = .5f;
+  public static final float BATTLE_GREAT_LIKELIHOOD = .55f;
   public static final float BATTLE_GOOD_LIKELIHOOD = .15f;
-  public static final float BATTLE_MISS_LIKELIHOOD = .1f;
+  public static final float BATTLE_MISS_LIKELIHOOD = .05f;
 
   public static final double BATTLE__HIT_ATTACKER_PERCENT_OF_HEALTH = 0.2;
   public static final double BATTLE__HIT_DEFENDER_PERCENT_OF_HEALTH = 0.25;
@@ -74,8 +74,10 @@ public class ControllerConstants {
   public static final double BATTLE__ATTACK_EXPO_MULTIPLIER = 0.8;
   public static final double BATTLE__PERCENT_OF_EQUIPMENT = 3.0/9.0;      
   public static final double BATTLE__INDIVIDUAL_EQUIP_ATTACK_CAP = 5.0; 
-
-  public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.2;
+  public static final double BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER = 3;
+  public static final double BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER = .2;
+  
+  public static final double LEVEL_EQUIP_BOOST_EXPONENT_BASE = 1.5;
   
   public static final double HEALTH__FORMULA_EXPONENT_BASE = 1.18;
   
@@ -84,7 +86,7 @@ public class ControllerConstants {
   public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 1;
   public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
-  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
+  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 5;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
@@ -138,7 +140,7 @@ public class ControllerConstants {
   public static final int STARTUP__HOURS_OF_BATTLE_NOTIFICATIONS_TO_SEND = 24*2;
   public static final int STARTUP__APPROX_NUM_ALLIES_TO_SEND = 20;
   public static final int STARTUP__DAILY_BONUS_TIME_REQ_BETWEEN_CONSEC_DAYS = 1; //in days
-  public static final int STARTUP__DAILY_BONUS_SMALL_BONUS_COIN_QUANTITY = 5;
+  public static final int STARTUP__DAILY_BONUS_SMALL_BONUS_COIN_QUANTITY = 2;
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS = 1;
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS = 5;
   public static final int STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS = 5;
@@ -159,9 +161,9 @@ public class ControllerConstants {
   public static final double BATTLE__A = .2;		//must be <= 1
   public static final double BATTLE__B = 80;
   public static final int BATTLE__MIN_COINS_FROM_WIN = 5;
-  public static final double BATTLE__EXP_NUM_KILLS_CONSTANT = 1.25;
-  public static final int BATTLE__EXP_MIN_NUM_KILLS = 2;
-  public static final double BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES = 0.33;
+  public static final double BATTLE__EXP_BASE_MULTIPLIER = 0.8;
+  public static final int BATTLE__EXP_MIN = 1;
+  public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 0.2;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
@@ -205,6 +207,9 @@ public class ControllerConstants {
   public static final int USE_SKILL_POINT__DEFENSE_BASE_COST = 1;
   public static final int USE_SKILL_POINT__ENERGY_BASE_COST = 1;
   public static final int USE_SKILL_POINT__STAMINA_BASE_COST = 2;
+  
+  //EARN FREE DIAMONDS
+  public static final int EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD = 20;
   
   //VAULT
   public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;

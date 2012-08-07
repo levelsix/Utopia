@@ -147,7 +147,7 @@ public class APNSWriter extends Wrap {
 					log.error(e);
 				}
 			} else {
-				log.info("could not send push notification because user "
+				log.warn("could not send push notification because user "
 						+ user + " has no device token");
 			}
 		}
@@ -181,6 +181,8 @@ public class APNSWriter extends Wrap {
 		if (Globals.IS_SANDBOX()) {
 			log.info("Building apns with sandbox=true");
 			builder.withSandboxDestination();
+		} else {
+		  builder.withProductionDestination();
 		}
 		service = builder.build();
 		service.start();

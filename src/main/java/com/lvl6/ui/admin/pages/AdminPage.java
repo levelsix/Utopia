@@ -1,9 +1,11 @@
 package com.lvl6.ui.admin.pages;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.lvl6.properties.Globals;
 import com.lvl6.ui.admin.components.RecentPurchasesPanel;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
 import com.lvl6.ui.admin.components.StatsPanel;
@@ -22,12 +24,18 @@ public class AdminPage extends TemplatePage {
 		} else {
 			log.info("Loading Admin Page");
 		}
+		setIsSandbox();
 		setTools();
 		setStats();
 		setTopSpenders();
 		setRecentPurchases();
 	}
-
+	
+	private void setIsSandbox() {
+		add(new Label("isSandbox", "Sandbox: "+Globals.IS_SANDBOX()));
+	}
+	
+	
 	private void setTools() {
 		add(new ReloadStaticDataLink("reloadStaticDataLink"));
 	}

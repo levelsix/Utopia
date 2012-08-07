@@ -25,7 +25,7 @@
 		deserializer="gameEventClientSerializer"
 		serializer="gameEventSerializer"
 		port="${server.port}" 
-		host="localhost"
+		host="${tests.fake.client.host}"
 		 
 	/>	
 	
