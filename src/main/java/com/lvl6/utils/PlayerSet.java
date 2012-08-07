@@ -2,6 +2,7 @@ package com.lvl6.utils;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +11,20 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.ILock;
+import com.hazelcast.core.IMap;
 
 public class PlayerSet implements HazelcastInstanceAware {
 
 	
 	Logger log = Logger.getLogger(PlayerSet.class);
 	
-	private Map<Integer, PlayerInAction> players;
+	private IMap<Integer, PlayerInAction> players;
 
-	public Map<Integer, PlayerInAction> getPlayers() {
+	public IMap<Integer, PlayerInAction> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(Map<Integer, PlayerInAction> players) {
+	public void setPlayers(IMap<Integer, PlayerInAction> players) {
 		this.players = players;
 	}
 
@@ -33,7 +35,8 @@ public class PlayerSet implements HazelcastInstanceAware {
 	 * @throws InterruptedException
 	 */
 	public void addPlayer(int playerId) {
-		players.put(playerId, new PlayerInAction(playerId));
+		//players.put(playerId, new PlayerInAction(playerId));
+		players.put(playerId, new PlayerInAction(playerId), 30, TimeUnit.SECONDS);
 	}
 
 	public void removePlayer(int playerId) {
@@ -47,7 +50,7 @@ public class PlayerSet implements HazelcastInstanceAware {
 	
 	
 	
-	@Scheduled(fixedDelay=60000)
+	//@Scheduled(fixedDelay=60000)
 	public void clearOldLocks(){
 		long now = new Date().getTime();
 		log.debug("Removing stale player locks");
