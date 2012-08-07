@@ -40,7 +40,7 @@
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
 		<jdbc.idleMaxAgeInMinutes>10</jdbc.idleMaxAgeInMinutes>
-		<jdbc.maxConnectionsPerPartition>3</jdbc.maxConnectionsPerPartition>
+		<jdbc.maxConnectionsPerPartition>15</jdbc.maxConnectionsPerPartition>
 		<jdbc.minConnectionsPerPartition>1</jdbc.minConnectionsPerPartition>
 		<jdbc.partitionCount>2</jdbc.partitionCount>
 		<jdbc.acquireIncrement>1</jdbc.acquireIncrement>
@@ -73,34 +73,12 @@
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
 		<wicket.mode>development</wicket.mode>
+
+
+		<tests.fake.client.host>robot.lvl6.com</tests.fake.client.host>
 	</properties>
 
 	<profiles>
-		<profile>
-			<id>lvl6prod</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<delete file="src/main/resources/${apns.path.to.cert}" />
-										<copy tofile="src/main/resources/${apns.path.to.cert}"
-											file="/root/${apns.path.to.cert}" />
-									</tasks>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 		<profile>
 			<id>kellyrobot</id>
 			<properties>
@@ -118,7 +96,7 @@
 			<id>kellylocal</id>
 			<properties>
 				<lvl6.server.log.location>~/Desktop/kingdom</lvl6.server.log.location>
-				<server.port>10002</server.port>
+				<server.port>10001</server.port>
 				<hazelcast.group>kelly</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
