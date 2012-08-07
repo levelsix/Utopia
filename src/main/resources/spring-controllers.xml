@@ -23,7 +23,7 @@
 	<task:annotation-driven executor="controllersExecutor" />
 
 	<task:executor id="controllersExecutor" pool-size="5-50"
-		queue-capacity="500" />
+		queue-capacity="500" rejection-policy="CALLER_RUNS" />
 	
 	
 	<bean id="apnsProperties" class="com.lvl6.properties.APNSProperties">
