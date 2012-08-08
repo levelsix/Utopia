@@ -26,6 +26,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.QuestUtils;
 
 @Component @DependsOn("gameServer") public class CollectForgeEquipsController extends EventController {
 
@@ -102,6 +103,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       if (legitCollection) {
         writeChangesToDB(blacksmithAttempt, successfulForge);
       }
+      
+      QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
       
     } catch (Exception e) {
       log.error("exception in CollectForgeEquips processEvent", e);
