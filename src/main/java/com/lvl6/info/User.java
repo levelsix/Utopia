@@ -940,7 +940,7 @@ public class User implements Serializable {
     conditionParams.put(DBConstants.USER__ID, id);
     
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    if (newUserType != null) absoluteParams.put(DBConstants.USER__TYPE, newUserType);
+    if (newUserType != null) absoluteParams.put(DBConstants.USER__TYPE, newUserType.getNumber());
     if (newName != null) absoluteParams.put(DBConstants.USER__NAME, newName);
     if (newUdid != null) absoluteParams.put(DBConstants.USER__UDID, newUdid);
     
