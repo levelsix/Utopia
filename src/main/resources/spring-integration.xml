@@ -47,7 +47,7 @@
 		ref="gameEventHandler"
 		method="handleMessage"
 		>
-		<int:poller fixed-rate="50" task-executor="gameEventsHandlerExecutor" error-channel="errorChannel"  />
+		<int:poller fixed-rate="100" task-executor="gameEventsHandlerExecutor" error-channel="errorChannel" max-messages-per-poll="100" />
 	</int:service-activator>
 
 
