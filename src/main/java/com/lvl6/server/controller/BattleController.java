@@ -282,7 +282,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                       int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
                           userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
 
-                          if (numDefeatedForJob + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
+                          if (numDefeatedForJob + 1 >= remainingDTJ.getNumEnemiesToDefeat()) {
                             //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                             if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                               userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
@@ -297,7 +297,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                                 }
                               }
                             } else {
-                              log.error("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
+                              log.warn("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
                                   + " and quest " + quest.getId());
                             }
                           } else {
