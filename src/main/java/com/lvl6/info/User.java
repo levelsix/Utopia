@@ -1000,7 +1000,7 @@ public class User implements Serializable {
       this.staminaMax = ControllerConstants.TUTORIAL__INIT_STAMINA;
       this.stamina = initialStamina;
       this.diamonds += relativeDiamondCost;
-      this.skillPoints += returnSkillPoints;
+      this.skillPoints = returnSkillPoints;
       return true;
     }
     
