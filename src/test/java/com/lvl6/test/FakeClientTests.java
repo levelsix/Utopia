@@ -103,12 +103,19 @@ public class FakeClientTests {
 	//@Test
 	public void testGeneratingFakeLoad() {
 		List<BasicUser> users = getTestUsers();
-		log.info("Generating UserQuestDetailsRequestEvents for {} users", users.size());
-		for(BasicUser user: users) {
-			UserQuestTask task = AppContext.getApplicationContext().getBean(UserQuestTask.class);
-			task.setUserId(user.getUserId());
-			task.setUserType(user.getUserType());
-			te.execute(task);
+		for(int i = 0; i < 100; i++) {
+			log.info("Generating UserQuestDetailsRequestEvents for {} users", users.size());
+			for(BasicUser user: users) {
+				UserQuestTask task = AppContext.getApplicationContext().getBean(UserQuestTask.class);
+				task.setUserId(user.getUserId());
+				task.setUserType(user.getUserType());
+				try {
+					te.execute(task);
+				}catch(Exception e) {
+					log.error("Error sending fake call", e);
+				}
+			}
+			
 		}
 	}
 

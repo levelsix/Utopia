@@ -969,6 +969,7 @@ public class User implements Serializable {
     int initialDefense = ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE;
     int initialEnergy = Math.min(oldEnergy, ControllerConstants.TUTORIAL__INIT_ENERGY);
     int initialStamina = Math.min(oldStamina, ControllerConstants.TUTORIAL__INIT_STAMINA);
+    int returnSkillPoints = (this.level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
     
     if (this.type == UserType.GOOD_WARRIOR || this.type == UserType.BAD_WARRIOR) {
       initialAttack = ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK;
@@ -984,12 +985,11 @@ public class User implements Serializable {
     absoluteParams.put(DBConstants.USER__STAMINA_MAX, ControllerConstants.TUTORIAL__INIT_STAMINA);
     absoluteParams.put(DBConstants.USER__ENERGY, initialEnergy);
     absoluteParams.put(DBConstants.USER__STAMINA, initialStamina);
+    absoluteParams.put(DBConstants.USER__SKILL_POINTS, returnSkillPoints);
     
     Map <String, Object> relativeParams = new HashMap<String, Object>();
-    int returnSkillPoints = (this.level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
     relativeParams.put(DBConstants.USER__DIAMONDS, relativeDiamondCost);
-    relativeParams.put(DBConstants.USER__SKILL_POINTS, returnSkillPoints);
-    
+
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER,
         relativeParams, absoluteParams, conditionParams, "and");
     if (numUpdated == 1) {
@@ -999,8 +999,8 @@ public class User implements Serializable {
       this.energy = initialEnergy;
       this.staminaMax = ControllerConstants.TUTORIAL__INIT_STAMINA;
       this.stamina = initialStamina;
-      this.diamonds += relativeDiamondCost;
       this.skillPoints = returnSkillPoints;
+      this.diamonds += relativeDiamondCost;
       return true;
     }
     
