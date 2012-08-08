@@ -117,6 +117,7 @@ public class FakeClientTests {
 				}
 			}
 		}
+		//waitForResponses();
 		Awaitility.await().forever();		
 	}
 
@@ -132,6 +133,20 @@ public class FakeClientTests {
 				return bu;
 			}
 		});
+	}
+	
+	Integer responsesCount = 0;
+	protected void waitForResponses() {
+		Message<?> msg = serverResponses.receive(1500);
+		if(msg != null && msg.getHeaders() != null) {
+			responsesCount++;
+			if(responsesCount % 20 == 0) {
+				log.info("Recieved: {}", responsesCount);
+			}
+		}else {
+			
+		}
+		waitForResponses();
 	}
 	
 	protected void waitForMessage() {

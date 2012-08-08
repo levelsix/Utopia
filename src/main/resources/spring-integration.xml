@@ -16,12 +16,12 @@
     http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
 
  	<task:executor id="gameEventsHandlerExecutor" 
- 		pool-size="5-50" 
+ 		pool-size="8-75" 
  		queue-capacity="5" 
  		rejection-policy="CALLER_RUNS" /> 
 
 	<int:channel id="gameEventQueueChannel">
-		<int:queue />
+		<int:dispatcher task-executor="gameEventsHandlerExecutor"  />
 		<int:interceptors>
         	<!-- <int:wire-tap channel="loggerChannelAdapter"/> -->
         	<!-- <int:wire-tap channel="gameEventSaveQueueChannel"/> -->
@@ -49,10 +49,11 @@
 		ref="gameEventHandler"
 		method="handleMessage"
 		>
-		<int:poller fixed-rate="50" 
+<!-- 		<int:poller 
+		fixed-rate="10" 
 		task-executor="gameEventsHandlerExecutor" 
 		error-channel="errorChannel" 
-		max-messages-per-poll="200" />
+		 /> -->
 	</int:service-activator>
 
 
