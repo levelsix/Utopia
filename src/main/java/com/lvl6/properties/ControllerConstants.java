@@ -270,6 +270,12 @@ public class ControllerConstants {
   //RETRIEVE PLAYER WALL POSTS
   public static final int RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP = 15;
   
+  //CHARACTER MOD
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE = 150;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME = 50;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER = 0;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS = 100;
+  
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
     new ValidLocationBox(-118.76606, 50.595863, 27.16478, 9.0692883, "CANADA"),
