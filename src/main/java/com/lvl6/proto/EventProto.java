@@ -95628,6 +95628,26 @@ public final class EventProto {
     // optional .com.lvl6.proto.CharacterModType modType = 3;
     boolean hasModType();
     com.lvl6.proto.InfoProto.CharacterModType getModType();
+    
+    // optional int32 skillPointsNew = 4;
+    boolean hasSkillPointsNew();
+    int getSkillPointsNew();
+    
+    // optional int32 attackNew = 5;
+    boolean hasAttackNew();
+    int getAttackNew();
+    
+    // optional int32 defenseNew = 6;
+    boolean hasDefenseNew();
+    int getDefenseNew();
+    
+    // optional int32 staminaNew = 7;
+    boolean hasStaminaNew();
+    int getStaminaNew();
+    
+    // optional int32 energyNew = 8;
+    boolean hasEnergyNew();
+    int getEnergyNew();
   }
   public static final class CharacterModResponseProto extends
       com.google.protobuf.GeneratedMessage
@@ -95769,10 +95789,65 @@ public final class EventProto {
       return modType_;
     }
     
+    // optional int32 skillPointsNew = 4;
+    public static final int SKILLPOINTSNEW_FIELD_NUMBER = 4;
+    private int skillPointsNew_;
+    public boolean hasSkillPointsNew() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getSkillPointsNew() {
+      return skillPointsNew_;
+    }
+    
+    // optional int32 attackNew = 5;
+    public static final int ATTACKNEW_FIELD_NUMBER = 5;
+    private int attackNew_;
+    public boolean hasAttackNew() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public int getAttackNew() {
+      return attackNew_;
+    }
+    
+    // optional int32 defenseNew = 6;
+    public static final int DEFENSENEW_FIELD_NUMBER = 6;
+    private int defenseNew_;
+    public boolean hasDefenseNew() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public int getDefenseNew() {
+      return defenseNew_;
+    }
+    
+    // optional int32 staminaNew = 7;
+    public static final int STAMINANEW_FIELD_NUMBER = 7;
+    private int staminaNew_;
+    public boolean hasStaminaNew() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    public int getStaminaNew() {
+      return staminaNew_;
+    }
+    
+    // optional int32 energyNew = 8;
+    public static final int ENERGYNEW_FIELD_NUMBER = 8;
+    private int energyNew_;
+    public boolean hasEnergyNew() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    public int getEnergyNew() {
+      return energyNew_;
+    }
+    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       status_ = com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus.SUCCESS;
       modType_ = com.lvl6.proto.InfoProto.CharacterModType.NEW_PLAYER;
+      skillPointsNew_ = 0;
+      attackNew_ = 0;
+      defenseNew_ = 0;
+      staminaNew_ = 0;
+      energyNew_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -95795,6 +95870,21 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeEnum(3, modType_.getNumber());
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, skillPointsNew_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, attackNew_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(6, defenseNew_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeInt32(7, staminaNew_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeInt32(8, energyNew_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -95815,6 +95905,26 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, modType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, skillPointsNew_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, attackNew_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, defenseNew_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, staminaNew_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(8, energyNew_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -95951,6 +96061,16 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         modType_ = com.lvl6.proto.InfoProto.CharacterModType.NEW_PLAYER;
         bitField0_ = (bitField0_ & ~0x00000004);
+        skillPointsNew_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        attackNew_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        defenseNew_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        staminaNew_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        energyNew_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       
@@ -96005,6 +96125,26 @@ public final class EventProto {
           to_bitField0_ |= 0x00000004;
         }
         result.modType_ = modType_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.skillPointsNew_ = skillPointsNew_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.attackNew_ = attackNew_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.defenseNew_ = defenseNew_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.staminaNew_ = staminaNew_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.energyNew_ = energyNew_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -96029,6 +96169,21 @@ public final class EventProto {
         }
         if (other.hasModType()) {
           setModType(other.getModType());
+        }
+        if (other.hasSkillPointsNew()) {
+          setSkillPointsNew(other.getSkillPointsNew());
+        }
+        if (other.hasAttackNew()) {
+          setAttackNew(other.getAttackNew());
+        }
+        if (other.hasDefenseNew()) {
+          setDefenseNew(other.getDefenseNew());
+        }
+        if (other.hasStaminaNew()) {
+          setStaminaNew(other.getStaminaNew());
+        }
+        if (other.hasEnergyNew()) {
+          setEnergyNew(other.getEnergyNew());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -96090,6 +96245,31 @@ public final class EventProto {
                 bitField0_ |= 0x00000004;
                 modType_ = value;
               }
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              skillPointsNew_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              attackNew_ = input.readInt32();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              defenseNew_ = input.readInt32();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000040;
+              staminaNew_ = input.readInt32();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
+              energyNew_ = input.readInt32();
               break;
             }
           }
@@ -96232,6 +96412,111 @@ public final class EventProto {
       public Builder clearModType() {
         bitField0_ = (bitField0_ & ~0x00000004);
         modType_ = com.lvl6.proto.InfoProto.CharacterModType.NEW_PLAYER;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 skillPointsNew = 4;
+      private int skillPointsNew_ ;
+      public boolean hasSkillPointsNew() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getSkillPointsNew() {
+        return skillPointsNew_;
+      }
+      public Builder setSkillPointsNew(int value) {
+        bitField0_ |= 0x00000008;
+        skillPointsNew_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearSkillPointsNew() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        skillPointsNew_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 attackNew = 5;
+      private int attackNew_ ;
+      public boolean hasAttackNew() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public int getAttackNew() {
+        return attackNew_;
+      }
+      public Builder setAttackNew(int value) {
+        bitField0_ |= 0x00000010;
+        attackNew_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAttackNew() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        attackNew_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 defenseNew = 6;
+      private int defenseNew_ ;
+      public boolean hasDefenseNew() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getDefenseNew() {
+        return defenseNew_;
+      }
+      public Builder setDefenseNew(int value) {
+        bitField0_ |= 0x00000020;
+        defenseNew_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearDefenseNew() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        defenseNew_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 staminaNew = 7;
+      private int staminaNew_ ;
+      public boolean hasStaminaNew() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getStaminaNew() {
+        return staminaNew_;
+      }
+      public Builder setStaminaNew(int value) {
+        bitField0_ |= 0x00000040;
+        staminaNew_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearStaminaNew() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        staminaNew_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 energyNew = 8;
+      private int energyNew_ ;
+      public boolean hasEnergyNew() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      public int getEnergyNew() {
+        return energyNew_;
+      }
+      public Builder setEnergyNew(int value) {
+        bitField0_ |= 0x00000080;
+        energyNew_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearEnergyNew() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        energyNew_ = 0;
         onChanged();
         return this;
       }
@@ -97730,16 +98015,19 @@ public final class EventProto {
       "vl6.proto.MinimumUserProto\0221\n\007modType\030\002 " +
       "\001(\0162 .com.lvl6.proto.CharacterModType\0220\n" +
       "\016futureUserType\030\003 \001(\0162\030.com.lvl6.proto.U" +
-      "serType\022\022\n\nfutureName\030\004 \001(\t\"\336\002\n\031Characte" +
+      "serType\022\022\n\nfutureName\030\004 \001(\t\"\304\003\n\031Characte" +
       "rModResponseProto\0220\n\006sender\030\001 \001(\0132 .com." +
       "lvl6.proto.MinimumUserProto\022L\n\006status\030\002 " +
       "\001(\0162<.com.lvl6.proto.CharacterModRespons" +
       "eProto.CharacterModStatus\0221\n\007modType\030\003 \001" +
-      "(\0162 .com.lvl6.proto.CharacterModType\"\215\001\n",
-      "\022CharacterModStatus\022\013\n\007SUCCESS\020\000\022\020\n\014INVA" +
-      "LID_NAME\020\001\022\027\n\023NOT_ENOUGH_DIAMONDS\020\002\022\016\n\nO" +
-      "THER_FAIL\020\003\022/\n+CANNOT_CHANGE_TO_OPPOSING" +
-      "_SIDE_WHEN_IN_CLAN\020\004B\014B\nEventProto"
+      "(\0162 .com.lvl6.proto.CharacterModType\022\026\n\016",
+      "skillPointsNew\030\004 \001(\005\022\021\n\tattackNew\030\005 \001(\005\022" +
+      "\022\n\ndefenseNew\030\006 \001(\005\022\022\n\nstaminaNew\030\007 \001(\005\022" +
+      "\021\n\tenergyNew\030\010 \001(\005\"\215\001\n\022CharacterModStatu" +
+      "s\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\027\n\023NOT_" +
+      "ENOUGH_DIAMONDS\020\002\022\016\n\nOTHER_FAIL\020\003\022/\n+CAN" +
+      "NOT_CHANGE_TO_OPPOSING_SIDE_WHEN_IN_CLAN" +
+      "\020\004B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -98703,7 +98991,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_CharacterModResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_CharacterModResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "ModType", },
+              new java.lang.String[] { "Sender", "Status", "ModType", "SkillPointsNew", "AttackNew", "DefenseNew", "StaminaNew", "EnergyNew", },
               com.lvl6.proto.EventProto.CharacterModResponseProto.class,
               com.lvl6.proto.EventProto.CharacterModResponseProto.Builder.class);
           return null;

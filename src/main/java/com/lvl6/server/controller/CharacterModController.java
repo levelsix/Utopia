@@ -21,7 +21,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-  @Component @DependsOn("gameServer") public class CharacterModController extends EventController {
+@Component @DependsOn("gameServer") public class CharacterModController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -54,7 +54,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     CharacterModResponseProto.Builder resBuilder = CharacterModResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     resBuilder.setModType(modType);
-    
+
     // Lock this player's ID
     server.lockPlayer(senderProto.getUserId());
 
@@ -74,17 +74,26 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       boolean legitMod = checkLegitMod(resBuilder, diamondCost, user, newUserType, newName, modType);
 
+      if (legitMod) {
+        writeChangesToDB(user, modType, diamondCost, newUserType, newName);
+        resBuilder.setSkillPointsNew(user.getSkillPoints());
+        resBuilder.setAttackNew(user.getAttack());
+        resBuilder.setDefenseNew(user.getDefense());
+        resBuilder.setStaminaNew(user.getStamina());
+        resBuilder.setEnergyNew(user.getEnergy());
+      }
+
       CharacterModResponseEvent resEvent = new CharacterModResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setCharacterModResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitMod) {
-        writeChangesToDB(user, modType, diamondCost, newUserType, newName);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
+
 
     } catch (Exception e) {
       log.error("exception in CharacterModController processEvent", e);
@@ -120,16 +129,16 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   private boolean checkLegitMod(Builder resBuilder, int diamondCost, User user, UserType newUserType, 
       String newName, CharacterModType modType) {
-  if (modType == CharacterModType.CHANGE_CHARACTER_TYPE && newUserType == null) {
-    resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
-    log.error("tried to change character type without providing newUserType, newUserType is "+newUserType);
-    return false;
-  }
-  if (modType == CharacterModType.CHANGE_NAME && newName == null) {
-    resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
-    log.error("tried to change character name without providing newName, newName is "+newName);
-    return false;
-  }
+    if (modType == CharacterModType.CHANGE_CHARACTER_TYPE && newUserType == null) {
+      resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
+      log.error("tried to change character type without providing newUserType, newUserType is "+newUserType);
+      return false;
+    }
+    if (modType == CharacterModType.CHANGE_NAME && newName == null) {
+      resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
+      log.error("tried to change character name without providing newName, newName is "+newName);
+      return false;
+    }
     if (diamondCost < 0) {
       resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
       log.error("in character mod, diamondCost "+diamondCost+" is less than 0");
@@ -145,8 +154,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       log.error("tried to switch character to the same character, "+newUserType);
       return false;
     }
-  //TODO
-  //add check to make sure name is legit
+    //TODO
+    //add check to make sure name is legit
     //add check to make sure character is not in a clan
     resBuilder.setStatus(CharacterModStatus.SUCCESS);
     return true;

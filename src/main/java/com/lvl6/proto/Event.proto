@@ -1561,6 +1561,12 @@ message CharacterModResponseProto {
 	optional CharacterModStatus status = 2;
 	optional CharacterModType modType = 3;
 	
+	optional int32 skillPointsNew = 4;
+	optional int32 attackNew = 5;
+	optional int32 defenseNew = 6;
+	optional int32 staminaNew = 7;
+	optional int32 energyNew = 8;
+	
 	enum CharacterModStatus {
 		SUCCESS = 0;
 		INVALID_NAME = 1;
