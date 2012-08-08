@@ -30,7 +30,8 @@ import com.lvl6.loadtesting.UserQuestTask;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ClientAttachment;
-
+import com.jayway.awaitility.Awaitility;
+import com.jayway.awaitility.Awaitility.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-spring-application-context.xml")
@@ -115,8 +116,9 @@ public class FakeClientTests {
 					log.error("Error sending fake call", e);
 				}
 			}
-			
 		}
+		//waitForResponses();
+		Awaitility.await().forever();		
 	}
 
 	private List<BasicUser> getTestUsers() {
@@ -131,6 +133,20 @@ public class FakeClientTests {
 				return bu;
 			}
 		});
+	}
+	
+	Integer responsesCount = 0;
+	protected void waitForResponses() {
+		Message<?> msg = serverResponses.receive(1500);
+		if(msg != null && msg.getHeaders() != null) {
+			responsesCount++;
+			if(responsesCount % 20 == 0) {
+				log.info("Recieved: {}", responsesCount);
+			}
+		}else {
+			
+		}
+		waitForResponses();
 	}
 	
 	protected void waitForMessage() {
