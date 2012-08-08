@@ -106,7 +106,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
             " with diamond cost "+diamondCost);
       }
     } else if (modType == CharacterModType.NEW_PLAYER) {
-      String newUdid = user.getUdid()+(Math.random()*100); //randomly add number between 0-99 to the end of udid
+      String newUdid = user.getUdid()+"_reset"; //randomly add number between 0-99 to the end of udid
       if (!user.updateNameUserTypeUdid(null, null, newUdid, diamondCost*-1)) {
         log.error("error in updating user UDID from "+user.getUdid()+" to "+newUdid+
             " with diamond cost "+diamondCost);

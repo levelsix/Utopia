@@ -273,7 +273,7 @@ public class ControllerConstants {
   //CHARACTER MOD
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE = 150;
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME = 50;
-  public static final int CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER = 50;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER = 0;
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS = 100;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
