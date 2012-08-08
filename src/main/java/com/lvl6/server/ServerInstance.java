@@ -110,7 +110,11 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 	@Override
 	public void onMessage(com.hazelcast.core.Message<Message<?>> message) {
 		log.info("Sending outbound message to "+message.getMessageObject().getHeaders().get("ip_connection_id")+" from server: "+hostName);
-		getOutboundMessageChannel().send(message.getMessageObject());
+		try {
+			getOutboundMessageChannel().send(message.getMessageObject());
+		}catch(Exception e) {
+			log.error("Error sending message", e);
+		}
 	}
 
 	public MessageChannel getOutboundMessageChannel() {

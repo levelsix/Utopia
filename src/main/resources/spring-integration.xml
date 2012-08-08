@@ -68,7 +68,8 @@
 		lookup-host="false"
 		task-executor="controllersExecutor"
 		deserializer="gameEventSerializer"
-		serializer="gameEventSerializer" />
+		serializer="gameEventSerializer" 
+		/>
 
 
 	<bean id="gameEventSerializer" class="com.lvl6.events.GameEventSerializer" />
@@ -82,8 +83,9 @@
 	
 	
 	<int:channel id="outboundMessageChannel" >
-		<int:dispatcher load-balancer="none" failover="true"/>
+		<int:dispatcher load-balancer="none" failover="true" task-executor="gameEventsHandlerExecutor" />
 	</int:channel>
+	
 	
 	<int-ip:tcp-outbound-channel-adapter
 		id="outboundClient" 
