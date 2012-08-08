@@ -269,7 +269,7 @@ public class InsertUtils implements InsertUtil{
     .put(DBConstants.USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS__COMPLETED_DEFEAT_TYPE_JOB_ID,
         dtjId);
 
-    int numInserted = DBConnection.get().insertIntoTableBasic(
+    int numInserted = DBConnection.get().insertIntoTableIgnore(
         DBConstants.TABLE_USER_QUESTS_COMPLETED_DEFEAT_TYPE_JOBS,
         insertParams);
     if (numInserted == 1) {
