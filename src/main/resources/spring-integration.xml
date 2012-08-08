@@ -46,8 +46,8 @@
 		input-channel="gameEventQueueChannel"
 		ref="gameEventHandler"
 		method="handleMessage"
-		
 		>
+		<int:poller fixed-rate="50" task-executor="gameEventsHandlerExecutor" error-channel="errorChannel"  />
 	</int:service-activator>
 
 
