@@ -11,7 +11,7 @@
 		">
 
 
- 	<aop:aspectj-autoproxy/> 
+<!--  	<aop:aspectj-autoproxy/> 
 
    <bean id="springTcpSenderHandlerProxy" class="com.lvl6.spring.tcp.SpringTcpSenderTempFix" />
 
@@ -25,5 +25,7 @@
                   method="overrideTcpMessageSendHandler"/>
 
       </aop:aspect>
-	</aop:config>
+	</aop:config> -->
+	
+	
 </beans>
