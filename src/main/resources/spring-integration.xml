@@ -49,11 +49,6 @@
 		ref="gameEventHandler"
 		method="handleMessage"
 		>
-<!-- 		<int:poller 
-		fixed-rate="10" 
-		task-executor="gameEventsHandlerExecutor" 
-		error-channel="errorChannel" 
-		 /> -->
 	</int:service-activator>
 
 
