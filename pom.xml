@@ -240,7 +240,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>2</value>
+							<value>1</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
@@ -250,7 +250,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>Availability Zones</optionName>
-							<value>Any 2</value>
+							<value>Any 1</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
