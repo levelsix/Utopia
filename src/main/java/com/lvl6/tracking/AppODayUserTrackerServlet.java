@@ -27,7 +27,7 @@ public class AppODayUserTrackerServlet extends HttpServlet {
 		Set<String> keys = params.keySet();
 		for(String key: keys) {
 			if(key.equalsIgnoreCase("openudid") || key.equalsIgnoreCase("mac")) {
-				String udid = params.get(key);
+				String udid = req.getParameter(key);
 				if(udid != null && !udid.equals("")) {
 					log.info("Iddiction tracking: {} - {}", key, udid);
 					trackMacAddress(udid);
