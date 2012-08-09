@@ -40,10 +40,10 @@
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
 		<jdbc.idleMaxAgeInMinutes>10</jdbc.idleMaxAgeInMinutes>
-		<jdbc.maxConnectionsPerPartition>25</jdbc.maxConnectionsPerPartition>
+		<jdbc.maxConnectionsPerPartition>35</jdbc.maxConnectionsPerPartition>
 		<jdbc.minConnectionsPerPartition>1</jdbc.minConnectionsPerPartition>
 		<jdbc.partitionCount>3</jdbc.partitionCount>
-		<jdbc.acquireIncrement>1</jdbc.acquireIncrement>
+		<jdbc.acquireIncrement>2</jdbc.acquireIncrement>
 		<jdbc.statementsCacheSize>500</jdbc.statementsCacheSize>
 		<jdbc.releaseHelperThreads>3</jdbc.releaseHelperThreads>
 
@@ -216,17 +216,17 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xms</optionName>
-							<value>256m</value>
+							<value>512m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xmx</optionName>
-							<value>1300m</value>
+							<value>6500m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>XX:MaxPermSize</optionName>
-							<value>256m</value>
+							<value>512m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
@@ -246,7 +246,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>Availability Zones</optionName>
-							<value>Any 2</value>
+							<value>Any 1</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
