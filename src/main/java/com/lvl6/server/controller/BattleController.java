@@ -233,6 +233,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("problem with battle- attacker or defender is null. attacker is " + attacker + " and defender is " + defender);
       return false;
     }
+    if (MiscMethods.checkIfGoodSide(attacker.getType()) == MiscMethods.checkIfGoodSide(defender.getType())) {
+      resBuilder.setStatus(BattleStatus.SAME_SIDE);
+      log.error("problem with battle- attacker and defender same side. attacker=" + attacker + ", defender=" + defender);
+      return false;
+    }
     resBuilder.setStatus(BattleStatus.SUCCESS);
     return true;
   }

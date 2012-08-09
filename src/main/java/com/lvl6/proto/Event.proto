@@ -48,6 +48,7 @@ message BattleResponseProto {
     enum BattleStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
+		SAME_SIDE = 2;
 	} 
 }
 
