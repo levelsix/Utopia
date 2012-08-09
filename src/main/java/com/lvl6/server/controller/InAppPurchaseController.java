@@ -131,6 +131,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
                 log.error("problem with logging in-app purchase history for receipt:" + receiptFromApple.toString(4) + " and user " + user);
               }
               resBuilder.setStatus(InAppPurchaseStatus.SUCCESS);
+              resBuilder.setPackageName(IAPValues.PRODUCT_ID);
+              resBuilder.setPackagePrice(cashCost);
               log.info("successful in-app purchase from user " + user.getId() + " for package " + receiptFromApple.getString(IAPValues.PRODUCT_ID));
             } catch (Exception e) {
               log.error("problem with in app purchase flow", e);
