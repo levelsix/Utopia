@@ -222,6 +222,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 	  int levelDifference = (int) (baseExp * ((loser.getLevel() - winner.getLevel()) 
 			  * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT));
 	  int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
+	  
 	  int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
 	  return expGain;
   }
@@ -230,6 +231,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (attacker == null || defender == null || attacker.getStamina() <= 0) {
       resBuilder.setStatus(BattleStatus.OTHER_FAIL);
       log.error("problem with battle- attacker or defender is null. attacker is " + attacker + " and defender is " + defender);
+      return false;
+    }
+    if (MiscMethods.checkIfGoodSide(attacker.getType()) == MiscMethods.checkIfGoodSide(defender.getType())) {
+      resBuilder.setStatus(BattleStatus.SAME_SIDE);
+      log.error("problem with battle- attacker and defender same side. attacker=" + attacker + ", defender=" + defender);
       return false;
     }
     resBuilder.setStatus(BattleStatus.SUCCESS);

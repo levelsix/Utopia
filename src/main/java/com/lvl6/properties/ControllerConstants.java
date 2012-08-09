@@ -86,7 +86,7 @@ public class ControllerConstants {
   public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 1;
   public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
-  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 6;
+  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 5;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
@@ -238,7 +238,7 @@ public class ControllerConstants {
   public static final int USER_CREATE__MIN_COIN_REWARD_FOR_REFERRER = 100;
   public static final int USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED = 50;
   public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
-  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 11615;
+  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 1;
   public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hey! My name's Alex, one of the creators of this game. We hope you enjoy it! :)";
   
   //LEVEL UP
@@ -269,6 +269,12 @@ public class ControllerConstants {
 
   //RETRIEVE PLAYER WALL POSTS
   public static final int RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP = 15;
+  
+  //CHARACTER MOD
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE = 150;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME = 50;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER = 0;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS = 100;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

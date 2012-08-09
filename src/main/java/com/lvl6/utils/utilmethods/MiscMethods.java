@@ -29,6 +29,7 @@ import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
@@ -306,7 +307,9 @@ public class MiscMethods {
         .setAverageSizeOfLevelBracket(ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET)
         .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE)
         .setLevelEquipBoostExponentBase(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE)
-        .setAdColonyVideosRequiredToRedeemDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD);
+        .setAdColonyVideosRequiredToRedeemDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD)
+        .setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
+        .setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH);
     
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
@@ -333,6 +336,15 @@ public class MiscMethods {
 
     cb.setKiipRewardConditions(krcb.build());
 
+    CharacterModConstants charModConstants = CharacterModConstants.newBuilder()
+        .setDiamondCostToChangeCharacterType(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE)
+        .setDiamondCostToChangeName(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME)
+        .setDiamondCostToResetCharacter(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER)
+        .setDiamondCostToResetSkillPoints(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS)
+        .build();
+    
+    cb.setCharModConstants(charModConstants);
+    
     FormulaConstants formulaConstants = FormulaConstants.newBuilder()
         .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
         .setIncomeFromNormStructMultiplier(ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER)
