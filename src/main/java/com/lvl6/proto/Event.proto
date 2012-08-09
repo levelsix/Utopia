@@ -920,6 +920,7 @@ message GenerateAttackListRequestProto {
 	optional double latUpperBound = 4;
 	optional double longLowerBound = 5;
 	optional double longUpperBound = 6;
+	optional bool forMap = 7;
 }
 
 																						//DONE
@@ -927,6 +928,8 @@ message GenerateAttackListResponseProto {
      optional MinimumUserProto sender = 1;
      repeated FullUserProto enemies = 2;
      optional GenerateAttackListStatus status = 3;
+     optional bool forMap = 4;
+     
      
      enum GenerateAttackListStatus {
      	SUCCESS = 0;
