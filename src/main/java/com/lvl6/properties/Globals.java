@@ -40,8 +40,7 @@ public class Globals {
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
-    //TODO: fill in app store url
-    public static final String APP_STORE_URL = "";
+    public static final String APP_STORE_URL = "itms-apps://itunes.com/apps/ageofchaos";
     
     public static final Level LOG_LEVEL = Level.INFO;
     
