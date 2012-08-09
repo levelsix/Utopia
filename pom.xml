@@ -216,17 +216,17 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xms</optionName>
-							<value>256m</value>
+							<value>512m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xmx</optionName>
-							<value>1300m</value>
+							<value>6500m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>XX:MaxPermSize</optionName>
-							<value>256m</value>
+							<value>512m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
