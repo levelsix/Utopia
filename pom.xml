@@ -206,7 +206,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
 							<optionName>EC2KeyName</optionName>
-							<value>lvl6-us-east</value>
+							<value>lvl6-us-east-2</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:application</namespace>
@@ -261,7 +261,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
 							<optionName>InstanceType</optionName>
-							<value>m1.small</value>
+							<value>m1.large</value>
 						</optionSetting>
 					</optionSettings>
 					<!-- <configurationTemplates> -->
