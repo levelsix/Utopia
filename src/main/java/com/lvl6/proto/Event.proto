@@ -767,6 +767,9 @@ message InAppPurchaseResponseProto {
 	optional InAppPurchaseStatus status = 2;
 	optional int32 diamondsGained = 3;
 	
+	optional string packageName = 4;
+	optional double packagePrice = 5;
+	
 	enum InAppPurchaseStatus {
 		SUCCESS = 0;
 		FAIL = 1;
