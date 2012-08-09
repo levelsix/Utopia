@@ -15,9 +15,9 @@
 
 	<int:channel id="inboundFakeClientChannel">
 		<int:queue/>
-		<int:interceptors>
-        	<!-- <int:wire-tap channel="loggerChannelAdapter"/> -->
-     	</int:interceptors>
+<!-- 		<int:interceptors>
+        	<int:wire-tap channel="loggerChannelAdapter"/>
+     	</int:interceptors> -->
 	</int:channel>
 
 
@@ -48,9 +48,9 @@
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
 		<int:dispatcher load-balancer="round-robin"/>
-		<int:interceptors>
-        	<!-- <int:wire-tap channel="loggerChannelAdapter"/> -->
-     	</int:interceptors>
+<!-- 		<int:interceptors>
+        	<int:wire-tap channel="loggerChannelAdapter"/>
+     	</int:interceptors> -->
 	</int:channel>
 	
 	<int-ip:tcp-outbound-channel-adapter

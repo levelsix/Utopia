@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.hazelcast.com/schema/spring
+        http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
+		">
+
+
+<!--  	<aop:aspectj-autoproxy/> 
+
+   <bean id="springTcpSenderHandlerProxy" class="com.lvl6.spring.tcp.SpringTcpSenderTempFix" />
+
+   <aop:config>
+      <aop:aspect ref="springTcpSenderHandlerProxy">
+
+         <aop:pointcut id="overrideHandleMessageInternal"
+                    expression="execution(* org.springframework.integration.ip.tcp.TcpSendingMessageHandler(org.springframework.integration.Message)) and args(message)"/>
+
+         <aop:around pointcut-ref="overrideHandleMessageInternal"
+                  method="overrideTcpMessageSendHandler"/>
+
+      </aop:aspect>
+	</aop:config> -->
+	
+	
+</beans>
