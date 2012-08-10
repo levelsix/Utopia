@@ -40,7 +40,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 		this.serverInstanceOutboundEventTopic = serverInstanceOutboundEventTopic;
 	}
 
-	@Resource(name="outboundGameEventsHandlerExecutor")
+	@Resource(name="outgoingGameEventsHandlerExecutor")
 	protected TaskExecutor executor;
 	
 	
