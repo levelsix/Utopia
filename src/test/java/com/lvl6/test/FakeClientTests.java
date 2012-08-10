@@ -104,7 +104,7 @@ public class FakeClientTests {
 	//@Test
 	public void testGeneratingFakeLoad() {
 		List<BasicUser> users = getTestUsers();
-		for(int i = 0; i < 100; i++) {
+		for(int i = 0; i < 10; i++) {
 			log.info("Generating UserQuestDetailsRequestEvents for {} users", users.size());
 			for(BasicUser user: users) {
 				UserQuestTask task = AppContext.getApplicationContext().getBean(UserQuestTask.class);
