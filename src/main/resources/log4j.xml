@@ -11,14 +11,14 @@
 	</appender>
 
 
-	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
+<!-- 	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
 		<param name="hosts" value="${lvl6.cassandra.hosts}" />
 		<param name="keyspace" value="${lvl6.cassandra.keyspace}" />
 		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
 		<param name="clusterName" value="${lvl6.cassandra.cluster.name}" />
 		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
 		<param name="Threshold" value="INFO" />
-	</appender>
+	</appender> -->
 	
 
 	<appender name="R" class="org.apache.log4j.RollingFileAppender">
@@ -44,11 +44,11 @@
 	</appender>
 
 	
-	<logger name="org.springframework.security">
+	<!-- <logger name="org.springframework.security">
 		<level value="DEBUG" />
 		<appender-ref ref="${lvl6.server.log.appender}" />
 	</logger>
-	
+	 -->
 	<root>
 		<level value="info" />
 		<!-- <appender-ref ref="console" /> -->
