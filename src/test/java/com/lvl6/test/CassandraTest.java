@@ -109,9 +109,11 @@ public class CassandraTest extends TestCase {
 
 	@Test
 	public void testWarning() {
-		log.info("This is a test info for cassandra logging");
-		log.warn("This is a test warning for cassandra logging");
-		log.error("This is a test error for cassandra logging");
+		for(int i=0; i < 100000; i++){
+			log.info("This is a test info for cassandra logging: {}", i);
+			log.warn("This is a test warning for cassandra logging {}", i);
+			log.error("This is a test error for cassandra logging {}", i);
+		}
 	}
 
 	

@@ -25,6 +25,12 @@
  		queue-capacity="5" 
  		rejection-policy="CALLER_RUNS" /> 
 
+ 	<task:executor id="loggingExecutor" 
+ 		pool-size="8-75" 
+ 		queue-capacity="5" 
+ 		rejection-policy="CALLER_RUNS" />
+
+
 	<int:channel id="gameEventQueueChannel">
 		<int:dispatcher task-executor="gameEventsHandlerExecutor"  />
 		<int:interceptors>

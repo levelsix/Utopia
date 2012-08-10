@@ -7,11 +7,8 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.RejectedExecutionHandler;
 
-import me.prettyprint.cassandra.model.BasicColumnDefinition;
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
-import me.prettyprint.cassandra.serializers.BigIntegerSerializer;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
@@ -26,7 +23,6 @@ import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ddl.ColumnDefinition;
 import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
-import me.prettyprint.hector.api.ddl.ColumnIndexType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
 import me.prettyprint.hector.api.factory.HFactory;
@@ -35,19 +31,19 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
 import com.lvl6.properties.MDCKeys;
+import com.lvl6.spring.AppContext;
 
 public class Log4jAppender extends AppenderSkeleton {
 
 	private static final StringSerializer se = new StringSerializer();
 	private static final LongSerializer le = new LongSerializer();
 	
-	protected ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+	protected ThreadPoolTaskExecutor executor;
 
 	private String clusterName;
 
@@ -86,7 +82,6 @@ public class Log4jAppender extends AppenderSkeleton {
 
 	private void startAppender() {
 		Runnable r = new Runnable() {
-
 			public void run() {
 				while (!shutdown) {
 					try {
@@ -113,7 +108,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 	
 	private void setup() throws Exception {
-		if(cluster == null || cassandraHostConfigurator == null) {
+		if(cluster == null || cassandraHostConfigurator == null || executor == null) {
 			setupExecutor();
 			setupConnection();
 		}
@@ -123,14 +118,13 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 	
 	protected void setupExecutor() {
-		executor.setMaxPoolSize(80);
-		executor.setCorePoolSize(10);
-		executor.setQueueCapacity(5);
+		executor = (ThreadPoolTaskExecutor) AppContext.getApplicationContext().getBean("loggingExecutor");
 	}
 
 	@Override
 	protected void append(final LoggingEvent event) {
 		//long startTime = System.currentTimeMillis();
+		if(executor != null) {
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
@@ -150,6 +144,7 @@ public class Log4jAppender extends AppenderSkeleton {
 						addPlayerId(event, updater);
 						addUdid(event, updater);
 						client.update(updater);
+						//LogLog.warn(message);
 					} catch (Exception e) {
 						client = null;
 						LogLog.error("append failed, " + e.getMessage(), e);
@@ -161,6 +156,7 @@ public class Log4jAppender extends AppenderSkeleton {
 				}
 			}
 		});
+		}
 		//long endTime = System.currentTimeMillis();
 		//lastPublishTime = endTime - startTime;
 	}
