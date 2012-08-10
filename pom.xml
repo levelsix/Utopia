@@ -236,7 +236,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>3</value>
+							<value>2</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
@@ -261,7 +261,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
 							<optionName>InstanceType</optionName>
-							<value>m1.medium</value>
+							<value>m1.large</value>
 						</optionSetting>
 					</optionSettings>
 					<!-- <configurationTemplates> -->
