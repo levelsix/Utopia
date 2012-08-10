@@ -39,8 +39,8 @@
 		<jdbc.password>robashen123</jdbc.password>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 		<jdbc.idleConnectionTestPeriodInMinutes>1</jdbc.idleConnectionTestPeriodInMinutes>
-		<jdbc.idleMaxAgeInMinutes>10</jdbc.idleMaxAgeInMinutes>
-		<jdbc.maxConnectionsPerPartition>35</jdbc.maxConnectionsPerPartition>
+		<jdbc.idleMaxAgeInMinutes>5</jdbc.idleMaxAgeInMinutes>
+		<jdbc.maxConnectionsPerPartition>20</jdbc.maxConnectionsPerPartition>
 		<jdbc.minConnectionsPerPartition>1</jdbc.minConnectionsPerPartition>
 		<jdbc.partitionCount>3</jdbc.partitionCount>
 		<jdbc.acquireIncrement>2</jdbc.acquireIncrement>
@@ -216,12 +216,12 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xms</optionName>
-							<value>6500m</value>
+							<value>2800m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xmx</optionName>
-							<value>6500m</value>
+							<value>2800m</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
@@ -236,17 +236,17 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>2</value>
+							<value>3</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MaxSize</optionName>
-							<value>6</value>
+							<value>10</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>Availability Zones</optionName>
-							<value>Any 1</value>
+							<value>Any 2</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
@@ -261,7 +261,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
 							<optionName>InstanceType</optionName>
-							<value>m1.large</value>
+							<value>m1.medium</value>
 						</optionSetting>
 					</optionSettings>
 					<!-- <configurationTemplates> -->
