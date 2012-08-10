@@ -399,6 +399,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips,
       Map<Integer, Equipment> equipmentIdsToEquipment, User defender, List<FullUserEquipProto> oldDefenderUserEquipsList) {
+    if (Math.random() > ControllerConstants.BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL) {
+      return null;
+    }
+    
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {
