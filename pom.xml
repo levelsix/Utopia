@@ -206,7 +206,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
 							<optionName>EC2KeyName</optionName>
-							<value>lvl6-us-east-2</value>
+							<value>lvl6-us-east</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:application</namespace>
