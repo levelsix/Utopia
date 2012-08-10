@@ -25,7 +25,7 @@
 		<param name="file" value="${lvl6.server.log.location}.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="100" />
-		<param name="Threshold" value="info" />
+		<param name="Threshold" value="debug" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern"
 				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
@@ -43,8 +43,14 @@
 		</layout>
 	</appender>
 
+	
+	<logger name="org.springframework.security">
+		<level value="DEBUG" />
+		<appender-ref ref="${lvl6.server.log.appender}" />
+	</logger>
+	
 	<root>
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="console" />
 		<!-- <appender-ref ref="cassandra" /> -->
 		<appender-ref ref="${lvl6.server.log.appender}" />
