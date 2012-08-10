@@ -52,7 +52,7 @@
 		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
 		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
-		<hazelcast.group>main-test</hazelcast.group>
+		<hazelcast.group>main-12-08-10-14-40</hazelcast.group>
 		<hazelcast.pass>lvl6</hazelcast.pass>
 		<hazelcast.config>dev</hazelcast.config>
 		<hazelcast.port>5701</hazelcast.port>
