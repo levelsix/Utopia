@@ -292,17 +292,19 @@ public class CreateInfoProtoUtils {
       builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(armorUserEquip));
       builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(amuletUserEquip));
     } else {
-      if (u.getWeaponEquippedUserEquipId() != ControllerConstants.NOT_SET) {
-        UserEquip weaponUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(u.getWeaponEquippedUserEquipId());
-        builder.setWeaponEquippedUserEquip(createFullUserEquipProtoFromUserEquip(weaponUserEquip));
-      }
-      if (u.getArmorEquippedUserEquipId() != ControllerConstants.NOT_SET) {
-        UserEquip armorUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(u.getArmorEquippedUserEquipId());
-        builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(armorUserEquip));
-      }
-      if (u.getAmuletEquippedUserEquipId() != ControllerConstants.NOT_SET) {
-        UserEquip amuletUserEquip = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquip(u.getAmuletEquippedUserEquipId());
-        builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(amuletUserEquip));
+      List<UserEquip> userEquipsForUser = RetrieveUtils.userEquipRetrieveUtils().getUserEquipsForUser(u.getId());
+      if (userEquipsForUser != null) {
+        for (UserEquip ue : userEquipsForUser) {
+          if (u.getWeaponEquippedUserEquipId() == ue.getId()) {
+            builder.setWeaponEquippedUserEquip(createFullUserEquipProtoFromUserEquip(ue));
+          }
+          if (u.getArmorEquippedUserEquipId() == ue.getId()) {
+            builder.setArmorEquippedUserEquip(createFullUserEquipProtoFromUserEquip(ue));
+          }
+          if (u.getAmuletEquippedUserEquipId() == ue.getId()) {
+            builder.setAmuletEquippedUserEquip(createFullUserEquipProtoFromUserEquip(ue));
+          }
+        }
       }
     }
     if (u.getLastEnergyRefillTime() != null) {

@@ -309,7 +309,8 @@ public class MiscMethods {
         .setLevelEquipBoostExponentBase(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE)
         .setAdColonyVideosRequiredToRedeemDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD)
         .setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
-        .setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH);
+        .setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
+        .setSizeOfAttackList(ControllerConstants.SIZE_OF_ATTACK_LIST);
     
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
