@@ -144,7 +144,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
           attack, defense, energy, stamina, playerExp, playerCoins, playerDiamonds, 
-          weaponEquipped, armorEquipped, amuletEquipped, false);
+          null, null, null, false);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
