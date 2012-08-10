@@ -95,6 +95,8 @@ public class ControllerConstants {
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FOURTH_EXPANSION = 30;
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS = 4;
   
+  public static final int SIZE_OF_ATTACK_LIST = 20;
+  
   //--------------------------------------------------------------------------------------------------------------------------
 
   //TUTORIAL CONSTANTS
