@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.RejectedExecutionHandler;
 
 import me.prettyprint.cassandra.model.BasicColumnDefinition;
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
@@ -34,6 +35,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
@@ -43,6 +46,8 @@ public class Log4jAppender extends AppenderSkeleton {
 
 	private static final StringSerializer se = new StringSerializer();
 	private static final LongSerializer le = new LongSerializer();
+	
+	protected ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 
 	private String clusterName;
 
@@ -85,13 +90,8 @@ public class Log4jAppender extends AppenderSkeleton {
 			public void run() {
 				while (!shutdown) {
 					try {
-						Thread.sleep(100);
-						if(cluster == null || cassandraHostConfigurator == null) {
-							setupConnection();
-						}
-						if (client == null) {
-							connect();
-						}
+						Thread.sleep(1000);
+						setup();
 						if (lastPublishTime > 50) {
 							// TODO: some metrics to deactivate logging to this
 							// appender if its getting too time consuming, or
@@ -104,47 +104,68 @@ public class Log4jAppender extends AppenderSkeleton {
 					}
 				}
 			}
+
+			
 		};
 		Thread alive = new Thread(r, "Cassandra-Log4J-Alive");
 		alive.setDaemon(true);
 		alive.start();
 	}
-
-	@Override
-	protected void append(LoggingEvent event) {
-		long startTime = System.currentTimeMillis();
-		String message = event.getMessage() + "";
-		if (startedUp && client != null) {
-			try {
-				UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
-				ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
-				updater.setLong("time", event.getTimeStamp());
-				updater.setString("host", getHost());
-				updater.setString("message", message);
-				updater.setString("level", event.getLevel() + "");
-				updater.setString("name", event.getLoggerName());
-				updater.setString("thread", event.getThreadName());
-				addStackTrace(event, updater);
-				addProperties(event, updater);
-				addPlayerId(event, updater);
-				addUdid(event, updater);
-				client.update(updater);
-			} catch (Exception e) {
-				client = null;
-				LogLog.error("append failed, " + e.getMessage(), e);
-			}
-		} else {
-			if (startedUp) {
-				LogLog.warn("Log4jAppender, "
-						+ "cluster not available, skipping logging, " + message);
-			}
+	
+	private void setup() throws Exception {
+		if(cluster == null || cassandraHostConfigurator == null) {
+			setupExecutor();
+			setupConnection();
 		}
-		long endTime = System.currentTimeMillis();
-		lastPublishTime = endTime - startTime;
+		if (client == null) {
+			connect();
+		}
+	}
+	
+	protected void setupExecutor() {
+		executor.setMaxPoolSize(80);
+		executor.setCorePoolSize(10);
+		executor.setQueueCapacity(5);
 	}
 
-	private void addUdid(LoggingEvent event,
-			ColumnFamilyUpdater<String, String> updater) {
+	@Override
+	protected void append(final LoggingEvent event) {
+		//long startTime = System.currentTimeMillis();
+		executor.execute(new Runnable() {
+			@Override
+			public void run() {
+				String message = event.getMessage() + "";
+				if (startedUp && client != null) {
+					try {
+						UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
+						ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
+						updater.setLong("time", event.getTimeStamp());
+						updater.setString("host", getHost());
+						updater.setString("message", message);
+						updater.setString("level", event.getLevel() + "");
+						updater.setString("name", event.getLoggerName());
+						updater.setString("thread", event.getThreadName());
+						addStackTrace(event, updater);
+						addProperties(event, updater);
+						addPlayerId(event, updater);
+						addUdid(event, updater);
+						client.update(updater);
+					} catch (Exception e) {
+						client = null;
+						LogLog.error("append failed, " + e.getMessage(), e);
+					}
+				} else {
+					if (startedUp) {
+						LogLog.warn("Log4jAppender, cluster not available, skipping logging, " + message);
+					}
+				}
+			}
+		});
+		//long endTime = System.currentTimeMillis();
+		//lastPublishTime = endTime - startTime;
+	}
+
+	private void addUdid(LoggingEvent event,ColumnFamilyUpdater<String, String> updater) {
 		String udId = (String) event.getMDC(MDCKeys.UDID);
 		if (udId != null && !udId.equals("")) {
 			updater.setString("udid", udId.toString());
@@ -163,20 +184,16 @@ public class Log4jAppender extends AppenderSkeleton {
 		}
 	}
 
-	private void addProperties(LoggingEvent event,
-			ColumnFamilyUpdater<String, String> updater) {
+	private void addProperties(LoggingEvent event,ColumnFamilyUpdater<String, String> updater) {
 		Map props = event.getProperties();
 		for (Object pkey : props.keySet()) {
 			updater.setString(pkey.toString(), props.get(pkey).toString());
 		}
 	}
 
-	private void addStackTrace(LoggingEvent event,
-			ColumnFamilyUpdater<String, String> updater) {
-		if (event.getThrowableInformation() != null
-				&& event.getThrowableInformation().getThrowable() != null) {
-			String stacktrace = ExceptionUtils.getFullStackTrace(event
-					.getThrowableInformation().getThrowable());
+	private void addStackTrace(LoggingEvent event,ColumnFamilyUpdater<String, String> updater) {
+		if (event.getThrowableInformation() != null	&& event.getThrowableInformation().getThrowable() != null) {
+			String stacktrace = ExceptionUtils.getFullStackTrace(event.getThrowableInformation().getThrowable());
 			updater.setString("stacktrace", stacktrace);
 		}
 	}
