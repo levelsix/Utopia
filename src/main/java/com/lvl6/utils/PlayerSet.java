@@ -1,10 +1,10 @@
 package com.lvl6.utils;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
@@ -14,6 +14,8 @@ import com.hazelcast.core.IMap;
 public class PlayerSet implements HazelcastInstanceAware {
 
 	
+	private static final int LOCK_TIMEOUT = 10000;
+
 	Logger log = Logger.getLogger(PlayerSet.class);
 	
 	private IMap<Integer, PlayerInAction> players;
@@ -33,7 +35,7 @@ public class PlayerSet implements HazelcastInstanceAware {
 	 * @throws InterruptedException
 	 */
 	public void addPlayer(int playerId) {
-		players.put(playerId, new PlayerInAction(playerId), 30, TimeUnit.SECONDS);
+		players.put(playerId, new PlayerInAction(playerId));
 	}
 
 	public void removePlayer(int playerId) {
@@ -46,14 +48,17 @@ public class PlayerSet implements HazelcastInstanceAware {
 	}
 	
 	
+	public String lockName(int playerId) {
+		return "PlayerLock:"+playerId;
+	}
 	
-	//@Scheduled(fixedDelay=60000)
+	@Scheduled(fixedDelay=LOCK_TIMEOUT)
 	public void clearOldLocks(){
 		long now = new Date().getTime();
 		log.debug("Removing stale player locks");
 		for(Integer player:players.keySet()){
 			PlayerInAction play = players.get(player);
-			if(now - play.getLockTime().getTime() > 60000){
+			if(now - play.getLockTime().getTime() > LOCK_TIMEOUT){
 				ILock playerLock = hazel.getLock(play.getPlayerId());
 				playerLock.forceUnlock();
 				removePlayer(player);
