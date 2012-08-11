@@ -314,7 +314,7 @@ public class ControllerConstants {
   
   
   
-  public static final int IDDICTION__EQUIP_ID = 5;
+  public static final int IDDICTION__EQUIP_ID = 282;
   public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";
 
 }
