@@ -256,7 +256,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
       }
       
-      if (Globals.IDDICTION_ON) {
+      if (Globals.IDDICTION_ON()) {
         int userEquipId = insertUtils.insertUserEquip(userId, ControllerConstants.IDDICTION__EQUIP_ID, 
             ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
         if (userEquipId < 0) {
