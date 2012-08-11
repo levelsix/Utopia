@@ -49,4 +49,13 @@ public class Globals {
     public static final String APPLE_BUNDLE_ID = "com.lvl6.kingdom";
 
     public static final float VERSION_NUMBER = 1.0f;
+
+    
+    
+    
+
+
+
+    public static final boolean IDDICTION_ON = false;
+
 }
