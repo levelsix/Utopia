@@ -166,6 +166,7 @@ public class ControllerConstants {
   public static final double BATTLE__EXP_BASE_MULTIPLIER = 0.8;
   public static final int BATTLE__EXP_MIN = 1;
   public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 0.2;
+  public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = 0.3;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
