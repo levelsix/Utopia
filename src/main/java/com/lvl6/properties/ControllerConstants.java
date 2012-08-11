@@ -124,8 +124,8 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Witness Protection";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE = "10~good~";
   public static final String TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE = "10~bad~";
-  public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Welcome to Kirin Village, stranger. We are in dire times and we need your help. A few moments ago, a strange white light consumed the sky and legion soldiers appeared out of thin air. One seems to have strayed from the pack. Start by killing him!";
-  public static final String TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION = "Welcome to Kirin Village, soldier. A few moments ago, a strange white light consumed the sky and blinded our eyes during our siege against the Alliance. We found ourselves here with a few Lumorian soldiers after we regained our vision. One seems to have strayed from the pack. Start by killing him!";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Soldier, we are in dire times and we need your help.";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION = "Soldier, we are in dire times and we need your help.";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE = "Simply amazing! Your battle prowess makes our village seem safer already. ";
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
@@ -315,6 +315,6 @@ public class ControllerConstants {
   
   
   public static final int IDDICTION__EQUIP_ID = 5;
-  public static final String IDDICTION__NOTICE = "FREE LIMITED EDITION GOLD EQUIP FOR JOINING TODAY!";
+  public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";
 
 }
