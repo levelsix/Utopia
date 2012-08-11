@@ -187,6 +187,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         resBuilder.addNoticesToPlayers(ControllerConstants.STARTUP__NOTICES_TO_PLAYERS[i]);
       }
     }
+    if (Globals.IDDICTION_ON) {
+      resBuilder.addNoticesToPlayers(ControllerConstants.IDDICTION__NOTICE);
+    }
   }
 
   private void setUnhandledForgeAttempts(Builder resBuilder, User user) {

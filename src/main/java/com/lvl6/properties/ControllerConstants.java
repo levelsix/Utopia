@@ -241,7 +241,7 @@ public class ControllerConstants {
   public static final int USER_CREATE__MIN_COIN_REWARD_FOR_REFERRER = 100;
   public static final int USER_CREATE__COIN_REWARD_FOR_BEING_REFERRED = 50;
   public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
-  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 1;
+  public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 11615;
   public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hey! My name's Alex, one of the creators of this game. We hope you enjoy it! :)";
   
   //LEVEL UP
@@ -311,5 +311,10 @@ public class ControllerConstants {
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
     19, 20, 21, 23, 24, 25, 26};
   public static final int[] STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM = {};
+  
+  
+  
+  public static final int IDDICTION__EQUIP_ID = 5;
+  public static final String IDDICTION__NOTICE = "FREE LIMITED EDITION GOLD EQUIP FOR JOINING TODAY!";
 
 }
