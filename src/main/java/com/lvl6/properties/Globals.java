@@ -56,6 +56,6 @@ public class Globals {
 
 
 
-    public static final boolean IDDICTION_ON = false;
+    public static final boolean IDDICTION_ON = true;
 
 }
