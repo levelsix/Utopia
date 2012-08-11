@@ -12,7 +12,10 @@
 
 
 	<hz:hazelcast id="hazel">
-		<hz:config>
+		<hz:config >
+			<hz:properties>
+            	<hz:property name="hazelcast.logging.type">slf4j</hz:property>
+            </hz:properties> 
 			<hz:group name="${hazelcast.group}" password="${hazelcast.pass}" />
 			<hz:network port="5701">
 				<hz:join>
