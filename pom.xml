@@ -73,7 +73,8 @@
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
 		<wicket.mode>development</wicket.mode>
-
+		<ec2.instance.size>m1.large</ec2.instance.size>
+		<ec2.tomcat.memory>5800m</ec2.tomcat.memory>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.1.RELEASE</spring.security.version>
 		<tests.fake.client.host>robot.lvl6.com</tests.fake.client.host>
@@ -216,12 +217,12 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xms</optionName>
-							<value>2800m</value>
+							<value>${ec2.tomcat.memory}</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
 							<optionName>Xmx</optionName>
-							<value>2800m</value>
+							<value>${ec2.tomcat.memory}</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
@@ -261,7 +262,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
 							<optionName>InstanceType</optionName>
-							<value>m1.large</value>
+							<value>${ec2.instance.size}</value>
 						</optionSetting>
 					</optionSettings>
 					<!-- <configurationTemplates> -->
