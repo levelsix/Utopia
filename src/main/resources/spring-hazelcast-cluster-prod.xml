@@ -13,10 +13,10 @@
 
 	<hz:hazelcast id="hazel">
 		<hz:config >
-			<hz:properties>
-            	<hz:property name="hazelcast.logging.type">slf4j</hz:property>
-            </hz:properties> 
 			<hz:group name="${hazelcast.group}" password="${hazelcast.pass}" />
+			<hz:properties>
+				<hz:property name="hazelcast.logging.type">log4j</hz:property>
+			</hz:properties>
 			<hz:network port="5701">
 				<hz:join>
 					<hz:multicast enabled="false" />
@@ -29,6 +29,9 @@
 				</hz:join>
 			</hz:network>
 			
+			<hz:properties>
+            	<hz:property name="hazelcast.logging.type">slf4j</hz:property>
+            </hz:properties> 
 
 <!-- 			<hz:map name="playersByPlayerId"	backup-count="3"   max-size="0" >
 			</hz:map>
