@@ -77,7 +77,7 @@
 		<ec2.tomcat.memory>5800m</ec2.tomcat.memory>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.1.RELEASE</spring.security.version>
-		<tests.fake.client.host>robot.lvl6.com</tests.fake.client.host>
+		<tests.fake.client.host>localhost</tests.fake.client.host>
 	</properties>
 
 	<profiles>
