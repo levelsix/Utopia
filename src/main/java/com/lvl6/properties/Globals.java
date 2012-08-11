@@ -8,9 +8,17 @@ import com.lvl6.spring.AppContext;
 public class Globals {
 	
 	protected boolean sandbox = true;
+	protected boolean iddictionOn = true;
 	
-	
-    public boolean getSandbox() {
+    public boolean isIddictionOn() {
+		return iddictionOn;
+	}
+
+	public void setIddictionOn(boolean iddictionOn) {
+		this.iddictionOn = iddictionOn;
+	}
+
+	public boolean getSandbox() {
 		return sandbox;
 	}
 
@@ -56,6 +64,6 @@ public class Globals {
 
 
 
-    public static final boolean IDDICTION_ON = true;
+    public static final boolean IDDICTION_ON(){return AppContext.getApplicationContext().getBean(Globals.class).isIddictionOn();};;
 
 }
