@@ -51,7 +51,7 @@
 	 -->
 	<root>
 		<level value="info" />
-		<!-- <appender-ref ref="console" /> -->
+		<appender-ref ref="console" /> 
 		<!-- <appender-ref ref="cassandra" /> -->
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
