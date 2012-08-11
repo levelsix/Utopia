@@ -60,6 +60,7 @@
 		<server.ip>0.0.0.0</server.ip>
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
+		<globals.iddictionOn>false</globals.iddictionOn>
 		<apns.path.to.cert>KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
