@@ -28,10 +28,6 @@
 					security-group-name="${hazelcast.ec2.security.group}" />
 				</hz:join>
 			</hz:network>
-			
-			<hz:properties>
-            	<hz:property name="hazelcast.logging.type">slf4j</hz:property>
-            </hz:properties> 
 
 <!-- 			<hz:map name="playersByPlayerId"	backup-count="3"   max-size="0" >
 			</hz:map>
