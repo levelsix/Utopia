@@ -142,10 +142,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (armorEquipped > 0) equipIds.add(armorEquipped);
       if (amuletEquipped > 0) equipIds.add(amuletEquipped);
 
-      if (Globals.IDDICTION_ON) {
-        equipIds.add(ControllerConstants.IDDICTION__EQUIP_ID);
-      }
-
       userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
           attack, defense, energy, stamina, playerExp, playerCoins, playerDiamonds, 
           null, null, null, false);
@@ -259,6 +255,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           userEquipIds.put(equip.getType(), userEquipId);
         }
       }
+      
+      if (Globals.IDDICTION_ON) {
+        int userEquipId = insertUtils.insertUserEquip(userId, ControllerConstants.IDDICTION__EQUIP_ID, 
+            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        if (userEquipId < 0) {
+          log.error("problem with giving user iddiction reward to " + userId + " 1 " + ControllerConstants.IDDICTION__EQUIP_ID);
+        }
+      }
+      
       return userEquipIds;
     }
     return userEquipIds;
