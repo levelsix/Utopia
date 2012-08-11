@@ -52,7 +52,7 @@
 		<hazelcast.ec2.region></hazelcast.ec2.region>
 		<hazelcast.ec2.awsId></hazelcast.ec2.awsId>
 		<hazelcast.ec2.awsSecretKey></hazelcast.ec2.awsSecretKey>
-		<hazelcast.group>main-12-08-10-14-40</hazelcast.group>
+		<hazelcast.group>main</hazelcast.group>
 		<hazelcast.pass>lvl6</hazelcast.pass>
 		<hazelcast.config>dev</hazelcast.config>
 		<hazelcast.port>5701</hazelcast.port>
@@ -402,13 +402,13 @@
 			<dependency>
 				<groupId>com.hazelcast</groupId>
 				<artifactId>hazelcast-all</artifactId>
-				<version>2.2</version>
+				<version>2.1.2</version>
 			</dependency>
-			<dependency>
+<!-- 			<dependency>
 				<groupId>com.hazelcast</groupId>
 				<artifactId>hazelcast-wm</artifactId>
 				<version>2.2</version>
-			</dependency>
+			</dependency> -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
@@ -586,10 +586,10 @@
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-all</artifactId>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-wm</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
