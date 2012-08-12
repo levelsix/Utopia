@@ -261,6 +261,21 @@
 							<value>80</value>
 						</optionSetting>
 						<optionSetting>
+							<namespace>aws:elb:policies</namespace>
+							<optionName>Stickiness Cookie Expiration</optionName>
+							<value>0</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:elb:policies</namespace>
+							<optionName>Stickiness Policy</optionName>
+							<value>true</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aaws:elasticbeanstalk:hostmanager</namespace>
+							<optionName>LogPublicationControl</optionName>
+							<value>true</value>
+						</optionSetting>
+						<optionSetting>
 							<namespace>aws:autoscaling:launchconfiguration</namespace>
 							<optionName>InstanceType</optionName>
 							<value>${ec2.instance.size}</value>
@@ -406,11 +421,8 @@
 				<artifactId>hazelcast-all</artifactId>
 				<version>2.1.2</version>
 			</dependency>
-<!-- 			<dependency>
-				<groupId>com.hazelcast</groupId>
-				<artifactId>hazelcast-wm</artifactId>
-				<version>2.2</version>
-			</dependency> -->
+			<!-- <dependency> <groupId>com.hazelcast</groupId> <artifactId>hazelcast-wm</artifactId> 
+				<version>2.2</version> </dependency> -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
@@ -588,10 +600,8 @@
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-all</artifactId>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-wm</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.hazelcast</groupId> <artifactId>hazelcast-wm</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
