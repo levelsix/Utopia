@@ -271,7 +271,7 @@
 							<value>true</value>
 						</optionSetting>
 						<optionSetting>
-							<namespace>aaws:elasticbeanstalk:hostmanager</namespace>
+							<namespace>aws:elasticbeanstalk:hostmanager</namespace>
 							<optionName>LogPublicationControl</optionName>
 							<value>true</value>
 						</optionSetting>
