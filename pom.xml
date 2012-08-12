@@ -256,6 +256,16 @@
 							<value>5</value>
 						</optionSetting>
 						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>UpperThreshold</optionName>
+							<value>10000000</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>LowerThreshold</optionName>
+							<value>3000000</value>
+						</optionSetting>
+						<optionSetting>
 							<namespace>aws:elb:loadbalancer</namespace>
 							<optionName>LoadBalancerHTTPPort</optionName>
 							<value>80</value>
