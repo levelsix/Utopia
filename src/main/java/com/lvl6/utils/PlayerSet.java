@@ -3,6 +3,7 @@ package com.lvl6.utils;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -16,7 +17,7 @@ public class PlayerSet implements HazelcastInstanceAware {
 	
 	private static final int LOCK_TIMEOUT = 10000;
 
-	Logger log = Logger.getLogger(PlayerSet.class);
+	org.slf4j.Logger log = LoggerFactory.getLogger(PlayerSet.class);
 	
 	private IMap<Integer, PlayerInAction> players;
 
@@ -57,12 +58,20 @@ public class PlayerSet implements HazelcastInstanceAware {
 		long now = new Date().getTime();
 		log.debug("Removing stale player locks");
 		for(Integer player:players.keySet()){
-			PlayerInAction play = players.get(player);
-			if(now - play.getLockTime().getTime() > LOCK_TIMEOUT){
-				ILock playerLock = hazel.getLock(play.getPlayerId());
-				playerLock.forceUnlock();
-				removePlayer(player);
-				log.info("Automatically removing timed out lock for player: "+play.getPlayerId());
+			try {
+				PlayerInAction play = players.get(player);
+				if(play != null && play.getLockTime() != null) {
+					if(now - play.getLockTime().getTime() > LOCK_TIMEOUT){
+						ILock playerLock = hazel.getLock(play.getPlayerId());
+						playerLock.forceUnlock();
+						removePlayer(player);
+						log.info("Automatically removing timed out lock for player: "+play.getPlayerId());
+					}
+				}else {
+					log.warn("Player was null when cleaning up locks in PlayerSet: {}", player);
+				}
+			}catch(Exception e) {
+				log.error("Error removing stale lock for player {} {}", player, e.getMessage() );
 			}
 		}
 	}

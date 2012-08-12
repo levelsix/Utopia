@@ -138,7 +138,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           setNotifications(resBuilder, user);
           setWhetherPlayerCompletedInAppPurchase(resBuilder, user);
           setUnhandledForgeAttempts(resBuilder, user);
-          setNoticesToPlayers(resBuilder);
+          setNoticesToPlayers(resBuilder, user);
           
           
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
@@ -181,11 +181,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     }    
   }
 
-  private void setNoticesToPlayers(Builder resBuilder) {
+  private void setNoticesToPlayers(Builder resBuilder, User user) {
     if (ControllerConstants.STARTUP__NOTICES_TO_PLAYERS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__NOTICES_TO_PLAYERS.length; i++) {
         resBuilder.addNoticesToPlayers(ControllerConstants.STARTUP__NOTICES_TO_PLAYERS[i]);
       }
+    }
+    if (user.getLastLogout() == null && Globals.IDDICTION_ON()) {
+      resBuilder.addNoticesToPlayers(ControllerConstants.IDDICTION__NOTICE);
     }
   }
 
