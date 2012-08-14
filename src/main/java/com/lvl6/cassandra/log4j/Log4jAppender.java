@@ -148,7 +148,7 @@ public class Log4jAppender extends AppenderSkeleton {
 						addPlayerId(event, updater);
 						addUdid(event, updater);
 						client.update(updater);
-						logcounter.incrementAndGet();
+						//logcounter.incrementAndGet();
 						//LogLog.warn(message);
 					} catch (Exception e) {
 						client = null;

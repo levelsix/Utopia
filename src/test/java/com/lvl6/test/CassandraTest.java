@@ -108,7 +108,7 @@ public class CassandraTest extends TestCase {
 			/*log.warn("This is a test warning for cassandra logging {}", i);
 			log.error("This is a test error for cassandra logging {}", i);*/
 		}
-		while(Log4jAppender.logcounter.get() < 2*testLoopCount-1) {
+/*		while(Log4jAppender.logcounter.get() < 2*testLoopCount-1) {
 			//log.info("Count: {}", Log4jAppender.logcounter.get());
 			long now = new Date().getTime();
 			if(Log4jAppender.logcounter.get() % 100 == 0) {
@@ -116,7 +116,7 @@ public class CassandraTest extends TestCase {
 			}
 		}
 		long end = new Date().getTime();
-		log.info("Testing time: {}ms, total sent: {}", end-start, Log4jAppender.logcounter.get());
+		log.info("Testing time: {}ms, total sent: {}", end-start, Log4jAppender.logcounter.get());*/
 	}
 
 	

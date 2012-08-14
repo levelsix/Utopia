@@ -74,8 +74,8 @@
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
 		<wicket.mode>development</wicket.mode>
-		<ec2.instance.size>m1.large</ec2.instance.size>
-		<ec2.tomcat.memory>5800m</ec2.tomcat.memory>
+		<ec2.instance.size>m1.medium</ec2.instance.size>
+		<ec2.tomcat.memory>3000m</ec2.tomcat.memory>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.1.RELEASE</spring.security.version>
 		<tests.fake.client.host>localhost</tests.fake.client.host>
@@ -238,7 +238,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>2</value>
+							<value>3</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
