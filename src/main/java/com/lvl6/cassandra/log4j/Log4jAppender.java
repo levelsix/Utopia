@@ -7,6 +7,9 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicLong;
 
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.serializers.LongSerializer;
@@ -43,7 +46,9 @@ public class Log4jAppender extends AppenderSkeleton {
 	private static final StringSerializer se = new StringSerializer();
 	private static final LongSerializer le = new LongSerializer();
 	
-	protected ThreadPoolTaskExecutor executor;
+	public static AtomicLong logcounter = new AtomicLong();
+	
+	protected ExecutorService executor = Executors.newFixedThreadPool(20);
 
 	private String clusterName;
 
@@ -109,7 +114,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	
 	private void setup() throws Exception {
 		if(cluster == null || cassandraHostConfigurator == null || executor == null) {
-			setupExecutor();
+			//setupExecutor();
 			setupConnection();
 		}
 		if (client == null) {
@@ -117,13 +122,12 @@ public class Log4jAppender extends AppenderSkeleton {
 		}
 	}
 	
-	protected void setupExecutor() {
-		executor = (ThreadPoolTaskExecutor) AppContext.getApplicationContext().getBean("loggingExecutor");
-	}
+	
 
 	@Override
 	protected void append(final LoggingEvent event) {
 		//long startTime = System.currentTimeMillis();
+		//LogLog.warn("Recieved event: "+event.getMessage());
 		if(executor != null) {
 		executor.execute(new Runnable() {
 			@Override
@@ -144,6 +148,7 @@ public class Log4jAppender extends AppenderSkeleton {
 						addPlayerId(event, updater);
 						addUdid(event, updater);
 						client.update(updater);
+						logcounter.incrementAndGet();
 						//LogLog.warn(message);
 					} catch (Exception e) {
 						client = null;

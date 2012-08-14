@@ -19,7 +19,7 @@
 				<hz:property name="hazelcast.max.no.heartbeat.seconds">20</hz:property>
 				
 			</hz:properties>
-			<hz:network port="5701">
+			<hz:network port="5701" auto-increment="false">
 				<hz:join>
 					<hz:multicast enabled="false" />
 	                <hz:tcp-ip enabled="false" />
