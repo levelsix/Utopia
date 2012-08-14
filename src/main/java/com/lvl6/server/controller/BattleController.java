@@ -159,17 +159,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         server.writeEvent(resEventAttacker);
         server.writeEvent(resEventDefender);
 
-        if (attacker.getId() == 13756) {
-          log.info("ricktest- neutral city id is " + reqProto.getNeutralCityId());
-        }
         if (winner != null && attacker != null && winner == attacker) {
-          if (attacker.getId() == 13756) {
-            log.info("ricktest- a");
-          }
           if (reqProto.hasNeutralCityId() && reqProto.getNeutralCityId() >= 0) {
-            if (attacker.getId() == 13756) {
-              log.info("ricktest- b");
-            }
             server.unlockPlayer(defenderProto.getUserId());
             checkQuestsPostBattle(winner, defender.getType(),
                 attackerProto, reqProto.getNeutralCityId(), lostEquip);
@@ -259,27 +250,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       MinimumUserProto attackerProto, int cityId, UserEquip lostEquip) {
     boolean goodSide = MiscMethods.checkIfGoodSide(attacker.getType());
 
-    if (attacker.getId() == 13756) {
-      log.info("ricktest- c");
-    }
     List<UserQuest> inProgressUserQuests = RetrieveUtils.userQuestRetrieveUtils()
         .getIncompleteUserQuestsForUser(attacker.getId());
     if (inProgressUserQuests != null) {
       Map<Integer, List<Integer>> questIdToUserDefeatTypeJobsCompletedForQuestForUser = null;
       Map<Integer, Map<Integer, Integer>> questIdToDefeatTypeJobIdsToNumDefeated = null;
 
-      if (attacker.getId() == 13756) {
-        log.info("ricktest- d. inProgressUserQuests=" + inProgressUserQuests);
-      }
-      
       for (UserQuest userQuest : inProgressUserQuests) {
         boolean questCompletedAndSent = false;
         if (!userQuest.isDefeatTypeJobsComplete()) {
           Quest quest = QuestRetrieveUtils.getQuestForQuestId(userQuest
               .getQuestId());
-          if (attacker.getId() == 13756) {
-            log.info("ricktest- e. quest = " + quest);
-          }
           if (quest != null) {
             List<Integer> defeatTypeJobsRequired = null;
             if (goodSide) {
@@ -287,69 +268,33 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             } else {
               defeatTypeJobsRequired = quest.getDefeatGoodGuysJobsRequired();
             }
-            if (attacker.getId() == 13756) {
-              log.info("ricktest- f. defeat jobs required = " + defeatTypeJobsRequired);
-            }
 
             if (defeatTypeJobsRequired != null) {
               if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
                 questIdToUserDefeatTypeJobsCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedDefeatTypeJobsRetrieveUtils().getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(attacker.getId());
-                if (attacker.getId() == 13756) {
-                  log.info("ricktest- g. questIdToUserDefeatTypeJobsCompletedForQuestForUser = " + questIdToUserDefeatTypeJobsCompletedForQuestForUser);
-                }
               }
               List<Integer> userCompletedDefeatTypeJobsForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(quest.getId());
               if (userCompletedDefeatTypeJobsForQuest == null) userCompletedDefeatTypeJobsForQuest = new ArrayList<Integer>();
               
-              if (attacker.getId() == 13756) {
-                log.info("ricktest- h. userCompletedDefeatTypeJobsForQuest = " + userCompletedDefeatTypeJobsForQuest);
-              }
-
               List<Integer> defeatTypeJobsRemaining = new ArrayList<Integer>(defeatTypeJobsRequired);
               defeatTypeJobsRemaining.removeAll(userCompletedDefeatTypeJobsForQuest);
-              
-              if (attacker.getId() == 13756) {
-                log.info("ricktest- i. defeatTypeJobsRemaining = " + defeatTypeJobsRemaining);
-              }
 
               Map<Integer, DefeatTypeJob> remainingDTJMap = DefeatTypeJobRetrieveUtils
                   .getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobsRemaining);
               if (remainingDTJMap != null && remainingDTJMap.size() > 0) {
                 for (DefeatTypeJob remainingDTJ : remainingDTJMap.values()) {
-                  
-                  if (attacker.getId() == 13756) {
-                    log.info("ricktest- j. remainingDTJ = " + remainingDTJ);
-                  }
-                  
                   if (remainingDTJ.getCityId() == cityId) {
-                    if (attacker.getId() == 13756) {
-                      log.info("ricktest- k. cityId = " + cityId + ", enemyType=" + enemyType);
-                    }
-                    
-                    
                     if (remainingDTJ.getEnemyType() == DefeatTypeJobEnemyType.ALL_TYPES_FROM_OPPOSING_SIDE || 
                         enemyType == MiscMethods.getUserTypeFromDefeatTypeJobUserType(remainingDTJ.getEnemyType())) {
 
                       if (questIdToDefeatTypeJobIdsToNumDefeated == null) {
                         questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                       }
-                      if (attacker.getId() == 13756) {
-                        log.info("ricktest- l. questIdToDefeatTypeJobIdsToNumDefeated = " + questIdToDefeatTypeJobIdsToNumDefeated);
-                      }
-
                       Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
                       
-                      if (attacker.getId() == 13756) {
-                        log.info("ricktest- m. userJobIdToNumDefeated = " + userJobIdToNumDefeated);
-                      }
-
                       int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
                           userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
                           
-                          if (attacker.getId() == 13756) {
-                            log.info("ricktest- n. numDefeatedForJob = " + numDefeatedForJob);
-                          }
-
                           if (numDefeatedForJob + 1 >= remainingDTJ.getNumEnemiesToDefeat()) {
                             //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                             if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
@@ -369,21 +314,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                                   + " and quest " + quest.getId());
                             }
                           } else {
-                            if (attacker.getId() == 13756) {
-                              log.info("ricktest- o. numDefeatedForJob = " + numDefeatedForJob);
-                            }
                             if (!UpdateUtils.get().incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
-                              if (attacker.getId() == 13756) {
-                                log.info("ricktest- p. numDefeatedForJob = " + numDefeatedForJob);
-                              }
                               log.error("problem with incrementing user quest defeat type job progress for user "
                                   + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
-                            } else {
-                              if (attacker.getId() == 13756) {
-                                log.info("ricktest- q. numDefeatedForJob = " + numDefeatedForJob);
-                              }
-                            }
-                            
+                            } 
                           }
                     }
                   }
