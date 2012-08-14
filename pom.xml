@@ -65,10 +65,10 @@
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/kingdom</lvl6.server.log.location>
-		<lvl6.cassandra.hosts>cass1.lvl6.com,cass1.lvl6.com</lvl6.cassandra.hosts>
+		<lvl6.cassandra.hosts>robot.lvl6.com</lvl6.cassandra.hosts>
 		<lvl6.cassandra.keyspace>Logs</lvl6.cassandra.keyspace>
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
-		<lvl6.cassandra.cluster.name>Lvl6 Logs</lvl6.cassandra.cluster.name>
+		<lvl6.cassandra.cluster.name>Test Cluster</lvl6.cassandra.cluster.name>
 		<lvl6.cassandra.replication.factor>1</lvl6.cassandra.replication.factor>
 		<maven.build.timestamp.format>yyyy-MM-dd-HH-mm-ss</maven.build.timestamp.format>
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
