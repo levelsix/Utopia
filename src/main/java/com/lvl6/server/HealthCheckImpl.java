@@ -11,16 +11,14 @@ import org.springframework.integration.Message;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.QueueChannel;
 
-import com.lvl6.events.ResponseEvent;
-import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.loadtesting.LoadTestEventGenerator;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
-import com.lvl6.test.FakeClientTests;
 import com.lvl6.utils.ClientAttachment;
 
 public class HealthCheckImpl implements HealthCheck {
+	
 	
 	private static Logger log = LoggerFactory.getLogger(HealthCheckImpl.class);
 
