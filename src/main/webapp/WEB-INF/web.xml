@@ -3,10 +3,18 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<display-name>lvl6-utopia</display-name>
-	<description>Lvl6 Utopia Server</description>
+	<display-name>lvl6-Kingdom</display-name>
+	<description>Lvl6 Kingdom Server</description>
 
 
+	<servlet>
+		<servlet-name>HealthCheckServlet</servlet-name>
+		<servlet-class>com.lvl6.server.HealthCheckImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HealthCheckServlet</servlet-name>
+		<url-pattern>/healthcheck</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>IddictionServlet</servlet-name>
@@ -96,7 +104,7 @@
 		</init-param>
 		<init-param>
 			<param-name>ignorePaths</param-name>
-			<param-value>/iddiction</param-value>
+			<param-value>/iddiction,/healthcheck</param-value>
 		</init-param>
 		<init-param>
 			<param-name>configuration</param-name>

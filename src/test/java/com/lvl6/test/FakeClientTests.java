@@ -97,7 +97,7 @@ public class FakeClientTests {
 	
 	@Test
 	public void testFakeClientStartup() throws InterruptedException{
-		sendToServer.send(gen.startup("A_Fake_Client"));
+		sendToServer.send(gen.startup("Health_Check_Client"));
 		waitForMessage();
 	}
 	
