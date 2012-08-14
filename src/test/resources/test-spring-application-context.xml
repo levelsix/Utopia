@@ -28,6 +28,7 @@
 <!-- 	<import resource="classpath:spring-cache.xml" /> -->
 
 	<bean id="serverInstance" class="com.lvl6.server.ServerInstance" />
+	<bean id="healthCheck" class="com.lvl6.server.HealthCheckImpl" />
 	
 	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" depends-on="dbConnection" destroy-method="shutdown" >
 		<constructor-arg index="0" value="${server.ip}" />

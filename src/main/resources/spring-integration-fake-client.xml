@@ -28,9 +28,26 @@
 		host="${tests.fake.client.host}"
 		task-executor="controllersExecutor"
 	/>	
-
+	
+	<int-ip:tcp-connection-factory id="clientSocket2" type="client"
+		deserializer="gameEventClientSerializer"
+		serializer="gameEventSerializer"
+		port="${server.port}" 
+		host="${tests.fake.client.host}"
+		task-executor="controllersExecutor"
+	/>	
+	
+	
+	<int-ip:tcp-connection-factory id="clientSocket3" type="client"
+		deserializer="gameEventClientSerializer"
+		serializer="gameEventSerializer"
+		port="${server.port}" 
+		host="${tests.fake.client.host}"
+		task-executor="controllersExecutor"
+	/>	
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
+		<int:dispatcher load-balancer="round-robin"/>
 <!-- 		<int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors> -->
@@ -42,11 +59,22 @@
 		connection-factory="clientSocket"/>
 	
 	
- 	<int-ip:tcp-inbound-channel-adapter
+	<int-ip:tcp-outbound-channel-adapter
+		id="outboundFakeClient2" 
+		channel="outboundFakeClientMessageChannel" 
+		connection-factory="clientSocket2"/>
+		
+		
+	<int-ip:tcp-outbound-channel-adapter
+		id="outboundFakeClient3" 
+		channel="outboundFakeClientMessageChannel" 
+		connection-factory="clientSocket3"/>
+	
+<!-- 	<int-ip:tcp-inbound-channel-adapter
 		id="inboundFakeClient" 
 		channel="inboundFakeClientChannel" 
 		connection-factory="clientSocket"
-		error-channel="errorChannel"/>
+		error-channel="errorChannel"/> -->
 
 
 	<bean id="gameEventClientSerializer" class="com.lvl6.events.GameEventClientSerializer" />
