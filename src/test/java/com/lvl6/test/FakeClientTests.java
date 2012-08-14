@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import com.lvl6.loadtesting.BasicUser;
 import com.lvl6.loadtesting.LoadTestEventGenerator;
 import com.lvl6.loadtesting.UserQuestTask;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.server.HealthCheck;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ClientAttachment;
 import com.jayway.awaitility.Awaitility;
@@ -100,6 +102,13 @@ public class FakeClientTests {
 		sendToServer.send(gen.startup("Health_Check_Client"));
 		waitForMessage();
 	}
+	
+	@Test
+	public void testHealthCheck() {
+		HealthCheck hc = AppContext.getApplicationContext().getBean(HealthCheck.class);
+		Assert.assertTrue(hc.check());
+	}
+	
 	
 	//@Test
 	public void testGeneratingFakeLoad() {
