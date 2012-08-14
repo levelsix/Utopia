@@ -98,7 +98,7 @@ public class CassandraTest extends TestCase {
 	public void testWarning() {
 		
 		long start = new Date().getTime();
-		int testLoopCount = 1000000;
+		int testLoopCount = 3000000;
 		for(int i=0; i < testLoopCount; i++){
 			log.debug("slf4j test debug for cassandra logging: {}", i);
 			//log.info("slf4j test info for cassandra logging: {}", i);
