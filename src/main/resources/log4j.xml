@@ -61,7 +61,7 @@
 	</logger>
 	 -->
 	<root>
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="EC2" /> 
 		<appender-ref ref="cassandra" /> 
 		<appender-ref ref="${lvl6.server.log.appender}" />
