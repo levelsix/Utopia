@@ -82,11 +82,7 @@ public class HealthCheckImpl implements HealthCheck {
 	protected boolean waitForMessage() {
 		Message<?> msg = serverResponses.receive(2000);
 		if(msg != null && msg.getHeaders() != null) {
-			log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
-			for (String key: msg.getHeaders().keySet()) {
-				log.info(key+": "+msg.getHeaders().get(key));
-			}
-			//log.info("Payload: "+msg.getPayload());
+			//log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
 			ClientAttachment attachment = new ClientAttachment();
 			attachment.readBuff = ByteBuffer.wrap((byte[]) msg.getPayload()).order(ByteOrder.LITTLE_ENDIAN);
 			while(attachment.eventReady()) {
