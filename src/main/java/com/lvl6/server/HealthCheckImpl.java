@@ -76,6 +76,8 @@ public class HealthCheckImpl implements HealthCheck {
 	@Override
 	public boolean check() {
 		MinimumUserProto.Builder user = gen.minimumUserProto(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, UserType.BAD_ARCHER);
+		serverResponses.clear();
+		sendToServer.send(gen.userQuestDetails(user));
 		sendToServer.send(gen.userQuestDetails(user));
 		return waitForMessage();
 	}
