@@ -214,7 +214,7 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:application</namespace>
 							<optionName>Application Healthcheck URL</optionName>
-							<value>/index.html</value>
+							<value>/healthcheck</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
