@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.Message;
-import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
 
 import com.lvl6.loadtesting.LoadTestEventGenerator;
@@ -24,11 +24,11 @@ public class HealthCheckImpl implements HealthCheck {
 	
 	private static Logger log = LoggerFactory.getLogger(HealthCheckImpl.class);
 
-	public DirectChannel getSendToServer() {
+	public MessageChannel getSendToServer() {
 		return sendToServer;
 	}
 
-	public void setSendToServer(DirectChannel sendToServer) {
+	public void setSendToServer(MessageChannel sendToServer) {
 		this.sendToServer = sendToServer;
 	}
 
@@ -41,7 +41,7 @@ public class HealthCheckImpl implements HealthCheck {
 	}
 
 	@Resource(name="outboundFakeClientMessageChannel")
-	protected DirectChannel sendToServer;
+	protected MessageChannel sendToServer;
 
 	@Resource(name="inboundFakeClientChannel")
 	protected QueueChannel serverResponses;
