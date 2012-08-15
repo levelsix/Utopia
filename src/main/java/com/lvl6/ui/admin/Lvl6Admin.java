@@ -14,7 +14,7 @@ public class Lvl6Admin extends WebApplication{
 		super.init();
 		mountPage("/", MainPage.class);
 		mountPage("/admin", AdminPage.class);
-		mountPage("/healthcheck", HealthCheckPage.class);
+		mountPage("/health", HealthCheckPage.class);
 	}
 
 	@Override
