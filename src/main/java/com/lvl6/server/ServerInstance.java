@@ -7,9 +7,12 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 
@@ -37,7 +40,18 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 		this.serverInstanceOutboundEventTopic = serverInstanceOutboundEventTopic;
 	}
 
+	@Resource(name="outgoingGameEventsHandlerExecutor")
+	protected TaskExecutor executor;
 	
+	
+	public TaskExecutor getExecutor() {
+		return executor;
+	}
+
+	public void setExecutor(TaskExecutor executor) {
+		this.executor = executor;
+	}
+
 	@Autowired
 	protected MessageChannel outboundMessageChannel;
 	
@@ -108,9 +122,18 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 	}
 
 	@Override
-	public void onMessage(com.hazelcast.core.Message<Message<?>> message) {
-		log.info("Sending outbound message to "+message.getMessageObject().getHeaders().get("ip_connection_id")+" from server: "+hostName);
-		getOutboundMessageChannel().send(message.getMessageObject());
+	public void onMessage(final com.hazelcast.core.Message<Message<?>> message) {
+		executor.execute(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					log.info("Sending outbound message to "+message.getMessageObject().getHeaders().get("ip_connection_id")+" from server: "+hostName);
+					getOutboundMessageChannel().send(message.getMessageObject());
+				}catch(Exception e) {
+					log.error("Error sending message", e);
+				}
+			}
+		});
 	}
 
 	public MessageChannel getOutboundMessageChannel() {

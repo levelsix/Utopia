@@ -15,8 +15,10 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Quest;
+import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -33,9 +35,11 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
@@ -233,6 +237,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("problem with battle- attacker or defender is null. attacker is " + attacker + " and defender is " + defender);
       return false;
     }
+    if (MiscMethods.checkIfGoodSide(attacker.getType()) == MiscMethods.checkIfGoodSide(defender.getType())) {
+      resBuilder.setStatus(BattleStatus.SAME_SIDE);
+      log.error("problem with battle- attacker and defender same side. attacker=" + attacker + ", defender=" + defender);
+      return false;
+    }
     resBuilder.setStatus(BattleStatus.SUCCESS);
     return true;
   }
@@ -259,14 +268,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             } else {
               defeatTypeJobsRequired = quest.getDefeatGoodGuysJobsRequired();
             }
+
             if (defeatTypeJobsRequired != null) {
               if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
                 questIdToUserDefeatTypeJobsCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedDefeatTypeJobsRetrieveUtils().getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(attacker.getId());
               }
               List<Integer> userCompletedDefeatTypeJobsForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(quest.getId());
               if (userCompletedDefeatTypeJobsForQuest == null) userCompletedDefeatTypeJobsForQuest = new ArrayList<Integer>();
+              
               List<Integer> defeatTypeJobsRemaining = new ArrayList<Integer>(defeatTypeJobsRequired);
               defeatTypeJobsRemaining.removeAll(userCompletedDefeatTypeJobsForQuest);
+
               Map<Integer, DefeatTypeJob> remainingDTJMap = DefeatTypeJobRetrieveUtils
                   .getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobsRemaining);
               if (remainingDTJMap != null && remainingDTJMap.size() > 0) {
@@ -279,10 +291,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                         questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                       }
                       Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
+                      
                       int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
                           userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
-
-                          if (numDefeatedForJob + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
+                          
+                          if (numDefeatedForJob + 1 >= remainingDTJ.getNumEnemiesToDefeat()) {
                             //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                             if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                               userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
@@ -297,14 +310,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                                 }
                               }
                             } else {
-                              log.error("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
+                              log.warn("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
                                   + " and quest " + quest.getId());
                             }
                           } else {
                             if (!UpdateUtils.get().incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
                               log.error("problem with incrementing user quest defeat type job progress for user "
                                   + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
-                            }
+                            } 
                           }
                     }
                   }
@@ -394,6 +407,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips,
       Map<Integer, Equipment> equipmentIdsToEquipment, User defender, List<FullUserEquipProto> oldDefenderUserEquipsList) {
+    if (Math.random() > ControllerConstants.BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL) {
+      return null;
+    }
+    
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {

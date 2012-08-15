@@ -15,12 +15,26 @@
     http://www.springframework.org/schema/integration/file
     http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
 
-<!-- 	<task:executor id="gameEventsHandlerExecutor" pool-size="5-50" -->
-<!-- 		queue-capacity="100" rejection-policy="CALLER_RUNS" /> -->
+ 	<task:executor id="gameEventsHandlerExecutor" 
+ 		pool-size="8-75" 
+ 		queue-capacity="5" 
+ 		rejection-policy="CALLER_RUNS" /> 
+
+ 	<task:executor id="outgoingGameEventsHandlerExecutor" 
+ 		pool-size="8-75" 
+ 		queue-capacity="5" 
+ 		rejection-policy="CALLER_RUNS" /> 
+
+ 	<task:executor id="loggingExecutor" 
+ 		pool-size="8-75" 
+ 		queue-capacity="5" 
+ 		rejection-policy="CALLER_RUNS" />
+
 
 	<int:channel id="gameEventQueueChannel">
+		<int:dispatcher task-executor="gameEventsHandlerExecutor"  />
 		<int:interceptors>
-        	<int:wire-tap channel="loggerChannelAdapter"/>
+        	<!-- <int:wire-tap channel="loggerChannelAdapter"/> -->
         	<!-- <int:wire-tap channel="gameEventSaveQueueChannel"/> -->
      	</int:interceptors>
 	</int:channel>
@@ -44,7 +58,8 @@
 	<int:service-activator 
 		input-channel="gameEventQueueChannel"
 		ref="gameEventHandler"
-		 method="handleMessage">
+		method="handleMessage"
+		>
 	</int:service-activator>
 
 
@@ -59,7 +74,8 @@
 		lookup-host="false"
 		task-executor="controllersExecutor"
 		deserializer="gameEventSerializer"
-		serializer="gameEventSerializer" />
+		serializer="gameEventSerializer" 
+		/>
 
 
 	<bean id="gameEventSerializer" class="com.lvl6.events.GameEventSerializer" />
@@ -73,8 +89,9 @@
 	
 	
 	<int:channel id="outboundMessageChannel" >
-		<int:dispatcher load-balancer="none" failover="true"/>
+		<int:dispatcher load-balancer="none" failover="true" task-executor="outgoingGameEventsHandlerExecutor" />
 	</int:channel>
+	
 	
 	<int-ip:tcp-outbound-channel-adapter
 		id="outboundClient" 

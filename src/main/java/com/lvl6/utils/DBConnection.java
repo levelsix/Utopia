@@ -356,6 +356,46 @@ public class DBConnection {
 		}
 		return numUpdated;
 	}
+	
+	 public int insertIntoTableIgnore(String tablename,
+	      Map<String, Object> insertParams) {
+	    List<String> questions = new LinkedList<String>();
+	    List<String> columns = new LinkedList<String>();
+	    List<Object> values = new LinkedList<Object>();
+	    int numUpdated = 0;
+
+	    if (insertParams != null && insertParams.size() > 0) {
+	      for (String column : insertParams.keySet()) {
+	        questions.add("?");
+	        columns.add(column);
+	        values.add(insertParams.get(column));
+	      }
+	      String query = "insert ignore into " + tablename + "("
+	          + StringUtils.getListInString(columns, ",") + ") VALUES ("
+	          + StringUtils.getListInString(questions, ",") + ")";
+
+	      Connection conn = null;
+	      PreparedStatement stmt = null;
+	      try {
+	        conn = dataSource.getConnection();
+	        stmt = conn.prepareStatement(query);
+	        if (values.size() > 0) {
+	          int i = 1;
+	          for (Object value : values) {
+	            stmt.setObject(i, value);
+	            i++;
+	          }
+	        }
+	        numUpdated = stmt.executeUpdate();
+	      } catch (SQLException e) {
+	        log.error("problem with " + query + ", values are " + values, e);
+	        e.printStackTrace();
+	      } finally {
+	        close(null, stmt, conn);
+	      }
+	    }
+	    return numUpdated;
+	  }
 
 	/*
 	 * assumes every list for each column is numRows length

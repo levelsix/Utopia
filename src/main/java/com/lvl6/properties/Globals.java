@@ -8,9 +8,17 @@ import com.lvl6.spring.AppContext;
 public class Globals {
 	
 	protected boolean sandbox = true;
+	protected boolean iddictionOn = true;
 	
-	
-    public boolean getSandbox() {
+    public boolean isIddictionOn() {
+		return iddictionOn;
+	}
+
+	public void setIddictionOn(boolean iddictionOn) {
+		this.iddictionOn = iddictionOn;
+	}
+
+	public boolean getSandbox() {
 		return sandbox;
 	}
 
@@ -40,8 +48,7 @@ public class Globals {
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
-    //TODO: fill in app store url
-    public static final String APP_STORE_URL = "";
+    public static final String APP_STORE_URL = "itms-apps://itunes.com/apps/ageofchaos";
     
     public static final Level LOG_LEVEL = Level.INFO;
     
@@ -50,4 +57,13 @@ public class Globals {
     public static final String APPLE_BUNDLE_ID = "com.lvl6.kingdom";
 
     public static final float VERSION_NUMBER = 1.0f;
+
+    
+    
+    
+
+
+
+    public static final boolean IDDICTION_ON(){return AppContext.getApplicationContext().getBean(Globals.class).isIddictionOn();};;
+
 }

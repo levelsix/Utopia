@@ -18,6 +18,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
+import com.hazelcast.core.ILock;
 import com.lvl6.events.ResponseEvent;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
@@ -264,10 +265,12 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 
 	public void lockPlayer(int playerId) {
 		log.debug("Locking player: "+playerId);
-		Lock playerLock = hazel.getLock(playerId);
+		Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
 		playerLock.lock();
 		playersInAction.addPlayer(playerId);
 	}
+	
+
 
 	public void lockPlayers(int playerId1, int playerId2) {
 		log.debug("Locking players: "+playerId1+", "+playerId2);
@@ -286,8 +289,8 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 
 	public void unlockPlayer(int playerId) {
 		log.debug("Unlocking player: "+playerId);
-		Lock lock = hazel.getLock(playerId);
-		lock.unlock();
+		ILock lock = hazel.getLock(playersInAction.lockName(playerId));
+		lock.forceUnlock();
 		if (playersInAction.containsPlayer(playerId))
 			playersInAction.removePlayer(playerId);
 	}

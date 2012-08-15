@@ -29,6 +29,7 @@ import com.lvl6.properties.IAPValues;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.BattleConstants;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.CharacterModConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
@@ -62,7 +63,7 @@ public class MiscMethods {
     return (int)
         (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
   }
-  
+
   public static UserEquip chooseUserEquipWithEquipIdPreferrablyNonEquippedIgnoreLevel(User user, List<UserEquip> userEquipsForEquipId) {
     if (user == null || userEquipsForEquipId == null || userEquipsForEquipId.size() <= 0) {
       return null;
@@ -84,7 +85,7 @@ public class MiscMethods {
     }
     return null;
   }
-  
+
   public static Dialogue createDialogue(String dialogueBlob) {
     if (dialogueBlob != null && dialogueBlob.length() > 0) { 
       StringTokenizer st = new StringTokenizer(dialogueBlob, "~");
@@ -306,15 +307,18 @@ public class MiscMethods {
         .setAverageSizeOfLevelBracket(ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET)
         .setHealthFormulaExponentBase(ControllerConstants.HEALTH__FORMULA_EXPONENT_BASE)
         .setLevelEquipBoostExponentBase(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE)
-        .setAdColonyVideosRequiredToRedeemDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD);
-    
+        .setAdColonyVideosRequiredToRedeemDiamonds(ControllerConstants.EARN_FREE_DIAMONDS__NUM_VIDEOS_FOR_DIAMOND_REWARD)
+        .setMinNameLength(ControllerConstants.USER_CREATE__MIN_NAME_LENGTH)
+        .setMaxNameLength(ControllerConstants.USER_CREATE__MAX_NAME_LENGTH)
+        .setSizeOfAttackList(ControllerConstants.SIZE_OF_ATTACK_LIST);
+
     if (ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS != null) {
       for (int i = 0; i < ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS.length; i++) {
         AnimatedSpriteOffset aso = ControllerConstants.STARTUP__ANIMATED_SPRITE_OFFSETS[i];
         cb.addAnimatedSpriteOffsets(CreateInfoProtoUtils.createAnimatedSpriteOffsetProtoFromAnimatedSpriteOffset(aso));
       }
     }
-    
+
     KiipRewardConditions.Builder krcb = KiipRewardConditions.newBuilder();
 
     int[] levelsThatTriggerKiipRewards = ControllerConstants.STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS;
@@ -333,6 +337,15 @@ public class MiscMethods {
 
     cb.setKiipRewardConditions(krcb.build());
 
+    CharacterModConstants charModConstants = CharacterModConstants.newBuilder()
+        .setDiamondCostToChangeCharacterType(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE)
+        .setDiamondCostToChangeName(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME)
+        .setDiamondCostToResetCharacter(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER)
+        .setDiamondCostToResetSkillPoints(ControllerConstants.CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS)
+        .build();
+
+    cb.setCharModConstants(charModConstants);
+
     FormulaConstants formulaConstants = FormulaConstants.newBuilder()
         .setMinutesToUpgradeForNormStructMultiplier(ControllerConstants.MINUTES_TO_UPGRADE_FOR_NORM_STRUCT_MULTIPLIER)
         .setIncomeFromNormStructMultiplier(ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER)
@@ -349,9 +362,9 @@ public class MiscMethods {
         .setForgeDiamondCostForGuaranteeExponentialMultiplier(ControllerConstants.FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER)
         .setForgeBaseMinutesToOneGold(ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD)
         .setForgeMaxEquipLevel(ControllerConstants.FORGE_MAX_EQUIP_LEVEL).build();
-    
+
     cb.setForgeConstants(forgeConstants);
-    
+
     BattleConstants battleConstants = BattleConstants.newBuilder()
         .setLocationBarMax(ControllerConstants.BATTLE_LOCATION_BAR_MAX)
         .setBattleWeightGivenToAttackStat(ControllerConstants.BATTLE_WEIGHT_GIVEN_TO_ATTACK_STAT)
@@ -391,7 +404,7 @@ public class MiscMethods {
   }
 
   public static void reloadAllRareChangeStaticData() {
-	  log.info("Reloading rare change static data");
+    log.info("Reloading rare change static data");
     BuildStructJobRetrieveUtils.reload();
     CityRetrieveUtils.reload();
     DefeatTypeJobRetrieveUtils.reload();
@@ -428,57 +441,65 @@ public class MiscMethods {
   }
 
   public static int chooseMysteryBoxEquip(User user) {
-	  int userLevelMin = user.getLevel()-ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
-	  int userLevelMax = user.getLevel()+ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
-	  double randItem = Math.random();
-	  double randSelection = Math.random();
-	  double totalPercentage = 0;
-	  int retEquipId = 1;
+    int userLevelMin = user.getLevel()-ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
+    int userLevelMax = user.getLevel()+ControllerConstants.STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE;
+    double randItem = Math.random();
+    double randSelection = Math.random();
+    double totalPercentage = 0;
+    int retEquipId = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
 
-	  List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(getClassTypeFromUserType(user.getType()));
-	  List<Equipment> commonEquips = new ArrayList<Equipment>();
-	  List<Equipment> uncommonEquips = new ArrayList<Equipment>();
-	  List<Equipment> rareEquips = new ArrayList<Equipment>();
-	  List<Equipment> epicEquips = new ArrayList<Equipment>();
-	  List<Equipment> legendaryEquips = new ArrayList<Equipment>();
+    List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(getClassTypeFromUserType(user.getType()));
+    List<Equipment> commonEquips = new ArrayList<Equipment>();
+    List<Equipment> uncommonEquips = new ArrayList<Equipment>();
+    List<Equipment> rareEquips = new ArrayList<Equipment>();
+    List<Equipment> epicEquips = new ArrayList<Equipment>();
+    List<Equipment> legendaryEquips = new ArrayList<Equipment>();
 
-	  for (Equipment e:allEquipment) {
-	  	if (e.getMinLevel()>=userLevelMin && e.getMinLevel()<=userLevelMax) {
-	  		//the equipment is at the right level	
-	  		if (e.getRarity().equals(Rarity.COMMON)) {
-	  			commonEquips.add(e);
-	  		} else if (e.getRarity().equals(Rarity.UNCOMMON)) {
-	  			uncommonEquips.add(e);
-	  		} else if (e.getRarity().equals(Rarity.RARE)) {
-	  			rareEquips.add(e);
-	  		} else if (e.getRarity().equals(Rarity.EPIC)) {
-	  			epicEquips.add(e);
-	  		} else if (e.getRarity().equals(Rarity.LEGENDARY)) {
-	  			legendaryEquips.add(e);
-	  		} else {
-	  			log.error("ERROR! equipment " + e + " has no rarity");
-	  		}
-	  	}
-	  }
-	  if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_COMMON_EQUIP)) {
-	  	int selection = (int) randSelection*commonEquips.size();
-	  	retEquipId = commonEquips.get(selection).getId();
-	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_UNCOMMON_EQUIP)) {
-	  	int selection = (int) randSelection*uncommonEquips.size();	
-	  	retEquipId = uncommonEquips.get(selection).getId();
-	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_RARE_EQUIP)) {
-	  	int selection = (int) randSelection*rareEquips.size();	
-	  	retEquipId = rareEquips.get(selection).getId();
-	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_EPIC_EQUIP)) {
-	  	int selection = (int) randSelection*epicEquips.size();	
-	  	retEquipId = epicEquips.get(selection).getId();
-	  } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP)) {
-	  	int selection = (int) randSelection*legendaryEquips.size();
-	  	retEquipId = legendaryEquips.get(selection).getId();
-	  } else {
-	    return ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
-	  }
-	  
-	  return retEquipId;
+    for (Equipment e:allEquipment) {
+      if (e.getMinLevel()>=userLevelMin && e.getMinLevel()<=userLevelMax) {
+        //the equipment is at the right level	
+        if (e.getRarity().equals(Rarity.COMMON)) {
+          commonEquips.add(e);
+        } else if (e.getRarity().equals(Rarity.UNCOMMON)) {
+          uncommonEquips.add(e);
+        } else if (e.getRarity().equals(Rarity.RARE)) {
+          rareEquips.add(e);
+        } else if (e.getRarity().equals(Rarity.EPIC)) {
+          epicEquips.add(e);
+        } else if (e.getRarity().equals(Rarity.LEGENDARY)) {
+          legendaryEquips.add(e);
+        } else {
+          log.error("ERROR! equipment " + e + " has no rarity");
+        }
+      }
+    }
+    if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_COMMON_EQUIP)) {
+      if (commonEquips !=  null) {
+        int selection = (int) randSelection*commonEquips.size();
+        retEquipId = commonEquips.get(selection).getId();
+      }
+    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_UNCOMMON_EQUIP)) {
+      if (uncommonEquips != null) {
+        int selection = (int) randSelection*uncommonEquips.size();	
+        retEquipId = uncommonEquips.get(selection).getId();
+      }
+    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_RARE_EQUIP)) {
+      if (rareEquips != null) {
+        int selection = (int) randSelection*rareEquips.size();	
+        retEquipId = rareEquips.get(selection).getId();
+      }
+    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_EPIC_EQUIP)) {
+      if (epicEquips != null) {
+        int selection = (int) randSelection*epicEquips.size();	
+        retEquipId = epicEquips.get(selection).getId();
+      }
+    } else if (randItem<=(totalPercentage+=ControllerConstants.STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP)) {
+      if (legendaryEquips != null) {
+        int selection = (int) randSelection*legendaryEquips.size();
+        retEquipId = legendaryEquips.get(selection).getId();
+      }
+    } 
+
+    return retEquipId;
   }
 }

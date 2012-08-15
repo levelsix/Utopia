@@ -95,6 +95,8 @@ public class ControllerConstants {
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FOURTH_EXPANSION = 30;
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS = 4;
   
+  public static final int SIZE_OF_ATTACK_LIST = 20;
+  
   //--------------------------------------------------------------------------------------------------------------------------
 
   //TUTORIAL CONSTANTS
@@ -122,8 +124,8 @@ public class ControllerConstants {
   public static final String TUTORIAL__FAKE_QUEST_BAD_NAME = "Witness Protection";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_ACCEPT_DIALOGUE = "10~good~";
   public static final String TUTORIAL__FAKE_QUEST_BAD_ACCEPT_DIALOGUE = "10~bad~";
-  public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Welcome to Kirin Village, stranger. We are in dire times and we need your help. A few moments ago, a strange white light consumed the sky and legion soldiers appeared out of thin air. One seems to have strayed from the pack. Start by killing him!";
-  public static final String TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION = "Welcome to Kirin Village, soldier. A few moments ago, a strange white light consumed the sky and blinded our eyes during our siege against the Alliance. We found ourselves here with a few Lumorian soldiers after we regained our vision. One seems to have strayed from the pack. Start by killing him!";
+  public static final String TUTORIAL__FAKE_QUEST_GOOD_DESCRIPTION = "Soldier, we are in dire times and we need your help.";
+  public static final String TUTORIAL__FAKE_QUEST_BAD_DESCRIPTION = "Soldier, we are in dire times and we need your help.";
   public static final String TUTORIAL__FAKE_QUEST_GOOD_DONE_RESPONSE = "Simply amazing! Your battle prowess makes our village seem safer already. ";
   public static final String TUTORIAL__FAKE_QUEST_BAD_DONE_RESPONSE = "Excellent work soldier. Good to know I have a competent ally watching my back.";
   public static final int TUTORIAL__FAKE_QUEST_ASSET_NUM_WITHIN_CITY = 5;
@@ -144,9 +146,9 @@ public class ControllerConstants {
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_SMALL_BONUS = 1;
   public static final int STARTUP__DAILY_BONUS_MIN_CONSEC_DAYS_BIG_BONUS = 5;
   public static final int STARTUP__DAILY_BONUS_MAX_CONSEC_DAYS_BIG_BONUS = 5;
-  public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_COMMON_EQUIP = 0;    //total should add up to 1
-  public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_UNCOMMON_EQUIP = 0.8;
-  public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_RARE_EQUIP = 0.15;
+  public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_COMMON_EQUIP = 0.1;    //total should add up to 1
+  public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_UNCOMMON_EQUIP = 0.85;
+  public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_RARE_EQUIP = 0;
   public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_EPIC_EQUIP = 0.05;
   public static final double STARTUP__DAILY_BONUS_PERCENTAGE_CHANCE_LEGENDARY_EQUIP = 0;
   public static final int STARTUP__DAILY_BONUS_RECEIVE_EQUIP_LEVEL_RANGE = 5;
@@ -164,6 +166,7 @@ public class ControllerConstants {
   public static final double BATTLE__EXP_BASE_MULTIPLIER = 0.8;
   public static final int BATTLE__EXP_MIN = 1;
   public static final double BATTLE__EXP_LEVEL_DIFF_WEIGHT = 0.2;
+  public static final double BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL = 0.3;
 
   //GENERATE ATTACK LIST
   public static final int GENERATE_ATTACK_LIST__NUM_ENEMIES_TO_GENERATE_MAX = 25;
@@ -270,6 +273,12 @@ public class ControllerConstants {
   //RETRIEVE PLAYER WALL POSTS
   public static final int RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP = 15;
   
+  //CHARACTER MOD
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE = 150;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME = 50;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER = 0;
+  public static final int CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS = 100;
+  
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
     new ValidLocationBox(-118.76606, 50.595863, 27.16478, 9.0692883, "CANADA"),
@@ -283,17 +292,17 @@ public class ControllerConstants {
     new ValidLocationBox(122.57473, -29.775003, 22.857393, 12.192301, "GREENLAND")};
 
   public static final AnimatedSpriteOffset[] STARTUP__ANIMATED_SPRITE_OFFSETS = {
-    new AnimatedSpriteOffset("TutorialGuide", new CoordinatePair(0, -9)),
+    new AnimatedSpriteOffset("TutorialGuide", new CoordinatePair(0, -5)),
     new AnimatedSpriteOffset("TutorialGuideBad", new CoordinatePair(0, -7)),
-    new AnimatedSpriteOffset("AllianceArcher", new CoordinatePair(0, -7)),
-    new AnimatedSpriteOffset("AllianceWarrior", new CoordinatePair(0, -15)),
-    new AnimatedSpriteOffset("AllianceMage", new CoordinatePair(0, -26)),
+    new AnimatedSpriteOffset("AllianceArcher", new CoordinatePair(0, -5)),
+    new AnimatedSpriteOffset("AllianceWarrior", new CoordinatePair(0, -7)),
+    new AnimatedSpriteOffset("AllianceMage", new CoordinatePair(0, -6)),
     new AnimatedSpriteOffset("LegionArcher", new CoordinatePair(0, -7)),
-    new AnimatedSpriteOffset("LegionWarrior", new CoordinatePair(0, -15)),
-    new AnimatedSpriteOffset("LegionMage", new CoordinatePair(0, -18)),
+    new AnimatedSpriteOffset("LegionWarrior", new CoordinatePair(0, -11)),
+    new AnimatedSpriteOffset("LegionMage", new CoordinatePair(0, -8)),
     new AnimatedSpriteOffset("Bandit", new CoordinatePair(0, -15)),
     new AnimatedSpriteOffset("FarmerMitch", new CoordinatePair(0, -8)),
-    new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -8)),
+    new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -6)),
   };
   
   public static final String[] STARTUP__NOTICES_TO_PLAYERS = {};
@@ -302,5 +311,10 @@ public class ControllerConstants {
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
     19, 20, 21, 23, 24, 25, 26};
   public static final int[] STARTUP__QUESTS_THAT_TRIGGER_KIIP_REWARDS_ON_REDEEM = {};
+  
+  
+  
+  public static final int IDDICTION__EQUIP_ID = 282;
+  public static final String IDDICTION__NOTICE = "FREE limited edition gold equip for joining today!";
 
 }

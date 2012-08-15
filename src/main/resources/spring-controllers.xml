@@ -43,6 +43,7 @@
 	
 	<bean id="appGlobals" class="com.lvl6.properties.Globals" >
 		<property name="sandbox" value="${globals.isSandbox}" />
+		<property name="iddictionOn" value="${globals.iddictionOn}" />
 	</bean>
 	
 	

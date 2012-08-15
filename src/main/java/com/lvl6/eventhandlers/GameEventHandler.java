@@ -18,7 +18,7 @@ import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
 
 public class GameEventHandler extends AbstractGameEventHandler {
-	private static final int DEFAULT_TTL = 30;
+	private static final int DEFAULT_TTL = 2;
 
 	static Logger log = Logger.getLogger(GameEventHandler.class);
 
@@ -68,20 +68,17 @@ public class GameEventHandler extends AbstractGameEventHandler {
 		ec.handleEvent(event);
 	}
 
-	protected void updatePlayerToServerMaps(RequestEvent event,
-			String ip_connection_id) {
-		log.debug("Updating player to server maps for player: "
-				+ event.getPlayerId());
+	protected void updatePlayerToServerMaps(RequestEvent event,	String ip_connection_id) {
+		log.debug("Updating player to server maps for player: "	+ event.getPlayerId());
 		if (playersByPlayerId.containsKey(event.getPlayerId())) {
 			ConnectedPlayer p = playersByPlayerId.get(event.getPlayerId());
 			if (p != null) {
 				p.setLastMessageSentToServer(new Date());
-				if (!p.getIp_connection_id().equals(ip_connection_id)
-						|| !p.getServerHostName().equals(server.serverId())) {
-					log.debug("Player is connected to a new socket or server");
+				//if (!p.getIp_connection_id().equals(ip_connection_id)	|| !p.getServerHostName().equals(server.serverId())) {
+					//log.debug("Player is connected to a new socket or server");
 					p.setIp_connection_id(ip_connection_id);
 					p.setServerHostName(server.serverId());
-				}
+				//}
 				playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL,
 						TimeUnit.MINUTES);
 			} else {

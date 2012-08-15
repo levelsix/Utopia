@@ -26,7 +26,7 @@ public class UserQuestTask implements Runnable{
 	}
 
 	
-	protected Integer iterations = 100;
+	protected Integer iterations = 1;
 	
 	
 	

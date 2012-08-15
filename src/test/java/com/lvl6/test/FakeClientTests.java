@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,9 +29,11 @@ import com.lvl6.loadtesting.BasicUser;
 import com.lvl6.loadtesting.LoadTestEventGenerator;
 import com.lvl6.loadtesting.UserQuestTask;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.server.HealthCheck;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ClientAttachment;
-
+import com.jayway.awaitility.Awaitility;
+import com.jayway.awaitility.Awaitility.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test-spring-application-context.xml")
@@ -96,20 +99,35 @@ public class FakeClientTests {
 	
 	@Test
 	public void testFakeClientStartup() throws InterruptedException{
-		sendToServer.send(gen.startup("A_Fake_Client"));
+		sendToServer.send(gen.startup("Health_Check_Client"));
 		waitForMessage();
 	}
+	
+	@Test
+	public void testHealthCheck() {
+		HealthCheck hc = AppContext.getApplicationContext().getBean(HealthCheck.class);
+		Assert.assertTrue(hc.check());
+	}
+	
 	
 	//@Test
 	public void testGeneratingFakeLoad() {
 		List<BasicUser> users = getTestUsers();
-		log.info("Generating UserQuestDetailsRequestEvents for {} users", users.size());
-		for(BasicUser user: users) {
-			UserQuestTask task = AppContext.getApplicationContext().getBean(UserQuestTask.class);
-			task.setUserId(user.getUserId());
-			task.setUserType(user.getUserType());
-			te.execute(task);
+		for(int i = 0; i < 10; i++) {
+			log.info("Generating UserQuestDetailsRequestEvents for {} users", users.size());
+			for(BasicUser user: users) {
+				UserQuestTask task = AppContext.getApplicationContext().getBean(UserQuestTask.class);
+				task.setUserId(user.getUserId());
+				task.setUserType(user.getUserType());
+				try {
+					te.execute(task);
+				}catch(Exception e) {
+					log.error("Error sending fake call", e);
+				}
+			}
 		}
+		//waitForResponses();
+		Awaitility.await().forever();		
 	}
 
 	private List<BasicUser> getTestUsers() {
@@ -124,6 +142,20 @@ public class FakeClientTests {
 				return bu;
 			}
 		});
+	}
+	
+	Integer responsesCount = 0;
+	protected void waitForResponses() {
+		Message<?> msg = serverResponses.receive(1500);
+		if(msg != null && msg.getHeaders() != null) {
+			responsesCount++;
+			if(responsesCount % 20 == 0) {
+				log.info("Recieved: {}", responsesCount);
+			}
+		}else {
+			
+		}
+		waitForResponses();
 	}
 	
 	protected void waitForMessage() {
