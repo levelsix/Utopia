@@ -75,8 +75,8 @@
 		<beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 		<application.release.name>Kingdom</application.release.name>
 		<wicket.mode>development</wicket.mode>
-		<ec2.instance.size>m1.large</ec2.instance.size>
-		<ec2.tomcat.memory>5800m</ec2.tomcat.memory>
+		<ec2.instance.size>m1.medium</ec2.instance.size>
+		<ec2.tomcat.memory>3000m</ec2.tomcat.memory>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.1.RELEASE</spring.security.version>
 		<tests.fake.client.host>localhost</tests.fake.client.host>
@@ -214,7 +214,7 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:application</namespace>
 							<optionName>Application Healthcheck URL</optionName>
-							<value>/index.html</value>
+							<value>/health</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
@@ -239,7 +239,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>2</value>
+							<value>3</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
@@ -347,7 +347,12 @@
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-simple</artifactId>
-				<version>1.6.4</version>
+				<version>1.6.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.6.6</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.protobuf</groupId>
@@ -430,7 +435,7 @@
 			<dependency>
 				<groupId>com.hazelcast</groupId>
 				<artifactId>hazelcast-all</artifactId>
-				<version>2.1.2</version>
+				<version>2.2</version>
 			</dependency>
 			<!-- <dependency> <groupId>com.hazelcast</groupId> <artifactId>hazelcast-wm</artifactId> 
 				<version>2.2</version> </dependency> -->
@@ -575,9 +580,11 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
