@@ -52,7 +52,6 @@ import com.lvl6.utils.RetrieveUtils;
     MinimumUserProto senderProto = reqProto.getSender();
     int questId = reqProto.getQuestId();
     log.debug("Processing UserQuestDetailsRequest");
-    testslf4j.debug("Processing UserQuestDetailsRequest for user: {}  quest: {}", senderProto.getUserId(), questId);
     UserQuestDetailsResponseProto.Builder resBuilder = UserQuestDetailsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(UserQuestDetailsStatus.SUCCESS);
@@ -79,14 +78,12 @@ import com.lvl6.utils.RetrieveUtils;
       UserQuestDetailsResponseEvent resEvent = new UserQuestDetailsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setUserQuestDetailsResponseProto(resProto);
-      testslf4j.debug("Sending response for UserQuestDetailsResponse");
       log.debug("Sending response for UserQuestDetailsResponse");
       server.writeEvent(resEvent);
     } catch (Exception e) {
       log.error("exception in UserQuestDetailsController processEvent", e);
-      testslf4j.error("exception in UserQuestDetailsController ", e);
     } finally {
-    	testslf4j.debug("Unlocking player {}", senderProto.getUserId());
+    	log.debug("Unlocking player "+ senderProto.getUserId());
       server.unlockPlayer(senderProto.getUserId()); 
     }
   }
