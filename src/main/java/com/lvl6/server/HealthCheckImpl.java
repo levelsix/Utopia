@@ -76,9 +76,7 @@ public class HealthCheckImpl implements HealthCheck {
 	@Override
 	public boolean check() {
 		log.info("Running health check");
-		MinimumUserProto.Builder user = gen.minimumUserProto(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, UserType.BAD_ARCHER);
-		serverResponses.clear();
-		sendToServer.send(gen.userQuestDetails(user));
+		sendToServer.send(gen.startup("Cluster Server Instance: "+server.serverId()));
 		//sendToServer.send(gen.userQuestDetails(user));
 		return waitForMessage();
 	}
