@@ -139,6 +139,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	 * write the event to the given playerId's channel
 	 */
 	private void write(ByteBuffer event, ConnectedPlayer player) {
+		log.debug("EventWriter.write");
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ip_connection_id", player.getIp_connection_id());
 		if(player.getPlayerId() != 0) {
@@ -148,9 +149,11 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 		event.get(bArray);
 		Message<byte[]> msg = new GenericMessage<byte[]>(bArray, headers);
 		if(player.getServerHostName().equals(serverInstance.hostName)) {
+			log.debug("EventWriter.write... handling message on local server instance");
 			com.hazelcast.core.Message<Message<?>> playerMessage = new com.hazelcast.core.Message<Message<?>>(serverInstance.hostName, msg);
 			serverInstance.onMessage(playerMessage);
 		}else {
+			log.debug("EventWriter.write... sending message to hazel for processing");
 			ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(ServerInstance.getOutboundMessageTopicForServer(player.getServerHostName()));
 			serverOutboundMessages.publish(msg);
 		}
