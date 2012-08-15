@@ -140,7 +140,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}
 
 	// current client version to see if it is still playable
-	public static float clientVersionNumber = Globals.VERSION_NUMBER;
+	public static float clientVersionNumber = Globals.VERSION_NUMBER();
 
 	public static void main(String args[]) {
 		ApplicationContext context = new FileSystemXmlApplicationContext("target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml");
