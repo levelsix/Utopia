@@ -86,7 +86,7 @@ public class ControllerConstants {
   public static final int FORGE_MIN_DIAMOND_COST_FOR_GUARANTEE = 1;
   public static final double FORGE_DIAMOND_COST_FOR_GUARANTEE_EXPONENTIAL_MULTIPLIER = 2;
   public static final int FORGE_MAX_EQUIP_LEVEL = 10;
-  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 5;
+  public static final int FORGE_BASE_MINUTES_TO_ONE_GOLD = 4;
   public static final double FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER = 1.8;
   
   public static final int EXPANSION_WAIT_COMPLETE__HOURS_FOR_FIRST_EXPANSION = 3;
@@ -218,8 +218,8 @@ public class ControllerConstants {
   public static final double VAULT__DEPOSIT_PERCENT_CUT = 0.1;
   
   //REFILL STAT WITH DIAMONDS
-  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 10;
-  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 10;
+  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_ENERGY_REFILL = 20;
+  public static final int REFILL_STAT_WITH_DIAMONDS__DIAMOND_COST_FOR_STAMINA_REFILL = 20;
 
   //LOAD PLAYER CITY
   public static final int LOAD_PLAYER_CITY__APPROX_NUM_USERS_IN_CITY = 4;
