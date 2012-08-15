@@ -97,7 +97,7 @@ public class FakeClientTests {
 	}
 
 	
-	@Test
+	//@Test
 	public void testFakeClientStartup() throws InterruptedException{
 		sendToServer.send(gen.startup("Health_Check_Client"));
 		waitForMessage();
@@ -165,7 +165,7 @@ public class FakeClientTests {
 		if(msg != null && msg.getHeaders() != null) {
 			log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
 			for (String key: msg.getHeaders().keySet()) {
-				log.info(key+": "+msg.getHeaders().get(key));
+				log.debug(key+": "+msg.getHeaders().get(key));
 			}
 			//log.info("Payload: "+msg.getPayload());
 			ClientAttachment attachment = new ClientAttachment();
