@@ -44,14 +44,14 @@
 		</layout>
 	</appender>
  -->
- 	<logger name="com.springframework" additivity="false"> 
+<!--  	<logger name="com.springframework" additivity="false"> 
 		<level value="DEBUG" />
 		<appender-ref ref="console" />
 	</logger>
 	 <logger name="com.lvl6" additivity="false"> 
 		<level value="DEBUG" />
 		<appender-ref ref="console" />
-	</logger>
+	</logger> -->
 	<root>
 		<level value="info" />
 		<appender-ref ref="console" />

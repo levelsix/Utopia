@@ -55,7 +55,7 @@
 	</appender>
 
 	
-	<logger name="org.springframework" additivity="false">
+<!-- 	<logger name="org.springframework" additivity="false">
 		<level value="DEBUG" />
 		<appender-ref ref="EC2" /> 
 		<appender-ref ref="cassandra" /> 
@@ -69,7 +69,7 @@
 		<appender-ref ref="cassandra" /> 
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
-	</logger>
+	</logger> -->
 	
 	<root>
 		<level value="info" />
