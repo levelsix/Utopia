@@ -16,7 +16,7 @@
 	<int:channel id="inboundFakeClientChannel">
 		<int:queue/>
   		<int:interceptors>
-        	<int:wire-tap channel="inLoggerChannelAdapter"/>
+        	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors> 
 	</int:channel>
 
@@ -31,7 +31,7 @@
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
  		 <int:interceptors>
-        	<int:wire-tap channel="outLoggerChannelAdapter"/>
+        	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors> 
 	</int:channel>
 	
@@ -51,8 +51,7 @@
 
 	<bean id="gameEventClientSerializer" class="com.lvl6.events.GameEventClientSerializer" />
 	
-	<int:logging-channel-adapter id="outLoggerChannelAdapter" level="DEBUG" logger-name="SpringOutboundLogger"/>
-	<int:logging-channel-adapter id="inLoggerChannelAdapter" level="DEBUG" logger-name="SpringInboundLogger"/>
+	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG" log-full-message="true" />
 
 
 
