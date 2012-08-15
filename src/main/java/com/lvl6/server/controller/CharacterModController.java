@@ -1,5 +1,9 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -8,7 +12,9 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.CharacterModRequestEvent;
 import com.lvl6.events.response.CharacterModResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
+import com.lvl6.info.UserEquip;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.CharacterModRequestProto;
 import com.lvl6.proto.EventProto.CharacterModResponseProto;
@@ -17,7 +23,9 @@ import com.lvl6.proto.EventProto.CharacterModResponseProto.CharacterModStatus;
 import com.lvl6.proto.InfoProto.CharacterModType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
@@ -109,6 +117,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         log.error("error in changing user character type from "+user.getType()+" to "+newUserType+
             " with diamond cost "+diamondCost);
       }
+      unequipNewlyUnequipppableEquips(user, newUserType);
     } else if (modType == CharacterModType.CHANGE_NAME) {
       if (!user.updateNameUserTypeUdid(null, newName, null, diamondCost*-1)) {
         log.error("error in changing user name from "+user.getName()+" to "+newName+
@@ -125,6 +134,39 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         log.error("error in reseting skill points");
       }
     } 
+  }
+
+  private void unequipNewlyUnequipppableEquips(User user, UserType newUserType) {
+    List<Integer> userEquipIds = new ArrayList<Integer>();
+    if (user.getWeaponEquippedUserEquipId() > 0)
+      userEquipIds.add(user.getWeaponEquippedUserEquipId());
+    if (user.getArmorEquippedUserEquipId() > 0)
+      userEquipIds.add(user.getArmorEquippedUserEquipId());
+    if (user.getAmuletEquippedUserEquipId() > 0)
+      userEquipIds.add(user.getAmuletEquippedUserEquipId());
+
+    List<UserEquip> specificUserEquips = RetrieveUtils.userEquipRetrieveUtils().getSpecificUserEquips(userEquipIds);
+    Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
+
+    boolean unequipWeapon = false, unequipArmor = false, unequipAmulet = false;
+    ClassType userClass = MiscMethods.getClassTypeFromUserType(newUserType);
+
+    for (UserEquip ue : specificUserEquips) {
+      Equipment equip = equipmentIdsToEquipment.get(ue.getEquipId());
+      if (ue.getId() == user.getWeaponEquippedUserEquipId()) {
+        unequipWeapon =  (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET);
+      }
+      if (ue.getId() == user.getArmorEquippedUserEquipId()) {
+        unequipArmor =  (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET);
+      }
+      if (ue.getId() == user.getAmuletEquippedUserEquipId()) {
+        unequipAmulet =  (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET);
+      }
+    }
+    if (!user.updateUnequip(unequipWeapon, unequipArmor, unequipAmulet)) {
+      log.error("problem with unequipping equips for user after type change. user=" + user + ", unequipWeapon=" + 
+          unequipWeapon + ", unequipArmor=" + unequipArmor + ", unequipAmulet=" + unequipAmulet);
+    }
   }
 
   private boolean checkLegitMod(Builder resBuilder, int diamondCost, User user, UserType newUserType, 
