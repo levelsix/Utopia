@@ -81,7 +81,7 @@ public class HealthCheckImpl implements HealthCheck {
 	}
 	
 	protected boolean waitForMessage() {
-		Message<?> msg = serverResponses.receive(Globals.HEALTH_CHECK_TIMEOUT());
+		Message<?> msg = serverResponses.receive(Globals.HEALTH_CHECK_TIMEOUT()*1000);
 		if(msg != null && msg.getHeaders() != null) {
 			//log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
 			ClientAttachment attachment = new ClientAttachment();
