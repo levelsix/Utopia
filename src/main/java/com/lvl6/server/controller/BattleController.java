@@ -15,8 +15,10 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Quest;
+import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -33,9 +35,11 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
@@ -264,14 +268,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             } else {
               defeatTypeJobsRequired = quest.getDefeatGoodGuysJobsRequired();
             }
+
             if (defeatTypeJobsRequired != null) {
               if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
                 questIdToUserDefeatTypeJobsCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedDefeatTypeJobsRetrieveUtils().getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(attacker.getId());
               }
               List<Integer> userCompletedDefeatTypeJobsForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(quest.getId());
               if (userCompletedDefeatTypeJobsForQuest == null) userCompletedDefeatTypeJobsForQuest = new ArrayList<Integer>();
+              
               List<Integer> defeatTypeJobsRemaining = new ArrayList<Integer>(defeatTypeJobsRequired);
               defeatTypeJobsRemaining.removeAll(userCompletedDefeatTypeJobsForQuest);
+
               Map<Integer, DefeatTypeJob> remainingDTJMap = DefeatTypeJobRetrieveUtils
                   .getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobsRemaining);
               if (remainingDTJMap != null && remainingDTJMap.size() > 0) {
@@ -284,9 +291,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                         questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                       }
                       Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
+                      
                       int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
                           userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
-
+                          
                           if (numDefeatedForJob + 1 >= remainingDTJ.getNumEnemiesToDefeat()) {
                             //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                             if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
@@ -309,7 +317,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                             if (!UpdateUtils.get().incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
                               log.error("problem with incrementing user quest defeat type job progress for user "
                                   + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
-                            }
+                            } 
                           }
                     }
                   }
