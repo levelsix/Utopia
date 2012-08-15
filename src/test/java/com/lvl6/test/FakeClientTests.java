@@ -105,7 +105,7 @@ public class FakeClientTests {
 	
 	@Test
 	public void testHealthCheck() {
-		for(int i=0; i<20; i++) {
+		for(int i=0; i<2; i++) {
 			HealthCheck hc = AppContext.getApplicationContext().getBean(HealthCheck.class);
 			Assert.assertTrue(hc.check());
 		}
