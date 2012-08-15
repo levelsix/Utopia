@@ -11,14 +11,14 @@
 	</appender> -->
 
 
-<!-- 	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
+ 	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
 		<param name="hosts" value="${lvl6.cassandra.hosts}" />
 		<param name="keyspace" value="${lvl6.cassandra.keyspace}" />
 		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
 		<param name="clusterName" value="${lvl6.cassandra.cluster.name}" />
 		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
 		<param name="Threshold" value="INFO" />
-	</appender> -->
+	</appender>
 	
 	<appender name="EC2" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="/opt/tomcat7/logs/tail_catalina.log" />
@@ -63,7 +63,7 @@
 	<root>
 		<level value="info" />
 		<appender-ref ref="EC2" /> 
-		<!-- <appender-ref ref="cassandra" /> -->
+		<appender-ref ref="cassandra" /> 
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
 	</root>

@@ -28,19 +28,12 @@
 <!-- 	<import resource="classpath:spring-cache.xml" /> -->
 
 	<bean id="serverInstance" class="com.lvl6.server.ServerInstance" />
+	<bean id="healthCheck" class="com.lvl6.server.HealthCheckImpl" />
 	
 	<bean id="gameServer" class="com.lvl6.server.GameServer" scope="singleton" depends-on="dbConnection" destroy-method="shutdown" >
 		<constructor-arg index="0" value="${server.ip}" />
 		<constructor-arg index="1" value="${server.port}" />
 		<property name="block" value="false" />
-	</bean>
-	
-	<bean id="junitCassandraAppender" class="com.lvl6.cassandra.log4j.Log4jAppender">
-		<constructor-arg name="hosts" value="${lvl6.cassandra.hosts}"></constructor-arg>
-		<constructor-arg name="clusterName" value="${lvl6.cassandra.cluster.name}"></constructor-arg>
-		<constructor-arg name="keyspace" value="${lvl6.cassandra.keyspace}_test"></constructor-arg>
-		<constructor-arg name="columnFamily" value="${lvl6.cassandra.column.family}"></constructor-arg>
-		
 	</bean>
 	
 	<!-- <bean id="setup" class="com.lvl6.Setup" />-->

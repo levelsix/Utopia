@@ -18,7 +18,7 @@
 		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
 		<param name="clusterName" value="${lvl6.cassandra.cluster.name}" />
 		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
-		<param name="Threshold" value="info" />
+		<param name="Threshold" value="debug" />
 	</appender>
 	
 	<!-- 
@@ -44,9 +44,14 @@
 		</layout>
 	</appender>
  -->
+	<logger name="com.lvl6.test"> 
+		<level value="DEBUG" />
+		<appender-ref ref="cassandra" />
+	</logger>
 	<root>
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="console" />
+		<appender-ref ref="cassandra" />
 		<!-- <appender-ref ref="cassandra" /> -->
 		<!-- <appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" /> -->
