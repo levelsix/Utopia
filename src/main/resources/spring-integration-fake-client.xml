@@ -14,7 +14,7 @@
 
 
 	<int:channel id="inboundFakeClientChannel">
-		<int:dispatcher task-executor="controllersExecutor"/>
+		<int:queue/>
 <!--  		<int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors> -->
