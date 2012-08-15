@@ -44,12 +44,12 @@
 		</layout>
 	</appender>
  -->
-	<logger name="com.lvl6.test"> 
+<!-- 	<logger name="com.lvl6.test"> 
 		<level value="DEBUG" />
 		<appender-ref ref="cassandra" />
-	</logger>
+	</logger> -->
 	<root>
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="console" />
 		<appender-ref ref="cassandra" />
 		<!-- <appender-ref ref="cassandra" /> -->
