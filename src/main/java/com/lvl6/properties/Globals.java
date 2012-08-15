@@ -10,7 +10,17 @@ public class Globals {
 	protected boolean sandbox = true;
 	protected boolean iddictionOn = true;
 	
-    public boolean isIddictionOn() {
+	protected float versionNumber = 1.0f;
+	
+    public float getVersionNumber() {
+		return versionNumber;
+	}
+
+	public void setVersionNumber(float versionNumber) {
+		this.versionNumber = versionNumber;
+	}
+
+	public boolean isIddictionOn() {
 		return iddictionOn;
 	}
 
@@ -56,7 +66,7 @@ public class Globals {
     
     public static final String APPLE_BUNDLE_ID = "com.lvl6.kingdom";
 
-    public static final float VERSION_NUMBER = 1.0f;
+    public static final float VERSION_NUMBER(){return AppContext.getApplicationContext().getBean(Globals.class).getVersionNumber();};
 
     
     
