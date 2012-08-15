@@ -16,7 +16,7 @@
 	<int:channel id="inboundFakeClientChannel">
 		<int:queue/>
   		<int:interceptors>
-        	<int:wire-tap channel="loggerChannelAdapter"/>
+        	<int:wire-tap channel="inloggerChannelAdapter"/>
      	</int:interceptors> 
 	</int:channel>
 
@@ -31,7 +31,7 @@
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
  		 <int:interceptors>
-        	<int:wire-tap channel="loggerChannelAdapter"/>
+        	<int:wire-tap channel="outloggerChannelAdapter"/>
      	</int:interceptors> 
 	</int:channel>
 	
@@ -51,7 +51,7 @@
 
 	<bean id="gameEventClientSerializer" class="com.lvl6.events.GameEventClientSerializer" />
 	
-	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG" log-full-message="true"/>
-
+	<int:logging-channel-adapter id="outloggerChannelAdapter" logger-name="client-logger-out" />
+	<int:logging-channel-adapter id="inloggerChannelAdapter" logger-name="client-logger-in" />
 
 </beans>

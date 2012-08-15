@@ -125,7 +125,7 @@
 	
 	
 
-	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG" log-full-message="true"/>
+	<int:logging-channel-adapter id="loggerChannelAdapter"  />
 
 
 
