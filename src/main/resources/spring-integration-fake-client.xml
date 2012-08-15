@@ -51,7 +51,7 @@
 
 	<bean id="gameEventClientSerializer" class="com.lvl6.events.GameEventClientSerializer" />
 	
-
+	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG" log-full-message="true"/>
 
 
 </beans>
