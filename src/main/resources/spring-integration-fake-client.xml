@@ -30,7 +30,6 @@
 	/>	
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
-		<int:dispatcher task-executor="controllersExecutor"/>
  		<!-- <int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors> -->
