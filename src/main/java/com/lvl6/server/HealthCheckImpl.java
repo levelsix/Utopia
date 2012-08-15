@@ -14,6 +14,7 @@ import org.springframework.integration.channel.QueueChannel;
 
 import com.lvl6.loadtesting.LoadTestEventGenerator;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.properties.Globals;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.ClientAttachment;
@@ -80,7 +81,7 @@ public class HealthCheckImpl implements HealthCheck {
 	}
 	
 	protected boolean waitForMessage() {
-		Message<?> msg = serverResponses.receive(6000);
+		Message<?> msg = serverResponses.receive(Globals.HEALTH_CHECK_TIMEOUT());
 		if(msg != null && msg.getHeaders() != null) {
 			//log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
 			ClientAttachment attachment = new ClientAttachment();
