@@ -14,7 +14,7 @@
 
 
 	<int:channel id="inboundFakeClientChannel">
-		<int:queue/>
+		<int:dispatcher task-executor="controllersExecutor"/>
 <!--  		<int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors> -->
@@ -30,6 +30,7 @@
 	/>	
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
+		<int:dispatcher task-executor="controllersExecutor"/>
  		<!-- <int:interceptors>
         	<int:wire-tap channel="loggerChannelAdapter"/>
      	</int:interceptors> -->
@@ -38,7 +39,8 @@
 	<int-ip:tcp-outbound-channel-adapter
 		id="outboundFakeClient" 
 		channel="outboundFakeClientMessageChannel" 
-		connection-factory="clientSocket"/>
+		connection-factory="clientSocket"
+		/>
 
 	
 	<int-ip:tcp-inbound-channel-adapter
