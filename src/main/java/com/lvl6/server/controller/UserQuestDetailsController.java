@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,9 @@ import com.lvl6.utils.RetrieveUtils;
   @Component @DependsOn("gameServer") public class UserQuestDetailsController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-
+  private static org.slf4j.Logger testslf4j = LoggerFactory.getLogger(UserQuestDetailsController.class);
+  
+  
   public UserQuestDetailsController() {
     numAllocatedThreads = 8;
   }
@@ -48,7 +51,8 @@ import com.lvl6.utils.RetrieveUtils;
 
     MinimumUserProto senderProto = reqProto.getSender();
     int questId = reqProto.getQuestId();
-
+    log.debug("Processing UserQuestDetailsRequest");
+    testslf4j.debug("Processing UserQuestDetailsRequest for user: {}  quest: {}", senderProto.getUserId(), questId);
     UserQuestDetailsResponseProto.Builder resBuilder = UserQuestDetailsResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(UserQuestDetailsStatus.SUCCESS);
@@ -75,10 +79,14 @@ import com.lvl6.utils.RetrieveUtils;
       UserQuestDetailsResponseEvent resEvent = new UserQuestDetailsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setUserQuestDetailsResponseProto(resProto);
+      testslf4j.debug("Sending response for UserQuestDetailsResponse");
+      log.debug("Sending response for UserQuestDetailsResponse");
       server.writeEvent(resEvent);
     } catch (Exception e) {
       log.error("exception in UserQuestDetailsController processEvent", e);
+      testslf4j.error("exception in UserQuestDetailsController ", e);
     } finally {
+    	testslf4j.debug("Unlocking player {}", senderProto.getUserId());
       server.unlockPlayer(senderProto.getUserId()); 
     }
   }
