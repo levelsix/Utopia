@@ -80,7 +80,7 @@ public class HealthCheckImpl implements HealthCheck {
 	}
 	
 	protected boolean waitForMessage() {
-		Message<?> msg = serverResponses.receive(2000);
+		Message<?> msg = serverResponses.receive(6000);
 		if(msg != null && msg.getHeaders() != null) {
 			//log.info("Received response message...size: "+ ((byte[]) msg.getPayload()).length);
 			ClientAttachment attachment = new ClientAttachment();
