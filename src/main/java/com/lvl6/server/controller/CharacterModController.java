@@ -171,9 +171,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   private boolean checkLegitMod(Builder resBuilder, int diamondCost, User user, UserType newUserType, 
       String newName, CharacterModType modType) {
-    if (modType == CharacterModType.CHANGE_CHARACTER_TYPE && newUserType == null) {
+    if (modType == CharacterModType.CHANGE_CHARACTER_TYPE && (newUserType == null || newUserType==user.getType())) {
       resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
-      log.error("tried to change character type without providing newUserType, newUserType is "+newUserType);
+      log.error("tried to change character type with invalid newUserType, newUserType is "+newUserType);
       return false;
     }
     if (modType == CharacterModType.CHANGE_NAME && newName == null) {
@@ -189,11 +189,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     if (diamondCost > user.getDiamonds()) {
       resBuilder.setStatus(CharacterModStatus.NOT_ENOUGH_DIAMONDS);  
       log.error("user does not have enough gold. has " + user.getDiamonds() + ", needs " + diamondCost);
-      return false;
-    }
-    if (newUserType==user.getType()) {
-      resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
-      log.error("tried to switch character to the same character, "+newUserType);
       return false;
     }
     //TODO
