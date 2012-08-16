@@ -45,6 +45,7 @@
 		<property name="sandbox" value="${globals.isSandbox}" />
 		<property name="iddictionOn" value="${globals.iddictionOn}" />
 		<property name="versionNumber" value="${lvl6.application.version}" />
+		<property name="healthCheckTimeoutSeconds" value="${lvl6.application.healthcheck.timeout.seconds}" />
 	</bean>
 	
 	

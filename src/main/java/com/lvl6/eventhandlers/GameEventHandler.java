@@ -97,11 +97,10 @@ public class GameEventHandler extends AbstractGameEventHandler {
 		if (event.getPlayerId() != -1) {
 			log.info("Player logged on: " + event.getPlayerId());
 			newp.setPlayerId(event.getPlayerId());
-			playersByPlayerId.put(event.getPlayerId(), newp, DEFAULT_TTL,
-					TimeUnit.MINUTES);
+			playersByPlayerId.put(event.getPlayerId(), newp, DEFAULT_TTL,TimeUnit.MINUTES);
 		} else {
 			newp.setUdid(((PreDatabaseRequestEvent) event).getUdid());
-			getPlayersPreDatabaseByUDID().put(newp.getUdid(), newp);
+			getPlayersPreDatabaseByUDID().put(newp.getUdid(), newp, DEFAULT_TTL, TimeUnit.MINUTES);
 			log.info("New player with UdId: " + newp.getUdid());
 		}
 	}

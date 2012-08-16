@@ -106,15 +106,26 @@
 		ref="outboundErrorMessageHandler"
 		method="handleMessage"
 	/>
-	
+
 	<bean id="outboundErrorMessageHandler" 
 		class="com.lvl6.eventhandlers.OutboundErrorMessageEventHandler" />
+
+
+
+	<int:service-activator id="handleSpringIntegrationError" 
+		input-channel="errorChannel" 
+		ref="errorMessageHandler"
+		method="handleError"
+	/>
+		
+	<bean id="errorMessageHandler" 
+		class="com.lvl6.eventhandlers.SpringIntegrationErrorHandler" />
 	
-	
+		
 	
 	
 
-	<int:logging-channel-adapter id="loggerChannelAdapter" level="DEBUG"/>
+	<int:logging-channel-adapter id="loggerChannelAdapter"  />
 
 
 

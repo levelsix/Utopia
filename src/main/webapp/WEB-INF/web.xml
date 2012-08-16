@@ -8,15 +8,6 @@
 
 
 	<servlet>
-		<servlet-name>HealthCheckServlet</servlet-name>
-		<servlet-class>com.lvl6.server.HealthCheckImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HealthCheckServlet</servlet-name>
-		<url-pattern>/healthcheck</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
 		<servlet-name>IddictionServlet</servlet-name>
 		<servlet-class>com.lvl6.tracking.AppODayUserTrackerServlet</servlet-class>
 	</servlet>

@@ -72,7 +72,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 		return serverId+outboundMessagesTopicPostFix;
 	}
 	
-	protected String hostName = "";
+	private String hostName = "";
 
 	public String serverId(){
 		if (hostName.equals("")) {
@@ -123,6 +123,7 @@ public class ServerInstance implements InitializingBean, MessageListener<Message
 
 	@Override
 	public void onMessage(final com.hazelcast.core.Message<Message<?>> message) {
+		log.debug("ServerInstance.onMessage");
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
