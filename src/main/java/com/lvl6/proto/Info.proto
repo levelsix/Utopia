@@ -502,10 +502,12 @@ message DialogueProto {
 			BAD_MAGE = 7;
 			GOOD_TUTORIAL_GIRL = 8;
 			BAD_TUTORIAL_GIRL = 9;
-			QUESTGIVER_1 = 10;
-			QUESTGIVER_2 = 11;
-			QUESTGIVER_3 = 12;
-			QUESTGIVER_4 = 13;	
+
+			QUESTGIVER_1 = 10;		// Farmer Mitch
+			QUESTGIVER_2 = 11;		// Captain Riz
+			QUESTGIVER_3 = 12;		// Sean The Brave
+			QUESTGIVER_4 = 13;		// Captain Riz
+			QUESTGIVER_5 = 14; 		// Sailor Steve
 			BAZAAR = 25;		
 		}
 	}
