@@ -62,6 +62,7 @@
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
 		<lvl6.application.version>1.0f</lvl6.application.version>
+		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
@@ -107,7 +108,7 @@
 			<properties>
 				<lvl6.server.log.location>~/Desktop/kingdom</lvl6.server.log.location>
 				<server.port>10001</server.port>
-				<hazelcast.group>kelly</hazelcast.group>
+				<hazelcast.group>kelly1</hazelcast.group>
 				<hazelcast.pass>lvl6</hazelcast.pass>
 				<hazelcast.config>dev</hazelcast.config>
 				<hazelcast.port>6702</hazelcast.port>
@@ -214,7 +215,7 @@
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:application</namespace>
 							<optionName>Application Healthcheck URL</optionName>
-							<value>/index.html</value>
+							<value>/health</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elasticbeanstalk:container:tomcat:jvmoptions</namespace>
@@ -435,7 +436,7 @@
 			<dependency>
 				<groupId>com.hazelcast</groupId>
 				<artifactId>hazelcast-all</artifactId>
-				<version>2.1.2</version>
+				<version>2.2</version>
 			</dependency>
 			<!-- <dependency> <groupId>com.hazelcast</groupId> <artifactId>hazelcast-wm</artifactId> 
 				<version>2.2</version> </dependency> -->
