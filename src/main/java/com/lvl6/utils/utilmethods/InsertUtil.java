@@ -2,7 +2,6 @@ package com.lvl6.utils.utilmethods;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.cache.annotation.CacheEvict;
@@ -13,6 +12,7 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.User;
+import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
 import com.lvl6.proto.InfoProto.UserType;
@@ -41,7 +41,7 @@ public interface InsertUtil {
 			CoordinatePair aviary, CoordinatePair carpenter);
 
 	public abstract boolean insertAdcolonyRecentHistory(int userId,
-			Timestamp timeOfReward, int diamondsEarned, String digest);
+			Timestamp timeOfReward, int amountEarned, AdColonyRewardType adColonyRewardType, String digest);
 
 	/*
 	 * (non-Javadoc)

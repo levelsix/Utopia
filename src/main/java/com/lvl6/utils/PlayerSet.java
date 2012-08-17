@@ -1,28 +1,31 @@
 package com.lvl6.utils;
 
 import java.util.Date;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.ILock;
+import com.hazelcast.core.IMap;
 
 public class PlayerSet implements HazelcastInstanceAware {
 
 	
-	Logger log = Logger.getLogger(PlayerSet.class);
-	
-	private Map<Integer, PlayerInAction> players;
+	private static final int LOCK_TIMEOUT = 10000;
 
-	public Map<Integer, PlayerInAction> getPlayers() {
+	org.slf4j.Logger log = LoggerFactory.getLogger(PlayerSet.class);
+	
+	private IMap<Integer, PlayerInAction> players;
+
+	public IMap<Integer, PlayerInAction> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(Map<Integer, PlayerInAction> players) {
+	public void setPlayers(IMap<Integer, PlayerInAction> players) {
 		this.players = players;
 	}
 
@@ -46,18 +49,29 @@ public class PlayerSet implements HazelcastInstanceAware {
 	}
 	
 	
+	public String lockName(int playerId) {
+		return "PlayerLock:"+playerId;
+	}
 	
-	@Scheduled(fixedDelay=60000)
+	@Scheduled(fixedDelay=LOCK_TIMEOUT)
 	public void clearOldLocks(){
 		long now = new Date().getTime();
 		log.debug("Removing stale player locks");
 		for(Integer player:players.keySet()){
-			PlayerInAction play = players.get(player);
-			if(now - play.getLockTime().getTime() > 60000){
-				ILock playerLock = hazel.getLock(play.getPlayerId());
-				playerLock.forceUnlock();
-				removePlayer(player);
-				log.info("Automatically removing timed out lock for player: "+play.getPlayerId());
+			try {
+				PlayerInAction play = players.get(player);
+				if(play != null && play.getLockTime() != null) {
+					if(now - play.getLockTime().getTime() > LOCK_TIMEOUT){
+						ILock playerLock = hazel.getLock(play.getPlayerId());
+						playerLock.forceUnlock();
+						removePlayer(player);
+						log.info("Automatically removing timed out lock for player: "+play.getPlayerId());
+					}
+				}else {
+					log.warn("Player was null when cleaning up locks in PlayerSet: {}", player);
+				}
+			}catch(Exception e) {
+				log.error("Error removing stale lock for player {} {}", player, e.getMessage() );
 			}
 		}
 	}

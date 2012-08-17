@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.Message;
 import org.springframework.integration.message.GenericMessage;
@@ -64,9 +64,11 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	protected Map<Integer, ConnectedPlayer> playersByPlayerId;
 
 
+	@Resource
+	protected ServerInstance serverInstance;
 
 
-	private static Logger log = Logger.getLogger(EventWriter.class);
+	private static org.slf4j.Logger log = LoggerFactory.getLogger(EventWriter.class);
 
 	/**
 	 * constructor.
@@ -137,9 +139,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	 * write the event to the given playerId's channel
 	 */
 	private void write(ByteBuffer event, ConnectedPlayer player) {
-		ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(
-				ServerInstance.getOutboundMessageTopicForServer(
-						player.getServerHostName()));
+		log.debug("EventWriter.write for player on server {}  this server is: {}", player.getServerHostName(), serverInstance.serverId());
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ip_connection_id", player.getIp_connection_id());
 		if(player.getPlayerId() != 0) {
@@ -148,7 +148,15 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 		byte[] bArray = new byte[event.remaining()];
 		event.get(bArray);
 		Message<byte[]> msg = new GenericMessage<byte[]>(bArray, headers);
-		serverOutboundMessages.publish(msg);
+		if(player.getServerHostName().equals(serverInstance.serverId())) {
+			log.debug("EventWriter.write... handling message on local server instance");
+			com.hazelcast.core.Message<Message<?>> playerMessage = new com.hazelcast.core.Message<Message<?>>(serverInstance.serverId(), msg);
+			serverInstance.onMessage(playerMessage);
+		}else {
+			log.debug("EventWriter.write... sending message to hazel for processing");
+			ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(ServerInstance.getOutboundMessageTopicForServer(player.getServerHostName()));
+			serverOutboundMessages.publish(msg);
+		}
 	}
 	
 	
@@ -163,14 +171,18 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 		ConnectedPlayer player = playersByPlayerId.get(playerId);
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ip_connection_id", player.getIp_connection_id());
-		if(player.getPlayerId() != 0) {
+		if(player.getPlayerId() > 0) {
 			headers.put("playerId", player.getPlayerId());
 		}
-		ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(
-				ServerInstance.getOutboundMessageTopicForServer(
-						player.getServerHostName()));
 		Message<byte[]> msg = new GenericMessage<byte[]>((byte[]) message.getPayload(), headers);
-		serverOutboundMessages.publish(msg);
+		//don't send to hazelcast topic if player is local to this machine
+		if(player.getServerHostName().equals(serverInstance.serverId())) {
+			com.hazelcast.core.Message<Message<?>> playerMessage = new com.hazelcast.core.Message<Message<?>>(serverInstance.serverId(), msg);
+			serverInstance.onMessage(playerMessage);
+		}else {
+			ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(ServerInstance.getOutboundMessageTopicForServer(player.getServerHostName()));
+			serverOutboundMessages.publish(msg);
+		}
 	}
 
 	protected HazelcastInstance hazel;

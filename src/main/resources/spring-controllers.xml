@@ -22,8 +22,10 @@
 
 	<task:annotation-driven executor="controllersExecutor" />
 
-	<task:executor id="controllersExecutor" pool-size="5-50"
-		queue-capacity="500" />
+	<task:executor id="controllersExecutor" 
+		pool-size="5-50"
+		queue-capacity="5" 
+		rejection-policy="CALLER_RUNS" />
 	
 	
 	<bean id="apnsProperties" class="com.lvl6.properties.APNSProperties">
@@ -41,6 +43,9 @@
 	
 	<bean id="appGlobals" class="com.lvl6.properties.Globals" >
 		<property name="sandbox" value="${globals.isSandbox}" />
+		<property name="iddictionOn" value="${globals.iddictionOn}" />
+		<property name="versionNumber" value="${lvl6.application.version}" />
+		<property name="healthCheckTimeoutSeconds" value="${lvl6.application.healthcheck.timeout.seconds}" />
 	</bean>
 	
 	

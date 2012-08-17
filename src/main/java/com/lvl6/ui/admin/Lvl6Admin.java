@@ -4,6 +4,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 
 import com.lvl6.ui.admin.pages.AdminPage;
+import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.MainPage;
 
 public class Lvl6Admin extends WebApplication{
@@ -13,6 +14,7 @@ public class Lvl6Admin extends WebApplication{
 		super.init();
 		mountPage("/", MainPage.class);
 		mountPage("/admin", AdminPage.class);
+		mountPage("/health", HealthCheckPage.class);
 	}
 
 	@Override

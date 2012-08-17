@@ -15,8 +15,10 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
+import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Quest;
+import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -34,10 +36,11 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
@@ -139,11 +142,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         }
         
         Random random = new Random();
-        lostCoins = calculateLostCoins(winner, loser, random, (result == BattleResult.ATTACKER_FLEE));
+        lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
 
         if (result == BattleResult.ATTACKER_WIN) {
-          expGained = calculateExpGain(loser);
+          expGained = calculateExpGain(winner, loser);
           resBuilder.setExpGained(expGained);
         }
         resBuilder.setStatus(BattleStatus.SUCCESS);
@@ -233,19 +236,25 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return lostEquip;
   }
 
-  private int calculateExpGain(User loser) {
-    int requiredKills = (int) (ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT * loser.getLevel())
-        + (int)(ControllerConstants.BATTLE__EXP_NUM_KILLS_CONSTANT*ControllerConstants.BATTLE__EXP_MIN_NUM_KILLS);
-    int expNeeded = LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel()+1)
-        - LevelsRequiredExperienceRetrieveUtils.getRequiredExperienceForLevel(loser.getLevel());
-    int randomness = (int)((Math.random()+1.0)*((loser.getLevel()/10)+1));
-    return (int) (ControllerConstants.BATTLE__EXP_WEIGHT_GIVEN_TO_BATTLES*(expNeeded/requiredKills))+randomness;
+  private int calculateExpGain(User winner, User loser) {
+	  int baseExp = (int) (loser.getLevel()*ControllerConstants.BATTLE__EXP_BASE_MULTIPLIER);
+	  int levelDifference = (int) (baseExp * ((loser.getLevel() - winner.getLevel()) 
+			  * ControllerConstants.BATTLE__EXP_LEVEL_DIFF_WEIGHT));
+	  int randomness = (int)((Math.random() + 1.0) * (loser.getLevel() / 10));
+	  
+	  int expGain = Math.max(ControllerConstants.BATTLE__EXP_MIN, baseExp + levelDifference + randomness);
+	  return expGain;
   }
 
   private boolean checkLegitBattle(Builder resBuilder, BattleResult result, User attacker, User defender) {
     if (attacker == null || defender == null || attacker.getStamina() <= 0) {
       resBuilder.setStatus(BattleStatus.OTHER_FAIL);
       log.error("problem with battle- attacker or defender is null. attacker is " + attacker + " and defender is " + defender);
+      return false;
+    }
+    if (MiscMethods.checkIfGoodSide(attacker.getType()) == MiscMethods.checkIfGoodSide(defender.getType())) {
+      resBuilder.setStatus(BattleStatus.SAME_SIDE);
+      log.error("problem with battle- attacker and defender same side. attacker=" + attacker + ", defender=" + defender);
       return false;
     }
     resBuilder.setStatus(BattleStatus.SUCCESS);
@@ -274,14 +283,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             } else {
               defeatTypeJobsRequired = quest.getDefeatGoodGuysJobsRequired();
             }
+
             if (defeatTypeJobsRequired != null) {
               if (questIdToUserDefeatTypeJobsCompletedForQuestForUser == null) {
                 questIdToUserDefeatTypeJobsCompletedForQuestForUser = RetrieveUtils.userQuestsCompletedDefeatTypeJobsRetrieveUtils().getQuestIdToUserDefeatTypeJobsCompletedForQuestForUser(attacker.getId());
               }
               List<Integer> userCompletedDefeatTypeJobsForQuest = questIdToUserDefeatTypeJobsCompletedForQuestForUser.get(quest.getId());
               if (userCompletedDefeatTypeJobsForQuest == null) userCompletedDefeatTypeJobsForQuest = new ArrayList<Integer>();
+              
               List<Integer> defeatTypeJobsRemaining = new ArrayList<Integer>(defeatTypeJobsRequired);
               defeatTypeJobsRemaining.removeAll(userCompletedDefeatTypeJobsForQuest);
+
               Map<Integer, DefeatTypeJob> remainingDTJMap = DefeatTypeJobRetrieveUtils
                   .getDefeatTypeJobsForDefeatTypeJobIds(defeatTypeJobsRemaining);
               if (remainingDTJMap != null && remainingDTJMap.size() > 0) {
@@ -294,10 +306,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                         questIdToDefeatTypeJobIdsToNumDefeated = UserQuestsDefeatTypeJobProgressRetrieveUtils.getQuestIdToDefeatTypeJobIdsToNumDefeated(userQuest.getUserId());
                       }
                       Map<Integer, Integer> userJobIdToNumDefeated = questIdToDefeatTypeJobIdsToNumDefeated.get(userQuest.getQuestId()); 
+                      
                       int numDefeatedForJob = (userJobIdToNumDefeated != null && userJobIdToNumDefeated.containsKey(remainingDTJ.getId())) ?
                           userJobIdToNumDefeated.get(remainingDTJ.getId()) : 0;
-
-                          if (numDefeatedForJob + 1 == remainingDTJ.getNumEnemiesToDefeat()) {
+                          
+                          if (numDefeatedForJob + 1 >= remainingDTJ.getNumEnemiesToDefeat()) {
                             //TODO: note: not SUPER necessary to delete/update them, but they do capture wrong data if complete (the one that completes is not factored in)
                             if (insertUtils.insertCompletedDefeatTypeJobIdForUserQuest(attacker.getId(), remainingDTJ.getId(), quest.getId())) {
                               userCompletedDefeatTypeJobsForQuest.add(remainingDTJ.getId());
@@ -312,14 +325,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                                 }
                               }
                             } else {
-                              log.error("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
+                              log.warn("problem with adding defeat type job " + remainingDTJ.getId() + " as a completed job for user " + attacker.getId() 
                                   + " and quest " + quest.getId());
                             }
                           } else {
                             if (!UpdateUtils.get().incrementUserQuestDefeatTypeJobProgress(attacker.getId(), quest.getId(), remainingDTJ.getId(), 1)) {
                               log.error("problem with incrementing user quest defeat type job progress for user "
                                   + attacker.getId() + ", quest " + quest.getId() + ", defeat type job " + remainingDTJ.getId());
-                            }
+                            } 
                           }
                     }
                   }
@@ -379,14 +392,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private int calculateLostCoins(User winner, User loser, Random random, boolean isFlee) {
-    User player = (loser.isFake() && !winner.isFake()) ? winner : loser;
-
-    int lostCoins = (int) Math.rint(Math.min(player.getCoins() * Math.random()
-        * ControllerConstants.BATTLE__A, player.getLevel()
+  private int calculateLostCoins(User loser, Random random, boolean isFlee) {
+    if (loser.isFake()) {
+      if (Math.random() < ControllerConstants.BATTLE__CHANCE_OF_ZERO_GAIN_FOR_SILVER) {
+        return 0;
+      }
+      return (int)(Math.random() * loser.getLevel() * ControllerConstants.BATTLE__FAKE_PLAYER_COIN_GAIN_MULTIPLIER);
+    }
+    
+    int lostCoins = (int) Math.rint(Math.min(loser.getCoins() * Math.random()
+        * ControllerConstants.BATTLE__A, loser.getLevel()
         * ControllerConstants.BATTLE__B));
-    if (lostCoins<ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
-        ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=player.getCoins()) {
+    if (lostCoins < ControllerConstants.BATTLE__MIN_COINS_FROM_WIN && 
+        ControllerConstants.BATTLE__MIN_COINS_FROM_WIN<=loser.getCoins()) {
       lostCoins = ControllerConstants.BATTLE__MIN_COINS_FROM_WIN;
     }
     if (isFlee) {
@@ -404,6 +422,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
    */
   private UserEquip chooseLostEquip(List<UserEquip> defenderEquips,
       Map<Integer, Equipment> equipmentIdsToEquipment, User defender, List<FullUserEquipProto> oldDefenderUserEquipsList) {
+    if (Math.random() > ControllerConstants.BATTLE__CHANCE_OF_EQUIP_LOOT_INITIAL_WALL) {
+      return null;
+    }
+    
     List<UserEquip> potentialLosses = new ArrayList<UserEquip>();
     if (defenderEquips != null) {
       for (UserEquip defenderEquip : defenderEquips) {

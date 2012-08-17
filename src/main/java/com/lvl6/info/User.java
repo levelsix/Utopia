@@ -748,6 +748,29 @@ public class User implements Serializable {
     }
     return false;
   }
+  
+  public boolean updateRelativeCoinsAdcolonyvideoswatched (int coinChange, int numAdColonyVideosWatched) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+
+    if (coinChange != 0) {
+      relativeParams.put(DBConstants.USER__COINS, coinChange);
+    }
+    if (numAdColonyVideosWatched != 0) {
+      relativeParams.put(DBConstants.USER__NUM_ADCOLONY_VIDEOS_WATCHED, numAdColonyVideosWatched); 
+    }
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.coins += coinChange;
+      this.numAdColonyVideosWatched += numAdColonyVideosWatched;
+      return true;
+    }
+    return false;
+  }
 
   /*
    * used for in app purchases, armory, finishingnormstructbuild
@@ -911,6 +934,79 @@ public class User implements Serializable {
     return false;
   }
 
+  public boolean updateNameUserTypeUdid(UserType newUserType, String newName,
+      String newUdid, int relativeDiamondCost) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (newUserType != null) absoluteParams.put(DBConstants.USER__TYPE, newUserType.getNumber());
+    if (newName != null) absoluteParams.put(DBConstants.USER__NAME, newName);
+    if (newUdid != null) absoluteParams.put(DBConstants.USER__UDID, newUdid);
+    
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, relativeDiamondCost);
+    
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER,
+        relativeParams, absoluteParams, conditionParams, "and");
+    if (numUpdated == 1) {
+      if (newUserType != null) this.type = newUserType;
+      if (newName != null) this.name = newName;
+      if (newUdid != null) this.udid = newUdid;
+      this.diamonds += relativeDiamondCost;
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean resetSkillPoints(int oldEnergy, int oldStamina, int relativeDiamondCost) {
+    // TODO Auto-generated method stub
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+    
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    int initialAttack = ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK;
+    int initialDefense = ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE;
+    int initialEnergy = Math.min(oldEnergy, ControllerConstants.TUTORIAL__INIT_ENERGY);
+    int initialStamina = Math.min(oldStamina, ControllerConstants.TUTORIAL__INIT_STAMINA);
+    int returnSkillPoints = (this.level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
+    
+    if (this.type == UserType.GOOD_WARRIOR || this.type == UserType.BAD_WARRIOR) {
+      initialAttack = ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK;
+      initialDefense = ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE;
+    } else if (this.type == UserType.GOOD_MAGE || this.type == UserType.BAD_MAGE) {
+      initialAttack = ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK;
+      initialDefense = ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE;
+    }
+    
+    absoluteParams.put(DBConstants.USER__ATTACK, initialAttack);
+    absoluteParams.put(DBConstants.USER__DEFENSE, initialDefense);
+    absoluteParams.put(DBConstants.USER__ENERGY_MAX, ControllerConstants.TUTORIAL__INIT_ENERGY);
+    absoluteParams.put(DBConstants.USER__STAMINA_MAX, ControllerConstants.TUTORIAL__INIT_STAMINA);
+    absoluteParams.put(DBConstants.USER__ENERGY, initialEnergy);
+    absoluteParams.put(DBConstants.USER__STAMINA, initialStamina);
+    absoluteParams.put(DBConstants.USER__SKILL_POINTS, returnSkillPoints);
+    
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, relativeDiamondCost);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER,
+        relativeParams, absoluteParams, conditionParams, "and");
+    if (numUpdated == 1) {
+      this.attack = initialAttack;
+      this.defense = initialDefense;
+      this.energyMax = ControllerConstants.TUTORIAL__INIT_ENERGY;
+      this.energy = initialEnergy;
+      this.staminaMax = ControllerConstants.TUTORIAL__INIT_STAMINA;
+      this.stamina = initialStamina;
+      this.skillPoints = returnSkillPoints;
+      this.diamonds += relativeDiamondCost;
+      return true;
+    }
+    
+    return false;
+  }
+  
   public int getId() {
     return id;
   }

@@ -26,6 +26,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
+import com.lvl6.utils.utilmethods.QuestUtils;
 
 @Component @DependsOn("gameServer") public class CollectForgeEquipsController extends EventController {
 
@@ -61,10 +62,10 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser = UnhandledBlacksmithAttemptRetrieveUtils.getUnhandledBlacksmithAttemptsForUser(senderProto.getUserId());
 
       boolean legitCollection = checkLegitCollection(resBuilder, blacksmithId, unhandledBlacksmithAttemptsForUser, user);
-      
+
       BlacksmithAttempt blacksmithAttempt = null;
       boolean successfulForge = false;
-      
+
       if (legitCollection) {
         blacksmithAttempt = unhandledBlacksmithAttemptsForUser.get(0);
         successfulForge = checkIfSuccessfulForge(blacksmithAttempt, EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId()));
@@ -93,16 +94,18 @@ import com.lvl6.utils.utilmethods.InsertUtils;
           }
         }
       }
-      
+
       CollectForgeEquipsResponseEvent resEvent = new CollectForgeEquipsResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setCollectForgeEquipsResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
-      
+
       if (legitCollection) {
         writeChangesToDB(blacksmithAttempt, successfulForge);
       }
-      
+
+      QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
+
     } catch (Exception e) {
       log.error("exception in CollectForgeEquips processEvent", e);
     } finally {
@@ -114,21 +117,20 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       boolean successfulForge) {
     if (!InsertUtils.get().insertForgeAttemptIntoBlacksmithHistory(blacksmithAttempt, successfulForge)) {
       log.error("problem with inserting blacksmith attempt into history, blacksmith attempt=" + blacksmithAttempt + ", successfulForge=" + successfulForge);
-    } else {
-      if (!DeleteUtils.get().deleteBlacksmithAttempt(blacksmithAttempt.getId())) {
-        log.error("problem with deleting blacksmith attempt");
-      }
+    } 
+    if (!DeleteUtils.get().deleteBlacksmithAttempt(blacksmithAttempt.getId())) {
+      log.error("problem with deleting blacksmith attempt");
     }
   }
 
   private boolean checkIfSuccessfulForge(BlacksmithAttempt blacksmithAttempt, Equipment equipment) {
     if (blacksmithAttempt.isGuaranteed())
       return true;
-    
+
     float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
         ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
         (blacksmithAttempt.getGoalLevel()-2);
-    
+
     return Math.random() <= chanceOfSuccess;
   }
 

@@ -12,17 +12,26 @@
 
 
 	<hz:hazelcast id="hazel">
-		<hz:config>
+		<hz:config >
 			<hz:group name="${hazelcast.group}" password="${hazelcast.pass}" />
-			<hz:network port="5701">
+			<hz:properties>
+				<hz:property name="hazelcast.logging.type">log4j</hz:property>
+				<hz:property name="hazelcast.max.no.heartbeat.seconds">20</hz:property>
+				
+			</hz:properties>
+			<hz:network port="5701" port-auto-increment="false">
 				<hz:join>
-					<hz:aws access-key="${hazelcast.ec2.awsId}" secret-key="${hazelcast.ec2.awsSecretKey}"
-						region="${hazelcast.ec2.region}" security-group-name="${hazelcast.ec2.security.group}" />
+					<hz:multicast enabled="false" />
+	                <hz:tcp-ip enabled="false" />
+					<hz:aws enabled="true" 
+					access-key="${hazelcast.ec2.awsId}" 
+					secret-key="${hazelcast.ec2.awsSecretKey}"
+					region="${hazelcast.ec2.region}" 
+					security-group-name="${hazelcast.ec2.security.group}" />
 				</hz:join>
 			</hz:network>
-			
 
-<!-- 			<hz:map name="playersByPlayerId"	backup-count="3"   max-size="0" >
+<!--  			<hz:map name="playersByPlayerId"	backup-count="3"   max-size="0" >
 			</hz:map>
 
 
@@ -34,8 +43,8 @@
 
 
 			<hz:map  name="playersInActionSet"
-				backup-count="3"   max-size="0" /> -->
-
+				backup-count="3"   max-size="0" />
+ -->
 		</hz:config>
 	</hz:hazelcast>
 

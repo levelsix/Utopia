@@ -8,9 +8,37 @@ import com.lvl6.spring.AppContext;
 public class Globals {
 	
 	protected boolean sandbox = true;
+	protected boolean iddictionOn = true;
 	
+	protected float versionNumber = 1.0f;
 	
-    public boolean getSandbox() {
+	protected int healthCheckTimeoutSeconds = 6;
+	
+    public int getHealthCheckTimeoutSeconds() {
+		return healthCheckTimeoutSeconds;
+	}
+
+	public void setHealthCheckTimeoutSeconds(int healthCheckTimeoutSeconds) {
+		this.healthCheckTimeoutSeconds = healthCheckTimeoutSeconds;
+	}
+
+	public float getVersionNumber() {
+		return versionNumber;
+	}
+
+	public void setVersionNumber(float versionNumber) {
+		this.versionNumber = versionNumber;
+	}
+
+	public boolean isIddictionOn() {
+		return iddictionOn;
+	}
+
+	public void setIddictionOn(boolean iddictionOn) {
+		this.iddictionOn = iddictionOn;
+	}
+
+	public boolean getSandbox() {
 		return sandbox;
 	}
 
@@ -40,8 +68,7 @@ public class Globals {
 
     public static final int NUM_MINUTES_DIFFERENCE_LEEWAY_FOR_CLIENT_TIME = 10;
     
-    //TODO: fill in app store url
-    public static final String APP_STORE_URL = "";
+    public static final String APP_STORE_URL = "itms-apps://itunes.com/apps/ageofchaos";
     
     public static final Level LOG_LEVEL = Level.INFO;
     
@@ -49,5 +76,14 @@ public class Globals {
     
     public static final String APPLE_BUNDLE_ID = "com.lvl6.kingdom";
 
-    public static final float VERSION_NUMBER = 1.0f;
+    public static final float VERSION_NUMBER(){return AppContext.getApplicationContext().getBean(Globals.class).getVersionNumber();};
+
+    public static int HEALTH_CHECK_TIMEOUT() {return AppContext.getApplicationContext().getBean(Globals.class).getHealthCheckTimeoutSeconds();};
+    
+    
+
+
+
+    public static final boolean IDDICTION_ON(){return AppContext.getApplicationContext().getBean(Globals.class).isIddictionOn();};;
+
 }
