@@ -1596,26 +1596,19 @@ message RetrieveLeaderboardRequestProto {
 	optional int32 afterThisRank = 3;
 
 	optional string searchStringRequirement = 4;
-	//if string isnt length of refer code, skip that initial lookup
-	//if this isnt empty, name or refer code must match. case insensitive.
-
-	enum LeaderboardType {
-		MOST_BATTLES_WON = 2;
-		MOST_SILVER = 3;
-		MOST_EXP = 4;
-		BEST_KDR = 5;		//start counting only after x battles. so instead of displaying your rank, show that.
-	}
 }
 
 message RetrieveLeaderboardResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional RetrieveLeaderboardStatus status = 2;
+	optional LeaderboardType leaderboardType = 5;
+	optional int32 afterThisRank = 6;
 
 	optional int32 retrieverRank = 3;
 	repeated FullUserProto resultPlayers = 4;
 	
 	enum RetrieveLeaderboardStatus {
 		SUCCESS = 0;
-		OTHER_FAIL = 3;
+		OTHER_FAIL = 1;
 	}
 }

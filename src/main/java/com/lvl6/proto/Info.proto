@@ -2,6 +2,14 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+
+enum LeaderboardType {
+	MOST_BATTLES_WON = 2;
+	MOST_SILVER = 3;
+	MOST_EXP = 4;
+	BEST_KDR = 5;		//start counting only after x battles. so instead of displaying your rank, show that.
+ }
+
 //------------------------------------------------------------------------------------------
 
 enum CharacterModType {

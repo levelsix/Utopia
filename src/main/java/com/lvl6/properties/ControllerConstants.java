@@ -278,6 +278,9 @@ public class ControllerConstants {
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_NAME = 50;
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_NEW_PLAYER = 0;
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS = 100;
+
+  //LEADERBOARD
+  public static final int LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION = 50;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

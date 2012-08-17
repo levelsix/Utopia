@@ -96979,9 +96979,9 @@ public final class EventProto {
     com.lvl6.proto.InfoProto.MinimumUserProto getSender();
     com.lvl6.proto.InfoProto.MinimumUserProtoOrBuilder getSenderOrBuilder();
     
-    // optional .com.lvl6.proto.RetrieveLeaderboardRequestProto.LeaderboardType leaderboardType = 2;
+    // optional .com.lvl6.proto.LeaderboardType leaderboardType = 2;
     boolean hasLeaderboardType();
-    com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType getLeaderboardType();
+    com.lvl6.proto.InfoProto.LeaderboardType getLeaderboardType();
     
     // optional int32 afterThisRank = 3;
     boolean hasAfterThisRank();
@@ -97019,81 +97019,6 @@ public final class EventProto {
       return com.lvl6.proto.EventProto.internal_static_com_lvl6_proto_RetrieveLeaderboardRequestProto_fieldAccessorTable;
     }
     
-    public enum LeaderboardType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      MOST_BATTLES_WON(0, 2),
-      MOST_SILVER(1, 3),
-      MOST_EXP(2, 4),
-      BEST_KDR(3, 5),
-      ;
-      
-      public static final int MOST_BATTLES_WON_VALUE = 2;
-      public static final int MOST_SILVER_VALUE = 3;
-      public static final int MOST_EXP_VALUE = 4;
-      public static final int BEST_KDR_VALUE = 5;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static LeaderboardType valueOf(int value) {
-        switch (value) {
-          case 2: return MOST_BATTLES_WON;
-          case 3: return MOST_SILVER;
-          case 4: return MOST_EXP;
-          case 5: return BEST_KDR;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<LeaderboardType>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<LeaderboardType>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<LeaderboardType>() {
-              public LeaderboardType findValueByNumber(int number) {
-                return LeaderboardType.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final LeaderboardType[] VALUES = {
-        MOST_BATTLES_WON, MOST_SILVER, MOST_EXP, BEST_KDR, 
-      };
-      
-      public static LeaderboardType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private LeaderboardType(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:com.lvl6.proto.RetrieveLeaderboardRequestProto.LeaderboardType)
-    }
-    
     private int bitField0_;
     // optional .com.lvl6.proto.MinimumUserProto sender = 1;
     public static final int SENDER_FIELD_NUMBER = 1;
@@ -97108,13 +97033,13 @@ public final class EventProto {
       return sender_;
     }
     
-    // optional .com.lvl6.proto.RetrieveLeaderboardRequestProto.LeaderboardType leaderboardType = 2;
+    // optional .com.lvl6.proto.LeaderboardType leaderboardType = 2;
     public static final int LEADERBOARDTYPE_FIELD_NUMBER = 2;
-    private com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType leaderboardType_;
+    private com.lvl6.proto.InfoProto.LeaderboardType leaderboardType_;
     public boolean hasLeaderboardType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType getLeaderboardType() {
+    public com.lvl6.proto.InfoProto.LeaderboardType getLeaderboardType() {
       return leaderboardType_;
     }
     
@@ -97162,7 +97087,7 @@ public final class EventProto {
     
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
-      leaderboardType_ = com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType.MOST_BATTLES_WON;
+      leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
       afterThisRank_ = 0;
       searchStringRequirement_ = "";
     }
@@ -97346,7 +97271,7 @@ public final class EventProto {
           senderBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        leaderboardType_ = com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType.MOST_BATTLES_WON;
+        leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
         bitField0_ = (bitField0_ & ~0x00000002);
         afterThisRank_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -97480,7 +97405,7 @@ public final class EventProto {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType value = com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType.valueOf(rawValue);
+              com.lvl6.proto.InfoProto.LeaderboardType value = com.lvl6.proto.InfoProto.LeaderboardType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
@@ -97595,15 +97520,15 @@ public final class EventProto {
         return senderBuilder_;
       }
       
-      // optional .com.lvl6.proto.RetrieveLeaderboardRequestProto.LeaderboardType leaderboardType = 2;
-      private com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType leaderboardType_ = com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType.MOST_BATTLES_WON;
+      // optional .com.lvl6.proto.LeaderboardType leaderboardType = 2;
+      private com.lvl6.proto.InfoProto.LeaderboardType leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
       public boolean hasLeaderboardType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType getLeaderboardType() {
+      public com.lvl6.proto.InfoProto.LeaderboardType getLeaderboardType() {
         return leaderboardType_;
       }
-      public Builder setLeaderboardType(com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType value) {
+      public Builder setLeaderboardType(com.lvl6.proto.InfoProto.LeaderboardType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -97614,7 +97539,7 @@ public final class EventProto {
       }
       public Builder clearLeaderboardType() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        leaderboardType_ = com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.LeaderboardType.MOST_BATTLES_WON;
+        leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
         onChanged();
         return this;
       }
@@ -97698,6 +97623,14 @@ public final class EventProto {
     // optional .com.lvl6.proto.RetrieveLeaderboardResponseProto.RetrieveLeaderboardStatus status = 2;
     boolean hasStatus();
     com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.RetrieveLeaderboardStatus getStatus();
+    
+    // optional .com.lvl6.proto.LeaderboardType leaderboardType = 5;
+    boolean hasLeaderboardType();
+    com.lvl6.proto.InfoProto.LeaderboardType getLeaderboardType();
+    
+    // optional int32 afterThisRank = 6;
+    boolean hasAfterThisRank();
+    int getAfterThisRank();
     
     // optional int32 retrieverRank = 3;
     boolean hasRetrieverRank();
@@ -97834,11 +97767,31 @@ public final class EventProto {
       return status_;
     }
     
+    // optional .com.lvl6.proto.LeaderboardType leaderboardType = 5;
+    public static final int LEADERBOARDTYPE_FIELD_NUMBER = 5;
+    private com.lvl6.proto.InfoProto.LeaderboardType leaderboardType_;
+    public boolean hasLeaderboardType() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.lvl6.proto.InfoProto.LeaderboardType getLeaderboardType() {
+      return leaderboardType_;
+    }
+    
+    // optional int32 afterThisRank = 6;
+    public static final int AFTERTHISRANK_FIELD_NUMBER = 6;
+    private int afterThisRank_;
+    public boolean hasAfterThisRank() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public int getAfterThisRank() {
+      return afterThisRank_;
+    }
+    
     // optional int32 retrieverRank = 3;
     public static final int RETRIEVERRANK_FIELD_NUMBER = 3;
     private int retrieverRank_;
     public boolean hasRetrieverRank() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     public int getRetrieverRank() {
       return retrieverRank_;
@@ -97868,6 +97821,8 @@ public final class EventProto {
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       status_ = com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.RetrieveLeaderboardStatus.SUCCESS;
+      leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
+      afterThisRank_ = 0;
       retrieverRank_ = 0;
       resultPlayers_ = java.util.Collections.emptyList();
     }
@@ -97889,11 +97844,17 @@ public final class EventProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeEnum(2, status_.getNumber());
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeInt32(3, retrieverRank_);
       }
       for (int i = 0; i < resultPlayers_.size(); i++) {
         output.writeMessage(4, resultPlayers_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(5, leaderboardType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(6, afterThisRank_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -97912,13 +97873,21 @@ public final class EventProto {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, status_.getNumber());
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, retrieverRank_);
       }
       for (int i = 0; i < resultPlayers_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, resultPlayers_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(5, leaderboardType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, afterThisRank_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -98054,11 +98023,15 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         status_ = com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.RetrieveLeaderboardStatus.SUCCESS;
         bitField0_ = (bitField0_ & ~0x00000002);
-        retrieverRank_ = 0;
+        leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
         bitField0_ = (bitField0_ & ~0x00000004);
+        afterThisRank_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        retrieverRank_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
         if (resultPlayersBuilder_ == null) {
           resultPlayers_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000020);
         } else {
           resultPlayersBuilder_.clear();
         }
@@ -98115,11 +98088,19 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
+        result.leaderboardType_ = leaderboardType_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.afterThisRank_ = afterThisRank_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
         result.retrieverRank_ = retrieverRank_;
         if (resultPlayersBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
             resultPlayers_ = java.util.Collections.unmodifiableList(resultPlayers_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000020);
           }
           result.resultPlayers_ = resultPlayers_;
         } else {
@@ -98147,6 +98128,12 @@ public final class EventProto {
         if (other.hasStatus()) {
           setStatus(other.getStatus());
         }
+        if (other.hasLeaderboardType()) {
+          setLeaderboardType(other.getLeaderboardType());
+        }
+        if (other.hasAfterThisRank()) {
+          setAfterThisRank(other.getAfterThisRank());
+        }
         if (other.hasRetrieverRank()) {
           setRetrieverRank(other.getRetrieverRank());
         }
@@ -98154,7 +98141,7 @@ public final class EventProto {
           if (!other.resultPlayers_.isEmpty()) {
             if (resultPlayers_.isEmpty()) {
               resultPlayers_ = other.resultPlayers_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000020);
             } else {
               ensureResultPlayersIsMutable();
               resultPlayers_.addAll(other.resultPlayers_);
@@ -98167,7 +98154,7 @@ public final class EventProto {
               resultPlayersBuilder_.dispose();
               resultPlayersBuilder_ = null;
               resultPlayers_ = other.resultPlayers_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000020);
               resultPlayersBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getResultPlayersFieldBuilder() : null;
@@ -98228,7 +98215,7 @@ public final class EventProto {
               break;
             }
             case 24: {
-              bitField0_ |= 0x00000004;
+              bitField0_ |= 0x00000010;
               retrieverRank_ = input.readInt32();
               break;
             }
@@ -98236,6 +98223,22 @@ public final class EventProto {
               com.lvl6.proto.InfoProto.FullUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserProto.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addResultPlayers(subBuilder.buildPartial());
+              break;
+            }
+            case 40: {
+              int rawValue = input.readEnum();
+              com.lvl6.proto.InfoProto.LeaderboardType value = com.lvl6.proto.InfoProto.LeaderboardType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(5, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                leaderboardType_ = value;
+              }
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000008;
+              afterThisRank_ = input.readInt32();
               break;
             }
           }
@@ -98358,22 +98361,67 @@ public final class EventProto {
         return this;
       }
       
+      // optional .com.lvl6.proto.LeaderboardType leaderboardType = 5;
+      private com.lvl6.proto.InfoProto.LeaderboardType leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
+      public boolean hasLeaderboardType() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.lvl6.proto.InfoProto.LeaderboardType getLeaderboardType() {
+        return leaderboardType_;
+      }
+      public Builder setLeaderboardType(com.lvl6.proto.InfoProto.LeaderboardType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        leaderboardType_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearLeaderboardType() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
+        onChanged();
+        return this;
+      }
+      
+      // optional int32 afterThisRank = 6;
+      private int afterThisRank_ ;
+      public boolean hasAfterThisRank() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getAfterThisRank() {
+        return afterThisRank_;
+      }
+      public Builder setAfterThisRank(int value) {
+        bitField0_ |= 0x00000008;
+        afterThisRank_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAfterThisRank() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        afterThisRank_ = 0;
+        onChanged();
+        return this;
+      }
+      
       // optional int32 retrieverRank = 3;
       private int retrieverRank_ ;
       public boolean hasRetrieverRank() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public int getRetrieverRank() {
         return retrieverRank_;
       }
       public Builder setRetrieverRank(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000010;
         retrieverRank_ = value;
         onChanged();
         return this;
       }
       public Builder clearRetrieverRank() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000010);
         retrieverRank_ = 0;
         onChanged();
         return this;
@@ -98383,9 +98431,9 @@ public final class EventProto {
       private java.util.List<com.lvl6.proto.InfoProto.FullUserProto> resultPlayers_ =
         java.util.Collections.emptyList();
       private void ensureResultPlayersIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
           resultPlayers_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserProto>(resultPlayers_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000020;
          }
       }
       
@@ -98501,7 +98549,7 @@ public final class EventProto {
       public Builder clearResultPlayers() {
         if (resultPlayersBuilder_ == null) {
           resultPlayers_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
         } else {
           resultPlayersBuilder_.clear();
@@ -98557,7 +98605,7 @@ public final class EventProto {
           resultPlayersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder>(
                   resultPlayers_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  ((bitField0_ & 0x00000020) == 0x00000020),
                   getParentForChildren(),
                   isClean());
           resultPlayers_ = null;
@@ -100085,23 +100133,22 @@ public final class EventProto {
       "tus\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\027\n\023NO" +
       "T_ENOUGH_DIAMONDS\020\002\022\016\n\nOTHER_FAIL\020\003\022/\n+C" +
       "ANNOT_CHANGE_TO_OPPOSING_SIDE_WHEN_IN_CL",
-      "AN\020\004\"\273\002\n\037RetrieveLeaderboardRequestProto" +
+      "AN\020\004\"\305\001\n\037RetrieveLeaderboardRequestProto" +
       "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
-      "mUserProto\022X\n\017leaderboardType\030\002 \001(\0162?.co" +
-      "m.lvl6.proto.RetrieveLeaderboardRequestP" +
-      "roto.LeaderboardType\022\025\n\rafterThisRank\030\003 " +
-      "\001(\005\022\037\n\027searchStringRequirement\030\004 \001(\t\"T\n\017" +
-      "LeaderboardType\022\024\n\020MOST_BATTLES_WON\020\002\022\017\n" +
-      "\013MOST_SILVER\020\003\022\014\n\010MOST_EXP\020\004\022\014\n\010BEST_KDR" +
-      "\020\005\"\267\002\n RetrieveLeaderboardResponseProto\022" +
-      "0\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimum",
-      "UserProto\022Z\n\006status\030\002 \001(\0162J.com.lvl6.pro" +
-      "to.RetrieveLeaderboardResponseProto.Retr" +
-      "ieveLeaderboardStatus\022\025\n\rretrieverRank\030\003" +
-      " \001(\005\0224\n\rresultPlayers\030\004 \003(\0132\035.com.lvl6.p" +
-      "roto.FullUserProto\"8\n\031RetrieveLeaderboar" +
-      "dStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\003B\014B\n" +
-      "EventProto"
+      "mUserProto\0228\n\017leaderboardType\030\002 \001(\0162\037.co" +
+      "m.lvl6.proto.LeaderboardType\022\025\n\rafterThi" +
+      "sRank\030\003 \001(\005\022\037\n\027searchStringRequirement\030\004" +
+      " \001(\t\"\210\003\n RetrieveLeaderboardResponseProt" +
+      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
+      "umUserProto\022Z\n\006status\030\002 \001(\0162J.com.lvl6.p" +
+      "roto.RetrieveLeaderboardResponseProto.Re" +
+      "trieveLeaderboardStatus\0228\n\017leaderboardTy",
+      "pe\030\005 \001(\0162\037.com.lvl6.proto.LeaderboardTyp" +
+      "e\022\025\n\rafterThisRank\030\006 \001(\005\022\025\n\rretrieverRan" +
+      "k\030\003 \001(\005\0224\n\rresultPlayers\030\004 \003(\0132\035.com.lvl" +
+      "6.proto.FullUserProto\"8\n\031RetrieveLeaderb" +
+      "oardStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\003B" +
+      "\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -101081,7 +101128,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_RetrieveLeaderboardResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveLeaderboardResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "RetrieverRank", "ResultPlayers", },
+              new java.lang.String[] { "Sender", "Status", "LeaderboardType", "AfterThisRank", "RetrieverRank", "ResultPlayers", },
               com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.class,
               com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.Builder.class);
           return null;
