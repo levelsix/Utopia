@@ -306,7 +306,7 @@ public class ControllerConstants {
   };
   
   public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
-    "Forging Contest Begins! 50 GOLD reward! Check forum.lvl6.com for details."
+    "Forging Contest! 50 GOLD reward! Dertails at forum.lvl6.com"
     };
   
   
