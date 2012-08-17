@@ -3,6 +3,7 @@ package com.lvl6.server;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
@@ -94,8 +95,13 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		instanceCountForDataReload = getHazel().getCluster().getMembers().size();
 		log.info("Reloading all static data for cluster instances: "+instanceCountForDataReload);
 		instancesReloadingLock = hazel.getLock(ServerMessage.RELOAD_STATIC_DATA);
-		getStaticDataReloadDone().addMessageListener(this);
-		serverEvents.publish(ServerMessage.RELOAD_STATIC_DATA);
+		try {
+			instancesReloadingLock.tryLock(20, TimeUnit.SECONDS);
+			getStaticDataReloadDone().addMessageListener(this);
+			serverEvents.publish(ServerMessage.RELOAD_STATIC_DATA);
+		} catch (InterruptedException e) {
+			log.error("Could not obtain lock for reloading instances", e);
+		}
 	}
 	
 	protected void sendPurgeStaticDataNotificationToAllClients() {
@@ -121,7 +127,7 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 				log.info("All instances done reloading static data");
 				getStaticDataReloadDone().removeMessageListener(this);
 				sendPurgeStaticDataNotificationToAllClients();
-				instancesReloadingLock.unlock();
+				instancesReloadingLock.forceUnlock();
 				instancesReloadingLock = null;
 			}
 		}

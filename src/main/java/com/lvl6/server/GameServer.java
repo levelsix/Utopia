@@ -301,9 +301,14 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	public void unlockPlayer(int playerId) {
 		log.debug("Unlocking player: "+playerId);
 		ILock lock = hazel.getLock(playersInAction.lockName(playerId));
-		lock.forceUnlock();
-		if (playersInAction.containsPlayer(playerId))
-			playersInAction.removePlayer(playerId);
+		try {
+			lock.unlock();
+			if (playersInAction.containsPlayer(playerId)) {
+				playersInAction.removePlayer(playerId);
+			}
+		}catch(Exception e) {
+			log.error("Error unlocking player "+playerId, e);
+		}
 	}
 
 	public void unlockPlayers(int playerId1, int playerId2) {
