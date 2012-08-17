@@ -2,7 +2,15 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+//------------------------------------------------------------------------------------------
 
+enum CharacterModType {
+	NEW_PLAYER = 1;
+	RESET_SKILL_POINTS = 2;
+	CHANGE_CHARACTER_TYPE = 3;
+	CHANGE_NAME = 4;			
+}
+	
 //------------------------------------------------------------------------------------------
 
 enum AnimationType {
@@ -94,6 +102,7 @@ message FullUserProto {
 	optional bool isFake = 46;
 	optional bool isAdmin = 48;
 	optional int32 numCoinsRetrievedFromStructs = 50;
+	optional int32 numAdColonyVideosWatched = 51;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this
@@ -104,7 +113,6 @@ message FullUserProto {
 	optional int32 numBadges = 42;
 	optional int64 createTime = 47;
 	optional int32 apsalarId = 49;
-	optional int32 numAdColonyVideosWatched = 51;
 	optional int32 numTimesKiipRewarded = 52;
 	optional int32 numConsecutiveDaysPlayed = 53;
 }
@@ -494,10 +502,12 @@ message DialogueProto {
 			BAD_MAGE = 7;
 			GOOD_TUTORIAL_GIRL = 8;
 			BAD_TUTORIAL_GIRL = 9;
-			QUESTGIVER_1 = 10;
-			QUESTGIVER_2 = 11;
-			QUESTGIVER_3 = 12;
-			QUESTGIVER_4 = 13;	
+
+			QUESTGIVER_1 = 10;		// Farmer Mitch
+			QUESTGIVER_2 = 11;		// Captain Riz
+			QUESTGIVER_3 = 12;		// Sean The Brave
+			QUESTGIVER_4 = 13;		// Captain Riz
+			QUESTGIVER_5 = 14; 		// Sailor Steve
 			BAZAAR = 25;		
 		}
 	}

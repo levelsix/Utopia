@@ -48,6 +48,7 @@ message BattleResponseProto {
     enum BattleStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
+		SAME_SIDE = 2;
 	} 
 }
 
@@ -253,6 +254,20 @@ message StartupResponseProto {
 		optional double levelEquipBoostExponentBase = 66;
 		
 		optional int32 adColonyVideosRequiredToRedeemDiamonds = 67;
+
+		optional CharacterModConstants charModConstants = 68;
+		
+		optional int32 minNameLength = 69;
+		optional int32 maxNameLength = 70;
+				
+		optional int32 sizeOfAttackList = 71;
+		
+		message CharacterModConstants {
+			optional int32 diamondCostToChangeCharacterType = 1;
+			optional int32 diamondCostToChangeName = 2;
+			optional int32 diamondCostToResetCharacter = 3;
+			optional int32 diamondCostToResetSkillPoints = 4;
+		}
 		
 		message KiipRewardConditions {
 			repeated int32 levelUpConditions = 1;
@@ -754,6 +769,9 @@ message InAppPurchaseResponseProto {
 	optional InAppPurchaseStatus status = 2;
 	optional int32 diamondsGained = 3;
 	
+	optional string packageName = 4;
+	optional double packagePrice = 5;
+	
 	enum InAppPurchaseStatus {
 		SUCCESS = 0;
 		FAIL = 1;
@@ -907,6 +925,7 @@ message GenerateAttackListRequestProto {
 	optional double latUpperBound = 4;
 	optional double longLowerBound = 5;
 	optional double longUpperBound = 6;
+	optional bool forMap = 7;
 }
 
 																						//DONE
@@ -914,6 +933,8 @@ message GenerateAttackListResponseProto {
      optional MinimumUserProto sender = 1;
      repeated FullUserProto enemies = 2;
      optional GenerateAttackListStatus status = 3;
+     optional bool forMap = 4;
+     
      
      enum GenerateAttackListStatus {
      	SUCCESS = 0;
@@ -1516,6 +1537,7 @@ message FinishForgeAttemptWaittimeWithDiamondsResponseProto {
     	ALREADY_COMPLETE = 4;
     }
 }
+
 //------------------------------------------------------------------------------------------
 
 message CollectForgeEquipsRequestProto {
@@ -1533,5 +1555,35 @@ message CollectForgeEquipsResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		NOT_DONE_YET = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message CharacterModRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional CharacterModType modType = 2;
+	
+	optional UserType futureUserType = 3;
+	optional string futureName = 4;
+}
+
+message CharacterModResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CharacterModStatus status = 2;
+	optional CharacterModType modType = 3;
+	
+	optional int32 skillPointsNew = 4;
+	optional int32 attackNew = 5;
+	optional int32 defenseNew = 6;
+	optional int32 staminaNew = 7;
+	optional int32 energyNew = 8;
+	
+	enum CharacterModStatus {
+		SUCCESS = 0;
+		INVALID_NAME = 1;
+		NOT_ENOUGH_DIAMONDS = 2;
+		OTHER_FAIL = 3;
+		CANNOT_CHANGE_TO_OPPOSING_SIDE_WHEN_IN_CLAN = 4;
 	}
 }

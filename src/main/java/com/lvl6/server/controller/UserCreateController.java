@@ -47,7 +47,7 @@ import com.lvl6.utils.utilmethods.InsertUtil;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
-  @Component @DependsOn("gameServer") public class UserCreateController extends EventController {
+@Component @DependsOn("gameServer") public class UserCreateController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -66,10 +66,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   protected InsertUtil insertUtils;
 
   public void setInsertUtils(InsertUtil insertUtils) {
-	this.insertUtils = insertUtils;
+    this.insertUtils = insertUtils;
   }
 
-  
+
   public UserCreateController() {
     numAllocatedThreads = 3;
   }
@@ -98,14 +98,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Timestamp timeOfStructPurchase = new Timestamp(reqProto.getTimeOfStructPurchase());
     Timestamp timeOfStructBuild = new Timestamp(reqProto.getTimeOfStructBuild());
     CoordinatePair structCoords = new CoordinatePair(reqProto.getStructCoords().getX(), reqProto.getStructCoords().getY());
-    
+
     int attack = reqProto.getAttack();
     int defense = reqProto.getDefense();
     int energy = reqProto.getEnergy();
     int stamina = reqProto.getStamina();
-    
+
     boolean usedDiamondsToBuild = reqProto.getUsedDiamondsToBuilt();
-    
+
 
     UserCreateResponseProto.Builder resBuilder = UserCreateResponseProto.newBuilder();
 
@@ -121,7 +121,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     int userId = ControllerConstants.NOT_SET;
     List<Integer> equipIds = new ArrayList<Integer>();
     Task taskCompleted = null;
-    
+
     if (legitUserCreate) {
       String newReferCode = grabNewReferCode();
 
@@ -134,7 +134,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       int playerDiamonds = ControllerConstants.TUTORIAL__INIT_DIAMONDS;
       if (usedDiamondsToBuild) playerDiamonds -= ControllerConstants.TUTORIAL__DIAMOND_COST_TO_INSTABUILD_FIRST_STRUCT;
-      
+
       Integer amuletEquipped = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
       Integer weaponEquipped = null, armorEquipped = null;
       if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
@@ -156,19 +156,19 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
           attack, defense, energy, stamina, playerExp, playerCoins, playerDiamonds, 
-          weaponEquipped, armorEquipped, amuletEquipped, false);
+          null, null, null, false);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {
           user = RetrieveUtils.userRetrieveUtils().getUserById(userId);
-          
+
           Map<EquipType, Integer> userEquipIds = writeUserEquips(user.getId(), equipIds);
           if (!user.updateAbsoluteAllEquipped(userEquipIds.get(EquipType.WEAPON), 
               userEquipIds.get(EquipType.ARMOR), userEquipIds.get(EquipType.AMULET))) {
             log.error("problem with marking user's equipped userequips, weapon:" + userEquipIds.get(EquipType.WEAPON) +
                 ", armor: " + userEquipIds.get(EquipType.ARMOR) + ", amulet: " + userEquipIds.get(EquipType.AMULET));
           }
-          
+
           FullUserProto userProto = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(userProto);
         } catch (Exception e) {
@@ -193,18 +193,18 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resEvent.setUserCreateResponseProto(resProto);
 
     log.info("Writing event: " + resEvent);
-    
+
     // Write event directly since EventWriter cannot handle without userId.
-//    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
-//    NIOUtils.prepBuffer(resEvent, writeBuffer);
+    //    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+    //    NIOUtils.prepBuffer(resEvent, writeBuffer);
 
     server.writePreDBEvent(resEvent, udid);
 
     if (user != null) {
-    	ConnectedPlayer player = server.getPlayerByUdId(udid);
-    	player.setPlayerId(user.getId());
-    	server.getPlayersByPlayerId().put(user.getId(), player);
-    	server.getPlayersPreDatabaseByUDID().remove(udid);
+      ConnectedPlayer player = server.getPlayerByUdId(udid);
+      player.setPlayerId(user.getId());
+      server.getPlayersByPlayerId().put(user.getId(), player);
+      server.getPlayersPreDatabaseByUDID().remove(udid);
     }
 
     if (legitUserCreate && userId > 0) {
@@ -212,7 +212,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       try {
         writeFirstWallPost(userId);
         writeUserStruct(userId, ControllerConstants.TUTORIAL__FIRST_STRUCT_TO_BUILD, timeOfStructPurchase, timeOfStructBuild, structCoords);
-//        writeUserCritstructs(user.getId());
+        //        writeUserCritstructs(user.getId());
         writeTaskCompleted(user.getId(), taskCompleted);
         if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), 1, 1)) {
           log.error("problem with giving user access to first city (city with id 1)");
@@ -233,8 +233,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     Timestamp timeOfPost = new Timestamp(new Date().getTime());
     if (insertUtils.insertPlayerWallPost(ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL, 
         newPlayerId, ControllerConstants.USER_CREATE__FIRST_WALL_POST_TEXT, timeOfPost) < 0) {
-        log.error("problem with writing wall post from user " + ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL
-            + " for player " + newPlayerId + " at " + timeOfPost);
+      log.error("problem with writing wall post from user " + ControllerConstants.USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL
+          + " for player " + newPlayerId + " at " + timeOfPost);
     }
   }
 
@@ -258,7 +258,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private Map<EquipType, Integer> writeUserEquips(int userId, List<Integer> equipIds) {
     Map <EquipType, Integer> userEquipIds = new HashMap<EquipType, Integer>();
     if (equipIds.size() > 0) {
-      
+
       for (int i = 0; i < equipIds.size(); i++) {
         int userEquipId = insertUtils.insertUserEquip(userId, equipIds.get(i), ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
         if (userEquipId < 0) {
@@ -268,16 +268,25 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           userEquipIds.put(equip.getType(), userEquipId);
         }
       }
+      
+      if (Globals.IDDICTION_ON()) {
+        int userEquipId = insertUtils.insertUserEquip(userId, ControllerConstants.IDDICTION__EQUIP_ID, 
+            ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);
+        if (userEquipId < 0) {
+          log.error("problem with giving user iddiction reward to " + userId + " 1 " + ControllerConstants.IDDICTION__EQUIP_ID);
+        }
+      }
+      
       return userEquipIds;
     }
     return userEquipIds;
   }
-//
-//  private void writeUserCritstructs(int userId) {
-//    if (!insertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
-//      log.error("problem with giving user his critical structs");
-//    }
-//  }
+  //
+  //  private void writeUserCritstructs(int userId) {
+  //    if (!insertUtils.insertAviaryAndCarpenterCoords(userId, ControllerConstants.AVIARY_COORDS, ControllerConstants.CARPENTER_COORDS)) {
+  //      log.error("problem with giving user his critical structs");
+  //    }
+  //  }
 
   private String grabNewReferCode() {
     String newReferCode = AvailableReferralCodeRetrieveUtils.getAvailableReferralCode();
@@ -323,7 +332,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       String name, Location loc, UserType type, int attack, int defense, int energy, int stamina, 
       Timestamp timeOfStructPurchase, Timestamp timeOfStructBuild, CoordinatePair coordinatePair, User referrer, 
       boolean hasReferrerCode) {
-    
+
     if (udid == null || name == null || timeOfStructPurchase == null || coordinatePair == null || type == null || timeOfStructBuild == null) {
       resBuilder.setStatus(UserCreateStatus.OTHER_FAIL);
       log.error("parameter passed in is null. udid=" + udid + ", name=" + name + ", timeOfStructPurchase=" + timeOfStructPurchase

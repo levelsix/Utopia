@@ -2,16 +2,16 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+<!-- 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern"
 				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
 		</layout>
-	</appender>
+	</appender> -->
 
 
-	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
+ 	<appender name="cassandra" class="com.lvl6.cassandra.log4j.Log4jAppender">
 		<param name="hosts" value="${lvl6.cassandra.hosts}" />
 		<param name="keyspace" value="${lvl6.cassandra.keyspace}" />
 		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
@@ -20,12 +20,23 @@
 		<param name="Threshold" value="INFO" />
 	</appender>
 	
+	<appender name="EC2" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/opt/tomcat7/logs/tail_catalina.log" />
+		<param name="MaxFileSize" value="25MB" />
+		<param name="MaxBackupIndex" value="100" />
+		<param name="Threshold" value="debug" />
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="ConversionPattern"
+				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
+		</layout>
+	</appender>
+	
 
 	<appender name="R" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="${lvl6.server.log.location}.log" />
 		<param name="MaxFileSize" value="25MB" />
 		<param name="MaxBackupIndex" value="100" />
-		<param name="Threshold" value="INFO" />
+		<param name="Threshold" value="debug" />
 		<layout class="org.apache.log4j.EnhancedPatternLayout">
 			<param name="ConversionPattern"
 				value="%d | %-5p | %X{playerId}%X{udid} | %X{ip} | %t | %c{1} - %m%n" />
@@ -43,10 +54,27 @@
 		</layout>
 	</appender>
 
+	
+<!-- 	<logger name="org.springframework" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="EC2" /> 
+		<appender-ref ref="cassandra" /> 
+		<appender-ref ref="${lvl6.server.log.appender}" />
+		<appender-ref ref="ERROR_LOG" />
+	</logger>
+	
+	<logger name="com.lvl6" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="EC2" /> 
+		<appender-ref ref="cassandra" /> 
+		<appender-ref ref="${lvl6.server.log.appender}" />
+		<appender-ref ref="ERROR_LOG" />
+	</logger> -->
+	
 	<root>
-		<level value="debug" />
-		<!-- <appender-ref ref="console" /> -->
-		<appender-ref ref="cassandra" />
+		<level value="info" />
+		<appender-ref ref="EC2" /> 
+		<appender-ref ref="cassandra" /> 
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
 	</root>

@@ -2,6 +2,8 @@ package com.lvl6.tracking;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,17 +23,24 @@ public class AppODayUserTrackerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String mac = req.getParameter("mac");
-		if(mac != null && !mac.equals("")) {
-			trackMacAddress(mac);
-		}else {
-			log.warn("AppODayTracker page loaded but no mac address specified");
+		Map<String, String> params = req.getParameterMap();
+		Set<String> keys = params.keySet();
+		for(String key: keys) {
+			if(key.equalsIgnoreCase("openudid") || key.equalsIgnoreCase("mac")) {
+				String udid = req.getParameter(key);
+				if(udid != null && !udid.equals("")) {
+					log.info("Iddiction tracking: {} - {}", key, udid);
+					trackMacAddress(udid);
+					return;
+				}
+			}
 		}
+		log.warn("AppODayTracker page loaded but no mac address specified");
 	}
 	
 	
 	protected void trackMacAddress(String macAddress) {
-		log.info("Iddiction tracking: " + macAddress);
+		//log.info("Iddiction tracking: " + macAddress);
 		InsertUtils.get().insertIddictionIndentifier(macAddress, new Date());
 	}
 	
