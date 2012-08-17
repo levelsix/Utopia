@@ -12,7 +12,17 @@ public class Globals {
 	
 	protected float versionNumber = 1.0f;
 	
-    public float getVersionNumber() {
+	protected int healthCheckTimeoutSeconds = 6;
+	
+    public int getHealthCheckTimeoutSeconds() {
+		return healthCheckTimeoutSeconds;
+	}
+
+	public void setHealthCheckTimeoutSeconds(int healthCheckTimeoutSeconds) {
+		this.healthCheckTimeoutSeconds = healthCheckTimeoutSeconds;
+	}
+
+	public float getVersionNumber() {
 		return versionNumber;
 	}
 
@@ -68,7 +78,7 @@ public class Globals {
 
     public static final float VERSION_NUMBER(){return AppContext.getApplicationContext().getBean(Globals.class).getVersionNumber();};
 
-    
+    public static int HEALTH_CHECK_TIMEOUT() {return AppContext.getApplicationContext().getBean(Globals.class).getHealthCheckTimeoutSeconds();};
     
     
 

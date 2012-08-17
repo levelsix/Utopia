@@ -26059,7 +26059,8 @@ public final class InfoProto {
         QUESTGIVER_2(10, 11),
         QUESTGIVER_3(11, 12),
         QUESTGIVER_4(12, 13),
-        BAZAAR(13, 25),
+        QUESTGIVER_5(13, 14),
+        BAZAAR(14, 25),
         ;
         
         public static final int PLAYER_TYPE_VALUE = 1;
@@ -26075,6 +26076,7 @@ public final class InfoProto {
         public static final int QUESTGIVER_2_VALUE = 11;
         public static final int QUESTGIVER_3_VALUE = 12;
         public static final int QUESTGIVER_4_VALUE = 13;
+        public static final int QUESTGIVER_5_VALUE = 14;
         public static final int BAZAAR_VALUE = 25;
         
         
@@ -26095,6 +26097,7 @@ public final class InfoProto {
             case 11: return QUESTGIVER_2;
             case 12: return QUESTGIVER_3;
             case 13: return QUESTGIVER_4;
+            case 14: return QUESTGIVER_5;
             case 25: return BAZAAR;
             default: return null;
           }
@@ -26126,7 +26129,7 @@ public final class InfoProto {
         }
         
         private static final DialogueSpeaker[] VALUES = {
-          PLAYER_TYPE, GOOD_WARRIOR, GOOD_ARCHER, GOOD_MAGE, BAD_WARRIOR, BAD_ARCHER, BAD_MAGE, GOOD_TUTORIAL_GIRL, BAD_TUTORIAL_GIRL, QUESTGIVER_1, QUESTGIVER_2, QUESTGIVER_3, QUESTGIVER_4, BAZAAR, 
+          PLAYER_TYPE, GOOD_WARRIOR, GOOD_ARCHER, GOOD_MAGE, BAD_WARRIOR, BAD_ARCHER, BAD_MAGE, GOOD_TUTORIAL_GIRL, BAD_TUTORIAL_GIRL, QUESTGIVER_1, QUESTGIVER_2, QUESTGIVER_3, QUESTGIVER_4, QUESTGIVER_5, BAZAAR, 
         };
         
         public static DialogueSpeaker valueOf(
@@ -28906,53 +28909,54 @@ public final class InfoProto {
       "nentsForGood\030\022 \001(\005\022\033\n\023numComponentsForBa" +
       "d\030\023 \001(\005\0225\n\016acceptDialogue\030\024 \001(\0132\035.com.lv" +
       "l6.proto.DialogueProto\022\026\n\016questGiverName" +
-      "\030\025 \001(\t\022\035\n\025questGiverImageSuffix\030\027 \001(\t\"\340\003" +
+      "\030\025 \001(\t\022\035\n\025questGiverImageSuffix\030\027 \001(\t\"\362\003" +
       "\n\rDialogueProto\022G\n\rspeechSegment\030\001 \003(\01320",
       ".com.lvl6.proto.DialogueProto.SpeechSegm" +
-      "entProto\032\205\003\n\022SpeechSegmentProto\022Q\n\007speak" +
+      "entProto\032\227\003\n\022SpeechSegmentProto\022Q\n\007speak" +
       "er\030\001 \001(\0162@.com.lvl6.proto.DialogueProto." +
       "SpeechSegmentProto.DialogueSpeaker\022\023\n\013sp" +
-      "eakerText\030\002 \001(\t\"\206\002\n\017DialogueSpeaker\022\017\n\013P" +
+      "eakerText\030\002 \001(\t\"\230\002\n\017DialogueSpeaker\022\017\n\013P" +
       "LAYER_TYPE\020\001\022\020\n\014GOOD_WARRIOR\020\002\022\017\n\013GOOD_A" +
       "RCHER\020\003\022\r\n\tGOOD_MAGE\020\004\022\017\n\013BAD_WARRIOR\020\005\022" +
       "\016\n\nBAD_ARCHER\020\006\022\014\n\010BAD_MAGE\020\007\022\026\n\022GOOD_TU" +
       "TORIAL_GIRL\020\010\022\025\n\021BAD_TUTORIAL_GIRL\020\t\022\020\n\014" +
       "QUESTGIVER_1\020\n\022\020\n\014QUESTGIVER_2\020\013\022\020\n\014QUES",
-      "TGIVER_3\020\014\022\020\n\014QUESTGIVER_4\020\r\022\n\n\006BAZAAR\020\031" +
-      "\"\233\001\n\023PlayerWallPostProto\022\030\n\020playerWallPo" +
-      "stId\030\001 \001(\005\0220\n\006poster\030\002 \001(\0132 .com.lvl6.pr" +
-      "oto.MinimumUserProto\022\023\n\013wallOwnerId\030\003 \001(" +
-      "\005\022\022\n\ntimeOfPost\030\004 \001(\003\022\017\n\007content\030\005 \001(\t\"\340" +
-      "\001\n\037UnhandledBlacksmithAttemptProto\022\024\n\014bl" +
-      "acksmithId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\005\022\017\n\007equi" +
-      "pId\030\003 \001(\005\022\021\n\tgoalLevel\030\004 \001(\003\022\022\n\nguarante" +
-      "ed\030\005 \001(\010\022\021\n\tstartTime\030\006 \001(\003\022\034\n\024diamondGu" +
-      "aranteeCost\030\010 \001(\005\022\025\n\rtimeOfSpeedup\030\t \001(\003",
-      "\022\027\n\017attemptComplete\030\n \001(\010*f\n\020CharacterMo" +
-      "dType\022\016\n\nNEW_PLAYER\020\001\022\026\n\022RESET_SKILL_POI" +
-      "NTS\020\002\022\031\n\025CHANGE_CHARACTER_TYPE\020\003\022\017\n\013CHAN" +
-      "GE_NAME\020\004*/\n\rAnimationType\022\022\n\016GENERIC_AC" +
-      "TION\020\001\022\n\n\006ATTACK\020\002*h\n\024EarnFreeDiamondsTy" +
-      "pe\022\010\n\004KIIP\020\001\022\014\n\010ADCOLONY\020\002\022\r\n\tFB_INVITE\020" +
-      "\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURRY_VIDEO\020\005\022\013\n\007TWITT" +
-      "ER\020\006*\302\001\n\022SpecialQuestAction\022\030\n\024PURCHASE_" +
-      "FROM_ARMORY\020\001\022\035\n\031PURCHASE_FROM_MARKETPLA" +
-      "CE\020\002\022\022\n\016SELL_TO_ARMORY\020\003\022\027\n\023POST_TO_MARK",
-      "ETPLACE\020\004\022\024\n\020DEPOSIT_IN_VAULT\020\005\022\027\n\023WITHD" +
-      "RAW_FROM_VAULT\020\006\022\027\n\023WRITE_ON_ENEMY_WALL\020" +
-      "\007*k\n\010UserType\022\020\n\014GOOD_WARRIOR\020\000\022\017\n\013GOOD_" +
-      "ARCHER\020\001\022\r\n\tGOOD_MAGE\020\002\022\017\n\013BAD_WARRIOR\020\003" +
-      "\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BAD_MAGE\020\005*E\n\014Battle" +
-      "Result\022\020\n\014ATTACKER_WIN\020\000\022\020\n\014DEFENDER_WIN" +
-      "\020\001\022\021\n\rATTACKER_FLEE\020\002*B\n\023MarketplacePost" +
-      "Type\022\026\n\022PREMIUM_EQUIP_POST\020\000\022\023\n\017NORM_EQU" +
-      "IP_POST\020\002*2\n\035MarketplaceJobRequirementTy" +
-      "pe\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*c\n\016CritStructType\022",
-      "\n\n\006AVIARY\020\000\022\r\n\tCARPENTER\020\002\022\t\n\005VAULT\020\003\022\n\n" +
-      "\006ARMORY\020\004\022\017\n\013MARKETPLACE\020\005\022\016\n\nBLACKSMITH" +
-      "\020\006*3\n\021StructOrientation\022\016\n\nPOSITION_1\020\000\022" +
-      "\016\n\nPOSITION_2\020\001*1\n\022ExpansionDirection\022\014\n" +
-      "\010FAR_LEFT\020\000\022\r\n\tFAR_RIGHT\020\001B\013B\tInfoProto"
+      "TGIVER_3\020\014\022\020\n\014QUESTGIVER_4\020\r\022\020\n\014QUESTGIV" +
+      "ER_5\020\016\022\n\n\006BAZAAR\020\031\"\233\001\n\023PlayerWallPostPro" +
+      "to\022\030\n\020playerWallPostId\030\001 \001(\005\0220\n\006poster\030\002" +
+      " \001(\0132 .com.lvl6.proto.MinimumUserProto\022\023" +
+      "\n\013wallOwnerId\030\003 \001(\005\022\022\n\ntimeOfPost\030\004 \001(\003\022" +
+      "\017\n\007content\030\005 \001(\t\"\340\001\n\037UnhandledBlacksmith" +
+      "AttemptProto\022\024\n\014blacksmithId\030\001 \001(\005\022\016\n\006us" +
+      "erId\030\002 \001(\005\022\017\n\007equipId\030\003 \001(\005\022\021\n\tgoalLevel" +
+      "\030\004 \001(\003\022\022\n\nguaranteed\030\005 \001(\010\022\021\n\tstartTime\030" +
+      "\006 \001(\003\022\034\n\024diamondGuaranteeCost\030\010 \001(\005\022\025\n\rt",
+      "imeOfSpeedup\030\t \001(\003\022\027\n\017attemptComplete\030\n " +
+      "\001(\010*f\n\020CharacterModType\022\016\n\nNEW_PLAYER\020\001\022" +
+      "\026\n\022RESET_SKILL_POINTS\020\002\022\031\n\025CHANGE_CHARAC" +
+      "TER_TYPE\020\003\022\017\n\013CHANGE_NAME\020\004*/\n\rAnimation" +
+      "Type\022\022\n\016GENERIC_ACTION\020\001\022\n\n\006ATTACK\020\002*h\n\024" +
+      "EarnFreeDiamondsType\022\010\n\004KIIP\020\001\022\014\n\010ADCOLO" +
+      "NY\020\002\022\r\n\tFB_INVITE\020\003\022\n\n\006TAPJOY\020\004\022\020\n\014FLURR" +
+      "Y_VIDEO\020\005\022\013\n\007TWITTER\020\006*\302\001\n\022SpecialQuestA" +
+      "ction\022\030\n\024PURCHASE_FROM_ARMORY\020\001\022\035\n\031PURCH" +
+      "ASE_FROM_MARKETPLACE\020\002\022\022\n\016SELL_TO_ARMORY",
+      "\020\003\022\027\n\023POST_TO_MARKETPLACE\020\004\022\024\n\020DEPOSIT_I" +
+      "N_VAULT\020\005\022\027\n\023WITHDRAW_FROM_VAULT\020\006\022\027\n\023WR" +
+      "ITE_ON_ENEMY_WALL\020\007*k\n\010UserType\022\020\n\014GOOD_" +
+      "WARRIOR\020\000\022\017\n\013GOOD_ARCHER\020\001\022\r\n\tGOOD_MAGE\020" +
+      "\002\022\017\n\013BAD_WARRIOR\020\003\022\016\n\nBAD_ARCHER\020\004\022\014\n\010BA" +
+      "D_MAGE\020\005*E\n\014BattleResult\022\020\n\014ATTACKER_WIN" +
+      "\020\000\022\020\n\014DEFENDER_WIN\020\001\022\021\n\rATTACKER_FLEE\020\002*" +
+      "B\n\023MarketplacePostType\022\026\n\022PREMIUM_EQUIP_" +
+      "POST\020\000\022\023\n\017NORM_EQUIP_POST\020\002*2\n\035Marketpla" +
+      "ceJobRequirementType\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001*",
+      "c\n\016CritStructType\022\n\n\006AVIARY\020\000\022\r\n\tCARPENT" +
+      "ER\020\002\022\t\n\005VAULT\020\003\022\n\n\006ARMORY\020\004\022\017\n\013MARKETPLA" +
+      "CE\020\005\022\016\n\nBLACKSMITH\020\006*3\n\021StructOrientatio" +
+      "n\022\016\n\nPOSITION_1\020\000\022\016\n\nPOSITION_2\020\001*1\n\022Exp" +
+      "ansionDirection\022\014\n\010FAR_LEFT\020\000\022\r\n\tFAR_RIG" +
+      "HT\020\001B\013B\tInfoProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

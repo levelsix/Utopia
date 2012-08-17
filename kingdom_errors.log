@@ -1,0 +1,23 @@
+2012-08-15 19:13:09,757 | ERROR |  |  | pool-1-thread-14 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 19:13:09,758 | ERROR |  |  | pool-1-thread-14 | HConnectionManager - Pool state on shutdown: <ConcurrentCassandraClientPoolByHost>:{robot.lvl6.com(5.9.28.212):9160}; IsActive?: true; Active: 2; Blocked: 0; Idle: 18; NumBeforeExhausted: 18
+2012-08-15 21:27:52,833 | ERROR |  |  | pool-1-thread-13 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,834 | ERROR |  |  | pool-1-thread-3 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,834 | ERROR |  |  | pool-1-thread-10 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,834 | ERROR |  |  | pool-1-thread-2 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,834 | ERROR |  |  | pool-1-thread-5 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,834 | ERROR |  |  | pool-1-thread-15 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,833 | ERROR |  |  | pool-1-thread-14 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,833 | ERROR |  |  | pool-1-thread-8 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:52,835 | ERROR |  |  | pool-1-thread-13 | HConnectionManager - Pool state on shutdown: <ConcurrentCassandraClientPoolByHost>:{robot.lvl6.com(5.9.28.212):9160}; IsActive?: true; Active: 12; Blocked: 0; Idle: 0; NumBeforeExhausted: 8
+2012-08-15 21:27:53,195 | ERROR |  |  | pool-1-thread-7 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,231 | ERROR |  |  | pool-1-thread-17 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,234 | ERROR |  |  | pool-1-thread-16 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,238 | ERROR |  |  | pool-1-thread-12 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,233 | ERROR |  |  | pool-1-thread-18 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,238 | ERROR |  |  | pool-1-thread-1 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,237 | ERROR |  |  | pool-1-thread-4 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,346 | ERROR |  |  | pool-1-thread-6 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,346 | ERROR |  |  | pool-1-thread-19 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,347 | ERROR |  |  | pool-1-thread-20 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,347 | ERROR |  |  | pool-1-thread-9 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
+2012-08-15 21:27:53,347 | ERROR |  |  | pool-1-thread-11 | HConnectionManager - MARK HOST AS DOWN TRIGGERED for host robot.lvl6.com(5.9.28.212):9160
