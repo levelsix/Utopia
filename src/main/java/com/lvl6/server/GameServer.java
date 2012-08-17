@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
 import javax.annotation.Resource;
@@ -29,6 +30,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
 public class GameServer extends Thread implements InitializingBean, HazelcastInstanceAware{
 
+	
+	public static int LOCK_WAIT_SECONDS = 5;
+	
 	// Logger
 	private static Logger log = Logger.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
@@ -268,7 +272,12 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	public void lockPlayer(int playerId) {
 		log.debug("Locking player: "+playerId);
 		Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
-		playerLock.lock();
+		try {
+			playerLock.tryLock(LOCK_WAIT_SECONDS, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			//log.error("Could not get lock before timeout for playerId: "+playerId, e);
+			throw new RuntimeException("Could not get lock before timeout for playerId: "+playerId, e);
+		}
 		playersInAction.addPlayer(playerId);
 	}
 	
