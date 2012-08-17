@@ -197,8 +197,10 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 			});
 			UserLeaderBoardStats stat = stats.get(0);
 			if(stat != null) {
-				setBattlesWonForUser(userId, stat.getBattles_won().doubleValue());
-				setBattlesWonOverTotalBattlesRatioForUser(userId, stat.battlesWonOfTotalBattles());
+				if() {
+					setBattlesWonForUser(userId, stat.getBattles_won().doubleValue());
+					setBattlesWonOverTotalBattlesRatioForUser(userId, stat.battlesWonOfTotalBattles());
+				}
 				setTasksCompletedForUser(userId, stat.getTasks_completed().doubleValue());
 				setSilverForUser(userId, stat.getCoins().doubleValue());
 			}
