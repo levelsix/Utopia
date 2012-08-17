@@ -197,7 +197,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 			});
 			UserLeaderBoardStats stat = stats.get(0);
 			if(stat != null) {
-				if() {
+				if(stat.battles_lost+stat.battles_won > 50) {
 					setBattlesWonForUser(userId, stat.getBattles_won().doubleValue());
 					setBattlesWonOverTotalBattlesRatioForUser(userId, stat.battlesWonOfTotalBattles());
 				}
