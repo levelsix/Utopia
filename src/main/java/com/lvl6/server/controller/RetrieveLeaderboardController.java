@@ -47,7 +47,6 @@ import com.lvl6.utils.RetrieveUtils;
 
     LeaderboardType leaderboardType = reqProto.getLeaderboardType();
     int afterThisRank = reqProto.getAfterThisRank();
-    String searchStringRequirement = (reqProto.hasSearchStringRequirement()) ? reqProto.getSearchStringRequirement() : null;
 
     RetrieveLeaderboardResponseProto.Builder resBuilder = RetrieveLeaderboardResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -63,12 +62,8 @@ import com.lvl6.utils.RetrieveUtils;
       List<User> resultList = null;
 
       if (legitRetrieval) {
-        if (searchStringRequirement != null) {
-          resultList = RetrieveUtils.userRetrieveUtils().getUsersByReferralCodeOrName(searchStringRequirement);
-        } else {
-          resBuilder.setRetrieverRank(getUserRankForLeaderboardType(user, leaderboardType));
-          //TODO: populate resultList based on leaderboard type
-        }
+        resBuilder.setRetrieverRank(getUserRankForLeaderboardType(user, leaderboardType));
+        //TODO: populate resultList based on leaderboard type
         if (resultList != null) {
           for (User u : resultList) {
             resBuilder.addResultPlayers(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
@@ -94,7 +89,7 @@ import com.lvl6.utils.RetrieveUtils;
     if (leaderboardType == LeaderboardType.BEST_KDR && 
         user.getBattlesWon() + user.getBattlesLost() < ControllerConstants.LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION)
       return 0;
-    
+
     // TODO Auto-generated method stub
     return 0;
   }

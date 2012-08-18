@@ -96986,10 +96986,6 @@ public final class EventProto {
     // optional int32 afterThisRank = 3;
     boolean hasAfterThisRank();
     int getAfterThisRank();
-    
-    // optional string searchStringRequirement = 4;
-    boolean hasSearchStringRequirement();
-    String getSearchStringRequirement();
   }
   public static final class RetrieveLeaderboardRequestProto extends
       com.google.protobuf.GeneratedMessage
@@ -97053,43 +97049,10 @@ public final class EventProto {
       return afterThisRank_;
     }
     
-    // optional string searchStringRequirement = 4;
-    public static final int SEARCHSTRINGREQUIREMENT_FIELD_NUMBER = 4;
-    private java.lang.Object searchStringRequirement_;
-    public boolean hasSearchStringRequirement() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public String getSearchStringRequirement() {
-      java.lang.Object ref = searchStringRequirement_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          searchStringRequirement_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getSearchStringRequirementBytes() {
-      java.lang.Object ref = searchStringRequirement_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        searchStringRequirement_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
     private void initFields() {
       sender_ = com.lvl6.proto.InfoProto.MinimumUserProto.getDefaultInstance();
       leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
       afterThisRank_ = 0;
-      searchStringRequirement_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -97112,9 +97075,6 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, afterThisRank_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getSearchStringRequirementBytes());
-      }
       getUnknownFields().writeTo(output);
     }
     
@@ -97135,10 +97095,6 @@ public final class EventProto {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, afterThisRank_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getSearchStringRequirementBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -97275,8 +97231,6 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         afterThisRank_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        searchStringRequirement_ = "";
-        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
@@ -97331,10 +97285,6 @@ public final class EventProto {
           to_bitField0_ |= 0x00000004;
         }
         result.afterThisRank_ = afterThisRank_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.searchStringRequirement_ = searchStringRequirement_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -97359,9 +97309,6 @@ public final class EventProto {
         }
         if (other.hasAfterThisRank()) {
           setAfterThisRank(other.getAfterThisRank());
-        }
-        if (other.hasSearchStringRequirement()) {
-          setSearchStringRequirement(other.getSearchStringRequirement());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -97417,11 +97364,6 @@ public final class EventProto {
             case 24: {
               bitField0_ |= 0x00000004;
               afterThisRank_ = input.readInt32();
-              break;
-            }
-            case 34: {
-              bitField0_ |= 0x00000008;
-              searchStringRequirement_ = input.readBytes();
               break;
             }
           }
@@ -97565,42 +97507,6 @@ public final class EventProto {
         return this;
       }
       
-      // optional string searchStringRequirement = 4;
-      private java.lang.Object searchStringRequirement_ = "";
-      public boolean hasSearchStringRequirement() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      public String getSearchStringRequirement() {
-        java.lang.Object ref = searchStringRequirement_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-          searchStringRequirement_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
-      }
-      public Builder setSearchStringRequirement(String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-        searchStringRequirement_ = value;
-        onChanged();
-        return this;
-      }
-      public Builder clearSearchStringRequirement() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        searchStringRequirement_ = getDefaultInstance().getSearchStringRequirement();
-        onChanged();
-        return this;
-      }
-      void setSearchStringRequirement(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000008;
-        searchStringRequirement_ = value;
-        onChanged();
-      }
-      
       // @@protoc_insertion_point(builder_scope:com.lvl6.proto.RetrieveLeaderboardRequestProto)
     }
     
@@ -97677,11 +97583,11 @@ public final class EventProto {
     public enum RetrieveLeaderboardStatus
         implements com.google.protobuf.ProtocolMessageEnum {
       SUCCESS(0, 0),
-      OTHER_FAIL(1, 3),
+      OTHER_FAIL(1, 1),
       ;
       
       public static final int SUCCESS_VALUE = 0;
-      public static final int OTHER_FAIL_VALUE = 3;
+      public static final int OTHER_FAIL_VALUE = 1;
       
       
       public final int getNumber() { return value; }
@@ -97689,7 +97595,7 @@ public final class EventProto {
       public static RetrieveLeaderboardStatus valueOf(int value) {
         switch (value) {
           case 0: return SUCCESS;
-          case 3: return OTHER_FAIL;
+          case 1: return OTHER_FAIL;
           default: return null;
         }
       }
@@ -100133,22 +100039,21 @@ public final class EventProto {
       "tus\022\013\n\007SUCCESS\020\000\022\020\n\014INVALID_NAME\020\001\022\027\n\023NO" +
       "T_ENOUGH_DIAMONDS\020\002\022\016\n\nOTHER_FAIL\020\003\022/\n+C" +
       "ANNOT_CHANGE_TO_OPPOSING_SIDE_WHEN_IN_CL",
-      "AN\020\004\"\305\001\n\037RetrieveLeaderboardRequestProto" +
+      "AN\020\004\"\244\001\n\037RetrieveLeaderboardRequestProto" +
       "\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minimu" +
       "mUserProto\0228\n\017leaderboardType\030\002 \001(\0162\037.co" +
       "m.lvl6.proto.LeaderboardType\022\025\n\rafterThi" +
-      "sRank\030\003 \001(\005\022\037\n\027searchStringRequirement\030\004" +
-      " \001(\t\"\210\003\n RetrieveLeaderboardResponseProt" +
-      "o\0220\n\006sender\030\001 \001(\0132 .com.lvl6.proto.Minim" +
-      "umUserProto\022Z\n\006status\030\002 \001(\0162J.com.lvl6.p" +
-      "roto.RetrieveLeaderboardResponseProto.Re" +
-      "trieveLeaderboardStatus\0228\n\017leaderboardTy",
-      "pe\030\005 \001(\0162\037.com.lvl6.proto.LeaderboardTyp" +
-      "e\022\025\n\rafterThisRank\030\006 \001(\005\022\025\n\rretrieverRan" +
-      "k\030\003 \001(\005\0224\n\rresultPlayers\030\004 \003(\0132\035.com.lvl" +
-      "6.proto.FullUserProto\"8\n\031RetrieveLeaderb" +
-      "oardStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_FAIL\020\003B" +
-      "\014B\nEventProto"
+      "sRank\030\003 \001(\005\"\210\003\n RetrieveLeaderboardRespo" +
+      "nseProto\0220\n\006sender\030\001 \001(\0132 .com.lvl6.prot" +
+      "o.MinimumUserProto\022Z\n\006status\030\002 \001(\0162J.com" +
+      ".lvl6.proto.RetrieveLeaderboardResponseP" +
+      "roto.RetrieveLeaderboardStatus\0228\n\017leader" +
+      "boardType\030\005 \001(\0162\037.com.lvl6.proto.Leaderb",
+      "oardType\022\025\n\rafterThisRank\030\006 \001(\005\022\025\n\rretri" +
+      "everRank\030\003 \001(\005\0224\n\rresultPlayers\030\004 \003(\0132\035." +
+      "com.lvl6.proto.FullUserProto\"8\n\031Retrieve" +
+      "LeaderboardStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOTHER_" +
+      "FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -101120,7 +101025,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_RetrieveLeaderboardRequestProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveLeaderboardRequestProto_descriptor,
-              new java.lang.String[] { "Sender", "LeaderboardType", "AfterThisRank", "SearchStringRequirement", },
+              new java.lang.String[] { "Sender", "LeaderboardType", "AfterThisRank", },
               com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.class,
               com.lvl6.proto.EventProto.RetrieveLeaderboardRequestProto.Builder.class);
           internal_static_com_lvl6_proto_RetrieveLeaderboardResponseProto_descriptor =

@@ -1594,8 +1594,6 @@ message RetrieveLeaderboardRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional LeaderboardType leaderboardType = 2;
 	optional int32 afterThisRank = 3;
-
-	optional string searchStringRequirement = 4;
 }
 
 message RetrieveLeaderboardResponseProto {
