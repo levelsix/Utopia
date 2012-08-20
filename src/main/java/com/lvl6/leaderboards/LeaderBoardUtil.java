@@ -2,6 +2,8 @@ package com.lvl6.leaderboards;
 
 import java.util.List;
 
+import com.lvl6.proto.InfoProto.LeaderboardType;
+
 public interface LeaderBoardUtil {
 
 	public abstract Lvl6Jedis getJedis();
@@ -42,6 +44,6 @@ public interface LeaderBoardUtil {
 	
 	public abstract void updateLeaderboardForUser(Integer userId);
 	public abstract void updateLeaderboardCoinsForUser(Integer userId);
-		
+	
 	
 }

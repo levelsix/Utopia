@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.lvl6.proto.InfoProto.LeaderboardType;
+
 public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	
 	Logger log = LoggerFactory.getLogger(getClass());
@@ -259,8 +261,5 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		}
 	}
 
-	
-	
-	
 	
 }
