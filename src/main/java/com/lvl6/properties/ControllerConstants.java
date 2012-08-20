@@ -52,7 +52,7 @@ public class ControllerConstants {
   public static final double BATTLE_WEIGHT_GIVEN_TO_DEFENSE_STAT = 1;
   public static final double BATTLE_WEIGHT_GIVEN_TO_DEFENSE_EQUIP_SUM = 1;
   public static final double BATTLE_WEIGHT_GIVEN_TO_LEVEL = 1;
-  public static final float BATTLE_LOCATION_BAR_MAX = 75.f;
+  public static final float BATTLE_LOCATION_BAR_MAX = 83.33f;
   public static final float BATTLE_PERFECT_PERCENT_THRESHOLD = 3.0f;
   public static final float BATTLE_GREAT_PERCENT_THRESHOLD = 17.0f;
   public static final float BATTLE_GOOD_PERCENT_THRESHOLD = 38.0f;
