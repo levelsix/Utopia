@@ -64,6 +64,7 @@ import com.lvl6.utils.RetrieveUtils;
       if (legitRetrieval) {
         resBuilder.setRetrieverRank(getUserRankForLeaderboardType(user, leaderboardType));
         //TODO: populate resultList based on leaderboard type
+        
         if (resultList != null) {
           for (User u : resultList) {
             resBuilder.addResultPlayers(CreateInfoProtoUtils.createFullUserProtoFromUser(u));
