@@ -78,7 +78,7 @@ public class RetrieveLeaderboardController extends EventController {
 				int rank = getUserRankForLeaderboardType(user, leaderboardType);
 				resBuilder.setRetrieverRank(rank);
 				// TODO: populate resultList based on leaderboard type
-				resultList = getUsersAroundThisRank(leaderboardType, afterThisRank, rank);
+				resultList = getUsersAroundThisRank(leaderboardType, afterThisRank);
 				if (resultList != null) {
 					for (User u : resultList) {
 						resBuilder.addResultPlayers(CreateInfoProtoUtils
@@ -103,20 +103,19 @@ public class RetrieveLeaderboardController extends EventController {
 
 	}
 
-	private List<User> getUsersAroundThisRank(LeaderboardType leaderboardType,
-			int afterThisRank, int rank) {
+	private List<User> getUsersAroundThisRank(LeaderboardType leaderboardType,	int afterThisRank) {
 		List<Integer> usrs = new ArrayList<Integer>();
 		if (leaderboardType.equals(LeaderboardType.BEST_KDR)) {
-			usrs = leader.getBattlesWonOverTotalBattlesRatioTopN(rank, rank+ afterThisRank);
+			usrs = leader.getBattlesWonOverTotalBattlesRatioTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_BATTLES_WON)) {
-			usrs = leader.getBattlesWonTopN(rank, rank+ afterThisRank);
+			usrs = leader.getBattlesWonTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_EXP)) {
-			usrs = leader.getTasksCompletedTopN(rank, rank+ afterThisRank);
+			usrs = leader.getTasksCompletedTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_SILVER)) {
-			usrs = leader.getSilverForTopN(rank, rank+ afterThisRank);
+			usrs = leader.getSilverForTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
 		return new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(usrs).values());
 	}
