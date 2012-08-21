@@ -40,11 +40,14 @@ public class ApplicationUtils {
 		ApplicationStats stats = new ApplicationStats();
 		stats.setConnectedPlayersCount(players.size());
 		stats.setTotalPlayersCount(usersUtil.countUsers(false));
+		stats.setLoggedInToday(statsUtil.countLoginsToday());
 		stats.setCountMarketplacePosts(statsUtil.countMarketplacePosts());
 		stats.setCountMarketplaceTransactions(statsUtil.countMarketplaceTransactions());
 		stats.setCountNumberKiipRewardsRedeemed(statsUtil.countNumberKiipRewardsRedeemed());
 		stats.setSumOfDiamondsInWorld(statsUtil.sumOfDiamondsInWorld());
 		stats.setSumOfInAppPurchases(statsUtil.sumOfInAppPurchases());
+		Double appleTx = stats.getSumOfInAppPurchases()*.7;
+		stats.setAfterAppleTax(appleTx.longValue());
 		stats.setSumOfSilverInWorld(statsUtil.sumOfSilverInWorld());
 		stats.setTotalInAppPurchases(statsUtil.countInAppPurchases());
 		stats.setTotalPayingPlayers(statsUtil.countPayingPlayers());
