@@ -49,7 +49,7 @@
 
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
 		<constructor-arg index="0" ref="jedisPoolConfig" />
-		<constructor-arg index="1" value="{${lvl6.jedis.host}}" />
+		<constructor-arg index="1" value="${lvl6.jedis.host}" />
 		<constructor-arg index="2" value="6379" />
 		<constructor-arg index="3" value="5000" />
 		<constructor-arg index="4" value="${lvl6.jedis.auth}" />
