@@ -55,7 +55,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     resBuilder.setStatus(RetrieveStaticDataForShopStatus.SUCCESS);
     
     if (type == RetrieveForShopType.EQUIPMENT_FOR_ARMORY) {
-      List<Equipment> equips = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(MiscMethods.getClassTypeFromUserType(senderProto.getUserType()));
+      List<Equipment> equips = EquipmentRetrieveUtils.getAllEquipmentForClassType(MiscMethods.getClassTypeFromUserType(senderProto.getUserType()));
       if (equips != null) {
         for (Equipment equip : equips) { 
           FullEquipProto fep = CreateInfoProtoUtils.createFullEquipProtoFromEquip(equip);
