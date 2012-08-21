@@ -299,6 +299,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       log.error("problem with updating apsalar id to " + 
           apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user + " and newNumConsecutiveDaysLoggedIn is " + newNumConsecutiveDaysLoggedIn);
     }
+    if (!InsertUtils.get().insertLastLoginLastLogoutToUserSessions(user.getId(), loginTime, null)) {
+      log.error("problem with inserting last login time for user " + user + ", loginTime=" + loginTime);
+    }
 
     if (user.getNumBadges() != 0) {
       if (user.getDeviceToken() != null) { 
