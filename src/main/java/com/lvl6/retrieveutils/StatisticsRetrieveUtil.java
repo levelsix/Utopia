@@ -3,6 +3,8 @@ package com.lvl6.retrieveutils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +38,12 @@ public class StatisticsRetrieveUtil {
     }
 	
 	public int countLoginsToday() {
-		long twenty4ago = new DateTime().minusDays(1).toDate().getTime();
-		return jdbcTemplate.queryForInt("select count(*) from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__LAST_LOGIN+" > "+twenty4ago);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		Date twenty4ago = new DateTime().minusDays(1).toDate();
+		String yesterday = format.format(twenty4ago);
+		String queryString = "select count(*) from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__LAST_LOGIN+" > '"+yesterday+"'";
+		log.info("Executing: {}", queryString);
+		return jdbcTemplate.queryForInt(queryString);
 	}
 	
 	
