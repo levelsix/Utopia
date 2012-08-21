@@ -47,7 +47,7 @@ public class RetrieveLeaderboardController extends EventController {
 
 	@Override
 	public EventProtocolRequest getEventType() {
-		return EventProtocolRequest.C_RETRIEVE_CURRENT_MARKETPLACE_POSTS_EVENT;
+		return EventProtocolRequest.C_RETRIEVE_LEADERBOARD_EVENT;
 	}
 
 	@Override
