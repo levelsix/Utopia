@@ -1606,7 +1606,7 @@ message RetrieveLeaderboardResponseProto {
 	optional int32 afterThisRank = 6;
 
 	optional int32 retrieverRank = 3;
-	repeated FullUserProto resultPlayers = 4;
+	repeated MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
 	
 	enum RetrieveLeaderboardStatus {
 		SUCCESS = 0;

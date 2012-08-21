@@ -1,7 +1,9 @@
 package com.lvl6.server.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,17 +74,27 @@ public class RetrieveLeaderboardController extends EventController {
 			boolean legitRetrieval = checkLegitRetrieval(resBuilder, user,
 					leaderboardType);
 
-			List<User> resultList = null;
+			Map<Integer, Integer> userIdsToRanksInRange = null;
 
 			if (legitRetrieval) {
 				int rank = getUserRankForLeaderboardType(user, leaderboardType);
 				resBuilder.setRetrieverRank(rank);
-				// TODO: populate resultList based on leaderboard type
-				resultList = getUsersAroundThisRank(leaderboardType, afterThisRank);
-				if (resultList != null) {
-					for (User u : resultList) {
-						resBuilder.addResultPlayers(CreateInfoProtoUtils
-								.createFullUserProtoFromUser(u));
+				userIdsToRanksInRange = getUsersAfterThisRank(leaderboardType, afterThisRank);
+
+				if (userIdsToRanksInRange != null) {
+			    List<User> resultUsers = new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(new ArrayList<Integer>(userIdsToRanksInRange.keySet())).values());
+					for (User u : resultUsers) {
+					  double score = 0;
+				    if (leaderboardType == LeaderboardType.BEST_KDR) {
+				      score = leader.getBattlesWonOverTotalBattlesRatioForUser(u.getId());
+				    } else if (leaderboardType == LeaderboardType.MOST_BATTLES_WON) {
+              score = leader.getBattlesWonForUser(u.getId());
+				    } else if (leaderboardType == LeaderboardType.MOST_COINS) {
+              score = leader.getTotalCoinValueForUser(u.getId());
+				    } else if (leaderboardType == LeaderboardType.MOST_EXP) {
+              score = leader.getExperienceForUser(u.getId());
+				    }
+						resBuilder.addResultPlayers(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(u, leaderboardType, userIdsToRanksInRange.get(u.getId()) + afterThisRank, score));
 					}
 				}
 			}
@@ -103,7 +115,7 @@ public class RetrieveLeaderboardController extends EventController {
 
 	}
 
-	private List<User> getUsersAroundThisRank(LeaderboardType leaderboardType,	int afterThisRank) {
+	private Map<Integer, Integer> getUsersAfterThisRank(LeaderboardType leaderboardType,	int afterThisRank) {
 		List<Integer> usrs = new ArrayList<Integer>();
 		if (leaderboardType.equals(LeaderboardType.BEST_KDR)) {
 			usrs = leader.getBattlesWonOverTotalBattlesRatioTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
@@ -112,16 +124,19 @@ public class RetrieveLeaderboardController extends EventController {
 			usrs = leader.getBattlesWonTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_EXP)) {
-			usrs = leader.getTasksCompletedTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
+			usrs = leader.getExperienceTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
-		if (leaderboardType.equals(LeaderboardType.MOST_SILVER)) {
-			usrs = leader.getSilverForTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
+		if (leaderboardType.equals(LeaderboardType.MOST_COINS)) {
+			usrs = leader.getTotalCoinValueForTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
-		return new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(usrs).values());
+		Map<Integer, Integer> userIdToRankInRange = new HashMap<Integer, Integer>();
+
+		for (int i = 0; i < usrs.size(); i++) {
+		  userIdToRankInRange.put(usrs.get(i), i+1);
+		}
+		return userIdToRankInRange;
 	}
 	
-	
-
 	private int getUserRankForLeaderboardType(User user,
 			LeaderboardType leaderboardType) {
 		if (leaderboardType == LeaderboardType.BEST_KDR
@@ -137,11 +152,11 @@ public class RetrieveLeaderboardController extends EventController {
 					.intValue();
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_EXP)) {
-			return ((Double) leader.getTasksCompletedRankForUser(user.getId()))
+			return ((Double) leader.getExperienceRankForUser(user.getId()))
 					.intValue();
 		}
-		if (leaderboardType.equals(LeaderboardType.MOST_SILVER)) {
-			return ((Double) leader.getSilverForRankUser(user.getId()))
+		if (leaderboardType.equals(LeaderboardType.MOST_COINS)) {
+			return ((Double) leader.getTotalCoinValueRankForUser(user.getId()))
 					.intValue();
 		}
 		return 0;

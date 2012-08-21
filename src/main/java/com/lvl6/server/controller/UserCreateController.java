@@ -39,6 +39,7 @@ import com.lvl6.retrieveutils.AvailableReferralCodeRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -220,13 +221,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         if (referrer != null && user != null) {
           rewardReferrer(referrer, user);        
         }
-        leaderboard.updateLeaderboardCoinsForUser(user.getId());
+        LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
+        leaderboard.updateLeaderboardForUser(user);
       } catch (Exception e) {
         log.error("exception in UserCreateController processEvent", e);
       } finally {
         server.unlockPlayer(userId); 
       }
-    }    
+    }
+    
   }
 
   private void writeFirstWallPost(int newPlayerId) {

@@ -18,7 +18,6 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserStruct;
-import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseNormStructureRequestProto;
 import com.lvl6.proto.EventProto.PurchaseNormStructureResponseProto;
@@ -34,16 +33,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   @Component @DependsOn("gameServer") public class PurchaseNormStructureController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  @Autowired
-  protected LeaderBoardUtil leaderboard;
-
-  public LeaderBoardUtil getLeaderboard() {
-	return leaderboard;
-	}
-	
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
 
   @Autowired
   protected InsertUtil insertUtils;
@@ -104,11 +93,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       if (legitPurchaseNorm) {
         writeChangesToDB(user, struct);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
-      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in PurchaseNormStructure processEvent", e);
     } finally {

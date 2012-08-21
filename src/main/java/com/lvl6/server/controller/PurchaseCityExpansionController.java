@@ -85,11 +85,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitExpansion) {
         writeChangesToDB(user, timeOfPurchase, direction, userCityExpansionData);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
-      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in PurchaseCityExpansion processEvent", e);
     } finally {

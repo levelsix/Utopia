@@ -22,7 +22,6 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
-import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.TaskActionRequestProto;
 import com.lvl6.proto.EventProto.TaskActionResponseProto;
@@ -50,20 +49,6 @@ public class TaskActionController extends EventController {
 
 	private static Logger log = Logger.getLogger(new Object() {
 	}.getClass().getEnclosingClass());
-
-	
-	
-	
-	@Autowired
-	protected LeaderBoardUtil leaderboard;
-
-	public LeaderBoardUtil getLeaderboard() {
-		return leaderboard;
-	}
-
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
 
 	@Autowired
 	protected InsertUtil insertUtils;
@@ -171,8 +156,6 @@ public class TaskActionController extends EventController {
 					}
 					if (numTimesActedInRank == task.getNumForCompletion()) {
 						taskCompleted = true;
-						leaderboard
-								.incrementTasksCompletedForUser(user.getId());
 						tasksInCity = TaskRetrieveUtils
 								.getAllTasksForCityId(task.getCityId());
 						cityRankedUp = checkCityRankup(
@@ -226,11 +209,10 @@ public class TaskActionController extends EventController {
 
 			if (legitAction) {
 				UpdateClientUserResponseEvent resEventUpdate = MiscMethods
-						.createUpdateClientUserResponseEvent(user);
+						.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
 				resEventUpdate.setTag(event.getTag());
 				server.writeEvent(resEventUpdate);
 				checkQuestsPostTaskAction(user, task, senderProto, lootEquipId);
-				leaderboard.updateLeaderboardForUser(user.getId());
 			}
 		} catch (Exception e) {
 			log.error("exception in TaskActionController processEvent", e);

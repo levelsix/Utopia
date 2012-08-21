@@ -21,7 +21,6 @@ import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.jobs.DefeatTypeJob;
-import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.BattleRequestProto;
 import com.lvl6.proto.EventProto.BattleResponseProto;
@@ -48,17 +47,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 @Component @DependsOn("gameServer") public class BattleController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-
-  @Autowired
-  protected LeaderBoardUtil leaderboard;
-
-  public LeaderBoardUtil getLeaderboard() {
-	return leaderboard;
-	}
-	
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
 
 @Autowired
   protected InsertUtil insertUtils;
@@ -158,10 +146,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
         
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
-            .createUpdateClientUserResponseEvent(attacker);
+            .createUpdateClientUserResponseEventAndUpdateLeaderboard(attacker);
         resEventAttacker.setTag(event.getTag());
         UpdateClientUserResponseEvent resEventDefender = MiscMethods
-            .createUpdateClientUserResponseEvent(defender);
+            .createUpdateClientUserResponseEventAndUpdateLeaderboard(defender);
 
         server.writeEvent(resEventAttacker);
         server.writeEvent(resEventDefender);
@@ -191,8 +179,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
                 + " at " + battleTime);
           }
         }
-        leaderboard.updateLeaderboardForUser(attacker.getId());
-        leaderboard.updateLeaderboardForUser(defender.getId());
       }
     } catch (Exception e) {
       log.error("exception in BattleController processEvent", e);

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,6 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
-import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.QuestRedeemRequestProto;
 import com.lvl6.proto.EventProto.QuestRedeemResponseProto;
@@ -39,18 +37,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  
-  @Autowired
-  protected LeaderBoardUtil leaderboard;
-
-  public LeaderBoardUtil getLeaderboard() {
-	return leaderboard;
-	}
-	
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
-  
   public QuestRedeemController() {
     numAllocatedThreads = 4;
   }
@@ -133,13 +119,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legitRedeem) {
         User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
         writeChangesToDB(userQuest, quest, user, senderProto);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         if (gainedEquip) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
-        leaderboard.updateLeaderboardCoinsForUser(user.getId());
       }
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);

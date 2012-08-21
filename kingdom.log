@@ -1,4 +1,0 @@
-2012-08-20 18:30:53,280 | INFO  |  |  | main | FileSystemXmlApplicationContext - Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@a68cb6b: startup date [Mon Aug 20 18:30:53 PDT 2012]; root of context hierarchy
-2012-08-20 18:30:53,355 | INFO  |  |  | main | XmlBeanDefinitionReader - Loading XML bean definitions from file [/Users/conradchan/Desktop/Kingdom/Server/target/utopia-server-1.0-SNAPSHOT/WEB-INF/spring-application-context.xml]
-2012-08-20 18:30:54,238 | INFO  |  |  | Cassandra-Log4J-Alive | CassandraHostRetryService - Downed Host Retry service started with queue size -1 and retry delay 10s
-2012-08-20 18:30:56,530 | INFO  |  |  | Cassandra-Log4J-Alive | JmxMonitor - Registering JMX me.prettyprint.cassandra.service_Test Cluster:ServiceType=hector,MonitorType=hector

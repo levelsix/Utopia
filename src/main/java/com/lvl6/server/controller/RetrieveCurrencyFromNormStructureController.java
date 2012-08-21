@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,6 @@ import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.UserStruct;
-import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureRequestProto;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto;
 import com.lvl6.proto.EventProto.RetrieveCurrencyFromNormStructureResponseProto.Builder;
@@ -38,17 +36,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  @Autowired
-  protected LeaderBoardUtil leaderboard;
-
-  public LeaderBoardUtil getLeaderboard() {
-	return leaderboard;
-	}
-	
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
-  
   public RetrieveCurrencyFromNormStructureController() {
     numAllocatedThreads = 14;
   }
@@ -105,13 +92,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
       
       if (legitRetrieval) {
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         
         updateAndCheckUserQuests(server, coinGain, senderProto);        
       }
-      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in RetrieveCurrencyFromNormStructureController processEvent", e);
     } finally {

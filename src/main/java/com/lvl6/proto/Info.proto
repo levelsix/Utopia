@@ -5,7 +5,7 @@ option java_outer_classname = "InfoProto";
 
 enum LeaderboardType {
 	MOST_BATTLES_WON = 2;
-	MOST_SILVER = 3;
+	MOST_COINS = 3;
 	MOST_EXP = 4;
 	BEST_KDR = 5;		//start counting only after x battles. so instead of displaying your rank, show that.
  }
@@ -69,6 +69,14 @@ message MinimumUserProto {
 message MinimumUserProtoWithLevel {
 	optional MinimumUserProto minUserProto = 1;
 	optional int32 level = 2;
+}
+
+message MinimumUserProtoWithLevelForLeaderboard {
+	optional MinimumUserProto minUserProto = 1;
+	optional int32 level = 2;
+	optional LeaderboardType leaderboardType = 3;
+	optional int32 leaderboardRank = 4;
+	optional double leaderboardScore = 5;
 }
 
 message FullUserProto {

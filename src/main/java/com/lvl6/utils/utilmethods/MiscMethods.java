@@ -23,6 +23,7 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.ValidLocationBox;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.properties.IAPValues;
@@ -52,6 +53,7 @@ import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.server.GameServer;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.CreateInfoProtoUtils;
 
@@ -59,6 +61,7 @@ public class MiscMethods {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  
   public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
     return (int)
         (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
@@ -203,7 +206,10 @@ public class MiscMethods {
     return Math.max(1, (int)(userStructLevel * structIncomeBase * ControllerConstants.INCOME_FROM_NORM_STRUCT_MULTIPLIER));
   }
 
-  public static UpdateClientUserResponseEvent createUpdateClientUserResponseEvent(User user) {
+  public static UpdateClientUserResponseEvent createUpdateClientUserResponseEventAndUpdateLeaderboard(User user) {
+    LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
+    leaderboard.updateLeaderboardForUser(user);
+    
     UpdateClientUserResponseEvent resEvent = new UpdateClientUserResponseEvent(user.getId());
     UpdateClientUserResponseProto resProto = UpdateClientUserResponseProto.newBuilder()
         .setSender(CreateInfoProtoUtils.createFullUserProtoFromUser(user))

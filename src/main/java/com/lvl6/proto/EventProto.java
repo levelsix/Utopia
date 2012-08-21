@@ -97656,14 +97656,14 @@ public final class EventProto {
     boolean hasRetrieverRank();
     int getRetrieverRank();
     
-    // repeated .com.lvl6.proto.FullUserProto resultPlayers = 4;
-    java.util.List<com.lvl6.proto.InfoProto.FullUserProto> 
+    // repeated .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
+    java.util.List<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard> 
         getResultPlayersList();
-    com.lvl6.proto.InfoProto.FullUserProto getResultPlayers(int index);
+    com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard getResultPlayers(int index);
     int getResultPlayersCount();
-    java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+    java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder> 
         getResultPlayersOrBuilderList();
-    com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getResultPlayersOrBuilder(
+    com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder getResultPlayersOrBuilder(
         int index);
   }
   public static final class RetrieveLeaderboardResponseProto extends
@@ -97817,23 +97817,23 @@ public final class EventProto {
       return retrieverRank_;
     }
     
-    // repeated .com.lvl6.proto.FullUserProto resultPlayers = 4;
+    // repeated .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
     public static final int RESULTPLAYERS_FIELD_NUMBER = 4;
-    private java.util.List<com.lvl6.proto.InfoProto.FullUserProto> resultPlayers_;
-    public java.util.List<com.lvl6.proto.InfoProto.FullUserProto> getResultPlayersList() {
+    private java.util.List<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard> resultPlayers_;
+    public java.util.List<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard> getResultPlayersList() {
       return resultPlayers_;
     }
-    public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+    public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder> 
         getResultPlayersOrBuilderList() {
       return resultPlayers_;
     }
     public int getResultPlayersCount() {
       return resultPlayers_.size();
     }
-    public com.lvl6.proto.InfoProto.FullUserProto getResultPlayers(int index) {
+    public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard getResultPlayers(int index) {
       return resultPlayers_.get(index);
     }
-    public com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getResultPlayersOrBuilder(
+    public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder getResultPlayersOrBuilder(
         int index) {
       return resultPlayers_.get(index);
     }
@@ -98240,7 +98240,7 @@ public final class EventProto {
               break;
             }
             case 34: {
-              com.lvl6.proto.InfoProto.FullUserProto.Builder subBuilder = com.lvl6.proto.InfoProto.FullUserProto.newBuilder();
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addResultPlayers(subBuilder.buildPartial());
               break;
@@ -98447,20 +98447,20 @@ public final class EventProto {
         return this;
       }
       
-      // repeated .com.lvl6.proto.FullUserProto resultPlayers = 4;
-      private java.util.List<com.lvl6.proto.InfoProto.FullUserProto> resultPlayers_ =
+      // repeated .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
+      private java.util.List<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard> resultPlayers_ =
         java.util.Collections.emptyList();
       private void ensureResultPlayersIsMutable() {
         if (!((bitField0_ & 0x00000020) == 0x00000020)) {
-          resultPlayers_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.FullUserProto>(resultPlayers_);
+          resultPlayers_ = new java.util.ArrayList<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard>(resultPlayers_);
           bitField0_ |= 0x00000020;
          }
       }
       
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> resultPlayersBuilder_;
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder> resultPlayersBuilder_;
       
-      public java.util.List<com.lvl6.proto.InfoProto.FullUserProto> getResultPlayersList() {
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard> getResultPlayersList() {
         if (resultPlayersBuilder_ == null) {
           return java.util.Collections.unmodifiableList(resultPlayers_);
         } else {
@@ -98474,7 +98474,7 @@ public final class EventProto {
           return resultPlayersBuilder_.getCount();
         }
       }
-      public com.lvl6.proto.InfoProto.FullUserProto getResultPlayers(int index) {
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard getResultPlayers(int index) {
         if (resultPlayersBuilder_ == null) {
           return resultPlayers_.get(index);
         } else {
@@ -98482,7 +98482,7 @@ public final class EventProto {
         }
       }
       public Builder setResultPlayers(
-          int index, com.lvl6.proto.InfoProto.FullUserProto value) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard value) {
         if (resultPlayersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -98496,7 +98496,7 @@ public final class EventProto {
         return this;
       }
       public Builder setResultPlayers(
-          int index, com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder builderForValue) {
         if (resultPlayersBuilder_ == null) {
           ensureResultPlayersIsMutable();
           resultPlayers_.set(index, builderForValue.build());
@@ -98506,7 +98506,7 @@ public final class EventProto {
         }
         return this;
       }
-      public Builder addResultPlayers(com.lvl6.proto.InfoProto.FullUserProto value) {
+      public Builder addResultPlayers(com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard value) {
         if (resultPlayersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -98520,7 +98520,7 @@ public final class EventProto {
         return this;
       }
       public Builder addResultPlayers(
-          int index, com.lvl6.proto.InfoProto.FullUserProto value) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard value) {
         if (resultPlayersBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -98534,7 +98534,7 @@ public final class EventProto {
         return this;
       }
       public Builder addResultPlayers(
-          com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder builderForValue) {
         if (resultPlayersBuilder_ == null) {
           ensureResultPlayersIsMutable();
           resultPlayers_.add(builderForValue.build());
@@ -98545,7 +98545,7 @@ public final class EventProto {
         return this;
       }
       public Builder addResultPlayers(
-          int index, com.lvl6.proto.InfoProto.FullUserProto.Builder builderForValue) {
+          int index, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder builderForValue) {
         if (resultPlayersBuilder_ == null) {
           ensureResultPlayersIsMutable();
           resultPlayers_.add(index, builderForValue.build());
@@ -98556,7 +98556,7 @@ public final class EventProto {
         return this;
       }
       public Builder addAllResultPlayers(
-          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.FullUserProto> values) {
+          java.lang.Iterable<? extends com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard> values) {
         if (resultPlayersBuilder_ == null) {
           ensureResultPlayersIsMutable();
           super.addAll(values, resultPlayers_);
@@ -98586,18 +98586,18 @@ public final class EventProto {
         }
         return this;
       }
-      public com.lvl6.proto.InfoProto.FullUserProto.Builder getResultPlayersBuilder(
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder getResultPlayersBuilder(
           int index) {
         return getResultPlayersFieldBuilder().getBuilder(index);
       }
-      public com.lvl6.proto.InfoProto.FullUserProtoOrBuilder getResultPlayersOrBuilder(
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder getResultPlayersOrBuilder(
           int index) {
         if (resultPlayersBuilder_ == null) {
           return resultPlayers_.get(index);  } else {
           return resultPlayersBuilder_.getMessageOrBuilder(index);
         }
       }
-      public java.util.List<? extends com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+      public java.util.List<? extends com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder> 
            getResultPlayersOrBuilderList() {
         if (resultPlayersBuilder_ != null) {
           return resultPlayersBuilder_.getMessageOrBuilderList();
@@ -98605,25 +98605,25 @@ public final class EventProto {
           return java.util.Collections.unmodifiableList(resultPlayers_);
         }
       }
-      public com.lvl6.proto.InfoProto.FullUserProto.Builder addResultPlayersBuilder() {
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder addResultPlayersBuilder() {
         return getResultPlayersFieldBuilder().addBuilder(
-            com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance());
+            com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.getDefaultInstance());
       }
-      public com.lvl6.proto.InfoProto.FullUserProto.Builder addResultPlayersBuilder(
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder addResultPlayersBuilder(
           int index) {
         return getResultPlayersFieldBuilder().addBuilder(
-            index, com.lvl6.proto.InfoProto.FullUserProto.getDefaultInstance());
+            index, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.getDefaultInstance());
       }
-      public java.util.List<com.lvl6.proto.InfoProto.FullUserProto.Builder> 
+      public java.util.List<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder> 
            getResultPlayersBuilderList() {
         return getResultPlayersFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder> 
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder> 
           getResultPlayersFieldBuilder() {
         if (resultPlayersBuilder_ == null) {
           resultPlayersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.lvl6.proto.InfoProto.FullUserProto, com.lvl6.proto.InfoProto.FullUserProto.Builder, com.lvl6.proto.InfoProto.FullUserProtoOrBuilder>(
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder>(
                   resultPlayers_,
                   ((bitField0_ & 0x00000020) == 0x00000020),
                   getParentForChildren(),
@@ -100159,17 +100159,18 @@ public final class EventProto {
       "rboardRequestProto\0220\n\006sender\030\001 \001(\0132 .com" +
       ".lvl6.proto.MinimumUserProto\0228\n\017leaderbo" +
       "ardType\030\002 \001(\0162\037.com.lvl6.proto.Leaderboa" +
-      "rdType\022\025\n\rafterThisRank\030\003 \001(\005\"\210\003\n Retrie" +
+      "rdType\022\025\n\rafterThisRank\030\003 \001(\005\"\242\003\n Retrie" +
       "veLeaderboardResponseProto\0220\n\006sender\030\001 \001" +
       "(\0132 .com.lvl6.proto.MinimumUserProto\022Z\n\006" +
       "status\030\002 \001(\0162J.com.lvl6.proto.RetrieveLe",
       "aderboardResponseProto.RetrieveLeaderboa" +
       "rdStatus\0228\n\017leaderboardType\030\005 \001(\0162\037.com." +
       "lvl6.proto.LeaderboardType\022\025\n\rafterThisR" +
-      "ank\030\006 \001(\005\022\025\n\rretrieverRank\030\003 \001(\005\0224\n\rresu" +
-      "ltPlayers\030\004 \003(\0132\035.com.lvl6.proto.FullUse" +
-      "rProto\"8\n\031RetrieveLeaderboardStatus\022\013\n\007S" +
-      "UCCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
+      "ank\030\006 \001(\005\022\025\n\rretrieverRank\030\003 \001(\005\022N\n\rresu" +
+      "ltPlayers\030\004 \003(\01327.com.lvl6.proto.Minimum" +
+      "UserProtoWithLevelForLeaderboard\"8\n\031Retr" +
+      "ieveLeaderboardStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOT" +
+      "HER_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
