@@ -36,7 +36,7 @@ public class StatisticsRetrieveUtil {
     }
 	
 	public int countLoginsToday() {
-		Timestamp twenty4ago = new Timestamp(new DateTime().minusDays(1).toDate().getTime());
+		long twenty4ago = new DateTime().minusDays(1).toDate().getTime();
 		return jdbcTemplate.queryForInt("select count(*) from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__LAST_LOGIN+" > "+twenty4ago);
 	}
 	
