@@ -15,10 +15,8 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.BattleRequestEvent;
 import com.lvl6.events.response.BattleResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
-import com.lvl6.info.City;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Quest;
-import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -35,11 +33,9 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
-import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtil;
@@ -52,8 +48,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-
-  @Autowired
+@Autowired
   protected InsertUtil insertUtils;
 
   public void setInsertUtils(InsertUtil insertUtils) {
@@ -129,7 +124,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           winner = defender;
           loser = attacker;
         }
-
+        
         Random random = new Random();
         lostCoins = calculateLostCoins(loser, random, (result == BattleResult.ATTACKER_FLEE));
         resBuilder.setCoinsGained(lostCoins);
@@ -149,12 +144,12 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legitBattle) {
         writeChangesToDB(stolenEquipIsLastOne, winner, loser, attacker,
             defender, expGained, lostCoins, battleTime, result==BattleResult.ATTACKER_FLEE);
-
+        
         UpdateClientUserResponseEvent resEventAttacker = MiscMethods
-            .createUpdateClientUserResponseEvent(attacker);
+            .createUpdateClientUserResponseEventAndUpdateLeaderboard(attacker);
         resEventAttacker.setTag(event.getTag());
         UpdateClientUserResponseEvent resEventDefender = MiscMethods
-            .createUpdateClientUserResponseEvent(defender);
+            .createUpdateClientUserResponseEventAndUpdateLeaderboard(defender);
 
         server.writeEvent(resEventAttacker);
         server.writeEvent(resEventDefender);
@@ -191,6 +186,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.unlockPlayers(attackerProto.getUserId(), defenderProto.getUserId());
     }
   }
+
+
 
   private UserEquip setLostEquip(BattleResponseProto.Builder resBuilder,
       UserEquip lostEquip, User winner, User loser) {

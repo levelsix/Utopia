@@ -103,10 +103,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         writeChangesToDB(buyer, seller, mp);
         UpdateClientUserResponseEvent resEventUpdate;
         if (buyer != null && seller != null && mp != null) {
-          resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(buyer);
+          resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(buyer);
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
-          resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(seller);
+          resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(seller);
           server.writeEvent(resEventUpdate);
           
           QuestUtils.checkAndSendQuestsCompleteBasic(server, buyer.getId(), senderProto, SpecialQuestAction.PURCHASE_FROM_MARKETPLACE, false);

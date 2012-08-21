@@ -287,7 +287,6 @@ public class DBConstants {
   public static final String KIIP_REWARD_HISTORY__SIGNATURE = "signature";
   public static final String KIIP_REWARD_HISTORY__TIME_OF_REWARD = "time_of_reward";
   
-
   /*IDDICTION*/
   public static final String IDDICTION_IDENTIFIERS__IDENTIFIER = "identifier";
   public static final String IDDICTION_IDENTIFIERS__CLICK_TIME = "click_time";

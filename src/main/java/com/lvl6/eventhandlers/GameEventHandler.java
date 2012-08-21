@@ -79,8 +79,7 @@ public class GameEventHandler extends AbstractGameEventHandler {
 					p.setIp_connection_id(ip_connection_id);
 					p.setServerHostName(server.serverId());
 				//}
-				playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL,
-						TimeUnit.MINUTES);
+				playersByPlayerId.put(event.getPlayerId(), p, DEFAULT_TTL, TimeUnit.MINUTES);
 			} else {
 				addNewConnection(event, ip_connection_id);
 			}

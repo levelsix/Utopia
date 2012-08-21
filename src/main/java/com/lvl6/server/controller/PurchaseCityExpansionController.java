@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import com.lvl6.events.response.PurchaseCityExpansionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.info.UserCityExpansionData;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.proto.EventProto.PurchaseCityExpansionRequestProto;
 import com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto;
 import com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto.Builder;
@@ -32,6 +34,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  @Autowired
+  protected LeaderBoardUtil leaderboard;
+
+  public LeaderBoardUtil getLeaderboard() {
+	return leaderboard;
+	}
+	
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
+  
   public PurchaseCityExpansionController() {
     numAllocatedThreads = 1;
   }
@@ -72,11 +85,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitExpansion) {
         writeChangesToDB(user, timeOfPurchase, direction, userCityExpansionData);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
-
     } catch (Exception e) {
       log.error("exception in PurchaseCityExpansion processEvent", e);
     } finally {

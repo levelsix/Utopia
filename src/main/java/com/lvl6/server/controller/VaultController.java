@@ -1,6 +1,7 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import com.lvl6.events.request.VaultRequestEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.events.response.VaultResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.VaultRequestProto;
 import com.lvl6.proto.EventProto.VaultRequestProto.VaultRequestType;
@@ -88,7 +90,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       server.writeEvent(resEvent);
 
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
       
@@ -102,7 +104,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     } catch (Exception e) {
       log.error("exception in VaultController processEvent", e);
     } finally {
-      // Unlock this player
       server.unlockPlayer(senderProto.getUserId());
     }
   }

@@ -34,7 +34,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-
   @Autowired
   protected InsertUtil insertUtils;
 
@@ -94,11 +93,10 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       if (legitPurchaseNorm) {
         writeChangesToDB(user, struct);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
       }
-
     } catch (Exception e) {
       log.error("exception in PurchaseNormStructure processEvent", e);
     } finally {

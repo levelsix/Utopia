@@ -31,7 +31,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   @Component @DependsOn("gameServer") public class FinishNormStructWaittimeWithDiamondsController extends EventController{
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-
+	
   public FinishNormStructWaittimeWithDiamondsController() {
     numAllocatedThreads = 2;
   }
@@ -78,7 +78,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       if (legitSpeedup) {
         writeChangesToDB(user, userStruct, timeOfSpeedup, waitTimeType, struct);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         

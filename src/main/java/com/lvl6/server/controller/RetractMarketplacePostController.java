@@ -90,7 +90,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if (legitRetract) {
         writeChangesToDB(user, mp, diamondCut, coinCut);
         if (mp != null) {
-          UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+          UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
           resEventUpdate.setTag(event.getTag());
           server.writeEvent(resEventUpdate);
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);

@@ -119,14 +119,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (legitRedeem) {
         User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
         writeChangesToDB(userQuest, quest, user, senderProto);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
         if (gainedEquip) {
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, null, false);
         }
       }
-
     } catch (Exception e) {
       log.error("exception in QuestRedeem processEvent", e);
     } finally {

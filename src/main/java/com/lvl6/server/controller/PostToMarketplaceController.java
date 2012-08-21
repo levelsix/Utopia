@@ -37,7 +37,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-
   @Autowired
   protected InsertUtil insertUtils;
 
@@ -97,13 +96,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           postType = MarketplacePostType.NORM_EQUIP_POST;
         }
         writeChangesToDB(user, reqProto, ue, postType, timeOfPost, equip);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
 
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.POST_TO_MARKETPLACE, true);
       }
-
     } catch (Exception e) {
       log.error("exception in PostToMarketplaceController processEvent", e);
     } finally {

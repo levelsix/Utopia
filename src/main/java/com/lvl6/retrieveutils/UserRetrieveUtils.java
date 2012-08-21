@@ -204,8 +204,22 @@ import com.lvl6.utils.utilmethods.StringUtils;
     return users;
   }
 
-  //when you first log in, call this
-  //if this returns null, tell user it's the player's first time/launch tutorial
+  public List<User> getUsersByReferralCodeOrName(String queryString) {
+    log.debug("retrieving user with queryString " + queryString);
+
+    Map <String, Object> paramsToVals = new HashMap<String, Object>();
+    paramsToVals.put(DBConstants.USER__REFERRAL_CODE, queryString);
+    paramsToVals.put(DBConstants.USER__NAME, queryString);
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, paramsToVals, TABLE_NAME);
+    
+    List<User> users = convertRSToUsers(rs);
+    if (users == null) users = new ArrayList<User>();
+    DBConnection.get().close(rs, null, conn);
+    return users;
+  }
+  
   public User getUserByUDID(String UDID) {
     log.debug("retrieving user with udid " + UDID);
     Map <String, Object> paramsToVals = new HashMap<String, Object>();
