@@ -50,6 +50,20 @@ public class InsertUtils implements InsertUtil{
   //		this.cache = cache;
   //	}
 
+  public boolean insertLastLoginLastLogoutToUserSessions(int userId, Timestamp loginTime, Timestamp logoutTime) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_SESSIONS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_SESSIONS__LOGIN_TIME, loginTime);
+    insertParams.put(DBConstants.USER_SESSIONS__LOGOUT_TIME, logoutTime);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(
+        DBConstants.TABLE_USER_SESSIONS, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   public boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__ID, ba.getId());
