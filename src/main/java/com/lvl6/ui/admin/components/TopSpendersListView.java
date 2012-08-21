@@ -22,7 +22,7 @@ public class TopSpendersListView extends ListView<Spender> {
 	protected void populateItem(ListItem<Spender> item) {
 		Spender spend = item.getModelObject();
 		item.add(new Label("spender", spend.getUserId().toString()));
-		item.add(new Label("amountSpent", spend.getAmountSpent().toString()));
+		item.add(new Label("amountSpent", "$"+spend.getAmountSpent().longValue()));
 		
 	}
 

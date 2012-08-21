@@ -305,7 +305,10 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -6)),
   };
   
-  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {};
+  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
+//    "FREE limited edition gold equip for joining today!"
+//    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
+    };
   
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 

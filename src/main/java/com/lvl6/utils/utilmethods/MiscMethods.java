@@ -448,7 +448,7 @@ public class MiscMethods {
     double totalPercentage = 0;
     int retEquipId = ControllerConstants.TUTORIAL__FIRST_DEFEAT_TYPE_JOB_BATTLE_AMULET_LOOT_EQUIP_ID;
 
-    List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllArmoryEquipmentForClassType(getClassTypeFromUserType(user.getType()));
+    List<Equipment> allEquipment = EquipmentRetrieveUtils.getAllEquipmentForClassType(getClassTypeFromUserType(user.getType()));
     List<Equipment> commonEquips = new ArrayList<Equipment>();
     List<Equipment> uncommonEquips = new ArrayList<Equipment>();
     List<Equipment> rareEquips = new ArrayList<Equipment>();

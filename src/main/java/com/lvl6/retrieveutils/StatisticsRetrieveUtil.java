@@ -2,11 +2,14 @@ package com.lvl6.retrieveutils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
@@ -31,6 +34,11 @@ public class StatisticsRetrieveUtil {
 		log.info("Setting datasource and creating jdbcTemplate");
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+	
+	public int countLoginsToday() {
+		long twenty4ago = new DateTime().minusDays(1).toDate().getTime();
+		return jdbcTemplate.queryForInt("select count(*) from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__LAST_LOGIN+" > "+twenty4ago);
+	}
 	
 	
 	public Integer countPayingPlayers() {

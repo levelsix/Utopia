@@ -21,8 +21,10 @@ public class StatsPanel extends Panel {
 	protected PropertyModel<Integer> cplayers = new PropertyModel<Integer>(stats, "connectedPlayersCount");
 	protected PropertyModel<Integer> tplayers = new PropertyModel<Integer>(stats, "totalPlayersCount");
 	protected PropertyModel<Integer> totalPayingPlayersPM = new PropertyModel<Integer>(stats, "totalPayingPlayers");
+	protected PropertyModel<Integer> loggedInTodayPM = new PropertyModel<Integer>(stats, "loggedInToday");
 	protected PropertyModel<Long> totalInAppPurchasesPM = new PropertyModel<Long>(stats, "totalInAppPurchases");
 	protected PropertyModel<Long> sumOfInAppPurchasesPM = new PropertyModel<Long>(stats, "sumOfInAppPurchases");
+	protected PropertyModel<Long> afterAppleTaxPM = new PropertyModel<Long>(stats, "afterAppleTax");
 	protected PropertyModel<Long> countNumberKiipRewardsRedeemedPM = new PropertyModel<Long>(stats, "countNumberKiipRewardsRedeemed");
 	protected PropertyModel<Long> countMarketplaceTransactionsPM = new PropertyModel<Long>(stats, "countMarketplaceTransactions");
 	protected PropertyModel<Long> countMarketplacePostsPM = new PropertyModel<Long>(stats, "countMarketplacePosts");
@@ -35,8 +37,10 @@ public class StatsPanel extends Panel {
 	protected Label cplayersLabel = new Label("connectedPlayers", cplayers);
 	protected Label tplayersLabel = new Label("totalPlayers", tplayers);
 	protected Label totalPayingPlayersLabel = new Label("totalPayingPlayers", totalPayingPlayersPM);
+	protected Label loggedInTodayLabel = new Label("loggedInToday", loggedInTodayPM);
 	protected Label totalInAppPurchasesLabel = new Label("totalInAppPurchases", totalInAppPurchasesPM);
 	protected Label sumOfInAppPurchasesLabel = new Label("sumOfInAppPurchases", sumOfInAppPurchasesPM);
+	protected Label afterAppleTaxLabel = new Label("afterAppleTax", afterAppleTaxPM);
 	protected Label countNumberKiipRewardsRedeemedLabel = new Label("countNumberKiipRewardsRedeemed", countNumberKiipRewardsRedeemedPM);
 	protected Label countMarketplaceTransactionsLabel = new Label("countMarketplaceTransactions", countMarketplaceTransactionsPM);
 	protected Label countMarketplacePostsLabel = new Label("countMarketplacePosts", countMarketplacePostsPM);
@@ -59,6 +63,8 @@ public class StatsPanel extends Panel {
 			target.add(tplayersLabel);
 			target.add(totalPayingPlayersLabel);
 			target.add(totalInAppPurchasesLabel);
+			target.add(loggedInTodayLabel);
+			target.add(afterAppleTaxLabel);
 			target.add(sumOfInAppPurchasesLabel);
 			target.add(countNumberKiipRewardsRedeemedLabel);
 			target.add(countMarketplaceTransactionsLabel);
@@ -71,6 +77,8 @@ public class StatsPanel extends Panel {
 	};
 	
 	protected void addStats() {
+		loggedInTodayLabel.setOutputMarkupId(true);
+		afterAppleTaxLabel.setOutputMarkupId(true);
 		cplayersLabel.setOutputMarkupId(true);
 		tplayersLabel.setOutputMarkupId(true);
 		totalPayingPlayersLabel.setOutputMarkupId(true);
@@ -88,6 +96,8 @@ public class StatsPanel extends Panel {
 		add(totalPayingPlayersLabel);
 		add(totalInAppPurchasesLabel);
 		add(sumOfInAppPurchasesLabel);
+		add(loggedInTodayLabel);
+		add(afterAppleTaxLabel);
 		add(countNumberKiipRewardsRedeemedLabel);
 		add(countMarketplaceTransactionsLabel);
 		add(countMarketplacePostsLabel);
