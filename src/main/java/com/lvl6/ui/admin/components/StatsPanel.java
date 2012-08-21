@@ -63,6 +63,8 @@ public class StatsPanel extends Panel {
 			target.add(tplayersLabel);
 			target.add(totalPayingPlayersLabel);
 			target.add(totalInAppPurchasesLabel);
+			target.add(loggedInTodayLabel);
+			target.add(afterAppleTaxLabel);
 			target.add(sumOfInAppPurchasesLabel);
 			target.add(countNumberKiipRewardsRedeemedLabel);
 			target.add(countMarketplaceTransactionsLabel);
@@ -75,6 +77,8 @@ public class StatsPanel extends Panel {
 	};
 	
 	protected void addStats() {
+		loggedInTodayLabel.setOutputMarkupId(true);
+		afterAppleTaxLabel.setOutputMarkupId(true);
 		cplayersLabel.setOutputMarkupId(true);
 		tplayersLabel.setOutputMarkupId(true);
 		totalPayingPlayersLabel.setOutputMarkupId(true);
@@ -92,6 +96,8 @@ public class StatsPanel extends Panel {
 		add(totalPayingPlayersLabel);
 		add(totalInAppPurchasesLabel);
 		add(sumOfInAppPurchasesLabel);
+		add(loggedInTodayLabel);
+		add(afterAppleTaxLabel);
 		add(countNumberKiipRewardsRedeemedLabel);
 		add(countMarketplaceTransactionsLabel);
 		add(countMarketplacePostsLabel);
