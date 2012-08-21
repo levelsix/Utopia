@@ -83,7 +83,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       
       Equipment equipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipId);
 
-      if (quantity != 1 || equipment == null) {
+      if (quantity != 1 || equipment == null || !equipment.isBuyableInArmory()) {
         if (quantity > 1) {
           log.fatal("controller does not support selling quantity > 1");
           quantity = 1;

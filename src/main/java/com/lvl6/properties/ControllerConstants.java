@@ -96,6 +96,10 @@ public class ControllerConstants {
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS = 4;
   
   public static final int SIZE_OF_ATTACK_LIST = 20;
+
+  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 5;
+  public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 8;
+  
   
   //--------------------------------------------------------------------------------------------------------------------------
 
@@ -246,7 +250,7 @@ public class ControllerConstants {
   
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
-  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 30; //add level up equipment for fake players if increasing
+  public static final int LEVEL_UP__MAX_LEVEL_FOR_USER = 40; //add level up equipment for fake players if increasing
 //  public static final double LEVEL_UP_HEALTH_GAINED = 5.0;
   public static final double LEVEL_UP_ATTACK_GAINED = 2.0;
   public static final double LEVEL_UP_DEFENSE_GAINED = 2.0;
@@ -309,7 +313,10 @@ public class ControllerConstants {
     new AnimatedSpriteOffset("Carpenter", new CoordinatePair(0, -6)),
   };
   
-  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {};
+  public static final String[] STARTUP__NOTICES_TO_PLAYERS = {
+//    "FREE limited edition gold equip for joining today!"
+//    "Forging Contest! 50 GOLD reward! Details at forum.lvl6.com"
+    };
   
   
   public static final int[] STARTUP__LEVELS_THAT_TRIGGER_KIIP_REWARDS = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
