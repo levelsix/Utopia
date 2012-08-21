@@ -18,6 +18,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.InsertUtils;
 
 @Component
 @DependsOn("gameServer")
@@ -64,9 +65,13 @@ public class LogoutController extends EventController {
 			try {
 				User user = RetrieveUtils.userRetrieveUtils().getUserById(playerId);
 				if (user != null) {
-					if (!user.updateLastlogout(new Timestamp(new Date().getTime()))) {
+				  Timestamp lastLogout = new Timestamp(new Date().getTime());
+					if (!user.updateLastlogout(lastLogout)) {
 						log.error("problem with updating user's last logout time for user "	+ playerId);
 					}
+			    if (!InsertUtils.get().insertLastLoginLastLogoutToUserSessions(user.getId(), null, lastLogout)) {
+			      log.error("problem with inserting last logout time for user " + user + ", logout=" + lastLogout);
+			    }
 				}
 				log.info("Player logged out: "+playerId);
 				playersByPlayerId.remove(playerId);

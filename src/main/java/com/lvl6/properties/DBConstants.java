@@ -40,6 +40,7 @@ public class DBConstants {
   public static final String TABLE_KIIP_REWARD_HISTORY = "kiip_reward_history";
   public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   public static final String TABLE_IDDICTION_IDENTIFIERS = "iddiction_identifiers";
+  public static final String TABLE_USER_SESSIONS = "user_sessions";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -238,6 +239,11 @@ public class DBConstants {
   public static final String USER_QUESTS_TASK_PROGRESS__QUEST_ID = "quest_id";
   public static final String USER_QUESTS_TASK_PROGRESS__TASK_ID = "task_id";
   public static final String USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED = "num_times_acted";
+  
+  /*USER SESSIONS*/
+  public static final String USER_SESSIONS__USER_ID = GENERIC__USER_ID;
+  public static final String USER_SESSIONS__LOGIN_TIME = "login_time";
+  public static final String USER_SESSIONS__LOGOUT_TIME = "logout_time";
 
   /*BATTLE HISTORY*/
   public static final String BATTLE_HISTORY__ATTACKER_ID = "attacker_id";
@@ -281,7 +287,6 @@ public class DBConstants {
   public static final String KIIP_REWARD_HISTORY__SIGNATURE = "signature";
   public static final String KIIP_REWARD_HISTORY__TIME_OF_REWARD = "time_of_reward";
   
-
   /*IDDICTION*/
   public static final String IDDICTION_IDENTIFIERS__IDENTIFIER = "identifier";
   public static final String IDDICTION_IDENTIFIERS__CLICK_TIME = "click_time";

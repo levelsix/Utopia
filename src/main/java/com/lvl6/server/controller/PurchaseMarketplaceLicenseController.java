@@ -67,7 +67,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       if (legitPurchase) {
         writeChangesToDB(user, type, timeOfPurchase);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         server.writeEvent(resEventUpdate);
       }
     } catch (Exception e) {

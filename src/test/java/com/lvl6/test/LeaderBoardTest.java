@@ -83,8 +83,7 @@ public class LeaderBoardTest extends TestCase {
 	@Test
 	public void testLeadboardSet() {
 		lb.setBattlesWonForUser(-1320, 9001d);
-		lb.incrementBattlesWonForUser(-1320);
 		Double bwfu = lb.getBattlesWonForUser(-1320);
-		Assert.assertTrue(bwfu.equals(9002d));
+		Assert.assertTrue(bwfu.equals(9001d));
 	}
 }

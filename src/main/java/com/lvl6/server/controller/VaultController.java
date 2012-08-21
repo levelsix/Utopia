@@ -28,17 +28,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  @Autowired
-  protected LeaderBoardUtil leaderboard;
-
-  public LeaderBoardUtil getLeaderboard() {
-	return leaderboard;
-	}
-	
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
-  
   public VaultController() {
     numAllocatedThreads = 3;
   }
@@ -101,7 +90,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       server.writeEvent(resEvent);
 
-      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+      UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
       resEventUpdate.setTag(event.getTag());
       server.writeEvent(resEventUpdate);
       
@@ -112,11 +101,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.DEPOSIT_IN_VAULT, true);
         }
       }
-      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in VaultController processEvent", e);
     } finally {
-      // Unlock this player
       server.unlockPlayer(senderProto.getUserId());
     }
   }

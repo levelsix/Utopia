@@ -19,13 +19,8 @@
 
 
 	<bean id="contextApplicationContextProvider" class="com.lvl6.spring.ApplicationContextProvider" />
-<<<<<<< HEAD
 
 	<import resource="classpath:spring-redis.xml" />
-=======
-	
-	<!-- <import resource="classpath:spring-aop.xml" /> -->
->>>>>>> master
 	<import resource="classpath:spring-cassandra.xml" />
 	<import resource="classpath:spring-hazelcast.xml" />
 	<import resource="classpath:spring-db.xml" />

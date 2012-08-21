@@ -57,12 +57,14 @@ import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
+import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
 import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel;
+import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard;
 import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto;
@@ -126,6 +128,12 @@ public class CreateInfoProtoUtils {
     MinimumUserProto mup = createMinimumUserProtoFromUser(u);
     return MinimumUserProtoWithLevel.newBuilder().setMinUserProto(mup).setLevel(u.getLevel()).build();
   }
+  
+  public static MinimumUserProtoWithLevelForLeaderboard createMinimumUserProtoWithLevelForLeaderboard(User u, LeaderboardType leaderboardType, int rank, double score) {
+    MinimumUserProto mup = createMinimumUserProtoFromUser(u);
+    return MinimumUserProtoWithLevelForLeaderboard.newBuilder().setMinUserProto(mup).setLevel(u.getLevel()).setLeaderboardType(leaderboardType).setLeaderboardRank(rank).setLeaderboardScore(score).build();
+  }
+
 
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())

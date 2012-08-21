@@ -1,7 +1,6 @@
 package com.lvl6.server.controller;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,6 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Structure;
 import com.lvl6.info.User;
 import com.lvl6.info.UserStruct;
-import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.SellNormStructureRequestProto;
 import com.lvl6.proto.EventProto.SellNormStructureResponseProto;
@@ -28,17 +26,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  @Autowired
-  protected LeaderBoardUtil leaderboard;
-
-  public LeaderBoardUtil getLeaderboard() {
-	return leaderboard;
-	}
-	
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
-  
   public SellNormStructureController() {
     numAllocatedThreads = 3;
   }
@@ -107,10 +94,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       server.writeEvent(resEvent);
 
       if (user != null) {
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
-        leaderboard.updateLeaderboardCoinsForUser(user.getId());
       }
 
     } catch (Exception e) {

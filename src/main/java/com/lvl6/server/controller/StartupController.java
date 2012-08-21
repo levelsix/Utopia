@@ -31,6 +31,7 @@ import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
+import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
 import com.lvl6.proto.EventProto.StartupRequestProto;
@@ -61,6 +62,7 @@ import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.server.GameServer;
+import com.lvl6.spring.AppContext;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.RetrieveUtils;
@@ -178,6 +180,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (user != null) {
       //for things that client doesn't need
       syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
+      LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
+      leaderboard.updateLeaderboardForUser(user);
     }    
   }
 
@@ -298,6 +302,9 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (!user.updateAbsoluteApsalaridLastloginBadgesNumConsecutiveDaysLoggedIn(apsalarId, loginTime, 0, newNumConsecutiveDaysLoggedIn)) {
       log.error("problem with updating apsalar id to " + 
           apsalarId + ", last login to " + loginTime + ", and badge count to 0 for " + user + " and newNumConsecutiveDaysLoggedIn is " + newNumConsecutiveDaysLoggedIn);
+    }
+    if (!InsertUtils.get().insertLastLoginLastLogoutToUserSessions(user.getId(), loginTime, null)) {
+      log.error("problem with inserting last login time for user " + user + ", loginTime=" + loginTime);
     }
 
     if (user.getNumBadges() != 0) {

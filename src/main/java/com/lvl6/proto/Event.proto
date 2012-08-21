@@ -262,6 +262,9 @@ message StartupResponseProto {
 				
 		optional int32 sizeOfAttackList = 71;
 		
+		optional int32 maxNumTimesAttackedByOneInProtectionPeriod = 72;
+		optional int32 hoursInAttackedByOneProtectionPeriod = 73;
+		
 		message CharacterModConstants {
 			optional int32 diamondCostToChangeCharacterType = 1;
 			optional int32 diamondCostToChangeName = 2;
@@ -1603,7 +1606,7 @@ message RetrieveLeaderboardResponseProto {
 	optional int32 afterThisRank = 6;
 
 	optional int32 retrieverRank = 3;
-	repeated FullUserProto resultPlayers = 4;
+	repeated MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
 	
 	enum RetrieveLeaderboardStatus {
 		SUCCESS = 0;

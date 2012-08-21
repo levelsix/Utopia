@@ -16,7 +16,6 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
-import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PostToMarketplaceRequestProto;
 import com.lvl6.proto.EventProto.PostToMarketplaceResponseProto;
@@ -37,17 +36,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 @Component @DependsOn("gameServer") public class PostToMarketplaceController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-
-  @Autowired
-  protected LeaderBoardUtil leaderboard;
-
-  public LeaderBoardUtil getLeaderboard() {
-	return leaderboard;
-	}
-	
-	public void setLeaderboard(LeaderBoardUtil leaderboard) {
-		this.leaderboard = leaderboard;
-	}
 
   @Autowired
   protected InsertUtil insertUtils;
@@ -108,13 +96,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           postType = MarketplacePostType.NORM_EQUIP_POST;
         }
         writeChangesToDB(user, reqProto, ue, postType, timeOfPost, equip);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEvent(user);
+        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
 
         QuestUtils.checkAndSendQuestsCompleteBasic(server, user.getId(), senderProto, SpecialQuestAction.POST_TO_MARKETPLACE, true);
       }
-      leaderboard.updateLeaderboardCoinsForUser(user.getId());
     } catch (Exception e) {
       log.error("exception in PostToMarketplaceController processEvent", e);
     } finally {
