@@ -35,7 +35,7 @@ import com.lvl6.utils.DBConnection;
     return equipIdToEquipment;
   }
 
-  public static List<Equipment> getAllArmoryEquipmentForClassType(ClassType classtype) {
+  public static List<Equipment> getAllEquipmentForClassType(ClassType classtype) {
     log.debug("retrieving all armory equipment for class type " + classtype);
     if (equipIdToEquipment == null) {
       setStaticEquipIdsToEquipment();
@@ -43,8 +43,7 @@ import com.lvl6.utils.DBConnection;
     List <Equipment> equips = new ArrayList<Equipment>();
     for (Integer equipId : equipIdToEquipment.keySet()) {
       Equipment equip = equipIdToEquipment.get(equipId);
-      if (equip.isBuyableInArmory() &&
-      (equip.getClassType() == classtype || equip.getClassType() == ClassType.ALL_AMULET)) {
+      if (equip.getClassType() == classtype || equip.getClassType() == ClassType.ALL_AMULET) {
         equips.add(equip);
       }
     }
