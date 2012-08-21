@@ -2,20 +2,59 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.hazelcast.com/schema/spring
         http://www.hazelcast.com/schema/spring/hazelcast-spring-2.1.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
 		">
 
 	
-	
-	<bean id="jedis" class="com.lvl6.leaderboards.Lvl6Jedis">
-		<constructor-arg name="host" value="${lvl6.jedis.host}" />
-		<constructor-arg name="auth" value="${lvl6.jedis.auth}" />
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!-- Action to take when trying to acquire a connection and all connections 
+			are taken -->
+		<property name="whenExhaustedAction">
+			<!-- Fail-fast behaviour, we don't like to keep the kids waiting -->
+			<!-- <util:constant
+				static-field="org.apache.commons.pool.impl.GenericObjectPool.WHEN_EXHAUSTED_FAIL" /> -->
+			<!-- Default behaviour, block the caller until a resource becomes available -->
+			<util:constant static-field="org.apache.commons.pool.impl.GenericObjectPool.WHEN_EXHAUSTED_BLOCK"/> 
+		</property>
+		<!-- Maximum active connections to Redis instance -->
+		<property name="maxActive" value="20" />
+		<!-- Number of connections to Redis that just sit there and do nothing -->
+		<property name="maxIdle" value="5" />
+		<!-- Minimum number of idle connections to Redis - these can be seen as 
+			always open and ready to serve -->
+		<property name="minIdle" value="2" />
+		<!-- Tests whether connection is dead when connection retrieval method 
+			is called -->
+		<property name="testOnBorrow" value="true" />
+		<!-- Tests whether connection is dead when returning a connection to the 
+			pool -->
+		<property name="testOnReturn" value="false" />
+		<!-- Tests whether connections are dead during idle periods -->
+		<property name="testWhileIdle" value="true" />
+		<!-- Maximum number of connections to test in each idle check -->
+		<property name="numTestsPerEvictionRun" value="15" />
+		<!-- Idle connection checking period -->
+		<property name="timeBetweenEvictionRunsMillis" value="3000" />
+		<!-- Maximum time, in milliseconds, to wait for a resource when exausted 
+			action is set to WHEN_EXAUSTED_BLOCK -->
+		<property name="maxWait" value="5000" />
 	</bean>
+
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1" value="{${lvl6.jedis.host}}" />
+		<constructor-arg index="2" value="6379" />
+		<constructor-arg index="3" value="5000" />
+		<constructor-arg index="4" value="${lvl6.jedis.auth}" />
+	</bean>
+	
 	
 	<bean id="leaderBoardUtil" class="com.lvl6.leaderboards.LeaderBoardUtilImpl" />
 

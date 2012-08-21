@@ -2,13 +2,15 @@ package com.lvl6.leaderboards;
 
 import java.util.List;
 
+import redis.clients.jedis.JedisPool;
+
 import com.lvl6.proto.InfoProto.LeaderboardType;
 
 public interface LeaderBoardUtil {
 
-	public abstract Lvl6Jedis getJedis();
+	public abstract JedisPool getJedisPool();
 
-	public abstract void setJedis(Lvl6Jedis jedis);
+	public abstract void setJedisPool(JedisPool jedis);
 	
 
 	public abstract void setBattlesWonForUser(Integer userId, Double battlesWon);

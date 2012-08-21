@@ -15,6 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.util.Pool;
+
 import com.lvl6.proto.InfoProto.LeaderboardType;
 
 public class LeaderBoardUtilImpl implements LeaderBoardUtil {
@@ -36,20 +40,20 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 	
 	@Resource
-	protected Lvl6Jedis jedis;
+	protected JedisPool jedisPool;
 	/* (non-Javadoc)
 	 * @see com.lvl6.leaderboards.LeaderBoardUtil#getJedis()
 	 */
 	@Override
-	public Lvl6Jedis getJedis() {
-		return jedis;
+	public JedisPool getJedisPool() {
+		return jedisPool;
 	}
 	/* (non-Javadoc)
 	 * @see com.lvl6.leaderboards.LeaderBoardUtil#setJedis(com.lvl6.leaderboards.Lvl6Jedis)
 	 */
 	@Override
-	public void setJedis(Lvl6Jedis jedis) {
-		this.jedis = jedis;
+	public void setJedisPool(JedisPool jedis) {
+		this.jedisPool = jedis;
 	}
 	
 	
@@ -59,110 +63,324 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 
 	@Override
 	public void incrementBattlesWonForUser(Integer userId) {
-		jedis.zincrby(LeaderBoardConstants.BATTLES_WON, 1d, userId.toString());
+		Jedis jedis = jedisPool.getResource();
+		try {
+			jedis.zincrby(LeaderBoardConstants.BATTLES_WON, 1d, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void incrementTotalBattlesForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		jedis.zincrby(LeaderBoardConstants.BATTLES_TOTAL, 1d, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void incrementBattlesWonOverTotalBattlesRatioForUser(Integer userId) {
-		jedis.zincrby(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, 1d, userId.toString());		
+		Jedis jedis = jedisPool.getResource();
+		try {
+		jedis.zincrby(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, 1d, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void setBattlesWonForUser(Integer userId, Double battlesWon) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		jedis.zadd(LeaderBoardConstants.BATTLES_WON, battlesWon, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void setTotalBattlesForUser(Integer userId, Double totalBattles) {
-		jedis.zadd(LeaderBoardConstants.BATTLES_TOTAL, totalBattles, userId.toString());		
+		Jedis jedis = jedisPool.getResource();
+		try {
+		jedis.zadd(LeaderBoardConstants.BATTLES_TOTAL, totalBattles, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void setBattlesWonOverTotalBattlesRatioForUser(Integer userId, Double battlesWonOfTotalBattles) {
-		jedis.zadd(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, battlesWonOfTotalBattles, userId.toString());		
+		Jedis jedis = jedisPool.getResource();
+		try {
+		jedis.zadd(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, battlesWonOfTotalBattles, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public double getBattlesWonForUser(Integer userId) {
-		return jedis.zscore(LeaderBoardConstants.BATTLES_WON, userId.toString());
+		Jedis jedis = jedisPool.getResource();
+		try {
+			return jedis.zscore(LeaderBoardConstants.BATTLES_WON, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getTotalBattlesForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zscore(LeaderBoardConstants.BATTLES_TOTAL, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getBattlesWonOverTotalBattlesRatioForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zscore(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public void setSilverForUser(Integer userId, Double silver) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		jedis.zadd(LeaderBoardConstants.SILVER, silver, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void setTasksCompletedForUser(Integer userId, Double tasksCompleted) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		jedis.zadd(LeaderBoardConstants.TASKS_COMPLETED, tasksCompleted, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void incrementSilverForUser(Integer userId, Double amount) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		jedis.zincrby(LeaderBoardConstants.SILVER, amount, userId.toString());
-		
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public void incrementTasksCompletedForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		jedis.zincrby(LeaderBoardConstants.TASKS_COMPLETED, 1d, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
 	}
 	@Override
 	public double getSilverForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zscore(LeaderBoardConstants.SILVER, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getTasksCompletedForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zscore(LeaderBoardConstants.TASKS_COMPLETED, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getBattlesWonRankForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zrevrank(LeaderBoardConstants.BATTLES_WON, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getTotalBattlesRankForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zrevrank(LeaderBoardConstants.BATTLES_TOTAL, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getBattlesWonOverTotalBattlesRatioRankForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zrevrank(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getSilverForRankUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zrevrank(LeaderBoardConstants.SILVER, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public double getTasksCompletedRankForUser(Integer userId) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		return jedis.zrevrank(LeaderBoardConstants.TASKS_COMPLETED, userId.toString());
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return 0;
 	}
 	@Override
 	public List<Integer> getBattlesWonTopN(Integer start, Integer stop) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.BATTLES_WON, start, stop);
 		return convertToIdStringsToInts(ids);
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return new ArrayList<Integer>();
 	}
 	
 	@Override
 	public List<Integer> getTotalBattlesTopN(Integer start, Integer stop) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.BATTLES_TOTAL, start, stop);
 		return convertToIdStringsToInts(ids);
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return new ArrayList<Integer>();
 	}
 	@Override
 	public List<Integer> getBattlesWonOverTotalBattlesRatioTopN(Integer start,Integer stop) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO, start, stop);
 		return convertToIdStringsToInts(ids);
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return new ArrayList<Integer>();
 	}
 	@Override
 	public List<Integer> getSilverForTopN(Integer start, Integer stop) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.SILVER, start, stop);
 		return convertToIdStringsToInts(ids);
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return null;
 	}
 	@Override
 	public List<Integer> getTasksCompletedTopN(Integer start, Integer stop) {
+		Jedis jedis = jedisPool.getResource();
+		try {
 		Set<String> ids = jedis.zrevrange(LeaderBoardConstants.TASKS_COMPLETED, start, stop);
 		return convertToIdStringsToInts(ids);
+		}catch(Exception e) {
+			log.error("Error in jedis pool", e);
+		}finally {
+			if(jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+		return new ArrayList<Integer>();
 	}
 
 
