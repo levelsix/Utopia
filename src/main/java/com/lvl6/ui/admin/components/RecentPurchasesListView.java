@@ -23,7 +23,7 @@ public class RecentPurchasesListView extends ListView<InAppPurchase> {
 	protected void populateItem(ListItem<InAppPurchase> item) {
 		InAppPurchase spend = item.getModelObject();
 		item.add(new Label("spender", spend.getUserId().toString()));
-		item.add(new Label("amountSpent", spend.getCashSpent().toString()));
+		item.add(new Label("amountSpent", "$"+spend.getCashSpent().longValue()));
 		item.add(new Label("purchaseDate", spend.getPurchasedDate().toString()));
 	}
 
