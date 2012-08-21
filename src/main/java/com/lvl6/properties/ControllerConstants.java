@@ -96,6 +96,10 @@ public class ControllerConstants {
   public static final int EXPANSION_WAIT_COMPLETE__HOUR_INCREMENT_BETWEEN_LATER_LEVELS = 4;
   
   public static final int SIZE_OF_ATTACK_LIST = 20;
+
+  public static final int BATTLE__MAX_NUM_TIMES_ATTACKED_BY_ONE_IN_PROTECTION_PERIOD = 5;
+  public static final int BATTLE__HOURS_IN_ATTACKED_BY_ONE_PROTECTION_PERIOD = 8;
+  
   
   //--------------------------------------------------------------------------------------------------------------------------
 

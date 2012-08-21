@@ -262,6 +262,9 @@ message StartupResponseProto {
 				
 		optional int32 sizeOfAttackList = 71;
 		
+		optional int32 maxNumTimesAttackedByOneInProtectionPeriod = 72;
+		optional int32 hoursInAttackedByOneProtectionPeriod = 73;
+		
 		message CharacterModConstants {
 			optional int32 diamondCostToChangeCharacterType = 1;
 			optional int32 diamondCostToChangeName = 2;
