@@ -463,15 +463,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (user.getLevel() >= city.getMinLevel()) {
 
         if (!cityIdsToUserCityRanks.containsKey(city.getId())) {
+          if (!UpdateUtils.get().incrementCityRankForUserCity(user.getId(), cityId, 1)) {
+            log.error("problem with unlocking city for user, city Id is " + cityId + ", and user is " + user);
+          }
         }
-
         int numTasksComplete = getNumTasksCompleteForUserCity(user, city, taskIdToNumTimesActedInRank);
         resBuilder.addUserCityInfos(CreateInfoProtoUtils.createFullUserCityProto(user.getId(), city.getId(), 
             cityIdsToUserCityRanks.get(city.getId()), numTasksComplete));
-      } else {
-        if (cityIdsToUserCityRanks.containsKey(city.getId())) {
-          //invalid, delete it
-        }
       }
     }
   }
