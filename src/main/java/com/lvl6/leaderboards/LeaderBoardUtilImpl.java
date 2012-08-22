@@ -1,6 +1,7 @@
 package com.lvl6.leaderboards;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -374,6 +375,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	@Override
 	public void updateLeaderboardForUser(User user) {
 		if (user != null) {
+			long startTime = new Date().getTime();
 			try {
 				setBattlesWonForUser(user.getId(),
 						(double) user.getBattlesWon());
@@ -393,6 +395,8 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 			} catch (Exception e) {
 				log.error("Error updating leaderboard for user: " + user, e);
 			}
+			long endTime = new Date().getTime();
+			log.info("Update Leaderboard for user {} took {}ms", user.getId(), endTime-startTime);
 		}
 	}
 
