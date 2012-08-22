@@ -38,14 +38,14 @@ public interface LeaderBoardUtil {
 
 	public abstract double getExperienceForUser(Integer userId);
 
-	public abstract double getBattlesWonRankForUser(Integer userId);
+	public abstract long getBattlesWonRankForUser(Integer userId);
 
-	public abstract double getBattlesWonOverTotalBattlesRatioRankForUser(
+	public abstract long getBattlesWonOverTotalBattlesRatioRankForUser(
 			Integer userId);
 
-	public abstract double getTotalCoinValueRankForUser(Integer userId);
+	public abstract long getTotalCoinValueRankForUser(Integer userId);
 
-	public abstract double getExperienceRankForUser(Integer userId);
+	public abstract long getExperienceRankForUser(Integer userId);
 
 	public abstract List<Integer> getBattlesWonTopN(Integer start, Integer stop);
 
