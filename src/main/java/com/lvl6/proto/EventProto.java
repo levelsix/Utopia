@@ -97652,9 +97652,10 @@ public final class EventProto {
     boolean hasAfterThisRank();
     int getAfterThisRank();
     
-    // optional int32 retrieverRank = 3;
-    boolean hasRetrieverRank();
-    int getRetrieverRank();
+    // optional .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard retriever = 3;
+    boolean hasRetriever();
+    com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard getRetriever();
+    com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder getRetrieverOrBuilder();
     
     // repeated .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
     java.util.List<com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard> 
@@ -97807,14 +97808,17 @@ public final class EventProto {
       return afterThisRank_;
     }
     
-    // optional int32 retrieverRank = 3;
-    public static final int RETRIEVERRANK_FIELD_NUMBER = 3;
-    private int retrieverRank_;
-    public boolean hasRetrieverRank() {
+    // optional .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard retriever = 3;
+    public static final int RETRIEVER_FIELD_NUMBER = 3;
+    private com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard retriever_;
+    public boolean hasRetriever() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
-    public int getRetrieverRank() {
-      return retrieverRank_;
+    public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard getRetriever() {
+      return retriever_;
+    }
+    public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder getRetrieverOrBuilder() {
+      return retriever_;
     }
     
     // repeated .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
@@ -97843,7 +97847,7 @@ public final class EventProto {
       status_ = com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.RetrieveLeaderboardStatus.SUCCESS;
       leaderboardType_ = com.lvl6.proto.InfoProto.LeaderboardType.MOST_BATTLES_WON;
       afterThisRank_ = 0;
-      retrieverRank_ = 0;
+      retriever_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.getDefaultInstance();
       resultPlayers_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
@@ -97865,7 +97869,7 @@ public final class EventProto {
         output.writeEnum(2, status_.getNumber());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(3, retrieverRank_);
+        output.writeMessage(3, retriever_);
       }
       for (int i = 0; i < resultPlayers_.size(); i++) {
         output.writeMessage(4, resultPlayers_.get(i));
@@ -97895,7 +97899,7 @@ public final class EventProto {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, retrieverRank_);
+          .computeMessageSize(3, retriever_);
       }
       for (int i = 0; i < resultPlayers_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -98026,6 +98030,7 @@ public final class EventProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getSenderFieldBuilder();
+          getRetrieverFieldBuilder();
           getResultPlayersFieldBuilder();
         }
       }
@@ -98047,7 +98052,11 @@ public final class EventProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         afterThisRank_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
-        retrieverRank_ = 0;
+        if (retrieverBuilder_ == null) {
+          retriever_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.getDefaultInstance();
+        } else {
+          retrieverBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000010);
         if (resultPlayersBuilder_ == null) {
           resultPlayers_ = java.util.Collections.emptyList();
@@ -98116,7 +98125,11 @@ public final class EventProto {
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.retrieverRank_ = retrieverRank_;
+        if (retrieverBuilder_ == null) {
+          result.retriever_ = retriever_;
+        } else {
+          result.retriever_ = retrieverBuilder_.build();
+        }
         if (resultPlayersBuilder_ == null) {
           if (((bitField0_ & 0x00000020) == 0x00000020)) {
             resultPlayers_ = java.util.Collections.unmodifiableList(resultPlayers_);
@@ -98154,8 +98167,8 @@ public final class EventProto {
         if (other.hasAfterThisRank()) {
           setAfterThisRank(other.getAfterThisRank());
         }
-        if (other.hasRetrieverRank()) {
-          setRetrieverRank(other.getRetrieverRank());
+        if (other.hasRetriever()) {
+          mergeRetriever(other.getRetriever());
         }
         if (resultPlayersBuilder_ == null) {
           if (!other.resultPlayers_.isEmpty()) {
@@ -98234,9 +98247,13 @@ public final class EventProto {
               }
               break;
             }
-            case 24: {
-              bitField0_ |= 0x00000010;
-              retrieverRank_ = input.readInt32();
+            case 26: {
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder subBuilder = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.newBuilder();
+              if (hasRetriever()) {
+                subBuilder.mergeFrom(getRetriever());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setRetriever(subBuilder.buildPartial());
               break;
             }
             case 34: {
@@ -98426,25 +98443,94 @@ public final class EventProto {
         return this;
       }
       
-      // optional int32 retrieverRank = 3;
-      private int retrieverRank_ ;
-      public boolean hasRetrieverRank() {
+      // optional .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard retriever = 3;
+      private com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard retriever_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder> retrieverBuilder_;
+      public boolean hasRetriever() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public int getRetrieverRank() {
-        return retrieverRank_;
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard getRetriever() {
+        if (retrieverBuilder_ == null) {
+          return retriever_;
+        } else {
+          return retrieverBuilder_.getMessage();
+        }
       }
-      public Builder setRetrieverRank(int value) {
+      public Builder setRetriever(com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard value) {
+        if (retrieverBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          retriever_ = value;
+          onChanged();
+        } else {
+          retrieverBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000010;
-        retrieverRank_ = value;
-        onChanged();
         return this;
       }
-      public Builder clearRetrieverRank() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        retrieverRank_ = 0;
-        onChanged();
+      public Builder setRetriever(
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder builderForValue) {
+        if (retrieverBuilder_ == null) {
+          retriever_ = builderForValue.build();
+          onChanged();
+        } else {
+          retrieverBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
         return this;
+      }
+      public Builder mergeRetriever(com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard value) {
+        if (retrieverBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010) &&
+              retriever_ != com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.getDefaultInstance()) {
+            retriever_ =
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.newBuilder(retriever_).mergeFrom(value).buildPartial();
+          } else {
+            retriever_ = value;
+          }
+          onChanged();
+        } else {
+          retrieverBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      public Builder clearRetriever() {
+        if (retrieverBuilder_ == null) {
+          retriever_ = com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.getDefaultInstance();
+          onChanged();
+        } else {
+          retrieverBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder getRetrieverBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getRetrieverFieldBuilder().getBuilder();
+      }
+      public com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder getRetrieverOrBuilder() {
+        if (retrieverBuilder_ != null) {
+          return retrieverBuilder_.getMessageOrBuilder();
+        } else {
+          return retriever_;
+        }
+      }
+      private com.google.protobuf.SingleFieldBuilder<
+          com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder> 
+          getRetrieverFieldBuilder() {
+        if (retrieverBuilder_ == null) {
+          retrieverBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard.Builder, com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboardOrBuilder>(
+                  retriever_,
+                  getParentForChildren(),
+                  isClean());
+          retriever_ = null;
+        }
+        return retrieverBuilder_;
       }
       
       // repeated .com.lvl6.proto.MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
@@ -100159,18 +100245,19 @@ public final class EventProto {
       "rboardRequestProto\0220\n\006sender\030\001 \001(\0132 .com" +
       ".lvl6.proto.MinimumUserProto\0228\n\017leaderbo" +
       "ardType\030\002 \001(\0162\037.com.lvl6.proto.Leaderboa" +
-      "rdType\022\025\n\rafterThisRank\030\003 \001(\005\"\242\003\n Retrie" +
+      "rdType\022\025\n\rafterThisRank\030\003 \001(\005\"\327\003\n Retrie" +
       "veLeaderboardResponseProto\0220\n\006sender\030\001 \001" +
       "(\0132 .com.lvl6.proto.MinimumUserProto\022Z\n\006" +
       "status\030\002 \001(\0162J.com.lvl6.proto.RetrieveLe",
       "aderboardResponseProto.RetrieveLeaderboa" +
       "rdStatus\0228\n\017leaderboardType\030\005 \001(\0162\037.com." +
       "lvl6.proto.LeaderboardType\022\025\n\rafterThisR" +
-      "ank\030\006 \001(\005\022\025\n\rretrieverRank\030\003 \001(\005\022N\n\rresu" +
-      "ltPlayers\030\004 \003(\01327.com.lvl6.proto.Minimum" +
-      "UserProtoWithLevelForLeaderboard\"8\n\031Retr" +
-      "ieveLeaderboardStatus\022\013\n\007SUCCESS\020\000\022\016\n\nOT" +
-      "HER_FAIL\020\001B\014B\nEventProto"
+      "ank\030\006 \001(\005\022J\n\tretriever\030\003 \001(\01327.com.lvl6." +
+      "proto.MinimumUserProtoWithLevelForLeader" +
+      "board\022N\n\rresultPlayers\030\004 \003(\01327.com.lvl6." +
+      "proto.MinimumUserProtoWithLevelForLeader" +
+      "board\"8\n\031RetrieveLeaderboardStatus\022\013\n\007SU" +
+      "CCESS\020\000\022\016\n\nOTHER_FAIL\020\001B\014B\nEventProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -101150,7 +101237,7 @@ public final class EventProto {
           internal_static_com_lvl6_proto_RetrieveLeaderboardResponseProto_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_lvl6_proto_RetrieveLeaderboardResponseProto_descriptor,
-              new java.lang.String[] { "Sender", "Status", "LeaderboardType", "AfterThisRank", "RetrieverRank", "ResultPlayers", },
+              new java.lang.String[] { "Sender", "Status", "LeaderboardType", "AfterThisRank", "Retriever", "ResultPlayers", },
               com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.class,
               com.lvl6.proto.EventProto.RetrieveLeaderboardResponseProto.Builder.class);
           return null;

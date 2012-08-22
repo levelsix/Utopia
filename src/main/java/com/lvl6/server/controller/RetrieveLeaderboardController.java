@@ -78,13 +78,24 @@ public class RetrieveLeaderboardController extends EventController {
 
 			if (legitRetrieval) {
 				int rank = getUserRankForLeaderboardType(user, leaderboardType);
-				resBuilder.setRetrieverRank(rank);
+        double score = 0;
+        if (leaderboardType == LeaderboardType.BEST_KDR) {
+          score = leader.getBattlesWonOverTotalBattlesRatioForUser(user.getId());
+        } else if (leaderboardType == LeaderboardType.MOST_BATTLES_WON) {
+          score = leader.getBattlesWonForUser(user.getId());
+        } else if (leaderboardType == LeaderboardType.MOST_COINS) {
+          score = leader.getTotalCoinValueForUser(user.getId());
+        } else if (leaderboardType == LeaderboardType.MOST_EXP) {
+          score = leader.getExperienceForUser(user.getId());
+        }
+        resBuilder.setRetriever(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(user, leaderboardType, rank, score));
+				
 				userIdsToRanksInRange = getUsersAfterThisRank(leaderboardType, afterThisRank);
 
 				if (userIdsToRanksInRange != null) {
 			    List<User> resultUsers = new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(new ArrayList<Integer>(userIdsToRanksInRange.keySet())).values());
 					for (User u : resultUsers) {
-					  double score = 0;
+					  score = 0;
 				    if (leaderboardType == LeaderboardType.BEST_KDR) {
 				      score = leader.getBattlesWonOverTotalBattlesRatioForUser(u.getId());
 				    } else if (leaderboardType == LeaderboardType.MOST_BATTLES_WON) {

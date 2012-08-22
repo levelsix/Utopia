@@ -1605,7 +1605,7 @@ message RetrieveLeaderboardResponseProto {
 	optional LeaderboardType leaderboardType = 5;
 	optional int32 afterThisRank = 6;
 
-	optional int32 retrieverRank = 3;
+	optional MinimumUserProtoWithLevelForLeaderboard retriever = 3;
 	repeated MinimumUserProtoWithLevelForLeaderboard resultPlayers = 4;
 	
 	enum RetrieveLeaderboardStatus {
