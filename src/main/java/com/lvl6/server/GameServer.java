@@ -273,6 +273,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 		Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
 			playerLock.tryLock(LOCK_WAIT_SECONDS, TimeUnit.SECONDS);
+			log.info("Got lock for player "+ playerId);
 		} catch (InterruptedException e) {
 			//log.error("Could not get lock before timeout for playerId: "+playerId, e);
 			throw new RuntimeException("Could not get lock before timeout for playerId: "+playerId, e);
@@ -301,7 +302,11 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 		log.info("Unlocking player: "+playerId);
 		ILock lock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
-			lock.unlock();
+			if(lock.isLocked()){
+				lock.unlock();
+			}
+			log.info("Unlocked player "+ playerId);
+			lock.destroy();
 			if (playersInAction.containsPlayer(playerId)) {
 				playersInAction.removePlayer(playerId);
 			}
