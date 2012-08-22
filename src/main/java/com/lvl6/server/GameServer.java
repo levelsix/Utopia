@@ -1,7 +1,6 @@
 package com.lvl6.server;
 
 import java.io.IOException;
-import java.nio.channels.ServerSocketChannel;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,7 @@ import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.PlayerSet;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-public class GameServer extends Thread implements InitializingBean, HazelcastInstanceAware{
+public class GameServer implements InitializingBean, HazelcastInstanceAware{
 
 	
 	public static int LOCK_WAIT_SECONDS = 5;
@@ -270,7 +269,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 
 
 	public void lockPlayer(int playerId) {
-		log.debug("Locking player: "+playerId);
+		log.info("Locking player: "+playerId);
 		Lock playerLock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
 			playerLock.tryLock(LOCK_WAIT_SECONDS, TimeUnit.SECONDS);
@@ -284,7 +283,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 
 
 	public void lockPlayers(int playerId1, int playerId2) {
-		log.debug("Locking players: "+playerId1+", "+playerId2);
+		log.info("Locking players: "+playerId1+", "+playerId2);
 		if (playerId1 == playerId2) {
 			lockPlayer(playerId1);
 			return;
@@ -299,7 +298,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}
 
 	public void unlockPlayer(int playerId) {
-		log.debug("Unlocking player: "+playerId);
+		log.info("Unlocking player: "+playerId);
 		ILock lock = hazel.getLock(playersInAction.lockName(playerId));
 		try {
 			lock.unlock();
@@ -312,7 +311,7 @@ public class GameServer extends Thread implements InitializingBean, HazelcastIns
 	}
 
 	public void unlockPlayers(int playerId1, int playerId2) {
-		log.debug("Unlocking players: "+playerId1+", "+playerId2);
+		log.info("Unlocking players: "+playerId1+", "+playerId2);
 		if (playerId1 > playerId2) {
 			unlockPlayer(playerId2);
 			unlockPlayer(playerId1);
