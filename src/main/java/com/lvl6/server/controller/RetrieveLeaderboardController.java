@@ -143,20 +143,18 @@ public class RetrieveLeaderboardController extends EventController {
 				&& user.getBattlesWon() + user.getBattlesLost() < ControllerConstants.LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION)
 			return 0;
 		if (leaderboardType.equals(LeaderboardType.BEST_KDR)) {
-			return ((Double) leader
-					.getBattlesWonOverTotalBattlesRatioRankForUser(user.getId()))
-					.intValue();
+			return ((Long)leader.getBattlesWonOverTotalBattlesRatioRankForUser(user.getId())).intValue();
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_BATTLES_WON)) {
-			return ((Double) leader.getBattlesWonRankForUser(user.getId()))
+			return ((Long) leader.getBattlesWonRankForUser(user.getId()))
 					.intValue();
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_EXP)) {
-			return ((Double) leader.getExperienceRankForUser(user.getId()))
+			return ((Long) leader.getExperienceRankForUser(user.getId()))
 					.intValue();
 		}
 		if (leaderboardType.equals(LeaderboardType.MOST_COINS)) {
-			return ((Double) leader.getTotalCoinValueRankForUser(user.getId()))
+			return ((Long) leader.getTotalCoinValueRankForUser(user.getId()))
 					.intValue();
 		}
 		return 0;
