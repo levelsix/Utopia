@@ -323,7 +323,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		List<Integer> userIds = new ArrayList<Integer>();
 		if (ids != null) {
 			for (String id : ids) {
-				userIds.add(Integer.getInteger(id));
+				userIds.add(Integer.parseInt(id));
 			}
 		}
 		return userIds;

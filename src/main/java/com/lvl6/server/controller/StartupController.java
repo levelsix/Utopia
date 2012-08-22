@@ -69,6 +69,7 @@ import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.QuestUtils;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class StartupController extends EventController {
 
@@ -127,7 +128,8 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if (user != null) {
         server.lockPlayer(user.getId());
         try {
-          startupStatus = StartupStatus.USER_IN_DB;          
+          startupStatus = StartupStatus.USER_IN_DB;
+
           newNumConsecutiveDaysLoggedIn = setDailyBonusInfo(resBuilder, user, now);
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
@@ -141,8 +143,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           setWhetherPlayerCompletedInAppPurchase(resBuilder, user);
           setUnhandledForgeAttempts(resBuilder, user);
           setNoticesToPlayers(resBuilder, user);
-          
-          
+
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
         } catch (Exception e) {
@@ -420,6 +421,19 @@ import com.lvl6.utils.utilmethods.QuestUtils;
       if (uq.isRedeemed()) {
         redeemedQuestIds.add(uq.getQuestId());
       } else {
+        Quest quest = QuestRetrieveUtils.getQuestForQuestId(uq.getQuestId());
+
+        if (quest.getDefeatBadGuysJobsRequired() == null && quest.getDefeatGoodGuysJobsRequired() == null && !uq.isDefeatTypeJobsComplete()) {
+          if (!UpdateUtils.get().updateUserQuestsSetCompleted(user.getId(), quest.getId(), false, true)) {
+            log.error("problem with updating user quest data by marking defeat type jobs completed for user quest " + uq);
+          }
+        }
+        if (quest.getTasksRequired() == null && !uq.isTasksComplete()) {
+          if (!UpdateUtils.get().updateUserQuestsSetCompleted(user.getId(), quest.getId(), true, false)) {
+            log.error("problem with updating user quest data by marking tasks completed for user quest " + uq);
+          }
+        }
+
         inProgressQuestIds.add(uq.getQuestId());  
         if (uq.isComplete()) {
           resBuilder.addInProgressCompleteQuests(CreateInfoProtoUtils.createFullQuestProtoFromQuest(user.getType(), questIdToQuests.get(uq.getQuestId())));
@@ -446,11 +460,18 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     for (Integer cityId : cities.keySet()) {
       City city = cities.get(cityId);
       resBuilder.addAllCities(CreateInfoProtoUtils.createFullCityProtoFromCity(city));
-      if (user.getLevel() >= city.getMinLevel() && cityIdsToUserCityRanks.containsKey(city.getId())) {
-        int numTasksComplete = getNumTasksCompleteForUserCity(user, city, taskIdToNumTimesActedInRank);
+      if (user.getLevel() >= city.getMinLevel()) {
 
+        if (!cityIdsToUserCityRanks.containsKey(city.getId())) {
+        }
+
+        int numTasksComplete = getNumTasksCompleteForUserCity(user, city, taskIdToNumTimesActedInRank);
         resBuilder.addUserCityInfos(CreateInfoProtoUtils.createFullUserCityProto(user.getId(), city.getId(), 
             cityIdsToUserCityRanks.get(city.getId()), numTasksComplete));
+      } else {
+        if (cityIdsToUserCityRanks.containsKey(city.getId())) {
+          //invalid, delete it
+        }
       }
     }
   }
