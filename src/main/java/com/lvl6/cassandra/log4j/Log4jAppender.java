@@ -48,12 +48,14 @@ public class Log4jAppender extends AppenderSkeleton {
 
 	private String clusterName;
 
-	public Log4jAppender(String clusterName, String hosts, String keyspace, String columnFamily, String elasticSearchCluster, String elasticSearchHosts) {
+	public Log4jAppender(String clusterName, String hosts, String keyspace, String columnFamily, String elasticCluster, String elasticHosts) {
 		super();
 		this.clusterName = clusterName;
 		this.hosts = hosts;
 		this.keyspace = keyspace;
 		this.columnFamily = columnFamily;
+		this.elasticCluster = elasticCluster;
+		this.elasticHosts = elasticHosts;
 		startAppender();
 	}
 
@@ -88,7 +90,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			public void run() {
 				while (!shutdown) {
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(3000);
 						setup();
 						if (lastPublishTime > 50) {
 							// TODO: some metrics to deactivate logging to this
