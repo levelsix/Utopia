@@ -56,6 +56,7 @@ public class Log4JElasticSearchIndexer {
 			.setReplicationType(ReplicationType.ASYNC)
 			.execute()
 			.actionGet();
+			//LogLog.warn("Indexed log entry: "+key);
 		} catch (ElasticSearchException e) {
 			LogLog.error(e.getDetailedMessage());
 		} catch (IOException e) {

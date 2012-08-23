@@ -50,7 +50,6 @@ public class Lvl6ElasticSearch implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		setup();
-		
 	}
 
 	public void setup() {
@@ -62,7 +61,7 @@ public class Lvl6ElasticSearch implements InitializingBean {
 			for(int i = 0; i<hostz.length; i++) {
 				log.info("Adding elasticsearch host: {}", hostz[i]);
 				try {
-					elasticSearchClient.addTransportAddress(new InetSocketTransportAddress(hostz[i], 9200));
+					elasticSearchClient.addTransportAddress(new InetSocketTransportAddress(hostz[i], 9300));
 				}catch(Exception e) {
 					LogLog.error("Error adding host "+hostz[i]+" to elastic search client: "+e.getMessage());
 				}
