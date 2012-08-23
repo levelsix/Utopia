@@ -1,20 +1,14 @@
 package com.lvl6.cassandra;
 
+import static me.prettyprint.hector.api.factory.HFactory.createCounterColumn;
+import static me.prettyprint.hector.api.factory.HFactory.createMutator;
 import me.prettyprint.cassandra.model.BasicColumnDefinition;
 import me.prettyprint.cassandra.model.thrift.ThriftCounterColumnQuery;
-import static me.prettyprint.hector.api.factory.HFactory.createColumn;
-import static me.prettyprint.hector.api.factory.HFactory.createCounterColumn;
-import static me.prettyprint.hector.api.factory.HFactory.createColumnQuery;
-import static me.prettyprint.hector.api.factory.HFactory.createKeyspace;
-import static me.prettyprint.hector.api.factory.HFactory.createMutator;
-import static me.prettyprint.hector.api.factory.HFactory.createSuperColumn;
-import static me.prettyprint.hector.api.factory.HFactory.getOrCreateCluster;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.ddl.ColumnIndexType;
 import me.prettyprint.hector.api.ddl.ComparatorType;
-import me.prettyprint.hector.api.mutation.MutationResult;
 import me.prettyprint.hector.api.mutation.Mutator;
 import me.prettyprint.hector.api.query.CounterQuery;
 
@@ -41,14 +35,16 @@ public class CassandraUtilImpl implements CassandraUtil {
 	public void insertCounterColumn(Keyspace keyspace, String key,
 			String columnFamily, String column, Long initialValue) {
 		Mutator<String> m = createMutator(keyspace, ss);
-		MutationResult mr = m.insertCounter(key, columnFamily, createCounterColumn(column, initialValue));
+		//MutationResult mr = 
+		m.insertCounter(key, columnFamily, createCounterColumn(column, initialValue));
 	}
 
 	@Override
 	public void insertCounterColumn(Keyspace keyspace, String key,
 			String columnFamily, Long column, Long initialValue) {
 		Mutator<String> m = createMutator(keyspace, ss);
-		MutationResult mr = m.insertCounter(key, columnFamily, createCounterColumn(column, initialValue, LongSerializer.get()));		
+		//MutationResult mr = 
+		m.insertCounter(key, columnFamily, createCounterColumn(column, initialValue, LongSerializer.get()));		
 	}
 
 	@Override

@@ -38,6 +38,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
+import com.lvl6.elasticsearch.Lvl6ElasticSearch;
 import com.lvl6.properties.MDCKeys;
 import com.lvl6.spring.AppContext;
 
@@ -49,11 +50,12 @@ public class Log4jAppender extends AppenderSkeleton {
 	public static AtomicLong logcounter = new AtomicLong();
 	
 	protected ExecutorService executor = Executors.newFixedThreadPool(20);
+	
+	protected Lvl6ElasticSearch search;
 
 	private String clusterName;
 
-	public Log4jAppender(String clusterName, String hosts,
-			 String keyspace, String columnFamily) {
+	public Log4jAppender(String clusterName, String hosts, String keyspace, String columnFamily, String elasticSearchCluster, String elasticSearchHosts) {
 		super();
 		this.clusterName = clusterName;
 		this.hosts = hosts;
@@ -66,6 +68,9 @@ public class Log4jAppender extends AppenderSkeleton {
 	private String instanceId;
 	private String keyspace;
 	private String columnFamily;
+	private String elasticCluster;
+
+	private String elasticHosts;
 	private int replicationFactor = 1;
 
 	private ThriftCluster cluster;
@@ -119,6 +124,9 @@ public class Log4jAppender extends AppenderSkeleton {
 		}
 		if (client == null) {
 			connect();
+		}
+		if(search == null || search.getClient() == null) {
+			search = new Lvl6ElasticSearch(elasticHosts, elasticCluster);
 		}
 	}
 	
@@ -174,10 +182,10 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 
 	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
-		Integer pid;
+		Object pid;
 		try {
-			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
-			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE) {
+			pid =  event.getMDC(MDCKeys.PLAYER_ID);
+			if (pid != null) {
 				updater.setString("playerId", pid.toString());
 			}
 		} catch (Exception e) {
@@ -354,4 +362,19 @@ public class Log4jAppender extends AppenderSkeleton {
 		this.clusterName = clusterName;
 	}
 
+	public String getElasticCluster() {
+		return elasticCluster;
+	}
+	
+	public void setElasticCluster(String elasticCluster) {
+		this.elasticCluster = elasticCluster;
+	}
+	
+	public String getElasticHosts() {
+		return elasticHosts;
+	}
+	
+	public void setElasticHosts(String elasticHosts) {
+		this.elasticHosts = elasticHosts;
+	}
 }
