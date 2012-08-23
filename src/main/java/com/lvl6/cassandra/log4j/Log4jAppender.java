@@ -121,7 +121,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			connect();
 		}
 		if(search == null) {
-			search = new Log4JElasticSearchIndexer(elasticHosts, elasticCluster);
+			search = new Log4JElasticSearchIndexer(elasticCluster, elasticHosts);
 		}
 	}
 	
