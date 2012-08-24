@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.HealthCheckPage;
+import com.lvl6.ui.admin.pages.LogViewerPage;
 import com.lvl6.ui.admin.pages.MainPage;
 
 import junit.framework.TestCase;
@@ -27,5 +28,11 @@ public class AdminUITest extends TestCase {
 		tester.startPage(MainPage.class);
 		tester.startComponentInPage(StatsPanel.class);
 		tester.startPage(HealthCheckPage.class);
+	}
+	
+	@Test
+	public void testLogViewerPage() {
+		tester = new WicketTester();
+		tester.startPage(LogViewerPage.class);
 	}
 }
