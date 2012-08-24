@@ -20,7 +20,7 @@ public class LogSearchForm extends Form<LogSearchInputModel> {
 		add(new DateTimeField("start"));
 		add(new DateTimeField("end"));
 		add(new TextField<String>("level"));
-		add(new TextField<String>("Search"));
+		add(new TextField<String>("searchInput"));
 	}
 	
 	
