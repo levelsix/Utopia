@@ -61,7 +61,7 @@ public class MiscMethods {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  
+
   public static int calculateMinutesToFinishForgeAttempt(Equipment equipment, int goalLevel) {
     return (int)
         (equipment.getMinutesToAttemptForgeBase()*Math.pow(ControllerConstants.FORGE_TIME_BASE_FOR_EXPONENTIAL_MULTIPLIER, goalLevel));
@@ -207,9 +207,11 @@ public class MiscMethods {
   }
 
   public static UpdateClientUserResponseEvent createUpdateClientUserResponseEventAndUpdateLeaderboard(User user) {
-    LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
-    leaderboard.updateLeaderboardForUser(user);
-    
+    if (!user.isFake()) {
+      LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
+      leaderboard.updateLeaderboardForUser(user);
+    }
+
     UpdateClientUserResponseEvent resEvent = new UpdateClientUserResponseEvent(user.getId());
     UpdateClientUserResponseProto resProto = UpdateClientUserResponseProto.newBuilder()
         .setSender(CreateInfoProtoUtils.createFullUserProtoFromUser(user))

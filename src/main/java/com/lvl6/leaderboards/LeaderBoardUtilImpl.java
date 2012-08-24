@@ -123,7 +123,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	public long getBattlesWonRankForUser(Integer userId) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			return jedis.zrevrank(LeaderBoardConstants.BATTLES_WON,	userId.toString());
+			return jedis.zrevrank(LeaderBoardConstants.BATTLES_WON,	userId.toString()) + 1;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -139,7 +139,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		try {
 			return jedis.zrevrank(
 					LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO,
-					userId.toString());
+					userId.toString()) + 1;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -262,7 +262,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		Jedis jedis = jedisPool.getResource();
 		try {
 			return jedis.zrevrank(LeaderBoardConstants.COIN_WORTH,
-					userId.toString());
+					userId.toString()) + 1;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
@@ -277,7 +277,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 		Jedis jedis = jedisPool.getResource();
 		try {
 			return jedis.zrevrank(LeaderBoardConstants.EXPERIENCE,
-					userId.toString());
+					userId.toString()) + 1;
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
