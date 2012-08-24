@@ -12,7 +12,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
-import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.CassandraHostConfigurator;
 import me.prettyprint.cassandra.service.ThriftCfDef;
@@ -34,31 +33,29 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
 import com.lvl6.properties.MDCKeys;
-import com.lvl6.spring.AppContext;
 
 public class Log4jAppender extends AppenderSkeleton {
-
-	private static final StringSerializer se = new StringSerializer();
-	private static final LongSerializer le = new LongSerializer();
 	
 	public static AtomicLong logcounter = new AtomicLong();
 	
 	protected ExecutorService executor = Executors.newFixedThreadPool(20);
+	
+	protected Log4JElasticSearchIndexer search;
 
 	private String clusterName;
 
-	public Log4jAppender(String clusterName, String hosts,
-			 String keyspace, String columnFamily) {
+	public Log4jAppender(String clusterName, String hosts, String keyspace, String columnFamily, String elasticCluster, String elasticHosts) {
 		super();
 		this.clusterName = clusterName;
 		this.hosts = hosts;
 		this.keyspace = keyspace;
 		this.columnFamily = columnFamily;
+		this.elasticCluster = elasticCluster;
+		this.elasticHosts = elasticHosts;
 		startAppender();
 	}
 
@@ -66,6 +63,9 @@ public class Log4jAppender extends AppenderSkeleton {
 	private String instanceId;
 	private String keyspace;
 	private String columnFamily;
+	private String elasticCluster;
+
+	private String elasticHosts;
 	private int replicationFactor = 1;
 
 	private ThriftCluster cluster;
@@ -90,7 +90,7 @@ public class Log4jAppender extends AppenderSkeleton {
 			public void run() {
 				while (!shutdown) {
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(3000);
 						setup();
 						if (lastPublishTime > 50) {
 							// TODO: some metrics to deactivate logging to this
@@ -120,6 +120,9 @@ public class Log4jAppender extends AppenderSkeleton {
 		if (client == null) {
 			connect();
 		}
+		if(search == null) {
+			search = new Log4JElasticSearchIndexer(elasticCluster, elasticHosts);
+		}
 	}
 	
 	
@@ -137,17 +140,18 @@ public class Log4jAppender extends AppenderSkeleton {
 					try {
 						UUID key = TimeUUIDUtils.getUniqueTimeUUIDinMillis();
 						ColumnFamilyUpdater<String, String> updater = client.createUpdater(key.toString());
-						updater.setLong("time", event.getTimeStamp());
-						updater.setString("host", getHost());
-						updater.setString("message", message);
-						updater.setString("level", event.getLevel() + "");
-						updater.setString("name", event.getLoggerName());
-						updater.setString("thread", event.getThreadName());
+						updater.setLong(Log4JConstants.TIME, event.getTimeStamp());
+						updater.setString(Log4JConstants.HOST, getHost());
+						updater.setString(Log4JConstants.MESSAGE, message);
+						updater.setString(Log4JConstants.LEVEL, event.getLevel() + "");
+						updater.setString(Log4JConstants.NAME, event.getLoggerName());
+						updater.setString(Log4JConstants.THREAD, event.getThreadName());
 						addStackTrace(event, updater);
 						addProperties(event, updater);
 						addPlayerId(event, updater);
 						addUdid(event, updater);
 						client.update(updater);
+						search.indexEvent(event, key, getHost());
 						//logcounter.incrementAndGet();
 						//LogLog.warn(message);
 					} catch (Exception e) {
@@ -169,16 +173,16 @@ public class Log4jAppender extends AppenderSkeleton {
 	private void addUdid(LoggingEvent event,ColumnFamilyUpdater<String, String> updater) {
 		String udId = (String) event.getMDC(MDCKeys.UDID);
 		if (udId != null && !udId.equals("")) {
-			updater.setString("udid", udId.toString());
+			updater.setString(Log4JConstants.UDID, udId.toString());
 		}
 	}
 
 	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
-		Integer pid;
+		Object pid;
 		try {
-			pid = (Integer) event.getMDC(MDCKeys.PLAYER_ID);
-			if (pid != null && pid >= 0 && pid <= Integer.MAX_VALUE) {
-				updater.setString("playerId", pid.toString());
+			pid =  event.getMDC(MDCKeys.PLAYER_ID);
+			if (pid != null) {
+				updater.setString(Log4JConstants.PLAYER_ID, pid.toString());
 			}
 		} catch (Exception e) {
 			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
@@ -186,6 +190,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 
 	private void addProperties(LoggingEvent event,ColumnFamilyUpdater<String, String> updater) {
+		@SuppressWarnings("rawtypes")
 		Map props = event.getProperties();
 		for (Object pkey : props.keySet()) {
 			updater.setString(pkey.toString(), props.get(pkey).toString());
@@ -195,7 +200,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	private void addStackTrace(LoggingEvent event,ColumnFamilyUpdater<String, String> updater) {
 		if (event.getThrowableInformation() != null	&& event.getThrowableInformation().getThrowable() != null) {
 			String stacktrace = ExceptionUtils.getFullStackTrace(event.getThrowableInformation().getThrowable());
-			updater.setString("stacktrace", stacktrace);
+			updater.setString(Log4JConstants.STACK_TRACE, stacktrace);
 		}
 	}
 
@@ -251,35 +256,35 @@ public class Log4jAppender extends AppenderSkeleton {
 
 		// level index
 		columnFamilyDefinition.addColumnDefinition(
-			cassandraUtil.createBasicColumnDefinition("level", ComparatorType.UTF8TYPE, true));
+			cassandraUtil.createBasicColumnDefinition(Log4JConstants.LEVEL, ComparatorType.UTF8TYPE, true));
 		// time index
 		columnFamilyDefinition.addColumnDefinition(
-			cassandraUtil.createBasicColumnDefinition("time", ComparatorType.LONGTYPE, true));
+			cassandraUtil.createBasicColumnDefinition(Log4JConstants.TIME, ComparatorType.LONGTYPE, true));
 		// host
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("host", ComparatorType.UTF8TYPE, false));
+				cassandraUtil.createBasicColumnDefinition(Log4JConstants.HOST, ComparatorType.UTF8TYPE, false));
 		// message
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("message", ComparatorType.UTF8TYPE, false));
+				cassandraUtil.createBasicColumnDefinition(Log4JConstants.MESSAGE, ComparatorType.UTF8TYPE, false));
 		// name
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("name", ComparatorType.UTF8TYPE, false));
+				cassandraUtil.createBasicColumnDefinition(Log4JConstants.NAME,ComparatorType.UTF8TYPE, false));
 		// thread
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("thread", ComparatorType.UTF8TYPE, false));
+				cassandraUtil.createBasicColumnDefinition(Log4JConstants.THREAD, ComparatorType.UTF8TYPE, false));
 		// stacktrace
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("stacktrace", ComparatorType.UTF8TYPE, false));
+				cassandraUtil.createBasicColumnDefinition(Log4JConstants.STACK_TRACE, ComparatorType.UTF8TYPE, false));
 		// playerId
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("playerId", ComparatorType.UTF8TYPE, true));
+				cassandraUtil.createBasicColumnDefinition(Log4JConstants.PLAYER_ID, ComparatorType.UTF8TYPE, true));
 		// udId
 		columnFamilyDefinition.addColumnDefinition(
-				cassandraUtil.createBasicColumnDefinition("udid", ComparatorType.UTF8TYPE, true));
+				cassandraUtil.createBasicColumnDefinition(Log4JConstants.UDID, ComparatorType.UTF8TYPE, true));
 		// ip
-		columnFamilyDefinition.addColumnDefinition(
+/*		columnFamilyDefinition.addColumnDefinition(
 				cassandraUtil.createBasicColumnDefinition("ip", ComparatorType.UTF8TYPE, true));
-
+*/
 		cfDef = new ThriftCfDef(columnFamilyDefinition);
 		c.updateColumnFamily(cfDef);
 		keyspaceDef = c.describeKeyspace(keyspace);
@@ -309,17 +314,21 @@ public class Log4jAppender extends AppenderSkeleton {
 				replicationFactor, Arrays.asList(cfDef));
 		c.addKeyspace(newKeyspace);
 	}
-
+	
+	
+	String host = "";
+	
 	private String getHost() {
 		if (instanceId != null) {
 			return instanceId;
 		}
 		try {
-			String host = InetAddress.getLocalHost().getHostAddress();
-			return host;
+			if(host == null || host.equals("")) {
+				host = InetAddress.getLocalHost().getHostAddress();
+			}
 		} catch (UnknownHostException e) {
 		}
-		return "";
+		return host;
 	}
 
 	public boolean requiresLayout() {
@@ -354,4 +363,19 @@ public class Log4jAppender extends AppenderSkeleton {
 		this.clusterName = clusterName;
 	}
 
+	public String getElasticCluster() {
+		return elasticCluster;
+	}
+	
+	public void setElasticCluster(String elasticCluster) {
+		this.elasticCluster = elasticCluster;
+	}
+	
+	public String getElasticHosts() {
+		return elasticHosts;
+	}
+	
+	public void setElasticHosts(String elasticHosts) {
+		this.elasticHosts = elasticHosts;
+	}
 }

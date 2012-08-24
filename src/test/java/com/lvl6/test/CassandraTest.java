@@ -100,13 +100,13 @@ public class CassandraTest extends TestCase {
 		long start = new Date().getTime();
 		int testLoopCount = 10;
 		for(int i=0; i < testLoopCount; i++){
-			log.debug("slf4j test debug for cassandra logging: {}", i);
+			//log.debug("slf4j test debug for cassandra logging: {}", i);
 			//log.info("slf4j test info for cassandra logging: {}", i);
-			alog.debug("log4j test debug for cassandra logging: "+i);
+			//alog.debug("log4j test debug for cassandra logging: "+i);
 			//alog.info("log4j test info for cassandra logging: "+i);
 			
-			/*log.warn("This is a test warning for cassandra logging {}", i);
-			log.error("This is a test error for cassandra logging {}", i);*/
+			//log.warn("This is a test warning for cassandra logging {}", i);
+			//log.error("This is a test error for cassandra logging {}", i);
 		}
 /*		while(Log4jAppender.logcounter.get() < 2*testLoopCount-1) {
 			//log.info("Count: {}", Log4jAppender.logcounter.get());

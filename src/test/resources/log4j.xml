@@ -17,6 +17,8 @@
 		<param name="keyspace" value="${lvl6.cassandra.keyspace}_test" />
 		<param name="columnFamily" value="${lvl6.cassandra.column.family}" />
 		<param name="clusterName" value="${lvl6.cassandra.cluster.name}" />
+		<param name="elasticCluster" value="${lvl6.elastic.search.cluster.name}" />
+		<param name="elasticHosts" value="${lvl6.elastic.search.hosts}" />
 		<param name="replicationFactor" value="${lvl6.cassandra.replication.factor}" />
 		<param name="Threshold" value="debug" />
 	</appender>
