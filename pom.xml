@@ -34,14 +34,15 @@
 	</scm>
 
 	<repositories>
-<!-- 		<repository>
+ 		<repository>
+			<id>sonatype-releases</id>
+			<name>Sonatype Releases</name>
+			<layout>default</layout>
+			<url>http://oss.sonatype.org/content/repositories/releases/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<id>sonatype</id>
-			<name>Sonatype</name>
-			<url>https://oss.sonatype.org/content/repositories/releases/</url>
-		</repository> -->
+		</repository>
 		<repository>
 			<id>spy</id>
 			<name>Spy Repository</name>
@@ -599,7 +600,7 @@
 			<dependency>
 				<groupId>org.elasticsearch</groupId>
 				<artifactId>elasticsearch</artifactId>
-				<version>0.19.9</version>
+				<version>0.19.8</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
