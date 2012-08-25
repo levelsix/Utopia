@@ -66,16 +66,16 @@ public class LogViewerPage extends TemplatePage {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Hits: ")
 			.append(result.hits().getTotalHits())
-			.append("<br />")
+			.append("\n")
 			.append("Took: ")
 			.append(result.getTookInMillis())
-			.append("ms<br />")
-			.append("Results: <br />");
+			.append("ms\n")
+			.append("Results: \n");
 			Iterator<SearchHit> it = result.hits().iterator();
 			while(it.hasNext()) {
 				SearchHit hit = it.next();
 				sb.append(hit.getSourceAsString())
-				.append("<br />");
+				.append("\n");
 			}
 			//info(sb.toString());
 			resultLabel.setDefaultModel(new Model<String>(sb.toString()));
