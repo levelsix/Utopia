@@ -3,7 +3,9 @@ package com.lvl6.ui.admin.pages;
 import java.util.Iterator;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.basic.MultiLineLabel;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.model.Model;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
@@ -44,8 +46,9 @@ public class LogViewerPage extends TemplatePage {
 	}
 	
 	
-	protected Label resultLabel = new Label("result");
+	protected MultiLineLabel resultLabel = new MultiLineLabel("result");
 	final FeedbackPanel feedback = new FeedbackPanel("feedback");
+	
 	
 	protected LogSearchForm form = new LogSearchForm("logSearch") {
 		private static final long serialVersionUID = 1L;
@@ -74,7 +77,9 @@ public class LogViewerPage extends TemplatePage {
 				sb.append(hit.getSourceAsString())
 				.append("<br />");
 			}
-			info(sb.toString());
+			//info(sb.toString());
+			resultLabel.setDefaultModel(new Model<String>(sb.toString()));
+			//add(resultLabel);
 		}
 	};
 
