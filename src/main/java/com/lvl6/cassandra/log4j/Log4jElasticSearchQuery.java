@@ -10,6 +10,7 @@ import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeFilterBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,8 @@ public class Log4jElasticSearchQuery {
 		.setTypes(Log4JElasticSearchIndexer.TYPE)
 		.setQuery(buildQuery())
 		.setFrom(offset)
-		.setSize(limit);
+		.setSize(limit)
+		.addSort(Log4JConstants.TIME, SortOrder.DESC);
 		log.info("Performing search: \n{}", request.toString());
 		return request.execute().actionGet();
 	}

@@ -1,7 +1,6 @@
 package com.lvl6.elasticsearch;
 
 import org.apache.log4j.helpers.LogLog;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
