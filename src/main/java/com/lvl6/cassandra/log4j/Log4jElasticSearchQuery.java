@@ -2,27 +2,20 @@ package com.lvl6.cassandra.log4j;
 
 import java.util.Date;
 
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeFilterBuilder;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.elasticsearch.Lvl6ElasticSearch;
-
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.common.lucene.search.TermFilter;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeFilterBuilder;
-import org.elasticsearch.index.query.TermFilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders.*;
-import org.elasticsearch.index.query.QueryBuilders.*;
-import org.elasticsearch.search.sort.SortBuilders.*;
-import org.joda.time.DateTime;
 
 
 public class Log4jElasticSearchQuery {
