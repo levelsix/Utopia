@@ -2,16 +2,21 @@ package com.lvl6.cassandra.log4j;
 
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lvl6.elasticsearch.Lvl6ElasticSearch;
 
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.lucene.search.TermFilter;
 import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeFilterBuilder;
+import org.elasticsearch.index.query.TermFilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders.*;
 import org.elasticsearch.index.query.QueryBuilders.*;
 import org.elasticsearch.search.sort.SortBuilders.*;
@@ -19,6 +24,8 @@ import org.joda.time.DateTime;
 
 
 public class Log4jElasticSearchQuery {
+	
+	private static Logger log = LoggerFactory.getLogger(Log4jElasticSearchQuery.class);
 	
 	@Autowired
 	Lvl6ElasticSearch search;
@@ -45,20 +52,35 @@ public class Log4jElasticSearchQuery {
 	
 	public SearchResponse search() {
 		Client client = getSearch().getClient();
-		return client.prepareSearch(Log4JElasticSearchIndexer.INDEX)
+		SearchRequestBuilder request = client.prepareSearch(Log4JElasticSearchIndexer.INDEX)
 		.setTypes(Log4JElasticSearchIndexer.TYPE)
 		.setQuery(buildQuery())
 		.setFrom(offset)
-		.setSize(limit)
-		.execute()
-		.actionGet();
+		.setSize(limit);
+		log.info("Performing search: \n{}", request.toString());
+		return request.execute().actionGet();
 	}
 	
 	protected QueryBuilder buildQuery() {
 		RangeFilterBuilder dateFilter = FilterBuilders.rangeFilter(Log4JConstants.TIME);
-		dateFilter.from(startDate.getTime());
-		dateFilter.to(endDate.getTime());
-		QueryBuilder query = QueryBuilders.filteredQuery(QueryBuilders.queryString(message), dateFilter);
+		if(startDate != null) {
+			dateFilter.from(startDate.getTime());
+		}
+		if(endDate != null) {
+			dateFilter.to(endDate.getTime());
+		}
+		QueryBuilder query = QueryBuilders.filteredQuery(
+				QueryBuilders.multiMatchQuery(
+						message, 
+						Log4JConstants.MESSAGE, 
+						Log4JConstants.PLAYER_ID, 
+						Log4JConstants.STACK_TRACE,
+						Log4JConstants.THREAD),
+					dateFilter);
+		if(level != null && !level.equals("")) {
+			TermFilterBuilder termFilter = FilterBuilders.termFilter(Log4JConstants.LEVEL, level);
+			query = QueryBuilders.filteredQuery(query, termFilter);
+		}
 		return query;
 	}
 	
