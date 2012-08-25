@@ -22,6 +22,14 @@ public class Lvl6ElasticSearch implements InitializingBean {
 
 	
 	
+	
+	public Lvl6ElasticSearch() {
+		super();
+	}
+
+
+
+
 	protected String hosts = "";
 	protected String clusterName = "";
 	protected TransportClient elasticSearchClient;
