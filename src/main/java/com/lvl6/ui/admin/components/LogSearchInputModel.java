@@ -11,10 +11,16 @@ public class LogSearchInputModel implements IClusterable {
 	protected Date start;
 	protected Date end;
 	protected String level;
-	protected String search;
+	protected String searchInput;
 
 	
 	
+	public String getSearchInput() {
+		return searchInput;
+	}
+	public void setSearchInput(String searchInput) {
+		this.searchInput = searchInput;
+	}
 	public Date getStart() {
 		return start;
 	}
@@ -33,12 +39,7 @@ public class LogSearchInputModel implements IClusterable {
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	public String getSearch() {
-		return search;
-	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
+	
 	
 	
 }
