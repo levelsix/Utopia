@@ -48,7 +48,7 @@ public class LogViewerPage extends TemplatePage {
 	protected Label resultLabel = new Label("result");
 	final FeedbackPanel feedback = new FeedbackPanel("feedback");
 	
-	protected LogSearchForm form = new LogSearchForm("search") {
+	protected LogSearchForm form = new LogSearchForm("logSearch") {
 		private static final long serialVersionUID = 1L;
 
 		@Override
