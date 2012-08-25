@@ -12,7 +12,9 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.lucene.search.TermFilter;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeFilterBuilder;
@@ -62,6 +64,23 @@ public class Log4jElasticSearchQuery {
 	}
 	
 	protected QueryBuilder buildQuery() {
+		RangeFilterBuilder dateFilter = getDateFilter();
+		QueryBuilder multiMatchQuery = getMultimatchSearchQuery();
+		BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
+		if(message!= null && !message.equals("")) {
+			andQuery.must(multiMatchQuery);
+		}
+		if(level != null && !level.equals("")){
+			andQuery.must(getLevelQuery());
+		}
+		if(playerId != -1) {
+			andQuery.must(getPlayerIdQuery());
+		}
+		QueryBuilder query = QueryBuilders.filteredQuery(multiMatchQuery,dateFilter);
+		return query;
+	}
+
+	private RangeFilterBuilder getDateFilter() {
 		RangeFilterBuilder dateFilter = FilterBuilders.rangeFilter(Log4JConstants.TIME);
 		if(startDate != null) {
 			dateFilter.from(startDate.getTime());
@@ -69,19 +88,26 @@ public class Log4jElasticSearchQuery {
 		if(endDate != null) {
 			dateFilter.to(endDate.getTime());
 		}
-		QueryBuilder query = QueryBuilders.filteredQuery(
-				QueryBuilders.multiMatchQuery(
-						message, 
-						Log4JConstants.MESSAGE, 
-						Log4JConstants.PLAYER_ID, 
-						Log4JConstants.STACK_TRACE,
-						Log4JConstants.THREAD),
-					dateFilter);
-		if(level != null && !level.equals("")) {
-			TermFilterBuilder termFilter = FilterBuilders.termFilter(Log4JConstants.LEVEL, level);
-			query = QueryBuilders.filteredQuery(query, termFilter);
-		}
-		return query;
+		return dateFilter;
+	}
+
+	protected QueryBuilder getLevelQuery() {
+		return QueryBuilders.fieldQuery(Log4JConstants.LEVEL, level);
+	}
+	
+	protected QueryBuilder getPlayerIdQuery() {
+		return QueryBuilders.fieldQuery(Log4JConstants.PLAYER_ID, playerId);
+	}
+	
+	
+	protected MultiMatchQueryBuilder getMultimatchSearchQuery() {
+		MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(
+				message, 
+				Log4JConstants.MESSAGE, 
+				Log4JConstants.PLAYER_ID, 
+				Log4JConstants.STACK_TRACE,
+				Log4JConstants.THREAD);
+		return multiMatchQuery;
 	}
 	
 	

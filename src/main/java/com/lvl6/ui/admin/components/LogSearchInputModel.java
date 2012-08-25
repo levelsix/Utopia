@@ -11,7 +11,17 @@ public class LogSearchInputModel implements IClusterable {
 	protected Date start;
 	protected Date end;
 	protected String level;
+	protected String playerId;
 	protected String searchInput;
+
+	
+	
+	public String getPlayerId() {
+		return playerId;
+	}
+	public void setPlayerId(String playerId) {
+		this.playerId = playerId;
+	}
 
 	
 	
