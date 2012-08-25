@@ -51,6 +51,7 @@ public class AdminUITest extends TestCase {
 		query.setMessage("Spring");
 		query.setLimit(10);
 		SearchResponse result = query.search();
-		log.info(result.toString());
+		
+		//log.info(result.toString());
 	}
 }
