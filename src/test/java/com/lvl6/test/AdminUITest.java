@@ -49,6 +49,7 @@ public class AdminUITest extends TestCase {
 		Log4jElasticSearchQuery query = AppContext.getApplicationContext().getBean(Log4jElasticSearchQuery.class);
 		query.setLevel("INFO");
 		query.setMessage("Spring");
+		query.setLimit(10);
 		SearchResponse result = query.search();
 		log.info(result.toString());
 	}
