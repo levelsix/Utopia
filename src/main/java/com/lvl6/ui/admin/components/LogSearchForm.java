@@ -12,6 +12,7 @@ public class LogSearchForm extends Form<LogSearchInputModel> {
 
 	public LogSearchForm(String id) {
 		super(id, new CompoundPropertyModel<LogSearchInputModel>(new LogSearchInputModel()));
+		setup();
 	}
 	
 	
