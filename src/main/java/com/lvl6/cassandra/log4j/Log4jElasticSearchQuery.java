@@ -101,7 +101,7 @@ public class Log4jElasticSearchQuery {
 	
 	
 	protected QueryBuilder getSearchQuery() {
-		QueryBuilder matchQuery = QueryBuilders.matchQuery("_all", message);
+		QueryBuilder matchQuery = QueryBuilders.fieldQuery(Log4JConstants.MESSAGE, message);
 		return matchQuery;
 	}
 	
