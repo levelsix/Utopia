@@ -42,7 +42,7 @@ public class LogViewerPage extends TemplatePage {
 		feedback.setOutputMarkupId(true);
 		add(form);
 		add(resultLabel);
-		add(feedback);
+		//add(feedback);
 	}
 	
 	
