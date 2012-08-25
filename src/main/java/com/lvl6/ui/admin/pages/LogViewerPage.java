@@ -1,12 +1,15 @@
 package com.lvl6.ui.admin.pages;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.basic.MultiLineLabel;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.xcontent.XContent;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +66,13 @@ public class LogViewerPage extends TemplatePage {
 			search.setMessage(model.getSearchInput());
 			search.setLevel(model.getLevel());
 			result = search.search();
+			StringBuilder sb = buildResultString();
+			//info(sb.toString());
+			resultLabel.setDefaultModel(new Model<String>(sb.toString()));
+			//add(resultLabel);
+		}
+
+		private StringBuilder buildResultString() {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Hits: ")
 			.append(result.hits().getTotalHits())
@@ -70,16 +80,21 @@ public class LogViewerPage extends TemplatePage {
 			.append("Took: ")
 			.append(result.getTookInMillis())
 			.append("ms\n")
-			.append("Results: \n");
+			.append("Results: \n\n");
 			Iterator<SearchHit> it = result.hits().iterator();
 			while(it.hasNext()) {
 				SearchHit hit = it.next();
-				sb.append(hit.getSourceAsString())
-				.append("\n");
+				Map<String, Object> hi = hit.sourceAsMap();
+				for(String key: hi.keySet()) {
+					Object h = hi.get(key);
+					sb.append(key)
+					.append(":")
+					.append(h)
+					.append("\n");
+				}
+				sb.append("\n");
 			}
-			//info(sb.toString());
-			resultLabel.setDefaultModel(new Model<String>(sb.toString()));
-			//add(resultLabel);
+			return sb;
 		}
 	};
 
