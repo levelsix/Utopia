@@ -1,8 +1,11 @@
 package com.lvl6.ui.admin.pages;
 
+import java.util.Iterator;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,7 +60,21 @@ public class LogViewerPage extends TemplatePage {
 			search.setMessage(model.getSearchInput());
 			search.setLevel(model.getLevel());
 			result = search.search();
-			info(result.toString());
+			StringBuilder sb = new StringBuilder();
+			sb.append("Hits: ")
+			.append(result.hits().getTotalHits())
+			.append("<br />")
+			.append("Took: ")
+			.append(result.getTookInMillis())
+			.append("ms<br />")
+			.append("Results: <br />");
+			Iterator<SearchHit> it = result.hits().iterator();
+			while(it.hasNext()) {
+				SearchHit hit = it.next();
+				sb.append(hit.getSourceAsString())
+				.append("<br />");
+			}
+			info(sb.toString());
 		}
 	};
 
