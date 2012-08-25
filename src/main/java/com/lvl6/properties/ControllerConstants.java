@@ -284,7 +284,7 @@ public class ControllerConstants {
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_RESET_SKILL_POINTS = 100;
 
   //LEADERBOARD
-  public static final int LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION = 50;
+  public static final int LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION = 100;
   public static final int LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE = 15;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 

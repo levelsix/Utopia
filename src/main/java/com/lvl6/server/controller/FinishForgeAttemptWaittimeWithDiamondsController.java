@@ -136,7 +136,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return false;
     }
 
-
     int diamondCost = calculateDiamondCostToSpeedupForgeWaittime(equip, blacksmithAttempt.getGoalLevel());
     if (user.getDiamonds() < diamondCost) {
       resBuilder.setStatus(FinishForgeAttemptWaittimeWithDiamondsStatus.NOT_ENOUGH_DIAMONDS);
@@ -148,8 +147,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private int calculateDiamondCostToSpeedupForgeWaittime(Equipment equipment, int goalLevel) {
-    return (int) MiscMethods.calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
-        (ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD+equipment.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET);
+    return (int) (MiscMethods.calculateMinutesToFinishForgeAttempt(equipment, goalLevel) / 
+        (ControllerConstants.FORGE_BASE_MINUTES_TO_ONE_GOLD+equipment.getMinLevel()/ControllerConstants.AVERAGE_SIZE_OF_LEVEL_BRACKET));
   }
 
 }
