@@ -12,10 +12,10 @@
 
 	
 	<bean id="elasticSearch" class="com.lvl6.elasticsearch.Lvl6ElasticSearch">
-		<property name="elasticHosts" value="${lvl6.elastic.search.hosts}" />
-		<property name="elasticCluster" value="${lvl6.elastic.search.cluster.name}" />
+		<property name="hosts" value="${lvl6.elastic.search.hosts}" />
+		<property name="clusterName" value="${lvl6.elastic.search.cluster.name}" />
 	</bean>
 	
-	<bean id="log4jSearch" class="com.lvl6.cassandra.log4j.Log4JElasticSearchQuery" scope="prototype" />
+	<bean id="log4jSearch" class="com.lvl6.cassandra.log4j.Log4jElasticSearchQuery" scope="prototype" />
 	
 </beans>
