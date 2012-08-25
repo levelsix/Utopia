@@ -65,10 +65,10 @@ public class Log4jElasticSearchQuery {
 	
 	protected QueryBuilder buildQuery() {
 		RangeFilterBuilder dateFilter = getDateFilter();
-		QueryBuilder multiMatchQuery = getMultimatchSearchQuery();
+		QueryBuilder matchQuery = getSearchQuery();
 		BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
 		if(message!= null && !message.equals("")) {
-			andQuery.must(multiMatchQuery);
+			andQuery.must(matchQuery);
 		}
 		if(level != null && !level.equals("")){
 			andQuery.must(getLevelQuery());
@@ -76,7 +76,7 @@ public class Log4jElasticSearchQuery {
 		if(playerId != -1) {
 			andQuery.must(getPlayerIdQuery());
 		}
-		QueryBuilder query = QueryBuilders.filteredQuery(multiMatchQuery,dateFilter);
+		QueryBuilder query = QueryBuilders.filteredQuery(andQuery,dateFilter);
 		return query;
 	}
 
@@ -100,14 +100,9 @@ public class Log4jElasticSearchQuery {
 	}
 	
 	
-	protected MultiMatchQueryBuilder getMultimatchSearchQuery() {
-		MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(
-				message, 
-				Log4JConstants.MESSAGE, 
-				Log4JConstants.PLAYER_ID, 
-				Log4JConstants.STACK_TRACE,
-				Log4JConstants.THREAD);
-		return multiMatchQuery;
+	protected QueryBuilder getSearchQuery() {
+		QueryBuilder matchQuery = QueryBuilders.matchQuery("_all", message);
+		return matchQuery;
 	}
 	
 	
