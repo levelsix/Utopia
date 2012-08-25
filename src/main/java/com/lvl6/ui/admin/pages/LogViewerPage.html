@@ -2,15 +2,14 @@
 	<img src="http://lvl6.com/img/lvl6logo.png" />
 	<div id="search">
 		<form wicket:id="logSearch">
-		Start:
-			<span wicket:id="start"></span><br />
-		End:	
-			<span wicket:id="end"></span><br />
-		Level:	
-			<input wicket:id="level"></input><br />
-		Search:	
-			<input wicket:id="searchInput" ></input><br />
-	    	<input type="submit" value="submit" />	
+		<table>
+			<tr><td>Start:</td><td><span wicket:id="start"></span></td></tr>
+			<tr><td>End:</td><td><span wicket:id="end"></span></td></tr>
+			<tr><td>Level:</td><td><input wicket:id="level"></input></td></tr>
+			<tr><td>Player Id:</td><td><input wicket:id="playerId"></input></td></tr>
+			<tr><td>Search:</td><td><input wicket:id="searchInput" ></input></td></tr>
+			<tr><td></td><td><input type="submit" value="submit" />	</td></tr>
+		</table>
 		</form>
 	</div>
 	<div wicket:id="result"></div>
