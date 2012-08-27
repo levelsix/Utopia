@@ -13,6 +13,8 @@ public class LogSearchInputModel implements IClusterable {
 	protected String level;
 	protected String playerId;
 	protected String searchInput;
+	protected Integer offset = 0;
+	protected Integer show = 300;
 
 	
 	

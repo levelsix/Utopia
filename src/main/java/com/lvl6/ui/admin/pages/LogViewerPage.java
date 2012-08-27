@@ -45,7 +45,7 @@ public class LogViewerPage extends TemplatePage {
 	protected void setup() {
 		form.setOutputMarkupId(true);
 		resultLabel.setOutputMarkupId(true);
-		feedback.setOutputMarkupId(true);
+		//feedback.setOutputMarkupId(true);
 		add(form);
 		add(resultLabel);
 		//add(feedback);
@@ -53,7 +53,7 @@ public class LogViewerPage extends TemplatePage {
 	
 	
 	protected MultiLineLabel resultLabel = new MultiLineLabel("result");
-	final FeedbackPanel feedback = new FeedbackPanel("feedback");
+	//final FeedbackPanel feedback = new FeedbackPanel("feedback");
 	
 	
 	protected LogSearchForm form = new LogSearchForm("logSearch") {
