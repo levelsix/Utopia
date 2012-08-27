@@ -33,6 +33,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
+import org.slf4j.MDC;
 
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
@@ -131,6 +132,8 @@ public class Log4jAppender extends AppenderSkeleton {
 	protected void append(final LoggingEvent event) {
 		//long startTime = System.currentTimeMillis();
 		//LogLog.warn("Recieved event: "+event.getMessage());
+		@SuppressWarnings("unchecked")
+		final Map<String, Object> mdccopy = MDC.getCopyOfContextMap();
 		if(executor != null) {
 		executor.execute(new Runnable() {
 			@Override
@@ -148,10 +151,10 @@ public class Log4jAppender extends AppenderSkeleton {
 						updater.setString(Log4JConstants.THREAD, event.getThreadName());
 						addStackTrace(event, updater);
 						addProperties(event, updater);
-						addPlayerId(event, updater);
-						addUdid(event, updater);
+						addPlayerId(mdccopy, updater);
+						addUdid(mdccopy, updater);
 						client.update(updater);
-						search.indexEvent(event, key, getHost());
+						search.indexEvent(event, key, getHost(), mdccopy);
 						//logcounter.incrementAndGet();
 						//LogLog.warn(message);
 					} catch (Exception e) {
@@ -170,22 +173,22 @@ public class Log4jAppender extends AppenderSkeleton {
 		//lastPublishTime = endTime - startTime;
 	}
 
-	private void addUdid(LoggingEvent event,ColumnFamilyUpdater<String, String> updater) {
-		String udId = (String) event.getMDC(MDCKeys.UDID);
+	private void addUdid(Map<String, Object> mdccopy,ColumnFamilyUpdater<String, String> updater) {
+		String udId = (String) mdccopy.get(MDCKeys.UDID);
 		if (udId != null && !udId.equals("")) {
 			updater.setString(Log4JConstants.UDID, udId.toString());
 		}
 	}
 
-	private void addPlayerId(LoggingEvent event, ColumnFamilyUpdater<String, String> updater) {
+	private void addPlayerId(Map<String, Object> mdccopy, ColumnFamilyUpdater<String, String> updater) {
 		Object pid;
+		pid =  mdccopy.get(MDCKeys.PLAYER_ID);
 		try {
-			pid =  event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null) {
 				updater.setString(Log4JConstants.PLAYER_ID, pid.toString());
 			}
 		} catch (Exception e) {
-			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
+			LogLog.error("Error setting playerId " + pid, e);
 		}
 	}
 

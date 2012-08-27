@@ -34,7 +34,7 @@ public class Log4JElasticSearchIndexer {
 	}
 
 	TimeValue timeout = new TimeValue(500);
-	public void indexEvent(LoggingEvent event, UUID key, String host) {
+	public void indexEvent(LoggingEvent event, UUID key, String host, Map<String, Object> mdccopy) {
 		Client client = search.getClient();
 		try {
 			XContentBuilder jsonBuilder = jsonBuilder();
@@ -47,8 +47,8 @@ public class Log4JElasticSearchIndexer {
 			.field(Log4JConstants.THREAD, event.getThreadName());
 			addStackTrace(event, jsonBuilder);
 			addProperties(event, jsonBuilder);
-			addPlayerId(event, jsonBuilder);
-			addUdid(event, jsonBuilder);
+			addPlayerId(mdccopy, jsonBuilder);
+			addUdid(mdccopy, jsonBuilder);
 			jsonBuilder.endObject();
 			client.prepareIndex(INDEX, TYPE, key.toString())
 			.setSource(jsonBuilder)
@@ -64,22 +64,22 @@ public class Log4JElasticSearchIndexer {
 		}
 	}
 	
-	private void addUdid(LoggingEvent event,XContentBuilder jsonBuilder) throws IOException {
-		String udId = (String) event.getMDC(MDCKeys.UDID);
+	private void addUdid(Map<String, Object> mdccopy,XContentBuilder jsonBuilder) throws IOException {
+		String udId = (String) mdccopy.get(MDCKeys.UDID);
 		if (udId != null && !udId.equals("")) {
 			jsonBuilder.field(Log4JConstants.UDID, udId.toString());
 		}
 	}
 
-	private void addPlayerId(LoggingEvent event, XContentBuilder jsonBuilder) {
+	private void addPlayerId(Map<String, Object> mdccopy, XContentBuilder jsonBuilder) {
 		Object pid;
+		pid =  mdccopy.get(MDCKeys.PLAYER_ID);
 		try {
-			pid =  event.getMDC(MDCKeys.PLAYER_ID);
 			if (pid != null) {
 				jsonBuilder.field(Log4JConstants.PLAYER_ID, pid.toString());
 			}
 		} catch (Exception e) {
-			LogLog.error("Error setting playerId " + event.getMDC(MDCKeys.PLAYER_ID), e);
+			LogLog.error("Error setting playerId " + pid, e);
 		}
 	}
 

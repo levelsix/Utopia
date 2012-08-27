@@ -1,5 +1,6 @@
 package com.lvl6.ui.admin.pages;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -13,8 +14,10 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.lvl6.cassandra.log4j.Log4JConstants;
 import com.lvl6.cassandra.log4j.Log4jElasticSearchQuery;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.LogSearchForm;
@@ -88,13 +91,21 @@ public class LogViewerPage extends TemplatePage {
 				for(String key: hi.keySet()) {
 					Object h = hi.get(key);
 					sb.append(key)
-					.append(":")
-					.append(h)
+					.append(": ")
+					.append(format(key, h))
 					.append("\n");
 				}
 				sb.append("\n");
 			}
 			return sb;
+		}
+		
+		protected DateFormatter format = new DateFormatter();
+		private String format(String key, Object entry) {
+			if(key.equals(Log4JConstants.TIME)) {
+				return format.print(new Date((Integer) entry), getLocale());
+			}
+			return entry.toString();
 		}
 	};
 
