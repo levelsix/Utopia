@@ -151,8 +151,10 @@ public class Log4jAppender extends AppenderSkeleton {
 						updater.setString(Log4JConstants.THREAD, event.getThreadName());
 						addStackTrace(event, updater);
 						addProperties(event, updater);
-						addPlayerId(mdccopy, updater);
-						addUdid(mdccopy, updater);
+						if(mdccopy != null) {
+							addPlayerId(mdccopy, updater);
+							addUdid(mdccopy, updater);
+						}
 						client.update(updater);
 						search.indexEvent(event, key, getHost(), mdccopy);
 						//logcounter.incrementAndGet();
@@ -174,6 +176,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 
 	private void addUdid(Map<String, Object> mdccopy,ColumnFamilyUpdater<String, String> updater) {
+		if(mdccopy == null ) return;
 		String udId = (String) mdccopy.get(MDCKeys.UDID);
 		if (udId != null && !udId.equals("")) {
 			updater.setString(Log4JConstants.UDID, udId.toString());
@@ -181,6 +184,7 @@ public class Log4jAppender extends AppenderSkeleton {
 	}
 
 	private void addPlayerId(Map<String, Object> mdccopy, ColumnFamilyUpdater<String, String> updater) {
+		if(mdccopy == null ) return;
 		Object pid;
 		pid =  mdccopy.get(MDCKeys.PLAYER_ID);
 		try {

@@ -65,6 +65,7 @@ public class Log4JElasticSearchIndexer {
 	}
 	
 	private void addUdid(Map<String, Object> mdccopy,XContentBuilder jsonBuilder) throws IOException {
+		if(mdccopy == null ) return;
 		String udId = (String) mdccopy.get(MDCKeys.UDID);
 		if (udId != null && !udId.equals("")) {
 			jsonBuilder.field(Log4JConstants.UDID, udId.toString());
@@ -72,6 +73,7 @@ public class Log4JElasticSearchIndexer {
 	}
 
 	private void addPlayerId(Map<String, Object> mdccopy, XContentBuilder jsonBuilder) {
+		if(mdccopy == null ) return;
 		Object pid;
 		pid =  mdccopy.get(MDCKeys.PLAYER_ID);
 		try {
