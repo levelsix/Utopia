@@ -86,14 +86,19 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           
           int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
           
+          int newUserEquip2Level = ControllerConstants.NOT_SET;
+          
           int newUserEquipId2 = ControllerConstants.NOT_SET;
           if (isPremiumEquip) {
             newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
+            newUserEquip2Level = blacksmithAttempt.getGoalLevel() - 1;
           } else {
             if (blacksmithAttempt.getGoalLevel() - 1 > 1) {
               newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 2);
+              newUserEquip2Level = blacksmithAttempt.getGoalLevel() - 2;
             } else {
               newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
+              newUserEquip2Level = blacksmithAttempt.getGoalLevel() - 1;
             }
           }
 
@@ -105,7 +110,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
               resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
                 new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
               resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
-                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
+                new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), newUserEquip2Level)));
           }
         }
       }
