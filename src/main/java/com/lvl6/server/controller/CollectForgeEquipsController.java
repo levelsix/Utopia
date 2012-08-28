@@ -84,30 +84,26 @@ import com.lvl6.utils.utilmethods.QuestUtils;
           Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(blacksmithAttempt.getEquipId());
           boolean isPremiumEquip = equip.getDiamondPrice() > 0;
           
-          boolean successfulCollection = true;
           int newUserEquipId1 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
-          successfulCollection = newUserEquipId1 > 0;
           
           int newUserEquipId2 = ControllerConstants.NOT_SET;
           if (isPremiumEquip) {
             newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
-            successfulCollection = (successfulCollection && newUserEquipId2 > 0);
           } else {
             if (blacksmithAttempt.getGoalLevel() - 1 > 1) {
               newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 2);
-              successfulCollection = (successfulCollection && newUserEquipId2 > 0);
+            } else {
+              newUserEquipId2 = InsertUtils.get().insertUserEquip(user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1);
             }
           }
 
-          if (!successfulCollection) {
+          if (newUserEquipId1 < 0 || newUserEquipId2 < 0) {
             resBuilder.setStatus(CollectForgeEquipsStatus.OTHER_FAIL);
             log.error("problem with giving 2 of equip " + blacksmithAttempt.getEquipId() + " to forger " + user.getId() + " at level " + (blacksmithAttempt.getGoalLevel() - 1));
             legitCollection = false;
           } else {
-            if (newUserEquipId1 > 0) 
               resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
                 new UserEquip(newUserEquipId1, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
-            if (newUserEquipId2 > 0)
               resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
                 new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
           }
@@ -143,14 +139,17 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private boolean checkIfSuccessfulForge(BlacksmithAttempt blacksmithAttempt, Equipment equipment) {
-    if (blacksmithAttempt.isGuaranteed())
-      return true;
-
-    float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
-        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
-        (blacksmithAttempt.getGoalLevel()-2);
-
-    return Math.random() <= chanceOfSuccess;
+    return Math.random() < .5;
+    
+    
+//    if (blacksmithAttempt.isGuaranteed())
+//      return true;
+//
+//    float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
+//        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
+//        (blacksmithAttempt.getGoalLevel()-2);
+//
+//    return Math.random() <= chanceOfSuccess;
   }
 
   private boolean checkLegitCollection(Builder resBuilder, int blacksmithId, List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user) {
