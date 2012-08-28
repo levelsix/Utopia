@@ -102,7 +102,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MiscMethods.setMDCProperties(udid, null, MiscMethods.getIPOfPlayer(server, null, udid));
     
     double tempClientVersionNum = reqProto.getVersionNum() * 10;
-    double tempLatestVersionNum = reqProto.getVersionNum() * 10;
+    double tempLatestVersionNum = GameServer.clientVersionNumber * 10;
     
     // Check version number
     if ((int)tempClientVersionNum < (int)tempLatestVersionNum) {
