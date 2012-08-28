@@ -105,7 +105,7 @@ public class LogViewerPage extends TemplatePage {
 		protected DateFormatter format = new DateFormatter();
 		private String format(String key, Object entry) {
 			if(key.equals(Log4JConstants.TIME)) {
-				return format.print(new Date((Integer) entry), getLocale());
+				return format.print(new Date((Long) entry), getLocale());
 			}
 			return entry.toString();
 		}
