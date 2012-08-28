@@ -382,7 +382,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 
 				if (user.getBattlesWon() + user.getBattlesLost() > ControllerConstants.LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION) {
 					setBattlesWonOverTotalBattlesRatioForUser(user.getId(),
-							(double) (user.getBattlesWon() / (user
+						 ((double) user.getBattlesWon() / (user
 									.getBattlesLost() + user.getBattlesWon())));
 				} else {
 					setBattlesWonOverTotalBattlesRatioForUser(user.getId(), 0.0);
