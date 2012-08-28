@@ -11,12 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.ip.tcp.connection.TcpNioServerConnectionFactory;
 
 import com.lvl6.loadtesting.LoadTestEventGenerator;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
-import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.ClientAttachment;
 
 public class HealthCheckImpl implements HealthCheck {
@@ -46,6 +44,20 @@ public class HealthCheckImpl implements HealthCheck {
 	@Resource(name="inboundFakeClientChannel")
 	protected QueueChannel serverResponses;
 	
+	
+	@Resource
+	protected TcpNioServerConnectionFactory serverConnectionFactory;
+	
+	
+	public TcpNioServerConnectionFactory getServerConnectionFactory() {
+		return serverConnectionFactory;
+	}
+
+	public void setServerConnectionFactory(
+			TcpNioServerConnectionFactory serverConnectionFactory) {
+		this.serverConnectionFactory = serverConnectionFactory;
+	}
+
 	@Resource
 	protected ServerInstance server;
 	
@@ -91,6 +103,10 @@ public class HealthCheckImpl implements HealthCheck {
 				log.info("Received health check response on server: {}", server.serverId());
 				return true;
 			}
+		}
+		if(!serverConnectionFactory.isListening() || !serverConnectionFactory.isRunning()) {
+			log.warn("ServerConnectionFactory stopped running or listening... restarting");
+			serverConnectionFactory.run();
 		}
 		return false;
 		
