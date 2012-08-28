@@ -59,7 +59,7 @@ public class AdminPage extends TemplatePage {
 	
 	protected void setContactAdmins() {
 		final TextField<String> message = new TextField<String>("message");
-		Form<String> contact = new Form<String>("contactAdmin") {
+		Form<String> contact = new Form<String>("contactAdmins") {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onSubmit() {

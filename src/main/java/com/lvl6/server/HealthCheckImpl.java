@@ -58,9 +58,7 @@ public class HealthCheckImpl implements HealthCheck {
 		this.serverConnectionFactory = serverConnectionFactory;
 	}
 
-	@Resource
-	protected TcpNioServerConnectionFactory serverConnectionFactory;
-	
+
 	
 	@Resource
 	protected ServerInstance server;
