@@ -144,11 +144,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private boolean checkIfSuccessfulForge(BlacksmithAttempt blacksmithAttempt, Equipment equipment) {
-    return Math.random() < .5;
+    if (blacksmithAttempt.isGuaranteed())
+      return true;
     
-    
-//    if (blacksmithAttempt.isGuaranteed())
-//      return true;
+    return false;
 //
 //    float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
 //        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
