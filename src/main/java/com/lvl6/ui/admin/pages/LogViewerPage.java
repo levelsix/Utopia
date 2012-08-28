@@ -1,5 +1,7 @@
 package com.lvl6.ui.admin.pages;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
@@ -102,10 +104,10 @@ public class LogViewerPage extends TemplatePage {
 			return sb;
 		}
 		
-		protected DateFormatter format = new DateFormatter();
+		protected SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS'-'Z");
 		private String format(String key, Object entry) {
 			if(key.equals(Log4JConstants.TIME)) {
-				return format.print(new Date((Long) entry), getLocale());
+				return format.format(new Date((Long) entry));
 			}
 			return entry.toString();
 		}
