@@ -1,11 +1,15 @@
 package com.lvl6.ui.admin.pages;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.lvl6.properties.Globals;
+import com.lvl6.server.DevOps;
+import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.RecentPurchasesPanel;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
 import com.lvl6.ui.admin.components.StatsPanel;
@@ -29,6 +33,7 @@ public class AdminPage extends TemplatePage {
 		setStats();
 		setTopSpenders();
 		setRecentPurchases();
+		setContactAdmins();
 	}
 	
 	private void setIsSandbox() {
@@ -50,6 +55,22 @@ public class AdminPage extends TemplatePage {
 	
 	protected void setRecentPurchases(){
 		add(new RecentPurchasesPanel("recentPurchases"));
+	}
+	
+	protected void setContactAdmins() {
+		final TextField<String> message = new TextField<String>("message");
+		Form<String> contact = new Form<String>("contactAdmin") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onSubmit() {
+				super.onSubmit();
+				DevOps devops = AppContext.getApplicationContext().getBean(DevOps.class);
+				devops.sendAlertToAdmins(message.getModelObject());
+			}
+		};
+		contact.add(message);
+		contact.setOutputMarkupId(true);
+		add(contact);
 	}
 
 }
