@@ -1,22 +1,16 @@
 package com.lvl6.ui.admin.pages;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.basic.MultiLineLabel;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.common.xcontent.XContent;
-import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.lvl6.cassandra.log4j.Log4JConstants;
@@ -41,7 +35,6 @@ public class LogViewerPage extends TemplatePage {
 		setup();
 	}
 	
-	protected SearchResponse result;
 	
 	
 	protected void setup() {
@@ -64,6 +57,7 @@ public class LogViewerPage extends TemplatePage {
 		@Override
 		protected void onSubmit() {
 			super.onSubmit();
+			SearchResponse result;
 			LogSearchInputModel model = getModelObject();
 			Log4jElasticSearchQuery search = AppContext.getApplicationContext().getBean(Log4jElasticSearchQuery.class);
 			search.setEndDate(model.getEnd());
@@ -73,13 +67,13 @@ public class LogViewerPage extends TemplatePage {
 			search.setOffset(model.getOffset());
 			search.setLimit(model.getShow());
 			result = search.search();
-			StringBuilder sb = buildResultString();
+			StringBuilder sb = buildResultString(result);
 			//info(sb.toString());
 			resultLabel.setDefaultModel(new Model<String>(sb.toString()));
 			//add(resultLabel);
 		}
 
-		private StringBuilder buildResultString() {
+		private StringBuilder buildResultString(SearchResponse result) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Hits: ")
 			.append(result.hits().getTotalHits())
@@ -104,7 +98,7 @@ public class LogViewerPage extends TemplatePage {
 			return sb;
 		}
 		
-		protected SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS'-'Z");
+		protected SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss.SSS");
 		private String format(String key, Object entry) {
 			if(key.equals(Log4JConstants.TIME)) {
 				return format.format(new Date((Long) entry));
