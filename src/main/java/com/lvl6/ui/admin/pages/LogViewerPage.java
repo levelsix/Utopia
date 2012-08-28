@@ -64,6 +64,7 @@ public class LogViewerPage extends TemplatePage {
 			search.setStartDate(model.getStart());
 			search.setMessage(model.getSearchInput());
 			search.setLevel(model.getLevel());
+			search.setPlayerId(Integer.valueOf(model.getPlayerId()));
 			search.setOffset(model.getOffset());
 			search.setLimit(model.getShow());
 			result = search.search();
