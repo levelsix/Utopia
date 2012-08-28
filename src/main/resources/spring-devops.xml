@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" 
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/integration 
+	http://www.springframework.org/schema/integration/spring-integration.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${lvl6.smtp.host}" />
+	</bean>
+
+	<!-- this is a template message that we can pre-load with default state -->
+	<bean id="adminAlertEmail" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
+		<property name="from" value="devops@lvl6.com" />
+		<property name="subject" value="Server Error" />
+	</bean>
+
+	<bean id="devops" class="com.lvl6.server.DevOps">
+		<property name="adminEmails" >
+			<list>
+				<value>5208206924@vtext.com</value>
+				<value>conrad@lvl6.com</value>
+			</list>
+		</property> 
+	</bean>
+
+
+</beans>

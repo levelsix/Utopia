@@ -18,6 +18,7 @@
 
 	<import resource="classpath:spring-redis.xml" />
 	<import resource="classpath:spring-elasticsearch.xml" />
+	<import resource="classpath:spring-devops.xml" />
 	<import resource="classpath:spring-cassandra.xml" />
 	<import resource="classpath:spring-hazelcast.xml" />
 	<import resource="classpath:spring-db.xml" />
