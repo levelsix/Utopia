@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.ip.tcp.connection.TcpNioServerConnectionFactory;
 
 import com.lvl6.loadtesting.LoadTestEventGenerator;
 import com.lvl6.properties.ControllerConstants;
@@ -45,6 +46,10 @@ public class HealthCheckImpl implements HealthCheck {
 
 	@Resource(name="inboundFakeClientChannel")
 	protected QueueChannel serverResponses;
+	
+	@Resource
+	protected TcpNioServerConnectionFactory serverConnectionFactory;
+	
 	
 	@Resource
 	protected ServerInstance server;
@@ -92,8 +97,11 @@ public class HealthCheckImpl implements HealthCheck {
 				return true;
 			}
 		}
+		if(!serverConnectionFactory.isListening() || !serverConnectionFactory.isRunning()) {
+			log.warn("ServerConnectionFactory stopped running or listening... restarting");
+			serverConnectionFactory.run();
+		}
 		return false;
-		
 	}
 
 	@Override

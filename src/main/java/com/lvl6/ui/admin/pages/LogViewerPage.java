@@ -60,8 +60,10 @@ public class LogViewerPage extends TemplatePage {
 			SearchResponse result;
 			LogSearchInputModel model = getModelObject();
 			Log4jElasticSearchQuery search = AppContext.getApplicationContext().getBean(Log4jElasticSearchQuery.class);
-			search.setEndDate(model.getEnd());
-			search.setStartDate(model.getStart());
+			if(model.getEnd() != null)
+				search.setEndDate(model.getEnd());
+			if(model.getStart() != null)
+				search.setStartDate(model.getStart());
 			search.setMessage(model.getSearchInput());
 			search.setLevel(model.getLevel());
 			search.setPlayerId(Integer.valueOf(model.getPlayerId()));
