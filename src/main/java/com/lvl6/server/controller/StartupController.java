@@ -100,12 +100,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
 
     MiscMethods.setMDCProperties(udid, null, MiscMethods.getIPOfPlayer(server, null, udid));
-
+    
+    double tempClientVersionNum = reqProto.getVersionNum() * 10;
+    double tempLatestVersionNum = reqProto.getVersionNum() * 10;
+    
     // Check version number
-    if ((int)reqProto.getVersionNum() < (int)GameServer.clientVersionNumber) {
+    if ((int)tempClientVersionNum < (int)tempLatestVersionNum) {
       updateStatus = UpdateStatus.MAJOR_UPDATE;
       log.info("player has been notified of forced update");
-    } else if (reqProto.getVersionNum() < GameServer.clientVersionNumber) {
+    } else if (tempClientVersionNum < tempLatestVersionNum) {
       updateStatus = UpdateStatus.MINOR_UPDATE;
     } else {
       updateStatus = UpdateStatus.NO_UPDATE;

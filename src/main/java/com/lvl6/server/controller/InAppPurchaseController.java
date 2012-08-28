@@ -70,6 +70,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     
     InAppPurchaseResponseProto.Builder resBuilder = InAppPurchaseResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setReceipt(reqProto.getReceipt());
 
     // Lock this player's ID
     server.lockPlayer(senderProto.getUserId());
@@ -138,6 +139,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
               log.error("problem with in app purchase flow", e);
             }
           } else {
+            resBuilder.setStatus(InAppPurchaseStatus.DUPLICATE_RECEIPT);
             log.error("duplicate receipt from user " + user);
           }
         } else {

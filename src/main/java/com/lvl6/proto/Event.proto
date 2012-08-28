@@ -777,9 +777,12 @@ message InAppPurchaseResponseProto {
 	optional string packageName = 4;
 	optional double packagePrice = 5;
 	
+	optional string receipt = 6;
+	
 	enum InAppPurchaseStatus {
 		SUCCESS = 0;
 		FAIL = 1;
+		DUPLICATE_RECEIPT = 2;
 	}
 }
 
