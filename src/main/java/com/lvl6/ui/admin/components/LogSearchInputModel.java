@@ -13,6 +13,8 @@ public class LogSearchInputModel implements IClusterable {
 	protected String level;
 	protected String playerId;
 	protected String searchInput;
+	protected Integer offset = 0;
+	protected Integer show = 300;
 
 	
 	
@@ -48,6 +50,18 @@ public class LogSearchInputModel implements IClusterable {
 	}
 	public void setLevel(String level) {
 		this.level = level;
+	}
+	public Integer getOffset() {
+		return offset;
+	}
+	public void setOffset(Integer offset) {
+		this.offset = offset;
+	}
+	public Integer getShow() {
+		return show;
+	}
+	public void setShow(Integer show) {
+		this.show = show;
 	}
 	
 	

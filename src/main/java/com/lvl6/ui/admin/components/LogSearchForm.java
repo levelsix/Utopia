@@ -23,6 +23,8 @@ public class LogSearchForm extends Form<LogSearchInputModel> {
 		add(new TextField<String>("level"));
 		add(new TextField<String>("playerId"));
 		add(new TextField<String>("searchInput"));
+		add(new TextField<Integer>("offset"));
+		add(new TextField<Integer>("show"));
 	}
 	
 	
