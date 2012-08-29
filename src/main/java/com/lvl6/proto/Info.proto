@@ -2,6 +2,15 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+//------------------------------------------------------------------------------------------
+
+enum GroupChatScope {
+	GLOBAL = 0;
+	ALLIANCE = 1;
+	LEGION = 2;
+}
+
+//------------------------------------------------------------------------------------------
 
 enum LeaderboardType {
 	MOST_BATTLES_WON = 2;
