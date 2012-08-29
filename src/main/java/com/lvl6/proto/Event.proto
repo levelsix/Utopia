@@ -1653,7 +1653,7 @@ message SendGroupChatResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message ReceiveGroupChatResponseProto {
+message ReceivedGroupChatResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional string chatMessage = 2;
 	optional GroupChatScope scope = 3;
@@ -1671,7 +1671,7 @@ message PurchaseGroupChatResponseProto {
 	
 	enum PurchaseGroupChatStatus {
 		SUCCESS = 0;
-		NOT_ENOUGH_DIAMOND = 1;
+		NOT_ENOUGH_DIAMONDS = 1;
 		OTHER_FAIL = 2;
 	}
 }
