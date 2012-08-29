@@ -3,6 +3,7 @@ package com.lvl6.server;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.NumberFormat;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -11,17 +12,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.ip.tcp.connection.TcpNioServerConnectionFactory;
 
 import com.lvl6.loadtesting.LoadTestEventGenerator;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
-import com.lvl6.proto.InfoProto.MinimumUserProto;
-import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.utils.ClientAttachment;
 
 public class HealthCheckImpl implements HealthCheck {
 	
 	
+	private static final int ALERT_INTERVAL = 1000*60*5;
+
 	private static Logger log = LoggerFactory.getLogger(HealthCheckImpl.class);
 
 	public MessageChannel getSendToServer() {
@@ -39,6 +40,20 @@ public class HealthCheckImpl implements HealthCheck {
 	public void setServerResponses(QueueChannel serverResponses) {
 		this.serverResponses = serverResponses;
 	}
+	
+	
+	@Resource
+	protected DevOps devops;
+	
+
+	public DevOps getDevops() {
+		return devops;
+	}
+
+	public void setDevops(DevOps devops) {
+		this.devops = devops;
+	}
+
 
 	@Resource(name="outboundFakeClientMessageChannel")
 	protected MessageChannel sendToServer;
@@ -46,6 +61,20 @@ public class HealthCheckImpl implements HealthCheck {
 	@Resource(name="inboundFakeClientChannel")
 	protected QueueChannel serverResponses;
 	
+	
+	@Resource
+	protected TcpNioServerConnectionFactory serverConnectionFactory;
+	
+	
+	public TcpNioServerConnectionFactory getServerConnectionFactory() {
+		return serverConnectionFactory;
+	}
+
+	public void setServerConnectionFactory(
+			TcpNioServerConnectionFactory serverConnectionFactory) {
+		this.serverConnectionFactory = serverConnectionFactory;
+	}
+
 	@Resource
 	protected ServerInstance server;
 	
@@ -92,8 +121,21 @@ public class HealthCheckImpl implements HealthCheck {
 				return true;
 			}
 		}
+		if(!serverConnectionFactory.isListening() || !serverConnectionFactory.isRunning()) {
+			log.warn("ServerConnectionFactory stopped running or listening... restarting");
+			serverConnectionFactory.run();
+		}
 		return false;
 		
+	}
+	
+	protected void sendAlertToAdmins() {
+		if(devops.lastAlertSentToAdmins == null || new Date().getTime() > devops.getLastAlertSentToAdmins().getTime()+ALERT_INTERVAL) {
+			log.warn("Contacting admins to notify of failed healthcheck");
+			devops.sendAlertToAdmins("Health check failed on one or more server instances");
+		}else {
+			log.warn("Not contacting admins because contact interval threshold has not been exceeded");
+		}
 	}
 
 	@Override
