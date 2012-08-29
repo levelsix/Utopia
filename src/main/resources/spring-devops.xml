@@ -30,7 +30,7 @@
 	<!-- this is a template message that we can pre-load with default state -->
 	<bean id="adminAlertEmail" class="org.springframework.mail.SimpleMailMessage"
 		scope="prototype">
-		<property name="from" value="devops@lvl6.com" />
+		<property name="from" value="lvl6sender@gmail.com" />
 		<property name="subject" value="Server Error" />
 	</bean>
 

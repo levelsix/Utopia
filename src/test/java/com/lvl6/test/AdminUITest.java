@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.lvl6.server.DevOps;
+import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.HealthCheckPage;
@@ -27,5 +29,11 @@ public class AdminUITest extends TestCase {
 		tester.startPage(MainPage.class);
 		tester.startComponentInPage(StatsPanel.class);
 		tester.startPage(HealthCheckPage.class);
+	}
+	
+	@Test
+	public void testContactAdmins() {
+		DevOps dev = AppContext.getApplicationContext().getBean(DevOps.class);
+		dev.sendAlertToAdmins("Testing alerting system. Disregard this message");
 	}
 }
