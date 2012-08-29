@@ -71,8 +71,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   }
 
   private void writeChangesToDB(User user) {
-    
-
+    if (!user.updateRelativeNumGroupChatsRemainingAndDiamonds(ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE, -1*ControllerConstants.PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE)) {
+      log.error("problem with giving user more global chats and taking away diamonds");
+    }
   }
 
   private boolean checkLegitPurchase(Builder resBuilder, User user) {

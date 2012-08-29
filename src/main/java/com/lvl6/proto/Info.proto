@@ -128,6 +128,7 @@ message FullUserProto {
 	optional bool isAdmin = 48;
 	optional int32 numCoinsRetrievedFromStructs = 50;
 	optional int32 numAdColonyVideosWatched = 51;
+	optional int32 numGroupChatsRemaining = 54;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this

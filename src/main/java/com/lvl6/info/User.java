@@ -66,6 +66,7 @@ public class User implements Serializable {
   private int numAdColonyVideosWatched;
   private int numTimesKiipRewarded;
   private int numConsecutiveDaysPlayed;
+  private int numGroupChatsRemaining;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -82,7 +83,8 @@ public class User implements Serializable {
       Date lastShortLicensePurchaseTime, Date lastLongLicensePurchaseTime,
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
       int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
-      int numTimesKiipRewarded, int numConsecutiveDaysPlayed) {
+      int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
+      int numGroupChatsRemaining) {
     super();
     this.id = id;
     this.name = name;
@@ -132,6 +134,7 @@ public class User implements Serializable {
     this.numAdColonyVideosWatched = numAdColonyVideosWatched;
     this.numTimesKiipRewarded = numTimesKiipRewarded;
     this.numConsecutiveDaysPlayed = numConsecutiveDaysPlayed;
+    this.numGroupChatsRemaining = numGroupChatsRemaining;
   }
 
 
@@ -321,6 +324,24 @@ public class User implements Serializable {
         conditionParams, "and");
     if (numUpdated == 1) {
       this.numBadges += badgeChange;
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean updateRelativeNumGroupChatsRemainingAndDiamonds(int numGroupChatsRemainingChange, int diamondChange) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+    relativeParams.put(DBConstants.USER__NUM_GROUP_CHATS_REMAINING, numGroupChatsRemainingChange);
+    
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      this.numGroupChatsRemaining += numGroupChatsRemainingChange;
       return true;
     }
     return false;
@@ -1199,45 +1220,43 @@ public class User implements Serializable {
 		return numConsecutiveDaysPlayed;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", level=" + level
-				+ ", type=" + type + ", attack=" + attack + ", defense="
-				+ defense + ", stamina=" + stamina + ", lastStaminaRefillTime="
-				+ lastStaminaRefillTime + ", energy=" + energy
-				+ ", lastEnergyRefillTime=" + lastEnergyRefillTime
-				+ ", skillPoints=" + skillPoints
-				+ ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
-				+ ", diamonds=" + diamonds + ", coins=" + coins
-				+ ", marketplaceDiamondsEarnings="
-				+ marketplaceDiamondsEarnings + ", marketplaceCoinsEarnings="
-				+ marketplaceCoinsEarnings + ", vaultBalance=" + vaultBalance
-				+ ", experience=" + experience + ", tasksCompleted="
-				+ tasksCompleted + ", battlesWon=" + battlesWon
-				+ ", battlesLost=" + battlesLost + ", flees=" + flees
-				+ ", referralCode=" + referralCode + ", numReferrals="
-				+ numReferrals + ", udid=" + udid + ", userLocation="
-				+ userLocation + ", numPostsInMarketplace="
-				+ numPostsInMarketplace + ", numMarketplaceSalesUnredeemed="
-				+ numMarketplaceSalesUnredeemed
-				+ ", weaponEquippedUserEquipId=" + weaponEquippedUserEquipId
-				+ ", armorEquippedUserEquipId=" + armorEquippedUserEquipId
-				+ ", amuletEquippedUserEquipId=" + amuletEquippedUserEquipId
-				+ ", lastLogin=" + lastLogin + ", lastLogout=" + lastLogout
-				+ ", deviceToken=" + deviceToken
-				+ ", lastBattleNotificationTime=" + lastBattleNotificationTime
-				+ ", lastTimeAttacked=" + lastTimeAttacked + ", numBadges="
-				+ numBadges + ", lastShortLicensePurchaseTime="
-				+ lastShortLicensePurchaseTime
-				+ ", lastLongLicensePurchaseTime="
-				+ lastLongLicensePurchaseTime + ", isFake=" + isFake
-				+ ", createTime=" + createTime + ", isAdmin=" + isAdmin
-				+ ", apsalarId=" + apsalarId
-				+ ", numCoinsRetrievedFromStructs="
-				+ numCoinsRetrievedFromStructs + ", numAdColonyVideosWatched="
-				+ numAdColonyVideosWatched + ", numTimesKiipRewarded="
-				+ numTimesKiipRewarded + ", numConsecutiveDaysPlayed="
-				+ numConsecutiveDaysPlayed + "]";
-	}
+  public int getNumGroupChatsRemaining() {
+    return numGroupChatsRemaining;
+  }
+
+  @Override
+  public String toString() {
+    return "User [id=" + id + ", name=" + name + ", level=" + level + ", type="
+        + type + ", attack=" + attack + ", defense=" + defense + ", stamina="
+        + stamina + ", lastStaminaRefillTime=" + lastStaminaRefillTime
+        + ", energy=" + energy + ", lastEnergyRefillTime="
+        + lastEnergyRefillTime + ", skillPoints=" + skillPoints
+        + ", energyMax=" + energyMax + ", staminaMax=" + staminaMax
+        + ", diamonds=" + diamonds + ", coins=" + coins
+        + ", marketplaceDiamondsEarnings=" + marketplaceDiamondsEarnings
+        + ", marketplaceCoinsEarnings=" + marketplaceCoinsEarnings
+        + ", vaultBalance=" + vaultBalance + ", experience=" + experience
+        + ", tasksCompleted=" + tasksCompleted + ", battlesWon=" + battlesWon
+        + ", battlesLost=" + battlesLost + ", flees=" + flees
+        + ", referralCode=" + referralCode + ", numReferrals=" + numReferrals
+        + ", udid=" + udid + ", userLocation=" + userLocation
+        + ", numPostsInMarketplace=" + numPostsInMarketplace
+        + ", numMarketplaceSalesUnredeemed=" + numMarketplaceSalesUnredeemed
+        + ", weaponEquippedUserEquipId=" + weaponEquippedUserEquipId
+        + ", armorEquippedUserEquipId=" + armorEquippedUserEquipId
+        + ", amuletEquippedUserEquipId=" + amuletEquippedUserEquipId
+        + ", lastLogin=" + lastLogin + ", lastLogout=" + lastLogout
+        + ", deviceToken=" + deviceToken + ", lastBattleNotificationTime="
+        + lastBattleNotificationTime + ", lastTimeAttacked=" + lastTimeAttacked
+        + ", numBadges=" + numBadges + ", lastShortLicensePurchaseTime="
+        + lastShortLicensePurchaseTime + ", lastLongLicensePurchaseTime="
+        + lastLongLicensePurchaseTime + ", isFake=" + isFake + ", createTime="
+        + createTime + ", isAdmin=" + isAdmin + ", apsalarId=" + apsalarId
+        + ", numCoinsRetrievedFromStructs=" + numCoinsRetrievedFromStructs
+        + ", numAdColonyVideosWatched=" + numAdColonyVideosWatched
+        + ", numTimesKiipRewarded=" + numTimesKiipRewarded
+        + ", numConsecutiveDaysPlayed=" + numConsecutiveDaysPlayed
+        + ", numGroupChatsRemaining=" + numGroupChatsRemaining + "]";
+  }
 
 }
