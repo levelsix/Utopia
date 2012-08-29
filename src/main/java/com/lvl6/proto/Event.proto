@@ -1630,12 +1630,6 @@ message SendGroupChatRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional GroupChatScope scope = 2;
 	optional string chatMessage = 3;
-	
-	enum GroupChatScope {
-		GLOBAL = 0;
-		ALLIANCE = 1;
-		LEGION = 2;
-	}
 }
 
 message SendGroupChatResponseProto {
@@ -1645,7 +1639,7 @@ message SendGroupChatResponseProto {
 	enum SendGroupChatStatus {
 		SUCCESS = 0;
 		WRONG_SIDE = 1;
-		NOT_ENOUGH_GLOBAL_CHATS = 2;
+		NOT_ENOUGH_GROUP_CHATS = 2;
 		TOO_LONG = 3;
 		OTHER_FAIL = 4;
 	}
