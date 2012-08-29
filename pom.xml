@@ -105,9 +105,12 @@
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.1.RELEASE</spring.security.version>
 		<tests.fake.client.host>localhost</tests.fake.client.host>
-		<lvl6.smtp.host>??</lvl6.smtp.host>
+		<lvl6.smtp.host>smtp.gmail.com</lvl6.smtp.host>
+		<lvl6.smtp.port>587</lvl6.smtp.port>
+		<lvl6.smtp.username>??</lvl6.smtp.username>
 		<lvl6.smtp.password>??</lvl6.smtp.password>
-		<lvl6.smtp.port>??</lvl6.smtp.port>
+		<lvl6.smtp.contact1>conrad@lvl6.com</lvl6.smtp.contact1>
+		<lvl6.smtp.contact2>5208206924@vtext.com</lvl6.smtp.contact2>
 	</properties>
 
 	<profiles>
