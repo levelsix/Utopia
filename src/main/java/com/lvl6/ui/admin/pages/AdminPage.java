@@ -69,6 +69,7 @@ public class AdminPage extends TemplatePage {
 				super.onSubmit();
 				DevOps devops = AppContext.getApplicationContext().getBean(DevOps.class);
 				devops.sendAlertToAdmins(message.getModelObject());
+				message.setModelObject("Message sent");
 			}
 		};
 		contact.add(message);
