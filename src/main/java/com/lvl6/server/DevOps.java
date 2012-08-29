@@ -60,10 +60,15 @@ public class DevOps {
 	
 	public void sendAlertToAdmins(String alert) {
 		log.warn("Sending alert to admins: {}", alert);
-		SimpleMailMessage message = getAdminAlertEmail();
-		message.setTo(getAdminEmails().toArray(new String[2]));
-		message.setText(alert);
-		mailSender.send(message);
+		try {
+			SimpleMailMessage message = getAdminAlertEmail();
+			message.setTo(getAdminEmails().toArray(new String[2]));
+			message.setText(alert);
+			mailSender.send(message);
+			setLastAlertSentToAdmins(new Date());
+		}catch(Exception e) {
+			log.error("Error contacting admins", e);
+		}
 	}
 	
 	

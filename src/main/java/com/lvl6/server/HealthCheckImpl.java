@@ -3,6 +3,7 @@ package com.lvl6.server;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.NumberFormat;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -20,6 +21,8 @@ import com.lvl6.utils.ClientAttachment;
 public class HealthCheckImpl implements HealthCheck {
 	
 	
+	private static final int ALERT_INTERVAL = 1000*60*5;
+
 	private static Logger log = LoggerFactory.getLogger(HealthCheckImpl.class);
 
 	public MessageChannel getSendToServer() {
@@ -37,6 +40,20 @@ public class HealthCheckImpl implements HealthCheck {
 	public void setServerResponses(QueueChannel serverResponses) {
 		this.serverResponses = serverResponses;
 	}
+	
+	
+	@Resource
+	protected DevOps devops;
+	
+
+	public DevOps getDevops() {
+		return devops;
+	}
+
+	public void setDevops(DevOps devops) {
+		this.devops = devops;
+	}
+
 
 	@Resource(name="outboundFakeClientMessageChannel")
 	protected MessageChannel sendToServer;
@@ -110,6 +127,15 @@ public class HealthCheckImpl implements HealthCheck {
 		}
 		return false;
 		
+	}
+	
+	protected void sendAlertToAdmins() {
+		if(devops.lastAlertSentToAdmins == null || new Date().getTime() > devops.getLastAlertSentToAdmins().getTime()+ALERT_INTERVAL) {
+			log.warn("Contacting admins to notify of failed healthcheck");
+			devops.sendAlertToAdmins("Health check failed on one or more server instances");
+		}else {
+			log.warn("Not contacting admins because contact interval threshold has not been exceeded");
+		}
 	}
 
 	@Override
