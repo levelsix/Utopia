@@ -81,7 +81,7 @@ import com.lvl6.utils.utilmethods.QuestUtils;
 
       Map<Integer, Equipment> equipmentIdsToEquipment = EquipmentRetrieveUtils.getEquipmentIdsToEquipment();
       Equipment equip = (ue == null) ? null : equipmentIdsToEquipment.get(ue.getEquipId());
-      boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip, timeOfPost);
+      boolean legitPost = checkLegitPost(user, resBuilder, reqProto, diamondCost, coinCost, ue, equip, timeOfPost, reqProto.getUserEquipId());
 
       PostToMarketplaceResponseEvent resEvent = new PostToMarketplaceResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -110,17 +110,14 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private boolean checkLegitPost(User user, Builder resBuilder, 
-      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip, Timestamp timeOfPost) {
-    if (user == null || equip == null || timeOfPost == null) {
+      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip, 
+      Timestamp timeOfPost, int userEquipId) {
+    if (user == null || equip == null || timeOfPost == null || userEquip == null) {
       resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
-      log.error("a passed in parameter was null. user=" + user + ", equip=" + equip + ", timeOfPost=" + timeOfPost);
+      log.error("a passed in parameter was null. user=" + user + ", equip=" + equip + ", timeOfPost=" + timeOfPost + ", userEquip="
+          + userEquip + ", userEquipId=" + userEquipId);
       return false;
     }
-    if (userEquip == null) {
-      resBuilder.setStatus(PostToMarketplaceStatus.NOT_ENOUGH_EQUIP);
-      log.error("user does not have enough of equip with id " + equip.getId() + ", userEquip=" + userEquip);
-      return false;
-    }    
     if (user.getNumPostsInMarketplace() == ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER) {
       resBuilder.setStatus(PostToMarketplaceStatus.USER_ALREADY_MAX_MARKETPLACE_POSTS);
       log.error("user already has max num of marketplace posts, which is " + ControllerConstants.POST_TO_MARKETPLACE__MAX_MARKETPLACE_POSTS_FROM_USER);
