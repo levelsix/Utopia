@@ -31,7 +31,7 @@ public class AdminUITest extends TestCase {
 		tester.startPage(HealthCheckPage.class);
 	}
 	
-	@Test
+	//@Test
 	public void testContactAdmins() {
 		DevOps dev = AppContext.getApplicationContext().getBean(DevOps.class);
 		dev.sendAlertToAdmins("Testing alerting system. Disregard this message");
