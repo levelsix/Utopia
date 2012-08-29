@@ -3,6 +3,7 @@ package com.lvl6.ui.admin.pages;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,8 +58,10 @@ public class AdminPage extends TemplatePage {
 		add(new RecentPurchasesPanel("recentPurchases"));
 	}
 	
+	
+	protected String messageText = "";
 	protected void setContactAdmins() {
-		final TextField<String> message = new TextField<String>("message");
+		final TextField<String> message = new TextField<String>("message", new PropertyModel<String>(this, messageText));
 		Form<String> contact = new Form<String>("contactAdmins") {
 			private static final long serialVersionUID = 1L;
 			@Override
