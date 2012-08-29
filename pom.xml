@@ -111,6 +111,7 @@
 		<lvl6.smtp.password>robashen123</lvl6.smtp.password>
 		<lvl6.smtp.contact1>conrad@lvl6.com</lvl6.smtp.contact1>
 		<lvl6.smtp.contact2>5208206924@vtext.com</lvl6.smtp.contact2>
+		<lvl6.smtp.contact3>4088887199@txt.att.net</lvl6.smtp.contact3>
 	</properties>
 
 	<profiles>
