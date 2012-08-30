@@ -112,10 +112,10 @@ import com.lvl6.utils.utilmethods.QuestUtils;
   }
 
   private boolean checkLegitPost(User user, Builder resBuilder, 
-      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip, Timestamp timeOfPost) {
+      PostToMarketplaceRequestProto reqProto, int diamondCost, int coinCost, UserEquip userEquip, Equipment equip, Timestamp timeOfPost, int userEquipId) {
     if (user == null || equip == null || timeOfPost == null) {
       resBuilder.setStatus(PostToMarketplaceStatus.OTHER_FAIL);
-      log.error("a passed in parameter was null. user=" + user + ", equip=" + equip + ", timeOfPost=" + timeOfPost);
+      log.error("a passed in parameter was null. user=" + user + ", equip=" + equip + ", timeOfPost=" + timeOfPost + ", userEquipId" + userEquipId);
       return false;
     }
     if (userEquip == null) {
