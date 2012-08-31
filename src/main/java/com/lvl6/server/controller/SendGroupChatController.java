@@ -1,15 +1,24 @@
 package com.lvl6.server.controller;
 
+import java.util.Collection;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.SendGroupChatRequestEvent;
+import com.lvl6.events.response.ReceivedGroupChatResponseEvent;
 import com.lvl6.events.response.SendGroupChatResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
+import com.lvl6.proto.EventProto.ReceivedGroupChatResponseProto;
 import com.lvl6.proto.EventProto.SendGroupChatRequestProto;
 import com.lvl6.proto.EventProto.SendGroupChatResponseProto;
 import com.lvl6.proto.EventProto.SendGroupChatResponseProto.Builder;
@@ -17,99 +26,162 @@ import com.lvl6.proto.EventProto.SendGroupChatResponseProto.SendGroupChatStatus;
 import com.lvl6.proto.InfoProto.GroupChatScope;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 
-@Component @DependsOn("gameServer") public class SendGroupChatController extends EventController {
+@Component
+@DependsOn("gameServer")
+public class SendGroupChatController extends EventController {
 
-  private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
+	private static Logger log = Logger.getLogger(new Object() {
+	}.getClass().getEnclosingClass());
+	
+	@Resource(name="outgoingGameEventsHandlerExecutor")
+	protected TaskExecutor executor;
+	
+	
+	public TaskExecutor getExecutor() {
+		return executor;
+	}
 
-  public SendGroupChatController() {
-    numAllocatedThreads = 4;
-  }
+	public void setExecutor(TaskExecutor executor) {
+		this.executor = executor;
+	}
 
-  @Override
-  public RequestEvent createRequestEvent() {
-    return new SendGroupChatRequestEvent();
-  }
+	@Resource(name = "playersByPlayerId")
+	protected Map<Integer, ConnectedPlayer> playersByPlayerId;
 
-  @Override
-  public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_SEND_GROUP_CHAT_EVENT;
-  }
+	public Map<Integer, ConnectedPlayer> getPlayersByPlayerId() {
+		return playersByPlayerId;
+	}
 
-  @Override
-  protected void processRequestEvent(RequestEvent event) throws Exception {
-    SendGroupChatRequestProto reqProto = ((SendGroupChatRequestEvent)event).getSendGroupChatRequestProto();
+	public void setPlayersByPlayerId(Map<Integer, ConnectedPlayer> playersByPlayerId) {
+		this.playersByPlayerId = playersByPlayerId;
+	}
 
-    MinimumUserProto senderProto = reqProto.getSender();
-    GroupChatScope scope = reqProto.getScope();
-    String chatMessage = reqProto.getChatMessage();
-    
-    SendGroupChatResponseProto.Builder resBuilder = SendGroupChatResponseProto.newBuilder();
-    resBuilder.setSender(senderProto);
+	public SendGroupChatController() {
+		numAllocatedThreads = 4;
+	}
 
-    server.lockPlayer(senderProto.getUserId());
-    try {
-      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+	@Override
+	public RequestEvent createRequestEvent() {
+		return new SendGroupChatRequestEvent();
+	}
 
-      boolean legitSend = checkLegitSend(resBuilder, user, scope, chatMessage);
+	@Override
+	public EventProtocolRequest getEventType() {
+		return EventProtocolRequest.C_SEND_GROUP_CHAT_EVENT;
+	}
 
-      SendGroupChatResponseEvent resEvent = new SendGroupChatResponseEvent(senderProto.getUserId());
-      resEvent.setTag(event.getTag());
-      resEvent.setSendGroupChatResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
+	@Override
+	protected void processRequestEvent(final RequestEvent event) throws Exception {
+		SendGroupChatRequestProto reqProto = ((SendGroupChatRequestEvent) event)
+				.getSendGroupChatRequestProto();
 
-      if (legitSend) {
-        writeChangesToDB(user);
-        UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
-        resEventUpdate.setTag(event.getTag());
-        server.writeEvent(resEventUpdate);
-        
-        //TODO: POST THE MESSAGE
-        
-      }
-    } catch (Exception e) {
-      log.error("exception in SendGroupChat processEvent", e);
-    } finally {
-      server.unlockPlayer(senderProto.getUserId());
-    }
-  }
+		MinimumUserProto senderProto = reqProto.getSender();
+		GroupChatScope scope = reqProto.getScope();
+		String chatMessage = reqProto.getChatMessage();
 
-  private void writeChangesToDB(User user) {
-    if (!user.updateRelativeNumGroupChatsRemainingAndDiamonds(-1, 0)) {
-      log.error("problem with decrementing a global chat");
-    }
-  }
-  
-  private boolean checkLegitSend(Builder resBuilder, User user, GroupChatScope scope, String chatMessage) {
-    if (user == null || scope == null || chatMessage == null || chatMessage.length() == 0) {
-      resBuilder.setStatus(SendGroupChatStatus.OTHER_FAIL);
-      log.error("user is " + user + ", scope is " + scope + ", chatMessage=" + chatMessage);
-      return false;      
-    }
-    
-    boolean isAlliance = MiscMethods.checkIfGoodSide(user.getType());
-    if ((scope == GroupChatScope.ALLIANCE && !isAlliance) || (scope == GroupChatScope.LEGION || isAlliance)) {
-      resBuilder.setStatus(SendGroupChatStatus.WRONG_SIDE);
-      log.error("user type is " + user.getType() + ", scope is " + scope);
-      return false;      
-    }
-    
-    if (user.getNumGroupChatsRemaining() <= 0) {
-      resBuilder.setStatus(SendGroupChatStatus.NOT_ENOUGH_GROUP_CHATS);
-      log.error("user has no group chats remaining");
-      return false;      
-    }
-    
-    if (chatMessage.length() > ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING) {
-      resBuilder.setStatus(SendGroupChatStatus.TOO_LONG);
-      log.error("chat message is too long. allowed is " + ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING
-          + ", length is " + chatMessage.length() + ", chatMessage is " + chatMessage);
-      return false;      
-    }
-    
-    resBuilder.setStatus(SendGroupChatStatus.SUCCESS);
-    return true;
-  }
+		SendGroupChatResponseProto.Builder resBuilder = SendGroupChatResponseProto
+				.newBuilder();
+		resBuilder.setSender(senderProto);
+
+		server.lockPlayer(senderProto.getUserId());
+		try {
+			User user = RetrieveUtils.userRetrieveUtils().getUserById(
+					senderProto.getUserId());
+
+			boolean legitSend = checkLegitSend(resBuilder, user, scope,
+					chatMessage);
+
+			SendGroupChatResponseEvent resEvent = new SendGroupChatResponseEvent(senderProto.getUserId());
+			resEvent.setTag(event.getTag());
+			resEvent.setSendGroupChatResponseProto(resBuilder.build());
+			server.writeEvent(resEvent);
+
+			if (legitSend) {
+				writeChangesToDB(user);
+				UpdateClientUserResponseEvent resEventUpdate = MiscMethods
+						.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
+				resEventUpdate.setTag(event.getTag());
+				server.writeEvent(resEventUpdate);
+				final ReceivedGroupChatResponseProto.Builder chatProto = ReceivedGroupChatResponseProto.newBuilder();
+				chatProto.setChatMessage(chatMessage);
+				chatProto.setSender(senderProto);
+				chatProto.setScope(scope);
+				//send messages in background so sending player can unlock
+				executor.execute(new Runnable(){
+					@Override
+					public void run() {
+						sendChatMessageToConnectedPlayers(chatProto, event.getTag());
+					}
+				});
+			}
+		} catch (Exception e) {
+			log.error("exception in SendGroupChat processEvent", e);
+		} finally {
+			server.unlockPlayer(senderProto.getUserId());
+		}
+	}
+
+	
+	protected void sendChatMessageToConnectedPlayers(ReceivedGroupChatResponseProto.Builder chatProto, int tag) {
+		Collection<ConnectedPlayer> players = playersByPlayerId.values();
+		for(ConnectedPlayer player : players) {
+			log.info("Sending chat message to player: "+player.getPlayerId());
+			ReceivedGroupChatResponseEvent ce = new ReceivedGroupChatResponseEvent(player.getPlayerId());
+			ce.setReceivedGroupChatResponseProto(chatProto.build());
+			ce.setTag(tag);
+			try {
+				server.writeEvent(ce);
+			}catch(Exception e) {
+				log.error(e);
+			}
+		}
+	}
+
+	
+	private void writeChangesToDB(User user) {
+		if (!user.updateRelativeNumGroupChatsRemainingAndDiamonds(-1, 0)) {
+			log.error("problem with decrementing a global chat");
+		}
+	}
+
+	private boolean checkLegitSend(Builder resBuilder, User user,
+			GroupChatScope scope, String chatMessage) {
+		if (user == null || scope == null || chatMessage == null
+				|| chatMessage.length() == 0) {
+			resBuilder.setStatus(SendGroupChatStatus.OTHER_FAIL);
+			log.error("user is " + user + ", scope is " + scope
+					+ ", chatMessage=" + chatMessage);
+			return false;
+		}
+
+		boolean isAlliance = MiscMethods.checkIfGoodSide(user.getType());
+		if ((scope == GroupChatScope.ALLIANCE && !isAlliance)
+				|| (scope == GroupChatScope.LEGION || isAlliance)) {
+			resBuilder.setStatus(SendGroupChatStatus.WRONG_SIDE);
+			log.error("user type is " + user.getType() + ", scope is " + scope);
+			return false;
+		}
+
+		if (user.getNumGroupChatsRemaining() <= 0) {
+			resBuilder.setStatus(SendGroupChatStatus.NOT_ENOUGH_GROUP_CHATS);
+			log.error("user has no group chats remaining");
+			return false;
+		}
+
+		if (chatMessage.length() > ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING) {
+			resBuilder.setStatus(SendGroupChatStatus.TOO_LONG);
+			log.error("chat message is too long. allowed is "
+					+ ControllerConstants.SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING
+					+ ", length is " + chatMessage.length()
+					+ ", chatMessage is " + chatMessage);
+			return false;
+		}
+
+		resBuilder.setStatus(SendGroupChatStatus.SUCCESS);
+		return true;
+	}
 }
