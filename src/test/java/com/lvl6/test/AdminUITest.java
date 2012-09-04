@@ -53,7 +53,7 @@ public class AdminUITest extends TestCase {
 		query.setLimit(10);
 		SearchResponse result = query.search();
 	}		
-		
+
 	//log.info(result.toString());
 	//@Test
 	public void testContactAdmins() {
