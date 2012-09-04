@@ -147,13 +147,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
     if (blacksmithAttempt.isGuaranteed())
       return true;
     
-    return false;
-//
-//    float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
-//        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
-//        (blacksmithAttempt.getGoalLevel()-2);
-//
-//    return Math.random() <= chanceOfSuccess;
+    float chanceOfSuccess = (1-equipment.getChanceOfForgeFailureBase()) - 
+        ((1-equipment.getChanceOfForgeFailureBase()) / (ControllerConstants.FORGE_MAX_EQUIP_LEVEL - 1)) * 
+        (blacksmithAttempt.getGoalLevel()-2);
+
+    return Math.random() <= chanceOfSuccess;
   }
 
   private boolean checkLegitCollection(Builder resBuilder, int blacksmithId, List<BlacksmithAttempt> unhandledBlacksmithAttemptsForUser, User user) {
