@@ -112,6 +112,8 @@ public class HealthCheckImpl implements HealthCheck {
 		return waitForMessage();
 	}
 	
+	
+	protected int failsSinceLastSuccess = 0;
 	protected boolean waitForMessage() {
 		Message<?> msg = serverResponses.receive(Globals.HEALTH_CHECK_TIMEOUT()*1000);
 		if(msg != null && msg.getHeaders() != null) {
@@ -120,12 +122,17 @@ public class HealthCheckImpl implements HealthCheck {
 			attachment.readBuff = ByteBuffer.wrap((byte[]) msg.getPayload()).order(ByteOrder.LITTLE_ENDIAN);
 			while(attachment.eventReady()) {
 				log.info("Received health check response on server: {}", server.serverId());
+				failsSinceLastSuccess = 0;
 				return true;
 			}
 		}
 		if(!serverConnectionFactory.isListening() || !serverConnectionFactory.isRunning()) {
 			log.warn("ServerConnectionFactory stopped running or listening... restarting");
 			serverConnectionFactory.run();
+		}
+		failsSinceLastSuccess++;
+		if(failsSinceLastSuccess > 2) {
+			sendAlertToAdmins();
 		}
 		return false;
 	}
