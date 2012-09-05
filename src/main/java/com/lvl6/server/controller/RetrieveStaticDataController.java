@@ -77,20 +77,29 @@ import com.lvl6.utils.CreateInfoProtoUtils;
   }
 
   private void populateResBuilder(Builder resBuilder, RetrieveStaticDataRequestProto reqProto) {
-
-    List <Integer> structIds = reqProto.getStructIdsList();
-    if (structIds != null && structIds.size() > 0) {
-      Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
-      for (Integer structId :  structIds) {
-        Structure struct = structIdsToStructures.get(structId);
-        if (struct != null) {
-          resBuilder.addStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
-        } else {
-          resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
-          log.error("problem with retrieving struct with id " + structId);
-        }
+    Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
+    for (Integer structId :  structIdsToStructures.keySet()) {
+      Structure struct = structIdsToStructures.get(structId);
+      if (struct != null) {
+        resBuilder.addStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
+      } else {
+        resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+        log.error("problem with retrieving struct with id " + structId);
       }
     }
+//    List <Integer> structIds = reqProto.getStructIdsList();
+//    if (structIds != null && structIds.size() > 0) {
+//      Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
+//      for (Integer structId :  structIds) {
+//        Structure struct = structIdsToStructures.get(structId);
+//        if (struct != null) {
+//          resBuilder.addStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
+//        } else {
+//          resBuilder.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+//          log.error("problem with retrieving struct with id " + structId);
+//        }
+//      }
+//    }
 
     List <Integer> taskIds = reqProto.getTaskIdsList();
     if (taskIds != null && taskIds.size() > 0) {
