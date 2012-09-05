@@ -52,7 +52,7 @@
 		<constructor-arg index="1" value="${lvl6.jedis.host}" />
 		<constructor-arg index="2" value="6379" />
 		<constructor-arg index="3" value="5000" />
-		<constructor-arg index="4" value="${lvl6.jedis.auth}" />
+		<constructor-arg index="4" ><value><![CDATA[${lvl6.jedis.auth}]]></value></constructor-arg>
 	</bean>
 	
 	
