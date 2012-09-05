@@ -1,15 +1,21 @@
 package com.lvl6.server;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
@@ -17,15 +23,46 @@ import com.hazelcast.core.ITopic;
 import com.hazelcast.core.Message;
 import com.hazelcast.core.MessageListener;
 import com.lvl6.events.response.PurgeClientStaticDataResponseEvent;
+import com.lvl6.info.User;
+import com.lvl6.leaderboards.LeaderBoardUtil;
+import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.EventProto.PurgeClientStaticDataResponseProto;
+import com.lvl6.retrieveutils.UserRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
+import com.lvl6.utils.RetrieveUtils;
 
 public class ServerAdmin implements MessageListener<ServerMessage> {
 	
 	Logger log = LoggerFactory.getLogger(getClass());
 	
+	protected JdbcTemplate jdbc;
+	
+	@Autowired
+	protected DataSource ds;
+	
+	public DataSource getDs() {
+		
+		return ds;
+	}
+
+	public void setDs(DataSource ds) {
+		jdbc = new JdbcTemplate(ds);
+		this.ds = ds;
+	}
 
 	
+	@Autowired
+	protected LeaderBoardUtil leaderboard;
+
+	public LeaderBoardUtil getLeaderboard() {
+		return leaderboard;
+	}
+
+	public void setLeaderboard(LeaderBoardUtil leaderboard) {
+		this.leaderboard = leaderboard;
+	}
+
+
 	@Resource(name="playersByPlayerId")
 	Map<Integer, ConnectedPlayer> players;
 
@@ -103,6 +140,29 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 			log.error("Could not obtain lock for reloading instances", e);
 		}
 	}
+	
+	
+	public void reloadLeaderboard() {
+		UserRetrieveUtils uru = RetrieveUtils.userRetrieveUtils();
+		int count = uru.countUsers(false);
+		log.info("Loading leaderboard stats for {} users", count);
+		List<Integer> ids = jdbc.query("select "+DBConstants.USER__ID+" from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__IS_FAKE +"=0", new RowMapper<Integer>(){
+			@Override
+			public Integer mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				return rs.getInt(DBConstants.USER__ID);
+			}
+		});
+		Map<Integer, User> users = uru.getUsersByIds(ids);
+		for(User usr : users.values()) {
+			try {
+				leaderboard.updateLeaderboardForUser(usr);
+			}catch(Exception e) {
+				log.error("Error updating leaderboard for user: {}", usr.getId(), e);
+			}
+		}
+	}
+	
 	
 	protected void sendPurgeStaticDataNotificationToAllClients() {
 		Set<Integer> keySet = players.keySet();

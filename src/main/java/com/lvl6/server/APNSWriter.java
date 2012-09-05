@@ -1,6 +1,7 @@
 package com.lvl6.server;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -29,6 +30,7 @@ import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
 import com.notnoop.apns.ApnsServiceBuilder;
 import com.notnoop.apns.PayloadBuilder;
+import com.notnoop.exceptions.InvalidSSLConfig;
 
 public class APNSWriter extends Wrap {
 	// reference to game server
@@ -172,20 +174,24 @@ public class APNSWriter extends Wrap {
 
 	protected void buildService() throws FileNotFoundException {
 		log.info("Building ApnsService");
-		getClass().getClassLoader();
-		InputStream stream = ClassLoader
-				.getSystemResourceAsStream(apnsProperties.pathToCert);
-		ApnsServiceBuilder builder = APNS.newService()
-				.withCert(stream, apnsProperties.certPassword).asNonBlocking();
-
-		if (Globals.IS_SANDBOX()) {
-			log.info("Building apns with sandbox=true");
-			builder.withSandboxDestination();
-		} else {
-		  builder.withProductionDestination();
+		InputStream stream = getClass().getClassLoader().getSystemResourceAsStream(apnsProperties.pathToCert);
+		try {
+			if(stream.available() > 0) {
+				ApnsServiceBuilder builder = APNS.newService().withCert(stream, apnsProperties.certPassword).asNonBlocking();
+				if (Globals.IS_SANDBOX()) {
+					log.info("Building apns with sandbox=true");
+					builder.withSandboxDestination();
+				} else {
+				  builder.withProductionDestination();
+				}
+				service = builder.build();
+				service.start();
+			}
+		} catch (InvalidSSLConfig e) {
+			log.error("Error getting apns cert.. Invalid SSL Config Exception", e);
+		} catch (IOException e) {
+			log.error("Error getting apns cert",e);
 		}
-		service = builder.build();
-		service.start();
 	}
 
 	private void handlePostOnPlayerWallNotification(ApnsService service,

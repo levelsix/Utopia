@@ -34,7 +34,7 @@
 	</scm>
 
 	<repositories>
- 		<repository>
+		<repository>
 			<id>sonatype-releases</id>
 			<name>Sonatype Releases</name>
 			<layout>default</layout>
@@ -81,7 +81,7 @@
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
-		<lvl6.application.version>1.0f</lvl6.application.version>
+		<lvl6.application.version>1.10f</lvl6.application.version>
 		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
@@ -105,6 +105,13 @@
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<spring.security.version>3.1.1.RELEASE</spring.security.version>
 		<tests.fake.client.host>localhost</tests.fake.client.host>
+		<lvl6.smtp.host>smtp.gmail.com</lvl6.smtp.host>
+		<lvl6.smtp.port>587</lvl6.smtp.port>
+		<lvl6.smtp.username>lvl6sender@gmail.com</lvl6.smtp.username>
+		<lvl6.smtp.password>robashen123</lvl6.smtp.password>
+		<lvl6.smtp.contact1>conrad@lvl6.com</lvl6.smtp.contact1>
+		<lvl6.smtp.contact2>5208206924@vtext.com</lvl6.smtp.contact2>
+		<lvl6.smtp.contact3>4088887199@txt.att.net</lvl6.smtp.contact3>
 	</properties>
 
 	<profiles>
@@ -214,6 +221,7 @@
 					<environmentName>${application.release.name}-${maven.build.timestamp}</environmentName>
 					<defaultEnvironmentName>default</defaultEnvironmentName>
 					<cnamePrefix>${application.release.name}-${maven.build.timestamp}</cnamePrefix>
+					<timeoutMins>80</timeoutMins>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${application.release.name}/${application.release.name}-${maven.build.timestamp}.war</s3Key>
 					<!-- <configurationTemplate>lvl6prod-${maven.build.timestamp}</configurationTemplate> -->
@@ -253,7 +261,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>3</value>
+							<value>4</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
@@ -607,6 +615,16 @@
 				<artifactId>elasticsearch</artifactId>
 				<version>0.19.8</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-support</artifactId>
+				<version>2.0.8</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.5</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -757,6 +775,14 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-datetime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-aop</artifactId> 
 			</dependency> <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> 
