@@ -37,18 +37,11 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 	
 	protected JdbcTemplate jdbc;
 	
-	@Autowired
-	protected DataSource ds;
-	
-	public DataSource getDs() {
-		
-		return ds;
-	}
-
-	public void setDs(DataSource ds) {
-		jdbc = new JdbcTemplate(ds);
-		this.ds = ds;
-	}
+	@Resource
+    public void setDataSource(DataSource dataSource) {
+		log.info("Setting datasource and creating jdbcTemplate");
+        this.jdbc = new JdbcTemplate(dataSource);
+    }
 
 	
 	@Autowired
