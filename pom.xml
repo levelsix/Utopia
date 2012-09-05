@@ -260,7 +260,7 @@
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
 							<optionName>MinSize</optionName>
-							<value>3</value>
+							<value>4</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:asg</namespace>
