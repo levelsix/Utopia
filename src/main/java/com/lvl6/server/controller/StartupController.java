@@ -176,8 +176,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     log.info("Writing event: " + resEvent);
     // Write event directly since EventWriter cannot handle without userId.
-    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
-    NIOUtils.prepBuffer(resEvent, writeBuffer);
+    /*ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+    NIOUtils.prepBuffer(resEvent, writeBuffer);*/
 
     sendAllStructs(udid, user);
 
@@ -216,8 +216,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
     resEvent1.setRetrieveStaticDataResponseProto(resProto1.build());
-    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
-    NIOUtils.prepBuffer(resEvent1, writeBuffer);
+    /*ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+    NIOUtils.prepBuffer(resEvent1, writeBuffer);*/
     server.writePreDBEvent(resEvent1, udid);
   }
 
