@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -42,8 +43,21 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 		log.info("Setting datasource and creating jdbcTemplate");
         this.jdbc = new JdbcTemplate(dataSource);
     }
+	
+	
+	@Resource(name="controllersExecutor")
+	protected TaskExecutor executor;
 
 	
+	public TaskExecutor getExecutor() {
+		return executor;
+	}
+
+	public void setExecutor(TaskExecutor executor) {
+		this.executor = executor;
+	}
+
+
 	@Autowired
 	protected LeaderBoardUtil leaderboard;
 
@@ -147,12 +161,17 @@ public class ServerAdmin implements MessageListener<ServerMessage> {
 			}
 		});
 		Map<Integer, User> users = uru.getUsersByIds(ids);
-		for(User usr : users.values()) {
-			try {
-				leaderboard.updateLeaderboardForUser(usr);
-			}catch(Exception e) {
-				log.error("Error updating leaderboard for user: {}", usr.getId(), e);
-			}
+		for(final User usr : users.values()) {
+			executor.execute(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						leaderboard.updateLeaderboardForUser(usr);
+					}catch(Exception e) {
+						log.error("Error updating leaderboard for user: {}", usr.getId(), e);
+					}
+				}
+			});
 		}
 	}
 	
