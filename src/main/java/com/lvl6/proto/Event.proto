@@ -1618,3 +1618,162 @@ message RetrieveLeaderboardResponseProto {
 		OTHER_FAIL = 1;
 	}
 }
+
+//------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------
+
+message CreateClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional string name = 2;
+}
+
+message CreateClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CreateClanStatus status = 2;
+	optional FullClanProto clanInfo = 3;
+	
+	enum CreateClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_ENOUGH_DIAMONDS = 2;
+		NAME_TAKEN = 3;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message LeaveClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+	optional int32 newOwner = 3;
+}
+
+message LeaveClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional LeaveClanStatus status = 2;
+	
+	enum LeaveClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_IN_CLAN = 2;
+		NEW_OWNER_NOT_IN_CLAN = 3;
+	}	
+
+}
+
+//------------------------------------------------------------------------------------------
+
+message RequestJoinClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+}
+
+message RequestJoinClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional RequestJoinClanStatus status = 2;
+	
+	enum RequestJoinClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		ALREADY_IN_CLAN = 2;
+		REQUEST_ALREADY_FILED = 3;
+		ALREADY_REQUESTING_OTHER_CLAN = 4;
+	}	
+
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetractRequestJoinClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+}
+
+message RetractRequestJoinClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional RetractRequestJoinClanStatus status = 2;
+	
+	enum RetractRequestJoinClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		ALREADY_IN_CLAN = 2;
+		DID_NOT_REQUEST = 3;
+	}	
+	
+
+}
+
+//------------------------------------------------------------------------------------------
+
+message ApproveRequestToJoinRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 requesterId = 2;
+
+}
+
+message ApproveRequestToJoinResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional ApproveRequestToJoinStatus status = 2;
+	
+	enum ApproveRequestToJoinStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_OWNER = 2;
+		NOT_A_REQUESTER = 3;
+	}	
+
+}
+
+//------------------------------------------------------------------------------------------
+
+message DeleteClanRequestProto {
+	optional MinimumUserProto sender = 1;
+
+}
+
+message DeleteClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional DeleteClanStatus status = 2;
+	
+	enum DeleteClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_OWNER = 2;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveClanInfoRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+	optional ClanInfoGrabType grabType = 3;
+	
+	enum ClanInfoGrabType {
+		ALL = 1;
+		CLAN_INFO = 2;
+		MEMBERS = 3;
+	}
+
+}
+
+message RetrieveClanInfoResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated MinimumUserProto members = 2;
+	optional FullClanProto clanInfo = 3;
+	optional RetrieveClanInfoStatus status = 4;
+	
+	enum RetrieveClanInfoStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+	}	
+}
+
+//clans
+//id, owner_id, name
+
+//clan members
+//clan_id, user_id, status (enum MEMBER, OWNER, PENDING REQUEST)
+
+//users
+//clan_id

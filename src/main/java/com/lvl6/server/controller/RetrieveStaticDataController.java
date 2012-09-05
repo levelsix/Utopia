@@ -77,7 +77,6 @@ import com.lvl6.utils.CreateInfoProtoUtils;
   }
 
   private void populateResBuilder(Builder resBuilder, RetrieveStaticDataRequestProto reqProto) {
-
     List <Integer> structIds = reqProto.getStructIdsList();
     if (structIds != null && structIds.size() > 0) {
       Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();

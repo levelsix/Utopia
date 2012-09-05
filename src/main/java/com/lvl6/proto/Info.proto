@@ -3,6 +3,14 @@ package com.lvl6.proto;
 option java_outer_classname = "InfoProto";
 
 
+message FullClanProto {
+	optional int32 clanId = 1;
+	optional string name = 2;
+	optional int32 ownerId = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
 enum LeaderboardType {
 	MOST_BATTLES_WON = 2;
 	MOST_COINS = 3;
