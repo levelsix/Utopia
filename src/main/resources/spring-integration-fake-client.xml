@@ -27,7 +27,7 @@
 		port="${server.port}" 
 		host="${tests.fake.client.host}"
 		task-executor="controllersExecutor"
-		single-use="true"
+		single-use="false"
 	/>	
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
