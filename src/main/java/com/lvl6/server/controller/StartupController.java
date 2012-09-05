@@ -203,7 +203,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void sendAllStructs(String udid, User user) {
-    RetrieveStaticDataResponseEvent resEvent1 = new RetrieveStaticDataResponseEvent(user.getId());
+    RetrieveStaticDataResponseEvent resEvent1 = new RetrieveStaticDataResponseEvent(0);
     RetrieveStaticDataResponseProto.Builder resProto1 = RetrieveStaticDataResponseProto.newBuilder();
     Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
     for (Integer structId :  structIdsToStructures.keySet()) {
@@ -215,6 +215,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("problem with retrieving struct with id " + structId);
       }
     }
+    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+    NIOUtils.prepBuffer(resEvent1, writeBuffer);
     server.writePreDBEvent(resEvent1, udid);
   }
 
