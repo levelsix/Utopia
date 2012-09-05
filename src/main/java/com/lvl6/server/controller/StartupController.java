@@ -215,6 +215,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         log.error("problem with retrieving struct with id " + structId);
       }
     }
+    resEvent1.setRetrieveStaticDataResponseProto(resProto1.build());
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
     NIOUtils.prepBuffer(resEvent1, writeBuffer);
     server.writePreDBEvent(resEvent1, udid);
