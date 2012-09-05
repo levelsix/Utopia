@@ -81,7 +81,7 @@
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
-		<lvl6.application.version>1.0f</lvl6.application.version>
+		<lvl6.application.version>1.10f</lvl6.application.version>
 		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
@@ -221,7 +221,7 @@
 					<environmentName>${application.release.name}-${maven.build.timestamp}</environmentName>
 					<defaultEnvironmentName>default</defaultEnvironmentName>
 					<cnamePrefix>${application.release.name}-${maven.build.timestamp}</cnamePrefix>
-					<timeoutMins>20</timeoutMins>
+					<timeoutMins>80</timeoutMins>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${application.release.name}/${application.release.name}-${maven.build.timestamp}.war</s3Key>
 					<!-- <configurationTemplate>lvl6prod-${maven.build.timestamp}</configurationTemplate> -->
