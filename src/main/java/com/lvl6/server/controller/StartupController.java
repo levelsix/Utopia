@@ -16,7 +16,10 @@ import org.springframework.stereotype.Component;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.StartupRequestEvent;
+import com.lvl6.events.response.ArmoryResponseEvent;
+import com.lvl6.events.response.RetrieveStaticDataResponseEvent;
 import com.lvl6.events.response.StartupResponseEvent;
+import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
@@ -34,8 +37,12 @@ import com.lvl6.info.UserQuest;
 import com.lvl6.leaderboards.LeaderBoardUtil;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.properties.Globals;
+import com.lvl6.proto.EventProto.ArmoryResponseProto;
+import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
+import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus;
 import com.lvl6.proto.EventProto.StartupRequestProto;
 import com.lvl6.proto.EventProto.StartupResponseProto;
+import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.Builder;
 import com.lvl6.proto.EventProto.StartupResponseProto.DailyBonusInfo;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupStatus;
@@ -100,10 +107,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
 
     MiscMethods.setMDCProperties(udid, null, MiscMethods.getIPOfPlayer(server, null, udid));
-    
+
     double tempClientVersionNum = reqProto.getVersionNum() * 10;
     double tempLatestVersionNum = GameServer.clientVersionNumber * 10;
-    
+
     // Check version number
     if ((int)tempClientVersionNum < (int)tempLatestVersionNum) {
       updateStatus = UpdateStatus.MAJOR_UPDATE;
@@ -172,7 +179,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
     NIOUtils.prepBuffer(resEvent, writeBuffer);
 
+    sendAllStructs(udid, user);
+
     server.writePreDBEvent(resEvent, udid);
+
+
+
+
     //    SocketChannel sc = server.removePreDbPlayer(udid);
     //    if (sc != null) {
     //      if (user != null) 
@@ -187,6 +200,24 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
       leaderboard.updateLeaderboardForUser(user);
     }    
+  }
+
+  private void sendAllStructs(String udid, User user) {
+    RetrieveStaticDataResponseEvent resEvent1 = new RetrieveStaticDataResponseEvent(0);
+    RetrieveStaticDataResponseProto.Builder resProto1 = RetrieveStaticDataResponseProto.newBuilder();
+    Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
+    for (Integer structId :  structIdsToStructures.keySet()) {
+      Structure struct = structIdsToStructures.get(structId);
+      if (struct != null) {
+        resProto1.addStructs(CreateInfoProtoUtils.createFullStructureProtoFromStructure(struct));
+      } else {
+        resProto1.setStatus(RetrieveStaticDataStatus.SOME_FAIL);
+        log.error("problem with retrieving struct with id " + structId);
+      }
+    }
+    ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
+    NIOUtils.prepBuffer(resEvent1, writeBuffer);
+    server.writePreDBEvent(resEvent1, udid);
   }
 
   private void setNoticesToPlayers(Builder resBuilder, User user) {
