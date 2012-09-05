@@ -221,7 +221,7 @@
 					<environmentName>${application.release.name}-${maven.build.timestamp}</environmentName>
 					<defaultEnvironmentName>default</defaultEnvironmentName>
 					<cnamePrefix>${application.release.name}-${maven.build.timestamp}</cnamePrefix>
-					<timeoutMins>20</timeoutMins>
+					<timeoutMins>80</timeoutMins>
 					<s3Bucket>prodWars</s3Bucket>
 					<s3Key>${application.release.name}/${application.release.name}-${maven.build.timestamp}.war</s3Key>
 					<!-- <configurationTemplate>lvl6prod-${maven.build.timestamp}</configurationTemplate> -->

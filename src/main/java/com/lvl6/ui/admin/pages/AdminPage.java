@@ -12,6 +12,7 @@ import com.lvl6.properties.Globals;
 import com.lvl6.server.DevOps;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.RecentPurchasesPanel;
+import com.lvl6.ui.admin.components.ReloadLeaderboardLink;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
 import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.components.TopSpendersPanel;
@@ -44,6 +45,7 @@ public class AdminPage extends TemplatePage {
 	
 	private void setTools() {
 		add(new ReloadStaticDataLink("reloadStaticDataLink"));
+		add(new ReloadLeaderboardLink("reloadLeaderboardLink"));
 	}
 
 	protected void setStats() {
