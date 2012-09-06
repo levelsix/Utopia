@@ -131,7 +131,7 @@ public class HealthCheckImpl implements HealthCheck {
 			serverConnectionFactory.run();
 		}
 		failsSinceLastSuccess++;
-		if(failsSinceLastSuccess > 2) {
+		if(failsSinceLastSuccess > 4) {
 			sendAlertToAdmins();
 		}
 		return false;

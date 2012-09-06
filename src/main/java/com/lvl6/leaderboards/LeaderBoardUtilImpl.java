@@ -2,6 +2,7 @@ package com.lvl6.leaderboards;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Tuple;
 
 import com.lvl6.info.User;
 import com.lvl6.properties.ControllerConstants;
@@ -150,37 +152,37 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 
 	@Override
-	public List<Integer> getBattlesWonTopN(Integer start, Integer stop) {
+	public Set<Tuple> getBattlesWonTopN(Integer start, Integer stop) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			Set<String> ids = jedis.zrevrange(LeaderBoardConstants.BATTLES_WON,
+			Set<Tuple> ids = jedis.zrevrangeWithScores(LeaderBoardConstants.BATTLES_WON,
 					start, stop);
-			return convertToIdStringsToInts(ids);
+			return ids;//convertToIdStringsToInts(ids);
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return new ArrayList<Integer>();
+		return new HashSet<Tuple>();
 	}
 
 	@Override
-	public List<Integer> getBattlesWonOverTotalBattlesRatioTopN(Integer start,
+	public Set<Tuple> getBattlesWonOverTotalBattlesRatioTopN(Integer start,
 			Integer stop) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			Set<String> ids = jedis.zrevrange(
+			Set<Tuple> ids = jedis.zrevrangeWithScores(
 					LeaderBoardConstants.BATTLES_WON_TO_TOTAL_BATTLES_RATIO,
 					start, stop);
-			return convertToIdStringsToInts(ids);
+			return ids;//convertToIdStringsToInts(ids);
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return new ArrayList<Integer>();
+		return new HashSet<Tuple>();
 	}
 
 	// @Override
@@ -288,35 +290,35 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	}
 
 	@Override
-	public List<Integer> getTotalCoinValueForTopN(Integer start, Integer stop) {
+	public Set<Tuple> getTotalCoinValueForTopN(Integer start, Integer stop) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			Set<String> ids = jedis.zrevrange(LeaderBoardConstants.COIN_WORTH,
+			Set<Tuple> ids = jedis.zrevrangeWithScores(LeaderBoardConstants.COIN_WORTH,
 					start, stop);
-			return convertToIdStringsToInts(ids);
+			return ids;//convertToIdStringsToInts(ids);
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return new ArrayList<Integer>();
+		return new HashSet<Tuple>();
 	}
 
 	@Override
-	public List<Integer> getExperienceTopN(Integer start, Integer stop) {
+	public Set<Tuple> getExperienceTopN(Integer start, Integer stop) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			Set<String> ids = jedis.zrevrange(LeaderBoardConstants.EXPERIENCE,
+			Set<Tuple> ids = jedis.zrevrangeWithScores(LeaderBoardConstants.EXPERIENCE,
 					start, stop);
-			return convertToIdStringsToInts(ids);
+			return ids;//convertToIdStringsToInts(ids);
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);
 		}
-		return new ArrayList<Integer>();
+		return new HashSet<Tuple>();
 	}
 
 	protected List<Integer> convertToIdStringsToInts(Set<String> ids) {

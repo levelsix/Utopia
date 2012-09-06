@@ -139,7 +139,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	 * write the event to the given playerId's channel
 	 */
 	private void write(ByteBuffer event, ConnectedPlayer player) {
-		log.debug("EventWriter.write for player on server {}  this server is: {}", player.getServerHostName(), serverInstance.serverId());
+		log.info("EventWriter.write for player on server {}  this server is: {}", player.getServerHostName(), serverInstance.serverId());
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ip_connection_id", player.getIp_connection_id());
 		if(player.getPlayerId() != 0) {

@@ -18,7 +18,7 @@ import com.lvl6.server.controller.EventController;
 import com.lvl6.utils.ConnectedPlayer;
 
 public class GameEventHandler extends AbstractGameEventHandler {
-	private static final int DEFAULT_TTL = 2;
+	private static final int DEFAULT_TTL = 3;
 
 	static Logger log = Logger.getLogger(GameEventHandler.class);
 
