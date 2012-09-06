@@ -99,7 +99,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   @Override
   protected void processRequestEvent(RequestEvent event) throws Exception {
     StartupRequestProto reqProto = ((StartupRequestEvent)event).getStartupRequestProto();
-
+    log.info("Processing startup request event");
     UpdateStatus updateStatus;
     String udid = reqProto.getUdid();
     String apsalarId = reqProto.hasApsalarId() ? reqProto.getApsalarId() : null;
@@ -139,7 +139,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         server.lockPlayer(user.getId());
         try {
           startupStatus = StartupStatus.USER_IN_DB;
-
+          log.info("No major update... getting user info");
           newNumConsecutiveDaysLoggedIn = setDailyBonusInfo(resBuilder, user, now);
           setCitiesAndUserCityInfos(resBuilder, user);
           setInProgressAndAvailableQuests(resBuilder, user);
@@ -174,13 +174,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resEvent.setTag(event.getTag());
     resEvent.setStartupResponseProto(resProto);
 
-    log.info("Writing event: " + resEvent);
-    // Write event directly since EventWriter cannot handle without userId.
-    /*ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
-    NIOUtils.prepBuffer(resEvent, writeBuffer);*/
-
+    log.info("Sending struct");
     sendAllStructs(udid, user);
 
+    log.info("Writing event: " + resEvent);
     server.writePreDBEvent(resEvent, udid);
 
 
@@ -196,6 +193,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //    
     if (user != null) {
       //for things that client doesn't need
+    	log.info("Updating leaderboard for user "+user.getId());
       syncApsalaridLastloginConsecutivedaysloggedinResetBadges(user, apsalarId, now, newNumConsecutiveDaysLoggedIn);
       LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
       leaderboard.updateLeaderboardForUser(user);
@@ -216,9 +214,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
     resEvent1.setRetrieveStaticDataResponseProto(resProto1.build());
-    /*ByteBuffer writeBuffer = ByteBuffer.allocateDirect(Globals.MAX_EVENT_SIZE);
-    NIOUtils.prepBuffer(resEvent1, writeBuffer);*/
     server.writePreDBEvent(resEvent1, udid);
+    log.info("Structs sent");
   }
 
   private void setNoticesToPlayers(Builder resBuilder, User user) {

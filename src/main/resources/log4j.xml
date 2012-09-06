@@ -58,7 +58,7 @@
 
 	
 <!-- 
-	-->
+	
 	<logger name="org.springframework" additivity="false">
 		<level value="DEBUG" />
 		<appender-ref ref="EC2" /> 
@@ -75,7 +75,7 @@
 		<appender-ref ref="${lvl6.server.log.appender}" />
 		<appender-ref ref="ERROR_LOG" />
 	</logger> 
-	
+-->	
 	<root>
 		<level value="info" />
 		<appender-ref ref="EC2" /> 
