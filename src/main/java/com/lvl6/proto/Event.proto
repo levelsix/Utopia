@@ -1751,17 +1751,17 @@ message RetractRequestJoinClanResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message ApproveRequestToJoinRequestProto {
+message ApproveRequestToJoinClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 requesterId = 2;
 
 }
 
-message ApproveRequestToJoinResponseProto {
+message ApproveRequestToJoinClanResponseProto {
 	optional MinimumUserProto sender = 1;
-	optional ApproveRequestToJoinStatus status = 2;
+	optional ApproveRequestToJoinClanStatus status = 2;
 	
-	enum ApproveRequestToJoinStatus {
+	enum ApproveRequestToJoinClanStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		NOT_OWNER = 2;
@@ -1812,16 +1812,6 @@ message RetrieveClanInfoResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 	}	
-}
-
-//------------------------------------------------------------------------------------------
-
-message RetrieveClansRequestProto {
-	optional MinimumUserProto sender = 1;
-}
-
-message RetrieveClansResponseProto {
-	optional MinimumUserProto sender = 1;
 }
 
 //------------------------------------------------------------------------------------------
