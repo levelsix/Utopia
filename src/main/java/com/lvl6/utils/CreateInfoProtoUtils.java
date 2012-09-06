@@ -331,6 +331,9 @@ public class CreateInfoProtoUtils {
     if (u.getLastLongLicensePurchaseTime() != null) {
       builder.setLastLongLicensePurchaseTime(u.getLastLongLicensePurchaseTime().getTime());
     }
+    if (u.getClanId() > 0) {
+      builder.setClanId(u.getClanId());
+    }
     return builder.build();
   }
 

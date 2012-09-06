@@ -67,6 +67,7 @@ public class User implements Serializable {
   private int numTimesKiipRewarded;
   private int numConsecutiveDaysPlayed;
   private int numGroupChatsRemaining;
+  private int clanId;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -84,7 +85,7 @@ public class User implements Serializable {
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
       int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
       int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
-      int numGroupChatsRemaining) {
+      int numGroupChatsRemaining, int clanId) {
     super();
     this.id = id;
     this.name = name;
@@ -135,6 +136,7 @@ public class User implements Serializable {
     this.numTimesKiipRewarded = numTimesKiipRewarded;
     this.numConsecutiveDaysPlayed = numConsecutiveDaysPlayed;
     this.numGroupChatsRemaining = numGroupChatsRemaining;
+    this.clanId = clanId;
   }
 
 
@@ -1223,6 +1225,10 @@ public class User implements Serializable {
   public int getNumGroupChatsRemaining() {
     return numGroupChatsRemaining;
   }
+  
+  public int getClanId() {
+    return clanId;
+  }
 
   @Override
   public String toString() {
@@ -1256,7 +1262,8 @@ public class User implements Serializable {
         + ", numAdColonyVideosWatched=" + numAdColonyVideosWatched
         + ", numTimesKiipRewarded=" + numTimesKiipRewarded
         + ", numConsecutiveDaysPlayed=" + numConsecutiveDaysPlayed
-        + ", numGroupChatsRemaining=" + numGroupChatsRemaining + "]";
+        + ", numGroupChatsRemaining=" + numGroupChatsRemaining + ", clanId="
+        + clanId + "]";
   }
 
 }

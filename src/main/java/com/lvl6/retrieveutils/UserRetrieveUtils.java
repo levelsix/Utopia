@@ -418,6 +418,11 @@ import com.lvl6.utils.utilmethods.StringUtils;
     int numConsecutiveDaysPlayed = rs.getInt(i++);
     int numGroupChatsRemaining = rs.getInt(i++);
     
+    int clanId = rs.getInt(i++);
+    if (rs.wasNull()) {
+      clanId = ControllerConstants.NOT_SET;
+    }
+    
     User user = new User(userId, name, level, type, attack, defense, stamina, lastStaminaRefillTime, energy, lastEnergyRefillTime, 
         skillPoints, energyMax, staminaMax, diamonds, coins, marketplaceDiamondsEarnings, marketplaceCoinsEarnings, 
         vaultBalance, experience, tasksCompleted, battlesWon, battlesLost, flees,
@@ -425,7 +430,7 @@ import com.lvl6.utils.utilmethods.StringUtils;
         weaponEquippedUserEquipId, armorEquippedUserEquipId, amuletEquippedUserEquipId, lastLoginTime, lastLogoutTime, deviceToken, 
         lastBattleNotificationTime, lastTimeAttacked, numBadges, lastShortLicensePurchaseTime, lastLongLicensePurchaseTime, isFake, userCreateTime, 
         isAdmin, apsalarId, numCoinsRetrievedFromStructs, numAdcolonyVideosWatched, numTimesKiipRewarded, numConsecutiveDaysPlayed, 
-        numGroupChatsRemaining);
+        numGroupChatsRemaining, clanId);
     return user;
   }
 }
