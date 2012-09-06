@@ -1,8 +1,10 @@
 package com.lvl6.leaderboards;
 
 import java.util.List;
+import java.util.Set;
 
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Tuple;
 
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.info.User;
@@ -47,15 +49,15 @@ public interface LeaderBoardUtil {
 
 	public abstract long getExperienceRankForUser(Integer userId);
 
-	public abstract List<Integer> getBattlesWonTopN(Integer start, Integer stop);
+	public abstract Set<Tuple> getBattlesWonTopN(Integer start, Integer stop);
 
-	public abstract List<Integer> getBattlesWonOverTotalBattlesRatioTopN(
+	public abstract Set<Tuple> getBattlesWonOverTotalBattlesRatioTopN(
 			Integer start, Integer stop);
 
-	public abstract List<Integer> getTotalCoinValueForTopN(Integer start,
+	public abstract Set<Tuple> getTotalCoinValueForTopN(Integer start,
 			Integer stop);
 
-	public abstract List<Integer> getExperienceTopN(Integer start, Integer stop);
+	public abstract Set<Tuple> getExperienceTopN(Integer start, Integer stop);
 
 	// public abstract void updateLeaderboardForUser(Integer userId);
 	public abstract void updateLeaderboardForUser(User user);

@@ -2,13 +2,17 @@ package com.lvl6.server.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
+
+import redis.clients.jedis.Tuple;
 
 import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveLeaderboardRequestEvent;
@@ -127,7 +131,7 @@ public class RetrieveLeaderboardController extends EventController {
 	}
 
 	private Map<Integer, Integer> getUsersAfterThisRank(LeaderboardType leaderboardType,	int afterThisRank) {
-		List<Integer> usrs = new ArrayList<Integer>();
+		Set<Tuple> usrs = new HashSet<Tuple>();
 		if (leaderboardType.equals(LeaderboardType.BEST_KDR)) {
 			usrs = leader.getBattlesWonOverTotalBattlesRatioTopN(afterThisRank, afterThisRank+ControllerConstants.LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE);
 		}
@@ -181,6 +185,12 @@ public class RetrieveLeaderboardController extends EventController {
 		}
 		resBuilder.setStatus(RetrieveLeaderboardStatus.SUCCESS);
 		return true;
+	}
+	
+	public class UserRankScore{
+		Integer userId;
+		Double score;
+		Integer rank;
 	}
 
 }
