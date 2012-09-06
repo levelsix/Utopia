@@ -1678,6 +1678,7 @@ message RequestJoinClanResponseProto {
 		ALREADY_IN_CLAN = 2;
 		REQUEST_ALREADY_FILED = 3;
 		ALREADY_REQUESTING_OTHER_CLAN = 4;
+		WRONG_SIDE = 5;
 	}	
 
 }
@@ -1769,11 +1770,20 @@ message RetrieveClanInfoResponseProto {
 	}	
 }
 
-//clans
-//id, owner_id, name
+//------------------------------------------------------------------------------------------
 
-//clan members
-//clan_id, user_id, status (enum MEMBER, OWNER, PENDING REQUEST)
+message RetrieveClansRequestProto {
+	optional MinimumUserProto sender = 1;
+}
 
-//users
-//clan_id
+message RetrieveClansResponseProto {
+	optional MinimumUserProto sender = 1;
+}
+
+//------------------------------------------------------------------------------------------
+
+//new tables: clans, user_clans
+//new column: users.clan_id
+
+//can't delete character unless you leave clan first / retract requests
+//cant switch side if its diff side and youre in a clan
