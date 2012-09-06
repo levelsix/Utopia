@@ -2,6 +2,15 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+//------------------------------------------------------------------------------------------
+
+enum GroupChatScope {
+	GLOBAL = 0;
+	ALLIANCE = 1;
+	LEGION = 2;
+}
+
+//------------------------------------------------------------------------------------------
 
 message FullClanProto {
 	optional int32 clanId = 1;
@@ -127,6 +136,7 @@ message FullUserProto {
 	optional bool isAdmin = 48;
 	optional int32 numCoinsRetrievedFromStructs = 50;
 	optional int32 numAdColonyVideosWatched = 51;
+	optional int32 numGroupChatsRemaining = 54;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this
