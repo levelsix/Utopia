@@ -179,7 +179,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     log.info("Writing event response: "+resEvent);
     server.writePreDBEvent(resEvent, udid);
-    log.info("Wrote response event"+resEvent);
+    log.info("Wrote response event: "+resEvent);
    
     //for things that client doesn't need
     log.info("After response tasks");
