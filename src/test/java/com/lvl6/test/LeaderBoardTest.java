@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -53,6 +54,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import redis.clients.jedis.Tuple;
+
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
 import com.lvl6.cassandra.log4j.Log4jAppender;
@@ -82,8 +85,31 @@ public class LeaderBoardTest extends TestCase {
 	
 	@Test
 	public void testLeadboardSet() {
-		lb.setBattlesWonForUser(-1320, 9001d);
-		Double bwfu = lb.getBattlesWonForUser(-1320);
-		Assert.assertTrue(bwfu.equals(9001d));
+		int rank = 0;
+		Set<Tuple> ex = lb.getExperienceTopN(rank, rank+100);
+		String leaderBoard = "experience";
+		printRanks(rank, ex, leaderBoard);
+		rank = 0;
+		ex = lb.getBattlesWonTopN(rank, rank+100);
+		leaderBoard = "battles won";
+		printRanks(rank, ex, leaderBoard);
+		rank = 0;
+		ex = lb.getTotalCoinValueForTopN(rank, rank+100);
+		leaderBoard = "total coins";
+		printRanks(rank, ex, leaderBoard);
+		rank = 0;
+		ex = lb.getBattlesWonOverTotalBattlesRatioTopN(rank, rank+100);
+		leaderBoard = "best kdr";
+		printRanks(rank, ex, leaderBoard);
+	}
+	
+	
+
+	private void printRanks(int rank, Set<Tuple> ex, String leaderBoard) {
+		log.info("Ranks for "+leaderBoard);
+		for(Tuple t : ex) {
+			log.info("Rank: "+rank+" User: "+t.getElement()+" Score: "+t.getScore());
+			rank++;
+		}
 	}
 }
