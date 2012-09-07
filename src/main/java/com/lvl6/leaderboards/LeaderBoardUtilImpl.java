@@ -155,8 +155,7 @@ public class LeaderBoardUtilImpl implements LeaderBoardUtil {
 	public Set<Tuple> getBattlesWonTopN(Integer start, Integer stop) {
 		Jedis jedis = jedisPool.getResource();
 		try {
-			Set<Tuple> ids = jedis.zrevrangeWithScores(LeaderBoardConstants.BATTLES_WON,
-					start, stop);
+			Set<Tuple> ids = jedis.zrevrangeWithScores(LeaderBoardConstants.BATTLES_WON,start, stop);
 			return ids;//convertToIdStringsToInts(ids);
 		} catch (Exception e) {
 			log.error("Error in jedis pool", e);
