@@ -15,9 +15,9 @@
 
 	<int:channel id="inboundFakeClientChannel">
 		<int:queue/>
-  		<int:interceptors>
+  		<!-- <int:interceptors>
         	<int:wire-tap channel="inloggerChannelAdapter"/>
-     	</int:interceptors> 
+     	</int:interceptors> --> 
 	</int:channel>
 
 
@@ -31,9 +31,9 @@
 	/>	
 	
 	<int:channel id="outboundFakeClientMessageChannel" >
- 		 <int:interceptors>
+ 		 <!-- <int:interceptors>
         	<int:wire-tap channel="outloggerChannelAdapter"/>
-     	</int:interceptors> 
+     	</int:interceptors>  -->
 	</int:channel>
 	
 	<int-ip:tcp-outbound-channel-adapter

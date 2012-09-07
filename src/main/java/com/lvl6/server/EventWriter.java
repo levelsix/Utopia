@@ -116,7 +116,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 				write(buff, player);
 			}else{
 				//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-				log.debug("Normal: Player "+playerId+" not found in playersByPlayerId");
+				log.info("Normal: Player "+playerId+" not found in playersByPlayerId");
 			}
 		}
 
@@ -124,6 +124,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 
 
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
+		log.info("Processing PreDB Response Event");
 		ConnectedPlayer player = playersPreDatabaseByUDID.get(udid);
 		ByteBuffer bytes = getBytes(event);
 		write(bytes, player);
@@ -149,11 +150,11 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 		event.get(bArray);
 		Message<byte[]> msg = new GenericMessage<byte[]>(bArray, headers);
 		if(player.getServerHostName().equals(serverInstance.serverId())) {
-			log.debug("EventWriter.write... handling message on local server instance");
+			log.info("EventWriter.write... handling message on local server instance");
 			com.hazelcast.core.Message<Message<?>> playerMessage = new com.hazelcast.core.Message<Message<?>>(serverInstance.serverId(), msg);
 			serverInstance.onMessage(playerMessage);
 		}else {
-			log.debug("EventWriter.write... sending message to hazel for processing");
+			log.info("EventWriter.write... sending message to hazel for processing");
 			ITopic<Message<?>> serverOutboundMessages = hazel.getTopic(ServerInstance.getOutboundMessageTopicForServer(player.getServerHostName()));
 			serverOutboundMessages.publish(msg);
 		}
