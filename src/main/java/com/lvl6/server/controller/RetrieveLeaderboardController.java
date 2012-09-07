@@ -94,7 +94,7 @@ public class RetrieveLeaderboardController extends EventController {
 
 				if (lurs != null) {
 					List<User> resultUsers = new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(new ArrayList<Integer>(lurs.keySet())).values());
-					log.info("Populating leaderboard results for: "+leaderboardType+" after this rank: "+afterThisRank);
+					log.info("Populating leaderboard results for: "+leaderboardType+" after this rank: "+afterThisRank+" found results: "+resultUsers.size());
 					for (User u : resultUsers) {
 						UserRankScore urs = lurs.get(u.getId());
 						log.info("Rank: "+urs.rank+" User: "+urs.userId+" Score: "+urs.score);
@@ -135,7 +135,7 @@ public class RetrieveLeaderboardController extends EventController {
 		}
 		Map<Integer, UserRankScore> lurs = new LinkedHashMap<Integer, UserRankScore>();
 		Iterator<Tuple> it = usrs.iterator();
-		int counter = 0;
+		int counter = 1;
 		while(it.hasNext()) {
 			Tuple t = it.next();
 			Integer userId = Integer.valueOf(t.getElement());
