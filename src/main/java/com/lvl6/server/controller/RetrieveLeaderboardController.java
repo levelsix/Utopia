@@ -94,9 +94,11 @@ public class RetrieveLeaderboardController extends EventController {
 
 				if (lurs != null) {
 					List<User> resultUsers = new ArrayList<User>(RetrieveUtils.userRetrieveUtils().getUsersByIds(new ArrayList<Integer>(lurs.keySet())).values());
+					log.info("Populating leaderboard results for: "+leaderboardType+" after this rank: "+afterThisRank);
 					for (User u : resultUsers) {
 						UserRankScore urs = lurs.get(u.getId());
-						resBuilder.addResultPlayers(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(u, leaderboardType, urs.rank + afterThisRank, urs.score));
+						log.info("Rank: "+urs.rank+" User: "+urs.userId+" Score: "+urs.score);
+						resBuilder.addResultPlayers(CreateInfoProtoUtils.createMinimumUserProtoWithLevelForLeaderboard(u, leaderboardType, urs.rank, urs.score));
 					}
 				}
 			}
