@@ -267,6 +267,11 @@ message StartupResponseProto {
 		
 		optional int32 minBattlesRequiredForKDRConsideration = 74;
 		
+		optional int32 numChatsGivenPerGroupChatPurchasePackage = 75;
+		optional int32 diamondPriceForGroupChatPurchasePackage = 76;
+	
+		optional int32 maxLengthOfChatString = 77;
+		
 		message CharacterModConstants {
 			optional int32 diamondCostToChangeCharacterType = 1;
 			optional int32 diamondCostToChangeName = 2;
@@ -1616,5 +1621,51 @@ message RetrieveLeaderboardResponseProto {
 	enum RetrieveLeaderboardStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message SendGroupChatRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional GroupChatScope scope = 2;
+	optional string chatMessage = 3;
+}
+
+message SendGroupChatResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional SendGroupChatStatus status = 2;
+	
+	enum SendGroupChatStatus {
+		SUCCESS = 0;
+		WRONG_SIDE = 1;
+		NOT_ENOUGH_GROUP_CHATS = 2;
+		TOO_LONG = 3;
+		OTHER_FAIL = 4;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message ReceivedGroupChatResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional string chatMessage = 2;
+	optional GroupChatScope scope = 3;
+}
+
+//------------------------------------------------------------------------------------------
+
+message PurchaseGroupChatRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message PurchaseGroupChatResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional PurchaseGroupChatStatus status = 2;
+	
+	enum PurchaseGroupChatStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_DIAMONDS = 1;
+		OTHER_FAIL = 2;
 	}
 }

@@ -157,7 +157,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       userId = insertUtils.insertUser(udid, name, type, loc, deviceToken, newReferCode, ControllerConstants.USER_CREATE__START_LEVEL, 
           attack, defense, energy, stamina, playerExp, playerCoins, playerDiamonds, 
-          null, null, null, false);
+          null, null, null, false, ControllerConstants.PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE);
       if (userId > 0) {
         server.lockPlayer(userId);
         try {

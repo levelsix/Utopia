@@ -271,7 +271,8 @@ public class CreateInfoProtoUtils {
         .setCreateTime(u.getCreateTime().getTime())
         .setIsAdmin(u.isAdmin())
         .setNumCoinsRetrievedFromStructs(u.getNumCoinsRetrievedFromStructs())
-        .setNumAdColonyVideosWatched(u.getNumAdColonyVideosWatched());
+        .setNumAdColonyVideosWatched(u.getNumAdColonyVideosWatched())
+        .setNumGroupChatsRemaining(u.getNumGroupChatsRemaining());
 
     int equipmentLevel = (u.getLevel() > ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER)
         ? ControllerConstants.LEVEL_UP__MAX_LEVEL_FOR_USER : u.getLevel();

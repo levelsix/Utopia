@@ -247,6 +247,8 @@ public class ControllerConstants {
   public static final double USER_CREATE__PERCENTAGE_OF_COIN_WEALTH_GIVEN_TO_REFERRER = .2;
   public static final int USER_CREATE__ID_OF_POSTER_OF_FIRST_WALL = 11615;
   public static final String USER_CREATE__FIRST_WALL_POST_TEXT = "Hey! My name's Alex, one of the creators of this game. We hope you enjoy it! :)";
+  public static final int USER_CREATE__INITIAL_GLOBAL_CHATS = 10;
+
   
   //LEVEL UP
   public static final int LEVEL_UP__SKILL_POINTS_GAINED = 3;
@@ -286,6 +288,14 @@ public class ControllerConstants {
   //LEADERBOARD
   public static final int LEADERBOARD__MIN_BATTLES_REQUIRED_FOR_KDR_CONSIDERATION = 100;
   public static final int LEADERBOARD__MAX_PLAYERS_SENT_AT_ONCE = 15;
+  
+  //SEND GROUP CHAT
+  public static final int SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING = 200;
+  
+  //PURCHASE GROUP CHAT
+  public static final int PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE = 30;
+  public static final int PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE = 100;
+  
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
