@@ -160,7 +160,7 @@ public class SendGroupChatController extends EventController {
 
 		boolean isAlliance = MiscMethods.checkIfGoodSide(user.getType());
 		if ((scope == GroupChatScope.ALLIANCE && !isAlliance)
-				|| (scope == GroupChatScope.LEGION || isAlliance)) {
+				|| (scope == GroupChatScope.LEGION && isAlliance)) {
 			resBuilder.setStatus(SendGroupChatStatus.WRONG_SIDE);
 			log.error("user type is " + user.getType() + ", scope is " + scope);
 			return false;
