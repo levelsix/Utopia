@@ -50,7 +50,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     MinimumUserProto senderProto = reqProto.getSender();
     String clanName = reqProto.getName();
-
+    String description = reqProto.getDescription();
+    
     CreateClanResponseProto.Builder resBuilder = CreateClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
@@ -58,15 +59,15 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      boolean legitCreate = checkLegitCreate(resBuilder, user, clanName);
+      boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, description);
 
       if (legitCreate) {
         Timestamp createTime = new Timestamp(new Date().getTime());
-        int clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime);
+        int clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description);
         if (clanId <= 0) {
           legitCreate = false;
         } else {
-          resBuilder.setClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime)));
+          resBuilder.setClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime, description)));
         }
       }
       
@@ -94,8 +95,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-  private boolean checkLegitCreate(Builder resBuilder, User user, String clanName) {
-    if (user == null || clanName == null || clanName.length() <= 0) {
+  private boolean checkLegitCreate(Builder resBuilder, User user, String clanName, String description) {
+    if (user == null || clanName == null || clanName.length() <= 0 || description == null || description.length() <= 0) {
       resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
       log.error("user is null");
       return false;      

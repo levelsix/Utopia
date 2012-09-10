@@ -1671,6 +1671,7 @@ message PurchaseGroupChatResponseProto {
 message CreateClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string name = 2;
+	optional string description = 3;
 }
 
 message CreateClanResponseProto {

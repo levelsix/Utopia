@@ -98,8 +98,9 @@ import com.lvl6.utils.DBConnection;
     if (!rs.wasNull()) {
       clanCreateTime = new Date(ts.getTime());
     }
+    
+    String description = rs.getString(i++);
 
-
-    return new Clan(clanId, name, ownerId, clanCreateTime);
+    return new Clan(clanId, name, ownerId, clanCreateTime, description);
   }
 }
