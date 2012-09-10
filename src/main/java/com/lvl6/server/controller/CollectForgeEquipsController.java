@@ -95,8 +95,6 @@ import com.lvl6.utils.utilmethods.QuestUtils;
               resBuilder.addNewUserEquips(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
                 new UserEquip(newUserEquipId2, user.getId(), blacksmithAttempt.getEquipId(), blacksmithAttempt.getGoalLevel() - 1)));
           }
-          
-          
         }
       }
 

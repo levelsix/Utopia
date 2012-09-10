@@ -174,8 +174,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     resEvent.setTag(event.getTag());
     resEvent.setStartupResponseProto(resProto);
 
-    log.info("Sending struct");
-    sendAllStructs(udid, user);
+//    log.info("Sending struct");
+//    sendAllStructs(udid, user);
 
     log.info("Writing event response: "+resEvent);
     server.writePreDBEvent(resEvent, udid);
