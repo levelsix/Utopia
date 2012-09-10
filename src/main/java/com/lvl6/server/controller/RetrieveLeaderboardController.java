@@ -135,7 +135,7 @@ public class RetrieveLeaderboardController extends EventController {
 		}
 		Map<Integer, UserRankScore> lurs = new LinkedHashMap<Integer, UserRankScore>();
 		Iterator<Tuple> it = usrs.iterator();
-		int counter = 0;
+		int counter = 1;
 		while(it.hasNext()) {
 			Tuple t = it.next();
 			Integer userId = Integer.valueOf(t.getElement());
