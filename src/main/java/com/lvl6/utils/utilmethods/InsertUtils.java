@@ -628,4 +628,16 @@ public class InsertUtils implements InsertUtil{
 		return iddictionIdentId;
 	}
 
+	@Override
+  public int insertClan(String name, int ownerId, Timestamp createTime) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.CLANS__NAME, name);
+    insertParams.put(DBConstants.CLANS__OWNER_ID, ownerId);
+    insertParams.put(DBConstants.CLANS__CREATE_TIME, createTime);
+
+    int clanId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_CLANS, insertParams);
+    return clanId;
+	}
+	
 }

@@ -296,6 +296,9 @@ public class ControllerConstants {
   public static final int PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE = 30;
   public static final int PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE = 100;
   
+  //CREATE CLAN
+  public static final int CREATE_CLAN__DIAMOND_PRICE = 250;
+  public static final int CREATE_CLAN__MAX_CHAR_LENGTH = 15;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

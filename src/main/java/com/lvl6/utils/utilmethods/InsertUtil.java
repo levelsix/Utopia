@@ -113,4 +113,6 @@ public interface InsertUtil {
       int diamondCostForGuarantee, Timestamp timeOfSpeedup, boolean attemptComplete);
 
   public abstract boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge);
+  
+  public abstract int insertClan(String name, int ownerId, Timestamp createTime);
 }

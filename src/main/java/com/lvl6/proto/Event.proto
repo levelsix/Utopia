@@ -1683,6 +1683,7 @@ message CreateClanResponseProto {
 		OTHER_FAIL = 1;
 		NOT_ENOUGH_DIAMONDS = 2;
 		NAME_TAKEN = 3;
+		ALREADY_IN_CLAN = 4;
 	}	
 }
 
@@ -1771,6 +1772,7 @@ message ApproveRequestToJoinClanResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+//grab all members, clear their clan id, then delete them from table
 message DeleteClanRequestProto {
 	optional MinimumUserProto sender = 1;
 

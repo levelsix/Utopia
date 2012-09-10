@@ -10,6 +10,7 @@ import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
+import com.lvl6.info.Clan;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -44,6 +45,7 @@ import com.lvl6.proto.InfoProto.DialogueProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.FullCityProto;
+import com.lvl6.proto.InfoProto.FullClanProto;
 import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.FullMarketplacePostProto;
 import com.lvl6.proto.InfoProto.FullQuestProto;
@@ -352,6 +354,10 @@ public class CreateInfoProtoUtils {
     return builder.build();
   }
 
+  public static FullClanProto createFullClanProtoFromClan(Clan c) {
+    return FullClanProto.newBuilder().setClanId(c.getClanId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).build();
+  }
+  
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
     return FullUserEquipProto.newBuilder().setUserEquipId(ue.getId()).setUserId(ue.getUserId())
         .setEquipId(ue.getEquipId()).setLevel(ue.getLevel()).build();

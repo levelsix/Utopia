@@ -41,6 +41,8 @@ public class DBConstants {
   public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   public static final String TABLE_IDDICTION_IDENTIFIERS = "iddiction_identifiers";
   public static final String TABLE_USER_SESSIONS = "user_sessions";
+  public static final String TABLE_CLANS = "clans";
+
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -96,7 +98,8 @@ public class DBConstants {
   public static final String USER__NUM_TIMES_KIIP_REWARDED = "num_times_kiip_rewarded";
   public static final String USER__NUM_CONSECUTIVE_DAYS_PLAYED = "num_consecutive_days_played";
   public static final String USER__NUM_GROUP_CHATS_REMAINING = "num_group_chats_remaining";
-
+  public static final String USER__CLAN_ID = "clan_id";
+  
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;
@@ -291,4 +294,10 @@ public class DBConstants {
   /*IDDICTION*/
   public static final String IDDICTION_IDENTIFIERS__IDENTIFIER = "identifier";
   public static final String IDDICTION_IDENTIFIERS__CLICK_TIME = "click_time";
+  
+  /*CLANS*/
+  public static final String CLANS__ID = "id";
+  public static final String CLANS__OWNER_ID = "id";
+  public static final String CLANS__NAME = "name";
+  public static final String CLANS__CREATE_TIME = "create_time";
 }
