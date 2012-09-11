@@ -38,12 +38,22 @@ public class StatisticsRetrieveUtil {
     }
 	
 	public int countLoginsToday() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-		Date twenty4ago = new DateTime().minusDays(1).toDate();
-		String yesterday = format.format(twenty4ago);
-		String queryString = "select count(*) from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__LAST_LOGIN+" > '"+yesterday+"'";
+		String yesterday = formatDateToString(new DateTime().minusDays(1).toDate());
+		return countLoginsSince(yesterday);
+	}
+
+	
+	public int countLoginsSince(String formattedDate) {
+		String queryString = "select count(*) from "+DBConstants.TABLE_USER+" where "+DBConstants.USER__LAST_LOGIN+" > '"+formattedDate+"'";
 		log.info("Executing: {}", queryString);
 		return jdbcTemplate.queryForInt(queryString);
+	}
+
+	//Date twenty4ago = new DateTime().minusDays(1).toDate();
+	protected String formatDateToString(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		String formatted = format.format(date);
+		return formatted;
 	}
 	
 	
