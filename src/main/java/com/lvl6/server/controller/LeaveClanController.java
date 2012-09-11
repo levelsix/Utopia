@@ -2,6 +2,7 @@ package com.lvl6.server.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
@@ -21,10 +22,13 @@ import com.lvl6.proto.EventProto.LeaveClanResponseProto.LeaveClanStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.retrieveutils.UserClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
+import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
+import com.lvl6.utils.utilmethods.UpdateUtils;
 
 @Component @DependsOn("gameServer") public class LeaveClanController extends EventController {
 
@@ -87,9 +91,18 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   }
 
   private void writeChangesToDB(User user, Clan clan, boolean deleteClan, User newClanOwner) {
-    //for every user, set their clans to null
-    //delete clan members
-    //delete the clan
+    List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clan.getId());
+    if (!UpdateUtils.get().updateUsersClanId(null, userIds)) {
+      log.error("problem with marking clan id null for users with ids in " + userIds);
+    } else {
+      if (!DeleteUtils.get().deleteUserClanDataRelatedToClanId(clan.getId(), userIds.size())) {
+        log.error("problem with deleting user clan data for clan with id " + clan.getId());
+      } else {
+        if (!DeleteUtils.get().deleteClanWithClanId(clan.getId())) {
+          log.error("problem with deleting clan with id " + clan.getId());
+        }
+      }
+    }
   }
 
   private boolean checkLegitLeave(Builder resBuilder, User user, Clan clan, int clanId, User newClanOwner, boolean deleteClan) {

@@ -42,7 +42,7 @@ public class DBConstants {
   public static final String TABLE_IDDICTION_IDENTIFIERS = "iddiction_identifiers";
   public static final String TABLE_USER_SESSIONS = "user_sessions";
   public static final String TABLE_CLANS = "clans";
-
+  public static final String TABLE_USER_CLANS = "user_clans";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";

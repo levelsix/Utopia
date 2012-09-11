@@ -171,6 +171,6 @@ public interface UpdateUtil {
 
   public abstract boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete);
   
-  public abstract boolean updateUsersClanId(int clanId, List<Integer> userIds);
+  public abstract boolean updateUsersClanId(Integer clanId, List<Integer> userIds);
 
 }

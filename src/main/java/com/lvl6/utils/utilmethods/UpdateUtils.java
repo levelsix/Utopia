@@ -638,7 +638,7 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   @Override
-  public boolean updateUsersClanId(int clanId, List<Integer> userIds) {
+  public boolean updateUsersClanId(Integer clanId, List<Integer> userIds) {
     String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__CLAN_ID 
         + "=? where (" ;
     List<Object> values = new ArrayList<Object>();
@@ -656,6 +656,27 @@ public class UpdateUtils implements UpdateUtil {
     }
     return false;
   }
-  
+
+  @Override
+  public boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
+    String query = "update " + DBConstants.TABLE_USER_TASKS + " set " + DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK 
+        + "=? where " + DBConstants.USER_TASK__USER_ID + "=? and (" ;
+    List<Object> values = new ArrayList<Object>();
+    values.add(0);
+    values.add(userId);
+    List<String> condClauses = new ArrayList<String>();
+    for (Task task : tasksInCity) {
+      condClauses.add(DBConstants.USER_TASK__TASK_ID + "=?");
+      values.add(task.getId());
+    }
+    query += StringUtils.getListInString(condClauses, "or") + ")";
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+    if (numUpdated == tasksInCity.size()) {
+      return true;
+    }
+    log.error("problem with resetting times completed in rank for userid " + userId + ". tasks are=" + tasksInCity
+        + ", numUpdated=" + numUpdated);
+    return false;
+  }
 
 }

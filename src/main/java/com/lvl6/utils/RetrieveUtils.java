@@ -2,6 +2,7 @@ package com.lvl6.utils;
 
 import com.lvl6.retrieveutils.StatisticsRetrieveUtil;
 import com.lvl6.retrieveutils.UserCityRetrieveUtils;
+import com.lvl6.retrieveutils.UserClanRetrieveUtils;
 import com.lvl6.retrieveutils.UserEquipRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsCompletedDefeatTypeJobsRetrieveUtils;
@@ -21,6 +22,11 @@ public class RetrieveUtils {
 		return AppContext.getApplicationContext()
 				.getBean(UserCityRetrieveUtils.class);
 	}
+	
+	 public static UserClanRetrieveUtils userClanRetrieveUtils() {
+	    return AppContext.getApplicationContext()
+	        .getBean(UserClanRetrieveUtils.class);
+	  }
 
 	public static UserEquipRetrieveUtils userEquipRetrieveUtils() {
 		return AppContext.getApplicationContext().getBean(

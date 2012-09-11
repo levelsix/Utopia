@@ -20,7 +20,7 @@ import com.lvl6.utils.DBConnection;
 
   private Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
-  private final String TABLE_NAME = DBConstants.TABLE_USER_QUESTS;
+  private final String TABLE_NAME = DBConstants.TABLE_USER_CLANS;
 
   public List<Integer> getUserIdsRelatedToClan(int clanId) {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
