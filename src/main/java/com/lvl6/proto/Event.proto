@@ -1698,6 +1698,7 @@ message CreateClanResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+//if no newOwner set, assume wanting to delete
 message LeaveClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 clanId = 2;
