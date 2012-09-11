@@ -58,6 +58,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 //    server.lockPlayer(senderProto.getUserId());
 //    try {
 //      User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+//      Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
+//      
 //
 //      boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, description);
 //
