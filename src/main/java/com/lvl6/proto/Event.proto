@@ -1795,7 +1795,9 @@ message DeleteClanResponseProto {
 message RetrieveClanInfoRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 clanId = 2;
-	optional ClanInfoGrabType grabType = 3;
+	optional string clanName = 3;
+	optional ClanInfoGrabType grabType = 4;
+	optional int32 beforeThisClanId = 5;
 	
 	enum ClanInfoGrabType {
 		ALL = 1;
@@ -1808,7 +1810,7 @@ message RetrieveClanInfoRequestProto {
 message RetrieveClanInfoResponseProto {
 	optional MinimumUserProto sender = 1;
 	repeated MinimumUserProto members = 2;
-	optional FullClanProto clanInfo = 3;
+	repeated FullClanProto clanInfo = 3;
 	optional RetrieveClanInfoStatus status = 4;
 	
 	enum RetrieveClanInfoStatus {
