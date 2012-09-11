@@ -90,7 +90,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   }
 
   private void writeChangesToDB(User user) {
-    if (!user.updateRelativeDiamondsNaive(-1*ControllerConstants.CREATE_CLAN__DIAMOND_PRICE)) {
+    if (!user.updateRelativeDiamondsNaive(-1*ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN)) {
       log.error("problem with decreasing user diamonds for creating clan");
     }
   }
@@ -101,16 +101,23 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       log.error("user is null");
       return false;      
     }
-    if (user.getDiamonds() < ControllerConstants.CREATE_CLAN__DIAMOND_PRICE) {
+    if (user.getDiamonds() < ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN) {
       resBuilder.setStatus(CreateClanStatus.NOT_ENOUGH_DIAMONDS);
-      log.error("user only has " + user.getDiamonds() + ", needs " + ControllerConstants.CREATE_CLAN__DIAMOND_PRICE);
+      log.error("user only has " + user.getDiamonds() + ", needs " + ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN);
       return false;
     }
-    if (clanName.length() > ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH) {
+    if (clanName.length() > ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_NAME) {
       resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
-      log.error("clan name " + clanName + " is more than " + ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH + " characters");
+      log.error("clan name " + clanName + " is more than " + ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_NAME + " characters");
       return false;
     }
+    
+    if (description.length() > ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION) {
+      resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
+      log.error("clan description " + description + " is more than " + ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION + " characters");
+      return false;
+    }
+    
     if (user.getClanId() > 0) {
       resBuilder.setStatus(CreateClanStatus.ALREADY_IN_CLAN);
       log.error("user already in clan with id " + user.getClanId());
