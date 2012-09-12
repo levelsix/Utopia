@@ -104,9 +104,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     if (deleteClan) {
       deleteClan(clan, userIds);
     } else {
+      
+      
       //TODO: change clan owner to be new guy
       //change existing user's clan to nothing
-      
     }
   }
 

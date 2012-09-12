@@ -28,5 +28,7 @@ public interface DeleteUtil {
   public abstract boolean deleteUserClanDataRelatedToClanId(int clanId, int numRowsToDelete);
 
   public abstract boolean deleteClanWithClanId(int clanId);
+  
+  public abstract boolean deleteBlacksmithAttempt(int blacksmithId);
 
 }
