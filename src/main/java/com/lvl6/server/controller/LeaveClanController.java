@@ -60,7 +60,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     LeaveClanResponseProto.Builder resBuilder = LeaveClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    server.lockPlayer(senderProto.getUserId());
+    if (!deleteClan) { 
+      server.lockPlayers(senderProto.getUserId(), newOwner);
+    } else {
+      server.lockPlayer(senderProto.getUserId());
+    }
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
@@ -86,12 +90,27 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in LeaveClan processEvent", e);
     } finally {
-      server.unlockPlayer(senderProto.getUserId());
+      if (!deleteClan) { 
+        server.unlockPlayers(senderProto.getUserId(), newOwner);
+      } else {
+        server.unlockPlayer(senderProto.getUserId());
+      }
     }
   }
 
   private void writeChangesToDB(User user, Clan clan, boolean deleteClan, User newClanOwner) {
     List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clan.getId());
+
+    if (deleteClan) {
+      deleteClan(clan, userIds);
+    } else {
+      //TODO: change clan owner to be new guy
+      //change existing user's clan to nothing
+      
+    }
+  }
+
+  private void deleteClan(Clan clan, List<Integer> userIds) {
     if (!UpdateUtils.get().updateUsersClanId(null, userIds)) {
       log.error("problem with marking clan id null for users with ids in " + userIds);
     } else {
