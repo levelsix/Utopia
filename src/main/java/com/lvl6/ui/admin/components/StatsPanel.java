@@ -22,6 +22,7 @@ public class StatsPanel extends Panel {
 	protected PropertyModel<Integer> tplayers = new PropertyModel<Integer>(stats, "totalPlayersCount");
 	protected PropertyModel<Integer> totalPayingPlayersPM = new PropertyModel<Integer>(stats, "totalPayingPlayers");
 	protected PropertyModel<Integer> loggedInTodayPM = new PropertyModel<Integer>(stats, "loggedInToday");
+	protected PropertyModel<Integer> loggedInThisWeekPM = new PropertyModel<Integer>(stats, "loggedInThisWeek");
 	protected PropertyModel<Long> totalInAppPurchasesPM = new PropertyModel<Long>(stats, "totalInAppPurchases");
 	protected PropertyModel<Long> sumOfInAppPurchasesPM = new PropertyModel<Long>(stats, "sumOfInAppPurchases");
 	protected PropertyModel<Long> afterAppleTaxPM = new PropertyModel<Long>(stats, "afterAppleTax");
@@ -38,6 +39,7 @@ public class StatsPanel extends Panel {
 	protected Label tplayersLabel = new Label("totalPlayers", tplayers);
 	protected Label totalPayingPlayersLabel = new Label("totalPayingPlayers", totalPayingPlayersPM);
 	protected Label loggedInTodayLabel = new Label("loggedInToday", loggedInTodayPM);
+	protected Label loggedInThisWeekLabel = new Label("loggedInThisWeek", loggedInThisWeekPM);
 	protected Label totalInAppPurchasesLabel = new Label("totalInAppPurchases", totalInAppPurchasesPM);
 	protected Label sumOfInAppPurchasesLabel = new Label("sumOfInAppPurchases", sumOfInAppPurchasesPM);
 	protected Label afterAppleTaxLabel = new Label("afterAppleTax", afterAppleTaxPM);
@@ -64,6 +66,7 @@ public class StatsPanel extends Panel {
 			target.add(totalPayingPlayersLabel);
 			target.add(totalInAppPurchasesLabel);
 			target.add(loggedInTodayLabel);
+			target.add(loggedInThisWeekLabel);
 			target.add(afterAppleTaxLabel);
 			target.add(sumOfInAppPurchasesLabel);
 			target.add(countNumberKiipRewardsRedeemedLabel);
@@ -78,6 +81,7 @@ public class StatsPanel extends Panel {
 	
 	protected void addStats() {
 		loggedInTodayLabel.setOutputMarkupId(true);
+		loggedInThisWeekLabel.setOutputMarkupId(true);
 		afterAppleTaxLabel.setOutputMarkupId(true);
 		cplayersLabel.setOutputMarkupId(true);
 		tplayersLabel.setOutputMarkupId(true);
@@ -97,6 +101,7 @@ public class StatsPanel extends Panel {
 		add(totalInAppPurchasesLabel);
 		add(sumOfInAppPurchasesLabel);
 		add(loggedInTodayLabel);
+		add(loggedInThisWeekLabel);
 		add(afterAppleTaxLabel);
 		add(countNumberKiipRewardsRedeemedLabel);
 		add(countMarketplaceTransactionsLabel);

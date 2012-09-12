@@ -41,6 +41,7 @@ public class ApplicationUtils {
 		stats.setConnectedPlayersCount(players.size());
 		stats.setTotalPlayersCount(usersUtil.countUsers(false));
 		stats.setLoggedInToday(statsUtil.countLoginsToday());
+		stats.setLoggedInThisWeek(statsUtil.countLoginsThisWeek());
 		stats.setCountMarketplacePosts(statsUtil.countMarketplacePosts());
 		stats.setCountMarketplaceTransactions(statsUtil.countMarketplaceTransactions());
 		stats.setCountNumberKiipRewardsRedeemed(statsUtil.countNumberKiipRewardsRedeemed());

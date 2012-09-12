@@ -41,6 +41,11 @@ public class StatisticsRetrieveUtil {
 		String yesterday = formatDateToString(new DateTime().minusDays(1).toDate());
 		return countLoginsSince(yesterday);
 	}
+	
+	public int countLoginsThisWeek() {
+		String yesterday = formatDateToString(new DateTime().minusDays(7).toDate());
+		return countLoginsSince(yesterday);
+	}
 
 	
 	public int countLoginsSince(String formattedDate) {
