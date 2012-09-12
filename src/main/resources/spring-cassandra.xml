@@ -26,4 +26,7 @@
 	</bean>
 
 	<bean id="cassandraUtil" class="com.lvl6.cassandra.CassandraUtilImpl" />
+	<bean id="rollupUtil" class="com.lvl6.cassandra.RollupUtilImpl" />
+	
+	
 </beans>
