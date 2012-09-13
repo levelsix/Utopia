@@ -15,6 +15,7 @@ import com.lvl6.info.User;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.InfoProto.UserType;
 
 public interface InsertUtil {
@@ -115,4 +116,6 @@ public interface InsertUtil {
   public abstract boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge);
   
   public abstract int insertClan(String name, int ownerId, Timestamp createTime, String description, String tag);
+
+  public abstract boolean insertUserClan(int userId, int clanId, UserClanStatus status);
 }

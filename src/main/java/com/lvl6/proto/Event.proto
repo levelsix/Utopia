@@ -1715,7 +1715,6 @@ message LeaveClanResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		NOT_IN_CLAN = 2;
-		NEW_OWNER_NOT_IN_CLAN = 3;
 	}	
 
 }
@@ -1763,16 +1762,17 @@ message RetractRequestJoinClanResponseProto {
 //------------------------------------------------------------------------------------------
 
 //can request as many as you like. wipe out other ones
-message ApproveRequestToJoinClanRequestProto {
+message ApproveOrRejectRequestToJoinClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 requesterId = 2;
+	optional bool accept = 3;
 }
 
-message ApproveRequestToJoinClanResponseProto {
+message ApproveOrRejectRequestToJoinClanResponseProto {
 	optional MinimumUserProto sender = 1;
-	optional ApproveRequestToJoinClanStatus status = 2;
+	optional ApproveOrRejectRequestToJoinClanStatus status = 2;
 	
-	enum ApproveRequestToJoinClanStatus {
+	enum ApproveOrRejectRequestToJoinClanStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		NOT_OWNER = 2;
@@ -1811,8 +1811,26 @@ message RetrieveClanInfoResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-//new tables: clans, user_clans
-//new column: users.clan_id
+message TransferClanOwnershipRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 newClanOwnerId = 2;
+}
 
-//can't delete character unless you leave clan first / retract requests
-//cant switch side if its diff side and youre in a clan
+message TransferClanOwnershipResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional TransferClanOwnershipStatus status = 4;
+	
+	enum TransferClanOwnershipStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_OWNER = 2;
+		NEW_OWNER_NOT_IN_CLAN = 3;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+//if reset
+	//if owner, don't allow it
+	//else delete all user_clan stuff with that user_id
+	

@@ -141,11 +141,11 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("user's clan id is " + user.getClanId() + ", clan id is " + clanId);
       return false;
     }
-    if (!deleteClan && (newClanOwner == null || newClanOwner.getClanId() != clan.getId())) {
-      resBuilder.setStatus(LeaveClanStatus.NEW_OWNER_NOT_IN_CLAN);
-      log.error("problem with new clan owner, who is " + newClanOwner + ", clan is " + clan);
-      return false;     
-    }
+//    if (!deleteClan && (newClanOwner == null || newClanOwner.getClanId() != clan.getId())) {
+//      resBuilder.setStatus(LeaveClanStatus.NEW_OWNER_NOT_IN_CLAN);
+//      log.error("problem with new clan owner, who is " + newClanOwner + ", clan is " + clan);
+//      return false;     
+//    }
     resBuilder.setStatus(LeaveClanStatus.SUCCESS);
     return true;
   }
