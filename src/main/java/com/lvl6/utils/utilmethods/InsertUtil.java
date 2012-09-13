@@ -114,5 +114,5 @@ public interface InsertUtil {
 
   public abstract boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge);
   
-  public abstract int insertClan(String name, int ownerId, Timestamp createTime, String description);
+  public abstract int insertClan(String name, int ownerId, Timestamp createTime, String description, String tag);
 }

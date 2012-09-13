@@ -100,7 +100,8 @@ import com.lvl6.utils.DBConnection;
     }
     
     String description = rs.getString(i++);
-
-    return new Clan(clanId, name, ownerId, clanCreateTime, description);
+    String tag = rs.getString(i++);
+    
+    return new Clan(clanId, name, ownerId, clanCreateTime, description, tag);
   }
 }

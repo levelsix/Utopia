@@ -278,6 +278,7 @@ message StartupResponseProto {
 			optional int32 diamondPriceToCreateClan = 1;
 			optional int32 maxCharLengthForClanName = 2;
 			optional int32 maxCharLengthForClanDescription = 3;
+			optional int32 maxCharLengthForClanTag = 4;
 		}
 		
 		message CharacterModConstants {
@@ -1679,7 +1680,7 @@ message PurchaseGroupChatResponseProto {
 message CreateClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string name = 2;
-	optional string description = 3;
+	optional string tag = 3;
 }
 
 message CreateClanResponseProto {
@@ -1693,6 +1694,7 @@ message CreateClanResponseProto {
 		NOT_ENOUGH_DIAMONDS = 2;
 		NAME_TAKEN = 3;
 		ALREADY_IN_CLAN = 4;
+		INVALID_TAG_LENGTH = 5;
 	}	
 }
 
@@ -1734,10 +1736,8 @@ message RequestJoinClanResponseProto {
 		OTHER_FAIL = 1;
 		ALREADY_IN_CLAN = 2;
 		REQUEST_ALREADY_FILED = 3;
-		ALREADY_REQUESTING_OTHER_CLAN = 4;
 		WRONG_SIDE = 5;
 	}	
-
 }
 
 //------------------------------------------------------------------------------------------
@@ -1762,10 +1762,10 @@ message RetractRequestJoinClanResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+//can request as many as you like. wipe out other ones
 message ApproveRequestToJoinClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 requesterId = 2;
-
 }
 
 message ApproveRequestToJoinClanResponseProto {
@@ -1777,25 +1777,6 @@ message ApproveRequestToJoinClanResponseProto {
 		OTHER_FAIL = 1;
 		NOT_OWNER = 2;
 		NOT_A_REQUESTER = 3;
-	}	
-}
-
-//------------------------------------------------------------------------------------------
-
-//grab all members, clear their clan id, then delete them from table
-message DeleteClanRequestProto {
-	optional MinimumUserProto sender = 1;
-
-}
-
-message DeleteClanResponseProto {
-	optional MinimumUserProto sender = 1;
-	optional DeleteClanStatus status = 2;
-	
-	enum DeleteClanStatus {
-		SUCCESS = 0;
-		OTHER_FAIL = 1;
-		NOT_OWNER = 2;
 	}	
 }
 

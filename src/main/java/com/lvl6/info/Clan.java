@@ -8,14 +8,16 @@ public class Clan {
   private int ownerId;
   private Date createTime;
   private String description;
+  private String tag;
   
   public Clan(int id, String name, int ownerId, Date createTime,
-      String description) {
+      String description, String tag) {
     this.id = id;
     this.name = name;
     this.ownerId = ownerId;
     this.createTime = createTime;
     this.description = description;
+    this.tag = tag;
   }
 
   public int getId() {
@@ -37,11 +39,16 @@ public class Clan {
   public String getDescription() {
     return description;
   }
+  
+  public String getTag() {
+    return tag;
+  }
 
   @Override
   public String toString() {
-    return "Clan [clanId=" + id + ", name=" + name + ", ownerId=" + ownerId
-        + ", createTime=" + createTime + ", description=" + description + "]";
+    return "Clan [id=" + id + ", name=" + name + ", ownerId=" + ownerId
+        + ", createTime=" + createTime + ", description=" + description
+        + ", tag=" + tag + "]";
   }
   
 }

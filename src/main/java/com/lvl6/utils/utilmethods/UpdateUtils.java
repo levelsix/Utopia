@@ -658,6 +658,22 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   @Override
+  public boolean updateClanOwnerForClan(int clanId, int ownerId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.CLANS__ID, clanId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.CLANS__OWNER_ID, ownerId);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_CLANS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+  
+  @Override
   public boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
     String query = "update " + DBConstants.TABLE_USER_TASKS + " set " + DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK 
         + "=? where " + DBConstants.USER_TASK__USER_ID + "=? and (" ;

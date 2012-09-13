@@ -355,7 +355,7 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullClanProto createFullClanProtoFromClan(Clan c) {
-    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).build();
+    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
   }
   
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {

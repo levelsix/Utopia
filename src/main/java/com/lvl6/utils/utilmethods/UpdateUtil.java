@@ -152,6 +152,8 @@ public interface UpdateUtil {
   public abstract boolean incrementCityRankForUserCity(int userId,
       int cityId, int increment);
 
+  public abstract boolean updateClanOwnerForClan(int clanId, int ownerId);
+  
 	/*
 	 * used for tasks
 	 */

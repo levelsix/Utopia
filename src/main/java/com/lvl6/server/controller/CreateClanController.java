@@ -50,7 +50,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     MinimumUserProto senderProto = reqProto.getSender();
     String clanName = reqProto.getName();
-    String description = reqProto.getDescription();
+    String tag = reqProto.getTag();
     
     CreateClanResponseProto.Builder resBuilder = CreateClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -59,15 +59,15 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
 
-      boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, description);
+      boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, tag);
 
       if (legitCreate) {
         Timestamp createTime = new Timestamp(new Date().getTime());
-        int clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description);
+        int clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, null, tag);
         if (clanId <= 0) {
           legitCreate = false;
         } else {
-          resBuilder.setClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime, description)));
+          resBuilder.setClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime, null, tag)));
         }
       }
       
@@ -95,8 +95,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-  private boolean checkLegitCreate(Builder resBuilder, User user, String clanName, String description) {
-    if (user == null || clanName == null || clanName.length() <= 0 || description == null || description.length() <= 0) {
+  private boolean checkLegitCreate(Builder resBuilder, User user, String clanName, String tag) {
+    if (user == null || clanName == null || clanName.length() <= 0 || tag == null || tag.length() <= 0) {
       resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
       log.error("user is null");
       return false;      
@@ -112,9 +112,9 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       return false;
     }
     
-    if (description.length() > ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION) {
-      resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
-      log.error("clan description " + description + " is more than " + ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION + " characters");
+    if (tag.length() > ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG) {
+      resBuilder.setStatus(CreateClanStatus.INVALID_TAG_LENGTH);
+      log.error("clan tag " + tag + " is more than " + ControllerConstants.CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG + " characters");
       return false;
     }
     

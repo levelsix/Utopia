@@ -2,11 +2,18 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+
+message MinimumUserProtoWithBattleHistory {
+	optional MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
+	optional int32 battlesWon = 2;
+	optional int32 battlesLost = 3;
+	optional int32 battlesFled = 4;
+}
+
 //------------------------------------------------------------------------------------------
 
 enum UserClanStatus {
 	MEMBER = 0;
-	OWNER = 1;
 	REQUESTING = 2;
 }
 
@@ -26,6 +33,7 @@ message FullClanProto {
 	optional int32 ownerId = 3;
 	optional int64 createTime = 4;
 	optional string description = 5;
+	optional string tag = 6;
 }
 
 //------------------------------------------------------------------------------------------
