@@ -70,6 +70,7 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 
 	
 	protected void checkForRollupColumnFamily() {
+		cluster.dropColumnFamily(keyspace.getKeyspaceName(), ROLLUPS_COLUMN_FAMILY);
 		boolean exists = false;
 		KeyspaceDefinition kd = cluster.describeKeyspace(keyspace.getKeyspaceName());
 		for(ColumnFamilyDefinition cfd : kd.getCfDefs()) {
@@ -86,8 +87,6 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 		if(!exists) {
 			log.info("ColumnFamily {} does not exist... creating.", ROLLUPS_COLUMN_FAMILY);
 			cluster.addColumnFamily(cfDef);
-		}else {
-			cluster.updateColumnFamily(cfDef);
 		}
 	}
 
