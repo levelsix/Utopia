@@ -67,6 +67,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
         int clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description, tag);
         if (clanId <= 0) {
           legitCreate = false;
+          resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
         } else {
           resBuilder.setClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime, description, tag)));
         }

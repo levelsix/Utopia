@@ -49,6 +49,25 @@ import com.lvl6.utils.DBConnection;
     return clan;
   }
   
+  public static List<Clan> getMostRecentClansBeforeClanId(int limit, int clanId) {
+    TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
+    lessThanParamsToVals.put(DBConstants.CLANS__ID, clanId);
+    
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.CLANS__ID, limit, lessThanParamsToVals);
+    List<Clan> clans = convertRSToClansList(rs);
+    DBConnection.get().close(rs, null, conn);
+    return clans;
+  }
+
+  public static List<Clan> getMostRecentClans(int limit) {
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.CLANS__ID, limit);
+    List<Clan> clans = convertRSToClansList(rs);
+    DBConnection.get().close(rs, null, conn);
+    return clans;
+  }
+  
   private static Clan convertRSToSingleClan(
       ResultSet rs) {
     if (rs != null) {

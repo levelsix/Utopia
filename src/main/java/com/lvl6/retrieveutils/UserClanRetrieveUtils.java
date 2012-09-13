@@ -22,29 +22,37 @@ import com.lvl6.utils.DBConnection;
 
   private final String TABLE_NAME = DBConstants.TABLE_USER_CLANS;
 
-  public List<Integer> getUserIdsRelatedToClan(int clanId) {
+  public List<UserClan> getUserClansRelatedToClan(int clanId) {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
 
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
-    List<Integer> userIds = grabUserIdsFromRS(rs);
+    List<UserClan> userClans = grabUserClansFromRS(rs);
     DBConnection.get().close(rs, null, conn);
+    return userClans;
+  }
+  
+  public List<Integer> getUserIdsRelatedToClan(int clanId) {
+    List<UserClan> userClans = getUserClansRelatedToClan(clanId);
+    List<Integer> userIds = new ArrayList<Integer>();
+    for (UserClan userClan : userClans) {
+      userIds.add(userClan.getUserId());
+    }
     return userIds;
   }
 
-
-  private List<Integer> grabUserIdsFromRS(ResultSet rs) {
+  private List<UserClan> grabUserClansFromRS(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();
         rs.beforeFirst();
-        List<Integer> userIds = new ArrayList<Integer>();
+        List<UserClan> userClans = new ArrayList<UserClan>();
         while(rs.next()) {
           UserClan uc = convertRSRowToUserClan(rs);
-          userIds.add(uc.getUserId());
+          userClans.add(uc);
         }
-        return userIds;
+        return userClans;
       } catch (SQLException e) {
         log.error("problem with database call.");
         log.error(e);
