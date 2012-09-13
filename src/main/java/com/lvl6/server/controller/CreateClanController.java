@@ -125,11 +125,18 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       log.error("user already in clan with id " + user.getClanId());
       return false;
     }
-    Clan clan = ClanRetrieveUtils.getClanWithName(clanName);
+    Clan clan = ClanRetrieveUtils.getClanWithNameOrTag(clanName, tag);
     if (clan != null) {
-      resBuilder.setStatus(CreateClanStatus.NAME_TAKEN);
-      log.error("clan name already taken with name " + clanName);
-      return false;
+      if (clan.getName().equalsIgnoreCase(clanName)) {
+        resBuilder.setStatus(CreateClanStatus.NAME_TAKEN);
+        log.error("clan name already taken with name " + clanName);
+        return false;
+      }
+      if (clan.getTag().equalsIgnoreCase(tag)) {
+        resBuilder.setStatus(CreateClanStatus.TAG_TAKEN);
+        log.error("clan tag already taken with tag " + tag);
+        return false;
+      }
     }
     resBuilder.setStatus(CreateClanStatus.SUCCESS);
     return true;

@@ -10,18 +10,25 @@ message MinimumUserProtoForClans {
 
 //------------------------------------------------------------------------------------------
 
+message FullUserClanProto {
+	optional int32 userId = 1;
+	optional int32 clanId = 2;
+	optional UserClanStatus status = 3;
+	optional int64 requestTime = 4;
+}
+
+enum UserClanStatus {
+	MEMBER = 0;
+	REQUESTING = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
 message MinimumUserProtoWithBattleHistory {
 	optional MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
 	optional int32 battlesWon = 2;
 	optional int32 battlesLost = 3;
 	optional int32 battlesFled = 4;
-}
-
-//------------------------------------------------------------------------------------------
-
-enum UserClanStatus {
-	MEMBER = 0;
-	REQUESTING = 2;
 }
 
 //------------------------------------------------------------------------------------------

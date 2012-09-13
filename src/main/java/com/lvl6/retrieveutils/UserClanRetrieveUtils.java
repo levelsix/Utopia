@@ -3,7 +3,9 @@ package com.lvl6.retrieveutils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -105,7 +107,14 @@ import com.lvl6.utils.DBConnection;
     int clanId = rs.getInt(i++);
     UserClanStatus status = UserClanStatus.valueOf(rs.getInt(i++));
 
-    return new UserClan(userId, clanId, status);
+    Date requestTime = null;
+    Timestamp ts = rs.getTimestamp(i++);
+    if (!rs.wasNull()) {
+      requestTime = new Date(ts.getTime());
+    }
+
+
+    return new UserClan(userId, clanId, status, requestTime);
   }
 
 }

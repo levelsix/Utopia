@@ -36,19 +36,20 @@ import com.lvl6.utils.DBConnection;
     return clan;
   }
   
-  public static Clan getClanWithName(String name) {
+  public static Clan getClanWithNameOrTag(String name, String tag) {
     log.debug("retrieving clan with name " + name);
     
     TreeMap <String, Object> absoluteParams = new TreeMap<String, Object>();
     absoluteParams.put(DBConstants.CLANS__NAME, name);
+    absoluteParams.put(DBConstants.CLANS__TAG, tag);
     
     Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, absoluteParams, TABLE_NAME);
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteOr(conn, absoluteParams, TABLE_NAME);
     Clan clan = convertRSToSingleClan(rs);
     DBConnection.get().close(rs, null, conn);
     return clan;
   }
-  
+ 
   public static List<Clan> getMostRecentClansBeforeClanId(int limit, int clanId) {
     TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
     lessThanParamsToVals.put(DBConstants.CLANS__ID, clanId);

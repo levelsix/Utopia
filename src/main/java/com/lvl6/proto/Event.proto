@@ -1695,6 +1695,7 @@ message CreateClanResponseProto {
 		NAME_TAKEN = 3;
 		ALREADY_IN_CLAN = 4;
 		INVALID_TAG_LENGTH = 5;
+		TAG_TAKEN = 6;
 	}	
 }
 
