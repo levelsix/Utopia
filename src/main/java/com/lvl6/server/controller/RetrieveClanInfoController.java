@@ -68,7 +68,7 @@ import com.lvl6.utils.RetrieveUtils;
         if (clanName != null || clanId != 0) {
           Clan clan = null;
           if (clanName != null) {
-            clan = ClanRetrieveUtils.getClanWithName(clanName);
+            clan = ClanRetrieveUtils.getClanWithNameOrTag(clanName, null);
           } else if (clanId != 0) {
             clan = ClanRetrieveUtils.getClanWithId(clanId);
           }
@@ -87,7 +87,7 @@ import com.lvl6.utils.RetrieveUtils;
             
             for (UserClan uc : userClans) {
               MinimumUserProtoForClans minUser = CreateInfoProtoUtils.createMinimumUserProtoForClans(usersMap.get(uc.getUserId()));
-              resBuilder.addMembers(minUser.getMinUserProto().getMinUserProtoWithLevel().getMinUserProto());
+              resBuilder.addMembers(minUser);
             }
           }
         } else {

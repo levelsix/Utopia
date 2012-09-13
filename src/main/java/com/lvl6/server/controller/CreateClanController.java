@@ -19,6 +19,7 @@ import com.lvl6.proto.EventProto.CreateClanResponseProto;
 import com.lvl6.proto.EventProto.CreateClanResponseProto.Builder;
 import com.lvl6.proto.EventProto.CreateClanResponseProto.CreateClanStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
@@ -61,10 +62,11 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, tag);
 
+      int clanId = ControllerConstants.NOT_SET;
       if (legitCreate) {
         Timestamp createTime = new Timestamp(new Date().getTime());
         String description = "Welcome to " + clanName + "!";
-        int clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description, tag);
+        clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description, tag);
         if (clanId <= 0) {
           legitCreate = false;
           resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
@@ -79,7 +81,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       server.writeEvent(resEvent);
 
       if (legitCreate) {
-        writeChangesToDB(user);
+        writeChangesToDB(user, clanId);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -91,10 +93,14 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     }
   }
 
-  private void writeChangesToDB(User user) {
-    if (!user.updateRelativeDiamondsNaive(-1*ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN)) {
+  private void writeChangesToDB(User user, int clanId) {
+    if (!user.updateRelativeDiamondsAbsoluteClan(-1*ControllerConstants.CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN, clanId)) {
       log.error("problem with decreasing user diamonds for creating clan");
     }
+    if (!InsertUtils.get().insertUserClan(user.getId(), clanId, UserClanStatus.MEMBER, new Timestamp(new Date().getTime()))) {
+      log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
+    }
+    
   }
 
   private boolean checkLegitCreate(Builder resBuilder, User user, String clanName, String tag) {

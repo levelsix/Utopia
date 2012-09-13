@@ -644,12 +644,13 @@ public class InsertUtils implements InsertUtil{
   }
 
   @Override
-  public boolean insertUserClan(int userId, int clanId, UserClanStatus status) {
+  public boolean insertUserClan(int userId, int clanId, UserClanStatus status, Timestamp requestTime) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_CLANS__USER_ID, userId);
     insertParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
     insertParams.put(DBConstants.USER_CLANS__STATUS, status);
-
+    insertParams.put(DBConstants.USER_CLANS__REQUEST_TIME, requestTime);
+    
     int numInserted = DBConnection.get().insertIntoTableBasic(
         DBConstants.TABLE_USER_CLANS, insertParams);
     if (numInserted == 1) {

@@ -307,4 +307,6 @@ public class DBConstants {
   public static final String USER_CLANS__USER_ID = "user_id";
   public static final String USER_CLANS__CLAN_ID = "clan_id";
   public static final String USER_CLANS__STATUS = "status";
+  public static final String USER_CLANS__REQUEST_TIME = "request_time";
+  
 }

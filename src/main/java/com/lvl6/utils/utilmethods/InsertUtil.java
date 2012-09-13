@@ -117,5 +117,5 @@ public interface InsertUtil {
   
   public abstract int insertClan(String name, int ownerId, Timestamp createTime, String description, String tag);
 
-  public abstract boolean insertUserClan(int userId, int clanId, UserClanStatus status);
+  public abstract boolean insertUserClan(int userId, int clanId, UserClanStatus status, Timestamp requestTime);
 }
