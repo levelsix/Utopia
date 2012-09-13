@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.lvl6.cassandra.RollupEntry;
 import com.lvl6.cassandra.RollupUtil;
@@ -55,21 +56,25 @@ public class StatsWriterImpl implements StatsWriter {
 
 	
 	@Override
+	@Scheduled(cron="0 0 * * *")
 	public void dailyStats() {
 		stats("day", new Date().getTime());
 	}
 
 	@Override
+	@Scheduled(cron="0 0,6,12,18 * * *")
 	public void sixHourStats() {
 		stats("six_hour", new Date().getTime());
 	}
 
 	@Override
+	@Scheduled(cron="0 * * * *")
 	public void hourlyStats() {
 		stats("hour", new Date().getTime());
 	}
 
 	@Override
+	@Scheduled(cron="0 0 * * 0")
 	public void weeklyStats() {
 		stats("weekly", new Date().getTime());
 	}
