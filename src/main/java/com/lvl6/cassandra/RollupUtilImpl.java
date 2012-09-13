@@ -7,6 +7,7 @@ import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
 import me.prettyprint.cassandra.service.ColumnSliceIterator;
+import me.prettyprint.cassandra.service.ThriftCfDef;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.Keyspace;
 import me.prettyprint.hector.api.beans.HColumn;
@@ -17,12 +18,14 @@ import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hector.api.mutation.Mutator;
 import me.prettyprint.hector.api.query.SliceQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class RollupUtilImpl implements RollupUtil, InitializingBean {
 
-	
+	private static Logger log = LoggerFactory.getLogger(RollupUtilImpl.class);
 	public static String ROLLUPS_COLUMN_FAMILY = "rolos";
 	
 	
@@ -71,14 +74,18 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 		KeyspaceDefinition kd = cluster.describeKeyspace(keyspace.getKeyspaceName());
 		for(ColumnFamilyDefinition cfd : kd.getCfDefs()) {
 			if(cfd.getName().equals(ROLLUPS_COLUMN_FAMILY)) {
+				log.info("ColumnFamily {} exists", ROLLUPS_COLUMN_FAMILY);
 				exists = true;
 			}
 		}
 		if(!exists) {
+			log.info("ColumnFamily {} does not exist... creating.", ROLLUPS_COLUMN_FAMILY);
 			BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
 			columnFamilyDefinition.setKeyspaceName(keyspace.getKeyspaceName());
 			columnFamilyDefinition.setName(ROLLUPS_COLUMN_FAMILY);
 			columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
+			ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
+			cluster.addColumnFamily(cfDef);
 		}
 	}
 
