@@ -297,7 +297,7 @@ public class DBConstants {
   
   /*CLANS*/
   public static final String CLANS__ID = "id";
-  public static final String CLANS__OWNER_ID = "id";
+  public static final String CLANS__OWNER_ID = "owner_id";
   public static final String CLANS__NAME = "name";
   public static final String CLANS__CREATE_TIME = "create_time";
   public static final String CLANS__DESCRIPTION = "description";

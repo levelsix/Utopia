@@ -301,6 +301,7 @@ public class ControllerConstants {
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_NAME = 15;
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION = 350;
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG = 5;
+  public static final int RETRIEVE_CLANS__NUM_CLANS_CAP = 50;
 
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
