@@ -3,6 +3,7 @@ package com.lvl6.test;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import junit.framework.TestCase;
@@ -29,6 +30,7 @@ import me.prettyprint.hector.api.factory.HFactory;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransportException;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -39,6 +41,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.lvl6.cassandra.CassandraUtil;
 import com.lvl6.cassandra.CassandraUtilImpl;
+import com.lvl6.cassandra.RollupEntry;
+import com.lvl6.cassandra.RollupUtil;
 import com.lvl6.cassandra.log4j.Log4jAppender;
 
 
@@ -55,6 +59,9 @@ public class CassandraTest extends TestCase {
 	@Autowired
 	private CassandraHostConfigurator cassandraHostConfigurator;
 
+	@Autowired
+	protected RollupUtil rollupUtil;
+	
 /*	@Autowired
 	private Log4jAppender appender;
 	
@@ -66,6 +73,14 @@ public class CassandraTest extends TestCase {
 	public void setAppender(Log4jAppender appender) {
 		this.appender = appender;
 	}*/
+
+	public RollupUtil getRollupUtil() {
+		return rollupUtil;
+	}
+
+	public void setRollupUtil(RollupUtil rollupUtil) {
+		this.rollupUtil = rollupUtil;
+	}
 
 	public ThriftCluster getCassandraCluster() {
 		return cassandraCluster;
@@ -128,6 +143,19 @@ public class CassandraTest extends TestCase {
 	
 	protected static String KEYSPACE = "Junit";
 	protected static String CF = "BasicCassandraTest";
+	
+	
+	@Test
+	public void testRollups() {
+		long start = System.currentTimeMillis();
+		for(Long i=0l; i < 100; i++) {
+			rollupUtil.addRollupEntry(new RollupEntry("unittest1", System.currentTimeMillis(), i));
+		}
+		long end = System.currentTimeMillis();
+		List<RollupEntry> entries = rollupUtil.findEntries("unittest1", start, end);
+		Assert.assertTrue(!entries.isEmpty());
+	}
+	
 	
 	
 	@Test

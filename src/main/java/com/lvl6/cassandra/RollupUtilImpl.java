@@ -93,7 +93,7 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 
 	@Override
 	public List<RollupEntry> findEntries(String key, Long start, Long end) {
-		SliceQuery<String, Long, Long> query = HFactory.createSliceQuery(keyspace, StringSerializer.get(),   LongSerializer.get(), LongSerializer.get());
+		SliceQuery<String, Long, Long> query = HFactory.createSliceQuery(keyspace, StringSerializer.get(), LongSerializer.get(), LongSerializer.get());
 		query.setColumnFamily(ROLLUPS_COLUMN_FAMILY);
 		query.setKey(key);
 		ColumnSliceIterator<String, Long, Long> iterator = new ColumnSliceIterator<String, Long, Long>( query, start, end, false);
