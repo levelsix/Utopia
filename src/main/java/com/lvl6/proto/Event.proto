@@ -1799,7 +1799,7 @@ message RetrieveClanInfoRequestProto {
 
 message RetrieveClanInfoResponseProto {
 	optional MinimumUserProto sender = 1;
-	repeated MinimumUserProto members = 2;
+	repeated MinimumUserProtoForClans members = 2;
 	repeated FullClanProto clanInfo = 3;
 	optional RetrieveClanInfoStatus status = 4;
 	
