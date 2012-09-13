@@ -6,5 +6,5 @@ public interface RollupUtil {
 	
 	void addRollupEntry(RollupEntry entry);
 	void addRollupEntries(List<RollupEntry> entries);
-	
+	List<RollupEntry> findEntries(String key, Long start, Long end);
 }
