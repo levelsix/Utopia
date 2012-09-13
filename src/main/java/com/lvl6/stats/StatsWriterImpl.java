@@ -58,6 +58,7 @@ public class StatsWriterImpl implements StatsWriter {
 	@Override
 	@Scheduled(cron="0 0 * * *")
 	public void dailyStats() {
+		log.info("Recording stats for day");
 		stats("day", new Date().getTime());
 	}
 
@@ -76,7 +77,7 @@ public class StatsWriterImpl implements StatsWriter {
 	@Override
 	@Scheduled(cron="0 0 * * 0")
 	public void weeklyStats() {
-		stats("weekly", new Date().getTime());
+		stats("week", new Date().getTime());
 	}
 	
 	protected void stats(String period, Long time) {
