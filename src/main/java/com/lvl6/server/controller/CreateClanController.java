@@ -100,7 +100,6 @@ import com.lvl6.utils.utilmethods.MiscMethods;
     if (!InsertUtils.get().insertUserClan(user.getId(), clanId, UserClanStatus.MEMBER, new Timestamp(new Date().getTime()))) {
       log.error("problem with inserting user clan data for user " + user + ", and clan id " + clanId);
     }
-    
   }
 
   private boolean checkLegitCreate(Builder resBuilder, User user, String clanName, String tag) {

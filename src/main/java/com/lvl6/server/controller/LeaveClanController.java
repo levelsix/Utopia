@@ -1,7 +1,5 @@
 package com.lvl6.server.controller;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -14,7 +12,6 @@ import com.lvl6.events.response.LeaveClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.User;
-import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.LeaveClanRequestProto;
 import com.lvl6.proto.EventProto.LeaveClanResponseProto;
 import com.lvl6.proto.EventProto.LeaveClanResponseProto.Builder;
@@ -22,11 +19,8 @@ import com.lvl6.proto.EventProto.LeaveClanResponseProto.LeaveClanStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
-import com.lvl6.retrieveutils.UserClanRetrieveUtils;
-import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
-import com.lvl6.utils.utilmethods.InsertUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
 
@@ -136,11 +130,17 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("clan is null, passed in clan id was " + clanId);
       return false;     
     }
+    
     if (user.getClanId() != clan.getId()) {
       resBuilder.setStatus(LeaveClanStatus.NOT_IN_CLAN);
       log.error("user's clan id is " + user.getClanId() + ", clan id is " + clanId);
       return false;
     }
+    
+    //TODO:reject if user is owner && clan is more than just him. client should prompt user to call transferownership
+
+    
+    
 //    if (!deleteClan && (newClanOwner == null || newClanOwner.getClanId() != clan.getId())) {
 //      resBuilder.setStatus(LeaveClanStatus.NEW_OWNER_NOT_IN_CLAN);
 //      log.error("problem with new clan owner, who is " + newClanOwner + ", clan is " + clan);

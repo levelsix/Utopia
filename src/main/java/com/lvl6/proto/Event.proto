@@ -1677,6 +1677,7 @@ message PurchaseGroupChatResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+//DONE
 message CreateClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional string name = 2;
@@ -1716,8 +1717,8 @@ message LeaveClanResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		NOT_IN_CLAN = 2;
+		OWNER_OF_CLAN_WITH_OTHERS_STILL_IN = 3;
 	}	
-
 }
 
 //------------------------------------------------------------------------------------------
