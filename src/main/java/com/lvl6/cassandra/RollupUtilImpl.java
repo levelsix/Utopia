@@ -78,14 +78,16 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 				exists = true;
 			}
 		}
+		BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
+		columnFamilyDefinition.setKeyspaceName(keyspace.getKeyspaceName());
+		columnFamilyDefinition.setName(ROLLUPS_COLUMN_FAMILY);
+		columnFamilyDefinition.setComparatorType(ComparatorType.LONGTYPE);
+		ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 		if(!exists) {
 			log.info("ColumnFamily {} does not exist... creating.", ROLLUPS_COLUMN_FAMILY);
-			BasicColumnFamilyDefinition columnFamilyDefinition = new BasicColumnFamilyDefinition();
-			columnFamilyDefinition.setKeyspaceName(keyspace.getKeyspaceName());
-			columnFamilyDefinition.setName(ROLLUPS_COLUMN_FAMILY);
-			columnFamilyDefinition.setComparatorType(ComparatorType.UTF8TYPE);
-			ColumnFamilyDefinition cfDef = new ThriftCfDef(columnFamilyDefinition);
 			cluster.addColumnFamily(cfDef);
+		}else {
+			cluster.updateColumnFamily(cfDef);
 		}
 	}
 
