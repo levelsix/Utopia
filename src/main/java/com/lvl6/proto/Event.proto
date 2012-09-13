@@ -1831,6 +1831,24 @@ message TransferClanOwnershipResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+message ChangeClanDescriptionRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 description = 2;
+}
+
+message ChangeClanDescriptionResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional ChangeClanDescriptionStatus status = 4;
+	
+	enum ChangeClanDescriptionStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		TOO_LONG = 2;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
 //if reset
 	//if owner, don't allow it
 	//else delete all user_clan stuff with that user_id

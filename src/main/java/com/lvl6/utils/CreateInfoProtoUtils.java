@@ -79,6 +79,7 @@ import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
@@ -347,7 +348,8 @@ public class CreateInfoProtoUtils {
       builder.setLastLongLicensePurchaseTime(u.getLastLongLicensePurchaseTime().getTime());
     }
     if (u.getClanId() > 0) {
-      builder.setClanId(u.getClanId());
+      Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
+      builder.setClan(createFullClanProtoFromClan(clan));
     }
     return builder.build();
   }
