@@ -127,7 +127,12 @@ public class CreateInfoProtoUtils {
   }
 
   public static MinimumUserProto createMinimumUserProtoFromUser(User u) {
-    return MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType()).build();
+    MinimumUserProto.Builder builder = MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType());
+    if (u.getClanId() > 0) {
+      Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
+      builder.setClan(createFullClanProtoFromClan(clan));
+    }
+    return builder.build();
   }
 
   public static MinimumUserProtoWithLevel createMinimumUserProtoWithLevelFromUser(User u) {
