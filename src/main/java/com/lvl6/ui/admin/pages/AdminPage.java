@@ -8,12 +8,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.googlecode.wicketcharts.highcharts.options.Options;
+import com.googlecode.wicketcharts.highcharts.options.PlotOptions;
+import com.googlecode.wicketcharts.highcharts.options.SeriesOptions;
+import com.googlecode.wicketcharts.highcharts.options.Title;
 import com.lvl6.properties.Globals;
 import com.lvl6.server.DevOps;
 import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.RecentPurchasesPanel;
 import com.lvl6.ui.admin.components.ReloadLeaderboardLink;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
+import com.lvl6.ui.admin.components.StatsGraphsPanel;
 import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.components.TopSpendersPanel;
 
@@ -36,6 +41,7 @@ public class AdminPage extends TemplatePage {
 		setTopSpenders();
 		setRecentPurchases();
 		setContactAdmins();
+		setupGraphs();
 	}
 	
 	private void setIsSandbox() {
@@ -77,5 +83,13 @@ public class AdminPage extends TemplatePage {
 		contact.setOutputMarkupId(true);
 		add(contact);
 	}
+	
+	
+	protected void setupGraphs() {
+		StatsGraphsPanel statsGraphs = new StatsGraphsPanel("statsGraphs");
+		add(statsGraphs);
+	}
+	
+	
 
 }
