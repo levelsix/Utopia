@@ -18,6 +18,7 @@ import com.lvl6.spring.AppContext;
 import com.lvl6.ui.admin.components.RecentPurchasesPanel;
 import com.lvl6.ui.admin.components.ReloadLeaderboardLink;
 import com.lvl6.ui.admin.components.ReloadStaticDataLink;
+import com.lvl6.ui.admin.components.StatsGraphsPanel;
 import com.lvl6.ui.admin.components.StatsPanel;
 import com.lvl6.ui.admin.components.TopSpendersPanel;
 
@@ -40,7 +41,7 @@ public class AdminPage extends TemplatePage {
 		setTopSpenders();
 		setRecentPurchases();
 		setContactAdmins();
-		//setupGraphs();
+		setupGraphs();
 	}
 	
 	private void setIsSandbox() {
@@ -84,11 +85,10 @@ public class AdminPage extends TemplatePage {
 	}
 	
 	
-/*	protected void setupGraphs() {
-		Options options = new Options();
-		options.setTitle(new Title("Players"));
-		SeriesOptions<>
-	}*/
+	protected void setupGraphs() {
+		StatsGraphsPanel statsGraphs = new StatsGraphsPanel("statsGraphs");
+		add(statsGraphs);
+	}
 	
 	
 
