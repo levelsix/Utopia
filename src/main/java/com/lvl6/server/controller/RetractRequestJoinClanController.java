@@ -38,7 +38,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_REQUEST_JOIN_CLAN_EVENT;
+    return EventProtocolRequest.C_RETRACT_REQUEST_JOIN_CLAN_EVENT;
   }
 
   @Override
