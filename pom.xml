@@ -625,6 +625,11 @@
 				<artifactId>mail</artifactId>
 				<version>1.4.5</version>
 			</dependency>
+			<dependency>
+				<groupId>com.googlecode.wicket-charts</groupId>
+				<artifactId>wicket-charts</artifactId>
+				<version>1.1.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -783,6 +788,10 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.wicket-charts</groupId>
+			<artifactId>wicket-charts</artifactId>
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-aop</artifactId> 
 			</dependency> <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> 

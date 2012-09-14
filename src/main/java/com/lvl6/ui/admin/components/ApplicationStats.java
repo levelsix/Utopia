@@ -5,6 +5,7 @@ public class ApplicationStats {
 	protected Integer connectedPlayersCount = 0;
 	protected Integer totalPlayersCount = 0;
 	protected Integer loggedInToday = 0;
+	protected Integer loggedInThisWeek = 0;
 	protected Integer totalPayingPlayers = 0;
 	protected Long totalInAppPurchases = 0l;
 	protected Long sumOfInAppPurchases = 0l;
@@ -14,6 +15,14 @@ public class ApplicationStats {
 	protected Long countMarketplacePosts = 0l;
 	protected Long sumOfSilverInWorld = 0l;
 	protected Long sumOfDiamondsInWorld = 0l;
+
+	public Integer getLoggedInThisWeek() {
+		return loggedInThisWeek;
+	}
+
+	public void setLoggedInThisWeek(Integer loggedInThisWeek) {
+		this.loggedInThisWeek = loggedInThisWeek;
+	}
 
 	public Integer getLoggedInToday() {
 		return loggedInToday;

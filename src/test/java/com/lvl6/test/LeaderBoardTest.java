@@ -106,10 +106,10 @@ public class LeaderBoardTest extends TestCase {
 	
 
 	private void printRanks(int rank, Set<Tuple> ex, String leaderBoard) {
-		log.info("Ranks for "+leaderBoard);
+		/*log.info("Ranks for "+leaderBoard);
 		for(Tuple t : ex) {
 			log.info("Rank: "+rank+" User: "+t.getElement()+" Score: "+t.getScore());
 			rank++;
-		}
+		}*/
 	}
 }
