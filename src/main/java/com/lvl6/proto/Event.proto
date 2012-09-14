@@ -1790,6 +1790,7 @@ message RetrieveClanInfoRequestProto {
 	optional string clanName = 3;
 	optional ClanInfoGrabType grabType = 4;
 	optional int32 beforeThisClanId = 5;
+	optional bool isForBrowsingList = 6;
 	
 	enum ClanInfoGrabType {
 		ALL = 1;
@@ -1805,6 +1806,7 @@ message RetrieveClanInfoResponseProto {
 	repeated FullClanProtoWithClanSize clanInfo = 3;
 	optional RetrieveClanInfoStatus status = 4;
 	optional bool isForSearch = 5;
+	optional bool isForBrowsingList = 6;
 	
 	enum RetrieveClanInfoStatus {
 		SUCCESS = 0;
