@@ -63,6 +63,7 @@ import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
+import com.lvl6.proto.InfoProto.MinimumClanProto;
 import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
@@ -139,7 +140,7 @@ public class CreateInfoProtoUtils {
     MinimumUserProto.Builder builder = MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType());
     if (u.getClanId() > 0) {
       Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
-      builder.setClan(createFullClanProtoFromClan(clan));
+      builder.setClan(createMinimumClanProtoFromClan(clan));
     }
     return builder.build();
   }
@@ -363,7 +364,7 @@ public class CreateInfoProtoUtils {
     }
     if (u.getClanId() > 0) {
       Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
-      builder.setClan(createFullClanProtoFromClan(clan));
+      builder.setClan(createMinimumClanProtoFromClan(clan));
     }
     return builder.build();
   }
@@ -386,6 +387,10 @@ public class CreateInfoProtoUtils {
   public static FullClanProto createFullClanProtoFromClan(Clan c) {
     MinimumUserProto mup = createMinimumUserProtoFromUser(RetrieveUtils.userRetrieveUtils().getUserById(c.getOwnerId()));
     return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
+  }
+  
+  public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
+    return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
   }
   
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
