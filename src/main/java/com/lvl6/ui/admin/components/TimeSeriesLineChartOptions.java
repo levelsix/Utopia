@@ -1,6 +1,7 @@
 package com.lvl6.ui.admin.components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.googlecode.wicketcharts.highcharts.options.Options;
@@ -23,6 +24,7 @@ public class TimeSeriesLineChartOptions extends Options {
 			times.add(ent.getColumn().toString());
 			values.add(ent.getValue());
 		}
+		setTitle(new Title(title));
 		XAxis xAxis = new XAxis();
 		xAxis.setTitle(new Title("Time"));
 		xAxis.setCategories(times);
@@ -32,6 +34,7 @@ public class TimeSeriesLineChartOptions extends Options {
 		setyAxis(yAxis);
 		SeriesOptions<Number> series = new SimpleSeriesOptions();
 		series.setData(values);
+		setSeries(Arrays.asList(series));
 	}
 	
 	
