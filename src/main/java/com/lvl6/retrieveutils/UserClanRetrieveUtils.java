@@ -28,14 +28,14 @@ import com.lvl6.utils.DBConnection;
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
     paramsToVals.put(DBConstants.USER_CLANS__STATUS, UserClanStatus.MEMBER.getNumber());
-    
+
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
     List<UserClan> userClans = grabUserClansFromRS(rs);
     DBConnection.get().close(rs, null, conn);
     return userClans;
   }
-  
+
   public List<UserClan> getUserClansRelatedToClan(int clanId) {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
@@ -46,7 +46,36 @@ import com.lvl6.utils.DBConnection;
     DBConnection.get().close(rs, null, conn);
     return userClans;
   }
-  
+
+  public UserClan getSpecificUserClan(int userId, int clanId) {
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
+    paramsToVals.put(DBConstants.USER_CLANS__USER_ID, userId);
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    UserClan userClan = grabUserClanFromRS(rs);
+    DBConnection.get().close(rs, null, conn);
+    return userClan;
+  }
+
+  private UserClan grabUserClanFromRS(ResultSet rs) {
+    if (rs != null) {
+      try {
+        rs.last();
+        rs.beforeFirst();
+        while(rs.next()) {
+          UserClan uc = convertRSRowToUserClan(rs);
+          return uc;
+        }
+      } catch (SQLException e) {
+        log.error("problem with database call.");
+        log.error(e);
+      }
+    }
+    return null;
+  }
+
   public List<Integer> getUserIdsRelatedToClan(int clanId) {
     List<UserClan> userClans = getUserClansRelatedToClan(clanId);
     List<Integer> userIds = new ArrayList<Integer>();

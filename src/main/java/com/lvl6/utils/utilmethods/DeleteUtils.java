@@ -148,6 +148,18 @@ public class DeleteUtils implements DeleteUtil {
     }
     return false;
   }
+  
+  public boolean deleteUserClan(int userId, int clanId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
+    conditionParams.put(DBConstants.USER_CLANS__USER_ID, userId);
+    
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_CLANS, conditionParams, "and");
+    if (numDeleted == 1) {
+      return true;
+    }
+    return false;
+  }
 
   public boolean deleteClanWithClanId(int clanId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
