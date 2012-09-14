@@ -817,10 +817,7 @@ public class User implements Serializable {
     return false;
   }
 
-  /*
-   * used for in app purchases, armory, finishingnormstructbuild
-   */
-  public boolean updateRelativeDiamondsAbsoluteClan (int diamondChange, int clanId) {
+  public boolean updateRelativeDiamondsAbsoluteClan (int diamondChange, Integer clanId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
 
@@ -830,7 +827,7 @@ public class User implements Serializable {
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     absoluteParams.put(DBConstants.USER__CLAN_ID, clanId);
 
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, absoluteParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;

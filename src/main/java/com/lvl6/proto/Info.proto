@@ -51,7 +51,7 @@ enum GroupChatScope {
 message FullClanProto {
 	optional int32 clanId = 1;
 	optional string name = 2;
-	optional int32 ownerId = 3;
+	optional MinimumUserProto owner = 3;
 	optional int64 createTime = 4;
 	optional string description = 5;
 	optional string tag = 6;

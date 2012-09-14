@@ -1706,7 +1706,6 @@ message CreateClanResponseProto {
 message LeaveClanRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 clanId = 2;
-	optional int32 newOwner = 3;
 }
 
 message LeaveClanResponseProto {

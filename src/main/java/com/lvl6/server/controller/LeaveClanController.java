@@ -12,6 +12,7 @@ import com.lvl6.events.response.LeaveClanResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.Clan;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.proto.EventProto.LeaveClanRequestProto;
 import com.lvl6.proto.EventProto.LeaveClanResponseProto;
 import com.lvl6.proto.EventProto.LeaveClanResponseProto.Builder;
@@ -48,27 +49,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
     MinimumUserProto senderProto = reqProto.getSender();
     int clanId = reqProto.getClanId();
-    int newOwner = reqProto.getNewOwner();
-    boolean deleteClan = !reqProto.hasNewOwner();
 
     LeaveClanResponseProto.Builder resBuilder = LeaveClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
 
-    if (!deleteClan) { 
-      server.lockPlayers(senderProto.getUserId(), newOwner);
-    } else {
-      server.lockPlayer(senderProto.getUserId());
-    }
+    server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
 
-      User newClanOwner = null;
-      if (newOwner > 0) {
-        newClanOwner = RetrieveUtils.userRetrieveUtils().getUserById(newOwner);        
-      }
-
-      boolean legitLeave = checkLegitLeave(resBuilder, user, clan, clanId, newClanOwner, deleteClan);
+      boolean legitLeave = checkLegitLeave(resBuilder, user, clan);
 
       LeaveClanResponseEvent resEvent = new LeaveClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
@@ -76,7 +66,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       server.writeEvent(resEvent);
 
       if (legitLeave) {
-        writeChangesToDB(user, clan, deleteClan, newClanOwner);
+        writeChangesToDB(user, clan);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -84,24 +74,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     } catch (Exception e) {
       log.error("exception in LeaveClan processEvent", e);
     } finally {
-      if (!deleteClan) { 
-        server.unlockPlayers(senderProto.getUserId(), newOwner);
-      } else {
-        server.unlockPlayer(senderProto.getUserId());
-      }
+      server.unlockPlayer(senderProto.getUserId());
     }
   }
 
-  private void writeChangesToDB(User user, Clan clan, boolean deleteClan, User newClanOwner) {
-    List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clan.getId());
-
-    if (deleteClan) {
+  private void writeChangesToDB(User user, Clan clan) {
+    if (user.getClanId() == clan.getOwnerId()) {
+      List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clan.getId());
       deleteClan(clan, userIds);
     } else {
-      
-      
-      //TODO: change clan owner to be new guy
-      //change existing user's clan to nothing
+      if (!DeleteUtils.get().deleteUserClan(user.getId(), clan.getId())) {
+        log.error("problem with deleting user clan for " + user + " and clan " + clan);
+      }
+      if (!user.updateRelativeDiamondsAbsoluteClan(0, null)) {
+        log.error("problem with making clanid for user null");
+      }
     }
   }
 
@@ -119,33 +106,27 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private boolean checkLegitLeave(Builder resBuilder, User user, Clan clan, int clanId, User newClanOwner, boolean deleteClan) {
-    if (user == null) {
+  private boolean checkLegitLeave(Builder resBuilder, User user, Clan clan) {
+    if (user == null || clan == null) {
       resBuilder.setStatus(LeaveClanStatus.OTHER_FAIL);
       log.error("user is null");
       return false;      
     }
-    if (clan == null) {
-      resBuilder.setStatus(LeaveClanStatus.OTHER_FAIL);
-      log.error("clan is null, passed in clan id was " + clanId);
-      return false;     
-    }
-    
     if (user.getClanId() != clan.getId()) {
       resBuilder.setStatus(LeaveClanStatus.NOT_IN_CLAN);
-      log.error("user's clan id is " + user.getClanId() + ", clan id is " + clanId);
+      log.error("user's clan id is " + user.getClanId() + ", clan id is " + clan.getId());
       return false;
     }
-    
-    //TODO:reject if user is owner && clan is more than just him. client should prompt user to call transferownership
 
-    
-    
-//    if (!deleteClan && (newClanOwner == null || newClanOwner.getClanId() != clan.getId())) {
-//      resBuilder.setStatus(LeaveClanStatus.NEW_OWNER_NOT_IN_CLAN);
-//      log.error("problem with new clan owner, who is " + newClanOwner + ", clan is " + clan);
-//      return false;     
-//    }
+    if (clan.getOwnerId() == user.getId()) {
+      List<UserClan> userClanMembersInClan = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clan.getId());
+      if (userClanMembersInClan.size() > 1) {
+        resBuilder.setStatus(LeaveClanStatus.OWNER_OF_CLAN_WITH_OTHERS_STILL_IN);
+        log.error("user is owner and he's not alone in clan, can't leave without switching ownership. user clan members are " 
+            + userClanMembersInClan);
+        return false;
+      }
+    }
     resBuilder.setStatus(LeaveClanStatus.SUCCESS);
     return true;
   }

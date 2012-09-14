@@ -384,7 +384,8 @@ public class CreateInfoProtoUtils {
   }
 
   public static FullClanProto createFullClanProtoFromClan(Clan c) {
-    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
+    MinimumUserProto mup = createMinimumUserProtoFromUser(RetrieveUtils.userRetrieveUtils().getUserById(c.getOwnerId()));
+    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
   }
   
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
