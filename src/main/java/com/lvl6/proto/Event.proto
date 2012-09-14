@@ -1807,6 +1807,9 @@ message RetrieveClanInfoResponseProto {
 	optional RetrieveClanInfoStatus status = 4;
 	optional bool isForSearch = 5;
 	optional bool isForBrowsingList = 6;
+	optional int32 clanId = 7;
+	optional string clanName = 8;
+	
 	
 	enum RetrieveClanInfoStatus {
 		SUCCESS = 0;
