@@ -74,7 +74,7 @@ import com.lvl6.utils.RetrieveUtils;
           }
           
           if (grabType == ClanInfoGrabType.ALL || grabType == ClanInfoGrabType.CLAN_INFO) {
-            resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(clan));
+            resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoWithClanSize(clan));
           }
           if (grabType == ClanInfoGrabType.ALL || grabType == ClanInfoGrabType.MEMBERS) {
             List<UserClan> userClans = RetrieveUtils.userClanRetrieveUtils().getUserClansRelatedToClan(clanId);
@@ -99,7 +99,7 @@ import com.lvl6.utils.RetrieveUtils;
           }
           
           for (Clan clan : clans) {
-            resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(clan));
+            resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoWithClanSize(clan));
           }
         }
       }

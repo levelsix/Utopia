@@ -302,7 +302,9 @@ public class DBConstants {
   public static final String CLANS__CREATE_TIME = "create_time";
   public static final String CLANS__DESCRIPTION = "description";
   public static final String CLANS__TAG = "tag";
+  public static final String CLANS__IS_GOOD = "is_good";
 
+  
   /*USER CLANS*/
   public static final String USER_CLANS__USER_ID = "user_id";
   public static final String USER_CLANS__CLAN_ID = "clan_id";

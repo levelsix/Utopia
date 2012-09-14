@@ -1802,8 +1802,9 @@ message RetrieveClanInfoRequestProto {
 message RetrieveClanInfoResponseProto {
 	optional MinimumUserProto sender = 1;
 	repeated MinimumUserProtoForClans members = 2;
-	repeated FullClanProto clanInfo = 3;
+	repeated FullClanProtoWithClanSize clanInfo = 3;
 	optional RetrieveClanInfoStatus status = 4;
+	optional bool isForSearch = 5;
 	
 	enum RetrieveClanInfoStatus {
 		SUCCESS = 0;

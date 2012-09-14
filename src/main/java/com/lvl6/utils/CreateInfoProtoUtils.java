@@ -25,6 +25,7 @@ import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserCityExpansionData;
+import com.lvl6.info.UserClan;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -46,6 +47,7 @@ import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.FullCityProto;
 import com.lvl6.proto.InfoProto.FullClanProto;
+import com.lvl6.proto.InfoProto.FullClanProtoWithClanSize;
 import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.FullMarketplacePostProto;
 import com.lvl6.proto.InfoProto.FullQuestProto;
@@ -96,6 +98,13 @@ public class CreateInfoProtoUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  public static FullClanProtoWithClanSize createFullClanProtoWithClanSize(Clan c) {
+    FullClanProto clan = createFullClanProtoFromClan(c);
+    List<UserClan> userClanMembersInClan = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(c.getId());
+    int size = (userClanMembersInClan != null) ? userClanMembersInClan.size() : 0;
+    return FullClanProtoWithClanSize.newBuilder().setClan(clan).setClanSize(size).build();
+  }
+  
   public static ReferralNotificationProto createReferralNotificationProtoFromReferral(
       Referral r, User newlyReferred) {
     return ReferralNotificationProto.newBuilder().setReferred(createMinimumUserProtoFromUser(newlyReferred))

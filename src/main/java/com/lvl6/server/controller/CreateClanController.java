@@ -66,12 +66,12 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       if (legitCreate) {
         Timestamp createTime = new Timestamp(new Date().getTime());
         String description = "Welcome to " + clanName + "!";
-        clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description, tag);
+        clanId = InsertUtils.get().insertClan(clanName, user.getId(), createTime, description, tag, MiscMethods.checkIfGoodSide(user.getType()));
         if (clanId <= 0) {
           legitCreate = false;
           resBuilder.setStatus(CreateClanStatus.OTHER_FAIL);
         } else {
-          resBuilder.setClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime, description, tag)));
+          resBuilder.setClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(new Clan(clanId, clanName, user.getId(), createTime, description, tag, MiscMethods.checkIfGoodSide(user.getType()))));
         }
       }
       

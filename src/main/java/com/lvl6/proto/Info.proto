@@ -3,6 +3,13 @@ package com.lvl6.proto;
 option java_outer_classname = "InfoProto";
 
 
+message FullClanProtoWithClanSize {
+	optional FullClanProto clan = 1;
+	optional int32 clanSize = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
 message MinimumUserProtoForClans {
 	optional MinimumUserProtoWithBattleHistory minUserProto = 1;
 	optional UserClanStatus clanStatus = 2;
@@ -48,6 +55,7 @@ message FullClanProto {
 	optional int64 createTime = 4;
 	optional string description = 5;
 	optional string tag = 6;
+	optional bool isGood = 7;
 }
 
 //------------------------------------------------------------------------------------------
