@@ -65,15 +65,15 @@ import com.lvl6.utils.RetrieveUtils;
       boolean legitCreate = checkLegitCreate(resBuilder, user, clanName, clanId);
 
       if (legitCreate) {
-        if (clanName != null || clanId != 0) {
-          Clan clan = null;
-          if (clanName != null) {
-            clan = ClanRetrieveUtils.getClanWithNameOrTag(clanName, null);
-          } else if (clanId != 0) {
-            clan = ClanRetrieveUtils.getClanWithId(clanId);
-          }
-          
+        if (reqProto.hasClanName() || reqProto.hasClanId()) {
           if (grabType == ClanInfoGrabType.ALL || grabType == ClanInfoGrabType.CLAN_INFO) {
+            Clan clan = null;
+            if (reqProto.hasClanName()) {
+              // Can search for clan name or tag name
+              clan = ClanRetrieveUtils.getClanWithNameOrTag(clanName, clanName);
+            } else if (reqProto.hasClanId()) {
+              clan = ClanRetrieveUtils.getClanWithId(clanId);
+            }
             resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoFromClan(clan));
           }
           if (grabType == ClanInfoGrabType.ALL || grabType == ClanInfoGrabType.MEMBERS) {
@@ -121,7 +121,7 @@ import com.lvl6.utils.RetrieveUtils;
       log.error("user is null");
       return false;
     }
-    if (clanName != null && clanId != 0) {
+    if ((clanName != null || clanName.length() != 0) && clanId != 0) {
       resBuilder.setStatus(RetrieveClanInfoStatus.OTHER_FAIL);
       log.error("clan name and clan id set");
       return false;

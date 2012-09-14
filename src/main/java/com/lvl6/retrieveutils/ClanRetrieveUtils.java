@@ -110,8 +110,8 @@ import com.lvl6.utils.DBConnection;
     int i = 1;
 
     int clanId = rs.getInt(i++);
-    String name = rs.getString(i++);
     int ownerId = rs.getInt(i++);
+    String name = rs.getString(i++);
     
     Date clanCreateTime = null;
     Timestamp ts = rs.getTimestamp(i++);
