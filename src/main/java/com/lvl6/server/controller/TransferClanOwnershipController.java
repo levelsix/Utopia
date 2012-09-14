@@ -103,7 +103,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(User user, User newClanOwner) {
-    if (!UpdateUtils.get().updateClanOwnerForClan(user.getClanId(), newClanOwner.getId())) {
+    if (!UpdateUtils.get().updateClanOwnerDescriptionForClan(user.getClanId(), newClanOwner.getId(), null)) {
       log.error("problem with changing clan owner for clan with id " + user.getClanId() + " from user " + user + " to new owner " + newClanOwner);
     }
   }

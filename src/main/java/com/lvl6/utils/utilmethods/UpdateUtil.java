@@ -152,7 +152,7 @@ public interface UpdateUtil {
   public abstract boolean incrementCityRankForUserCity(int userId,
       int cityId, int increment);
 
-  public abstract boolean updateClanOwnerForClan(int clanId, int ownerId);
+  public abstract boolean updateClanOwnerDescriptionForClan(int clanId, int ownerId, String description);
   
 	/*
 	 * used for tasks

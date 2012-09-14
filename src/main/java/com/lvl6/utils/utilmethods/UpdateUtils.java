@@ -658,13 +658,16 @@ public class UpdateUtils implements UpdateUtil {
   }
 
   @Override
-  public boolean updateClanOwnerForClan(int clanId, int ownerId) {
+  public boolean updateClanOwnerDescriptionForClan(int clanId, int ownerId, String description) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.CLANS__ID, clanId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.CLANS__OWNER_ID, ownerId);
-
+    if (ownerId > 0)
+      absoluteParams.put(DBConstants.CLANS__OWNER_ID, ownerId);
+    if (description != null)
+      absoluteParams.put(DBConstants.CLANS__DESCRIPTION, description);
+    
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_CLANS, null, absoluteParams, 
         conditionParams, "or");
     if (numUpdated == 1) {

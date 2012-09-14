@@ -1837,7 +1837,7 @@ message TransferClanOwnershipResponseProto {
 
 message ChangeClanDescriptionRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 description = 2;
+	optional string description = 2;
 }
 
 message ChangeClanDescriptionResponseProto {
@@ -1848,6 +1848,8 @@ message ChangeClanDescriptionResponseProto {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
 		TOO_LONG = 2;
+		NOT_IN_CLAN = 3;
+		NOT_OWNER = 4;
 	}	
 }
 
