@@ -131,6 +131,7 @@ message StartupResponseProto {
     repeated FullEquipProto equips = 9;
 	optional int32 experienceRequiredForNextLevel = 10;
 	optional int32 experienceRequiredForCurrentLevel = 15;
+	optional FullUserClanProto userClanInfo = 26;
 	
 	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
 	repeated AttackedNotificationProto attackNotifications = 13;
