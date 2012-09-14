@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 
@@ -148,6 +149,15 @@ public class DeleteUtils implements DeleteUtil {
     }
     return false;
   }
+  
+  public void deleteUserClanRequestsForUser(int userId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CLANS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_CLANS__STATUS, UserClanStatus.REQUESTING.getNumber());
+
+    DBConnection.get().deleteRows(DBConstants.TABLE_USER_CLANS, conditionParams, "and");
+  }
+  
   
   public boolean deleteUserClan(int userId, int clanId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
