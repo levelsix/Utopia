@@ -7,6 +7,7 @@ import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.LogViewerPage;
 import com.lvl6.ui.admin.pages.MainPage;
+import com.lvl6.ui.admin.pages.StatsGraphsPage;
 
 public class Lvl6Admin extends WebApplication{
 
@@ -17,6 +18,7 @@ public class Lvl6Admin extends WebApplication{
 		mountPage("/admin", AdminPage.class);
 		mountPage("/health", HealthCheckPage.class);
 		mountPage("/logs", LogViewerPage.class);
+		mountPage("/stats", StatsGraphsPage.class);
 	}
 
 	@Override
