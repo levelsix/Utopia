@@ -87,7 +87,7 @@ public class AdminPage extends TemplatePage {
 	
 	
 	protected void setupGraphs() {
-		BookmarkablePageLink<StatsGraphsPage> link = new BookmarkablePageLink<StatsGraphsPage>("statsGraph", StatsGraphsPage.class);
+		BookmarkablePageLink<StatsGraphsPage> link = new BookmarkablePageLink<StatsGraphsPage>("statsGraphs", StatsGraphsPage.class);
 		add(link);
 	}
 	
