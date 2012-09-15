@@ -659,4 +659,20 @@ public class InsertUtils implements InsertUtil{
     }
     return false;
   }
+  
+  @Override
+  public boolean insertDiamondEquipPurchaseHistory(int buyerId, int equipId, int diamondsSpent, Timestamp purchaseTime) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__BUYER_ID, buyerId);
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__DIAMONDS_SPENT, diamondsSpent);
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__PURCHASE_TIME, purchaseTime);
+    
+    int numInserted = DBConnection.get().insertIntoTableBasic(
+        DBConstants.TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
 }

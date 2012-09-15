@@ -118,4 +118,6 @@ public interface InsertUtil {
   public abstract int insertClan(String name, int ownerId, Timestamp createTime, String description, String tag, boolean isGood);
 
   public abstract boolean insertUserClan(int userId, int clanId, UserClanStatus status, Timestamp requestTime);
+
+  public abstract boolean insertDiamondEquipPurchaseHistory(int buyerId, int equipId, int diamondsSpent, Timestamp purchaseTime);
 }

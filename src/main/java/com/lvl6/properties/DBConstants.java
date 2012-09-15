@@ -43,6 +43,7 @@ public class DBConstants {
   public static final String TABLE_USER_SESSIONS = "user_sessions";
   public static final String TABLE_CLANS = "clans";
   public static final String TABLE_USER_CLANS = "user_clans";
+  public static final String TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY = "diamond_equip_purchase_history";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -304,11 +305,15 @@ public class DBConstants {
   public static final String CLANS__TAG = "tag";
   public static final String CLANS__IS_GOOD = "is_good";
 
-  
   /*USER CLANS*/
   public static final String USER_CLANS__USER_ID = "user_id";
   public static final String USER_CLANS__CLAN_ID = "clan_id";
   public static final String USER_CLANS__STATUS = "status";
   public static final String USER_CLANS__REQUEST_TIME = "request_time";
   
+  /*DIAMOND EQUIP PURCHASE HISTORY*/
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__BUYER_ID = "buyer_id";
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__EQUIP_ID = "equip_id";
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__PURCHASE_TIME = "purchase_time";
 }
