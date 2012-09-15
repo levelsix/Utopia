@@ -19,7 +19,6 @@ public class StatsGraphsPage extends TemplatePage {
 		} else {
 			log.info("Loading Stats Page");
 		}
-
 		setupGraphs();
 	}
 		

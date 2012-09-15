@@ -45,7 +45,7 @@ public class StatsGraphsPanel extends Panel {
 			itm.add(new HighChartContainer("aGraph", opts));
 			
 		}
-		//add();
+		add(view);
 	}
 	
 	protected List<List<RollupEntry>> getGraphs(){

@@ -17,6 +17,7 @@ import com.lvl6.ui.admin.pages.AdminPage;
 import com.lvl6.ui.admin.pages.HealthCheckPage;
 import com.lvl6.ui.admin.pages.LogViewerPage;
 import com.lvl6.ui.admin.pages.MainPage;
+import com.lvl6.ui.admin.pages.StatsGraphsPage;
 
 import junit.framework.TestCase;
 
@@ -34,6 +35,7 @@ public class AdminUITest extends TestCase {
 		tester = new WicketTester();
 		tester.startPage(AdminPage.class);
 		tester.startPage(MainPage.class);
+		tester.startPage(StatsGraphsPage.class);
 		tester.startComponentInPage(StatsPanel.class);
 		tester.startPage(HealthCheckPage.class);
 	}
