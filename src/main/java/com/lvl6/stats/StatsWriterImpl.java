@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.ILock;
 import com.lvl6.cassandra.RollupEntry;
 import com.lvl6.cassandra.RollupUtil;
 import com.lvl6.retrieveutils.StatisticsRetrieveUtil;
@@ -29,7 +32,17 @@ public class StatsWriterImpl implements StatsWriter {
 	@Autowired
 	protected RollupUtil rollupUtil;
 	
+	@Autowired
+	protected HazelcastInstance hazel;
 	
+	public HazelcastInstance getHazel() {
+		return hazel;
+	}
+
+	public void setHazel(HazelcastInstance hazel) {
+		this.hazel = hazel;
+	}
+
 	public RollupUtil getRollupUtil() {
 		return rollupUtil;
 	}
@@ -58,26 +71,40 @@ public class StatsWriterImpl implements StatsWriter {
 	@Override
 	@Scheduled(cron="0 0 0 * * ?")
 	public void dailyStats() {
-		log.info("Recording stats for day");
-		stats("day", new Date().getTime());
+		saveStats("day");
+	}
+
+	//distributed scheduler hack -- should probably fix at some point
+	protected void saveStats(String period) {
+		ILock lock = hazel.getLock("stats:"+period);
+		if(lock.tryLock()) {
+			stats(period, new Date().getTime());
+			try {
+				lock.wait(30000);
+				lock.unlock();
+				lock.destroy();
+			} catch (InterruptedException e) {
+				log.error("Thread interrupted: ", e);
+			}
+		}
 	}
 
 	@Override
 	@Scheduled(cron="0 0 1,6,12,18 * * ?")
 	public void sixHourStats() {
-		stats("six_hour", new Date().getTime());
+		saveStats("six_hour");
 	}
 
 	@Override
 	@Scheduled(cron="0 0 * * * ?")
 	public void hourlyStats() {
-		stats("hour", new Date().getTime());
+		saveStats("hour");
 	}
 
 	@Override
 	@Scheduled(cron="0 0 * 1,7,14,21 * ?")
 	public void weeklyStats() {
-		stats("week", new Date().getTime());
+		saveStats("week");
 	}
 	
 	protected void stats(String period, Long time) {
