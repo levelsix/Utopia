@@ -631,6 +631,11 @@
 				<artifactId>wicket-charts</artifactId>
 				<version>1.1.0</version>
 			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.8.3</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -793,6 +798,10 @@
 		<dependency>
 			<groupId>com.googlecode.wicket-charts</groupId>
 			<artifactId>wicket-charts</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-aop</artifactId> 
 			</dependency> <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> 

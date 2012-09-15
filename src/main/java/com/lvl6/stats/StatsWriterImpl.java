@@ -1,16 +1,18 @@
 package com.lvl6.stats;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
 import com.lvl6.cassandra.RollupEntry;
@@ -107,26 +109,29 @@ public class StatsWriterImpl implements StatsWriter {
 		saveStats("week");
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void stats(String period, Long time) {
 		log.info("Setting stats for period: {} and time: {}", period, time);
 		List<RollupEntry> entries = new ArrayList<RollupEntry>();
 		ApplicationStats stats = getAppUtils().getStats();
 		@SuppressWarnings("unchecked")
-		Class<ApplicationStats> statsClass = (Class<ApplicationStats>) stats.getClass();
-		Field[] fieldList = statsClass.getDeclaredFields();
-		for(int i = 0; i < fieldList.length; i++) {
-			Field field = fieldList[i];
-			try {
-				RollupEntry rollupEntry = new RollupEntry(field.getName()+":"+period, time, field.getLong(stats));
-				log.info("Saving stat: \n{}", rollupEntry);
-				entries.add(rollupEntry);
-			} catch (IllegalArgumentException e) {
-				log.error("Error setting RollupEntry", e);
-			} catch (IllegalAccessException e) {
-				log.error("Error setting RollupEntry", e);
+		Map<String, Object> props;
+		try {
+			props = BeanUtils.describe(stats);
+			for(String stat : props.keySet()) {
+				Object statt = props.get(stat);
+				try {
+					RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, (Long) statt);
+					log.info("Saving stat: \n{}", rollupEntry);
+					entries.add(rollupEntry);
+				} catch (IllegalArgumentException e) {
+					log.error("Error setting RollupEntry", e);
+				}
 			}
-		}
-		rollupUtil.addRollupEntries(entries);
+			rollupUtil.addRollupEntries(entries);
+		} catch (Exception e1) {
+			log.error("", e1);
+		} 
 	}
 	
 
