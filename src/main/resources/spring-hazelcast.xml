@@ -28,6 +28,8 @@
 		
 		
 	<hz:map id="playersInActionSet" name="playersInActionSet" instance-ref="hazel"/>
+	
+	<hz:map id="scheduleTasks" name="scheduledTasks" instance-ref="hazel"/>
 		
 		
 	<hz:topic id="serverEvents" name="serverEvents" instance-ref="hazel"/>

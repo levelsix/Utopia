@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -15,9 +18,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
+import com.hazelcast.core.IMap;
 import com.lvl6.cassandra.RollupEntry;
 import com.lvl6.cassandra.RollupUtil;
 import com.lvl6.retrieveutils.StatisticsRetrieveUtil;
+import com.lvl6.stats.StatsWriterImpl.ScheduledTask;
 import com.lvl6.ui.admin.components.ApplicationStats;
 import com.lvl6.utils.ApplicationUtils;
 
@@ -37,6 +42,17 @@ public class StatsWriterImpl implements StatsWriter {
 	@Autowired
 	protected HazelcastInstance hazel;
 	
+	@Resource(name="")
+	protected IMap<String, ScheduledTask> scheduledTasks;
+	
+	public IMap<String, ScheduledTask> getScheduledTasks() {
+		return scheduledTasks;
+	}
+
+	public void setScheduledTasks(IMap<String, ScheduledTask> scheduledTasks) {
+		this.scheduledTasks = scheduledTasks;
+	}
+
 	public HazelcastInstance getHazel() {
 		return hazel;
 	}
@@ -78,17 +94,36 @@ public class StatsWriterImpl implements StatsWriter {
 
 	//distributed scheduler hack -- should probably fix at some point
 	protected void saveStats(String period) {
-		ILock lock = hazel.getLock("stats:"+period);
+		log.info("Saving stats for {}", period);
+		String key = "stats:"+period;
+		ILock lock = hazel.getLock(key);
 		if(lock.tryLock()) {
-			stats(period, new Date().getTime());
-			try {
-				lock.wait(30000);
-				lock.unlock();
-				lock.destroy();
-			} catch (InterruptedException e) {
-				log.error("Thread interrupted: ", e);
+			ScheduledTask task = (ScheduledTask) scheduledTasks.get(key);
+			if(task == null) {
+				long time = System.currentTimeMillis();
+				stats(period, time);
+				scheduledTasks.put(key, new ScheduledTask(key, time, true), 45, TimeUnit.SECONDS);
+			}else {
+				log.info("Not saving stats for {}... already save on another node", period);
 			}
+			lock.unlock();
+			lock.destroy();
+		}else {
+			log.info("Another node is already saving stats for {}", period);
 		}
+	}
+	
+	class ScheduledTask{
+		public ScheduledTask(String key, Long time, boolean complete) {
+			super();
+			this.key = key;
+			this.time = time;
+			this.complete = complete;
+		}
+		String key = "";
+		Long time = System.currentTimeMillis();
+		boolean complete;
+		
 	}
 
 	@Override
