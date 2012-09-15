@@ -25,8 +25,16 @@
 		<constructor-arg ref="cluster" />
 	</bean>
 
+	<bean id="statsKeyspace" class="me.prettyprint.hector.api.factory.HFactory"
+		factory-method="createKeyspace">
+		<constructor-arg value="${lvl6.cassandra.stats.keyspace}" />
+		<constructor-arg ref="cluster" />
+	</bean>
+
+
 	<bean id="cassandraUtil" class="com.lvl6.cassandra.CassandraUtilImpl" />
 	<bean id="rollupUtil" class="com.lvl6.cassandra.RollupUtilImpl" />
+	<bean id="statsWriter" class="com.lvl6.stats.StatsWriterImpl" />
 	
 	
 </beans>

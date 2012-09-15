@@ -89,6 +89,7 @@
 		<lvl6.server.log.location>/var/lib/tomcat7/logs/kingdom</lvl6.server.log.location>
 		<lvl6.cassandra.hosts>robot.lvl6.com</lvl6.cassandra.hosts>
 		<lvl6.cassandra.keyspace>Logs</lvl6.cassandra.keyspace>
+		<lvl6.cassandra.stats.keyspace>stats</lvl6.cassandra.stats.keyspace>
 		<lvl6.cassandra.column.family>DevLogs</lvl6.cassandra.column.family>
 		<lvl6.cassandra.cluster.name>Test Cluster</lvl6.cassandra.cluster.name>
 		<lvl6.cassandra.replication.factor>1</lvl6.cassandra.replication.factor>

@@ -3,6 +3,8 @@ package com.lvl6.cassandra;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import me.prettyprint.cassandra.model.BasicColumnFamilyDefinition;
 import me.prettyprint.cassandra.serializers.LongSerializer;
 import me.prettyprint.cassandra.serializers.StringSerializer;
@@ -29,7 +31,7 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 	public static String ROLLUPS_COLUMN_FAMILY = "rolos";
 	
 	
-	@Autowired
+	@Resource(name="statsKeyspace")
 	protected Keyspace keyspace;
 	
 	@Autowired
