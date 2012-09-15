@@ -1,6 +1,11 @@
 package com.lvl6.cassandra;
 
 public class RollupEntry {
+	@Override
+	public String toString() {
+		return "RollupEntry [key=" + key + ", column=" + column + ", value="
+				+ value + "]";
+	}
 	public RollupEntry(String key, Long column, Long value) {
 		super();
 		this.key = key;

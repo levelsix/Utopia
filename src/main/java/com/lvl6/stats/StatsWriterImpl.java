@@ -90,7 +90,9 @@ public class StatsWriterImpl implements StatsWriter {
 		for(int i = 0; i < fieldList.length; i++) {
 			Field field = fieldList[i];
 			try {
-				entries.add(new RollupEntry(field.getName()+":"+period, time, field.getLong(stats)));
+				RollupEntry rollupEntry = new RollupEntry(field.getName()+":"+period, time, field.getLong(stats));
+				log.info("Saving stat: \n{}", rollupEntry);
+				entries.add(rollupEntry);
 			} catch (IllegalArgumentException e) {
 				log.error("Error setting RollupEntry", e);
 			} catch (IllegalAccessException e) {
