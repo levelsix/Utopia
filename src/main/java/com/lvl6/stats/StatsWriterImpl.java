@@ -63,13 +63,13 @@ public class StatsWriterImpl implements StatsWriter {
 	}
 
 	@Override
-	@Scheduled(cron="0 0,6,12,18 * * *")
+	@Scheduled(cron="0 0,6,12,18 * * * *")
 	public void sixHourStats() {
 		stats("six_hour", new Date().getTime());
 	}
 
 	@Override
-	@Scheduled(cron="0 * * * *")
+	@Scheduled(cron="0 * * * * *")
 	public void hourlyStats() {
 		stats("hour", new Date().getTime());
 	}
