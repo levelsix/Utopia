@@ -57,7 +57,7 @@ public class StatsGraphsPanel extends Panel {
 		long now = System.currentTimeMillis();
 		for(int i = 0; i < fieldList.length; i++) {
 			Field field = fieldList[i];
-			String key = field.getName()+":hourly";
+			String key = field.getName()+":hour";
 			List<RollupEntry> entries = rolo.findEntries(key, twoWeeksAgo, now);
 			if(entries != null && !entries.isEmpty()) {
 				log.info("Adding {} size: {}", key, entries.size());
