@@ -75,7 +75,7 @@ public class StatsWriterImpl implements StatsWriter {
 	}
 
 	@Override
-	@Scheduled(cron="0 0 * * 0")
+	@Scheduled(cron="0 0 * * * 0")
 	public void weeklyStats() {
 		stats("week", new Date().getTime());
 	}
