@@ -56,7 +56,7 @@ public class StatsWriterImpl implements StatsWriter {
 
 	
 	@Override
-	@Scheduled(cron="0 0 * * *")
+	@Scheduled(cron="0 0 * * * *")
 	public void dailyStats() {
 		log.info("Recording stats for day");
 		stats("day", new Date().getTime());
