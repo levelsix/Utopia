@@ -1,10 +1,6 @@
 package com.lvl6.stats;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +19,6 @@ import com.hazelcast.core.IMap;
 import com.lvl6.cassandra.RollupEntry;
 import com.lvl6.cassandra.RollupUtil;
 import com.lvl6.retrieveutils.StatisticsRetrieveUtil;
-import com.lvl6.stats.StatsWriterImpl.ScheduledTask;
 import com.lvl6.ui.admin.components.ApplicationStats;
 import com.lvl6.utils.ApplicationUtils;
 
@@ -44,13 +39,13 @@ public class StatsWriterImpl implements StatsWriter {
 	protected HazelcastInstance hazel;
 	
 	@Resource(name="")
-	protected IMap<String, ScheduledTask> scheduledTasks;
+	protected IMap<String, ScheduledHazelcastTask> scheduledTasks;
 	
-	public IMap<String, ScheduledTask> getScheduledTasks() {
+	public IMap<String, ScheduledHazelcastTask> getScheduledHazelcastTasks() {
 		return scheduledTasks;
 	}
 
-	public void setScheduledTasks(IMap<String, ScheduledTask> scheduledTasks) {
+	public void setScheduledHazelcastTasks(IMap<String, ScheduledHazelcastTask> scheduledTasks) {
 		this.scheduledTasks = scheduledTasks;
 	}
 
@@ -99,11 +94,11 @@ public class StatsWriterImpl implements StatsWriter {
 		String key = "stats:"+period;
 		ILock lock = hazel.getLock(key);
 		if(lock.tryLock()) {
-			ScheduledTask task = (ScheduledTask) scheduledTasks.get(key);
+			ScheduledHazelcastTask task = (ScheduledHazelcastTask) scheduledTasks.get(key);
 			if(task == null) {
 				long time = System.currentTimeMillis();
 				stats(period, time);
-				scheduledTasks.put(key, new ScheduledTask(key, time, true), 45, TimeUnit.SECONDS);
+				scheduledTasks.put(key, new ScheduledHazelcastTask(key, time, true), 45, TimeUnit.SECONDS);
 			}else {
 				log.info("Not saving stats for {}... already save on another node", period);
 			}
@@ -113,21 +108,7 @@ public class StatsWriterImpl implements StatsWriter {
 			log.info("Another node is already saving stats for {}", period);
 		}
 	}
-	
-	class ScheduledTask implements Serializable{
-		
-		private static final long serialVersionUID = 1L;
-		public ScheduledTask(String key, Long time, boolean complete) {
-			super();
-			this.key = key;
-			this.time = time;
-			this.complete = complete;
-		}
-		String key = "";
-		Long time = System.currentTimeMillis();
-		boolean complete;
-		
-	}
+
 
 	@Override
 	@Scheduled(cron="0 0 1,6,12,18 * * ?")
