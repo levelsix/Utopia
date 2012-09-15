@@ -86,7 +86,7 @@ public class StatsWriterImpl implements StatsWriter {
 		ApplicationStats stats = getAppUtils().getStats();
 		@SuppressWarnings("unchecked")
 		Class<ApplicationStats> statsClass = (Class<ApplicationStats>) stats.getClass();
-		Field[] fieldList = statsClass.getFields();
+		Field[] fieldList = statsClass.getDeclaredFields();
 		for(int i = 0; i < fieldList.length; i++) {
 			Field field = fieldList[i];
 			try {

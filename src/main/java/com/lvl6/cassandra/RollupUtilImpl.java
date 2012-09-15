@@ -56,6 +56,7 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 
 	@Override
 	public void addRollupEntry(RollupEntry entry) {
+		log.info("Adding rollup entry: {}", entry);
 		Mutator<String> mutator = getMutator();
 		mutator.addInsertion(entry.getKey(), ROLLUPS_COLUMN_FAMILY, HFactory.createColumn(entry.getColumn(), entry.getValue()));
 		mutator.execute();
@@ -99,6 +100,7 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 
 	@Override
 	public void addRollupEntries(List<RollupEntry> entries) {
+		log.info("Adding rollup entries: {}", entries.size());
 		Mutator<String> mutator = getMutator();
 		for(RollupEntry entry : entries) {
 			mutator.addInsertion(entry.getKey(), ROLLUPS_COLUMN_FAMILY, HFactory.createColumn(entry.getColumn(), entry.getValue()));
