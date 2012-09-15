@@ -75,6 +75,11 @@ public class RollupUtilImpl implements RollupUtil, InitializingBean {
 		//cluster.dropColumnFamily(keyspace.getKeyspaceName(), ROLLUPS_COLUMN_FAMILY);
 		boolean exists = false;
 		KeyspaceDefinition kd = cluster.describeKeyspace(keyspace.getKeyspaceName());
+		if(kd == null) {
+			KeyspaceDefinition ksd = HFactory.createKeyspaceDefinition(keyspace.getKeyspaceName());
+			cluster.addKeyspace(ksd);
+			kd = cluster.describeKeyspace(keyspace.getKeyspaceName());
+		}
 		for(ColumnFamilyDefinition cfd : kd.getCfDefs()) {
 			if(cfd.getName().equals(ROLLUPS_COLUMN_FAMILY)) {
 				log.info("ColumnFamily {} exists", ROLLUPS_COLUMN_FAMILY);
