@@ -52,7 +52,7 @@ public class StatsGraphsPanel extends Panel {
 		RollupUtil rolo = AppContext.getApplicationContext().getBean(RollupUtil.class);
 		List<List<RollupEntry>> graphs = new ArrayList<List<RollupEntry>>();
 		Class<ApplicationStats> statsClass = ApplicationStats.class;
-		Field[] fieldList = statsClass.getFields();
+		Field[] fieldList = statsClass.getDeclaredFields();
 		long twoWeeksAgo = new DateTime().minusDays(14).getMillis();
 		long now = System.currentTimeMillis();
 		for(int i = 0; i < fieldList.length; i++) {
