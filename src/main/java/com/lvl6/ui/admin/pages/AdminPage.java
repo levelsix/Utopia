@@ -3,6 +3,7 @@ package com.lvl6.ui.admin.pages;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,8 +87,8 @@ public class AdminPage extends TemplatePage {
 	
 	
 	protected void setupGraphs() {
-		StatsGraphsPanel statsGraphs = new StatsGraphsPanel("statsGraphs");
-		add(statsGraphs);
+		BookmarkablePageLink<StatsGraphsPage> link = new BookmarkablePageLink<StatsGraphsPage>("statsGraph", StatsGraphsPage.class);
+		add(link);
 	}
 	
 	
