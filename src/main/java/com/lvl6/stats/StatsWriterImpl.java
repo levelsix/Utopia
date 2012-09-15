@@ -1,5 +1,6 @@
 package com.lvl6.stats;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -113,7 +114,9 @@ public class StatsWriterImpl implements StatsWriter {
 		}
 	}
 	
-	class ScheduledTask{
+	class ScheduledTask implements Serializable{
+		
+		private static final long serialVersionUID = 1L;
 		public ScheduledTask(String key, Long time, boolean complete) {
 			super();
 			this.key = key;
