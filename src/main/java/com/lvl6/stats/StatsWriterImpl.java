@@ -115,13 +115,13 @@ public class StatsWriterImpl implements StatsWriter {
 		List<RollupEntry> entries = new ArrayList<RollupEntry>();
 		ApplicationStats stats = getAppUtils().getStats();
 		@SuppressWarnings("unchecked")
-		Map<String, Object> props;
+		Map<String, String> props;
 		try {
 			props = BeanUtils.describe(stats);
 			for(String stat : props.keySet()) {
-				Object statt = props.get(stat);
+				String statt = props.get(stat);
 				try {
-					RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, (Long) statt);
+					RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, Long.valueOf(statt));
 					log.info("Saving stat: \n{}", rollupEntry);
 					entries.add(rollupEntry);
 				} catch (IllegalArgumentException e) {
