@@ -63,7 +63,7 @@ public class StatsWriterImpl implements StatsWriter {
 	}
 
 	@Override
-	//@Scheduled(cron="0 0, ,6,12,18 * * ?")
+	@Scheduled(cron="0 0, 1,6,12,18 * * ?")
 	public void sixHourStats() {
 		stats("six_hour", new Date().getTime());
 	}
@@ -75,7 +75,7 @@ public class StatsWriterImpl implements StatsWriter {
 	}
 
 	@Override
-	@Scheduled(cron="0 0 * * 0 ?")
+	@Scheduled(cron="0 0 * 1,7,14,21 * ?")
 	public void weeklyStats() {
 		stats("week", new Date().getTime());
 	}
