@@ -293,7 +293,7 @@ public class ControllerConstants {
   public static final int SEND_GROUP_CHAT__MAX_LENGTH_OF_CHAT_STRING = 200;
   
   //PURCHASE GROUP CHAT
-  public static final int PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE = 50;
+  public static final int PURCHASE_GROUP_CHAT__NUM_CHATS_GIVEN_FOR_PACKAGE = 100;
   public static final int PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE = 10;
   
   
