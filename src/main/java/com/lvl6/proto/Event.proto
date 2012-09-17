@@ -1866,6 +1866,26 @@ message ChangeClanDescriptionResponseProto {
 
 //------------------------------------------------------------------------------------------
 
+message PostOnClanWallRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional string content = 3;
+}
+
+																						//DONE
+message PostOnClanWallResponseProto {
+	 optional MinimumUserProto sender = 1;
+     optional PostOnClanWallStatus status = 2;
+	 optional ClanWallPostProto post = 3;
+	
+     enum PostOnClanWallStatus {
+     	SUCCESS = 0;
+     	NO_CONTENT_SENT = 1;
+     	POST_TOO_LARGE = 2;
+     	OTHER_FAIL = 3;
+     	NOT_IN_CLAN = 4;
+	}
+}
+
 //if reset
 	//if owner, don't allow it
 	//else delete all user_clan stuff with that user_id

@@ -638,7 +638,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.CLANS__DESCRIPTION, description);
     insertParams.put(DBConstants.CLANS__TAG, tag);
     insertParams.put(DBConstants.CLANS__IS_GOOD, isGood);
-    
+
     int clanId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_CLANS, insertParams);
     return clanId;
@@ -651,7 +651,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
     insertParams.put(DBConstants.USER_CLANS__STATUS, status);
     insertParams.put(DBConstants.USER_CLANS__REQUEST_TIME, requestTime);
-    
+
     int numInserted = DBConnection.get().insertIntoTableBasic(
         DBConstants.TABLE_USER_CLANS, insertParams);
     if (numInserted == 1) {
@@ -659,7 +659,7 @@ public class InsertUtils implements InsertUtil{
     }
     return false;
   }
-  
+
   @Override
   public boolean insertDiamondEquipPurchaseHistory(int buyerId, int equipId, int diamondsSpent, Timestamp purchaseTime) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
@@ -667,12 +667,28 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__DIAMONDS_SPENT, diamondsSpent);
     insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__EQUIP_ID, equipId);
     insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__PURCHASE_TIME, purchaseTime);
-    
+
     int numInserted = DBConnection.get().insertIntoTableBasic(
         DBConstants.TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY, insertParams);
     if (numInserted == 1) {
       return true;
     }
     return false;
+  }
+
+  @Override
+  public int insertClanWallPost(int userId, int clanId, String content,
+      Timestamp timeOfPost) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__POSTER_ID, userId);
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__CLAN_ID,
+        clanId);
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__TIME_OF_POST,
+        timeOfPost);
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__CONTENT, content);
+
+    int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_CLAN_WALL_POSTS, insertParams);
+    return wallPostId;
   }
 }

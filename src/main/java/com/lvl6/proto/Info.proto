@@ -8,6 +8,15 @@ message FullClanProtoWithClanSize {
 	optional int32 clanSize = 2;
 }
 
+message ClanWallPostProto {
+	optional int32 clanWallPostId = 5;
+	optional MinimumUserProto poster = 1;
+	optional int32 clanId = 2;
+	optional int64 timeOfPost = 3;
+	optional string content = 4;
+}
+
+
 //------------------------------------------------------------------------------------------
 
 message MinimumUserProtoForClans {

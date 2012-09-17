@@ -11,6 +11,7 @@ import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
 import com.lvl6.info.Clan;
+import com.lvl6.info.ClanWallPost;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -40,6 +41,7 @@ import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNo
 import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
+import com.lvl6.proto.InfoProto.ClanWallPostProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.DialogueProto;
@@ -737,5 +739,11 @@ public class CreateInfoProtoUtils {
     }
     
     return builder.build();
+  }
+
+  public static ClanWallPostProto createClanWallPostProtoFromClanWallPost(
+      ClanWallPost p, User user) {
+    return ClanWallPostProto.newBuilder().setClanWallPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(user)).setClanId(user.getClanId())
+        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
   }
 }
