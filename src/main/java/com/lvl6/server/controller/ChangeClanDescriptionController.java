@@ -18,6 +18,7 @@ import com.lvl6.proto.EventProto.ChangeClanDescriptionResponseProto.ChangeClanDe
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
 import com.lvl6.utils.utilmethods.UpdateUtils;
@@ -53,16 +54,23 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
+      
+      boolean legitChange = checkLegitChange(resBuilder, user, description, clan);
 
-      boolean legitChange = checkLegitChange(resBuilder, user, description);
-
+      if (legitChange) {
+        writeChangesToDB(user, description);
+        Clan newClan = ClanRetrieveUtils.getClanWithId(clan.getId());
+        resBuilder.setMinClan(CreateInfoProtoUtils.createMinimumClanProtoFromClan(newClan));
+        resBuilder.setFullClan(CreateInfoProtoUtils.createFullClanProtoFromClan(newClan));
+      }
+      
       ChangeClanDescriptionResponseEvent resEvent = new ChangeClanDescriptionResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setChangeClanDescriptionResponseProto(resBuilder.build());  
       server.writeEvent(resEvent);
 
       if (legitChange) {
-        writeChangesToDB(user, description);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
@@ -74,8 +82,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private boolean checkLegitChange(Builder resBuilder, User user, String description) {
-    if (user == null || description == null || description.length() <= 0) {
+  private boolean checkLegitChange(Builder resBuilder, User user, String description, Clan clan) {
+    if (user == null || description == null || description.length() <= 0 || clan == null) {
       resBuilder.setStatus(ChangeClanDescriptionStatus.OTHER_FAIL);
       log.error("user is " + user + ", description is " + description);
       return false;      
@@ -91,7 +99,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       log.error("user not in clan");
       return false;      
     }
-    Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
     if (clan.getOwnerId() != user.getId()) {
       resBuilder.setStatus(ChangeClanDescriptionStatus.NOT_OWNER);
       log.error("clan owner isn't this guy, clan owner id is " + clan.getOwnerId());

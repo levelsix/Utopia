@@ -1688,7 +1688,7 @@ message CreateClanRequestProto {
 message CreateClanResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional CreateClanStatus status = 2;
-	optional FullClanProto clanInfo = 3;
+	optional MinimumClanProto clanInfo = 3;
 	
 	enum CreateClanStatus {
 		SUCCESS = 0;
@@ -1706,7 +1706,6 @@ message CreateClanResponseProto {
 //if no newOwner set, assume wanting to delete
 message LeaveClanRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 clanId = 2;
 }
 
 message LeaveClanResponseProto {
@@ -1731,6 +1730,7 @@ message RequestJoinClanRequestProto {
 message RequestJoinClanResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional RequestJoinClanStatus status = 2;
+	optional int32 clanId = 3;
 	
 	enum RequestJoinClanStatus {
 		SUCCESS = 0;
@@ -1751,6 +1751,7 @@ message RetractRequestJoinClanRequestProto {
 message RetractRequestJoinClanResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional RetractRequestJoinClanStatus status = 2;
+	optional int32 clanId = 3;
 	
 	enum RetractRequestJoinClanStatus {
 		SUCCESS = 0;
@@ -1773,6 +1774,8 @@ message ApproveOrRejectRequestToJoinClanRequestProto {
 message ApproveOrRejectRequestToJoinClanResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional ApproveOrRejectRequestToJoinClanStatus status = 2;
+	optional int32 requesterId = 3;
+	optional bool accept = 4;
 	
 	enum ApproveOrRejectRequestToJoinClanStatus {
 		SUCCESS = 0;
@@ -1827,6 +1830,8 @@ message TransferClanOwnershipRequestProto {
 message TransferClanOwnershipResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional TransferClanOwnershipStatus status = 4;
+	optional MinimumClanProto minClan = 2;
+	optional FullClanProto fullClan = 3;
 	
 	enum TransferClanOwnershipStatus {
 		SUCCESS = 0;
@@ -1846,6 +1851,9 @@ message ChangeClanDescriptionRequestProto {
 message ChangeClanDescriptionResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional ChangeClanDescriptionStatus status = 4;
+	optional MinimumClanProto minClan = 2;
+	optional FullClanProto fullClan = 3;
+	
 	
 	enum ChangeClanDescriptionStatus {
 		SUCCESS = 0;

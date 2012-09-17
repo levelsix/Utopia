@@ -44,6 +44,7 @@ public class DBConstants {
   public static final String TABLE_CLANS = "clans";
   public static final String TABLE_USER_CLANS = "user_clans";
   public static final String TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY = "diamond_equip_purchase_history";
+  public static final String TABLE_STAT_REFILL_HISTORY = "stat_refill_history";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -316,4 +317,12 @@ public class DBConstants {
   public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__EQUIP_ID = "equip_id";
   public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
   public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__PURCHASE_TIME = "purchase_time";
+  
+  /*STAT REFILL HISTORY*/
+  public static final String STAT_REFILL_HISTORY__USER_ID = "user_id";
+  public static final String STAT_REFILL_HISTORY__REFILL_TYPE = "refill_type";
+  public static final String STAT_REFILL_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
+  public static final String STAT_REFILL_HISTORY__REFILL_TIME = "refill_time";
+
+  
 }

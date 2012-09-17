@@ -52,7 +52,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     
     ApproveOrRejectRequestToJoinClanResponseProto.Builder resBuilder = ApproveOrRejectRequestToJoinClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
-
+    resBuilder.setRequesterId(requesterId);
+    resBuilder.setAccept(accept);
+    
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());

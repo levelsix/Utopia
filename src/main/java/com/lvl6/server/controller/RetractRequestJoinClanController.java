@@ -50,6 +50,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     RetractRequestJoinClanResponseProto.Builder resBuilder = RetractRequestJoinClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setClanId(clanId);
 
     server.lockPlayer(senderProto.getUserId());
     try {

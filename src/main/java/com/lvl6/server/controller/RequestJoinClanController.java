@@ -53,6 +53,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     RequestJoinClanResponseProto.Builder resBuilder = RequestJoinClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setClanId(clanId);
 
     server.lockPlayer(senderProto.getUserId());
     try {

@@ -48,7 +48,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     LeaveClanRequestProto reqProto = ((LeaveClanRequestEvent)event).getLeaveClanRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    int clanId = reqProto.getClanId();
 
     LeaveClanResponseProto.Builder resBuilder = LeaveClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
@@ -56,6 +55,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
+      int clanId = (user == null) ? 0 : user.getClanId();
       Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
 
       boolean legitLeave = checkLegitLeave(resBuilder, user, clan);
