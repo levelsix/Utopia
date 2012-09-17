@@ -57,6 +57,8 @@ import com.lvl6.utils.RetrieveUtils;
 
     RetrieveClanInfoResponseProto.Builder resBuilder = RetrieveClanInfoResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
+    resBuilder.setIsForBrowsingList(reqProto.getIsForBrowsingList());
+    resBuilder.setIsForSearch(false);
 
     server.lockPlayer(senderProto.getUserId());
     try {
@@ -71,6 +73,7 @@ import com.lvl6.utils.RetrieveUtils;
             if (reqProto.hasClanName()) {
               // Can search for clan name or tag name
               clan = ClanRetrieveUtils.getClanWithNameOrTag(clanName, clanName);
+              resBuilder.setIsForSearch(true);
             } else if (reqProto.hasClanId()) {
               clan = ClanRetrieveUtils.getClanWithId(clanId);
             }
@@ -86,7 +89,7 @@ import com.lvl6.utils.RetrieveUtils;
             Map<Integer, User> usersMap = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
             
             for (UserClan uc : userClans) {
-              MinimumUserProtoForClans minUser = CreateInfoProtoUtils.createMinimumUserProtoForClans(usersMap.get(uc.getUserId()));
+              MinimumUserProtoForClans minUser = CreateInfoProtoUtils.createMinimumUserProtoForClans(usersMap.get(uc.getUserId()), uc.getStatus());
               resBuilder.addMembers(minUser);
             }
           }

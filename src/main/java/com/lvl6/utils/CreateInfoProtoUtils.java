@@ -150,9 +150,9 @@ public class CreateInfoProtoUtils {
     return MinimumUserProtoWithLevel.newBuilder().setMinUserProto(mup).setLevel(u.getLevel()).build();
   }
 
-  public static MinimumUserProtoForClans createMinimumUserProtoForClans(User u) {
+  public static MinimumUserProtoForClans createMinimumUserProtoForClans(User u, UserClanStatus s) {
     MinimumUserProtoWithBattleHistory mup = createMinimumUserProtoWithBattleHistory(u);
-    return MinimumUserProtoForClans.newBuilder().setMinUserProto(mup).setClanStatus(UserClanStatus.MEMBER).build();
+    return MinimumUserProtoForClans.newBuilder().setMinUserProto(mup).setClanStatus(s).build();
   }
 
   
