@@ -649,7 +649,7 @@ public class InsertUtils implements InsertUtil{
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.USER_CLANS__USER_ID, userId);
     insertParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
-    insertParams.put(DBConstants.USER_CLANS__STATUS, status);
+    insertParams.put(DBConstants.USER_CLANS__STATUS, status.getNumber());
     insertParams.put(DBConstants.USER_CLANS__REQUEST_TIME, requestTime);
 
     int numInserted = DBConnection.get().insertIntoTableBasic(
