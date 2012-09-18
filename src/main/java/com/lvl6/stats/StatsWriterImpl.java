@@ -138,13 +138,16 @@ public class StatsWriterImpl implements StatsWriter {
 		try {
 			props = BeanUtils.describe(stats);
 			for(String stat : props.keySet()) {
-				String statt = props.get(stat);
-				try {
-					RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, Long.valueOf(statt));
-					log.info("Saving stat: \n{}", rollupEntry);
-					entries.add(rollupEntry);
-				} catch (IllegalArgumentException e) {
-					log.error("Error setting RollupEntry", e);
+				if(!stat.equals("class")) {
+					String statt = props.get(stat);
+					try {
+						//log.info("Attemping to save stat {}, {}", stat, statt);
+						RollupEntry rollupEntry = new RollupEntry(stat+":"+period, time, Long.valueOf(statt));
+						log.info("Saving stat: \n{}", rollupEntry);
+						entries.add(rollupEntry);
+					} catch (IllegalArgumentException e) {
+						log.error("Error setting RollupEntry", e);
+					}
 				}
 			}
 			rollupUtil.addRollupEntries(entries);
