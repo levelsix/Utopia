@@ -36,6 +36,17 @@ import com.lvl6.utils.DBConnection;
     return userClans;
   }
 
+  public List<UserClan> getUserClansRelatedToUser(int userId) {
+    TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
+    paramsToVals.put(DBConstants.USER_CLANS__USER_ID, userId);
+
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsAbsoluteAnd(conn, paramsToVals, TABLE_NAME);
+    List<UserClan> userClans = grabUserClansFromRS(rs);
+    DBConnection.get().close(rs, null, conn);
+    return userClans;
+  }
+
   public List<UserClan> getUserClansRelatedToClan(int clanId) {
     TreeMap <String, Object> paramsToVals = new TreeMap<String, Object>();
     paramsToVals.put(DBConstants.USER_CLANS__CLAN_ID, clanId);

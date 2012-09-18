@@ -29,6 +29,7 @@ import com.lvl6.info.Quest;
 import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
 import com.lvl6.leaderboards.LeaderBoardUtil;
@@ -146,6 +147,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setWhetherPlayerCompletedInAppPurchase(resBuilder, user);
           setUnhandledForgeAttempts(resBuilder, user);
           setNoticesToPlayers(resBuilder, user);
+          setUserClanInfos(resBuilder, user);
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -187,6 +189,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       LeaderBoardUtil leaderboard = AppContext.getApplicationContext().getBean(LeaderBoardUtil.class);
       leaderboard.updateLeaderboardForUser(user);
     }    
+  }
+
+  private void setUserClanInfos(StartupResponseProto.Builder resBuilder,
+      User user) {
+    List<UserClan> userClans = RetrieveUtils.userClanRetrieveUtils().getUserClansRelatedToUser(user.getId());
+    for (UserClan uc : userClans) {
+      resBuilder.addUserClanInfo(CreateInfoProtoUtils.createFullUserClanProtoFromUserClan(uc));
+    }
   }
 
   private void setNoticesToPlayers(Builder resBuilder, User user) {

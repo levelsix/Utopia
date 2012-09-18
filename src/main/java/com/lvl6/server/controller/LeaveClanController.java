@@ -79,7 +79,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(User user, Clan clan) {
-    if (user.getClanId() == clan.getOwnerId()) {
+    if (user.getId() == clan.getOwnerId()) {
       List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clan.getId());
       deleteClan(clan, userIds);
     } else {

@@ -643,7 +643,6 @@ public class UpdateUtils implements UpdateUtil {
     String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__CLAN_ID 
         + "=? where (" ;
     List<Object> values = new ArrayList<Object>();
-    values.add(0);
     values.add(clanId);
     List<String> condClauses = new ArrayList<String>();
     for (Integer userId : userIds) {

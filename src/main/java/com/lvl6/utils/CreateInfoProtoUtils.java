@@ -58,6 +58,7 @@ import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
+import com.lvl6.proto.InfoProto.FullUserClanProto;
 import com.lvl6.proto.InfoProto.FullUserCritstructProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
@@ -388,7 +389,7 @@ public class CreateInfoProtoUtils {
 
   public static FullClanProto createFullClanProtoFromClan(Clan c) {
     MinimumUserProto mup = createMinimumUserProtoFromUser(RetrieveUtils.userRetrieveUtils().getUserById(c.getOwnerId()));
-    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
+    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setIsGood(c.isGood()).build();
   }
   
   public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
@@ -745,5 +746,10 @@ public class CreateInfoProtoUtils {
       ClanWallPost p, User user) {
     return ClanWallPostProto.newBuilder().setClanWallPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(user)).setClanId(user.getClanId())
         .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+  
+  public static FullUserClanProto createFullUserClanProtoFromUserClan(UserClan uc) {
+    return FullUserClanProto.newBuilder().setClanId(uc.getClanId()).setUserId(uc.getUserId()).setStatus(uc.getStatus())
+        .setRequestTime(uc.getRequestTime().getTime()).build();
   }
 }

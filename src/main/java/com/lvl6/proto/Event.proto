@@ -131,7 +131,7 @@ message StartupResponseProto {
     repeated FullEquipProto equips = 9;
 	optional int32 experienceRequiredForNextLevel = 10;
 	optional int32 experienceRequiredForCurrentLevel = 15;
-	optional FullUserClanProto userClanInfo = 26;
+	repeated FullUserClanProto userClanInfo = 26;
 	
 	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
 	repeated AttackedNotificationProto attackNotifications = 13;
@@ -1831,7 +1831,7 @@ message TransferClanOwnershipResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional TransferClanOwnershipStatus status = 4;
 	optional MinimumClanProto minClan = 2;
-	optional FullClanProto fullClan = 3;
+	optional FullClanProtoWithClanSize fullClan = 3;
 	
 	enum TransferClanOwnershipStatus {
 		SUCCESS = 0;
@@ -1852,7 +1852,7 @@ message ChangeClanDescriptionResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional ChangeClanDescriptionStatus status = 4;
 	optional MinimumClanProto minClan = 2;
-	optional FullClanProto fullClan = 3;
+	optional FullClanProtoWithClanSize fullClan = 3;
 	
 	
 	enum ChangeClanDescriptionStatus {

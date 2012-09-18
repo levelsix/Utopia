@@ -62,7 +62,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         writeChangesToDB(user, newClanOwner);
         Clan newClan = ClanRetrieveUtils.getClanWithId(clan.getId());
         resBuilder.setMinClan(CreateInfoProtoUtils.createMinimumClanProtoFromClan(newClan));
-        resBuilder.setFullClan(CreateInfoProtoUtils.createFullClanProtoFromClan(newClan));
+        resBuilder.setFullClan(CreateInfoProtoUtils.createFullClanProtoWithClanSize(newClan));
       }
       
       TransferClanOwnershipResponseEvent resEvent = new TransferClanOwnershipResponseEvent(senderProto.getUserId());
