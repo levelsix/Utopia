@@ -186,6 +186,8 @@ public class APNSWriter extends Wrap {
 				}
 				service = builder.build();
 				service.start();
+			}else {
+				log.error("Apns certificate not found");
 			}
 		} catch (InvalidSSLConfig e) {
 			log.error("Error getting apns cert.. Invalid SSL Config Exception", e);
