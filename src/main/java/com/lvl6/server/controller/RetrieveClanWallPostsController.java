@@ -21,6 +21,7 @@ import com.lvl6.proto.EventProto.RetrieveClanWallPostsResponseProto.RetrieveClan
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.retrieveutils.ClanWallPostRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 
@@ -68,9 +69,9 @@ import com.lvl6.utils.RetrieveUtils;
         
         List <ClanWallPost> activeClanWallPosts;
         if (beforeThisPostId > 0) {
-          activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentActiveClanWallPostsForPlayerBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, clan.getId());        
+          activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentActiveClanWallPostsForClanBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, clan.getId());        
         } else {
-          activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentClanWallPostsForWallOwner(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, clan.getId());
+          activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentClanWallPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, clan.getId());
         }
         if (activeClanWallPosts != null) {
           if (activeClanWallPosts != null && activeClanWallPosts.size() > 0) {
