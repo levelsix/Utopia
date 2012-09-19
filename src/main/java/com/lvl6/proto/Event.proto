@@ -1909,6 +1909,26 @@ message RetrieveClanWallPostsResponseProto {
      }
 }
 
+//------------------------------------------------------------------------------------------
+
+message BootPlayerFromClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 playerToBoot = 2;
+}
+
+message BootPlayerFromClanResponseProto {
+     optional MinimumUserProto sender = 1;
+	 optional int32 playerToBoot = 2;
+	 optional BootPlayerFromClanStatus status = 4;
+     
+     enum BootPlayerFromClanStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     	NOT_OWNER_OF_CLAN = 2;
+     	BOOTED_NOT_IN_CLAN = 3;
+     }
+}
+
 //if reset
 	//if owner, don't allow it
 	//else delete all user_clan stuff with that user_id
