@@ -65,7 +65,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       RequestJoinClanResponseEvent resEvent = new RequestJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setRequestJoinClanResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
+      server.writeClanEvent(resEvent, clan.getId());
 
       if (legitRequest) {
         writeChangesToDB(user, clanId);

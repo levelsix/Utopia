@@ -89,9 +89,12 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         ClanWallPostProto cwpp = CreateInfoProtoUtils.createClanWallPostProtoFromClanWallPost(cwp, user);
         resBuilder.setPost(cwpp);
       }
+      resEvent.setPostOnClanWallResponseProto(resBuilder.build());
+      server.writeClanEvent(resEvent, clan.getId());
+    }else {
+	    resEvent.setPostOnClanWallResponseProto(resBuilder.build());
+	    server.writeEvent(resEvent);
     }
-    resEvent.setPostOnClanWallResponseProto(resBuilder.build());
-    server.writeEvent(resEvent);
   }
 
 

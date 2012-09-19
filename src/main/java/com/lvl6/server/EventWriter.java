@@ -1,7 +1,9 @@
 package com.lvl6.server;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -22,6 +24,8 @@ import com.lvl6.properties.Globals;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.Wrap;
+import com.lvl6.info.UserClan;
+import com.lvl6.retrieveutils.UserClanRetrieveUtils;
 
 public class EventWriter extends Wrap implements HazelcastInstanceAware {
 	// reference to game server
@@ -38,6 +42,18 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 //	public void setGameEventsExecutor(Executor gameEventsExecutor) {
 //		this.gameEventsExecutor = gameEventsExecutor;
 //	}
+
+	
+	@Autowired
+	UserClanRetrieveUtils userClanRetrieveUtil;
+	
+	public UserClanRetrieveUtils getUserClanRetrieveUtil() {
+		return userClanRetrieveUtil;
+	}
+
+	public void setUserClanRetrieveUtil(UserClanRetrieveUtils userClanRetrieveUtil) {
+		this.userClanRetrieveUtil = userClanRetrieveUtil;
+	}
 
 	public Map<String, ConnectedPlayer> getPlayersPreDatabaseByUDID() {
 		return playersPreDatabaseByUDID;
@@ -110,19 +126,33 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
 		// Otherwise this is just a normal message, send response to sender.
 		else {
 			int playerId = ((NormalResponseEvent) event).getPlayerId();
-			ConnectedPlayer player = playersByPlayerId.get(playerId);
-			if(player != null){
-				log.info("writing normal event with type=" + event.getEventType()+ " to player with id " + playerId + ", event=" + event);
-				write(buff, player);
-			}else{
-				//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-				log.debug("Normal: Player "+playerId+" not found in playersByPlayerId");
-			}
+			sendMessageToPlayer(event, buff, playerId);
 		}
 
 	}
 
+	protected void sendMessageToPlayer(ResponseEvent event, ByteBuffer buff, int playerId) {
+		ConnectedPlayer player = playersByPlayerId.get(playerId);
+		if(player != null){
+			log.info("writing event with type=" + event.getEventType()+ " to player with id " + playerId + ", event=" + event);
+			write(buff, player);
+		}else{
+			//throw new Exception("Player "+playerId+" not found in playersByPlayerId");
+			log.debug("Player "+playerId+" not found in playersByPlayerId");
+		}
+	}
 
+	
+	public void processClanResponseEvent(ResponseEvent event, int clanId) {
+		log.debug("writer received clan event=" + event);
+		ByteBuffer buff = getBytes(event);
+		List<UserClan> playersInClan = userClanRetrieveUtil.getUserClanMembersInClan(clanId);
+		for(UserClan uc : playersInClan) {
+			sendMessageToPlayer(event, buff, uc.getUserId());
+		}
+	}
+
+	
 	public void processPreDBResponseEvent(ResponseEvent event, String udid) {
 		ConnectedPlayer player = playersPreDatabaseByUDID.get(udid);
 		ByteBuffer bytes = getBytes(event);

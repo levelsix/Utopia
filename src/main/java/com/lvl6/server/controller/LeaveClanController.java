@@ -63,7 +63,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       LeaveClanResponseEvent resEvent = new LeaveClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setLeaveClanResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
+      //TODO: double check that this response should be sent to all in clan
+      server.writeClanEvent(resEvent, clan.getId());
 
       if (legitLeave) {
         writeChangesToDB(user, clan);
