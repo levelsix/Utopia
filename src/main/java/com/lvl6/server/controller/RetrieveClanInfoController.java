@@ -69,15 +69,22 @@ import com.lvl6.utils.RetrieveUtils;
       if (legitCreate) {
         if (reqProto.hasClanName() || reqProto.hasClanId()) {
           if (grabType == ClanInfoGrabType.ALL || grabType == ClanInfoGrabType.CLAN_INFO) {
-            Clan clan = null;
+            List<Clan> clans = null;
             if (reqProto.hasClanName()) {
               // Can search for clan name or tag name
-              clan = ClanRetrieveUtils.getClanWithNameOrTag(clanName, clanName);
+              clans = ClanRetrieveUtils.getClansWithSimilarNameOrTag(clanName, clanName);
               resBuilder.setIsForSearch(true);
             } else if (reqProto.hasClanId()) {
-              clan = ClanRetrieveUtils.getClanWithId(clanId);
+              Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
+              clans = new ArrayList<Clan>();
+              clans.add(clan);
             }
-            resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoWithClanSize(clan));
+
+            if (clans != null && clans.size() > 0) {
+              for (Clan c : clans) {
+                resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoWithClanSize(c));
+              }
+            }
           }
           if (grabType == ClanInfoGrabType.ALL || grabType == ClanInfoGrabType.MEMBERS) {
             List<UserClan> userClans = RetrieveUtils.userClanRetrieveUtils().getUserClansRelatedToClan(clanId);
@@ -85,9 +92,9 @@ import com.lvl6.utils.RetrieveUtils;
             for (UserClan uc: userClans) {
               userIds.add(uc.getUserId());
             }
-            
+
             Map<Integer, User> usersMap = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
-            
+
             for (UserClan uc : userClans) {
               MinimumUserProtoForClans minUser = CreateInfoProtoUtils.createMinimumUserProtoForClans(usersMap.get(uc.getUserId()), uc.getStatus());
               resBuilder.addMembers(minUser);
@@ -99,8 +106,9 @@ import com.lvl6.utils.RetrieveUtils;
             clans = ClanRetrieveUtils.getMostRecentClans(ControllerConstants.RETRIEVE_CLANS__NUM_CLANS_CAP);
           } else {
             clans = ClanRetrieveUtils.getMostRecentClansBeforeClanId(ControllerConstants.RETRIEVE_CLANS__NUM_CLANS_CAP, beforeClanId);
+            resBuilder.setBeforeThisClanId(reqProto.getBeforeThisClanId());
           }
-          
+
           for (Clan clan : clans) {
             resBuilder.addClanInfo(CreateInfoProtoUtils.createFullClanProtoWithClanSize(clan));
           }
