@@ -1812,6 +1812,7 @@ message RetrieveClanInfoResponseProto {
 	optional bool isForBrowsingList = 6;
 	optional int32 clanId = 7;
 	optional string clanName = 8;
+	optional int32 beforeThisClanId = 9;
 	
 	
 	enum RetrieveClanInfoStatus {

@@ -36,6 +36,20 @@ import com.lvl6.utils.DBConnection;
     return clan;
   }
   
+  public static List<Clan> getClansWithSimilarNameOrTag(String name, String tag) {
+    log.debug("retrieving clan with name " + name);
+    
+    TreeMap <String, Object> likeParams = new TreeMap<String, Object>();
+    likeParams.put(DBConstants.CLANS__NAME, "%"+name+"%");
+    likeParams.put(DBConstants.CLANS__TAG, "%"+tag+"%");
+    
+    Connection conn = DBConnection.get().getConnection();
+    ResultSet rs = DBConnection.get().selectRowsLikeOr(conn, likeParams, TABLE_NAME);
+    List<Clan> clans = convertRSToClansList(rs);
+    DBConnection.get().close(rs, null, conn);
+    return clans;
+  }
+  
   public static Clan getClanWithNameOrTag(String name, String tag) {
     log.debug("retrieving clan with name " + name);
     
