@@ -39,7 +39,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT;
+    return EventProtocolRequest.C_BOOT_PLAYER_FROM_CLAN_EVENT;
   }
 
   @Override
