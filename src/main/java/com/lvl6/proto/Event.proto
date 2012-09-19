@@ -1886,6 +1886,28 @@ message PostOnClanWallResponseProto {
 	}
 }
 
+//------------------------------------------------------------------------------------------
+
+message RetrieveClanWallPostsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 beforeThisPostId = 2;
+}
+
+																						//DONE
+message RetrieveClanWallPostsResponseProto {
+     optional MinimumUserProto sender = 1;
+     optional int32 beforeThisPostId = 2;
+	 optional RetrieveClanWallPostsStatus status = 4;
+     
+     repeated ClanWallPostProto clanWallPosts = 5;
+     
+     enum RetrieveClanWallPostsStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     	NOT_IN_CLAN = 2;
+     }
+}
+
 //if reset
 	//if owner, don't allow it
 	//else delete all user_clan stuff with that user_id
