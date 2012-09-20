@@ -62,7 +62,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       RetractRequestJoinClanResponseEvent resEvent = new RetractRequestJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setRetractRequestJoinClanResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
+      server.writeClanEvent(resEvent, clan.getId());
 
       if (legitRetract) {
         writeChangesToDB(user, clanId);

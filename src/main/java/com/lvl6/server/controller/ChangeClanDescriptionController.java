@@ -68,7 +68,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       ChangeClanDescriptionResponseEvent resEvent = new ChangeClanDescriptionResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setChangeClanDescriptionResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
+      server.writeClanEvent(resEvent, clan.getId());
 
       if (legitChange) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);

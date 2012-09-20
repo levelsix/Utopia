@@ -68,7 +68,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       TransferClanOwnershipResponseEvent resEvent = new TransferClanOwnershipResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setTransferClanOwnershipResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
+      server.writeClanEvent(resEvent, clan.getId());
       
       if (legitTransfer) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
