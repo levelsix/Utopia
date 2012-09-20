@@ -3,6 +3,7 @@ package com.lvl6.utils;
 import org.apache.log4j.Logger;
 
 import com.lvl6.events.GameEvent;
+import com.lvl6.events.ResponseEvent;
 
 public abstract class Wrap implements Runnable{
   // log4j logger
@@ -29,13 +30,7 @@ public abstract class Wrap implements Runnable{
   }
 
   
-  public void handleClanEvent(GameEvent event, int clanId) {
-	    try {
-			handleClanEvent(event, clanId);
-		} catch (Exception e) {
-			log.error("Error handling clan event: "+event, e);
-		}
-	  }
+  
   
   public void run() {
 
