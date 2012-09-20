@@ -1,12 +1,13 @@
 package com.lvl6.server.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import com.lvl6.events.response.ReceivedGroupChatResponseEvent;
 import com.lvl6.events.response.SendGroupChatResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
+import com.lvl6.info.UserClan;
 import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.ReceivedGroupChatResponseProto;
 import com.lvl6.proto.EventProto.SendGroupChatRequestProto;
@@ -76,20 +78,21 @@ public class SendGroupChatController extends EventController {
 
 	@Override
 	protected void processRequestEvent(final RequestEvent event) throws Exception {
-		SendGroupChatRequestProto reqProto = ((SendGroupChatRequestEvent) event)
+		final SendGroupChatRequestProto reqProto = ((SendGroupChatRequestEvent) event)
 				.getSendGroupChatRequestProto();
 
 		MinimumUserProto senderProto = reqProto.getSender();
 		GroupChatScope scope = reqProto.getScope();
 		String chatMessage = reqProto.getChatMessage();
 
+		
 		SendGroupChatResponseProto.Builder resBuilder = SendGroupChatResponseProto
 				.newBuilder();
 		resBuilder.setSender(senderProto);
 
 		server.lockPlayer(senderProto.getUserId());
 		try {
-			User user = RetrieveUtils.userRetrieveUtils().getUserById(
+			final User user = RetrieveUtils.userRetrieveUtils().getUserById(
 					senderProto.getUserId());
 
 			boolean legitSend = checkLegitSend(resBuilder, user, scope,
@@ -114,7 +117,7 @@ public class SendGroupChatController extends EventController {
 				executor.execute(new Runnable(){
 					@Override
 					public void run() {
-						sendChatMessageToConnectedPlayers(chatProto, event.getTag());
+						sendChatMessageToConnectedPlayers(chatProto, event.getTag(), reqProto.getForClan(), user.getClanId());
 					}
 				});
 			}
@@ -126,8 +129,19 @@ public class SendGroupChatController extends EventController {
 	}
 
 	
-	protected void sendChatMessageToConnectedPlayers(ReceivedGroupChatResponseProto.Builder chatProto, int tag) {
-		Collection<ConnectedPlayer> players = playersByPlayerId.values();
+	protected void sendChatMessageToConnectedPlayers(ReceivedGroupChatResponseProto.Builder chatProto, int tag, boolean forClan, int clanId) {
+		Collection<ConnectedPlayer> players = new ArrayList<ConnectedPlayer>();
+		if(forClan) {
+			List<UserClan> clanMembers = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(clanId);
+			for(UserClan uc : clanMembers) {
+				ConnectedPlayer cp = playersByPlayerId.get(uc.getUserId());
+				if(cp != null) {
+					players.add(cp);
+				}
+			}
+		}else {
+			players = playersByPlayerId.values();
+		}
 		for(ConnectedPlayer player : players) {
 			log.info("Sending chat message to player: "+player.getPlayerId());
 			ReceivedGroupChatResponseEvent ce = new ReceivedGroupChatResponseEvent(player.getPlayerId());
