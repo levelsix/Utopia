@@ -137,6 +137,8 @@ message StartupResponseProto {
 	repeated AttackedNotificationProto attackNotifications = 13;
 	repeated ReferralNotificationProto referralNotifications = 14;
 	repeated PlayerWallPostProto playerWallPostNotifications = 19;
+	repeated ClanWallPostProto clanWallPostNotifications = 27;
+
 	
 	optional string appStoreURL = 17;
 	
@@ -1640,6 +1642,7 @@ message SendGroupChatRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional GroupChatScope scope = 2;
 	optional string chatMessage = 3;
+	optional bool forClan = 4;
 }
 
 message SendGroupChatResponseProto {

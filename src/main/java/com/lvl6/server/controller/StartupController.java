@@ -20,6 +20,7 @@ import com.lvl6.events.response.StartupResponseEvent;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
+import com.lvl6.info.ClanWallPost;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.MarketplaceTransaction;
@@ -50,6 +51,7 @@ import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
+import com.lvl6.retrieveutils.ClanWallPostRetrieveUtils;
 import com.lvl6.retrieveutils.IAPHistoryRetrieveUtils;
 import com.lvl6.retrieveutils.MarketplaceTransactionRetrieveUtils;
 import com.lvl6.retrieveutils.PlayerWallPostRetrieveUtils;
@@ -101,10 +103,10 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     StartupResponseProto.Builder resBuilder = StartupResponseProto.newBuilder();
 
     MiscMethods.setMDCProperties(udid, null, MiscMethods.getIPOfPlayer(server, null, udid));
-    
+
     double tempClientVersionNum = reqProto.getVersionNum() * 10;
     double tempLatestVersionNum = GameServer.clientVersionNumber * 10;
-    
+
     // Check version number
     if ((int)tempClientVersionNum < (int)tempLatestVersionNum) {
       updateStatus = UpdateStatus.MAJOR_UPDATE;
@@ -363,6 +365,15 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       }
     }
 
+    List<ClanWallPost> clanWallPosts = null;
+    if (user.getClanId() > 0) {
+      clanWallPosts = ClanWallPostRetrieveUtils.getMostRecentClanWallPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, user.getClanId());
+      for (ClanWallPost p : clanWallPosts) {
+        userIds.add(p.getPosterId());
+      }
+    }
+
+
     Map<Integer, User> usersByIds = null;
     if (userIds.size() > 0) {
       usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
@@ -382,6 +393,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       for (PlayerWallPost p : wallPosts) {
         resBuilder.addPlayerWallPostNotifications(CreateInfoProtoUtils.createPlayerWallPostProtoFromPlayerWallPost(p, usersByIds.get(p.getPosterId())));
       }
+    }
+    if (clanWallPosts != null && clanWallPosts.size() > 0) {
+      
     }
   }
 
