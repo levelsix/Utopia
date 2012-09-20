@@ -157,7 +157,6 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 			eventControllers = new Hashtable<EventProtocolRequest, EventController>();
 		this.serverIP = serverIP;
 		this.portNum = portNum;
-		BasicConfigurator.configure();
 	}
 
 	
