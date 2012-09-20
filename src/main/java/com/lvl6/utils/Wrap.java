@@ -30,6 +30,14 @@ public abstract class Wrap implements Runnable{
   }
 
   
+  public void handleClanEvent(ResponseEvent event, int clanId) {
+	    try {
+	    	processClanResponseEvent(event, clanId);
+		} catch (Exception e) {
+			log.error("Error handling clan event: "+event, e);
+		}
+	  }
+  
   
   
   public void run() {
