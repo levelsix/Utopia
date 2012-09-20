@@ -831,7 +831,8 @@ public class User implements Serializable {
         conditionParams, "and");
     if (numUpdated == 1) {
       this.diamonds += diamondChange;
-      this.clanId = clanId;
+      if (clanId == null) this.clanId = ControllerConstants.NOT_SET;
+      else this.clanId = clanId;
       return true;
     }
     return false;

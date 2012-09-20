@@ -10,6 +10,7 @@ import java.util.concurrent.locks.Lock;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,6 +157,7 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 			eventControllers = new Hashtable<EventProtocolRequest, EventController>();
 		this.serverIP = serverIP;
 		this.portNum = portNum;
+		BasicConfigurator.configure();
 	}
 
 	
