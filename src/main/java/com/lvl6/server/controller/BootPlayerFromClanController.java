@@ -63,14 +63,21 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
       BootPlayerFromClanResponseEvent resEvent = new BootPlayerFromClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
-      resEvent.setBootPlayerFromClanResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
+      resEvent.setBootPlayerFromClanResponseProto(resBuilder.build()); 
 
-      if (legitBoot) {
+      if (legitBoot) { 
+        server.writeClanEvent(resEvent, user.getClanId());
+        
+        BootPlayerFromClanResponseEvent resEvent2 = new BootPlayerFromClanResponseEvent(playerToBootId);
+        resEvent.setBootPlayerFromClanResponseProto(resBuilder.build());
+        server.writeEvent(resEvent2);
+        
         writeChangesToDB(user, playerToBoot);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+      } else {
+        server.writeEvent(resEvent);
       }
     } catch (Exception e) {
       log.error("exception in BootPlayerFromClan processEvent", e);
@@ -102,7 +109,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private void writeChangesToDB(User user, User playerToBoot) {
-    if (!playerToBoot.updateRelativeDiamondsAbsoluteClan(0, ControllerConstants.NOT_SET)) {
+    if (!playerToBoot.updateRelativeDiamondsAbsoluteClan(0, null)) {
       log.error("problem with change playerToBoot " + playerToBoot + " clan id to nothing");
     }
     if (!DeleteUtils.get().deleteUserClan(playerToBoot.getId(), playerToBoot.getClanId())) {

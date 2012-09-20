@@ -61,10 +61,12 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
       RetractRequestJoinClanResponseEvent resEvent = new RetractRequestJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
-      resEvent.setRetractRequestJoinClanResponseProto(resBuilder.build());  
-      server.writeClanEvent(resEvent, clan.getId());
+      resEvent.setRetractRequestJoinClanResponseProto(resBuilder.build());
+      server.writeEvent(resEvent);
 
-      if (legitRetract) {
+      if (legitRetract) {  
+        server.writeClanEvent(resEvent, clan.getId());
+
         writeChangesToDB(user, clanId);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());

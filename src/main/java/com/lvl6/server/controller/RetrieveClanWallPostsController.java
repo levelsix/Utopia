@@ -25,7 +25,7 @@ import com.lvl6.retrieveutils.ClanWallPostRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 
-  @Component @DependsOn("gameServer") public class RetrieveClanWallPostsController extends EventController{
+@Component @DependsOn("gameServer") public class RetrieveClanWallPostsController extends EventController{
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
@@ -56,34 +56,37 @@ import com.lvl6.utils.RetrieveUtils;
 
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
-      Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
-      
+
       if (user == null) {
         resBuilder.setStatus(RetrieveClanWallPostsStatus.OTHER_FAIL);
         log.error("no user with id " + senderProto.getUserId());
-      } else if (clan == null) {
-        resBuilder.setStatus(RetrieveClanWallPostsStatus.NOT_IN_CLAN);
-        log.error("USER not in clan. user: " + user);
       } else {
-        resBuilder.setStatus(RetrieveClanWallPostsStatus.SUCCESS);
-        
-        List <ClanWallPost> activeClanWallPosts;
-        if (beforeThisPostId > 0) {
-          activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentActiveClanWallPostsForClanBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, clan.getId());        
+        Clan clan = ClanRetrieveUtils.getClanWithId(user.getClanId());
+
+        if (clan == null) {
+          resBuilder.setStatus(RetrieveClanWallPostsStatus.NOT_IN_CLAN);
+          log.error("USER not in clan. user: " + user);
         } else {
-          activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentClanWallPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, clan.getId());
-        }
-        if (activeClanWallPosts != null) {
-          if (activeClanWallPosts != null && activeClanWallPosts.size() > 0) {
-            List <Integer> userIds = new ArrayList<Integer>();
-            for (ClanWallPost p : activeClanWallPosts) {
-              userIds.add(p.getPosterId());
-            }
-            Map<Integer, User> usersByIds = null;
-            if (userIds.size() > 0) {
-              usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
-              for (ClanWallPost pwp : activeClanWallPosts) {
-                resBuilder.addClanWallPosts(CreateInfoProtoUtils.createClanWallPostProtoFromClanWallPost(pwp, usersByIds.get(pwp.getPosterId())));
+          resBuilder.setStatus(RetrieveClanWallPostsStatus.SUCCESS);
+
+          List <ClanWallPost> activeClanWallPosts;
+          if (beforeThisPostId > 0) {
+            activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentActiveClanWallPostsForClanBeforePostId(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, beforeThisPostId, clan.getId());        
+          } else {
+            activeClanWallPosts = ClanWallPostRetrieveUtils.getMostRecentClanWallPostsForClan(ControllerConstants.RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP, clan.getId());
+          }
+          if (activeClanWallPosts != null) {
+            if (activeClanWallPosts != null && activeClanWallPosts.size() > 0) {
+              List <Integer> userIds = new ArrayList<Integer>();
+              for (ClanWallPost p : activeClanWallPosts) {
+                userIds.add(p.getPosterId());
+              }
+              Map<Integer, User> usersByIds = null;
+              if (userIds.size() > 0) {
+                usersByIds = RetrieveUtils.userRetrieveUtils().getUsersByIds(userIds);
+                for (ClanWallPost pwp : activeClanWallPosts) {
+                  resBuilder.addClanWallPosts(CreateInfoProtoUtils.createClanWallPostProtoFromClanWallPost(pwp, usersByIds.get(pwp.getPosterId())));
+                }
               }
             }
           }

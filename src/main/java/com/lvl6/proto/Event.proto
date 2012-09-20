@@ -1734,6 +1734,7 @@ message RequestJoinClanResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional RequestJoinClanStatus status = 2;
 	optional int32 clanId = 3;
+	optional MinimumUserProtoForClans requester = 4;
 	
 	enum RequestJoinClanStatus {
 		SUCCESS = 0;
@@ -1779,6 +1780,7 @@ message ApproveOrRejectRequestToJoinClanResponseProto {
 	optional ApproveOrRejectRequestToJoinClanStatus status = 2;
 	optional int32 requesterId = 3;
 	optional bool accept = 4;
+	optional MinimumClanProto minClan = 5;
 	
 	enum ApproveOrRejectRequestToJoinClanStatus {
 		SUCCESS = 0;
