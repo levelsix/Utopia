@@ -82,7 +82,7 @@ public class SendGroupChatController extends EventController {
 				.getSendGroupChatRequestProto();
 
 		MinimumUserProto senderProto = reqProto.getSender();
-		GroupChatScope scope = reqProto.getScope();
+		final GroupChatScope scope = reqProto.getScope();
 		String chatMessage = reqProto.getChatMessage();
 
 		
@@ -117,7 +117,7 @@ public class SendGroupChatController extends EventController {
 				executor.execute(new Runnable(){
 					@Override
 					public void run() {
-						sendChatMessageToConnectedPlayers(chatProto, event.getTag(), reqProto.getForClan(), user.getClanId());
+						sendChatMessageToConnectedPlayers(chatProto, event.getTag(), scope == GroupChatScope.CLAN, user.getClanId());
 					}
 				});
 			}
@@ -171,7 +171,7 @@ public class SendGroupChatController extends EventController {
 					+ ", chatMessage=" + chatMessage);
 			return false;
 		}
-
+		
 		boolean isAlliance = MiscMethods.checkIfGoodSide(user.getType());
 		if ((scope == GroupChatScope.ALLIANCE && !isAlliance)
 				|| (scope == GroupChatScope.LEGION && isAlliance)) {
