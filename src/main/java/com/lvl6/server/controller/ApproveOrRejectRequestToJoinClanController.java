@@ -19,6 +19,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 import com.lvl6.utils.RetrieveUtils;
 import com.lvl6.utils.utilmethods.DeleteUtils;
 import com.lvl6.utils.utilmethods.MiscMethods;
@@ -39,7 +40,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   @Override
   public EventProtocolRequest getEventType() {
-    return EventProtocolRequest.C_BOOT_PLAYER_FROM_CLAN_EVENT;
+    return EventProtocolRequest.C_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT;
   }
 
   @Override
@@ -49,29 +50,38 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     MinimumUserProto senderProto = reqProto.getSender();
     int requesterId = reqProto.getRequesterId();
     boolean accept = reqProto.getAccept();
-    
+
     ApproveOrRejectRequestToJoinClanResponseProto.Builder resBuilder = ApproveOrRejectRequestToJoinClanResponseProto.newBuilder();
     resBuilder.setSender(senderProto);
     resBuilder.setRequesterId(requesterId);
     resBuilder.setAccept(accept);
-    
+
     server.lockPlayer(senderProto.getUserId());
     try {
       User user = RetrieveUtils.userRetrieveUtils().getUserById(senderProto.getUserId());
       User requester = RetrieveUtils.userRetrieveUtils().getUserById(requesterId);
-      
+
       boolean legitDecision = checkLegitDecision(resBuilder, user, requester);
 
       ApproveOrRejectRequestToJoinClanResponseEvent resEvent = new ApproveOrRejectRequestToJoinClanResponseEvent(senderProto.getUserId());
       resEvent.setTag(event.getTag());
       resEvent.setApproveOrRejectRequestToJoinClanResponseProto(resBuilder.build());  
-      server.writeEvent(resEvent);
 
       if (legitDecision) {
+        server.writeClanEvent(resEvent, user.getClanId());
+
+        // Send message to the new guy
+        ApproveOrRejectRequestToJoinClanResponseEvent resEvent2 = new ApproveOrRejectRequestToJoinClanResponseEvent(requesterId);
+        resBuilder.setMinClan(CreateInfoProtoUtils.createMinimumClanProtoFromClan(ClanRetrieveUtils.getClanWithId(user.getClanId())));
+        resEvent2.setApproveOrRejectRequestToJoinClanResponseProto(resBuilder.build());
+        server.writeEvent(resEvent2);
+
         writeChangesToDB(user, requester, accept);
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods.createUpdateClientUserResponseEventAndUpdateLeaderboard(user);
         resEventUpdate.setTag(event.getTag());
         server.writeEvent(resEventUpdate);
+      } else {
+        server.writeEvent(resEvent);
       }
     } catch (Exception e) {
       log.error("exception in ApproveOrRejectRequestToJoinClan processEvent", e);
