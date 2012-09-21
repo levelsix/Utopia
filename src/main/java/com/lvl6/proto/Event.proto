@@ -1642,7 +1642,6 @@ message SendGroupChatRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional GroupChatScope scope = 2;
 	optional string chatMessage = 3;
-	optional bool forClan = 4;
 }
 
 message SendGroupChatResponseProto {
@@ -1929,6 +1928,28 @@ message BootPlayerFromClanResponseProto {
      	OTHER_FAIL = 1;
      	NOT_OWNER_OF_CLAN = 2;
      	BOOTED_NOT_IN_CLAN = 3;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+message ThreeCardMonteRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message ThreeCardMonteResponseProto {
+     optional MinimumUserProto sender = 1;
+
+	 optional int32 diamondsGained = 2;
+	 optional int32 coinsGained = 3;
+	 optional FullUserEquipProto userEquipGained = 4;
+	 
+	 optional ThreeCardMonteStatus status = 5;
+     
+     enum ThreeCardMonteStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     	NOT_ENOUGH_DIAMONDS = 2;
      }
 }
 

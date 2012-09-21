@@ -297,12 +297,15 @@ public class ControllerConstants {
   public static final int PURCHASE_GROUP_CHAT__DIAMOND_PRICE_FOR_PACKAGE = 100;
   
   //CREATE CLAN
-  public static final int CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN = 250;
+  public static final int CREATE_CLAN__DIAMOND_PRICE_TO_CREATE_CLAN = 100;
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_NAME = 15;
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_DESCRIPTION = 350;
   public static final int CREATE_CLAN__MAX_CHAR_LENGTH_FOR_CLAN_TAG = 5;
   public static final int RETRIEVE_CLANS__NUM_CLANS_CAP = 50;
-
+  
+  //THREE CARD MONTE
+  public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 60;
+  
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
