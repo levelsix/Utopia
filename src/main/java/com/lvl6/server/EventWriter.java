@@ -137,7 +137,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
       write(buff, player);
     }else{
       //throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-      log.debug("Player "+playerId+" not found in playersByPlayerId");
+      log.info("Player "+playerId+" not found in playersByPlayerId");
     }
   }
 
@@ -148,6 +148,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
     ByteBuffer buff = getBytes(e);
     List<UserClan> playersInClan = userClanRetrieveUtil.getUserClanMembersInClan(clanId);
     for (UserClan uc : playersInClan) {
+    	log.info("Sending response to clan: {}  member: {}",uc.getClanId(), uc.getUserId());
         sendMessageToPlayer(e, buff, uc.getUserId());
     }
   }
