@@ -167,16 +167,15 @@ public class APNSWriter extends Wrap {
 			service.testConnection();
 		} catch (Throwable e) {
 			log.info("ApnsService connection test failed... building again");
-			buildService();
 		}
 		return service;
 	}
 
 	protected void buildService() throws FileNotFoundException {
 		log.info("Building ApnsService");
-		InputStream stream = getClass().getClassLoader().getSystemResourceAsStream(apnsProperties.pathToCert);
+		InputStream stream = ClassLoader.getSystemResourceAsStream(apnsProperties.pathToCert);
 		try {
-			if(stream.available() > 0) {
+			if(stream != null && stream.available() > 0) {
 				ApnsServiceBuilder builder = APNS.newService().withCert(stream, apnsProperties.certPassword).asNonBlocking();
 				if (Globals.IS_SANDBOX()) {
 					log.info("Building apns with sandbox=true");
@@ -186,6 +185,8 @@ public class APNSWriter extends Wrap {
 				}
 				service = builder.build();
 				service.start();
+			}else {
+				log.error("Apns Certificate not found");
 			}
 		} catch (InvalidSSLConfig e) {
 			log.error("Error getting apns cert.. Invalid SSL Config Exception", e);

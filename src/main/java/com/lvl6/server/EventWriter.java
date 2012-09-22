@@ -1,7 +1,6 @@
 package com.lvl6.server;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +19,12 @@ import com.lvl6.events.BroadcastResponseEvent;
 import com.lvl6.events.GameEvent;
 import com.lvl6.events.NormalResponseEvent;
 import com.lvl6.events.ResponseEvent;
+import com.lvl6.info.UserClan;
 import com.lvl6.properties.Globals;
+import com.lvl6.retrieveutils.UserClanRetrieveUtils;
 import com.lvl6.utils.ConnectedPlayer;
 import com.lvl6.utils.NIOUtils;
 import com.lvl6.utils.Wrap;
-import com.lvl6.info.UserClan;
-import com.lvl6.retrieveutils.UserClanRetrieveUtils;
 
 public class EventWriter extends Wrap implements HazelcastInstanceAware {
   // reference to game server
@@ -138,7 +137,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
       write(buff, player);
     }else{
       //throw new Exception("Player "+playerId+" not found in playersByPlayerId");
-      log.debug("Player "+playerId+" not found in playersByPlayerId");
+      log.info("Player "+playerId+" not found in playersByPlayerId");
     }
   }
 
@@ -149,6 +148,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
     ByteBuffer buff = getBytes(e);
     List<UserClan> playersInClan = userClanRetrieveUtil.getUserClanMembersInClan(clanId);
     for (UserClan uc : playersInClan) {
+    	log.info("Sending response to clan: {}  member: {}",uc.getClanId(), uc.getUserId());
         sendMessageToPlayer(e, buff, uc.getUserId());
     }
   }
