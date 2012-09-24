@@ -67,6 +67,7 @@ public class User implements Serializable {
   private int numTimesKiipRewarded;
   private int numConsecutiveDaysPlayed;
   private int numGroupChatsRemaining;
+  private int clanId;
 
   public User(int id, String name, int level, UserType type, int attack,
       int defense, int stamina, Date lastStaminaRefillTime, int energy,
@@ -84,7 +85,7 @@ public class User implements Serializable {
       boolean isFake, Date createTime, boolean isAdmin, String apsalarId,
       int numCoinsRetrievedFromStructs, int numAdColonyVideosWatched,
       int numTimesKiipRewarded, int numConsecutiveDaysPlayed,
-      int numGroupChatsRemaining) {
+      int numGroupChatsRemaining, int clanId) {
     super();
     this.id = id;
     this.name = name;
@@ -135,6 +136,7 @@ public class User implements Serializable {
     this.numTimesKiipRewarded = numTimesKiipRewarded;
     this.numConsecutiveDaysPlayed = numConsecutiveDaysPlayed;
     this.numGroupChatsRemaining = numGroupChatsRemaining;
+    this.clanId = clanId;
   }
 
 
@@ -328,7 +330,7 @@ public class User implements Serializable {
     }
     return false;
   }
-  
+
   public boolean updateRelativeNumGroupChatsRemainingAndDiamonds(int numGroupChatsRemainingChange, int diamondChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -336,7 +338,7 @@ public class User implements Serializable {
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
     relativeParams.put(DBConstants.USER__NUM_GROUP_CHATS_REMAINING, numGroupChatsRemainingChange);
-    
+
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, null, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -377,7 +379,7 @@ public class User implements Serializable {
     absoluteParams.put(DBConstants.USER__LAST_LOGIN, loginTime);
     absoluteParams.put(DBConstants.USER__NUM_BADGES, newBadges);
     absoluteParams.put(DBConstants.USER__NUM_CONSECUTIVE_DAYS_PLAYED, newNumConsecutiveDaysLoggedIn);
-    
+
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
@@ -769,7 +771,7 @@ public class User implements Serializable {
     }
     return false;
   }
-  
+
   public boolean updateRelativeCoinsAdcolonyvideoswatched (int coinChange, int numAdColonyVideosWatched) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
@@ -814,6 +816,28 @@ public class User implements Serializable {
     }
     return false;
   }
+
+  public boolean updateRelativeDiamondsAbsoluteClan (int diamondChange, Integer clanId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER__ID, id);
+
+    Map <String, Object> relativeParams = new HashMap<String, Object>();
+    relativeParams.put(DBConstants.USER__DIAMONDS, diamondChange);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER__CLAN_ID, clanId);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER, relativeParams, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      this.diamonds += diamondChange;
+      if (clanId == null) this.clanId = ControllerConstants.NOT_SET;
+      else this.clanId = clanId;
+      return true;
+    }
+    return false;
+  }
+
 
   public boolean updateRelativeCoinsCoinsretrievedfromstructs (int coinChange) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
@@ -959,15 +983,15 @@ public class User implements Serializable {
       String newUdid, int relativeDiamondCost) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
-    
+
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     if (newUserType != null) absoluteParams.put(DBConstants.USER__TYPE, newUserType.getNumber());
     if (newName != null) absoluteParams.put(DBConstants.USER__NAME, newName);
     if (newUdid != null) absoluteParams.put(DBConstants.USER__UDID, newUdid);
-    
+
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__DIAMONDS, relativeDiamondCost);
-    
+
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER,
         relativeParams, absoluteParams, conditionParams, "and");
     if (numUpdated == 1) {
@@ -979,19 +1003,19 @@ public class User implements Serializable {
     }
     return false;
   }
-  
+
   public boolean resetSkillPoints(int oldEnergy, int oldStamina, int relativeDiamondCost) {
     // TODO Auto-generated method stub
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER__ID, id);
-    
+
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
     int initialAttack = ControllerConstants.TUTORIAL__ARCHER_INIT_ATTACK;
     int initialDefense = ControllerConstants.TUTORIAL__ARCHER_INIT_DEFENSE;
     int initialEnergy = Math.min(oldEnergy, ControllerConstants.TUTORIAL__INIT_ENERGY);
     int initialStamina = Math.min(oldStamina, ControllerConstants.TUTORIAL__INIT_STAMINA);
     int returnSkillPoints = (this.level-1)*ControllerConstants.LEVEL_UP__SKILL_POINTS_GAINED;
-    
+
     if (this.type == UserType.GOOD_WARRIOR || this.type == UserType.BAD_WARRIOR) {
       initialAttack = ControllerConstants.TUTORIAL__WARRIOR_INIT_ATTACK;
       initialDefense = ControllerConstants.TUTORIAL__WARRIOR_INIT_DEFENSE;
@@ -999,7 +1023,7 @@ public class User implements Serializable {
       initialAttack = ControllerConstants.TUTORIAL__MAGE_INIT_ATTACK;
       initialDefense = ControllerConstants.TUTORIAL__MAGE_INIT_DEFENSE;
     }
-    
+
     absoluteParams.put(DBConstants.USER__ATTACK, initialAttack);
     absoluteParams.put(DBConstants.USER__DEFENSE, initialDefense);
     absoluteParams.put(DBConstants.USER__ENERGY_MAX, ControllerConstants.TUTORIAL__INIT_ENERGY);
@@ -1007,7 +1031,7 @@ public class User implements Serializable {
     absoluteParams.put(DBConstants.USER__ENERGY, initialEnergy);
     absoluteParams.put(DBConstants.USER__STAMINA, initialStamina);
     absoluteParams.put(DBConstants.USER__SKILL_POINTS, returnSkillPoints);
-    
+
     Map <String, Object> relativeParams = new HashMap<String, Object>();
     relativeParams.put(DBConstants.USER__DIAMONDS, relativeDiamondCost);
 
@@ -1024,10 +1048,10 @@ public class User implements Serializable {
       this.diamonds += relativeDiamondCost;
       return true;
     }
-    
+
     return false;
   }
-  
+
   public int getId() {
     return id;
   }
@@ -1119,109 +1143,113 @@ public class User implements Serializable {
   public int getFlees() {
     return flees;
   }
-  
-	public String getReferralCode() {
-		return referralCode;
-	}
 
-	public int getNumReferrals() {
-		return numReferrals;
-	}
+  public String getReferralCode() {
+    return referralCode;
+  }
 
-	public String getUdid() {
-		return udid;
-	}
+  public int getNumReferrals() {
+    return numReferrals;
+  }
 
-	public Location getUserLocation() {
-		return userLocation;
-	}
+  public String getUdid() {
+    return udid;
+  }
 
-	public int getNumPostsInMarketplace() {
-		return numPostsInMarketplace;
-	}
+  public Location getUserLocation() {
+    return userLocation;
+  }
 
-	public int getNumMarketplaceSalesUnredeemed() {
-		return numMarketplaceSalesUnredeemed;
-	}
+  public int getNumPostsInMarketplace() {
+    return numPostsInMarketplace;
+  }
 
-	public int getWeaponEquippedUserEquipId() {
-		return weaponEquippedUserEquipId;
-	}
+  public int getNumMarketplaceSalesUnredeemed() {
+    return numMarketplaceSalesUnredeemed;
+  }
 
-	public int getArmorEquippedUserEquipId() {
-		return armorEquippedUserEquipId;
-	}
+  public int getWeaponEquippedUserEquipId() {
+    return weaponEquippedUserEquipId;
+  }
 
-	public int getAmuletEquippedUserEquipId() {
-		return amuletEquippedUserEquipId;
-	}
+  public int getArmorEquippedUserEquipId() {
+    return armorEquippedUserEquipId;
+  }
 
-	public Date getLastLogin() {
-		return lastLogin;
-	}
+  public int getAmuletEquippedUserEquipId() {
+    return amuletEquippedUserEquipId;
+  }
 
-	public Date getLastLogout() {
-		return lastLogout;
-	}
+  public Date getLastLogin() {
+    return lastLogin;
+  }
 
-	public String getDeviceToken() {
-		return deviceToken;
-	}
+  public Date getLastLogout() {
+    return lastLogout;
+  }
 
-	public Date getLastBattleNotificationTime() {
-		return lastBattleNotificationTime;
-	}
+  public String getDeviceToken() {
+    return deviceToken;
+  }
 
-	public Date getLastTimeAttacked() {
-		return lastTimeAttacked;
-	}
+  public Date getLastBattleNotificationTime() {
+    return lastBattleNotificationTime;
+  }
 
-	public int getNumBadges() {
-		return numBadges;
-	}
+  public Date getLastTimeAttacked() {
+    return lastTimeAttacked;
+  }
 
-	public Date getLastShortLicensePurchaseTime() {
-		return lastShortLicensePurchaseTime;
-	}
+  public int getNumBadges() {
+    return numBadges;
+  }
 
-	public Date getLastLongLicensePurchaseTime() {
-		return lastLongLicensePurchaseTime;
-	}
+  public Date getLastShortLicensePurchaseTime() {
+    return lastShortLicensePurchaseTime;
+  }
 
-	public boolean isFake() {
-		return isFake;
-	}
+  public Date getLastLongLicensePurchaseTime() {
+    return lastLongLicensePurchaseTime;
+  }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+  public boolean isFake() {
+    return isFake;
+  }
 
-	public boolean isAdmin() {
-		return isAdmin;
-	}
+  public Date getCreateTime() {
+    return createTime;
+  }
 
-	public String getApsalarId() {
-		return apsalarId;
-	}
+  public boolean isAdmin() {
+    return isAdmin;
+  }
 
-	public int getNumCoinsRetrievedFromStructs() {
-		return numCoinsRetrievedFromStructs;
-	}
+  public String getApsalarId() {
+    return apsalarId;
+  }
 
-	public int getNumAdColonyVideosWatched() {
-		return numAdColonyVideosWatched;
-	}
+  public int getNumCoinsRetrievedFromStructs() {
+    return numCoinsRetrievedFromStructs;
+  }
 
-	public int getNumTimesKiipRewarded() {
-		return numTimesKiipRewarded;
-	}
+  public int getNumAdColonyVideosWatched() {
+    return numAdColonyVideosWatched;
+  }
 
-	public int getNumConsecutiveDaysPlayed() {
-		return numConsecutiveDaysPlayed;
-	}
+  public int getNumTimesKiipRewarded() {
+    return numTimesKiipRewarded;
+  }
+
+  public int getNumConsecutiveDaysPlayed() {
+    return numConsecutiveDaysPlayed;
+  }
 
   public int getNumGroupChatsRemaining() {
     return numGroupChatsRemaining;
+  }
+
+  public int getClanId() {
+    return clanId;
   }
 
   @Override
@@ -1256,7 +1284,8 @@ public class User implements Serializable {
         + ", numAdColonyVideosWatched=" + numAdColonyVideosWatched
         + ", numTimesKiipRewarded=" + numTimesKiipRewarded
         + ", numConsecutiveDaysPlayed=" + numConsecutiveDaysPlayed
-        + ", numGroupChatsRemaining=" + numGroupChatsRemaining + "]";
+        + ", numGroupChatsRemaining=" + numGroupChatsRemaining + ", clanId="
+        + clanId + "]";
   }
 
 }

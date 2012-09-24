@@ -1,5 +1,7 @@
 package com.lvl6.server.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -129,6 +131,11 @@ import com.lvl6.utils.utilmethods.QuestUtils;
         } else {
           resBuilder.setFullUserEquipOfBoughtItem(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(
               new UserEquip(userEquipId, user.getId(), equipId, ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)));
+          if (equipment.getDiamondPrice() != Equipment.NOT_SET) {
+            if (!InsertUtils.get().insertDiamondEquipPurchaseHistory(user.getId(), equipId, equipment.getDiamondPrice(), new Timestamp(new Date().getTime()))) {
+              log.error("problem with inserting diamond equip into purchase history. equip id = " + equipId);
+            }
+          }
         }
         
         if (equipment.getCoinPrice() != Equipment.NOT_SET) {

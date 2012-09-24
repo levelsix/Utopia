@@ -31,7 +31,7 @@ public class GameEventSerializer extends AbstractByteArraySerializer {
 	
 	@Override
 	public void serialize(byte[] bytes, OutputStream outputStream) throws IOException {
-		log.debug("Serializing outbound message");
+		log.info("Serializing outbound message");
 		outputStream.write(bytes);
 		outputStream.flush();
 	}

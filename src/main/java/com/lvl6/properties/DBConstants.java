@@ -41,6 +41,11 @@ public class DBConstants {
   public static final String TABLE_C3P0_TEST = "c3p0_test_table";
   public static final String TABLE_IDDICTION_IDENTIFIERS = "iddiction_identifiers";
   public static final String TABLE_USER_SESSIONS = "user_sessions";
+  public static final String TABLE_CLANS = "clans";
+  public static final String TABLE_USER_CLANS = "user_clans";
+  public static final String TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY = "diamond_equip_purchase_history";
+  public static final String TABLE_STAT_REFILL_HISTORY = "stat_refill_history";
+  public static final String TABLE_CLAN_WALL_POSTS = "clan_wall_posts";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -96,7 +101,8 @@ public class DBConstants {
   public static final String USER__NUM_TIMES_KIIP_REWARDED = "num_times_kiip_rewarded";
   public static final String USER__NUM_CONSECUTIVE_DAYS_PLAYED = "num_consecutive_days_played";
   public static final String USER__NUM_GROUP_CHATS_REMAINING = "num_group_chats_remaining";
-
+  public static final String USER__CLAN_ID = "clan_id";
+  
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;
   public static final String USER_EQUIP__USER_ID = GENERIC__USER_ID;
@@ -273,6 +279,13 @@ public class DBConstants {
   public static final String PLAYER_WALL_POSTS__TIME_OF_POST = "time_of_post";
   public static final String PLAYER_WALL_POSTS__CONTENT = "content";
   
+  /*CLAN_WALL_POSTS*/
+  public static final String CLAN_WALL_POSTS__ID = GENERIC__ID;
+  public static final String CLAN_WALL_POSTS__POSTER_ID = "poster_id";
+  public static final String CLAN_WALL_POSTS__CLAN_ID = "clan_id";
+  public static final String CLAN_WALL_POSTS__TIME_OF_POST = "time_of_post";
+  public static final String CLAN_WALL_POSTS__CONTENT = "content";
+  
   /*ADCOLONY_RECENT_HISTORY*/
   public static final String ADCOLONY_RECENT_HISTORY__USER_ID = GENERIC__USER_ID;
   public static final String ADCOLONY_RECENT_HISTORY__TIME_OF_REWARD = "time_of_reward";
@@ -291,4 +304,33 @@ public class DBConstants {
   /*IDDICTION*/
   public static final String IDDICTION_IDENTIFIERS__IDENTIFIER = "identifier";
   public static final String IDDICTION_IDENTIFIERS__CLICK_TIME = "click_time";
+  
+  /*CLANS*/
+  public static final String CLANS__ID = "id";
+  public static final String CLANS__OWNER_ID = "owner_id";
+  public static final String CLANS__NAME = "name";
+  public static final String CLANS__CREATE_TIME = "create_time";
+  public static final String CLANS__DESCRIPTION = "description";
+  public static final String CLANS__TAG = "tag";
+  public static final String CLANS__IS_GOOD = "is_good";
+
+  /*USER CLANS*/
+  public static final String USER_CLANS__USER_ID = "user_id";
+  public static final String USER_CLANS__CLAN_ID = "clan_id";
+  public static final String USER_CLANS__STATUS = "status";
+  public static final String USER_CLANS__REQUEST_TIME = "request_time";
+  
+  /*DIAMOND EQUIP PURCHASE HISTORY*/
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__BUYER_ID = "buyer_id";
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__EQUIP_ID = "equip_id";
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
+  public static final String DIAMOND_EQUIP_PURCHASE_HISTORY__PURCHASE_TIME = "purchase_time";
+  
+  /*STAT REFILL HISTORY*/
+  public static final String STAT_REFILL_HISTORY__USER_ID = "user_id";
+  public static final String STAT_REFILL_HISTORY__REFILL_TYPE = "refill_type";
+  public static final String STAT_REFILL_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
+  public static final String STAT_REFILL_HISTORY__REFILL_TIME = "refill_time";
+
+  
 }

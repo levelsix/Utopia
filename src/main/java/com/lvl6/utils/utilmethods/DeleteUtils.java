@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 
 import com.lvl6.properties.DBConstants;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
 
@@ -132,12 +133,52 @@ public class DeleteUtils implements DeleteUtil {
   public boolean deleteUserStruct(int userStructId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_STRUCTS__ID, userStructId);
-
     int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_STRUCTS, conditionParams, "and");
     if (numDeleted == 1) {
       return true;
     }
-
     return false;
   }
+  
+  public boolean deleteUserClanDataRelatedToClanId(int clanId, int numRowsToDelete) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_CLANS, conditionParams, "and");
+    if (numDeleted == numRowsToDelete) {
+      return true;
+    }
+    return false;
+  }
+  
+  public void deleteUserClanRequestsForUser(int userId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CLANS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_CLANS__STATUS, UserClanStatus.REQUESTING.getNumber());
+
+    DBConnection.get().deleteRows(DBConstants.TABLE_USER_CLANS, conditionParams, "and");
+  }
+  
+  
+  public boolean deleteUserClan(int userId, int clanId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
+    conditionParams.put(DBConstants.USER_CLANS__USER_ID, userId);
+    
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_USER_CLANS, conditionParams, "and");
+    if (numDeleted == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean deleteClanWithClanId(int clanId) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.CLANS__ID, clanId);
+    int numDeleted = DBConnection.get().deleteRows(DBConstants.TABLE_CLANS, conditionParams, "and");
+    if (numDeleted == 1) {
+      return true;
+    }
+    return false;
+  }
+
 }
