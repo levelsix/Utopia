@@ -59,6 +59,9 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setIsForBrowsingList(reqProto.getIsForBrowsingList());
     resBuilder.setIsForSearch(false);
+    
+    if (reqProto.hasClanName()) resBuilder.setClanName(clanName);
+    if (reqProto.hasClanId()) resBuilder.setClanId(clanId);
 
     server.lockPlayer(senderProto.getUserId());
     try {
@@ -74,12 +77,10 @@ import com.lvl6.utils.RetrieveUtils;
               // Can search for clan name or tag name
               clans = ClanRetrieveUtils.getClansWithSimilarNameOrTag(clanName, clanName);
               resBuilder.setIsForSearch(true);
-              resBuilder.setClanName(clanName);
             } else if (reqProto.hasClanId()) {
               Clan clan = ClanRetrieveUtils.getClanWithId(clanId);
               clans = new ArrayList<Clan>();
               clans.add(clan);
-              resBuilder.setClanId(clanId);
             }
 
             if (clans != null && clans.size() > 0) {
