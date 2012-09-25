@@ -66,7 +66,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     RetrieveCurrentMarketplacePostsRequestProto reqProto = ((RetrieveCurrentMarketplacePostsRequestEvent)event).getRetrieveCurrentMarketplacePostsRequestProto();
 
     MinimumUserProto senderProto = reqProto.getSender();
-    int beforeThisPostId = reqProto.getBeforeThisPostId();
+    int beforeThisPostId = reqProto.getCurrentNumOfEntries();
     boolean forSender = reqProto.getFromSender();
 
     RetrieveCurrentMarketplacePostsResponseProto.Builder resBuilder = RetrieveCurrentMarketplacePostsResponseProto.newBuilder();

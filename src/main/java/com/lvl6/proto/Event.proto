@@ -816,8 +816,36 @@ message UpdateClientUserResponseProto {
 
 message RetrieveCurrentMarketplacePostsRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional int32 beforeThisPostId = 2;
-	optional bool fromSender = 3;
+	optional bool fromSender = 2;
+	optional int32 currentNumOfEntries = 3;
+	optional RetrieveCurrentMarketplacePostsFilter filter = 4;
+	optional bool commonEquips = 5;
+	optional bool uncommonEquips = 6;
+	optional bool rareEquips = 7;
+	optional bool epicEquips = 8;
+	optional bool legendaryEquips = 9;
+	optional bool myClassOnly = 10;
+	optional int32 minEquipLevel = 11;
+	optional int32 maxEquipLevel = 12;
+	optional int32 minForgeLevel = 13;
+	optional int32 maxForgeLevel = 14;
+	optional RetrieveCurrentMarketplacePostsSortingOrder sortOrder = 15;
+	optional string searchString = 16;
+	
+	enum RetrieveCurrentMarketplacePostsFilter {
+		ALL = 0;
+		WEAPONS = 1;
+		ARMOR = 2;
+		AMULETS = 3;
+	}
+	
+	enum RetrieveCurrentMarketplacePostsSortingOrder {
+		PRICE_HIGH_TO_LOW = 0;
+		PRICE_LOW_TO_HIGH = 1;
+		ATTACK_HIGH_TO_LOW = 2;
+		DEFENSE_HIGH_TO_LOW = 3;
+		TOTAL_STATS_HIGH_TO_LOW = 4;
+	}
 }
 
 																						//DONE
