@@ -131,11 +131,14 @@ message StartupResponseProto {
     repeated FullEquipProto equips = 9;
 	optional int32 experienceRequiredForNextLevel = 10;
 	optional int32 experienceRequiredForCurrentLevel = 15;
+	repeated FullUserClanProto userClanInfo = 26;
 	
 	repeated MarketplacePostPurchasedNotificationProto marketplacePurchaseNotifications = 12;
 	repeated AttackedNotificationProto attackNotifications = 13;
 	repeated ReferralNotificationProto referralNotifications = 14;
 	repeated PlayerWallPostProto playerWallPostNotifications = 19;
+	repeated ClanWallPostProto clanWallPostNotifications = 27;
+
 	
 	optional string appStoreURL = 17;
 	
@@ -271,6 +274,16 @@ message StartupResponseProto {
 		optional int32 diamondPriceForGroupChatPurchasePackage = 76;
 	
 		optional int32 maxLengthOfChatString = 77;
+		
+		optional ClanConstants clanConstants = 78;
+		optional int32 diamondCostToPlayThreeCardMonte = 79;
+		
+		message ClanConstants {
+			optional int32 diamondPriceToCreateClan = 1;
+			optional int32 maxCharLengthForClanName = 2;
+			optional int32 maxCharLengthForClanDescription = 3;
+			optional int32 maxCharLengthForClanTag = 4;
+		}
 		
 		message CharacterModConstants {
 			optional int32 diamondCostToChangeCharacterType = 1;
@@ -1645,15 +1658,11 @@ message SendGroupChatResponseProto {
 	}
 }
 
-//------------------------------------------------------------------------------------------
-
 message ReceivedGroupChatResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional string chatMessage = 2;
 	optional GroupChatScope scope = 3;
 }
-
-//------------------------------------------------------------------------------------------
 
 message PurchaseGroupChatRequestProto {
 	optional MinimumUserProto sender = 1;
@@ -1669,3 +1678,322 @@ message PurchaseGroupChatResponseProto {
 		OTHER_FAIL = 2;
 	}
 }
+
+//------------------------------------------------------------------------------------------
+
+//DONE
+message CreateClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional string name = 2;
+	optional string tag = 3;
+}
+
+message CreateClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional CreateClanStatus status = 2;
+	optional MinimumClanProto clanInfo = 3;
+	
+	enum CreateClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_ENOUGH_DIAMONDS = 2;
+		NAME_TAKEN = 3;
+		ALREADY_IN_CLAN = 4;
+		INVALID_TAG_LENGTH = 5;
+		TAG_TAKEN = 6;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+//if no newOwner set, assume wanting to delete
+message LeaveClanRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message LeaveClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional LeaveClanStatus status = 2;
+	
+	enum LeaveClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_IN_CLAN = 2;
+		OWNER_OF_CLAN_WITH_OTHERS_STILL_IN = 3;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message RequestJoinClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+}
+
+message RequestJoinClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional RequestJoinClanStatus status = 2;
+	optional int32 clanId = 3;
+	optional MinimumUserProtoForClans requester = 4;
+	
+	enum RequestJoinClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		ALREADY_IN_CLAN = 2;
+		REQUEST_ALREADY_FILED = 3;
+		WRONG_SIDE = 5;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetractRequestJoinClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+}
+
+message RetractRequestJoinClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional RetractRequestJoinClanStatus status = 2;
+	optional int32 clanId = 3;
+	
+	enum RetractRequestJoinClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		ALREADY_IN_CLAN = 2;
+		DID_NOT_REQUEST = 3;
+	}	
+}	
+
+
+//------------------------------------------------------------------------------------------
+
+//can request as many as you like. wipe out other ones
+message ApproveOrRejectRequestToJoinClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 requesterId = 2;
+	optional bool accept = 3;
+}
+
+message ApproveOrRejectRequestToJoinClanResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional ApproveOrRejectRequestToJoinClanStatus status = 2;
+	optional int32 requesterId = 3;
+	optional bool accept = 4;
+	optional MinimumClanProto minClan = 5;
+	
+	enum ApproveOrRejectRequestToJoinClanStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_OWNER = 2;
+		NOT_A_REQUESTER = 3;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveClanInfoRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 clanId = 2;
+	optional string clanName = 3;
+	optional ClanInfoGrabType grabType = 4;
+	optional int32 beforeThisClanId = 5;
+	optional bool isForBrowsingList = 6;
+	
+	enum ClanInfoGrabType {
+		ALL = 1;
+		CLAN_INFO = 2;
+		MEMBERS = 3;
+	}
+
+}
+
+message RetrieveClanInfoResponseProto {
+	optional MinimumUserProto sender = 1;
+	repeated MinimumUserProtoForClans members = 2;
+	repeated FullClanProtoWithClanSize clanInfo = 3;
+	optional RetrieveClanInfoStatus status = 4;
+	optional bool isForSearch = 5;
+	optional bool isForBrowsingList = 6;
+	optional int32 clanId = 7;
+	optional string clanName = 8;
+	optional int32 beforeThisClanId = 9;
+	
+	
+	enum RetrieveClanInfoStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message TransferClanOwnershipRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 newClanOwnerId = 2;
+}
+
+message TransferClanOwnershipResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional TransferClanOwnershipStatus status = 4;
+	optional MinimumClanProto minClan = 2;
+	optional FullClanProtoWithClanSize fullClan = 3;
+	
+	enum TransferClanOwnershipStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		NOT_OWNER = 2;
+		NEW_OWNER_NOT_IN_CLAN = 3;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message ChangeClanDescriptionRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional string description = 2;
+}
+
+message ChangeClanDescriptionResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional ChangeClanDescriptionStatus status = 4;
+	optional MinimumClanProto minClan = 2;
+	optional FullClanProtoWithClanSize fullClan = 3;
+	
+	
+	enum ChangeClanDescriptionStatus {
+		SUCCESS = 0;
+		OTHER_FAIL = 1;
+		TOO_LONG = 2;
+		NOT_IN_CLAN = 3;
+		NOT_OWNER = 4;
+	}	
+}
+
+//------------------------------------------------------------------------------------------
+
+message PostOnClanWallRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional string content = 3;
+}
+
+																						//DONE
+message PostOnClanWallResponseProto {
+	 optional MinimumUserProto sender = 1;
+     optional PostOnClanWallStatus status = 2;
+	 optional ClanWallPostProto post = 3;
+	
+     enum PostOnClanWallStatus {
+     	SUCCESS = 0;
+     	NO_CONTENT_SENT = 1;
+     	POST_TOO_LARGE = 2;
+     	OTHER_FAIL = 3;
+     	NOT_IN_CLAN = 4;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveClanWallPostsRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 beforeThisPostId = 2;
+}
+
+																						//DONE
+message RetrieveClanWallPostsResponseProto {
+     optional MinimumUserProto sender = 1;
+     optional int32 beforeThisPostId = 2;
+	 optional RetrieveClanWallPostsStatus status = 4;
+     
+     repeated ClanWallPostProto clanWallPosts = 5;
+     
+     enum RetrieveClanWallPostsStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     	NOT_IN_CLAN = 2;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+message BootPlayerFromClanRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 playerToBoot = 2;
+}
+
+message BootPlayerFromClanResponseProto {
+     optional MinimumUserProto sender = 1;
+	 optional int32 playerToBoot = 2;
+	 optional BootPlayerFromClanStatus status = 4;
+     
+     enum BootPlayerFromClanStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     	NOT_OWNER_OF_CLAN = 2;
+     	BOOTED_NOT_IN_CLAN = 3;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+message RetrieveThreeCardMonteRequestProto {
+	 optional MinimumUserProto sender = 1;
+}
+
+message RetrieveThreeCardMonteResponseProto {
+     optional MinimumUserProto sender = 1;
+
+     optional int32 badDiamondsGained = 2;
+     optional FullEquipProto badEquip = 3;
+     optional int32 badEquipLevel = 4;
+     optional int32 badCoinsGained = 5;
+
+     optional int32 mediumDiamondsGained = 6;
+     optional FullEquipProto mediumEquip = 7;
+     optional int32 mediumEquipLevel = 8;
+     optional int32 mediumCoinsGained = 9;
+
+     optional int32 goodDiamondsGained = 10;
+     optional FullEquipProto goodEquip = 11;
+     optional int32 goodEquipLevel = 12;
+     optional int32 goodCoinsGained = 13;
+     
+     optional RetrieveThreeCardMonteStatus status = 14;;
+     
+	 
+     enum RetrieveThreeCardMonteStatus {
+     	SUCCESS = 0;
+     	SOME_FAIL = 1;
+     }
+}
+
+//------------------------------------------------------------------------------------------
+
+message PlayThreeCardMonteRequestProto {
+	 optional MinimumUserProto sender = 1;
+	
+	 optional MonteCard monteCard = 2;
+
+	 optional int32 diamondsGained = 3;
+	 optional int32 coinsGained = 4;
+	 optional FullEquipProto equipGained = 5;
+	 optional int32 equipLevel = 6;
+}
+
+message PlayThreeCardMonteResponseProto {
+     optional MinimumUserProto sender = 1;
+	 
+	 optional FullUserEquipProto userEquip = 3;
+	 optional PlayThreeCardMonteStatus status = 2;
+     
+     enum PlayThreeCardMonteStatus {
+     	SUCCESS = 0;
+     	OTHER_FAIL = 1;
+     	NOT_ENOUGH_DIAMONDS = 2;
+     }
+}
+
+//if reset
+	//if owner, don't allow it
+	//else delete all user_clan stuff with that user_id
+	

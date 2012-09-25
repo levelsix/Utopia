@@ -20,6 +20,7 @@ import com.lvl6.properties.DBConstants;
 import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
@@ -265,14 +266,14 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
-  
-  
+
+
   @Caching(evict= {
-		  @CacheEvict(value ="specificUserEquip", key="#userEquipId"),
-			 @CacheEvict(value="userEquipsForUser", key="#newOwnerId"),
-			 @CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
-			 @CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
-	  })
+      @CacheEvict(value ="specificUserEquip", key="#userEquipId"),
+      @CacheEvict(value="userEquipsForUser", key="#newOwnerId"),
+      @CacheEvict(value="equipsToUserEquipsForUser", key="#newOwnerId"),
+      @CacheEvict(value="userEquipsWithEquipId", key="#newOwnerId+':'+#equipId")  
+  })
   public boolean updateUserEquipOwner(int userEquipId, int newOwnerId) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
     conditionParams.put(DBConstants.USER_EQUIP__ID, userEquipId);
@@ -637,9 +638,61 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
-  /* (non-Javadoc)
-   * @see com.lvl6.utils.utilmethods.UpdateUtil#resetTimesCompletedInRankForUserTasksInCity(int, java.util.List)
-   */
+  @Override
+  public boolean updateUsersClanId(Integer clanId, List<Integer> userIds) {
+    String query = "update " + DBConstants.TABLE_USER + " set " + DBConstants.USER__CLAN_ID 
+        + "=? where (" ;
+    List<Object> values = new ArrayList<Object>();
+    values.add(clanId);
+    List<String> condClauses = new ArrayList<String>();
+    for (Integer userId : userIds) {
+      condClauses.add(DBConstants.USER__ID + "=?");
+      values.add(userId);
+    }
+    query += StringUtils.getListInString(condClauses, "or") + ")";
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+    if (numUpdated == userIds.size()) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean updateClanOwnerDescriptionForClan(int clanId, int ownerId, String description) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.CLANS__ID, clanId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    if (ownerId > 0)
+      absoluteParams.put(DBConstants.CLANS__OWNER_ID, ownerId);
+    if (description != null)
+      absoluteParams.put(DBConstants.CLANS__DESCRIPTION, description);
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_CLANS, null, absoluteParams, 
+        conditionParams, "or");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean updateUserClanStatus(int userId, int clanId, UserClanStatus status) {
+    Map <String, Object> conditionParams = new HashMap<String, Object>();
+    conditionParams.put(DBConstants.USER_CLANS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
+
+    Map <String, Object> absoluteParams = new HashMap<String, Object>();
+    absoluteParams.put(DBConstants.USER_CLANS__STATUS, status.getNumber());
+
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CLANS, null, absoluteParams, 
+        conditionParams, "and");
+    if (numUpdated == 1) {
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public boolean resetTimesCompletedInRankForUserTasksInCity(int userId, List<Task> tasksInCity) {
     String query = "update " + DBConstants.TABLE_USER_TASKS + " set " + DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK 

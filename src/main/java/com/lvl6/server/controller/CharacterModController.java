@@ -176,6 +176,19 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       log.error("tried to change character type with invalid newUserType, newUserType is "+newUserType);
       return false;
     }
+    if (modType == CharacterModType.NEW_PLAYER && user.getClanId() > 0) {
+      resBuilder.setStatus(CharacterModStatus.CANNOT_CHANGE_TO_OPPOSING_SIDE_WHEN_IN_CLAN);
+      log.error("tried to reset account while still in clan with id " + user.getClanId());
+      return false;
+    }
+    if (modType == CharacterModType.CHANGE_CHARACTER_TYPE && 
+        (MiscMethods.checkIfGoodSide(user.getType()) != MiscMethods.checkIfGoodSide(newUserType))) {
+      if (user.getClanId() > 0) {
+        resBuilder.setStatus(CharacterModStatus.CANNOT_CHANGE_TO_OPPOSING_SIDE_WHEN_IN_CLAN);
+        log.error("tried to change to opposing side while still in clan with id " + user.getClanId());
+        return false;
+      }
+    }
     if (modType == CharacterModType.CHANGE_NAME && newName == null) {
       resBuilder.setStatus(CharacterModStatus.OTHER_FAIL);
       log.error("tried to change character name without providing newName, newName is "+newName);

@@ -10,6 +10,8 @@ import com.lvl6.info.AnimatedSpriteOffset;
 import com.lvl6.info.BattleDetails;
 import com.lvl6.info.BlacksmithAttempt;
 import com.lvl6.info.City;
+import com.lvl6.info.Clan;
+import com.lvl6.info.ClanWallPost;
 import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
@@ -24,6 +26,7 @@ import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserCityExpansionData;
+import com.lvl6.info.UserClan;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
 import com.lvl6.info.UserQuest;
@@ -38,12 +41,15 @@ import com.lvl6.proto.EventProto.StartupResponseProto.MarketplacePostPurchasedNo
 import com.lvl6.proto.EventProto.StartupResponseProto.ReferralNotificationProto;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto;
 import com.lvl6.proto.InfoProto.BuildStructJobProto;
+import com.lvl6.proto.InfoProto.ClanWallPostProto;
 import com.lvl6.proto.InfoProto.CoordinateProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.DialogueProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
 import com.lvl6.proto.InfoProto.FullCityProto;
+import com.lvl6.proto.InfoProto.FullClanProto;
+import com.lvl6.proto.InfoProto.FullClanProtoWithClanSize;
 import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.FullMarketplacePostProto;
 import com.lvl6.proto.InfoProto.FullQuestProto;
@@ -52,6 +58,7 @@ import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullTaskProto.FullTaskEquipReqProto;
 import com.lvl6.proto.InfoProto.FullUserCityExpansionDataProto;
 import com.lvl6.proto.InfoProto.FullUserCityProto;
+import com.lvl6.proto.InfoProto.FullUserClanProto;
 import com.lvl6.proto.InfoProto.FullUserCritstructProto;
 import com.lvl6.proto.InfoProto.FullUserEquipProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
@@ -59,10 +66,13 @@ import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
+import com.lvl6.proto.InfoProto.MinimumClanProto;
 import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserPossessEquipJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.MinimumUserProtoForClans;
+import com.lvl6.proto.InfoProto.MinimumUserProtoWithBattleHistory;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevel;
 import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard;
 import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
@@ -73,7 +83,9 @@ import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
 import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.ClanRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
@@ -90,6 +102,13 @@ public class CreateInfoProtoUtils {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
+  public static FullClanProtoWithClanSize createFullClanProtoWithClanSize(Clan c) {
+    FullClanProto clan = createFullClanProtoFromClan(c);
+    List<UserClan> userClanMembersInClan = RetrieveUtils.userClanRetrieveUtils().getUserClanMembersInClan(c.getId());
+    int size = (userClanMembersInClan != null) ? userClanMembersInClan.size() : 0;
+    return FullClanProtoWithClanSize.newBuilder().setClan(clan).setClanSize(size).build();
+  }
+  
   public static ReferralNotificationProto createReferralNotificationProtoFromReferral(
       Referral r, User newlyReferred) {
     return ReferralNotificationProto.newBuilder().setReferred(createMinimumUserProtoFromUser(newlyReferred))
@@ -121,19 +140,34 @@ public class CreateInfoProtoUtils {
   }
 
   public static MinimumUserProto createMinimumUserProtoFromUser(User u) {
-    return MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType()).build();
+    MinimumUserProto.Builder builder = MinimumUserProto.newBuilder().setName(u.getName()).setUserId(u.getId()).setUserType(u.getType());
+    if (u.getClanId() > 0) {
+      Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
+      builder.setClan(createMinimumClanProtoFromClan(clan));
+    }
+    return builder.build();
   }
 
   public static MinimumUserProtoWithLevel createMinimumUserProtoWithLevelFromUser(User u) {
     MinimumUserProto mup = createMinimumUserProtoFromUser(u);
     return MinimumUserProtoWithLevel.newBuilder().setMinUserProto(mup).setLevel(u.getLevel()).build();
   }
+
+  public static MinimumUserProtoForClans createMinimumUserProtoForClans(User u, UserClanStatus s) {
+    MinimumUserProtoWithBattleHistory mup = createMinimumUserProtoWithBattleHistory(u);
+    return MinimumUserProtoForClans.newBuilder().setMinUserProto(mup).setClanStatus(s).build();
+  }
+
   
   public static MinimumUserProtoWithLevelForLeaderboard createMinimumUserProtoWithLevelForLeaderboard(User u, LeaderboardType leaderboardType, int rank, double score) {
     MinimumUserProto mup = createMinimumUserProtoFromUser(u);
     return MinimumUserProtoWithLevelForLeaderboard.newBuilder().setMinUserProto(mup).setLevel(u.getLevel()).setLeaderboardType(leaderboardType).setLeaderboardRank(rank).setLeaderboardScore(score).build();
   }
-
+  
+  public static MinimumUserProtoWithBattleHistory createMinimumUserProtoWithBattleHistory(User u) {
+    MinimumUserProtoWithLevel mup = createMinimumUserProtoWithLevelFromUser(u);
+    return MinimumUserProtoWithBattleHistory.newBuilder().setMinUserProtoWithLevel(mup).setBattlesWon(u.getBattlesWon()).setBattlesLost(u.getBattlesLost()).setBattlesFled(u.getFlees()).build();
+  }
 
   public static FullUserCityExpansionDataProto createFullUserCityExpansionDataProtoFromUserCityExpansionData(UserCityExpansionData uced) {
     FullUserCityExpansionDataProto.Builder builder = FullUserCityExpansionDataProto.newBuilder().setUserId(uced.getUserId())
@@ -331,6 +365,10 @@ public class CreateInfoProtoUtils {
     if (u.getLastLongLicensePurchaseTime() != null) {
       builder.setLastLongLicensePurchaseTime(u.getLastLongLicensePurchaseTime().getTime());
     }
+    if (u.getClanId() > 0) {
+      Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
+      builder.setClan(createMinimumClanProtoFromClan(clan));
+    }
     return builder.build();
   }
 
@@ -349,6 +387,15 @@ public class CreateInfoProtoUtils {
     return builder.build();
   }
 
+  public static FullClanProto createFullClanProtoFromClan(Clan c) {
+    MinimumUserProto mup = createMinimumUserProtoFromUser(RetrieveUtils.userRetrieveUtils().getUserById(c.getOwnerId()));
+    return FullClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwner(mup).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).setIsGood(c.isGood()).build();
+  }
+  
+  public static MinimumClanProto createMinimumClanProtoFromClan(Clan c) {
+    return MinimumClanProto.newBuilder().setClanId(c.getId()).setName(c.getName()).setOwnerId(c.getOwnerId()).setCreateTime(c.getCreateTime().getTime()).setDescription(c.getDescription()).setTag(c.getTag()).build();
+  }
+  
   public static FullUserEquipProto createFullUserEquipProtoFromUserEquip(UserEquip ue) {
     return FullUserEquipProto.newBuilder().setUserEquipId(ue.getId()).setUserId(ue.getUserId())
         .setEquipId(ue.getEquipId()).setLevel(ue.getLevel()).build();
@@ -693,5 +740,16 @@ public class CreateInfoProtoUtils {
     }
     
     return builder.build();
+  }
+
+  public static ClanWallPostProto createClanWallPostProtoFromClanWallPost(
+      ClanWallPost p, User user) {
+    return ClanWallPostProto.newBuilder().setClanWallPostId(p.getId()).setPoster(createMinimumUserProtoFromUser(user)).setClanId(user.getClanId())
+        .setTimeOfPost(p.getTimeOfPost().getTime()).setContent(p.getContent()).build();
+  }
+  
+  public static FullUserClanProto createFullUserClanProtoFromUserClan(UserClan uc) {
+    return FullUserClanProto.newBuilder().setClanId(uc.getClanId()).setUserId(uc.getUserId()).setStatus(uc.getStatus())
+        .setRequestTime(uc.getRequestTime().getTime()).build();
   }
 }

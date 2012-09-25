@@ -2,12 +2,86 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+
+message FullClanProtoWithClanSize {
+	optional FullClanProto clan = 1;
+	optional int32 clanSize = 2;
+}
+
+message ClanWallPostProto {
+	optional int32 clanWallPostId = 5;
+	optional MinimumUserProto poster = 1;
+	optional int32 clanId = 2;
+	optional int64 timeOfPost = 3;
+	optional string content = 4;
+}
+
+
+//------------------------------------------------------------------------------------------
+
+message MinimumUserProtoForClans {
+	optional MinimumUserProtoWithBattleHistory minUserProto = 1;
+	optional UserClanStatus clanStatus = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message FullUserClanProto {
+	optional int32 userId = 1;
+	optional int32 clanId = 2;
+	optional UserClanStatus status = 3;
+	optional int64 requestTime = 4;
+}
+
+enum UserClanStatus {
+	MEMBER = 0;
+	REQUESTING = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message MinimumUserProtoWithBattleHistory {
+	optional MinimumUserProtoWithLevel minUserProtoWithLevel = 1;
+	optional int32 battlesWon = 2;
+	optional int32 battlesLost = 3;
+	optional int32 battlesFled = 4;
+}
+
 //------------------------------------------------------------------------------------------
 
 enum GroupChatScope {
 	GLOBAL = 0;
 	ALLIANCE = 1;
 	LEGION = 2;
+	CLAN = 3;
+}
+
+enum MonteCard {
+	BAD = 0;
+	MEDIUM = 1;
+	GOOD = 2;
+}	
+
+//------------------------------------------------------------------------------------------
+
+message FullClanProto {
+	optional int32 clanId = 1;
+	optional string name = 2;
+	optional MinimumUserProto owner = 3;
+	optional int64 createTime = 4;
+	optional string description = 5;
+	optional string tag = 6;
+	optional bool isGood = 7;
+}
+
+message MinimumClanProto {
+	optional int32 clanId = 1;
+	optional string name = 2;
+	optional int32 ownerId = 3;
+	optional int64 createTime = 4;
+	optional string description = 5;
+	optional string tag = 6;
+	optional bool isGood = 7;
 }
 
 //------------------------------------------------------------------------------------------
@@ -73,6 +147,7 @@ message MinimumUserProto {
 	optional int32 userId = 1;
 	optional string name = 2;
 	optional UserType userType = 3;
+	optional MinimumClanProto clan = 4;
 }
 
 message MinimumUserProtoWithLevel {
@@ -129,6 +204,7 @@ message FullUserProto {
 	optional int32 numCoinsRetrievedFromStructs = 50;
 	optional int32 numAdColonyVideosWatched = 51;
 	optional int32 numGroupChatsRemaining = 54;
+	optional MinimumClanProto clan = 55;
 
 	//CreateInfoProtoUtils.java doesn't set these (I can't think of a time the client would need this
 	//consider making other fields like this

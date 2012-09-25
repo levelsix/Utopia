@@ -20,6 +20,7 @@ import com.lvl6.properties.IAPValues;
 import com.lvl6.proto.EventProto.EarnFreeDiamondsRequestProto.AdColonyRewardType;
 import com.lvl6.proto.InfoProto.BattleResult;
 import com.lvl6.proto.InfoProto.MarketplacePostType;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.spring.AppContext;
 import com.lvl6.utils.DBConnection;
@@ -55,7 +56,7 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.USER_SESSIONS__USER_ID, userId);
     insertParams.put(DBConstants.USER_SESSIONS__LOGIN_TIME, loginTime);
     insertParams.put(DBConstants.USER_SESSIONS__LOGOUT_TIME, logoutTime);
-    
+
     int numInserted = DBConnection.get().insertIntoTableBasic(
         DBConstants.TABLE_USER_SESSIONS, insertParams);
     if (numInserted == 1) {
@@ -63,7 +64,7 @@ public class InsertUtils implements InsertUtil{
     }
     return false;
   }
-  
+
   public boolean insertForgeAttemptIntoBlacksmithHistory(BlacksmithAttempt ba, boolean successfulForge) {
     Map<String, Object> insertParams = new HashMap<String, Object>();
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__ID, ba.getId());
@@ -72,15 +73,15 @@ public class InsertUtils implements InsertUtil{
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__GOAL_LEVEL, ba.getGoalLevel());
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__GUARANTEED, ba.isGuaranteed());
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__START_TIME, ba.getStartTime());
-    
+
     if (ba.getDiamondGuaranteeCost() > 0) {
       insertParams.put(DBConstants.BLACKSMITH_HISTORY__DIAMOND_GUARANTEE_COST, ba.getDiamondGuaranteeCost());
     }
-    
+
     if (ba.getTimeOfSpeedup() != null) {
       insertParams.put(DBConstants.BLACKSMITH_HISTORY__TIME_OF_SPEEDUP, ba.getTimeOfSpeedup());
     }
-    
+
     insertParams.put(DBConstants.BLACKSMITH_HISTORY__SUCCESS, successfulForge);
 
     int numInserted = DBConnection.get().insertIntoTableBasic(
@@ -90,7 +91,7 @@ public class InsertUtils implements InsertUtil{
     }
     return false;
   }
-  
+
   /* (non-Javadoc)
    * @see com.lvl6.utils.utilmethods.InsertUtil#insertUserEquip(int, int)
    */
@@ -125,11 +126,11 @@ public class InsertUtils implements InsertUtil{
     if (diamondCostForGuarantee > 0) {
       insertParams.put(DBConstants.BLACKSMITH__DIAMOND_GUARANTEE_COST, diamondCostForGuarantee);
     }
-    
+
     if (timeOfSpeedup != null) {
       insertParams.put(DBConstants.BLACKSMITH__TIME_OF_SPEEDUP, timeOfSpeedup);
     }
-    
+
     int blacksmithAttemptId = DBConnection.get().insertIntoTableBasicReturnId(
         DBConstants.TABLE_BLACKSMITH, insertParams);
     return blacksmithAttemptId;
@@ -616,16 +617,78 @@ public class InsertUtils implements InsertUtil{
     }
     return false;
   }
-  
-	@Override
-	public int insertIddictionIndentifier(String identifier, Date clickTime) {
-		Map<String, Object> insertParams = new HashMap<String, Object>();
-		insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__IDENTIFIER, identifier);
-		insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__CLICK_TIME, new Timestamp(clickTime.getTime()));
 
-		int iddictionIdentId = DBConnection.get().insertIntoTableBasicReturnId(
-				DBConstants.TABLE_IDDICTION_IDENTIFIERS, insertParams);
-		return iddictionIdentId;
-	}
+  @Override
+  public int insertIddictionIndentifier(String identifier, Date clickTime) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__IDENTIFIER, identifier);
+    insertParams.put(DBConstants.IDDICTION_IDENTIFIERS__CLICK_TIME, new Timestamp(clickTime.getTime()));
 
+    int iddictionIdentId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_IDDICTION_IDENTIFIERS, insertParams);
+    return iddictionIdentId;
+  }
+
+  @Override
+  public int insertClan(String name, int ownerId, Timestamp createTime, String description, String tag, boolean isGood) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.CLANS__NAME, name);
+    insertParams.put(DBConstants.CLANS__OWNER_ID, ownerId);
+    insertParams.put(DBConstants.CLANS__CREATE_TIME, createTime);
+    insertParams.put(DBConstants.CLANS__DESCRIPTION, description);
+    insertParams.put(DBConstants.CLANS__TAG, tag);
+    insertParams.put(DBConstants.CLANS__IS_GOOD, isGood);
+
+    int clanId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_CLANS, insertParams);
+    return clanId;
+  }
+
+  @Override
+  public boolean insertUserClan(int userId, int clanId, UserClanStatus status, Timestamp requestTime) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.USER_CLANS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_CLANS__CLAN_ID, clanId);
+    insertParams.put(DBConstants.USER_CLANS__STATUS, status.getNumber());
+    insertParams.put(DBConstants.USER_CLANS__REQUEST_TIME, requestTime);
+
+    int numInserted = DBConnection.get().insertIntoTableBasic(
+        DBConstants.TABLE_USER_CLANS, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean insertDiamondEquipPurchaseHistory(int buyerId, int equipId, int diamondsSpent, Timestamp purchaseTime) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__BUYER_ID, buyerId);
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__DIAMONDS_SPENT, diamondsSpent);
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__EQUIP_ID, equipId);
+    insertParams.put(DBConstants.DIAMOND_EQUIP_PURCHASE_HISTORY__PURCHASE_TIME, purchaseTime);
+
+    int numInserted = DBConnection.get().insertIntoTableBasic(
+        DBConstants.TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY, insertParams);
+    if (numInserted == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public int insertClanWallPost(int userId, int clanId, String content,
+      Timestamp timeOfPost) {
+    Map<String, Object> insertParams = new HashMap<String, Object>();
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__POSTER_ID, userId);
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__CLAN_ID,
+        clanId);
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__TIME_OF_POST,
+        timeOfPost);
+    insertParams.put(DBConstants.CLAN_WALL_POSTS__CONTENT, content);
+
+    int wallPostId = DBConnection.get().insertIntoTableBasicReturnId(
+        DBConstants.TABLE_CLAN_WALL_POSTS, insertParams);
+    return wallPostId;
+  }
 }

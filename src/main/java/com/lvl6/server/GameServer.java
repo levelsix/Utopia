@@ -10,6 +10,7 @@ import java.util.concurrent.locks.Lock;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,6 +182,14 @@ public class GameServer implements InitializingBean, HazelcastInstanceAware{
 		eventWriter.handleEvent(e);
 	}
 
+	
+
+	/**
+	 * pass the clan event on to the EventWriter
+	 */
+	public void writeClanEvent(ResponseEvent e, int clanId) {
+		eventWriter.handleClanEvent(e, clanId);
+	}
 	
 	
 	  public String serverId() {

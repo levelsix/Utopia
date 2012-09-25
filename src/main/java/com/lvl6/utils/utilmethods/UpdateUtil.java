@@ -14,6 +14,7 @@ import com.lvl6.info.UserStruct;
 import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
+import com.lvl6.proto.InfoProto.UserClanStatus;
 
 public interface UpdateUtil {
 
@@ -152,6 +153,8 @@ public interface UpdateUtil {
   public abstract boolean incrementCityRankForUserCity(int userId,
       int cityId, int increment);
 
+  public abstract boolean updateClanOwnerDescriptionForClan(int clanId, int ownerId, String description);
+  
 	/*
 	 * used for tasks
 	 */
@@ -170,5 +173,9 @@ public interface UpdateUtil {
 	public abstract boolean updateUserEquipOwner(int userEquipId, int newOwnerId);
 
   public abstract boolean updateAbsoluteBlacksmithAttemptcompleteTimeofspeedup(int blacksmithId, Date timeOfSpeedup, boolean attemptComplete);
+  
+  public abstract boolean updateUsersClanId(Integer clanId, List<Integer> userIds);
+
+  public abstract boolean updateUserClanStatus(int userId, int clanId, UserClanStatus status);
 
 }
