@@ -44,7 +44,7 @@ public class ApplicationStats {
 		if (getTotalPlayersCount() == 0) {
 			return 0;
 		}
-		return 100 * (getTotalPayingPlayers() / getTotalPlayersCount());
+		return ((Double) Math.floor(100 * (getTotalPayingPlayers().doubleValue() / getTotalPlayersCount().doubleValue()))).intValue();
 	}
 
 	public void setPercentageOfPlayersPaying(Integer value) {

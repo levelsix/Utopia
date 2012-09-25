@@ -36,6 +36,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 @DependsOn("gameServer")
 public class SendGroupChatController extends EventController {
 
+
   private static Logger log = Logger.getLogger(new Object() {
   }.getClass().getEnclosingClass());
 
