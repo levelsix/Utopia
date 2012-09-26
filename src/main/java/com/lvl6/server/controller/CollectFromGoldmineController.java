@@ -84,22 +84,22 @@ import com.lvl6.utils.utilmethods.MiscMethods;
 
     if (!MiscMethods.checkClientTimeAroundApproximateNow(curTime)) {
       resBuilder.setStatus(CollectFromGoldmineStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
-      log.error("client time too apart of server time. client time=" + curTime + ", servertime~="
+      log.error("client time too apart of server time. client time =" + curTime + ", servertime~="
           + new Date());
       return false;
     }
 
     Date lastGoldmineRetrieval = user.getLastGoldmineRetrieval();
-    if (lastGoldmineRetrieval == null || lastGoldmineRetrieval.getTime() + 60000*(ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL+ControllerConstants.GOLDMINE__NUM_HOURS_TO_PICK_UP) > curTime.getTime()) {
+    if (lastGoldmineRetrieval == null || lastGoldmineRetrieval.getTime() + 3600000l*(ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL+ControllerConstants.GOLDMINE__NUM_HOURS_TO_PICK_UP) < curTime.getTime()) {
       resBuilder.setStatus(CollectFromGoldmineStatus.NOT_YET_STARTED);
       log.error("timer is not currently going. goldmine retrieval = "+lastGoldmineRetrieval);
       return false;
     }
 
-    long collectTime = lastGoldmineRetrieval.getTime() + 60000*ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL;
-    if (collectTime < curTime.getTime()) {
+    long collectTime = lastGoldmineRetrieval.getTime() + 3600000l*ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL;
+    if (collectTime > curTime.getTime()) {
       resBuilder.setStatus(CollectFromGoldmineStatus.STILL_COLLECTING);
-      log.error("timer is not currently going. goldmine retrieval = "+lastGoldmineRetrieval);
+      log.error("timer is still collecting. goldmine retrieval = "+lastGoldmineRetrieval+" server time = " + new Date());
       return false;
     }
 
@@ -108,7 +108,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
   }
 
   private void writeChangesToDB(User user) {
-    Timestamp stamp = new Timestamp(user.getLastGoldmineRetrieval().getTime() + 60000*(ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL+ControllerConstants.GOLDMINE__NUM_HOURS_TO_PICK_UP));
+    Timestamp stamp = new Timestamp(user.getLastGoldmineRetrieval().getTime() + 3600000l*(ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL+ControllerConstants.GOLDMINE__NUM_HOURS_TO_PICK_UP));
     if (!user.updateLastGoldmineRetrieval(ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP, stamp)) {
       log.error("problem with adding diamonds for goldmine, adding " + ControllerConstants.GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP);
     }

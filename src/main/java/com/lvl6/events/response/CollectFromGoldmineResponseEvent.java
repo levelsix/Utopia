@@ -13,7 +13,7 @@ public class CollectFromGoldmineResponseEvent extends NormalResponseEvent {
   
   public CollectFromGoldmineResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_BATTLE_EVENT;
+    eventType = EventProtocolResponse.S_COLLECT_FROM_GOLDMINE_EVENT;
   }
   
   @Override

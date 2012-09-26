@@ -13,7 +13,7 @@ public class BeginGoldmineTimerResponseEvent extends NormalResponseEvent {
   
   public BeginGoldmineTimerResponseEvent(int playerId){
     super(playerId);
-    eventType = EventProtocolResponse.S_BATTLE_EVENT;
+    eventType = EventProtocolResponse.S_BEGIN_GOLDMINE_TIMER_EVENT;
   }
   
   @Override

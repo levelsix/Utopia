@@ -102,7 +102,7 @@ import com.lvl6.utils.utilmethods.MiscMethods;
       return false;
     }
     if (lastGoldmineRetrieval != null) {
-      long collectTime = lastGoldmineRetrieval.getTime() + 60000*ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL;
+      long collectTime = lastGoldmineRetrieval.getTime() + 3600000l*ControllerConstants.GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL;
       if (!reset && collectTime < curTime.getTime()) {
         resBuilder.setStatus(BeginGoldmineTimerStatus.STILL_COLLECTING);
         log.error("timer is not currently going. goldmine retrieval = "+lastGoldmineRetrieval);
