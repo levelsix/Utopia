@@ -278,6 +278,15 @@ message StartupResponseProto {
 		optional ClanConstants clanConstants = 78;
 		optional int32 diamondCostToPlayThreeCardMonte = 79;
 		
+		optional GoldmineConstants goldmineConstants = 80;
+		
+		message GoldmineConstants {
+			optional int32 numHoursBeforeGoldmineRetrieval = 1;
+			optional int32 numHoursForGoldminePickup = 2;
+			optional int32 goldAmountFromGoldminePickup = 3;
+			optional int32 goldCostForGoldmineRestart = 4;
+		}
+		
 		message ClanConstants {
 			optional int32 diamondPriceToCreateClan = 1;
 			optional int32 maxCharLengthForClanName = 2;
@@ -1995,8 +2004,8 @@ message PlayThreeCardMonteResponseProto {
 
 message BeginGoldmineTimerRequestProto {
 	optional MinimumUserProto sender = 1;
-	
 	optional bool reset = 2;
+    optional int64 clientTime = 3;
 }
 
 message BeginGoldmineTimerResponseProto {
@@ -2009,22 +2018,25 @@ message BeginGoldmineTimerResponseProto {
 		NOT_ENOUGH_DIAMONDS = 1;
 		STILL_COLLECTING = 2;
 		OTHER_FAIL = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
 	}
 }
 
 message CollectFromGoldmineRequestProto {
 	optional MinimumUserProto sender = 1;
+    optional int64 clientTime = 2;
 }
 
 message CollectFromGoldmineResponseProto {
 	optional MinimumUserProto sender = 1;
+	optional CollectFromGoldmineStatus status = 3;
 	
-	optional CollectFromGoldmineResponseProto status = 2;
-	
-	enum CollectFromGoldmineResponseProto {
+	enum CollectFromGoldmineStatus {
 		SUCCESS = 0;
-		NOT_YET_TIME = 1;
+		NOT_YET_STARTED = 1;
+		STILL_COLLECTING = 2;
 		OTHER_FAIL = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
 	}
 }
 

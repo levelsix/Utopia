@@ -365,6 +365,9 @@ public class CreateInfoProtoUtils {
     if (u.getLastLongLicensePurchaseTime() != null) {
       builder.setLastLongLicensePurchaseTime(u.getLastLongLicensePurchaseTime().getTime());
     }
+    if (u.getLastGoldmineRetrieval() != null) {
+      builder.setLastGoldmineRetrieval(u.getLastGoldmineRetrieval().getTime());
+    }
     if (u.getClanId() > 0) {
       Clan clan = ClanRetrieveUtils.getClanWithId(u.getClanId());
       builder.setClan(createMinimumClanProtoFromClan(clan));

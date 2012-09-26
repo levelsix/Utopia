@@ -102,6 +102,7 @@ public class DBConstants {
   public static final String USER__NUM_CONSECUTIVE_DAYS_PLAYED = "num_consecutive_days_played";
   public static final String USER__NUM_GROUP_CHATS_REMAINING = "num_group_chats_remaining";
   public static final String USER__CLAN_ID = "clan_id";
+  public static final String USER__LAST_GOLDMINE_RETRIEVAL = "last_goldmine_retrieval";
   
   /*USER EQUIP TABLE*/
   public static final String USER_EQUIP__ID = GENERIC__ID;

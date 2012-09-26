@@ -306,6 +306,12 @@ public class ControllerConstants {
   //THREE CARD MONTE
   public static final int THREE_CARD_MONTE__DIAMOND_PRICE_TO_PLAY = 60;
   
+  //GOLDMINE
+  public static final int GOLDMINE__NUM_HOURS_BEFORE_RETRIEVAL = 11;
+  public static final int GOLDMINE__NUM_HOURS_TO_PICK_UP = 1;
+  public static final int GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP = 1;
+  public static final int GOLDMINE__GOLD_COST_TO_RESTART = 10;
+  
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),
