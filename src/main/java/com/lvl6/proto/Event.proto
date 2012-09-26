@@ -1993,6 +1993,41 @@ message PlayThreeCardMonteResponseProto {
      }
 }
 
+message BeginGoldmineTimerRequestProto {
+	optional MinimumUserProto sender = 1;
+	
+	optional bool reset = 2;
+}
+
+message BeginGoldmineTimerResponseProto {
+	optional MinimumUserProto sender = 1;
+	
+	optional BeginGoldmineTimerStatus status = 2;
+	
+	enum BeginGoldmineTimerStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_DIAMONDS = 1;
+		STILL_COLLECTING = 2;
+		OTHER_FAIL = 3;
+	}
+}
+
+message CollectFromGoldmineRequestProto {
+	optional MinimumUserProto sender = 1;
+}
+
+message CollectFromGoldmineResponseProto {
+	optional MinimumUserProto sender = 1;
+	
+	optional CollectFromGoldmineResponseProto status = 2;
+	
+	enum CollectFromGoldmineResponseProto {
+		SUCCESS = 0;
+		NOT_YET_TIME = 1;
+		OTHER_FAIL = 3;
+	}
+}
+
 //if reset
 	//if owner, don't allow it
 	//else delete all user_clan stuff with that user_id
