@@ -150,7 +150,7 @@ public class EventWriter extends Wrap implements HazelcastInstanceAware {
     List<UserClan> playersInClan = userClanRetrieveUtil.getUserClanMembersInClan(clanId);
     for (UserClan uc : playersInClan) {
     	log.info("Sending response to clan: {}  member: {}",uc.getClanId(), uc.getUserId());
-        sendMessageToPlayer(e, buff, uc.getUserId());
+        sendMessageToPlayer(e, buff.duplicate(), uc.getUserId());
     }
   }
 
