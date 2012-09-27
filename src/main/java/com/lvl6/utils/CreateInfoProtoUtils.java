@@ -761,6 +761,8 @@ public class CreateInfoProtoUtils {
   public static MonteCardProto createMonteCardProtoFromMonteCard(MonteCard mc, UserType type) {
     MonteCardProto.Builder b = MonteCardProto.newBuilder();
     
+    b.setCardId(mc.getId());
+    
     if (mc.getDiamondsGained() != ControllerConstants.NOT_SET) {
       b.setDiamondsGained(mc.getDiamondsGained());
     }
@@ -768,19 +770,8 @@ public class CreateInfoProtoUtils {
       b.setCoinsGained(mc.getCoinsGained());
     }
     
-    int equipGainedId = ControllerConstants.NOT_SET;
-    int equipGainedLevel = ControllerConstants.NOT_SET;
-
-    if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
-      equipGainedId = mc.getWarriorEquipId();
-      equipGainedLevel = mc.getWarriorEquipLevel();
-    } else if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
-      equipGainedId = mc.getArcherEquipId();
-      equipGainedLevel = mc.getArcherEquipLevel();
-    } else if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
-      equipGainedId = mc.getMageEquipId();
-      equipGainedLevel = mc.getMageEquipLevel();
-    }
+    int equipGainedId = mc.getEquipIdForUserType(type);
+    int equipGainedLevel = mc.getEquipLevelForUserType(type);
     
     if (equipGainedId != ControllerConstants.NOT_SET) {
       b.setEquip(createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipGainedId)));

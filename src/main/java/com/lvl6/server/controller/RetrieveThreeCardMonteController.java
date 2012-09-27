@@ -1,5 +1,8 @@
 package com.lvl6.server.controller;
 
+import java.util.Date;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -8,12 +11,16 @@ import com.lvl6.events.RequestEvent;
 import com.lvl6.events.request.RetrieveThreeCardMonteRequestEvent;
 import com.lvl6.events.response.RetrieveThreeCardMonteResponseEvent;
 import com.lvl6.info.MonteCard;
+import com.lvl6.info.MonteCard.MonteCardType;
 import com.lvl6.proto.EventProto.RetrieveThreeCardMonteRequestProto;
 import com.lvl6.proto.EventProto.RetrieveThreeCardMonteResponseProto;
 import com.lvl6.proto.EventProto.RetrieveThreeCardMonteResponseProto.Builder;
 import com.lvl6.proto.EventProto.RetrieveThreeCardMonteResponseProto.RetrieveThreeCardMonteStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
+import com.lvl6.retrieveutils.rarechange.ThreeCardMonteRetrieveUtils;
+import com.lvl6.utils.CreateInfoProtoUtils;
 
 @Component @DependsOn("gameServer") public class RetrieveThreeCardMonteController extends EventController{
 
@@ -43,7 +50,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(RetrieveThreeCardMonteStatus.SUCCESS);
 
-    populateResBuilder(resBuilder);
+    populateResBuilder(resBuilder, senderProto.getUserType());
     RetrieveThreeCardMonteResponseProto resProto = resBuilder.build();
 
     RetrieveThreeCardMonteResponseEvent resEvent = new RetrieveThreeCardMonteResponseEvent(senderProto.getUserId());
@@ -53,9 +60,29 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
     server.writeEvent(resEvent);
   }
 
-  private void populateResBuilder(Builder resBuilder) {
-    populateBadPrizes(resBuilder);
-    populateMediumPrizes(resBuilder);
-    populateGoodPrizes(resBuilder);
+  private void populateResBuilder(Builder resBuilder, UserType userType) {
+    MonteCard card = getMostRecentCardForType(MonteCardType.BAD);
+    if (card != null) resBuilder.setBadMonteCard(CreateInfoProtoUtils.createMonteCardProtoFromMonteCard(card, userType));
+
+    card = getMostRecentCardForType(MonteCardType.MEDIUM);
+    if (card != null) resBuilder.setMediumMonteCard(CreateInfoProtoUtils.createMonteCardProtoFromMonteCard(card, userType));
+
+    card = getMostRecentCardForType(MonteCardType.GOOD);
+    if (card != null) resBuilder.setGoodMonteCard(CreateInfoProtoUtils.createMonteCardProtoFromMonteCard(card, userType));
+  }
+  
+  private MonteCard getMostRecentCardForType(MonteCardType type) {
+    Map<Integer,MonteCard> map = ThreeCardMonteRetrieveUtils.getMonteCardIdsToMonteCards();
+    MonteCard mostRecentCard = null;
+    Date curDate = new Date();
+    for (Integer i : map.keySet()) {
+      MonteCard card = map.get(i);
+      if (card.getCardType() == type && card.getStartDate().before(curDate)) {
+        if (mostRecentCard == null || card.getStartDate().after(mostRecentCard.getStartDate())) {
+          mostRecentCard = card;
+        }
+      }
+    }
+    return mostRecentCard;
   }
 }

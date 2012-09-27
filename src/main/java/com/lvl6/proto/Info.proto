@@ -2,6 +2,29 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message FullBossProto {
+	optional int32 bossId = 1;
+	optional int32 baseHealth = 2;
+	optional int32 minDamage = 3;
+	optional int32 maxDamage = 4;
+	optional int32 minutesToKill = 5;
+	optional int32 minutesToRespawn = 6;
+	optional int32 experienceGained = 7;
+	optional int32 cityId = 8;
+	optional int32 assetNumWithinCity = 9;
+	optional string goodName = 10;
+	optional string badName = 11;
+	optional int32 staminaCost = 9;
+}
+
+message FullUserBossProto {
+	optional int32 bossId = 1;
+	optional int32 userId = 2;
+	optional int32 curHealth = 3;
+	optional int32 numTimesKilled = 4;
+}
+
+//------------------------------------------------------------------------------------------
 
 message FullClanProtoWithClanSize {
 	optional FullClanProto clan = 1;
@@ -20,6 +43,7 @@ message ClanWallPostProto {
 //------------------------------------------------------------------------------------------
 
 message MinimumUserProtoForClans {
+
 	optional MinimumUserProtoWithBattleHistory minUserProto = 1;
 	optional UserClanStatus clanStatus = 2;
 }
@@ -57,6 +81,7 @@ enum GroupChatScope {
 }
 
 message MonteCardProto {
+	optional int32 cardId = 1;
      optional int32 diamondsGained = 2;
      optional FullEquipProto equip = 3;
      optional int32 equipLevel = 4;
