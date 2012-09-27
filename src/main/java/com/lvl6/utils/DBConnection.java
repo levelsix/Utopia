@@ -623,7 +623,7 @@ public class DBConnection {
     return rs;
   }
 
-  private ResultSet selectRows(Connection conn, List<String> columns,
+  public ResultSet selectRows(Connection conn, List<String> columns,
       Map<String, Object> absoluteConditionParams,
       Map<String, Object> relativeGreaterThanConditionParams,
       Map<String, Object> relativeLessThanConditionParams,

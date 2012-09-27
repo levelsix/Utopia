@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -23,7 +25,7 @@ import com.lvl6.utils.DBConnection;
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_MARKETPLACE;
-
+  
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
     log.debug("retrieving specific marketplace post with id " + marketplacePostId);
     
@@ -34,13 +36,68 @@ import com.lvl6.utils.DBConnection;
     return marketplacePost;
   }
   
-  public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostId(int limit, int postId) {
+  //marketItemType refers to RetrieveCurrentMarketplacePostsRequestProto.RetrieveCurrentMarketplacePostsFilter enum
+  //activeEquipRarities refers to the booleans like *Equips
+  //levelRanges refers to *EquipLevel or *ForgeLevel
+  //searchString currently not used
+  public static List<MarketplacePost> getMostRecentActiveMarketplacePostsByFilters(int limit, int postId, int equipmentType, 
+		  List<Integer> activeEquipRarities, int characterClassType, Map<String, Integer> levelRanges, 
+		  String orderBySql, String searchString) {
     log.debug("retrieving up to " + limit + " marketplace posts before marketplace post id " + postId);
-    TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
-    lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
+
+    //////////BEGIN SQL STATEMENT//////////
+    //SELECT CLAUSE
+    List<String> colsToFetch = new ArrayList<String>();
+    colsToFetch.add(TABLE_NAME + ".*"); //get all columns
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
+    //FROM CLAUSE
+    String tableName = TABLE_NAME + ", " + DBConstants.TABLE_EQUIPMENT;
+    
+    //WHERE CLAUSE
+    //begin absolute condition params
+    Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    
+    //matching 'ids of marketplace equipments' to ids in equipment table
+    absoluteConditionParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, DBConstants.EQUIPMENT__EQUIP_ID);
+    
+    //Greater than -1 means filter by specific equipment type
+    if(-1 < equipmentType) { absoluteConditionParams.put("type", equipmentType); }
+    
+    for(Integer rarityId : activeEquipRarities){
+    	absoluteConditionParams.put(DBConstants.EQUIPMENT__RARITY, rarityId);
+    }
+    
+    //Greater than -1 means filter by specific class type
+    if(-1 < characterClassType) { absoluteConditionParams.put("class_type", characterClassType); }
+    //end absolute condition params
+    
+    //begin relative greater than condition params
+    Map<String, Object> relativeGreaterThanConditionParams = new HashMap<String, Object>();
+    //subtract 1 to be >=
+    relativeGreaterThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("minEquipLevel") - 1); 
+    relativeGreaterThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("minForgeLevel") - 1);
+    //end relative greater than condition params
+    
+    //begin relative less than condition params
+    Map<String, Object> relativeLessThanConditionParams = new HashMap<String, Object>();
+    //add one to be <=
+    relativeLessThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("maxEquipLevel") + 1); 
+    relativeLessThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("maxForgeLevel") + 1);
+    //end relative less than condition params
+    
+    //ORDER BY CLAUSE
+    String orderByColumn = orderBySql;
+    boolean orderByAsc = true; //orderByColumn already contains the necessary ASC, DESC
+    //////////END SQL STATEMENT//////////
+    
+    Map<String, Object> likeCondParams = null;
+    String condDelim = "AND";
+    boolean randomValue = false;
+    
+    Connection conn = DBConnection.get().getConnection();    
+    ResultSet rs = DBConnection.get().selectRows(conn, colsToFetch, absoluteConditionParams, 
+    		relativeGreaterThanConditionParams, relativeLessThanConditionParams, likeCondParams, tableName,
+    		condDelim, orderByColumn, orderByAsc, limit, randomValue);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
     DBConnection.get().close(rs, null, conn);
     return marketplacePosts;
