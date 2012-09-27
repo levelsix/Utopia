@@ -1952,24 +1952,12 @@ message RetrieveThreeCardMonteRequestProto {
 message RetrieveThreeCardMonteResponseProto {
      optional MinimumUserProto sender = 1;
 
-     optional int32 badDiamondsGained = 2;
-     optional FullEquipProto badEquip = 3;
-     optional int32 badEquipLevel = 4;
-     optional int32 badCoinsGained = 5;
-
-     optional int32 mediumDiamondsGained = 6;
-     optional FullEquipProto mediumEquip = 7;
-     optional int32 mediumEquipLevel = 8;
-     optional int32 mediumCoinsGained = 9;
-
-     optional int32 goodDiamondsGained = 10;
-     optional FullEquipProto goodEquip = 11;
-     optional int32 goodEquipLevel = 12;
-     optional int32 goodCoinsGained = 13;
+	optional MonteCardProto badMonteCard = 2;
+	optional MonteCardProto mediumMonteCard = 3;
+	optional MonteCardProto goodMonteCard = 4;
      
      optional RetrieveThreeCardMonteStatus status = 14;;
      
-	 
      enum RetrieveThreeCardMonteStatus {
      	SUCCESS = 0;
      	SOME_FAIL = 1;
@@ -1981,12 +1969,7 @@ message RetrieveThreeCardMonteResponseProto {
 message PlayThreeCardMonteRequestProto {
 	 optional MinimumUserProto sender = 1;
 	
-	 optional MonteCard monteCard = 2;
-
-	 optional int32 diamondsGained = 3;
-	 optional int32 coinsGained = 4;
-	 optional FullEquipProto equipGained = 5;
-	 optional int32 equipLevel = 6;
+	 optional int32 cardId = 2;
 }
 
 message PlayThreeCardMonteResponseProto {

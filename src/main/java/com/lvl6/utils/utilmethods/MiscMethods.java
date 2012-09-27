@@ -53,6 +53,7 @@ import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.ThreeCardMonteRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.server.GameServer;
 import com.lvl6.spring.AppContext;
@@ -451,7 +452,8 @@ public class MiscMethods {
     StructureRetrieveUtils.reload();
     PossessEquipJobRetrieveUtils.reload();
     LevelsRequiredExperienceRetrieveUtils.reload();
-    NeutralCityElementsRetrieveUtils.reload();    
+    NeutralCityElementsRetrieveUtils.reload(); 
+    ThreeCardMonteRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(

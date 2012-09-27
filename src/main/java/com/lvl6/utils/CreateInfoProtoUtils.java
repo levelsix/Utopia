@@ -18,6 +18,7 @@ import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.MarketplaceTransaction;
+import com.lvl6.info.MonteCard;
 import com.lvl6.info.NeutralCityElement;
 import com.lvl6.info.PlayerWallPost;
 import com.lvl6.info.Quest;
@@ -78,6 +79,7 @@ import com.lvl6.proto.InfoProto.MinimumUserProtoWithLevelForLeaderboard;
 import com.lvl6.proto.InfoProto.MinimumUserQuestTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserTaskProto;
 import com.lvl6.proto.InfoProto.MinimumUserUpgradeStructJobProto;
+import com.lvl6.proto.InfoProto.MonteCardProto;
 import com.lvl6.proto.InfoProto.NeutralCityElementProto;
 import com.lvl6.proto.InfoProto.PlayerWallPostProto;
 import com.lvl6.proto.InfoProto.PossessEquipJobProto;
@@ -754,5 +756,39 @@ public class CreateInfoProtoUtils {
   public static FullUserClanProto createFullUserClanProtoFromUserClan(UserClan uc) {
     return FullUserClanProto.newBuilder().setClanId(uc.getClanId()).setUserId(uc.getUserId()).setStatus(uc.getStatus())
         .setRequestTime(uc.getRequestTime().getTime()).build();
+  }
+  
+  public static MonteCardProto createMonteCardProtoFromMonteCard(MonteCard mc, UserType type) {
+    MonteCardProto.Builder b = MonteCardProto.newBuilder();
+    
+    if (mc.getDiamondsGained() != ControllerConstants.NOT_SET) {
+      b.setDiamondsGained(mc.getDiamondsGained());
+    }
+    if (mc.getCoinsGained() != ControllerConstants.NOT_SET) {
+      b.setCoinsGained(mc.getCoinsGained());
+    }
+    
+    int equipGainedId = ControllerConstants.NOT_SET;
+    int equipGainedLevel = ControllerConstants.NOT_SET;
+
+    if (type == UserType.GOOD_WARRIOR || type == UserType.BAD_WARRIOR) {
+      equipGainedId = mc.getWarriorEquipId();
+      equipGainedLevel = mc.getWarriorEquipLevel();
+    } else if (type == UserType.GOOD_ARCHER || type == UserType.BAD_ARCHER) {
+      equipGainedId = mc.getArcherEquipId();
+      equipGainedLevel = mc.getArcherEquipLevel();
+    } else if (type == UserType.GOOD_MAGE || type == UserType.BAD_MAGE) {
+      equipGainedId = mc.getMageEquipId();
+      equipGainedLevel = mc.getMageEquipLevel();
+    }
+    
+    if (equipGainedId != ControllerConstants.NOT_SET) {
+      b.setEquip(createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipGainedId)));
+    }
+    if (equipGainedLevel != ControllerConstants.NOT_SET) {
+      b.setEquipLevel(equipGainedLevel);
+    }
+    
+    return b.build();
   }
 }

@@ -46,6 +46,7 @@ public class DBConstants {
   public static final String TABLE_DIAMOND_EQUIP_PURCHASE_HISTORY = "diamond_equip_purchase_history";
   public static final String TABLE_STAT_REFILL_HISTORY = "stat_refill_history";
   public static final String TABLE_CLAN_WALL_POSTS = "clan_wall_posts";
+  public static final String TABLE_THREE_CARD_MONTE = "three_card_monte";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";

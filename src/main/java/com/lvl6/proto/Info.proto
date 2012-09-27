@@ -56,10 +56,11 @@ enum GroupChatScope {
 	CLAN = 3;
 }
 
-enum MonteCard {
-	BAD = 0;
-	MEDIUM = 1;
-	GOOD = 2;
+message MonteCardProto {
+     optional int32 diamondsGained = 2;
+     optional FullEquipProto equip = 3;
+     optional int32 equipLevel = 4;
+     optional int32 coinsGained = 5;
 }	
 
 //------------------------------------------------------------------------------------------
