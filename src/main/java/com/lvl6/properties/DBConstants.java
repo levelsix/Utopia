@@ -337,6 +337,7 @@ public class DBConstants {
   public static final String EQUIPMENT__ATK_BOOST = "atk_boost";
   public static final String EQUIPMENT__DEF_BOOST = "def_boost";
   public static final String EQUIPMENT__MIN_LEVEL = "min_level";
+  public static final String EQUIPMENT__NAME = "name";
   public static final String EQUIPMENT__RARITY = "rarity";
   public static final String EQUIPMENT__TYPE = "type";
 }

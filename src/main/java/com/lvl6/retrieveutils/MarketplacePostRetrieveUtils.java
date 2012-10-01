@@ -58,13 +58,32 @@ import com.lvl6.utils.DBConnection;
     Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
     
     //matching 'ids of marketplace equipments' to ids in equipment table
-    absoluteConditionParams.put(DBConstants.MARKETPLACE__POSTED_EQUIP_ID, DBConstants.EQUIPMENT__EQUIP_ID);
+    String hackyWayJoinTablesById = DBConstants.MARKETPLACE__POSTED_EQUIP_ID + " = " + DBConstants.TABLE_EQUIPMENT + "." + DBConstants.EQUIPMENT__EQUIP_ID;
+    hackyWayJoinTablesById += " and 1"; 
+    //the value for key value pair is stringified, so a table's field would be turned to a string and not be a variable
+    absoluteConditionParams.put(hackyWayJoinTablesById, 1);
     
     //Greater than -1 means filter by specific equipment type
     if(-1 < equipmentType) { absoluteConditionParams.put("type", equipmentType); }
     
-    for(Integer rarityId : activeEquipRarities){
-    	absoluteConditionParams.put(DBConstants.EQUIPMENT__RARITY, rarityId);
+    //Needed to prevent "rarity in ()" case
+    int equipRaritiesCount = activeEquipRarities.size();
+    if (0 < equipRaritiesCount){
+    	String hackyWayToHaveAnotherCondition = DBConstants.EQUIPMENT__RARITY + " IN (";
+    	
+    	//needed to prevent "rarity in (0,)" case
+    	String maybeComma = ",";
+    	
+    	for(int i = 0; i < equipRaritiesCount; i++){
+	    	Integer rarityId = activeEquipRarities.get(i);
+	    	if(i+1 == equipRaritiesCount){
+	    		//this is to not have a trailing comma at the end of the string
+	    		maybeComma = "";
+	    	}
+	    	hackyWayToHaveAnotherCondition += rarityId + maybeComma;
+	    }
+	    hackyWayToHaveAnotherCondition += ") and 1";
+	    absoluteConditionParams.put(hackyWayToHaveAnotherCondition, 1);
     }
     
     //Greater than -1 means filter by specific class type

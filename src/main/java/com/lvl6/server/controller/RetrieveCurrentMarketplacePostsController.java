@@ -124,8 +124,18 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 	  else { return -1; }
   }
   
+  /* Ordering by name always at the end.
+   * TODO:Order by marketplace.id (this is ordering by when people placed item on the market)
+   */
   String getSortOrder (RetrieveCurrentMarketplacePostsSortingOrder sortOrder) {
 	  String sortingOrder = null;
+	  String exponent = " (" + DBConstants.MARKETPLACE__EQUIP_LEVEL + " - 1)";
+	  String base = Double.toString(ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE); //broke the abstraction :(
+	  String exponentValue = " power( " + base + "," + exponent + ")"; 
+	  
+	  String atk = DBConstants.EQUIPMENT__ATK_BOOST;
+	  String def = DBConstants.EQUIPMENT__DEF_BOOST;
+	  
 	  switch (sortOrder.getNumber()) {
 	  	case(RetrieveCurrentMarketplacePostsSortingOrder.PRICE_HIGH_TO_LOW_VALUE):
 	  		sortingOrder = DBConstants.MARKETPLACE__DIAMOND_COST + " DESC";
@@ -136,21 +146,18 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 	  		sortingOrder += ", " + DBConstants.MARKETPLACE__COIN_COST + " ASC";
 	  		break;
 	  	case(RetrieveCurrentMarketplacePostsSortingOrder.ATTACK_HIGH_TO_LOW_VALUE):
-	  		sortingOrder = DBConstants.EQUIPMENT__ATK_BOOST + " DESC";
+	  		sortingOrder = atk + " * " + exponentValue + " DESC";
 	  		break;
 	  	case(RetrieveCurrentMarketplacePostsSortingOrder.DEFENSE_HIGH_TO_LOW_VALUE):
-	  		sortingOrder = DBConstants.EQUIPMENT__DEF_BOOST + " DESC";
+	  		sortingOrder = def + " * " + exponentValue + " DESC";
 	  		break;
 	  	case(RetrieveCurrentMarketplacePostsSortingOrder.TOTAL_STATS_HIGH_TO_LOW_VALUE):
-	  		String exponent = " (" + DBConstants.MARKETPLACE__EQUIP_LEVEL + " - 1)";
-	  		String exponentValue = " (" + 
-	  				ControllerConstants.LEVEL_EQUIP_BOOST_EXPONENT_BASE + 
-	  				"^" + exponent + ")"; 
-	  		sortingOrder = DBConstants.EQUIPMENT__ATK_BOOST + " *" + exponentValue; 
+	  		sortingOrder = "( " + atk + " + " + def + " ) * " + exponentValue + " DESC";
 	  		break;
 	  	default:
 	  		break;
 	  }
+	  sortingOrder += ", " + DBConstants.EQUIPMENT__NAME + " ASC";
 	  return sortingOrder;
   }
   
