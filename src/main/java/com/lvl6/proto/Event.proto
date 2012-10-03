@@ -2054,7 +2054,7 @@ message PickLockBoxRequestProto {
 message PickLockBoxResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional bool success = 2;
-	optional int32 itemId = 3;
+	optional LockBoxItemProto item = 3;
 	optional FullUserEquipProto prizeEquip = 4;
 	optional int32 lockBoxEventId = 5;
 	optional int64 clientTime = 6;
@@ -2068,6 +2068,30 @@ message PickLockBoxResponseProto {
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
 		OTHER_FAIL = 5;
 	}
+}
+
+message BossActionRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 bossId = 2;
+	optional int64 curTime = 3;
+}
+
+message BossActionResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional BossActionStatus status = 2;
+	optional int32 damageDone = 3;
+	repeated FullUserEquipProto lootUserEquip = 5;
+	repeated int32 coinsGained = 6;
+	repeated int32 diamondsGained = 7;
+	optional int32 bossId = 8;
+	
+	enum BossActionStatus {
+		SUCCESS = 0; 
+		USER_NOT_ENOUGH_STAMINA = 1;
+		BOSS_HAS_NOT_SPAWNED = 2;
+		OTHER_FAIL = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+	} 
 }
 
 //if reset

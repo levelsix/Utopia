@@ -84,13 +84,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
         resBuilder.setSuccess(successfulPick);
 
         if (successfulPick) {
-          int itemId = chooseLockBoxItem(lockBoxEventId, user);
+          LockBoxItem item = chooseLockBoxItem(lockBoxEventId, user);
 
-          if (itemId == 0) {
+          if (item == null) {
             resBuilder.setStatus(PickLockBoxStatus.OTHER_FAIL);
             legitPick = false;
           } else {
-            resBuilder.setItemId(itemId);
+            resBuilder.setItem(CreateInfoProtoUtils.createLockBoxItemProtoFromLockBoxItem(item));
             UserEquip equip = checkIfUserHasAllItems(lockBoxEvent, user);
             if (equip != null) {
               resBuilder.setPrizeEquip(CreateInfoProtoUtils.createFullUserEquipProtoFromUserEquip(equip));
@@ -165,7 +165,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     return Math.random() <= chance;
   }
 
-  private int chooseLockBoxItem(int lockBoxEventId, User user) {
+  private LockBoxItem chooseLockBoxItem(int lockBoxEventId, User user) {
     List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(lockBoxEventId, user.getType());
     double rand = Math.random();
 
@@ -173,16 +173,16 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       if (rand <= item.getChanceToUnlock()) {
         boolean inserted = UpdateUtils.get().incrementQuantityForLockBoxItem(user.getId(), item.getId(), 1);
         if (inserted) {
-          return item.getId();
+          return item;
         } else {
-          return 0;
+          return null;
         }
       } else {
         rand -= item.getChanceToUnlock();
       }
     }
 
-    return 0;
+    return null;
   }
 
   private UserEquip checkIfUserHasAllItems(LockBoxEvent lockBoxEvent, User user) {
