@@ -136,6 +136,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 	  String atk = DBConstants.EQUIPMENT__ATK_BOOST;
 	  String def = DBConstants.EQUIPMENT__DEF_BOOST;
 	  
+	  String marketplaceId = DBConstants.TABLE_MARKETPLACE + "." + DBConstants.MARKETPLACE__ID;
+	  
 	  switch (sortOrder.getNumber()) {
 	  	case(RetrieveCurrentMarketplacePostsSortingOrder.PRICE_HIGH_TO_LOW_VALUE):
 	  		sortingOrder = DBConstants.MARKETPLACE__DIAMOND_COST + " DESC";
@@ -154,6 +156,12 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 	  	case(RetrieveCurrentMarketplacePostsSortingOrder.TOTAL_STATS_HIGH_TO_LOW_VALUE):
 	  		sortingOrder = "( " + atk + " + " + def + " ) * " + exponentValue + " DESC";
 	  		break;
+//	  	case(RetrieveCurrentMarketplacePostsSortingOrder.POST_TIME_MOST_RECENT_TO_LEAST_RECENT):
+//	  		sortingOrder = marketplaceId  + " DESC";
+//	  		break;
+//	  	case(RetrieveCurrentMarketplacePostsSortingOrder.POST_TIME_LEAST_RECENT_TO_MOST_RECENT):
+//	  		sortingOrder = marketplaceId  + " ASC";
+//	  		break;
 	  	default:
 	  		break;
 	  }
@@ -167,8 +175,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
     //begin market filter feature variable declarations
     MinimumUserProto senderProto = reqProto.getSender();
-    int currentNumOfEntries = reqProto.getCurrentNumOfEntries();
-    boolean forSender = reqProto.getFromSender();
+    int currentNumOfEntries = reqProto.getCurrentNumOfEntries(); //number of items from db user has seen
+    boolean forSender = reqProto.getFromSender(); //filter items posted to marketplace by sender(true), or everyone(false)
     RetrieveCurrentMarketplacePostsFilter marketEquipType = reqProto.getFilter();
     boolean commonEquips = reqProto.getCommonEquips();
     boolean uncommonEquips = reqProto.getUncommonEquips();
@@ -200,40 +208,61 @@ import com.lvl6.utils.utilmethods.InsertUtils;
       } else {
         resBuilder.setStatus(RetrieveCurrentMarketplacePostsStatus.SUCCESS);
         List <MarketplacePost> activeMarketplacePosts;
-        boolean populateMarketplace = false;
-        if (currentNumOfEntries > 0) {
-          if (forSender) {
-            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, senderProto.getUserId());
-          } else {
-        	int equipmentType = getEquipType(marketEquipType);
-        	
-        	List<Integer> activeEquipRarities = getActiveEquipmentRarities(commonEquips, uncommonEquips, rareEquips, epicEquips, legendaryEquips);
+        //boolean populateMarketplace = false;
+    	if (forSender) {
+            if(currentNumOfEntries > 0) {
+            	activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, senderProto.getUserId());
+            } else{
+            	activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
+            }
+    	} else {
+			int equipmentType = getEquipType(marketEquipType);
+    	
+			List<Integer> activeEquipRarities = getActiveEquipmentRarities(commonEquips, uncommonEquips, rareEquips, epicEquips, legendaryEquips);
 
-        	int characterClassType = getClassType(senderProto.getUserType(), myClassOnly);
-        	
-        	Map<String, Integer> levelRanges = getLevelRanges(minEquipLevel, maxEquipLevel, minForgeLevel, maxForgeLevel);
+			int characterClassType = getClassType(senderProto.getUserType(), myClassOnly);
+    	
+			Map<String, Integer> levelRanges = getLevelRanges(minEquipLevel, maxEquipLevel, minForgeLevel, maxForgeLevel);
 
-        	String orderBySql = getSortOrder(sortOrder);
-        			
-            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsByFilters(
-            		ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, 
-            		equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchString);        
-          }
-        } else {
-          if (forSender) {
-            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
-          } else {
-            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
-            populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
-          }
-        }
-        int i = 0;
-        while (populateMarketplace && i < ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES) {
-          populateMarketplaceWithPosts(user);
-          activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
-          populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
-          i++;
-        }
+			String orderBySql = getSortOrder(sortOrder);
+    			
+			activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsByFilters(
+        		ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, 
+        		equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchString);        
+    	}
+//        if (currentNumOfEntries > 0) {
+//          if (forSender) {
+//            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsBeforePostIdForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, senderProto.getUserId());
+//          } else {
+//        	int equipmentType = getEquipType(marketEquipType);
+//        	
+//        	List<Integer> activeEquipRarities = getActiveEquipmentRarities(commonEquips, uncommonEquips, rareEquips, epicEquips, legendaryEquips);
+//
+//        	int characterClassType = getClassType(senderProto.getUserType(), myClassOnly);
+//        	
+//        	Map<String, Integer> levelRanges = getLevelRanges(minEquipLevel, maxEquipLevel, minForgeLevel, maxForgeLevel);
+//
+//        	String orderBySql = getSortOrder(sortOrder);
+//        			
+//            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsByFilters(
+//            		ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, 
+//            		equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchString);        
+//          }
+//        } else {
+//          if (forSender) {
+//            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsForPoster(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, senderProto.getUserId());
+//          } else {
+//            activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
+//            populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
+//          }
+//        }
+//        int i = 0;
+//        while (populateMarketplace && i < ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MAX_NUM_POPULATE_RETRIES) {
+//          populateMarketplaceWithPosts(user);
+//          activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePosts(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP);
+//          populateMarketplace = checkWhetherToPopulateMarketplace(activeMarketplacePosts, user);
+//          i++;
+//        }
         if (activeMarketplacePosts != null && activeMarketplacePosts.size() > 0) {
           List <Integer> userIds = new ArrayList<Integer>();
           
@@ -266,53 +295,53 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 
   }
 
-  private boolean checkWhetherToPopulateMarketplace(List<MarketplacePost> activeMarketplacePosts, User user) {
-    if (activeMarketplacePosts == null || activeMarketplacePosts.size() <= 0) {
-      return true;
-    }
-    if (activeMarketplacePosts.size() >= ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE) {
-      return false;
-    }
-    Equipment equipToPost = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE);
-    for (MarketplacePost mp : activeMarketplacePosts) {
-      if (mp.getPostedEquipId() == ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE
-    		  && (mp.getPosterId() != user.getId()) && mp.getCoinCost() < equipToPost.getCoinPrice()) {
-        return false;
-      }
-    }
-    return true;
-  }
+//  private boolean checkWhetherToPopulateMarketplace(List<MarketplacePost> activeMarketplacePosts, User user) {
+//    if (activeMarketplacePosts == null || activeMarketplacePosts.size() <= 0) {
+//      return true;
+//    }
+//    if (activeMarketplacePosts.size() >= ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__MIN_NUM_OF_POSTS_FOR_NO_POPULATE) {
+//      return false;
+//    }
+//    Equipment equipToPost = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE);
+//    for (MarketplacePost mp : activeMarketplacePosts) {
+//      if (mp.getPostedEquipId() == ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE
+//    		  && (mp.getPosterId() != user.getId()) && mp.getCoinCost() < equipToPost.getCoinPrice()) {
+//        return false;
+//      }
+//    }
+//    return true;
+//  }
 
-  private void populateMarketplaceWithPosts(User user) {
-	  int equipIdToPopulate = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE;
-	  int[] fakePosterIds = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_IDS;
-	  int fakePosterId = fakePosterIds[(int) (Math.random()*fakePosterIds.length)];
-	  MarketplacePostType postType;
-	  int diamondCost = 0;
-	  int coinCost = 0;
-	  Timestamp timeOfPost = new Timestamp(new Date().getTime());
-	  Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipIdToPopulate);
-	  
-	  if (!equip.isBuyableInArmory()) {
-		  log.error("ERROR, equip " + equip + "is not buyable in armory!");
-		  return;
-	  }
-
-	  if (equip.getDiamondPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
-		  postType = MarketplacePostType.NORM_EQUIP_POST;		
-		  coinCost = (int) (equip.getCoinPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
-	  } else {
-		  postType = MarketplacePostType.PREMIUM_EQUIP_POST;
-		  diamondCost = (int) (equip.getDiamondPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
-	  }
-      
-	  if (!InsertUtils.get().insertMarketplaceItem(fakePosterId, postType, equipIdToPopulate, diamondCost, coinCost, timeOfPost, 
-	      ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)) {
-      log.error("problem with inserting fake post into marketplace. posterId=" + fakePosterId
-          + ", postType=" + postType + ", postedEquipId=" + equipIdToPopulate
-          + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost
-          + ", timeOfPost=" + timeOfPost + ", equipLevel = " + ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);      
-	  }
-  }
+//  private void populateMarketplaceWithPosts(User user) {
+//	  int equipIdToPopulate = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__EQUIP_ID_TO_POPULATE;
+//	  int[] fakePosterIds = ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_POSTER_IDS;
+//	  int fakePosterId = fakePosterIds[(int) (Math.random()*fakePosterIds.length)];
+//	  MarketplacePostType postType;
+//	  int diamondCost = 0;
+//	  int coinCost = 0;
+//	  Timestamp timeOfPost = new Timestamp(new Date().getTime());
+//	  Equipment equip = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(equipIdToPopulate);
+//	  
+//	  if (!equip.isBuyableInArmory()) {
+//		  log.error("ERROR, equip " + equip + "is not buyable in armory!");
+//		  return;
+//	  }
+//
+//	  if (equip.getDiamondPrice() <= 0 && equip.getRarity() != Rarity.EPIC && equip.getRarity() != Rarity.LEGENDARY) {
+//		  postType = MarketplacePostType.NORM_EQUIP_POST;		
+//		  coinCost = (int) (equip.getCoinPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
+//	  } else {
+//		  postType = MarketplacePostType.PREMIUM_EQUIP_POST;
+//		  diamondCost = (int) (equip.getDiamondPrice()*ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__FAKE_EQUIP_PERCENT_OF_ARMORY_PRICE_LISTING);
+//	  }
+//      
+//	  if (!InsertUtils.get().insertMarketplaceItem(fakePosterId, postType, equipIdToPopulate, diamondCost, coinCost, timeOfPost, 
+//	      ControllerConstants.DEFAULT_USER_EQUIP_LEVEL)) {
+//      log.error("problem with inserting fake post into marketplace. posterId=" + fakePosterId
+//          + ", postType=" + postType + ", postedEquipId=" + equipIdToPopulate
+//          + ", diamondCost=" + diamondCost + ", coinCost=" + coinCost
+//          + ", timeOfPost=" + timeOfPost + ", equipLevel = " + ControllerConstants.DEFAULT_USER_EQUIP_LEVEL);      
+//	  }
+//  }
 
 }

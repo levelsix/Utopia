@@ -60,7 +60,7 @@ import com.lvl6.utils.DBConnection;
     //matching 'ids of marketplace equipments' to ids in equipment table
     String hackyWayJoinTablesById = DBConstants.MARKETPLACE__POSTED_EQUIP_ID + " = " + DBConstants.TABLE_EQUIPMENT + "." + DBConstants.EQUIPMENT__EQUIP_ID;
     hackyWayJoinTablesById += " and 1"; 
-    //the value for key value pair is stringified, so a table's field would be turned to a string and not be a variable
+    //the value for key value pair is stringified, so a table's field would be turned to a literal string and not be a variable/placeholder
     absoluteConditionParams.put(hackyWayJoinTablesById, 1);
     
     //Greater than -1 means filter by specific equipment type
@@ -112,14 +112,24 @@ import com.lvl6.utils.DBConnection;
     Map<String, Object> likeCondParams = null;
     String condDelim = "AND";
     boolean randomValue = false;
+    int amountToRetrieve = postId + limit; //example (*): 110 + 100 = 210
     
     Connection conn = DBConnection.get().getConnection();    
     ResultSet rs = DBConnection.get().selectRows(conn, colsToFetch, absoluteConditionParams, 
     		relativeGreaterThanConditionParams, relativeLessThanConditionParams, likeCondParams, tableName,
-    		condDelim, orderByColumn, orderByAsc, limit, randomValue);
+    		condDelim, orderByColumn, orderByAsc, amountToRetrieve, randomValue);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+    
+    //PAGINATION OF ITEMS. SENDING NEXT BATCH OF NEW ITEMS
+    //continuing example (*): indexes of returned items is [0,209], want to return [110, 209]
+    //List<MarketplacePost> newMarketplacePosts = marketplacePosts.subList(postId, amountToRetrieve); 
+    //previous can create indexOutOfBoundsException. We're already potentially getting an amount of new items equal to 'limit'
+    //so using size of list as last index
+    List<MarketplacePost> newMarketplacePosts = marketplacePosts.subList(postId, marketplacePosts.size());
+    newMarketplacePosts = new ArrayList<MarketplacePost>(newMarketplacePosts);
+    
     DBConnection.get().close(rs, null, conn);
-    return marketplacePosts;
+    return newMarketplacePosts;
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostIdForPoster(int limit, int postId, int posterId) {
@@ -136,15 +146,15 @@ import com.lvl6.utils.DBConnection;
     return marketplacePosts;
   }
 
-  public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
-    log.debug("retrieving up to " + limit + " most recent marketplace posts");
-    
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
-    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
-    DBConnection.get().close(rs, null, conn);
-    return marketplacePosts;
-  }
+//  public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
+//    log.debug("retrieving up to " + limit + " most recent marketplace posts");
+//    
+//    Connection conn = DBConnection.get().getConnection();
+//    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
+//    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+//    DBConnection.get().close(rs, null, conn);
+//    return marketplacePosts;
+//  }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
     log.debug("retrieving up to " + limit + " marketplace posts for posterId " + posterId);
