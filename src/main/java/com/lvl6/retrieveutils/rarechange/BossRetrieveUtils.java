@@ -7,16 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Boss;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.AnimationType;
 import com.lvl6.utils.DBConnection;
 
 @Component @DependsOn("gameServer") public class BossRetrieveUtils {
@@ -29,7 +26,7 @@ import com.lvl6.utils.DBConnection;
   private static final String TABLE_NAME = DBConstants.TABLE_TASKS;
 
   public static Map<Integer, Boss> getBossIdsToBosses() {
-    log.debug("retrieving all bosss data map");
+    log.debug("retrieving all bosses data map");
     if (bossIdsToBosses == null) {
       setStaticBossIdsToBosses();
     }
@@ -57,7 +54,7 @@ import com.lvl6.utils.DBConnection;
   }
 
   public static List<Boss> getAllBossesForCityId(int cityId) {
-    log.debug("retrieving all bosss for cityId " + cityId);
+    log.debug("retrieving all bosses for cityId " + cityId);
     if (cityIdsToBosses == null) {
       setStaticCityIdsToBosses();
     }
@@ -65,7 +62,7 @@ import com.lvl6.utils.DBConnection;
   }
 
   private static void setStaticCityIdsToBosses() {
-    log.debug("setting static map of cityId to bosss");
+    log.debug("setting static map of cityId to bosses");
 
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
@@ -96,7 +93,7 @@ import com.lvl6.utils.DBConnection;
   }
 
   private static void setStaticBossIdsToBosses() {
-    log.debug("setting static map of bossIds to bosss");
+    log.debug("setting static map of bossIds to bosses");
 
     Connection conn = DBConnection.get().getConnection();
     ResultSet rs = null;
@@ -137,8 +134,6 @@ import com.lvl6.utils.DBConnection;
     int cityId = rs.getInt(i++);
     int assetNumWithinCity = rs.getInt(i++);
     int baseHealth = rs.getInt(i++);
-    String goodName = rs.getString(i++);
-    String badName = rs.getString(i++);
     int staminaCost = rs.getInt(i++);
     int minDamage = rs.getInt(i++);
     int maxDamage = rs.getInt(i++);
@@ -146,7 +141,7 @@ import com.lvl6.utils.DBConnection;
     int minutesToRespawn = rs.getInt(i++);
     int experienceGained = rs.getInt(i++);
     
-    Boss boss = new Boss(id, goodName, badName, cityId, assetNumWithinCity, staminaCost, minDamage, maxDamage, minutesToKill, minutesToRespawn, baseHealth, experienceGained);
+    Boss boss = new Boss(id, cityId, assetNumWithinCity, staminaCost, minDamage, maxDamage, minutesToKill, minutesToRespawn, baseHealth, experienceGained);
     return boss;
   }
 }

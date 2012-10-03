@@ -138,7 +138,9 @@ message StartupResponseProto {
 	repeated ReferralNotificationProto referralNotifications = 14;
 	repeated PlayerWallPostProto playerWallPostNotifications = 19;
 	repeated ClanWallPostProto clanWallPostNotifications = 27;
-
+	
+	repeated LockBoxEventProto lockBoxEvents = 28;
+	repeated UserLockBoxEventProto userLockBoxEvents = 29;
 	
 	optional string appStoreURL = 17;
 	
@@ -279,6 +281,17 @@ message StartupResponseProto {
 		optional int32 diamondCostToPlayThreeCardMonte = 79;
 		
 		optional GoldmineConstants goldmineConstants = 80;
+		optional LockBoxConstants lockBoxConstants = 81;
+		
+		message LockBoxConstants {
+			optional int32 goldCostToPickLockBox = 1;
+			optional int32 silverCostToPickLockBox = 2;
+			optional float goldChanceToPickLockBox = 3;
+			optional float silverChanceToPickLockBox = 4;
+			optional float freeChanceToPickLockBox = 5;
+			optional int32 numMinutesToRepickLockBox = 6;
+			optional int32 goldCostToResetPickLockBox = 7;
+		}
 		
 		message GoldmineConstants {
 			optional int32 numHoursBeforeGoldmineRetrieval = 1;
@@ -1148,6 +1161,7 @@ message RetrieveStaticDataRequestProto {
 	repeated int32 possessEquipJobIds = 9;
 	repeated int32 upgradeStructJobIds = 10;
 	optional int32 levelForExpRequiredRequest = 11;
+	optional bool currentLockBoxEvents = 12;
 }
 
 																						//DONE
@@ -1163,8 +1177,9 @@ message RetrieveStaticDataResponseProto {
 	repeated PossessEquipJobProto possessEquipJobs = 9;
 	repeated UpgradeStructJobProto upgradeStructJobs = 10;
 	optional int32 expRequiredForRequestedLevel = 11;
+	repeated LockBoxEventProto lockBoxEvents = 12;
 	
-	optional RetrieveStaticDataStatus status = 12;
+	optional RetrieveStaticDataStatus status = 13;
 	
 	enum RetrieveStaticDataStatus {
 		SUCCESS = 0;
@@ -2020,6 +2035,38 @@ message CollectFromGoldmineResponseProto {
 		STILL_COLLECTING = 2;
 		OTHER_FAIL = 3;
 		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+	}
+}
+
+message PickLockBoxRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 lockBoxEventId = 2;
+	optional PickLockBoxMethod method = 3;
+    optional int64 clientTime = 4;
+	
+	enum PickLockBoxMethod {
+		FREE = 0;
+		SILVER = 1;
+		GOLD = 2;
+	}
+}
+
+message PickLockBoxResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional bool success = 2;
+	optional int32 itemId = 3;
+	optional FullUserEquipProto prizeEquip = 4;
+	optional int32 lockBoxEventId = 5;
+	optional int64 clientTime = 6;
+	optional PickLockBoxStatus status = 7;
+	
+	enum PickLockBoxStatus {
+		SUCCESS = 0;
+		NOT_ENOUGH_CURRENCY = 1;
+		NOT_ENOUGH_LOCKBOXES = 2;
+		EVENT_IS_NOT_IN_PROGRESS = 3;
+		CLIENT_TOO_APART_FROM_SERVER_TIME = 4;
+		OTHER_FAIL = 5;
 	}
 }
 

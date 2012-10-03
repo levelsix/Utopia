@@ -1,6 +1,5 @@
 package com.lvl6.utils;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import javax.annotation.Resource;

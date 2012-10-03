@@ -312,6 +312,14 @@ public class ControllerConstants {
   public static final int GOLDMINE__GOLD_AMOUNT_FROM_PICK_UP = 1;
   public static final int GOLDMINE__GOLD_COST_TO_RESTART = 10;
   
+  //LOCK BOXES
+  public static final int LOCK_BOXES__GOLD_COST_TO_PICK = 10;
+  public static final int LOCK_BOXES__SILVER_COST_TO_PICK = 500;
+  public static final float LOCK_BOXES__GOLD_CHANCE_TO_PICK = 1.f;
+  public static final float LOCK_BOXES__SILVER_CHANCE_TO_PICK = 0.25f;
+  public static final float LOCK_BOXES__FREE_CHANCE_TO_PICK = 0.15f;
+  public static final int LOCK_BOXES__NUM_MINUTES_TO_REPICK = 60;
+  public static final int LOCK_BOXES__GOLD_COST_TO_RESET_PICK = 10;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

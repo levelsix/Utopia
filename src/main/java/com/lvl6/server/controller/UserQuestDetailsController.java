@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
@@ -28,8 +27,6 @@ import com.lvl6.utils.RetrieveUtils;
   @Component @DependsOn("gameServer") public class UserQuestDetailsController extends EventController {
 
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
-  private static org.slf4j.Logger testslf4j = LoggerFactory.getLogger(UserQuestDetailsController.class);
-  
   
   public UserQuestDetailsController() {
     numAllocatedThreads = 8;

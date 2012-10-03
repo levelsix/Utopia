@@ -2,7 +2,7 @@ package com.lvl6.info;
 
 import java.io.Serializable;
 
-import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
+import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.EquipType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
 
@@ -21,7 +21,7 @@ public class Equipment implements Serializable {
 	private int coinPrice = NOT_SET;
 	private int diamondPrice = NOT_SET;
 	private float chanceOfLoss;
-	private ClassType classType;
+	private EquipClassType classType;
 	private Rarity rarity;
 	private boolean isBuyableInArmory;
 	private float chanceOfForgeFailureBase;
@@ -29,7 +29,7 @@ public class Equipment implements Serializable {
 
 	public Equipment(int id, String name, EquipType type, String description,
       int attackBoost, int defenseBoost, int minLevel, int coinPrice,
-      int diamondPrice, float chanceOfLoss, ClassType classType, Rarity rarity,
+      int diamondPrice, float chanceOfLoss, EquipClassType classType, Rarity rarity,
       boolean isBuyableInArmory, float chanceOfForgeFailureBase, int minutesToAttemptForgeBase) {
     this.id = id;
     this.name = name;
@@ -92,7 +92,7 @@ public class Equipment implements Serializable {
 		return chanceOfLoss;
 	}
 
-	public ClassType getClassType() {
+	public EquipClassType getClassType() {
 		return classType;
 	}
 

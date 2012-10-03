@@ -1,10 +1,12 @@
 package com.lvl6.info;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.lvl6.proto.InfoProto.UserClanStatus;
 
-public class UserClan {
+public class UserClan implements Serializable{
+  private static final long serialVersionUID = -1615176239228070877L;
   private int userId;
   private int clanId;
   private UserClanStatus status;
@@ -34,5 +36,4 @@ public class UserClan {
     return "UserClan [userId=" + userId + ", clanId=" + clanId + ", status="
         + status + ", requestTime=" + requestTime + "]";
   }
-  
 }

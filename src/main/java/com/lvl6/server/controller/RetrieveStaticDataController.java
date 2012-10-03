@@ -25,6 +25,7 @@ import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.Builder;
 import com.lvl6.proto.EventProto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
+import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
@@ -37,6 +38,7 @@ import com.lvl6.retrieveutils.rarechange.StructureRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.UpgradeStructJobRetrieveUtils;
 import com.lvl6.utils.CreateInfoProtoUtils;
+import com.lvl6.utils.utilmethods.MiscMethods;
 
   @Component @DependsOn("gameServer") public class RetrieveStaticDataController extends EventController{
 
@@ -66,7 +68,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setStatus(RetrieveStaticDataStatus.SUCCESS);
 
-    populateResBuilder(resBuilder, reqProto);
+    populateResBuilder(resBuilder, reqProto, senderProto.getUserType());
     RetrieveStaticDataResponseProto resProto = resBuilder.build();
 
     RetrieveStaticDataResponseEvent resEvent = new RetrieveStaticDataResponseEvent(senderProto.getUserId());
@@ -76,7 +78,7 @@ import com.lvl6.utils.CreateInfoProtoUtils;
     server.writeEvent(resEvent);
   }
 
-  private void populateResBuilder(Builder resBuilder, RetrieveStaticDataRequestProto reqProto) {
+  private void populateResBuilder(Builder resBuilder, RetrieveStaticDataRequestProto reqProto, UserType type) {
     List <Integer> structIds = reqProto.getStructIdsList();
     if (structIds != null && structIds.size() > 0) {
       Map<Integer, Structure> structIdsToStructures = StructureRetrieveUtils.getStructIdsToStructs();
@@ -217,6 +219,9 @@ import com.lvl6.utils.CreateInfoProtoUtils;
       }
     }
 
+    if (reqProto.getCurrentLockBoxEvents()) {
+      resBuilder.addAllLockBoxEvents(MiscMethods.currentLockBoxEventsForUserType(type));
+    }
   }
 
 }

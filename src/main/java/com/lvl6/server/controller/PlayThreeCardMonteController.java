@@ -16,7 +16,6 @@ import com.lvl6.proto.EventProto.PlayThreeCardMonteRequestProto;
 import com.lvl6.proto.EventProto.PlayThreeCardMonteResponseProto;
 import com.lvl6.proto.EventProto.PlayThreeCardMonteResponseProto.Builder;
 import com.lvl6.proto.EventProto.PlayThreeCardMonteResponseProto.PlayThreeCardMonteStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.ThreeCardMonteRetrieveUtils;

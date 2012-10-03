@@ -17,7 +17,7 @@ import com.lvl6.proto.EventProto.EquipEquipmentRequestProto;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.Builder;
 import com.lvl6.proto.EventProto.EquipEquipmentResponseProto.EquipEquipmentStatus;
-import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
+import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.MinimumUserProto;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
@@ -109,8 +109,8 @@ import com.lvl6.utils.utilmethods.MiscMethods;
           + user.getLevel() + ", equip minimum level is " + equip.getMinLevel());
       return false;
     }
-    ClassType userClass = MiscMethods.getClassTypeFromUserType(user.getType());
-    if (userClass != equip.getClassType() && equip.getClassType() != ClassType.ALL_AMULET) {
+    EquipClassType userClass = MiscMethods.getClassTypeFromUserType(user.getType());
+    if (userClass != equip.getClassType() && equip.getClassType() != EquipClassType.ALL_AMULET) {
       resBuilder.setStatus(EquipEquipmentStatus.INCORRECT_CLASS_TYPE);
       log.error("problem with equipping equip" + equip.getId() + ": user not right class. user type is "
           + user.getType() + ", equip class is " + equip.getClassType());

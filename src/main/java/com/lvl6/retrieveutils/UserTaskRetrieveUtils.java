@@ -30,8 +30,7 @@ import com.lvl6.utils.DBConnection;
     return taskIdToNumTimesActedInRank;
   }
   
-  private static Map<Integer, Integer> convertRSToTaskIdToNumTimesCompletedMap(
-      ResultSet rs) {
+  private static Map<Integer, Integer> convertRSToTaskIdToNumTimesCompletedMap(ResultSet rs) {
     if (rs != null) {
       try {
         rs.last();

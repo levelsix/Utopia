@@ -16,6 +16,8 @@ import com.lvl6.info.CoordinatePair;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
+import com.lvl6.info.LockBoxEvent;
+import com.lvl6.info.LockBoxItem;
 import com.lvl6.info.MarketplacePost;
 import com.lvl6.info.MarketplaceTransaction;
 import com.lvl6.info.MonteCard;
@@ -30,6 +32,7 @@ import com.lvl6.info.UserCityExpansionData;
 import com.lvl6.info.UserClan;
 import com.lvl6.info.UserCritstruct;
 import com.lvl6.info.UserEquip;
+import com.lvl6.info.UserLockBoxEvent;
 import com.lvl6.info.UserQuest;
 import com.lvl6.info.UserStruct;
 import com.lvl6.info.jobs.BuildStructJob;
@@ -67,6 +70,8 @@ import com.lvl6.proto.InfoProto.FullUserQuestDataLargeProto;
 import com.lvl6.proto.InfoProto.FullUserStructureProto;
 import com.lvl6.proto.InfoProto.LeaderboardType;
 import com.lvl6.proto.InfoProto.LocationProto;
+import com.lvl6.proto.InfoProto.LockBoxEventProto;
+import com.lvl6.proto.InfoProto.LockBoxItemProto;
 import com.lvl6.proto.InfoProto.MinimumClanProto;
 import com.lvl6.proto.InfoProto.MinimumUserBuildStructJobProto;
 import com.lvl6.proto.InfoProto.MinimumUserDefeatTypeJobProto;
@@ -86,13 +91,17 @@ import com.lvl6.proto.InfoProto.PossessEquipJobProto;
 import com.lvl6.proto.InfoProto.UnhandledBlacksmithAttemptProto;
 import com.lvl6.proto.InfoProto.UpgradeStructJobProto;
 import com.lvl6.proto.InfoProto.UserClanStatus;
+import com.lvl6.proto.InfoProto.UserLockBoxEventProto;
+import com.lvl6.proto.InfoProto.UserLockBoxItemProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.retrieveutils.ClanRetrieveUtils;
+import com.lvl6.retrieveutils.UserLockBoxItemRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsDefeatTypeJobProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LockBoxItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
@@ -781,5 +790,51 @@ public class CreateInfoProtoUtils {
     }
     
     return b.build();
+  }
+  
+  public static LockBoxEventProto createLockBoxEventProtoFromLockBoxEvent(LockBoxEvent event, UserType type) {
+    LockBoxEventProto.Builder b = LockBoxEventProto.newBuilder().setLockBoxEventId(event.getId())
+        .setStartDate(event.getStartDate().getTime()).setEndDate(event.getEndDate().getTime())
+        .setLockBoxImageName(event.getLockBoxImageName()).setEventName(event.getEventName());
+    
+    b.setPrizeEquip(createFullEquipProtoFromEquip(EquipmentRetrieveUtils.getEquipmentIdsToEquipment().get(event.getPrizeEquipId())));
+    
+    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getId(), type);
+    
+    for (LockBoxItem item : items) {
+      b.addItems(createLockBoxItemProtoFromLockBoxItem(item));
+    }
+    
+    return b.build();
+  }
+  
+  public static LockBoxItemProto createLockBoxItemProtoFromLockBoxItem(LockBoxItem item) {
+    LockBoxItemProto.Builder b = LockBoxItemProto.newBuilder().setLockBoxItemId(item.getId())
+        .setLockBoxEventId(item.getLockBoxEventId()).setChanceToUnlock(item.getChanceToUnlock())
+        .setImageName(item.getImageName()).setName(item.getName()).setType(item.getClassType());
+    
+    return b.build();
+  }
+  
+  public static UserLockBoxEventProto createUserLockBoxEventProto(UserLockBoxEvent event, UserType type) {
+    UserLockBoxEventProto.Builder b = UserLockBoxEventProto.newBuilder().setUserId(event.getUserId()).setLockBoxEventId(event.getLockBoxId())
+        .setNumLockBoxes(event.getNumLockBoxes()).setNumTimesCompleted(event.getNumTimesCompleted());
+    
+    List<LockBoxItem> items = LockBoxItemRetrieveUtils.getLockBoxItemsForLockBoxEvent(event.getLockBoxId(), type);
+    Map<Integer, Integer> userItems = UserLockBoxItemRetrieveUtils.getLockBoxItemIdsToQuantityForUser(event.getUserId());
+    
+    for (LockBoxItem item : items) {
+      Integer quantity = userItems.get(item.getId());
+      if (quantity != null && quantity > 0) {
+        b.addItems(createUserLockBoxItemProto(event.getUserId(), item.getId(), quantity));
+      }
+    }
+    
+    return b.build();
+  }
+  
+  public static UserLockBoxItemProto createUserLockBoxItemProto(int userId, int lockBoxItemId, int quantity) {
+    return UserLockBoxItemProto.newBuilder().setUserId(userId).setLockBoxItemId(lockBoxItemId)
+        .setQuantity(quantity).build();
   }
 }

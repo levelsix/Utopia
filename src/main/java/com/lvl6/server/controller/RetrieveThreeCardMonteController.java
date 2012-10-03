@@ -63,12 +63,15 @@ import com.lvl6.utils.CreateInfoProtoUtils;
   private void populateResBuilder(Builder resBuilder, UserType userType) {
     MonteCard card = getMostRecentCardForType(MonteCardType.BAD);
     if (card != null) resBuilder.setBadMonteCard(CreateInfoProtoUtils.createMonteCardProtoFromMonteCard(card, userType));
+    else log.error("Unable to find bad monte card.");
 
     card = getMostRecentCardForType(MonteCardType.MEDIUM);
     if (card != null) resBuilder.setMediumMonteCard(CreateInfoProtoUtils.createMonteCardProtoFromMonteCard(card, userType));
+    else log.error("Unable to find medium monte card.");
 
     card = getMostRecentCardForType(MonteCardType.GOOD);
     if (card != null) resBuilder.setGoodMonteCard(CreateInfoProtoUtils.createMonteCardProtoFromMonteCard(card, userType));
+    else log.error("Unable to find good  monte card.");
   }
   
   private MonteCard getMostRecentCardForType(MonteCardType type) {

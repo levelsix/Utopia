@@ -572,6 +572,41 @@ public class UpdateUtils implements UpdateUtil {
     return false;
   }
 
+  @Override
+  public boolean incrementNumberOfLockBoxesForLockBoxEvent(int userId, int eventId, int increment) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    insertParams.put(DBConstants.USER_LOCK_BOX_EVENTS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_LOCK_BOX_EVENTS__EVENT_ID, eventId);
+    insertParams.put(DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES, increment);
+    insertParams.put(DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED, 0);
+
+    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_LOCK_BOX_EVENTS, insertParams, 
+        DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES, increment);
+
+    if (numUpdated >= 1) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean incrementQuantityForLockBoxItem(int userId, int itemId, int increment) {
+    Map <String, Object> insertParams = new HashMap<String, Object>();
+
+    insertParams.put(DBConstants.USER_LOCK_BOX_ITEMS__USER_ID, userId);
+    insertParams.put(DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID, itemId);
+    insertParams.put(DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY, increment);
+
+    int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_LOCK_BOX_ITEMS, insertParams, 
+        DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY, increment);
+
+    if (numUpdated >= 1) {
+      return true;
+    }
+    return false;
+  } 
+
   /*
    * used for tasks
    */
@@ -713,6 +748,74 @@ public class UpdateUtils implements UpdateUtil {
     log.error("problem with resetting times completed in rank for userid " + userId + ". tasks are=" + tasksInCity
         + ", numUpdated=" + numUpdated);
     return false;
+  }
+
+  public boolean decrementLockBoxItemsForUser(Map<Integer, Integer> itemIdsToQuantity, int userId, int decrement) {
+    String query = "update " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " set " + DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY 
+        + "="+DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY+"-? where " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=? and " + 
+        DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID+ "in (" ;
+    List<Object> values = new ArrayList<Object>();
+    values.add(decrement);
+    values.add(userId);
+
+    List<String> stringItems = new ArrayList<String>();
+    for (Integer itemId : itemIdsToQuantity.keySet()) {
+      stringItems.add("?");
+      values.add(itemId);
+    }
+    query += StringUtils.getListInString(stringItems, ",") + ")";
+
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+    if (numUpdated != stringItems.size()) {
+      return false;
+    }
+
+    values = new ArrayList<Object>();
+    stringItems = new ArrayList<String>();
+    for (Integer itemId : itemIdsToQuantity.keySet()) {
+      int quantity = itemIdsToQuantity.get(itemId);
+      if (quantity-decrement <= 0) {
+        stringItems.add("?");
+        values.add(itemId);
+      }
+    }
+
+    if (stringItems.size() > 0) {
+      query = "delete from " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " where " +  DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID+ 
+          "in (" + StringUtils.getListInString(stringItems, ",") + ") and " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
+      values.add(userId);
+
+      numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+      if (numUpdated == stringItems.size()) {
+        return true;
+      }
+    } else {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean decrementNumLockBoxesIncrementNumTimesCompletedForUser(int eventId, int userId, int decrement, boolean completed, Timestamp curTime) {
+    String query = "update " + DBConstants.TABLE_USER_LOCK_BOX_EVENTS + " set " + DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES 
+        + "="+DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES +"-?, last_opening_time=?";
+
+    List<Object> values = new ArrayList<Object>();
+    values.add(decrement);
+    values.add(curTime);
+    if (completed) {
+       query += ", "+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED+ "="+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED +"+? ";
+    }
+    
+    query += "where " + DBConstants.USER_LOCK_BOX_EVENTS__EVENT_ID + "=? and " + 
+        DBConstants.USER_LOCK_BOX_EVENTS__USER_ID+ "=?" ;
+    values.add(eventId);
+    values.add(userId);
+
+    int numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
+    if (numUpdated != 1) {
+      return false;
+    }
+    return true;
   }
 
 }

@@ -19,6 +19,7 @@ import com.lvl6.info.City;
 import com.lvl6.info.Dialogue;
 import com.lvl6.info.Equipment;
 import com.lvl6.info.Location;
+import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
 import com.lvl6.info.UserEquip;
@@ -36,17 +37,22 @@ import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.ForgeCons
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.FormulaConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.GoldmineConstants;
 import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.KiipRewardConditions;
+import com.lvl6.proto.EventProto.StartupResponseProto.StartupConstants.LockBoxConstants;
 import com.lvl6.proto.EventProto.UpdateClientUserResponseProto;
 import com.lvl6.proto.InfoProto.DefeatTypeJobProto.DefeatTypeJobEnemyType;
 import com.lvl6.proto.InfoProto.DialogueProto.SpeechSegmentProto.DialogueSpeaker;
-import com.lvl6.proto.InfoProto.FullEquipProto.ClassType;
+import com.lvl6.proto.InfoProto.EquipClassType;
 import com.lvl6.proto.InfoProto.FullEquipProto.Rarity;
+import com.lvl6.proto.InfoProto.LockBoxEventProto;
 import com.lvl6.proto.InfoProto.UserType;
+import com.lvl6.retrieveutils.rarechange.BossRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.BuildStructJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.DefeatTypeJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.EquipmentRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.LevelsRequiredExperienceRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LockBoxItemRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.NeutralCityElementsRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.PossessEquipJobRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
@@ -122,9 +128,9 @@ public class MiscMethods {
    */
   public static boolean checkIfEquipIsEquippableOnUser(Equipment equip, User user) {
     if (equip == null || user == null) return false;
-    ClassType userClass = MiscMethods.getClassTypeFromUserType(user.getType());
+    EquipClassType userClass = MiscMethods.getClassTypeFromUserType(user.getType());
     if (user.getLevel() >= equip.getMinLevel() && 
-        (userClass == equip.getClassType() || equip.getClassType() == ClassType.ALL_AMULET)) {
+        (userClass == equip.getClassType() || equip.getClassType() == EquipClassType.ALL_AMULET)) {
       return true;
     }
     return false;
@@ -223,15 +229,15 @@ public class MiscMethods {
     return resEvent;
   }
 
-  public static ClassType getClassTypeFromUserType(UserType userType) {
+  public static EquipClassType getClassTypeFromUserType(UserType userType) {
     if (userType == UserType.BAD_MAGE || userType == UserType.GOOD_MAGE) {
-      return ClassType.MAGE;
+      return EquipClassType.MAGE;
     }
     if (userType == UserType.BAD_WARRIOR || userType == UserType.GOOD_WARRIOR) {
-      return ClassType.WARRIOR;
+      return EquipClassType.WARRIOR;
     }
     if (userType == UserType.BAD_ARCHER || userType == UserType.GOOD_ARCHER) {
-      return ClassType.ARCHER;
+      return EquipClassType.ARCHER;
     }
     return null;
   }
@@ -431,12 +437,38 @@ public class MiscMethods {
         .build();
     
     cb = cb.setGoldmineConstants(gc);
+    
+    LockBoxConstants lbc = LockBoxConstants.newBuilder()
+        .setFreeChanceToPickLockBox(ControllerConstants.LOCK_BOXES__FREE_CHANCE_TO_PICK)
+        .setGoldChanceToPickLockBox(ControllerConstants.LOCK_BOXES__GOLD_CHANCE_TO_PICK)
+        .setNumMinutesToRepickLockBox(ControllerConstants.LOCK_BOXES__NUM_MINUTES_TO_REPICK)
+        .setGoldCostToPickLockBox(ControllerConstants.LOCK_BOXES__GOLD_COST_TO_PICK)
+        .setGoldCostToResetPickLockBox(ControllerConstants.LOCK_BOXES__GOLD_COST_TO_RESET_PICK)
+        .setSilverChanceToPickLockBox(ControllerConstants.LOCK_BOXES__SILVER_CHANCE_TO_PICK)
+        .setSilverCostToPickLockBox(ControllerConstants.LOCK_BOXES__SILVER_COST_TO_PICK)
+        .build();
+    
+    cb = cb.setLockBoxConstants(lbc);
 
     for (int i = 0; i < IAPValues.packageNames.size(); i++) {
       cb.addProductIds(IAPValues.packageNames.get(i));
       cb.addProductDiamondsGiven(IAPValues.packageGivenDiamonds.get(i));
     }
     return cb.build();  
+  }
+  
+  public static List<LockBoxEventProto> currentLockBoxEventsForUserType(UserType type) {
+    Map<Integer, LockBoxEvent> events = LockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEvents();
+    long curTime = new Date().getTime();
+    List<LockBoxEventProto> toReturn = new ArrayList<LockBoxEventProto>();
+    
+    for (LockBoxEvent event : events.values()) {
+      // Send all events that are not yet over
+      if (event.getEndDate().getTime() > curTime) {
+        toReturn.add(CreateInfoProtoUtils.createLockBoxEventProtoFromLockBoxEvent(event, type));
+      }
+    }
+    return toReturn;
   }
 
   public static void reloadAllRareChangeStaticData() {
@@ -454,6 +486,9 @@ public class MiscMethods {
     LevelsRequiredExperienceRetrieveUtils.reload();
     NeutralCityElementsRetrieveUtils.reload(); 
     ThreeCardMonteRetrieveUtils.reload();
+    BossRetrieveUtils.reload();
+    LockBoxEventRetrieveUtils.reload();
+    LockBoxItemRetrieveUtils.reload();
   }
 
   public static UserType getUserTypeFromDefeatTypeJobUserType(

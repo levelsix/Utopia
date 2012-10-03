@@ -49,6 +49,10 @@ public class DBConstants {
   public static final String TABLE_THREE_CARD_MONTE = "three_card_monte";
   public static final String TABLE_BOSSES = "bosses";
   public static final String TABLE_USER_BOSSES = "user_bosses";
+  public static final String TABLE_LOCK_BOX_EVENTS = "lock_box_events";
+  public static final String TABLE_LOCK_BOX_ITEMS = "lock_box_items";
+  public static final String TABLE_USER_LOCK_BOX_EVENTS = "user_lock_box_events";
+  public static final String TABLE_USER_LOCK_BOX_ITEMS = "user_lock_box_items";
   
   /*COLUMNNAMES*/
   public static final String GENERIC__USER_ID = "user_id";
@@ -335,6 +339,22 @@ public class DBConstants {
   public static final String STAT_REFILL_HISTORY__REFILL_TYPE = "refill_type";
   public static final String STAT_REFILL_HISTORY__DIAMONDS_SPENT = "diamonds_spent";
   public static final String STAT_REFILL_HISTORY__REFILL_TIME = "refill_time";
+  
+  /*USER BOSSES*/
+  public static final String USER_BOSSES__USER_ID = "user_id";
+  public static final String USER_BOSSES__BOSS_ID = "boss_id";
+  public static final String USER_BOSSES__START_TIME = "start_time";
 
+  /*USER LOCK BOX EVENTS*/
+  public static final String USER_LOCK_BOX_EVENTS__EVENT_ID = "lock_box_event_id";
+  public static final String USER_LOCK_BOX_EVENTS__USER_ID = "user_id";
+  public static final String USER_LOCK_BOX_EVENTS__NUM_BOXES = "num_boxes";
+  public static final String USER_LOCK_BOX_EVENTS__LAST_OPENING_TIME = "last_opening_time";
+  public static final String USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED = "num_times_completed";
+
+  /*USER LOCK BOX ITEMS*/
+  public static final String USER_LOCK_BOX_ITEMS__ITEM_ID = "lock_box_item_id";
+  public static final String USER_LOCK_BOX_ITEMS__USER_ID = "user_id";
+  public static final String USER_LOCK_BOX_ITEMS__QUANTITY = "quantity";
   
 }
