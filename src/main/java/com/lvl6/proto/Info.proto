@@ -56,6 +56,12 @@ enum GroupChatScope {
 	CLAN = 3;
 }
 
+enum MonteCard {
+	BAD = 0;
+	MEDIUM = 1;
+	GOOD = 2;
+}	
+
 //------------------------------------------------------------------------------------------
 
 message FullClanProto {

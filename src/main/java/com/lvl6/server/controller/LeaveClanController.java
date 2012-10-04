@@ -81,7 +81,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   private void writeChangesToDB(User user, Clan clan) {
     if (user.getId() == clan.getOwnerId()) {
       List<Integer> userIds = RetrieveUtils.userClanRetrieveUtils().getUserIdsRelatedToClan(clan.getId());
-      deleteClan(clan, userIds);
+      deleteClan(clan, userIds, user);
     } else {
       if (!DeleteUtils.get().deleteUserClan(user.getId(), clan.getId())) {
         log.error("problem with deleting user clan for " + user + " and clan " + clan);
@@ -92,8 +92,8 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     }
   }
 
-  private void deleteClan(Clan clan, List<Integer> userIds) {
-    if (!UpdateUtils.get().updateUsersClanId(null, userIds)) {
+  private void deleteClan(Clan clan, List<Integer> userIds, User user) {
+    if (!user.updateRelativeDiamondsAbsoluteClan(0, null)) {
       log.error("problem with marking clan id null for users with ids in " + userIds);
     } else {
       if (!DeleteUtils.get().deleteUserClanDataRelatedToClanId(clan.getId(), userIds.size())) {

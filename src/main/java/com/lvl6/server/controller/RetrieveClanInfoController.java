@@ -59,6 +59,9 @@ import com.lvl6.utils.RetrieveUtils;
     resBuilder.setSender(senderProto);
     resBuilder.setIsForBrowsingList(reqProto.getIsForBrowsingList());
     resBuilder.setIsForSearch(false);
+    
+    if (reqProto.hasClanName()) resBuilder.setClanName(clanName);
+    if (reqProto.hasClanId()) resBuilder.setClanId(clanId);
 
     server.lockPlayer(senderProto.getUserId());
     try {
