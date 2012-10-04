@@ -281,13 +281,28 @@
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>Statistic</optionName>
+							<value>Average</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>MeasureName</optionName>
+							<value>NetworkOut</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>Unit</optionName>
+							<value>Bytes</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
 							<optionName>UpperThreshold</optionName>
 							<value>12000000</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
 							<optionName>LowerThreshold</optionName>
-							<value>4000000</value>
+							<value>2000000</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elb:loadbalancer</namespace>
