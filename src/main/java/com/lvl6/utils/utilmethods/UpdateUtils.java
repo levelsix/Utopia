@@ -753,7 +753,7 @@ public class UpdateUtils implements UpdateUtil {
   public boolean decrementLockBoxItemsForUser(Map<Integer, Integer> itemIdsToQuantity, int userId, int decrement) {
     String query = "update " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " set " + DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY 
         + "="+DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY+"-? where " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=? and " + 
-        DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID+ "in (" ;
+        DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID+ " in (" ;
     List<Object> values = new ArrayList<Object>();
     values.add(decrement);
     values.add(userId);
@@ -782,7 +782,7 @@ public class UpdateUtils implements UpdateUtil {
 
     if (stringItems.size() > 0) {
       query = "delete from " + DBConstants.TABLE_USER_LOCK_BOX_ITEMS + " where " +  DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID+ 
-          "in (" + StringUtils.getListInString(stringItems, ",") + ") and " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
+          " in (" + StringUtils.getListInString(stringItems, ",") + ") and " + DBConstants.USER_LOCK_BOX_ITEMS__USER_ID + "=?";
       values.add(userId);
 
       numUpdated = DBConnection.get().updateDirectQueryNaive(query, values);
@@ -803,10 +803,10 @@ public class UpdateUtils implements UpdateUtil {
     values.add(decrement);
     values.add(curTime);
     if (completed) {
-       query += ", "+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED+ "="+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED +"+? ";
+       query += ", "+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED+ "="+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED +"+?";
     }
     
-    query += "where " + DBConstants.USER_LOCK_BOX_EVENTS__EVENT_ID + "=? and " + 
+    query += " where " + DBConstants.USER_LOCK_BOX_EVENTS__EVENT_ID + "=? and " + 
         DBConstants.USER_LOCK_BOX_EVENTS__USER_ID+ "=?" ;
     values.add(eventId);
     values.add(userId);

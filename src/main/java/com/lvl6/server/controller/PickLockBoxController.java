@@ -225,9 +225,9 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
       return;
     }
 
-      if (!UpdateUtils.get().decrementNumLockBoxesIncrementNumTimesCompletedForUser(event.getId(), user.getId(), successfulPick ? 1 : 0, hadAllItems, curTime)) {
-        log.error("problem with decrementing users lock boxes for event "+event.getId());
-        return;
-      }
+    if (!UpdateUtils.get().decrementNumLockBoxesIncrementNumTimesCompletedForUser(event.getId(), user.getId(), successfulPick ? 1 : 0, hadAllItems, curTime)) {
+      log.error("problem with decrementing users lock boxes for event "+event.getId());
+      return;
+    }
   }
 }

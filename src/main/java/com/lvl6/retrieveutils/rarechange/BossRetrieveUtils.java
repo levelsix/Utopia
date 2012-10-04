@@ -23,7 +23,7 @@ import com.lvl6.utils.DBConnection;
   private static Map<Integer, List<Boss>> cityIdsToBosses;
   private static Map<Integer, Boss> bossIdsToBosses;
 
-  private static final String TABLE_NAME = DBConstants.TABLE_TASKS;
+  private static final String TABLE_NAME = DBConstants.TABLE_BOSSES;
 
   public static Map<Integer, Boss> getBossIdsToBosses() {
     log.debug("retrieving all bosses data map");

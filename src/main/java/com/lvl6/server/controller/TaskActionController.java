@@ -17,6 +17,7 @@ import com.lvl6.events.request.TaskActionRequestEvent;
 import com.lvl6.events.response.TaskActionResponseEvent;
 import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.City;
+import com.lvl6.info.LockBoxEvent;
 import com.lvl6.info.Quest;
 import com.lvl6.info.Task;
 import com.lvl6.info.User;
@@ -32,6 +33,7 @@ import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.UserQuestsTaskProgressRetrieveUtils;
 import com.lvl6.retrieveutils.UserTaskRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.CityRetrieveUtils;
+import com.lvl6.retrieveutils.rarechange.LockBoxEventRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.QuestRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskEquipReqRetrieveUtils;
 import com.lvl6.retrieveutils.rarechange.TaskRetrieveUtils;
@@ -97,6 +99,7 @@ public class TaskActionController extends EventController {
 
       int coinsGained = ControllerConstants.NOT_SET;
       int lootEquipId = ControllerConstants.NOT_SET;
+      int lockBoxEventId = ControllerConstants.NOT_SET;
       int coinBonus = ControllerConstants.NOT_SET;
       int expBonus = ControllerConstants.NOT_SET;
       boolean taskCompleted = false;
@@ -111,6 +114,7 @@ public class TaskActionController extends EventController {
         coinsGained = calculateCoinsGained(task);
         resBuilder.setCoinsGained(coinsGained);
         lootEquipId = chooseLootEquipId(task);
+        lockBoxEventId = checkIfUserAcquiresLockBox(user, task, clientTime);
         if (lootEquipId != ControllerConstants.NOT_SET) {
           int userEquipId = InsertUtils.get().insertUserEquip(
               user.getId(), lootEquipId,
@@ -178,6 +182,10 @@ public class TaskActionController extends EventController {
         } else {
           changeNumTimesUserActedInDB = false;
         }
+        
+        if (lockBoxEventId != ControllerConstants.NOT_SET) {
+          resBuilder.setEventIdOfLockBoxGained(lockBoxEventId);
+        }
       }
 
       resBuilder.setTaskCompleted(taskCompleted);
@@ -204,8 +212,8 @@ public class TaskActionController extends EventController {
       }
 
       writeChangesToDB(legitAction, user, task, cityRankedUp,
-          changeNumTimesUserActedInDB, lootEquipId, totalCoinGain,
-          totalExpGain, tasksInCity, clientTime);
+          changeNumTimesUserActedInDB, lootEquipId, lockBoxEventId,
+          totalCoinGain, totalExpGain, tasksInCity, clientTime);
 
       if (legitAction) {
         UpdateClientUserResponseEvent resEventUpdate = MiscMethods
@@ -353,7 +361,7 @@ public class TaskActionController extends EventController {
 
   private void writeChangesToDB(boolean legitAction, User user, Task task,
       boolean cityRankedUp, boolean changeNumTimesUserActedInDB,
-      int lootEquipId, int totalCoinGain, int totalExpGain,
+      int lootEquipId, int lockBoxEventId, int totalCoinGain, int totalExpGain,
       List<Task> tasksInCity, Timestamp clientTime) {
 
     if (legitAction) {
@@ -379,6 +387,11 @@ public class TaskActionController extends EventController {
                 + task.getId());
           }
         }
+      }
+      
+      if (lockBoxEventId != ControllerConstants.NOT_SET) {
+        if (!UpdateUtils.get().incrementNumberOfLockBoxesForLockBoxEvent(user.getId(), lockBoxEventId, 1))
+          log.error("problem incrementing user lock boxes for user = "+user+" lock box event id ="+lockBoxEventId);
       }
 
       boolean simulateEnergyRefill = (user.getEnergy() == user
@@ -511,6 +524,21 @@ public class TaskActionController extends EventController {
       }
     }
     return numReqEquipsWithoutQuantityReqFulfilled;
+  }
+
+  private int checkIfUserAcquiresLockBox(User user, Task task, Timestamp curTime) {
+    Map<Integer, LockBoxEvent> events = LockBoxEventRetrieveUtils.getLockBoxEventIdsToLockBoxEvents();
+    LockBoxEvent curEvent = null;
+    for (LockBoxEvent event : events.values()) {
+      if (curTime.getTime() > event.getStartDate().getTime() && curTime.getTime() < event.getEndDate().getTime()) {
+        curEvent = event;
+        break;
+      }
+    }
+
+    float chanceToAttainBox = Math.min(ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE*task.getEnergyCost(), ControllerConstants.LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX);
+    if (Math.random() < chanceToAttainBox) return curEvent.getId();
+    return ControllerConstants.NOT_SET;
   }
 
 }

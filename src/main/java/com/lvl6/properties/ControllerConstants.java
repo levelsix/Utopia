@@ -320,6 +320,9 @@ public class ControllerConstants {
   public static final float LOCK_BOXES__FREE_CHANCE_TO_PICK = 0.15f;
   public static final int LOCK_BOXES__NUM_MINUTES_TO_REPICK = 60;
   public static final int LOCK_BOXES__GOLD_COST_TO_RESET_PICK = 10;
+  public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_BASE = 0.03f;
+  public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_TASK_MAX = 1.f;
+  public static final float LOCK_BOXES__CHANCE_TO_ACQUIRE_FROM_BATTLE = 0.25f;
   
   public static final ValidLocationBox[] USER_CREATE__VALIDATION_BOXES = { 
     new ValidLocationBox(-117.69765, 33.57793, 26.77272, 12.027776, "US"),

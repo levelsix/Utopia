@@ -45,6 +45,8 @@ message BattleResponseProto {
 	optional FullEquipProto equipGained = 8;
     optional int32 expGained = 6;
     
+    optional int32 eventIdOfLockBoxGained = 9;
+    
     enum BattleStatus {
 		SUCCESS = 0;
 		OTHER_FAIL = 1;
@@ -549,6 +551,8 @@ message TaskActionResponseProto {
 	optional int32 coinBonusIfCityRankup = 7;
 	optional int32 expBonusIfCityRankup = 8;
 	optional int32 cityId = 9;
+	
+	optional int32 eventIdOfLockBoxGained = 10;
 	
 	enum TaskActionStatus {
 		SUCCESS = 0; 
