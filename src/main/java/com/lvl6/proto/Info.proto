@@ -2,6 +2,13 @@ package com.lvl6.proto;
 
 option java_outer_classname = "InfoProto";
 
+message MarketplaceSearchEquipProto {
+	optional int32 equipId = 1;
+	optional string name = 2;
+}
+
+//-------------------------------------------------------------------------------------
+
 message LockBoxEventProto {
 	optional int32 lockBoxEventId = 1;
 	optional int64 startDate = 2;

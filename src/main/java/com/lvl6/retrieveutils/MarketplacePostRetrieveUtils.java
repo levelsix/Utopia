@@ -42,7 +42,7 @@ import com.lvl6.utils.DBConnection;
   //searchString currently not used
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsByFilters(int limit, int postId, int equipmentType, 
 		  List<Integer> activeEquipRarities, int characterClassType, Map<String, Integer> levelRanges, 
-		  String orderBySql, String searchString) {
+		  String orderBySql, int specificEquipId) {
     log.debug("retrieving up to " + limit + " marketplace posts before marketplace post id " + postId);
 
     //////////BEGIN SQL STATEMENT//////////
@@ -84,6 +84,10 @@ import com.lvl6.utils.DBConnection;
 	    }
 	    hackyWayToHaveAnotherCondition += ") and 1";
 	    absoluteConditionParams.put(hackyWayToHaveAnotherCondition, 1);
+    }
+    
+    if (specificEquipId > 0) {
+      absoluteConditionParams.put(DBConstants.TABLE_EQUIPMENT + "." + DBConstants.EQUIPMENT__EQUIP_ID, specificEquipId);
     }
     
     //Greater than -1 means filter by specific class type

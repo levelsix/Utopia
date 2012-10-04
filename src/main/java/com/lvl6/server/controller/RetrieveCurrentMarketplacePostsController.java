@@ -185,8 +185,8 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     int maxEquipLevel = reqProto.getMaxEquipLevel();
     int minForgeLevel = reqProto.getMinForgeLevel();
     int maxForgeLevel = reqProto.getMaxForgeLevel();
+    int searchEquipId = reqProto.getSpecificEquipId();
     RetrieveCurrentMarketplacePostsSortingOrder sortOrder = reqProto.getSortOrder();
-    String searchString = reqProto.getSearchString();
     //end market filter feature variable declarations
 
     RetrieveCurrentMarketplacePostsResponseProto.Builder resBuilder = RetrieveCurrentMarketplacePostsResponseProto.newBuilder();
@@ -225,7 +225,7 @@ import com.lvl6.utils.utilmethods.InsertUtils;
     			
 			activeMarketplacePosts = MarketplacePostRetrieveUtils.getMostRecentActiveMarketplacePostsByFilters(
         		ControllerConstants.RETRIEVE_CURRENT_MARKETPLACE_POSTS__NUM_POSTS_CAP, currentNumOfEntries, 
-        		equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchString);        
+        		equipmentType, activeEquipRarities, characterClassType, levelRanges, orderBySql, searchEquipId);        
     	}
 //        if (currentNumOfEntries > 0) {
 //          if (forSender) {

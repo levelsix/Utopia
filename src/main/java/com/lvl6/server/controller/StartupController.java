@@ -3,6 +3,7 @@ package com.lvl6.server.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -52,6 +53,7 @@ import com.lvl6.proto.InfoProto.FullStructureProto;
 import com.lvl6.proto.InfoProto.FullTaskProto;
 import com.lvl6.proto.InfoProto.FullUserProto;
 import com.lvl6.proto.InfoProto.LockBoxEventProto;
+import com.lvl6.proto.InfoProto.MarketplaceSearchEquipProto;
 import com.lvl6.proto.InfoProto.UserType;
 import com.lvl6.proto.ProtocolsProto.EventProtocolRequest;
 import com.lvl6.retrieveutils.BattleDetailsRetrieveUtils;
@@ -155,6 +157,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
           setNoticesToPlayers(resBuilder, user);
           setUserClanInfos(resBuilder, user);
           setLockBoxEvents(resBuilder, user);
+          setMarketplaceSearchEquips(resBuilder);
 
           FullUserProto fup = CreateInfoProtoUtils.createFullUserProtoFromUser(user);
           resBuilder.setSender(fup);
@@ -186,6 +189,14 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     //for things that client doesn't need
     log.info("After response tasks");
     updateLeaderboard(apsalarId, user, now, newNumConsecutiveDaysLoggedIn);    
+  }
+
+  private void setMarketplaceSearchEquips(
+      StartupResponseProto.Builder resBuilder) {
+    Collection<Equipment> equips = EquipmentRetrieveUtils.getEquipmentIdsToEquipment().values();
+    for (Equipment equip : equips) {
+      resBuilder.addMktSearchEquips(MarketplaceSearchEquipProto.newBuilder().setEquipId(equip.getId()).setName(equip.getName()).build());
+    }
   }
 
   private void setLockBoxEvents(StartupResponseProto.Builder resBuilder,

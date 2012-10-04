@@ -156,6 +156,8 @@ message StartupResponseProto {
 	optional FullEquipProto forgeAttemptEquip = 25;
 	
 	repeated string noticesToPlayers = 24;
+		
+	repeated MarketplaceSearchEquipProto mktSearchEquips = 30;
 	
 	message DailyBonusInfo {
 		optional int32 numConsecutiveDaysPlayed = 1;
@@ -856,7 +858,7 @@ message RetrieveCurrentMarketplacePostsRequestProto {
 	optional int32 minForgeLevel = 13;
 	optional int32 maxForgeLevel = 14;
 	optional RetrieveCurrentMarketplacePostsSortingOrder sortOrder = 15;
-	optional string specificEquipId = 16;
+	optional int32 specificEquipId = 16;
 	
 	enum RetrieveCurrentMarketplacePostsFilter {
 		ALL = 0;
