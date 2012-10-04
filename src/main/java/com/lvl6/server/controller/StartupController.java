@@ -115,7 +115,7 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
     double tempLatestVersionNum = GameServer.clientVersionNumber * 10;
 
     // Check version number
-    if ((int)tempClientVersionNum < (int)tempLatestVersionNum) {
+    if ((int)tempClientVersionNum < (int)tempLatestVersionNum && tempClientVersionNum > 12.5) {
       updateStatus = UpdateStatus.MAJOR_UPDATE;
       log.info("player has been notified of forced update");
     } else if (tempClientVersionNum < tempLatestVersionNum) {
