@@ -357,4 +357,12 @@ public class DBConstants {
   public static final String USER_LOCK_BOX_ITEMS__USER_ID = "user_id";
   public static final String USER_LOCK_BOX_ITEMS__QUANTITY = "quantity";
   
+  /*EQUIPMENT TABLE*/
+  public static final String EQUIPMENT__EQUIP_ID = GENERIC__ID;
+  public static final String EQUIPMENT__ATK_BOOST = "atk_boost";
+  public static final String EQUIPMENT__DEF_BOOST = "def_boost";
+  public static final String EQUIPMENT__MIN_LEVEL = "min_level";
+  public static final String EQUIPMENT__NAME = "name";
+  public static final String EQUIPMENT__RARITY = "rarity";
+  public static final String EQUIPMENT__TYPE = "type";
 }

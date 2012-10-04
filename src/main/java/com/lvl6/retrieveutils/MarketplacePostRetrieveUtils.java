@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -23,7 +25,7 @@ import com.lvl6.utils.DBConnection;
   private static Logger log = Logger.getLogger(new Object() { }.getClass().getEnclosingClass());
 
   private static final String TABLE_NAME = DBConstants.TABLE_MARKETPLACE;
-
+  
   public static MarketplacePost getSpecificActiveMarketplacePost(int marketplacePostId) {
     log.debug("retrieving specific marketplace post with id " + marketplacePostId);
     
@@ -34,16 +36,100 @@ import com.lvl6.utils.DBConnection;
     return marketplacePost;
   }
   
-  public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostId(int limit, int postId) {
+  //marketItemType refers to RetrieveCurrentMarketplacePostsRequestProto.RetrieveCurrentMarketplacePostsFilter enum
+  //activeEquipRarities refers to the booleans like *Equips
+  //levelRanges refers to *EquipLevel or *ForgeLevel
+  //searchString currently not used
+  public static List<MarketplacePost> getMostRecentActiveMarketplacePostsByFilters(int limit, int postId, int equipmentType, 
+		  List<Integer> activeEquipRarities, int characterClassType, Map<String, Integer> levelRanges, 
+		  String orderBySql, String searchString) {
     log.debug("retrieving up to " + limit + " marketplace posts before marketplace post id " + postId);
-    TreeMap <String, Object> lessThanParamsToVals = new TreeMap<String, Object>();
-    lessThanParamsToVals.put(DBConstants.MARKETPLACE__ID, postId);
+
+    //////////BEGIN SQL STATEMENT//////////
+    //SELECT CLAUSE
+    List<String> colsToFetch = new ArrayList<String>();
+    colsToFetch.add(TABLE_NAME + ".*"); //get all columns
     
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimitLessthan(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit, lessThanParamsToVals);
+    //FROM CLAUSE
+    String tableName = TABLE_NAME + ", " + DBConstants.TABLE_EQUIPMENT;
+    
+    //WHERE CLAUSE
+    //begin absolute condition params
+    Map<String, Object> absoluteConditionParams = new HashMap<String, Object>();
+    
+    //matching 'ids of marketplace equipments' to ids in equipment table
+    String hackyWayJoinTablesById = DBConstants.MARKETPLACE__POSTED_EQUIP_ID + " = " + DBConstants.TABLE_EQUIPMENT + "." + DBConstants.EQUIPMENT__EQUIP_ID;
+    hackyWayJoinTablesById += " and 1"; 
+    //the value for key value pair is stringified, so a table's field would be turned to a literal string and not be a variable/placeholder
+    absoluteConditionParams.put(hackyWayJoinTablesById, 1);
+    
+    //Greater than -1 means filter by specific equipment type
+    if(-1 < equipmentType) { absoluteConditionParams.put("type", equipmentType); }
+    
+    //Needed to prevent "rarity in ()" case
+    int equipRaritiesCount = activeEquipRarities.size();
+    if (0 < equipRaritiesCount){
+    	String hackyWayToHaveAnotherCondition = DBConstants.EQUIPMENT__RARITY + " IN (";
+    	
+    	//needed to prevent "rarity in (0,)" case
+    	String maybeComma = ",";
+    	
+    	for(int i = 0; i < equipRaritiesCount; i++){
+	    	Integer rarityId = activeEquipRarities.get(i);
+	    	if(i+1 == equipRaritiesCount){
+	    		//this is to not have a trailing comma at the end of the string
+	    		maybeComma = "";
+	    	}
+	    	hackyWayToHaveAnotherCondition += rarityId + maybeComma;
+	    }
+	    hackyWayToHaveAnotherCondition += ") and 1";
+	    absoluteConditionParams.put(hackyWayToHaveAnotherCondition, 1);
+    }
+    
+    //Greater than -1 means filter by specific class type
+    if(-1 < characterClassType) { absoluteConditionParams.put("class_type", characterClassType); }
+    //end absolute condition params
+    
+    //begin relative greater than condition params
+    Map<String, Object> relativeGreaterThanConditionParams = new HashMap<String, Object>();
+    //subtract 1 to be >=
+    relativeGreaterThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("minEquipLevel") - 1); 
+    relativeGreaterThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("minForgeLevel") - 1);
+    //end relative greater than condition params
+    
+    //begin relative less than condition params
+    Map<String, Object> relativeLessThanConditionParams = new HashMap<String, Object>();
+    //add one to be <=
+    relativeLessThanConditionParams.put(DBConstants.EQUIPMENT__MIN_LEVEL, levelRanges.get("maxEquipLevel") + 1); 
+    relativeLessThanConditionParams.put(DBConstants.MARKETPLACE__EQUIP_LEVEL, levelRanges.get("maxForgeLevel") + 1);
+    //end relative less than condition params
+    
+    //ORDER BY CLAUSE
+    String orderByColumn = orderBySql;
+    boolean orderByAsc = true; //orderByColumn already contains the necessary ASC, DESC
+    //////////END SQL STATEMENT//////////
+    
+    Map<String, Object> likeCondParams = null;
+    String condDelim = "AND";
+    boolean randomValue = false;
+    int amountToRetrieve = postId + limit; //example (*): 110 + 100 = 210
+    
+    Connection conn = DBConnection.get().getConnection();    
+    ResultSet rs = DBConnection.get().selectRows(conn, colsToFetch, absoluteConditionParams, 
+    		relativeGreaterThanConditionParams, relativeLessThanConditionParams, likeCondParams, tableName,
+    		condDelim, orderByColumn, orderByAsc, amountToRetrieve, randomValue);
     List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+    
+    //PAGINATION OF ITEMS. SENDING NEXT BATCH OF NEW ITEMS
+    //continuing example (*): indexes of returned items is [0,209], want to return [110, 209]
+    //List<MarketplacePost> newMarketplacePosts = marketplacePosts.subList(postId, amountToRetrieve); 
+    //previous can create indexOutOfBoundsException. We're already potentially getting an amount of new items equal to 'limit'
+    //so using size of list as last index
+    List<MarketplacePost> newMarketplacePosts = marketplacePosts.subList(postId, marketplacePosts.size());
+    newMarketplacePosts = new ArrayList<MarketplacePost>(newMarketplacePosts);
+    
     DBConnection.get().close(rs, null, conn);
-    return marketplacePosts;
+    return newMarketplacePosts;
   }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsBeforePostIdForPoster(int limit, int postId, int posterId) {
@@ -60,15 +146,15 @@ import com.lvl6.utils.DBConnection;
     return marketplacePosts;
   }
 
-  public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
-    log.debug("retrieving up to " + limit + " most recent marketplace posts");
-    
-    Connection conn = DBConnection.get().getConnection();
-    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
-    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
-    DBConnection.get().close(rs, null, conn);
-    return marketplacePosts;
-  }
+//  public static List<MarketplacePost> getMostRecentActiveMarketplacePosts(int limit) {
+//    log.debug("retrieving up to " + limit + " most recent marketplace posts");
+//    
+//    Connection conn = DBConnection.get().getConnection();
+//    ResultSet rs = DBConnection.get().selectRowsAbsoluteAndOrderbydescLimit(conn, null, TABLE_NAME, DBConstants.MARKETPLACE__ID, limit);
+//    List<MarketplacePost> marketplacePosts = convertRSToMarketplacePosts(rs);
+//    DBConnection.get().close(rs, null, conn);
+//    return marketplacePosts;
+//  }
   
   public static List<MarketplacePost> getMostRecentActiveMarketplacePostsForPoster(int limit, int posterId) {
     log.debug("retrieving up to " + limit + " marketplace posts for posterId " + posterId);
