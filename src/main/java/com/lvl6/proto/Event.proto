@@ -856,7 +856,7 @@ message RetrieveCurrentMarketplacePostsRequestProto {
 	optional int32 minForgeLevel = 13;
 	optional int32 maxForgeLevel = 14;
 	optional RetrieveCurrentMarketplacePostsSortingOrder sortOrder = 15;
-	optional string searchString = 16;
+	optional string specificEquipId = 16;
 	
 	enum RetrieveCurrentMarketplacePostsFilter {
 		ALL = 0;
@@ -866,11 +866,12 @@ message RetrieveCurrentMarketplacePostsRequestProto {
 	}
 	
 	enum RetrieveCurrentMarketplacePostsSortingOrder {
-		PRICE_HIGH_TO_LOW = 0;
+		MOST_RECENT_POSTS = 0;
 		PRICE_LOW_TO_HIGH = 1;
-		ATTACK_HIGH_TO_LOW = 2;
-		DEFENSE_HIGH_TO_LOW = 3;
-		TOTAL_STATS_HIGH_TO_LOW = 4;
+		PRICE_HIGH_TO_LOW = 2;
+		ATTACK_HIGH_TO_LOW = 3;
+		DEFENSE_HIGH_TO_LOW = 4;
+		TOTAL_STATS_HIGH_TO_LOW = 5;
 	}
 }
 

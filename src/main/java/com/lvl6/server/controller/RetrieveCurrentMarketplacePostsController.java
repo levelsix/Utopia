@@ -138,30 +138,27 @@ import com.lvl6.utils.utilmethods.InsertUtils;
 	  
 	  String marketplaceId = DBConstants.TABLE_MARKETPLACE + "." + DBConstants.MARKETPLACE__ID;
 	  
-	  switch (sortOrder.getNumber()) {
-	  	case(RetrieveCurrentMarketplacePostsSortingOrder.PRICE_HIGH_TO_LOW_VALUE):
+	  switch (sortOrder) {
+	  	case PRICE_HIGH_TO_LOW:
 	  		sortingOrder = DBConstants.MARKETPLACE__DIAMOND_COST + " DESC";
 	  		sortingOrder += ", " + DBConstants.MARKETPLACE__COIN_COST + " DESC";
 	  		break;
-	  	case(RetrieveCurrentMarketplacePostsSortingOrder.PRICE_LOW_TO_HIGH_VALUE):
+	  	case PRICE_LOW_TO_HIGH:
 	  		sortingOrder = DBConstants.MARKETPLACE__DIAMOND_COST + " ASC";
 	  		sortingOrder += ", " + DBConstants.MARKETPLACE__COIN_COST + " ASC";
 	  		break;
-	  	case(RetrieveCurrentMarketplacePostsSortingOrder.ATTACK_HIGH_TO_LOW_VALUE):
+	  	case ATTACK_HIGH_TO_LOW:
 	  		sortingOrder = atk + " * " + exponentValue + " DESC";
 	  		break;
-	  	case(RetrieveCurrentMarketplacePostsSortingOrder.DEFENSE_HIGH_TO_LOW_VALUE):
+	  	case DEFENSE_HIGH_TO_LOW:
 	  		sortingOrder = def + " * " + exponentValue + " DESC";
 	  		break;
-	  	case(RetrieveCurrentMarketplacePostsSortingOrder.TOTAL_STATS_HIGH_TO_LOW_VALUE):
+	  	case TOTAL_STATS_HIGH_TO_LOW:
 	  		sortingOrder = "( " + atk + " + " + def + " ) * " + exponentValue + " DESC";
 	  		break;
-//	  	case(RetrieveCurrentMarketplacePostsSortingOrder.POST_TIME_MOST_RECENT_TO_LEAST_RECENT):
-//	  		sortingOrder = marketplaceId  + " DESC";
-//	  		break;
-//	  	case(RetrieveCurrentMarketplacePostsSortingOrder.POST_TIME_LEAST_RECENT_TO_MOST_RECENT):
-//	  		sortingOrder = marketplaceId  + " ASC";
-//	  		break;
+	  	case MOST_RECENT_POSTS:
+	  		sortingOrder = marketplaceId  + " DESC";
+	  		break;
 	  	default:
 	  		break;
 	  }
