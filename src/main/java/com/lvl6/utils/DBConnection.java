@@ -513,9 +513,11 @@ public class DBConnection {
     return generatedKey;
   }
 
-  public int insertOnDuplicateKeyRelativeUpdate(String tablename,
+  /*public int insertOnDuplicateKeyRelativeUpdate(String tablename,
       Map<String, Object> insertParams, String columnUpdate,
-      Object updateQuantity) {
+      Object updateQuantity) {*/ 
+  public int insertOnDuplicateKeyRelativeUpdate(String tablename,
+      Map<String, Object> insertParams, Map<String, Object> columnsToUpdate) {
 
     List<String> questions = new LinkedList<String>();
     List<String> columns = new LinkedList<String>();
@@ -529,12 +531,21 @@ public class DBConnection {
         columns.add(column);
         values.add(insertParams.get(column));
       }
-      values.add(updateQuantity);
+      //values.add(updateQuantity);
       String query = "insert into " + tablename + "("
           + StringUtils.getListInString(columns, ",") + ") VALUES ("
           + StringUtils.getListInString(questions, ",")
-          + ") on duplicate key update " + columnUpdate + "="
-          + columnUpdate + "+?";
+          + ") on duplicate key update ";/* + columnUpdate + "="
+          + columnUpdate + "+?";*/
+      
+      //This is to enable updates to multiple columns when "insert on duplicate key" encounters a duplicate key
+      List<String> updateColumnClauses = new LinkedList<String>();
+      for (String columnToUpdate : columnsToUpdate.keySet()) {
+        updateColumnClauses.add(columnToUpdate + "=?");
+        values.add(columnsToUpdate.get(columnToUpdate));
+      }
+      query += StringUtils.getListInString(updateColumnClauses, ",");
+      
       Connection conn = null;
       PreparedStatement stmt = null;
       try {
