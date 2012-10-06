@@ -31,9 +31,9 @@ public interface UpdateUtil {
   /*
    * used when an expansion is complete
    */
-  public abstract boolean updateUserExpansionNumexpansionsIsexpanding(
-      int userId, int farLeftExpansionsChange,
-      int farRightExpansionsChange, boolean isExpanding);
+  public abstract boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
+      int farLeftExpansionsChange, int farRightExpansionsChange, int nearLeftExpansionsChange, int nearRightExpansionsChange, 
+      boolean isExpanding);
 
   /*
    * used for purchasing a city expansion
@@ -71,15 +71,6 @@ public interface UpdateUtil {
   public abstract boolean updateUserQuestsSetCompleted(int userId,
       int questId, boolean setTasksCompleteTrue,
       boolean setDefeatTypeJobsCompleteTrue);
-
-  public abstract boolean updateUserCritstructOrientation(int userId,
-      StructOrientation orientation, CritStructType critStructType);
-
-  /*
-   * used for moving user structs
-   */
-  public abstract boolean updateUserCritstructCoord(int userId,
-      CoordinatePair coordinates, CritStructType critStructType);
 
   /*
    * used for updating is_complete=true and last_retrieved to upgrade_time+minutestogain for a userstruct

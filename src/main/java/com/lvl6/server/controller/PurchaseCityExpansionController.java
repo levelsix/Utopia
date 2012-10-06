@@ -14,6 +14,7 @@ import com.lvl6.events.response.UpdateClientUserResponseEvent;
 import com.lvl6.info.User;
 import com.lvl6.info.UserCityExpansionData;
 import com.lvl6.leaderboards.LeaderBoardUtil;
+import com.lvl6.properties.ControllerConstants;
 import com.lvl6.proto.EventProto.PurchaseCityExpansionRequestProto;
 import com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto;
 import com.lvl6.proto.EventProto.PurchaseCityExpansionResponseProto.Builder;
@@ -106,17 +107,13 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
   }
 
   private boolean checkLegitExpansion(Builder resBuilder, ExpansionDirection direction, Timestamp timeOfPurchase, User user, UserCityExpansionData userCityExpansionData) {
-    if (direction == null || timeOfPurchase == null || user == null || userCityExpansionData == null) {
+    if (direction == null || timeOfPurchase == null || user == null) {
       resBuilder.setStatus(PurchaseCityExpansionStatus.OTHER_FAIL);
       return false;
     }
     if (!MiscMethods.checkClientTimeAroundApproximateNow(timeOfPurchase)) {
       resBuilder.setStatus(PurchaseCityExpansionStatus.CLIENT_TOO_APART_FROM_SERVER_TIME);
       return false;
-    }
-    if (direction != ExpansionDirection.FAR_LEFT || direction != ExpansionDirection.FAR_RIGHT) {
-      resBuilder.setStatus(PurchaseCityExpansionStatus.OTHER_FAIL);
-      return false;      
     }
     if (userCityExpansionData.isExpanding()) {
       resBuilder.setStatus(PurchaseCityExpansionStatus.ALREADY_EXPANDING);
@@ -132,6 +129,6 @@ import com.lvl6.utils.utilmethods.UpdateUtils;
 
   private int calculateExpansionCost(UserCityExpansionData userCityExpansionData) {
     int curNumExpansions = userCityExpansionData.getTotalNumCompletedExpansions();
-    return ((curNumExpansions+1)/2) * 200;
+    return (int) (ControllerConstants.PURCHASE_EXPANSION__COST_CONSTANT*Math.pow(ControllerConstants.PURCHASE_EXPANSION__COST_EXPONENT_BASE, curNumExpansions));
   }
 }

@@ -286,6 +286,15 @@ message StartupResponseProto {
 		
 		optional GoldmineConstants goldmineConstants = 80;
 		optional LockBoxConstants lockBoxConstants = 81;
+		optional ExpansionConstants expansionConstants = 82;
+		
+		message ExpansionConstants {
+			optional int32 expansionWaitCompleteHourConstant = 1;
+			optional int32 expansionWaitCompleteHourIncrementBase = 2;
+			optional int32 expansionWaitCompleteBaseMinutesToOneGold = 3;
+			optional int32 expansionPurchaseCostConstant = 4;
+			optional int32 expansionPurchaseCostExponentBase = 5;
+		}
 		
 		message LockBoxConstants {
 			optional int32 goldCostToPickLockBox = 1;
@@ -1088,12 +1097,6 @@ message LoadPlayerCityResponseProto {
 	repeated FullUserProto ownerAllies = 5;			//only if owner is an enemy
 	repeated FullUserProto ownerEnemies = 6;		//only if owner is you or ally
 
-    optional FullUserCritstructProto armory = 7;
-    optional FullUserCritstructProto vault = 8;
-    optional FullUserCritstructProto marketplace = 9;
-    optional FullUserCritstructProto carpenter = 10;
-    optional FullUserCritstructProto aviary = 11;    
-
 	optional FullUserCityExpansionDataProto userCityExpansionData = 12;
      
     enum LoadPlayerCityStatus {
@@ -1252,6 +1255,7 @@ message PurchaseCityExpansionResponseProto {
 message ExpansionWaitCompleteRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int64 curTime = 2;						//used for checking
+	optional bool speedUp = 3;
 }
 
 																						//DONE

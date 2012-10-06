@@ -17,7 +17,6 @@ import com.lvl6.info.Structure;
 import com.lvl6.info.Task;
 import com.lvl6.info.UserStruct;
 import com.lvl6.properties.DBConstants;
-import com.lvl6.proto.InfoProto.CritStructType;
 import com.lvl6.proto.InfoProto.ExpansionDirection;
 import com.lvl6.proto.InfoProto.StructOrientation;
 import com.lvl6.proto.InfoProto.UserClanStatus;
@@ -111,17 +110,19 @@ public class UpdateUtils implements UpdateUtil {
    */
   @Override
   public boolean updateUserExpansionNumexpansionsIsexpanding(int userId,
-      int farLeftExpansionsChange, int farRightExpansionsChange, 
+      int farLeftExpansionsChange, int farRightExpansionsChange, int nearLeftExpansionsChange, int nearRightExpansionsChange, 
       boolean isExpanding) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_EXPANSIONS__USER_ID, userId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.USER_CITY_ELEMS__FAR_LEFT_EXPANSIONS, farLeftExpansionsChange);
-    absoluteParams.put(DBConstants.USER_CITY_ELEMS__FAR_RIGHT_EXPANSIONS, farRightExpansionsChange);
-    absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__FAR_LEFT_EXPANSIONS, farLeftExpansionsChange);
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__FAR_RIGHT_EXPANSIONS, farRightExpansionsChange);
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__NEAR_LEFT_EXPANSIONS, nearLeftExpansionsChange);
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__NEAR_RIGHT_EXPANSIONS, nearRightExpansionsChange);
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__IS_EXPANDING, isExpanding);
 
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EXPANSIONS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       return true;
@@ -139,14 +140,14 @@ public class UpdateUtils implements UpdateUtil {
   public boolean updateUserExpansionLastexpandtimeLastexpanddirectionIsexpanding(int userId, Timestamp lastExpandTime, 
       ExpansionDirection lastExpansionDirection, boolean isExpanding) {
     Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
+    conditionParams.put(DBConstants.USER_EXPANSIONS__USER_ID, userId);
 
     Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_TIME, lastExpandTime);
-    absoluteParams.put(DBConstants.USER_CITY_ELEMS__LAST_EXPAND_DIRECTION, lastExpansionDirection.getNumber());
-    absoluteParams.put(DBConstants.USER_CITY_ELEMS__IS_EXPANDING, isExpanding);
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__LAST_EXPAND_TIME, lastExpandTime);
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__LAST_EXPAND_DIRECTION, lastExpansionDirection.getNumber());
+    absoluteParams.put(DBConstants.USER_EXPANSIONS__IS_EXPANDING, isExpanding);
 
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
+    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EXPANSIONS, null, absoluteParams, 
         conditionParams, "and");
     if (numUpdated == 1) {
       return true;
@@ -283,80 +284,6 @@ public class UpdateUtils implements UpdateUtil {
 
     int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_EQUIP, null, absoluteParams, 
         conditionParams, "and");
-    if (numUpdated == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  /* (non-Javadoc)
-   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserCritstructOrientation(int, com.lvl6.proto.InfoProto.StructOrientation, com.lvl6.proto.InfoProto.CritStructType)
-   */
-  @Override
-  public boolean updateUserCritstructOrientation(int userId, StructOrientation orientation, CritStructType critStructType) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
-
-    Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    if (critStructType == CritStructType.ARMORY) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__ARMORY_ORIENTATION, orientation.getNumber());
-    }
-    if (critStructType == CritStructType.VAULT) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__VAULT_ORIENTATION, orientation.getNumber());
-    }
-    if (critStructType == CritStructType.MARKETPLACE) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_ORIENTATION, orientation.getNumber());
-    }
-    if (critStructType == CritStructType.CARPENTER) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_ORIENTATION, orientation.getNumber());
-    }
-    if (critStructType == CritStructType.AVIARY) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_ORIENTATION, orientation.getNumber());
-    }
-
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
-        conditionParams, "or");
-    if (numUpdated == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  /*
-   * used for moving user structs
-   */
-  /* (non-Javadoc)
-   * @see com.lvl6.utils.utilmethods.UpdateUtil#updateUserCritstructCoord(int, com.lvl6.info.CoordinatePair, com.lvl6.proto.InfoProto.CritStructType)
-   */
-  @Override
-  public boolean updateUserCritstructCoord(int userId, CoordinatePair coordinates, CritStructType critStructType) {
-    Map <String, Object> conditionParams = new HashMap<String, Object>();
-    conditionParams.put(DBConstants.USER_CITY_ELEMS__USER_ID, userId);
-
-    Map <String, Object> absoluteParams = new HashMap<String, Object>();
-    if (critStructType == CritStructType.ARMORY) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__ARMORY_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__ARMORY_Y_COORD, coordinates.getY());
-    }
-    if (critStructType == CritStructType.VAULT) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__VAULT_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__VAULT_Y_COORD, coordinates.getY());
-    }
-    if (critStructType == CritStructType.MARKETPLACE) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__MARKETPLACE_Y_COORD, coordinates.getY());
-    }
-    if (critStructType == CritStructType.CARPENTER) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__CARPENTER_Y_COORD, coordinates.getY());
-    }
-    if (critStructType == CritStructType.AVIARY) {
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_X_COORD, coordinates.getX());
-      absoluteParams.put(DBConstants.USER_CITY_ELEMS__AVIARY_Y_COORD, coordinates.getY());
-    }
-
-    int numUpdated = DBConnection.get().updateTableRows(DBConstants.TABLE_USER_CITY_ELEMS, null, absoluteParams, 
-        conditionParams, "or");
     if (numUpdated == 1) {
       return true;
     }
@@ -804,6 +731,7 @@ public class UpdateUtils implements UpdateUtil {
     values.add(curTime);
     if (completed) {
        query += ", "+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED+ "="+DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED +"+?";
+       values.add(1);
     }
     
     query += " where " + DBConstants.USER_LOCK_BOX_EVENTS__EVENT_ID + "=? and " + 
