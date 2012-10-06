@@ -490,8 +490,11 @@ public class UpdateUtils implements UpdateUtil {
     insertParams.put(DBConstants.USER_CITIES__CITY_ID, cityId);
     insertParams.put(DBConstants.USER_CITIES__CURRENT_RANK, increment);
 
+    Map<String, Object> columnsToUpdate = new HashMap<String, Object>();
+    columnsToUpdate.put(DBConstants.USER_CITIES__CURRENT_RANK, increment);
+    
     int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_CITIES, insertParams, 
-        DBConstants.USER_CITIES__CURRENT_RANK, increment);
+        columnsToUpdate);//DBConstants.USER_CITIES__CURRENT_RANK, increment);
 
     if (numUpdated >= 1) {
       return true;
@@ -508,8 +511,11 @@ public class UpdateUtils implements UpdateUtil {
     insertParams.put(DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES, increment);
     insertParams.put(DBConstants.USER_LOCK_BOX_EVENTS__NUM_TIMES_COMPLETED, 0);
 
+    Map<String, Object> columnsToUpdate = new HashMap<String, Object>();
+    columnsToUpdate.put(DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES, increment);
+    
     int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_LOCK_BOX_EVENTS, insertParams, 
-        DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES, increment);
+    	columnsToUpdate);//DBConstants.USER_LOCK_BOX_EVENTS__NUM_BOXES, increment);
 
     if (numUpdated >= 1) {
       return true;
@@ -525,8 +531,11 @@ public class UpdateUtils implements UpdateUtil {
     insertParams.put(DBConstants.USER_LOCK_BOX_ITEMS__ITEM_ID, itemId);
     insertParams.put(DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY, increment);
 
+    Map<String, Object> columnsToUpdate = new HashMap<String, Object>();
+    columnsToUpdate.put(DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY, increment);
+    
     int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_LOCK_BOX_ITEMS, insertParams, 
-        DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY, increment);
+    	columnsToUpdate);//DBConstants.USER_LOCK_BOX_ITEMS__QUANTITY, increment);
 
     if (numUpdated >= 1) {
       return true;
@@ -548,8 +557,11 @@ public class UpdateUtils implements UpdateUtil {
     insertParams.put(DBConstants.USER_TASK__TASK_ID, taskId);
     insertParams.put(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
 
+    Map<String, Object> columnsToUpdate = new HashMap<String, Object>();
+    columnsToUpdate.put(DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
+    
     int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_TASKS, insertParams, 
-        DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
+    	columnsToUpdate);//DBConstants.USER_TASK__NUM_TIMES_ACTED_IN_RANK, increment);
 
     if (numUpdated >= 1) {
       return true;
@@ -570,8 +582,11 @@ public class UpdateUtils implements UpdateUtil {
     insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__DEFEAT_TYPE_JOB_ID, defeatTypeJobId);
     insertParams.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
 
+    Map<String, Object> columnsToUpdate = new HashMap<String, Object>();
+    columnsToUpdate.put(DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
+    
     int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS, insertParams, 
-        DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
+        columnsToUpdate);//DBConstants.USER_QUESTS_DEFEAT_TYPE_JOB_PROGRESS__NUM_DEFEATED, increment);
 
     if (numUpdated >= 1) {
       return true;
@@ -591,8 +606,11 @@ public class UpdateUtils implements UpdateUtil {
     insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__TASK_ID, taskId);
     insertParams.put(DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
 
+    Map<String, Object> columnsToUpdate = new HashMap<String, Object>();
+    columnsToUpdate.put(DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
+    
     int numUpdated = DBConnection.get().insertOnDuplicateKeyRelativeUpdate(DBConstants.TABLE_USER_QUESTS_TASK_PROGRESS, insertParams, 
-        DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
+    	columnsToUpdate);//DBConstants.USER_QUESTS_TASK_PROGRESS__NUM_TIMES_ACTED, increment);
 
     if (numUpdated >= 1) {
       return true;
