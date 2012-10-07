@@ -278,7 +278,7 @@ public class ControllerConstants {
   public static final int POST_ON_PLAYER_WALL__MAX_CHAR_LENGTH = 1000;
 
   //RETRIEVE PLAYER WALL POSTS
-  public static final int RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP = 15;
+  public static final int RETRIEVE_PLAYER_WALL_POSTS__NUM_POSTS_CAP = 100;
   
   //CHARACTER MOD
   public static final int CHARACTER_MOD__DIAMOND_COST_OF_CHANGE_CHARACTER_TYPE = 150;
