@@ -81,12 +81,12 @@
 		<server.port>10001</server.port>
 		<globals.isSandbox>true</globals.isSandbox>
 		<globals.iddictionOn>false</globals.iddictionOn>
-		<lvl6.application.version>1.20f</lvl6.application.version>
+		<lvl6.application.version>1.30f</lvl6.application.version>
 		<lvl6.application.healthcheck.timeout.seconds>6</lvl6.application.healthcheck.timeout.seconds>
 		<apns.path.to.cert>KingdomAPNSDevKey.p12</apns.path.to.cert>
 		<apns.cert.password>robashen123</apns.cert.password>
 		<lvl6.server.log.appender>R</lvl6.server.log.appender>
-		<lvl6.server.log.location>/var/lib/tomcat7/logs/kingdom</lvl6.server.log.location>
+		<lvl6.server.log.location>/var/log/tomcat7/kingdom</lvl6.server.log.location>
 		<lvl6.cassandra.hosts>robot.lvl6.com</lvl6.cassandra.hosts>
 		<lvl6.cassandra.keyspace>Logs</lvl6.cassandra.keyspace>
 		<lvl6.cassandra.stats.keyspace>stats</lvl6.cassandra.stats.keyspace>
@@ -281,13 +281,28 @@
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>Statistic</optionName>
+							<value>Average</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>MeasureName</optionName>
+							<value>NetworkOut</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
+							<optionName>Unit</optionName>
+							<value>Bytes</value>
+						</optionSetting>
+						<optionSetting>
+							<namespace>aws:autoscaling:trigger</namespace>
 							<optionName>UpperThreshold</optionName>
 							<value>12000000</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:autoscaling:trigger</namespace>
 							<optionName>LowerThreshold</optionName>
-							<value>4000000</value>
+							<value>2000000</value>
 						</optionSetting>
 						<optionSetting>
 							<namespace>aws:elb:loadbalancer</namespace>
